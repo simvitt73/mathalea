@@ -124,7 +124,7 @@ export default function CoefficientDirecteurDeDroite () {
           xA = randint(-5, 5)
           yA = randint(-5, 5)
           xB = xA
-          yB = randint(-5, 5,yA)
+          yB = randint(-5, 5, yA)
           n = yB - yA
           d = xB - xA
 
