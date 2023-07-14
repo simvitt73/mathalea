@@ -38,7 +38,7 @@ export default function CoefficientDirecteurDeDroite () {
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       if (!this.interactif) {
-        this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,"
+        this.consigne = "Soit $\\big(O,\\vec \\imath;\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,"
       } else {
         this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire 'non' si la droite n'a pas de coefficicient directeur,"
       }
