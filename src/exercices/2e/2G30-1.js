@@ -36,15 +36,15 @@ export default function CoefficientDirecteurDeDroite () {
     const listeTypeQuestions = combinaisonListes(obliques, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const oblique = listeTypeQuestions[i] // un booléen pour différencier les deux cas
-      this.consigne = "Soit $\\big(O,\\vec \\imath;\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer, s'il existe et en justifiant, le coefficient directeur de la droite $\\bm{(AB)}$,"
-      if (!this.interactif) {
-        this.consigne += " écrire 'non' si la droite n'a pas de coefficicient directeur,"
-      }
+      this.consigne = 'Soit $\\big(O,\\vec \\imath;\\vec \\jmath\\big)$ un repère orthogonal. Déterminer'
+      this.consigne += !this.interactif ? ", s'il existe et en justifiant," : ''
+      this.consigne += '  le coefficient directeur de la droite $\\bm{(AB)}$ dans les cas suivants.'
+      this.consigne += this.interactif ? " (Écrire 'non' si la droite n'a pas de coefficicient directeur.)" : ''
       const xA = randint(-5, 5)
       const yA = randint(-5, 5)
       const yB = randint(-5, 5)
       const xB = oblique ? randint(-5, 5, xA) : xA // xB = xA si !oblique
-      let texte = `avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
+      let texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
       const coefficient = oblique ? new FractionEtendue(yB - yA, xB - xA) : new FractionEtendue(0, 1) // zéro n'est utilisé que pour AMC si !oblique
       let texteCorr
       if (oblique) {
@@ -58,15 +58,16 @@ export default function CoefficientDirecteurDeDroite () {
         } else {
           texteCorr += `${coefficient.texSimplificationAvecEtapes()}$`
         }
+        texteCorr += '.'
         if (yA === yB) {
           texteCorr += '<br>On observe que $y_A=y_B$, la droite $(AB)$ est donc horizontale.'
         }
-        setReponse(this, i, coefficient.simplifie(), { formatInteractif: 'fraction' })
+        setReponse(this, i, coefficient.simplifie(), { formatInteractif: 'fractionEgale' })
       } else {
         texteCorr = 'On observe que $ x_B = x_A$.'
         texteCorr += '<br>La droite $(AB)$ est donc verticale.'
         texteCorr += "<br>Elle n'admet donc pas de coefficient directeur."
-        setReponse(this, i, ['non', '\\times'])
+        setReponse(this, i, ['non', 'Non', 'NON', '\\times'])
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
