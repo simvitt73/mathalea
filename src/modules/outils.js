@@ -1503,7 +1503,6 @@ export function nombreDeChiffresDe (nb, except) {
   return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 
-
 /**
  * Utilise printlatex et quote de Algebrite
  * @author Rémi Angot
@@ -1596,6 +1595,3 @@ export function numAlphaNum (k, nospace = false) {
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
 }
-
-
-

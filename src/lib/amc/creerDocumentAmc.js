@@ -439,7 +439,6 @@ export function exportQcmAmc (exercice, idExo) {
         if (type !== 'AMCHybride') {
           window.notify('exportQcmAMC : Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', { type })
         }
-
         if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
           autoCorrection[j].enonce = exercice.listeQuestions[j]
           if (autoCorrection[j].enonce === undefined) break // Toujours vide car exercice.listeQuestions[j] vide. Ce cas se produit lorsqu'on a un exercice avec multi-réponses en interactif mais un seul AMChybride avec plusieurs AMCNum, comme 6N11
@@ -619,18 +618,19 @@ export function exportQcmAmc (exercice, idExo) {
                 }
 
                 texQr += `${((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
-                if (!(propositions[0].reponse.alignement === undefined)) {
-                  texQr += '\\begin{'
-                  texQr += `${propositions[0].reponse.alignement}}` // Alignement : gauche, droite, centré
-                }
 
-                if (!(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += `${autoCorrection[j].enonce} \n` // Enoncé de la question
+                // if (!(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) { texQr += `${autoCorrection[j].enonce} \n` } // Enoncé de la question
+                // EE : Ligne ci-dessus modifiée au profit de celle du dessous
+                if ((qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) { texQr += `${autoCorrection[j].enonce} \n` } // Enoncé de la question
 
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n` // Correction
                 }
                 texQr += `${rep.texte}\n` // Texte juste avant les cases à cocher
                 let digitsNum = 0
+                let reponseF
+                let reponseAlsoCorrect
+                /* Qd on travaillait avec num et den
                 if (rep.param.digitsNum !== undefined) {
                   digitsNum = Math.max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else if (rep.param.digits !== undefined) {
@@ -652,8 +652,6 @@ export function exportQcmAmc (exercice, idExo) {
                 } else {
                   signeNum = (valeurAMCNum.num * valeurAMCNum.den < 0)
                 }
-                let reponseF
-                let reponseAlsoCorrect
                 if (rep.param.aussiCorrect != null && rep.param.aussiCorrect.num != null && rep.param.aussiCorrect.den != null) {
                   if (valeurAMCNum.num > 0) {
                     reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), digitsDen)
@@ -673,7 +671,54 @@ export function exportQcmAmc (exercice, idExo) {
                     reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), digitsDen)
                     reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
                   }
+                } */
+                // Maintenant on travaille avec n et d
+                if (rep.param.digitsNum !== undefined) {
+                  digitsNum = Math.max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
+                } else if (rep.param.digits !== undefined) {
+                  digitsNum = Math.max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
+                } else {
+                  digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n)
                 }
+                let digitsDen = 0
+                if (rep.param.digitsDen !== undefined) {
+                  digitsDen = Math.max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
+                } else if (rep.param.digits !== undefined) {
+                  digitsDen = Math.max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
+                } else {
+                  digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)
+                }
+                let signeNum = true
+                if (rep.param.signe !== undefined) {
+                  signeNum = rep.param.signe
+                } else {
+                  signeNum = (valeurAMCNum.n * valeurAMCNum.d < 0)
+                }
+                if (rep.param.aussiCorrect != null && rep.param.aussiCorrect.n != null && rep.param.aussiCorrect.d != null) {
+                  if (valeurAMCNum.n > 0) {
+                    reponseF = arrondi(valeurAMCNum.n + valeurAMCNum.d / (10 ** digitsDen), digitsDen)
+                  } else {
+                    reponseF = arrondi(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen), digitsDen)
+                  }
+                  if (rep.param.aussiCorrect.n > 0) {
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.n + rep.param.aussiCorrect.d / (10 ** digitsDen), digitsDen)
+                  } else {
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.n - rep.param.aussiCorrect.d / (10 ** digitsDen))
+                  }
+                } else {
+                  if (valeurAMCNum.n > 0) {
+                    reponseF = arrondi(valeurAMCNum.n + valeurAMCNum.d / (10 ** digitsDen), digitsDen)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.n + valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)), 8)
+                  } else {
+                    reponseF = arrondi(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen), digitsDen)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.n - valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)), 8)
+                  }
+                }
+                if (!(propositions[0].reponse.alignement === undefined)) {
+                  texQr += '\\begin{'
+                  texQr += `${propositions[0].reponse.alignement}}` // Alignement : gauche, droite, centré
+                }
+
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
                 if (!(propositions[0].reponse.alignement === undefined)) {
