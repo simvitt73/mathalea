@@ -613,12 +613,14 @@ export function exportQcmAmc (exercice, idExo) {
 
                 if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
                   texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr +=
                   texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
                   texQr += '\\end{questionmultx}'
                 }
 
-                texQr += `${((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
-
+                texQr += `${((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}}`
+                texQr += propositions[0].questionIndicative ? '\\QuestionIndicative' : ''
+                texQr += '\n'
                 // if (!(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) { texQr += `${autoCorrection[j].enonce} \n` } // Enoncé de la question
                 // EE : Ligne ci-dessus modifiée au profit de celle du dessous
                 if ((qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) { texQr += `${autoCorrection[j].enonce} \n` } // Enoncé de la question

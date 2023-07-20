@@ -53,7 +53,7 @@ export default function CoefficientDirecteurDeDroite () {
       let texteCorr
       if (oblique) {
         const solution = coefficient.estIrreductible ? coefficient.texFSD : coefficient.texSimplificationAvecEtapes()
-        texteCorr = `On observe que les abscisses respectives des points $${A}$ et $${B}$ ne sont pas égales ($ x_${A}\\neq x_${B}$).`
+        texteCorr = `On observe que les abscisses respectives des points $${A}$ et $${B}$ ne sont pas égales ($x_${A}\\neq x_${B}$).`
         texteCorr += `<br>La droite $${miseEnEvidence('(' + A + B + ')', 'black')}$ n'est donc pas verticale.`
         texteCorr += '<br>On peut donc calculer le coefficient directeur de la droite.'
         texteCorr += `<br>On sait d'après le cours que $m=\\dfrac{y_${B}-y_${A}}{x_${B}-x_${A}}$.`
@@ -65,15 +65,13 @@ export default function CoefficientDirecteurDeDroite () {
         }
         setReponse(this, i, coefficient.simplifie(), { formatInteractif: 'fractionEgale' })
       } else {
-        texteCorr = `On observe que les abscisses respectives des points $${A}$ et $${B}$ sont égales ($ x_${A} = x_${B}$).`
+        texteCorr = `On observe que les abscisses respectives des points $${A}$ et $${B}$ sont égales ($x_${A} = x_${B}$).`
         texteCorr += `<br>La droite $${miseEnEvidence('(' + A + B + ')', 'black')}$ est verticale et n'admet donc ${texteEnCouleurEtGras('aucun coefficient directeur')}.`
         setReponse(this, i, ['non', 'Non', 'NON'])
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: '',
-          // enonceAvant: true,
-          // enonceApresNumQuestion: true,
           propositions: [
             {
               type: 'qcmMono',
@@ -95,6 +93,7 @@ export default function CoefficientDirecteurDeDroite () {
               propositions: [{
                 texte: texteCorr,
                 statut: '',
+                questionIndicative: !oblique,
                 reponse: {
                   texte: 'Coefficient directeur ' + (coefficient.d === 1 ? ':' : 'sous forme de fraction irréductible :'),
                   alignement: 'center',
