@@ -36,7 +36,8 @@ export default function RepresenterUnVecteur () {
     this.goodAnswers = []
 
     for (let i = 0, r, posLabelA, posLabelB, labelA, labelB, A, B, H, h1, h2, O, I, J, j, t, k, l, s, o, ux, uy, xA, yA, xB, yB, AB, nomi, nomj, nomAB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.figures[i] = new Figure({ xMin: -10.5, yMin: -10.5, width: 630, height: 630, border: true, snapGrid: true })
+      const scale = 0.8
+      this.figures[i] = new Figure({ xMin: -10.5, yMin: -10.5, width: 630 * scale, height: 630 * scale, border: true, snapGrid: true, xScale: scale, yScale: scale })
       this.figures[i].create('Grid')
       this.figures[i].options.labelAutomaticForPoints = true // Les points sont nommés par ordre alphabétique
       this.figures[i].options.limitNumberOfElement.set('Point', 2) // On limite le nombre de points à 4
@@ -114,7 +115,7 @@ export default function RepresenterUnVecteur () {
 
       this.figures[i].setToolbar({ tools: ['POINT', 'VECTOR', 'NAME_POINT', 'DRAG', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
       texte += figureApigeom({ exercice: this, idApigeom: `apigeomEx${numeroExercice}F${i}`, figure: this.figures[i] })
-      this.goodAnswers[i] = { xA, yA, xB, yB }
+      this.goodAnswers[i] = { xOrigin: xA, yOrigin: yA, x: xB - xA, y: yB - yA }
 
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -130,10 +131,18 @@ export default function RepresenterUnVecteur () {
   this.correctionInteractive = (i) => {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[`apigeomEx${this.numeroExercice}F${i}`] = this.figures[i].json
     const resultat = 'KO'
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`)
+    const divFeedback = document.querySelector(`#feedback${`apigeomEx${this.numeroExercice}F${i}`}`)
     // Vérification à faire
+    const { isValid, message } = this.figures[i].testVector({ ...this.goodAnswers[i] })
+    if (isValid) {
+      if (divFeedback != null) divFeedback.innerHTML = 'Bonne réponse'
+      return 'OK'
+    } else {
+      divFeedback.innerHTML = message
+    }
+    console.log(isValid, message)
     // Feedback à afficher
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'
