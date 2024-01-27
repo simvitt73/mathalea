@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
-import Exercice from '../Exercice.js'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
@@ -108,7 +108,7 @@ export default function FactoriserIdentitesremarquables2 () {
         } break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2', { texteAvant: ' = ' })
+        texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
       }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre

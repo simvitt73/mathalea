@@ -9,7 +9,7 @@ import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
@@ -295,7 +295,7 @@ export default function LireUnDiagramme () {
         texte += `<br>${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?` + monQcm1.texte
         texte += `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?` + monQcm2.texte
         texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ...` + monQcm3.texte
-        texteCorr = `<br>${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` + monQcm1.texteCorr
+        texteCorr = `${context.isHtml ? '<br>' : ''}${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` + monQcm1.texteCorr
         texteCorr += `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est : ` + monQcm2.texteCorr
         texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces représente : ` + monQcm3.texteCorr
       } else { // en AMC

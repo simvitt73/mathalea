@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
@@ -226,7 +226,7 @@ export default function FactoriserUneExpression3e () {
           handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
       }
-      if (this.interactif) texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2', { texteAvant: ' = ' })
+      if (this.interactif) texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
 
       if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

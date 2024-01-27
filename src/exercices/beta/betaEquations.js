@@ -2,8 +2,8 @@ import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import Exercice from '../Exercice.js'
-import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import Exercice from '../deprecatedExercice.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify, compare, evaluate } from 'mathjs'
@@ -27,7 +27,7 @@ function TraceSchemaBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRempl
     point(x + epaisseur, y * unite),
     point(x + epaisseur, 0)
   )
-  p.couleurDeRemplissage = couleurDeRemplissage
+  p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
   if (hachures) {
@@ -1144,7 +1144,7 @@ export default function EquationsProgression () {
         case 114: {
           exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
-          exercice.texteCorr = `<br>
+          exercice.texteCorr = `${context.isHtml ? '<br>' : ''}
           ${exercice.texteCorr}<br>
           La solution est $${exercice.solution.print}$.
           <br>

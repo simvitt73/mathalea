@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 import { fraction } from '../../modules/fractions.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
@@ -133,7 +133,7 @@ export default function FactoriserIdentitesRemarquables3 () {
           texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2', { texteAvant: ' = ' })
+      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
       if (this.questionJamaisPosee(i, a, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { toTex, resoudre, calculer, aleaVariables } from '../../modules/outilsMathjs.js'
 import { simplify } from 'mathjs'
@@ -101,7 +101,7 @@ export default class NomExercice extends Exercice {
           }
           exercice = resoudre('3*x+a=9*x+b', { variables, comment: true, comments: commentairesPersonnalises })
           exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
-          exercice.texteCorr = `<br>
+          exercice.texteCorr = `${context.isHtml ? '<br>' : ''}
           ${exercice.texteCorr}
           <br>
           La solution de cette équation est donc $${exercice.solution}$.`

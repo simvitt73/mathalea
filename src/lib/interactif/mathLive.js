@@ -1,4 +1,4 @@
-import { texteExposant } from '../outils/ecritures.js'
+import { texteExposant } from '../outils/ecritures'
 import { calculCompare } from './comparaisonFonctions'
 
 export function toutPourUnPoint (listePoints) {
@@ -14,13 +14,13 @@ export function toutPourUnPoint (listePoints) {
  */
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   if (exercice.autoCorrection[i].reponse == null) {
-    throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.strignify({
+    throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
             exercice,
             question: i,
             autoCorrection: exercice.autoCorrection[i]
         })}`)
   } else if (exercice.autoCorrection[i].reponse.param == null) {
-    throw Error(`verifQuestionMathlive appelé sur une question sans param : ${JSON.strignify({
+    throw Error(`verifQuestionMathlive appelé sur une question sans param : ${JSON.stringify({
             exercice,
             question: i,
             param: exercice.autoCorrection[i].reponse
@@ -36,7 +36,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
   try {
     const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
     if (callback != null && typeof callback === 'function') { // Là c'est une correction custom ! Celui qui passe une callback doit savoir ce qu'il fait !
-      return callback(variables, reponses.bareme)
+      return callback(exercice, i, variables, reponses.bareme)
     }
     // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
     // on pourra faire d'autres formats interactifs sur le même modèle

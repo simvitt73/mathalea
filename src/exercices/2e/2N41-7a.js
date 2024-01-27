@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import { rienSi1 } from '../../lib/outils/ecritures.js'
+import { pgcd } from '../../lib/outils/primalite'
+import { rienSi1 } from '../../lib/outils/ecritures'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Factoriser avec les identités remarquables'
@@ -138,7 +138,7 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
-      texte += ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2', { texteAvant: ' = ' })
+      texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
 
       handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {

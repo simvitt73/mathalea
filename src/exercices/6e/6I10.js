@@ -3,7 +3,7 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
@@ -180,7 +180,7 @@ export default function ColorierDeplacement () {
             yLutin += -1; break
           case 4:
             p = polygone(point(xLutin, yLutin), point(xLutin + 1, yLutin), point(xLutin + 1, yLutin - 1), point(xLutin, yLutin - 1))
-            p.couleurDeRemplissage = couleur
+            p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             p.opaciteDeRemplissage = 0.25
             p.epaisseur = 0
             lstObjet.push(p)

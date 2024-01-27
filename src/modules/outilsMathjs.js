@@ -1,5 +1,5 @@
-import { obtenirListeFacteursPremiers } from '../lib/outils/primalite.js'
-import { texNombre2 } from '../lib/outils/texNombre.js'
+import { obtenirListeFacteursPremiers } from '../lib/outils/primalite'
+import { texNombre2 } from '../lib/outils/texNombre'
 import { context } from './context.js'
 import { all, create } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
@@ -983,7 +983,7 @@ export function resoudre (equation, params) {
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
   }
   if (params.verifications) {
-    texteCorr = `<br>
+    texteCorr = `${context.isHtml ? '<br>' : ''}
           ${texteCorr}<br>
           La solution est $${solution.print}$.
           <br>

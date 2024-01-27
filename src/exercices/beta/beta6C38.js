@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -78,7 +78,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           setReponse(this, i, [mr, mr * 10], { formatInteractif: 'calcul' })
           texte += `b) Finalement, ${prenom1} paiera son billet :`
           texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
-          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 = ~ $`
+          texteCorr = `${context.isHtml ? '<br>' : ''}a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€.$<br>`)
           texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${texPrix(mr)} = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€.$`)
@@ -96,7 +96,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           setReponse(this, i, ma)
           texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
           setReponse(this, i + this.nbQuestions + 1, final2)
-          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 = ~ $`
+          texteCorr = `${context.isHtml ? '<br>' : ''}a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}€.$<br>`)
           texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${texPrix(ma)} = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}€.$`)
