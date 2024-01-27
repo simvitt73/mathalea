@@ -52,6 +52,11 @@ export class Keyboard {
     return this
   }
 
+  empty = (): Keyboard => {
+    this.blocks.length = 0
+    this.blocks.push(specialKeys)
+  }
+
   /**
    * Retrouve le nombre de blocs dans le clavier
    * @returns nombre de blocs dans le clavier
@@ -88,4 +93,11 @@ export const inLineBlockWidth = (
     numberOfKeys * KEYCAP_WIDTH[mode] +
     (numberOfKeys - 1) * GAP_BETWEEN_KEYS[mode]
   )
+}
+export const usualBlockWidth = (
+  block: KeyboardBlock,
+  mode: 'sm' | 'md'
+): number => {
+  const numberOfCols = block.cols
+  return numberOfCols * KEYCAP_WIDTH[mode] + (numberOfCols - 1) * GAP_BETWEEN_KEYS[mode]
 }

@@ -1,37 +1,42 @@
 <script lang="ts">
-  import Block from './keyboardblock/KeyboardBlock.svelte'
+  import BlockOfKeyCaps from './keyboardblock/BlockOfKeycaps.svelte'
   import type { KeyboardBlock } from '../../types/keyboardContent'
   import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../lib/sizes'
   import type { KeyCap } from '../../types/keycap'
-  import KeyboardBlockPages from './keyboardblock/KeyboardBlockPages.svelte'
+  import BlockOfKeycapsWithPagination from './keyboardblock/BlockOfKeycapsWithPagination.svelte'
 
   export let innerWidth: number
   export let unitsBlocks: KeyboardBlock[]
   export let usualBlocks: KeyboardBlock[]
+  export let page: KeyboardBlock[]
   const blocks: KeyboardBlock[] =
     unitsBlocks.length > 1 ? [...usualBlocks] : [...unitsBlocks, ...usualBlocks]
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   export let isInLine: boolean
+  // // $: blocksToBeDisplayed = isInLine ? [...page] : [...blocks]
   $: blockgapsize =
     innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
 </script>
 
 <div
-  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-start justify-center w-full"
+  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-center justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
-  {#if !isInLine}
-    {#if unitsBlocks.length > 1}
-      <KeyboardBlockPages blocksList={unitsBlocks} {isInLine} {clickKeycap} />
-    {/if}
-
-    {#each blocks as block}
-      <Block {block} {isInLine} {innerWidth} {clickKeycap} />
-    {/each}
+  {#if isInLine}
+  <div id="kb-page" class="flex flex-row blockgap items-start justify-center">
+    {#each page as block}
+        <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+        {/each}
+      </div>
   {:else}
-    {#each [...unitsBlocks, ...usualBlocks] as block}
-      <Block {block} {isInLine} {innerWidth} {clickKeycap} />
-    {/each}
+  <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
+    <BlockOfKeycapsWithPagination blocksList={unitsBlocks} {isInLine} {clickKeycap} />
+  </div>
+  <div id="kb-block" class="flex flex-row blockgap items-start justify-center">
+    {#each blocks as block}
+        <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+        {/each}
+      </div>
   {/if}
 </div>
 
