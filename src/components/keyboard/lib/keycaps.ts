@@ -303,11 +303,11 @@ const basicKeys = {
     command: ['performWithFeedback', 'moveToNextChar']
   },
   CLOSE: {
-    display: '<i class="bx bx-x"/>',
+    display: '<i class="bx bx-window-close"/>',
     command: 'closeKeyboard'
   },
   DEL: {
-    display: '&#x232b;',
+    display: '⌫',
     command: ['performWithFeedback', 'deleteBackward']
   },
   ABC: {

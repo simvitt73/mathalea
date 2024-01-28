@@ -32,7 +32,6 @@
   const myKeyboard: Keyboard = new Keyboard()
 
   const computePages = () => {
-    console.log('computePages is called!')
     pages.length = 0
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
@@ -123,12 +122,12 @@
         const mf = document.querySelector(
           ('#' + idMathField).replace('-button', '')
         ) as MathfieldElement
-        // console.log({
-        //   mf,
-        //   idMathField,
-        //   command: `${key.command}`,
-        //   insert: `${key.insert}`
-        // })
+        console.log({
+          mf,
+          idMathField,
+          command: `${key.command}`,
+          insert: `${key.insert}`
+        })
         if (mf != null) {
           mf.focus()
           if (key.command && key.command === 'closeKeyboard') {
@@ -152,6 +151,11 @@
 <svelte:window bind:innerWidth />
 {#if isVisible}
   <div
+    on:mousedown={(e) => {
+      e.preventDefault()
+      e.stopPropagation()
+    }}
+    role="none"
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
     class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-screen fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
@@ -164,7 +168,7 @@
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
           page={pages[currentPageIndex]}
-          isInLine={isInLine}
+          {isInLine}
           {innerWidth}
           {clickKeycap}
         />
@@ -190,7 +194,9 @@
             e.preventDefault()
             e.stopPropagation()
           }}
-          disabled={pages.length === 1 || currentPageIndex === pages.length - 1 || !isInLine}
+          disabled={pages.length === 1 ||
+            currentPageIndex === pages.length - 1 ||
+            !isInLine}
         >
           <i class="bx bx-chevron-left bx-lg" />
         </button>
@@ -205,7 +211,7 @@
         e.preventDefault()
         e.stopPropagation()
         computePages()
-        isInLine = !isInLine
+        $keyboardState.isInLine = !$keyboardState.isInLine
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}
