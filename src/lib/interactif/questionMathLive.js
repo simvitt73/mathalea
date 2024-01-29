@@ -9,6 +9,7 @@ const buildDataKeyboardString = (style) => {
     grecTrigo: ['numbers', 'fullOperations', 'greek', 'trigo'],
     college6eme: ['numbersOperations'],
     clavierDeBase: ['numbersOperations'],
+    clavierDeBaseAvecFraction: ['numbers', 'basicOperations'],
     alphanumericAvecEspace: ['alphanumeric'],
     alphanumeric: ['alphanumeric'],
     longueur: ['numbers', 'lengths'],
@@ -108,7 +109,7 @@ export function remplisLesBlancs (exercice, question, content, classes, blanc = 
       if (name == null) throw Error(`Définition de ${name} manquante`)
       mfeValue += start
       if (exercice.interactif) {
-        mfeValue += `\\placeholder[${name}]{}`
+        mfeValue += `\\placeholder[${name}]{} `
       } else {
         mfeValue += blanc
       }
@@ -119,13 +120,15 @@ export function remplisLesBlancs (exercice, question, content, classes, blanc = 
     }
   }
   if (exercice.interactif) {
+    const dataKeyboard = buildDataKeyboardString(classes)
+    const buttonKeyboard = `<button class="keyboardMathalea" id="champTexteEx${exercice.numeroExercice}Q${question}-button">⌨️</button>`
     let classe = ''
     if (classes) {
       classe = ['fillInTheBlanks', ...classes.split(' ')].join(' ')
     } else {
       classe = 'fillInTheBlanks'
     }
-    return `<math-field readonly style="font-size:2em" class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
+    return `<math-field readonly style="font-size:2em" class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}" data-keyboard="${dataKeyboard}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><span id="feedbackEx${exercice.numeroExercice}Q${question}"></span>${buttonKeyboard}`
   } else {
     return `$${mfeValue}$`
   }
