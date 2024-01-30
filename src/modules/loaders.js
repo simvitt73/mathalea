@@ -355,7 +355,7 @@ function handleClickOnKeyboardToggle (event) {
   event.stopPropagation()
   const idToggle = event.currentTarget.id.replace('-button', '')
   keyboardState.update((value) => {
-    if (value.idMathField === idToggle) {
+    if (value.idMathField === idToggle && value.isVisible) {
       return {
         isVisible: false,
         idMathField: '',
