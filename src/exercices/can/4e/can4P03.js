@@ -37,7 +37,7 @@ export default function QuatriemeProportionnelle () {
           L1C0: { content: '' },
           L0C1: { content: String(a), background: 'lightgray' },
           L1C1: { content: String(a * c), background: 'lightgray' }
-        })
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
@@ -56,7 +56,7 @@ export default function QuatriemeProportionnelle () {
           L1C1: { content: '' },
           L1C0: { content: String(b), background: 'lightgray' },
           L0C1: { content: String(a * c), background: 'lightgray' }
-        })
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
@@ -75,7 +75,7 @@ export default function QuatriemeProportionnelle () {
           L0C0: { content: '' },
           L1C1: { content: String(a), background: 'lightgray' },
           L0C1: { content: String(a * c), background: 'lightgray' }
-        })
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
@@ -94,7 +94,7 @@ export default function QuatriemeProportionnelle () {
           L0C1: { content: '' },
           L1C0: { content: String(a), background: 'lightgray' },
           L1C1: { content: String(a * c), background: 'lightgray' }
-        })
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
