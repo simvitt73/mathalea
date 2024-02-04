@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
