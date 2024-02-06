@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
-export const dateDeModifImportante = '20/02/2023'
+export const dateDeModifImportante = '06/02/2024'
 
 /**
  * Réduire des expressions lorsque c'est possible
