@@ -752,7 +752,7 @@ export function fonctionCompare (input: string, goodAnswer: {fonction: string, v
   if (typeof goodAnswer === 'string') {
     goodAnswer = { fonction: goodAnswer, variable: 'x' }
   }
-  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
   const inputFn = inputParsed.compile()
@@ -778,7 +778,7 @@ export function fonctionXyCompare (input: string, goodAnswer: {fonction: string,
   if (typeof goodAnswer === 'string') {
     goodAnswer = { fonction: goodAnswer, variables: ['x', 'y'] }
   }
-  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
   const inputFn = inputParsed.compile()

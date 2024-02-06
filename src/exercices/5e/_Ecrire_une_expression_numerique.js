@@ -99,7 +99,7 @@ export default function EcrireUneExpressionNumerique () {
           expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
           texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1, expn[0].length - 1))}$`
           texteCorr += expn.length > 1 ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.` : '.'
-          reponse = expn.length > 1 ? expn[1].substring(1, expn[1].length - 1) : expn[0].substring(1, expn[0].length - 1)
+          reponse = /* expn.length > 1 ? expn[1].substring(1, expn[1].length - 1) : */ expn[0].substring(1, expn[0].length - 1)
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
