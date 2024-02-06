@@ -28,7 +28,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '15/01/2023' //  Par EE
+export const dateDeModifImportante = '06/02/2024'
 
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
@@ -174,7 +174,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
       }
       // les puntos sont choisis, on écrit l'énoncé
       for (let i = 0; i < 3; i++) {
-        console.log(choixTransformation[i])
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
             droited1Latex = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), '(d_1)')
@@ -245,7 +244,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
           case 3: // symétrie axiale
             droited = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d)')
-            // console.log(droited)
             droited = droited[0]
             droited.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited.isVisible = true
@@ -740,7 +738,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
         )
       }
       if (this.questionJamaisPosee(ee, xA, yA, xB, yB, xC, yC)) {
-        console.log(objetsEnonce)
         this.listeQuestions.push(texte + '<br>' + mathalea2d({
           xmin: -10,
           ymin: -10,
