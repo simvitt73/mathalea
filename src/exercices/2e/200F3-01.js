@@ -45,7 +45,7 @@ export default class LectureSigneAffine extends Exercice {
       case 2: { // coefficient entier relatif
         const y = randint(-3, 3, 0)
         const x = randint(-3, 3, 0)
-                ;[a, b] = trouveFonctionAffine(0, y, x, 0)
+                ;[a, b] = trouveFonctionAffine(0, y, x, 0).map(el => el.valeurDecimale)
       }
         break
       case 3: // coefficient rationnel
@@ -53,9 +53,9 @@ export default class LectureSigneAffine extends Exercice {
         a = Math.random() < 0.5 ? randint(-3, 3, 0) : 1 / randint(-4, 4, 0)
         break
     }
-    a = rationnalise(a)
-    b = rationnalise(b)
-    const fonction = x => a.produitFraction(rationnalise(x)).sommeFraction(b)
+    // a = rationnalise(a)
+    // b = rationnalise(b)
+    const fonction = x => a * x + b
     const tableau = tableauSignesFonction(fonction,
       -6,
       6,
@@ -67,7 +67,7 @@ export default class LectureSigneAffine extends Exercice {
         ]
       })
     const repere = new RepereBuilder({ xMin: -6, xMax: 6, yMin: -6, yMax: 6 }).buildStandard()
-    const d = droite(a.valeurDecimale, -1, b.valeurDecimale)
+    const d = droite(a, -1, b)
     this.question = 'Dresser le tableau de signes de la fonction représentée ci-dessous.<br>' + mathalea2d(Object.assign({}, fixeBordures([repere, d])), [repere, d])
     this.correction = 'Le tableau de signes de la fonction est représenté ci-dessous.<br>' + tableau
     this.reponse = '' // @fixme compléter choisir la forme de la réponse
