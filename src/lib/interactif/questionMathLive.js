@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
 import { sp } from '../outils/outilString.js'
 
-const buildDataKeyboardString = (style) => {
+const buildDataKeyboardString = (style = '') => {
   // traductions des types de claviers en successions de blocs
   const translate = {
     clavierHms: ['numbers', 'hms'],
