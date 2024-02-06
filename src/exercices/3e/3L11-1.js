@@ -4,9 +4,9 @@ import Exercice from '../deprecatedExercice.js'
 import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { developpementCompare, formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
