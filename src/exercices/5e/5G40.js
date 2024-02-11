@@ -175,7 +175,7 @@ export default function ConstructionsParallelogrammes () {
 
           break
       }
-      texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
+      texte += '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
       texteCorr = mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection)
       texteCorr += animIEP.htmlBouton(numeroExercice, i)
       // Si la question n'a jamais été posée, on l'enregistre
