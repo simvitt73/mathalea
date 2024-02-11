@@ -38,7 +38,7 @@
   "scripts": {
     "start": "vite",
     "build": "node --loader ts-node/esm tasks/updateMenu.js & vite build",
-    "makeJson": "node tasks/updateMenu.js",
+    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js",
     "getNewUuid": "pnpm makeJson",
     "updateMenu": "pnpm makeJson",
     "preview": "vite preview",
