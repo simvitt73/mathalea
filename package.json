@@ -37,7 +37,8 @@
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
     "start": "vite",
-    "build": "node --loader ts-node/esm tasks/updateMenu.js & vite build",
+    "build": "pnpm test && vite build",
+    "build:force": "vite build",
     "makeJson": "node tasks/updateMenu.js",
     "getNewUuid": "node tasks/updateMenu.js",
     "updateMenu": "node tasks/updateMenu.js",
@@ -47,6 +48,7 @@
     "lint": "eslint src/exercices/**/* --ext .js,.ts --fix",
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
     "docs": "jsdoc -d docs --configure jsdocConf.json",
+    "test": "pnpm test:unit --run && pnpm test:src --run && pnpm test:e2e",
     "test:unit": "vitest tests/unit",
     "test:src": "vitest src",
     "test:e2e": "vitest --config tests/e2e/vitest.config.all.js --run",
