@@ -16,7 +16,7 @@
   export let exerciseIndex: number
   export let indiceLastExercice: number
   export let isCorrectionVisible: boolean = false
-
+ 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
