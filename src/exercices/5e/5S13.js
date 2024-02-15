@@ -115,7 +115,7 @@ export default function CalculerDesFrequences () {
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         indexValeur = randint(0, notes.length - 1) // on choisit une des notes au hasard
         frequence = 0
-        for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
+        for (let j = 0; j < notes.length; j++) { // fréquence va contenir l'effectif de la note choisie
           if (notes[j] === notes[indexValeur]) {
             frequence++
           }
