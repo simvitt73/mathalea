@@ -32,6 +32,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '799c4'
 export const ref = '4L20'
+export const refs = {
+  'fr-fr': ['4L20'],
+  'fr-ch': []
+}
 export default function ExerciceEquation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre les équations suivantes.'
@@ -177,7 +181,7 @@ export default function ExerciceEquation1 () {
                 )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$x=${c - b}$`
         texteCorr += `<br> La solution est $${miseEnEvidence(c - b)}$.`
-        reponse = c - b
+        reponse = fraction(c - b, 1)
         setReponse(this, i, fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
       }
       if (listeTypeDeQuestions[i] === 'ax=b') {
@@ -304,8 +308,8 @@ export default function ExerciceEquation1 () {
                 )}=${b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(a))}$`
         texteCorr += `<br>$x=${b * a}$`
         texteCorr += `<br> La solution est $${miseEnEvidence(b * a)}$.`
-        reponse = a * b
-        setReponse(this, i, reponse)
+        reponse = fraction(a * b, 1)
+        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
       if (listeTypeDeQuestions[i] === 'ax/b=c') {
         do {
