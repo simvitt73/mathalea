@@ -23,6 +23,7 @@
   import { buildUrlAddendumForEsParam } from '../../../lib/components/urls'
   import type { NumericRange } from '../../../lib/types'
   import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
+  import { UAParser } from 'ua-parser-js'; 
 
   onMount(() => {
     // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -82,6 +83,29 @@
       }
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+  }
+
+  let displayVersion = displayVersionCalcul()
+
+  async function dialogToDisplay(){
+    const dialog = document.getElementById('navigator-version-dia') as HTMLDialogElement
+    if (dialog.open) {
+      dialog.close()
+    } else {
+      dialog.showModal()
+      displayVersion = displayVersionCalcul()
+    }
+  }
+
+  function displayVersionCalcul (){
+    const uap = new UAParser().getResult()
+    return '<div>Navigateur:' + JSON.stringify(uap.browser, null, 2) + '</div>' + '<div>Os:' + JSON.stringify(uap.os,  null, 2) + '</div>' + '<div>Appareil:' + JSON.stringify(uap.device,  null, 2) + '</div>' + '<div>user-agent:' + JSON.stringify(uap, null, 2) + '</div>'+
+     '<div>innerWidth:' + window.innerWidth + '</div>' +
+     '<div>innerHeight:' + window.innerHeight + '</div>' +
+     '<div>clientWidth:' + document.body.clientWidth  + '</div>' +
+     '<div>clientHeight:' + document.body.clientHeight  + '</div>' +
+     '<div>offsetWidth:' + document.body.offsetWidth  + '</div>' +
+     '<div>offsetHeight:' + document.body.offsetHeight  + '</div>'
   }
 </script>
 
@@ -229,6 +253,41 @@
               on:toggle={handleKeyboard}
             />
           </div>
+          <div
+            class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Affiche la version
+          </div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <Button
+              class="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action dark:bg-coopmathsdark-action hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest"
+              title={'Version'}
+              id={'navigator-version'}
+              on:click= { dialogToDisplay }
+            />
+          </div>
+          <dialog id="navigator-version-dia" class="relative rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus w-[80%] h-[60%] dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" >
+              <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-coopmaths-warn-100">
+                <div class="h-6 w-6 text-coopmaths-warn-darkest">
+                <i class="bx bx-sm bx-info-circle text-[100px]" />
+                </div>
+                </div>
+                <div class="text-3xl pt-4 leading-6 font-medium text-coopmaths-warn-dark">
+                <span class="header">
+                  <div class="absolute top-2 right-3">
+                    <button type="button" on:click={() => {
+                      dialogToDisplay()
+                    }} >
+                    <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl bx bx-x"/>
+                    </button>
+                  </div>
+                </span>
+                </div>
+                <div class="font-light h-[40vh]">
+                  {@html displayVersion}
+                </div>
+            </dialog>
         </div>
         <div class="pb-2">
           <div
