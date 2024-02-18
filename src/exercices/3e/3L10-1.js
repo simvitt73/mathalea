@@ -4,12 +4,8 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
-import {
-  canonicalAddCompare,
-  fonctionCompare,
-  formeDeveloppeeEtReduiteCompare
-} from '../../lib/interactif/comparaisonFonctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
