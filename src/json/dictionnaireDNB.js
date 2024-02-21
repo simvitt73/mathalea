@@ -8038,7 +8038,7 @@ export const dictionnaireDNB = {
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1_cor.tex',
     tags: [
-      'Pourcentages', 'Fractions', 'Calcul littéral', 'Equations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
+      'Pourcentages', 'Fractions', 'Calcul littéral', 'Équations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
     ]
   },
   dnb_2021_12_caledonie_2: {
