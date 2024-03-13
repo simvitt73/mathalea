@@ -25,7 +25,7 @@
   let unitsBlocks: KeyboardBlock[] = []
   let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
-  let alphanumericDisplayed: boolean = false
+  let alphanumericDisplayed: boolean
   let isVisible = false
   let isInLine = false
   let pageType: AlphanumericPages = 'AlphaLow'
@@ -39,7 +39,8 @@
     const blockList = [...usualBlocks, ...unitsBlocks].reverse()
     while (blockList.length > 0) {
       const block = blockList.pop()
-      const blockWidth = inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
+      const blockWidth =
+        inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
       if (pageWidth + blockWidth > 0.8 * innerWidth) {
         // plus de places
         pages.push(page.reverse())
@@ -65,7 +66,11 @@
     unitsBlocks.length = 0
     usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
-      if (block && Object.prototype.hasOwnProperty.call(block, 'isUnits') && block.isUnits) {
+      if (
+        block &&
+        Object.prototype.hasOwnProperty.call(block, 'isUnits') &&
+        block.isUnits
+      ) {
         unitsBlocks.push(block)
       } else {
         usualBlocks.push(block)
@@ -76,7 +81,10 @@
     computePages()
     pages = pages
     if (currentPageIndex >= pages.length) currentPageIndex = 0
-    alphanumericDisplayed = value.blocks.includes('alphanumeric')
+    if (value.isAlphanumericDisplayed === undefined) {
+      value.isAlphanumericDisplayed = value.blocks.includes('alphanumeric')
+    }
+    alphanumericDisplayed = value.isAlphanumericDisplayed
     await tick()
     mathaleaRenderDiv(divKeyboard)
     // document.dispatchEvent(new window.Event('KeyboardUpdated', { bubbles: true }))
@@ -175,15 +183,19 @@
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
       <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
-        {#key [[...unitsBlocks, ...usualBlocks].map(e => e.title).join(), pages.map((e, i) => 'p' + i + ':' + e.map(f => f.title).join()).join(), isInLine].join()}
-        <KeyboardPage
-          unitsBlocks={[...unitsBlocks].reverse()}
-          usualBlocks={[...usualBlocks].reverse()}
-          page={pages[currentPageIndex]}
-          {isInLine}
-          {innerWidth}
-          {clickKeycap}
-        />
+        {#key [[...unitsBlocks, ...usualBlocks]
+          .map((e) => e.title)
+          .join(), pages
+          .map((e, i) => 'p' + i + ':' + e.map((f) => f.title).join())
+          .join(), isInLine].join()}
+          <KeyboardPage
+            unitsBlocks={[...unitsBlocks].reverse()}
+            usualBlocks={[...usualBlocks].reverse()}
+            page={pages[currentPageIndex]}
+            {isInLine}
+            {innerWidth}
+            {clickKeycap}
+          />
         {/key}
         <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
@@ -219,7 +231,9 @@
     <button
       id="kb-nav-reduced"
       type="button"
-      class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
+      class="{alphanumericDisplayed
+        ? 'hidden'
+        : 'flex'} z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -239,13 +253,14 @@
     <button
       id="kb-nav-alpha"
       type="button"
-      class="z-[10000] {$keyboardState.blocks.includes('alphanumeric')
+      class="z-[10000] {$keyboardState.blocks.includes('alphanumeric') &&
+      $keyboardState.blocks.length > 1
         ? 'flex justify-center items-center'
-        : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
+        : 'hidden'} absolute right-0 bottom-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
         e.preventDefault()
         e.stopPropagation()
-        alphanumericDisplayed = !alphanumericDisplayed
+        $keyboardState.isAlphanumericDisplayed = !$keyboardState.isAlphanumericDisplayed
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}

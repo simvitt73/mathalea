@@ -10,6 +10,7 @@ export const keyboardState = writable<{
   idMathField: string
   alphanumericLayout: AlphanumericPages
   blocks: BlockForKeyboard[]
+  isAlphanumericDisplayed?: boolean
 }>({
   isVisible: false,
   isInLine: false,
