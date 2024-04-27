@@ -67,6 +67,12 @@ class Hms {
     return result
   }
 
+  toLatex (): string {
+    const latex = this.toString().replaceAll('h', '~\\text{h}~').replaceAll('min', '~\\text{min}~').replaceAll('s', '~\\text{s}').replaceAll(' ', '')
+    if (latex.endsWith('~')) return latex.substring(0, latex.length - 1)
+    return latex
+  }
+
   /** Sortie string sans la dernière unité si elle n'est pas seule
    * Exemples : 4 h 12 ou 2 min 54
    */
