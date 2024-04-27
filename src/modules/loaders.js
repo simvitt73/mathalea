@@ -233,7 +233,7 @@ export async function loadMathLive () {
   }
 }
 
-function handleFocusMathField (event) {
+export function handleFocusMathField (event) {
   const mf = event.target
   const isFillInTheBlanks = mf.classList.contains('fillInTheBlanks')
   const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly

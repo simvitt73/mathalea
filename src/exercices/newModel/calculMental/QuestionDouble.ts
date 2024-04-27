@@ -7,6 +7,6 @@ export default class QuestionDouble extends QuestionMathalea {
     const a = randint(11, 99)
     this.text = `$${a} \\times 2 = $` + this.add.mathField()
     this.correction = `$${a} \\times 2 = ${a * 2}$`
-    this.setMathfield({ keyboard: 'numbers', answers: a * 2, compare: calculCompare })
+    this.setMathfield({ keyboard: 'clavierNumbers', answers: a * 2, compare: calculCompare })
   }
 }

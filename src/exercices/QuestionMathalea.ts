@@ -1,5 +1,6 @@
 import type { MathfieldElement } from 'mathlive'
-import type { KeyboardCategory } from '../lib/interactif/claviers/keyboard'
+import { convertKeyboardTypeToBlocks, type KeyboardCategory } from '../lib/interactif/claviers/keyboard'
+import { handleFocusMathField } from '../modules/loaders'
 
 type Mathfield = {
   mathfieldElement?: MathfieldElement
@@ -99,6 +100,8 @@ export default abstract class QuestionMathalea {
       this.container.innerHTML += this.text.substring(currentIndex, match.index)
       const mathfieldElement = document.createElement('math-field') as MathfieldElement
       const id = match[1]
+      mathfieldElement.id = `mathfieldEx${this.indiceExercice}Q${this.indiceQuestion}MF${id}`
+      mathfieldElement.addEventListener('focus', handleFocusMathField)
       this.container.appendChild(mathfieldElement)
       this.container.appendChild(this.buttonCheckAnswers)
       currentIndex = match.index + match[0].length
@@ -106,7 +109,8 @@ export default abstract class QuestionMathalea {
         this.mathfields.get(id)!.mathfieldElement = mathfieldElement
         const { keyboard } = this.mathfields.get(id)!
         if (keyboard !== undefined) {
-          mathfieldElement.dataset.keyboard = keyboard
+          const keyboardBlocks = convertKeyboardTypeToBlocks(keyboard).join(' ')
+          mathfieldElement.dataset.keyboard = keyboardBlocks
         }
       }
     }
