@@ -1,5 +1,8 @@
+import type { Block } from './newModel/lib/Block'
+
 export default abstract class QuestionMathalea {
   public answers: Array<{ value: string, compare?: (input: string, goodAnswer: string) => {isOk: boolean, feedback?: string}}> = []
+  protected blocks: Map<string, Block> = new Map()
   public buttonCheckAnswers!: HTMLButtonElement
   public container!: HTMLElement
   protected divCorrection!: HTMLDivElement
@@ -108,16 +111,12 @@ export default abstract class QuestionMathalea {
   }
 
   /** Aides pour la mise en page des exercices */
-  get add () {
+  get insert () {
     return {
       /** Symbole € */
       euro: this.output === 'html' ? '&euro;' : '\\euro{}',
       /** Lettre majuscule correspondant à l'indice de la question  */
-      letter: String.fromCharCode(65 + this.indiceQuestion % 26),
-      /** Champ de texte pour les mathfields */
-      mathFieldPlaceholder: (indiceMF = '0') => {
-        return this.output === 'html' ? `£mathfield:${indiceMF}£` : ''
-      },
+      letterCapitalFromIndiceQuestion: String.fromCharCode(65 + this.indiceQuestion % 26),
       /** Nouvelle ligne */
       newLine: this.output === 'html' ? '<br>' : '\\\\\n'
     }

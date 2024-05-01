@@ -8,9 +8,9 @@ export default class QuestionAdditionnerMinutes extends QuestionMathfield {
     const a = new Hms({ minute: randint(30, 59) })
     const b = new Hms({ minute: randint(30, 59) })
     const answer = a.add(b)
-    this.text = `$${a.toLatex()} + ${b.toLatex()} = $` + this.add.mathFieldPlaceholder()
-    this.correction = `$${a.toLatex()} + ${b.toLatex()} = ${answer.hour * 60 + answer.minute}~\\text{min} = ${answer.toLatex()}$`
     // @ts-expect-error une réponse doit être un string sauf pour hmsCompare
-    this.setMathfield({ keyboard: 'clavierHms', answers: answer, compare: hmsCompare })
+    const mathfield = this.createMathfield({ keyboard: 'clavierHms', answer, compare: hmsCompare })
+    this.text = `$${a.toLatex()} + ${b.toLatex()} = $` + this.insert.mathfield(mathfield)
+    this.correction = `$${a.toLatex()} + ${b.toLatex()} = ${answer.hour * 60 + answer.minute}~\\text{min} = ${answer.toLatex()}$`
   }
 }

@@ -15,6 +15,8 @@ export default class ExerciceMathalea {
     isMathalea?: boolean
   }
 
+  public indiceExercice = 0
+
   private _output: 'html' | 'latex' = 'html'
 
   public constructor () {
@@ -28,7 +30,6 @@ export default class ExerciceMathalea {
     this.elementButtonCheckAnswers = document.createElement('button')
     this.elementButtonCheckAnswers.textContent = 'Vérifier les réponses'
     this.elementButtonCheckAnswers.addEventListener('click', this.checkAnswers.bind(this))
-    this.elementContainer.appendChild(this.elementButtonCheckAnswers)
   }
 
   checkAnswers () {
@@ -43,14 +44,10 @@ export default class ExerciceMathalea {
   }
 
   generateANewVersion () {
-    let indiceQuestion = 0
     for (const question of this._questions) {
-      question.indiceQuestion = indiceQuestion
-      question.generateANewVersion(this._questions.slice(0, indiceQuestion))
-      indiceQuestion++
+      question.generateANewVersion(this._questions.slice(0, question.indiceQuestion))
     }
     if (this.output === 'html') {
-      console.log('updateContainer')
       this.updateContainer()
     }
   }
@@ -60,6 +57,7 @@ export default class ExerciceMathalea {
     for (const question of this._questions) {
       this.elementContainer.appendChild(question.container)
     }
+    this.elementContainer.appendChild(this.elementButtonCheckAnswers)
     renderMathInElement(this.elementContainer, optionsKatex)
   }
 
@@ -68,12 +66,11 @@ export default class ExerciceMathalea {
     return this.elementContainer
   }
 
-  set questions (questions: (new () => QuestionMathalea)[]) {
-    for (const Question of questions) {
-      const question = new Question()
+  set questions (questions: (new ({ indiceExercice, indiceQuestion }: {indiceExercice: number, indiceQuestion: number}) => QuestionMathalea)[]) {
+    for (const [indiceQuestion, Question] of questions.entries()) {
+      const question = new Question({ indiceExercice: this.indiceExercice, indiceQuestion })
       this._questions.push(question)
       question.updateContainers()
-      console.log(question)
     }
     if (window.location.hostname === 'localhost') console.info(this._questions)
   }
