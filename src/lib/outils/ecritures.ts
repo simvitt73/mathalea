@@ -17,7 +17,7 @@ import { fraction } from '../../modules/fractions.js'
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
 export function rienSi1 (a: number | FractionEtendue) {
-  if (a instanceof FractionEtendue && !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))) return a.toLatex().replace('dfrac', 'frac')
+  if (a instanceof FractionEtendue && !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))) return a.toLatex()
   if (typeof a === 'string') {
     window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
     a = Number(a)
