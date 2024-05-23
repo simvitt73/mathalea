@@ -27,7 +27,7 @@ export default class nomExercice extends Exercice {
     this.besoinFormulaire3Texte = ['Format de l\'équation', '1 : Réduite ordonnée\n2 : Réduite mélangée\n3 : Mélangée simple\n4 : Mélangée compliquée\n5 : Mélange']
     this.sup = 4
     this.sup2 = 4
-    this.sup3 = 4
+    this.sup3 = 5
     this.nbQuestions = 3
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
