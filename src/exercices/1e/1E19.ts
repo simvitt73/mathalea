@@ -22,21 +22,21 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Nombre de solutions', '1 : Une solution\n2 : Deux solutions\n3 : Pas de solution\n4 : Mélange']
-    this.besoinFormulaire2Texte = ['Types de solution', '1 : Entier\n2 : Fraction\n3 : Racine\n4 : Mélange']
-    this.besoinFormulaire3Texte = ['Nature des coefficients', '1 : Entiers\n2 : Fractions\n3 : Mélange']
-    this.besoinFormulaire4Texte = ['Format de l\'équation', '1 : Réduite ordonnée\n2 : Réduite mélangée\n3 : Mélangée simple\n4 : Mélangée compliquée\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Nombre de solutions', '1 : Une solution\n2 : Deux solutions\n3 : Pas de solution réelle\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de solution', '1 : Entier\n2 : Fraction\n3 : Irrationnel\n4 : Mélange']
+    this.besoinFormulaire3Texte = ['Format de l\'équation', '1 : Réduite ordonnée\n2 : Réduite mélangée\n3 : Mélangée simple\n4 : Mélangée compliquée\n5 : Mélange']
     this.sup = 4
     this.sup2 = 4
     this.sup3 = 4
-    this.sup4 = 4
     this.nbQuestions = 3
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
   }
 
   nouvelleVersion () {
     // Exemple d'utilisation :
     const equation1 = EquationSecondDegre.aPartirDesCoefficients(new FractionEtendue(1, 2), new FractionEtendue(10, 1), new FractionEtendue(-4, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), { variable: 'x', format: 'melangeComplique' })
-    console.log(equation1.delta, equation1.natureDesSolutions)
+    this.comment = "L'option une unique solution avec type de solution irrationelle donne par défaut une solution fractionnaire<br> Le format de l'équation est: 1. ax^2+bx+c=0 <br>2. bx+ax^2+c=0<br>3. ax^2+bx+c=dx^2+ex+f<br>4. bx+c+ax^2=f+dx^2+ex."
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -58,27 +58,18 @@ export default class nomExercice extends Exercice {
       max: 3,
       melange: 4,
       defaut: 4,
-      listeOfCase: ['entier', 'fraction', 'racine'],
+      listeOfCase: ['entier', 'fraction', 'irrationnel'],
       nbQuestions: this.nbQuestions,
       shuffle: true
     })
-    const sousChoixCoeff = gestionnaireFormulaireTexte({
-      saisie: this.sup3,
-      min: 1,
-      max: 2,
-      melange: 3,
-      defaut: 3,
-      listeOfCase: ['entier', 'fraction'],
-      nbQuestions: this.nbQuestions,
-      shuffle: true
-    })
+
     const sousChoixForme = gestionnaireFormulaireTexte({
-      saisie: this.sup4,
+      saisie: this.sup3,
       min: 1,
       max: 4,
       melange: 5,
       defaut: 5,
-      listeOfCase: ['reduit', 'reduitMelange', 'melangeSimple', 'melangeComplique'],
+      listeOfCase: ['reduit', 'melangeReduit', 'melangeSimple', 'melangeComplique'],
       nbQuestions: this.nbQuestions,
       shuffle: true
     })
@@ -100,35 +91,25 @@ export default class nomExercice extends Exercice {
       let c : FractionEtendue
       let s1: FractionEtendue
       let s2 : FractionEtendue
-      console.log(listeTypeDeQuestions[i], sousChoixSol[i], sousChoixCoeff[i], sousChoixForme[i])
       if (listeTypeDeQuestions[i] === 'pasSol') {
-        if (sousChoixCoeff[i] === 'entier') {
-          do {
-            a = new FractionEtendue(randint(-10, 10,[0]), 1)
-            b = new FractionEtendue(randint(-10, 10), 1)
-            c = new FractionEtendue(randint(-10, 10), 1)
-            equation = EquationSecondDegre.aPartirDesCoefficients(a, b, c, new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), { variable: 'x', format: sousChoixForme[i] as string })
-          } while (!(equation.delta.signe === -1))
-        } else if (sousChoixCoeff[i] === 'fraction') {
-          do {
-            a = new FractionEtendue(randint(-10, 10,[0]), randint(-10, 10, [0]))
-            b = new FractionEtendue(randint(-10, 10), randint(-10, 10, [0]))
-            c = new FractionEtendue(randint(-10, 10), randint(-10, 10, [0]))
-            equation = EquationSecondDegre.aPartirDesCoefficients(a, b, c, new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), { variable: 'x', format: sousChoixForme[i] as string })
-          } while (!(equation.delta.signe === -1) || (a.den === 1 && b.den === 1 && c.den === 1))
-        }
+        do {
+          a = new FractionEtendue(randint(-10, 10, [0]), 1)
+          b = new FractionEtendue(randint(-10, 10), 1)
+          c = new FractionEtendue(randint(-10, 10), 1)
+          equation = EquationSecondDegre.aPartirDesCoefficients(a, b, c, new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), { variable: 'x', format: sousChoixForme[i] as string })
+        } while (!(equation.delta.signe === -1))
       } else if (listeTypeDeQuestions[i] === 'uneSol') {
         if (sousChoixSol[i] === 'entier') {
           s1 = new FractionEtendue(randint(-10, 10), 1)
           const coeffLead = new FractionEtendue(randint(-3, 3, [0]), 1)
           equation = EquationSecondDegre.aPartirDesSolutions(s1, s1, coeffLead, { variable: 'x', format: sousChoixForme[i] as string })
         }
-        if (sousChoixSol[i] === 'fraction') {
+        if (sousChoixSol[i] === 'fraction' || sousChoixSol[i] === 'irrationnel') {
           do {
             s1 = new FractionEtendue(randint(-10, 10), randint(1, 10, [0]))
             const coeffLead = new FractionEtendue(randint(-3, 3, [0]), 1)
             equation = EquationSecondDegre.aPartirDesSolutions(s1, s1, coeffLead, { variable: 'x', format: sousChoixForme[i] as string })
-          } while (s1.den === 1)
+          } while (s1.denIrred === 1)
         }
       } else if (listeTypeDeQuestions[i] === 'deuxSol') {
         if (sousChoixSol[i] === 'entier') {
@@ -138,18 +119,28 @@ export default class nomExercice extends Exercice {
             const coeffLead = new FractionEtendue(1, 1)
             equation = EquationSecondDegre.aPartirDesSolutions(s1, s2, coeffLead, { variable: 'x', format: sousChoixForme[i] as string })
           } while (s1.num === s2.num && s1.den === s2.den)
-        }
-        if (sousChoixSol[i] === 'fraction') {
+        } else if (sousChoixSol[i] === 'fraction') {
           do {
             s1 = new FractionEtendue(randint(-10, 10), randint(1, 10, [0]))
             s2 = new FractionEtendue(randint(-10, 10), randint(1, 10, [0]))
-            const coeffLead = new FractionEtendue(1, 1)
+            const coeffLead = new FractionEtendue(randint(-3, 3, [0]), randint(1, 3, [0]))
             equation = EquationSecondDegre.aPartirDesSolutions(s1, s2, coeffLead, { variable: 'x', format: sousChoixForme[i] as string })
-          } while (s1.den === 1 || s2.den === 1 || (s1.den === s2.den && s1.num === s2.num))
+          } while ((s1.denIrred === 1 && s2.denIrred === 1) || (s1.den === s2.den && s1.num === s2.num))
+          // TODO multiplier par le dénominateur commun pour avoir des coefficients entiers ou pas dépendant du cas.
+        } else if (sousChoixSol[i] === 'irrationnel') {
+        // Tant que b^2-4ac n'est pas un carré parfait
+          do {
+            a = new FractionEtendue(randint(-10, 10, [0]), 1)
+            b = new FractionEtendue(randint(-10, 10), 1)
+            c = new FractionEtendue(randint(-10, 10), 1)
+            equation = EquationSecondDegre.aPartirDesCoefficients(a, b, c, new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), { variable: 'x', format: sousChoixForme[i] as string })
+          } while (equation.delta.estParfaite === true || equation.delta.num === 0 || equation.delta.signe === -1)
         }
       }
       texte += `$${equation.equationTex}$`
-      texteCorr += `${equation.correctionDetailleeTex}`
+      if (this.correctionDetaillee) {
+        texteCorr += `${equation.correctionDetailleeTex}`
+      } else (texteCorr += `$${equation.ensembleDeSolutionsTex}$`)
       if (this.questionJamaisPosee(i, equation.ensembleDeSolutionsTex, equation.equationTex)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

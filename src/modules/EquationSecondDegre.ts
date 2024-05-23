@@ -1,11 +1,19 @@
 import { sqrt } from 'mathjs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
 import FractionEtendue from './FractionEtendue'
-import { ComputeEngine, type BoxedExpression } from '@cortex-js/compute-engine'
-import { areSameObject, shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
+import {ComputeEngine, type BoxedExpression } from '@cortex-js/compute-engine'
+import { areSameObject, compareArrays, shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
 import { randint } from './outils'
+import type { Expression } from 'mathlive'
 
-const ce = new ComputeEngine()
+
+const ce = new ComputeEngine();
+ce.latexOptions = {
+  //precision: 3,
+  //decimalMarker: "{,}",
+  //invisiblePlus : '',
+  fractionStyle: (expr: Expression, level: number) => 'block-quotient',
+};
 
 function soluceEE (expr:BoxedExpression):BoxedExpression {
   if (expr.ops) { // Pour ne pas accepter les +0 ou les \\times1
@@ -38,6 +46,7 @@ class EquationSecondDegre {
   constructor (a: FractionEtendue, b: FractionEtendue, c: FractionEtendue, d: FractionEtendue, e: FractionEtendue, f: FractionEtendue, options = { format: 'initial', variable: 'x' }) {
     this.coefficients = [a, b, c, d, e, f]
     this.variable = options.variable
+    this.natureDesSolutions = ''
     const nomValDefault = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
     this.coefficientsEqReduite = [a.differenceFraction(d), b.differenceFraction(e), c.differenceFraction(f), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1)]
     console.log(this.coefficients)
@@ -51,11 +60,9 @@ class EquationSecondDegre {
       this.equationTex = this.printToLatexEq(...shuffle2tableauxSansModif(this.coefficientsEqReduite, nomValDefault))
     } else if (options.format === 'melangeComplique') {
       const coefficientsRevus = this.complexifyCoefficients(this.coefficients)
-      console.log(coefficientsRevus)
       const tabMelange1 = shuffle2tableauxSansModif(coefficientsRevus.slice(0, 3), nomValDefault.slice(0, 3))
       const tabMelange2 = shuffle2tableauxSansModif(coefficientsRevus.slice(3), nomValDefault.slice(3))
       const tabMelange = [tabMelange1[0].concat(tabMelange2[0]), tabMelange1[1].concat(tabMelange2[1])]
-      console.log(tabMelange)
       this.equationTex = this.printToLatexEq(tabMelange[0] as FractionEtendue[], tabMelange[1] as string[])
     } else if (options.format === 'initial') {
       this.equationTex = this.printToLatexEq(this.coefficients, nomValDefault)
@@ -75,38 +82,44 @@ class EquationSecondDegre {
     this.natureDesSolutions = ''
     if (this.nombreSolutions > 0) {
       if (this.delta.estParfaite) {
-        if (this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((a.multiplieEntier(2)).inverse()).den === 1) {
+        console.log(this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((a.multiplieEntier(2)).inverse()).denIrred)
+        if (this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((a.multiplieEntier(2)).inverse()).denIrred === 1) {
           this.natureDesSolutions = 'entier'
         } else {
           this.natureDesSolutions = 'fractionnaire'
         }
       } else { this.natureDesSolutions = 'irrationnel' }
-
+      console.log(this.natureDesSolutions)
       if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
-        this.solutionsListeTex = [`${this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFSD}`, `${this.coefficientsEqReduite[1].multiplieEntier(-1).sommeFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFSD}`]
-      } else {
+        this.solutionsListeTex = [`${this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFractionSimplifiee}`, `${this.coefficientsEqReduite[1].multiplieEntier(-1).sommeFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFractionSimplifiee}`]
+        // parse la réponse latex en CE qui la simplifie et l'imprime
+      } else if (this.natureDesSolutions === 'irrationnel') {
         const expr = this.coefficientsEqReduite[0].texFractionSignee + '*x^2' + this.coefficientsEqReduite[1].texFractionSignee + '*x' + '+' + this.coefficientsEqReduite[2].texFSD + '=0'
-        console.log(expr, 'test')
-        console.log(this.equationTex.replaceAll('dfrac', 'frac'))
         const eq = ce.parse(this.equationTex.replaceAll('dfrac', 'frac'))
-        console.log(this.delta.texFSD, 'suc')
-        this.solutionsListeTex = [soluceEE(eq.solve(this.variable)![0]).latex, soluceEE(eq.solve(this.variable)![1]).latex]
+        const sol1Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`.replaceAll('dfrac', 'frac')
+        const sol2Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`.replaceAll('dfrac', 'frac')
+        this.solutionsListeTex = [ce.serialize(ce.parse(sol1Tex, { canonical: true })), soluceEE(ce.parse(sol2Tex)).latex]
       }
     }
-    this.ensembleDeSolutionsTex = this.delta.num < 0 ? 'S=\\emptyset' : this.delta.num > 0 ? 'S = \\{' + this.solutionsListeTex.join(';') + '\\}' : `S=${this.solutionsListeTex[0]}`
-    this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, donc l'équation a ${this.nombreSolutions} solution` + (this.nombreSolutions > 1 ? 's' : '') + `, ${this.ensembleDeSolutionsTex}.`
-    this.correctionDetailleeTex = ''
-    if (!(areSameObject(this.coefficients, this.coefficientsEqReduite))) {
-      console.log(this.coefficients, this.coefficientsEqReduite)
-      this.correctionDetailleeTex = `On commence par mettre l'équation sous la forme réduite : \\[${this.printToLatexEq(this.coefficientsEqReduite)}\\]`
+    this.ensembleDeSolutionsTex = this.delta.num < 0 ? 'S=\\emptyset' : this.delta.num > 0 ? 'S = \\left\\{' + this.solutionsListeTex.join(';') + '\\right\\}' : `S=\\left\\{${this.solutionsListeTex[0]}\\right\\}`
+    if (this.nombreSolutions === 0) { this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.` } else {
+      this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, donc l'équation a ${this.nombreSolutions} solution` + (this.nombreSolutions > 1 ? 's' : '') + `, ${this.ensembleDeSolutionsTex}.`
     }
-    this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=${this.coefficientsEqReduite[1].texFSD}^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFSD}.\\] Ainsi $\\Delta=${this.delta.texFSD}$, donc l'équation a ${this.nombreSolutions} solution` + (this.nombreSolutions > 1 ? 's' : '') + '.'
-    if (this.nombreSolutions > 0) {
-      this.correctionDetailleeTex += ` Les solutions sont
-        \\[s_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].texFSD}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
+    this.correctionDetailleeTex = ''
+    if (!(compareArrays(this.coefficients, this.coefficientsEqReduite))) {
+      this.correctionDetailleeTex += `On commence par mettre l'équation sous la forme réduite : \\[${this.printToLatexEq(this.coefficientsEqReduite)}\\]`
+    }
+    this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFSD}.\\] On a $\\Delta=${this.delta.texFSD}$, donc `
+    if (this.nombreSolutions > 1) {
+      this.correctionDetailleeTex += `l'équation a deux solutions. Les solutions sont
+        \\[s_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
         Ainsi, $${this.ensembleDeSolutionsTex}$.`
-    } else {
-      this.correctionDetailleeTex += ` L'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.`
+    } else if(this.nombreSolutions===1)
+    {      this.correctionDetailleeTex += `l'équation a une solution donnée par
+    \\[s=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
+    Ainsi, $${this.ensembleDeSolutionsTex}$.`
+    }else {
+      this.correctionDetailleeTex += ` l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.`
     }
   }
 
@@ -123,7 +136,7 @@ class EquationSecondDegre {
     const d = new FractionEtendue(0, 1)
     const e = new FractionEtendue(0, 1)
     const f = new FractionEtendue(0, 1)
-    return new EquationSecondDegre(a, b, c, d, e, f,options)
+    return new EquationSecondDegre(a, b, c, d, e, f, options)
   }
 
   // Méthode pour créer une équation à partir du type de jeu de coefficients
@@ -173,7 +186,7 @@ class EquationSecondDegre {
       }
     } else {
       for (let i = 0; i < 3; i++) {
-        const ajout = new FractionEtendue(randint(-10, 10, [0]), randint(-10, 10, [0]))
+        const ajout = new FractionEtendue(randint(-4, 4, [0]), randint(-3, 3, [0]))
         newCoefficients[i] = newCoefficients[i].sommeFraction(ajout)
         newCoefficients[i + 3] = newCoefficients[i + 3].sommeFraction(ajout)
       }
