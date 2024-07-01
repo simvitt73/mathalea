@@ -6,6 +6,8 @@ import { Point, milieu } from '../../lib/2d/points'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduireAxPlusByPlusC } from '../../lib/outils/ecritures'
 import engine from '../../lib/interactif/comparisonFunctions'
+import DeriveeQuotient from './1AN14-6'
+import { Droite } from '../../lib/2d/droites'
 
 export const titre = 'Équations cartésiennes de droites'
 export const dateDePublication = '24/06/2024'
@@ -41,17 +43,21 @@ function vecteurNormal(u: Vecteur, nom: string = 'n'): Vecteur {
     return new Vecteur(-u.y, u.x, nom)
 }
 
-function equaDroite(A: Point, {B = undefined, u = undefined, n = undefined}) : [string, string] {
+function equationCartesienne(d: Droite): string {
+  return engine.parse(`${d.a}x + ${d.b}y + ${d.c} = 0`)
+}
+
+function construireDroite(A: Point, {B = undefined, u = undefined, n = undefined}) : [Droite, string] {
     if (B instanceof Point) {
 	let u = new Vecteur(A, B, `${A.nom}${B.nom}`)
-	let [equa, details] = equaDroite(A, {u: u})
-	return [equa,
+	let [d, details] = construireDroite(A, {u: u})
+	return [d,
 		`Un vecteur directeur de la droite $(${A.nom}${B.nom})$ est $${vecteurVersTex(u)}$. ` + details]
     }
     if (u instanceof Vecteur) {
 	let n = vecteurNormal(u)
-	let [equa, details] = equaDroite(A, {n: n})
-	return [equa,
+	let [d, details] = construireDroite(A, {n: n})
+	return [d,
 		`Un vecteur normal à la droite $(d)$ est $${vecteurVersTex(n)}$. ` + details]
     }
     if (n instanceof Vecteur) {
@@ -59,40 +65,40 @@ function equaDroite(A: Point, {B = undefined, u = undefined, n = undefined}) : [
 	let partial = engine.parse(`${n.x}x + ${n.y}y + c = 0`).simplify()
 	let Aind = engine.parse(`${n.x}*(${A.x}) + ${n.y}* (${A.y}) + c = 0`)
 	let equa = engine.parse(`${n.x}x + ${n.y}y + ${c} = 0`).simplify()
-	return [equa,
+	return [new Droite(n.x, n.y, c),
 		`La droite de vecteur normal $${vecteurVersTex(n)}$ admet pour équation cartésienne $${partial.latex}$, pour un certain nombre réel $c$. Comme $${A.nom}$ appartient à la droite, $${Aind.latex}$. Ainsi, $c = ${c}$, l'équation cartésienne de la droite est donc $${equa.latex}$.`]
     }
     return ""
 }
 
 
-function hauteur(A: Point, B: Point, C: Point): [string, string] {
+function hauteur(A: Point, B: Point, C: Point): [Droite, string] {
     let n = new Vecteur(B, C, 'BC')
-    let [equa, details] = equaDroite(A, {n: n})
+    let [d, details] = construireDroite(A, {n: n})
 
     return [
-	equa,
+	d,
 	`La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le point $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` + details
     ]
 }
 
-function mediatrice(A: Point, B: Point): [string, string] {
-    let I = milieu(A, B, 'I')
-    let n = new Vecteur(A, B, 'AB')
-    let [equa, details] = equaDroite(I, {n: n})
+function mediatrice(A: Point, B: Point): [Droite, string] {
+  let I = milieu(A, B, 'I')
+  let n = new Vecteur(A, B, 'AB')
+  let [d, details] = construireDroite(I, {n: n})
+  let equa = equationCartesienne(d)
 
-    return [
-	equa,
-	`La médiatrice du segment $[${A.nom}${B.nom}]$ coupe perpendiculairement $[${A.nom}${B.nom}]$ en son milieu $${pointVersTex(I)}$. Ainsi, $${vecteurVersTex(n)}$ est un vecteur normal à la médiatrice du segment $[${A.nom}${B.nom}]$. ` + details
-    ]
-
+  return [
+    d,
+    `La médiatrice du segment $[${A.nom}${B.nom}]$ coupe perpendiculairement $[${A.nom}${B.nom}]$ en son milieu $${pointVersTex(I)}$. Ainsi, $${vecteurVersTex(n)}$ est un vecteur normal à la médiatrice du segment $[${A.nom}${B.nom}]$. ` + details
+  ]
 }
 
 
 function questionDeuxPoints(i: number = 0): [string, string] {
     let A = new Point(randint(-5, 5), randint(-5, 5), 'A')
     let B = new Point(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
-    let [equa, details] = equaDroite(A, {B: B})
+    let [equa, details] = construireDroite(A, {B: B})
 
     return [
 	`Soient les points $${pointVersTex(A)}$, et $${pointVersTex(B)}$. Donner l'équation de la droite $(AB)$.`,
@@ -103,7 +109,7 @@ function questionDeuxPoints(i: number = 0): [string, string] {
 function questionPointvDir(i: number = 0): [string, string] {
     let A = new Point(randint(-5, 5), randint(-5, 5), 'A')
     let u = new Vecteur(randint(-5, 5), randint(-5, 5), 'u')
-    let [equa, details] = equaDroite(A, {u: u})
+    let [equa, details] = construireDroite(A, {u: u})
 
     return [
 	`Soient le point $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(u)}$. Donner l'équation de la droite $(d)$ passant par le point $${A.nom}$ et de vecteur directeur $\\vec{${u.nom}}$.`,
@@ -114,7 +120,7 @@ function questionPointvDir(i: number = 0): [string, string] {
 function questionPointvNorm(i: number = 0): [string, string] {
     let A = new Point(randint(-5, 5), randint(-5, 5), 'A')
     let n = new Vecteur(randint(-5, 5), randint(-5, 5), 'n')
-    let [equa, details] = equaDroite(A, {n: n})
+    let [equa, details] = construireDroite(A, {n: n})
     return [
 	`Soient le point $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(n)}$. Donner l'équation de la droite $(d)$ passant par le point $${A.nom}$ et de vecteur normal $\\vec{${n.nom}}$.`,
 	details
