@@ -1,17 +1,18 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-// import { create, all } from 'mathjs'
 import engine from '../../lib/interactif/comparisonFunctions'
 import type { BoxedExpression, SemiBoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre = 'RECHERCHE Dérivée fonctions usuelles'
 export const dateDePublication = '24/06/2024'
 
-let log = x => console.log(x) ;
 /**
  * Généralisation de l'utilisation de cortex
  * @florianpicard
  */
+
+let log = x => console.log(x)
+let Log = x => console.log(JSON.stringify(x))
 
 export const uuid = '0088f'
 export const ref = '1AN12'
@@ -20,21 +21,128 @@ export const refs = {
   'fr-ch': []
 }
 
-function parse(expr: SemiBoxedExpression): BoxedExpression {
-  return (typeof expr === 'string')
-    ? engine.parse(expr, {canonical: false})
-    : engine.box(expr, {canonical: false})
+function estNombre(expr: BoxedExpression): boolean {
+  // On passe par la forme canonique
+  return engine.box(expr).isReal
 }
 
-function latex(expr: BoxedExpression): string {
-  return expr.toLatex({
-    prettify: false,
-    invisiblePlus: "+",
-    fractionStyle: () => "block-quotient",
-    applyFunctionStyle: () => 'scaled'
-    groupStyle: () => 'scaled'
-  })
+function parse(expr: SemiBoxedExpression): BoxedExpression {
+  const removeDelim = expr => (expr.head === 'Delimiter') ? (expr.ops[0]) : expr
+  let boxed =  (typeof expr === 'string')
+    ? engine.parse(expr, {canonical: false})
+    : engine.box(expr, {canonical: false})
+  return boxed.map(removeDelim, {canonical: false, recursive: true})}
+
+function addFormat (e: BoxedExpression, i: number) {
+  let txt = latex(e)
+  if (e.head === 'Add') return `+(${txt})` // Addition nestée
+  if (i == 0) return `${txt}`;
+  return (txt[0] == '-') ? `${txt}` : `+${txt}`
 }
+
+function mulFormat (e: BoxedExpression, i: number) {
+  let txt = latex(e)
+  if ((e.head === 'Divide') || (e.head === 'Power')) return `${txt}` // Pas besoin de parenthèses avec une fraction
+  if (e.ops !== null) return `(${txt})` // Expression nestée entre parenthèse
+  if (i == 0) return `${txt}`; // le premier facteur est tel quel
+  // les facteurs suivants sont entre parenthèse s'ils commencent par un signe '-'
+  return (txt[0] == '-') ? `(${txt})` : `${txt}` 
+}
+
+
+function latex(expr: BoxedExpression): string {
+  // La version latex, sans fioriture, de la BoxedExpression
+  if (expr === null) return '';
+  if (expr.ops === null) return `${expr}`// un nombre ou un symbole
+  if (expr.head === 'Negate') {
+    let op = expr.op1
+    // Négation d'une multiplication :
+    // on met le premier terme entre parenthèses lorsque celui
+    // ci comment par un '-', pour ne pas avoir --8*3...
+    if (op.head === 'Multiply') {
+      let args = op.ops.map((e, i) => mulFormat(e, i))
+      args[0] = (args[0][0] == '-') ? `(${args[0]})` : args[0]
+      return "-" + args.join('')
+    }
+    // Pas besoin de parenthèses lorsque -(3/4) avec une fraction
+    if ((op.head === 'Divide') || (op.head === 'Rational')){
+      return `-${latex(op)}`
+    }
+    return `-(${latex(expr.op1)})`
+  }
+  if (expr.head === 'Add') {
+    if (expr.ops === null) return '';
+    let args = expr.ops.map((e, i) => addFormat(e, i))
+    return args.join('')
+  }
+  if (expr.head === 'Multiply') {
+    if (expr.ops === null) return '';
+    let args = expr.ops.map((e, i) => mulFormat(e, i)) // version textuelle des facteurs
+    // si deux facteurs qui sont des nombres se suivent : on indique \\times
+    for (let i = 0; i < args.length - 1 ; i++){
+      if (((!estNombre(expr.ops[i])) && (estNombre(expr.ops[i + 1]))) || ((estNombre(expr.ops[i])) && (estNombre(expr.ops[i + 1]))))
+      {
+	args[i] += '\\times'
+      }
+    }
+    // On supprime les 1 et -1 inutiles
+    let sgn = ''
+    if ((args[0] === '1') || (args[0] === '1\\times') || (args[0] === '-1') || (args[0] === '-1\\times')) {
+      sgn = (args.shift() < 0) ? '-' : ''
+    }
+    return sgn + args.join('')
+  }
+  if ((expr.head === 'Divide') || (expr.head === 'Rational')) {
+    return `\\dfrac{${latex(expr.op1)}}{${latex(expr.op2)}}`
+    return sgn + args.join('')
+  }
+  if (expr.head === 'Power') {
+    let a = latex(expr.op1)
+    a = (expr.op1.ops !== null) ? `(${a})` : a
+    let b = latex(expr.op2)
+    return `${a}^{${b}}`
+  }
+}
+
+let test = parse("1")
+test = parse("1 + 2 + 3")
+test = parse("-(-3 + 2)")
+test = parse('3 + 2 + -4*(-5)')
+test = parse('3 - (-1)*(5 + x)*16*(x - 3)*(x + 2)*3')
+test = parse('3*x - 2*p + 1')
+test = parse('-(-5*a + 4*a - 1)')
+test = parse('(-5*x - 8)')
+test = parse('3*a + (-5*a - 8)')
+test = parse('-1 - (-8*y + 7)')
+test = parse('(7*x + 1)*(-4*x)')
+test = parse('1-8*x*(7*x + 1)*(-4*x)')
+test = parse('3/4')
+test = parse('-(3/4)')
+test = parse('3/(-4)')
+test = parse('2-3/4')
+test = parse('2+-3/4')
+test = parse('2-(3/4)')
+test = parse('2-(5/16)*(x - 1)*(x + 2)')
+test = parse('(-2*x*3)*(11*x - 8)')
+test = parse('(-2*x*3)')
+test = parse('-2*x*3*(3*x - 1)*2*3*3/2')
+test = parse('-2*x^2*3*(3*x - 1)^2*3*3/2')
+log(test.latex)
+Log(test)
+Log(latex(test))
+test = parse('x')
+log(test.ops)
+Log(test)
+// Log(estNombre(parse("5/6 + 1")))
+// Log(estNombre(test))
+
+// return expr.toLatex({
+//   prettify: false,
+//   invisiblePlus: "+",
+//   fractionStyle: () => "block-quotient",
+//   applyFunctionStyle: () => 'scaled',
+//   groupStyle: () => 'scaled'
+// })
 
 class Parametre {
   nom: string
@@ -89,7 +197,7 @@ function factoriserPar (expr: BoxedExpression, term: string): BoxedExpression {
     //   } else {
     //     sommeAutreFacteurs.push(['Divide', numSans, denum])
     //   }
-  // }
+    // }
     else if (t.head === 'Multiply') {
       let reste = removeFromOps(t, term) 
       if (reste === null) {
@@ -105,8 +213,8 @@ function factoriserPar (expr: BoxedExpression, term: string): BoxedExpression {
   if (n > 0) sommeAutreFacteurs.push(n);
   if (sommeAutreFacteurs.length === 1) return expr; // Aucune factorisation n'a été trouvée
   return engine.box(['Add',
-    sommeReste,
-    engine.box(['Multiply', sommeAutreFacteurs, term])])
+		     sommeReste,
+		     engine.box(['Multiply', sommeAutreFacteurs, term])])
 }
 
 function simplifierFractionPar (expr: BoxedExpression, term: SemiBoxedExpression): BoxedExpression {
@@ -197,7 +305,7 @@ function reduire(expr: BoxedExpression): BoxedExpression{
   }
 
   return engine.box([expr.head].concat(filteredargs), {canonical: false})
-  }
+}
 
 function removeNegate(expr: BoxedExpression): BoxedExpression {
   if (expr.ops === null) return expr;
@@ -455,16 +563,6 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
 
     const questions = []
-
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const [texte, texteCorr] = questions[i](i)
-      if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-      }
-      cpt++
-    }
     listeQuestionsToContenu(this)
   }
 }
