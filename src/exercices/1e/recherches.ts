@@ -9,7 +9,7 @@ export const dateDePublication = '24/06/2024'
 
 let log = x => console.log(x) ;
 /**
- * Calcul de dérivée des fonctions usuelles
+ * Généralisation de l'utilisation de cortex
  * @florianpicard
  */
 
@@ -20,13 +20,29 @@ export const refs = {
   'fr-ch': []
 }
 
+function parse(expr: SemiBoxedExpression): BoxedExpression {
+  return (typeof expr === 'string')
+    ? engine.parse(expr, {canonical: false})
+    : engine.box(expr, {canonical: false})
+}
+
+function latex(expr: BoxedExpression): string {
+  return expr.toLatex({
+    prettify: false,
+    invisiblePlus: "+",
+    fractionStyle: () => "block-quotient",
+    applyFunctionStyle: () => 'scaled'
+    groupStyle: () => 'scaled'
+  })
+}
+
 class Parametre {
   nom: string
-  valeur?: SemiBoxedExpression
+  valeur?: BoxedExpression
 
-  constructor ({ nom, valeur }: {nom: string, valeur?: string}) {
+  constructor ({ nom, valeur }: {nom: string, valeur?: SemiBoxedExpression}) {
     this.nom = nom
-    this.valeur = (valeur === undefined) ? undefined : engine.box(valeur)
+    this.valeur = (valeur === undefined) ? undefined : parse(valeur)
   }
 
   hasValue () {
