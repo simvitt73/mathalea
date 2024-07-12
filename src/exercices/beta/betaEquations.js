@@ -1,18 +1,19 @@
-import { point } from '../../../lib/2d/points.js'
-import { polygone } from '../../../lib/2d/polygones.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
-import Exercice from '../../deprecatedExercice.js'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '../../../modules/2dGeneralites.js'
-import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu } from '../../../modules/outils.js'
+import { point } from '../../lib/2d/points.js'
+import { polygone } from '../../lib/2d/polygones.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
+import Exercice from '../deprecatedExercice.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify, compare, evaluate } from 'mathjs'
-import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../../modules/outilsMathjs.js'
+import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 import Algebrite from 'algebrite'
 
 // eslint-disable-next-line no-debugger
 debugger
 const nbCase = 139
+export const uuid = 'betaEquation'
 
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -100,19 +101,19 @@ export default function EquationsProgression () {
       }
       switch (nquestion) {
         case 1: {
-          exercice = traduireProgrammeCalcul(['+', '*'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['+', '*'], parse('1'), ddbug)
           break
         }
         case 2: {
-          exercice = traduireProgrammeCalcul(['*', '+'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['*', '+'], parse('1'), ddbug)
           break
         }
         case 3: {
-          exercice = traduireProgrammeCalcul(['+', '*', '-'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['+', '*', '-'], parse('1'), ddbug)
           break
         }
         case 4: {
-          exercice = traduireProgrammeCalcul(['-', '*', '2*x'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['-', '*', '2*x'], parse('1'), ddbug)
           break
         }
         case 5: {
@@ -338,11 +339,11 @@ export default function EquationsProgression () {
           break
         }
         case 27: {
-          exercice = ecrireProgrammeCalcul(['-', '*', '2*x'], parse(1), ddbug)
+          exercice = ecrireProgrammeCalcul(['-', '*', '2*x'], parse('1'), ddbug)
           break
         }
         case 28: {
-          exercice = ecrireProgrammeCalcul(['-', '*', '2*x'], parse(1), ddbug)
+          exercice = ecrireProgrammeCalcul(['-', '*', '2*x'], parse('1'), ddbug)
           break
         }
         case 29: {
@@ -396,23 +397,23 @@ export default function EquationsProgression () {
           break
         }
         case 34: {
-          exercice = traduireProgrammeCalcul(['+', '*'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['+', '*'], parse('1'), ddbug)
           break
         }
         case 35: {
-          exercice = ecrireProgrammeCalcul(['*', '+'], parse(1), ddbug)
+          exercice = ecrireProgrammeCalcul(['*', '+'], parse('1'), ddbug)
           break
         }
         case 36: {
-          exercice = traduireProgrammeCalcul(['*', '2*x'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['*', '2*x'], parse('1'), ddbug)
           break
         }
         case 37: {
-          exercice = traduireProgrammeCalcul(['-', '-2*x'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['-', '-2*x'], parse('1'), ddbug)
           break
         }
         case 38: {
-          exercice = traduireProgrammeCalcul(['-', '/', 'x'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['-', '/', 'x'], parse('1'), ddbug)
           break
         }
         case 39: {
@@ -528,15 +529,15 @@ export default function EquationsProgression () {
           break
         }
         case 51: {
-          exercice = traduireProgrammeCalcul(['+', '/', '-x^2'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['+', '/', '-x^2'], parse('1'), ddbug)
           break
         }
         case 52: {
-          exercice = traduireProgrammeCalcul(['*', '-x', '/'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['*', '-x', '/'], parse('1'), ddbug)
           break
         }
         case 53: {
-          exercice = traduireProgrammeCalcul(['/', '-x', '*'], parse(1), ddbug)
+          exercice = traduireProgrammeCalcul(['/', '-x', '*'], parse('1'), ddbug)
           break
         }
         case 54: {
