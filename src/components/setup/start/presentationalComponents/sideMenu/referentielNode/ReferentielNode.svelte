@@ -16,15 +16,8 @@
   const themesCH = toMap(themesListCH)
   import ReferentielEnding from './ReferentielEnding.svelte'
   import { onMount } from 'svelte'
-  import {
-    exercicesParams,
-    bibliothequeDisplayedContent,
-    isModalStaticExercisesChoiceVisible,
-    bibliothequePathToSection
-  } from '../../../../../../lib/stores/generalStore'
   import { monthes } from '../../../../../../lib/components/handleDate'
   import StaticEnding from './StaticEnding.svelte'
-  import ModalStaticExercisesChoiceDialog from '../../modalStaticExercisesChoice/ModalStaticExercisesChoiceDialog.svelte'
 
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
@@ -104,26 +97,6 @@
     } else {
       return Object.entries(s)
     }
-  }
-
-  /**
-   * Gestion la bibliothèque de statiques
-   */
-  let bibliothequeUuidInExercisesList: string[]
-  $: {
-    bibliothequeUuidInExercisesList = []
-    const uuidList: string[] = []
-    for (const entry of $exercicesParams) {
-      uuidList.push(entry.uuid)
-    }
-    if ($bibliothequeDisplayedContent) {
-      for (const item of Object.values($bibliothequeDisplayedContent)) {
-        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
-          bibliothequeUuidInExercisesList.push(item.uuid)
-        }
-      }
-    }
-    bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
   }
 
   onMount(() => {
@@ -234,9 +207,3 @@
     {/if}
   </div>
 </div>
-<ModalStaticExercisesChoiceDialog
-  isVisible={$isModalStaticExercisesChoiceVisible}
-  bibliothequePathToSection={$bibliothequePathToSection}
-  {bibliothequeUuidInExercisesList}
-  bibliothequeDisplayedContent={$bibliothequeDisplayedContent}
-/>

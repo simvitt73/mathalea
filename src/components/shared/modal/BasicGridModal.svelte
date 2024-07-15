@@ -13,7 +13,13 @@
   $: if (dialog && isDisplayed) dialog.showModal()
   $: if (dialog && !isDisplayed) dialog.close()
 </script>
+<!-- @component
+  Une fenêtre de dialogue permettant d'afficher une grille de cartes.
 
+  ### Paramètres
+  **isDisplayed** (_boolean_) : flag pour décider d'afficher la fenêtre de dialogue
+  **closeModal** : fonction gérant la fermeture de la fenêtre
+ -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog

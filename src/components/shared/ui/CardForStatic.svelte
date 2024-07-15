@@ -6,6 +6,7 @@
   export let exercise: StaticItemInreferentiel
   export let reversed: boolean = false
   export let selected: boolean = false
+  export let indice: string
 
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
@@ -41,6 +42,7 @@
 <button
   type="button"
   class="block relative w-full rounded-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark shadow-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
+  id={indice}
   on:click={handelSelection}
 >
   <div class="{reversed ? 'hide' : 'block'} ">

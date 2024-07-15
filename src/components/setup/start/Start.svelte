@@ -10,15 +10,20 @@
   //
   import { onDestroy, onMount, setContext, tick } from 'svelte'
   import {
+    bibliothequeDisplayedContent,
+    bibliothequePathToSection,
     callerComponent,
     darkMode,
     exercicesParams,
-    globalOptions
+    globalOptions,
+
+    isModalStaticExercisesChoiceVisible
+
   } from '../../../lib/stores/generalStore'
   import { localisedIDToUuid, referentielLocale } from '../../../lib/stores/languagesStore'
   import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
   import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
-  import { type AppTierceGroup } from '../../../lib/types/referentiels'
+  import { isJSONReferentielEnding, type AppTierceGroup } from '../../../lib/types/referentiels'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import Footer from '../../Footer.svelte'
@@ -44,6 +49,7 @@
   import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
   import type { CanOptions } from '../../../lib/types/can'
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
+  import ModalStaticExercisesChoiceDialog from './presentationalComponents/modalStaticExercisesChoice/ModalStaticExercisesChoiceDialog.svelte'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -310,6 +316,26 @@
       isSidenavOpened = !isSidenavOpened
     }
   }
+
+  /**
+   * Gestion la bibliothèque de statiques
+   */
+   let bibliothequeUuidInExercisesList: string[]
+  $: {
+    bibliothequeUuidInExercisesList = []
+    const uuidList: string[] = []
+    for (const entry of $exercicesParams) {
+      uuidList.push(entry.uuid)
+    }
+    if ($bibliothequeDisplayedContent) {
+      for (const item of Object.values($bibliothequeDisplayedContent)) {
+        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
+          bibliothequeUuidInExercisesList.push(item.uuid)
+        }
+      }
+    }
+    bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
+  }
 </script>
 
 <svelte:window bind:innerWidth />
@@ -471,6 +497,12 @@
   {toggleCan}
   {buildUrlAndOpenItInNewTab}
   {updateParams}
+/>
+<ModalStaticExercisesChoiceDialog
+  bind:isVisible={$isModalStaticExercisesChoiceVisible}
+  bibliothequePathToSection={$bibliothequePathToSection}
+  {bibliothequeUuidInExercisesList}
+  bibliothequeDisplayedContent={$bibliothequeDisplayedContent}
 />
 
 <style>
