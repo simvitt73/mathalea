@@ -136,10 +136,10 @@ export interface StaticItemInReferentiel extends BaseItemInReferentiel {
  * @property {string} pngSolution: chemin vers l'image de la solution
  */
 export interface LibraryStaticItemInReferentiel extends StaticItemInReferentiel {
-  texIndice: string
-  pngIndice: string
-  texSolution: string
-  pngSolution: string
+  texIndice?: string
+  pngIndice?: string
+  texSolution?: string
+  pngSolution?: string
   typeExercice: 'static'
 }
 
