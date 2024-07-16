@@ -38,6 +38,7 @@ export const changes = writable<number>(0)
  * * `isInteractiveFree` : uniquement pour la vue eleve, pour savoir si l'élève peut changer l'interactivité ou pas
  * * `oneShot` : uniquement pour la vue eleve, pour savoir si l'élève peut répondre une ou plusieurs fois en interactif.
  * * `twoColumns` : dans les vues élèves avec tous les exercices/questions sur une même page, on adopte la présentation du texte sur deux colonnes
+ * * `staticDisplayStyle` : description des autorisations d'affichage de certaines parties dans les exercices
  *
  * `globalOptions` est utilisé dans `Mathalea.updateUrl()` et dans `Mathalea.loadExercicesFromUrl()`
  * Il permet de sauvegarder le type de vue (`v=...`)
@@ -57,7 +58,12 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   oneShot: false,
   twoColumns: false,
   beta: false,
-  lang: 'fr-FR'
+  lang: 'fr-FR',
+  staticDisplayStyle: {
+    hint: false,
+    answer: false,
+    solution: false
+  }
 })
 
 // pour la gestion du mode sombre

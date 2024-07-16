@@ -15,8 +15,7 @@ export const convertVueType = (type : string) : VueType | undefined => {
   return VueTypeArray.indexOf(type as VueType) < 0 ? undefined : VueTypeArray[VueTypeArray.indexOf(type as VueType)]
 }
 
-export type StaticDisplayStyle = {
-  nothing: boolean
+export type StaticDisplayElements = {
   hint: boolean
   answer: boolean
   solution: boolean
@@ -67,7 +66,7 @@ export interface InterfaceGlobalOptions {
   canSM?: CanSolutionsMode
   canI?: boolean
   lang: Language
-  staticDisplayStyle: StaticDisplayStyle
+  staticDisplayStyle?: StaticDisplayElements
 }
 
 export interface InterfaceParams extends Partial<Record<string, string| number>> {
