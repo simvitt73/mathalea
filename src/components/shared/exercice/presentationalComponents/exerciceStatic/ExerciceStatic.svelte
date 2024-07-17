@@ -44,6 +44,7 @@
   let isContentVisible = true
   let headerExerciceProps: HeaderProps
   if (resourceToDisplay !== null) {
+    console.log(JSON.stringify(resourceToDisplay))
     headerExerciceProps = {
       title: '',
       id: '',
@@ -61,7 +62,7 @@
         resourceToDisplay.mois || ''
       } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`
     } else {
-      headerExerciceProps.title = resourceToDisplay.uuid
+      headerExerciceProps.title = resourceToDisplay.titre ?? resourceToDisplay.uuid
     }
   }
 

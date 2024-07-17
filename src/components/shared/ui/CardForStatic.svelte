@@ -1,9 +1,9 @@
 <script lang='ts'>
-  import type { StaticItemInReferentiel } from '../../../lib/types/referentiels'
+  import type { LibraryItemInReferentiel } from '../../../lib/types/referentiels'
   import StarIcon from '../icons/StarIcon.svelte'
   import { exercicesParams } from '../../../lib/stores/generalStore'
 
-  export let exercise: StaticItemInReferentiel
+  export let exercise: LibraryItemInReferentiel
   export let reversed: boolean = false
   export let selected: boolean = false
   export let indice: string
@@ -49,7 +49,7 @@
     <img src={exercise.png} alt="{exercise.uuid} image" class="object-fill rounded-t-lg" />
   </div>
   <div class="p-2">
-    <h5 class="mb-2 text-lg font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct">{exercise.uuid}</h5>
+    <h5 class="mb-2 text-lg font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct">{exercise.titre ?? exercise.uuid}</h5>
   </div>
   <div class="absolute -bottom-4 left-1/2 -translate-x-1/2">
     <div class="rounded-full h-8 w-8 bg-coopmaths-action text-coopmaths-canvas flex justify-center items-center hover:animate-pulse">

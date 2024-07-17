@@ -452,9 +452,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
           // À noter que currentRefToUuid ne gère pas les exercices statiques
           if (!newListeExercice[indiceExercice]) { newListeExercice[indiceExercice] = { uuid } }
         }
-        isUuidFound = false
       } else {
-        isUuidFound = true
         indiceExercice++
         if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
         newListeExercice[indiceExercice].uuid = uuid // string
