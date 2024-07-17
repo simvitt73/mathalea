@@ -116,7 +116,7 @@
         <img
           src={resourceToDisplay.pngIndice}
           style="width: calc(100% * {zoomFactor}"
-          alt="indice"
+          alt="Indice"
         />
         <div
         class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-warn-800 dark:bg-coopmathsdark-warn font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
@@ -125,6 +125,29 @@
       </div>
       <div
         class="absolute border-coopmaths-warn-800 dark:border-coopmathsdark-warn bottom-0 left-0 border-b-[3px] w-4"
+      />
+      </div>
+    {/if}
+  {/if}
+
+  {#if $globalOptions.staticDisplayStyle.answer}
+    {#if resourceToDisplay && Object.keys(resourceToDisplay).includes('pngReponse')}
+      <div
+        class="relative border-l-coopmaths-struct-light dark:border-l-coopmathsdark-warn border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
+        id="correction{indiceExercice}"
+      >
+        <img
+          src={resourceToDisplay.pngReponse.replace('reponse', 'solution')}
+          style="width: calc(100% * {zoomFactor}"
+          alt="Réponse"
+        />
+        <div
+        class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+      >
+        Réponse
+      </div>
+      <div
+        class="absolute border-coopmaths-struct-light dark:border-coopmathsdark-struct-light bottom-0 left-0 border-b-[3px] w-4"
       />
       </div>
     {/if}
