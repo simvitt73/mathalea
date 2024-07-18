@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { InterfaceGlobalOptions } from '../../../../../../lib/types'
+  import type { InterfaceGlobalOptions } from '../../../../../../lib/types'
   import type TypeExercice from '../../../../../../exercices/Exercice'
   import ButtonText from '../../../../forms/ButtonText.svelte'
   import InteractivityIcon from '../../../../icons/TwoStatesIcon.svelte'
@@ -13,7 +13,6 @@
   export let switchInteractif: () => void
   export let columnsCount: number
   export let columnsCountUpdate: (plusMinus: ('+' | '-')) => void
-
 </script>
 
 <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6 {globalOptions.presMode === 'recto' || globalOptions.presMode === 'verso' ? 'hidden' : 'flex'}">

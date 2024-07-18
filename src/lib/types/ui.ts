@@ -1,3 +1,13 @@
+export interface VeryBasicHeaderProps {
+  title: string
+  indiceExercice: number
+}
+
+export type HeaderPropsForEleveStatic = VeryBasicHeaderProps &
+{
+  [key: string] : string | boolean | number
+}
+
 export interface BasicHeaderProps {
   title: string | undefined
   id: string

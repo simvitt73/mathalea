@@ -4,7 +4,8 @@
     resourceHasPlace,
     isStaticType,
     type JSONReferentielObject,
-    isCrpeType
+    isCrpeType,
+    EXAMS
   } from '../../../../../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
@@ -13,9 +14,14 @@
   import referentielStaticCH from '../../../../../../json/referentielStaticCH.json'
 
   import referentielBibliotheque from '../../../../../../json/referentielBibliotheque.json'
-  import type { HeaderProps } from '../../../../../../lib/types/ui'
-  import { globalOptions } from '../../../../../../lib/stores/generalStore'
+  import type { HeaderPropsForEleveStatic } from '../../../../../../lib/types/ui'
+  import {
+    globalOptions,
+    isMenuNeededForExercises
+  } from '../../../../../../lib/stores/generalStore'
   import HeaderExerciceVueEleve from '../../shared/HeaderExerciceVueEleve.svelte'
+  import ButtonCycle from '../../../../forms/ButtonCycle.svelte'
+  import ButtonText from '../../../../forms/ButtonText.svelte'
   // on rassemble les deux référentiel statique
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
@@ -52,21 +58,12 @@
               : resourceToDisplay.pngCor
         }
   let isCorrectionVisible = false
-  let isContentVisible = true
-  let headerExerciceProps: HeaderProps
+  let headerExerciceProps: HeaderPropsForEleveStatic
   if (resourceToDisplay !== null) {
     console.log(JSON.stringify(resourceToDisplay))
     headerExerciceProps = {
       title: '',
-      id: '',
-      isInteractif: false,
-      settingsReady: false,
-      isSettingsVisible: false,
-      interactifReady: false,
-      indiceExercice,
-      indiceLastExercice,
-      randomReady: false,
-      correctionReady: isSolutionAccessible
+      indiceExercice
     }
     if (resourceHasPlace(resourceToDisplay)) {
       headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
@@ -82,29 +79,49 @@
   function handleNoCorrectionAvailable () {
     noCorrectionAvailable = true
   }
+
+  function switchCorrectionVisible () {
+    isCorrectionVisible = !isCorrectionVisible
+  }
 </script>
 
 <HeaderExerciceVueEleve
   {...headerExerciceProps}
   {indiceExercice}
-  {indiceLastExercice}
-  on:clickCorrection={(event) => {
-    isCorrectionVisible = event.detail.isCorrectionVisible
-  }}
-  on:clickVisible={(event) => {
-    isContentVisible = event.detail.isVisible
-    isCorrectionVisible = event.detail.isVisible
-  }}
-  on:exerciseRemoved
+  showNumber={indiceLastExercice > 0 && $globalOptions.presMode !== 'un_exo_par_page'}
+  isMenuNeededForExercises={$isMenuNeededForExercises}
+  presMode={$globalOptions.presMode}
 />
 
-<div class="p-4">
-  {#if isContentVisible}
-    {#if exercice}
-      {#each exercice.png as url}
-        <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" />
-      {/each}
-    {/if}
+<div class="flex flex-col w-full mb-10 lg:mb-20">
+  <div
+    class="{resourceToDisplay?.typeExercice === 'static'
+      ? 'block'
+      : 'hidden'} ml-2 lg:ml-6 mb-2 lg-mb-6"
+  >
+    <ButtonCycle orderedEntries={['Indice', 'Réponse', 'Solution détaillée', 'Tout masquer']} />
+  </div>
+  <!-- Bouton pour examen -->
+  <div
+    class={$globalOptions.isSolutionAccessible &&
+    resourceToDisplay &&
+    EXAMS.includes(resourceToDisplay?.typeExercice)
+      ? 'flex ml-2 lg:ml-6 mb-2 lg-mb-6 pt-2 pb-6'
+      : 'hidden'}
+  >
+    <ButtonText
+      text={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
+      icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
+      class="py-[2px] px-2 text-[0.7rem] w-36"
+      inverted={true}
+      on:click={switchCorrectionVisible}
+    />
+  </div>
+  {#if exercice}
+    {#each exercice.png as url}
+      <img src={url} style="width: calc(45% * {zoomFactor}" alt="énoncé" class="max-lg:hidden ml-2 lg:ml-6 " />
+      <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" class="lg:hidden ml-2 lg:ml-6 " />
+    {/each}
   {/if}
 
   {#if $globalOptions.staticDisplayStyle.hint}
@@ -130,7 +147,7 @@
     {/if}
   {/if}
 
-  {#if $globalOptions.staticDisplayStyle.answer}
+  {#if $globalOptions.staticDisplayStyle.answer && isSolutionAccessible}
     {#if resourceToDisplay && Object.keys(resourceToDisplay).includes('pngReponse')}
       <div
         class="relative border-l-coopmaths-struct-light dark:border-l-coopmathsdark-warn border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
@@ -155,7 +172,7 @@
 
   {#if isCorrectionVisible}
     <div
-      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
+      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-12 lg:mt-6 mb-6 py-2 pl-4"
       id="correction{indiceExercice}"
     >
       <div class="container">
