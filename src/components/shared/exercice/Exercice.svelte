@@ -19,7 +19,14 @@
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
-  type ExerciseType = 'mathaleaVueProf' | 'mathaleaVueEleve' | 'static' | 'html' | 'svelte'
+  type ExerciseType =
+    | 'staticVueProf'
+    | 'staticVueEleve'
+    | 'mathaleaVueProf'
+    | 'mathaleaVueEleve'
+    | 'static'
+    | 'html'
+    | 'svelte'
 
   let exercise: Exercice
   let exerciseType: ExerciseType
@@ -27,7 +34,11 @@
 
   onMount(async () => {
     if (isStatic(paramsExercice.uuid)) {
-      exerciseType = 'static'
+      if ($globalOptions.v === 'eleve') {
+        exerciseType = 'staticVueEleve'
+      } else {
+        exerciseType = 'staticVueProf'
+      }
     } else if (isSvelte(paramsExercice.uuid)) {
       exerciseType = 'svelte'
       ComponentExercice = await getSvelteComponent(paramsExercice)
@@ -63,8 +74,19 @@
   }
 </script>
 
-{#if exerciseType === 'static'}
+{#if exerciseType === 'staticVueProf'}
   <ExerciceStatic
+    vue={'prof'}
+    {indiceExercice}
+    {indiceLastExercice}
+    uuid={paramsExercice.uuid}
+    zoomFactor={$globalOptions.z ?? '1'}
+    isSolutionAccessible={!!$globalOptions.isSolutionAccessible}
+    on:exerciseRemoved
+  />
+{:else if exerciseType === 'staticVueEleve'}
+  <ExerciceStatic
+    vue={'eleve'}
     {indiceExercice}
     {indiceLastExercice}
     uuid={paramsExercice.uuid}
@@ -81,29 +103,25 @@
     on:exerciseRemoved
   />
 {:else if exerciseType === 'svelte'}
-  <svelte:component
-    this={ComponentExercice}
-    {indiceExercice}
-    {indiceLastExercice}
-  />
+  <svelte:component this={ComponentExercice} {indiceExercice} {indiceLastExercice} />
 {:else if exerciseType === 'mathaleaVueEleve'}
-<ExerciceMathalea
-  vue='eleve'
-  {exercise}
-  exerciseIndex={indiceExercice}
-  {indiceLastExercice}
-  {isCorrectionVisible}
-  on:exerciseRemoved
-/>
+  <ExerciceMathalea
+    vue="eleve"
+    {exercise}
+    exerciseIndex={indiceExercice}
+    {indiceLastExercice}
+    {isCorrectionVisible}
+    on:exerciseRemoved
+  />
 {:else if exerciseType === 'mathaleaVueProf'}
-<ExerciceMathalea
-  vue='prof'
-  {exercise}
-  exerciseIndex={indiceExercice}
-  {indiceLastExercice}
-  {isCorrectionVisible}
-  on:exerciseRemoved
-/>
+  <ExerciceMathalea
+    vue="prof"
+    {exercise}
+    exerciseIndex={indiceExercice}
+    {indiceLastExercice}
+    {isCorrectionVisible}
+    on:exerciseRemoved
+  />
 {/if}
 
 <style>

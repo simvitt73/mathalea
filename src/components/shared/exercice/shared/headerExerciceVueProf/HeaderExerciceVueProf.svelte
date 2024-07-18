@@ -155,14 +155,25 @@
       <div class="flex flex-row justify-start items-center">
         <!-- <button
           class="mx-2 tooltip tooltip-left"
-          data-tip={isMessagesVisible ? "Masquer les messages" : "Montrer les messages"}
+          data-tip={isHintVisible ? "Masquer l'indice" : "Montrer l'indice"}
           type="button"
           on:click={() => {
-            isMessagesVisible = !isMessagesVisible
-            dispatch("clickMessages", { isMessagesVisible })
+            isHintVisible = !isHintVisible
+            dispatch("clickMessages", { isHintVisible })
           }}
         >
-          <i class="bx {isMessagesVisible ? 'bxs-bulb' : 'bx-bulb'}" />
+          <i class="bx {isHintVisible ? 'bxs-bulb' : 'bx-bulb'}" />
+        </button> -->
+        <!-- <button
+          class="mx-2 tooltip tooltip-left"
+          data-tip={isAnswerVisible ? "Masquer la réponse" : "Montrer la réponse"}
+          type="button"
+          on:click={() => {
+            isAnswerVisible = !isAnswerVisible
+            dispatch("clickMessages", { isAnswerVisible })
+          }}
+        >
+          <i class="bx {isAnswerVisible ? 'bxs-bulb' : 'bx-bulb'}" />
         </button> -->
         <button
           class="mx-2 tooltip tooltip-left tooltip-neutral {correctionExists &&
