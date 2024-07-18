@@ -30,7 +30,7 @@
   >
     <!-- titre -->
     <div
-      class="flex flex-row justify-start items-start"
+      class="flex flex-row justify-start items-center"
       id="exerciceHeader{indiceExercice}"
     >
       <div
@@ -42,7 +42,7 @@
           class="{isMenuNeededForExercises &&
           presMode !== 'liste_exos'
             ? 'hidden'
-            : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1"
+            : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal"
         >
           {indiceExercice + 1}
         </div>

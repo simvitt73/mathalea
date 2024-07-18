@@ -1,5 +1,4 @@
 <script lang="ts">
-  import HeaderExerciceVueProf from '../../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import { retrieveResourceFromUuid } from '../../../../../../lib/components/refUtils'
   import {
     resourceHasPlace,
@@ -16,6 +15,7 @@
   import referentielBibliotheque from '../../../../../../json/referentielBibliotheque.json'
   import type { HeaderProps } from '../../../../../../lib/types/ui'
   import { globalOptions } from '../../../../../../lib/stores/generalStore'
+  import HeaderExerciceVueEleve from '../../shared/HeaderExerciceVueEleve.svelte'
   // on rassemble les deux référentiel statique
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
@@ -84,7 +84,7 @@
   }
 </script>
 
-<HeaderExerciceVueProf
+<HeaderExerciceVueEleve
   {...headerExerciceProps}
   {indiceExercice}
   {indiceLastExercice}
