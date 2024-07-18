@@ -5,144 +5,56 @@
         "difficulte": "1",
         "titre": "Valeur décimale de fractions",
         "uuid": "2nd_fractions_001",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_001_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_001_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_001_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_001_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_001_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_001_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_001_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_001_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_002": {
         "difficulte": "1",
         "uuid": "2nd_fractions_002",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_002_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_002_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_002_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_002_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_002_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_002_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_002_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_002_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_003": {
         "difficulte": "1",
         "uuid": "2nd_fractions_003",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_003_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_003_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_003_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_003_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_003_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_003_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_003_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_003_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_004": {
         "difficulte": "1",
         "uuid": "2nd_fractions_004",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_004_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_004_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_004_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_004_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_004_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_004_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_004_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_004_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_005": {
         "difficulte": "1",
         "uuid": "2nd_fractions_005",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_005_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_005_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_005_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_005_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_005_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_005_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_005_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_005_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_006": {
         "difficulte": "1",
         "uuid": "2nd_fractions_006",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_006_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_006_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_006_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_006_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_006_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_006_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_006_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_006_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_007": {
         "difficulte": "1",
         "uuid": "2nd_fractions_007",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_007_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_007_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_007_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_007_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_007_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_007_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_007_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_007_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_008": {
         "difficulte": "1",
         "uuid": "2nd_fractions_008",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_008_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_008_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_008_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_008_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_008_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_008_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_008_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_008_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_009": {
         "difficulte": "1",
         "uuid": "2nd_fractions_009",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_009_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_009_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_009_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_009_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_009_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_009_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_009_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_009_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_010": {
         "difficulte": "2",
         "uuid": "2nd_fractions_010",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_010_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_010_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_010_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_010_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_010_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_010_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_010_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_010_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_011": {
         "difficulte": "2",
         "uuid": "2nd_fractions_011",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_011_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_011_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_011_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_011_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_011_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_011_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_011_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_011_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_012": {
@@ -161,27 +73,11 @@
       "2nd_fractions_013": {
         "difficulte": "2",
         "uuid": "2nd_fractions_013",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_013_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_013_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_013_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_013_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_013_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_013_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_013_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_013_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_014": {
         "difficulte": "2",
         "uuid": "2nd_fractions_014",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_014_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_014_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_014_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_014_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_014_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_014_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_014_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_014_solution.png",
         "typeExercice": "static"
       },
       "2nd_fractions_015": {
@@ -223,19 +119,6 @@
         "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_017_solution.png",
         "typeExercice": "static"
       },
-      "2nd_fractions_018": {
-        "difficulte": "3",
-        "uuid": "2nd_fractions_018",
-        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_018_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_018_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_018_indice.png",
-        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_solution.tex",
-        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_018_solution.png",
-        "typeExercice": "static"
-      },
       "2nd_fractions_019": {
         "difficulte": "2",
         "uuid": "2nd_fractions_019",
@@ -272,19 +155,22 @@
         "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_021_solution.tex",
         "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_021_solution.png",
         "typeExercice": "static"
+      },
+      "2nd_fractions_018": {
+        "difficulte": "3",
+        "uuid": "2nd_fractions_018",
+        "png": "static/2nde/calculs_numeriques/fractions/png/fractions_018_enonce.png",
+        "tex": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_enonce.tex",
+        "texReponse": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_reponse.tex",
+        "pngReponse": "static/2nde/calculs_numeriques/fractions/png/fractions_018_reponse.png",
+        "texIndice": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_indice.tex",
+        "pngIndice": "static/2nde/calculs_numeriques/fractions/png/fractions_018_indice.png",
+        "texCor": "static/2nde/calculs_numeriques/fractions/tex/fractions_018_solution.tex",
+        "pngCor": "static/2nde/calculs_numeriques/fractions/png/fractions_018_solution.png",
+        "typeExercice": "static"
       }
     },
     "Puissances": {
-      "2nd_calculs_numeriques_001": {
-        "difficulte": "1",
-        "uuid": "2nd_calculs_numeriques_001",
-        "typeExercice": "static"
-      },
-      "2nd_calculs_numeriques_002": {
-        "difficulte": "1",
-        "uuid": "2nd_calculs_numeriques_002",
-        "typeExercice": "static"
-      },
       "2nd_puissances_001": {
         "difficulte": "1",
         "titre": "Notation scientifique",
@@ -403,18 +289,6 @@
         "pngReponse": "static/2nde/calculs_numeriques/puissances/png/puissances_010_reponse.png",
         "texIndice": "static/2nde/calculs_numeriques/puissances/tex/puissances_010_indice.tex",
         "pngIndice": "static/2nde/calculs_numeriques/puissances/png/puissances_010_indice.png",
-        "typeExercice": "static"
-      },
-      "2nd_puissances_011": {
-        "difficulte": "2",
-        "titre": "Enchaînements",
-        "uuid": "2nd_puissances_011",
-        "png": "static/2nde/calculs_numeriques/puissances/png/puissances_011_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/puissances/tex/puissances_011_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/puissances/tex/puissances_011_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/puissances/png/puissances_011_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/puissances/tex/puissances_011_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/puissances/png/puissances_011_indice.png",
         "typeExercice": "static"
       },
       "2nd_puissances_014": {
@@ -548,6 +422,18 @@
         "pngCor": "static/2nde/calculs_numeriques/puissances/png/puissances_024_solution.png",
         "typeExercice": "static"
       },
+      "2nd_puissances_011": {
+        "difficulte": "2",
+        "titre": "Enchaînements",
+        "uuid": "2nd_puissances_011",
+        "png": "static/2nde/calculs_numeriques/puissances/png/puissances_011_enonce.png",
+        "tex": "static/2nde/calculs_numeriques/puissances/tex/puissances_011_enonce.tex",
+        "texReponse": "static/2nde/calculs_numeriques/puissances/tex/puissances_011_reponse.tex",
+        "pngReponse": "static/2nde/calculs_numeriques/puissances/png/puissances_011_reponse.png",
+        "texIndice": "static/2nde/calculs_numeriques/puissances/tex/puissances_011_indice.tex",
+        "pngIndice": "static/2nde/calculs_numeriques/puissances/png/puissances_011_indice.png",
+        "typeExercice": "static"
+      },
       "2nd_puissances_025": {
         "difficulte": "2",
         "titre": "Produit de puissances",
@@ -590,6 +476,18 @@
         "pngCor": "static/2nde/calculs_numeriques/puissances/png/puissances_027_solution.png",
         "typeExercice": "static"
       },
+      "2nd_puissances_029": {
+        "difficulte": "2",
+        "titre": "Ordre de grandeur",
+        "uuid": "2nd_puissances_029",
+        "png": "static/2nde/calculs_numeriques/puissances/png/puissances_029_enonce.png",
+        "tex": "static/2nde/calculs_numeriques/puissances/tex/puissances_029_enonce.tex",
+        "texReponse": "static/2nde/calculs_numeriques/puissances/tex/puissances_029_reponse.tex",
+        "pngReponse": "static/2nde/calculs_numeriques/puissances/png/puissances_029_reponse.png",
+        "texIndice": "static/2nde/calculs_numeriques/puissances/tex/puissances_029_indice.tex",
+        "pngIndice": "static/2nde/calculs_numeriques/puissances/png/puissances_029_indice.png",
+        "typeExercice": "static"
+      },
       "2nd_puissances_028": {
         "difficulte": "3",
         "titre": "Histoire sans suite",
@@ -602,18 +500,6 @@
         "pngIndice": "static/2nde/calculs_numeriques/puissances/png/puissances_028_indice.png",
         "texCor": "static/2nde/calculs_numeriques/puissances/tex/puissances_028_solution.tex",
         "pngCor": "static/2nde/calculs_numeriques/puissances/png/puissances_028_solution.png",
-        "typeExercice": "static"
-      },
-      "2nd_puissances_029": {
-        "difficulte": "2",
-        "titre": "Ordre de grandeur",
-        "uuid": "2nd_puissances_029",
-        "png": "static/2nde/calculs_numeriques/puissances/png/puissances_029_enonce.png",
-        "tex": "static/2nde/calculs_numeriques/puissances/tex/puissances_029_enonce.tex",
-        "texReponse": "static/2nde/calculs_numeriques/puissances/tex/puissances_029_reponse.tex",
-        "pngReponse": "static/2nde/calculs_numeriques/puissances/png/puissances_029_reponse.png",
-        "texIndice": "static/2nde/calculs_numeriques/puissances/tex/puissances_029_indice.tex",
-        "pngIndice": "static/2nde/calculs_numeriques/puissances/png/puissances_029_indice.png",
         "typeExercice": "static"
       }
     }
