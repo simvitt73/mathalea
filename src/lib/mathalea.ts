@@ -1,9 +1,9 @@
 import loadjs from 'loadjs'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 // import JSON uuidsRessources
 import uuidsRessources from '../json/uuidsRessources.json'
+// @ts-expect-error
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice'
@@ -27,7 +27,13 @@ import referentielStaticCH from '../json/referentielStaticCH.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
-import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types.js'
+import {
+  convertVueType,
+  type InterfaceGlobalOptions,
+  type InterfaceParams,
+  type StaticDisplayElements,
+  type VueType,
+} from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
@@ -530,6 +536,11 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let canSolAccess = true
   let canSolMode = 'gathered'
   let canIsInteractive = true
+  const staticDisplayStyleFromURL: StaticDisplayElements = {
+    hint: false,
+    answer: false,
+    solution: false,
+  }
   try {
     url = new URL(urlString)
   } catch (error) {
@@ -559,10 +570,10 @@ export function mathaleaUpdateExercicesParamsFromUrl(
           indiceExercice++
           if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, interactif: '0' }
           continue
+          }
+          isUuidFound = false
+          continue
         }
-        isUuidFound = false
-        continue
-      }
       isUuidFound = true
       indiceExercice++
       if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id, interactif: '0' }
@@ -576,7 +587,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
       }
       isUuidFound = true
       indiceExercice++
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
+     if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
     } else if (!isUuidFound) {
       continue
     } else if (entry[0] === 'n') {
@@ -651,7 +662,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   }
 
   exercicesParams.set(newExercisesParams)
-
+  
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
   }
@@ -681,25 +692,21 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   }
 
   /**
-     * es permet de résumer les réglages de la vue élève
-     * Il est de la forme 210110
-     * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
-     */
-  if (es && es.length === 6) {
+   * es permet de résumer les réglages de la vue élève
+   * Il est de la forme 210110
+   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
+   */
+  if (es) {
     presMode = presModeId[parseInt(es.charAt(0))]
     setInteractive = es.charAt(1)
     isSolutionAccessible = es.charAt(2) === '1'
     isInteractiveFree = es.charAt(3) === '1'
     oneShot = es.charAt(4) === '1'
     twoColumns = es.charAt(5) === '1'
-  } else if (es && es.length === 7) {
-    presMode = presModeId[parseInt(es.charAt(0))]
-    setInteractive = es.charAt(1)
-    isSolutionAccessible = es.charAt(2) === '1'
-    isInteractiveFree = es.charAt(3) === '1'
-    oneShot = es.charAt(4) === '1'
-    twoColumns = es.charAt(5) === '1'
-    isTitleDisplayed = es.charAt(6) === '1'
+    isTitleDisplayed = es.charAt(6) === '1' || es.charAt(6) === ''
+    staticDisplayStyleFromURL.hint = es.charAt(7) === '1'
+    staticDisplayStyleFromURL.answer = es.charAt(8) === '1'
+    staticDisplayStyleFromURL.solution = es.charAt(9) === '1'
   }
   return {
     v,
@@ -726,7 +733,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     done,
     beta,
     iframe,
-    answers
+    answers,
+    staticDisplayStyle: { ...staticDisplayStyleFromURL },
   }
 }
 
