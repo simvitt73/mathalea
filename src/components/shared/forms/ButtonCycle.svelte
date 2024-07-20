@@ -7,7 +7,10 @@
     } else {
       current = 0
     }
+    currentState = orderedEntries.at(current - 1)
   }
+
+  export let currentState = orderedEntries[current]
 </script>
 
 <button

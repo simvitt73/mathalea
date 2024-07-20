@@ -41,9 +41,19 @@
   export let indiceLastExercice: number
   export let zoomFactor: string
   export let isSolutionAccessible: boolean
+  let currentState = 'Réponse'
+  let orderedEntries: Array<'Indice' |'Réponse' |'Solution détaillée' |'Tout masquer'> = []
   const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
   const resourceToDisplay =
     isStaticType(foundResource) || isCrpeType(foundResource) ? { ...foundResource } : null
+  
+  if (Object.keys(resourceToDisplay).includes('pngIndice')) {
+    orderedEntries.push('Indice')
+  }
+  if (Object.keys(resourceToDisplay).includes('pngReponse')) {
+    orderedEntries.push('Réponse')
+  }
+  orderedEntries.push('Solution détaillée')
   const exercice =
     resourceToDisplay === null
       ? null
@@ -99,13 +109,14 @@
       ? 'block'
       : 'hidden'} ml-2 lg:ml-6 mb-2 lg-mb-6"
   >
-    <ButtonCycle orderedEntries={['Indice', 'Réponse', 'Solution détaillée', 'Tout masquer']} />
+    <ButtonCycle orderedEntries={orderedEntries} bind:currentState={currentState} />
   </div>
   <!-- Bouton pour examen -->
   <div
     class={$globalOptions.isSolutionAccessible &&
     resourceToDisplay &&
-    EXAMS.includes(resourceToDisplay?.typeExercice)
+    EXAMS.includes(resourceToDisplay?.typeExercice
+    )
       ? 'flex ml-2 lg:ml-6 mb-2 lg-mb-6 pt-2 pb-6'
       : 'hidden'}
   >
@@ -117,6 +128,8 @@
       on:click={switchCorrectionVisible}
     />
   </div>
+  <div>
+  </div>
   {#if exercice}
     {#each exercice.png as url}
       <img src={url} style="width: calc(45% * {zoomFactor}" alt="énoncé" class="max-lg:hidden ml-2 lg:ml-6 " />
@@ -124,7 +137,7 @@
     {/each}
   {/if}
 
-  {#if $globalOptions.staticDisplayStyle.hint}
+  {#if currentState === 'Indice' && $globalOptions.staticDisplayStyle.hint}
     {#if resourceToDisplay && Object.keys(resourceToDisplay).includes('pngIndice')}
       <div
         class="relative border-l-coopmaths-warn-800 dark:border-l-coopmathsdark-warn border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
@@ -147,7 +160,7 @@
     {/if}
   {/if}
 
-  {#if $globalOptions.staticDisplayStyle.answer && isSolutionAccessible}
+  {#if currentState === 'Solution détaillée' && $globalOptions.staticDisplayStyle.answer && isSolutionAccessible}
     {#if resourceToDisplay && Object.keys(resourceToDisplay).includes('pngReponse')}
       <div
         class="relative border-l-coopmaths-struct-light dark:border-l-coopmathsdark-warn border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
@@ -170,7 +183,7 @@
     {/if}
   {/if}
 
-  {#if isCorrectionVisible}
+  {#if currentState === 'Réponse' && isCorrectionVisible}
     <div
       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-12 lg:mt-6 mb-6 py-2 pl-4"
       id="correction{indiceExercice}"
