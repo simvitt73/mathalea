@@ -8,7 +8,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Classer des événements compatibles, incompatibles, contraires.'
+export const titre = 'Classifier des événements contraires ou non contraires (voire compatibles/ incompatibles).'
 
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '6a750'
@@ -38,6 +38,7 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
     this.spacing = 1.5
     this.spacingCorr = 1.5
+    this.nbQuestionsModifiable = false
 
     this.consigne = this.sup === 1 ? 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu’ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
@@ -79,10 +80,10 @@ export default class nomExercice extends Exercice {
         case 'type3':
           if (k === 1) {
             texte += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('contraires') + '. (et donc incompatibles)<br>'
           } else {
             texte += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('contraires') + '. (et donc incompatibles)<br>'
           }
           bonneReponse = 'contraires'
           break
@@ -109,20 +110,28 @@ export default class nomExercice extends Exercice {
         case 'type6':
           if (k === 1) {
             texte += numAlpha(i) + 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texteCorr += numAlpha(i) + 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('contraires')
+            if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
+            texteCorr += '.<br>'
           } else {
             texte += numAlpha(i) + 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texteCorr += numAlpha(i) + 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('contraires')
+            if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
+            texteCorr += '.<br>'
           }
           bonneReponse = 'contraires'
           break
         case 'type7':
           if (k === 1) {
             texte += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texteCorr += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont ' + texteEnCouleurEtGras('contraires')
+            if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
+            texteCorr += '.<br>'
           } else {
             texte += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont...<br>'
             texteCorr += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
+            texteCorr += '.<br>'
           }
           bonneReponse = 'contraires'
           break
@@ -144,15 +153,15 @@ export default class nomExercice extends Exercice {
             texte += numAlpha(i) + `Les événements "Obtenir une carte autre qu'un ${nombre} " et "Obtenir un ${nombre}" sont...<br>`
             texteCorr += numAlpha(i) + `Les événements "Obtenir une carte autre qu'un ${nombre} " et "Obtenir un ${nombre}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           }
-          bonneReponse = 'contraires'
+          bonneReponse = 'non contraires'
           break
         case 'type10':
           if (k === 2) {
             texte += numAlpha(i) + `Les événements "Ne pas obtenir ${valeur}" et "Obtenir ${valeur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Ne pas obtenir ${figure}" et "Obtenir ${figure}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texteCorr += numAlpha(i) + `Les événements "Ne pas obtenir ${figure}" et "Obtenir ${figure}" sont ` + texteEnCouleurEtGras('contraires') + ' (et donc incompatibles).<br>'
           } else {
             texte += numAlpha(i) + `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texteCorr += numAlpha(i) + `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont ` + texteEnCouleurEtGras('contraires') + ' (et donc incompatibles).<br>'
           }
           bonneReponse = 'contraires'
           break
