@@ -77,7 +77,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
     this.reinit()
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       const { a, b, A, aSurA, moinsBSurA, phi } = listeDeValeurs[i]
-      const w = randint(1, 5) * choice([-1, 1])
+      const w = randint(1, 5)
       const moinsB = b === '1' ? '-' : b === '-1' ? '+' : b.startsWith('-') ? `+${b.substring(1)}` : `-${b}`
       let texte = `Soit la fonction $f(t)=${a === '1' ? '' : a === '-1' ? '-' : a}\\cos(${rienSi1(w)}t)${moinsB}\\sin(${rienSi1(w)}t)$.<br>`
       texte += `Exprimer $f(t)$ sous la forme $Acos(${rienSi1(w)}t+\\phi)$.`
