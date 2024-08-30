@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -29,22 +29,25 @@ export const refs = {
   'fr-fr': ['4C21-1'],
   'fr-ch': ['9NO13-7']
 }
-export default function ExerciceAdditionnerDesFractions () {
-  Exercice.call(this)
-  this.sup = 2 // Niveau de difficulté
-  this.sup2 = false // Avec ou sans relatifs
-  this.titre = titre
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
+export default class ExerciceAdditionnerDesFractions extends Exercice {
+  constructor () {
+    super()
+    this.sup = 2 // Niveau de difficulté
+    this.sup2 = false // Avec ou sans relatifs
+    this.sup3 = false // Fraction irréductible attendue
+    this.titre = titre
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+    this.nbColsCorr = 1
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire3CaseACocher = ['Fraction irréductible attendue']
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
+  nouvelleVersion () {
     const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
+    this.consigne = this.sup3 ? "Calculer et donner le résultat sous la forme d'une fraction simplifiée au maximum." : 'Calculer.'
 
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
@@ -167,6 +170,4 @@ export default function ExerciceAdditionnerDesFractions () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
 }
