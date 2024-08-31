@@ -6,14 +6,17 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { context } from 'src/modules/context'
+import { fonctionComparaison } from 'src/lib/interactif/comparisonFunctions'
 
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '31/08/2024'
 /**
  * Effectuer la somme de deux fractions
  *
@@ -21,7 +24,6 @@ export const amcType = 'AMCNum'
  * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
  * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
  * @author Rémi Angot
- * 4C21-1
  */
 export const uuid = '5e8fc'
 export const ref = '4C21-1'
@@ -52,8 +54,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
-    }
-    if (this.sup === 2) {
+    } else {
       typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -157,13 +158,29 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      setReponse(this, i, reponse, {
-        formatInteractif: 'fraction',
-        digits: 5,
-        digitsNum: 3,
-        digitsDen: 2,
-        signe: true
-      })
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionSimplifiee: !this.sup3, fractionIrreductible: this.sup3 } } })
+      texte += ajouteFeedback(this, i)
+
+      if (context.isAmc) {
+        texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+        this.autoCorrection[i] = {
+          enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+          propositions: [
+            {
+              texte: '' // Si vide, le texte est la correction de l'exercice.
+            }
+          ],
+          reponse: {
+            valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            param: {
+              digits: 5,
+              digitsNum: 3,
+              digitsDen: 2,
+              signe: true
+            }
+          }
+        }
+      }
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
