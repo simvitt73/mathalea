@@ -11,7 +11,6 @@ import Hms from '../../modules/Hms'
 import type { Expression } from 'mathlive'
 import type { ParserOptions } from 'svelte/types/compiler/interfaces'
 import { areSameArray } from '../outils/arrayOutils'
-import { isNumber } from 'mathjs'
 
 const engine = new ComputeEngine()
 export default engine
@@ -1290,10 +1289,10 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
  */
 export function ensembleNombres (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
-  let splitInput = clean(input)
-  if (splitInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
-  if (splitInput[splitInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
-  splitInput = splitInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+  const cleanInput = clean(input)
+  if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
+  if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
+  const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
 
   const splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
 
