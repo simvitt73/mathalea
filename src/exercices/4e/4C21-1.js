@@ -7,9 +7,9 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { context } from 'src/modules/context'
-import { fonctionComparaison } from 'src/lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { context } from '../../modules/context'
 
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
@@ -49,8 +49,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
 
   nouvelleVersion () {
     const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
-    this.consigne = this.sup3 ? "Calculer et donner le résultat sous la forme d'une fraction simplifiée au maximum." : 'Calculer.'
-
+    this.consigne = `Calculer et donner le résultat sous la forme d'une fraction${this.sup3 ? ' simplifiée au maximum.' : '.'}`
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
