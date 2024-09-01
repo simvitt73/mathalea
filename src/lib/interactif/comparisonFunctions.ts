@@ -28,6 +28,7 @@ export type OptionsComparaisonType = {
   operationSeulementEtNonCalcul?: boolean
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
+  kUplets ? :boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -505,6 +506,7 @@ export function fonctionComparaison (
     operationSeulementEtNonCalcul, // Documenté
     calculSeulementEtNonOperation, // Documenté
     ensembleDeNombres,
+    kUplets,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -529,6 +531,7 @@ export function fonctionComparaison (
     operationSeulementEtNonCalcul: false,
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
+    kUplets: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -562,8 +565,8 @@ export function fonctionComparaison (
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
-  if (ensembleDeNombres) return ensembleNombres(input, goodAnswer)
-  if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFractionSimplifiee(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
+  if (ensembleDeNombres || kUplets) return ensembleNombres(input, goodAnswer, { kUplets }) // ensembleDeNombres est non trié alors que kUplets nécessite le tri
+  if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
     expressionsForcementReduites,
@@ -586,7 +589,7 @@ function customCanonical (
   expr: BoxedExpression,
   {
     expressionsForcementReduites = true,
-    fractionIrreductible = false,
+    fractionIrreductible = false, // SANS DOUTE INUTILE MAINTENANT. A VERIFIER
     operationSeulementEtNonCalcul = false,
     calculSeulementEtNonOperation = false
   } = {}
@@ -657,7 +660,7 @@ function customCanonical (
  * @return ResultType
  */
 
-function comparaisonFractionSimplifiee (
+function comparaisonFraction (
   input: string,
   goodAnswer: string, {
     fractionReduite = false,
@@ -1298,7 +1301,10 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
  * @return ResultType
  * @author Eric Elter
  */
-export function ensembleNombres (input: string, goodAnswer: string): ResultType {
+export function ensembleNombres (input: string, goodAnswer: string, {
+  kUplets = false
+}
+= {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input)
   if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
@@ -1328,7 +1334,9 @@ export function ensembleNombres (input: string, goodAnswer: string): ResultType 
 
   const inputSorted = sortMathExpressions(splitInput)
   const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
-  const hasDifferentValues = inputSorted.some((value, index) => !engine.parse(value).isSame(engine.parse(goodAnswerSorted[index])))
+  const hasDifferentValues = kUplets
+    ? inputSorted.every((value, index) => !engine.parse(value).isSame(engine.parse(goodAnswerSorted[index])))
+    : inputSorted.some((value, index) => !engine.parse(value).isSame(engine.parse(goodAnswerSorted[index])))
 
   if (hasDifferentValues) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
