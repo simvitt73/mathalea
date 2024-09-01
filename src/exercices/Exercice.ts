@@ -101,6 +101,7 @@ export default class Exercice {
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
+  dragAndDrops?: DragAndDrop[]
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number
