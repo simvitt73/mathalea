@@ -2,6 +2,8 @@ import loadjs from 'loadjs'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
+// import JSON uuidsRessources
+import uuidsRessources from '../json/uuidsRessources.json'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice'
@@ -30,6 +32,7 @@ import { delay } from './components/time.js'
 import { contraindreValeur } from '../modules/outils.js'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange.js'
 import { resizeContent } from './components/sizeTools.js'
+import { isStatic } from './components/exercisesUtils'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -68,7 +71,7 @@ export async function getSvelteComponent (paramsExercice: InterfaceParams) {
       return (await import(`../exercicesInteractifs/${directory === undefined ? '' : `${directory}/`}${filename.replace('.svelte', '')}.svelte`)).default
     }
   } catch (err) {
-    console.log(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier  ${directory === undefined ? '' : `${directory}/`}${filename}`)
+    console.error(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier  ${directory === undefined ? '' : `${directory}/`}${filename}`)
   }
   throw new Error(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier ${directory === undefined ? '' : `${directory}/`}${filename}`)
 }
@@ -123,8 +126,8 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
       attempts++
       window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
       if (attempts === maxAttempts) {
-        console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
-        console.log(error)
+        console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+        console.error(error)
         const exercice = new Exercice()
         exercice.titre = ERROR_MESSAGE
         exercice.nouvelleVersion = () => {
@@ -187,8 +190,8 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       attempts++
       window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
       if (attempts === maxAttempts) {
-        console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
-        console.log(error)
+        console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+        console.error(error)
         const exercice = new Exercice()
         exercice.titre = ERROR_MESSAGE
         exercice.nouvelleVersion = () => {
@@ -203,8 +206,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
 
 /**
  * Charge tous les exercices et les paramètres
- * en fonction du store exercicesParams
- *
+ * en fonction du store exercicesParams.
  */
 export async function mathaleaGetExercicesFromParams (params: InterfaceParams[]): Promise<TypeExercice[]> {
   const exercices = []
@@ -264,7 +266,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
 }
 
 /**
- * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice
+ * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice.
  */
 export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param: InterfaceParams) {
   exercice.uuid = param.uuid
@@ -275,6 +277,7 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
   if (param.sup2) exercice.sup2 = mathaleaHandleStringFromUrl(param.sup2)
   if (param.sup3) exercice.sup3 = mathaleaHandleStringFromUrl(param.sup3)
   if (param.sup4) exercice.sup4 = mathaleaHandleStringFromUrl(param.sup4)
+  if (param.sup5) exercice.sup5 = mathaleaHandleStringFromUrl(param.sup5)
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
   if (param.cols !== undefined && param.cols > 1) exercice.nbCols = param.cols
@@ -287,9 +290,9 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
 /**
  * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiées par
  * les enseignants pour pparamétrer les exercices.
- * Ces paramètres peuvent être des string, des booléens ou des number mais que ce soit dans l'url
+ * Ces paramètres peuvent être des strings, des booléens ou des number mais que ce soit dans l'url
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
- * d'un des trois types vers string
+ * d'un des trois types vers string.
  */
 export function mathaleaHandleSup (param: boolean | string | number): string {
   if (typeof param === 'string') {
@@ -302,11 +305,11 @@ export function mathaleaHandleSup (param: boolean | string | number): string {
 }
 
 /**
- * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiées par
- * les enseignants pour pparamétrer les exercices.
- * Ces paramètres peuvent être des string, des booléens ou des number mais que ce soit dans l'url
+ * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiés par
+ * les enseignants pour paramétrer les exercices.
+ * Ces paramètres peuvent être des strings, des booléens ou des numbers mais que ce soit dans l'url
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
- * su string vers booléen ou number
+ * du string vers booléen ou number.
  */
 export function mathaleaHandleStringFromUrl (text: string): boolean | number | string {
   if (text === 'true' || text === 'false') {
@@ -370,6 +373,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
     if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
     if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
+    if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
     if (ex.alea != null) url.searchParams.append('alea', ex.alea)
     if (ex.interactif === '1') url.searchParams.append('i', '1')
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
@@ -395,6 +399,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let nbVues: 1 | 2 | 3 | 4 = 1
   let flow: 0 | 1 | 2 = 0
   let screenBetweenSlides
+  let pauseAfterEachQuestion
   let sound: 0 | 1 | 2 | 3 | 4 = 0
   let shuffle = false
   let manualMode
@@ -432,7 +437,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   url = decrypt(url)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
-  const newListeExercice: InterfaceParams[] = []
+  const newExercisesParams: InterfaceParams[] = []
   let previousEntryWasUuid = false
   for (const entry of entries) {
     if (entry[0] === 'uuid') {
@@ -441,36 +446,38 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
         return currentRefToUuid[key] === uuid
       })
-      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
-      newListeExercice[indiceExercice].uuid = uuid // string
-      newListeExercice[indiceExercice].id = id // string
-      newListeExercice[indiceExercice].interactif = '0' // par défaut
+      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id }
+      newExercisesParams[indiceExercice].uuid = uuid // string
+      newExercisesParams[indiceExercice].id = id // string
+      newExercisesParams[indiceExercice].interactif = '0' // par défaut
     } else if (entry[0] === 'id' && !previousEntryWasUuid) {
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       indiceExercice++
       const id = entry[1]
       const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
-      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
+      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
     } else if (entry[0] === 'n') {
-      newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
+      newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
     } else if (entry[0] === 'd') {
-      newListeExercice[indiceExercice].duration = parseInt(entry[1]) // int
+      newExercisesParams[indiceExercice].duration = parseInt(entry[1]) // int
     } else if (entry[0] === 's') {
-      newListeExercice[indiceExercice].sup = entry[1]
+      newExercisesParams[indiceExercice].sup = entry[1]
     } else if (entry[0] === 's2') {
-      newListeExercice[indiceExercice].sup2 = entry[1]
+      newExercisesParams[indiceExercice].sup2 = entry[1]
     } else if (entry[0] === 's3') {
-      newListeExercice[indiceExercice].sup3 = entry[1]
+      newExercisesParams[indiceExercice].sup3 = entry[1]
     } else if (entry[0] === 's4') {
-      newListeExercice[indiceExercice].sup4 = entry[1]
+      newExercisesParams[indiceExercice].sup4 = entry[1]
+    } else if (entry[0] === 's5') {
+      newExercisesParams[indiceExercice].sup5 = entry[1]
     } else if (entry[0] === 'alea') {
-      newListeExercice[indiceExercice].alea = entry[1]
+      newExercisesParams[indiceExercice].alea = entry[1]
     } else if (entry[0] === 'cols') {
-      newListeExercice[indiceExercice].cols = parseInt(entry[1])
+      newExercisesParams[indiceExercice].cols = parseInt(entry[1])
     } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
-      newListeExercice[indiceExercice].interactif = entry[1]
+      newExercisesParams[indiceExercice].interactif = entry[1]
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
-      newListeExercice[indiceExercice].cd = entry[1]
+      newExercisesParams[indiceExercice].cd = entry[1]
     } else if (entry[0] === 'v') {
       v = convertVueType(entry[1])
     } else if (entry[0] === 'recorder') {
@@ -516,9 +523,9 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
   }
-  exercicesParams.update(() => {
-    return newListeExercice
-  })
+
+  exercicesParams.set(newExercisesParams)
+
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
   }
@@ -545,6 +552,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     screenBetweenSlides = ds.charAt(2) === '1'
     shuffle = ds.charAt(4) === '1'
     manualMode = ds.charAt(5) === '1'
+    pauseAfterEachQuestion = ds.charAt(6) === '1'
   }
 
   /**
@@ -576,6 +584,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     nbVues,
     flow,
     screenBetweenSlides,
+    pauseAfterEachQuestion,
     sound,
     shuffle,
     manualMode,
@@ -608,6 +617,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
   exercice.interactif = isInteractif
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
     const compare = exercice.compare == null ? calculCompare : exercice.compare
+    const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
@@ -615,21 +625,21 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         let reponse = {}
         if (typeof exercice.reponse !== 'string') {
           if (exercice.reponse instanceof FractionEtendue) {
-            reponse = { reponse: { value: exercice.reponse.texFraction, compare } }
+            reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
           } else if (exercice.reponse instanceof Decimal) {
-            reponse = { reponse: { value: exercice.reponse.toString(), compare } }
+            reponse = { reponse: { value: exercice.reponse.toString(), compare, options } }
           } else if (exercice.reponse instanceof Grandeur) {
-            reponse = { reponse: { value: exercice.reponse, compare } }
+            reponse = { reponse: { value: exercice.reponse, compare, options } }
           } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
             reponse = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             reponse = { reponse: { value: exercice.reponse[0] } }
           } else {
             window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
-            reponse = { reponse: { value: String(exercice.reponse), compare } }
+            reponse = { reponse: { value: String(exercice.reponse), compare, options } }
           }
         } else {
-          reponse = { reponse: { value: exercice.reponse, compare } }
+          reponse = { reponse: { value: exercice.reponse, compare, options } }
         }
         handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
       } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
@@ -739,30 +749,52 @@ export function mathaleaHandleComponentChange (oldComponent: string, newComponen
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    // La réponse correspond à un champs texte
+    // La réponse correspond à un champs texte ?
     const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
     if (field !== null) {
       if ('setValue' in field) {
         // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
         field.setValue(answers[answer])
-      }
-    } else {
-      // La réponse correspond à une case à cocher qui doit être cochée
-      const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-      if (checkBox !== null && answers[answer] === '1') {
-        checkBox.checked = true
       } else {
-      // La réponse correspond à une liste déroulante
-        const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-        if (select !== null) {
-          select.value = answers[answer]
-        }
+        // C'est un champ texte classique
+        field.value = answers[answer]
       }
+      continue
+    }
+    // La réponse correspond à une case à cocher qui doit être cochée ?
+    const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+    if (checkBox !== null && answers[answer] === '1') {
+      checkBox.checked = true
+      continue
+    }
+    // La réponse correspond à une liste déroulante ?
+    const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+    if (select !== null) {
+      select.value = answers[answer]
+      continue
     }
     if (answer.includes('apigeom')) {
       // La réponse correspond à une figure
       const event = new CustomEvent(answer, { detail: answers[answer] })
       document.dispatchEvent(event)
+      continue
+    }
+    if (answer.includes('rectangle')) {
+      // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...
+      try {
+        // On n'est pas sûr que la chaine `div#${answer}` soit un sélecteur valide
+        const rectangle = document.querySelector(`div#${answer}`)
+        if (rectangle !== null) {
+          const etiquette = document.querySelector(`div#${answers[answer]}`)
+          if (etiquette !== null) {
+            // Remet l'étiquette à la bonne réponse
+            rectangle.appendChild(etiquette)
+          }
+          continue
+        }
+      } catch (error) {
+        console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import { homothetie, rotation, similitude } from '../../lib/2d/transformations.j
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { calculer } from '../../modules/outilsMathjs.js'
+import { calculer } from '../../modules/outilsMathjs.ts'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
@@ -130,7 +130,7 @@ export class Rose {
             return a + b // math.add(a, b)
           }
         } else {
-          return calculer(`${a.toString()}+${b.toString()}`, null).printResult
+          return calculer(`${String(a).replace('\\times', '*')}+${String(b).replace('\\times', '*')}`, null).printResult
         }
       case 'multiplication':
         if (this.typeDonnees !== 'litteraux') {
@@ -140,7 +140,7 @@ export class Rose {
             return a * b
           }
         } else {
-          return calculer(`(${String(a)}) * (${String(b)})`, null).printResult
+          return calculer(`(${String(a).replace('\\times', '*')}) * (${String(b).replace('\\times', '*')})`, null).printResult
         }
     }
   }

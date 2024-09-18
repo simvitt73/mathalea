@@ -38,6 +38,11 @@ const basicKeys = {
     display: '$\\sqrt{\\square}$',
     insert: '\\sqrt{#1}'
   },
+  SQRTN: {
+    // eslint-disable-next-line no-useless-escape
+    display: '$\\sqrt[\\square]{\\square}$',
+    insert: '\\sqrt[#1]{#2}'
+  },
   SQ: {
     display: '$\\square^2$',
     insert: '^2'
@@ -49,6 +54,18 @@ const basicKeys = {
   POW: {
     display: '$\\square^\\square$',
     insert: '#@^{#0}'
+  },
+  'e^': {
+    display: '$e^{\\square}$',
+    insert: 'e^{#0}'
+  },
+  LOG: {
+    display: '$\\log(\\square)$',
+    insert: '\\log(#0)'
+  },
+  LN: {
+    display: '$\\ln(\\square)$',
+    insert: '\\ln(#0)'
   },
   INDICE: {
     display: '$\\square_\\square$',
@@ -92,7 +109,7 @@ const basicKeys = {
     insert: '\\rparen'
   },
   PARENTHESES: {
-    display: '()',
+    display: '$(\\square)$',
     insert: '\\lparen#0\\rparen'
   },
   '{': {
@@ -364,6 +381,10 @@ const basicKeys = {
     display: '$\\mathbb{Q}$',
     insert: '\\mathbb{Q}'
   },
+  DECIMAL: {
+    display: '$\\mathbb{D}$',
+    insert: '\\mathbb{D}'
+  },
   REL: {
     display: '$\\mathbb{Z}$',
     insert: '\\mathbb{Z}'
@@ -421,12 +442,109 @@ const basicKeys = {
   FAUX: {
     display: '$\\text{Faux}$',
     insert: '\\text{Faux}'
+  },
+  // =================== numération
+  MILLION: {
+    display: '$\\tiny\\text{million}$',
+    insert: '\\text{million}'
+  },
+  MILLIARD: {
+    display: '$\\tiny\\text{milliard}$',
+    insert: '\\text{milliard}'
+  },
+  MILLE: {
+    display: '$\\tiny\\text{mille}$',
+    insert: '\\text{mille}'
+  },
+  CENTAINE: {
+    display: '$\\tiny\\text{centaine}$',
+    insert: '\\text{centaine}'
+  },
+  DIZAINE: {
+    display: '$\\tiny\\text{dizaine}$',
+    insert: '\\text{dizaine}'
+  },
+  UNITE: {
+    display: '$\\tiny\\text{unité}$',
+    insert: '\\text{unité}'
+  },
+  DE: {
+    display: '$\\tiny\\text{ de }$',
+    insert: '\\text{ de }'
+  },
+  DIXIEME: {
+    display: '$\\tiny\\text{dixième}$',
+    insert: '\\text{dixième}'
+  },
+  CENTIEME: {
+    display: '$\\tiny\\text{centième}$',
+    insert: '\\text{centième}'
+  },
+  MILLIEME: {
+    display: '$\\tiny\\text{millième}$',
+    insert: '\\text{millième}'
+  },
+  DIX_MILLIEME: {
+    display: '$\\tiny\\text{dix-millième}$',
+    insert: '\\text{dix-millième}'
+  },
+  CENT_MILLIEME: {
+    display: '$\\tiny\\text{cent-millième}$',
+    insert: '\\text{cent-millième}'
+  },
+  MILLIONIEME: {
+    display: '$\\tiny\\text{millionième}$',
+    insert: '\\text{millionième}'
+  },
+  HYPHEN: {
+    display: '$\\tiny\\text{-}$',
+    insert: '\\text{-}'
+  },
+  DIX: {
+    display: '$\\tiny\\text{dix}$',
+    insert: '\\text{dix}'
+  },
+  VINGT: {
+    display: '$\\tiny\\text{vingt}$',
+    insert: '\\text{vingt}'
+  },
+  TRENTE: {
+    display: '$\\tiny\\text{trente}$',
+    insert: '\\text{trente}'
+  },
+  QUARANTE: {
+    display: '$\\tiny\\text{quarante}$',
+    insert: '\\text{quarante}'
+  },
+  CINQUANTE: {
+    display: '$\\tiny\\text{cinquante}$',
+    insert: '\\text{cinquante}'
+  },
+  SOIXANTE: {
+    display: '$\\tiny\\text{soixante}$',
+    insert: '\\text{soixante}'
+  },
+  SOIXANTE_DIX: {
+    display: '$\\tiny\\text{soixante-dix}$',
+    insert: '\\text{soixante-dix}'
+  },
+  QUATRE_VINGT: {
+    display: '$\\tiny\\text{quatre-vingt}$',
+    insert: '\\text{quatre-vingt}'
+  },
+  QUATRE_VINGT_DIX: {
+    display: '$\\tiny\\text{quatre-vingt-dix}$',
+    insert: '\\text{quatre-vingt-dix}'
+  },
+  CENT: {
+    display: '$\\tiny\\text{cent}$',
+    insert: '\\text{cent}'
   }
 }
 
 const massUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of massUnits.units) {
-  const k = 'MASS' + unit.symbol
+  const k = `MASS ${unit.symbol}`
   massUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -435,7 +553,7 @@ for (const unit of massUnits.units) {
 
 const lengthUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of lengthUnits.units) {
-  const k = 'LENGTH' + unit.symbol
+  const k = `LENGTH ${unit.symbol}`
   lengthUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -444,7 +562,7 @@ for (const unit of lengthUnits.units) {
 
 const areaUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
-  const k = 'AREA' + unit.symbol
+  const k = `AREA ${unit.symbol}`
   areaUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -453,7 +571,7 @@ for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
 
 const volumeUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of volumeMetricUnits.units) {
-  const k = 'VOLUME' + unit.symbol
+  const k = `VOLUME' ${unit.symbol}`
   volumeUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -462,7 +580,7 @@ for (const unit of volumeMetricUnits.units) {
 
 const capacityUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of volumeOtherUnits.units) {
-  const k = 'CAPACITY' + unit.symbol
+  const k = `CAPACITY ${unit.symbol}`
   capacityUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert

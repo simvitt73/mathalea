@@ -69,7 +69,7 @@
 
   async function updateExercises () {
     setSlidesContent(exercises)
-    adjustQuestionsOrder()
+    if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
     updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
@@ -90,7 +90,7 @@
         }
         for (let idVue = 0; idVue < nbOfVues; idVue++) {
           if (idVue > 0 && isIntegerInRange0to3(idVue)) reroll(exercise, idVue)
-          const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : '')
+          const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.consigne + exercise.introduction) : '')
           const question = mathaleaFormatExercice(exercise.listeQuestions[i])
           const correction = mathaleaFormatExercice(exercise.listeCorrections[i])
           const { svgs: questionSvgs, text: questionText } = splitSvgFromText(question)
@@ -185,7 +185,8 @@
         sup: mathaleaHandleSup(exercice.sup),
         sup2: mathaleaHandleSup(exercice.sup2),
         sup3: mathaleaHandleSup(exercice.sup3),
-        sup4: mathaleaHandleSup(exercice.sup4)
+        sup4: mathaleaHandleSup(exercice.sup4),
+        sup5: mathaleaHandleSup(exercice.sup5)
       })
     }
     exercicesParams.set(newParams)

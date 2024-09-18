@@ -16,10 +16,11 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import Hms from '../../../modules/Hms'
 import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -267,7 +268,6 @@ export default function CourseAuxNombresSpeciale2024 () {
     let choixQ1 = 0; let choixQ2 = 0 // EE :Pour éviter qu'on ait la même question en Q1 et Q2
 
     for (let i = 0, index = 0, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 100;) { //
-      // console.log(i, index, cpt)
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
@@ -704,7 +704,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           reponse = new FractionEtendue(2024, d).simplifie()
           texte = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$`
           texteCorr = `$\\dfrac{${texNombre(n)}}{${texNombre(d)}}=${miseEnEvidence(reponse)}$`
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -782,7 +782,7 @@ export default function CourseAuxNombresSpeciale2024 () {
             texte = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n1)}}{${texNombre(d2)}}$`
             texteCorr = `$\\dfrac{${texNombre(n1)}}{${texNombre(d2)}}=${miseEnEvidence(reponse)}$`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -1805,7 +1805,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           ${a > 0 ? `$\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}$` : `$\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}$`}`
           texteCorr = ` $${a > 0 ? `\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}` : `\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}`}
             =${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(2024)}}`)}$`
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -2497,7 +2497,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           texte += !this.interactif ? '<br>' : ajouteChampTexteMathLive(this, index, 'inline largeur01')
           texte += `<br>$${Nombre1[0]}$${sp(4)};${sp(4)}  $${Nombre1[1]}$${sp(4)};${sp(4)}  $${Nombre1[2]}$`
           texteCorr = `$${f1.texFraction} > 1$ et $${f2.texFraction}<1$, donc le plus ${choix ? 'grand' : 'petit'} nombre est : $${miseEnEvidence(reponse)}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
           this.listeCanEnonces.push(`Quel est le plus ${choix ? 'grand' : 'petit'} nombre ?<br>
           Entourer ce nombre.`)
           this.listeCanReponsesACompleter.push(`$${Nombre1[0]}$${sp(4)};${sp(4)}  $${Nombre1[1]}$${sp(4)};${sp(4)}  $${Nombre1[2]}$`)

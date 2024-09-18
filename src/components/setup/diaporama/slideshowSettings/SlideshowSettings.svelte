@@ -14,6 +14,7 @@
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
+  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
 
   export let exercises: Exercice[]
   export let updateExercises: (updatedExercises: Exercice[]) => void
@@ -21,9 +22,21 @@
   export let start: () => void
 
   let divTableDurationsQuestions: HTMLDivElement
+  let previousNumberOfSelectedExercises: number
+
+  updateSelect($globalOptions.select?.filter((index: number) => index < exercises.length))
 
   $: if (divTableDurationsQuestions) {
     mathaleaRenderDiv(divTableDurationsQuestions)
+  }
+
+  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
+    let selection: number[] | undefined
+    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
+      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
+    }
+    previousNumberOfSelectedExercises = numberOfSelectedExercises
+    updateSelect(selection)
   }
 
   function goToOverview () {
@@ -40,6 +53,10 @@
 
   function updateScreenBetweenSlides (screenBetweenSlides: boolean) {
     $globalOptions.screenBetweenSlides = screenBetweenSlides
+  }
+
+  function updatePauseAfterEachQuestion (pauseAfterEachQuestion: boolean) {
+    $globalOptions.pauseAfterEachQuestion = pauseAfterEachQuestion
   }
 
   function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
@@ -63,6 +80,13 @@
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
     $globalOptions.durationGlobal = durationGlobal
+  }
+
+  function remove (exerciseIndex: number) {
+    exercises.splice(exerciseIndex, 1)
+    applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
+    updateExercises(exercises)
+    exercises = exercises // to refresh ExercisesSettings component
   }
 
 </script>
@@ -98,8 +122,10 @@
         {updateFlow}
         {updateScreenBetweenSlides}
         {updateTune}
+        {updatePauseAfterEachQuestion}
         questionThenCorrectionToggle={$globalOptions.flow === 1 || $globalOptions.flow === 2}
         questionWithCorrectionToggle={$globalOptions.flow === 2}
+        pauseAfterEachQuestion={!!$globalOptions.pauseAfterEachQuestion}
       />
       <OrderSettings
         isQuestionsOrdered={!$globalOptions.shuffle}
@@ -108,7 +134,7 @@
       <SelectedExercisesSettings
         {exercises}
         selectedExercisesIndexes={$globalOptions.select ?? []}
-        {updateSelect}
+        {applyRandomSelectionOfExercises}
       />
       <LinksSettings />
     </div>
@@ -134,6 +160,7 @@
           {updateExercises}
           durationGlobal={$globalOptions.durationGlobal}
           selectedExercisesIndexes={$globalOptions.select ?? []}
+          {remove}
         />
         <div class="flex flex-row items-center justify-end w-full my-4">
           <button

@@ -3,6 +3,7 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
+import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 
 /**
  *
@@ -18,6 +19,7 @@ export default class Exercice {
   sup2: any
   sup3: any
   sup4: any
+  sup5: any
   correctionInteractive?: (i: number) => string | string[] | Promise<string | string[]>
   exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
   duree?: number
@@ -42,16 +44,19 @@ export default class Exercice {
   formatChampTexte?: string // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple
+  // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
+  optionsDeComparaison?:Partial<OptionsComparaisonType>
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
+  figures?: Array<{id: string, solution: boolean}>[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number
   spacingCorr: number
   pasDeVersionLatex: boolean
-  listePackages: string[]
+  listePackages?: string[]
   consigneModifiable: boolean
   nbQuestionsModifiable: boolean
   nbCols: number // Nombre de colonnes pour la sortie LaTeX
@@ -84,6 +89,9 @@ export default class Exercice {
   besoinFormulaire4Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
   besoinFormulaire4Texte: boolean | [string, string]
   besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire5Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire5Texte: boolean | [string, string]
+  besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   examen?: string // Pour les exercices statiques
@@ -94,6 +102,7 @@ export default class Exercice {
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
+  dragAndDrops?: DragAndDrop[]
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number
@@ -180,6 +189,10 @@ export default class Exercice {
     this.besoinFormulaire4Numerique = false // Sinon this.besoinFormulaire4Numerique = [texte, max, tooltip facultatif]
     this.besoinFormulaire4Texte = false // Sinon this.besoinFormulaire4Texte = [texte, tooltip]
     this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
+    // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup4 ou dans le paramètre d'url ',s5='
+    this.besoinFormulaire5Numerique = false // Sinon this.besoinFormulaire5Numerique = [texte, max, tooltip facultatif]
+    this.besoinFormulaire5Texte = false // Sinon this.besoinFormulaire5Texte = [texte, tooltip]
+    this.besoinFormulaire5CaseACocher = false // Sinon this.besoinFormulaire5CaseACocher = [texte]
 
     // ///////////////////////////////////////////////
     // Exercice avec des dépendances particulières
@@ -210,7 +223,7 @@ export default class Exercice {
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
 
   nouvelleVersion (numeroExercice?: number): void {
-    console.log(numeroExercice)
+    console.info(numeroExercice)
   }
 
   reinit = exportedReinit.bind(this as Exercice)

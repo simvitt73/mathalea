@@ -8,6 +8,7 @@ import {
 import FractionEtendue from '../../modules/FractionEtendue'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import Trinome from '../../modules/Trinome'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Étudier le sens de variations d\'une fonction polynôme du troisième degré'
 export const dateDePublication = '08/07/2024'
 export const interactifReady = false
@@ -26,8 +27,8 @@ export default class EtudeFctPoly3 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Dérivée avec des racines entières\n2 : Dérivée sans racine\n3: Mélange']
-    this.sup = '3'
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Dérivée avec des racines entières\n2 : Dérivée sans racine\n3 : Dérivée avec des racines non forcément entières\n4: Mélange']
+    this.sup = '4'
   }
 
   nouvelleVersion () {
@@ -38,9 +39,9 @@ export default class EtudeFctPoly3 extends Exercice {
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 2,
-      melange: 3,
-      defaut: 3,
+      max: 3,
+      melange: 4,
+      defaut: 4,
       nbQuestions: this.nbQuestions
 
     })
@@ -61,12 +62,14 @@ export default class EtudeFctPoly3 extends Exercice {
             const x2 = randint(-5, 5, x1)
             const k = randint(-3, 3)
             const p = new Trinome(6 * a, -6 * a * (x1 + x2), 6 * a * x1 * x2)
-            fonction = x => 2 * a * x ** 3 - 3 * a * x1 * x ** 2 - 3 * a * x2 * x ** 2 + 6 * a * x1 * x2 * x + k
-            derivee = x => 6 * a * x ** 2 - 6 * a * x1 * x - 6 * a * x2 * x + 6 * a * x1 * x2
+            fonction = (x:number) => 2 * a * x ** 3 - 3 * a * x1 * x ** 2 - 3 * a * x2 * x ** 2 + 6 * a * x1 * x2 * x + k
+            derivee = (x:number) => 6 * a * x ** 2 - 6 * a * x1 * x - 6 * a * x2 * x + 6 * a * x1 * x2
             tolerance = 0.005
             xMin = -10
             xMax = 10
-            substituts = [{ antVal: -10, antTex: '$-\\infty$', imgVal: 2 * a * (-10) ** 3 - 3 * a * x1 * (-10) ** 2 - 3 * a * x2 * (-10) ** 2 + 6 * a * x1 * x2 * (-10) + k, imgTex: '' }, { antVal: 10, antTex: '$+\\infty$', imgVal: 2 * a * 10 ** 3 - 3 * a * x1 * 10 ** 2 - 3 * a * x2 * 10 ** 2 + 6 * a * x1 * x2 * 10 + k, imgTex: '' }]
+            substituts = [{ antVal: -10, antTex: '$-\\infty$', 
+              imgTex: ' ' }, { antVal: 10, antTex: '$+\\infty$', 
+                imgTex: ' ' }]
             const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(2 * a, -3 * a * x1 - 3 * a * x2, 6 * a * x1 * x2, k)}$.<br>
@@ -75,7 +78,7 @@ export default class EtudeFctPoly3 extends Exercice {
 
             texteCorr += `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
             Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${reduirePolynomeDegre3(0, 6 * a, -6 * a * (x1 + x2), 6 * a * x1 * x2)}$.<br><br>
-            $f'(x)$ est une fonction polynôme du second degré. <br>`
+            $f'(x)$ est une fonction polynôme du second degré. <br><br>`
             if (6 * a * x1 * x2 === 0 || -6 * a * (x1 + x2) === 0) {
               if (6 * a * x1 * x2 === 0) {
                 texteCorr += `En factorisant par $x$, on obtient $f'(x)=x(${reduireAxPlusB(6 * a, -6 * a * (x1 + x2))})$.<br>
@@ -90,8 +93,8 @@ export default class EtudeFctPoly3 extends Exercice {
               }
             } else {
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines.`
-              texteCorr += `<br><br>$${p.texCalculRacine1}$`
-              texteCorr += `<br><br>$${p.texCalculRacine2}$<br>`
+              texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
+              texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br><br>`
             }
             texteCorr += ` $f'(x)$ est du signe de   $${6 * a}$ ${6 * a > 0 ? 'donc positif' : 'donc négatif'} sauf entre ses racines. <br><br>
         On en déduit le tableau de signes de $f'(x)$ et le tableau de variations de $f$ :<br><br>`
@@ -113,17 +116,16 @@ export default class EtudeFctPoly3 extends Exercice {
             } while (4 * b ** 2 - 12 * a * c >= 0)
             const p = new Trinome(a, b, c)
             const sol = new FractionEtendue(-c, 3 * a)
-            fonction = x => a * x ** 3 + b * x ** 2 + c * x + d
-            derivee = x => 3 * a * x ** 2 + 2 * b * x + c
+            fonction = (x:number) => a * x ** 3 + b * x ** 2 + c * x + d
+            derivee = (x:number) => 3 * a * x ** 2 + 2 * b * x + c
             tolerance = 0.005
             xMin = -10
             xMax = 10
             substituts = [{
               antVal: -10,
               antTex: '$-\\infty$',
-              imgVal: a * (-10) ** 3 + b * (-10) ** 2 + c * (-10) + d,
-              imgTex: ''
-            }, { antVal: 10, antTex: '$+\\infty$', imgVal: a * 10 ** 3 + b * 10 ** 2 + c * 10 + d, imgTex: '' }]
+              imgTex: ' '
+            }, { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
             const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
@@ -137,8 +139,60 @@ export default class EtudeFctPoly3 extends Exercice {
       Cette équation n'a pas de solution et par suite $f'(x)$ n'a pas de racine.`
             } else { texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement négatif, donc $f'(x)$ n'a pas de racine.` }
 
-            texteCorr += `<br> $f'(x)$ est  du signe de   $${3 * a}$ ${3 * a > 0 ? 'donc positif' : 'donc négatif'} sur $\\mathbb{R}$. <br><br>
+            texteCorr += `<br><br> $f'(x)$ est  du signe de   $${3 * a}$ ${3 * a > 0 ? 'donc positif' : 'donc négatif'} sur $\\mathbb{R}$. <br><br>
         On en déduit le tableau de signes de $f'(x)$ et le tableau de variations de $f$ :<br><br>`
+            texteCorr += `${tableau}`
+          }
+          break
+
+        case 3://
+          {
+            let a = randint(-5, 5, 0)
+            let b = randint(-5, 5, 0)
+            let c = randint(-5, 5, 0)
+            const d = randint(-5, 5, 0)
+            let p = new Trinome(3 * a, 2 * b, c)
+            while (4 * b ** 2 - 12 * a * c <= 0) {
+              a = randint(-5, 5, 0)
+              b = randint(-5, 5, 0)
+              c = randint(-5, 5, 0)
+              p = new Trinome(3 * a, 2 * b, c)
+            }
+            fonction = (x:number) => a * x ** 3 + b * x ** 2 + c * x + d
+            derivee = (x:number) => 3 * a * x ** 2 + 2 * b * x + c
+            tolerance = 0.005
+            xMin = -10
+            xMax = 10
+
+            texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
+      Étudier le sens de variations de la fonction $f$ sur $\\mathbb{R}$.
+      `
+
+            texteCorr += `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
+            Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${p}$.<br><br>
+             $f'(x)$ est une fonction polynôme du second degré. <br><br>`
+
+            if (4 * b ** 2 - 12 * a * c > 0) {
+              const calculs1 = p.texCalculRacine1(true).split('=')
+              const calculs2 = p.texCalculRacine2(true).split('=')
+              const valX1 = p.x1 instanceof FractionEtendue ? Math.round(p.x1.valeurDecimale * 10) / 10 : Number(p.x1.toFixed(1))
+              const valX2 = p.x2 instanceof FractionEtendue ? Math.round(p.x2.valeurDecimale * 10) / 10 : Number(p.x2.toFixed(1))
+              const texX1 = calculs1[calculs1.length - 1]
+              const texX2 = calculs2[calculs2.length - 1]
+              texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines :`
+              texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
+              texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br><br>`
+              substituts = [{ antVal: -10, antTex: '$-\\infty$', imgTex: ' ' },
+                { antVal: valX1, antTex: texX1, imgVal: fonction(Number(p.x1)), imgTex: `${texNombre(fonction(Number(p.x1)), 2)}` },
+                { antVal: valX2, antTex: texX2, imgVal: fonction(Number(p.x2)), imgTex: `${texNombre(fonction(Number(p.x2)), 2)}` },
+                { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
+            } else {
+              texteCorr += ''
+              substituts = [{ antVal: -10, antTex: '$-\\infty$', imgTex: ' ' },
+                { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
+            }
+            const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 0.1, tolerance })
+
             texteCorr += `${tableau}`
           }
           break

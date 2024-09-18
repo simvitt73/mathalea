@@ -1,7 +1,7 @@
 import { context } from './context.js'
 import katex from 'katex'
 import { arrondi } from '../lib/outils/nombres'
-import { mathaleaGenerateSeed } from '../lib/mathalea'
+import { randint } from './outils'
 
 /*
   MathALEA2D
@@ -26,7 +26,9 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  */
 export function ObjetMathalea2D ({ classe = true } = {}) {
   this.positionLabel = 'above'
-  this.isVisible = true
+  // @deprecated cette propriété servait dans l'éditeur Mathalea2d en ligne pour dire qu'on ne voulait pas représenter des objets créés juste comme constructeurs
+  // this.isVisible = true // Si on veut qu'un objet soit visible, on le passe dans la liste d'objets à mathalea2d(), si on n'en veut pas, on ne l'y met pas.
+  // Si l'éditeur en ligne de figure mathalea2d revoit le jour, peut-être que cette propriété sera utile ?
   this.color = colorToLatexOrHTML('black')
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
   // this.styleTikz = ''
@@ -44,18 +46,14 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
  * @param coeff
  * @return {number}
  */
-export const xSVG = function (x, coeff) {
-  return arrondi(x * coeff, 1)
-}
+export const xSVG = (x, coeff) => arrondi(x * coeff, 1)
 /**
  * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
  * @param y
  * @param coeff
  * @return {number}
  */
-export const ySVG = function (y, coeff) {
-  return arrondi(-y * coeff, 1)
-}
+export const ySVG = (y, coeff) => arrondi(-y * coeff, 1)
 /**
  * mathalea2d(xmin,xmax,ymin,ymax,objets)
  *
@@ -98,37 +96,43 @@ export function mathalea2d (
   } = {},
   ...objets
 ) {
-  const ajouteCodeHtml = function (mainlevee, objets, divsLatex, xmin, ymax) {
+  const ajouteCodeHtml = (mainlevee, objets, divsLatex, xmin, ymax) => {
     let codeSvg = ''
     // Dans le cas d'objets composites avec des objets Mathalea2d et des divLatex, il faut que ces objets exposent une propriété objets qui contient la liste des objets qui les composent.
     // Cette list est substituée à l'objet ici
-    if (typeof objets === 'object' && objets.objets != null) objets = objets.objets // c'est un objet composé d'objets. Exemple : Repere
+    if (typeof objets === 'object' && objets.objets != null) { objets = objets.objets } // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets) && objets != null) {
-      // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
-        // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
-        if ((!mainlevee) || typeof (objets?.svgml) === 'undefined') {
+        if (!mainlevee || typeof objets?.svgml === 'undefined') {
           if (objets?.svg) {
             const code = objets.svg(pixelsParCm)
             if (typeof code === 'string') {
               codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
-            } else { // on a à faire à un divLatex.
+            } else {
+              // on a à faire à un divLatex.
               if (typeof code !== 'object') {
-                window.notify('Dans mathalea2d, la méthode svg() de l\'objet a renvoyé quelque chose d\'inconnu', { code })
+                window.notify(
+                  "Dans mathalea2d, la méthode svg() de l'objet a renvoyé quelque chose d'inconnu",
+                  { code }
+                )
                 return codeSvg
               }
               const xSvg = (code.x - xmin) * pixelsParCm * zoom
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-              const divOuterHtml = code.backgroundColor !== ''
-                ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}$' + code.latex + '$}}')}</div>`
-                : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\color{' + code.color + '} \\' + code.letterSize + ' ' + code.latex + '')}</div>`
+              const divOuterHtml =
+                code.backgroundColor !== ''
+                  ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}$' + code.latex + '$}}')}</div>`
+                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\color{' + code.color + '} \\' + code.letterSize + ' ' + code.latex + '')}</div>`
               divsLatex.push(divOuterHtml)
             }
           } else {
-            window.notify('Un problème avec ce mathalea2d, la liste des objets contient un truc louche', { objets: JSON.stringify(objets) })
+            window.notify(
+              'Un problème avec ce mathalea2d, la liste des objets contient un truc louche',
+              { objets: JSON.stringify(objets) }
+            )
           }
         } else {
-          if (objets?.svgml) codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
+          if (objets?.svgml) { codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n' }
         }
       } catch (error) {
         window.notify(error.message, { objet: JSON.stringify(objets) })
@@ -139,21 +143,22 @@ export function mathalea2d (
           codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
         }
       } else {
-        window.notify('Un problème avec ce mathalea2d, la liste des objets contient un truc louche', { objets: JSON.stringify(objets) })
+        window.notify(
+          'Un problème avec ce mathalea2d, la liste des objets contient un truc louche',
+          { objets: JSON.stringify(objets) }
+        )
       }
     }
     return codeSvg
   }
-  const ajouteCodeTikz = function (mainlevee, objets) {
+  const ajouteCodeTikz = (mainlevee, objets) => {
     let codeTikz = ''
     if (!Array.isArray(objets)) {
       try {
-        if (objets?.isVisible) {
-          if ((!mainlevee || typeof (objets.tikzml) === 'undefined')) {
-            if (typeof objets.tikz === 'function') codeTikz = '\t' + objets.tikz(scale) + '\n'
-          } else {
-            if (typeof objets.tikzml === 'function') codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
-          }
+        if (!mainlevee || typeof objets.tikzml === 'undefined') {
+          if (typeof objets.tikz === 'function') { codeTikz = '\t' + objets.tikz(scale) + '\n' }
+        } else {
+          if (typeof objets.tikzml === 'function') { codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n' }
         }
       } catch (error) {
         console.log(error.message)
@@ -166,11 +171,13 @@ export function mathalea2d (
     return codeTikz
   }
   // On prépare le code HTML
-  const m2dId = 'M2D' + mathaleaGenerateSeed()
+  const m2dId = 'M2D' + id // utilise l'identifiant du svg UNIQUE ca devrait faire l'affaire
   const divsLatex = []
-  let codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
-      }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-      } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
+  let codeSvg = `<svg class="mathalea2d" ${style} id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
+    (ymax - ymin) * pixelsParCm * zoom
+  }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
+    (xmax - xmin) * pixelsParCm
+  } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
   codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
   codeSvg += '\n</svg>'
   codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
@@ -191,7 +198,7 @@ export function mathalea2d (
     if (typeof optionsTikz === 'string') {
       listeOptionsTikz.push(optionsTikz)
     } else {
-      optionsTikz.forEach(e => listeOptionsTikz.push(e))
+      optionsTikz.forEach((e) => listeOptionsTikz.push(e))
     }
   }
   if (scale === 1) {
@@ -235,12 +242,8 @@ export class Vide2d {
     this.x = x
     this.y = y
     this.bordures = [x, y, x, y]
-    this.tikz = function () {
-      return ''
-    }
-    this.svg = function () {
-      return ''
-    }
+    this.tikz = () => ''
+    this.svg = () => ''
   }
 }
 
@@ -291,9 +294,9 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
 function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   return [
-    parseInt(hexDecoupe[0], 16),
-    parseInt(hexDecoupe[1], 16),
-    parseInt(hexDecoupe[2], 16)
+    Number.parseInt(hexDecoupe[0], 16),
+    Number.parseInt(hexDecoupe[1], 16),
+    Number.parseInt(hexDecoupe[2], 16)
   ]
 }
 
@@ -320,14 +323,19 @@ export function colorToLatexOrHTML (couleur) {
     // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
     // else if (couleur === undefined || couleur === '') return '' // EE : 01/10/2023 : Code commenté au profit de celui de dessus pour vérifier si une couleur nulle se ballade dans le projet.
   } else if (couleur === undefined || couleur === '') {
-    window.notify('Une couleur est undefined ou bien une chaine vide. Veuillez le signaler aux développeurs de MathALEA.', { couleur })
+    window.notify(
+      'Une couleur est undefined ou bien une chaine vide. Veuillez le signaler aux développeurs de MathALEA.',
+      { couleur }
+    )
     return ''
-  } else if (couleur === 'none') return ['none', ''] // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-Claude Lhote le 19:&é:éàé"
-  else {
+  } else if (couleur === 'none') {
+    return ['none', ''] // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-Claude Lhote le 19:&é:éàé"
+  } else {
     tabCouleur[0] = couleur
     if (couleur[0] === '#') {
       rgb = convertHexToRGB(couleur.replace('#', ''))
-      tabCouleur[1] = '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
+      tabCouleur[1] =
+        '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
     } else {
       tabCouleur[1] = '{' + couleur + '}'
     }
@@ -509,7 +517,7 @@ export function assombrirOuEclaircir (couleur, coefficient) {
   if (convertCodeCouleur !== false) couleur = convertCodeCouleur
   couleur = couleur.replace('#', '')
   if (couleur.length === 6) {
-    const decimalColor = parseInt(couleur, 16)
+    const decimalColor = Number.parseInt(couleur, 16)
     let r = (decimalColor >> 16) + coefficient
     r > 255 && (r = 255)
     r < 0 && (r = 0)
@@ -541,20 +549,17 @@ export function assombrirOuEclaircir (couleur, coefficient) {
 export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
   let code
   const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -(1)
+  const fenetreymin = fenetreMathalea2d[3] * -1
   const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * (-1)
+  const fenetreymax = fenetreMathalea2d[1] * -1
 
   code = `<svg width="${(fenetrexmax - fenetrexmin) * pixelsParCm}" height="${(fenetreymax - fenetreymin) * pixelsParCm}" viewBox="${fenetrexmin * pixelsParCm} ${fenetreymin * pixelsParCm} ${(fenetrexmax - fenetrexmin) * pixelsParCm} ${(fenetreymax - fenetreymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
   for (const objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
         try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-            else {
-              code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
-            }
+          if (!mainlevee || typeof objet[i].svgml === 'undefined') { code += '\t' + objet[i].svg(pixelsParCm) + '\n' } else {
+            code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
           }
         } catch (error) {
           console.log(error.message)
@@ -562,10 +567,7 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
       }
     }
     try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-        else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
-      }
+      if (!mainlevee || typeof objet.svgml === 'undefined') { code += '\t' + objet.svg(pixelsParCm) + '\n' } else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
     } catch (error) {
       console.log(error.message)
     }
@@ -584,9 +586,9 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
 export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -(1)
+  const fenetreymin = fenetreMathalea2d[3] * -1
   const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * (-1)
+  const fenetreymax = fenetreMathalea2d[1] * -1
   const sortie = context.isHtml
   // eslint-disable-next-line no-global-assign
   context.isHtml = false
@@ -613,20 +615,14 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
         try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
-            else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
-          }
+          if (!mainlevee || typeof objet[i].tikzml === 'undefined') { code += '\t' + objet[i].tikz(scale) + '\n' } else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
         } catch (error) {
           console.log(error.message)
         }
       }
     }
     try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
-        else code += '\t' + objet.tikzml(context.amplitude) + '\n'
-      }
+      if (!mainlevee || typeof objet.tikzml === 'undefined') { code += '\t' + objet.tikz(scale) + '\n' } else code += '\t' + objet.tikzml(context.amplitude) + '\n'
     } catch (error) {
       console.log(error.message)
     }
@@ -638,24 +634,28 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
 }
 
 /**
- * @param {number} rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rxmax marge à droite 0.5 par défaut
- * @param {number} rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rymax marge en haut 0.5 par défaut
- * @param {number} rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
+ * @param {object} objet
+ * @param {number} objet.rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
+ * @param {number} objet.rxmax marge à droite 0.5 par défaut
+ * @param {number} objet.rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
+ * @param {number} objet.rymax marge en haut 0.5 par défaut
+ * @param {number} objet.rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
  * @param {object} objets // tableau contenant les objets à afficher
  * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
  * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
  * @return {{xmin: number, ymin:number, xmax:number, ymax:number}}
  */
-export function fixeBordures (objets, {
-  rxmin = undefined,
-  rymin = undefined,
-  rxmax = undefined,
-  rymax = undefined,
-  rzoom = 1
-} = {}) {
+export function fixeBordures (
+  objets,
+  {
+    rxmin = undefined,
+    rymin = undefined,
+    rxmax = undefined,
+    rymax = undefined,
+    rzoom = 1
+  } = {}
+) {
   /**
    *
    * @param{number} xmin
@@ -666,16 +666,22 @@ export function fixeBordures (objets, {
    * @param bordures
    * @returns {[number,number,number,number,boolean]}
    */
-  const majBordures = function (xmin, ymin, xmax, ymax, objets, borduresTrouvees) {
+  const majBordures = (xmin, ymin, xmax, ymax, objets, borduresTrouvees) => {
     if (objets == null) return [xmin, ymin, xmax, ymax, borduresTrouvees]
     if (!Array.isArray(objets)) {
       const bordures = objets.bordures ?? null
       if (bordures == null) {
-        window.notify(`Ìl y a un problème avec les bordures de ${objets.constructor.name}... elles ne sont pas définies !`)
+        window.notify(
+          `Ìl y a un problème avec les bordures de ${objets.constructor.name}... elles ne sont pas définies !`
+        )
       } else if (!Array.isArray(bordures)) {
-        window.notify(`Les bordures de ${objets.constructor.name} ne sont pas un array : ${JSON.stringify(bordures)}`)
+        window.notify(
+          `Les bordures de ${objets.constructor.name} ne sont pas un array : ${JSON.stringify(bordures)}`
+        )
       } else if (bordures.filter((el) => isNaN(el)).length > 0) {
-        window.notify(`Les bordures de ${objets.constructor.name} sont bien un array mais contiennent autre chose que des nombres : ${bordures}`)
+        window.notify(
+          `Les bordures de ${objets.constructor.name} sont bien un array mais contiennent autre chose que des nombres : ${bordures}`
+        )
       } else {
         xmin = Math.min(xmin, objets.bordures[0])
         xmax = Math.max(xmax, objets.bordures[2])
@@ -685,7 +691,14 @@ export function fixeBordures (objets, {
       }
     } else {
       for (const objet of objets) {
-        [xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(xmin, ymin, xmax, ymax, objet, borduresTrouvees)
+        [xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          objet,
+          borduresTrouvees
+        )
       }
     }
     return [xmin, ymin, xmax, ymax, borduresTrouvees]
@@ -698,9 +711,20 @@ export function fixeBordures (objets, {
   rxmin = rxmin !== undefined ? rxmin : -0.5
   rymin = rymin !== undefined ? rymin : -0.5
   rxmax = rxmax !== undefined ? rxmax : 0.5
-  rymax = rymax !== undefined ? rymax : 0.5;
-  [xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(xmin, ymin, xmax, ymax, objets, borduresTrouvees)
-  if (!borduresTrouvees) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
+  rymax = rymax !== undefined ? rymax : 0.5
+  ;[xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    objets,
+    borduresTrouvees
+  )
+  if (!borduresTrouvees) {
+    window.notify('fixeBordures : aucun objet ne définit de bordures valides', {
+      ...objets
+    })
+  }
   return {
     xmin: xmin + rxmin * rzoom,
     xmax: xmax + rxmax * rzoom,

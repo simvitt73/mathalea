@@ -1,14 +1,14 @@
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
 import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points.js'
-import { texteParPosition } from './textes.ts'
+import { latex2d, texteParPosition } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
+import MainLevee from './MainLevee'
 
 /**
  * v = vecteur('V') // son nom
@@ -53,7 +53,8 @@ export function Vecteur (arg1, arg2, nom = '') {
     return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
-    let s, v
+    let s
+    let v
     const B = point(A.x + this.x, A.y + this.y)
     const M = milieu(A, B)
     s = segment(A, B, color)
@@ -95,6 +96,8 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   this.color = color
   this.angle = angle
   this.taille = taille
+  if (this.nom === 'i') return latex2d('\\vec \\imath', this.x, this.y, { color: this.color })
+  if (this.nom === 'j') return latex2d('\\vec \\jmath', this.x, this.y, { color: this.color })
   const objets = []
   const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'milieu', true)
   const M = point(this.x, this.y)
@@ -170,7 +173,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       }
     }
     if (typeof I === 'boolean') return (I)
-    else return I.estSur(objet) && I.estSur(this)
+    return I.estSur(objet) && I.estSur(this)
   }
 
   this.typeObjet = 'segment'
@@ -242,12 +245,15 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
   this.longueur = Math.sqrt((this.x2 - this.x1) ** 2 + (this.y2 - this.y1) ** 2)
-  this.angleAvecHorizontale = angleOriente(
-    point(this.x1 + 1, this.y1),
-    this.extremite1,
-    this.extremite2,
-    5
-  )
+  // utiliser les fonctions de calcul d'angle avec un segment de longueur nulle est une erreur ! Je blinde en retournant un angle nul
+  this.angleAvecHorizontale = this.longueur < 1e-8
+    ? 0
+    : angleOriente(
+      point(this.x1 + 1, this.y1),
+      this.extremite1,
+      this.extremite2,
+      5
+    )
 
   this.codeExtremitesSVG = function (coeff) {
     let code = ''
@@ -465,31 +471,21 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     }
     return `\\draw${optionsDraw} (${this.x1},${this.y1})--(${this.x2},${this.y2});`
   }
-  this.svgml = function (coeff, amp) {
-    this.style = 'fill="none"'
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-
+  this.svgml = function (coeff) {
+    const mainLevee = MainLevee.create() // mainLevee permet d'accéder aux méthodes pour créer les objets roughjs
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
-    const l = longueur(A, B)
-    const dx = (B.xSVG(coeff) - A.xSVG(coeff)) / l / 2
-    const dy = (B.ySVG(coeff) - A.ySVG(coeff)) / l / 2
-    let code = `<path d="M ${A.xSVG(coeff)}, ${A.ySVG(coeff)} Q ${Math.round(A.xSVG(coeff), 0)}, ${A.ySVG(coeff)} `
-    let p = 1
-    for (let k = 0; k < 2 * l + 0.25; k += 0.5) {
-      p++
-      code += `${Math.round(A.xSVG(coeff) + k * dx + randint(-2, 2, 0) * amp)}, ${Math.round(A.ySVG(coeff) + k * dy + randint(-2, 2, 0) * amp)} `
+    let code = this.codeExtremitesSVG(coeff)
+    code += mainLevee.line(A.xSVG(coeff), A.ySVG(coeff), B.xSVG(coeff), B.ySVG(coeff), { color: this.color[0], epaisseur: this.epaisseur, opacite: this.opacite })
+    if (this.styleExtremites.length > 0) {
+      code = `<g id="${this.id}">${code}</g>`
+    } else {
+      code = code.replace('/>', `id="${this.id}" />`)
     }
-    if (p % 2 === 1) code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style}/>`
-    else code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)} ${B.xSVG(coeff)}, ${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style}/>`
-    code += this.codeExtremitesSVG(coeff)
+    mainLevee.destroy() // ne pas oublier de faire ça, sinon, il va trainer un svg qui ne sert à rien dans le DOM
     return code
   }
+
   this.tikzml = function (amp) {
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)

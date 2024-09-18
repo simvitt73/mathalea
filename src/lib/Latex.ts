@@ -127,16 +127,21 @@ class Latex {
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
           }
-          if (Number(exercice.spacingCorr) > 0) {
-            contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
-          } else {
-            contentCorr += '\n\\begin{enumerate}'
+          if (Number(exercice.nbQuestions) > 1) {
+            if (Number(exercice.spacingCorr) > 0) {
+              contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
+            } else {
+              contentCorr += '\n\\begin{enumerate}'
+            }
           }
-
           for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
+            if (Number(exercice.nbColsCorr) > 1) {
+              contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
+            } else {
+              contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} ${format(correction)}`
+            }
           }
-          contentCorr += '\n\\end{enumerate}\n'
+          if (Number(exercice.nbQuestions) > 1) contentCorr += '\n\\end{enumerate}\n'
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += '\\end{multicols}\n'
           }
@@ -430,11 +435,19 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
       content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
-      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '\\begin{minipage}[t]{\\linewidth}') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '\\end{minipage}')
+      if (nbCols > 1) {
+        content += `\n\t\\item \\begin{minipage}[t]{\\linewidth} ${format(question)} \\end{minipage}`
+      } else {
+        content += `\n\t\\item ${format(question)}`
+      }
     }
     content += '\n\\end{enumerate}'
   } else {
-    content += '\n \\begin{minipage}[t]{\\linewidth}' + format(questions[0] + '\\end{minipage}')
+    if (nbCols > 1) {
+      content += `\n \\begin{minipage}[t]{\\linewidth} ${format(questions[0])} \\end{minipage}`
+    } else {
+      content += `\n ${format(questions[0])}`
+    }
   }
   return content
 }
@@ -608,6 +621,7 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
   if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+  if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
   if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
   if (ex.interactif) url.searchParams.append('i', '1')
   if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')

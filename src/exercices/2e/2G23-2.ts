@@ -108,7 +108,6 @@ export default class TranslationEtCoordonnes extends Exercice {
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
       const nomAB = vecteur(A, B).representantNomme(A, "AA'", 1.5, 'red')
-      console.log(vi)
       objets.push(r, traceAetB, labelA, labelB, s, o, k, j, nomi, nomj, nomAB)
       let texte = ''
       let texteCorr = ''
@@ -116,7 +115,7 @@ export default class TranslationEtCoordonnes extends Exercice {
         case 'coorImage':
           AbsRep = xB
           OrdRep = yB
-          texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA}\\,;\\,${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA}\\,;\\,${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
           if (this.interactif) {
             texte += 'Le point $A\'$ est donné par' + remplisLesBlancs(this, i, 'A\'(%{champ1};{%{champ2}).')
             handleAnswers(this, i, {
@@ -131,7 +130,7 @@ export default class TranslationEtCoordonnes extends Exercice {
         case 'coorPre':
           AbsRep = xA
           OrdRep = yA
-          texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
+          texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
           if (this.interactif) {
             texte += 'Le point $A$ est donné par' + remplisLesBlancs(this, i, 'A(%{champ1};%{champ2})')
             handleAnswers(this, i, {

@@ -3,7 +3,11 @@ import type Figure from 'apigeom'
 import { context } from '../modules/context'
 import { ajouteFeedback } from './interactif/questionMathLive'
 
-export default function figureApigeom ({ exercice, idApigeom, figure, animation = false, question = 0 }: { exercice: Exercice, idApigeom: string, figure: Figure, animation?: boolean, question?: number}) {
+/**
+ * Insère une figure apigeom dans la sortie HTML de l'exercice
+ * defaultAction permet de sélectionner le bouton activé par défaut
+ */
+export default function figureApigeom ({ exercice, idApigeom, figure, animation = false, question = 0, defaultAction }: { exercice: Exercice, idApigeom: string, figure: Figure, animation?: boolean, question?: number, defaultAction ?: string }): string {
   if (!context.isHtml) return ''
   // Styles par défaut
   figure.isDynamic = !!exercice.interactif
@@ -23,6 +27,12 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
     figure.loadJson(JSON.parse(json))
   })
 
+  document.addEventListener('zoomChanged', (event: Event) => {
+    const customEvent = event as CustomEvent
+    const zoom = Number(customEvent.detail.zoom)
+    figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+  })
+
   document.addEventListener('exercicesAffiches', () => {
     if (!context.isHtml) return
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
@@ -35,6 +45,9 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
       setTimeout(() => {
         figure.buttons.get('PLAY')?.click()
       }, 3000)
+    }
+    if (defaultAction) {
+      figure.buttons.get(defaultAction)?.click()
     }
   })
 

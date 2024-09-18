@@ -55,19 +55,36 @@ const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'xMath', 'SQRT', 'SQ', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
   block: ['ADD', 'SUB', 'xMath', 'DEG', 'MULT', 'DIV', 'SQ', 'SQRT', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
+const terminaleCaps: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD', 'SQRT', 'SQRTN', 'e^', 'INFTY', 'PARENTHESES', 'POW10', 'BRACES', 'BRACKETS'],
+  block: ['SQRT', 'SQRTN', 'LN', 'LOG', 7, 8, 9, 'POW', 'e^', 'FRAC', 'INFTY', 4, 5, 6, 'POW10', 'PARENTHESES', 'BRACES', 'BRACKETS', 1, 2, 3, 'ADD', 'SUB', 'MULT', 'DIV', 0, 'COMMA', 'SEMICOLON']
+}
+
+const numerationCaps: CompleteKeysList = {
+  inline: ['MILLION', 'MILLIARD', 'MILLE', 'CENTAINE', 'DIZAINE', 'UNITE', 'DE', 'DIXIEME', 'CENTIEME', 'MILLIEME', 'DIX_MILLIEME', 'CENT_MILLIEME', 'MILLIONIEME', 'HYPHEN', 'DIX', 'VINGT', 'TRENTE', 'QUARANTE', 'CINQUANTE', 'SOIXANTE', 'SOIXANTE_DIX', 'QUATRE_VINGT', 'QUATRE_VINGT_DIX', 'CENT'],
+  block: ['MILLION', 'MILLIARD', 'MILLE', 'CENTAINE', 'DIZAINE', 'UNITE', 'DE', 'DIXIEME', 'CENTIEME', 'MILLIEME', 'DIX_MILLIEME', 'CENT_MILLIEME', 'MILLIONIEME', 'HYPHEN', 'DIX', 'VINGT', 'TRENTE', 'QUARANTE', 'CINQUANTE', 'SOIXANTE', 'SOIXANTE_DIX', 'QUATRE_VINGT', 'QUATRE_VINGT_DIX', 'CENT']
+}
 
 const probabiliteCaps: CompleteKeysList = {
   inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '='],
   block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '=']
 }
+
 const ensembleCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'],
-  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER']
+  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC'],
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC']
 }
+
+const ensembleDefiniCaps: CompleteKeysList = {
+  inline: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER'],
+  block: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER']
+}
+
 const hmsCaps: CompleteKeysList = {
   inline: ['HOUR', 'MIN', 'SEC'],
   block: ['HOUR', 'MIN', 'SEC']
 }
+
 const greekCaps: CompleteKeysList = {
   inline: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA'],
   block: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA']
@@ -260,6 +277,20 @@ export const fullOperations: KeyboardBlock = {
   isUnits: false
 }
 
+export const clavierFonctionsTerminales : KeyboardBlock = {
+  keycaps: terminaleCaps,
+  cols: 7,
+  title: 'Fonctions de Terminales',
+  isUnits: false
+}
+
+export const numeration: KeyboardBlock = {
+  keycaps: numerationCaps,
+  cols: 6,
+  title: 'Logarithme et puissance',
+  isUnits: false
+}
+
 export const probabilite: KeyboardBlock = {
   keycaps: probabiliteCaps,
   cols: 3,
@@ -283,7 +314,7 @@ export const greek: KeyboardBlock = {
 
 export const compare: KeyboardBlock = {
   keycaps: compareCaps,
-  cols: 2,
+  cols: 3,
   title: 'Comparaison',
   isUnits: false
 }
@@ -333,6 +364,13 @@ export const ensemble: KeyboardBlock = {
   keycaps: ensembleCaps,
   cols: 3,
   title: 'Ensembles',
+  isUnits: false
+}
+
+export const ensembleDefini: KeyboardBlock = {
+  keycaps: ensembleDefiniCaps,
+  cols: 3,
+  title: 'EnsemblesDefinis',
   isUnits: false
 }
 
@@ -405,10 +443,12 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   degre,
   degreCelsius,
   ensemble,
+  ensembleDefini,
   greek,
   fullOperations,
   hms,
   lengths,
+  clavierFonctionsTerminales,
   masses,
   numbers,
   numbersSpace,
@@ -416,6 +456,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   numbers2,
   numbersOperations,
   numbersOperationsX,
+  numeration,
   probabilite,
   trigo,
   variables,

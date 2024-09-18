@@ -19,7 +19,7 @@ import { decimalToScientifique } from '../outils/texNombre'
  */
 
 export function exportQcmAmc (exercice, idExo) {
-  let ref = `${exercice.id}/${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
+  let ref = `${exercice.id}/${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}${exercice.sup5 ? 'S5:' + exercice.sup5 : ''}`
   if (ref[ref.length - 1] === '/') ref = ref.slice(0, -1)
   const autoCorrection = exercice.autoCorrection
   const titre = exercice.titre
@@ -61,7 +61,7 @@ export function exportQcmAmc (exercice, idExo) {
       case 'qcmMono': // question QCM 1 bonne réponse
       case 'qcmMult':
         if (elimineDoublons(autoCorrection[j].propositions)) {
-          console.log('doublons trouvés')
+          console.error('doublons trouvés')
         }
         if (autoCorrection[j].enonce === undefined) {
           autoCorrection[j].enonce = exercice.listeQuestions[j]
@@ -350,7 +350,7 @@ export function exportQcmAmc (exercice, idExo) {
             case 'qcmMono': // qcmMono de Hybride
             case 'qcmMult': // qcmMult de Hybride la différence est juste le nom de l'environnement changé dynamiquement
               if (elimineDoublons(propositions)) {
-                console.log('doublons trouvés')
+                console.info('doublons trouvés')
               }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
@@ -671,6 +671,7 @@ export function exportQcmAmc (exercice, idExo) {
         break
     }
   }
+  texQr = texQr.replaceAll(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
   texQr = texQr.replaceAll('<br>', '\\\\\n')
   return [texQr, ref, exercice.nbQuestions, titre, melange]
 }

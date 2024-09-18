@@ -91,7 +91,10 @@
     !exercise.besoinFormulaire3Texte &&
     !exercise.besoinFormulaire4CaseACocher &&
     !exercise.besoinFormulaire4Numerique &&
-    !exercise.besoinFormulaire4Texte
+    !exercise.besoinFormulaire4Texte&&
+    !exercise.besoinFormulaire5CaseACocher &&
+    !exercise.besoinFormulaire5Numerique &&
+    !exercise.besoinFormulaire5Texte
   let isExerciceChecked = false
   const generateTitleAddendum = (): string => {
     const ranks = exercisesUuidRanking(get(exercicesParams))
@@ -172,8 +175,8 @@
   function log (str: string) {
     const debug = false
     if (debug) {
-      console.log(exerciseIndex)
-      console.log(str)
+      console.info(exerciseIndex)
+      console.info(str)
     }
   }
 
@@ -324,6 +327,10 @@
     if (event.detail.sup4 !== undefined) {
       exercise.sup4 = event.detail.sup4
       interfaceParams.sup4 = mathaleaHandleSup(exercise.sup4)
+    }
+    if (event.detail.sup5 !== undefined) {
+      exercise.sup5 = event.detail.sup5
+      interfaceParams.sup5 = mathaleaHandleSup(exercise.sup5)
     }
     if (event.detail.alea !== undefined) {
       exercise.seed = event.detail.alea
@@ -679,8 +686,9 @@
                     {@html mathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
-                    <div
-                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
+                  <!-- EE : remplacement de ce class pour celui du dessous class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"  -->
+                  <div
+                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus py-2 pl-4"
                       id="correction${exerciseIndex}Q${i}"
                     >
                       <div

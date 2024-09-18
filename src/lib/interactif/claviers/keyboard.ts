@@ -15,11 +15,14 @@ const KEYBOARD_CATEGORIES = [
   'clavierDeBaseAvecVariable',
   'clavierNumbers',
   'clavierEnsemble',
+  'clavierEnsemblePredefini',
   'clavierFullOperations',
   'alphanumericAvecEspace',
   'alphanumeric',
   'longueur',
   'aire',
+  'clavierFonctionsTerminales',
+  'numeration',
   'volume',
   'masse',
   'clavierProbabilite',
@@ -76,6 +79,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'hms']
     case KeyboardType.clavierCompare:
       return ['compare']
+    case KeyboardType.clavierFonctionsTerminales:
+      return ['clavierFonctionsTerminales']
     case KeyboardType.lycee:
       return ['numbers', 'fullOperations', 'variables', 'advanced']
     case KeyboardType.college6eme:
@@ -89,7 +94,9 @@ export const convertKeyboardTypeToBlocks = (
     case KeyboardType.clavierDeBaseAvecVariable:
       return ['numbers', 'basicOperations', 'variables']
     case KeyboardType.clavierEnsemble:
-      return ['numbersX', 'ensemble']
+      return ['numbersX', 'ensemble', 'ensembleDefini']
+    case KeyboardType.clavierEnsemblePredefini:
+      return ['ensembleDefini']
     case KeyboardType.clavierNumbers:
       return ['numbers']
     case KeyboardType.numbersSpace:
@@ -111,6 +118,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['alphanumeric']
     case KeyboardType.longueur:
       return ['numbers', 'lengths']
+    case KeyboardType.numeration:
+      return ['numbers', 'numeration']
     case KeyboardType.aire:
       return ['numbers', 'areas']
     case KeyboardType.volume:
@@ -126,15 +135,10 @@ export const convertKeyboardTypeToBlocks = (
         'uppercaseAToH'
       ]
     case KeyboardType.nombresEtDegre:
-      return [
-        'numbers',
-        'degre'
-      ]
+      return ['numbers', 'degre']
     case KeyboardType.nombresEtDegreCelsius:
-      return [
-        'numbers',
-        'degreCelsius'
-      ]
+      return ['numbers', 'degreCelsius']
+
     default:
       throw new Error(
         "This error shouldn't occur. Clavier type: '" + type + "'"
@@ -149,40 +153,38 @@ export const buildDataKeyboardFromStyle = (
   if (style === '') {
     // clavier basique
     return ['numbers', 'fullOperations', 'variables']
-  } else {
-    const blocks: BlockForKeyboard[] = []
-    const styleValues = style?.split(' ')
-    for (const value of styleValues) {
-      if (isKeyboardCategory(value)) {
-        blocks.push(...convertKeyboardTypeToBlocks(value))
-      } else {
-        // peut-être des unités... du style unites[longueurs,aires]
-        if (value.startsWith('unit') || value.startsWith('Unit')) {
-          // extraire les informations entre les [...] pour avoir les unités
-          const unitValuesMatches = value.match(/\[(.*?)\]/g)
-          const unitValues =
-            unitValuesMatches
-              ?.map((e) => e.slice(1, -1))
-              .join(',')
-              .split(',')
-              .map((s) => s.toLowerCase().replace(/[s]$/, '')) || [] // tout en minuscule et virer les 's' à la fin
-          for (const v of unitValues) {
-            if (isKeyboardCategory(v)) {
-              blocks.push(...convertKeyboardTypeToBlocks(v))
-            }
+  }
+  const blocks: BlockForKeyboard[] = []
+  const styleValues = style?.split(' ')
+  for (const value of styleValues) {
+    if (isKeyboardCategory(value)) {
+      blocks.push(...convertKeyboardTypeToBlocks(value))
+    } else {
+      // peut-être des unités... du style unites[longueurs,aires]
+      if (value.startsWith('unit') || value.startsWith('Unit')) {
+        // extraire les informations entre les [...] pour avoir les unités
+        const unitValuesMatches = value.match(/\[(.*?)\]/g)
+        const unitValues =
+          unitValuesMatches
+            ?.map((e) => e.slice(1, -1))
+            .join(',')
+            .split(',')
+            .map((s) => s.toLowerCase().replace(/[s]$/, '')) || [] // tout en minuscule et virer les 's' à la fin
+        for (const v of unitValues) {
+          if (isKeyboardCategory(v)) {
+            blocks.push(...convertKeyboardTypeToBlocks(v))
           }
         }
       }
     }
-    if (blocks.length !== 0) {
-      const blks = blocks.filter((element, index, array) => {
-        return array.indexOf(element) === index
-      })
-      return blks
-    } else {
-      return ['numbers', 'fullOperations', 'variables']
-    }
   }
+  if (blocks.length !== 0) {
+    const blks = blocks.filter((element, index, array) => {
+      return array.indexOf(element) === index
+    })
+    return blks
+  }
+  return ['numbers', 'fullOperations', 'variables']
 }
 
 type Shortcut = {
@@ -212,7 +214,10 @@ export function getKeyboardShortcusts (mf: MathfieldElement): void {
         keyboard as KeyboardCategory
       )
     ) {
-      keyboardShortcuts = { ...keyboardShortcuts, ...shortcutsByKeyboards.unit }
+      keyboardShortcuts = {
+        ...keyboardShortcuts,
+        ...shortcutsByKeyboards.unit
+      }
     }
   }
   mf.inlineShortcuts = keyboardShortcuts
@@ -326,5 +331,9 @@ const shortcutsByKeyboards = {
     ha: { mode: 'math', value: '\\operatorname{ha}' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' }
+  },
+
+  numbersOperations: {
+    '/': { mode: 'math', value: '\\div' }
   }
 } as ShortcutsByKeyboards

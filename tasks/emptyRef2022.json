@@ -65,6 +65,10 @@
       "Ex": {
         "canExa": {},
         "canExC" : {}
+      },
+      "T1": {
+        "canT1AN":{},
+        "canT1S" : {}
       }
     },
     "c3": {
@@ -184,6 +188,13 @@
       "techno1E": {},
       "techno1P": {}
     },
+    "T": {
+      "TAN1": {},
+      "TC1": {},
+      "TF1": {},
+      "TS1": {},
+      "TCX1": {}
+    },
     "Ex": {
       "ExC1": {}
     },
@@ -193,6 +204,8 @@
     "PE": {
       "PEA1": {},
       "PEG2": {}
+    },
+    "EN": {
     },
     "Géométrie dynamique": {
         "elements": {},

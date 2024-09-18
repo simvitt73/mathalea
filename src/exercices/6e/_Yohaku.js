@@ -4,6 +4,7 @@ import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context.js'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { saveAnswersFromTable } from '../../lib/saveAnswers'
 
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
@@ -69,17 +70,7 @@ export default function FabriqueAYohaku () {
         : ''
       yohaku.solution = true
       texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: false })
-      /*
-       // ça ne sert à rien à priori ce setReponse : la correction interactive est custom et se fiche des réponses proposées.
-      const arrayReponses = []
-      for (let l = 0; l < taille; l++) {
-        for (let c = 0; c < taille; c++) {
-          arrayReponses.push([`L${l + 1}C${c + 1}`, { value: String(yohaku.cellules[l * taille + c]) }])
-        }
-      }
-      const reponses = Object.fromEntries(arrayReponses)
-      setReponse(this, i, reponses, { formatInteractif: 'tableauMathlive' })
-*/
+
       this.yohaku[i] = yohaku
       if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
         this.listeQuestions.push(texte)
@@ -108,6 +99,7 @@ export default function FabriqueAYohaku () {
     const spanResultat = []
     const saisies = []
     const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
+    saveAnswersFromTable(this, i, 2, this.sup3)
     for (let l = 0; l < taille; l++) {
       spanResultat[l] = []
       for (let c = 0; c < taille; c++) {

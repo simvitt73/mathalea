@@ -21,7 +21,7 @@ export const isInIframe = writable<boolean>(false)
 
 /**
  * exercicesParams est un tableau d'objets décrivant les exercices
- * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4, n}
+ * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4,sup5, n}
  */
 export const exercicesParams = writable<InterfaceParams[]>([])
 
@@ -188,6 +188,7 @@ export function updateGlobalOptionsInURL (url: URL) {
     ds += options.sound?.toString() ?? '0'
     ds += options.shuffle ? '1' : '0'
     ds += options.manualMode ? '1' : '0'
+    ds += options.pauseAfterEachQuestion ? '1' : '0'
     url.searchParams.append('ds', ds)
     if (options.select !== undefined && options.select !== undefined && options.select.length > 0 && options.select.length < get(exercicesParams).length) {
       url.searchParams.append('select', options.select.join('-'))
