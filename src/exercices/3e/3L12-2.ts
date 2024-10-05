@@ -175,8 +175,10 @@ export default class nomExercice extends Exercice {
               texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.carreDuneSomme(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
               if (listeDeQuestions[i] === 3) {
                 texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}+${p2.toString()}\\right)\\mathclose{}^2`)}\\end{aligned}$`
+                reponse = `${pSP3.toString()}(${p1.toString()}+${p2.toString()})^2`
               } else if (listeDeQuestions[i] === 2) {
                 texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}$`
+                reponse = `\\left(${p1.toString()}+${p2.toString()}\\right)^2`
               }
             } else if (j === 2) {
               texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.carreDuneDifference(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
@@ -212,7 +214,7 @@ export default class nomExercice extends Exercice {
       texte += ajouteChampTexteMathLive(this, i, 'largeur01')
       if (this.questionJamaisPosee(i, p1.monomes[0].coefficient.num.toString() + p2.monomes[0].coefficient.num.toString())) {
         handleAnswers(this, i, { reponse: { value: reponse, compare: factorisationCompare } })
-        this.listeQuestions.push(texte + texteCorr)
+        this.listeQuestions.push(texte + `$${reponse}$`)
         this.listeCorrections.push(texteCorr)
         i++
       }
