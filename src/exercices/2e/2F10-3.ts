@@ -230,7 +230,7 @@ export default class Representerfonctionaffine extends Exercice {
               const grapheDroite = new Graphe({ expression: droiteAB.expressionPGF, domain: [-5, 5], sample: 200, style: 'thick', color: 'red' })
               const pointA = new Point({ coordinates: [xA, yA], color: 'red', mark: '+' })
               const pointB = new Point({ coordinates: [xB, yB], color: 'red', mark: '+' })
-              const repere = new Repere()
+              const repere = new Repere({ x: '0.7cm', y: '0.7cm' })
               repere.add(grapheDroite).add(pointA).add(pointB)
               texteCorr += `<br><br>\\begin{tikzpicture}
               ${repere.renderTikz()}
