@@ -9,8 +9,13 @@ import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVar
 import { pgcd } from '../../lib/outils/primalite'
 import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Factoriser à l\'aide de la mise en évidence ou des identités remarquables'
 export const dateDePublication = '10/09/2024'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Réduire une expression littérale
@@ -58,6 +63,7 @@ export default class nomExercice extends Exercice {
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr: string
+      let reponse: string|string[] = ''
       texte = ''
       texteCorr = ''
       const variables = ['x', 'y', 'z', 'r', 's', 't']
@@ -103,10 +109,13 @@ export default class nomExercice extends Exercice {
           const polynomeRestant = produitReduit.diviserParMonome(facteurCommun)
           if (testAllNeg) {
             texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`)}$`
+            reponse = `${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`
           } else if (testSomeNeg) {
             texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommun.toString()}(${polynomeRestant.toString()})`)}$ ou $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`)}$`
+            reponse = [`${facteurCommun.toString()}(${polynomeRestant.toString()})`, `${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`]
           } else {
             texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommun.toString()}(${polynomeRestant.toString()})`)}$`
+            reponse = `${facteurCommun.toString()}(${polynomeRestant.toString()})`
           }
           break
         }
@@ -200,8 +209,10 @@ export default class nomExercice extends Exercice {
           break
         }
       }
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01')
       if (this.questionJamaisPosee(i, p1.monomes[0].coefficient.num.toString() + p2.monomes[0].coefficient.num.toString())) {
-        this.listeQuestions.push(texte)
+        handleAnswers(this, i, { reponse: { value: reponse, compare: factorisationCompare } })
+        this.listeQuestions.push(texte + texteCorr)
         this.listeCorrections.push(texteCorr)
         i++
       }
