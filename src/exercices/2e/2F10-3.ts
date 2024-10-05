@@ -16,6 +16,7 @@ import { context } from '../../modules/context'
 import { abs } from '../../lib/outils/nombres'
 import { Graphe } from '../../lib/repere2d/graphe'
 import { Point } from '../../lib/repere2d/point'
+import { Repere } from '../../lib/repere2d/repere'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
 export const dateDeModifImportante = '06/04/2024'
@@ -229,11 +230,11 @@ export default class Representerfonctionaffine extends Exercice {
               const grapheDroite = new Graphe({ expression: droiteAB.expressionPGF, domain: [-5, 5], sample: 200, style: 'thick', color: 'red' })
               const pointA = new Point({ coordinates: [xA, yA], color: 'red', mark: '+' })
               const pointB = new Point({ coordinates: [xB, yB], color: 'red', mark: '+' })
-              texteCorr += `<br><br>\\begin{tikzpicture}\\begin{axis}[xlabel=\\(x\\),ylabel=\\(y\\)]
-              ${grapheDroite.renderTikz()}
-              ${pointA.renderTikz()}
-              ${pointB.renderTikz()}
-              \\end{axis}\\end{tikzpicture}<br>
+              const repere = new Repere()
+              repere.add(grapheDroite).add(pointA).add(pointB)
+              texteCorr += `<br><br>\\begin{tikzpicture}
+              ${repere.renderTikz()}
+              \\end{tikzpicture}<br>
 `
             }
 
