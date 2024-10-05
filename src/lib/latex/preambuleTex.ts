@@ -188,7 +188,7 @@ export function loadPackagesFromContent (contents: contentsType) {
     logPDF(`definecolor{nombres} : ${window.location.href}`)
     if (!contents.preamble.includes('definecolor{nombres}')) contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
   }
-  testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}', contents)
+  testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}\n\\pgfplotsset{compat=1.18}', contents)
   testIfLoaded(['decorate,decoration=', 'decorate, decoration='], '\\usetikzlibrary{decorations.pathmorphing}', contents)
   testIfLoaded(['decoration=brace', 'decoration={brace}'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)

@@ -14,6 +14,8 @@ import { min, max } from 'mathjs'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
 import { abs } from '../../lib/outils/nombres'
+import { Graphe } from '../../lib/repere2d/graphe'
+import { Point } from '../../lib/repere2d/point'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
 export const dateDeModifImportante = '06/04/2024'
@@ -218,10 +220,23 @@ export default class Representerfonctionaffine extends Exercice {
             lB = labelPoint(B1, 'red')// Variable qui trace les nom s A et B
 
             monRepere = repere(cadre)// On définit le repère
-            texteCorr += mathalea2d(
+            if (context.isHtml) {
+              texteCorr += mathalea2d(
               // @ts-expect-error mathalea2d n'est pas typé
-              cadreFenetreSvg,
-              monRepere, droiteAB, tA, lA, tB, lB, textO)
+                cadreFenetreSvg,
+                monRepere, droiteAB, tA, lA, tB, lB, textO)
+            } else {
+              const grapheDroite = new Graphe({ expression: droiteAB.expressionPGF, domain: [-5, 5], sample: 200, style: 'thick', color: 'red' })
+              const pointA = new Point({ coordinates: [xA, yA], color: 'red', mark: '+' })
+              const pointB = new Point({ coordinates: [xB, yB], color: 'red', mark: '+' })
+              texteCorr += `<br><br>\\begin{tikzpicture}\\begin{axis}[xlabel=\\(x\\),ylabel=\\(y\\)]
+              ${grapheDroite.renderTikz()}
+              ${pointA.renderTikz()}
+              ${pointB.renderTikz()}
+              \\end{axis}\\end{tikzpicture}<br>
+`
+            }
+
             // On trace le graphique
           }
           break

@@ -244,6 +244,8 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     }
   }
   if (this.b !== 0) this.pente = -this.a / this.b
+  if (this.b !== 0) this.ordonneeALorigine = -this.c / this.b
+  this.expressionPGF = `${this.pente}*x ${this.ordonneeALorigine > 0 ? '+' : ''}${this.ordonneeALorigine}`
   let xsav, ysav
   if (this.x1 > this.x2) {
     xsav = this.x1

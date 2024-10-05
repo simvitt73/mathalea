@@ -1,19 +1,38 @@
 import type { Repere2D } from './repere2d'
 
+/**
+ * Classe Graphe qui implémente l'interface Repere2D
+ * @implements Graphe
+ * @class
+ * @public
+ * @param {Object} Graphe - paramètre de la classe Graphe
+ * @param {string} Graphe.expression - expression de la fonction
+ * @param {Array<number>} Graphe.domain - domaine de la fonction [xMin, xMax]
+ * @param {number} Graphe.sample - nombre d'échantillons 200 par défaut
+ * @param {string} Graphe.style - style de la fonction 'thick' par défaut
+ * @param {string} Graphe.color - couleur de la fonction 'black' par défaut
+ * @param {string} Graphe.label - label de la fonction '' par défaut
+ */
 export class Graphe implements Repere2D {
   expression : string
   domain : [number, number]
   sample : number
   style : string
   color : string
+  label : string
   // optional parameter color
-  constructor (expression : string, domain : [number, number], sample : number = 200, style : string = 'thick', color : string = 'black') {
+  constructor ({ expression, domain, sample = 200, style = 'thick', color = 'black', label = '' } : {expression:string, domain:[number, number], sample?:number, style?: string, color?: string, label?: string}) {
     this.expression = expression
     this.domain = domain
     this.sample = sample
     this.style = style
     this.color = color
+    this.label = label
   }
 
-  renderTikz = () => `\\addplot[${this.style},domain=${this.domain[0]}:${this.domain[1]},samples=${this.sample},color=${this.color}] {${this.expression}};`
+  renderTikz = () => `
+  \\addplot[${this.style},
+  domain=${this.domain[0]}:${this.domain[1]},
+  samples=${this.sample},
+  color=${this.color}] {${this.expression}};`
 }
