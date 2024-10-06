@@ -1,4 +1,5 @@
 import type { Repere2D } from './repere2d'
+import { evaluate } from 'mathjs'
 
 /**
  * Classe Graphe qui implémente l'interface Repere2D
@@ -35,4 +36,18 @@ export class Graphe implements Repere2D {
   domain=${this.domain[0]}:${this.domain[1]},
   samples=${this.sample},
   color=${this.color}] {${this.expression}};`
+
+  evaluateWith (value: number) {
+    return evaluate(this.expression.replace('x', value))
+  }
 }
+
+/**
+ * Identifie si l'objet est de type `Graphe`
+ * @param obj {any} Objet à tester
+ * @returns `true` si l'objet contient la propriété `expression`
+ */
+export const isGraphe = (obj: any): obj is Graphe =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('expression')

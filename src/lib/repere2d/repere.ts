@@ -3,6 +3,9 @@ import type { Point } from './point'
 import type { Repere2D } from './repere2d'
 
 type RepereOptions = {
+  /**
+   * Définit un type pour les paramètres passés en option à l'environnement `axis`
+   */
   axisXLine?: 'box' | 'top' | 'middle' | 'center' | 'bottom' | 'none'
   axisYLine?: 'box' | 'left' | 'middle' | 'center' | 'right' | 'none'
   x?: string
@@ -19,15 +22,25 @@ type RepereOptions = {
 }
 /**
  * Définition d'un modèle de repère.
+ * @class Repere
+ * @implments {Repere2D}
  */
 export class Repere implements Repere2D {
   private closing: string = '\\end{axis}\\end{tikzpicture}'
   private options: string[] = []
   private content: string[] = []
+  /**
+   * Construit les option de l'environnement `axis`
+   * @returns {string} Chaîne à intégrer come options dans l'environnement `axis`
+   */
   private renderOptions = () => {
     return this.options.map((x) => x.replace(/^/, '  ')).join(',%\n')
   }
 
+  /**
+   * Construit le début de l'environnement en intégrant la scale à la figure TikZ
+   * @returns {string} chaîne correspondant au début de la figure TikZ
+   */
   private renderOpening = () => {
     return `\\begin{tikzpicture}[scale=${this.scale}]\\begin{axis}[%`
   }
@@ -50,10 +63,10 @@ export class Repere implements Repere2D {
     this.options.push(`axis y line = ${this.axisYLine}`)
     this.options.push(`x = ${this.x}`)
     this.options.push(`y = ${this.y}`)
-    this.options.push(`xmin = ${this.xMin}`)
-    this.options.push(`xmax = ${this.xMax}`)
-    this.options.push(`ymin = ${this.yMin}`)
-    this.options.push(`ymax = ${this.yMax}`)
+    this.options.push(`xmin = ${this.xMin + 0.5}`)
+    this.options.push(`xmax = ${this.xMax + 0.5}`)
+    this.options.push(`ymin = ${this.yMin + 0.5}`)
+    this.options.push(`ymax = ${this.yMax + 0.5}`)
     this.options.push(`xtick distance = ${this.xTickDistance}`)
     this.options.push(`ytick distance = ${this.yTickDistance}`)
     this.options.push(`grid = ${this.grid}`)
@@ -61,6 +74,10 @@ export class Repere implements Repere2D {
     return [this.renderOpening(), this.renderOptions(), ']', this.content, this.closing].join('\n')
   }
 
+  /**
+   * Constructeur de la classe Repere
+   * @param param0 {RepereOptions} - On passe un objet *optionnel* de type RepereOptions
+   */
   constructor ({
     axisXLine = 'middle',
     axisYLine = 'center',
