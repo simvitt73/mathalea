@@ -13,8 +13,8 @@ type RepereOptions = {
   yMax?: number
   xTickDistance?: number
   yTickDistance?: number
-    grid?: 'minor' | 'major' | 'both' | 'none'
-    scale: number
+  grid?: 'minor' | 'major' | 'both' | 'none'
+  scale: number
   moreOptions?: string | null
 }
 /**
@@ -44,7 +44,7 @@ export class Repere implements Repere2D {
   private yTickDistance: number // distance entre les tirets sur l'axe des ordonnées
   private grid: 'minor' | 'major' | 'both' | 'none' // type de grille
   private scale: number // échelle de la figure TikZ
-  // private moreOptions: string | null // ajouter d'autre options au repère
+  private moreOptions: string | null // ajouter d'autre options au repère
   renderTikz () {
     this.options.push(`axis x line = ${this.axisXLine}`)
     this.options.push(`axis y line = ${this.axisYLine}`)
@@ -57,7 +57,7 @@ export class Repere implements Repere2D {
     this.options.push(`xtick distance = ${this.xTickDistance}`)
     this.options.push(`ytick distance = ${this.yTickDistance}`)
     this.options.push(`grid = ${this.grid}`)
-    // if (this.moreOptions) this.options.push(`${this.moreOptions}`)
+    if (this.moreOptions) this.options.push(`${this.moreOptions}`)
     return [this.renderOpening(), this.renderOptions(), ']', this.content, this.closing].join('\n')
   }
 
@@ -73,7 +73,8 @@ export class Repere implements Repere2D {
     xTickDistance = 1,
     yTickDistance = 1,
     grid = 'both',
-    scale = 1
+    scale = 1,
+    moreOptions = null
   }: RepereOptions = {}) {
     this.axisXLine = axisXLine
     this.axisYLine = axisYLine
@@ -87,6 +88,7 @@ export class Repere implements Repere2D {
     this.yTickDistance = yTickDistance
     this.grid = grid
     this.scale = scale
+    this.moreOptions = moreOptions
   }
 
   add (obj: Graphe | Point) {
