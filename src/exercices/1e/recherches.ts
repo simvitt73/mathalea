@@ -64,16 +64,30 @@ class Expression {
     const e_avant = this.e
     let commentaire: string
     [this.e, commentaire] = fun(this.e)
-    this.e = removeNegate(this.e)
+    // this.e = removeNegate(this.e)
     // if ((log) && !(e_avant.isSame(this.e))) {
     if (log) {
       this.historique.push([this.e, commentaire])
     }
   }
 
+  push (e: SemiBoxedExpression,
+	{commentaire, log} = {commentaire: '', log: true} ) {
+    this.apply((expr) => [parse(e), commentaire], {log} )
+  }
+
+  evalLast () {
+    const last = this.historique.at(-1)[0]
+    Log(last)
+    this.push(last.evaluate())
+  }
+
   latexDetails () {
     const [e, _] = this.historique.shift()
-    return `& & ${this.fDe ?? this.nom} &= ${latex(e)} & \\\\` + this.historique.map((e, i) => `& & &= ${latex(e[0])} & \\text{${e[1]}}`).join('\\\\')
+    let res = '\\begin{align*}'
+    res += `& & ${this.fDe ?? this.nom} &= ${latex(e)} & \\\\` + this.historique.map((e, i) => `& & &= ${latex(e[0])} & \\text{${e[1]}}`).join('\\\\')
+    res += '\\end{align*}'
+    return res
   }
 
   developper (term?: string) {
@@ -149,8 +163,8 @@ class Equation {
     let avant = this.toString()
     let commentaire: string
     [this.lhs, this.rhs, commentaire] = fun(this.lhs, this.rhs);
-    this.lhs = removeNegate(this.lhs)
-    this.rhs = removeNegate(this.rhs)
+    // this.lhs = removeNegate(this.lhs)
+    // this.rhs = removeNegate(this.rhs)
     let apres = this.toString()
     if ((log) && (avant != apres)) { // on n'enregistre que les changements visibles
       this.historique.push([this.lhs, this.rhs, commentaire])
@@ -359,9 +373,50 @@ class FonctionAffine {
       resultat: r
     }
   }
+}
 
+class suiteGeometrique {
+  /**
+   * Définit une suite géométrique
+   */
+  up: BoxedExpression
+  q: BoxedExpression
+  p: number
+  nom: string
 
+  constructor ({ u0, q, p = 0, nom = 'u' }: {}) {
+    this.nom = nom
+    this.up = parse(u0)
+    this.q = parse(q)
+    this.p = p
+  }
 
+  terme (i:number): BoxedExpression {
+    if (i === this.p) { return this.up }
+    if (i === this.p + 1) {return parse(`${this.up}*${this.q}`)}
+    return parse(['Multiply', this.up, ['Power', this.q, (i - this.p)]])
+  }
+
+  toString () {
+    return `$(${this.nom}_n)_{n \\geq ${this.p}}$ est une suite géométrique de premier terme ${this.up} et de raison ${this.q}`
+  }
+
+  somme (i:number, j: number) {
+    let s = Array.from({length: j - i + 1},
+		       (k, key) => latex(this.terme(i + key))).join(' + ')
+    log(s)
+    let e = new Expression(s, {nom: `\\sum\\limits_{k = ${i}}^${j}${this.nom}_k`})
+    Log(e)
+    let normalform = Array.from({length: j - i},
+				(v, k) => `${this.q}^${1 + k}`).join(' + ')
+    e.push(`${latex(this.terme(i - this.p))}*(1 + ${normalform})`)
+    e.push(`${latex(this.terme(i - this.p))}*(1 - (${this.q})^{${j - i + 1}})/(1 - ${this.q})`)
+    // e.evalLast()
+    return {
+      details: e.latexDetails(),
+      resultat: parse(`(${this.up})*((1 - (${this.q})^{${j - i + 1}})/(1 - ${this.q}))`)
+    }
+  }
 }
 
 
@@ -381,12 +436,24 @@ function questionDeriveeAffine (): {question: string, reponse: string} {
   // e2.apply(e => [factoriserPar(e, "x"), `On factorise par $x$`])
   // e2.apply(e => [simplifierFractionPar(e, "a - 8/5"), `On simplifie`])
 
-  let f = new fonctionAffineTest({expr: '-3/2*x + 2' })
-  let g = new fonctionAffineTest({expr: '5*x - 1' })
-  // Log(f.resoudre(g))
+ 
+  let u = new suiteGeometrique({u0:'(3/4)', q:'1/2'})
   let texte = ""
-  texte += `<br> Calcul de dérivée $${f}$ <br> \\[\\begin{align*}${f.derivee(3).details}\\end{align*}\\]`
-  texte += `<br> Résolution d'une équation de degré 1 : <br> \\[\\begin{align*}${f.resoudre(g).details}\\end{align*}\\]`
+  texte += `${u} <br>`
+  texte += `$${latex(u.terme(3))}$ <br>`
+  texte += `$${u.terme(3)}$ <br>`
+  let s = u.somme(4, 6)
+  texte += `\\[${s.details}\\]`
+
+  // texte += `\\[${latex(s)} = ${s.evaluate()}\\]`
+
+
+  // let f = new fonctionAffineTest({expr: '-3/2*x + 2' })
+  // let g = new fonctionAffineTest({expr: '5*x - 1' })
+  // // Log(f.resoudre(g))
+  // let texte = ""
+  // texte += `<br> Calcul de dérivée $${f}$ <br> \\[\\begin{align*}${f.derivee(3).details}\\end{align*}\\]`
+  // texte += `<br> Résolution d'une équation de degré 1 : <br> \\[\\begin{align*}${f.resoudre(g).details}\\end{align*}\\]`
 
   // let fde3 = f.image(3)
   // texte += `<br> Calcul d'une image $${f}$ <br> \\[\\begin{align*}${fde3.calcul} = ${fde3.resultat.latex}\\end{align*}\\]`

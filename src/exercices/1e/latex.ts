@@ -3,10 +3,15 @@ import type { BoxedExpression } from '@cortex-js/compute-engine'
 
 function estNombre(expr: BoxedExpression): boolean {
   // On passe par la forme canonique
-  return engine.box(expr).isReal
+  return (engine.box(expr).isReal) || ((expr.head === 'Power') && (expr.op1.isReal))
 }
 
 function parse(expr: SemiBoxedExpression): BoxedExpression {
+  if (typeof expr === 'string') {
+    expr = expr.replace('\\dfrac', '\\frac')
+    expr = expr.replace('\\left', '')
+    expr = expr.replace('\\right', '')
+  }
   const removeDelim = expr => (expr.head === 'Delimiter') ? (expr.ops[0]) : expr
   let boxed =  (typeof expr === 'string')
     ? engine.parse(expr, {canonical: false})
@@ -22,7 +27,7 @@ function addFormat (e: BoxedExpression, i: number) {
 
 function mulFormat (e: BoxedExpression, i: number) {
   let txt = latex(e)
-  if ((e.head === 'Divide') || (e.head === 'Power')) return `${txt}` // Pas besoin de parenthèses avec une fraction
+  if ((e.head === 'Divide') || (e.head === 'Power')) return `${txt}` // Pas besoin de parenthèses avec une fraction ou une puissance
   if (e.ops !== null) return `\\left(${txt}\\right)` // Expression nestée entre parenthèse
   if (i == 0) return `${txt}`; // le premier facteur est tel quel
   // les facteurs suivants sont entre parenthèse s'ils commencent par un signe '-'
@@ -49,8 +54,9 @@ function latex(expr: BoxedExpression): string {
       args[0] = (args[0][0] == '-') ? `\\left(${args[0]}\\right)` : args[0]
       return "-" + args.join('')
     }
-    // Pas besoin de parenthèses lorsque -(3/4) avec une fraction
-    if ((op.head === 'Divide') || (op.head === 'Rational')){
+    // Pas besoin de parenthèses lorsque -(3/4), -(3^2), -(x)
+    // avec une fraction ou avec une puissance ou une inconnue ou un nombre
+    if ((op.head === 'Divide') || (op.head === 'Rational') || (op.head === 'Power') || (op.head === 'Symbol') || (op.head === 'Number')){
       return `-${latex(op)}`
     }
     return `-\\left(${latex(expr.op1)}\\right)`
@@ -70,6 +76,12 @@ function latex(expr: BoxedExpression): string {
 	args[i] += '\\times'
       }
     }
+    // Si on a une fraction à une position >= 1 : on indique \\times
+    for (let i = 1; i < args.length; i++){
+      if ((expr.ops[i].head === 'Divide') || (expr.ops[i].head === 'Rational')) {
+	args[i] = '\\times ' + args[i]
+      }
+    }
     // On supprime les 1 et -1 inutiles en tête de multiplication
     let sgn = ''
     if ((args[0] === '1') || (args[0] === '1\\times') || (args[0] === '-1') || (args[0] === '-1\\times')) {
@@ -82,7 +94,7 @@ function latex(expr: BoxedExpression): string {
   }
   if (expr.head === 'Power') {
     let a = latex(expr.op1)
-    a = (expr.op1.ops !== null) ? `(${a})` : a
+    a = (expr.op1.ops !== null) ? `\\left(${a}\\right)` : a
     let b = latex(expr.op2)
     return `${a}^{${b}}`
   }
