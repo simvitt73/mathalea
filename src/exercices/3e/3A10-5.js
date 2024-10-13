@@ -7,6 +7,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
 export const interactifReady = true
@@ -33,8 +34,49 @@ export default function RecourirDecompositionFacteursPremiers () {
   this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
   this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]
   this.sup = 6
+  this.sup2 = 4
   this.tailleDiaporama = 2
 
+  /* function ecrirePuissanceDunNombre (a, n) {
+    // Cas de base
+    if (n === 0) {
+      return ['1']
+    }
+    if (n === 1) {
+      return [String(a)]
+    }
+
+    const resultats = new Set()
+
+    // Ajout de l'écriture de a^n
+    resultats.add(`${a}^${n}`)
+
+    // Génération des écritures
+    for (let k = 1; k < n; k++) {
+      const partie1List = ecrirePuissanceDunNombre(a, k)
+      const partie2List = ecrirePuissanceDunNombre(a, n - k)
+
+      for (const partie1 of partie1List) {
+        for (const partie2 of partie2List) {
+          resultats.add(`${partie1} * ${partie2}`)
+        }
+      }
+    }
+
+    // Ajout des facteurs individuels a^1
+    if (n > 1) {
+      const facteurs = new Array(n).fill(`${a}^1`).join(' * ')
+      resultats.add(facteurs)
+    }
+
+    return Array.from(resultats)
+  }
+  // Exemple d'utilisation
+  const resultats = ecrirePuissanceDunNombre(2, 5)
+
+  console.log('*****************')
+  resultats.forEach(res => console.log(res))
+*/
   function ecrireReponse (alpha, a, beta, b, gamma, c) {
     let reponse = ''
     let reponse2 = ''
@@ -97,28 +139,28 @@ export default function RecourirDecompositionFacteursPremiers () {
           nbADecomposer = Math.pow(2, a) * Math.pow(3, b) * Math.pow(5, c)
           texte = `$${texNombre(nbADecomposer)}`
           texteCorr = texte + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 5, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 5, c)[1]) + '$'
-          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `${sp(2)}=` })
+          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 3, b, 5, c), { formatInteractif: 'texte' })
           break
         case 2: // 2, 3 et 7
           nbADecomposer = Math.pow(2, a) * Math.pow(3, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}`
           texteCorr = texte + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 7, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 7, c)[1]) + '$'
-          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `${sp(2)}=` })
+          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 3, b, 7, c), { formatInteractif: 'texte' })
           break
         case 3: // 2, 5 et 7
           nbADecomposer = Math.pow(2, a) * Math.pow(5, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}`
           texteCorr = texte + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 5, b, 7, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 5, b, 7, c)[1]) + '$'
-          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `${sp(2)}=` })
+          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 5, b, 7, c), { formatInteractif: 'texte' })
           break
         case 4: // 3, 5 et 7
           nbADecomposer = Math.pow(3, a) * Math.pow(5, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}`
           texteCorr = texte + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(3, a, 5, b, 7, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(3, a, 5, b, 7, c)[1]) + '$'
-          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `${sp(2)}=` })
+          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(3, a, 5, b, 7, c), { formatInteractif: 'texte' })
           break
         case 5: // 11, 13, 17 ou 19 et deux autres facteurs parmi 2, 3 et 5
@@ -134,7 +176,7 @@ export default function RecourirDecompositionFacteursPremiers () {
           texte = `$${texNombre(nbADecomposer)}`
           solution = ecrireReponse(facteur1, b, facteur2, c, facteurX, 1)
           texteCorr = texte + `${sp(2)}=${sp(1)}` + miseEnEvidence(solution[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(solution[1]) + '$'
-          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `${sp(2)}=` })
+          texte += '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}=` })
           setReponse(this, i, solution, { formatInteractif: 'texte' })
           break
       }
