@@ -59,17 +59,33 @@ export function extraitLaDecomposition (expression) {
 }
 
 function compareLesDecomposition (decompo1, decompo2) {
-  if (!(Array.isArray(decompo1) && Array.isArray(decompo2))) return false
-  if (decompo1.length !== decompo2.length) return false
+  if (!(Array.isArray(decompo1) && Array.isArray(decompo2))) return { isOk: false, feedback: 'La réponse n\'a pas la forme attendue' }
+  // On verifie que les deux décomposition sont bien le même nombre sinon on sort
+  let nb1 = 1
+  for (const facteur of decompo1) {
+    nb1 *= facteur[0] ** facteur[1]
+  }
+  let nb2 = 1
   for (const facteur of decompo2) {
+    nb2 *= facteur[0] ** facteur[1]
+  }
+  if (nb1 !== nb2) {
+    return { isOk: false, feedback: `La décomposition saisie ne donne pas $${texNombre(nb2, 0)}$ mais $${texNombre(nb1, 0)}$.` }
+  }
+  // On continue parce que les décompositions donnent le même résultat
+  for (const facteur of decompo1) {
     const mantisse = facteur[0]
     const exposant = facteur[1]
-    const element = decompo1.find(el => el[0] === mantisse)
-    if (element == null) return false
-    const exposant1 = element[1]
-    if (exposant !== exposant1) return false
+    const element = decompo2.find(el => el[0] === mantisse)
+    if (element == null) {
+      return { isOk: false, feedback: `$${texNombre(mantisse, 0)}$ n'est pas un facteur premier.` }
+    }
+    const exposant2 = element[1]
+    if (exposant !== exposant2) {
+      return { isOk: false, feedback: `Le nombre de facteur $${mantisse}$ dans la décomposition est incorrect.` }
+    }
   }
-  return true
+  return { isOk: true, feedback: '' }
 }
 
 export default function RecourirDecompositionFacteursPremiers () {
@@ -224,6 +240,7 @@ export default function RecourirDecompositionFacteursPremiers () {
         reponse: { value: bonneDecomposition },
         callback: (exercice, question) => {
           let isOk
+          let feedback = ''
           const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
           if (mfe == null) return { isOk: false, score: { nbBonnesReponses: 0, nbReponses: 0 } }
           const expression = mfe.getValue()
@@ -231,14 +248,16 @@ export default function RecourirDecompositionFacteursPremiers () {
             isOk = false
           } else {
             const decompoSaisie = extraitLaDecomposition(expression)
-            isOk = compareLesDecomposition(decompoSaisie, bonneDecomposition)
+            const result = compareLesDecomposition(decompoSaisie, bonneDecomposition)
+            isOk = result.isOk
+            feedback = result.feedback
           }
 
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
           if (spanReponseLigne != null) {
             spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
           }
-          return { isOk, score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
+          return { isOk, feedback, score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
         }
 
       })
