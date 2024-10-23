@@ -1,11 +1,14 @@
 <script lang="ts">
     import type { JSONReferentielEnding } from '../../../../../../lib/types/referentiels'
     import { bibliothequeDisplayedContent, bibliothequePathToSection, isModalStaticExercisesChoiceVisible } from '../../../../../../lib/stores/generalStore'
+  import { getContext } from 'svelte'
 
     export let pathToThisNode: string[] = []
     export let nestedLevelCount: number
     export let referentielToDisplay: Record<string, JSONReferentielEnding>
     export let isEmpty: boolean = false
+
+    const { toggleStaticExercisesChoiceDialog } = getContext('staticExercisesChoiceContext')
 
     /**
      * Un clic sur cette entrée :
@@ -17,7 +20,9 @@
       $bibliothequeDisplayedContent = { ...referentielToDisplay }
       $isModalStaticExercisesChoiceVisible = true
       $bibliothequePathToSection = [...pathToThisNode]
+      toggleStaticExercisesChoiceDialog()
     }
+
   </script>
 
   <div
