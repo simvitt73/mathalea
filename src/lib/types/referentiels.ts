@@ -110,14 +110,14 @@ export interface crpeItemInreferentiel extends BaseItemInReferentiel {
 
 /**
  * Description d'une ressource statique dans un référentiel
- * @interface StaticItemInreferentiel
+ * @interface StaticItemInReferentiel
  * @extends BaseItemInReferentiel
  * @property {string[]} png : liste des chemins vers les images des contenus de la ressource
  * @property {string[]} pngCor : liste des chemins vers les images des correction des contenus de la ressource
  * @property {string} tex: chemin vers le source LaTeX du contenu
  * @property {string} texCor: chemin vers le source LaTeX de la correction du contenu
  */
-export interface StaticItemInreferentiel extends BaseItemInReferentiel {
+export interface StaticItemInReferentiel extends BaseItemInReferentiel {
   png: string
   pngCor: string
   tex: string
@@ -128,13 +128,13 @@ export interface StaticItemInreferentiel extends BaseItemInReferentiel {
 /**
  * Description d'une ressource venant un examen dans un référentiel
  * @interface ExamItemInReferentiel
- * @extends StaticItemInreferentiel
+ * @extends StaticItemInReferentiel
  * @property {string|undefined} mois : mois de la publication de l'examen (optionnel)
  * @property {string} annee : année de la publication de l'examen
  * @property {string} lieu : endroit où a été diffusé l'examen
  * @property {string} numeroInitial : numérode positionnement de l'exercice dans le sujet initial de l'examen
  */
-export interface ExamItemInReferentiel extends StaticItemInreferentiel {
+export interface ExamItemInReferentiel extends StaticItemInReferentiel {
   mois?: string
   annee: string
   lieu: string
@@ -183,7 +183,7 @@ export interface ToolItemInReferentiel extends BaseItemInReferentiel {
 // Type pour un objet situé en fin de référentiel
 export type JSONReferentielEnding =
   // | BaseItemInReferentiel  <-- pas de terminaison aussi basique
-  | StaticItemInreferentiel
+  | StaticItemInReferentiel
   | ExamItemInReferentiel
   | ExerciceItemInReferentiel
   | ToolItemInReferentiel
@@ -296,7 +296,7 @@ export function isParentOfStaticEnding (obj: any): obj is Record<string, JSONRef
   }
 }
 
-export const isStaticType = (obj: any): obj is StaticItemInreferentiel =>
+export const isStaticType = (obj: any): obj is StaticItemInReferentiel =>
   obj !== null &&
   typeof obj !== 'undefined' &&
   Object.keys(obj).includes('png') &&
@@ -322,10 +322,10 @@ export const isGeoDynamic = (obj: JSONReferentielEnding): boolean => {
     obj !== null &&
     typeof obj !== 'undefined' &&
     Object.keys(obj).includes('url') &&
-    // À ce stade, on est sûr que l'objet ne peu tpas être de type StaticItemInreferentiel car il a la propriété `url`
-    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url !== undefined &&
-    typeof (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url === 'string' &&
-    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url.match(geoDynRegExp) !==
+    // À ce stade, on est sûr que l'objet ne peu tpas être de type StaticItemInReferentiel car il a la propriété `url`
+    (obj as Exclude<JSONReferentielEnding, StaticItemInReferentiel>).url !== undefined &&
+    typeof (obj as Exclude<JSONReferentielEnding, StaticItemInReferentiel>).url === 'string' &&
+    (obj as Exclude<JSONReferentielEnding, StaticItemInReferentiel>).url.match(geoDynRegExp) !==
       null
   ) {
     return true

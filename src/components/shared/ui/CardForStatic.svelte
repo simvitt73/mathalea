@@ -1,11 +1,12 @@
 <script lang='ts'>
-  import type { StaticItemInreferentiel } from '../../../lib/types/referentiels'
+  import type { StaticItemInReferentiel } from '../../../lib/types/referentiels'
   import StarIcon from '../icons/StarIcon.svelte'
   import { exercicesParams } from '../../../lib/stores/generalStore'
 
-  export let exercise: StaticItemInreferentiel
+  export let exercise: StaticItemInReferentiel
   export let reversed: boolean = false
   export let selected: boolean = false
+  export let indice: string = 'card-for-static'
 
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
@@ -40,6 +41,7 @@
 
 <button
   type="button"
+  id={indice}
   class="block relative w-full rounded-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark shadow-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
   on:click={handelSelection}
 >

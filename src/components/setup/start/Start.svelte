@@ -39,19 +39,22 @@
   import { get } from 'svelte/store'
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
   import handleCapytale from '../../../lib/handleCapytale'
-  import {sendActivityParams} from '../../../lib/handleRecorder'
+  import { sendActivityParams } from '../../../lib/handleRecorder'
   import { canOptions } from '../../../lib/stores/canStore'
   import { buildEsParams } from '../../../lib/components/urls'
   import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
   import type { CanOptions } from '../../../lib/types/can'
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
+  import ModalStaticExercisesChoice from './presentationalComponents/ModalStaticExercisesChoice.svelte'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
   let isBackToTopButtonVisible = false
   let selectedThirdApps: string[]
   let thirdAppsChoiceModal: BasicClassicModal
+  let staticExercisesChoiceModal: BasicClassicModal
   let showThirdAppsChoiceDialog = false
+  let showStaticExercisesChoiceDialog = false
   let isMd: boolean
   let localeValue: Language = get(referentielLocale)
   let isSidenavOpened: boolean = true
@@ -304,6 +307,15 @@
       }
     }
   })
+  // Contexte pour le modal des apps tierces
+  setContext('staticExercisesChoiceContext', {
+    toggleStaticExercisesChoiceDialog: () => {
+      showStaticExercisesChoiceDialog = !showStaticExercisesChoiceDialog
+      if (showStaticExercisesChoiceDialog === false && staticExercisesChoiceModal) {
+        staticExercisesChoiceModal.closeModal()
+      }
+    }
+  })
 
   function updateParams (params: { globalOptions: InterfaceGlobalOptions; canOptions: CanOptions }) {
     canOptions.set(params.canOptions)
@@ -495,6 +507,9 @@
   {buildUrlAndOpenItInNewTab}
   {updateParams}
 />
+<ModalStaticExercisesChoice
+{staticExercisesChoiceModal}
+{showStaticExercisesChoiceDialog} />
 
 <style>
   @media (min-width: 768px) {

@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { isStaticType, type JSONReferentielEnding } from '../../../../lib/types/referentiels'
+  import { doesImageExist } from '../../../../lib/components/images'
+  import { isStaticType, type JSONReferentielEnding, type StaticItemInReferentiel } from '../../../../lib/types/referentiels'
+  import BreadcrumbHeader from '../../../shared/header/BreadcrumbHeader.svelte'
   import BasicClassicModal from '../../../shared/modal/BasicClassicModal.svelte'
+  import CardForStatic from '../../../shared/ui/CardForStatic.svelte'
 
   export let staticExercisesChoiceModal: BasicClassicModal
   export let showStaticExercisesChoiceDialog: boolean
   export let bibliothequePathToSection: string[]
   export let bibliothequeUuidInExercisesList: string[]
   export let bibliothequeDisplayedContent: Record<string, JSONReferentielEnding>
-  // let bibliothequeChoiceModal: BasicGridModal
 
   const buildBiblioToBeDisplayed = (): StaticItemInReferentiel[] => {
     const results: StaticItemInReferentiel[] = []
