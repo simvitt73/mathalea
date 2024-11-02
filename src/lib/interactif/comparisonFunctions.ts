@@ -25,8 +25,12 @@ export type OptionsComparaisonType = {
   fractionDecimale?:boolean
   fractionEgale?:boolean
   nombreDecimalSeulement?:boolean
-  operationSeulementEtNonCalcul?: boolean
-  calculSeulementEtNonOperation?: boolean
+  operationSeulementEtNonResultat?: boolean
+  additionSeulementEtNonResultat?:boolean
+  soustractionSeulementEtNonResultat?:boolean
+  multiplicationSeulementEtNonResultat?:boolean
+  divisionSeulementEtNonResultat?:boolean
+  resultatSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
   seulementCertainesPuissances? :boolean
@@ -335,7 +339,6 @@ function allFactorsMatch (ops1: readonly BoxedExpression[], ops2: readonly Boxed
   let nbMatchOK = 0
   let nbNonAttendu = 0
   let allMatch = true
-  console.log(ops1, ops2)
   for (const op of ops1) {
     let match = false
     for (const op2 of ops2) {
@@ -460,7 +463,7 @@ export function factorisationCompare (
     }
     return allFactorsMatch(reponseFactors, saisieFactors, signe, exclusifFactorisation)
   }
-  console.log(isOk1)
+
   if (!isOk1 || exclusifFactorisation) return allFactorsMatch(reponseFactors, saisieFactors, signe, exclusifFactorisation)
   if (isOk1 && unSeulFacteurLitteral) {
     let nbNumber = 0
@@ -511,7 +514,44 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreductible:boolean, fractionSimplifiee:boolean, fractionReduite:boolean, fractionDecimale:boolean, fractionEgale:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonCalcul:boolean, calculSeulementEtNonOperation:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean, texteSansCasse:boolean }} [options]
+ /**
+ * @param {{
+ *   expressionsForcementReduites: boolean,
+ *   avecSigneMultiplier: boolean,
+ *   avecFractions: boolean,
+ *   fractionIrreductible: boolean,
+ *   fractionSimplifiee: boolean,
+ *   fractionReduite: boolean,
+ *   fractionDecimale: boolean,
+ *   fractionEgale: boolean,
+ *   nombreDecimalSeulement: boolean,
+ *   operationSeulementEtNonResultat: boolean,
+ *   additionSeulementEtNonResultat: boolean,
+ *   soustractionSeulementEtNonResultat:boolean,
+ *   multiplicationSeulementEtNonResultat:boolean,
+ *   divisionSeulementEtNonResultat:boolean,
+ *   resultatSeulementEtNonOperation: boolean,
+ *   HMS: boolean,
+ *   intervalle: boolean,
+ *   estDansIntervalle: boolean,
+ *   ecritureScientifique: boolean,
+ *   unite: boolean,
+ *   precisionUnite: number,
+ *   ensembleDeNombres: boolean,
+ *   kUplet: boolean,
+ *   suiteDeNombres,
+ *   suiteRangeeDeNombres,
+ *   puissance: boolean,
+ *   seulementCertainesPuissances: boolean,
+ *   sansExposantUn: boolean,
+ *   factorisation: boolean,
+ *   exclusifFactorisation: boolean,
+ *   nbFacteursIdentiquesFactorisation: boolean,
+ *   unSeulFacteurLitteral,
+ *   puissance: boolean,
+ *   texteAvecCasse: boolean,
+ *   texteSansCasse: boolean
+ * }} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -528,8 +568,12 @@ export function fonctionComparaison (
     fractionDecimale, // Documenté
     fractionEgale, // Documenté
     nombreDecimalSeulement, // Documenté
-    operationSeulementEtNonCalcul, // Documenté
-    calculSeulementEtNonOperation, // Documenté
+    operationSeulementEtNonResultat, // Documenté
+    additionSeulementEtNonResultat,
+    soustractionSeulementEtNonResultat,
+    multiplicationSeulementEtNonResultat,
+    divisionSeulementEtNonResultat,
+    resultatSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
     suiteDeNombres,
@@ -562,8 +606,12 @@ export function fonctionComparaison (
     fractionDecimale: false,
     fractionEgale: false,
     nombreDecimalSeulement: false,
-    operationSeulementEtNonCalcul: false,
-    calculSeulementEtNonOperation: false,
+    operationSeulementEtNonResultat: false,
+    additionSeulementEtNonResultat: false,
+    soustractionSeulementEtNonResultat: false,
+    multiplicationSeulementEtNonResultat: false,
+    divisionSeulementEtNonResultat: false,
+    resultatSeulementEtNonOperation: false,
     ensembleDeNombres: false,
     kUplet: false,
     seulementCertainesPuissances: false,
@@ -612,7 +660,7 @@ export function fonctionComparaison (
   if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
-  const inputNew = calculSeulementEtNonOperation
+  const inputNew = resultatSeulementEtNonOperation
     ? input.replace('(', '').replace(')', '').replace('\\lparen', '').replace('\\rparen', '') // Utile pour 5R20
     : input
 
@@ -621,16 +669,26 @@ export function fonctionComparaison (
     avecSigneMultiplier,
     avecFractions,
     fractionIrreductible,
-    operationSeulementEtNonCalcul,
+    operationSeulementEtNonResultat,
+    additionSeulementEtNonResultat,
+    soustractionSeulementEtNonResultat,
+    multiplicationSeulementEtNonResultat,
+    divisionSeulementEtNonResultat,
     nombreDecimalSeulement,
-    calculSeulementEtNonOperation
+    resultatSeulementEtNonOperation
   })
 }
 
 /**
  * Cette fonction permet que ComputeEngine fasse un super job avec la réduction d'expression et avec des options supplémentaires
  * @param {BoxedExpression} expr
- * @param {{ expressionsForcementReduites:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonCalcul:boolean, calculSeulementEtNonOperation:boolean}} [options]
+ * @param {{
+ *   expressionsForcementReduites: boolean,
+ *   fractionIrreducibleSeulement: boolean,
+ *   nombreDecimalSeulement: boolean,
+ *   operationSeulementEtNonResultat: boolean
+ *   resultatSeulementEtNonOperation: boolean
+ * }} [options]
  * @author Eric Elter (aidé par ArnoG)
  * @return BoxedExpression
  */
@@ -639,15 +697,15 @@ function customCanonical (
   {
     expressionsForcementReduites = true,
     fractionIrreductible = false, // SANS DOUTE INUTILE MAINTENANT. A VERIFIER
-    operationSeulementEtNonCalcul = false,
+    operationSeulementEtNonResultat = false,
     nombreDecimalSeulement = false,
-    calculSeulementEtNonOperation = false
+    resultatSeulementEtNonOperation = false
   } = {}): BoxedExpression {
   let expression = expressionWithHead(expr)
-  if (calculSeulementEtNonOperation || nombreDecimalSeulement) { // Fonctionnement : On retourne le calcul
+  if (resultatSeulementEtNonOperation || nombreDecimalSeulement) { // Fonctionnement : On retourne le calcul
     return expression
   }
-  if (!operationSeulementEtNonCalcul) { // Fonctionnement par défaut : Tout est accepté si l'expression est un nombre
+  if (!operationSeulementEtNonResultat) { // Fonctionnement par défaut : Tout est accepté si l'expression est un nombre
     // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
     if (typeof expression.value === 'number') { // L'expression est une expression numérique, les expressions littérales ne sont pas traitées ici
       if (fractionIrreductible) {
@@ -692,7 +750,7 @@ function customCanonical (
           customCanonical(x, {
             expressionsForcementReduites,
             fractionIrreductible,
-            operationSeulementEtNonCalcul,
+            operationSeulementEtNonResultat,
             nombreDecimalSeulement
           })
         )
@@ -800,7 +858,7 @@ type Substitutions = { [variable: string]: number }
  * - on n'accepte que l'enchaînement de calculs fourni en goodAnswer et non le résultat de cet enchaînement de calculs
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonCalcul:boolean, calculSeulementEtNonOperation:boolean}} [options]
+ * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonResultat:boolean, resultatSeulementEtNonOperation:boolean}} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -814,8 +872,12 @@ function expressionDeveloppeeEtReduiteCompare (
     avecFractions = true,
     fractionIrreductible = false,
     nombreDecimalSeulement = false,
-    operationSeulementEtNonCalcul = false,
-    calculSeulementEtNonOperation = false
+    operationSeulementEtNonResultat = false,
+    additionSeulementEtNonResultat = false,
+    soustractionSeulementEtNonResultat = false,
+    multiplicationSeulementEtNonResultat = false,
+    divisionSeulementEtNonResultat = false,
+    resultatSeulementEtNonOperation = false
   } = {}
 ): ResultType {
   let feedback = ''
@@ -842,9 +904,9 @@ function expressionDeveloppeeEtReduiteCompare (
     {
       expressionsForcementReduites,
       fractionIrreductible,
-      operationSeulementEtNonCalcul,
+      operationSeulementEtNonResultat: operationSeulementEtNonResultat || additionSeulementEtNonResultat || soustractionSeulementEtNonResultat || multiplicationSeulementEtNonResultat || divisionSeulementEtNonResultat,
       nombreDecimalSeulement,
-      calculSeulementEtNonOperation
+      resultatSeulementEtNonOperation
     })
   )
   const reponseParsed = expressionWithHead(customCanonical(
@@ -852,9 +914,9 @@ function expressionDeveloppeeEtReduiteCompare (
     {
       expressionsForcementReduites,
       fractionIrreductible,
-      operationSeulementEtNonCalcul,
+      operationSeulementEtNonResultat: operationSeulementEtNonResultat || additionSeulementEtNonResultat || soustractionSeulementEtNonResultat || multiplicationSeulementEtNonResultat || divisionSeulementEtNonResultat,
       nombreDecimalSeulement,
-      calculSeulementEtNonOperation
+      resultatSeulementEtNonOperation
     })
   )
   /// Code JCL
@@ -877,38 +939,22 @@ function expressionDeveloppeeEtReduiteCompare (
 
   if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
   // La saisie est égale à la réponse mais il faut vérifier que cela correspond l'option prévue
-    if (calculSeulementEtNonOperation) { // L'un peut être décimal et l'autre peut être fractionnaire ou les deux fractionnaires : Ex. 4C10
+    if (resultatSeulementEtNonOperation) { // L'un peut être décimal et l'autre peut être fractionnaire ou les deux fractionnaires : Ex. 4C10
       if ((saisieParsed.isNumber && reponseParsed.head === 'Divide' && reponseParsed.ops?.length === 2) ||
       (reponseParsed.isNumber && saisieParsed.head === 'Divide' && saisieParsed.ops?.length === 2) ||
       (saisieParsed.head === 'Divide' && saisieParsed.ops?.length === 2 && reponseParsed.head === 'Divide' && reponseParsed.ops?.length === 2)) {
         return { isOk: true, feedback: '' }
       }
     }
-  }
-  if (!(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
-    if (calculSeulementEtNonOperation || nombreDecimalSeulement) { // On veut un résultat numérique et pas un enchaînement de calculs
+    if (additionSeulementEtNonResultat || soustractionSeulementEtNonResultat || multiplicationSeulementEtNonResultat || divisionSeulementEtNonResultat) {
       const saisieCalculeeParsed = customCanonical(
         engine.parse(localInput, { canonical: false }),
         {
           expressionsForcementReduites,
           fractionIrreductible,
-          operationSeulementEtNonCalcul,
-          nombreDecimalSeulement: false,
-          calculSeulementEtNonOperation: false
-        }
-      )
-
-      if (saisieCalculeeParsed.isSame(reponseParsed)) feedback = 'Résultat incorrect car une valeur numérique est attendue.' // Sous-entendu : Et pas une opération
-      else feedback = 'Résultat incorrect.'
-    } else if (operationSeulementEtNonCalcul) { // On veut un enchaînement de calculs et pas un résultat numérique
-      const saisieCalculeeParsed = customCanonical(
-        engine.parse(localInput, { canonical: false }),
-        {
-          expressionsForcementReduites,
-          fractionIrreductible,
-          operationSeulementEtNonCalcul: false,
+          operationSeulementEtNonResultat: false,
           nombreDecimalSeulement,
-          calculSeulementEtNonOperation
+          resultatSeulementEtNonOperation
         }
       )
       const reponseCalculeeParsed = customCanonical(
@@ -916,13 +962,76 @@ function expressionDeveloppeeEtReduiteCompare (
         {
           expressionsForcementReduites,
           fractionIrreductible,
-          operationSeulementEtNonCalcul: false,
-          calculSeulementEtNonOperation
+          operationSeulementEtNonResultat: false,
+          resultatSeulementEtNonOperation
         }
       )
       if (saisieCalculeeParsed.isSame(reponseCalculeeParsed)) {
-        if (saisieParsed.head === 'Number') feedback = 'Résultat incorrect car un calcul est attendu.' // Sous-entendu : Et pas une valeur numérique
-        else feedback = 'Résultat incorrect car ce n\'est pas ce calcul qui est attendu.' // Sous-entendu : La bonne opération
+        if (additionSeulementEtNonResultat && saisieParsed.head === 'Add') return { isOk: true, feedback: '' }
+        if (soustractionSeulementEtNonResultat && saisieParsed.head === 'Substract') return { isOk: true, feedback: '' }
+        if (multiplicationSeulementEtNonResultat && (saisieParsed.head === 'Multiply' || saisieParsed.head === 'Power')) return { isOk: true, feedback: '' }
+        if (divisionSeulementEtNonResultat && (saisieParsed.head === 'Divide' || saisieParsed.head === 'Power')) return { isOk: true, feedback: '' }
+      }
+    }
+  }
+  if (!(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
+    if (resultatSeulementEtNonOperation || nombreDecimalSeulement) { // On veut un résultat numérique et pas un enchaînement de calculs
+      const saisieCalculeeParsed = customCanonical(
+        engine.parse(localInput, { canonical: false }),
+        {
+          expressionsForcementReduites,
+          fractionIrreductible,
+          operationSeulementEtNonResultat,
+          nombreDecimalSeulement: false,
+          resultatSeulementEtNonOperation: false
+        }
+      )
+
+      if (saisieCalculeeParsed.isSame(reponseParsed)) feedback = 'Résultat incorrect car une valeur numérique est attendue.' // Sous-entendu : Et pas une opération
+      else feedback = 'Résultat incorrect.'
+    } else if (operationSeulementEtNonResultat || additionSeulementEtNonResultat || soustractionSeulementEtNonResultat || multiplicationSeulementEtNonResultat || divisionSeulementEtNonResultat) { // On veut un enchaînement de calculs et pas un résultat numérique
+      const saisieCalculeeParsed = customCanonical(
+        engine.parse(localInput, { canonical: false }),
+        {
+          expressionsForcementReduites,
+          fractionIrreductible,
+          operationSeulementEtNonResultat: false,
+          nombreDecimalSeulement,
+          resultatSeulementEtNonOperation
+        }
+      )
+      const reponseCalculeeParsed = customCanonical(
+        engine.parse(localInput, { canonical: false }),
+        {
+          expressionsForcementReduites,
+          fractionIrreductible,
+          operationSeulementEtNonResultat: false,
+          resultatSeulementEtNonOperation
+        }
+      )
+      if (saisieCalculeeParsed.isSame(reponseCalculeeParsed)) {
+        if (saisieParsed.head === 'Number') {
+          if (input.includes('+0') || input.includes('0+')) {
+            feedback = 'Résultat incorrect car la somme par 0 est inutile.' // Sous-entendu : Pas de '+0'
+          } else if (input.includes('-0')) {
+            feedback = 'Résultat incorrect car la différence par 0 est inutile.' // Sous-entendu : Pas de '-0'
+          } else if (input.includes('\\times1') || input.includes('1\\times')) {
+            feedback = 'Résultat incorrect car le produit par 1 est inutile.' // Sous-entendu : Pas de 'fois 1'
+          } else if (input.includes('\\div1')) {
+            feedback = 'Résultat incorrect car la division par 1 est inutile.' // Sous-entendu : Pas de 'divisé par 1'
+          } else { feedback = 'Résultat incorrect car un calcul est attendu.' } // Sous-entendu : Et pas une valeur numérique
+        } else {
+          feedback = 'Résultat incorrect car '
+          feedback += additionSeulementEtNonResultat
+            ? 'c\'est une somme qui est attendue.'
+            : soustractionSeulementEtNonResultat
+              ? 'c\'est une différence qui est attendue.'
+              : multiplicationSeulementEtNonResultat
+                ? 'c\'est un produit qui est attendu.'
+                : divisionSeulementEtNonResultat
+                  ? 'c\'est un quotient qui est attendu.'
+                  : 'ce n\'est pas ce calcul qui est attendu.' // Sous-entendu : La bonne opération */
+        }
       } else feedback = 'Résultat incorrect.'
     } else if (fractionIrreductible) { // On veut une fraction irréductible
       const saisieCalculeeParsed = customCanonical(
@@ -930,8 +1039,8 @@ function expressionDeveloppeeEtReduiteCompare (
         {
           expressionsForcementReduites,
           fractionIrreductible: false,
-          operationSeulementEtNonCalcul,
-          calculSeulementEtNonOperation
+          operationSeulementEtNonResultat,
+          resultatSeulementEtNonOperation
         }
       )
       const reponseCalculeeParsed = customCanonical(
@@ -939,8 +1048,8 @@ function expressionDeveloppeeEtReduiteCompare (
         {
           expressionsForcementReduites,
           fractionIrreductible: false,
-          operationSeulementEtNonCalcul,
-          calculSeulementEtNonOperation
+          operationSeulementEtNonResultat,
+          resultatSeulementEtNonOperation
         }
       )
       if (saisieCalculeeParsed.isSame(reponseCalculeeParsed)) {

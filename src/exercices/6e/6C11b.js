@@ -146,7 +146,7 @@ export default function DivisionsEuclidiennesEgaliteFondamentale () {
         `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
         `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`],
             compare: fonctionComparaison,
-            options: { operationSeulementEtNonCalcul: true }
+            options: { operationSeulementEtNonResultat: true }
           }
         })
       }

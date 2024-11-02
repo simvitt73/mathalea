@@ -20,7 +20,7 @@ export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
 
-console.log(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) // -> true OK of course
+// console.log(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) // -> true OK of course
 /* console.log(engine.parse('2^6').isEqual(engine.parse('-2^6'))) // -> false OK
 console.log(engine.parse('(-2)^6').isEqual(engine.parse('2^6'))) // -> true
 console.log(engine.parse('(-2)^6').isSame(engine.parse('-2^6'))) // -> false
@@ -45,7 +45,7 @@ export default function desTestsPourInteractivité () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   // this.consigne = 'Quel est le résultat des calculs suivants ?'
-  this.consigne = 'Factoriser l\'expression suivante avec au moins deux facteurs sous forme littérale.'
+  this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
   this.nouvelleVersion = function () {
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
@@ -53,11 +53,11 @@ export default function desTestsPourInteractivité () {
 
       // console.log(fonctionComparaison('16^1', '16', { sansExposantUn: true }).isOk)
 
-      const reponse = '(3x+6)(x+2)'
+      const reponse = '4+6'
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
-      const enonce = '(3x+6)(x+2)= '
+      const enonce = '10= '
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
@@ -67,7 +67,7 @@ export default function desTestsPourInteractivité () {
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unSeulFacteurLitteral: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { additionSeulementEtNonResultat: true } } })
       // handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
       if (this.questionJamaisPosee(i, a, b)) {
