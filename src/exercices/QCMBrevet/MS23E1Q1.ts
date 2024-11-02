@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
-import { barreTexte, miseEnEvidence } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { premierAvec } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { nombreElementsDifferents } from '../ExerciceQcm'

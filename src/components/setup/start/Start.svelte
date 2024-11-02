@@ -37,14 +37,17 @@
   import type { Language } from '../../../lib/types/languages'
   import { isLanguage } from '../../../lib/types/languages'
   import { get } from 'svelte/store'
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
+  import { getExercisesFromExercicesParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
   import handleCapytale from '../../../lib/handleCapytale'
-  import {sendActivityParams} from '../../../lib/handleRecorder'
+  import { sendActivityParams } from '../../../lib/handleRecorder'
   import { canOptions } from '../../../lib/stores/canStore'
   import { buildEsParams } from '../../../lib/components/urls'
   import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
   import type { CanOptions } from '../../../lib/types/can'
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
+  import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
+  import { downloadFile } from '../../../lib/files'
+  import ExerciceQcm from '../../../exercices/ExerciceQcm'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -202,9 +205,9 @@
     window.addEventListener('scroll', () => updateBackToTopButtonVisibility())
   }
 
-  /* MGu empeche le zoom sur double touch sur IPAD*/
+  /* MGu empeche le zoom sur double touch sur IPAD */
   document.addEventListener('gesturestart', function (e) {
-    e.preventDefault();
+    e.preventDefault()
   })
 
   function updateSelectedThirdApps () {
@@ -330,6 +333,20 @@
       isSidenavOpened = !isSidenavOpened
     }
   }
+
+  async function exportQcmCam (): Promise<void> {
+    const exercises = await getExercisesFromExercicesParams()
+    const exercisesQcms = exercises.filter((exercise) => exercise instanceof ExerciceQcm)
+    if (exercisesQcms.length === 0) {
+      alert('Il n\'y a pas encore d\'export vers QCM Cam pour les exercices sélectionnés')
+      return
+    }
+    exercisesQcms.forEach((exercise) => {
+      exercise.nouvelleVersion()
+    })
+    const content = qcmCamExportAll(exercisesQcms)
+    downloadFile(content, 'questions.txt')
+  }
 </script>
 
 <svelte:window bind:innerWidth />
@@ -360,6 +377,7 @@
       isExercisesListEmpty={$exercicesParams.length === 0}
       {isSidenavOpened}
       {toggleSidenav}
+      {exportQcmCam}
     />
     {#if isMd}
       <!-- ====================================================================================
@@ -371,7 +389,7 @@
       >
         {#if $globalOptions.recorder}
           <SideMenuWrapper
-            isCapytale={$globalOptions.recorder === 'capytale'}
+            isRecorder={$globalOptions.recorder === 'capytale'}
             {isSidenavOpened}
             {toggleSidenav}
           />
@@ -466,6 +484,7 @@
               {trash}
               {setFullScreen}
               {handleExport}
+              {exportQcmCam}
             />
           </div>
           <!-- Affichage exercices en mode smartphone -->

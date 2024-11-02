@@ -166,29 +166,54 @@ export function propositionsQcm (exercice, i, options) {
       exercice.autoCorrection[i].propositions
     )
   }
+
+  // Crée un élément temporaire pour mesurer la largeur d'un caractère
+  const element = document.createElement('span')
+  element.style.font = '16px monospace' // Choisir la police et la taille désirées
+  element.style.visibility = 'hidden' // Masquer l'élément
+  element.textContent = 'Abcdefghijkl' // Utiliser un caractère pour mesurer la largeur
+
+  document.body.appendChild(element)
+  const largeurCaractere = element.offsetWidth / 12 // Largeur du caractère en pixels
+  document.body.removeChild(element)
+
+  // Calculer le nombre de caractères affichables dans la largeur de la fenêtre
+  const largeurTerminal = window.innerWidth
+  const nombreCaracteres = Math.floor(largeurTerminal / largeurCaractere)
+
+  const longueurTotale = exercice.autoCorrection[i].propositions.reduce(
+    (acc, prop) => acc + prop.texte.length,
+    0
+  )
+  const longueurMaxHtml = Math.max(40, nombreCaracteres - 10)// Pour les cases à cocher et autres
+  const longueurMaxLatex = 60
+  if (longueurTotale > (context.isHtml ? longueurMaxHtml : longueurMaxLatex)) {
+    vertical = true
+  }
+
   // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
   elimineDoublons(exercice.autoCorrection[i].propositions)
   if (!context.isHtml) {
     const formateQ = (format, rep) => {
       if (format == null || format === 'case') return '$\\square\\;$'
       if (format === 'lettre') {
-        return `${texteGras(lettreDepuisChiffre(rep + 1))} :`
+        return `${texteGras(lettreDepuisChiffre(rep + 1))}.`
       }
       return `${texteGras(lettreDepuisChiffre(rep + 1))}$\\square\\;$`
     }
     const formateRV = (format, rep) => {
       if (format == null || format === 'case') return '$\\blacksquare\\;$'
       if (format === 'lettre') {
-        return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))} :`
+        return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.`
       }
       return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}$\\blacksquare\\;$`
     }
     const formateRF = (format, rep) => {
       if (format == null || format === 'case') return '$\\square\\;$'
       if (format === 'lettre') {
-        return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')}$ :`
+        return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')}$.`
       }
-      return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')} \\square\\;$`
+      return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')}\\square\\;$`
     }
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
     texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
@@ -219,24 +244,24 @@ export function propositionsQcm (exercice, i, options) {
     const formateQ = (format, rep) => {
       if (format == null || format === 'case') return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">`
       if (format === 'lettre') {
-        return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))} :</label>`
+        return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
-      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)} : </label>`
+      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
       // return `${lettreDepuisChiffre(rep + 1)}$\\square\\;$`
     }
     const formateRV = (format, rep) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>'
       if (format === 'lettre') {
-        return `<label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))} :</label>`
+        return `<label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
-      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}</label>`
+      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
     }
     const formateRF = (format, rep) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">'
       if (format === 'lettre') {
-        return `<label ${classCss} >${texteGras(`${barreTexte(lettreDepuisChiffre(rep + 1))}`)} :</label>`
+        return `<label ${classCss} >${texteGras(`${barreTexte(lettreDepuisChiffre(rep + 1))}`)}.</label>`
       }
-      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default"><label ${classCss} >$${miseEnEvidence(`\\cancel{${lettreDepuisChiffre(rep + 1)}}`, 'black')}$</label>`
+      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default"><label ${classCss} >$${miseEnEvidence(`\\cancel{${lettreDepuisChiffre(rep + 1)}}`, 'black')}$.</label>`
     }
 
     texte = '<div class="my-3">'
