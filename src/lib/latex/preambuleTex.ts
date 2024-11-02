@@ -9,8 +9,11 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 \\usepackage{unicode-math}
 \\usepackage{fontspec}
 \\setmainfont{TeX Gyre Schola}
-%\\setmainfont{OpenDyslexic}[Scale=1.0]
+\\setsansfont{TeX Gyre Schola}
 \\setmathfont{TeX Gyre Schola Math}
+%\\setmainfont{OpenDyslexic}[Scale=1.0]
+%\\setsansfont{OpenDyslexic}[Scale=1.0]
+%\\setmathfont{OpenDyslexic}[Scale=1.0,range=up/{Latin,latin,num}]
 \\usepackage[fontsize=${latexFileInfos.dysTailleFontOption}]{scrextend}
 \\usepackage{setspace}
 \\setstretch{1.7}
