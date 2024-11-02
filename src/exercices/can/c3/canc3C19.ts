@@ -89,7 +89,7 @@ Combien cela coûte-t-il pour le collège ?`
           const b = randint(5, 9) * 10
           this.reponse = texNombre(a * b, 0)
           this.question = `Dans une salle, il y a $${a}$ rangées de $${b}$ chaises.<br>
-          Combien y a-t-il de places assises dans cette salles ?`
+          Combien y a-t-il de places assises dans cette salle ?`
           this.correction = `Il y a $${a}$ rangées de $${b}$ chaises chacune.<br>
           $${a} \\times ${b}=${this.reponse}$<br>          
           Il y a $${miseEnEvidence(this.reponse)}$ places assises dans cette salle.`
@@ -119,14 +119,15 @@ Combien cela coûte-t-il pour le collège ?`
         break
 
       case 6:
-        { const listeValeur = [[4, 'trois'], [5, 'quatre'], [6, 'cinq'], [7, 'six']]
+        { const prenom = prenomF()
+          const listeValeur = [[4, 'trois'], [5, 'quatre'], [6, 'cinq'], [7, 'six']]
           const a = choice(listeValeur)
           const b = randint(1, 2) * 10 + randint(1, 9)
           this.reponse = texNombre(a[0] * b, 0)
-          this.question = `${prenomF()} et ses ${a[1]} amis se partagent équitablement des bonbons.<br>
+          this.question = `${prenom} et ses ${a[1]} amis se partagent équitablement des bonbons.<br>
            Chacun en a eu $${b}$.<br>
 Combien de bonbons avaient-ils à partager ?`
-          this.correction = `Chacun des ${a[0]} enfants (${prenomF()} et ses ${a[1]} amis) a le même nombre de bonbons.<br>
+          this.correction = `Chacun des ${a[0]} enfants (${prenom} et ses ${a[1]} amis) a le même nombre de bonbons.<br>
           $${texNombre(a[0], 0)} \\times ${b}=${this.reponse}$<br>
           Le nombre de bonbons à partager est $${miseEnEvidence(this.reponse)}$.`
           this.canEnonce = this.question

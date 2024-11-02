@@ -40,7 +40,7 @@ export default class problemeSoustraction extends Exercice {
 Combien de balles ne sont pas rouges ?`
           this.correction = `Le carton contient $${a}$ balles en tout et $${b}$ sont rouges.<br>
            $${a} -${b}=${this.reponse}$<br>
-          Dans le carton, ${miseEnEvidence(this.reponse)}$ balles ne sont pas rouges.`
+          Dans le carton, $${miseEnEvidence(this.reponse)}$ balles ne sont pas rouges.`
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\ldots$ balles'
           this.optionsChampTexte = { texteApres: 'balles' }
@@ -99,8 +99,8 @@ Combien lui manque-t-il ?`
 
       case 5:
         {
-          const a = randint(1, 4) * 1000 + randint(6, 9) * 100
-          const b = randint(11, 29) * 100
+          const a = randint(2, 4) * 1000 + randint(1, 4) * 100
+          const b = randint(15, 19) * 100
           this.reponse = texNombre(a - b, 0)
           this.question = `Dans une salle de spectacle, il y a $${texNombre(a, 0)}$ places.<br>
            $${texNombre(b, 0)}$ places sont occupées.<br>
@@ -140,7 +140,7 @@ Combien de places sont inoccupées ? `
               L'option confort coûte $${texNombre(b, 0)}$ euros.<br>
                               Quel est le prix de cette voiture sans l'option confort ?`
           this.correction = `Le prix d'une voiture est  $${texNombre(a, 0)}$ € avec l'option.<br>
-          $${texNombre(a, 0)} -${b}=${this.reponse}$
+          $${texNombre(a, 0)} -${b}=${this.reponse}$<br>
           Sans l'option confort, le prix de la voiture est $${miseEnEvidence(this.reponse)}$ €.`
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\ldots$ €'
