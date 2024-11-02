@@ -12,7 +12,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '4e9ed'
 export const refs = {
-  'fr-fr': ['3QCMTrigo-1'],
+  'fr-fr': ['3G3QCM-1'],
   'fr-ch': []
 }
 export const interactifReady = true
