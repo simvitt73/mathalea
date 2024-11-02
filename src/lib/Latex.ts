@@ -286,7 +286,7 @@ Correction
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
         contents.preamble += '\n\\newbool{correctionDisplay}'
         contents.preamble += `\n\\setbool{correctionDisplay}{${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
-        contents.preamble += '\n\\Theme[CAN]{}{}{' + latexFileInfos.durationCanOption + '}{}'
+        contents.preamble += `\n\\Theme[CAN]{${latexFileInfos.title === '' ? 'Course aux nombres' : latexFileInfos.title}}{}{${latexFileInfos.durationCanOption}}{}`
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
         contents.intro += '\n\\pageDeGardeCan{nbEx}'

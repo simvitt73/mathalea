@@ -358,6 +358,21 @@ import {
               { label: 'Avec correction', value: 'AvecCorrection' },
               { label: 'Sans correction', value: 'SansCorrection' }
             ]}
+          />          
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Police de caractères
+          </h6>
+          <FormRadio
+            title="fontOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.fontOption}
+            labelsValues={[
+              { label: 'Standard', value: 'StandardFont' },
+              { label: 'Dys', value: 'DysFont' }
+            ]}
           />
           {#if latexFileInfos.fontOption === 'StandardFont'}
           <span>
@@ -389,36 +404,6 @@ import {
           />
           </span>
           {/if}
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Police de caractères
-          </h6>
-          <FormRadio
-            title="fontOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.fontOption}
-            labelsValues={[
-              { label: 'Standard', value: 'StandardFont' },
-              { label: 'Dys', value: 'DysFont' }
-            ]}
-          />
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Police de caractères
-          </h6>
-          <FormRadio
-            title="fontOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.fontOption}
-            labelsValues={[
-              { label: 'Standard', value: 'StandardFont' },
-              { label: 'Dys', value: 'DysFont' }
-            ]}
-          />
           <h6
             class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
           >
@@ -572,7 +557,6 @@ import {
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
             placeholder={latexFileInfos.style === 'Can' ? 'Course aux nombres' : 'Titre'}
             bind:value={latexFileInfos.title}
-            disabled={latexFileInfos.style === 'Can'}
           />
           <input
             type="text"
