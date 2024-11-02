@@ -13,7 +13,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 
 export const uuid = '41a13'
 export const refs = {
-  'fr-fr': ['3QCMH-X'],
+  'fr-fr': ['3G1QCM-2'],
   'fr-ch': []
 }
 export const interactifReady = true

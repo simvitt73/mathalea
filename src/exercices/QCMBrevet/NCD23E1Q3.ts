@@ -6,7 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 
 export const uuid = 'e4292'
 export const refs = {
-  'fr-fr': ['3QCMN-10'],
+  'fr-fr': ['3P1QCM-1'],
   'fr-ch': []
 }
 export const interactifReady = true
