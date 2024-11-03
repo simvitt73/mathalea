@@ -950,18 +950,51 @@
   "PEG2": {
     "titre": "À la règle et au compas"
   },
-  "TSpeAN1": {
-    "titre": "Analyse"
+  "TSA1": {
+    "titre": "Les suites numériques"
   },
-  "TSpeC1": {
-    "titre": "Calculs"
+  "TSA2": {
+    "titre":"Compléments sur la dérivation"
   },
-  "TSpeS1": {
-    "titre": "Suites"
-  },
-  "TSpeF1": {
-    "titre": "Fonctions"
-  },
+      "TSA3": {
+        "titre":"Limites de fonctions"
+      },
+      "TSA4": {
+      "titre":"Continuité des fonctions"
+    },
+      "TSA5": {
+        "titre":"Fonction logarithme népérien"
+      },
+      "TSA6": {
+      "titre":"Primitives et équations différentielles"
+    },
+      "TSA7": {
+        "titre":"Intégration"
+      },
+      "TSA8": {
+      "titre":"Fonction sinus et cosinus"
+    },
+      "TSP1": {
+        "titre":"Variables aléatoires discrètes finies"
+      },
+      "TSP2": {
+      "titre":"Sommes de variables aléatoires"
+    },
+      "TSP3": {
+        "titre":"Concentration, loi des grands nombres"
+      },
+      "TSG1": {
+      "titre":"Combinatoire et dénombrement"
+    },
+      "TSG2": {
+        "titre":"Vecteurs, des droites et des plans de l'espace"
+      },
+      "TSG3": {
+      "titre":"Orthogonalité et distances dans l'espace"
+    },
+    "TSG4": {
+      "titre":"Représentation paramétriques et équations cartésiennes"
+    },
   "TExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}
