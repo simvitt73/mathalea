@@ -968,9 +968,19 @@ function expressionDeveloppeeEtReduiteCompare (
       )
       if (saisieCalculeeParsed.isSame(reponseCalculeeParsed)) {
         if (additionSeulementEtNonResultat && saisieParsed.head === 'Add') return { isOk: true, feedback: '' }
-        if (soustractionSeulementEtNonResultat && saisieParsed.head === 'Substract') return { isOk: true, feedback: '' }
         if (multiplicationSeulementEtNonResultat && (saisieParsed.head === 'Multiply' || saisieParsed.head === 'Power')) return { isOk: true, feedback: '' }
         if (divisionSeulementEtNonResultat && (saisieParsed.head === 'Divide' || saisieParsed.head === 'Power')) return { isOk: true, feedback: '' }
+
+        // Ce code ci-dessous dans l'absolu devrait fonctionner sauf que parse transforme une soustraction en une addition : 6-3=6+(-3)
+        // if (soustractionSeulementEtNonResultat && saisieParsed.head === 'Substract') return { isOk: true, feedback: '' }
+
+        // Donc par rapport à ce qui est au-dessus, il faut chercher l'absence d'un délimiter devant le -
+        // console.info(JSON.stringify(ce.parse('12+(-2)', { canonical: false }).json));
+        // -> ["Add",12,["Delimiter",["Negate",2]]]
+        // console.info(JSON.stringify(ce.parse('12-2', { canonical: false }).json));
+        // -> ["Add",12,["Negate",2]]
+        const saisieJSON = JSON.stringify(engine.parse(localInput, { canonical: false }).json)
+        if (soustractionSeulementEtNonResultat && saisieJSON.includes('Negate') && !saisieJSON.includes('Delimiter')) return { isOk: true, feedback: '' }
       }
     }
   }
