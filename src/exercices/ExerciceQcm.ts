@@ -90,7 +90,7 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
 
     const laBonneLettre = lettres[index.findIndex(el => el === 0)]
     // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
-    const texteCorr = `${monQcm.texteCorr}${this.correction}<br>La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`
+    const texteCorr = `${this.correction}<br>${this.interactif ? '' : `La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`}`
 
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr
