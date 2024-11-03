@@ -1,8 +1,6 @@
 import { qcmCamExport } from '../lib/amc/qcmCam'
 import { propositionsQcm } from '../lib/interactif/qcm'
-import { shuffle } from '../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
-import { range } from '../lib/outils/nombres'
 import { context } from '../modules/context'
 import Exercice from './Exercice'
 
@@ -24,7 +22,7 @@ export const nombreElementsDifferents = (liste: string[]) => {
 export default class ExerciceQcm extends Exercice {
   enonce!: string
   reponses!: string[]
-  options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
+  options: {vertical?: boolean, ordered: boolean, lastChoice?: number}
   versionAleatoire?: ()=>void
   versionOriginale:()=>void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
@@ -49,7 +47,7 @@ export default class ExerciceQcm extends Exercice {
     this.spacing = 1 // à adapter selon le contenu de l'énoncé
     this.spacingCorr = 2 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
-    this.options = { vertical: false, ordered: false }
+    this.options = { vertical: false, ordered: false, lastChoice: 8 }
     this.versionOriginale()
   }
 
@@ -69,26 +67,22 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
     let texte = this.enonce
     this.autoCorrection[0] = {}
     if (this.options != null) {
-      this.autoCorrection[0].options = { ...this.options, ordered: true }
-    } else {
-      this.autoCorrection[0].options = { ordered: true } // Ordre fixé : le brassage a lieu ci dessous afin de conserver les lettres dans l'ordre sans avoir besoin de retrouver qui est qui
+      this.autoCorrection[0].options = { ...this.options }
     }
-    const nbReponses = this.reponses.length
-    const lesReponses = range(nbReponses - 1)
-    const index = shuffle(lesReponses) // On crée la liste index qui contient les index mélangés des réponses
     this.autoCorrection[0].propositions = []
     for (let i = 0; i < this.reponses.length; i++) {
       this.autoCorrection[0].propositions.push({
-        texte: this.reponses[index[i]],
-        statut: index[i] === 0
+        texte: this.reponses[i],
+        statut: i === 0
       })
     }
+
     const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
 
     const monQcm = propositionsQcm(this, 0, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
     texte += `<br>${monQcm.texte}`
 
-    const laBonneLettre = lettres[index.findIndex(el => el === 0)]
+    const laBonneLettre = lettres[this.autoCorrection[0].propositions.findIndex(el => el.statut)]
     // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
     const texteCorr = `${this.correction}<br>${this.interactif ? '' : `La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`}`
 
@@ -97,7 +91,7 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
   }
 
   // Pour permettre d'exporter tous les qcm pour en faire des séries de questions pour QcmCam. Ne pas y toucher
-  qcmCamExport (): string {
+  qcmCamExport (): {question: string, reponse: string}[] {
     return qcmCamExport(this)
   }
 }

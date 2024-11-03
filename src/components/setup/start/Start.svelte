@@ -336,7 +336,7 @@
 
   async function exportQcmCam (): Promise<void> {
     const exercises = await getExercisesFromExercicesParams()
-    const exercisesQcms = exercises.filter((exercise) => exercise instanceof ExerciceQcm)
+    const exercisesQcms = exercises.filter((exercise) => exercise.interactifType === 'qcm')
     if (exercisesQcms.length === 0) {
       alert('Il n\'y a pas encore d\'export vers QCM Cam pour les exercices sélectionnés')
       return
