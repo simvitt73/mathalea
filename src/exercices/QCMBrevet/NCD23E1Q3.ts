@@ -13,9 +13,14 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calcul d\'un pourcentage (décembre 2023 Nouvelle Calédonie)'
+export const titre = 'Calcul d\'un pourcentage (12/2023 Nouvelle Calédonie)'
 export const dateDePublication = '29/10/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
+/**
+ *
+ * @author Matthieu DEVILLERS
+ * matthieu.devillers@ac-rennes.fr
+ */
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
