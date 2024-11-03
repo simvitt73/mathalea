@@ -1294,10 +1294,14 @@ export function equalFractionCompareSansRadical (
 function comparaisonPuissances (input: string, goodAnswer: string, { seulementCertainesPuissances = false, sansExposantUn = false } = {}): ResultType {
   const clean = generateCleaner(['virgules', 'puissances'])
   const nombreSaisi = clean(input).split('^')
+  const goodAnswerSplit = clean(goodAnswer).split('^')
 
-  // input n'est pas une puissance
-  if (nombreSaisi.length === 1) return { isOk: false, feedback: 'Une puissance est attendue.' }
-
+  // input n'est pas une puissance (mais cas possiblement correct si exposant de goodAnswer est 1 ou 0)
+  if (nombreSaisi.length === 1) {
+    const exposantGoodAnswer = isNaN(Number(goodAnswerSplit[1])) ? 1 : goodAnswerSplit[1]
+    if ((Number(exposantGoodAnswer) === 1 || Number(exposantGoodAnswer) === 0) && (engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer))))) return { isOk: true }
+    return { isOk: false, feedback: 'Une puissance est attendue.' }
+  }
   // input n'est pas une puissance de puissance
   if (seulementCertainesPuissances && nombreSaisi.length > 2) return { isOk: false, feedback: 'Un seul exposant est attendu.' }
 
@@ -1315,8 +1319,6 @@ function comparaisonPuissances (input: string, goodAnswer: string, { seulementCe
   const exposantSaisiNumber = Number(exposantSaisi)
   // L'exposnat saisi est-il un nombre ?
   if (Number.isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
-
-  const goodAnswerSplit = clean(goodAnswer).split('^')
 
   // goodAnswer n'est pas une puissance donc toute puissance égale à goodAnswer est correcte (modulo sansExposantUn)
   if (goodAnswerSplit.length === 1) {
