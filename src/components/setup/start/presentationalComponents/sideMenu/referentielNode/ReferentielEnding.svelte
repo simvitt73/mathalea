@@ -167,7 +167,7 @@
                 </span>
               </span>
             {/if}
-            {#if ending.id.includes('QCM')}
+            {#if ending.features.qcm}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"
