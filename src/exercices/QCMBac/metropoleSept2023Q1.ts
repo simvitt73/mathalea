@@ -1,15 +1,15 @@
 import ExerciceQcm from '../ExerciceQcm'
 
-export const uuid = 'Z2024E5Q4'
+export const uuid = 'M092023Q1'
 export const refs = {
-  'fr-fr': ['TQCMProb-4'],
+  'fr-fr': ['TQCME-1'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Sujet zéro 2024 E5Q4'
+export const titre = 'Bac Métropole septembre 2023 Q1'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -17,20 +17,22 @@ export const dateDePublication = '28/10/2024'
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
  */
-export default class SujetZero2024Ex5Q4 extends ExerciceQcm {
+export default class metropoleSept2023Q1 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      '$2^{10}$',
-      '$2 \\times 10$',
-      '$1 \\times 2 \\times 3 \\times \\cdots \\times 10$',
-      '$\\dfrac{1 \\times 2 \\times 3 \\times \\cdots \\times 10}{1 \\times 2}$'
+      '$F(x) = \\dfrac12 \\mathrm{e}^{x^2 - 3}$',
+      '$F(x) = 2x\\mathrm{e}^{x^2 - 3}$',
+      '$F(x) = \\left(2x^2 + 1\\right)\\mathrm{e}^{x^2 - 3}$',
+      '$F(x) = \\dfrac12 x\\mathrm{e}^{x^2 - 3}$'
 
     ]
 
-    this.enonce = `On effectue dix lancers d'une pièce de monnaie. Le résultat d'un lancer est "pile" ou "face".<br>
-    On note la liste ordonnée des dix résultats.<br>
-    Quel est le nombre de listes ordonnées possibles?`
-    this.correction = 'Il y a 2 résultats possibles si on effectue 1 lancer, $2^2$ résultats possibles si on effectue 2 lancers, etc., $2^{10}$ résultats possibles si on effectue 10 lancers.'
+    this.enonce = `On considère la fonction $f$ définie sur $\\mathbb R$ par 
+$f(x) = x \\mathrm{e}^{x^2 - 3}.$<br>
+
+Une des primitives $F$ de la fonction $f$ sur $\\mathbb R$ est définie par :`
+
+    this.correction = 'Avec $F(x) = \\dfrac12 \\mathrm{e}^{x^2 - 3}$, on a $F\'(x) = 2x \\times \\dfrac12\\mathrm{e}^{x^2 - 3} = x\\mathrm{e}^{x^2 - 3} = f(x)$ '
   }
 
   constructor () {

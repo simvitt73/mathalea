@@ -40,6 +40,7 @@ Lequel des points suivants appartient au plan $\\mathcal{P}$ ?`
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }
