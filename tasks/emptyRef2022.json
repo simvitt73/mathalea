@@ -195,7 +195,7 @@
     }
   },
   "Terminale": {
-    "TS": {
+    "Terminale Spé": {
       "TSA1": {},
       "TSA2": {},
       "TSA3": {},
@@ -211,7 +211,7 @@
       "TSG2": {},
       "TSG3": {}
     },
-    "TE": {
+    "Terminale Expert": {
       "TEC": {},
       "TEA": {},
       "TEM": {}
