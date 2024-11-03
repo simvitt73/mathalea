@@ -12,9 +12,13 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calcul avec des fractions (décembre 2023 Nouvelle Calédonie)'
+export const titre = 'Calcul avec des fractions (12/2023 Nouvelle Calédonie)'
 export const dateDePublication = '28/10/2024'
-
+/**
+ *
+ * @author Matthieu DEVILLERS et Jean-Claude LHOTE
+ * matthieu.devillers@ac-rennes.fr
+ */
 export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.reponses = [

@@ -14,8 +14,14 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer la médiane d\'une série d\'effectif impair (issu de Nouvelle Calédonie Décembre 2020)'
+export const titre = 'Médiane d\'une série d\'effectif impair (12/2020 Nouvelle Calédonie)'
 export const dateDePublication = '1/11/2024'
+/**
+ *
+ * @author Matthieu DEVILLERS
+ * matthieu.devillers@ac-rennes.fr
+ */
+
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses

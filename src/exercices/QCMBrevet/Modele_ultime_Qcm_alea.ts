@@ -13,9 +13,14 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calcul d\'image par une fonction (2024 Métropole)'
+export const titre = 'Calcul d\'image par une fonction (12/2024 Métropole)' // titre aussi concis que possible
 export const dateDePublication = '28/10/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
+/**
+ *
+ * @author Prénom Nom de l'auteur
+ * éventuellement e-mail
+ */
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale

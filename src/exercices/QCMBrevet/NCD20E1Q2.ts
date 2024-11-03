@@ -14,8 +14,13 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Donner l\'écriture scientifique d\'un nombre (issu du brevet 2020 Nouvelle Calédonie)'
+export const titre = 'Écriture scientifique d\'un nombre (12/2020 Nouvelle Calédonie)'
 export const dateDePublication = '01/11/2024'
+/**
+ *
+ * @author Matthieu DEVILLERS
+ * matthieu.devillers@ac-rennes.fr
+ */
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 export default class NouvelleCaledonieDecembre2023Exo1Q2 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
