@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calcul d\'image par une fonction (12/2024 Métropole)' // titre aussi concis que possible
+export const titre = 'Titre à modifier' // titre aussi concis que possible
 export const dateDePublication = '28/10/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
