@@ -138,21 +138,25 @@ export default function SommeDeVecteurs () {
       let xOrigin
       let yOrigin
       xSomme[i] = randint(0, 14) * choice([-1, 1])
-      ySomme[i] = randint(0, 14) * choice([-1, 1])
-      if (xSomme[i] <= -10) xOrigin = randint(5, 9)
-      else if (xSomme[i] <= -6) xOrigin = randint(1, 9)
-      else if (xSomme[i] <= -2) xOrigin = choice(rangeMinMax(-3, 9))
-      else if (xSomme[i] >= 10) xOrigin = choice(rangeMinMax(-9, -5))
-      else if (xSomme[i] >= 6) xOrigin = choice(rangeMinMax(-9, -1))
-      else if (xSomme[i] >= 2) xOrigin = choice(rangeMinMax(-9, 3))
-      else xOrigin = choice(rangeMinMax(-9, 8))
-      if (ySomme[i] <= -10) yOrigin = randint(5, 9)
-      else if (ySomme[i] <= -6) yOrigin = randint(1, 9)
-      else if (ySomme[i] <= -2) yOrigin = choice(rangeMinMax(-3, 9))
-      else if (ySomme[i] >= 10) yOrigin = choice(rangeMinMax(-9, -5))
-      else if (ySomme[i] >= 6) yOrigin = choice(rangeMinMax(-9, -1))
-      else if (ySomme[i] >= 2) yOrigin = choice(rangeMinMax(-9, 3))
-      else yOrigin = choice(rangeMinMax(-9, 8))
+      // il faut que le vecteur somme soit supérieur au moins à 5 unités par exemple
+      const val = 25 - xSomme[i] * xSomme[i]
+      ySomme[i] = (val <= 0) ? randint(0, 14) * choice([-1, 1]) : randint(Math.ceil(Math.sqrt(val)), 14) * choice([-1, 1])
+      const longueurVecteurSomme = Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i])
+
+      if (xSomme[i] <= -10) xOrigin = randint(5, 8)
+      else if (xSomme[i] <= -6) xOrigin = randint(1, 8)
+      else if (xSomme[i] <= -2) xOrigin = randint(-3, 8)
+      else if (xSomme[i] >= 10) xOrigin = randint(-8, -5)
+      else if (xSomme[i] >= 6) xOrigin = randint(-8, -1)
+      else if (xSomme[i] >= 2) xOrigin = randint(-8, 3)
+      else xOrigin = randint(-8, 6)
+      if (ySomme[i] <= -10) yOrigin = randint(5, 8)
+      else if (ySomme[i] <= -6) yOrigin = randint(1, 8)
+      else if (ySomme[i] <= -2) yOrigin = randint(-3, 8)
+      else if (ySomme[i] >= 10) yOrigin = randint(-8, -5)
+      else if (ySomme[i] >= 6) yOrigin = randint(-8, -1)
+      else if (ySomme[i] >= 2) yOrigin = randint(-8, 3)
+      else yOrigin = randint(-8, 6)
 
       const numeroOrigine = randint(1, 26, [15]) // 15 : Pour éviter le point O
       const nomOrigine = lettreDepuisChiffre(numeroOrigine)
@@ -161,32 +165,43 @@ export default function SommeDeVecteurs () {
       let pointOrigine = this.figure[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       const pointOrigineCorrection = figureCorrection.create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       pointExtremite[i] = this.figure[i].create('Point', { x: xOrigin + xSomme[i], y: yOrigin + ySomme[i], isVisible: false })
-      const longueurVecteurSomme = Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i])
 
-      let PointIntermediaire
       let distanceOrigineProjOrthogonal
       let distancePointIntermediaireProjOrthogonal
       let distanceVecteurSommeProfOrthogonal
-      let vecteur1
-      let vecteur2
       let xPointIntermediaire
       let yPointIntermediaire
-
+      let indice = 0
+      const vecteur2 = {}
       do {
-        xPointIntermediaire = choice(rangeMinMax(-9, 9, xOrigin))
-        yPointIntermediaire = choice(rangeMinMax(-9, 9, yOrigin))
-        PointIntermediaire = this.figure[i].create('Point', { x: xPointIntermediaire, y: yPointIntermediaire, isVisible: false })
-        distanceOrigineProjOrthogonal = ((PointIntermediaire.x - pointOrigine.x) * xSomme[i] + (PointIntermediaire.y - pointOrigine.y) * ySomme[i]) / Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i])
-        distancePointIntermediaireProjOrthogonal = Math.sqrt((PointIntermediaire.x - pointOrigine.x) * (PointIntermediaire.x - pointOrigine.x) + (PointIntermediaire.y - pointOrigine.y) * (PointIntermediaire.y - pointOrigine.y))
-        vecteur1 = this.figure[i].create('VectorByPoints', { point1: pointOrigine, point2: PointIntermediaire, isVisible: false })
-        vecteur2 = this.figure[i].create('VectorByPoints', { point1: PointIntermediaire, point2: pointExtremite[i], isVisible: false })
+        // console.log('longueurVecteurSomme:', longueurVecteurSomme)
+        xPointIntermediaire = randint(-9, 9)
+        yPointIntermediaire = randint(-9, 9)
+        // console.log('xPointIntermediaire:', xPointIntermediaire)
+        // console.log('yPointIntermediaire:', yPointIntermediaire)
+        distanceOrigineProjOrthogonal = Math.abs(((xPointIntermediaire - pointOrigine.x) * xSomme[i] + (yPointIntermediaire - pointOrigine.y) * ySomme[i]) / Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i]))
+        // console.log('distanceOrigineProjOrthogonal:', distanceOrigineProjOrthogonal)
+        distancePointIntermediaireProjOrthogonal = Math.sqrt((xPointIntermediaire - pointOrigine.x) * (xPointIntermediaire - pointOrigine.x) + (yPointIntermediaire - pointOrigine.y) * (yPointIntermediaire - pointOrigine.y))
+        // console.log('distancePointIntermediaireProjOrthogonal:', distancePointIntermediaireProjOrthogonal)
         distanceVecteurSommeProfOrthogonal = Math.sqrt(distancePointIntermediaireProjOrthogonal * distancePointIntermediaireProjOrthogonal - distanceOrigineProjOrthogonal * distanceOrigineProjOrthogonal)
-      } while (!(distanceVecteurSommeProfOrthogonal > 1 && distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 && pointOrigine.x + vecteur2.x < 9 && pointOrigine.x + vecteur2.x > -9 && pointOrigine.y + vecteur2.y < 9 && pointOrigine.y + vecteur2.y > -9))
+        // console.log('distanceVecteurSommeProfOrthogonal:',  distanceVecteurSommeProfOrthogonal)
+        vecteur2.x = pointExtremite[i].x - xPointIntermediaire
+        vecteur2.y = pointExtremite[i].y - yPointIntermediaire
+        indice++
+      } while (indice < 50 && !(distanceVecteurSommeProfOrthogonal > 1 && distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 && pointOrigine.x + vecteur2.x < 9 && pointOrigine.x + vecteur2.x > -9 && pointOrigine.y + vecteur2.y < 9 && pointOrigine.y + vecteur2.y > -9))
       /* Explications des conditions du while
       distanceVecteurSommeProfOrthogonal > 1 : Pour que le projeté orthogonal de point1 sur le vecteur somme soit assez loin du vecteur (pour éviter des vecteurs presque colinéaires)
       distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 : Pour que le triangle formé par vecteur1, vecteur2 et vecteurSomme ait une aire suffisamment grande (pour éviter des vecteurs presque colinéaires)
       Autres conditions : pour que le PointIntermediaire soit sur la grille
       */
+      if (indice >= 50) {
+        // Mgu avec cette URL : http://localhost:5173/alea/?uuid=6cf42&id=2G21-2&n=1&d=10&s=1&alea=qOgl&cd=1
+        console.log('on a un problème houston!')
+      }
+      const vecteur1 = {}
+      vecteur1.x = xPointIntermediaire - pointOrigine.x
+      vecteur1.y = yPointIntermediaire - pointOrigine.y
+
       let pointOrigineChoix2X
       let pointOrigineChoix2Y
       let pointOrigineChoix2
@@ -290,9 +305,9 @@ export default function SommeDeVecteurs () {
 
       figureCorrection.saveState()
 
-      const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idAddendum: 'Correction', figure: figureCorrection })
+      const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: figureCorrection })
       texteCorr = emplacementPourFigureCorrection
-      texteCorr += `Le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras('(' + pointExtremite[i].x + ' ; ' + pointExtremite[i].y + ')')}.<br>`
+      texteCorr += `Le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${pointExtremite[i].x} ; ${pointExtremite[i].y} )`)}.<br>`
 
       this.correctionInteractive = (i) => {
         if (this.answers == null) this.answers = {}
