@@ -19,11 +19,10 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
-console.info(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json))
-console.log(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Negate'))
-console.log(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Delimiter'))
-console.log(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Negate') && !JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Delimiter'))
-console.log(JSON.stringify(engine.parse('12-2', { canonical: false }).json).includes('Negate') && !JSON.stringify(engine.parse('12-2', { canonical: false }).json).includes('Delimiter'))
+const toto = engine.parse('12+0', { canonical: false })
+console.log(toto.ops, toto.ops[1], toto.ops[1].value)
+console.log(engine.parse('12+0', { canonical: true }))
+
 // -> ["Add",12,["Delimiter",["Negate",2]]]
 
 // console.log(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) // -> true OK of course
