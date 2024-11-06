@@ -35,7 +35,7 @@ export default class SommeTermesSG extends Exercice {
    Comme cette somme se calcule par $\\dfrac{1-q^{\\text{nombre de termes}}}{1-q}$, 
    on obtient ${premierTerme === '1'
 ? `$1+q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n + 1}}}{1-q}`)}$ `
-   : `$q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{q-q^{${n+1}}}{1-q}`)}$ `}`
+   : `$q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{q-q^{${n + 1}}}{1-q}`)}$ `}`
     const question = `$q\\neq 1$ <br>${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`
     this.autoCorrection[0] = {
       options: { ordered: true },
