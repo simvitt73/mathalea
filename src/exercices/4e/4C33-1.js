@@ -265,7 +265,7 @@ export default function PuissancesDunRelatif1 () {
           break
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
-          texte = `$${lettre}=(${baseUtile}^{${exp[0]})}^{${exp[1]}}$`
+          texte = `$${lettre}=(${baseUtile}^{${exp[0]}})^{${exp[1]}}$`
 
           if (this.correctionDetaillee) {
             texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(

@@ -620,7 +620,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
-    if (exercice.questionJamaisPosee(i, String(exercice.question))) {
+    if (exercice.questionJamaisPosee(i, String(exercice.reponse))) {
       if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
         if (typeof exercice.reponse !== 'string') {
