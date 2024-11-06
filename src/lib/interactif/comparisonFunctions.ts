@@ -912,20 +912,6 @@ function expressionDeveloppeeEtReduiteCompare (
   /// Code JCL
   // Ci-dessous, si on a une comparaison fausse mais que l'expression donnée est mathématiquement correcte, on fait un feedback.
   const substitutions: Substitutions = { a: 2, b: 2, c: 2, x: 2, y: 2, z: 2 } // On peut ajouter d'autres variables si nécessaire
-  // Ajout d'un test sur goodAnswer pour vérifier la présence de lettres (après avoir retiré les div, times, frac...)
-  const adjectif =
-    localGoodAnswer
-      .replaceAll('div', '')
-      .replaceAll('times', '')
-      .replaceAll('frac', '')
-      .replaceAll('log', '')
-      .replaceAll('ln', '')
-      .replaceAll('sin', '')
-      .replaceAll('cos', '')
-      .replaceAll('tan', '')
-      .match(/[a-z]/) == null
-      ? 'numérique'
-      : 'littérale'
 
   if (operationSeulementEtNonResultat || additionSeulementEtNonResultat || soustractionSeulementEtNonResultat || multiplicationSeulementEtNonResultat || divisionSeulementEtNonResultat) {
     const parsedExpression = engine.parse(localInput, { canonical: false })
@@ -1076,9 +1062,26 @@ function expressionDeveloppeeEtReduiteCompare (
       evaluateExpression(localGoodAnswer, substitutions) ===
         evaluateExpression(localInput, substitutions)
     ) {
-      feedback = expressionsForcementReduites
+      feedback = 'Incorrect'
+      /* Ce feedback ne devrait fonctionner que si on a des expressions littérales mais actuellement, ce n'est pas le cas donc on l'enlève provisoirement
+      // Ajout d'un test sur goodAnswer pour vérifier la présence de lettres (après avoir retiré les div, times, frac...)
+  const adjectif =
+    localGoodAnswer
+      .replaceAll('div', '')
+      .replaceAll('times', '')
+      .replaceAll('frac', '')
+      .replaceAll('log', '')
+      .replaceAll('ln', '')
+      .replaceAll('sin', '')
+      .replaceAll('cos', '')
+      .replaceAll('tan', '')
+      .match(/[a-z]/) == null
+      ? 'numérique'
+      : 'littérale'
+feedback = expressionsForcementReduites
         ? `L'expression ${adjectif} attendue devrait être développée et réduite or ce n'est pas le cas.`
         : `L'expression ${adjectif} attendue devrait être simplement développée or ce n'est pas le cas.`
+      */
     }
   }
   return { isOk: saisieParsed.isSame(reponseParsed), feedback }
