@@ -164,6 +164,18 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
         } else if (filename != null) {
           module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
         }
+      } else if (isCan === 'QCMBrevet') {
+        if (filename != null && filename.includes('.ts')) {
+          module = await import(`../exercices/QCMBrevet/${directory}/${filename.replace('.ts', '')}.ts`)
+        } else if (filename != null) {
+          module = await import(`../exercices/QCMBrevet/${directory}/${filename.replace('.js', '')}.js`)
+        }
+      } else if (isCan === 'QCMBac') {
+        if (filename != null && filename.includes('.ts')) {
+          module = await import(`../exercices/QCMBac/${directory}/${filename.replace('.ts', '')}.ts`)
+        } else if (filename != null) {
+          module = await import(`../exercices/QCMBac/${directory}/${filename.replace('.js', '')}.js`)
+        }
       } else {
         if (filename != null && filename.includes('.ts')) {
           module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
