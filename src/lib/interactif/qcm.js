@@ -160,7 +160,7 @@ export function propositionsQcm (exercice, i, options) {
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice?.autoCorrection[i]?.options !== undefined) {
-    const lastChoice = Math.min(exercice.autoCorrection[i].options.lastChoice, exercice.autoCorrection[i].propositions.length - 1)
+    const lastChoice = Math.min(exercice.autoCorrection[i].options.lastChoice ?? exercice.autoCorrection[i].propositions.length, exercice.autoCorrection[i].propositions.length - 1)
     vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
     nbCols =
       exercice.autoCorrection[i].options.nbCols > 1
