@@ -23,9 +23,10 @@ export function qcmCamExport (exercice: Exercice): {question: string, reponse: s
     const propositions = exercice.autoCorrection[j].propositions
     if (propositions == null) continue
     const laConsigne = exercice.consigne.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
+    const introduction = exercice.introduction.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
     const laQuestion = exercice.listeQuestions[j]
-    const enonce = exercice.autoCorrection[j].enonce
-      ? `${laConsigne} ${exercice.autoCorrection[j].enonce?.replaceAll(/&nbsp;/g, ' ')}`
+    const enonce = exercice.autoCorrection[j].enonce == null || exercice.autoCorrection[j].enonce === ''
+      ? `${laConsigne}${laConsigne !== '' ? '<br>' : ''}${introduction != null ? introduction : ''}${introduction != null && introduction !== '' ? '<br>' : ''}${exercice.autoCorrection[j].enonce != null ? exercice.autoCorrection[j].enonce?.replaceAll(/&nbsp;/g, ' ') : ''}`
       : laQuestion.split('<div class="my-3">')[0]
     const props = propositions.map(prop => prop.texte)
     const statuts = propositions.map(prop => prop.statut)
