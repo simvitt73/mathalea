@@ -45,7 +45,7 @@ export function qcmCamExport (exercice: Exercice): {question: string, reponse: s
 
 export function qcmCamExportAll (exercices: Exercice[]): string {
   const questionnaire = []
-  const listExercices = exercices.filter(exo => exo.interactifType === 'qcm')
+  const listExercices = exercices.slice() // exercices.filter(exo => exo.interactifType === 'qcm')
   let index = 0
   for (const exo of listExercices) {
     const materiel = qcmCamExport(exo)

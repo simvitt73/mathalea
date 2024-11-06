@@ -185,7 +185,7 @@ async function readInfos (
                     type: ''
                   }
                 }
-                const matchQcm = data.match(/extends ExerciceQcm/)
+                const matchQcm = data.match(/(= propositionsQcm\()|(extends ExerciceQcm)/)
                 if (matchQcm) {
                   infos.features.qcm = {
                     isActive: true,
