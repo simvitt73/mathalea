@@ -33,17 +33,17 @@ On considère :<br>
 $\\bullet~~$ Les points A$(-1~;~-2~;~3)$, B$(1~;~-2~;~7)$ et C$(1~;~0~;~2)$;<br>
 $\\bullet~~$ La droite $(\\Delta)$ de représentation paramétrique :  $\\left\\{\\begin{array}{l}x=1-t \\\\ y=2 \\\\ z=-4+3 t\\end{array}\\right.$, où $t \\in \\mathbb{R}$;<br>
 $\\bullet~~$ Le plan $\\mathcal{P}$ d'équation cartésienne : $3 x+2 y+z-4=0$;<br>
-$\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>
-Lequel des points suivants appartient au plan $\\mathcal{P}$ ?`
+$\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>`
       : ''
-
+    this.enonce += 'Lequel des points suivants appartient au plan $\\mathcal{P}$ ?'
     this.correction = '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$'
   }
 
   constructor () {
     super()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule', true]
-    this.sup3 = true
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
+    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.sup3 = true
   }
 }

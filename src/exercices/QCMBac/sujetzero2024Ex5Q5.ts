@@ -2,7 +2,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = 'Z2024E5Q5'
 export const refs = {
-  'fr-fr': ['TSG2-05'],
+  'fr-fr': ['TSG1-04'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -26,7 +26,9 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$1 + n + \\dfrac{n(n-1)}{2}$'
     ]
 
-    this.enonce = `On effectue $n$ lancers d'une pièce de monnaie équilibrée. Le résultat d'un lancer est "pile" ou "face".<br> On considère la liste ordonnée des $n$ résultats.
+    this.enonce = `On effectue $n$ lancers d'une pièce de monnaie équilibrée.<br> 
+    Le résultat d'un lancer est "pile" ou "face".<br> 
+    On considère la liste ordonnée des $n$ résultats.<br>
 Quelle est la probabilité d'obtenir au plus deux fois "pile" dans cette liste ?`
     this.correction = 'La variable aléatoire $X$ qui donne le nombre de résultats "pile" sur $n$ lancers suit la loi binomiale de paramètres $n$ et $\\dfrac{1}{2}$.<br>'
     this.correction += 'On cherche $P(X\\leqslant 2)$ soit $P(X=0)+P(X=1)+P(X=2)$.<br>'

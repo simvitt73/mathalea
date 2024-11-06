@@ -26,12 +26,15 @@ export default class metropoleSept2024Ex4Q3 extends ExerciceQcm {
       'incluse dans le plan $\\mathcal{P}$'
     ]
 
-    this.enonce = `L'espace est rapporté à un repère orthonormé $(O;\\vec{\\imath};\\vec{\\jmath};\\vec{k})$.
-On considère :<br>
+    this.enonce = this.sup3
+      ? `L'espace est rapporté à un repère orthonormé $(O;\\vec{\\imath};\\vec{\\jmath};\\vec{k})$.
+    On considère :<br>
 $\\bullet~~$ Les points A$(-1~;~-2~;~3)$, B$(1~;~-2~;~7)$ et C$(1~;~0~;~2)$;<br>
 $\\bullet~~$ La droite $(\\Delta)$ de représentation paramétrique :  $\\left\\{\\begin{array}{l}x=1-t \\\\ y=2 \\\\ z=-4+3 t\\end{array}\\right.$, où $t \\in \\mathbb{R}$;<br>
 $\\bullet~~$ Le plan $\\mathcal{P}$ d'équation cartésienne : $3 x+2 y+z-4=0$;<br>
 $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>`
+      : ''
+
     this.enonce += '<br>La droite $(\\Delta)$ est :'
 
     this.correction = 'La droite $(\\Delta)$ a pour vecteur directeur :<br> $\\vec{v}\\begin{pmatrix}-1\\\\0\\\\3\\end{pmatrix}$, '
@@ -48,5 +51,7 @@ $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()
+    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.sup3 = true
   }
 }
