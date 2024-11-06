@@ -42,7 +42,7 @@ export default class SommeTermesSG extends Exercice {
       enonce: question,
       propositions: [
         {
-          texte: `$\\dfrac{1-q^{${n}}}{1-q}$ `,
+          texte: `$\\dfrac{q-q^{${n + 1}}}{1-q}$ `,
           statut: premierTerme !== '1'
         },
         {
