@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Sujet zéro 2024 E5Q3'
+export const titre = 'Bac Sujet zéro 2024 : convexité d\'une fonction définie algébriquement.'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Métropole septembre 2024 E4Q3'
+export const titre = 'QCM Bac Métropole septembre 2024 : position droite-plan'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

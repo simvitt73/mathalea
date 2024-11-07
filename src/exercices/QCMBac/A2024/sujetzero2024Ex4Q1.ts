@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Sujet zéro 2024 E4Q1'
+export const titre = 'Bac Sujet zéro 2024 : vecteur normal au plan'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -59,9 +59,14 @@ $\\overrightarrow{\\imath} = \\overrightarrow{\\mathrm{AB}} ;\\quad \\overrighta
     this.enonce += figure
     this.enonce += `On donne les coordonnées de quatre vecteurs dans la base $\\left(\\overrightarrow{\\imath}, \\overrightarrow{\\jmath}, \\overrightarrow{k}\\right)$.<br>
     Lequel est un vecteur normal au plan (ABG)?<br>`
-    this.correction = `Le vecteur normal au plan (ABG) est le produit vectoriel des vecteurs $\\overrightarrow{\\mathrm{AB}}$ et $\\overrightarrow{\\mathrm{AG}}$.<br>
-    On a $\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}1 \\\\ 0 \\\\ 0\\end{pmatrix}$ et $\\overrightarrow{\\mathrm{BG}} = \\begin{pmatrix}0 \\\\ 1 \\\\ 1\\end{pmatrix}$<br>
-    Donc $\\overrightarrow{\\mathrm{AB} \\wedge \\mathrm{BG}} = \\begin{pmatrix}0 \\\\ -1 \\\\ 1\\end{pmatrix}$`
+    this.correction = `Le plan (ABG) a pour vecteurs directeurs $\\overrightarrow{AB}$ et $\\overrightarrow{BG}$.<br>
+On a : $\\overrightarrow{AB}\\begin{pmatrix}1 \\\\ 0 \\\\ 0\\end{pmatrix}$ <br> et
+$\\overrightarrow{BG} = \\overrightarrow{BC}+\\overrightarrow{CG} = \\overrightarrow{AD}+\\overrightarrow{AJ}$ <br>
+donc $\\overrightarrow{BG}$ a pour coordonnées  $ \\begin{pmatrix} 0 \\\\ 1 \\\\ 1 \\end{pmatrix}$.<br>
+On cherche donc, parmi les trois vecteurs proposés, celui qui est orthogonal à la fois à $\\overrightarrow{AB}$ et à $\\overrightarrow{BG}$.<br>
+Pour $\\overrightarrow{n} \\begin{pmatrix}0 \\\\ -1 \\\\ 1\\end{pmatrix}$, on a:<br>
+$\\overrightarrow{n}\\cdot\\overrightarrow{AB}= 0\\times 1+(-1)\\times 0+1\\times 0=0$ donc $\\overrightarrow{n}\\perp \\overrightarrow{AB}$;<br>
+$\\overrightarrow{n}\\cdot\\overrightarrow{BG}= 0\\times 0+(-1)\\times 1+1\\times 1=0$ donc $\\overrightarrow{n}\\perp \\overrightarrow{BG}$`
   }
 
   constructor () {

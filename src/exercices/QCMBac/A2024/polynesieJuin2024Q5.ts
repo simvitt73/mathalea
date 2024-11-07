@@ -10,7 +10,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Polynésie juin 2024 E2Q5'
+export const titre = 'Bac Polynésie juin 2024 : combinatoire'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

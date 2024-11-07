@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Nouvelle Calédonie Août 2023'
+export const titre = 'QCM Bac Nouvelle Calédonie Août 2023 : positions relatives de deux plans.'
 export const dateDePublication = '05/11/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -27,8 +27,8 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     ]
 
     this.enonce = 'On se place dans l\'espace muni d\'un repère orthonormé $\\left(O;\\vec{\\imath};\\vec{\\jmath};\\vec{k}\\right).$<br>'
-    this.enonce += 'On considère le plan $\\left(P_1\right)$ dont une équation cartésienne est $x - 2y + z + 1 = 0$,<br>'
-    this.enonce += ' ainsi que le plan $\\left(P_2\right)$ dont une équation cartésienne est $2x + y + z - 6 = 0$.<br>'
+    this.enonce += 'On considère le plan $\\left(P_1\\right)$ dont une équation cartésienne est $x - 2y + z + 1 = 0$,<br>'
+    this.enonce += ' ainsi que le plan $\\left(P_2\\right)$ dont une équation cartésienne est $2x + y + z - 6 = 0$.<br>'
     this.enonce += 'Les plans $\\left(P_1\\right)$ et $\\left(P_2\\right)$ sont:<br>'
 
     this.correction = 'Un vecteur normal à $\\left(\\mathrm{P}_1\\right)$ est $\\overrightarrow{n_1}=\\left(\\begin{array}{c}1 \\\\ -2 \\\\ 1\\end{array}\\right)$ <br>'

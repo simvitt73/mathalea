@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM intégrale calcul (issu du bac juin 2024 Polynésie)'
+export const titre = 'QCM Bac Polynésie juin 2024 : intégrale calcul'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
