@@ -16,7 +16,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Rapport d\'homothétie (2023 Métropole)'
 export const dateDePublication = '28/10/2024'
-
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class MetropoleSeptembre23Exo1Q5 extends ExerciceQcm {
   versionOriginale = () => {
     this.reponses = [

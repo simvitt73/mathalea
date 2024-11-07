@@ -11,8 +11,13 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calcul littéral développement (2013 Polynésie)'
+export const titre = 'Calcul littéral développement (2013 Centres étrangers)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class PolynesieJuin13Exo1Q4 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number): void {
     this.reponses = [

@@ -16,6 +16,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul de puissance (2023 Métropole)'
 export const dateDePublication = '28/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 
 export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number): void {

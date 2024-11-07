@@ -15,6 +15,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul avec les puissances de 10 (2013 Polynésie)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class PolynesieJuin12Exo1Q1 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number, e1:number, e2:number): void {
     this.reponses = [

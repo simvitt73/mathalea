@@ -14,7 +14,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul avec des puissances (septembre 2022 Métropole)'
 export const dateDePublication = '06/11/2024'
-
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class MetropoleSep22Ex1Q1 extends ExerciceQcmA {
   private appliquerLesValeurs (mantisse:number, e1:number, e2:number, e3:number): void {
     const expV = e1 + e2 - e3

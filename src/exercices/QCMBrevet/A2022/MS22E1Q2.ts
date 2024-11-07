@@ -15,6 +15,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Fraction irréductible (septembre 2022 Métropole)'
 export const dateDePublication = '06/11/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 
 export default class MetropoleSep22Ex1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (decompo1: number[], decompo2: number[]): void {
