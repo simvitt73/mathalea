@@ -36,9 +36,9 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
 
     const nuage = [
       { x: a, y: b, deriveeGauche: 0, deriveeDroit: 1, isVisible: true },
-      { x: a + stepX1, y: b + stepY1, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+      { x: a + stepX1, y: b + stepY1, deriveeGauche: 2, deriveeDroit: 2, isVisible: false },
       { x: a + stepX1 + 1, y: b + stepY1 + 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: a + stepX1 + stepX2, y: b + stepY1 - stepY2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: a + stepX1 + stepX2, y: b + stepY1 - stepY2, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
       { x: a + stepX1 + stepX2 + 1, y: b + stepY1 - stepY2 - 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: a + stepX1 + stepX2 + stepX3, y: b + stepY1 - stepY2 + stepY3, deriveeGauche: 1, deriveeDroit: 1, isVisible: false },
       { x: a + stepX1 + stepX2 + stepX3 + stepX4, y: b + stepY1 - stepY2 + stepY3 + stepY4, deriveeGauche: 1, deriveeDroit: 1, isVisible: false }
@@ -48,17 +48,17 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
     this.reponses = [
       `$f$ est convexe sur $[${a};  ${a + stepX1 + 1}]$`,
      `$f$ est concave sur $[${a};  ${a + stepX1 + 1}]$`,
-     `$f$ est convexe sur $[${a + stepX1 + 1};  ${a + stepX1 + stepX2}]$`,
+     `$f$ est convexe sur $[${a + stepX1 + 1};  ${a + stepX1 + stepX2 + 1}]$`,
      `$f$ est croissante sur $[${a};  ${a + stepX1 + 1}]$ `
     ]
     const rep = new RepereBuilder({ xMin: a, xMax: a + stepX1 + stepX2 + stepX3 + stepX4, yMin: b, yMax: b + stepY1 - stepY2 + stepY3 + stepY4 }).buildStandard().objets
-    const maCourbe = f.courbe({ repere: rep, color: 'black', epaisseur: 1, ajouteNoeuds: false, optionsNoeuds: {} })
+    const maCourbe = f.courbe({ repere: rep, color: 'red', epaisseur: 2, ajouteNoeuds: true, optionsNoeuds: {} })
     this.enonce = `On a représenté ici, sur l'intervalle $[${a};${a + stepX1 + stepX2 + stepX3 + stepX4}]$ la courbe de $f^{\\prime}$, dérivée d'une fonction $f$.<br>`
     this.enonce += mathalea2d(Object.assign({}, fixeBordures([rep, maCourbe])), rep, maCourbe)
-    this.enonce += 'Combien de points d\'inflexions possède la courbe représentative de $f$ sur cet intervalle ?'
+    this.enonce += 'On peut en déduire que : '
     this.correction = `On observe que  $f^{\\prime}$ est croissante sur $[${a};  ${a + stepX1 + 1}]$<br> `
-    this.correction = 'Sa dérivée, la dérivée seconde, est donc positive sur cet intervalle.<br>'
-    this.correction = 'La fonction est donc convexe sur cet intervalle.<br>'
+    this.correction += 'Sa dérivée, la dérivée seconde, est donc positive sur cet intervalle.<br>'
+    this.correction += 'La fonction est donc convexe sur cet intervalle.<br>'
   }
 
   constructor () {

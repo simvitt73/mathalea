@@ -46,12 +46,12 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
       'Trois'
     ]
     const rep = new RepereBuilder({ xMin: a, xMax: a + step1 + step2 + step3 + step4, yMin: b, yMax: b + step5 }).buildStandard().objets
-    const maCourbe = f.courbe({ repere: rep, color: 'black', epaisseur: 1, ajouteNoeuds: false, optionsNoeuds: {} })
+    const maCourbe = f.courbe({ repere: rep, color: 'red', epaisseur: 2, ajouteNoeuds: true, optionsNoeuds: {} })
     this.enonce = `On a représenté ici, dans un repère orthonormé,  la courbe de $f^{\\prime\\prime}$, dérivée seconde d'une fonction $f$,sur l'intervalle $[${a};${a + step1 + step2 + step3 + step4}]$.<br>`
     this.enonce += mathalea2d(Object.assign({}, fixeBordures([rep, maCourbe])), rep, maCourbe)
     this.enonce += 'Combien de points d\'inflexions possède la courbe représentative de $f$ sur cet intervalle ?'
     this.correction = 'Pour trouver les abscisses des points d\'inflexion, on cherche les valeurs pour lesquelles $f^{\\prime\\prime}(x)$ s\'annule et change de signe.<br> '
-    this.correction = `Dans cette situation, on observe que la dérivée seconde s'annule deux fois, mais en $${a + step1 + step3}$ elle ne change pas de signes.`
+    this.correction += `Dans cette situation, on observe que la dérivée seconde s'annule deux fois, mais en $${a + step1 + step2 + step3}$ elle ne change pas de signes.`
   }
 
   constructor () {
