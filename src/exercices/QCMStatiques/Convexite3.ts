@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM de cours : convéxité'
+export const titre = 'QCM de cours : convexité'
 export const dateDePublication = '03/11/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -47,7 +47,7 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
     ]
     const rep = new RepereBuilder({ xMin: a, xMax: a + step1 + step2 + step3 + step4, yMin: b, yMax: b + step5 }).buildStandard().objets
     const maCourbe = f.courbe({ repere: rep, color: 'black', epaisseur: 1, ajouteNoeuds: false, optionsNoeuds: {} })
-    this.enonce = `On a représenté ici, sur l'intervalle $[${a};${a + step1 + step2 + step3 + step4}]$ la courbe de $f^{\\prime\\prime}$, dérivée seconde d'une fonction $f$.<br>`
+    this.enonce = `On a représenté ici, dans un repère orthonormé,  la courbe de $f^{\\prime\\prime}$, dérivée seconde d'une fonction $f$,sur l'intervalle $[${a};${a + step1 + step2 + step3 + step4}]$.<br>`
     this.enonce += mathalea2d(Object.assign({}, fixeBordures([rep, maCourbe])), rep, maCourbe)
     this.enonce += 'Combien de points d\'inflexions possède la courbe représentative de $f$ sur cet intervalle ?'
     this.correction = 'Pour trouver les abscisses des points d\'inflexion, on cherche les valeurs pour lesquelles $f^{\\prime\\prime}(x)$ s\'annule et change de signe.<br> '

@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM de cours : convéxité'
+export const titre = 'QCM de cours : convexité'
 export const dateDePublication = '03/11/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -27,7 +27,7 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
 
     ]
 
-    this.enonce = 'Soit $f$ une fonction concave sur un intervalle $[a;b]$.<br> Soit $A$ et $B$ deux points de $\\mathcal {C_f}$, la courbe représentative de $f$ sur cet intervalle.<br>'
+    this.enonce = 'Soit $f$ deux fois dérivable et une fonction concave sur un intervalle $[a;b]$.<br> Dans un repère orthonormé, on place deux points $A$ et $B$ de $\\mathcal {C_f}$, la courbe représentative de $f$ sur cet intervalle.<br>'
     this.enonce += 'On appelle $(T_A)$ et $(T_B)$ les deux tangentes à $\\mathcal {C_f}$, respectivement au point $A$ et au point $B$.'
     this.enonce += '<br> On appelle $[AB]$ la corde représentant le segment $[AB]$.<br>'
 
