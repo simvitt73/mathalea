@@ -19,6 +19,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Lecture graphique d\'antécédent (2024 Métropole)'
 export const dateDePublication = '28/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 
 export default class MetropoleJuin24Exo4Q4 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number): void {

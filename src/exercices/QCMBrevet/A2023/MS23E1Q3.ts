@@ -16,6 +16,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul expression 2nd degré (septembre 2023 Métropole)'
 export const dateDePublication = '28/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 
 export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
   private appliquerLesValeurs (a:number, b:number, c:number): void {

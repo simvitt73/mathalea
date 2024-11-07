@@ -14,6 +14,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Problème de vitesse (2013 Polynésie)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class PolynesieJuin13Exo1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (d: number, v: number): void {
     const t = d * 3.6 / v

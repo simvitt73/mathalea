@@ -17,7 +17,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Divisibilité (Septembre 2023 Métropole)'
 export const dateDePublication = '28/10/2024'
-
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class MetropoleSept23Exo1Q1 extends ExerciceQcmA {
   private appliquerLesValeurs (bonneReponse: number[], detrompeurs1:number[], detrompeurs2:number[]): void {
     const premierAvec = detrompeurs1[1]

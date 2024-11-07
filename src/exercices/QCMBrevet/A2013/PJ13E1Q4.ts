@@ -13,6 +13,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul littéral factorisation (2013 Polynésie)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class PolynesieJuin13Exo1Q4 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number): void {
     const b2 = (b ** 2) / 2

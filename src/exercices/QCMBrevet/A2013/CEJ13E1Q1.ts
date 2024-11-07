@@ -15,6 +15,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Équation produit nul (2013 Centres étrangers)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number, c: number): void {
     const s1 = -a

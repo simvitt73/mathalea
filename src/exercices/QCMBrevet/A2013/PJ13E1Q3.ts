@@ -14,6 +14,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Agrandissement volume (2013 Polynésie)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class olynesieJuin13Exo1Q3 extends ExerciceQcmA {
   private appliquerLesValeurs (a: string, b: string, c: number): void {
     const verbe = c === 2

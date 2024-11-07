@@ -15,6 +15,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Équation (2013 Amérique du nord)'
 export const dateDePublication = '30/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 export default class AmeriqueJuin13Exo1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number, c: number, lea: string): void {
     const nbPiedsTotal = a * 3 + b * 4

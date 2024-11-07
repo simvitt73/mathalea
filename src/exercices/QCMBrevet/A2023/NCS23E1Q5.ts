@@ -22,6 +22,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Rapport d\'homothétie (2023 Métropole)'
 export const dateDePublication = '28/10/2024'
+/**
+ *
+ * @author Jean-Claude LHOTE
+ * jean-claude.lhote@ac-nancy-metz.fr
+ */
 
 export default class NCDecembre23Exo1Q5 extends ExerciceQcmA {
   private appliquerLesValeurs (noms: string, rapport: number, abscisseB: number, ordonneeB: number, choix: number, choix2: number): void {
