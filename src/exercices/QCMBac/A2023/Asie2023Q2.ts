@@ -1,7 +1,5 @@
-import { floor, fraction } from 'mathjs'
 import { randint } from '../../../modules/outils'
 import ExerciceQcm from '../../ExerciceQcm'
-import { Frac } from '../../../lib/mathFonctions/Calcul'
 
 export const uuid = 'A062023Q1'
 export const refs = {
@@ -28,9 +26,9 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     const un = u0 + r * k
     this.reponses = [
       '$\\dfrac{1}{2}$',
-      `${Frac(2)(${k + 1})}$`,
-      `$\\dfrac{${floor(8.4)}}{${k + 1}}$`,
-      `$\\dfrac{337}{${k + 1}}$`
+      `$\\dfrac{2}{${k + 1}}$`,
+      `$\\dfrac{3}{${k + 1}}$`,
+      `$\\dfrac{4}{${k + 1}}$`
     ]
 
     this.enonce = `On considère L une liste de nombres constituée de termes consécutifs d'une suite arithmétique de premier terme ${u0} et de raison ${r},<br> le dernier nombre de la liste est ${un} soit: 
