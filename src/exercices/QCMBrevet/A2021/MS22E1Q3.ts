@@ -6,7 +6,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { rotationAnimee } from '../../../modules/2dAnimation'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import ExerciceQcm, { nombreElementsDifferents } from '../../ExerciceQcm'
+import { nombreElementsDifferents } from '../../ExerciceQcm'
+import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '39ed1'
 export const refs = {
@@ -24,10 +25,8 @@ export const dateDePublication = '8/11/2024'
  * @author Jean-Claude LHOTE
  * jean-claude.lhote@ac-nancy-metz.fr
  */
-export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcm {
+export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
   private appliquerLesValeurs (azimut:number, angle1: number, angle2: number, angle3: number): void {
-    this.enonce = `Le triangle DEF est l'image du triangle ABC par
-une homothétie de centre O. Quel est son rapport?`
     const nuage = [
       point(0.5, 0.5),
       point(1.6, 0.5),
