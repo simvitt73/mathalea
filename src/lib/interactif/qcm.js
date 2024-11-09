@@ -183,7 +183,7 @@ export function propositionsQcm (exercice, i, options) {
     exercice.autoCorrection[i].propositions = melange.shuffledArray
     indexes.push(...melange.indexes)
   }
-
+  /*
   // Crée un élément temporaire pour mesurer la largeur d'un caractère
   const element = document.createElement('span')
   element.style.font = '16px monospace' // Choisir la police et la taille désirées
@@ -195,7 +195,7 @@ export function propositionsQcm (exercice, i, options) {
   document.body.removeChild(element)
 
   // Calculer le nombre de caractères affichables dans la largeur de la fenêtre
-  const largeurTerminal = window.innerWidth
+   const largeurTerminal = window.innerWidth
   const nombreCaracteres = Math.floor(largeurTerminal / largeurCaractere)
 
   const longueurTotale = exercice.autoCorrection[i].propositions.reduce(
@@ -205,8 +205,9 @@ export function propositionsQcm (exercice, i, options) {
   const longueurMaxHtml = Math.max(40, nombreCaracteres - 10)// Pour les cases à cocher et autres
   const longueurMaxLatex = 60
   if (longueurTotale > (context.isHtml ? longueurMaxHtml : longueurMaxLatex)) {
-    vertical = true
+     vertical = true
   }
+  */
   if (!context.isHtml) {
     const formateQ = (format, rep) => {
       if (format == null || format === 'case') return '$\\square\\;$'
@@ -290,7 +291,7 @@ export function propositionsQcm (exercice, i, options) {
       ${formateQ(options?.format, rep)}
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" ${classCss} >${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div></div>`
-      texteCorr += `<div class="${vertical ? '' : 'inline'}">
+      texteCorr += `<div class="${vertical ? '' : 'inline-block'}">
     ${exercice.autoCorrection[i].propositions[rep].statut
      ? formateRV(options?.format, rep)
      : formateRF(options?.format, rep)
