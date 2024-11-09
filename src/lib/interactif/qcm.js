@@ -287,7 +287,7 @@ export function propositionsQcm (exercice, i, options) {
       rep++
     ) {
       if (nbCols > 1 && rep % nbCols === 0) texte += '<br>'
-      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline-block'} my-2">
+      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline-block'} my-2 align-top">
       ${formateQ(options?.format, rep)}
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" ${classCss} >${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div></div>`
