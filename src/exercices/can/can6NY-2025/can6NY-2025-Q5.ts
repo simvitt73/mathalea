@@ -3,24 +3,24 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Trouver le nombres d\'unités, de dizaines, ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '32037'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class calcAvecChiffres extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -29,17 +29,18 @@ export default class calcAvecChiffres extends Exercice {
     const choix = choice([1, 2, 3])
     if (choix === 1) {
       this.question = `Quel est le chiffre des unités dans $${texNombre(2025, 0)}$ ?`
-      this.correction = `Le chiffre des unités est $${miseEnEvidence(texNombre(5, 0))}$.`
+      this.correction = `$${texNombre(2025, 0)}=(2\\times${texNombre(1000, 0)})+(0\\times100)+(2\\times10)+(${miseEnEvidence(texNombre(5, 0))}\\times1)$`
+      this.correction += `<br>Le chiffre des unités est $${miseEnEvidence(texNombre(5, 0))}$.`
       this.reponse = 5
-    }
-    if (choix === 2) {
+    } else if (choix === 2) {
       this.question = `Quel est le chiffre des dizaines dans $${texNombre(2025, 0)}$ ?`
-      this.correction = `Le chiffre des dizaines est $${miseEnEvidence(texNombre(2, 0))}$.`
+      this.correction = `$${texNombre(2025, 0)}=(2\\times${texNombre(1000, 0)})+(0\\times100)+(${miseEnEvidence(texNombre(2, 0))}\\times10)+(5\\times1)$`
+      this.correction += `<br>Le chiffre des dizaines est $${miseEnEvidence(texNombre(2, 0))}$.`
       this.reponse = 2
-    }
-    if (choix === 3) {
+    } else {
       this.question = `Quel est le chiffre des centaines dans $${texNombre(2025, 0)}$ ?`
-      this.correction = `Le chiffre des centaines est $${miseEnEvidence(texNombre(0, 0))}$.`
+      this.correction = `$${texNombre(2025, 0)}=(2\\times${texNombre(1000, 0)})+(${miseEnEvidence(texNombre(0, 0))}\\times100)+(2\\times10)+(5\\times1)$`
+      this.correction += `<br>Le chiffre des centaines est $${miseEnEvidence(texNombre(0, 0))}$.`
       this.reponse = 0
     }
     if (this.interactif) { this.question += '<br>' }

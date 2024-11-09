@@ -16,20 +16,18 @@ export const interactifType = 'mathLive'
 export const uuid = '31871'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class SommeDeProduitsCompleter extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
     this.optionsChampTexte = { texteApres: ' cm' }
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -51,7 +49,7 @@ export default class SommeDeProduitsCompleter extends Exercice {
     this.question = 'Quel est  le périmètre de ce triangle ?<br>La figure n\'est pas à l\'échelle.'
     this.reponse = 2 * a + b
     this.correction = `Le triangle est isocèle.<br>
-            Son périmètre est : $2\\times ${texNombre(a)}$ cm $+${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
+            Son périmètre est : $2\\times ${texNombre(a)}$ cm + $${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
 
     this.question += '<br>' + mathalea2d({ xmin: -0.5, ymin: -0.9, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
 

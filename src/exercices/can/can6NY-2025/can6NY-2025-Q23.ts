@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9b8f9'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class TrouverUnPrix extends Exercice {

@@ -15,19 +15,17 @@ export const interactifType = 'mathLive'
 export const uuid = '9e71a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class CompleterUneSuite extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -39,7 +37,7 @@ export default class CompleterUneSuite extends Exercice {
     const abs2 = choix ? abs0 + 50 : abs0 + 40
     const x1 = this.canOfficielle ? new Decimal(0.6) : new Decimal(randint(1, 9, 5) * 2).div(10)
     const x1B = Number(x1.toFixed(1))
-    const x2 = x1.mul(25).add(abs0)
+    const x2 = x1.mul(choix ? 25 : 20).add(abs0)
     const d = droiteGraduee({
       Unite: 5,
       Min: 0,
@@ -56,8 +54,9 @@ export default class CompleterUneSuite extends Exercice {
     const nbIntervalles = 5
 
     this.reponse = texNombre(x2, 0)// texNombre(x1 * 25 + abs0)
-    this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $${nbIntervalles}$ intervalles.<br>
-               Une graduation correspond donc à $5$ unités. <br>
+    this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a un écart de $${texNombre(abs1 - abs0)}$ et $${nbIntervalles}$ intervalles.<br>
+    $${texNombre(abs1 - abs0)} \\div ${nbIntervalles} = ${choix ? 5 : 4}$<br>
+                Une graduation correspond donc à $${choix ? 5 : 4}$ unités. <br>
                Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(this.reponse)}$.`
 
     this.question = 'Déterminer l\'abscisse du point $A$ ci-dessous :'

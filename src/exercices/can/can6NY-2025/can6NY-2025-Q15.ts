@@ -8,13 +8,12 @@ export const interactifType = 'qcm'
 export const uuid = 'b926b'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class multiple extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
@@ -43,16 +42,16 @@ export default class multiple extends Exercice {
     this.canEnonce = `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? `
     this.canReponseACompleter = `OUI ${sp(7)} NON`
     if (a === 2 || a === 10) {
-      this.correction = `$${texNombre(2025)}$  se termine par $5$. <br>
+      this.correction = `$${texNombre(2025)}$  a pour chiffre des unités $5$ qui ${a === 2 ? 'n\'est pas pair' : 'n\'est pas $0$'}. <br>
     Donc  $${texNombre(2025)}$  n'est pas un multiple de ${a === 2 ? '$2$' : '$10$'}.`
     }
     if (a === 3 || a === 9) {
-      this.correction = `La somme des chiffres de $${texNombre(2025)}$ est 9. <br>
+      this.correction = `La somme des chiffres de $${texNombre(2025)}$ est $9$ qui est divisible par ${a === 3 ? '$3$' : '$9$'}. <br>
         Donc  $${texNombre(2025)}$  est un multiple de ${a === 3 ? '$3$' : '$9$'}.`
     }
     if (a === 5) {
-      this.correction = `$${texNombre(2025)}$  se termine par $5$. <br>
-    Donc  $${texNombre(2025)}$  n'est pas un multiple de $5$.`
+      this.correction = `$${texNombre(2025)}$  a pour chiffre des unités $5$. <br>
+    Donc  $${texNombre(2025)}$  est un multiple de $5$.`
     }
   }
 }

@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'bcfc8'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class CalculDivers extends Exercice {
