@@ -23,7 +23,6 @@ export default class ExerciceQcm extends Exercice {
   enonce!: string
   reponses!: string[]
   options: {vertical?: boolean, ordered: boolean, lastChoice?: number}
-  nbQuestionsMax: number
   versionAleatoire?: ()=>void
   versionOriginale:()=>void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
@@ -40,7 +39,6 @@ export default class ExerciceQcm extends Exercice {
 
   constructor () {
     super()
-    this.nbQuestionsMax = 1
     this.besoinFormulaire2CaseACocher = ['Consigne augmentée', false]
     this.sup2 = false
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
@@ -62,10 +60,11 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
       this.consigne = ''
     }
     if (this.versionAleatoire != null) {
-      for (let i = 0, cpt = 0; i < Math.min(this.nbQuestions, this.nbQuestionsMax) && cpt < 30;) {
+      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
         if (this.sup) this.versionOriginale()
         else this.versionAleatoire()
-        if (this.questionJamaisPosee(i, this.correction ?? '')) {
+        const bonneReponse = this.reponses[0]
+        if (this.questionJamaisPosee(i, bonneReponse)) {
           let texte = this.enonce
           this.autoCorrection[i] = {}
           if (this.options != null) {
