@@ -19,15 +19,36 @@ export function shuffleJusquaWithIndexes (array: unknown[], lastChoice:number) {
 
 export function qcmCamExport (exercice: Exercice): {question: string, reponse: string}[] {
   const questions: {question: string, reponse: string}[] = []
+  if (exercice.autoCorrection.length !== exercice.listeQuestions.length) return []
   for (let j = 0; j < exercice.autoCorrection.length; j++) {
     const propositions = exercice.autoCorrection[j].propositions
     if (propositions == null) continue
     const laConsigne = exercice.consigne.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
     const introduction = exercice.introduction.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
     const laQuestion = exercice.listeQuestions[j]
-    const enonce = exercice.autoCorrection[j].enonce == null || exercice.autoCorrection[j].enonce === ''
-      ? `${laConsigne}${laConsigne !== '' ? '<br>' : ''}${introduction != null ? introduction : ''}${introduction != null && introduction !== '' ? '<br>' : ''}${exercice.autoCorrection[j].enonce != null ? exercice.autoCorrection[j].enonce?.replaceAll(/&nbsp;/g, ' ') : ''}`
-      : laQuestion.split('<div class="my-3">')[0]
+    const enonceBis = laQuestion.split('<div class="my-3">')[0]
+    let enonce: string
+    if (exercice.autoCorrection[j].enonce != null && exercice.autoCorrection[j].enonce !== '') {
+      enonce = `${laConsigne}${laConsigne !== ''
+       ? '<br>'
+        : ''
+        }
+        ${introduction != null
+         ? introduction
+          : ''
+          }
+          ${(introduction != null && introduction !== '')
+           ? '<br>'
+            : ''
+            }
+            ${exercice.autoCorrection[j].enonce != null
+             ? exercice.autoCorrection[j].enonce?.replaceAll(/&nbsp;/g, ' ')
+              : ''
+              }`
+    } else {
+      enonce = enonceBis
+    }
+
     const props = propositions.map(prop => prop.texte)
     const statuts = propositions.map(prop => prop.statut)
     let question = `<h3 data-translate="{&quot;html&quot;:&quot;questions.defaultquestion&quot;}">${enonce?.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')}</h3><ol>`
