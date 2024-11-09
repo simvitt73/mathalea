@@ -5,7 +5,6 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { bleuMathalea, vertMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -49,18 +48,18 @@ export default function FactoriserIdentitesremarquables2 () {
           texte = `$(${a}x${ecritureAlgebrique(b)})^2-${c * c}$` // (ax+b)²-c²
 
           texteCorr = // `$(${a}x${ecritureAlgebrique(b)})^2-${c * c}=(${a}x${ecritureAlgebrique(b)})^2-${c}^2$<br>
-                    `On reconnaît l'identité remarquable $a^2-b^2=(\\color{${vertMathalea}}a\\color{black}-\\color{${bleuMathalea}}b)(\\color{${vertMathalea}}a\\color{black}+\\color{${bleuMathalea}}b)$, avec $a=\\color{${vertMathalea}}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{${bleuMathalea}}${c}$.<br><br>
-                    $(${a}x${ecritureAlgebrique(b)})^2-${c * c}= (\\color{${vertMathalea}} ${a}x${ecritureAlgebrique(b)}\\color{black})^2-\\color{${bleuMathalea}}${c}\\color{black}^2 $ <br>
-                    $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}=\\left[\\color{${vertMathalea}} (${a}x${ecritureAlgebrique(b)})\\color{black}-\\color{${bleuMathalea}} ${c}\\right] \\left[ \\color{${vertMathalea}}(${a}x${ecritureAlgebrique(b)})\\color{black}+\\color{${bleuMathalea}}${c}\\right] $<br>
+                    `On reconnaît l'identité remarquable $a^2-b^2=(\\color{green}a\\color{black}-\\color{blue}b)(\\color{green}a\\color{black}+\\color{blue}b)$, avec $a=\\color{green}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{blue}${c}$.<br><br>
+                    $(${a}x${ecritureAlgebrique(b)})^2-${c * c}= (\\color{green} ${a}x${ecritureAlgebrique(b)}\\color{black})^2-\\color{blue}${c}\\color{black}^2 $ <br>
+                    $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}=\\left[\\color{green} (${a}x${ecritureAlgebrique(b)})\\color{black}-\\color{blue} ${c}\\right] \\left[ \\color{green}(${a}x${ecritureAlgebrique(b)})\\color{black}+\\color{blue}${c}\\right] $<br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}= (${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})$`
           handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(a, b - c)})(${reduireAxPlusB(a, b + c)})`, compare: fonctionComparaison, options: { factorisation: true } } })
           break
         case 2:
           texte = `$${c * c}-(${a}x${ecritureAlgebrique(b)})^2$` // c²-(ax+b)²
           texteCorr = // `$${c * c}-(${a}x${ecritureAlgebrique(b)})^2=${c}^2-(${a}x${ecritureAlgebrique(b)})^2$<br>
-                    `On reconnaît l'identité remarquable $a^2-b^2=(\\color{${vertMathalea}}a\\color{black}-\\color{${bleuMathalea}}b)(\\color{${vertMathalea}}a\\color{black}+\\color{${bleuMathalea}}b)$, avec $a=\\color{${vertMathalea}}${c}$ et $b=\\color{${bleuMathalea}}${a}x${ecritureAlgebrique(b)}$. <br><br>
-                    $${c * c}-(${a}x${ecritureAlgebrique(b)})^2= \\color{${vertMathalea}}${c}\\color{black}^2-(\\color{${bleuMathalea}}${a}x${ecritureAlgebrique(b)}\\color{black})^2 $<br>
-                    $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=\\left[ \\color{${vertMathalea}}${c}\\color{black}-(\\color{${bleuMathalea}}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] \\left[ \\color{${vertMathalea}}${c}\\color{black}+(\\color{${bleuMathalea}}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] $<br>
+                    `On reconnaît l'identité remarquable $a^2-b^2=(\\color{green}a\\color{black}-\\color{blue}b)(\\color{green}a\\color{black}+\\color{blue}b)$, avec $a=\\color{green}${c}$ et $b=\\color{blue}${a}x${ecritureAlgebrique(b)}$. <br><br>
+                    $${c * c}-(${a}x${ecritureAlgebrique(b)})^2= \\color{green}${c}\\color{black}^2-(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black})^2 $<br>
+                    $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=\\left[ \\color{green}${c}\\color{black}-(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] \\left[ \\color{green}${c}\\color{black}+(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] $<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${c}${ecritureAlgebrique(-a)}x${ecritureAlgebrique(-b)}) (${c}${ecritureAlgebrique(a)}x${ecritureAlgebrique(b)})$<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})$`
           handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(a, b + c)})`, compare: fonctionComparaison, options: { factorisation: true } } })
@@ -68,12 +67,12 @@ export default function FactoriserIdentitesremarquables2 () {
         case 3: {
           texte = `$(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2$` // (ax+b)²-(cx+d)²
           // $(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2=a^2-b^2$<br>
-          texteCorr = `On reconnaît l'identité remarquable $a^2-b^2=(\\color{${vertMathalea}}a\\color{black}-\\color{${bleuMathalea}}b\\color{black})(\\color{${vertMathalea}}a\\color{black}+\\color{${bleuMathalea}}b\\color{black})$, avec $a=\\color{${vertMathalea}}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{${bleuMathalea}}${c}x${ecritureAlgebrique(d)}$. <br><br>
+          texteCorr = `On reconnaît l'identité remarquable $a^2-b^2=(\\color{green}a\\color{black}-\\color{blue}b\\color{black})(\\color{green}a\\color{black}+\\color{blue}b\\color{black})$, avec $a=\\color{green}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{blue}${c}x${ecritureAlgebrique(d)}$. <br><br>
                     $(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2=
-                    \\left[ (\\color{${vertMathalea}}${a}x${ecritureAlgebrique(b)}\\color{black})-
-                    (\\color{${bleuMathalea}}${c}x${ecritureAlgebrique(d)}\\color{black})\\right]
-                    \\left[ (\\color{${vertMathalea}}${a}x${ecritureAlgebrique(b)}\\color{black})+
-                    (\\color{${bleuMathalea}}${c}x${ecritureAlgebrique(d)}\\color{black})\\right]$<br>
+                    \\left[ (\\color{green}${a}x${ecritureAlgebrique(b)}\\color{black})-
+                    (\\color{blue}${c}x${ecritureAlgebrique(d)}\\color{black})\\right]
+                    \\left[ (\\color{green}${a}x${ecritureAlgebrique(b)}\\color{black})+
+                    (\\color{blue}${c}x${ecritureAlgebrique(d)}\\color{black})\\right]$<br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(-c)}x${ecritureAlgebrique(-d)})
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}x${ecritureAlgebrique(d)})$<br>`
@@ -98,12 +97,12 @@ export default function FactoriserIdentitesremarquables2 () {
           const f = randint(2, 6, [c, d, e])
           texte = `$${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2$` // (ax+b)²-(cx+d)²
           // $(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2=a^2-b^2$<br>
-          texteCorr = `On reconnaît l'identité remarquable $a^2-b^2=(\\color{${vertMathalea}}a\\color{black}-\\color{${bleuMathalea}}b\\color{black})(\\color{${vertMathalea}}a\\color{black}+\\color{${bleuMathalea}}b\\color{black})$
-, avec $a=\\color{${vertMathalea}}${e}(${a}x${ecritureAlgebrique(b)})$ et $b=\\color{${bleuMathalea}}${f}(${c}x${ecritureAlgebrique(d)})$.<br><br>`
+          texteCorr = `On reconnaît l'identité remarquable $a^2-b^2=(\\color{green}a\\color{black}-\\color{blue}b\\color{black})(\\color{green}a\\color{black}+\\color{blue}b\\color{black})$
+, avec $a=\\color{green}${e}(${a}x${ecritureAlgebrique(b)})$ et $b=\\color{blue}${f}(${c}x${ecritureAlgebrique(d)})$.<br><br>`
           texteCorr += `
 $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2
- &= \\left[(\\color{${vertMathalea}}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})-(\\color{${bleuMathalea}}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
-\\left[ (\\color{${vertMathalea}}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})+(\\color{${bleuMathalea}}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
+ &= \\left[(\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})-(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
+\\left[ (\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})+(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
  &= (${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(-c * f)}x${ecritureAlgebrique(-d * f)})(${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(c * f)}x${ecritureAlgebrique(d * f)})`
           const facteur1 = reduireAxPlusB(e * a - c * f, b * e - d * f)
           const facteur2 = reduireAxPlusB(a * e + c * f, b * e + d * f)
