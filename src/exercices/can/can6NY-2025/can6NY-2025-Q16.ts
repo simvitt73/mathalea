@@ -11,7 +11,7 @@ export const interactifType = 'qcm'
 export const uuid = 'ea002'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class PlusGrandNombre extends Exercice {

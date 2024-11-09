@@ -14,19 +14,17 @@ export const interactifType = 'mathLive'
 export const uuid = '446ba'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class NombreAajouter extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

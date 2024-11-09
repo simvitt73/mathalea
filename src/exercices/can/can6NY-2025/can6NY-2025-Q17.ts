@@ -11,18 +11,16 @@ export const interactifType = 'mathLive'
 export const uuid = 'cd8eb'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  * Référence
 */
 export default class SuiteACompleterHeures extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = 'hms'
     this.compare = fonctionComparaison
+    this.optionsDeComparaison = { HMS: true }
     this.formatChampTexte = KeyboardType.clavierHms
   }
 
