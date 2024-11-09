@@ -2,7 +2,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'C082023Q4'
 export const refs = {
-  'fr-fr': ['TSG3-01'],
+  'fr-fr': ['TSG2-QCM03'],
   'fr-ch': []
 }
 export const interactifReady = true

@@ -1,8 +1,8 @@
-import ExerciceQcm from '../ExerciceQcm'
+import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'AN2023Q1'
 export const refs = {
-  'fr-fr': ['TSA3-00'],
+  'fr-fr': ['TSA3-QCM01'],
   'fr-ch': []
 }
 export const interactifReady = true

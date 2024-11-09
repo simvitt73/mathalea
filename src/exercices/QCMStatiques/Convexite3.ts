@@ -6,7 +6,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = 'TSconvexite3'
 export const refs = {
-  'fr-fr': ['TSA2-05'],
+  'fr-fr': ['TSA2-QCM04'],
   'fr-ch': []
 }
 export const interactifReady = true
