@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 
 export const uuid = '3337c'
 export const refs = {
-  'fr-fr': ['4C2QCM-2'],
+  'fr-fr': ['4C2QCM-02'],
   'fr-ch': []
 }
 export const interactifReady = true

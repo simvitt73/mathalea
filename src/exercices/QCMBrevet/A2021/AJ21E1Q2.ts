@@ -15,7 +15,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Fonction calcul d\'image (06/2021 Asie)'
-export const dateDePublication = '28/10/2024'
+export const dateDePublication = '09/11/2024'
 /**
  *
  * @author Jean-Claude LHOTE

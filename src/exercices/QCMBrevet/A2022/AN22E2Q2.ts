@@ -5,7 +5,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const uuid = '6a9db'
 export const refs = {
-  'fr-fr': ['4C2QCM-3'],
+  'fr-fr': ['4C2QCM-03'],
   'fr-ch': []
 }
 export const interactifReady = true
