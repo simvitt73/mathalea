@@ -1,0 +1,58 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { prenomF, prenomM } from '../../../lib/outils/Personne'
+export const titre = ''
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '1c133'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Eric Elter - Gilles Mora
+ * Référence
+*/
+export default class CalculDivers extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatInteractif = 'calcul'
+    this.compare = fonctionComparaison
+    this.formatChampTexte = KeyboardType.clavierDeBase
+  }
+
+  nouvelleVersion () {
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    const choixF = prenomF()
+    const choixM = prenomM()
+    const pm = randint(1, 9) * 100 + 25
+    switch (randint(1, 2)) {
+      case 1 :
+        this.question = `${choixF} a une collection de timbres qui est composée de $${texNombre(2025, 0)}$.<br>
+         ${choixM} en possède $${pm}$ de plus.<br>
+         Combien en a-t-il ?`
+        this.reponse = texNombre(2025 + pm, 0)
+        this.correction = ` ${choixM} en possède $${pm}$ de plus.<br>
+        $${texNombre(2025, 0)} + ${pm}=${this.reponse}$<br>
+         Il en a $${miseEnEvidence(this.reponse)}$.`
+        break
+      case 2 :
+        this.question = `${choixF} a une collection de timbres qui est composée de $${texNombre(2025, 0)}$.<br>
+        ${choixM} en possède $${pm}$ de moins.<br>
+        Combien en a-t-il ?`
+        this.reponse = texNombre(2025 - pm, 0)
+        this.correction = ` ${choixM} en possède $${pm}$ de moins.<br>
+       $${texNombre(2025, 0)} - ${pm}=${this.reponse}$<br>
+        Il en a $${miseEnEvidence(this.reponse)}$.`
+        break
+    }
+    if (this.interactif) { this.question += '<br>' }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+  }
+}

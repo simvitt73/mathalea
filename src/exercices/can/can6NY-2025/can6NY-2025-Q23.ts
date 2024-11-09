@@ -1,0 +1,46 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { prenomF } from '../../../lib/outils/Personne'
+export const titre = 'Dtéreminer un reste à payer'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '9b8f9'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Eric Elter - Gilles Mora
+ * Référence
+*/
+export default class TrouverUnPrix extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatInteractif = 'calcul'
+    this.optionsChampTexte = { texteApres: ' €' }
+    this.compare = fonctionComparaison
+    this.formatChampTexte = KeyboardType.clavierDeBase
+  }
+
+  nouvelleVersion () {
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    const P = prenomF()
+    const a = randint(11, 19) * 100 + 25
+    this.question = `${P} a acheté un scooter électrique coûtant $${texNombre(2025, 0)}$ €.<br> 
+            Elle règle $${texNombre(a, 0)}$ € à la livraison du scooter puis règlera la moitié du montant restant le mois suivant. <br>
+            Quelle somme lui restera-t-il à payer ensuite pour le dernier versement ?  `
+    this.correction = `Après le premier versement de $${texNombre(a, 0)}$ €, ${P} doit encore payer $${texNombre(2025 - a, 0)}$ €. <br>
+            La moitié de $${texNombre(2025 - a, 0)}$ € est $${texNombre((2025 - a) / 2, 0)}$ €. <br>
+              Ainsi, son dernier versement sera de $${miseEnEvidence(`${texNombre((2025 - a) / 2, 0)}`)}$ €.
+                   `
+    this.reponse = `${(2025 - a) / 2}`
+    if (this.interactif) { this.question += '<br>' }
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ €'
+  }
+}
