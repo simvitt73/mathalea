@@ -887,7 +887,7 @@ function expressionDeveloppeeEtReduiteCompare (
   const localGoodAnswer = clean(goodAnswer)
   if (nombreDecimalSeulement) {
     const saisieParsed = engine.parse(localInput, { canonical: false })
-    if (saisieParsed.operator !== 'Number') return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
+    if (!(saisieParsed.operator === 'Number' || (saisieParsed.operator === 'Negate' && saisieParsed.ops !== null && saisieParsed.ops.length === 1))) return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
   }
   const saisieParsed = customCanonical(
     engine.parse(localInput, { canonical: false }),
