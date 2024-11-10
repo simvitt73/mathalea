@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-  texFractionFromString, fractionSimplifiee,
+  texFractionFromString,
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../lib/outils/deprecatedFractions.js'
@@ -9,14 +9,13 @@ import { prenomF, prenomM } from '../../lib/outils/Personne'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { createList } from '../../lib/format/lists.ts'
-import { listeQuestionsToContenu, randint, ppcm, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
 import { fonctionComparaison, generateCleaner } from '../../lib/interactif/comparisonFunctions.ts'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { fraction } from '../../modules/fractions.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
 export const interactifReady = true
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 export const dateDeModifImportante = '20/06/2024'
@@ -46,7 +45,7 @@ export default function FonctionsProbabilite2 () {
   this.nouvelleVersion = function () {
     // const indexDisponibles = [0, 1, 2, 3]
     // const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
-    const listeIndex = gestionnaireFormulaireTexte({
+    let listeIndex = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
       min: 1,
@@ -54,6 +53,10 @@ export default function FonctionsProbabilite2 () {
       melange: 5,
       defaut: 5
     })
+    if (this.interactif) {
+      // Les questions de type 4 sont trop compliqués à rendre interactives: on les passe
+      listeIndex = listeIndex.map(i => i === 4 ? randint(1, 3) : i)
+    }
     const qualites = [[]]
     const Initiale = []
     const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', 'orange', 'magenta', 'pink', 'black', 'lightgray']
@@ -67,11 +70,6 @@ export default function FonctionsProbabilite2 () {
     for (let i = 0, p, q, r, somme1, somme2, quidame, quidam, n = [], m = [], fra1 = [], fra2 = [], p1 = [], p2 = [], trouve, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       quidame = prenomF()
       quidam = prenomM()
-      // Les questions de type 4 sont trop compliqués à rendre interactives: on les passe
-      if (listeIndex[i] - 1 === 3 && this.interactif) {
-        i++
-        continue
-      }
       switch (listeIndex[i] - 1) {
         case 0:
         {
@@ -87,9 +85,7 @@ export default function FonctionsProbabilite2 () {
           n[q] = randint(1, 6) + 2
           n[r] = randint(1, 3) * 2
 
-          // n[3]=randint(1,4)+2;
-          // n[4]=randint(2,5);
-          somme1 = n[p] + n[q] + n[r] // +n[3]+n[4];
+          somme1 = n[p] + n[q] + n[r]
 
           texte = `Dans le frigo, il y a ${somme1} yaourts. ${n[p]} sont ${qualites[0][p]}, ${n[q]} sont ${qualites[0][q]} et ${n[r]} sont ${qualites[0][r]}.<br>` //  ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
           texte += `${quidame} en choisit un au hasard. Son frère ${quidam} en choisit un au hasard à son tour.<br>`
@@ -262,13 +258,11 @@ export default function FonctionsProbabilite2 () {
         { n[0] = randint(2, 5); m[0] = randint(2, 5)
           n[1] = randint(1, 6) + 1; m[1] = randint(1, 6) + 1
           n[2] = randint(1, 3) * 2; m[2] = randint(1, 3) * 2
-          // n[3] = randint(1, 4) + 2; m[3] = randint(1, 4) + 2
-          // n[4] = randint(2, 5); m[4] = randint(2, 5)
-          somme1 = n[0] + n[1] + n[2] // + n[3] + n[4]
-          somme2 = m[0] + m[1] + m[2] // + m[3] + m[4]
-          r = randint(0, 3)
-          p = randint(0, 3, [r])
-          q = randint(0, 3, [p, r])
+          somme1 = n[0] + n[1] + n[2]
+          somme2 = m[0] + m[1] + m[2]
+          r = randint(0, 2)
+          p = randint(0, 2, [r])
+          q = randint(0, 2, [p, r])
           texte = `Dans sa commode, ${quidam} a mis dans le premier tiroir des paires de chaussettes. Il y a `
           for (let j = 0; j < 3; j++) {
             texte += `${n[j]} paires de chaussettes ${qualites[2][j]}${j === 2 ? '.<br>' : ', '}`
