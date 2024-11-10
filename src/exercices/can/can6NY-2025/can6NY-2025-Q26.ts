@@ -20,12 +20,11 @@ export const refs = {
 export default class CalculDivers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -39,10 +38,10 @@ export default class CalculDivers extends Exercice {
     const n = a * 1000 + b * 100 + c * 10 + d
     this.question = `Quel est le nombre entier de ${m} dans $${texNombre(n)}$ ? `
     if (m === 'centaines') {
-      this.correction = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${miseEnEvidence(texNombre(a * 10 + b, 0))}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
+      this.correction = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${miseEnEvidence(texNombre(a * 10 + b))}\\times 100+${c * 10 + d}$, il y a $${miseEnEvidence(texNombre(a * 10 + b, 0))}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
       this.reponse = a * 10 + b
     } else {
-      this.correction = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${miseEnEvidence(texNombre(a * 100 + b * 10 + c, 0))}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
+      this.correction = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${miseEnEvidence(texNombre(a * 100 + b * 10 + c))}\\times 10+${d}$, il y a $${miseEnEvidence(texNombre(a * 100 + b * 10 + c, 0))}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
       this.reponse = a * 100 + b * 10 + c
     }
     if (this.interactif) { this.question += '<br>' }

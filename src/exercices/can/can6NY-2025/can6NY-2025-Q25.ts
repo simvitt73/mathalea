@@ -21,12 +21,11 @@ export const refs = {
 export default class CalculDivers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -41,18 +40,18 @@ export default class CalculDivers extends Exercice {
          ${choixM} en possède $${pm}$ de plus.<br>
          Combien en a-t-il ?`
         this.reponse = texNombre(2025 + pm, 0)
-        this.correction = ` ${choixM} en possède $${pm}$ de plus.<br>
+        this.correction = ` ${choixM} possède $${pm}$ timbres de plus que ${choixF}.<br>
         $${texNombre(2025, 0)} + ${pm}=${this.reponse}$<br>
-         Il en a $${miseEnEvidence(this.reponse)}$.`
+         ${choixM} a $${miseEnEvidence(this.reponse)}$ timbres.`
         break
       case 2 :
         this.question = `${choixF} a une collection de timbres qui est composée de $${texNombre(2025, 0)}$.<br>
         ${choixM} en possède $${pm}$ de moins.<br>
         Combien en a-t-il ?`
         this.reponse = texNombre(2025 - pm, 0)
-        this.correction = ` ${choixM} en possède $${pm}$ de moins.<br>
+        this.correction = ` ${choixM} en possède $${pm}$ timbres de moins que ${choixF}.<br>
        $${texNombre(2025, 0)} - ${pm}=${this.reponse}$<br>
-        Il en a $${miseEnEvidence(this.reponse)}$.`
+      ${choixM} en a $${miseEnEvidence(this.reponse)}$ timbres.`
         break
     }
     if (this.interactif) { this.question += '<br>' }

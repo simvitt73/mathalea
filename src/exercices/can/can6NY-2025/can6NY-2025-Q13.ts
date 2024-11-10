@@ -53,7 +53,7 @@ export default class SommeDeProduitsCompleter extends Exercice {
     this.question = 'Quel est  le périmètre de ce triangle ?<br>La figure n\'est pas à l\'échelle.'
     this.reponse = 2 * a + b
     this.correction = `Le triangle est isocèle.<br>
-            Son périmètre est : $2\\times ${texNombre(a)}$ cm + $${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
+            Son périmètre est : $(2\\times ${texNombre(a)}$ cm) + $${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
 
     this.question += '<br>' + mathalea2d({ xmin: -0.5, ymin: -0.9, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
 

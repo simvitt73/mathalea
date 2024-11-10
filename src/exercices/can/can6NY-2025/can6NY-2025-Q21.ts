@@ -20,12 +20,11 @@ export const refs = {
 export default class rechercherUnNombre extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -36,8 +35,8 @@ export default class rechercherUnNombre extends Exercice {
 
     this.question = `En ajoutant un nombre à $${texNombre(2025, 0)}$, on obtient $${2025 + a}$.<br>
         Quel nombre a-t-on ajouté ?`
-    this.correction = `Comme $${a}+ ${texNombre(2025, 0)}=${2025 + a}$.<br>
-        Le nombre ajouté est $${miseEnEvidence(this.reponse)}$.`
+    this.correction = `Comme $${a}+ ${texNombre(2025, 0)}=${2025 + a}$, 
+        le nombre ajouté est $${miseEnEvidence(this.reponse)}$.`
 
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

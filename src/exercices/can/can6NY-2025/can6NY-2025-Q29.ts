@@ -20,13 +20,12 @@ export const refs = {
 export default class CalculDivers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: 'heures' }
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -37,7 +36,7 @@ export default class CalculDivers extends Exercice {
     this.question = `Nous sommes le $${date}$ décembre $2024$. Il est $${nbre}$ h${nbre < 12 ? ' du matin' : ''}.<br>
             Combien  d'heures faut-il attendre avant de pouvoir se souhaiter la nouvelle année $2025$ (à minuit le $31$ décembre $2024$) ? <br>`
     this.correction = ` Jusqu'au $${date}$ décembre minuit, il y a $${24 - nbre}$ heures.  <br>
-        Du $${date + 1}$ (0 h) au $31$ décembre (minuit), il y a $${31 - date}$ jour${31 - date > 1 ? 's' : ''}, soit $${24 * (31 - date)}$ heures. <br>
+        Du $${date + 1}$ (0 h) au $31$ décembre (minuit), il y a $${31 - date}$ jour${31 - date > 1 ? 's' : ''}, soit $${24 * (31 - date)}$ heures${31 - date > 1 ? ` car $${31 - date}\\times 24 = ${24 * (31 - date)}$` : ''}. <br>
         Il faudra donc attendre $${24 * (31 - date)}+${24 - nbre}$ heures, soit $${miseEnEvidence(texNombre(24 * (31 - date) + 24 - nbre, 0))}$ heures avant de se souhaiter la bonne année.
        `
     this.reponse = 24 * (31 - date) + 24 - nbre

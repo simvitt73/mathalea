@@ -37,30 +37,25 @@ export default class calcAvecChiffres extends Exercice {
       this.question = '$2+0+2+5$'
       this.correction = `$2+0+2+5=${miseEnEvidence(texNombre(9, 0))}$`
       this.reponse = 9
-    }
-    if (choix === 2) {
+    } else if (choix === 2) {
       this.question = '$2\\times 0 \\times (2+5)$'
-      this.correction = `$2\\times 0 \\times (2+5)=${miseEnEvidence(texNombre(0, 0))}$`
+      this.correction = `$2\\times 0 \\times (2+5)=2\\times 0 \\times 10= 0 \\times 10=${miseEnEvidence(texNombre(0, 0))}$`
       this.reponse = 0
-    }
-    if (choix === 3) {
+    } else if (choix === 3) {
       this.question = '$(2+ 0 + 2)\\times 5$'
-      this.correction = `$(2+ 0 + 2)\\times 5)=${miseEnEvidence(texNombre(20, 0))}$`
+      this.correction = `$(2+ 0 + 2)\\times 5=4 \\times 5=${miseEnEvidence(texNombre(20, 0))}$`
       this.reponse = 20
-    }
-    if (choix === 4) {
+    } else if (choix === 4) {
       this.question = '$2+ 0 + (2\\times 5)$'
-      this.correction = `$2+ 0 + (2\\times 5)=${miseEnEvidence(texNombre(12, 0))}$`
+      this.correction = `$2+ 0 + (2\\times 5)=2+0+10=${miseEnEvidence(texNombre(12, 0))}$`
       this.reponse = 12
-    }
-    if (choix === 5) {
+    } else if (choix === 5) {
       this.question = '$2+ (0 \\times 2) + 5$'
-      this.correction = `$2+ (0 \\times 2) + 5=${miseEnEvidence(texNombre(7, 0))}$`
+      this.correction = `$2+ (0 \\times 2) + 5=2+0+5=${miseEnEvidence(texNombre(7, 0))}$`
       this.reponse = 7
-    }
-    if (choix === 6) {
+    } else {
       this.question = '$(2+0)\\times (2+5)$'
-      this.correction = `$(2+0)\\times (2+5)=${miseEnEvidence(texNombre(14, 0))}$`
+      this.correction = `$(2+0)\\times (2+5)=2 \\times 7=${miseEnEvidence(texNombre(14, 0))}$`
       this.reponse = 14
     }
     this.canEnonce = this.question

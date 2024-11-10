@@ -21,13 +21,12 @@ export const refs = {
 export default class TrouverUnPrix extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: ' €' }
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -38,7 +37,9 @@ export default class TrouverUnPrix extends Exercice {
     this.question = `${P} a acheté un scooter électrique coûtant $${texNombre(2025, 0)}$ €.<br> 
             Elle règle $${texNombre(a, 0)}$ € à la livraison du scooter puis règlera la moitié du montant restant le mois suivant. <br>
             Quelle somme lui restera-t-il à payer ensuite pour le dernier versement ?  `
-    this.correction = `Après le premier versement de $${texNombre(a, 0)}$ €, ${P} doit encore payer $${texNombre(2025 - a, 0)}$ €. <br>
+    this.correction = `$${texNombre(2025, 0)}-${texNombre(a, 0)}=${texNombre(2025 - a, 0)}$<br>
+    Après le premier versement de $${texNombre(a, 0)}$ €, ${P} doit encore payer $${texNombre(2025 - a, 0)}$ €. <br>
+    $${texNombre(2025 - a, 0)} \\div 2 = ${texNombre((2025 - a) / 2, 0)}$<br>
             La moitié de $${texNombre(2025 - a, 0)}$ € est $${texNombre((2025 - a) / 2, 0)}$ €. <br>
               Ainsi, son dernier versement sera de $${miseEnEvidence(`${texNombre((2025 - a) / 2, 0)}`)}$ €.
                    `

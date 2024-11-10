@@ -20,12 +20,12 @@ export const refs = {
 export default class CalculDivers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
+    this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -56,7 +56,7 @@ export default class CalculDivers extends Exercice {
         this.correction = `$${texNombre(2025, 0)}$ places à $${a}$ € et $${texNombre(2025, 0)}$ places à $${b}$ € rapportent autant que $${texNombre(2025, 0)}$ places à $${a + b}$ €.<br>
          
         $${texNombre(2025, 0)} \\times ${a + b}=${texNombre(this.reponse, 0)}$<br>
-        La recette totale est : $${miseEnEvidence(texNombre(this.reponse, 0))}$ €.`
+        La recette totale est $${miseEnEvidence(texNombre(this.reponse, 0))}$ €.`
     }
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

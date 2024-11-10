@@ -36,7 +36,16 @@ export default class SommeDeProduitsCompleter extends Exercice {
     const PlusPetit = choice(choixPP)
     const PGouPP = choice([PlusGrand, PlusPetit])
     this.question = `Quel est le plus ${PGouPP === PlusGrand ? 'petit nombre entier strictement supérieur' : 'grand nombre entier strictement inférieur'} à $${texNombre(2025, 0)}$  dont le chiffre des unités est $${PGouPP[0]}$ ?`
-    this.correction = `Le plus ${PGouPP === PlusGrand ? 'petit nombre entier strictement supérieur' : 'grand nombre entier strictement inférieur'} à $${texNombre(2025, 0)}$  dont le chiffre des unités est $${PGouPP[0]}$ est $${miseEnEvidence(texNombre(PGouPP[1]))}$.`
+    this.correction = '$'
+    if (PGouPP === PlusGrand) {
+      for (let i = 2025; i < PlusGrand[1]; i++) this.correction += `${texNombre(i, 0)}<`
+      this.correction += `${miseEnEvidence(texNombre(PlusGrand[1], 0))}$`
+    } else {
+      for (let i = 2025; i > PlusPetit[1]; i--) this.correction += `${texNombre(i, 0)}>`
+      this.correction += `${miseEnEvidence(texNombre(PlusPetit[1], 0))}$`
+    }
+
+    this.correction += `<br>Le plus ${PGouPP === PlusGrand ? 'petit nombre entier strictement supérieur' : 'grand nombre entier strictement inférieur'} à $${texNombre(2025, 0)}$  dont le chiffre des unités est $${PGouPP[0]}$ est $${miseEnEvidence(texNombre(PGouPP[1]))}$.`
     this.reponse = PGouPP[1]
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
