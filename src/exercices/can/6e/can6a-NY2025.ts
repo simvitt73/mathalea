@@ -35,6 +35,10 @@ export const titre = 'CAN 6e New Year 2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '301ff'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 export const dateDePublication = '04/11/2024'
 /**
  * Annales CAN 2025

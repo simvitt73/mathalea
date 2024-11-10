@@ -13,6 +13,10 @@ export const titre = 'Trouver une longuer'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '90ae3'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora

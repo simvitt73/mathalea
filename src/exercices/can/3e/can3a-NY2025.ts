@@ -37,6 +37,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f9221'
 export const dateDePublication = '04/11/2024'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Annales CAN 2025
  * @author

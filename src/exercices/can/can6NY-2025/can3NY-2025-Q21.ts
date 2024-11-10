@@ -15,6 +15,10 @@ export const titre = 'Calculer une longueur dans un triangle rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '75151'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora

@@ -7,6 +7,10 @@ export const titre = 'Calculer avec les chiffres (relatifs)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '7a9aa'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
