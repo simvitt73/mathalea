@@ -164,7 +164,7 @@ async function readInfos (
                 if (matchInteractif && matchInteractif[1] === 'true') {
                   infos.features.interactif = {
                     isActive: true,
-                    type: matchInteractifType[1] || ''
+                    type: matchInteractifType?.[1] || ''
                   }
                 } else {
                   infos.features.interactif = {
