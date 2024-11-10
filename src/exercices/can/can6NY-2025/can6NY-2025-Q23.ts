@@ -9,6 +9,10 @@ export const titre = 'Dtéreminer un reste à payer'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '9b8f9'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

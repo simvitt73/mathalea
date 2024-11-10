@@ -9,6 +9,10 @@ export const titre = 'Compléter une suite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '70f3f'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

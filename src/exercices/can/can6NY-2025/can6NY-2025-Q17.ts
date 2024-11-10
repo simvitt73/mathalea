@@ -9,6 +9,10 @@ export const titre = 'Compléter une suite d\'heures/minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'cd8eb'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

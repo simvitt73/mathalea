@@ -8,6 +8,10 @@ export const titre = 'Déterminer un nombre plus grand ou plus petit'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '47dd3'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

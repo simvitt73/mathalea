@@ -9,6 +9,10 @@ export const titre = 'Trouver un âge'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '95a83'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

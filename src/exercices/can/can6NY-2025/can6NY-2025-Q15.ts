@@ -6,6 +6,10 @@ import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Déterminer un multiple'
 export const interactifType = 'qcm'
 export const uuid = 'b926b'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
