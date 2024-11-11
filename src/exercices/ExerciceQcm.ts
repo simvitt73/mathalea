@@ -55,7 +55,7 @@ export default class ExerciceQcm extends Exercice {
     this.autoCorrection = []
     if (this.sup2) {
       this.consigne = `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
-${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner la lettre correspondante.'}`
+${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner la lettre correspondante'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
     } else {
       this.consigne = ''
     }
@@ -78,7 +78,7 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
               statut: j === 0
             })
           }
-          if (this.sup3) {
+          if (this.sup4) {
             autoCorr.propositions.push({
               texte: 'Je ne sais pas',
               statut: false
