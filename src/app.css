@@ -700,3 +700,24 @@ min-height: 60px;
   background-color: black; /* Couleur de la ligne */
   transform: rotate(-15deg); /* Angle de la ligne */
 }
+
+.numbered-list > div > li {
+  list-style: none; /* Retire les puces par défaut */
+  position: relative;
+}
+
+.numbered-list > div > li::before {
+  counter-increment: item;
+  display: inline-block; /* Aligne avec le texte */
+  margin-right: 0.5em; /* Espace entre le numéro et le texte */
+  font-weight: bold;
+}
+
+.numbered-list >div > li::before {
+    content: counter(item) ') ';
+    margin-right: 0.5em;
+}
+
+.numbered-list {
+  counter-reset: item; /* Initialise le compteur */
+}
