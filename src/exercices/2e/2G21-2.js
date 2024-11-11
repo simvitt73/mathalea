@@ -218,8 +218,8 @@ export default class SommeDeVecteurs extends Exercice {
         while (xPointSecondIntermediaire > 9) {
           xPointSecondIntermediaire--
           xPointIntermediaire++
-          // console.info('while xPointIntermediaire:', xPointIntermediaire)
-          // console.info('while xPointSecondIntermediaire:', xPointSecondIntermediaire)
+          // console.log('while xPointIntermediaire:', xPointIntermediaire)
+          // console.log('while xPointSecondIntermediaire:', xPointSecondIntermediaire)
         }
         while (xPointSecondIntermediaire < -9) {
           xPointSecondIntermediaire++
@@ -239,23 +239,22 @@ export default class SommeDeVecteurs extends Exercice {
         while (yPointSecondIntermediaire > 9) {
           yPointSecondIntermediaire--
           yPointIntermediaire++
-          // console.info('whileyPointIntermediaire:', yPointIntermediaire)
-          // console.info('whileyPointSecondIntermediaire:', yPointSecondIntermediaire)
+          // console.log('whileyPointIntermediaire:', yPointIntermediaire)
         }
         while (yPointSecondIntermediaire < -9) {
           yPointSecondIntermediaire++
           yPointIntermediaire--
-          // console.info('whileyPointIntermediaire:', yPointIntermediaire)
-          // console.info('whileyPointSecondIntermediaire:', yPointSecondIntermediaire)
+          // console.log('whileyPointIntermediaire:', yPointIntermediaire)
+          // console.log('whileyPointSecondIntermediaire:', yPointSecondIntermediaire)
         }
         distanceOrigineProjOrthogonal = Math.abs(((xPointIntermediaire - pointOrigine.x) * xSomme[i] + (yPointIntermediaire - pointOrigine.y) * ySomme[i]) / Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i]))
         distancePointIntermediaireProjOrthogonal = Math.sqrt((xPointIntermediaire - pointOrigine.x) * (xPointIntermediaire - pointOrigine.x) + (yPointIntermediaire - pointOrigine.y) * (yPointIntermediaire - pointOrigine.y))
         distanceVecteurSommeProfOrthogonal = Math.sqrt(distancePointIntermediaireProjOrthogonal * distancePointIntermediaireProjOrthogonal - distanceOrigineProjOrthogonal * distanceOrigineProjOrthogonal)
-        // console.info('distanceVecteurSommeProfOrthogonal:', distanceVecteurSommeProfOrthogonal)
+        // console.log('distanceVecteurSommeProfOrthogonal:', distanceVecteurSommeProfOrthogonal)
         vecteur2.x = pointExtremite[i].x - xPointIntermediaire
         vecteur2.y = pointExtremite[i].y - yPointIntermediaire
-        // console.info('aire:', distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2)
-        // console.info('indice:', indice)
+        // console.log('aire:', distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2)
+        // console.log('indice:', indice)
         indice++
       } while (indice < 50 && !(distanceVecteurSommeProfOrthogonal > 1 && distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 && pointOrigine.x + vecteur2.x <= 9 && pointOrigine.x + vecteur2.x >= -9 && pointOrigine.y + vecteur2.y <= 9 && pointOrigine.y + vecteur2.y >= -9))
       /* Explications des conditions du while
