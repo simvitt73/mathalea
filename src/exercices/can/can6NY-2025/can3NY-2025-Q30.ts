@@ -16,18 +16,16 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class ComparerFractions extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' bouteilles' }
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -36,15 +34,15 @@ export default class ComparerFractions extends Exercice {
     const oliveK = choice([100, 200])
     const nbreBouteilles = choice([20, 25, 10])
     const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)
-    const reponse = new Decimal(2025).div(oliveParBouteille)
-    this.reponse = texNombre(reponse.floor(), 0)
+    this.reponse = new Decimal(2025).div(oliveParBouteille).floor()
+    const reponse = texNombre(new Decimal(2025).div(oliveParBouteille).floor())
     this.question = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br>
       Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(2025, 0)}$ kg d'olives cueillies ?`
     this.correction = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br> Cela signifie que pour remplir $1$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
     if (new Decimal(2025).modulo(oliveParBouteille).equals(0)) {
-      this.correction += `Comme $${texNombre(2025, 0)}=${texNombre(2000)}+${texNombre(25)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}=${texNombre(reponse)}\\times ${oliveParBouteille}$, il peut remplir $${miseEnEvidence(this.reponse)}$ bouteilles d'huile d'olive.`
+      this.correction += `Comme $${texNombre(2025, 0)}=${texNombre(2000)}+${texNombre(25)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}=${reponse}\\times ${oliveParBouteille}$, il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     } else {
-      this.correction += `Comme $${texNombre(2025)}=${texNombre(2000)}+${texNombre(24)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(24).modulo(oliveParBouteille))}=${texNombre(reponse)}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}$, il peut remplir $${miseEnEvidence(this.reponse)}$ bouteilles d'huile d'olive.`
+      this.correction += `Comme $${texNombre(2025)}=${texNombre(2000)}+${texNombre(25)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).modulo(oliveParBouteille))}=${reponse}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}$, il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     }
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
