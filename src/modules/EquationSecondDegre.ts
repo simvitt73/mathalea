@@ -319,6 +319,7 @@ class EquationSecondDegre {
     let checkPreviousNull = true
     const nomVal = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
     for (let i = 0; i < 3; i++) {
+      suiteExpr = ''
       if ((this.coefficients.slice(0, 3).every(item => item.num === 0)) && i === 0) {
         suiteExpr = '0'
       } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
@@ -330,7 +331,7 @@ class EquationSecondDegre {
         checkPreviousNull = false
       } else if (!(this.coefficients[i].num === 0) && !checkPreviousNull) {
         if (nomVal[i] === '') {
-          suiteExpr = `${ecritureAlgebrique(this.coefficients[i].simplifie())}${nomVal[i]}`
+          suiteExpr = `${ecritureAlgebrique(this.coefficients[i].simplifie())}`
         } else {
           suiteExpr = `${ecritureAlgebriqueSauf1(this.coefficients[i].simplifie())}${nomVal[i]}`
         }
@@ -347,7 +348,6 @@ class EquationSecondDegre {
         }
         suiteExpr = '\\,' + suiteExpr
       }
-
       expr = expr + suiteExpr
     }
     return expr

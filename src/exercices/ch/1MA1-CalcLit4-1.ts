@@ -107,17 +107,27 @@ export default class ExerciceEquationSecondDegre extends Exercice {
         new FractionEtendue(0, 1),
         { variable: 'x', format: 'reduit' as string }
       )
+      const eqCoeffDom1SansConstant = EquationSecondDegre.aPartirDesCoefficients(
+        normalizedCoeff0,
+        normalizedCoeff1,
+        new FractionEtendue(0, 1),
+        new FractionEtendue(0, 1),
+        new FractionEtendue(0, 1),
+        new FractionEtendue(0, 1),
+        { variable: 'x', format: 'reduit' as string }
+      )
       const termeCompletion = eqCoeffDom1.coefficientsEqReduite[1].entierDivise(2).produitFraction(eqCoeffDom1.coefficientsEqReduite[1].entierDivise(2)).simplifie()
       let termeCompletionCarreRacine = eqCoeffDom1.coefficientsEqReduite[1].entierDivise(2)
       if (this.correctionDetaillee) {
         if (coefficientsEqReduite[0].texFraction !== '1') {
-          texteCorr += `On applique la méthode de la complétion du carré pour résoudre l'équation \\[${equation.printToLatexMDG()}=0.\\]`
-          texteCorr += `On divise l'équation par $${coefficientsEqReduite[0].texFraction}$, le coefficient dominant, pour obtenir une équation équivalente de la forme \\[${eqCoeffDom1.printToLatexMDG({ indice: 1, couleur: 'blue' })}.\\]`
-        } else {
-          texteCorr += `On applique la méthode de la complétion du carré pour résoudre l'équation \\[${equation.printToLatexMDG({ indice: 1, couleur: 'blue' })}=0.\\]`
+          // texteCorr += `On applique la méthode de la complétion du carré pour résoudre l'équation \\[${equation.printToLatexMDG()}=0.\\]`
+          texteCorr += `On divise l'équation par $${coefficientsEqReduite[0].texFraction}$, le coefficient dominant, pour obtenir une équation équivalente de la forme \\[${eqCoeffDom1.printToLatexMDG({ indice: -1, couleur: 'blue' })}=0.\\]`
         }
-        texteCorr += `On complète le carré en additionnant et soustrayant le carré du ${texteEnCouleurEtGras('coefficient de $x$', 'blue')} divisé par 2.<br>
-        C'est-à-dire que l'on ajoute et on soustrait à l'équation précédente \\[\\left(\\dfrac{${miseEnEvidence(`${eqCoeffDom1.coefficientsEqReduite[1].texFractionSimplifiee}`, 'blue')}}{2}\\right)^2=\\left(${eqCoeffDom1.coefficientsEqReduite[1].entierDivise(2).texFractionSimplifiee}\\right)^2=${miseEnEvidence(termeCompletion.texFractionSimplifiee, 'green')}.\\]`
+
+        texteCorr += `On isole les termes contenant des inconnus du terme constant \\[${miseEnEvidence(eqCoeffDom1SansConstant.printToLatexMDG(), 'red')}=${normalizedCoeff2.oppose().texFractionSimplifiee}\\]`
+        texteCorr += `On ne considère à présent que le membre de droite et on complète le carré, c'est-à-dire qu'on souhaite compléter $${eqCoeffDom1SansConstant.printToLatexMDG({ indice: 1, couleur: 'blue' })}$ pour obtenir la première ou la deuxième identité remarquable. Puisque le coefficient devant $${eqCoeffDom1SansConstant.variable}$ est ${eqCoeffDom1SansConstant.coefficients[1].signe < 0 ? 'négatif' : 'positif'}, on va compléter le carré pour obtenir la ${eqCoeffDom1SansConstant.coefficients[1].signe < 0 ? 'deuxième' : 'première'} identité. `
+        texteCorr += `On complète l'identité avec le carré du ${texteEnCouleurEtGras('coefficient de $x$', 'blue')} divisé par $2$, c'est-à-dire \\[\\left(\\dfrac{${miseEnEvidence(`${eqCoeffDom1.coefficientsEqReduite[1].texFractionSimplifiee}`, 'blue')}}{2}\\right)^2=\\left(${eqCoeffDom1.coefficientsEqReduite[1].entierDivise(2).texFractionSimplifiee}\\right)^2=${miseEnEvidence(termeCompletion.texFractionSimplifiee, 'green')}.\\]`
+        texteCorr += `En effet, \\[${miseEnEvidence(eqCoeffDom1SansConstant.printToLatexMDG(), 'red')}+${miseEnEvidence(termeCompletion.texFractionSimplifiee, 'green')}=\\left(${eqCoeffDom1.variable}^2${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)^2\\]`
       }
 
       texteCorr += '$\\begin{aligned}'
@@ -125,6 +135,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       if (coefficientsEqReduite[0].texFractionSimplifiee !== '1') {
         texteCorr += `&\\iff ${eqCoeffDom1.printToLatexMDG()}=0 \\quad \\text{équation équivalente avec coefficient dominant égal à 1}\\\\`
       }
+      texteCorr += `&\\iff${miseEnEvidence(eqCoeffDom1SansConstant.printToLatexMDG(), 'red')}=${normalizedCoeff2.oppose().texFractionSimplifiee}\\quad\\text{isoler les termes avec les inconnues}\\\\`
       // effectuer à présent la complétion du carré
       const partieEq1 = EquationSecondDegre.aPartirDesCoefficients(
         normalizedCoeff0,
@@ -140,10 +151,11 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       let reponse1 = ''
       let reponse2 = ''
 
-      texteCorr += `&\\iff ${partieEq1.printToLatexMDG({ indice: 2, couleur: 'green' })}\\,${partieEq2String}${partieEq3.texFractionSignee}=0\\quad\\text{compléter le carré en ajoutant et soustrayant } ${miseEnEvidence(termeCompletion.texFSD, 'green')}\\\\`
-      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}^2${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)^2${termeCompletion.oppose().simplifie().texFractionSignee}${partieEq3.texFractionSignee}=0\\quad\\text{factoriser en utilisant la ${eqCoeffDom1.coefficients[1].signe < 0 ? 'deuxième' : 'première'} identité}\\\\`
-      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}^2${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)^2${termeCompletion.oppose().sommeFraction(partieEq3).simplifie().texFractionSignee}=0\\quad\\text{réduire}\\\\`
-      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}+${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\right)\\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}-${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\right)=0\\quad\\text{factoriser à l'aide de la troisième identité}\\\\`
+      texteCorr += `&\\iff ${miseEnEvidence(eqCoeffDom1SansConstant.printToLatexMDG(), 'red')}\\,${miseEnEvidence(termeCompletion.simplifie().texFractionSignee, 'green')}=${normalizedCoeff2.oppose().texFractionSimplifiee}\\,${miseEnEvidence(termeCompletion.simplifie().texFractionSignee, 'green')}\\quad\\text{compléter le carré par } ${miseEnEvidence(termeCompletion.texFSD, 'green')}\\\\`
+      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)^2=${normalizedCoeff2.oppose().texFractionSimplifiee}\\,${termeCompletion.simplifie().texFractionSignee}\\quad\\text{factoriser en utilisant la ${eqCoeffDom1.coefficients[1].signe < 0 ? 'deuxième' : 'première'} identité}\\\\`
+      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)^2=${termeCompletion.oppose().sommeFraction(partieEq3).simplifie().oppose().texFractionSimplifiee}\\quad\\text{réduire}\\\\`
+      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)=\\pm\\sqrt{${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texFractionSimplifiee}}\\quad\\text{prendre la racine carrée des deux membres}\\\\`
+      texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)=${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\text{ ou } \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}\\right)=-${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\\\`
       if (termeCompletion.oppose().sommeFraction(partieEq3).oppose().estParfaite) {
         const racineIdentite = new FractionEtendue(extraireRacineCarree(termeCompletion.oppose().sommeFraction(partieEq3).oppose().num)[0], extraireRacineCarree(termeCompletion.oppose().sommeFraction(partieEq3).oppose().den)[0])
         if (eqCoeffDom1.coefficients[1].signe < 0) {
@@ -151,24 +163,22 @@ export default class ExerciceEquationSecondDegre extends Exercice {
         }
         const racine1 = termeCompletionCarreRacine.sommeFraction(racineIdentite.oppose()).simplifie()
         const racine2 = termeCompletionCarreRacine.sommeFraction(racineIdentite).simplifie()
-        texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${racine1.oppose().texFractionSignee}\\right)\\left(${eqCoeffDom1.variable}${racine2.oppose().texFractionSignee}\\right)=0\\quad\\text{réduire}\\\\`
-        texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${racine1.oppose().texFractionSignee}\\right)=0 \\text{ ou }\\left(${eqCoeffDom1.variable}${racine2.oppose().texFractionSignee}\\right)=0\\quad\\text{par le théorème du produit nul}\\\\`
-        texteCorr += `&\\iff ${eqCoeffDom1.variable}=${racine1.texFractionSimplifiee}\\, \\text{ ou }\\,${eqCoeffDom1.variable}=${racine2.texFractionSimplifiee}\\\\`
+        texteCorr += `&\\iff ${eqCoeffDom1.variable}=${eqCoeffDom1.coefficients[1].signe < 0 ? '' : '-'}${termeCompletion.texRacineCarree()}+${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()} \\text{ ou } ${eqCoeffDom1.variable}=${eqCoeffDom1.coefficients[1].signe < 0 ? '' : '-'}${termeCompletion.texRacineCarree()}-${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\\\`
+        texteCorr += `&\\iff ${eqCoeffDom1.variable}=${racine2.texFractionSimplifiee}\\, \\text{ ou }\\,${eqCoeffDom1.variable}=${racine1.texFractionSimplifiee}\\quad\\text{réduire}\\\\`
         texteCorr += `&\\text{Il s'ensuit que } S=\\left\\{${miseEnEvidence(racine1.texFractionSimplifiee)};${miseEnEvidence(racine2.texFractionSimplifiee)}\\right\\}`
         reponse1 = racine1.texFractionSimplifiee
         reponse2 = racine2.texFractionSimplifiee
       } else {
-        texteCorr += `&\\iff \\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}+${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\right)=0 \\text{ ou }\\left(${eqCoeffDom1.variable}${eqCoeffDom1.coefficients[1].signe < 0 ? '-' : '+'}${termeCompletion.texRacineCarree()}-${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}\\right)=0\\quad\\text{par le théorème du produit nul}\\\\`
         const racine1 = `${eqCoeffDom1.coefficients[1].signe < 0 ? '' : '-'}${termeCompletion.texRacineCarree()}-${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}`
         const racine2 = `${eqCoeffDom1.coefficients[1].signe < 0 ? '' : '-'}${termeCompletion.texRacineCarree()}+${termeCompletion.oppose().sommeFraction(partieEq3).oppose().texRacineCarree()}`
-        texteCorr += `&\\iff ${eqCoeffDom1.variable}=${racine1} \\,\\text{ ou }\\,${eqCoeffDom1.variable}=${racine2}\\\\`
+        texteCorr += `&\\iff ${eqCoeffDom1.variable}=${racine2} \\,\\text{ ou }\\,${eqCoeffDom1.variable}=${racine1}\\\\`
         texteCorr += `&\\text{Il s'ensuit que } S=\\left\\{${miseEnEvidence(racine1)};${miseEnEvidence(racine2)}\\right\\}`
         reponse1 = racine1
         reponse2 = racine2
       }
 
       texteCorr += '\\end{aligned}$'
-      texte += '<br><br>' + ajouteChampTexteMathLive(this, 2 * i, 'clavierFullOperations', { texteAvant: 'Donner sous forme d\'un entier ou d\'une fraction irréductible le nombre qui permet de compléter le carré :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'clavierFullOperations', { texteAvant: '<br><br> Donner sous forme d\'un entier ou d\'une fraction irréductible le nombre qui permet de compléter le carré :' })
       handleAnswers(this, 2 * i, { reponse: { value: termeCompletion.texFractionSimplifiee, compare: fonctionComparaison, options: { fractionIrreductible: true } } })
       texte += '<br><br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', { texteAvant: 'Donner l\'ensemble des solutions en séparant chaque solution par un point-virgule $S=$' })
       handleAnswers(this, 2 * i + 1, { reponse: { value: `\\{${reponse1};${reponse2}\\}`, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
