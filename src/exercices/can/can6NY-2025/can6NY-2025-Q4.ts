@@ -24,6 +24,7 @@ export default class EgaliteACompleter extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase

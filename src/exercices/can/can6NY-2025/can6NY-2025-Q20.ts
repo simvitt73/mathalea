@@ -4,6 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 export const titre = 'Calculer une somme/différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,6 +23,9 @@ export default class CalculDivers extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.optionsChampTexte = { texteAvant: ' $=$' }
+    this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
@@ -30,45 +34,51 @@ export default class CalculDivers extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    switch (randint(1, 7)) {
+    this.consigne = 'Compléter l\'égalité.'
+    switch (randint(1, 6)) {
       case 1 :
-        this.question = `Combien vaut $${texNombre(2025)} + 20 + 5$ ?`
-        this.reponse = 2050
-        this.correction = `$${texNombre(2025)} + 20 + 5=${texNombre(2045)} + 5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
+        this.reponse = texNombre(1000, 0)
+        this.question = `(${texNombre(2, 0)}\\times %{champ1}) +25=${texNombre(2025, 0)}`
+        this.correction = `$(${texNombre(2, 0)}\\times ${miseEnEvidence(this.reponse)}) +25=${texNombre(2025, 0)}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$(${texNombre(2, 0)}\\times \\ldots) +25=${texNombre(2025, 0)}$`
         break
       case 2 :
-        this.question = `Combien vaut $${texNombre(2025)} + 20 - 5$ ?`
-        this.reponse = 2040
-        this.correction = `$${texNombre(2025)} + 20 - 5=${texNombre(2045)} - 5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
+        this.reponse = texNombre(100, 0)
+        this.question = `(${texNombre(20, 0)}\\times %{champ1}) +25=${texNombre(2025, 0)}`
+        this.correction = `$(${texNombre(20, 0)}\\times ${miseEnEvidence(this.reponse)}) +25=${texNombre(2025, 0)}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$(${texNombre(20, 0)}\\times \\ldots) +25=${texNombre(2025, 0)}$`
         break
       case 3 :
-        this.question = `Combien vaut $${texNombre(2025)} - 20 - 5$ ?`
-        this.reponse = 2000
-        this.correction = `$${texNombre(2025)} - 20 - 5=${texNombre(2005)} -5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
+        this.reponse = texNombre(10, 0)
+        this.question = `(${texNombre(200, 0)}\\times %{champ1}) +25=${texNombre(2025, 0)}`
+        this.correction = `$(${texNombre(200, 0)}\\times ${miseEnEvidence(this.reponse)}) +25=${texNombre(2025, 0)}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$(${texNombre(200, 0)}\\times \\ldots) +25=${texNombre(2025, 0)}$`
         break
       case 4 :
-        this.question = `Combien vaut $${texNombre(2025)} - 20 + 5$ ?`
-        this.reponse = 2010
-        this.correction = `$${texNombre(2025)} - 20 + 5=${texNombre(2005)} + 5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
+        this.reponse = texNombre(25, 0)
+        this.question = `(${texNombre(2, 0)}\\times ${texNombre(1000, 0)}) +%{champ1}=${texNombre(2025, 0)}`
+        this.correction = `$(${texNombre(2, 0)}\\times ${texNombre(1000, 0)}) + ${miseEnEvidence(this.reponse)}=${texNombre(2025, 0)}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$(${texNombre(2, 0)}\\times ${texNombre(1000, 0)}) + \\ldots=${texNombre(2025, 0)}$`
         break
       case 5 :
-        this.question = `Combien vaut $${texNombre(2025)} - (20 + 5)$ ?`
-        this.reponse = 2000
-        this.correction = `$${texNombre(2025)} - (20 + 5)=${texNombre(2025)} - 25=${miseEnEvidence(texNombre(this.reponse, 4))}$`
+        this.reponse = texNombre(1825, 0)
+        this.question = `(${texNombre(2, 0)}\\times 100) +%{champ1}=${texNombre(2025, 0)}`
+        this.correction = `$(${texNombre(2, 0)}\\times 100) + ${miseEnEvidence(this.reponse)}=${texNombre(2025, 0)}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$(${texNombre(2, 0)}\\times 100) + \\ldots=${texNombre(2025, 0)}$`
         break
       case 6 :
-        this.question = `Combien vaut $${texNombre(2025)} - (20 \\times 5)$ ?`
-        this.reponse = 1925
-        this.correction = `$${texNombre(2025)} - (20 \\times 5)=${texNombre(2025)} - 100=${miseEnEvidence(texNombre(this.reponse, 4))}$`
-        break
-      case 7:
-        this.question = `Combien vaut $${texNombre(2025)} + (20 \\times 5)$ ?`
-        this.reponse = 2125
-        this.correction = `$${texNombre(2025)} + (20 \\times 5)=${texNombre(2025)} +100=${miseEnEvidence(texNombre(this.reponse, 4))}$`
+        this.reponse = texNombre(2005, 0)
+        this.question = `(${texNombre(2, 0)}\\times 10) +%{champ1}=${texNombre(2025, 0)}`
+        this.correction = `$(${texNombre(2, 0)}\\times 10) + ${miseEnEvidence(this.reponse)}=${texNombre(2025, 0)}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$(${texNombre(2, 0)}\\times 10) + \\ldots=${texNombre(2025, 0)}$`
         break
     }
-    if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canEnonce = this.consigne
   }
 }
