@@ -7,6 +7,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { sp } from '../../../lib/outils/outilString'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -47,10 +48,11 @@ export default class ComparerFractions extends Exercice {
         this.correction = `$f(${miseEnEvidence(texNombre(a, 0))}) =${miseEnEvidence(texNombre(b, 0))}$`
         handleAnswers(this, 0, {
           bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: a, compare: calculCompare },
-          champ2: { value: b, compare: calculCompare }
+          champ1: { value: String(a), compare: calculCompare },
+          champ2: { value: String(b), compare: calculCompare }
         }
         )
+        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(a), compare: fonctionComparaison }, champ2: { value: String(b), compare: fonctionComparaison } }
         this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
         break
 
@@ -65,6 +67,7 @@ export default class ComparerFractions extends Exercice {
           champ2: { value: String(a) }
         }
         )
+        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(b), compare: fonctionComparaison }, champ2: { value: String(a), compare: fonctionComparaison } }
         this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
         break
     }

@@ -26,6 +26,7 @@ import Question25 from '../can6NY-2025/can3NY-2025-Q25'
 import Question26 from '../can6NY-2025/can3NY-2025-Q26'
 import Question27 from '../can6NY-2025/can3NY-2025-Q27'
 import Question28 from '../can6NY-2025/can3NY-2025-Q28'
+// import Question29 from '../can6NY-2025/can6NY-2025-Q24'
 import Question29 from '../can6NY-2025/can3NY-2025-Q29'
 import Question30 from '../can6NY-2025/can3NY-2025-Q30'
 
