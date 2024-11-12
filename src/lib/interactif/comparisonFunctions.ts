@@ -1436,6 +1436,10 @@ function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   const localInput = clean(input)
   const localGoodAnswer = clean(goodAnswer)
+  if (localGoodAnswer === '\\emptyset') {
+    if (localInput === '\\emptyset' || localInput === '\\{\\}') return { isOk: true, feedback: '' }
+    return { isOk: false, feedback: 'la bonne réponse était l\'ensemble vide : $\\emptyset$' }
+  }
   let isOk1 = true
   let isOk2 = true
   let feedback = ''
