@@ -75,7 +75,7 @@ export default class calculerPythagore extends Exercice {
       this.reponse = `\\sqrt{${2025 + a * a}}`
       this.canReponseACompleter = `$${nom[0]}${nom[2]}=\\ldots$`
     }
-    this.question += '<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 3, scale: 0.7, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
+    this.question += '<br>' + mathalea2d({ xmin: -1, ymin: -1.4, xmax: 8, ymax: 3, scale: 0.6, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
     if (this.interactif) { choix === true ? this.question += `<br>$${nom[0]}${nom[1]}=$` : this.question += `<br>$${nom[0]}${nom[2]}=$` }
     this.canEnonce = this.question
   }
