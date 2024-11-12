@@ -46,6 +46,6 @@ export default class calcPuissanceDe10 extends Exercice {
         alors l'égalité est : $${texNombre(a, 4)} \\times 10^{${miseEnEvidence(texNombre(exp, 0))}} =${texNombre(Decimal.pow(10, exp).mul(a), 6)}$.`
 
     this.canEnonce = 'Compléter.'
-    this.canReponseACompleter = `$${texNombre(a, 0)} \\times 10^{\\ldots} =${texNombre(Decimal.pow(10, exp).mul(a), 5)}$`
+    this.canReponseACompleter = `$${texNombre(a, 4)} \\times 10^{\\ldots} =${texNombre(Decimal.pow(10, exp).mul(a), 5)}$`
   }
 }
