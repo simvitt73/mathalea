@@ -28,7 +28,7 @@ export default class NombreAajouter extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.compare = fonctionComparaison
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    // this.optionsDeComparaison = { nombreDecimalSeulement: true } // Car on attend fraction ou décimal
   }
 
   nouvelleVersion () {
