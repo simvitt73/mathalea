@@ -36,9 +36,9 @@ export default class NelleCaledoniep19Ex1Q3 extends ExerciceQcmA {
     const expo1 = ordreDeGrandeur - 22
     const expo2 = ordreDeGrandeur - 41
     this.reponses = [
-      `$10^{${ordreDeGrandeur}}$`,
-      `$10^{${expo1}}$`,
-      `$10^{${expo2}}$`
+      `$10^{${ordreDeGrandeur}}$ kg`,
+      `$10^{${expo1}}$ kg`,
+      `$10^{${expo2}}$ kg`
     ]
     this.enonce = `La masse de la planète ${nom} est de l'ordre de :`
     this.correction = `$10^{${expo2}}$ kg, c'est beaucoup moins que $1$ kg, c'est donc une réponse incohérente.<br>
