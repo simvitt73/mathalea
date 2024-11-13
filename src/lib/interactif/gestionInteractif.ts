@@ -73,6 +73,15 @@ export interface Valeur {
   champ4?: AnswerType
   champ5?: AnswerType
   champ6?: AnswerType
+  rectangle1?: AnswerType
+  rectangle2?: AnswerType
+  rectangle3?: AnswerType
+  rectangle4?: AnswerType
+  rectangle5?: AnswerType
+  rectangle6?: AnswerType
+  rectangle7?: AnswerType
+  rectangle8?: AnswerType
+
   // on va aller jusque 6 pour l'instant, si besoin on en ajoutera
   L1C1?: AnswerType
   L1C2?: AnswerType
