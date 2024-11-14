@@ -133,12 +133,12 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       if (!texRacineMdd1.includes('\\dfrac')) {
         numDen1 = [Number(texRacineMdd1), Number('1')]
       } else {
-        numDen1 = texRacineMdd1.match(/\\dfrac{(\d+)}{(\d+)}/)
+        numDen1 = texRacineMdd1.match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
       }
       if (!texRacineMdd2.includes('\\dfrac')) {
         numDen2 = [Number(texRacineMdd2), Number('1')]
       } else {
-        numDen2 = texRacineMdd2.match(/\\dfrac{(\d+)}{(\d+)}/)
+        numDen2 = texRacineMdd2.match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
       }
       const vSubSol1Mdd = (new FractionEtendue(Number(numDen1[0]), Number(numDen1[1]))).sommeFraction(polySup.oppose().evaluer({ x: sol1 })).texFractionSimplifiee
       const vSubSol2Mdg = mdg.evaluer({ x: sol2 }).texFractionSimplifiee
