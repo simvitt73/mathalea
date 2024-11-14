@@ -14,7 +14,9 @@ export const refs = {
   'fr-fr': ['3C10-4'],
   'fr-ch': []
 }
-
+/**
+ * @Author Jean-Claude LHOTE
+ */
 export default class LireUnePuissance extends Exercice {
   constructor () {
     super()
