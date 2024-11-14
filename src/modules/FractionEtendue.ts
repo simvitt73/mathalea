@@ -1153,19 +1153,19 @@ class FractionEtendue {
           }
         }
       }
-    }
 
-    if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
-      return etape + k.texFraction
-    } else {
-      if (k.numIrred === 1 && k.denIrred !== 1) {
-        if (r.denIrred === 1) {
-          return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.numIrred}}}{${k.denIrred}}`)
+      if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
+        return etape + k.texFraction
+      } else {
+        if (k.numIrred === 1 && k.denIrred !== 1) {
+          if (r.denIrred === 1) {
+            return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.numIrred}}}{${k.denIrred}}`)
+          } else {
+            return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
+          }
         } else {
           return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
         }
-      } else {
-        return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
       }
     }
   }
