@@ -246,7 +246,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       if (context.isHtml && this.interactif) {
         this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
         this.figuresApiGeom[i].scale = 0.5
-        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
+        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'SHAKE', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         const O = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {
