@@ -22,6 +22,7 @@ export const nombreElementsDifferents = (liste: string[]) => {
 export default class ExerciceQcm extends Exercice {
   enonce!: string
   reponses!: string[]
+  bonnesReponses?: boolean[]
   options: {vertical?: boolean, ordered: boolean, lastChoice?: number}
   versionAleatoire?: ()=>void
   versionOriginale:()=>void = () => {
@@ -54,10 +55,22 @@ export default class ExerciceQcm extends Exercice {
   nouvelleVersion () {
     this.autoCorrection = []
     if (this.sup2) {
-      this.consigne = `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
+      this.consigne = this.bonnesReponses == null
+        ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
 ${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner la lettre correspondante'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
+        : `Parmi les ${this.reponses.length} réponses ci-dessous, il peut y avoir plusieurs bonnes réponses.<br>
+${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(s)' : 'Donner la (ou les) lettre(s) correspondante(s)'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
     } else {
       this.consigne = ''
+    }
+    const statuts: boolean[] = []
+    if (this.bonnesReponses == null) {
+      statuts.fill(false, 0, this.reponses.length - 1)
+      statuts[0] = true
+    } else {
+      for (let k = 0; k < this.reponses.length; k++) {
+        statuts[k] = this.bonnesReponses[k] ?? false
+      }
     }
     if (this.versionAleatoire != null) {
       for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
@@ -75,7 +88,7 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner l
           for (let j = 0; j < this.reponses.length; j++) {
             autoCorr.propositions.push({
               texte: this.reponses[j],
-              statut: j === 0
+              statut: statuts[j]
             })
           }
           if (this.sup4) {
@@ -114,7 +127,7 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner l
       for (let j = 0; j < this.reponses.length; j++) {
         autoCorr.propositions.push({
           texte: this.reponses[j],
-          statut: j === 0
+          statut: statuts[j]
         })
       }
       const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)

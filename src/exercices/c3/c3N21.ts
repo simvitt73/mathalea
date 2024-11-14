@@ -17,7 +17,9 @@ export const refs = {
   'fr-fr': ['c3N21'],
   'fr-ch': []
 }
-
+/**
+ * @Author Jean-Claude LHOTE
+ */
 export default class LireUneFraction extends Exercice {
   constructor () {
     super()
