@@ -788,16 +788,30 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
       document.dispatchEvent(event)
       continue
     }
-    if (answer.includes('rectangle')) {
+    if (answer.includes('rectangleDND')) {
       // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...
       try {
         // On n'est pas sûr que la chaine `div#${answer}` soit un sélecteur valide
         const rectangle = document.querySelector(`div#${answer}`)
         if (rectangle !== null) {
-          const etiquette = document.querySelector(`div#${answers[answer]}`)
-          if (etiquette !== null) {
-            // Remet l'étiquette à la bonne réponse
-            rectangle.appendChild(etiquette)
+          const listeOfIds = answers[answer].split(';')
+          for (const id of listeOfIds) {
+            // attention ! on a peut-être à faire à des clones ! qu'il faut recréer !
+            if (!id.includes('-clone-')) { // Non, c'est un original
+              const etiquette = document.querySelector(`div#${id}`)
+              if (etiquette !== null) {
+                // Remet l'étiquette à la bonne réponse
+                rectangle.appendChild(etiquette)
+              }
+            } else { // Là, on doit recloner l'original !
+              const idOriginalAndDate = id.split('-clone-')
+              const etiquetteOriginale = document.querySelector(`div#${idOriginalAndDate[0]}`)
+              if (etiquetteOriginale != null) {
+                const clonedEtiquette = etiquetteOriginale.cloneNode(true) as HTMLDivElement
+                clonedEtiquette.id = `${idOriginalAndDate[0]}-clone-${idOriginalAndDate[1]}`
+                rectangle.appendChild(clonedEtiquette)
+              }
+            }
           }
           continue
         }
