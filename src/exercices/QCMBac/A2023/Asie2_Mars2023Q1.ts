@@ -49,9 +49,9 @@ L = [${u0}, ${u0 + r}, \\ldots , ${un}].<br>`
   versionAleatoire: () => void = () => {
     const n = 4
     do {
-      const u0 = randint(2, 10)
+      const u0 = 2 * randint(1, 15) + 1
       const r = 2 * randint(1, 5) + 1
-      const k = randint(8, 20)
+      const k = 2 * randint(10, 150)
       this.appliquerLesValeurs(u0, r, k)
     } while (nombreElementsDifferents(this.reponses) < n)
   }

@@ -2,7 +2,7 @@ import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
-export const uuid = 'A062023Q1'
+export const uuid = 'A2032023Q2'
 export const refs = {
   'fr-fr': ['TSA1-06'],
   'fr-ch': []
@@ -28,7 +28,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcmA {
       `$\\dfrac{${Math.floor(k / 2)}}{${k + 1}}$`,
       `$\\dfrac{${Math.floor(1 + k / 2)}}{${k + 1}}$`,
       '$\\dfrac{1}{2}$',
-      `$\\dfrac{${(2 * u0 + r) * 2}}{${k + 1}}$`
+      `$\\dfrac{${Math.floor(0.1 * (k / 2 + 4))}}{${k + 1}}$`
     ]
 
     this.enonce = `On considère L une liste de nombres constituée de termes consécutifs d'une suite arithmétique de premier terme ${u0} et de raison ${r},<br> le dernier nombre de la liste est ${un} soit: 
@@ -46,9 +46,9 @@ On choisit au hasard un nombre dans cette liste. La probabilité de tirer un nom
   versionAleatoire: () => void = () => {
     const n = 4
     do {
-      const u0 = randint(2, 10)
+      const u0 = 2 * randint(1, 15) + 1
       const r = 2 * randint(1, 5) + 1
-      const k = randint(8, 20)
+      const k = 2 * randint(10, 150)
       this.appliquerLesValeurs(u0, r, k)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
