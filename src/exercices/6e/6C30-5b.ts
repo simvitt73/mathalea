@@ -70,14 +70,14 @@ class MultiplierPar001 extends Exercice {
       let reponse: string = ''
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 3 cas sont prévus...
         case 1:
-          texte = remplisLesBlancs(this, i, `%{champ1} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}`)
+          texte = remplisLesBlancs(this, i, `%{champ1} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}`, ' clavierDeBaseAvecEgal')
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${miseEnEvidence(texNombre2(nombre))} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           reponse = texNombre(nombre, 3)
           break
         case 3:
-          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times ${texNombre2(10 ** coef)}${sp(2)}=%{champ1}`)
+          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times ${texNombre2(10 ** coef)}${sp(2)}=%{champ1}`, ' clavierDeBaseAvecEgal')
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${miseEnEvidence(texNombre2(nombre))} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
@@ -85,7 +85,7 @@ class MultiplierPar001 extends Exercice {
           break
         case 2:
           // texte = `$${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times %{champ1}${sp(2)}=${sp(2)}${texNombre2(resultat)}`)
+          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times %{champ1}${sp(2)}=${sp(2)}${texNombre2(resultat)}`, ' clavierDeBaseAvecEgal')
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10 ** coef))}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
