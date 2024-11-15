@@ -20,7 +20,7 @@ export const refs = {
 export default class LireUnePuissance extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 5
+    this.nbQuestions = 3
     this.besoinFormulaireCaseACocher = ['avec des mantisses négatives', false]
     this.besoinFormulaire2CaseACocher = ['avec des exposants négatifs', false]
     this.dragAndDrops = []

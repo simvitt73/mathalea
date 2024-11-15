@@ -184,7 +184,7 @@ et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
         indiceII += 2
       }
       if (listeQ.includes(2)) {
-        items.push(`Trouver tous les entiers positifs qui divisent ${nb1} et ${nb2}.<br>${this.interactif ? ' Écrire la liste des diviseurs en les séparant par des points-virgules.' : ''}<br>
+        items.push(`Trouver tous les entiers positifs qui divisent ${nb1} et ${nb2}.${this.interactif ? '<br>Écrire la liste des diviseurs en les séparant par des points-virgules.<br>' : ''}
              ${this.interactif
              ? `Pour $${texNombre(nb1, 0)}$ : ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>Pour $${texNombre(nb2, 0)}$ : ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}`
 : ''}`)
