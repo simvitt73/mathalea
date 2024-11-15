@@ -119,10 +119,10 @@ class EquationSecondDegre {
     if (this.nombreSolutions > 1) {
       this.correctionDetailleeTex += 'l\'équation a deux solutions. Les solutions sont'
       if (lang === 'fr-CH') {
-        this.correctionDetailleeTex += `\\[s_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
+        this.correctionDetailleeTex += `\\[${this.variable}_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       } else {
-        this.correctionDetailleeTex += `\\[s_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
-        this.correctionDetailleeTex += ` s_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
+        this.correctionDetailleeTex += `\\[${this.variable}_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
+        this.correctionDetailleeTex += ` ${this.variable}_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       }
       if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
         this.correctionDetailleeTex += `En réduisant si besoin des fractions et en simplifiant les racines, on obtient $${this.ensembleDeSolutionsTex}$.`

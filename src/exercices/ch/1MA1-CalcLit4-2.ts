@@ -7,6 +7,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { vertMathalea, bleuMathalea } from '../../lib/colors'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 
@@ -52,9 +53,9 @@ export default class ExerciceEquationSecondDegre extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre l\'équation suivante.'
+      this.consigne = 'Résoudre dans $\\mathbb{R}$ l\'équation suivante.'
     } else {
-      this.consigne = 'Résoudre les équations suivantes.'
+      this.consigne = 'Résoudre $\\mathbb{R}$ les équations suivantes.'
     }
     if (this.interactif) {
       this.consigne += ' Entrer l\'ensembles des solutions en séparant les éléments par un point-virgule. Si une équation n\'a pas de solution entrer l\'ensemble vide.'
@@ -159,38 +160,30 @@ export default class ExerciceEquationSecondDegre extends Exercice {
         ensembleSol = '\\emptyset'
       }
       texte += '<br><br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', { texteAvant: 'Donner l\'ensemble des solutions en séparant chaque solution par un point-virgule $S=$' })
-      texteCorr += 'On résout ce type d\'équation de la manière suivante:<br>'
+      texteCorr += ' '
       texteCorr += '$\\begin{aligned}'
       if (this.sup3) {
         // mdg = mdg.somme(polySup).reduire()
-        texteCorr += `&\\phantom{\\iff} ${mdg.toString()}=${polySup.oppose().toString()}+\\sqrt{${mdd.toString()}}\\quad\\text{isoler la racine carrée}\\\\
-      &\\iff ${mdg.toString()}=\\sqrt{${mdd.toString()}}\\quad\\text{élever au carré}\\\\`
+        texteCorr += `&\\phantom{\\implies} ${mdg.toString()}=${polySup.oppose().toString()}+\\sqrt{${mdd.toString()}}\\\\
+      &\\iff ${mdg.toString()}=\\sqrt{${mdd.toString()}}\\quad\\text{on a isolé la racine carrée}\\\\`
       } else {
-        texteCorr += `&\\phantom{\\iff} ${mdg.toString()}=\\sqrt{${mdd.toString()}}\\quad\\text{élever au carré}\\\\`
+        texteCorr += `&\\phantom{\\implies} ${mdg.toString()}=\\sqrt{${mdd.toString()}}\\\\`
       }
-      texteCorr += `&${miseEnEvidence('\\implies', 'red')} \\left(${mdg.toString()}\\right)^2=${mdd.toString()}\\quad \\text{développer}\\\\`
-      texteCorr += `&\\iff ${mdg.produit(mdg).reduire().toString()}=${mdd.toString()}\\quad \\text{comparer à zéro}\\\\`
-      texteCorr += `&\\iff ${mdg.produit(mdg).reduire().difference(mdd).reduire().toString()}=0\\quad \\text{résoudre l'équation (ici par factorisation)}\\\\`
-      texteCorr += `&\\iff \\left (${cxPlusD}\\right)\\left (${exPlusF}\\right)=0\\quad \\text{appliquer le théorème du produit nul}\\\\`
-      texteCorr += `&\\iff ${cxPlusD}=0\\quad \\text{ou} \\quad ${exPlusF}=0\\quad \\text{résoudre les équations}\\\\`
-      texteCorr += `&\\iff x=${sol1.texFractionSimplifiee}\\quad \\text{ou} \\quad x=${sol2.texFractionSimplifiee}\\\\`
+      texteCorr += `&\\implies \\left(${mdg.toString()}\\right)^2=${mdd.toString()} \\quad\\text{on a élevé au carré}\\\\`
+      texteCorr += `&\\implies ${mdg.produit(mdg).reduire().toString()}=${mdd.toString()}\\quad \\text{on a développé}\\\\`
+      texteCorr += `&\\implies ${mdg.produit(mdg).reduire().difference(mdd).reduire().toString()}=0\\quad \\text{on a comparé à zéro}\\\\`
+      texteCorr += `&\\implies \\left (${cxPlusD}\\right)\\left (${exPlusF}\\right)=0\\quad \\text{on résout l'équation (ici par factorisation)}\\\\ `
+      texteCorr += `&\\implies ${cxPlusD}=0\\quad \\text{ou} \\quad ${exPlusF}=0\\quad \\text{on a appliqué le théorème du produit nul}\\\\ `
+      texteCorr += `&\\implies x=${sol1.texFractionSimplifiee}\\quad \\text{ou} \\quad x=${sol2.texFractionSimplifiee} \\quad \\text{on a résolu les équations}\\\\`
       texteCorr += '\\end{aligned}$'
       texteCorr += '<br>'
       texteCorr += `On vérifie à présent les solutions obtenues.
       <br>
-      Pour $x=${sol1.texFractionSimplifiee}$<br>
-      $\\begin{aligned}
-      ${mdgInit.toStringEvaluate({ x: sol1 })} &\\stackrel{?}{=} ${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol1 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol1 })}} \\\\
-      ${vSubSol1Mdg}  &${vSubSol1Mdg === vSubSol1Mdd ? '=' : '\\neq'} ${vSubSol1Mdd}
-      \\end{aligned}$<br>
-      donc $${sol1.texFractionSimplifiee}$ ${vSubSol1Mdd === vSubSol1Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
-      Pour $x=${sol2.texFractionSimplifiee}$<br>
-      $\\begin{aligned}
-      ${mdgInit.toStringEvaluate({ x: sol2 })} &\\stackrel{?}{=} ${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol2 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol2 })}} \\\\
-      ${vSubSol2Mdg} &${vSubSol2Mdg === vSubSol2Mdd ? '=' : '\\neq'} ${vSubSol2Mdd}      
-      \\end{aligned}$<br>
-      donc $${sol2.texFractionSimplifiee}$ ${vSubSol2Mdd === vSubSol2Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
-      Ainsi, l'ensemble des solutions de l'équation est $S=${ensembleSol}$.`
+      Pour $x=${sol1.texFractionSimplifiee}$ :<br>
+      $${mdgInit.toStringEvaluate({ x: sol1 })}=${miseEnEvidence(vSubSol1Mdg, bleuMathalea)}$ ${vSubSol1Mdg === vSubSol1Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol1 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol1 })}}=${miseEnEvidence(vSubSol1Mdd, `${vSubSol1Mdg === vSubSol1Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol1.texFractionSimplifiee}$ ${vSubSol1Mdd === vSubSol1Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
+      Pour $x=${sol2.texFractionSimplifiee}$ :<br>
+      $${mdgInit.toStringEvaluate({ x: sol2 })}=${miseEnEvidence(vSubSol2Mdg, bleuMathalea)}$ ${vSubSol2Mdg === vSubSol2Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol2 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol2 })}}=${miseEnEvidence(vSubSol2Mdd, `${vSubSol2Mdg === vSubSol2Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol2.texFractionSimplifiee}$ ${vSubSol2Mdd === vSubSol2Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
+      Ainsi, l'ensemble des solutions de l'équation est $S=${miseEnEvidence(ensembleSol)}$.`
 
       handleAnswers(this, i, { reponse: { value: `${ensembleSol}`, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
       if (this.questionJamaisPosee(i, texte)) {
