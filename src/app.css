@@ -628,15 +628,17 @@ div.rectangleDND {
   border: 1px dashed #ccc;
   border-radius: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   zoom: 1;
+  flex: 1;
+  flex-wrap: wrap;
   padding: 6px 0px 6px 0px;
 }
 
 .rectangleDND.hovered {
   border: 2px dashed green; /* Indique la zone de drop */
-  zoom: 1.5;
+  zoom: 1;
 }
 
 div.rectangles {

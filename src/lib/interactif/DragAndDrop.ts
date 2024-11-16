@@ -81,13 +81,17 @@ function dropHandler (e: DragEvent) {
         etiquette.parentElement?.removeChild(etiquette)
         return
       }
-      if (etiquette.classList.contains('duplicable')) {
+      if (etiquette.classList.contains('duplicable') && dropTarget.classList.contains('rectangleDND')) {
         const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
         clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
         addDeleteButton(clonedEtiquette)
         dropTarget.appendChild(clonedEtiquette)
-      } else {
-        dropTarget.appendChild(etiquette)
+      } else if (dropTarget.parentElement?.classList.contains('rectangleDND')) {
+        // on est sur une étiquette déjà deposée
+        const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
+        clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
+        addDeleteButton(clonedEtiquette)
+        dropTarget.after(clonedEtiquette)
       }
       dropTarget.classList.remove('hovered') // Enlève l'effet après le drop
       draggedItem = null
@@ -99,7 +103,6 @@ function dropHandler (e: DragEvent) {
  */
 function touchStartHandler (e: TouchEvent) {
   let target = e.target as HTMLElement
-
   // Si le touch a été déclenché sur un élément interne (comme un <span>), on remonte jusqu'au div parent
   while (target && target.tagName !== 'DIV') {
     target = target.parentElement as HTMLElement
@@ -267,6 +270,7 @@ export function verifDragAndDrop (
   let nbBonnesReponses = 0
   let etiquettesAbsentes = 0
   let etiquettesMalPlacees = 0
+  let etiquettesBienPlacees = 0
   if (objetReponses) {
     const bareme = objetReponses.bareme ?? toutPourUnPoint
 
@@ -383,24 +387,29 @@ export function verifDragAndDrop (
               const value = Array.isArray(goodAnswer[1].value) ? goodAnswer[1].value : [goodAnswer[1].value]
               for (const val of value) {
                 isOk = true
+                etiquettesBienPlacees = 0 // on reinitialise car plusieurs réponses possibles, malheureusement on garde la dernière
+                etiquettesMalPlacees = 0 // on reinitialise car plusieurs réponses possibles, malheureusement on garde la dernière
                 const listeOfIds: string[] = val.split('|')
                 const ordered = goodAnswer[1].options.ordered ?? false
                 if (listeOfIds.length !== etiquettesDedans.length) {
                   isOk = false
-                  continue
                 }
                 if (ordered) {
-                  for (let j = 0; j < listeOfIds.length && isOk; j++) {
+                  for (let j = 0; j < listeOfIds.length && j < etiquettesDedans.length; j++) {
+                    // compare même si pas même longueur
                     const etiquette = etiquettesDedans[j]
                     const id = listeOfIds[j]
-                    const nbChar = id.length
-                    if (id === etiquette.id.split('I')[1].substring(0, nbChar)) {
+                    if (id === etiquette.id.split('I').pop()?.split('-')[0]) {
                       etiquette.classList.add('bg-coopmaths-warn-100')
+                      etiquettesBienPlacees++
                     } else {
                       etiquette.classList.add('bg-coopmaths-action-200')
+                      etiquettesMalPlacees++
                       isOk = false
                     }
                   }
+                  etiquettesAbsentes = listeOfIds.length - listeOfIds.filter((el:string) => Array.from(etiquettesDedans).find(etiquette => el === etiquette.id.split('I').pop()?.split('-')[0])).length
+                  if (etiquettesAbsentes < 0) etiquettesAbsentes = 0
                   if (isOk === true) break
                 } else {
                 // @todo non ordered
@@ -413,7 +422,7 @@ export function verifDragAndDrop (
                       isOk = false
                     }
                   }
-                  etiquettesAbsentes = listeOfIds.filter((el:string) => Array.from(etiquettesDedans).find(etiquette => etiquette.id.includes(el))).length - listeOfIds.length
+                  etiquettesAbsentes = listeOfIds.length - listeOfIds.filter((el:string) => Array.from(etiquettesDedans).find(etiquette => el === etiquette.id.split('I').pop()?.split('-')[0])).length
                   if (isOk === true && etiquettesAbsentes === 0) break
                 }
               }
@@ -459,22 +468,25 @@ export function verifDragAndDrop (
       if (nbBonnesReponses > 0) {
         message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''}`
       }
+      if (etiquettesBienPlacees > 0) {
+        message += ` ${etiquettesBienPlacees} réponse${etiquettesBienPlacees > 1 ? 's' : ''} bien placée${etiquettesBienPlacees > 1 ? 's' : ''}`
+      }
       if (etiquettesAbsentes > 0) {
         message += ` ${etiquettesAbsentes} réponse${etiquettesAbsentes > 1 ? 's' : ''} manquante${etiquettesAbsentes > 1 ? 's' : ''}`
       }
       if (etiquettesMalPlacees > 0) {
         message += ` ${etiquettesMalPlacees} réponse${etiquettesMalPlacees > 1 ? 's' : ''} mal placée${etiquettesMalPlacees > 1 ? 's' : ''}`
       }
+      messageFeedback({
+        id: `feedbackEx${numeroExercice}Q${question}`,
+        message,
+        type: typeFeedback
+      })
     } else {
       message = ''
     }
 
-    messageFeedback({
-      id: `feedbackEx${numeroExercice}Q${question}`,
-      message,
-      type: typeFeedback
-    })
-    ;[nbBonnesReponses, nbReponses] = bareme(points)
+    [nbBonnesReponses, nbReponses] = bareme(points)
 
     return {
       isOk: nbBonnesReponses === nbReponses,
@@ -613,14 +625,9 @@ class DragAndDrop {
             }
           }
 
-          const rectangles = get(
-            `rectanglesEx${numeroExercice}Q${this.question}`,
-            false
-          )
+          const rectangles = get(`rectanglesEx${numeroExercice}Q${this.question}`, false)
           if (rectangles) {
-            for (const rectangle of rectangles.querySelectorAll(
-              '.rectangleDND'
-            )) {
+            for (const rectangle of rectangles.querySelectorAll('.rectangleDND')) {
               (rectangle as HTMLDivElement).addEventListener(
                 'dragover',
                 dragOverHandler

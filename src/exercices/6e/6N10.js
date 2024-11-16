@@ -281,7 +281,7 @@ export default function EcrirePetitsNombresEntiers () {
               enonceATrous
             })
             this.dragAndDrops.push(leDragAndDrop)
-            handleAnswers(this, i, { rectangle1: { value: [nombreEnEtiquettes.join('|'), nombreEnEtiquettes.filter(el => el !== idTiret).join('|')], options: { ordered: true, multi: true } } }, { formatInteractif: 'dnd' })
+            handleAnswers(this, i, { rectangle1: { value: [nombreEnEtiquettes.filter(el => el !== idTiret).join('|'), nombreEnEtiquettes.join('|')], options: { ordered: true, multi: true } } }, { formatInteractif: 'dnd' })
           } else {
             handleAnswers(this, i, { reponse: { value: nombreEnLettres(NombreAEcrire), compare: fonctionComparaison, options: { texteSansCasse: true } } })
           }
