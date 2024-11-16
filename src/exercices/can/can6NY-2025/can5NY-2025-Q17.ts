@@ -33,7 +33,7 @@ export default class CalculDivers extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    this.consigne = `Compléter l'égalité.<br>`
+    this.consigne = 'Compléter l\'égalité.<br>'
     switch (randint(1, 6)) {
       case 1 :
         this.reponse = texNombre(2, 0)
@@ -63,20 +63,20 @@ export default class CalculDivers extends Exercice {
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
         this.canReponseACompleter = `$${texNombre(20.25, 2)}=20+\\dfrac{\\ldots}{100}$`
         break
-        case 5 :
+      case 5 :
         this.reponse = texNombre(1, 0)
         this.question = `${texNombre(20.25, 2)}=20+\\dfrac{%{champ1}}{4}`
         this.correction = `$${texNombre(20.25, 2)}=20+\\dfrac{${miseEnEvidence(this.reponse)}}{4}$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
         this.canReponseACompleter = `$${texNombre(20.25, 2)}=20+\\dfrac{\\ldots}{4}$`
         break
-        case 6 :
-            this.reponse = texNombre(4, 0)
-            this.question = `${texNombre(20.25, 2)}=20+\\dfrac{1}{%{champ1}}`
-            this.correction = `$${texNombre(20.25, 2)}=20+\\dfrac{1}{${miseEnEvidence(this.reponse)}}$`
-            handleAnswers(this, 0, { champ1: { value: this.reponse } })
-            this.canReponseACompleter = `$${texNombre(20.25, 2)}=20+\\dfrac{1}{\\ldots}$`
-            break
+      case 6 :
+        this.reponse = texNombre(4, 0)
+        this.question = `${texNombre(20.25, 2)}=20+\\dfrac{1}{%{champ1}}`
+        this.correction = `$${texNombre(20.25, 2)}=20+\\dfrac{1}{${miseEnEvidence(this.reponse)}}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$${texNombre(20.25, 2)}=20+\\dfrac{1}{\\ldots}$`
+        break
     }
     this.canEnonce = this.consigne
   }

@@ -33,35 +33,35 @@ export default class nbreMinutes extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    this.consigne = `Compléter l'égalité.<br>`
-    switch (randint(1,4)) {
+    this.consigne = 'Compléter l\'égalité.<br>'
+    switch (randint(1, 4)) {
       case 1 :
         this.reponse = texNombre(15, 0)
-        this.question = `${texNombre(20.25,2)} \\text{ h }=20 \\text{ h } %{champ1} \\text{ min }`
-        this.correction = `$${texNombre(20.25,2)} \\text{ h }=20 \\text{ h } ${miseEnEvidence(this.reponse)} \\text{ min. }$`
+        this.question = `${texNombre(20.25, 2)} \\text{ h }=20 \\text{ h } %{champ1} \\text{ min }`
+        this.correction = `$${texNombre(20.25, 2)} \\text{ h }=20 \\text{ h } ${miseEnEvidence(this.reponse)} \\text{ min. }$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$${texNombre(20.25,2)} \\text{ h }=20 \\text{ h } \\ldots \\text{ min }$`
+        this.canReponseACompleter = `$${texNombre(20.25, 2)} \\text{ h }=20 \\text{ h } \\ldots \\text{ min }$`
         break
       case 2 :
         this.reponse = texNombre(30, 0)
-        this.question = `${texNombre(202.5,1)} \\text{ h }=202 \\text{ h } %{champ1} \\text{ min }`
-        this.correction = `$${texNombre(202.5,1)} \\text{ h }=202 \\text{ h } ${miseEnEvidence(this.reponse)} \\text{ min. }$`
+        this.question = `${texNombre(202.5, 1)} \\text{ h }=202 \\text{ h } %{champ1} \\text{ min }`
+        this.correction = `$${texNombre(202.5, 1)} \\text{ h }=202 \\text{ h } ${miseEnEvidence(this.reponse)} \\text{ min. }$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$${texNombre(202.5,1)} \\text{ h }=202 \\text{ h }\\ldots \\text{ min }$`
+        this.canReponseACompleter = `$${texNombre(202.5, 1)} \\text{ h }=202 \\text{ h }\\ldots \\text{ min }$`
         break
       case 3 :
         this.reponse = texNombre(20.25, 2)
-        this.question = `20 \\text{ h } 15 \\text{ min } = %{champ1} \\text{ h }`
+        this.question = '20 \\text{ h } 15 \\text{ min } = %{champ1} \\text{ h }'
         this.correction = `$20 \\text{ h } 15 \\text{ min }= ${miseEnEvidence(this.reponse)} \\text{ h. }$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$20 \\text{ h } 15 \\text{ min }= \\ldots \\text{ h }$`
+        this.canReponseACompleter = '$20 \\text{ h } 15 \\text{ min }= \\ldots \\text{ h }$'
         break
       case 4 :
         this.reponse = texNombre(202.5, 1)
-        this.question = `202 \\text{ h } 30 \\text{ min } = %{champ1} \\text{ h }`
+        this.question = '202 \\text{ h } 30 \\text{ min } = %{champ1} \\text{ h }'
         this.correction = `$202 \\text{ h } 30 \\text{ min }= ${miseEnEvidence(this.reponse)} \\text{ h. }$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$202 \\text{ h } 30 \\text{ min }= \\ldots \\text{ h }$`
+        this.canReponseACompleter = '$202 \\text{ h } 30 \\text{ min }= \\ldots \\text{ h }$'
         break
     }
     this.canEnonce = this.consigne

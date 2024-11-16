@@ -31,11 +31,11 @@ export default class anneeATrouver extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const a = randint(30,50)
+    const a = randint(30, 50)
     const prenom = prenomF(1)
     this.question = 'Si ' + prenom + ` a $${a}$ ans en $2025$, en quelle année est-elle naît  ?`
-    this.reponse = 2025-a
-    this.correction = `Comme $${2025}-${a}=${texNombre(this.reponse,0)}$, ${prenom} est naît en $${miseEnEvidence(texNombre(this.reponse))}$.`
+    this.reponse = 2025 - a
+    this.correction = `Comme $${2025}-${a}=${texNombre(this.reponse, 0)}$, ${prenom} est naît en $${miseEnEvidence(texNombre(this.reponse))}$.`
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

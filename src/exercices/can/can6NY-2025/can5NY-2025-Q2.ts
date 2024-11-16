@@ -4,7 +4,6 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
-import { randint } from '../../../modules/outils'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer avec des décimaux'
 export const interactifReady = true
@@ -36,7 +35,7 @@ export default class calcAvecDecimaux extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const a = new Decimal(2025).div(choice([10, 100,1000,10000]))
+    const a = new Decimal(2025).div(choice([10, 100, 1000, 10000]))
     this.reponse = texNombre(new Decimal(2025).add(a), 5)
     this.question = `$${texNombre(2025)}+${texNombre(a, 4)}$`
     this.correction = `$${texNombre(2025)}+${texNombre(a, 4)}=${miseEnEvidence(this.reponse)}$`
