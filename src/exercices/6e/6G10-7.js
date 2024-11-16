@@ -21,23 +21,21 @@ export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const titre = 'Connaître le vocabulaire du cercle'
+export const titre = 'Connaître le vocabulaire du cercle, version 2'
 
-export const dateDePublication = '19/08/2022'
-export const dateDeModifImportante = '16/11/2024' // Ajout Mireille du centre de cercle, milieu de diamètre
+export const dateDePublication = '16/11/2024'
+export const dateDeModifImportante = ''
 
-/**
- * Exercice testant les connaissances des élèves sur le vocabulaire du cercle dans les deux sens (Un rayon est ... et [AB] est ...)
- * et en travaillant la reconnaissance et la production (QCM ou réponse libre)
- * @author Guillaume Valmont
- * Référence 6G10-4
- */
-export const uuid = '03b49'
-export const ref = '6G10-4'
+export const uuid = '35282'
 export const refs = {
-  'fr-fr': ['6G10-4'],
-  'fr-ch': ['9ES1-9']
+  'fr-fr': ['6G10-7'],
+  'fr-ch': []
 }
+/**
+ * Différencier le vocabulaire du cercle (rayon, diamètre, corde, centre, milieu)
+ * @author Mireille Gain, d'après 6G10-4 de Guillaume Valmont
+ * Référence 6G10-7
+ */
 
 function ajouterAlternatives (fonction, reponses) {
   const copieReponses = []
@@ -54,8 +52,6 @@ function longueurAlternative (longueur) {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
 
-// const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde', 'le centre', 'le milieu']
-// @todo relire la définition de cette fonction et la déplacer
 function segmentAlternatif (reponses) {
   if (reponses[0] != null) {
     return '[' + reponses[0].slice(2, 3) + reponses[0].slice(1, 2) + ']'
@@ -69,12 +65,12 @@ export default function VocabulaireDuCercle () {
   this.nbQuestions = 1
 
   this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
-  this.sup = 3
+  this.sup = 2
   this.besoinFormulaire2CaseACocher = ['QCM']
-  this.sup2 = true
+  this.sup2 = false
   this.correctionDetailleeDisponible = true
-  this.sup3 = 6 // changement Mireille
-  this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 7]
+  this.sup3 = 6
+  this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 6]
 
   this.spacing = 1 // Interligne des questions
   this.spacingCorr = 1.5 // Interligne des réponses
@@ -87,7 +83,6 @@ export default function VocabulaireDuCercle () {
     this.autoCorrection = []
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
     const nbSousQuestionMax = 6 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
-    // changement Mireille
     let sensDesQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -100,7 +95,7 @@ export default function VocabulaireDuCercle () {
         sensDesQuestionsDisponibles = ['Un rayon est ...', '[AB] est ...']
         break
     }
-    const nbSousQuestions = contraindreValeur(1, 6, this.sup3, nbSousQuestionMax) // changement Mireille
+    const nbSousQuestions = contraindreValeur(1, 6, this.sup3, nbSousQuestionMax)
     const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestionMax)
     const distanceMinEntrePoints = 2
     const distanceMinCorde = 3
@@ -176,7 +171,7 @@ export default function VocabulaireDuCercle () {
           commentaireAlt: '',
           sens: sensDesQuestions[i * nbSousQuestions + 4]
         },
-        { // Ajout Mireille
+        {
           nom: `$${O.nom}$`,
           nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
           commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
@@ -293,7 +288,7 @@ export default function VocabulaireDuCercle () {
                 }
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
-              case 'le milieu': // Ajout Mireille
+              case 'le milieu':
                 reponses.push(B.nom + C.nom)
                 break
             }
