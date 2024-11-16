@@ -18,7 +18,7 @@ import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
 import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
-import { handleAnswers, setReponse } from './interactif/gestionInteractif'
+import { handleAnswers, setReponse, type MathaleaSVG } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
 import { calculCompare } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
@@ -783,10 +783,19 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
       continue
     }
     if (answer.includes('apigeom')) {
-      // La réponse correspond à une figure
+      // La réponse correspond à une figure apigeom
       const event = new CustomEvent(answer, { detail: answers[answer] })
       document.dispatchEvent(event)
       continue
+    }
+    if (answer.includes('cliquefigure')) {
+      // La réponse correspond à une figure cliquefigures
+      const ele = document.querySelector(`#${answer}`) as MathaleaSVG
+      if (ele) {
+        ele.etat = true
+        ele.style.border = '3px solid #f15929'
+        continue
+      }
     }
     if (answer.includes('rectangleDND')) {
       // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...

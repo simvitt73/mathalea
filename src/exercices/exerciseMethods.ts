@@ -1,3 +1,4 @@
+import Figure from 'apigeom/src/Figure'
 import FractionEtendue from '../modules/FractionEtendue'
 import type Exercice from './Exercice'
 
@@ -13,6 +14,15 @@ export function exportedReinit (this: Exercice) {
   this.listeCanReponsesACompleter = []
   this.listeArguments = []
   this.autoCorrection = []
+  if (this.figures) {
+    // figure APIGEOM
+    this.figures.forEach(fig => {
+      if (fig instanceof Figure) {
+        fig.clearHtml()
+        fig.container = document.createElement('div')
+      }
+    })
+  }
   this.figures = []
   if (this.dragAndDrops && this.dragAndDrops.length > 0) {
     for (const leDragAndDrop of this.dragAndDrops) {

@@ -223,6 +223,7 @@
   onDestroy(() => {
     log('ondestroy' + exercise.id)
     // Détruit l'objet exercice pour libérer la mémoire
+    exercise.reinit() // MGu nécessaire pour supprimer les listeners
     for (const prop of Object.keys(exercise)) {
       Reflect.deleteProperty(exercise, prop)
     }
@@ -244,7 +245,7 @@
       await tick()
       if (isInteractif) {
         await loadMathLive()
-        if (exercise?.interactifType === 'cliqueFigure') {
+        if (exercise?.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
