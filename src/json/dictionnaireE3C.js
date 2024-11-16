@@ -2803,7 +2803,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_3_cor.tex',
-    tags: ['Géométie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet56_4: {
     annee: '2020',
@@ -2973,7 +2973,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet57_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet57_1_cor.tex',
-    tags: ['QCM', 'Second degé', 'Probabilités conditionnelles', 'Trigonométrie', 'Dérivation', 'Exponentielle', 'Suites']
+    tags: ['QCM', 'Second degré', 'Probabilités conditionnelles', 'Trigonométrie', 'Dérivation', 'Exponentielle', 'Suites']
   },
   e3c_2020_00_sujet57_2: {
     annee: '2020',
@@ -3285,7 +3285,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet63_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet63_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Vériables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
   },
   e3c_2020_00_sujet63_4: {
     annee: '2020',
