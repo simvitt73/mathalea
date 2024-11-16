@@ -13,6 +13,7 @@ import { point } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { aireTriangle } from '../../lib/2d/triangle'
 import type PointApiGeom from 'apigeom/src/elements/points/Point'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Situer et nommer des points d\'intersections'
 export const dateDePublication = '27/09/2024'
@@ -91,7 +92,7 @@ export default class PointsIntersectionDroites extends Exercice {
           return polygone(...troisAutresPoints)
         })
         nuage = nuage.slice(0, nbPoints)
-      } while (!checkDistance(nuage) || triangles.some(el => Number(aireTriangle(el)) < 3))
+      } while (!checkDistance(nuage) || triangles.some(el => Number(aireTriangle(el)) < 5))
       // Les antécédents sont des points nommés
       this.labels[i] = Array.from(choisitLettresDifferentes(15, 'Q', true))
       const options = {}
@@ -104,7 +105,11 @@ export default class PointsIntersectionDroites extends Exercice {
       let indiceDroite = 0
       for (let k = 0; k < nbPoints; k++) {
         for (let j = k + 1; j < nbPoints; j++) {
-          droites.push(fig.create('Line', { point1: pointsPossibles[k], point2: pointsPossibles[j], color: colors[indiceDroite], label: `(d_${indiceDroite})` }))
+          const droite = fig.create('Line', { point1: pointsPossibles[k], point2: pointsPossibles[j], color: colors[indiceDroite] })
+          const extremite = fig.create('Point', { x: -0.2 * droite.point1.x + 1.2 * droite.point2.x, y: -0.2 * droite.point1.y + 1.2 * droite.point2.y, isVisible: false, isSelectable: false })
+          fig.create('TextByPoint', { text: `$d_${indiceDroite + 1}$`, point: extremite, isVisible: true, color: colors[indiceDroite] })
+          droite.label = `${indiceDroite + 1}`
+          droites.push(droite)
           indiceDroite++
         }
       }
@@ -129,7 +134,7 @@ export default class PointsIntersectionDroites extends Exercice {
         .map(droites => Object.assign({}, {
           intersection: fig.create('PointIntersectionLL', { line1: droites[0], line2: droites[1], isVisible: false, isSelectable: false }),
           deuxDroites: droites
-        }))
+        })).filter(val => !isNaN(val.intersection.x))
       const intersectionsADistanceRespectables = allIntersections
         .filter(val => checkDistance([{ x: val.intersection.x, y: val.intersection.y }]))
         // On nettoie les intersections trop proches
@@ -145,7 +150,7 @@ export default class PointsIntersectionDroites extends Exercice {
       enonce = 'Nommer  : '
       const listeQuestions = createList({
         items: lesTroisPoints.map((val, k) => {
-          return `$${this.labels[i][k]}$, le point d'intersection de la droite ${frenchColors[val.deuxDroites[0].color as keyof typeof frenchColors]} et de la droite ${frenchColors[val.deuxDroites[1].color as keyof typeof frenchColors]}`
+          return `$${this.labels[i][k]}$, le point d'intersection de la droite $${miseEnEvidence(`(d_${val.deuxDroites[0].label})`, colors[Number(val.deuxDroites[0].label) - 1])}$ et de la droite $${miseEnEvidence(`(d_${val.deuxDroites[1].label})`, colors[Number(val.deuxDroites[1].label) - 1])}$.`
         }),
         style: 'alpha'
 
