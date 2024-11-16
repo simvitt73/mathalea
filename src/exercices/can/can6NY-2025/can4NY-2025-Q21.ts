@@ -14,7 +14,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Calculer un périmètre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = ''
+export const uuid = 'e45ab'
 export const refs = {
   'fr-fr': [],
   'fr-ch': []
