@@ -15,7 +15,14 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Exercice 1 (Antilles-Guyane 06/2024)'
 export const dateDePublication = '15/11/2024'
-
+/**
+ * @Author Jean-Claude Lhote
+ * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
+ * Il s'agit d'un exercice de type Brevet Aléatoirisé
+ * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
+ * La méthode versionOriginale permet de générer les valeurs de l'exercice telles qu'elles sont dans le sujet original
+ * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
+ */
 export default class Exercice3A10DNB0 extends ExerciceBrevetA {
   constructor () {
     super()

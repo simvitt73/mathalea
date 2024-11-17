@@ -2,11 +2,13 @@ import { courbe } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { labelPoint } from '../../lib/2d/textes'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -23,8 +25,15 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Exercice 5 (Nouvelle Calédonie 12/2023)'
-export const dateDePublication = '15/11/2024'
-
+export const dateDePublication = '17/11/2024'
+/**
+ * @Author Jean-Claude Lhote
+ * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
+ * Il s'agit d'un exercice de type Brevet Aléatoirisé
+ * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
+ * La méthode versionOriginale permet de générer les valeurs de l'exercice telles qu'elles sont dans le sujet original
+ * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
+ */
 export default class Exercice3F14DNB0 extends ExerciceBrevetA {
   constructor () {
     super()
@@ -33,6 +42,8 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
     this.besoinFormulaire2CaseACocher = ['Présence possible de nombres négatifs', false]
     this.sup2 = false
     this.nbQuestionsModifiable = true
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
     this.versionAleatoire()
   }
 
@@ -52,21 +63,27 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
     const B = point(x1, a * x1 + b, 'B', 'above left')
     const traces = tracePoint(A, B)
     const labels = labelPoint(A, B)
-    const figure = mathalea2d(Object.assign({}, fixeBordures([...rep.objets, laCourbe])), rep.objets, laCourbe)
-    const figureCoor = mathalea2d(Object.assign({}, fixeBordures([...rep.objets, laCourbe, dG])), rep.objets, laCourbe, dG, traces, labels)
+    const figure = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([...rep.objets, laCourbe])), rep.objets, laCourbe)
+    const xBar = -A.x
+    const yBar = a * xBar + b
+    const angleDef = Math.atan(a) * 180 / Math.PI
+    const cosAngleDef = Math.cos(angleDef * Math.PI / 180)
+    const sinAngleDef = Math.sin(angleDef * Math.PI / 180)
+    const xPosDefG = xBar - sinAngleDef
+    const yPosDefG = yBar + cosAngleDef
+    const defG = latex2d(`g(x) = ${rienSi1(a)}x${ecritureAlgebrique(b)}`, xPosDefG, yPosDefG, { orientation: -angleDef, letterSize: 'footnotesize', color: 'blue', backgroundColor: 'white', opacity: 0.8 })
+    const figureCoor = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([...rep.objets, laCourbe, defG], { rxmin: 2 })), rep.objets, laCourbe, dG, traces, labels, defG)
+    const tabEnteteLignes1 = ['1', '2']
+    const tabEnteteColonnes1 = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G']
+    const tabLignes1 = [
+      'x', '-3', '-2', '-1', '0', '1', '2', 'f(x)', poly.fonction(-3), poly.fonction(-2), '', '', '', '', '']
+
+    const tableau1 = tableauColonneLigne(tabEnteteColonnes1, tabEnteteLignes1, tabLignes1)
     const sousListe1 = createList({
       items: [
         `La fonction $f$, dont la représentation graphique est ci-dessous  est-elle une fonction affine ? Justifier votre réponse.<br>${figure}`,
         `À l'aide de ce graphique ci-dessus, compléter, ci-dessous, le tableau de valeurs de la fonction $f$.<br>
-        $\\def\\arraystretch{1.2}\\begin{array}{|l|c|c|c|c|c|c|c|}
-        \\hline
-        ~~~&\\phantom{AB}A\\phantom{AB}&\\phantom{AB}B\\phantom{AB}&\\phantom{AB}C\\phantom{AB}&\\phantom{AB}D\\phantom{AB}&\\phantom{AB}E\\phantom{AB}&\\phantom{AB}F\\phantom{AB}&\\phantom{AB}G\\phantom{AB}\\\\
-         \\hline
-        1 &x&-3 &-2 &-1 &0&1&2\\\\
-         \\hline
-        2& f(x)& ${poly.fonction(-3)}& ${poly.fonction(-2)}&\\ldots&\\ldots&\\ldots&\\ldots\\\\
-         \\hline
-        \\end{array}$<br>`,
+      ${tableau1}<br>`,
         `Parmi les trois formules suivantes, l'une correspond à l'expression de la fonction $f$.<br>
         Elle a été saisie dans la cellule B2 puis étendue dans la cellule C2 du tableau ci-dessus.<br>
         $\\def\\arraystretch{1.2}\\begin{array}{|c|c|c|}
@@ -82,20 +99,28 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
       ],
       style: 'alpha'
     })
+    const tabEnteteLignes2 = ['1', '2']
+    const tabEnteteColonnes2 = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G']
+    const tabLignes2 = [
+      'x', '-3', '-2', '-1', '0', '1', '2', 'f(x)', `${poly.fonction(-3)}`, `${poly.fonction(-2)}`, `${poly.fonction(-1)}`, `${poly.fonction(0)}`, `${poly.fonction(1)}`, `${poly.fonction(2)}`
+    ]
+    const tableau2 = tableauColonneLigne(tabEnteteColonnes2, tabEnteteLignes2, tabLignes2)
     const sousListe1Corr = createList({
       items: [
         `La fonction $f$ n'est pas affine car une fonction affine est représentée par une droite (voir ci-dessous).<br>${figureCoor}`,
-        `Le tableau de valeurs est le suivant :<br>
-        $\\def\\arraystretch{1.2}\\begin{array}{|l|c|c|c|c|c|c|c|}
-        \\hline
-        ~~~&\\phantom{AB}A\\phantom{AB}&\\phantom{AB}B\\phantom{AB}&\\phantom{AB}C\\phantom{AB}&\\phantom{AB}D\\phantom{AB}&\\phantom{AB}E\\phantom{AB}&\\phantom{AB}F\\phantom{AB}&\\phantom{AB}G\\phantom{AB}\\\\
-         \\hline
-        1 &x&-3 &-2 &-1 &0&1&2\\\\
-         \\hline
-        2& f(x)& ${poly.fonction(-3)}& ${poly.fonction(-2)}& ${poly.fonction(-1)}& ${poly.fonction(0)}& ${poly.fonction(1)}& ${poly.fonction(2)}\\\\
-         \\hline
-        \\end{array}$<br>`,
-        `La formule correcte est : $=(B1${ecritureAlgebrique(c)})\\times(B1${ecritureAlgebrique(d)})$.`
+        `${this.correctionDetaillee
+? `Le tableau de valeur peut être rempli grâce à la calculatrice :<br>
+        Pour cela, il faut saisir la fonction $f$ donnée à la question 3, puis faire calculer les images des antécédents de $-3$ à $2$ par pas de $1$.<br>
+        Ou par lecture graphique :<br>
+        On peut lire les images des nombres $-1$, $0$, $1$ et $2$ sur le graphique ci-dessus.<br>`
+: ''}
+        Le tableau de valeurs est le suivant :<br>
+       ${tableau2}<br>`,
+        `La formule correcte est : $=(B1${ecritureAlgebrique(c)})\\times(B1${ecritureAlgebrique(d)})$.<br>
+        ${this.correctionDetaillee
+? `$=B1${ecritureAlgebrique(poly.fonction(-3) + 3)}$ donnerait comme images dans cet ordre : $${rangeMinMax(-3, 2).map(x => x + poly.fonction(-3) + 3).join('$, $')}$<br>
+        $~=SOMME(B1 : G1)$ donnerait la somme des valeurs situées au-dessus et vers la droite, soit dans cet ordre : $${rangeMinMax(-3, 2).map(el => rangeMinMax(el, 2).reduce((a, b) => a + b, 0))}$  .`
+        : ''}`
       ],
       style: 'alpha'
     })
@@ -122,7 +147,7 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
             : `$x =\\dfrac{${y0}${ecritureAlgebrique(-b)}}{${a}} = ${antecedent.texFraction}= ${texNombre(antecedent.valeurDecimale, 3)}$.`
       }<br>L'antécédent de $${y0}$ par la fonction $g$ est donc $${texNombre(antecedent.valeurDecimale, 3)}$ et on note : $g(${texNombre(antecedent.valeurDecimale, 3)})=${y0}$.`,
         `Le graphique de la fonction $g$ est une droite passant par le point $A(${x0};${a * x0 + b})$ et le point $B(${x1};${a * x1 + b})$.<br>
-        En effet, aux questions 2.a et 2.b, on a trouvé les coordonnées de ces deux points.`
+        ${this.correctionDetaillee ? 'En effet, aux questions 2.a et 2.b, on a trouvé les coordonnées de ces deux points.' : ''}`
       ],
       style: 'alpha'
     })
@@ -136,10 +161,24 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
     })
     const sousListe3Corr = createList({
       items: [
-        `$(x${ecritureAlgebrique(c)})(x${ecritureAlgebrique(d)}) = x^2${ecritureAlgebrique(c)}x${ecritureAlgebrique(d)}x${ecritureAlgebrique(c * d / Math.abs(d))}\\times ${Math.abs(d)} = x^2${ecritureAlgebriqueSauf1(c + d)}x${ecritureAlgebrique(c * d)}$.`,
-        `Par lecture graphique, On a $f(x) = g(x)$ si la droite représentant la fonction $g$ et la courbe représentant la fonction $f$ ont des points d'intersection.<br>
-        Sur le graphique ci-dessous, on voit que les points d'intersection sont les points $A$ et le point de coordonnées $(${-A.x};${a * (-A.x) + b})$.<br>
-        On en déduit que les solutions de l'équation $f(x) = g(x)$ sont $x=${A.x}$ et $x=${-A.x}$.`
+        `$(x${ecritureAlgebrique(c)})(x${ecritureAlgebrique(d)}) = x^2${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebriqueSauf1(d)}x${ecritureAlgebrique(c * d / Math.abs(d))}\\times ${Math.abs(d)} = x^2${ecritureAlgebriqueSauf1(c + d)}x${ecritureAlgebrique(c * d)}$.`,
+        `$f(x)= x^2${ecritureAlgebriqueSauf1(c + d)}x${ecritureAlgebrique(c * d)}$<br>
+        $g(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.<br>
+        Donc, $f(x)=g(x)$ équivaut à<br>
+        $x^2${ecritureAlgebriqueSauf1(c + d)}x${ecritureAlgebrique(c * d)}=${rienSi1(a)}x${ecritureAlgebrique(b)}$.<br>
+        Soit<br>$\\begin{aligned}x^2${ecritureAlgebriqueSauf1(c + d)}x${ecritureAlgebrique(c * d)}${ecritureAlgebriqueSauf1(-a)}x${ecritureAlgebrique(-b)}&=0\\\\
+        x^2${ecritureAlgebrique(c * d - b)}&=0~\\text{( on réduit )}\\\\
+        (x${ecritureAlgebrique(A.x)})(x${ecritureAlgebrique(-A.x)})&=0~\\text{( on factorise )}\\\\
+        \\end{aligned}$<br>
+        ${this.correctionDetaillee ? `Un produit est nul si l'un des facteurs est nul, soit : $x${ecritureAlgebrique(A.x)}=0$ ou $x${ecritureAlgebrique(-A.x)}=0$.<br>` : ''}
+        On en déduit que les solutions de l'équation $f(x) = g(x)$ sont $x=${-A.x}$ et $x=${A.x}$.<br>
+         ${this.correctionDetaillee
+? `On peut aussi trouver les solutions par lecture graphique en procédant ainsi :<br>
+        On a $f(x) = g(x)$ si la droite représentant la fonction $g$ et la courbe représentant la fonction $f$ ont des points d'intersection.<br>
+        Sur le graphique ci-dessous, on voit que les points d'intersection sont le point $A$ et le point de coordonnées $(${-A.x};${a * (-A.x) + b})$.<br>
+        On en déduit que les solutions de l'équation $f(x) = g(x)$ sont $x=${A.x}$ et $x=${-A.x}$.<br>
+        Cette méthode est bien sûr approximative et ne remplace pas un calcul exact.`
+: ''}`
       ],
       style: 'alpha'
     })
@@ -170,15 +209,26 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
   }
 
   versionAleatoire: () => void = () => {
-    const d = randint(1, 3) * (this.sup2 ? choice([1, -1]) : 1)
-    const c = randint(1, 4, [d, -d])
-    const a = c + d
-    const n = randint(1, 2, [Math.sqrt(Math.abs(c * d))])
-    const b = c * d + n ** 2
-    const x0 = choice([n, -n])
-    const x1 = randint(1, 5, [n, -n]) * (this.sup2 ? choice([1, -1]) : 1)
-    const num = randint(1, 5, [-b, b]) * (this.sup2 ? choice([1, -1]) : 1)
-    const y0 = b + num
+    let d: number
+    let c: number
+    let a: number
+    let n: number
+    let b: number
+    let x0: number
+    let x1: number
+    let num: number
+    let y0: number
+    do {
+      d = randint(1, 3) * (this.sup2 ? choice([1, -1]) : 1)
+      c = randint(1, 4, [d, -d])
+      a = c + d
+      n = randint(1, 2, [Math.sqrt(Math.abs(c * d))])
+      b = c * d + n ** 2
+      x0 = choice([n, -n])
+      x1 = randint(1, 5, [n, -n]) * (this.sup2 ? choice([1, -1]) : 1)
+      num = randint(1, 5, [-b, b]) * (this.sup2 ? choice([1, -1]) : 1)
+      y0 = b + num
+    } while (Math.abs(a) > 4)
     this.appliquerLesValeurs(a, b, c, d, x0, x1, y0)
   }
 }
