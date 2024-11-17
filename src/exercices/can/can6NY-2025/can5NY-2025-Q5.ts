@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
-export const titre = 'Trouver le nombres de dixièmes, centièmes, millièmes'
+export const titre = 'Trouver un nombre entre deux valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ffea6'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Gilles Mora
  * Référence
 */
-export default class dixemeCentiemeMillieme extends Exercice {
+export default class nombreEntreDeuxValeurs extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -31,25 +31,24 @@ export default class dixemeCentiemeMillieme extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const u = new Decimal(2025).div(choice([10, 100, 1000]))
-    const d = new Decimal(2025).div(choice([100, 1000]))
-    const c = new Decimal(2025).div(1000)
-    const choix = choice([1, 2, 3])
-    if (choix === 1) {
-      this.reponse = u.toFixed(0)
-      this.question = `Quelle est la valeur arrondie à l'unité de  $${texNombre(u, 3)}$ ?`
-      this.correction = `La valeur arrondie à l'unité de  $${texNombre(u, 3)}$ est $${miseEnEvidence(texNombre(u, 0))}$.`
-    } else if (choix === 2) {
-      this.reponse = d.toFixed(1)
-      this.question = `Quelle est la valeur arrondie au dixième de  $${texNombre(d, 3)}$ ?`
-      this.correction = `La valeur arrondie au dixième de  $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(d, 1))}$.`
-    } else {
-      this.reponse = c.toFixed(2)
-      this.question = `Quelle est la valeur arrondie au centième de  $${texNombre(c, 3)}$ ?`
-      this.correction = `La valeur arrondie au centième de  $${texNombre(c, 3)}$ est $${miseEnEvidence(texNombre(c, 2))}$.`
+    const valInf = new Decimal(2025).div(choice([100, 1000]))
+    const valSup = choice([valInf.add(0.01), valInf.add(0.001)])
+    this.reponse = {
+      reponse: {
+        value: `]${valInf};${valSup}[`,
+        compare: fonctionComparaison,
+        options: { estDansIntervalle: true }
+      }
     }
-    if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+
+    this.question = 'Complète par un nombre. <br>'
+    if (this.interactif) {
+      this.optionsChampTexte = { texteAvant: `$${texNombre(valInf, 4)} < $`, texteApres: `$<${texNombre(valSup, 4)}  $` }
+    } else { this.question += `$${texNombre(valInf, 4)} < \\ldots < ${texNombre(valSup, 4)}$` }
+    this.correction = `On complète avec un nombre strictement compris entre $${texNombre(valInf, 4)}$ et $${texNombre(valSup, 4)}$, comme 
+     par exemple : $${miseEnEvidence(texNombre(valSup.add(valInf).div(2), 5))}$.`
+
+    this.canEnonce = 'Complèter par un nombre.'
+    this.canReponseACompleter = `$${texNombre(valInf, 4)} < \\ldots < ${texNombre(valSup, 4)}$`
   }
 }
