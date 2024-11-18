@@ -16,7 +16,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter+  Gilles Mora
- * Référence
 */
 export default class CalculParentheses extends Exercice {
   constructor () {
@@ -25,7 +24,7 @@ export default class CalculParentheses extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
-    // this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -35,9 +34,9 @@ export default class CalculParentheses extends Exercice {
     const a = randint(1, 12) * 2 + 1
 
     this.reponse = texNombre(new Decimal(2025).sub(a).div(2), 0)
-    this.question = `Calculer $(${texNombre(2025, 0)}-${a})\\times 0,5$.`
+    this.question = `Calculer, sous forme décimale, $(${texNombre(2025, 0)}-${a})\\times 0,5$.`
     this.correction = `Multiplier par $0,5$ revient à prendre la moitié.<br>
-      Ains, $(${texNombre(2025, 0)}-${a})\\times 0,5=${miseEnEvidence(this.reponse)}$.`
+      Ainsi, $(${texNombre(2025, 0)}-${a})\\times 0,5=\\dfrac{${new Decimal(2025).sub(a)}}{2}=${miseEnEvidence(this.reponse)}$.`
 
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

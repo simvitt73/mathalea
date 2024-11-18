@@ -16,7 +16,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter+  Gilles Mora
- * Référence
 */
 export default class Convertir extends Exercice {
   constructor () {
@@ -43,7 +42,7 @@ export default class Convertir extends Exercice {
           this.question += '$ ....$ L'
         }
         this.optionsChampTexte = { texteApres: ' L' }
-        this.correction = `Comme $1$ m$^3=${texNombre(1000, 0)}$ L, alors $${texNombre(a, 0)}$ m$^3 = ${miseEnEvidence(this.reponse)}$ L.`
+        this.correction = `Comme $1$ m$^3=${texNombre(1000, 0)}$ L, alors $${texNombre(a, 0)}$ m$^3 =${texNombre(a)}\\times ${texNombre(1000, 0)}$ L $ = ${miseEnEvidence(this.reponse)}$ L.`
 
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}$ m$^3 = \\dots$ L`
@@ -60,7 +59,7 @@ export default class Convertir extends Exercice {
         this.optionsChampTexte = { texteApres: ' m$^3$' }
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}$ L $ = \\dots$ m$^3$`
-        this.correction = `Comme $1$ L $=0,001$ m$^3$, alors $${texNombre(a)}$ L $=${miseEnEvidence(this.reponse)}$ m$^3$.`
+        this.correction = `Comme $1$ L $=0,001$ m$^3$, alors $${texNombre(a)}$ L $=${texNombre(a)}\\times 0,001$ m$^3 = ${miseEnEvidence(this.reponse)}$ m$^3$.`
 
         break
     }

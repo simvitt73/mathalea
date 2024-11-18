@@ -26,7 +26,7 @@ export default class CalculsEntiersRelatifs extends Exercice {
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
-    // this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -37,12 +37,12 @@ export default class CalculsEntiersRelatifs extends Exercice {
     if (choix === 1) {
       this.reponse = 2025 - a
       this.question = `$${texNombre(2025, 0)}-(${a})$`
-      this.correction = `$${texNombre(2025, 0)}-(${a})=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+      this.correction = `$${texNombre(2025, 0)}-(${a})=${texNombre(2025, 0)}+(-${a})=${miseEnEvidence(texNombre(this.reponse, 0))}$`
     }
     if (choix === 2) {
       this.reponse = a - 2025
       this.question = `$(${a})-${texNombre(2025, 0)}$`
-      this.correction = `$(${a})-${texNombre(2025, 0)}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+      this.correction = `$(${a})-${texNombre(2025, 0)}=(${a})+(-${texNombre(2025, 0)})=${miseEnEvidence(texNombre(this.reponse, 0))}$`
     }
 
     this.canEnonce = this.question

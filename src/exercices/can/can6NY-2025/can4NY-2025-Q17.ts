@@ -15,7 +15,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter + Gilles Mora
- * Référence
 */
 export default class AjouterMinutes extends Exercice {
   constructor () {
@@ -31,10 +30,10 @@ export default class AjouterMinutes extends Exercice {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     const h = 20
-    const k = randint(7, 11) * 5
+    const k = randint(8, 11) * 5
     this.question = `Ajouter $${k}$ minutes à $20$ h $25$ minutes.`
 
-    this.correction = `$20$ h 25 minutes + $${k}$ minutes  $=${miseEnEvidence(`${h + 1}\\text{ h } ${25 + k - 60}\\text{ min }`)}$.`
+    this.correction = `$20$ h $25$ minutes + $${k}$ minutes  $=$$20$ h $25$ minutes + $35$ minutes  + $${k - 35}$ minutes  $=${miseEnEvidence(`${h + 1}\\text{ h } ${25 + k - 60}\\text{ min}`)}$.`
     this.reponse = { reponse: { value: `${h + 1}h ${25 + k - 60}`, compare: fonctionComparaison, options: { HMS: true } } }
     if (this.interactif) { this.question += '<br>' }
 

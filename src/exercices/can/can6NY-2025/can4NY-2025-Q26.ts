@@ -16,7 +16,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter + Gilles Mora
- * Référence
 */
 export default class CalculsPourcentages extends Exercice {
   constructor () {
@@ -37,7 +36,7 @@ export default class CalculsPourcentages extends Exercice {
     this.reponse = texNombre(new Decimal(a).div(10), 5)
     this.question = `$10\\,\\%$ de $${texNombre(a, 4)}$`
     this.correction = `Prendre $10\\,\\%$ d'une quantité revient à la diviser par $10$.<br>
-      Ainsi, $10\\,\\%$ de $${texNombre(a, 4)}=${miseEnEvidence(this.reponse)}$`
+      Ainsi, $10\\,\\%$ de $${texNombre(a, 4)}=${texNombre(a, 4)} \\div 10 = ${miseEnEvidence(this.reponse)}$.`
 
     this.canEnonce = this.question
     this.canReponseACompleter = ''
