@@ -352,9 +352,9 @@ export function developpe (expr, options) {
       const prod3 = engine.box(['Multiply', terme2, terme3]).evaluate().simplify().latex
       const prod4 = engine.box(['Multiply', terme2, terme4]).evaluate().simplify().latex
       if (level === 1) {
-        const p2 = prod2.startsWith('-') ? `\\left( ${prod2})` : prod2
-        const p3 = prod3.startsWith('-') ? `\\left( ${prod3})` : prod3
-        const p4 = prod4.startsWith('-') ? `\\left( ${prod4})` : prod4
+        const p2 = prod2.startsWith('-') ? `\\left( ${prod2}\\right)` : prod2
+        const p3 = prod3.startsWith('-') ? `\\left( ${prod3}\\right)` : prod3
+        const p4 = prod4.startsWith('-') ? `\\left( ${prod4}\\right)` : prod4
         return `${miseEnForme(prod1, couleurs[colorOffset], isColored)}
         ${somme2 ? '+' : '-'}${miseEnForme(p2, couleurs[colorOffset + 1], isColored)}
         ${somme1 ? '+' : '-'}${miseEnForme(p3, couleurs[colorOffset + 1], isColored)}
