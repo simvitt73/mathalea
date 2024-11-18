@@ -35,7 +35,7 @@ export default class Exercice3A10DNB0 extends ExerciceBrevetA {
   private appliquerLesValeurs (roses: number, blanches: number, ballotins: number, couleur: string = 'blanche') {
     const sousListe2 = createList({
       items: [
-        'Combien Anne et Jean ont acheté de dragées au total.',
+        'Combien Anne et Jean ont acheté de dragées au total ?',
         `Anne prend au hasard une dragée dans le sachet. Quelle est la probabilité qu'elle obtienne une dragée ${couleur} ?`
       ],
       style: 'alpha'
