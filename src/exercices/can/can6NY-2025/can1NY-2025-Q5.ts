@@ -16,7 +16,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora+EE
- * Référence
 */
 export default class calculsFractions extends Exercice {
   constructor () {
@@ -25,7 +24,7 @@ export default class calculsFractions extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
-    // this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

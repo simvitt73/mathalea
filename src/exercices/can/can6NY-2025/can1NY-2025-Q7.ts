@@ -16,7 +16,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class ecritureScien extends Exercice {
   constructor () {
@@ -25,7 +24,7 @@ export default class ecritureScien extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.compare = fonctionComparaison
-    // this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion () {
@@ -33,8 +32,8 @@ export default class ecritureScien extends Exercice {
     this.listeCanReponsesACompleter = []
     const exposant = randint(0, 2)
     const a = new Decimal(2025).div(new Decimal(10).pow(exposant))
-    this.question = `Écriture scientifique de $${texNombre(a)}$`
-    this.reponse = `2,025\\times 10^{${3 - exposant}}`
+    this.question = `Quelle est l'écriture scientifique de $${texNombre(a)}$ ?`
+    this.reponse = `${texNombre(2.025)}\\times10^${3 - exposant}`
     this.correction = `L'écriture scientifique de $${texNombre(a)}$ est $${miseEnEvidence(`${this.reponse}`)}$.`
     if (this.interactif) { this.question += `<br>$${texNombre(a)}=$` }
 

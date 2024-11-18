@@ -45,7 +45,7 @@ export default class ComparerFractions extends Exercice {
        x&=\\dfrac{${texNombre(2025 - b, 0)}}{${a}}\\\\
        x&=${this.reponse}
        \\end{aligned}$<br>
-       La solution de l'équation est $${miseEnEvidence(texNombre(this.reponse, 0))}$.
+       La solution de l'équation $${a}x+${texNombre(b, 0)}=${texNombre(2025, 0)}$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.
        `
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

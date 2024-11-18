@@ -23,6 +23,7 @@ export default class calculPuissances extends Exercice {
     this.nbQuestions = 1
     this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

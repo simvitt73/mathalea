@@ -17,7 +17,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora+Eric Elter
- * Référence
 */
 export default class decimalPuisance extends Exercice {
   constructor () {
@@ -26,7 +25,7 @@ export default class decimalPuisance extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.compare = fonctionComparaison
-    // this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.optionsDeComparaison = { fractionEgale: true }
   }
 
   nouvelleVersion () {
