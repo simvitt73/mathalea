@@ -198,7 +198,7 @@ et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
         items.push(`En déduire le plus grand nombre ${situation.groupementDet}${situation.groupement}s que le ${situation.qui} pourra constituer.` + ajouteChampTexteMathLive(this, indiceI + indiceII))
         itemsCorr.push(`Le plus grand diviseur commun à $${texNombre(nb1, 0)}$ et $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texNombre(pgcd12, 0))}$.`)
         handleAnswers(this, indiceI + indiceII, { reponse: { value: String(pgcd12), compare: fonctionComparaison } })
-        indiceII += 2
+        indiceII += 1
       }
       if (listeQ.includes(4)) {
         items.push(`Combien de ${situation.espece1}${situation.especePluriel} et de ${situation.espece2}${situation.especePluriel} y aura-t-il dans chaque ${situation.groupement} ?<br>
