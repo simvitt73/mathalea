@@ -10,6 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { sp } from '../../lib/outils/outilString.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -73,7 +74,6 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
     } else {
       grandNombres = combinaisonListes([false, false, false, false], this.nbQuestions)
     }
-    this.sup = parseInt(this.sup)
     for (let i = 0, n, facteurs = [], nbFacteurs, texte, reponse, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       facteurs = []
       nbFacteurs = this.sup + 2
@@ -97,7 +97,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       for (let k = 0; k < facteurs.length; k++) {
         n = n * facteurs[k]
       }
-      texte = '$ ' + texNombre(n) + ' =$'
+      texte = '$ ' + texNombre(n) + '$'
       texteCorr = ''
       if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $' + sp()
 
@@ -161,7 +161,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, ' ')
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: ' $=$' })
       /* if (!context.isAmc) {
         setReponse(this, i, [reponse, produitAvecPuissances])
       } */

@@ -331,9 +331,9 @@ function allFactorsMatch (ops1: readonly BoxedExpression[], ops2: readonly Boxed
   let nbMatchOK = 0
   let nbNonAttendu = 0
   let allMatch = true
-  for (const op of ops1) {
+  for (const op of ops2) {
     let match = false
-    for (const op2 of ops2) {
+    for (const op2 of ops1) {
       if ((exclusifFactorisation && op2.isSame(op)) || (!exclusifFactorisation && op2.isEqual(op))) {
         match = true
         nbMatchOK++
@@ -342,13 +342,13 @@ function allFactorsMatch (ops1: readonly BoxedExpression[], ops2: readonly Boxed
         nbNonAttendu++
         break
       }
-      const newOp = engine.box(['Subtract', '0', op.json], { canonical: true }) // Pour tester avec l'opposé du facteur.
-      if ((exclusifFactorisation && op2.isSame(newOp)) || (!exclusifFactorisation && op2.isEqual(newOp))) {
+      const newOp2 = engine.box(['Subtract', '0', op2.json], { canonical: true }) // Pour tester avec l'opposé du facteur.
+      if ((exclusifFactorisation && op2.isSame(newOp2)) || (!exclusifFactorisation && op2.isEqual(newOp2))) {
         signeCurrent = !signeCurrent
         match = true
         nbMatchOK++
         break
-      } else if (exclusifFactorisation && !(op2.isSame(newOp)) && op2.isEqual(newOp)) {
+      } else if (exclusifFactorisation && !(op2.isSame(newOp2)) && op2.isEqual(newOp2)) {
         nbNonAttendu++
         break
       }
