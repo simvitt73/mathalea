@@ -393,6 +393,9 @@ function factorisationCompare (
 
   let signe = true
   const aCleaned = clean(input)
+  if (input.includes('\\times1\\') || input.endsWith('\\times1') || input.startsWith('1\\times')) {
+    return { isOk: false, feedback: 'Une factorisation par 1 a peu d\'intérêt.' }
+  }
   const bCleaned = clean(goodAnswer)
   const saisieParsedInit = engine.parse(aCleaned, { canonical: true })
   const reponseParsedInit = engine.parse(bCleaned, { canonical: true })

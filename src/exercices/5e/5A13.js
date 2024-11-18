@@ -8,18 +8,19 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Décomposer en facteurs premiers'
+export const dateDeModifImportante = '18//11/2024'
 
 /**
  * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
  * @author Rémi Angot
- 5A13
  */
 export const uuid = '7f50c'
 export const ref = '5A13'
@@ -39,8 +40,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
-    this.consigne = this.nbQuestions > 1 ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers" : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers"
-    this.consigne += this.interactif ? " rangés dans l'ordre croissant." : '.'
+    this.consigne = this.nbQuestions > 1 ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers." : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers."
     if (this.level === 2) {
       this.sup = 3
       this.sup2 = true
@@ -162,9 +162,11 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
         }
       }
       texte += ajouteChampTexteMathLive(this, i, ' ')
-      if (!context.isAmc) {
+      /* if (!context.isAmc) {
         setReponse(this, i, [reponse, produitAvecPuissances])
-      }
+      } */
+      handleAnswers(this, i, { reponse: { value: [reponse, produitAvecPuissances], compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
+
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
