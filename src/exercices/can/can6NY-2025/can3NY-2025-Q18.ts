@@ -48,7 +48,7 @@ export default class resteDivEucl extends Exercice {
     } else if (choix === 2) {
       reponse1 = `${reduirePolynomeDegre3(0, 2025, a * 2025, 0)}`
       this.reponse = [reponse1, reponse1.replace('x^2', 'x \\times x ')]
-      this.question += `$AX=${texNombre(2025, 0)}x(x${ecritureAlgebrique(a)})$.`
+      this.question += `$A=${texNombre(2025, 0)}x(x${ecritureAlgebrique(a)})$.`
       this.correction = `On développe $A$ :<br>
       $\\begin{aligned}
       A&=${texNombre(2025, 0)}x\\times x ${signe(a)}${texNombre(2025, 0)}x\\times ${abs(a)}\\\\
@@ -57,7 +57,7 @@ export default class resteDivEucl extends Exercice {
     } else {
       reponse1 = `${reduirePolynomeDegre3(0, 2025, b, 0)}`
       this.reponse = [reponse1, reponse1.replace('x^2', 'x \\times x ')]
-      this.question += `$AY=x(${texNombre(2025, 0)}x${ecritureAlgebrique(b)})$.`
+      this.question += `$A=x(${texNombre(2025, 0)}x${ecritureAlgebrique(b)})$.`
       this.correction = `On développe $A$ :<br>
       $\\begin{aligned}
       A&=x\\times${texNombre(2025, 0)}x ${signe(b)}x\\times ${abs(b)}\\\\

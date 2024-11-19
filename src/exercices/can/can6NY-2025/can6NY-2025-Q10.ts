@@ -16,7 +16,6 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class SommeDeProduitsCompleter extends Exercice {
   constructor () {
@@ -35,11 +34,9 @@ export default class SommeDeProduitsCompleter extends Exercice {
     const den = choice([10, 100, 1000])
     const a = new Decimal(2025).div(den)
     this.reponse = texNombre(a, 3)
-    this.question = `Écrire, sous forme décimale, $\\dfrac{${texNombre(2025, 0)}}{${texNombre(den, 0)}}.$`
-    if (this.interactif) {
-      this.question += `<br>
+    this.question = 'Écrire, sous forme décimale, la fraction suivante.'
+    this.question += `<br><br>
             $\\dfrac{${texNombre(2025, 0)}}{${texNombre(den, 0)}}$`
-    }
     this.correction = `$\\dfrac{${texNombre(2025, 0)}}{${texNombre(den, 0)}}=${miseEnEvidence(texNombre(a, 3))}$`
 
     this.canEnonce = this.question
