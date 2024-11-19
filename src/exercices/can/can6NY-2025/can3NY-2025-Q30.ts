@@ -40,9 +40,21 @@ export default class ComparerFractions extends Exercice {
       Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(2025, 0)}$ kg d'olives cueillies ?`
     this.correction = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br> Cela signifie que pour remplir $1$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
     if (new Decimal(2025).modulo(oliveParBouteille).equals(0)) {
-      this.correction += `Comme $${texNombre(2025, 0)}=${texNombre(2000)}+${texNombre(25)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}=${reponse}\\times ${oliveParBouteille}$, il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
+      this.correction += `On a  : <br>
+      $\\begin{aligned}
+      ${texNombre(2025, 0)}&=${texNombre(2000)}+${texNombre(25)}\\\\
+      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}\\\\
+      &=${reponse}\\times ${oliveParBouteille}
+      \\end{aligned}$<br>
+      Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     } else {
-      this.correction += `Comme $${texNombre(2025)}=${texNombre(2000)}+${texNombre(25)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).modulo(oliveParBouteille))}=${reponse}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}$, il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
+      this.correction += `On a :<br> 
+      $\\begin{aligned}
+      ${texNombre(2025)}&=${texNombre(2000)}+${texNombre(25)}\\\\
+      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).modulo(oliveParBouteille))}\\\\
+      &=${reponse}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}
+      \\end{aligned}$<br>
+      Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     }
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
