@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Fonction calcul d\'image'
+export const titre = 'Fonction calcul d\'image variante QCM de Asie Juin 2021'
 export const dateDePublication = '13/11/2024'
 /**
  *
@@ -33,9 +33,13 @@ export default class AsieJuin21Exo1Q2 extends ExerciceQcmA {
     ]
     this.bonnesReponses = [true, true, true, false, false]
     this.enonce = `On considère la fonction $f$ définie par $${rienSi1(a)}x^2${ecritureAlgebrique(b)}$ ?`
-    this.correction = `l'image de $${String(-b)}$ par $f$ est : $${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}${ecritureParentheseSiNegatif(-b)}^2${ecritureAlgebrique(b)}=${texNombre(a * b ** 2 + b, 0)}$.<br>
-    $f(${b})=${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}${ecritureParentheseSiNegatif(b)}^2${ecritureAlgebrique(b)}=${texNombre(a * b ** 2 + b, 0)}$.<br>
-    $${miseEnEvidence(`f(0)=${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}0^2${ecritureAlgebrique(b)}=${texNombre(b, 0)}`)}$.`
+    this.corrections = [
+      `$${miseEnEvidence(`f(0)=${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}0^2${ecritureAlgebrique(b)}=${texNombre(b, 0)}`)}$.`,
+      `$${miseEnEvidence(`0\\text{ est un antécédent de }${b}\\text{ par }f`)}$, car $f(0)=${b}$.`,
+      `$${miseEnEvidence(`${b}\\text{ est l'image de }0\\text{ par }f`)}$, car $f(0)=${b}$.`,
+      ` $f(${b})=${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}${ecritureParentheseSiNegatif(b)}^2${ecritureAlgebrique(b)}=${texNombre(a * b ** 2 + b, 0)}$.`,
+      `l'image de $${String(-b)}$ par $f$ est : $${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}${ecritureParentheseSiNegatif(-b)}^2${ecritureAlgebrique(b)}=${texNombre(a * b ** 2 + b, 0)}$.`
+    ]
   }
 
   versionOriginale: () => void = () => {
