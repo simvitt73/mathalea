@@ -64,7 +64,7 @@ export default class CompleterUneSuite extends Exercice {
                Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(this.reponse)}$.`
 
     this.question = 'Déterminer l\'abscisse du point $A$ ci-dessous :'
-    this.question += '<br>' + mathalea2d({ xmin: -0.9, ymin: -1.5, xmax: 15, ymax: 1.5, pixelsParCm: 30, scale: 0.6 }, latex2d('A', x1B * 5, 0.5, { color: 'blue' }), d)
+    this.question += '<br>' + mathalea2d({ xmin: -0.9, ymin: -1.2, xmax: 12, ymax: 1.5, pixelsParCm: 20, scale: 0.6 }, latex2d('A', x1B * 5, 0.5, { color: 'blue' }), d)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
