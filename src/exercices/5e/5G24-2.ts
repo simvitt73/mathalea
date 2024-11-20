@@ -43,8 +43,10 @@ export default class TrianglesEgaux extends Exercice {
       nbQuestions: this.nbQuestions,
       listeOfCase: ['CCC', 'CAC', 'ACA', 'AAA', 'CC']
     })
-    let listeDeNomsDePolygones
+    let listeDeNomsDePolygones: string[] = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       // Boucle principale où i+1 correspond au numéro de la question
       let l1 = randint(40, 70)
@@ -92,7 +94,7 @@ export default class TrianglesEgaux extends Exercice {
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
             scale: 0.3,
-            optionsTikz: 'baseline=(current bounding box.north)'
+            optionsTikz: ['baseline=(current bounding box.north)']
           },
           p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, nommeP2)
           texteCorr = `$${A.nom}${B.nom} = ${D.nom}${E.nom}$<br>
@@ -108,7 +110,7 @@ export default class TrianglesEgaux extends Exercice {
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
             scale: 0.5,
-            optionsTikz: 'baseline=(current bounding box.north)'
+            optionsTikz: ['baseline=(current bounding box.north)']
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
           texteCorr = `$${A.nom}${B.nom} = ${D.nom}${E.nom}$<br>
@@ -124,7 +126,7 @@ export default class TrianglesEgaux extends Exercice {
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
             scale: 0.5,
-            optionsTikz: 'baseline=(current bounding box.north)'
+            optionsTikz: ['baseline=(current bounding box.north)']
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
           texteCorr = `$${A.nom}${B.nom} = ${D.nom}${E.nom}$<br>
@@ -140,7 +142,7 @@ export default class TrianglesEgaux extends Exercice {
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
             scale: 0.5,
-            optionsTikz: 'baseline=(current bounding box.north)'
+            optionsTikz: ['baseline=(current bounding box.north)']
           },
           p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
           texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}.`
@@ -152,7 +154,7 @@ export default class TrianglesEgaux extends Exercice {
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
             scale: 0.5,
-            optionsTikz: 'baseline=(current bounding box.north)'
+            optionsTikz: ['baseline=(current bounding box.north)']
           },
           p1, p2, code1, code2, code5, code6, nommeP1, nommeP2)
           texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux (il manque une troisième information).'
