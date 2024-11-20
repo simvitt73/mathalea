@@ -94,7 +94,8 @@ class NombrePeriodique {
     const nouveauNb = new NombrePeriodique(Number(nvPartieEntiere), Number(nvPartieDecimale), this.periode)
     const nbSansPeriode = nouveauNb.toFraction().differenceFraction(this.toFraction()).fractionDecimale()
     const nbDecimal = new Decimal(nbSansPeriode.num / nbSansPeriode.den)
-    const procedure = `On multiplie le nombre par $10^{${this.periode.toString().length}}=${10 ** this.periode.toString().length}$ afin de décaler la virgule du nombre de crans correspondant à la période. On a deux égalités avec le même membre de gauche<br><br>
+    const puissanceDe10 = this.periode.toString().length > 1 ? `$10^{${this.periode.toString().length}}=${10 ** this.periode.toString().length}$` : '$10$'
+    const procedure = `On multiplie le nombre par ${puissanceDe10} afin de décaler la virgule du nombre de crans correspondant à la période. On a deux égalités avec le même membre de gauche<br><br>
     $\\begin{aligned}
     &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}\\\\
     &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${nouveauNb.toString()}-${this.toString()}=${miseEnEvidence(texNombre(nbDecimal, 6), bleuMathalea)}

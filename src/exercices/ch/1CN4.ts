@@ -10,7 +10,7 @@ export const interactifReady = false
 export const uuid = '8f8bc'
 export const refs = {
   'fr-ch': ['1CN-4'],
-  'fr-fr': []
+  'fr-fr': ['PEA14']
 }
 
 /**
@@ -32,7 +32,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     this.sup2 = 1
     this.sup3 = 1
     this.sup4 = false
-    this.sup5 = true
+    this.sup5 = false
   }
 
   nouvelleVersion () {
@@ -40,9 +40,6 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     if (this.sup5) {
       this.consigne += ' La calculatrice est autorisée.'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const periode = ceil(randint(10 ** (this.sup - 1), 10 ** this.sup - 1) / (10 ** randint(0, this.sup)))
