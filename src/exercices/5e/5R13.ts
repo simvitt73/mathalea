@@ -5,7 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathlive'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Comparaison de nombres relatifs'

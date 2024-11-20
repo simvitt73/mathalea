@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Trinome from '../../modules/Trinome'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

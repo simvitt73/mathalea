@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
 import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths.js'
 import { abs, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'

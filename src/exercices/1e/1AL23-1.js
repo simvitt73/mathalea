@@ -6,7 +6,7 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

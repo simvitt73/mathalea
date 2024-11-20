@@ -234,3 +234,7 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   specs: 'Fonctionnalités',
   types: 'Types'
 }
+
+export type interactivityType = 'qcm'| 'mathlive'| 'remplisLesBlancs'| 'tableauMathlive' | 'texte' | 'cliqueFigure'| 'dnd'| 'listeDeroulante'
+
+export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'

@@ -4,7 +4,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Trinome from '../../modules/Trinome'
 import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Simplifier des expressions exponentielles'

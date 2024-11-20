@@ -4,7 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString.js'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { string } from 'mathjs'
