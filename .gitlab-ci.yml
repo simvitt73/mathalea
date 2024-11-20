@@ -17,6 +17,7 @@ stages:
 - build-projet
 - playwright-testCanEleve
 - playwright-test
+- playwright-testLycee
 - playwright-pdf
 - playwright-pdfDNB
 - playwright-pdfBAC
@@ -163,6 +164,23 @@ test3e:
   extends: .testCI
   script:
     - NIV=3e/3 pnpm test:e2e:console_errors
+
+test2e:
+  extends: .testCI
+  stage: playwright-testLycee
+  script:
+    - NIV=2e/2 pnpm test:e2e:console_errors
+
+test1e:
+  extends: .testCI
+  stage: playwright-testLycee
+  script:
+    - NIV=1e/1 pnpm test:e2e:console_errors
+
+testQCM:
+  extends: .testCI
+  script:
+    - NIV=QCM pnpm test:e2e:console_errors
 
 testCan6e5e4e3e:
   extends: .testCI

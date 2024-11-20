@@ -154,11 +154,24 @@
   let numberOfAnswerFields: number = 0
   async function countMathField () {
     if (isInteractif){
-      // IDs de la forme 'champTexteEx1Q0'
-      const answerFields = document.querySelectorAll(
-        `[id^='champTexteEx${exerciseIndex}']`
-      )
-      numberOfAnswerFields = answerFields.length
+      let numbOfAnswerFields : number = 0
+      exercise.autoCorrection.forEach(val => {
+        if (val.reponse?.param?.formatInteractif === 'mathlive' ||
+            val.reponse?.param?.formatInteractif === 'qcm') {
+          numbOfAnswerFields++
+        }
+      })
+      if (exercise.interactifType  === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {
+        exercise.goodAnswers.forEach(val => {
+          if (Array.isArray(val)) {
+            numbOfAnswerFields += val.length
+          }else{
+            numbOfAnswerFields ++
+          }
+        })
+      }
+      log('numberOfAnswerFields:' + numbOfAnswerFields)
+      numberOfAnswerFields = numbOfAnswerFields
     }
   }
 
