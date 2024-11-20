@@ -7,9 +7,9 @@ import { rotation, translation } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
 export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
@@ -23,21 +23,18 @@ export const refs = {
   'fr-fr': ['5G24-2'],
   'fr-ch': []
 }
-export default function TrianglesEgaux () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Les triangles sont-ils égaux ? S\'ils sont égaux, justifier la réponse.'
-  this.nbQuestions = 4
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 6 // Niveau de difficulté
-  this.video = '' // Id YouTube ou url
-  this.spacing = 2
-  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
+export default class TrianglesEgaux extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Les triangles sont-ils égaux ? S\'ils sont égaux, justifier la réponse.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.sup = 6 // Niveau de difficulté
+    this.spacing = 2
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
+  }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-
+  nouvelleVersion () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 5,
@@ -94,11 +91,15 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5,
+            scale: 0.3,
             optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles sont égaux car ils ont leurs trois côtés de même longueur 2 à 2.'
+          texteCorr = `$${A.nom}${B.nom} = ${D.nom}${E.nom}$<br>
+            $${B.nom}${C.nom} = ${E.nom}${F.nom}$<br>
+            $${C.nom}${A.nom} = ${F.nom}${D.nom}$<br>
+            Les triangles ${nom1} et ${nom2} ont leurs trois côtés deux à deux de même longueur.<br>
+            Ils sont donc égaux.`
           break
         case 'CAC':
           texte = mathalea2d({
@@ -110,7 +111,11 @@ export default function TrianglesEgaux () {
             optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles sont égaux car ils ont ont un angle de même mesure compris entre deux côtés de même longueur 2 à 2. '
+          texteCorr = `$${A.nom}${B.nom} = ${D.nom}${E.nom}$<br>
+            $${B.nom}${C.nom} = ${E.nom}${F.nom}$<br>
+            $\\widehat{${A.nom}${B.nom}${C.nom}} = \\widehat{${D.nom}${E.nom}${F.nom}}$<br>
+            Les triangles ${nom1} et ${nom2} ont un angle de même mesure compris entre deux côtés deux à deux de même longueur.<br>
+            Ils sont donc égaux.`
           break
         case 'ACA':
           texte = mathalea2d({
@@ -122,7 +127,11 @@ export default function TrianglesEgaux () {
             optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles sont égaux car ils ont un côté de même longueur compris entre deux angles de même mesure 2 à 2. '
+          texteCorr = `$${A.nom}${B.nom} = ${D.nom}${E.nom}$<br>
+            $\\widehat{${B.nom}${A.nom}${C.nom}} = \\widehat{${E.nom}${D.nom}${F.nom}}$<br>
+            $\\widehat{${A.nom}${B.nom}${C.nom}} = \\widehat{${D.nom}${E.nom}${F.nom}}$<br>
+            Les triangles ${nom1} et ${nom2} ont un côté de même longueur compris entre deux angles deux à deux de même mesure.<br>
+            Ils sont donc égaux.`
           break
         case 'AAA':
           texte = mathalea2d({
@@ -146,7 +155,7 @@ export default function TrianglesEgaux () {
             optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, code5, code6, nommeP1, nommeP2)
-          texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux.'
+          texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux (il manque une troisième information).'
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
