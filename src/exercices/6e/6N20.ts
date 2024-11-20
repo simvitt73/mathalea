@@ -35,6 +35,8 @@ export default class ExerciceFractionsDecomposer extends Exercice {
           "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
     this.spacing = 2
     this.spacingCorr = 2
+    this.nbCols = 2
+    this.nbColsCorr = 2
     this.sup2 = true
     this.sup3 = '11'
     this.sup4 = true
