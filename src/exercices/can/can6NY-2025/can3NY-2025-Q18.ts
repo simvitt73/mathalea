@@ -24,7 +24,7 @@ export default class resteDivEucl extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.compare = fonctionComparaison
   }
 
