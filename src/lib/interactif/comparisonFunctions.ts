@@ -19,6 +19,7 @@ export type OptionsComparaisonType = {
   expressionsForcementReduites?: boolean
   avecSigneMultiplier?: boolean
   avecFractions?: boolean
+  sansTrigo?:boolean
   fractionIrreductible?: boolean
   fractionSimplifiee?: boolean
   fractionReduite?: boolean
@@ -514,6 +515,7 @@ engine.latexDictionary = [
  *   expressionsForcementReduites: boolean,
  *   avecSigneMultiplier: boolean,
  *   avecFractions: boolean,
+ *   sansTrigo;boolean,
  *   fractionIrreductible: boolean,
  *   fractionSimplifiee: boolean,
  *   fractionReduite: boolean,
@@ -557,6 +559,7 @@ export function fonctionComparaison (
     expressionsForcementReduites,
     avecSigneMultiplier,
     avecFractions,
+    sansTrigo,
     fractionIrreductible, // Documenté
     fractionSimplifiee, // Documenté
     fractionReduite, // Documenté
@@ -595,6 +598,7 @@ export function fonctionComparaison (
     expressionsForcementReduites: true,
     avecSigneMultiplier: true,
     avecFractions: true,
+    sansTrigo: false,
     fractionIrreductible: false,
     fractionSimplifiee: false,
     fractionReduite: false,
@@ -663,6 +667,7 @@ export function fonctionComparaison (
     expressionsForcementReduites,
     avecSigneMultiplier,
     avecFractions,
+    sansTrigo,
     fractionIrreductible,
     operationSeulementEtNonResultat,
     additionSeulementEtNonResultat,
@@ -853,7 +858,7 @@ type Substitutions = { [variable: string]: number }
  * - on n'accepte que l'enchaînement de calculs fourni en goodAnswer et non le résultat de cet enchaînement de calculs
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonResultat:boolean, resultatSeulementEtNonOperation:boolean}} [options]
+ * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, sansTrigo:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonResultat:boolean, resultatSeulementEtNonOperation:boolean}} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -865,6 +870,7 @@ function expressionDeveloppeeEtReduiteCompare (
     expressionsForcementReduites = true,
     avecSigneMultiplier = true,
     avecFractions = true,
+    sansTrigo = false,
     fractionIrreductible = false,
     nombreDecimalSeulement = false,
     operationSeulementEtNonResultat = false,
@@ -879,6 +885,7 @@ function expressionDeveloppeeEtReduiteCompare (
   // Ces 2 lignes sont à améliorer... EE : Faut que je teste un truc... et rajouter les racines carrées aussi
   if (!avecSigneMultiplier && input.includes('times')) return { isOk: false, feedback: 'Aucun signe $\\times$ n\'est autorisé.' }
   if (!avecFractions && input.includes('frac')) return { isOk: false, feedback: 'Aucune fraction n\'est autorisée.' }
+  if (sansTrigo && (input.includes('cos') || input.includes('sin') || input.includes('tan'))) return { isOk: false, feedback: 'Aucune fonction trigonométrique n\'est autorisée.' }
 
   const clean = generateCleaner([
     'puissances',
