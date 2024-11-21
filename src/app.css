@@ -579,7 +579,8 @@ div[id^="xcas-results-"] {
  }
 
  ol.alpha {
-  @apply list-[lower-alpha] list-outside ml-4  marker:text-coopmaths-struct
+  @apply list-[lower-alpha] list-outside ml-4  marker:text-coopmaths-struct;
+  margin-left: 1.5rem;
  }
 
  ol.Alpha {

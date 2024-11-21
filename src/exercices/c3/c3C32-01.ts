@@ -12,11 +12,11 @@ export const refs = {
   'fr-ch': []
 }
 export const titre = 'Au marché'
-export const dateDePublication = '15/11/2024'
+export const dateDePublication = '20/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
-const prenoms = shuffle([
+const prenoms = [
   // Féminins
   'Amina', // Arabe
   'Chloé', // Français
@@ -58,7 +58,7 @@ const prenoms = shuffle([
   'Omar', // Perse/arabe
   'Mateo', // Européen
   'Emir' // Turc
-])
+]
 
 /**
  * @Author Jean-Claude Lhote
@@ -81,6 +81,7 @@ export default class ExerciceProbleme001 extends Exercice {
   }
 
   nouvelleVersion () {
+    const prenomsMelanges = shuffle(prenoms)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeFruit1 = [
         { nomSingulier: 'une fraise', nomPluriel: 'fraises', pluriel: 'de fraises', masseUnitaire: 50 },
@@ -182,7 +183,7 @@ export default class ExerciceProbleme001 extends Exercice {
       } while (masseTotale > 4.7)
 
       let correction = ''
-      const prenom = prenoms[i % prenoms.length]
+      const prenom = prenomsMelanges[i % prenoms.length]
       let listeCorrections: string[] = []
       let enonce = `${prenom} revient du marché. Il a acheté $${texNombre(masseFruit1)}$ g ${fruit1.pluriel}, ${quantiteFruit2.litteral} ${fruit2.pluriel} et a oublié la masse ${fruit3.pluriel} achetés.<br>
 Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
@@ -260,15 +261,13 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
         ? listeQuestions[0]
         : createList({
           items: listeQuestions,
-          style: 'alpha',
-          classOptions: 'style: margin-top: 2em'
+          style: 'alpha'
         })
       correction = listeCorrections.length === 1
         ? listeCorrections[0]
         : createList({
           items: listeCorrections,
-          style: 'alpha',
-          classOptions: 'style: margin-top: 2em'
+          style: 'alpha'
         })
       if (this.questionJamaisPosee(i, [quantiteFruit1, quantiteFruit2, quantiteFruit3].map(el => JSON.stringify(el)).join(''))) {
         this.listeQuestions.push(enonce)
