@@ -3,7 +3,7 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

@@ -2,7 +2,7 @@ import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ec
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'

@@ -4,7 +4,7 @@ import { texteParPosition } from '../lib/2d/textes.ts'
 import { nombreDeChiffresDansLaPartieEntiere, ordreDeGrandeur } from '../lib/outils/nombres'
 import Decimal from 'decimal.js'
 import { context } from './context.js'
-import { mathalea2d } from './2dGeneralites.js'
+import { fixeBordures, mathalea2d } from './2dGeneralites.js'
 /**
  *
  * Pose une opération
@@ -130,7 +130,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (calculer) objets.push(segment(n * espacement, 10.5, (n + m + i) * espacement, 10.5)) // on trace le trait horizontal
     else objets.push(segment(n * espacement, 10.5, (n + m + 2) * espacement, 10.5)) // on trace le trait horizontal
 
-    const code = mathalea2d({ xmin: -1.5 * espacement, ymin: 10 - 2 * longueurPotence, xmax: (n + m + 10) * espacement, ymax: 11.5, pixelsParCm: 20, scale: 0.8, style }, objets)
+    const code = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
 
@@ -213,7 +213,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(texteParPosition(',', 0.3 + espacement * (longueuroperandes - decalage), 3, 0, 'black', 1.2, 'milieu', false))
       if (calculer) objets.push(texteParPosition(',', 0.3 + espacement * (longueuroperandes - decalage), 1, 0, 'black', 1.2, 'milieu', false))
     }
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: (longueuroperandes + 1) * espacement + 0.5, ymax: 5, pixelsParCm: 20, scale: 0.8, style }, objets)
+    code += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
 
@@ -328,7 +328,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (calculer) objets.push(texteParPosition(',', 0.3 + espacement * (longueuroperandes - decalage), 1 + (context.vue === 'latex' ? -0.2 : 0), 0, 'black', 1.2, 'milieu', false))
     }
 
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: (longueuroperandes + 1) * espacement + 0.5, ymax: (methodeParCompensation || !retenuesOn ? 5 : 6), pixelsParCm: 20, scale: 0.8, style }, objets)
+    code += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
   const MultiplicationPosee3d = function (operande1, operande2, base, calculer = true) {
@@ -480,7 +480,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         objets.push(texteParPosition('+', 0, 5 + j - lop2 + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
       }
     }
-    const code = mathalea2d({ xmin: -0.5, ymin: 4 - lop2, xmax: (longueurtotale + 1) * espacement + 0.5, ymax: 8, pixelsParCm: 20, scale: 0.8, style }, objets)
+    const code = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
 
     return code
   }

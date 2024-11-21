@@ -20,7 +20,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

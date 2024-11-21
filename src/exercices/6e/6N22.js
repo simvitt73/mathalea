@@ -7,7 +7,7 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Effectuer des calculs simples avec des fractions'

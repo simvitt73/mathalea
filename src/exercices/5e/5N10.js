@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Passer d'une fraction à une écriture décimale et inversement"

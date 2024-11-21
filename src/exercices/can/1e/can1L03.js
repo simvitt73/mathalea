@@ -1,7 +1,7 @@
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

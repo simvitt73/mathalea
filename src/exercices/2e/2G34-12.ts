@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathlive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 export const titre = 'Déterminer le point d\'intersection de deux droites données par des points'
 export const interactifReady = true

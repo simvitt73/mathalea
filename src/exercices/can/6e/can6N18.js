@@ -1,4 +1,4 @@
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'

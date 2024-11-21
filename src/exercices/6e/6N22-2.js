@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Mettre bout à bout des segments'

@@ -2,7 +2,7 @@ import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

@@ -23,7 +23,7 @@ import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathlive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
