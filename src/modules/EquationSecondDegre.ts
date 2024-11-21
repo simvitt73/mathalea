@@ -115,7 +115,7 @@ class EquationSecondDegre {
     if (melange) {
       this.correctionDetailleeTex += `On commence par mettre l'équation sous la forme réduite : \\[${this.printToLatexEq(this.coefficientsEqReduite)}\\]`
     }
-    this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFSD}.\\] On a $\\Delta=${this.delta.texFSD}$, donc `
+    this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=\\left(${this.coefficientsEqReduite[1].texFractionSimplifiee}\\right)^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFractionSimplifiee}.\\] On a $\\Delta=${this.delta.texFractionSimplifiee}$, donc `
     if (this.nombreSolutions > 1) {
       this.correctionDetailleeTex += 'l\'équation a deux solutions. Les solutions sont'
       if (lang === 'fr-CH') {
@@ -125,16 +125,16 @@ class EquationSecondDegre {
         this.correctionDetailleeTex += ` ${this.variable}_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       }
       if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
-        this.correctionDetailleeTex += `En réduisant si besoin des fractions et en simplifiant les racines, on obtient $${this.ensembleDeSolutionsTex}$.`
+        this.correctionDetailleeTex += `En calculant, on obtient $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
       } else {
-        this.correctionDetailleeTex += `Ainsi, $${this.ensembleDeSolutionsTex}$.`
+        this.correctionDetailleeTex += `Ainsi, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
       }
     } else if (this.nombreSolutions === 1) {
       this.correctionDetailleeTex += `l'équation a une solution donnée par
     \\[s=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
-    Ainsi, $${this.ensembleDeSolutionsTex}$.`
+    Ainsi, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
     } else {
-      this.correctionDetailleeTex += ` l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.`
+      this.correctionDetailleeTex += ` l'équation n'a pas de solution réelle, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
     }
   }
 

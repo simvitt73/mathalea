@@ -674,7 +674,7 @@
                   class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
                 >
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html exercise.consigne}
+                  {@html mathaleaFormatExercice(exercise.consigne)}
                 </p>
               </div>
             {/if}
