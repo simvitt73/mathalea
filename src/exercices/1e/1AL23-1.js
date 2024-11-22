@@ -23,7 +23,7 @@ export const uuid = '60504'
 export const ref = '1AL23-1'
 export const refs = {
   'fr-fr': ['1AL23-1'],
-  'fr-ch': []
+  'fr-ch': ['1F3-2']
 }
 export default function Formacanonique () {
   Exercice.call(this)
