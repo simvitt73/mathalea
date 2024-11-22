@@ -66,31 +66,11 @@ export default class ExerciceProbleme001 extends Exercice {
      ${this.sup3 ? Operation({ operande1: dureeKilometre * distanceBase, operande2: nbFoisPlus, type: 'multiplication' }) : ''}
       $${texNombre(dureeKilometre * distanceBase, 0)}\\times ${String(nbFoisPlus)}= ${texNombre(dureeBase * nbFoisPlus, 0)}$ minutes<br>
      Pour parcourir $${distanceBase * nbFoisPlus}$ km en continuant ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus} minutes.`
-      const boites = new SchemaEnBoite({
-        haut: [
-          { color: 'lightblue', longueur: 3, content: String(dureeBase * nbFoisPlus) },
-          { color: 'lightgrey', longueur: 3, content: String(dureeKilometre) }
-        ],
-        bas: [
-          { color: 'yellow', longueur: 6, content: '?' }
-        ]
-      })
+
       const correction3 = `${this.correctionDetaillee ? `Comme il parcourt ${distanceBase * nbFoisPlus} kilomètres en ${dureeBase * nbFoisPlus} minutes, il parcourra ${nbFoisPlus * distanceBase} km plus 1 km en ${nbFoisPlus * dureeBase} minutes plus ${dureeKilometre} minutes.<br>` : ''}
      ${this.sup3 ? Operation({ operande1: dureeBase * nbFoisPlus, operande2: dureeKilometre, type: 'addition' }) : ''}
-    ${boites.display()}
       $${dureeBase * nbFoisPlus}+${dureeKilometre}=${dureeBase * nbFoisPlus + dureeKilometre}$ minutes<br>
      Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes.`
-      const cases = new Array(nbFoisPlus).fill({ color: 'lightblue', longueur: 1, content: String(dureeBase) })
-      const boites1 = new SchemaEnBoite({
-        haut: [
-          ...cases,
-          { color: 'lightblue', longueur: 1, content: String(dureeKilometre) }
-        ],
-        bas: [
-          { color: 'yellow', longueur: nbFoisPlus + 1, content: '?' }
-        ]
-      })
-      const boites2 = boites.concat(boites1)
 
       const correction4 = `${this.correctionDetaillee ? `Comme il parcourt 1 kilomètre en ${dureeKilometre} minutes, il parcourra ${nbFoisPlus * distanceBase + 1} km en ${nbFoisPlus * distanceBase + 1} fois ${dureeKilometre} minutes.<br>` : ''}
 ${this.sup3 ? Operation({ operande1: distanceBase * nbFoisPlus + 1, operande2: dureeKilometre, type: 'multiplication' }) : ''}
