@@ -18,7 +18,6 @@ export const dateDePublication = '21/11/2024'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
- * Référence
 */
 export const uuid = 'b30ac'
 export const ref = ''
@@ -68,9 +67,10 @@ export default class SuitesExplicites extends Exercice {
       let reponse
       const ListeNomS = ['u', 'v', 'w', 't']
       const NomS = choice(ListeNomS)
-      let r
-      let a, b
-      let q
+      let r = new Decimal(1)
+      let a = new Decimal(1)
+      let b = new Decimal(1)
+      let q = new Decimal(1)
       let indice
       switch (listeTypeDeQuestions[i]) {
         case 1:// SA définie directement
@@ -78,9 +78,9 @@ export default class SuitesExplicites extends Exercice {
           r = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, 0))])
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
-          reponse = this.sup2 ? `${texNombre(b, 1)}+n\\times ${texNombre(r, 1)} ` : `${texNombre(a, 1)}+n\\times ${texNombre(r, 1)}`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
-          texte = `$${reponse}$Soit $(${NomS}_n)$ une suite arithmétique de raison $r=${texNombre(r, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
+          reponse = this.sup2 ? [`${texNombre(b, 1)}+n\\times ${ecritureParentheseSiNegatif(r)} `, `${texNombre(b, 1)}${ecritureAlgebriqueSauf1(r)}n`] : [`${texNombre(a, 1)}+n\\times ${ecritureParentheseSiNegatif(r)}`, `${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`]
+          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          texte = `Soit $(${NomS}_n)$ une suite arithmétique de raison $r=${texNombre(r, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
 
           if (this.sup2) {
@@ -101,9 +101,9 @@ export default class SuitesExplicites extends Exercice {
           r = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, 0))])
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
-          reponse = this.sup2 ? `${texNombre(b, 1)}+n\\times ${texNombre(r, 1)} ` : `${texNombre(a, 1)}+n\\times ${texNombre(r, 1)}`
+          reponse = this.sup2 ? [`${texNombre(b, 1)}+n\\times ${ecritureParentheseSiNegatif(r)} `, `${texNombre(b, 1)}${ecritureAlgebriqueSauf1(r)}n`] : [`${texNombre(a, 1)}+n\\times ${ecritureParentheseSiNegatif(r)}`, `${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`]
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
-          texte = `$${reponse}$Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
+          texte = `Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
         $${NomS}_{n+1}=${NomS}_n${ecritureAlgebrique(r)}$ pour tout entier naturel $n$.<br>
       Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           texteCorr = `$${NomS}_{n+1}=${NomS}_n${ecritureAlgebrique(r)}$ est la relation de récurrence d'une suite arithmétique de raison $${texNombre(r, 1)}$.<br>`
@@ -125,7 +125,7 @@ export default class SuitesExplicites extends Exercice {
           q = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, [0, 1]))])
           indice = this.sup2 ? randint(1, 10) : 0
 
-          reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${texNombre(q, 1)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${texNombre(q, 1)}^n`
+          reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           texte = `Soit $(${NomS}_n)$ une suite géométrique de raison $q=${texNombre(q, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
@@ -143,7 +143,7 @@ export default class SuitesExplicites extends Exercice {
           a = choice([new Decimal(randint(1, 99, 10)).div(10), new Decimal(randint(-12, 12, [0, 1]))])
           q = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, [0, 1]))])
           indice = this.sup2 ? randint(1, 10) : 0
-          reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${texNombre(q, 1)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${texNombre(q, 1)}^n`
+          reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           texte = `Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
         $${NomS}_{n+1}=${texNombre(q, 1)}\\times ${NomS}_n$ pour tout entier naturel $n$.<br>
@@ -161,7 +161,7 @@ export default class SuitesExplicites extends Exercice {
       }
 
       if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${NomS}_n=$` }) }
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, q, r, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
