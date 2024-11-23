@@ -1,10 +1,8 @@
 import { createList } from '../../lib/format/lists'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 import { texteEnBoite } from '../../lib/outils/embellissements'
-import { listeDesDiviseurs, pgcd, texFactorisation } from '../../lib/outils/primalite'
 import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 import ExerciceBrevetA from '../ExerciceBrevetA'
@@ -16,124 +14,12 @@ export const refs = {
 }
 export const titre = 'Exercice 4 (Antilles-Guyane 06/2024)'
 export const dateDePublication = '15/11/2024'
-const enonceOriginal = `\\medskip
 
-On considère le programme de calcul ci-dessous :
-
-\\begin{center}
-// \\begin{tabular}{|l|}\\hline
-$\\bullet~$Choisir un nombre\\
-$\\bullet~$Mettre ce nombre au carré\\
-$\\bullet~$Soustraire le triple du nombre de départ\\
-// $\\bullet~$Soustraire 4\\ \\hline
-\\end{tabular}
-\\end{center}
-
-\\smallskip
-
-\\begin{enumerate}
-\\item Montrer que si on choisit 5 comme nombre de départ, le résultat du programme est 6.
-\\item On choisit $x$ comme nombre de départ.
-
-Exprimer le résultat du programme en fonction de $x$.
-\\item Vérifier que l'on peut écrire ce résultat sous la forme $(x+ 1)(x - 4)$.
-\\item Déterminer les nombres à choisir au départ pour que le résultat du programme soit 0.
-\\item Juliette a écrit le programme ci-dessous :
-
-\\begin{scratch}[num blocks]
-// \\blockinit{quand \\greenflag est cliqué}
-// \\blockmove{demander \\ovalnum{Choisir un nombre} et attendre}
-\\blockvariable{mettre \\selectmenu{x} à \ovalmove{réponse}}
-// // // // \\blockvariable{mettre \\selectmenu{y} à \ovaloperator{\\ovalnum{\\ldots}*\\ovalnum{\\ldots}}}
-// // \\blockvariable{mettre \\selectmenu{z} à \\ovaloperator{\\ovalnum{3}*\\ovalnum{x}}}
-// // // // \\blockvariable{mettre \\selectmenu{Résultat} à \\ovaloperator{\\ovalnum{\\ldots}-\\ovalnum{\\ldots} - 4}}
-\\blocklook{dire \\ovalnum{Résultat } pendant \\ovalnum{5}secondes}
-\\end{scratch}
-\\end{enumerate}
-
-\\medskip
-
-Recopier et compléter sur la copie les lignes 4 et 6 du programme afin que celui-ci corresponde au programme de calcul encadré.
-
-\\bigskip
-
-
-`
-const correctionOriginale = `
-\\medskip
-
-On considère le programme de calcul ci-dessous :
-
-\\begin{center}
-\\begin{tabular}{|l|}\\hline
-$\\bullet~$Choisir un nombre\\\\
-$\\bullet~$Mettre ce nombre au carré\\\\
-$\\bullet~$Soustraire le triple du nombre de départ\\\\
-$\\bullet~$Soustraire 4\\\\ \\hline
-\\end{tabular}
-\\end{center}
-
-\\smallskip
-
-\\begin{enumerate}
-\\item %Montrer que si on choisit 5 comme nombre de départ, le résultat du programme est 6.
-On a successivement : $5 \\to 5^2 = 25 \\to 25 - 3 \\times 5 = 10  \\to, 10 - 4 = 6$.
-\\item %On choisit $x$ comme nombre de départ.
-De même avec $x$ au départ : 
-
-$x \\to x^2 \\to x^2 - 3x \\to x^2 - 3x - 4$.
-%Exprimer le résultat du programme en fonction de $x$.
-\\item %Vérifier que l'on peut écrire ce résultat sous la forme $(x+ 1)(x - 4)$
-On développe $(x+ 1)(x - 4) = x^2 - 4x + x  - 4 = x^2 - 3x - 4 $. On retrouve l'expression de la question 2.
-
-On a donc $x^2 - 3x - 4 = (x + 1)(x - 4)$.
-\\item %Déterminer les nombres à choisir au départ pour que le résultat du programme soit 0.
-Il faut trouver un ou des nombres $x$ tels que $x^2 - 3x - 4 = 0$ ou d'après la question précédente tels que :
-
-$x + 1)(x - 4) = 0$.
-
-Un produit de facteurs est nul si l'un des facteurs est nul , soit 
-
-$\\left\\{\\begin{array}{l c l}
-x +1&=&0\\\\
-&\\text{ou}&\\\\
-x - 4&=&0
-\\end{array}\\right.$ d'où $\\left\\{\\begin{array}{l c l}
-x &=&- 1\\\\
-&\\text{ou}&\\\\
-x &=& 4
-\\end{array}\\right.$.
-
-Il y a donc deux nombres qui donnent finalement 0 : ce sont $- 1$ et 4.
-\\item %Juliette a écrit le programme ci-dessous :
-
-%\\begin{scratch}[num blocks]
-%\\blockinit{quand \\greenflag est cliqué}
-%\\blockmove{demander \\ovalnum{Choisir un nombre} et attendre}
-%\\blockvariable{mettre \\selectmenu{x} à \\ovalmove{réponse}}
-%\\blockvariable{mettre \\selectmenu{y} à \\ovaloperator{\\ovalnum{\\ldots}*\\ovalnum{\\ldots}}}
-%\\blockvariable{mettre \\selectmenu{z} à \\ovaloperator{\\ovalnum{3}*\\ovalnum{x}}}
-%\\blockvariable{mettre \\selectmenu{Résultat} à \\ovaloperator{\\ovalnum{\\ldots}-\\ovalnum{\\ldots} - 4}}
-%\\blocklook{dire \\ovalnum{Résultat } pendant \\ovalnum{5}secondes}
-%\\end{scratch}
-Juliette doit compléter en ligne 4 et 6 :
-
-\\begin{scratch}
-\\blockvariable{mettre \\selectmenu{y} à \\ovaloperator{\\ovalnum{x}*\\ovalnum{x}}}
-\\blockvariable{mettre \\selectmenu{Résultat} à \\ovaloperator{\\ovalnum{y}-\\ovalnum{z} - 4}}
-\\end{scratch}
-\\end{enumerate}
-
-\\medskip
-
-%Recopier et compléter sur la copie les lignes 4 et 6 du programme afin que celui-ci corresponde au programme de calcul encadré.
-
-\\bigskip
-`
 /**
  * @Author Jean-Claude Lhote
  * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
+ * codé à partir des sources de l'APMEP Antilles-Guyane 06/2024 retravaillées par L'équipe CoopMaths
  * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
  * La méthode versionOriginale permet de générer les valeurs de l'exercice telles qu'elles sont dans le sujet original
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
@@ -183,7 +69,7 @@ export default class Exercice3A10DNB0 extends ExerciceBrevetA {
       items: [
         `Montrer que si on choisit $${depart}$ comme nombre de départ, le résultat du programme est $${f(depart)}$.`,
         'On choisit $x$ comme nombre de départ. Exprimer le résultat du programme en fonction de $x$.',
-        `Vérifier que l\'on peut écrire ce résultat sous la forme $(x+${a})(x-${b})$.`,
+        `Vérifier que l'on peut écrire ce résultat sous la forme $(x+${a})(x-${b})$.`,
         'Déterminer les nombres à choisir au départ pour que le résultat du programme soit 0.',
             `Juliette a écrit le programme ci-dessous :<br>
             ${scratchblock(texteScratch)}<br>

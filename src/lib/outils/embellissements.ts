@@ -179,9 +179,5 @@ export function texteEnBoite (texte: string) {
   if (context.isHtml) {
     return `<div style="display: inline-block; max-width: fit-content; border: 2px solid #444; border-radius: 4px; padding: 10px;">${texte}</div>`
   }
-  return `\\fbox{
-    \\parbox{0.5\\linewidth}{
-    \\setlength{\\parskip}{.5cm}
-    ${texte}
-    }\\newline`
+  return `\\fbox{\\parbox{0.5\\linewidth}{\\setlength{\\parskip}{.5cm}${texte}}}\\newline`
 }
