@@ -3,7 +3,7 @@ import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { context } from '../../../modules/context'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
