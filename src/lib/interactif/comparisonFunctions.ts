@@ -58,6 +58,7 @@ export type OptionsComparaisonType = {
   pluriels?: boolean,
   multi?: boolean, // options pour le drag and drop
   ordered?: boolean // options pour le drag and drop
+  tolerance?: number
 }
 export type CompareFunction = (
   input: string,

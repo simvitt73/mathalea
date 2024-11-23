@@ -37,6 +37,7 @@ export default class SimplifierExponentielles extends Exercice {
     this.besoinFormulaireNumerique = ['Niveaux de difficulté', 3, '1 : Exposants entiers\n2 : Exposants de la forme ax\n3 : Exposants de la forme ax + b']
     this.besoinFormulaire2Texte = ['Types de calculs', 'Nombres séparés par des tirets : \n1 : Produit\n2 : Puissance\n3 : Produit et puisances\n4 : Distributivité simple\n5 : Différence de puissance et de produit \n6 : Fraction et puissance\n7 : Fraction et produit\n8 : Mélange']
     this.comment = '7 types de calculs différents. Le résultat peut être une exponentielle ou une somme de deux exponentiels'
+    this.listeAvecNumerotation = false
   }
 
   nouvelleVersion () {

@@ -51,13 +51,12 @@ function garantirUnNegatif (...args: number[]) {
 export default class SubstituerDansUneExpressionLitterale extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 10
-    // this.consigne = 'Calculer, pour une valeur donnée de $x$, le résultat de(s) l\'expression(s) suivante(s).'
+    this.nbQuestions = 5
 
     this.besoinFormulaireTexte = ['Type d\'expression', 'Nombres séparés par des tirets\n1: a+bx\n2: (a+cx)b\n3: ax^2+bx+c\n4: Mélange']
-    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets\n1: entiers positifs\n2: entiers relatifs (au moins 1 coeff/x négatifs)\n3: Mélange']
+    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets\n1: Entiers positifs\n2: Entiers relatifs (au moins 1 coeff/x négatifs)\n3: Mélange']
     this.besoinFormulaire3CaseACocher = ['Rendre les questions plus variées']
-    this.sup = 1
+    this.sup = 4
     this.sup2 = 1
     this.sup3 = true
   }
@@ -107,7 +106,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
           }
           max = 10
           a = randint(1, max)
-          b = randint(1, max, [0])
+          b = randint(2, max, [0])
           x = randint(1, max)
           c = 0
           break
@@ -121,7 +120,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
           a = randint(1, max)
           b = randint(1, max, [0])
           x = randint(1, max)
-          c = randint(1, max, [0, 1])
+          c = randint(2, max, [0, 1])
           break
         case 'a*x^2+b*x+c':
           if (this.sup3) {
@@ -133,7 +132,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
           }
           max = 5
           a = randint(1, max, [0])
-          b = randint(1, max, [0])
+          b = randint(2, max, [0])
           x = randint(1, 3)
           c = randint(1, max)
           break
@@ -146,13 +145,15 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
       const expressionX = simplify(expressionABCX, [], { a, b, c }).toString()
       const expression = simplify(expressionX, [], { x }).toString()
 
-      texte = `Pour $x=${x}$,${sp(1)} calculer : <br>`
-      texte += `$${toTex(expressionX)}$`
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '' }) + '<br>'
+      texte = `Pour $x=${x}$,${sp(1)} calculer : $${toTex(expressionX)}$.`
+      if (this.interactif) {
+        texte = `Pour $x=${x}$,${sp(1)} $${toTex(expressionX)} = $`
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+      }
 
       const corrDetails = calculer(expression, {})
       texteCorr = corrDetails.texteCorr + '<br>'
-      texteCorr += `Le  résultat est donc : $${miseEnEvidence(corrDetails.result)}$`
+      texteCorr += `Le  résultat est donc : $${miseEnEvidence(corrDetails.result)}$.`
 
       handleAnswers(this, i, {
         reponse: {

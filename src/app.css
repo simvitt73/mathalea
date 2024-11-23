@@ -557,44 +557,62 @@ div[id^="xcas-results-"] {
  ul.none {
   @apply list-none list-outside
  }
-
+ ul.none > li {
+  margin-top: 0.5em;
+}
  ul.puces {
   @apply list-["\1F784\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.puces > li {
+  margin-top: 0.5em;
+}
  ul.carres {
   @apply list-["\25AA\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.carres > li {
+  margin-top: 0.5em;
+}
  ul.qcm {
   @apply list-["\25A1\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.qcm > li {
+  margin-top: 0.5em;
+}
  ul.fleches {
   @apply list-["\25B8\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.fleches > li {
+  margin-top: 0.5em;
+}
  ol.nombres {
   @apply list-decimal list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ol.nombres > li {
+  margin-top: 0.5em;
+}
  ol.alpha {
   @apply list-[lower-alpha] list-outside ml-4  marker:text-coopmaths-struct;
   margin-left: 1.5rem;
  }
-
+ ol.alpha > li {
+  margin-top: 0.5em;
+}
  ol.Alpha {
   @apply list-[upper-alpha] list-outside ml-4  marker:text-coopmaths-struct
  }
-
+ ol.Alpha > li {
+  margin-top: 0.5em;
+}
 ol.roman {
  @apply list-[lower-roman] list-outside ml-4  marker:text-coopmaths-struct
 }
-
+ol.roman > li {
+  margin-top: 0.5em;
+}
 ol.Roman {
  @apply list-[upper-roman] list-outside ml-4  marker:text-coopmaths-struct
 }
-ol.alpha > li {
+ol.Roman > li {
   margin-top: 0.5em;
 }
 
