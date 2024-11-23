@@ -6,8 +6,9 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
-export const titre = 'Dérivée de $\\dfrac{u}{v}$'
+export const titre = 'Dériver $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModificationImportante = '07/05/2024'
 export const interactifReady = true
@@ -127,7 +128,7 @@ export default function DeriveeQuotient () {
             texteCorr += 'Les termes en $x$ se compensent et on obtient : '
             texteCorr += `\\[${nameF}'(x)=\\frac{${a * d}${ecritureAlgebrique(-c * b)}}{(${termeDen.latex})^2}.\\]`
             texteCorr += 'C\'est-à-dire : '
-            texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}.}\\]`
+            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}`)}$.`
             maReponse = `\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}`
           } else if (fNum.deg === 2) {
             texteCorr += `\\[${nameF}'(x)=\\frac{(${fNum.derivee()})(${termeDen.latex})-(${termeNum.latex})\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
@@ -136,8 +137,8 @@ export default function DeriveeQuotient () {
             texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${fNum.multiply(c)})}{(${termeDen.latex})^2}.\\]`
             texteCorr += 'On réduit le numérateur pour obtenir : '
             maReponse = `\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
-            texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-            texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
+            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`)}$.<br>`
+            texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.`
           }
           break
         }
@@ -159,8 +160,8 @@ export default function DeriveeQuotient () {
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(fDen.derivee().multiply(-1)).toMathExpr(true)}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'On simplifie pour obtenir :'
           maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(fDen.derivee().multiply(-1)))}}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}.`)}$.<br>`
+          texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.`
         }
           break
         case 'mon/poly1': {
@@ -176,8 +177,8 @@ export default function DeriveeQuotient () {
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'On simplifie pour obtenir :'
           maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`)}$.<br>`
+          texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.`
           break
         }
         case 'exp/poly1' : {
@@ -193,7 +194,7 @@ export default function DeriveeQuotient () {
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen}${ecritureAlgebrique(-c)})}{(${termeDen.latex})^2},\\]`
           texteCorr += 'ce qui donne, après réduction : '
           maReponse = `\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
+          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`, 'black')}$.`
           break
         }
         default:
