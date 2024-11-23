@@ -3,6 +3,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Hms from '../../modules/Hms'
 import Operation from '../../modules/operations'
@@ -73,7 +74,7 @@ export default class ExerciceProbleme001 extends Exercice {
 
       const correction4 = `${this.correctionDetaillee ? `Comme il parcourt 1 kilomètre en ${dureeKilometre} minutes, il parcourra ${nbFoisPlus * distanceBase + 1} km en ${nbFoisPlus * distanceBase + 1} fois ${dureeKilometre} minutes.<br>` : ''}
 ${this.sup3 ? Operation({ operande1: distanceBase * nbFoisPlus + 1, operande2: dureeKilometre, type: 'multiplication' }) : ''}
-      $${nbFoisPlus * distanceBase + 1}\\times ${dureeKilometre} = ${dureeBase * nbFoisPlus + dureeKilometre}$ minutes<br>
+$${nbFoisPlus * distanceBase + 1}\\times ${dureeKilometre} = ${dureeBase * nbFoisPlus + dureeKilometre}$ minutes<br>
 Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes.`
       const dureeAvances = new Hms({ minute: dureeBase * nbFoisPlus + dureeKilometre }).normalize().toString()
       const plurielHeure = dureeBase * nbFoisPlus + dureeKilometre > 119 ? 's' : ''
