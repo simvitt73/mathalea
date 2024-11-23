@@ -61,6 +61,7 @@ export function generateLatex (userSettings: UserSettings, itemsWithExercises: i
   let outputCorr = '\n\n%%%%%%%%%%%%%%%%%%%%'
   outputCorr += '\n%%%  CORRECTION  %%%'
   outputCorr += '\n%%%%%%%%%%%%%%%%%%%%'
+  outputCorr += '\n\n\\fancyhead[L]{Correction}'
   for (const document of userSettings.documents) {
     const numberOfVersions = document.number || 1
     for (let i = 0; i < numberOfVersions; i++) {
@@ -78,6 +79,7 @@ export function generateLatex (userSettings: UserSettings, itemsWithExercises: i
       for (const item of document.items) {
         if (itemsWithExercises[item]) {
           for (const exercise of itemsWithExercises[item]) {
+            exercise.reinit()
             exercise.nouvelleVersion()
             output += '\n\n\\exercice{}\n' + exercise.contenu
             outputCorr += '\n\n\\exercice{}\n' + exercise.contenuCorrection
