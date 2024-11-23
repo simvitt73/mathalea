@@ -2,11 +2,10 @@ import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
 export const interactifReady = true
@@ -51,7 +50,7 @@ export default function EquationSecondDegreParticuliere () {
         if (-b / a > 0) {
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: 0, compare: fonctionComparaison, options: { fractionEgale: true }},
+            champ1: { value: 0, compare: fonctionComparaison, options: { fractionEgale: true } },
             champ2: { value: f.texFSD, compare: fonctionComparaison, options: { fractionEgale: true } }
           },
           { formatInteractif: 'mathlive' }
