@@ -231,12 +231,14 @@
     if (exercise.numeroExercice != null) {
       const previousBestScore = $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercise, divScore, buttonScore)
+      const isThisTryBetter = numberOfPoints > previousBestScore
       const bestScore = Math.max(numberOfPoints, previousBestScore)
       exercicesParams.update((l : InterfaceParams[]) => {
         l[exercise.numeroExercice as number].bestScore = bestScore
         return l
       })
-      resultsByExercice.update((l : InterfaceResultExercice[]) => {
+      // On ne met à jour resultsByExercice que si le score est meilleur
+      isThisTryBetter && resultsByExercice.update((l : InterfaceResultExercice[]) => {
         l[exercise.numeroExercice as number] = {
           uuid: exercise.uuid,
           title: exercise.titre,
