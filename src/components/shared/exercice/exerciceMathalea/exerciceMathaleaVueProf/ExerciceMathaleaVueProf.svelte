@@ -371,7 +371,7 @@
     }
   }
 
-  async function updateDisplay () {
+  async function updateDisplay (withNewVersion = true) {
     log('updateDisplay:' + exercise.id)
     if (exercise == null) return
     if (
@@ -381,7 +381,7 @@
       exercise.applyNewSeed()
     }
     seedrandom(exercise.seed, { global: true })
-    if (exercise.typeExercice === 'simple') {
+    if (exercise.typeExercice === 'simple' && withNewVersion) {
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))
     }
     exercise.interactif = isInteractif
@@ -414,10 +414,7 @@
       }
     }
     exercise.numeroExercice = exerciseIndex
-    if (
-      exercise.typeExercice !== 'simple' &&
-      typeof exercise.nouvelleVersionWrapper === 'function'
-    ) {
+    if (exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersionWrapper === 'function' && withNewVersion) {
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams()
@@ -641,7 +638,7 @@
             type="button"
             on:click={() => {
               columnsCount--
-              updateDisplay()
+              updateDisplay(false)
             }}
           >
             <i
@@ -653,7 +650,7 @@
             type="button"
             on:click={() => {
               columnsCount++
-              updateDisplay()
+              updateDisplay(false)
             }}
           >
             <i
