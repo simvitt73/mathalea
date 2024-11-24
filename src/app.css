@@ -684,6 +684,7 @@ div.etiquette {
   min-height: 25px;
   align-content: center;
   font-size: 18px;
+  z-index: 3;
 }
 div.etiquette:active {
   cursor: grabbing;
