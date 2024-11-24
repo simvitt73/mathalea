@@ -153,7 +153,7 @@
 
   let numberOfAnswerFields: number = 0
   async function countMathField () {
-    if (isInteractif){
+    if (isInteractif) {
       let numbOfAnswerFields : number = 0
       exercise.autoCorrection.forEach(val => {
         if (val.reponse?.param?.formatInteractif === 'mathlive' ||
@@ -161,12 +161,12 @@
           numbOfAnswerFields++
         }
       })
-      if (exercise.interactifType  === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {
+      if (exercise.interactifType === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {
         exercise.goodAnswers.forEach(val => {
           if (Array.isArray(val)) {
             numbOfAnswerFields += val.length
-          }else{
-            numbOfAnswerFields ++
+          } else {
+            numbOfAnswerFields++
           }
         })
       }
@@ -195,7 +195,7 @@
     }
   }
 
-  beforeUpdate(async() => {
+  beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id)
     if (
       JSON.stringify(get(exercicesParams)[exerciseIndex]) !==
@@ -205,7 +205,7 @@
       interfaceParams = get(exercicesParams)[exerciseIndex]
       log('new interfaceParams:' + interfaceParams)
       // obliger de charger l'exercice car son numéro à changer, et il faut gérer les id correctement des HTMLElements
-      await updateDisplay() 
+      await updateDisplay()
     }
   })
 
@@ -232,7 +232,7 @@
       'languageHasChanged',
       updateExerciceAfterLanguageChange
     )
-    await updateDisplay()  
+    await updateDisplay()
   })
 
   onDestroy(() => {
@@ -257,7 +257,7 @@
   afterUpdate(async () => {
     log('afterUpdate:' + exercise.id)
     if (exercise) {
-      await tick()      
+      await tick()
       if (isInteractif) {
         await countMathField()
         await loadMathLive()
@@ -372,7 +372,7 @@
   }
 
   async function updateDisplay () {
-    log('updateDisplay:'+ exercise.id)
+    log('updateDisplay:' + exercise.id)
     if (exercise == null) return
     if (
       exercise.seed === undefined &&
