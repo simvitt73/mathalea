@@ -24,7 +24,7 @@ export default class calcDerivee extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.compare = fonctionComparaison
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
   nouvelleVersion () {
