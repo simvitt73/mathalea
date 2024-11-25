@@ -11,7 +11,7 @@ export const refs = {
   'fr-fr': ['c3C32-01'],
   'fr-ch': []
 }
-export const titre = 'Au marché'
+export const titre = 'Au marché (addition et soustraction de masses, conversions)'
 export const dateDePublication = '20/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
