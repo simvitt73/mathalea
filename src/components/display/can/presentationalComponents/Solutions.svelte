@@ -49,7 +49,7 @@
 
   function cleanFillInTheBlanks (text: string) {
     if (typeof text !== 'string') return ''
-    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '').replaceAll('$', '')
+    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '')
   }
 </script>
 
