@@ -6,7 +6,7 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import Operation from '../../modules/operations'
-import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const uuid = '4f77c'
@@ -86,7 +86,7 @@ export default class ExerciceProbleme001 extends Exercice {
        La mairie accorde une aide de $${aideMairie}$ euros.`
       // dépense Totale
       const correction1 = `${this.correctionDetaillee ? 'La dépense totale est la somme des cachets des artistes et des frais de déplacement :<br>' : ''}
-${this.sup3 ? `${deuxColonnes(Operation({ operande1: payeArtiste, operande2: nbArtistes, type: 'multiplication' }) ?? '', Operation({ operande2: fraisDeplacement, operande1: cachets, type: 'addition' }) ?? '')}` : ''}
+${this.sup3 ? `${deuxColonnesResp(Operation({ operande1: payeArtiste, operande2: nbArtistes, type: 'multiplication' }) ?? '', Operation({ operande2: fraisDeplacement, operande1: cachets, type: 'addition' }) ?? '', { eleId: '', largeur1: 50, widthmincol1: 100, widthmincol2: 100 })}` : ''}
  $\\begin{aligned}${nbArtistes}\\times ${payeArtiste}+${fraisDeplacement}&=${cachets}+${fraisDeplacement}\\\\&=${sommeTotale}\\end{aligned}$<br>
  La dépense totale est de $${this.sup !== 3 ? miseEnEvidence(texNombre(sommeTotale, 0)) : texNombre(sommeTotale, 0)}$ euros.<br>`
       // aides
