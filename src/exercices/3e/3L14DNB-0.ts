@@ -1,7 +1,7 @@
 import { createList } from '../../lib/format/lists'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
-import { texteEnBoite } from '../../lib/outils/embellissements'
+import { texteEnBoite, texteItalique } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
@@ -12,7 +12,7 @@ export const refs = {
   'fr-fr': ['3L14DNB-0'],
   'fr-ch': []
 }
-export const titre = 'Exercice 4 (Antilles-Guyane 06/2024)'
+export const titre = 'Calcul littéral, scratch et équation produit nul'
 export const dateDePublication = '15/11/2024'
 
 /**
@@ -24,12 +24,13 @@ export const dateDePublication = '15/11/2024'
  * La méthode versionOriginale permet de générer les valeurs de l'exercice telles qu'elles sont dans le sujet original
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
-export default class Exercice3A10DNB0 extends ExerciceBrevetA {
+export default class Exercice3L14DNB0 extends ExerciceBrevetA {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
     this.nbQuestionsModifiable = true
+    this.introduction = texteItalique('D\'après l\'exercice 4 du brevet Antilles-Guyane 2024.')
     this.versionAleatoire(0)
   }
 
