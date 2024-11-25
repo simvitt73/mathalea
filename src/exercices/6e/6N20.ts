@@ -12,6 +12,7 @@ export const interactifType = 'mathLive'
 export const dateDeModifImportante = '24/11/2024'
 
 /**
+ * Amélioration d'un exercice de Rémi Angot
  * @author Guillaume Valmont
  */
 export const uuid = '85a65'
@@ -72,7 +73,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
       const fractionReste = new FractionEtendue(partieFractionnaire, denominateur).toLatex()
 
       const texte = remplisLesBlancs(this, i, `\\dfrac{${total}}{${denominateur}}~=~%{champ1} + \\dfrac{%{champ2}}{%{champ3}}`)
-      const texteCorr = '$ ' + fraction + ' = ' + partieEntiere + '+' + fractionReste + ' $'
+      const texteCorr = `$${fraction} = ${partieEntiere} + ${fractionReste} $`
       handleAnswers(this, i, {
         champ1: { value: String(partieEntiere) },
         champ2: { value: String(partieFractionnaire) },
