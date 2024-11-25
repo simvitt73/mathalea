@@ -3,7 +3,6 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Hms from '../../modules/Hms'
 import Operation from '../../modules/operations'
@@ -14,7 +13,7 @@ export const refs = {
   'fr-fr': ['c3C32-02'],
   'fr-ch': []
 }
-export const titre = 'Le sportif'
+export const titre = 'Le sportif (proportionnalité)'
 export const dateDePublication = '20/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true

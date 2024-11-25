@@ -14,7 +14,7 @@ export const refs = {
   'fr-fr': ['c3C32-00'],
   'fr-ch': []
 }
-export const titre = 'A la pêche aux coquillages'
+export const titre = 'A la pêche aux coquillages (proportionnalité)'
 export const dateDePublication = '15/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
