@@ -41,7 +41,6 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
     this.nbColsCorr = 1
     this.sup = 1
     this.type = 3
-    this.typeExercice = 'IEP'
     this.besoinFormulaire2CaseACocher = ['Avec auto-correction']
     this.sup2 = true
 
