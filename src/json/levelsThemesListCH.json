@@ -222,12 +222,15 @@
     "titre" : "Rappels de calcul numérique"
   },
   "1F1" : {
-    "titre" : "Fonctions affines"
+    "titre" : "Fonctions, généralités"
   },
   "1F2" : {
-    "titre" : "Fonctions quadratiques"
+    "titre" : "Fonctions affines et droites"
   },
   "1F3" : {
+    "titre" : "Fonctions quadratiques et paraboles"
+  },
+  "1F4" : {
     "titre" : "Fonctions racine, inverse, cubique"
   },
   "1Thales" : {

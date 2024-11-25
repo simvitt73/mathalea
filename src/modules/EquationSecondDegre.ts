@@ -7,6 +7,8 @@ import { getLang } from '../lib/stores/languagesStore'
 import { pgcd } from '../lib/outils/primalite'
 import { extraireRacineCarree } from '../lib/outils/calculs'
 import { miseEnEvidence } from '../lib/outils/embellissements'
+import PolynomePlusieursVariables from '../lib/mathFonctions/PolynomePlusieursVariables'
+import MonomePlusieursVariables from '../lib/mathFonctions/MonomePlusieursVariables'
 
 interface Options {
   format: string;
@@ -28,9 +30,11 @@ class EquationSecondDegre {
   correctionDetailleeTex: string
   correctionTex: string
   variable: string
+  fonctionEvaluer: (x:number) => number
   constructor (a: FractionEtendue, b: FractionEtendue, c: FractionEtendue, d: FractionEtendue, e: FractionEtendue, f: FractionEtendue, options = { format: 'initial', variable: 'x' }) {
     const lang = getLang()
     this.coefficients = [a, b, c, d, e, f]
+    this.fonctionEvaluer = (x:number) => this.coefficients[0].num / this.coefficients[0].den * x * x + this.coefficients[1].num / this.coefficients[1].den * x + this.coefficients[2].num / this.coefficients[2].den
     let melange = true
     this.variable = options.variable
     this.natureDelEquation = options.format
@@ -263,6 +267,20 @@ class EquationSecondDegre {
       }
     }
     return expr
+  }
+
+  // Méthode pour construire le polynomePlusieursVariables à partir de la forme réduite
+  polynomeFormeReduite (): PolynomePlusieursVariables {
+    const m1 = new MonomePlusieursVariables(this.coefficients[0], { variables: [this.variable], exposants: [2] })
+    const m2 = new MonomePlusieursVariables(this.coefficients[1], { variables: [this.variable], exposants: [1] })
+    const m3 = new MonomePlusieursVariables(this.coefficients[2], { variables: [this.variable], exposants: [0] })
+    return new PolynomePlusieursVariables([m1, m2, m3])
+  }
+
+  formeCanonique (): string {
+    const alpha = this.coefficients[1].oppose().diviseFraction(this.coefficients[0].multiplieEntier(2).simplifie())
+    const beta = this.polynomeFormeReduite().evaluer({ x: alpha }).simplifie()
+    return `\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
   }
 
   printToLatex (): string {
