@@ -28,7 +28,7 @@ export const interactifType = 'custom'
 export const uuid = 'c0f90'
 export const ref = '4G20-7'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['4G20-7'],
   'fr-ch': []
 }
 
