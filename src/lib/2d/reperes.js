@@ -1477,7 +1477,7 @@ export function Repere ({
   grilleSecondaire = false,
   grilleSecondaireDistance = 1,
   grilleSecondaireCouleur = 'gray',
-  grilleSecondaireOpacite = 0.1,
+  grilleSecondaireOpacite = 0.3,
   grilleSecondaireEpaisseur = 1,
   grilleX = grille,
   grilleXListe = [],
