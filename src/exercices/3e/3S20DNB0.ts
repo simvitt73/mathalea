@@ -1,10 +1,12 @@
-import { texteItalique } from '../../lib/outils/embellissements'
+import { texteEnCouleurEtGras, texteItalique } from '../../lib/outils/embellissements'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 import { SVG, registerWindow } from '@svgdotjs/svg.js'
 import { context } from '../../modules/context'
-import { rangeMinMax } from '../../lib/outils/nombres'
-import { shuffle } from '../../lib/outils/arrayOutils'
 import { createList } from '../../lib/format/lists'
+import { texNombre } from '../../lib/outils/texNombre'
+import { egalOuApprox } from '../../lib/outils/ecritures'
+import { randint } from '../../modules/outils'
+import { choice } from '../../lib/outils/arrayOutils'
 
 export const uuid = 'd11ae'
 export const refs = {
@@ -14,10 +16,9 @@ export const refs = {
 export const titre = 'Probabilités. Exercice de brevet'
 export const dateDePublication = '27/11/2024'
 
-const latexRoulette = `
-Au casino, la roulette est un jeu de hasard pour lequel chaque joueur mise au choix sur un ou plusieurs numéros. On lance une bille sur une roue qui tourne, numérotée de 0 à 36.\\
-La bille a la même probabilité de s'arrêter sur chaque numéro.\\
-\\begin{center}
+const listeNumeros = [26, 3, 35, 12, 28, 7, 29, 18, 22, 9, 31, 14, 20, 11, 33, 16, 24, 5, 10, 23, 8, 30, 11, 36, 13, 27, 6, 34, 17, 25, 2, 21, 4, 19, 15, 32, 0]
+function latexRoulette (listeNumeros: number[]) {
+  return `
   \\tikzset{%
     number/.code={%
         \\tikzset{every number/.try=#1}%
@@ -53,27 +54,15 @@ La bille a la même probabilité de s'arrêter sur chaque numéro.\\
     \\begin{scope}[%
       every odd number/.style={text=white},
       every even number/.style={text=black!70}]
-      \\foreach \\number [count=\\i] in {26,3,35,12,28,7,29,18,22,9,31,14,20,11,33,16,24,5,10,23,8,30,11,36,13,27,6,34,17,25,2,21,4,19,15,32,0} {
+      \\foreach \\number [count=\\i] in {${listeNumeros.join(',')}} {
         \\node[number=\\i,rotate={\\i*\\angle+\\angle/2}] at ({\\i*\\angle+\\angle/2}:{(\\Rb+\\Rc)/2}) {\\sffamily\\bfseries\\number};
       }
     \\end{scope}
     \\node[rotate={\\angle/2},text=black!70] at ({\\angle/2}:{(\\Rb+\\Rc)/2}) {\\sffamily\\bfseries0};
     \\fill[black!70] ({\\angle/2}:{(\\Rb+\\Ra)/2}) circle (1.5mm);
-  \\end{tikzpicture}
-\\end{center}
-\\begin{enumerate}[itemsep=1em]
-   \\item Expliquer pourquoi la probabilité s'arrête sur le numéro 7 est $\\frac{1}{37}$.
-   \\item Déterminer la probabilité que la bille s'arrête sur une case à la fois noire et paire.
-   \\item \\begin{enumerate}
-       \\item Déterminer la probabilité que la bille s'arrête sur un numéro inférieur ou égal à 6.
-   \\item En déduire la probabilité que la bille s'arrête sur un numéro supérieur ou égal à 7.
-   \\item Un joueur affirme qu'on a plus de 3 chances sur 4 d'obtenir un numéro supérieur ou égal à 7. A-t-il raison?
-      \\end{enumerate}
-\\end{enumerate}
-
-`
-const numeros = shuffle(rangeMinMax(0, 36))
-function rouletteSVG (): string {
+  \\end{tikzpicture}`
+}
+function rouletteSVG (numeros:number[]): string {
   const document = window.document
   registerWindow(window, document)
 
@@ -150,39 +139,92 @@ export default class Exercice3S2DNB0 extends ExerciceBrevetA {
     this.sup = false
     this.nbQuestionsModifiable = true
     this.versionAleatoire(0)
-    this.introduction = texteItalique('D\'après l\'exercice 3 du brevet Métropole 2024.')
+    this.introduction = texteItalique('D\'après l\'exercice 1 du brevet Métropole 2024.<br>')
   }
 
-  private appliquerLesValeurs (i: number): void {
-    const codeFigure = context.isHtml ? rouletteSVG() : latexRoulette
+  private appliquerLesValeurs (num1: number, parite: boolean, couleur: string, num2: number, listeNumeros: number[]): void {
+    const codeFigure = context.isHtml ? rouletteSVG(listeNumeros) : latexRoulette(listeNumeros)
+    const compteLesCases = (parite:boolean, couleur:string) => {
+      let compte = 0
+      for (let i = 0; i < 37; i++) {
+        const numero = listeNumeros[i]
+        if (numero % 2 === 0 && parite) {
+          if ((i % 2 === 0 && couleur === 'blanche') || (i % 2 === 1 && couleur === 'noire')) {
+            compte++
+          }
+        } else if (numero % 2 === 1 && !parite) {
+          if ((i % 2 === 0 && couleur === 'blanche') || (i % 2 === 1 && couleur === 'noire')) {
+            compte++
+          }
+        }
+      }
+      return compte
+    }
+
     const enonce = `Au casino, la roulette est un jeu de hasard pour lequel chaque joueur mise au choix sur un ou plusieurs numéros.<br> On lance une bille sur une roue qui tourne, numérotée de 0 à 36.<br>
 La bille a la même probabilité de s'arrêter sur chaque numéro.<br><br>
-${codeFigure}<br>
+${codeFigure}
 ${createList({
   items: [
-      'Expliquer pourquoi la probabilité s\'arrête sur le numéro 7 est $\\frac{1}{37}$.',
-      'Déterminer la probabilité que la bille s\'arrête sur une case à la fois noire et paire.',
+      `Expliquer pourquoi la probabilité s'arrête sur le numéro ${num1} est $\\dfrac{1}{37}$.`,
+      `Déterminer la probabilité que la bille s'arrête sur une case à la fois ${couleur} et ${parite ? 'paire' : 'impaire'}.`,
       createList({
         items: [
-        'Déterminer la probabilité que la bille s\'arrête sur un numéro inférieur ou égal à 6.',
-        'En déduire la probabilité que la bille s\'arrête sur un numéro supérieur ou égal à 7.',
-        'Un joueur affirme qu\'on a plus de 3 chances sur 4 d\'obtenir un numéro supérieur ou égal à 7. A-t-il raison?'
+        `Déterminer la probabilité que la bille s'arrête sur un numéro inférieur ou égal à ${num2}.`,
+        `En déduire la probabilité que la bille s'arrête sur un numéro supérieur ou égal à ${num2 + 1}.`,
+        `Un joueur affirme qu'on a plus de 3 chances sur 4 d'obtenir un numéro supérieur ou égal à ${num2 + 1}. A-t-il raison?`
       ],
 style: 'alpha'
 })
       ],
 style: 'nombres'
 })}`
-
+    const correction = createList({
+      items: [
+    `La probabilité que la bille s'arrête sur le numéro ${num1} est $\\dfrac{1}{37}$ car il y a 37 numéros.`,
+    `La probabilité que la bille s'arrête sur une case à la fois ${couleur} et ${parite ? 'paire' : 'impaire'} est $\\dfrac{${compteLesCases(parite, couleur)}}{37}$.`,
+    createList({
+      items: [
+        `La probabilité que la bille s'arrête sur un numéro inférieur ou égal à ${num2} est $\\dfrac{${num2 + 1}}{37}$.`,
+        `La probabilité que la bille s'arrête sur un numéro supérieur ou égal à ${num2 + 1} est $\\dfrac{37 - ${num2 + 1}}{37} = \\dfrac{${37 - (num2 + 1)}}{37}$.`,
+      `Comparons cette probabilité avec $\\dfrac{3}{4}$ :<br>
+        $\\dfrac{${37 - (num2 + 1)}}{37} ${egalOuApprox((37 - (num2 + 1)) / 37, 3)} ${texNombre((37 - (num2 + 1)) / 37, 3)}$ et $\\dfrac{3}{4} = ${texNombre(0.75, 2)}$<br>
+        Comme $${texNombre((37 - (num2 + 1)) / 37, 3)} ${((37 - (num2 + 1)) / 37) > 0.75 ? '>' : '<'} ${texNombre(0.75, 2)}$, ${texteEnCouleurEtGras(`le joueur ${((37 - (num2 + 1)) / 37) > 0.75 ? 'a' : "n'a pas"} raison`)}.`
+      ],
+      style: 'alpha'
+    })
+      ],
+      style: 'nombres'
+    })
     this.enonce = `${enonce}`
-    this.correction = `${enonce}`
+    this.correction = `${correction}`
   }
 
   versionOriginale: () => void = () => {
-    this.appliquerLesValeurs(0)
+    this.appliquerLesValeurs(7, true, 'noire', 6, listeNumeros)
   }
 
-  versionAleatoire: (i:number) => void = (i:number) => {
-    this.appliquerLesValeurs(i)
+  versionAleatoire: (i:number) => void = () => {
+    const listeNum = listeNumeros.slice()
+    let k = 0
+    for (; k < 34;) {
+      if (k % 2 === 0) {
+        const zap = listeNum[k]
+        const k2 = randint(k / 2, 18) * 2
+        listeNum[k] = listeNum[k2]
+        listeNum[k2] = zap
+      } else {
+        const zap = listeNum[k]
+        const k2 = randint((k + 1) / 2, 18) * 2 - 1
+        listeNum[k] = listeNum[k2]
+        listeNum[k2] = zap
+      }
+      k += randint(1, 4)
+    }
+    const num1 = randint(0, 36)
+    const num2 = randint(5, 30)
+    const parite = choice([true, false])
+    const couleur = choice(['noire', 'blanche'])
+    this.appliquerLesValeurs(num1, parite, couleur, num2, listeNum)
   }
 }
