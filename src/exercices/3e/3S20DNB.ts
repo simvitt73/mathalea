@@ -10,7 +10,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 
 export const uuid = 'd11ae'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['3S20DNB'],
   'fr-ch': []
 }
 export const titre = 'Probabilités. Exercice de brevet'
