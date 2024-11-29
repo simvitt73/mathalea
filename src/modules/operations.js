@@ -236,7 +236,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   }
 
   const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn = true, methodeParCompensation = true, calculer = true) {
-    if (operande1 < operande2) {
+    if (operande1.lessThan(operande2)) {
       return `Je ne sais pas faire de soustraction avec un résultat négatif, or ici $${texNombre(operande1)} < ${texNombre(operande2)}$.`
     }
     if (operande2 === 0) return `Lorsqu'on soustrait 0, le résultat est le nombre initial, ici $${texNombre(operande1)}$.`
