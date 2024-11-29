@@ -790,7 +790,7 @@ export function Grille (
   this.color = color
   this.opacite = opacite
   const objets = []
-  for (let i = xmin; i <= xmax; i = arrondi(i + step)) {
+  for (let i = xmin; i <= xmax; i = i + step) {
     const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
@@ -798,7 +798,7 @@ export function Grille (
     }
     objets.push(s)
   }
-  for (let i = ymin; i <= ymax; i = arrondi(i + step)) {
+  for (let i = ymin; i <= ymax; i = i + step) {
     const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
