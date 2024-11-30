@@ -231,8 +231,10 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
-      if (infosExerciceStatique?.url) {
-        const response = await window.fetch(infosExerciceStatique.url)
+      let sujet = param.uuid.substring(0, 4)
+      if (sujet === 'dnb_' || sujet === 'bac_') {
+        sujet = sujet.substring(0, 3)
+        let response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()
           if (!text.trim().startsWith('<!DOCTYPE html>')) {
@@ -241,15 +243,36 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
             content = '\n\n\t%Exercice non disponible\n\n'
           }
         }
-      }
-      if (infosExerciceStatique?.urlcor) {
-        const response = await window.fetch(infosExerciceStatique.urlcor)
+        response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}_cor.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()
           if (!text.trim().startsWith('<!DOCTYPE html>')) {
             contentCorr = text
           } else {
             contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+          }
+        }
+      } else {
+        if (infosExerciceStatique?.url) {
+          const response = await window.fetch(infosExerciceStatique.url)
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              content = text
+            } else {
+              content = '\n\n\t%Exercice non disponible\n\n'
+            }
+          }
+        }
+        if (infosExerciceStatique?.urlcor) {
+          const response = await window.fetch(infosExerciceStatique.urlcor)
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              contentCorr = text
+            } else {
+              contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+            }
           }
         }
       }
