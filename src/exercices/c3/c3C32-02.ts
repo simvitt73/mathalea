@@ -15,8 +15,7 @@ export const titre = 'Au marché (addition et soustraction de masses, conversion
 export const dateDePublication = '20/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
-
-const prenoms = [
+export const prenoms = [
   // Féminins
   'Amina', // Arabe
   'Chloé', // Français
@@ -65,7 +64,7 @@ const prenoms = [
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différentier autour d'un même problème
  */
-export default class ExerciceProbleme001 extends Exercice {
+export default class ExerciceProbleme002 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1

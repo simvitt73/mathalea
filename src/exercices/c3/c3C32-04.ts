@@ -23,7 +23,7 @@ export const interactifReady = true
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différentier autour d'un même problème
  */
-export default class ExerciceProbleme001 extends Exercice {
+export default class ExerciceProbleme004 extends Exercice {
   constructor () {
     super()
     this.spacing = 1.2

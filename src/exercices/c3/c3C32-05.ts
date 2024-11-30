@@ -30,7 +30,7 @@ const fractionEnLettres = (frac: FractionEtendue) => {
   if (frac.den === 4) return `${nombreEnLettres(frac.num)} quart${frac.num > 1 ? 's' : ''} de`
   return `${nombreEnLettres(frac.num)} ${nombreEnLettres(frac.den)}ième${frac.num > 1 ? 's' : ''}`
 }
-export default class ExerciceProbleme001 extends Exercice {
+export default class ExerciceProbleme005 extends Exercice {
   constructor () {
     super()
     this.spacing = 1.2
