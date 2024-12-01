@@ -120,7 +120,7 @@ default:
 
 .testCI:
   extends: .install_dependencies
-  image: mcr.microsoft.com/playwright:v1.45.1-jammy
+  image: mcr.microsoft.com/playwright:v1.49.0-noble
   stage: playwright-test
   allow_failure: true
   rules:
