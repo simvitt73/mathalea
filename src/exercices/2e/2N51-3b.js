@@ -11,9 +11,9 @@ export const amcType = 'AMCNum'
  * @author Sébastien LOZANO
  */
 export const uuid = '78f02'
-export const ref = '2N51-3v2'
+export const ref = '2N51-3b'
 export const refs = {
-  'fr-fr': ['2N51-3v2'],
+  'fr-fr': ['2N51-3b'],
   'fr-ch': []
 }
 export default function EqResolvantesThales2nde () {
