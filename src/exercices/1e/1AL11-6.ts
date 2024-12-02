@@ -12,6 +12,8 @@ import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Donner la forme explicite d\'une suite arithmétique ou géométrique'
 
 export const dateDePublication = '30/11/2024'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
@@ -124,7 +126,7 @@ export default class SuitesExplicites extends Exercice {
           indice = this.sup2 ? randint(1, 10) : 0
 
           reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nbFacteursIdentiquesFactorisation: true } } })
           texte = `Soit $(${NomS}_n)$ une suite géométrique de raison $q=${texNombre(q, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           if (this.sup2) {
