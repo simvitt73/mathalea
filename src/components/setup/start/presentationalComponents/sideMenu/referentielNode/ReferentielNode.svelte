@@ -204,7 +204,7 @@
   </button>
   <div>
     {#if unfold}
-      <ul transition:slide={{ duration: 500 }}>
+      <ul transition:slide|global={{ duration: 500 }}>
         {#each items as [key, obj], i}
           <li>
             {#if isJSONReferentielEnding(obj)}
