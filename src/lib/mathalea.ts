@@ -1,6 +1,5 @@
 import loadjs from 'loadjs'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // import JSON uuidsRessources
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
@@ -658,7 +657,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
       if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
-        if (typeof exercice.reponse !== 'string') {
+        if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
           if (exercice.reponse instanceof FractionEtendue) {
             reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
           } else if (exercice.reponse instanceof Decimal) {
@@ -674,7 +673,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             reponse = { reponse: { value: String(exercice.reponse), compare, options } }
           }
         } else {
-          reponse = { reponse: { value: exercice.reponse, compare, options } }
+          reponse = { reponse: { value: typeof exercice.reponse === 'number' ? String(exercice.reponse) : exercice.reponse, compare, options } }
         }
         handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
       } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
@@ -682,7 +681,6 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }
-
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
