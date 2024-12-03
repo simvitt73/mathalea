@@ -1,14 +1,17 @@
 import Exercice from '../Exercice'
-import { point, tracePoint, Point } from '../../lib/2d/points'
+import { point, tracePoint, Point, TracePoint } from '../../lib/2d/points'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { labelPoint } from '../../lib/2d/textes'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { fraction } from '../../modules/fractions'
+import type FractionEtendue from '../../modules/FractionEtendue'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,16 +40,20 @@ export default class BetaReperage2e extends Exercice {
       '4 : Mélange'
     ].join('\n')]
     this.sup = '1'
+    this.besoinFormulaire2CaseACocher = ['Présence de coordonnées fractionnaires', false]
+    this.sup2 = false
     this.besoinFormulaire3Numerique = ['Nombre de points à trouver/placer', 3]
     this.sup3 = 3
+    this.besoinFormulaire4CaseACocher = ['Papier pointé / Quadrillage', false]
+    this.sup4 = false
     this.comment = `Exercice fait suite à une demande sur la forge de Carole Feugère.<br> Il y a trois types de repères, le premier est orthogonal mais pas normé, le deuxième est normé mais pas orthonormal, le troisième n'est ni normé ni orthogonal.<br>
     Les points à trouver sont choisis aléatoirement à coordonnées entières. On peut choisir le nombre de points à trouver de 1 à 3.`
   }
 
   nouvelleVersion () {
     const listeTypeDeReperes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, nbQuestions: this.nbQuestions, defaut: 4 })
-    const x: number[][] = []
-    const y: number[][] = []
+    const x: FractionEtendue[][] = []
+    const y: FractionEtendue[][] = []
     const X: number[][] = []
     const Y: number[][] = []
     const noms: string[][] = []
@@ -61,7 +68,7 @@ export default class BetaReperage2e extends Exercice {
       let coordsI: [number, number]
       let coordsK: [number, number]
       let matrice: Matrice
-      let matriceInverse: Matrice|undefined
+      let matriceInverse: Matrice | undefined
       const listeNoms = choisitLettresDifferentes(3 + this.sup3)
       const [labelI, labelK, labelO] = listeNoms.slice(0, 3)
       noms[i] = listeNoms.slice(3)
@@ -90,11 +97,11 @@ export default class BetaReperage2e extends Exercice {
         }
         matrice = new Matrice([[coordsI[0], coordsK[0]], [coordsI[1], coordsK[1]]])
         matriceInverse = matrice.inverse()
-      } while (matriceInverse == null)
+      } while (matrice == null || matriceInverse == null)
       const pointI = point(coordsI[0], coordsI[1], labelI, 'below')
       const pointK = point(coordsK[0], coordsK[1], labelK, 'left')
       const traceRep = tracePoint(pointO, pointI, pointK)
-      traceRep.style = '+'
+      traceRep.style = '.'
       traceRep.epaisseur = 1
       const IPrime = homothetie(pointI, pointO, 4) as Point
       const KPrime = homothetie(pointK, pointO, 3) as Point
@@ -104,32 +111,61 @@ export default class BetaReperage2e extends Exercice {
       OI.styleExtremites = '->'
       const OK = segment(KNeg, KPrime)
       OK.styleExtremites = '->'
-      const grid: Point[] = []
+      const grid: (Point | Segment)[] = []
       /*
       Construire la grille
       */
-      for (let xx = -4; xx <= 4; xx++) {
-        for (let yy = -3; yy <= 3; yy++) {
-          grid.push(point(...matrice.multiply([xx, yy]).toArray() as [number, number]))
+      let denX: number = 1
+      let denY: number = 1
+      if (this.sup2) {
+        denX = choice([1, 2, 3])
+        denY = choice([1, 2, 3], [denX])
+      }
+      for (let xx = -4; xx < 4 + 1 / denX; xx += 1 / denX) {
+        if (this.sup4) {
+          const pointL = point(...matrice.multiply([xx, -3]).toArray() as [number, number])
+          const pointH = point(...matrice.multiply([xx, 3]).toArray() as [number, number])
+          if (Math.abs(xx) > 0.01) grid.push(segment(pointL, pointH))
+        }
+        for (let yy = -3; yy < 3 + 1 / denY; yy += 1 / denY) {
+          if (this.sup4 && xx === -4) {
+            const pointL = point(...matrice.multiply([-4, yy]).toArray() as [number, number])
+            const pointH = point(...matrice.multiply([4, yy]).toArray() as [number, number])
+            if (Math.abs(yy) > 0.01) grid.push(segment(pointL, pointH))
+          }
+          if (!this.sup4) {
+            grid.push(point(...matrice.multiply([xx, yy]).toArray() as [number, number]))
+          }
         }
       }
-      const dots = tracePoint(...grid)
-      dots.style = '.'
-      dots.epaisseur = 1
-      dots.color = colorToLatexOrHTML('gray')
+      const dots = this.sup4 ? grid : tracePoint(...(grid as Point[]))
+      if (this.sup4) {
+        for (const el of dots as Segment[]) {
+          el.styleExtremites = '-'
+          el.epaisseur = 0.5
+          el.color = colorToLatexOrHTML('gray')
+          el.opacite = 0.6
+        }
+      } else {
+        (dots as TracePoint).style = '.';
+        (dots as TracePoint).epaisseur = 0.4;
+        (dots as TracePoint).opacite = 0.6;
+        (dots as TracePoint).color = colorToLatexOrHTML('gray')
+      }
+
       for (let k = 0; k < this.sup3; k++) {
         do {
-          x[i][k] = randint(-3, 3)
-          y[i][k] = randint(-2, 2)
-        } while ((x[i][k] === 0 && y[i][k] === 1) || (x[i][k] === 1 && y[i][k] === 0) || (x[i][k] === 0 && y[i][k] === 0) || (x[i].slice(0, k).includes(x[i][k]) && y[i].slice(0, k).includes(y[i][k])))
-        const [mdx, mdy] = matrice.multiply([x[i][k], y[i][k]]).toArray()
+          x[i][k] = fraction(randint(-3 * denX, 3 * denX), denX)
+          y[i][k] = fraction(randint(-2 * denY, 2 * denY), denY)
+        } while ((x[i][k].isEqual(0) && y[i][k].isEqual(1)) || (x[i][k].isEqual(1) && y[i][k].isEqual(0)) || (x[i][k].isEqual(0) && y[i][k].isEqual(0)) || (x[i].slice(0, k).map(el => el.num).includes(x[i][k].num) && y[i].slice(0, k).map(el => el.num).includes(y[i][k].num)))
+        const [mdx, mdy] = matrice.multiply([x[i][k].valeurDecimale, y[i][k].valeurDecimale]).toArray()
         X[i][k] = mdx
         Y[i][k] = mdy
-        points[i][k] = point(mdx, mdy, listeNoms[3 + k], `${x[i][k] < 0
-           ? y[i][k] < 0
+        points[i][k] = point(mdx, mdy, listeNoms[3 + k], `${x[i][k].valeurDecimale < 0
+           ? y[i][k].valeurDecimale < 0
            ? 'below left'
            : 'above left'
-           : y[i][k] < 0
+           : y[i][k].valeurDecimale
            ? 'below right'
            : 'above right'}`)
       }
@@ -141,20 +177,20 @@ export default class BetaReperage2e extends Exercice {
       const objets = [traces, traceRep, labels, OI, OK, dots]
       let question = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
 
-      question += `Quelles sont les coordonnées des points ${noms[i].join(', ')} dans le repère $(${labelO},${labelI},${labelK})$ ?<br>`
+      question += `Quelles sont les coordonnées des points $${noms[i].join('$, $')}$ dans le repère $(${labelO},${labelI},${labelK})$ ?<br>`
       if (this.interactif) {
         question += noms[i].map((el, k) => `Coordonnées de $${el}$ : ${ajouteQuestionMathlive({
           exercice: this,
           question: i * this.sup3 + k,
           typeInteractivite: 'remplisLesBlancs',
-          objetReponse: { champ1: { value: String(x[i][k]) }, champ2: { value: String(y[i][k]) }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
+          objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
           content: '(%{champ1}~~;~~%{champ2})'
         })}`).join('<br>')
       } else {
         question += noms[i].map((el) => `Coordonnées de $${el}$ : $(\\ldots~~;~~\\ldots)$`).join('<br>')
       }
-      const reponse = `Dans le repère ${labelO}${labelI}${labelK} sont :<br>
-            ${points[i].map((p, k) => `${listeNoms[k + 3]}(${x[i][k]};${y[i][k]})`).join(', ')}`
+      const reponse = `Dans le repère $(${labelO},${labelI},${labelK})$ sont :<br>
+            $${points[i].map((p, k) => `${listeNoms[k + 3]}(${x[i][k].texFractionSimplifiee};${y[i][k].texFractionSimplifiee})`).join(', ')}$`
       if (this.questionJamaisPosee(i, ...X[i], ...Y[i], ...coordsI, ...coordsK)) {
         this.listeQuestions.push(question)
         this.listeCorrections.push(reponse)
