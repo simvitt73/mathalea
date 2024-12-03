@@ -364,6 +364,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         ? `Lorsqu'on multiplie par 1, le produit est le nombre initial, ici $${texNombre(operande2)}$.`
         : `Lorsqu'on multiplie par 1, le produit est le nombre initial, ici $${texNombre(operande1)}$.`
     }
+    operande2 = new Decimal(5)
     let sop1; let sop2; const objets = []; let lignesinutiles = 0
     let zeroUtile1, zeroUtile2
     const produits = []; let strprod; const sommes = []
@@ -498,9 +499,9 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       }
     }
     // Les traits horizontaux
-    if (calculer) objets.push(segment(0, 5.2 - lop2 + lignesinutiles, (longueurtotale + 1) * espacement, 5.2 - lop2 + lignesinutiles))
+    if (calculer && lop2 !== 1) objets.push(segment(0, 5.2 - lop2 + lignesinutiles, (longueurtotale + 1) * espacement, 5.2 - lop2 + lignesinutiles))
     objets.push(segment(0, 5.7, (longueurtotale + 1) * espacement, 5.7))
-    if (calculer) {
+    if (calculer && lop2 !== 1) {
       // Le résultat et sa virgule
       for (let i = 0; i <= longueurtotale; i++) {
         if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * espacement, 4.5 - lop2 + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
