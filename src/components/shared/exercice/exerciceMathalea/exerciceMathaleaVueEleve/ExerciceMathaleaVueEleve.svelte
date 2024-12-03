@@ -13,6 +13,7 @@
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type { InterfaceParams, InterfaceResultExercice } from 'src/lib/types'
+    import { countMathField } from '../../countMathField';
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -43,29 +44,6 @@
     headerExerciceProps = headerExerciceProps
   }
 
-  function countMathField () {
-    let numbOfAnswerFields : number = 0
-    if (exercise.autoCorrection != null && Array.isArray(exercise.autoCorrection)) {
-      for (const autoCorr of exercise.autoCorrection) {
-      if (autoCorr.reponse?.param?.formatInteractif === 'mathlive' ||
-          autoCorr.reponse?.param?.formatInteractif === 'qcm') {
-        numbOfAnswerFields++
-      }
-    }
-  }
-   
-    if (exercise.interactifType  === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {
-     for (const goodAnswer of exercise.goodAnswers) {
-       if (Array.isArray(goodAnswer)) {
-         numbOfAnswerFields += goodAnswer.length
-       }else{
-         numbOfAnswerFields ++
-       }
-    }
-  }
-    log('numberOfAnswerFields:' + numbOfAnswerFields)
-    return numbOfAnswerFields
-  }
   let numberOfAnswerFields: number = 0
 
   async function forceUpdate () {
@@ -130,7 +108,7 @@
     document.addEventListener('updateAsyncEx', forceUpdate)
     updateDisplay()
     if (isInteractif && !isCorrectionVisible) {
-      numberOfAnswerFields = countMathField()
+      numberOfAnswerFields = await countMathField(exercise)
     }
     if ($globalOptions.setInteractive === '1') {
       setAllInteractif()
@@ -216,9 +194,11 @@
     seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
     exercise.interactif = isInteractif
+  if ($exercicesParams[exerciseIndex] != null) { // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
     $exercicesParams[exerciseIndex].alea = exercise.seed
     $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
     $exercicesParams[exerciseIndex].cols = columnsCount > 1 ? columnsCount : undefined
+  }
     exercise.numeroExercice = exerciseIndex
     if (exercise !== undefined && exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersionWrapper === 'function') {
       exercise.nouvelleVersionWrapper(exerciseIndex)
