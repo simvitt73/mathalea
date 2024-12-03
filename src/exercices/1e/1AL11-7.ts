@@ -78,7 +78,7 @@ export default class SuitesArithmeticoG extends Exercice {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, 3 * i)
+      const monQcm = propositionsQcm(this, i)
       if (this.interactif) texte += monQcm.texte
 
       texte = `Soit $(${NomS}_n)$ la suite définie pour tout entier naturel $n$ par $${NomS}_{n+1}=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b)}$ et $${NomS}_0=${texNombre(u0, 1)}$.`
