@@ -166,7 +166,7 @@ export async function loadMathLive (divExercice) {
   }
   if (champs != null) {
     for (const mf of champs) {
-      if (mf instanceof MathfieldElement && !mf.readOnly) {
+      if (mf instanceof MathfieldElement && !mf.classList.contains('corrected')) {
         mf.mathVirtualKeyboardPolicy = 'manual'
         mf.menuItems = []
         mf.virtualKeyboardTargetOrigin = '*'

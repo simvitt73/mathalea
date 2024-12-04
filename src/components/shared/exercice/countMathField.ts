@@ -1,6 +1,6 @@
 import type Exercice from '../../../exercices/Exercice'
 
-export function countMathField (exercise: Exercice) {
+export async function countMathField (exercise: Exercice): Promise<number> {
   if (exercise == null) return 0
   let numbOfAnswerFields : number = 0
   if (exercise.interactif) {
