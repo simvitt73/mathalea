@@ -184,7 +184,7 @@ export default function DevelopperReduireExprComplexe () {
 
       // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
                     ajouteChampTexteMathLive(this, i, ' ')
