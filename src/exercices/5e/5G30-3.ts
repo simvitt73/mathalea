@@ -94,7 +94,6 @@ export default class VocabulaireAngles extends Exercice {
         const d4 = droiteParPointEtPerpendiculaire(C, d3)
 
         const choix = randint(0, 3) * 90
-        // const choix = 270
 
         ARot = rotation(A, origine, choix)
         BRot = rotation(B, origine, choix)
@@ -149,7 +148,7 @@ export default class VocabulaireAngles extends Exercice {
             codageAngle(F, DRot, G, 2, '', bleuMathalea, 2, 1, bleuMathalea),
             codageAngle(DRot, CRot, JRot, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
-          texteSousFigure = 'Qu\'est-ce qui caractérise les angles en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
           break
         case 1:
           // Angles alternes-internes
@@ -165,7 +164,7 @@ export default class VocabulaireAngles extends Exercice {
             codageAngle(CRot, DRot, F, 2, '', bleuMathalea, 2, 1, bleuMathalea),
             codageAngle(G, CRot, JRot, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
-          texteSousFigure = 'Qu\'est-ce qui caractérise les angles en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
           break
         case 2:
           // Angles supplémentaires
@@ -191,7 +190,7 @@ export default class VocabulaireAngles extends Exercice {
             codageAngle(E, CRot, G, 2, '', bleuMathalea, 2, 1, bleuMathalea),
             codageAngle(DRot, CRot, IRot, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
-          texteSousFigure = 'Qu\'est-ce qui caractérise les angles adjacents en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise les angles adjacents bleu et rouge ? '
           break
         case 3:
           // Angles opposés par le sommet
@@ -214,7 +213,7 @@ export default class VocabulaireAngles extends Exercice {
             codageAngle(BRot, DRot, G, 2, '', bleuMathalea, 2, 1, bleuMathalea),
             codageAngle(DRot, CRot, IRot, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
-          texteSousFigure = 'Qu\'est-ce qui caractérise les angles en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
           break
         case 4:
           // Angles complémentaires
@@ -254,11 +253,11 @@ export default class VocabulaireAngles extends Exercice {
               ])
             }
           }
-          texteSousFigure = 'Qu\'est-ce qui caractérise les angles adjacents en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise les angles adjacents bleu et rouge ? '
           break
         case 5:
           // Côté de l'angle
-          texteCorr = `C\'est un  ${texteEnCouleurEtGras('côté')} de l\'angle, une demi-droite.`
+          texteCorr = `C'est un  ${texteEnCouleurEtGras('côté')} de l'angle, une demi-droite.`
           // tabAngles contient un angle et un de ses côtés puis un angle droit qui ne chevauche pas l'angle
           tabAngles.push([
             codageAngle(BRot, DRot, G, 2, '', bleuMathalea, 2, 1, bleuMathalea),
@@ -280,11 +279,11 @@ export default class VocabulaireAngles extends Exercice {
             demiDroite(CRot, E, 'red'),
             codageAngle(DRot, CRot, IRot, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
-          texteSousFigure = 'Qu\'est-ce qui caractérise la demi-droite en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise la demi-droite en couleur pour l\'angle ? '
           break
         case 6:
           // Sommet de  l'angle
-          texteCorr = `C\'est le  ${texteEnCouleurEtGras('sommet')} de l\'angle, un point.`
+          texteCorr = `C'est le  ${texteEnCouleurEtGras('sommet')} de l'angle, un point.`
           // tabAngles contient un angle et le sommet de l'angle puis un angle droit qui ne chevauche pas l'angle
           tabAngles.push([
             codageAngle(BRot, DRot, G, 2, '', bleuMathalea, 2, 1, bleuMathalea),
@@ -296,11 +295,11 @@ export default class VocabulaireAngles extends Exercice {
             point(CRot.x, CRot.y),
             codageAngle(DRot, CRot, IRot, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
-          texteSousFigure = 'Qu\'est-ce qui caractérise le point en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise le point en couleur pour l\'angle ? '
           break
         case 7:
           // Angles adjacents (non complémentaires)
-          texteCorr = `Ce sont des angles  ${texteEnCouleurEtGras('adjacents')} car ils ont un sommet commun, ils ont un côté en commun et sont de part et d\'autre de ce sommet.`
+          texteCorr = `Ce sont des angles  ${texteEnCouleurEtGras('adjacents')} car ils ont un sommet commun, ils ont un côté en commun et sont de part et d'autre de ce sommet.`
           // tabAngles contient deux angles adjacents (non complémentaires) puis un angle droit qui ne chevauche pas ces angles
           if (Math.abs(angleOriente(G, CRot, ARot)) > 90) {
             tabAngles.push([
@@ -330,7 +329,7 @@ export default class VocabulaireAngles extends Exercice {
               codageAngle(DRot, CRot, IRot, 1, '', vertMathalea, 2, 1, vertMathalea)
             ])
           }
-          texteSousFigure = 'Qu\'est-ce qui caractérise les angles en couleur ? '
+          texteSousFigure = 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
           break
       }
       const choixPossibilitesAngles = range(tabAngles.length - 1)
