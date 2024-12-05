@@ -1,5 +1,5 @@
 import EqResolvantesThales from '../3e/3L13-2.js'
-export const titre = 'Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$ (v2)'
+export const titre = 'Résoudre une équation du type $\\dfrac{x}{a}=\\dfrac{b}{c}$ (v2)'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

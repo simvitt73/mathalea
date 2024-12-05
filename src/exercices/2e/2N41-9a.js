@@ -28,7 +28,7 @@ export const amcReady = true
  */
 export const uuid = '889ef'
 export const refs = {
-  'fr-fr': ['2N41-9'],
+  'fr-fr': ['2N41-9a'],
   'fr-ch': []
 }
 
