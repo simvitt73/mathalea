@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../../lib/outils/texNombre'
-export const titre = 'Déterminer $p$ dans l\'équation réduite d\'une droite'
+export const titre = 'Déterminer p dans l\'équation réduite d\'une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '30/11/2024'
