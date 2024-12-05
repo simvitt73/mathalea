@@ -182,6 +182,7 @@ export async function loadMathLive (divExercice) {
         if (mf.getAttribute('data-space') === 'true') {
           mf.mathModeSpace = '\\,'
         }
+        // ces assignations sont mises dans un onMount pour éviter les problèmes d'assignation sur des mathfields non encore montés
         const onMount = () => {
           mf.mathVirtualKeyboardPolicy = 'manual'
           mf.menuItems = []
