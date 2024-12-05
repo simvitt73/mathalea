@@ -124,9 +124,9 @@ export function mathalea2d (
               code.color = code.color.replace('{', '').replace('}', '')
 
               const divOuterHtml =
-                code.backgroundColor !== ''
-                  ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}$' + code.latex + '$}}')}</div>`
-                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\color{' + code.color + '} \\' + code.letterSize + ' ' + code.latex + '')}</div>`
+                code.backgroundColor !== '' && code.backgroundColor !== 'none'
+                  ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}{' + code.latex + '}}}')}</div>`
+                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + code.color + '} \\' + code.letterSize + '{' + code.latex + '}}')}</div>`
               divsLatex.push(divOuterHtml)
             }
           } else {

@@ -787,14 +787,24 @@ export class Latex2d extends ObjetMathalea2D {
 
   svg (): DivLatex {
     // On prend la couleur Latex, parce que c'est pour Katex !
-    return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.col, backgroundColor: this.backgroundCol }
+    return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.col.replace('#', ''), backgroundColor: this.backgroundCol.replace('#', '') }
   }
 
   // @todo ajouter opacity, orientation au tikz.
   tikz () {
-    return this.backgroundCol !== '' && this.backgroundCol !== 'none'
-      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color{${this.col}}{$${this.latex}$}}};`
-      : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color{${this.col}}{$${this.latex}$}};`
+    if (this.backgroundCol.startsWith('#')) {
+      this.backgroundCol = `[HTML]{${this.backgroundCol.substring(1)}}`
+    } else {
+      this.backgroundCol = `{${this.backgroundCol}}`
+    }
+    if (this.col.startsWith('#')) {
+      this.col = `[HTML]{${this.col.substring(1)}}`
+    } else {
+      this.col = `{${this.col}}`
+    }
+    return this.backgroundCol !== '{}' && this.backgroundCol !== '{none}'
+      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox${this.backgroundCol} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
+      : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.col}{$${this.latex}$}};`
   }
 }
 

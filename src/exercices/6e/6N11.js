@@ -141,7 +141,7 @@ export default function LireAbscisseEntiere2d () {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        labelColor: 'orange',
+        labelColor: '#F15929',
         thickSec: true,
         step1: 10,
         labelListe: [
