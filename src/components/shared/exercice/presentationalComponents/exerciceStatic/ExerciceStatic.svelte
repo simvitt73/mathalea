@@ -33,12 +33,23 @@
   const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
     ? { ...foundResource }
     : null
+      
   const exercice =
     resourceToDisplay === null
       ? null
       : {
-          png: typeof resourceToDisplay.png === 'string' ? [resourceToDisplay.png] : resourceToDisplay.png,
-          pngCor: typeof resourceToDisplay.pngCor === 'string' ? [resourceToDisplay.pngCor] : resourceToDisplay.pngCor
+          png: typeof resourceToDisplay.png === 'string' 
+          ? [((resourceToDisplay.uuid.substring(0, 3) === 'dnb'||resourceToDisplay.uuid.substring(0, 3) === 'bac')
+            ? `static/${resourceToDisplay.uuid.substring(0, 3)}/${resourceToDisplay.annee}/tex/png/${resourceToDisplay.uuid}.png`
+            : resourceToDisplay.png)
+          ] 
+          : resourceToDisplay.png,
+          pngCor: typeof resourceToDisplay.pngCor === 'string' 
+          ? [((resourceToDisplay.uuid.substring(0, 3) === 'dnb'||resourceToDisplay.uuid.substring(0, 3) === 'bac')
+            ? `static/${resourceToDisplay.uuid.substring(0, 3)}/${resourceToDisplay.annee}/tex/png/${resourceToDisplay.uuid}_cor.png`
+            : resourceToDisplay.pngCor)
+          ] 
+          : resourceToDisplay.pngCor
         }
   let isCorrectionVisible = false
   let isContentVisible = true

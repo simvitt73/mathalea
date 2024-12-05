@@ -136,9 +136,13 @@ def newEntry(file:str,dicoType:str)->list:
                     questionQCM: '{questionQCM}','''  # Assurez-vous que les guillemets sont corrects
 
 # Compléter la chaîne
+# EE : Suppresion des lignes suivantes pour DNB et BAC
+# url: 'static/{dicoType}/{annee}/tex/png/{filename}.tex',                
+# urlcor: 'static/{dicoType}/{annee}/tex/png/{filename}_cor.tex',                
+# png: 'static/{dicoType}/{annee}/tex/png/{filename}.png',                
+# pngCor: 'static/{dicoType}/{annee}/tex/png/{filename}_cor.png',                
+                
             newLines += f'''                
-                png: 'static/{dicoType}/{annee}/tex/png/{filename}.png',                
-                pngCor: 'static/{dicoType}/{annee}/tex/png/{filename}_cor.png',                
                 typeExercice: '{dicoType}',                               
                 tags: ['']            
             }},\n'''
@@ -160,8 +164,6 @@ def newEntry(file:str,dicoType:str)->list:
                 lieu: '{locationName(filename.split('_')[3])}',
                 mois: '{monthName(filename[9:11])}',
                 numeroInitial: '{numeroInitial}',
-                png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
-                pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
                 typeExercice: '{dicoType}',
                 tags: ['']
             }},\n'''    

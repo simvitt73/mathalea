@@ -41,7 +41,6 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
     }
     if (isStatic(paramsExercice.uuid)) {
       const p = new Promise<TypeExercice>((resolve) => {
-        // console.log('id' + paramsExercice.id)
         const exo = new Exercice()
         exo.titre = `Uuid ${paramsExercice.uuid}`
         exo.listeQuestions[0] = `Uuid ${paramsExercice.uuid}<br>`
@@ -49,10 +48,12 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
         exo.nbQuestions = 1
         const foundResource = retrieveResourceFromUuid(allStaticReferentiels, paramsExercice.uuid)
         if (isStaticType(foundResource)) {
+          const foundResourcePng = `static/${foundResource.uuid.substring(0, 3)}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+          const foundResourcePngCor = `static/${foundResource.uuid.substring(0, 3)}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
           exo.listeQuestions[0] = exo.listeQuestions[0] + `<br>
-          <img src="${foundResource.png || ''}" style="width: calc(100% * {zoomFactor}" alt="énoncé" />`
+          <img src="${foundResourcePng || ''}" style="width: calc(100% * {zoomFactor}" alt="énoncé" />`
           exo.listeCorrections[0] = exo.listeCorrections[0] + `<br>
-          <img src="${foundResource.pngCor || ''}" style="width: calc(100% * {zoomFactor}" alt="correction" />`
+          <img src="${foundResourcePngCor || ''}" style="width: calc(100% * {zoomFactor}" alt="correction" />`
         }
         mathaleaHandleParamOfOneExercice(exo, paramsExercice)
         if (options.setInteractive === '1' && exo?.interactifReady) {
