@@ -533,7 +533,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     } else if (entry[0] === 'es') {
       es = entry[1]
     } else if (entry[0] === 'title') {
-      title = entry[1]
+      title = decodeURIComponent(entry[1])
     } else if (entry[0] === 'iframe') {
       iframe = entry[1]
     } else if (entry[0] === 'answers') {
