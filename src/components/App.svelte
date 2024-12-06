@@ -29,7 +29,6 @@
   import type { CanSolutionsMode } from '../lib/types/can'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
-  import { tick } from 'svelte'
 
   let isInitialUrlHandled = false
 
@@ -89,20 +88,8 @@
   if (canIsInteractive !== null) {
     $canOptions.isInteractive = canIsInteractive === 'true'
   }
+
   onMount(handleInitialUrl)
-
-  let currentView = $globalOptions.v;
-
-  $: {
-    // 2024-12-6
-    // On force la mise à jour du DOM pour éviter que 2 components se retrouvent dans le DOM en même temps
-    if ($globalOptions.v !== currentView) {
-      currentView = null;
-      tick().then(() => {
-        currentView = $globalOptions.v;
-      });
-    }
-  }
 
   $: {
     if (isInitialUrlHandled) {
@@ -152,25 +139,25 @@
 <div class=" {$darkMode.isActive
   ? 'dark'
   : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="appComponent">
-  {#if currentView === 'diaporama' || currentView === 'overview'}
+  {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
-  {:else if currentView === 'can'}
+  {:else if $globalOptions.v === 'can'}
     <Can />
-  {:else if currentView === 'eleve'}
+  {:else if $globalOptions.v === 'eleve'}
     <Eleve />
-  {:else if currentView === 'latex'}
+  {:else if $globalOptions.v === 'latex'}
     <Latex />
-  {:else if currentView === 'alacarte'}
+  {:else if $globalOptions.v === 'alacarte'}
     <Alacarte />
-  {:else if currentView === 'confeleve'}
+  {:else if $globalOptions.v === 'confeleve'}
     <ConfigEleve />
-  {:else if currentView === 'amc'}
+  {:else if $globalOptions.v === 'amc'}
     <Amc />
-  {:else if currentView === 'moodle'}
+  {:else if $globalOptions.v === 'moodle'}
     <Moodle />
-  {:else if currentView === 'anki'}
+  {:else if $globalOptions.v === 'anki'}
     <Anki />
-  {:else}
+  {:else if $globalOptions.v !== undefined}
     <Start />
   {/if}
 </div>

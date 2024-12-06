@@ -609,6 +609,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     twoColumns = es.charAt(5) === '1'
     isTitleDisplayed = es.charAt(6) === '1'
   }
+  v = v ?? ''
   return {
     v,
     z,
