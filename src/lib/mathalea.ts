@@ -788,7 +788,7 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
   previousView.set(originView)
   window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
-    l.v = destinationView === '' ? undefined : destinationView
+    l.v = destinationView
     return l
   })
 }
