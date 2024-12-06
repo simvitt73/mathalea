@@ -110,6 +110,18 @@ export interface crpeItemInReferentiel extends BaseItemInReferentiel {
   typeExercice: 'crpe'
 }
 
+export function isCrpeItemInReferentiel (obj: any): obj is crpeItemInReferentiel {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'png' in obj && typeof obj.png === 'string' &&
+    'pngCor' in obj && typeof obj.pngCor === 'string' &&
+    // 'tex' in obj && typeof obj.tex === 'string' &&
+    // 'texCor' in obj && typeof obj.texCor === 'string' &&
+    'annee' in obj && typeof obj.annee === 'string' &&
+    'lieu' in obj && typeof obj.lieu === 'string' &&
+    'numeroInitial' in obj && typeof obj.numeroInitial === 'string' &&
+    'typeExercice' in obj && typeof obj.typeExercice === 'string' && obj.typeExercice === 'crpe'
+}
+
 /**
  * Description d'une ressource statique dans un référentiel
  * @interface StaticItemInreferentiel
@@ -308,13 +320,6 @@ export const isRealJSONReferentielObject = (obj: any): boolean => {
     return true
   }
 }
-
-export const isCrpeItemInReferentiel = (obj: any): obj is crpeItemInReferentiel =>
-  obj !== null &&
-  typeof obj !== 'undefined' &&
-  Object.keys(obj).includes('typeExercice') &&
-  obj.typeExercice !== undefined &&
-  obj.typeExercice === 'crpe'
 
 /**
  * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.
