@@ -29,6 +29,7 @@
   import type { CanSolutionsMode } from '../lib/types/can'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
+  import { tick } from 'svelte'
 
   let isInitialUrlHandled = false
 
@@ -90,6 +91,19 @@
   }
   onMount(handleInitialUrl)
 
+  let currentView = $globalOptions.v;
+
+  $: {
+    // 2024-12-6
+    // On force la mise à jour du DOM pour éviter que 2 components se retrouvent dans le DOM en même temps
+    if ($globalOptions.v !== currentView) {
+      currentView = null;
+      tick().then(() => {
+        currentView = $globalOptions.v;
+      });
+    }
+  }
+
   $: {
     if (isInitialUrlHandled) {
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -132,28 +146,29 @@
   function isDevMode () {
     return window.location.href.startsWith('http://localhost')
   }
+
 </script>
 
 <div class=" {$darkMode.isActive
   ? 'dark'
   : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="appComponent">
-  {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
+  {#if currentView === 'diaporama' || currentView === 'overview'}
     <Diaporama />
-  {:else if $globalOptions.v === 'can'}
+  {:else if currentView === 'can'}
     <Can />
-  {:else if $globalOptions.v === 'eleve'}
+  {:else if currentView === 'eleve'}
     <Eleve />
-  {:else if $globalOptions.v === 'latex'}
+  {:else if currentView === 'latex'}
     <Latex />
-  {:else if $globalOptions.v === 'alacarte'}
+  {:else if currentView === 'alacarte'}
     <Alacarte />
-  {:else if $globalOptions.v === 'confeleve'}
+  {:else if currentView === 'confeleve'}
     <ConfigEleve />
-  {:else if $globalOptions.v === 'amc'}
+  {:else if currentView === 'amc'}
     <Amc />
-  {:else if $globalOptions.v === 'moodle'}
+  {:else if currentView === 'moodle'}
     <Moodle />
-  {:else if $globalOptions.v === 'anki'}
+  {:else if currentView === 'anki'}
     <Anki />
   {:else}
     <Start />
