@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { fonctionComparaison } from '../../src/lib/interactif/comparisonFunctions'
+import exp from 'constants'
 
 describe('fonctionComparaison', () => {
   it('Doit retourner true for si saisie et answer sont identiques', () => {
@@ -205,7 +206,8 @@ describe('fonctionComparaison', () => {
     const result = fonctionComparaison('3{,}47\\operatorname{\\mathrm{m}}', '347cm', { unite: true, precisionUnite: 0 })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('3{,}5\\operatorname{\\mathrm{m}}', '3.47m', { unite: true, precisionUnite: 0.1 })
-    expect(result2.isOk).toBe(true)
+    expect(result2.isOk).toBe(false)
+    expect(result2.feedback).toBe('La réponse n\'est pas arrondie à $1$ près.')
     const result3 = fonctionComparaison('3{,}4\\operatorname{\\mathrm{m}}', '3.47m', { unite: true, precisionUnite: 0.05 })
     expect(result3.isOk).toBe(false)
 
