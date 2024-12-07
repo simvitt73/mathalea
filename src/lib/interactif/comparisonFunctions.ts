@@ -9,6 +9,7 @@ import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
+import { texNombre } from '../outils/texNombre'
 
 const engine = new ComputeEngine()
 export default engine
@@ -1615,8 +1616,18 @@ function unitsCompare (
       }
     }
     if (precision !== undefined) {
-      if (inputGrandeur.estUneApproximation(goodAnswerGrandeur, precision)) {
+      const okPrecision1: boolean = inputGrandeur.estUneApproximation(goodAnswerGrandeur, precision)
+      const okPrecision2: boolean = goodAnswerGrandeur.estUneApproximation(inputGrandeur, precision / 10)
+      if (okPrecision1 && okPrecision2) {
         return { isOk: true }
+      } else {
+        if (okPrecision1) {
+          return {
+            isOk: false,
+            feedback:
+              `La réponse n'est pas arrondie à $${texNombre(10 ** (-precision), precision)}$ près.`
+          }
+        }
       }
       return { isOk: false }
     }
