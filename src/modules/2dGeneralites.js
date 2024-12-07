@@ -340,7 +340,7 @@ export function colorToLatexOrHTML (couleur) {
       tabCouleur[1] =
         '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
     } else {
-      tabCouleur[1] = '{' + couleur + '}'
+      tabCouleur[1] = `{${couleur}}`
     }
     return tabCouleur
   }
