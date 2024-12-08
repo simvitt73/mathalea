@@ -33,7 +33,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
     this.nbQuestionsModifiable = true
-    this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Amérique du sud 12/2024.')
+    this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Amérique du sud 2024.<br>')
 
     this.versionAleatoire(0)
   }
@@ -49,19 +49,19 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     const s = droit ? -1 : 1
     switch (figure) {
       case 'rectangle': {
-        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d’écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
         {
-        \\blockmove{avancer de \\ovalnum{${av}} pas}\n
-        \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{90} degrés}\n
-         \\blockmove{avancer de \\ovalnum{a} pas}\n
-        \\blockmove{tourner  ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{b} degrés}\n
+        \\blockmove{avancer de \\ovalnum{${av}} pas}
+        \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{90} degrés}
+         \\blockmove{avancer de \\ovalnum{a} pas}
+        \\blockmove{tourner  ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{b} degrés}
       }
-         \\blockpen{relever le stylo}\n
-         \\end{scratch}\n`
-        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+         \\blockpen{relever le stylo}
+         \\end{scratch}`
+        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -77,19 +77,19 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
         break
       case 'carré': {
-        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d’écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
         {
-        \\blockmove{avancer de \\ovalnum{${av}} pas}\n
-        \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{90} degrés}\n
-         \\blockmove{avancer de \\ovalnum{a} pas}\n
-        \\blockmove{tourner  ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{b} degrés}\n
+        \\blockmove{avancer de \\ovalnum{${av}} pas}
+        \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{90} degrés}
+         \\blockmove{avancer de \\ovalnum{a} pas}
+        \\blockmove{tourner  ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{b} degrés}
       }
-         \\blockpen{relever le stylo}\n
+         \\blockpen{relever le stylo}
          \\end{scratch}\n`
-        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -110,14 +110,14 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
         \\blockpen{stylo en position d’écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
         {
-        \\blockmove{avancer de \\ovalnum{${av}} pas}\n
-        \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{60} degrés}\n
-         \\blockmove{avancer de \\ovalnum{a} pas}\n
-        \\blockmove{tourner  ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{b} degrés}\n
+        \\blockmove{avancer de \\ovalnum{${av}} pas}
+        \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{60} degrés}
+         \\blockmove{avancer de \\ovalnum{a} pas}
+        \\blockmove{tourner  ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{b} degrés}
       }
-         \\blockpen{relever le stylo}\n
+         \\blockpen{relever le stylo}
          \\end{scratch}\n`
-        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -173,21 +173,21 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     const fig4 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets5)), objets5)
     let enonce = `Dans cet exercice, aucune justification n’est attendue pour les réponses apportées aux questions 1 et 2.<br>
 À l’aide d’un logiciel de programmation, on définit un bloc ${premiereLettreEnMajuscule(figure)} pour construire un ${figure}.<br>
-${deuxColonnesResp(`${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}<br>
-${scratchblock(texteScratch1)}`, `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}<br>
-${figure1}`, { largeur1: 50, widthmincol1: 100, widthmincol2: 100, eleId: '' })}<br>
+${deuxColonnesResp(`${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}
+${scratchblock(texteScratch1)}`, `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}
+${figure1}`, { largeur1: 50, widthmincol1: 100, widthmincol2: 100, eleId: '' })}
 `
-    const listeFigs = figs.map((el, k) => `${centrage(`figure ${k + 1}`)}<br>${el}`) as [string, string, string]
+    const listeFigs = figs.map((el, k) => `${centrage(`figure ${k + 1}`)}${el}`) as [string, string, string]
     enonce += createList({
       items: [
-        `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer 𝑎 et 𝑏 poour obtenir le ${figure} ci-dessus ?`,
+        `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer $a$ et $b$ poour obtenir le ${figure} ci-dessus ?`,
     `On définit ensuite un nouveau bloc nommé  «Motif A» :<br>
     ${scratchblock(texteScratch2)}<br>
     Parmi les figures ci-dessous, laquelle est obtenue en utilisant le bloc «Motif A» ?<br>
     ${troisColonnes(...listeFigs, 200, 200)}`,
     `On définit un nouveau bloc nommé «Motif B» :<br>
     En l'exécutant on obtient la figure ci-dessous :<br>
-    ${centrage(fig4)}<br>
+    ${centrage(fig4)}
     Écrire un script du bloc «Motif B».`
       ],
       style: 'nombres'
@@ -197,10 +197,10 @@ ${figure1}`, { largeur1: 50, widthmincol1: 100, widthmincol2: 100, eleId: '' })}
     const correction1 = createList({
       items: [
         `${figure === 'rectangle'
-         ? `Le ${figure} ci-dessus, semble avoir une largeur moitié de sa longeur, il faut donc remplacer 𝑎 par $${av / 2}$.<br>`
-         : `La figure ci-dessus est un ${figure} dont les côtés semblent être égaux, il faut donc remplacer 𝑎 par $${av}$.<br>`
+         ? `Le ${figure} ci-dessus, a une largeur qui est la moitié de sa longueur, il faut donc remplacer $a$ par $${av / 2}$.<br>`
+         : `La figure ci-dessus est un ${figure} dont les côtés sont de même mesure, il faut donc remplacer $a$ par $${av}$.<br>`
          }
-         Il faut remplacer 𝑏  par $2$ car les instructions de la boucle ne construisent que deux côtés.`,
+         Il faut remplacer $b$  par $2$ car les instructions de la boucle ne construisent que deux côtés.`,
         `La figure obtenue en utilisant le bloc «Motif A» est la figure ${this.sup ? 3 : (2 + permute) % 3 + 1}.<br>
         En effet, la figure ${this.sup ? 1 : (0 + permute) % 3 + 1} est obtenue en utilisant un angle de $${angle2}^{\\circ}$ et la figure ${this.sup ? 2 : (1 + permute) % 3 + 1} comporte ${figure === 'rectangle' ? 8 : 6} ${figure}s.`,
         `Voici un script du bloc «Motif B» :<br>

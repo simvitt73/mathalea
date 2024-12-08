@@ -40,7 +40,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     this.sup = false
     this.nbQuestionsModifiable = true
     this.versionAleatoire()
-    this.introduction = texteItalique('D\'après l\'exercice 4 du brevet Métropole 2024.')
+    this.introduction = texteItalique('D\'après l\'exercice 4 du brevet Amérique du Sud 2024.<br>')
   }
 
   private appliquerLesValeurs (hauteur: number, hypo: number, profondeur: number): void {
@@ -76,10 +76,10 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const triangle = polygone(C, A, B)
     triangle.pointilles = 2
     triangle.opacite = 0.5
-    triangle.color = colorToLatexOrHTML('grey')
+    triangle.color = colorToLatexOrHTML('gray')
     triangle.hachures = 'north east lines'
-    triangle.couleurDesHachures = colorToLatexOrHTML('grey')
-    maison.couleurDeRemplissage = colorToLatexOrHTML('grey')
+    triangle.couleurDesHachures = colorToLatexOrHTML('gray')
+    maison.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const labels = labelPoint(C, A, B)
     const angDroit = codageAngleDroit(A, C, B)
     const objets = [triangle, terrain, maison, maison2, labels, angDroit]
@@ -92,12 +92,12 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const listeSommets1 = carre1.listePoints2d
     const ang1 = polygone(...listeSommets1)
     ang1.epaisseur = 0
-    ang1.couleurDeRemplissage = colorToLatexOrHTML('grey')
+    ang1.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const carre2 = polygone3d(point3d(8, 14, 0), point3d(8.7, 13.6, 0), point3d(8.7, 13.6, 0.6), point3d(8, 14, 0.6))
     const listeSommets2 = carre2.listePoints2d
     const ang2 = polygone(...listeSommets2)
     ang2.epaisseur = 0
-    ang2.couleurDeRemplissage = colorToLatexOrHTML('grey')
+    ang2.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const haut = latex2d(`${texNombre(hauteur, 2)}\\text{ m}`, -0.5, 1.5, { orientation: -90 })
     const prof = latex2d(`${texNombre(profondeur, 2)}\\text{ m}`, 5.3, 6.4, { orientation: -30 })
     const long = latex2d(`${texNombre(hypo, 2)}\\text{ m}`, 14.5, 7.4, { orientation: 40 })
@@ -106,23 +106,28 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const figure2 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets2)), objets2)
     context.anglePerspective = 30
     // enoncé
-    let enonce = `On dispose Il faut pour On dispose d’un terrain en pente sur lequel on souhaite construire cela enlever de la terre afin d’obtenir un terrain horizontal.
-des informations suivantes :<br><br>
+    let enonce = `On dispose d’un terrain en pente sur lequel on souhaite construire une maison.<br>
+    Il faut pour cela enlever de la terre afin d’obtenir un terrain horizontal.<br>
+On dispose des informations suivantes :<br><br>
 
   ${deuxColonnesResp(`${centrage(texteEnCouleurEtGras('Vue en coupe du terrain', 'black'))}${figure}`, `La maison sera construite sur le terrain horizontal représenté par le segment $[BC]$.<br>
     Le triangle $ABC$ est rectangle en $C$ et :<br>
-    - $AC = ${texNombre(hauteur, 2)}$ m;<br>
-    - $AB = ${texNombre(hypo, 2)}$ m.`, { eleId: 'figure1', largeur1: 60, widthmincol1: 360, widthmincol2: 240, stylecol2: 'vertical-align: center;' })}`
+    ${createList({
+      items: [
+        `$AC = ${texNombre(hauteur, 2)}$ m;`,
+`$AB = ${texNombre(hypo, 2)}$ m.`
+      ],
+      style: 'fleches'
+    })}`, { eleId: 'figure1', largeur1: 60, widthmincol1: 360, widthmincol2: 240, stylecol2: 'vertical-align: center;' })}`
     enonce += createList({
       items: [
   `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}$ m.`,
 `Le coût des travaux pour enlever la terre dépend de la mesure de l’angle $\\widehat{ABC}$.<br>
-Si la mesure de l’angle $\\widehat{ABC}$ est supérieure à $8,5°$, cela entraînera un surcoût des travaux (c'est à dire que les traveaux pour enlever la terre coûteront plus cher).<br>
+Si la mesure de l’angle $\\widehat{ABC}$ est supérieure à $8,5°$, cela entraînera un surcoût des travaux (c'est-à-dire que les traveaux pour enlever la terre coûteront plus cher).<br>
 Est-ce le cas pour ce terrain ?`,
 `On admet que le volume de terre enlevée correspond au prisme droit $CBAFED$ de hauteur $[CF]$ et de bases $ABC$ et $DEF$comme représenté ci-dessous.<br>
- On rappelle que les longueurs CF et AD sont égales.<br>
-      ${figure2}
-Déterminer le volume de terre à enlever en m$^3$.<br>
+ On rappelle que les longueurs CF et AD sont égales.<br>${figure2}\n
+ Déterminer le volume de terre à enlever en m$^3$.<br>
 On rappelle la volume de formule :
  ${centrage(`Volume d’un prisme droit = ${texteItalique('aire d’une base du prisme × hauteur du prisme')}.`)}`
       ],
@@ -136,21 +141,20 @@ On rappelle la volume de formule :
         $${texNombre(hypo, 2)}^2 = ${texNombre(hauteur, 2)}^2 + BC^2$, soit : $${texNombre(hypo ** 2, 4)} = ${texNombre(hauteur ** 2, 4)} + BC^2$.<br>
         On en déduit : $BC^2 = ${texNombre(hypo ** 2, 4)} - ${texNombre(hauteur ** 2, 4)}=${texNombre(hypo ** 2 - hauteur ** 2, 4)}$<br>
         D'où $BC = \\sqrt{${texNombre(hypo ** 2 - hauteur ** 2, 4)}}= ${texNombre(base, 2)}$<br>
-        Donc $CB$ mesure bien $${texNombre(base, 2)}$ m.`,
+        Donc $[CB]$ mesure bien $${texNombre(base, 2)}$ m.`,
         `On a dans le triangle $ABC$ rectangle en $C$ :<br>
         $\\sin(\\widehat{ABC}) = \\dfrac{AC}{AB}$.<br>
         $\\sin(\\widehat{ABC}) = \\dfrac{${texNombre(hauteur, 2)}}{${texNombre(hypo, 2)}}$<br>
         $\\sin(\\widehat{ABC}) ${egalOuApprox(hauteur / hypo, 3)} ${texNombre(hauteur / hypo, 3)}$<br>
-        $\\widehat{ABC} ${egalOuApprox(hauteur / hypo, 3)} \\arcsin(${texNombre(hauteur / hypo, 3)})$<br>
         $\\widehat{ABC} \\approx ${texNombre(Math.asin(hauteur / hypo) * 180 / Math.PI, 1)}^{\\circ}$<br>
         Or ${Math.asin(hauteur / hypo) * 180 / Math.PI > 8.5
-        ? ' $\\widehat{ABC} > 8,5°$, donc le surcoût des travaux est à prévoir.'
-: ' $\\widehat{ABC} ≤ 8,5°$, donc il n\'y aura pas de surcoût.'}`,
+        ? ' $\\widehat{ABC} \\gt 8,5°$, donc le surcoût des travaux est à prévoir.'
+: ' $\\widehat{ABC} \\leq 8,5°$, donc il n\'y aura pas de surcoût.'}`,
         `Le volume du prisme droit $CBAFED$ est égal à l’aire de la base $ABC$ multipliée par la hauteur $CF$ du prisme.<br>
         $V = \\mathscr{A}_{ABC} \\times CF$<br>
         $V = \\dfrac{AC \\times BC}{2} \\times CF$<br>
         $V = \\dfrac{${texNombre(hauteur, 2)} \\times ${texNombre(base, 2)}}{2} \\times ${texNombre(profondeur, 1)}$<br>
-        $V = ${texNombre(hauteur * base * profondeur / 2, 5)}$ m$^3$.`
+        $V = ${texNombre(hauteur * base * profondeur / 2, 5)}$ m$^3$`
       ],
       style: 'nombres'
     })

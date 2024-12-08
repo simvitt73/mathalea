@@ -32,7 +32,7 @@ export default class Exercice3F14DNB1 extends ExerciceBrevetA {
     this.nbQuestionsModifiable = true
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
-    this.introduction = texteItalique('D\'après l\'exercice 2 du brevet Amérique du sud 12/2024.')
+    this.introduction = texteItalique('D\'après l\'exercice 2 du brevet Amérique du Sud 2024.<br>')
 
     this.versionAleatoire()
   }
@@ -66,8 +66,8 @@ export default class Exercice3F14DNB1 extends ExerciceBrevetA {
       items: [
         `Montrer que l'image de $${x0}$ par la fonction $f$ est $${y0}$.`,
         `Déterminer l'antécédent de $${y1}$ par la fonction $g$.`,
-        `Pour calculer des images de nombres par les fonctions 𝑓 et 𝑔, on utilise un tableau et on obtient la copie d’écran suivante :<br> ${tableauValeurs}
- À l’aide des informations précédentes, citer deux antécédents de $${f(-a)}$ par la fonction 𝑓.`,
+        `Pour calculer des images de nombres par les fonctions $f$ et $g$, on utilise un tableau et on obtient la copie d’écran suivante :<br> ${tableauValeurs}
+ À l’aide des informations précédentes, citer deux antécédents de $${f(-a)}$ par la fonction $f$.`,
         `Quelle formule a-t-on pu saisir dans la cellule B2 avant de l'étirer vers la droite jusqu'à la cellule  ${lettreDepuisChiffre(1 + listeX.length)}2 ?`,
         'Existe-t-il un nombre qui a la même image par la fonction $f$ et par la fonction $g$ ?'
 
@@ -102,9 +102,9 @@ export default class Exercice3F14DNB1 extends ExerciceBrevetA {
         `${this.correctionDetaillee ? `Calculons l'antécédent de $${y1}$ par la fonction $g$.<br>` : ''}
         On cherche $x$ tel que $g(x)= ${y1}$, soit $${rienSi1(c)}x = ${y1}$, soit $x = \\dfrac{${y1}}{${rienSi1(c)}}=${y1 / c}$.<br>
         L'antécédent de $${y1}$ par la fonction $g$ est $${y1 / c}$.`,
-        `D'après la réponse 1.a. $${x0}$  est un antécédent de $${f(x0)}$ par la fonction $f$.<br>
-        Et d'après le tableau $${listeX.find(e => f(e) === f(x0))}$ est un autre antécédent de $${f(x0)}$ par la fonction $f$.`,
-        `On peut saisir la formule B1 * B1 ${bb === -1 ? '- B1' : bb === 1 ? '+ B1' : `${bb < 0 ? '- ' : '+ '} ${Math.abs(bb)} * B1`} ${cc < 0 ? '- ' : '+ '} ${Math.abs(cc)} dans la cellule B2 avant de l'étirer vers la droite jusqu'à la cellule ${lettreDepuisChiffre(1 + listeX.length)}2.
+        `D'après la réponse 1.a., $${x0}$  est un antécédent de $${f(x0)}$ par la fonction $f$.<br>
+        Et d'après le tableau, $${listeX.find(e => f(e) === f(x0))}$ est un autre antécédent de $${f(x0)}$ par la fonction $f$.`,
+        `On peut saisir la formule = B1 * B1 ${bb === -1 ? '- B1' : bb === 1 ? '+ B1' : `${bb < 0 ? '- ' : '+ '} ${Math.abs(bb)} * B1`} ${cc < 0 ? '- ' : '+ '} ${Math.abs(cc)} dans la cellule B2 avant de l'étirer vers la droite jusqu'à la cellule ${lettreDepuisChiffre(1 + listeX.length)}2.
       ${this.correctionDetaillee ? '<br>Cette formule calcule $f(x)$ pour la valeur de $x$ située en ligne 1 et colonne B.' : ''}`,
         `${listeAntGEgalG.length > 1
            ? `D'après le tableau, il existe ${nombreEnLettres(listeAntGEgalG.length)} nombres qui sont :<br>
@@ -118,7 +118,7 @@ export default class Exercice3F14DNB1 extends ExerciceBrevetA {
     })
     const sousListe2Correction = createList({
       items: [
-        `Posons pour tout x, $E=(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})$ et développons :<br>
+        `Posons pour tout $x$, $E=(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})$ et développons :<br>
         $\\begin{aligned}E &= x^2${ecritureAlgebrique(a)}x${ecritureAlgebrique(b)}x${ecritureAlgebrique(cc)}\\\\
         &= x^2${ecritureAlgebriqueSauf1(a + b)}x${ecritureAlgebrique(cc)}\\end{aligned}$<br>
         Ce qui est la définition de $f(x)$.`,
