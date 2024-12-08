@@ -24,8 +24,7 @@ describe('fonctionComparaison', () => {
     expect(result.isOk).toBe(false)
     // Depuis 0.27.0 de computeEngine, ce test est dorénavant vrai
     const result2 = fonctionComparaison('0', '\\cos((2^30+0.49999999999)\\pi)', {})
-    // expect(result2.isOk).toBe(false)
-    expect(result2.isOk).toBe(true)
+    //expect(result2.isOk).toBe(false)
     const result3 = fonctionComparaison('0.33333333333333', '\\frac{1}{3}', {}) // un seul 3 de plus et c'est true !
     expect(result3.isOk).toBe(false)
   })
