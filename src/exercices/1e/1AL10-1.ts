@@ -94,7 +94,7 @@ export default class ModeliserSuites extends Exercice {
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}c_0=%{champ1}\\\\c_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}c_0=%{champ1}\\\\c_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -132,7 +132,7 @@ qui suit le 1er juillet 2024.<br>
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}u_0=%{champ1}\\\\u_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}u_0=%{champ1}\\\\u_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -171,7 +171,7 @@ au 1er janvier de l'année $2022 + n$.<br>
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}v_0=%{champ1}\\\\v_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}v_0=%{champ1}\\\\v_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -206,7 +206,7 @@ au 1er janvier de l'année $2022 + n$.<br>
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}c_0=%{champ1}\\\\c_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}c_0=%{champ1}\\\\c_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -243,7 +243,7 @@ Pour l’année $2024$, il y a $${a}$ abonnés.<br>`
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}u_0=%{champ1}\\\\u_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}u_0=%{champ1}\\\\u_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -283,7 +283,7 @@ Le premier versement a lieu le $25$ février $2024$.<br>`
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}v_0=%{champ1}\\\\v_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, '\\begin{cases}v_0=%{champ1}\\\\v_{n+1}=%{champ2}\\end{cases}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -317,7 +317,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierSuite)
           }
           handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
             { formatInteractif: 'fillInTheBlank' }
@@ -341,7 +341,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, 'w_n=%{champ1}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, 'w_n=%{champ1}', KeyboardType.clavierSuite)
             handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
               { formatInteractif: 'fillInTheBlank' }
             )
@@ -365,7 +365,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierSuite)
             handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
               { formatInteractif: 'fillInTheBlank' }
             )
@@ -388,7 +388,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           }
 
           if (this.interactif) {
-            texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierDeBase)
+            texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierSuite)
             handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
               { formatInteractif: 'fillInTheBlank' }
             )
