@@ -29,8 +29,6 @@ export const refs = {
 }
 export default function SommeDeDurees () {
   Exercice.call(this)
-  this.titre = titre
-  this.keyboard = ['hms']
   this.consigne = this.nbQuestions > 1 ? 'Compléter les égalités suivantes.' : 'Compléter l\'égalité suivante.'
   this.sup = '1-2' // 2 niveaux de difficultés
   this.spacing = 2
