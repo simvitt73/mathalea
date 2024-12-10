@@ -72,7 +72,6 @@ export default function SommeDeDurees () {
         m2 = randint(40, 59)
         t1 = new Hms({ minute: m1, second: s1 })
         t2 = new Hms({ minute: m2, second: s2 })
-        // setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}= ${miseEnEvidence(`1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}`)}$`
       } else if (typesDeQuestions[i] === 2) {
@@ -82,7 +81,6 @@ export default function SommeDeDurees () {
         m2 = randint(30, 50)
         t1 = new Hms({ minute: m1, hour: h1 })
         t2 = new Hms({ minute: m2, hour: h2 })
-        // setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min} = ${miseEnEvidence(`${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}`)}$`
       } else if (typesDeQuestions[i] === 3) {
@@ -94,7 +92,6 @@ export default function SommeDeDurees () {
         s2 = randint(1, 59 - s1)
         t1 = new Hms({ hour: h1, minute: m1, second: s1 })
         t2 = new Hms({ hour: h2, minute: m2, second: s2 })
-        // setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${miseEnEvidence(`${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}`)}$`
       } else if (typesDeQuestions[i] === 4) {
@@ -104,7 +101,6 @@ export default function SommeDeDurees () {
         m2 = randint(40, 59)
         t1 = new Hms({ minute: m1, second: s1 })
         t2 = new Hms({ minute: m2, second: s2 })
-        // setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} = ${miseEnEvidence(`1~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}`)}$`
       } else if (typesDeQuestions[i] === 5) {
@@ -117,7 +113,6 @@ export default function SommeDeDurees () {
           s2 = randint(1, 60 - s1 - 1)
           t1 = new Hms({ hour: h1, minute: m1, second: s1 })
           t2 = new Hms({ hour: h2, minute: m2, second: s2 })
-          // setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
           texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
           texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${miseEnEvidence(`${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}`)}$`
         } else {
@@ -129,7 +124,6 @@ export default function SommeDeDurees () {
           s2 = randint(60 - s1, 59)
           t1 = new Hms({ hour: h1, minute: m1, second: s1 })
           t2 = new Hms({ hour: h2, minute: m2, second: s2 })
-          // setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
           texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
           texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=`
           texteCorr += ` ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2}~\\text{h}~${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} =${miseEnEvidence(`${h1 + h2 + 1}~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}`)}$`
