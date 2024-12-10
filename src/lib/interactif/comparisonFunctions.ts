@@ -574,25 +574,25 @@ export function fonctionComparaison (
     fractionReduite, // Documenté
     fractionDecimale, // Documenté
     fractionEgale, // Documenté
-    fractionIdentique,
+    fractionIdentique, // Documenté
     nombreDecimalSeulement, // Documenté
     operationSeulementEtNonResultat, // Documenté
-    additionSeulementEtNonResultat,
-    soustractionSeulementEtNonResultat,
-    multiplicationSeulementEtNonResultat,
-    divisionSeulementEtNonResultat,
+    additionSeulementEtNonResultat, // Documenté
+    soustractionSeulementEtNonResultat, // Documenté
+    multiplicationSeulementEtNonResultat, // Documenté
+    divisionSeulementEtNonResultat, // Documenté
     resultatSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
-    suiteDeNombres,
-    suiteRangeeDeNombres,
+    suiteDeNombres, // Documenté
+    suiteRangeeDeNombres, // Documenté
     puissance, // Documenté
     seulementCertainesPuissances, // Documenté
     sansExposantUn, // Documenté
     factorisation, // Documenté
     exclusifFactorisation, // Documenté
     nbFacteursIdentiquesFactorisation, // Documenté
-    unSeulFacteurLitteral,
+    unSeulFacteurLitteral, // Documenté
     HMS,
     intervalle,
     estDansIntervalle,
