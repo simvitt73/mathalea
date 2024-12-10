@@ -35,12 +35,15 @@ export default class MultiplierEnDistribuant extends Exercice {
       '3 : Mélange'
     ].join('\n')]
     this.sup2 = '3'
-    this.comment = `Pour multiplier deux nombres, on peut utiliser la distributivité de la multiplication sur l'addition ou la soustraction.<br>
-    Pour le développement, il y a un parti pris de choisir l'addition pour les nombres se finissant par 1, 2, 3 et la soustraction pour les nombres se finissant par 8 ou 9.<br>
+    this.comment = `Pour le développement, il y a un parti pris de choisir l'addition pour les nombres se finissant par 1, 2, 3 et la soustraction pour les nombres se finissant par 8 ou 9.<br>
   N'hésitez pas à me faire part de vos remarques et suggestions.`
   }
 
   nouvelleVersion (): void {
+    this.consigne = this.nbQuestions > 1
+      ? 'Calculer les produits suivants en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
+      : 'Calculer le produit suivant en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
+
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3 })
     const sensDesQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3 })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -57,13 +60,23 @@ export default class MultiplierEnDistribuant extends Exercice {
               b = randint(1, 3) + randint(2, 3) * 10
               dizaineSupOuInf = Math.floor(b / 10) * 10
               texte = `$${a} \\times ${b}$`
-              texteCorr = `$\\begin{aligned}${a} \\times ${b} &= ${a}\\times ${dizaineSupOuInf} + ${a}\\times ${b % 10}\\\\ &= ${a * dizaineSupOuInf}+${a * (b % 10)}\\\\ &=${a * b}\\end{aligned}$`
+              texteCorr = `$\\begin{aligned}${a} \\times ${b}
+              &=${a}\\times (${dizaineSupOuInf} + ${b % 10})\\\\
+              &= ${a}\\times ${dizaineSupOuInf} + ${a}\\times ${b % 10}\\\\
+              &= ${a * dizaineSupOuInf}+${a * (b % 10)}\\\\
+              &=${a * b}
+              \\end{aligned}$`
               break
             default:
               b = randint(2, 3) * 10 - choice([1, 2])
               dizaineSupOuInf = Math.ceil(b / 10) * 10
               texte = `$${a} \\times ${b}$`
-              texteCorr = `$\\begin{aligned}${a} \\times ${b} &= ${a}\\times ${dizaineSupOuInf} - ${dizaineSupOuInf - b}\\times${a}\\\\ &= ${a * dizaineSupOuInf}-${a * (dizaineSupOuInf - b)}\\\\ &=${a * b}\\end{aligned}$`
+              texteCorr = `$\\begin{aligned}${a} \\times ${b}
+              &=  ${a}\\times (${dizaineSupOuInf} - ${dizaineSupOuInf - b})\\\\
+              &= ${a}\\times ${dizaineSupOuInf} - ${a}\\times ${dizaineSupOuInf - b}\\\\
+              &= ${a * dizaineSupOuInf}-${a * (dizaineSupOuInf - b)}\\\\
+              &=${a * b}
+              \\end{aligned}$`
               break
           }
           reponse = String(a * b)
@@ -95,7 +108,8 @@ export default class MultiplierEnDistribuant extends Exercice {
         question: i,
         objetReponse: { reponse: { value: reponse } },
         typeInteractivite: 'mathlive',
-        texteAvant: ' $=$ '
+        texteAvant: ' $=$ ',
+        texteApres: ' (écrire seulement le résultat sous forme d\'un nombre entier)'
       })
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
