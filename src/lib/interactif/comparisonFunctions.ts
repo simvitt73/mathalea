@@ -593,7 +593,7 @@ export function fonctionComparaison (
     exclusifFactorisation, // Documenté
     nbFacteursIdentiquesFactorisation, // Documenté
     unSeulFacteurLitteral, // Documenté
-    HMS,
+    HMS, // Documenté
     intervalle,
     estDansIntervalle,
     ecritureScientifique,
