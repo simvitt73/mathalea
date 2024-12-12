@@ -23,8 +23,8 @@ describe('fonctionComparaison', () => {
     const result = fonctionComparaison('2^{-30}-2^{-31}', '0', {}) // On teste les calculs très petits différents de 0
     expect(result.isOk).toBe(false)
     // Depuis 0.27.0 de computeEngine, ce test est dorénavant vrai
-    const result2 = fonctionComparaison('0', '\\cos((2^30+0.49999999999)\\pi)', {})
-    //expect(result2.isOk).toBe(false)
+    // const result2 = fonctionComparaison('0', '\\cos((2^30+0.49999999999)\\pi)', {})
+    // expect(result2.isOk).toBe(false)
     const result3 = fonctionComparaison('0.33333333333333', '\\frac{1}{3}', {}) // un seul 3 de plus et c'est true !
     expect(result3.isOk).toBe(false)
   })
@@ -182,7 +182,9 @@ describe('fonctionComparaison', () => {
   })
 
   it('Vérifie le fonctionnement de l\'option ecritureScientifique', () => {
-    const result = fonctionComparaison('1{,}357\\times 10^3', '1357', { ecritureScientifique: true })
+    let result = fonctionComparaison('1{,}357\\times 10^3', '1357', { ecritureScientifique: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('1{,}357\\times 10^{3}', '1357', { ecritureScientifique: true })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('1{,}357\\times 1000', '1357', { ecritureScientifique: true })
     expect(result2.isOk).toBe(false)

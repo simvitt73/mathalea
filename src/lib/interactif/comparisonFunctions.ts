@@ -10,6 +10,7 @@ import Hms from '../../modules/Hms'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
+import { number } from 'mathjs'
 
 const engine = new ComputeEngine()
 export default engine
@@ -596,7 +597,7 @@ export function fonctionComparaison (
     HMS, // Documenté
     intervalle,
     estDansIntervalle,
-    ecritureScientifique,
+    ecritureScientifique, // Documenté
     unite,
     precisionUnite,
     texteAvecCasse,
@@ -658,7 +659,7 @@ export function fonctionComparaison (
   if (HMS) return hmsCompare(input, goodAnswer)
   if (intervalle) return intervalsCompare(input, goodAnswer)
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
-  if (ecritureScientifique) return scientificCompare(input, goodAnswer)
+  if (ecritureScientifique) return scientifiqueCompare(input, goodAnswer)
   if (unite) { return unitsCompare(input, goodAnswer, { precision: precisionUnite }) }
   if (factorisation || exclusifFactorisation || nbFacteursIdentiquesFactorisation || unSeulFacteurLitteral) return factorisationCompare(input, goodAnswer, { exclusifFactorisation, nbFacteursIdentiquesFactorisation, unSeulFacteurLitteral })
   if (puissance || seulementCertainesPuissances || sansExposantUn) return comparaisonPuissances(input, goodAnswer, { seulementCertainesPuissances, sansExposantUn })
@@ -1168,13 +1169,13 @@ export function expressionDeveloppeeEtNonReduiteCompare (
 }
 
 /**
- * comparaison de nombres en écritures scientifiques @todo à vérifier celle-là, j'suis pas convaincu
+ * Comparaison de nombres en écriture scientifique
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
- * @author Jean-Claude Lhote
+ * @author Eric Elter
  */
-function scientificCompare (input: string, goodAnswer: string): ResultType {
+function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner([
     'virgules',
     'espaces',
@@ -1183,17 +1184,22 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
   ])
   const saisieClean = clean(input)
   const reponseClean = clean(goodAnswer)
-  if (
-    engine
-      .parse(saisieClean)
-      .canonical.isSame(engine.parse(reponseClean).canonical)
-  ) {
-    const [mantisse] = saisieClean.split('\\times')
-    if (Number(mantisse) >= 1 && Number(mantisse) < 10) {
-      return { isOk: true }
-    }
-  }
-  return { isOk: false }
+
+  let saisieCleanFormattee = saisieClean.replace(/\s+/g, '') // Supprimer tous les espaces
+    .replace(/\\times/g, '\\cdot') // Remplacer \times par \cdot
+    .replace(/\^(\d+)/g, '^{$1}') // Ajouter des accolades autour des exposants
+
+  // Si la puissance est 0, on accepte mais computeEngine ne met pas en écriture scientitique et donc la comparaison entre écriture scientifique n'est pas possible.
+  // Donc il faut ces trois lignes pour comparer les nombres décimaux, dans ce cas précis.
+  const match = saisieCleanFormattee.match(/\^{(-?\d+)}$/)
+  const puissance = match ? number(match[match.length - 1]) : null
+  if (puissance === 0) saisieCleanFormattee = engine.parse(saisieClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
+
+  const reponseCleanFormattee = engine.parse(reponseClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
+  if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
+
+  if (engine.parse(saisieClean).isEqual(engine.parse(reponseClean))) return { isOk: false, feedback: 'La réponse fournie est bien égale à celle attendue mais la réponse fournie n\'est pas en écriture scientifique.' }
+  return { isOk: false, feedback: 'La réponse fournie n\'est pas égale à celle attendue.' }
 }
 
 /**
