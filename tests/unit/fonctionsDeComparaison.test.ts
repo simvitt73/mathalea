@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { fonctionComparaison } from '../../src/lib/interactif/comparisonFunctions'
-import exp from 'constants'
+// import exp from 'constants'
 
 describe('fonctionComparaison', () => {
   it('Doit retourner true for si saisie et answer sont identiques', () => {

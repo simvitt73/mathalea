@@ -562,7 +562,7 @@ export function setReponse (
             .replace(',', '.')
         }
         break
-      /* case 'nombreDecimal':
+        /* case 'nombreDecimal':
         if (!(reponse instanceof Decimal)) {
           window.notify(
             'setReponse : type "nombreDecimal" un nombre est attendu !',
@@ -570,7 +570,7 @@ export function setReponse (
           )
         }
         break */
-      case 'ecritureScientifique':
+        /* case 'ecritureScientifique':
         if (!(typeof reponse === 'string')) {
           window.notify(
             'setReponse : type "ecritureScientifique" la réponse n\'est pas un string !',
@@ -578,7 +578,7 @@ export function setReponse (
           )
         }
         // ToFix : vérifier que la chaine est au bon format
-        break
+        break */
 
       case 'texte':
         if (!(typeof reponse === 'string')) {
@@ -842,7 +842,8 @@ export function setReponse (
           },
           params
         ) */
-      case 'ecritureScientifique':
+      // Avec handleAnswers(), ce case n'a plus lieu d'être !
+      /* case 'ecritureScientifique':
         {
           if (typeof reponse !== 'string') {
             window.notify(
@@ -878,7 +879,7 @@ export function setReponse (
             { reponses, exercice: exercice.uuid }
           )
         }
-        break
+        break */
       case 'texte':
         if (typeof reponse !== 'string') {
           window.notify(

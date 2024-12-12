@@ -110,15 +110,19 @@ export default function NotationScientifique () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (this.sup === 1) {
-          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), {
-            formatInteractif: 'ecritureScientifique',
-            digits: listeTypeDeQuestions[i] + 1,
-            decimals: listeTypeDeQuestions[i],
-            signe: false,
-            exposantNbChiffres: 1,
-            exposantSigne: true,
-            approx: 0
-          })
+          if (context.isAmc) {
+            setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), {
+              // formatInteractif: 'ecritureScientifique',
+              digits: listeTypeDeQuestions[i] + 1,
+              decimals: listeTypeDeQuestions[i],
+              signe: false,
+              exposantNbChiffres: 1,
+              exposantSigne: true,
+              approx: 0
+            })
+          } else {
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ecritureScientifique: true } } })
+          }
         } else {
           if (context.isAmc) {
             setReponse(this, i, reponse, {

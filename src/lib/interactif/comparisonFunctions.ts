@@ -1169,7 +1169,7 @@ export function expressionDeveloppeeEtNonReduiteCompare (
 }
 
 /**
- * Comparaison de nombres en écriture scientifique
+ * Comparaison de nombres en notation scientifique
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
@@ -1189,7 +1189,7 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
     .replace(/\\times/g, '\\cdot') // Remplacer \times par \cdot
     .replace(/\^(\d+)/g, '^{$1}') // Ajouter des accolades autour des exposants
 
-  // Si la puissance est 0, on accepte mais computeEngine ne met pas en écriture scientitique et donc la comparaison entre écriture scientifique n'est pas possible.
+  // Si la puissance est 0, on accepte mais computeEngine ne met pas en notation scientitique et donc la comparaison entre notation scientifique n'est pas possible.
   // Donc il faut ces trois lignes pour comparer les nombres décimaux, dans ce cas précis.
   const match = saisieCleanFormattee.match(/\^{(-?\d+)}$/)
   const puissance = match ? number(match[match.length - 1]) : null
@@ -1198,7 +1198,7 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   const reponseCleanFormattee = engine.parse(reponseClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
   if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
 
-  if (engine.parse(saisieClean).isEqual(engine.parse(reponseClean))) return { isOk: false, feedback: 'La réponse fournie est bien égale à celle attendue mais la réponse fournie n\'est pas en écriture scientifique.' }
+  if (engine.parse(saisieClean).isEqual(engine.parse(reponseClean))) return { isOk: false, feedback: 'La réponse fournie est bien égale à celle attendue mais la réponse fournie n\'est pas en notation scientifique.' }
   return { isOk: false, feedback: 'La réponse fournie n\'est pas égale à celle attendue.' }
 }
 
