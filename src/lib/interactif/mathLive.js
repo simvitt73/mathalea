@@ -76,7 +76,15 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (input == null || input === '') {
             result = { isOk: false, feedback: `Vous devez saisir une réponse dans la cellule ${key}.<br>` }
           } else {
-            result = compareFunction(input.value, reponse.value, options)
+            if (Array.isArray(reponse.value)) {
+              let ii = 0
+              while ((!result?.isOk) && (ii < reponse.value.length)) {
+                result = compareFunction(input.value, reponse.value[ii], options)
+                ii++
+              }
+            } else {
+              result = compareFunction(input.value, reponse.value, options)
+            }
           }
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (result.isOk) {
@@ -120,7 +128,15 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (saisie == null || saisie === '') {
             result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie N°${key.charAt(key.length - 1)}.<br>` }
           } else {
-            result = compareFunction(saisie, reponse.value, options)
+            if (Array.isArray(reponse.value)) {
+              let ii = 0
+              while ((!result?.isOk) && (ii < reponse.value.length)) {
+                result = compareFunction(saisie, reponse.value[ii], options)
+                ii++
+              }
+            } else {
+              result = compareFunction(saisie, reponse.value, options)
+            }
           }
           if (result.isOk) {
             points.push(1)
