@@ -330,7 +330,6 @@ export default function CalculsDeDureesOuHoraires () {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms, { texteAvant: texteInteractif + ' : ' })
         handleAnswers(this, i, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
       }
-      texte += '<br>' + reponse.toString()
 
       if (this.questionJamaisPosee(i, m1, d1, h1, m2, d2, h2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
