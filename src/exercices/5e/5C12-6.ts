@@ -1,5 +1,6 @@
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -40,9 +41,12 @@ export default class MultiplierEnDistribuant extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.consigne = this.nbQuestions > 1
-      ? 'Calculer les produits suivants en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
-      : 'Calculer le produit suivant en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
+    if (context.isDiaporama) this.consigne = 'Calculer mentalement'
+    else {
+      this.consigne = this.nbQuestions > 1
+        ? 'Calculer les produits suivants en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
+        : 'Calculer le produit suivant en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
+    }
 
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3 })
     const sensDesQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3 })

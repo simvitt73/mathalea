@@ -67,14 +67,20 @@ export function resizeContent (container: HTMLElement | null, zoom: number) {
 export function updateFigures (svgContainer: Element, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
-    if (svgDiv.clientWidth > 0 && svgDiv instanceof SVGElement) {
+    if (svgDiv instanceof SVGElement) {
       const figure = svgDiv
       const width = figure.getAttribute('width')
       const height = figure.getAttribute('height')
       if (!figure.dataset.widthInitiale && width != null) figure.dataset.widthInitiale = width
       if (!figure.dataset.heightInitiale && height != null) figure.dataset.heightInitiale = height
-      figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
-      figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+      const newHeight = (Number(figure.dataset.heightInitiale) * zoom).toString()
+      const newWidth = (Number(figure.dataset.widthInitiale) * zoom).toString()
+      if (newHeight !== height) {
+        figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
+      }
+      if (newWidth !== width) {
+        figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+      }
 
       // accorder la position des éléments dans la figure SVG
       const eltsInVariationTables = svgContainer.getElementsByClassName('divLatex') ?? []
@@ -109,7 +115,7 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
     const widthAttributeExists: boolean = tag.hasAttribute('width')
     const heightAttributeExists: boolean = tag.hasAttribute('height')
     if (tag.hasAttribute('data-width') === false) {
-      let originalWidth: string|null
+      let originalWidth: string | null
       if (widthAttributeExists) {
         originalWidth = tag.getAttribute('width')
       } else {
@@ -124,7 +130,7 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
       tag.dataset.widthUnit = widthUnit
     }
     if (tag.hasAttribute('data-height') === false) {
-      let originalHeight:string|null
+      let originalHeight:string | null
       if (heightAttributeExists) {
         originalHeight = tag.getAttribute('height')
         heightUnit = 'px'

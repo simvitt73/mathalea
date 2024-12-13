@@ -36,8 +36,6 @@ export const refs = {
 }
 export default function CalculsDeDureesOuHoraires () {
   Exercice.call(this)
-  this.keyboard = ['hms']
-  this.consigne = ''
   this.sup = 4
   this.spacing = 2
   this.nbQuestions = 3
