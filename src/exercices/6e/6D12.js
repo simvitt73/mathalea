@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenom, prenomF } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms'
@@ -34,16 +34,23 @@ export const refs = {
   'fr-fr': ['6D12'],
   'fr-ch': ['10GM3-4']
 }
-export default function CalculsDeDureesOuHoraires () {
-  Exercice.call(this)
-  this.sup = 4
-  this.spacing = 2
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 2
+export default class CalculsDeDureesOuHoraires extends Exercice {
+  constructor () {
+    super()
+    this.sup = 4
+    this.spacing = 2
+    this.nbQuestions = 3
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.spacingCorr = 2
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      "1 : Calcul de durées\n2 : Calcul de l'horaire de fin\n3 : Calcul de l'horaire de début\n4 : Mélange"
+    ]
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typeDeContexte = combinaisonListes(
       [1, 2, 3, 4, 5],
       this.nbQuestions
@@ -330,7 +337,6 @@ export default function CalculsDeDureesOuHoraires () {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms, { texteAvant: texteInteractif + ' : ' })
         handleAnswers(this, i, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
       }
-      texte += '<br>' + reponse.toString()
 
       if (this.questionJamaisPosee(i, m1, d1, h1, m2, d2, h2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
@@ -342,9 +348,4 @@ export default function CalculsDeDureesOuHoraires () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    "1 : Calcul de durées\n2 : Calcul de l'horaire de fin\n3 : Calcul de l'horaire de début\n4 : Mélange"
-  ]
 }
