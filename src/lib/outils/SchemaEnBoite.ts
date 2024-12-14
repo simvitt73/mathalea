@@ -15,39 +15,39 @@ type BarreSchemaType = {
 type LigneSchemaType = BarreSchemaType[]
 type LigneAccoladeType = AccoladeType[]
 export default class SchemaEnBoite {
-  braceT?: LigneAccoladeType
-  braceB?: LigneAccoladeType
-  top: LigneSchemaType
-  bottom: LigneSchemaType
+  topBraces?: LigneAccoladeType
+  bottomBraces?: LigneAccoladeType
+  topBar: LigneSchemaType
+  bottomBar: LigneSchemaType
 
-  constructor ({ top, bottom, braceB, braceT }: { top: LigneSchemaType, bottom: LigneSchemaType, braceB?: LigneAccoladeType, braceT?: LigneAccoladeType } = { top: [], bottom: [] }) {
-    this.top = top
-    this.bottom = bottom
-    if (braceB) {
-      this.braceB = braceB
+  constructor ({ topBar, bottomBar, bottomBraces, topBraces }: { topBar: LigneSchemaType, bottomBar: LigneSchemaType, bottomBraces?: LigneAccoladeType, topBraces?: LigneAccoladeType } = { topBar: [], bottomBar: [] }) {
+    this.topBar = topBar
+    this.bottomBar = bottomBar
+    if (bottomBraces) {
+      this.bottomBraces = bottomBraces
     }
-    if (braceT) {
-      this.braceT = braceT
+    if (topBraces) {
+      this.topBraces = topBraces
     }
   }
 
   concat (boite: SchemaEnBoite): SchemaEnBoite {
-    return new SchemaEnBoite({ top: this.top.concat(boite.top) ?? [], bottom: this.bottom.concat(boite.bottom) ?? [], braceB: this.braceB?.concat(boite.braceB ?? []) ?? [], braceT: this.braceT?.concat(boite.braceT ?? []) ?? [] })
+    return new SchemaEnBoite({ topBar: this.topBar.concat(boite.topBar) ?? [], bottomBar: this.bottomBar.concat(boite.bottomBar) ?? [], bottomBraces: this.bottomBraces?.concat(boite.bottomBraces ?? []) ?? [], topBraces: this.topBraces?.concat(boite.topBraces ?? []) ?? [] })
   }
 
   display (): string {
     if (context.isHtml) {
       let ligneAccoladeH = ''
-      if (this.braceT) {
-        for (let k = 0; k < this.braceT.length; k++) {
-          const accolade = this.braceT[k]
+      if (this.topBraces) {
+        for (let k = 0; k < this.topBraces.length; k++) {
+          const accolade = this.topBraces[k]
           const start = accolade.start
           const end = accolade.end
           const texte = accolade.text
           if (start != null && end != null && texte != null) {
             ligneAccoladeH +=
             `<div class="SchemaItem" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none">
-            <div class="latexAccoladeTop">$${texte}$</div>
+            <div class="latexAccoladeTop">${texte}</div>
             <div class="curly-brace">
             <div class="brace right"></div>
             <div class="brace left"></div>
@@ -58,31 +58,31 @@ export default class SchemaEnBoite {
       }
       let ligne1 = ''
       let start = 1
-      for (let k = 0; k < this.top.length; k++) {
-        ligne1 += `<div class="SchemaItem" style="grid-row: 2; grid-column-start: ${start}; grid-column-end: ${start + this.top[k].length}; background-color:${this.top[k].color}; text-align:center;">${this.top[k].content}</div>\n`
-        start += this.top[k].length
+      for (let k = 0; k < this.topBar.length; k++) {
+        ligne1 += `<div class="SchemaItem" style="grid-row: 2; grid-column-start: ${start}; grid-column-end: ${start + this.topBar[k].length}; background-color:${this.topBar[k].color}; text-align:center; ${k > 0 ? ' border-left: none;' : ''}">${this.topBar[k].content}</div>\n`
+        start += this.topBar[k].length
       }
       let ligne2 = ''
       start = 1
-      for (let k = 0; k < this.bottom.length; k++) {
-        ligne2 += `<div class="SchemaItem" style="grid-row: 3; grid-column-start: ${start}; grid-column-end: ${start + this.bottom[k].length}; background-color:${this.bottom[k].color}; text-align:center;">${this.bottom[k].content}</div>\n`
-        start += this.bottom[k].length
+      for (let k = 0; k < this.bottomBar.length; k++) {
+        ligne2 += `<div class="SchemaItem" style="grid-row: 3; grid-column-start: ${start}; grid-column-end: ${start + this.bottomBar[k].length}; background-color:${this.bottomBar[k].color}; text-align:center; ${k > 0 ? ' border-left: none;' : ''}">${this.bottomBar[k].content}</div>\n`
+        start += this.bottomBar[k].length
       }
       let ligneAccoladeB = ''
-      if (this.braceB) {
-        for (let k = 0; k < this.braceB.length; k++) {
-          const brace = this.braceB[k]
+      if (this.bottomBraces) {
+        for (let k = 0; k < this.bottomBraces.length; k++) {
+          const brace = this.bottomBraces[k]
           const start = brace.start
           const end = brace.end
           const texte = brace.text
           if (start != null && end != null && texte != null) {
             ligneAccoladeB +=
-            `<div class="SchemaItem" style="grid-row: 4; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none">
+            `<div class="SchemaItem" style="grid-row: 4; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none;">
             <div class="curly-brace">
             <div class="brace left"></div>
             <div class="brace right"></div>
             </div>
-             <div class="latexAccoladeBottom">$${texte}$</div>
+             <div class="latexAccoladeBottom">${texte}</div>
             </div>\n`
           }
         }
@@ -90,39 +90,39 @@ export default class SchemaEnBoite {
       return `<div class="SchemaContainer">${ligneAccoladeH}\n${ligne1}\n${ligne2}\n${ligneAccoladeB}</div>`
     } else { // latex
       let latex = '\\begin{tikzpicture}\n'
-      if (this.braceT) {
-        for (let k = 0; k < this.braceT.length; k++) {
-          const brace = this.braceT[k]
+      if (this.topBraces) {
+        for (let k = 0; k < this.topBraces.length; k++) {
+          const brace = this.topBraces[k]
           const start = (brace.start - 1) / 2
           const end = (brace.end - 1) / 2
           const texte = brace.text
           if (start != null && end != null && texte != null) {
-            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt] (${start},3) -- node[above=10pt] {$${texte}$} (${end},3);\n`
+            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt] (${start},3) -- node[above=10pt] {${texte}} (${end},3);\n`
           }
         }
       }
       let start = 0
-      for (let k = 0; k < this.top.length; k++) {
-        const barre = this.top[k]
+      for (let k = 0; k < this.topBar.length; k++) {
+        const barre = this.topBar[k]
         const end = start + barre.length / 2
-        latex += `\\draw[fill=${barre.color}] (${start},3) rectangle (${end},2) node[pos=.5] {$${barre.content}$};\n`
+        latex += `\\draw[fill=${barre.color}] (${start},3) rectangle (${end},2) node[pos=.5] {${barre.content}};\n`
         start += barre.length / 2
       }
       start = 0
-      for (let k = 0; k < this.bottom.length; k++) {
-        const barre = this.bottom[k]
+      for (let k = 0; k < this.bottomBar.length; k++) {
+        const barre = this.bottomBar[k]
         const end = start + barre.length / 2
-        latex += `\\draw[fill=${barre.color}] (${start},2) rectangle (${end},1) node[pos=.5] {$${barre.content}$};\n`
+        latex += `\\draw[fill=${barre.color}] (${start},2) rectangle (${end},1) node[pos=.5] {${barre.content}};\n`
         start += barre.length / 2
       }
-      if (this.braceB) {
-        for (let k = 0; k < this.braceB.length; k++) {
-          const brace = this.braceB[k]
+      if (this.bottomBraces) {
+        for (let k = 0; k < this.bottomBraces.length; k++) {
+          const brace = this.bottomBraces[k]
           const start = (brace.start - 1) / 2
           const end = (brace.end - 1) / 2
           const texte = brace.text
           if (start != null && end != null && texte != null) {
-            latex += `\\draw[decorate,decoration={brace,mirror,amplitude=10pt},xshift=0pt,yshift=0pt] (${start},1) -- node[below=10pt] {$${texte}$} (${end},1);\n`
+            latex += `\\draw[decorate,decoration={brace,mirror,amplitude=10pt},xshift=0pt,yshift=0pt] (${start},1) -- node[below=10pt] {${texte}} (${end},1);\n`
           }
         }
       }
@@ -140,20 +140,36 @@ export default class SchemaEnBoite {
    */
   static multiplication (nb1: number, nb2: number, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      braceT: [
+      topBraces: [
         {
           start: 1,
           end: 8 + precision * 2,
-          text: `${nb2}\\text{ fois}`,
+          text: `$${nb2}$ fois`,
         }
       ],
-      top: [
-        { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb1, precision)}$` },
-        { color: 'lightgray', length: 3, content: '...' },
-        { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb1, precision)}$` },
+      topBar: [
+        {
+          length: 1 + precision,
+          color: 'white',
+          content: `${nb1}`,
+        },
+        {
+          length: 5,
+          color: 'white',
+          content: '\\ldots',
+        },
+        {
+          length: 1 + precision,
+          color: 'white',
+          content: `${nb1}`,
+        }
       ],
-      bottom: [
-        { color: 'white', length: 7 + precision * 2, content: '?' },
+      bottomBar: [
+        {
+          length: 7 + precision * 2,
+          color: 'white',
+          content: '?' // `${nb1 * nb2}`,
+        }
       ]
     })
     return seb
@@ -169,19 +185,19 @@ export default class SchemaEnBoite {
  */
   static division (dividende: number | undefined, nbFois: number | undefined, diviseur: number | undefined, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      braceT: [
+      topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
-          text: nbFois == null ? '?' : `\\text{${texNombre(nbFois, 0)} fois}`,
+          text: nbFois == null ? '? fois' : `${texNombre(nbFois, 0)} fois`,
         }
       ],
-      top: [
+      topBar: [
         { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
-        { color: 'lightgray', length: 3, content: '...' },
+        { color: 'lightgray', length: 3, content: '\\ldots' },
         { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
       ],
-      bottom: [
+      bottomBar: [
         { color: 'white', length: 7 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` },
       ]
     })
@@ -197,22 +213,22 @@ export default class SchemaEnBoite {
    * @param precision
    * @returns
    */
-  static divisionAvecReste (nb1: number, nb2: number | undefined, nbFois:string, precision: number, reste?: string): SchemaEnBoite {
+  static divisionAvecReste (nb1: number | undefined, nb2: number | undefined, nbFois: number | undefined, precision: number, reste?: string): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      braceT: [
+      topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
-          text: `\\text{${nbFois} fois}`,
+          text: nbFois == null ? '? fois' : `$${nbFois}$ fois`,
         }
       ],
-      top: [
-        { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb1, precision)}$` },
-        { color: 'lightgray', length: 3, content: '...' },
-        { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb1, precision)}$` },
+      topBar: [
+        { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
+        { color: 'lightgray', length: 3, content: '\\ldots' },
+        { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
         { color: 'lightgray', length: 2, content: reste ?? '?' }
       ],
-      bottom: [
+      bottomBar: [
         { color: 'white', length: 9 + 2 * precision, content: nb2 == null ? '?' : `$${texNombre(nb2, precision)}$` },
       ]
     })
@@ -230,20 +246,20 @@ export default class SchemaEnBoite {
  */
   divisionPartitionAvecReste (nb1: number | undefined, nb2: number | undefined, nb3: number | undefined, precision: number, reste?: string): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      braceT: [
+      topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
-          text: nb3 == null ? '?' : `\\text{${texNombre(nb3, 0)} fois}`,
+          text: nb3 == null ? '?' : `${texNombre(nb3, 0)} fois`,
         }
       ],
-      top: [
+      topBar: [
         { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
-        { color: 'lightgray', length: 3, content: '...' },
+        { color: 'lightgray', length: 3, content: '\\ldots' },
         { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
         { color: 'lightgray', length: 2, content: reste ?? '?' }
       ],
-      bottom: [
+      bottomBar: [
         { color: 'white', length: 9 + 2 * precision, content: nb2 == null ? '?' : `$${texNombre(nb2, precision)}$` },
       ]
     })
@@ -252,11 +268,11 @@ export default class SchemaEnBoite {
 
   static addition (nb1: number, nb2: number, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      top: [
+      topBar: [
         { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb1, precision)}$` },
         { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb2, precision)}$` },
       ],
-      bottom: [
+      bottomBar: [
         { color: 'white', length: 4 + precision * 2, content: '?' },
       ]
     })
@@ -265,11 +281,11 @@ export default class SchemaEnBoite {
 
   static soustraction (terme1: number | undefined, difference: number | undefined, terme2: number | undefined, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      top: [
+      topBar: [
         { color: 'lightgray', length: 2 + precision, content: terme2 == null ? '?' : `$${texNombre(terme2, precision)}$` },
         { color: 'lightgray', length: 2 + precision, content: difference == null ? '?' : `$${texNombre(difference, precision)}$` },
       ],
-      bottom: [
+      bottomBar: [
         { color: 'white', length: 4 + precision * 2, content: terme1 == null ? '?' : `$${texNombre(terme1, precision)}$` },
       ]
     })

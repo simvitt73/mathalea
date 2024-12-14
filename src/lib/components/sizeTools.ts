@@ -38,6 +38,28 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
     }
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
+// Pour les schémas en boite
+
+function resizeSchemaContainer (schemaContainer: HTMLElement, zoom: number) {
+  const originalWidth = schemaContainer.dataset.originalWidth || schemaContainer.offsetWidth
+  const originalHeight = schemaContainer.dataset.originalHeight || schemaContainer.offsetHeight
+
+  // Store the original dimensions if not already stored
+  if (!schemaContainer.dataset.originalWidth) {
+    schemaContainer.dataset.originalWidth = originalWidth.toString()
+  }
+  if (!schemaContainer.dataset.originalHeight) {
+    schemaContainer.dataset.originalHeight = originalHeight.toString()
+  }
+
+  // Apply the zoom
+  schemaContainer.style.transform = `scale(${zoom})`
+  schemaContainer.style.transformOrigin = 'top left'
+
+  // Adjust the width and height based on the zoom factor
+  schemaContainer.style.width = `${parseFloat(String(originalWidth)) * zoom}px`
+  schemaContainer.style.height = `${parseFloat(String(originalHeight)) * zoom}px`
+}
 
 export function resizeContent (container: HTMLElement | null, zoom: number) {
   const ZOOM_MIN = 0.2
@@ -59,6 +81,11 @@ export function resizeContent (container: HTMLElement | null, zoom: number) {
     if (checkbox instanceof HTMLInputElement) {
       resizeTags([checkbox], Math.max(zoom, ZOOM_MIN))
     }
+  }
+  // Schémas en boite
+  const schemaContainers = container.getElementsByClassName('SchemaContainer') ?? []
+  for (const schemaContainer of schemaContainers) {
+    resizeSchemaContainer(schemaContainer as HTMLElement, Math.max(zoom, ZOOM_MIN))
   }
   // Texte
   container.style.fontSize = `${Math.max(zoom, ZOOM_MIN)}rem`
