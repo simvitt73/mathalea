@@ -18,7 +18,7 @@ export default class BetaSchemaEnBoite extends Exercice {
       '3 : Multiplication dont on cherche le résultat',
       '4 : Division partition ou quotition exacte',
       '5 : Division dont on cherche le reste',
-      '6 : Division dont on cherche le dividende',
+      '6 : Division avec reste dont on cherche le dividende ou le quotient',
       '7 : Mélange'
     ].join('\n')]
     this.sup = '1'
@@ -72,7 +72,7 @@ export default class BetaSchemaEnBoite extends Exercice {
               }
               break
             default:
-              texte = `${lea} a ${somme} bonbons. Après en avoir donné à ${eric}, il lui en reste ${nb1}. Combien de bonbons a-t-elle donné ?`
+              texte = `${lea} a ${somme} bonbons. Après en avoir donné à ${eric}, il lui en reste ${nb1}. Combien de bonbons a-t-elle donnés ?`
               seb = SchemaEnBoite.soustraction(somme, nb1, undefined, 2)
           }
           break
@@ -82,7 +82,7 @@ export default class BetaSchemaEnBoite extends Exercice {
           nb1 = randint(2, 8)
           nb2 = nb1 * nbFois
 
-          texte = `${lea} a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Combien de bonbons a-t-elle distribué en tout ?`
+          texte = `${lea} a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Combien de bonbons a-t-elle distribués en tout ?`
           seb = SchemaEnBoite.multiplication(nb1, nbFois, 2) // J'ai mis 2 en précision pour que les cases soient plus grandes
         }
           break
@@ -92,7 +92,7 @@ export default class BetaSchemaEnBoite extends Exercice {
               const nbFois = randint(15, 30)
               nb1 = randint(2, 8)
               nb2 = nb1 * nbFois
-              texte = `${lea} avait ${nb2} bonbons. elle les a distribué équitablement à chacun de ses ${nbFois} élèves. Combien de bonbons a reçu chaque élève ?`
+              texte = `${lea} avait ${nb2} bonbons. Elle les a distribués équitablement à chacun de ses ${nbFois} élèves. Combien de bonbons a reçu chaque élève ?`
               seb = SchemaEnBoite.division(nb2, nbFois, undefined, 2)
             }
               break
@@ -110,21 +110,35 @@ export default class BetaSchemaEnBoite extends Exercice {
           const nbFois = randint(15, 30)
           nb1 = randint(2, 8)
           nb2 = nb1 * nbFois + randint(1, nb1 - 1)
-          texte = `${lea} avait ${nb2} bonbons. elle a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Combien de bonbons lui reste-t-il ?`
-          seb = SchemaEnBoite.divisionAvecReste(nb1, nb2, String(nbFois), 0, '?')
+          texte = `${lea} avait ${nb2} bonbons. Elle a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Combien de bonbons lui reste-t-il ?`
+          seb = SchemaEnBoite.divisionAvecReste(nb1, nb2, nbFois, 0, '?')
         }
           break
         default: { // Division dont on cherche le dividende
-          const nbFois = randint(15, 30)
-          nb1 = randint(2, 8)
-          const reste = randint(1, nb1 - 1)
-          nb2 = nb1 * nbFois + reste
-          texte = `${lea} a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Il lui en reste ${reste}. Combien en avait-elle avant la distribution ?`
-          seb = SchemaEnBoite.divisionAvecReste(nb1, undefined, String(nbFois), 0, `$${texNombre(reste, 0)}$`)
+          switch (randint(1, 2)) {
+            case 1: {
+              const nbFois = randint(15, 30)
+              nb1 = randint(2, 8)
+              const reste = randint(1, nb1 - 1)
+              nb2 = nb1 * nbFois + reste
+              texte = `${lea} a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Il lui en reste ${reste}. Combien en avait-elle avant la distribution ?`
+              seb = SchemaEnBoite.divisionAvecReste(nb1, undefined, nbFois, 0, `$${texNombre(reste, 0)}$`)
+            }
+              break
+            default: {
+              const nbFois = randint(15, 30)
+              nb1 = randint(2, 8)
+              const reste = randint(1, nb1 - 1)
+              nb2 = nb1 * nbFois + reste
+              texte = `${lea} avait ${nb2} bonbons. Elle a distribué ${nb1} bonbons à chacun de ses élèves. Il lui reste ${reste} bonbons. Combien d'élèves a-t-elle ?`
+              seb = SchemaEnBoite.divisionAvecReste(nb1, nb2, undefined, 0, `$${texNombre(reste, 0)}$`)
+            }
+              break
+          }
         }
       }
       if (this.questionJamaisPosee(i, nb1, nb2)) {
-        this.listeQuestions.push(`${texte}<br><br>${seb.display()}`)
+        this.listeQuestions.push(`${texte}<br>${seb.display()}<br><br>`)
         this.listeCorrections.push('') // TODO
         i++
       }

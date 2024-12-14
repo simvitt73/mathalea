@@ -4,26 +4,27 @@
     grid-auto-columns: 15px;
     grid-auto-flow: column; /* Remplissage en colonnes */
     width: 50%; /* Assure que la largeur totale est utilisée */
-    margin: 15px;
+    margin: 0;
+    height: 100px;
   }
   
   .SchemaItem {
-    border: 2px solid rgba(0, 0, 0, 0.6); /* Pour visualiser les blocs */
+    border: 1px solid rgba(0, 0, 0, 0.6); /* Pour visualiser les blocs */
     text-align: center;
   }
 
   .curly-brace {
     width: 100%;
     position: relative;
-    top: -15px;
+    top: -10px;
     left: 50%;
     margin-left: -50%;
-    margin-top: 5px;
+    margin-top: 0px;
   }
   .curly-brace .brace {
     width: 100%;
-    border-bottom: 5px solid;
-    margin: 5px 10% 0 10%;
+    border-bottom: 2px solid;
+    margin: 0 10% 0 10%;
     width: 30%;
     height: 20px;  
     float: left;
@@ -33,43 +34,42 @@
   .curly-brace .brace:after {
     content: "";
     width: 10%;
-    height: 50px;
+    height: 20px;
     position: absolute;
     display: block;
   }
   
   .curly-brace .left:before {  
-    border-bottom: 5px solid;  
-    border-bottom-left-radius: 20px;
+    border-bottom: 2px solid;  
+    border-bottom-left-radius: 10px;
     margin-left: -10%;
-    margin-top: -30px;
+    margin-top: 0;
   }
   
   .curly-brace .left:after {
-    border-top: 5px solid;
-    border-top-right-radius: 20px;
+    border-top: 2px solid;
+    border-top-right-radius: 10px;
     margin-left: 30%;
-    margin-top: 15px;    
+    margin-top: 18px; 
   }
   
   .curly-brace .right:before {
-    border-top: 5px solid;
-    border-top-left-radius: 20px;
+    border-top: 2px solid;
+    border-top-left-radius: 10px;
     margin-left: -10%;
-    margin-top: 15px;
+    margin-top: 18px;
   }
   
   .curly-brace .right:after {
-    border-bottom: 5px solid;
-    border-bottom-right-radius: 20px;
+    border-bottom: 2px solid;
+    border-bottom-right-radius: 10px;
     margin-left: 30%;
-    margin-top: -30px;
+    margin-top: 0px;
   }
 
   .latexAccoladeBottom {
     position: relative;
     margin-top: 20px;
-    left: -25%;
   }
 
   .latexAccoladeTop {
