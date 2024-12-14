@@ -56,8 +56,7 @@ export default function RacinesPoly () {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: Math.min(x1, x2), compare: functionCompare },
         champ2: { value: Math.max(x1, x2), compare: functionCompare }
-      },
-      { formatInteractif: 'mathlive' }
+      }
       )
       texteCorr = `$f$ est une fonction polynôme du second degré écrite sous forme factorisée $a(x-x_1)(x-x_2)$.<br>
       Les racines sont donc $x_1=${miseEnEvidence(x1)}$ et $x_2=${miseEnEvidence(x2)}$.`

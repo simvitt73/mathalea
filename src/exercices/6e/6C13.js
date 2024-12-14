@@ -159,7 +159,7 @@ export default function VocabulaireEtOperations () {
           texte += `${expf}.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '')
-            handleAnswers(this, i, { reponse: { value: resultat } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, i, { reponse: { value: resultat } })
           }
           expf = 'L' + expf.substring(1)
           texteCorr += numAlpha(i) + `${expf} s'écrit ${expn}.<br>`

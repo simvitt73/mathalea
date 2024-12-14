@@ -58,8 +58,7 @@ export default function LectureGraphiqueParabole () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: '>' },
             champ2: { value: '<' }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -107,8 +106,7 @@ export default function LectureGraphiqueParabole () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: '>' },
             champ2: { value: '>' }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -157,8 +155,7 @@ export default function LectureGraphiqueParabole () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: '>' },
             champ2: { value: '=' }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -207,8 +204,7 @@ export default function LectureGraphiqueParabole () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: '<' },
             champ2: { value: '=' }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -257,8 +253,7 @@ export default function LectureGraphiqueParabole () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: '<' },
             champ2: { value: '>' }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -308,8 +303,7 @@ export default function LectureGraphiqueParabole () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: '<' },
             champ2: { value: '<' }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 

@@ -98,8 +98,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           handleAnswers(this, i, {
             bareme: (listePoints) => [listePoints[0], 1],
             champ1: { value: String(a) }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
 
           if (this.interactif) {

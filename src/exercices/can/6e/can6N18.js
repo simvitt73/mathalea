@@ -56,8 +56,7 @@ export default function EncadrerDizaine () {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: `${um + c + d}`, compare: calculCompare },
               champ2: { value: `${um + c + d + 10}`, compare: calculCompare }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
             this.canEnonce = question1
             this.canReponseACompleter = `$\\ldots < ${texNombre(N)}< \\ldots$`
@@ -81,8 +80,7 @@ export default function EncadrerDizaine () {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: `${um + c}`, compare: calculCompare },
               champ2: { value: `${um + c + 100}`, compare: calculCompare }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
             correction1 = `$${miseEnEvidence(`${texNombre(um + c)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + 100)}`)}$ `
             this.canEnonce = question1

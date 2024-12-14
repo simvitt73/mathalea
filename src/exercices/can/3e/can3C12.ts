@@ -60,8 +60,7 @@ $${Math.floor(Math.sqrt(a))}^2< ${a} < ${Math.ceil(Math.sqrt(a))}^2$<br>`
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: `${Math.floor(Math.sqrt(a))}`, compare: calculCompare },
         champ2: { value: `${Math.ceil(Math.sqrt(a))}`, compare: calculCompare }
-      },
-      { formatInteractif: 'mathlive' }
+      }
       )
 
       this.canEnonce = 'Compléter par deux entiers consécutifs.'

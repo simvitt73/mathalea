@@ -71,8 +71,7 @@ export default function ResoudreEquationSecondDegre2 () {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: Math.min(x1, x2), compare: functionCompare },
         champ2: { value: Math.max(x1, x2), compare: functionCompare }
-      },
-      { formatInteractif: 'mathlive' }
+      }
       )
       texteCorr = `${context.isHtml ? '<br>' : ''}$\\Delta = b^2-4ac=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${d}>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`
       texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b - Math.sqrt(d)) / (2 * a), 0))}$ et

@@ -53,8 +53,7 @@ Ainsi le double du plus petit nombre est $${n1 + n2 - 1}$.<br>
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: `${n1}`, compare: calculCompare },
         champ2: { value: `${n2}`, compare: calculCompare }
-      },
-      { formatInteractif: 'mathlive' }
+      }
       )
       this.canEnonce = texte
       this.canReponseACompleter = '$\\ldots$ et $\\ldots$'

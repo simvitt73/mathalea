@@ -82,8 +82,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
               champ2: { value: d },
               champ3: { value: c },
               champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${fraction(n, 100).texFraction}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', '10')}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', '100')}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
@@ -179,8 +178,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
               champ3: { value: d },
               champ2: { value: c },
               champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${texFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(
@@ -278,8 +276,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
               champ1: { value: n },
               champ2: { value: 100 },
               champ3: { value: arrondi(u + d / 10 + c / 100, 2) }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(
@@ -336,8 +333,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
               champ1: { value: u * 10 }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '10')}$`
@@ -374,8 +370,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
               champ1: { value: u * 100 }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}$`
@@ -415,8 +410,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
               champ2: { value: c },
               champ3: { value: 0 },
               champ4: { value: arrondi(u * 10 + d + c / 10, 2) }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${texFraction(n, 10)}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', 10)}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
@@ -507,8 +501,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
               champ1: { value: n },
               champ2: { value: arrondi(u + d / 10, 1) }
-            },
-            { formatInteractif: 'mathlive' }
+            }
             )
           } else {
             texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(d, '10')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`

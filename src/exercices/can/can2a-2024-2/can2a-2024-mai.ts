@@ -157,8 +157,7 @@ export default class nomExercice extends Exercice {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: '2', compare: calculCompare },
       champ2: { value: '-6', compare: calculCompare }
-    },
-    { formatInteractif: 'mathlive' }
+    }
     )
 
     i = 16
@@ -182,8 +181,7 @@ export default class nomExercice extends Exercice {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: '0', compare: calculCompare },
       champ2: { value: '3', compare: calculCompare }
-    },
-    { formatInteractif: 'mathlive' }
+    }
     )
 
     i = 19
@@ -269,8 +267,7 @@ export default class nomExercice extends Exercice {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: '0', compare: fonctionComparaison },
       champ2: { value: '5', compare: fonctionComparaison }
-    },
-    { formatInteractif: 'mathlive' }
+    }
     )
 
     i = 25
