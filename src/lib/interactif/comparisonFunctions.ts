@@ -1283,7 +1283,9 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
 function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
   const localInput = input.toLowerCase()
   const localGoodAnswer = goodAnswer.toLowerCase()
-  return texteAvecCasseCompare(localInput, localGoodAnswer)
+  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
+  const cleanInput = localInput.replace(/\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g, '($1,$2)')
+  return texteAvecCasseCompare(cleanInput, localGoodAnswer)
 }
 
 /**

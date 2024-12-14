@@ -12,7 +12,7 @@ import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '.
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
-import { fonctionComparaison, generateCleaner } from '../../lib/interactif/comparisonFunctions.ts'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice'
@@ -155,8 +155,8 @@ export default class FonctionsProbabilite2 extends Exercice {
           const den = probaMemeSaveur.den
           texteCorr += `La probabilité de cet événement est donc : $1-${probaMemeSaveur.texFraction}=${fraction(den, den).texFraction}-${probaMemeSaveur.texFraction}=${fraction(den - num, den).texFraction}${probaContraire.texSimplificationAvecEtapes()}$.`
           // question a
-          handleAnswers(this, 6 * i, { reponse: { value: 9, compare: fonctionComparaison } })
-          handleAnswers(this, 6 * i + 1, {
+          handleAnswers(this, 6 * i, { reponse: { value: 9 } })
+          /* handleAnswers(this, 6 * i + 1, {
             reponse: {
               value: 9,
               compare: (input, _goodAnswer) => {
@@ -166,9 +166,11 @@ export default class FonctionsProbabilite2 extends Exercice {
                 return { isOk }
               }
             }
-          })
+          }) */
+          console.log(issues, issues.split(' '))
+          handleAnswers(this, 6 * i + 1, { reponse: { value: issues.split(' '), compare: fonctionComparaison, options: { texteSansCasse: true } } })
           // questions b, c, d, e
-          handleAnswers(this, 6 * i + 2, { reponse: { value: 'non' } })
+          handleAnswers(this, 6 * i + 2, { reponse: { value: 'non', compare: fonctionComparaison, options: { texteSansCasse: true } } })
           handleAnswers(this, 6 * i + 3, { reponse: { value: probaMemeSaveurParticuliere.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
           handleAnswers(this, 6 * i + 4, { reponse: { value: probaMemeSaveur.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
           handleAnswers(this, 6 * i + 5, { reponse: { value: probaContraire.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
