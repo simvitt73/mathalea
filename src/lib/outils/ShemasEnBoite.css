@@ -1,7 +1,7 @@
 .SchemaContainer {
     display: grid;
     grid-template-rows: repeat(4, auto); /* Deux lignes ajustées automatiquement */
-    grid-auto-columns: 15px;
+    grid-auto-columns: 1.5em;
     grid-auto-flow: column; /* Remplissage en colonnes */
     width: 50%; /* Assure que la largeur totale est utilisée */
     margin: 0;
@@ -10,7 +10,8 @@
   
   .SchemaItem {
     border: 1px solid rgba(0, 0, 0, 0.6); /* Pour visualiser les blocs */
-    text-align: center;
+    justify-content: center;
+    align-items: center;
   }
 
   .curly-brace {
@@ -73,6 +74,5 @@
   }
 
   .latexAccoladeTop {
-    position: relative;
     margin-bottom: 5px;
 }

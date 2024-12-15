@@ -53,12 +53,11 @@ function resizeSchemaContainer (schemaContainer: HTMLElement, zoom: number) {
   }
 
   // Apply the zoom
-  schemaContainer.style.transform = `scale(${zoom})`
-  schemaContainer.style.transformOrigin = 'top left'
+  // schemaContainer.style.transform = `scale(${zoom})`
+  // schemaContainer.style.transformOrigin = 'top left'
 
-  // Adjust the width and height based on the zoom factor
-  schemaContainer.style.width = `${parseFloat(String(originalWidth)) * zoom}px`
   schemaContainer.style.height = `${parseFloat(String(originalHeight)) * zoom}px`
+  schemaContainer.style.width = `${parseFloat(String(originalWidth)) * zoom}px`
 }
 
 export function resizeContent (container: HTMLElement | null, zoom: number) {

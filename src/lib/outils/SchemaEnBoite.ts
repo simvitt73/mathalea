@@ -146,7 +146,14 @@ export default class SchemaEnBoite {
           end: 8 + precision * 2,
           text: `$${nb2}$ fois`,
         }
-      ],
+      ], /*, // Pour les test d'ajustement css (J-C)
+      bottomBraces: [
+        {
+          start: 1,
+          end: 8 + precision * 2,
+          text: 'produit',
+        }
+      ] */
       topBar: [
         {
           length: 1 + precision,
