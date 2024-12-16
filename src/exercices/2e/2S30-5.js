@@ -155,7 +155,7 @@ export default class FonctionsProbabilite2 extends Exercice {
           const den = probaMemeSaveur.den
           texteCorr += `La probabilité de cet événement est donc : $1-${probaMemeSaveur.texFraction}=${fraction(den, den).texFraction}-${probaMemeSaveur.texFraction}=${fraction(den - num, den).texFraction}${probaContraire.texSimplificationAvecEtapes()}$.`
           // question a
-          handleAnswers(this, 6 * i, { reponse: { value: 9 } })
+          handleAnswers(this, 6 * i, { reponse: { value: 9 }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
           /* handleAnswers(this, 6 * i + 1, {
             reponse: {
               value: 9,

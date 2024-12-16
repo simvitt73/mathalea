@@ -196,8 +196,8 @@ export default function Lecturegraphiquedeaetb () {
         texteCorr = 'On observe que la droite est verticale.'
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '<br>L\'équation réduite de la droite est : ' })
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $x=${miseEnEvidence(a)}$.`
-        const reponse = [`x=${a}`, `${a}=x`]
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        const reponse = `x=${a}`
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { egaliteExpression: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre

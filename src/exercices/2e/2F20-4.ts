@@ -145,7 +145,6 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = ''
     this.exoCustomResultat = true
     this.answers = {}
     this.sup2 = 10

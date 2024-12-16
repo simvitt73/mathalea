@@ -8,6 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résoudre des problèmes de type : ... de plus ou ... de moins'
 export const interactifReady = true
@@ -71,7 +72,6 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?'
             texte += '<br>Les deux filles possèdent,  en tout, '
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
-            setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
           }
@@ -92,7 +92,6 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
-            setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
           }
@@ -113,7 +112,6 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
-            setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
           }
@@ -132,7 +130,6 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
-            handleAnswers(this, i, { reponse: { value: texPrix(somme) } })
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
           }
@@ -144,8 +141,10 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
 
           break
       }
+      if (context.isAmc) setReponse(this, i, somme)
+      else handleAnswers(this, i, { reponse: { value: texPrix(somme), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, m, somme)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
