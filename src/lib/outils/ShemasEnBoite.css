@@ -10,69 +10,157 @@
   
   .SchemaItem {
     border: 1px solid rgba(0, 0, 0, 0.6); /* Pour visualiser les blocs */
+    display: flex;
     justify-content: center;
     align-items: center;
   }
+  .SchemaTop {
+    display: block;
+  }
+  .SchemaBottom {
+display: block;
+  }
+  .latexAccoladeBottom {
+  position: relative;
+  }
 
-  .curly-brace {
-    width: 100%;
+  .latexAccoladeTop {
     position: relative;
-    top: -10px;
+  }
+
+  .braceTop {
+    width: 100%;
+    height: 20px;
+    position: relative;
     left: 50%;
     margin-left: -50%;
     margin-top: 0px;
   }
-  .curly-brace .brace {
-    width: 100%;
-    border-bottom: 2px solid;
-    margin: 0 10% 0 10%;
-    width: 30%;
-    height: 20px;  
-    float: left;
-  }
-  
-  .curly-brace .brace:before,
-  .curly-brace .brace:after {
-    content: "";
-    width: 10%;
+  .braceTopLeft {
+    width: 50%;
     height: 20px;
     position: absolute;
-    display: block;
   }
-  
-  .curly-brace .left:before {  
+  .braceTopRight {
+    width: 50%;
+    height: 20px;
+    position: absolute;
+    margin-left: 50%;
+  }
+
+  .curlTopLeftLeft {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-top: 2px solid;  
+    border-top-left-radius: 10px;
+    margin-top: 10px;
+  }
+  .curlTopLeftRight {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-bottom: 2px solid;  
+    border-bottom-right-radius: 10px;
+    margin-top: 2px;
+    margin-left: 80%;
+  }
+  .lineTopLeftMiddle {
+    width: 60%;
+    height: 10px; 
+    position: absolute; 
+    border-top: 2px solid;
+    margin: 10px 20% 0 20%;
+  }
+  .lineTopRightMiddle {
+    width: 60%;
+    height: 10px; 
+    position: absolute; 
+    border-bottom: 2px solid;
+    margin: 2px 20% 0 20%;
+  }
+  .curlTopRightLeft {
+    width: 20%;
+    height: 10px;
+    position: absolute;
     border-bottom: 2px solid;  
     border-bottom-left-radius: 10px;
-    margin-left: -10%;
-    margin-top: 0;
+    margin-top: 2px;
   }
-  
-  .curly-brace .left:after {
-    border-top: 2px solid;
+  .curlTopRightRight {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-top: 2px solid;  
     border-top-right-radius: 10px;
-    margin-left: 30%;
-    margin-top: 18px; 
+    margin-top: 10px;
+    margin-left: 80%;
   }
-  
-  .curly-brace .right:before {
-    border-top: 2px solid;
-    border-top-left-radius: 10px;
-    margin-left: -10%;
-    margin-top: 18px;
-  }
-  
-  .curly-brace .right:after {
-    border-bottom: 2px solid;
-    border-bottom-right-radius: 10px;
-    margin-left: 30%;
+  .braceBottom {
+    width: 100%;
+    height: 20px;
+    position: relative;
+    left: 50%;
+    margin-left: -50%;
     margin-top: 0px;
   }
-
-  .latexAccoladeBottom {
-    position: relative;
-    margin-top: 20px;
+  .braceBottomLeft {
+    width: 50%;
+    height: 20px;
+    position: absolute;
   }
-
-  .latexAccoladeTop {
-    margin-bottom: 5px;
-}
+  .braceBottomRight {
+    width: 50%;
+    height: 20px;
+    position: absolute;
+    margin-left: 50%;
+  }
+ 
+  .curlBottomLeftLeft {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-bottom: 2px solid;  
+    border-bottom-left-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .curlBottomLeftRight {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-top: 2px solid;  
+    border-top-right-radius: 10px;
+    margin-top: 8px;
+    margin-left: 80%;
+  }
+  .lineBottomLeftMiddle {
+    width: 60%;
+    height: 10px; 
+    position: absolute; 
+    border-bottom: 2px solid;
+    margin: 0 20% 0 20%;
+  }
+  .lineBottomRightMiddle {
+    width: 60%;
+    height: 10px; 
+    position: absolute; 
+    border-bottom: 2px solid;
+    margin: 0 20% 0 20%;
+  }
+  .curlBottomRightLeft {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-top: 2px solid;  
+    border-top-left-radius: 10px;
+    margin-top: 8px;
+  }
+  .curlBottomRightRight {
+    width: 20%;
+    height: 10px;
+    position: absolute;
+    border-bottom: 2px solid;  
+    border-bottom-right-radius: 10px;
+    margin-bottom: 10px;
+    margin-left: 80%;
+  }

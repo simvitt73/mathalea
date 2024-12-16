@@ -46,11 +46,19 @@ export default class SchemaEnBoite {
           const texte = accolade.text
           if (start != null && end != null && texte != null) {
             ligneAccoladeH +=
-            `<div class="SchemaItem" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none">
+            `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none">
             <div class="latexAccoladeTop">${texte}</div>
-            <div class="curly-brace">
-            <div class="brace right"></div>
-            <div class="brace left"></div>
+            <div class="braceTop">
+              <div class="braceTopLeft">
+                <div class="curlTopLeftLeft"></div>
+                <div class="lineTopLeftMiddle"></div>
+                <div class="curlTopLeftRight"></div>
+              </div>
+              <div class="braceTopRight">
+                  <div class="curlTopRightLeft"></div>
+                  <div class="lineTopRightMiddle"></div>
+                  <div class="curlTopRightRight"></div>
+              </div>
             </div>
             </div>\n`
           }
@@ -77,10 +85,18 @@ export default class SchemaEnBoite {
           const texte = brace.text
           if (start != null && end != null && texte != null) {
             ligneAccoladeB +=
-            `<div class="SchemaItem" style="grid-row: 4; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none;">
-            <div class="curly-brace">
-            <div class="brace left"></div>
-            <div class="brace right"></div>
+            `<div class="SchemaBottom" style="grid-row: 4; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none;">
+            <div class="braceBottom">
+              <div class="braceBottomLeft">
+                <div class="curlBottomLeftLeft"></div>
+                <div class="lineBottomLeftMiddle"></div>
+                <div class="curlBottomLeftRight"></div>
+              </div>
+              <div class="braceBottomRight">
+                  <div class="curlBottomRightLeft"></div>
+                  <div class="lineBottomRightMiddle"></div>
+                  <div class="curlBottomRightRight"></div>
+              </div>
             </div>
              <div class="latexAccoladeBottom">${texte}</div>
             </div>\n`
@@ -146,14 +162,14 @@ export default class SchemaEnBoite {
           end: 8 + precision * 2,
           text: `$${nb2}$ fois`,
         }
-      ], /*, // Pour les test d'ajustement css (J-C)
+      ], /* // Pour les test d'ajustement css (J-C)
       bottomBraces: [
         {
           start: 1,
           end: 8 + precision * 2,
           text: 'produit',
         }
-      ] */
+      ], */
       topBar: [
         {
           length: 1 + precision,
