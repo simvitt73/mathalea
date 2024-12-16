@@ -19,7 +19,7 @@ import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { handleAnswers, setReponse, type MathaleaSVG } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
-import { calculCompare } from './interactif/comparisonFunctions'
+import { fonctionComparaison } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore'
@@ -651,7 +651,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
   exercice.reinit()
   exercice.interactif = isInteractif
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
-    const compare = exercice.compare == null ? calculCompare : exercice.compare
+    const compare = exercice.compare == null ? fonctionComparaison : exercice.compare
     const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)

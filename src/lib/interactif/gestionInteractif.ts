@@ -7,7 +7,6 @@ import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   fonctionComparaison,
-  calculCompare,
   // fractionCompare,
   // equalFractionCompare,
   // simplerFractionCompare,
@@ -753,7 +752,7 @@ export function setReponse (
           return handleAnswers(
             exercice,
             i,
-            { reponse: { value: laReponseDemandee, compare: calculCompare } },
+            { reponse: { value: laReponseDemandee, compare: fonctionComparaison } },
             params
           )
         }
@@ -781,7 +780,7 @@ export function setReponse (
         return handleAnswers(
           exercice,
           i,
-          { reponse: { value, compare: calculCompare } },
+          { reponse: { value, compare: fonctionComparaison } },
           params
         )
       }

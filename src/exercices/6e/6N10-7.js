@@ -170,7 +170,7 @@ export default function RecomposerEntierC3 () {
         const nameProperty = `champ${k + 1}`
         listeReponses.push([
           nameProperty,
-          { value: morceaux[i][k], compare: calculCompare }
+          { value: morceaux[i][k], , compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
         ])
       } */
       const trouveLeNombre = (nombre, nombreDeChiffresDec) => {

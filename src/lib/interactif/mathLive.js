@@ -1,4 +1,4 @@
-import { calculCompare } from './comparisonFunctions'
+import { fonctionComparaison } from './comparisonFunctions'
 
 // Un barème qui ne met qu'un point si tout est juste
 export function toutPourUnPoint (listePoints) {
@@ -68,7 +68,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         for (let k = 0; k < cellules.length; k++) {
           const [key, reponse] = cellules[k]
           const options = reponse.options
-          const compareFunction = reponse.compare ?? calculCompare
+          const compareFunction = reponse.compare ?? fonctionComparaison
           const inputs = Array.from(table.querySelectorAll('math-field'))
           const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
           let result
@@ -121,7 +121,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (key === 'feedback' || key === 'bareme') continue
           const saisie = mfe.getPromptValue(key)
           saisies[key] = saisie
-          const compareFunction = reponse.compare ?? calculCompare
+          const compareFunction = reponse.compare ?? fonctionComparaison
           const options = reponse.options
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
@@ -188,7 +188,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     let ii = 0
     let reponse; let feedback = ''
     reponses = reponses.reponse
-    const compareFunction = reponses.compare ?? calculCompare
+    const compareFunction = reponses.compare ?? fonctionComparaison
     const options = reponses.options
     if (Array.isArray(reponses.value)) {
       while ((!isOk) && (ii < reponses.value.length)) {

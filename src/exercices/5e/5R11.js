@@ -12,6 +12,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Lire l\'abscisse relative d\'un point'
 export const interactifReady = true
@@ -114,7 +115,6 @@ export default function LireAbscisseRelative () {
       texte = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (!context.isAmc && this.interactif) {
         texte += remplisLesBlancs(this, i, `${l1}(%{champ1})\\quad ${l2}(%{champ2})\\quad ${l3}(%{champ3})`, KeyboardType.clavierDeBaseAvecFraction, '\\ldots')
-        // J'ai fait le choix volontaire de ne pas mettre de fonction de comparaison : c'est donc calculCompare qui va s'imposer
         // j'ai aussi omis le paramêtre suivant {formatInteractif: 'fillInTheBlank'}, c'est la fonction verifQuestionMathlive qui va se débrouiller à partir des noms champ1 et suivants
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1] + listePoints[2], 3],
