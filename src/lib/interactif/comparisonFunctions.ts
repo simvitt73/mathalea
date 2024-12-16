@@ -274,21 +274,6 @@ function inputToGrandeur (input: string): Grandeur | false {
 }
 
 /**
- * Couteau suisse de la comparaison. Devrait correspondre à une très grosse majorité des comparaisons.
- * Comparaison de nombres ou bien d'expressions : c'est la fonction qui choisit.
- * @param {string} input
- * @param {string|number|Decimal|FractionEtendue} goodAnswer
- * @author Eric Elter
- * @return ResultType
- */
-export function calculCompare (input: string, goodAnswer: string): ResultType {
-  // Si goodAnswer est un nombre, alors on utilise la comparaison d'un nombre
-  // if (typeof goodAnswer === 'number' || goodAnswer instanceof Decimal || goodAnswer instanceof FractionEtendue) return numberCompare(input, goodAnswer)
-  // Sinon on utilise la comparaison d'une expression non réduite
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
-}
-
-/**
  * Transformation de toute sorte d'expressions factorisées (multiply, power, square) en une expression factorisée qu'avec multiply où les puissances et les carrés sont réécrits comme des produits explicites.
  * Cette fonction sert pour la fonction de comparaison d'expressions factorisées.
  * @param {BoxedExpression} expr
