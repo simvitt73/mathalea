@@ -1965,6 +1965,35 @@ export function egaliteCompare (input: string, goodAnswer: string): ResultType {
 }
 
 /**
+ * Format des nombres avec les espaces adéquats
+ * @param {string} nombre // Un nombre sans espace sous forme d'une chaîne de caractères
+ * @author Eric Elter (aide par ChatGPT)
+ * @example formatNumberWithSpaces('1234567') renvoie '1 234 567'
+ * @example formatNumberWithSpaces('1239,4567') renvoie '1 239,456 7'
+ * @returns {string}
+ */
+function formatNumberWithSpaces (nombre: string): string {
+  return nombre.replace(/\b\d+(?:[.,]\d+)?\b/g, (match) => {
+    // Détection du séparateur utilisé
+    const separator = match.includes(',') ? ',' : '.'
+
+    // Séparer la partie entière et la partie décimale
+    const [entier, decimal] = match.split(separator)
+
+    // Formater la partie entière : espace tous les 3 chiffres de gauche à droite
+    const entierFormate = entier.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+
+    if (decimal) {
+      // Formater la partie décimale : espace tous les 3 chiffres de droite à gauche
+      const decimalFormate = decimal.replace(/(\d{3})(?=\d)/g, '$1 ')
+      return `${entierFormate}${separator}${decimalFormate.trim()}`
+    }
+
+    return entierFormate // Retourne uniquement la partie entière si pas de décimale
+  })
+}
+
+/**
  * Comparaison de nombres avec les espaces exigés
  * @param {string} input
  * @param {string} goodAnswer
@@ -1979,10 +2008,16 @@ export function numberWithSpaceCompare (
   const clean = generateCleaner(['espaces'])
   const inputClean = clean(input)
   const goodAnswerClean = clean(goodAnswer)
-  const goodAnswerNew = goodAnswer.replaceAll(/\\,/g, ' ') // EE : Permet à goodAnswer que les espaces ressemblent uniquement à ' ' et non à '\,'.
+  let goodAnswerNew = goodAnswerClean.replace(/\s+/g, '') // EE : On enlève tous les espaces s'il y en a.
+
+  // Gestion pénible de la virgule ci-dessous dans le cas de plus de 3 chiffres dans la partie décimale.
+  goodAnswerNew = goodAnswerNew.replace('{,}', ',') // EE : On enlève toutes les virgules sous la forme {,} s'il y en a.
+  goodAnswerNew = formatNumberWithSpaces(goodAnswerNew) // EE : On rajoute tous les espaces adéquats.
+  goodAnswerNew = goodAnswerNew.replace(',', '{,}') // EE : On rajoute toutes les virgules sous la forme {,} s'il y en a.
+
   let feedback = ''
   if (inputCleanFirst !== goodAnswerNew && inputClean === goodAnswerClean) {
-    feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
+    feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces. '
   }
   return { isOk: inputCleanFirst === goodAnswerNew, feedback }
 }

@@ -145,7 +145,7 @@ export default function RecomposerEntierC3 () {
         listeReponses.push([
           nameProperty,
           {
-            value: String(10 ** exposantMorceaux[i][k]),
+            value: texNombre(10 ** exposantMorceaux[i][k]),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
@@ -274,7 +274,7 @@ export default function RecomposerEntierC3 () {
               ? `,${texNombre(1000)},...$).<br>`
               : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`
           }`
-          // texte += this.interactif ? texteGras('Si besoin, penser à mettre les espaces nécessaires.<br>') : ''
+          texte += this.interactif ? ' Penser à mettre les espaces nécessaires.<br>' : ''
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(
@@ -304,7 +304,7 @@ export default function RecomposerEntierC3 () {
               ? `,${texNombre(1000)},...$).<br>`
               : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`
           }`
-          // texte += this.interactif ? texteGras('Si besoin, penser à mettre les espaces nécessaires.<br>') : ''
+          texte += this.interactif ? ' Penser à mettre les espaces nécessaires.<br>' : ''
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(
@@ -386,7 +386,7 @@ export default function RecomposerEntierC3 () {
               ? `,${texNombre(1000)},...$).<br>`
               : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`
           }`
-          // texte += this.interactif ? texteGras('Si besoin, penser à mettre les espaces nécessaires.<br>') : ''
+          texte += this.interactif ? ' Penser à mettre les espaces nécessaires.<br>' : ''
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(
@@ -418,7 +418,7 @@ export default function RecomposerEntierC3 () {
               ? `,${texNombre(1000)},...$).<br>`
               : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`
           }`
-          // texte += this.interactif ? texteGras('Si besoin, penser à mettre les espaces nécessaires.<br>') : ''
+          texte += this.interactif ? ' Penser à mettre les espaces nécessaires.<br>' : ''
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(
@@ -556,7 +556,7 @@ export default function RecomposerEntierC3 () {
                 ? `,${texNombre(1000)},...$).<br>`
                 : `,... $ ou bien $${texNombre(0.1, 1)}, ${texNombre(0.01, 2)},...$).<br>`
             }`
-            // texte += this.interactif ? texteGras('Si besoin, penser à mettre les espaces nécessaires.<br>') : ''
+            texte += this.interactif ? ' Penser à mettre les espaces nécessaires.<br>' : ''
             texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
             texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
             for (let k = 0, j, index = 0; index < nbChiffres; k++) {
