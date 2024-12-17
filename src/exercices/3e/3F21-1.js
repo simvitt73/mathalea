@@ -65,7 +65,7 @@ export default function LectureExpressionFonctionsAffines () {
 
     const colors = ['blue', 'red', 'black', 'purple', 'brown']
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     const listeDroites = []
     const posLab = []
     const nomDroite = []

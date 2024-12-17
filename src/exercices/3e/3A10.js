@@ -40,7 +40,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
     const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)

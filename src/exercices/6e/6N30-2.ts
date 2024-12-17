@@ -61,7 +61,7 @@ class PlacerPointsSurAxe extends Exercice {
     
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     if (this.sup > 3) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {

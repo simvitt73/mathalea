@@ -52,7 +52,7 @@ export default function ReperagePointDuPlan () {
 
     let texte, texteCorr
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     let listePoints = []
     const points = []
     let xmin, xmax, ymin, ymax

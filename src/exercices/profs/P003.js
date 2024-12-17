@@ -43,7 +43,7 @@ export default function FeuilleDAxesGradues () {
     
     
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
 
     for (let i = 0, texte; i < this.nbQuestions; i++) {
       texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 },

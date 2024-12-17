@@ -47,7 +47,7 @@ export default function LireAbscisseDecimale () {
     
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     if (this.sup === 4) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {

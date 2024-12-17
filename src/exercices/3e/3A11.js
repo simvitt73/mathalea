@@ -33,7 +33,7 @@ export default function FractionsIrreductibles () {
     let typesDeQuestions
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
 
     const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)

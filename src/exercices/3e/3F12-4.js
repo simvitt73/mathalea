@@ -47,7 +47,7 @@ export default function ImageGraphique () {
 
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     this.sup = parseInt(this.sup)
     let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, ymax, f
 

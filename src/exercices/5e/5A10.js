@@ -47,7 +47,7 @@ export default function ListeDesDiviseurs5e () {
   this.nouvelleVersion = function () {
     let typesDeQuestions
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
 
 
     this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
