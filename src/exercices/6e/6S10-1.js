@@ -38,7 +38,7 @@ export default function LireUnDiagramme () {
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   this.sup = 3
   this.sup2 = 5
 

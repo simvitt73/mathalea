@@ -24,7 +24,7 @@ export default function ProblemeDeRatio () {
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   this.sup = 3
   this.spacing = 2
   this.spacingCorr = 3

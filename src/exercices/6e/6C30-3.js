@@ -39,7 +39,7 @@ export default function MultiplicationMentalDecimaux () {
 
 
 
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
 
   this.nouvelleVersion = function () {
 

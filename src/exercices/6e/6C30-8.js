@@ -33,7 +33,7 @@ export default function DiviserPar101001000 () {
 
 
 
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Compléter les pointillés.'
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 

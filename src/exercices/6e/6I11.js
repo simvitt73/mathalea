@@ -41,7 +41,7 @@ export default function NoteLaCouleur6e () {
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   this.typeExercice = 'Scratch'
   this.sup = 1
   this.sup2 = 1

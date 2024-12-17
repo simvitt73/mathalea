@@ -32,7 +32,7 @@ export default function PlacerLaVirgule () {
 
 
 
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
   this.sup = false
 

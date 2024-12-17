@@ -37,7 +37,7 @@ export default function SymetrieAxialePavageTriangulaire () {
 
 
 
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.

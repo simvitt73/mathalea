@@ -45,7 +45,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   this.typeExercice = 'Scratch'
   this.sup = 9 // 7 instructions par défaut, paramètre réglable.
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)

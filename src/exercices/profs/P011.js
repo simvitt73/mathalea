@@ -17,13 +17,13 @@ export const uuid = '697a7'
 
 export default function ConstruisMonTriangle () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 1 // Ici le nombre de questions
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
   this.pasDeVersionLatex = true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.sup = 1
   this.sup2 = 'ABC'
   this.sup3 = '3 4 5'

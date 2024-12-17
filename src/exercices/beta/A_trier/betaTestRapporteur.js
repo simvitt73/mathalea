@@ -17,7 +17,7 @@ export default class SuperExoMathalea2d extends Exercice {
 
 
 
-    this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+     = false // mettre à true si on ne veut pas de l'exercice en ligne
   }
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice

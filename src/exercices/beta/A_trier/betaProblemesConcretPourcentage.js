@@ -15,7 +15,7 @@ export default class ProblemesConcretsEtPourcentages extends Exercice {
 
 
 
-    this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+     = false // mettre à true si on ne veut pas de l'exercice en ligne
 
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre

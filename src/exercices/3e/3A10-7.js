@@ -29,7 +29,7 @@ export default function ExerciceLabyrinthePremiers3e () {
   Exercice.call(this)
   this.nbQuestions = 3
 
-  this.pas_de_version_HMTL = false
+   = false
   this.sup = 3
   this.sup2 = 6
   this.sup3 = 1

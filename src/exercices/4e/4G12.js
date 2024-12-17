@@ -46,7 +46,7 @@ export default function SerieDeTransformations () {
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   const A = point(0, 0)
   let typeDeTransfos
   this.sup = 4

@@ -90,7 +90,7 @@ export default function ConjectureDeSyracuse () {
   this.nbQuestions = 5 // Ici le nombre de questions
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
 
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.correctionDetailleeDisponible = true
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 

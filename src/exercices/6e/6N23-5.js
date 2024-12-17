@@ -37,7 +37,7 @@ export default function SensDeLaFraction () {
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   this.sup = '5'
 
   this.nouvelleVersion = function () {

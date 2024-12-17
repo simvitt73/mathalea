@@ -36,7 +36,7 @@ export default function ExerciceLabyrintheMultiples () {
 
 
 
-  this.pas_de_version_HMTL = false
+   = false
   this.tailleDiaporama = 2
   this.sup = 4
   const maximum = this.niveau === 'CM' ? 10 : 13

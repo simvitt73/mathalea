@@ -28,7 +28,7 @@ export default class DistributiviteNumerique extends Exercice {
 
 
 
-    this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+     = false // mettre à true si on ne veut pas de l'exercice en ligne
     // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
     //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre

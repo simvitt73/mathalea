@@ -36,7 +36,7 @@ export default function CalculEffectifFrequence () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions
 
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+   = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
   this.spacing = 2 // Interligne des questions
   this.spacingCorr = 2 // Interligne des réponses
