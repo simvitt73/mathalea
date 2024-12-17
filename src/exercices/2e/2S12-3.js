@@ -39,7 +39,7 @@ export default function EvolutionsSuccesives () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 4 // type de questions
-  this.spacing = 1
+
   this.spacingCorr = 1
 
   this.nouvelleVersion = function () {

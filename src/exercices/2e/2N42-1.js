@@ -26,7 +26,7 @@ export default function ExprimerEnFonctionDesAutres () {
   Exercice.call(this)
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 1
   this.sup = 1

@@ -21,7 +21,7 @@ export const refs = {
 export default function ExerciceTableauAdditionsRelatifs () {
   Exercice.call(this)
   this.consigne = 'Calculer.'
-  this.spacing = 1
+
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 

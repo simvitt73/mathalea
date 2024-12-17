@@ -36,7 +36,7 @@ export default function LireAbscisseRelative () {
   this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.sup = 4
   const changeCoord = function (x, abs0, pas1) {

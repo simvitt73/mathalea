@@ -89,7 +89,7 @@ export default function VocabulaireDuCercle () {
     ].join('\n')
   ]
 
-  this.spacing = 1 // Interligne des questions
+
   this.spacingCorr = 1.5 // Interligne des réponses
 
   this.avecLeCentreQuiEstAussiLeMilieu = false

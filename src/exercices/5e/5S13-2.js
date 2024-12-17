@@ -209,7 +209,7 @@ export default function CalculerDesFrequences () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true // pourquoi pas ?
-  this.spacing = 1
+
   this.spacingCorr = 1.5
   this.nbCols = 1
   this.nbColsCorr = 1

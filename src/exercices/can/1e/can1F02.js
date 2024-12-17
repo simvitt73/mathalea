@@ -39,7 +39,7 @@ export default function SecondDegreVariations () {
 
     
     
-    this.spacing = 1
+
     let texte, texteCorr, a, b, maFraction, c, maFractionN, props
     for (let i = 0; i < this.nbQuestions; i++) {
       switch (choice([1, 2, 3, 4, 5, 6])) { //

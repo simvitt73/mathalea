@@ -41,7 +41,7 @@ export const refs = {
 export default function ExerciceSubstituer (difficulte = 1) {
   Exercice.call(this)
   this.sup = difficulte
-  this.spacing = 1
+
   this.consigneModifiable = false
 
   this.nouvelleVersion = function () {

@@ -36,7 +36,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
   this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.sup = 1
   this.pointsNonSolutions = []

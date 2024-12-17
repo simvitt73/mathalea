@@ -41,7 +41,7 @@ export default function LireUneAbscisseAvecZoom () {
     this.spacing = 2
     this.spacingCorr = 3
   } else {
-    this.spacing = 1
+
     this.spacingCorr = 1
   }
   this.vspace = -1

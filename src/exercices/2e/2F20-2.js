@@ -40,7 +40,7 @@ export default function CalculPointSurCourbe () {
   this.sup = 1
   this.sup2 = 1
   this.consigne = ''
-  this.spacing = 1
+
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nouvelleVersion = function () {

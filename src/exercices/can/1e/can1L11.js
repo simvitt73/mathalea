@@ -29,7 +29,7 @@ export default function TableauSignesSecondDegre () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1.3
 
-  this.spacing = 1
+
 
     
   this.nouvelleVersion = function () {

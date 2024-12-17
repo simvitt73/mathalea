@@ -26,7 +26,7 @@ export default function ReconnaitreExpL () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.spacing = 1
+
 
     
   this.nouvelleVersion = function () {

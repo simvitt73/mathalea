@@ -29,7 +29,7 @@ export default function Equationspresqueproduitnulle () {
   this.video = ''
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 3
   this.spacingCorr = 3

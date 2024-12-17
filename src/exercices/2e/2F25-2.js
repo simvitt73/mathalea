@@ -34,7 +34,7 @@ export default function EtudierPariteFonction () {
   this.consigne = ''
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 1
 

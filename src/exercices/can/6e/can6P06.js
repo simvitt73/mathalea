@@ -24,5 +24,5 @@ export default function CalculerUnPourcentageCAN () {
   this.nbQuestions = 1
   this.can = true
   this.consigne = ''
-  this.spacing = 1
+
 }

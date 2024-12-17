@@ -31,7 +31,7 @@ export default function Variationsfonctionaffine () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.video = ''
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.sup = 4
 

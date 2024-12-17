@@ -30,7 +30,7 @@ export default function DevelopperIdentitesRemarquables2 () {
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 5
   this.sup = 4

@@ -35,7 +35,7 @@ export default function CalculsLoiNormale () {
   this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 1 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
-  this.spacing = 1
+
   this.spacingCorr = 1.5
   this.nouvelleVersion = function () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs

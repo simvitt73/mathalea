@@ -38,7 +38,7 @@ export default class ProblemesPythagore extends Exercice {
     this.nbQuestions = 2
     this.nbCols = 1
     this.nbColsCorr = 1
-    this.spacing = 1
+
     this.sup = 3
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
     this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct\n2 : Réciproque/contraposée\n3 : Mélange']

@@ -32,7 +32,7 @@ export default function NombresPremiers () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
-  this.spacing = 1
+
 
     
   this.nouvelleVersion = function () {

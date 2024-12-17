@@ -42,7 +42,7 @@ export const refs = {
 export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.spacing = 1
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
