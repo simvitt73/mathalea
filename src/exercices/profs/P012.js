@@ -35,7 +35,7 @@ export default function Camemberts () {
     }
     const secteurs = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 12, defaut: 6, nbQuestions: this.nbQuestions, shuffle: false })
     const unites = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 5, defaut: 2, nbQuestions: this.nbQuestions, shuffle: false })
-    this.contenu = ''
+
 
     // const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
     // const unites = combinaisonListesSansChangerOrdre(nbDisques, this.nbQuestions)

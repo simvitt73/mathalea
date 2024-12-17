@@ -44,7 +44,7 @@ export default function PremierOuPas5e () {
   this.nouvelleVersion = function () {
     let typesDeQuestions
 
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]

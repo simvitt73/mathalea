@@ -29,7 +29,7 @@ export default function FeuilleDeZooms () {
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    this.contenu = ''
+
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
     let xmin, origine, xmax, x1, x2, x3, x21, x31, pA1, pA2, pB1, pB2, pC1, pC2, pD1, pD2, sA, sB, sC, sD, extremite,

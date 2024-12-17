@@ -51,7 +51,7 @@ export default function PremierOuPasCriterePar7Par11 () {
     }
 
 
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
