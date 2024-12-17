@@ -60,7 +60,7 @@ export default class SuitesExplicites extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     
-    this.listeCorrections = [] // Vide la liste de questions corrigées
+    
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''

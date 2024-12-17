@@ -35,7 +35,7 @@ export default function TableauSignesSecondDegre () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, a, b, c, tableau1, tableau2, tableau3
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 9) * choice([-1, 1])// coefficient a

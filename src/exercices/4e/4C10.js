@@ -37,7 +37,7 @@ export default function ProduitsEtQuotientRelatifs () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.sup2 = contraindreValeur(1, 4, this.sup2, 1)
     const typesDeQuestions = []

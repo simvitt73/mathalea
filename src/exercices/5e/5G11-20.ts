@@ -82,7 +82,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.answers = {}
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.figuresApiGeom = []
     this.antecedents = []

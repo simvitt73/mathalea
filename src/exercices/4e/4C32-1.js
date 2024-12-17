@@ -41,7 +41,7 @@ export default function CalculsAvecPuissancesDeDix () {
     // let typeDeQuestionsDisponibles
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, mantisse1, exp1, decalage, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {

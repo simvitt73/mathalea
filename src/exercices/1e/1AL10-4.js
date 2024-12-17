@@ -47,7 +47,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -59,7 +59,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     
-    this.listeCorrections = [] // Vide la liste de questions corrigées
+    
     for (let i = 0, texte, texteCorr, cpt = 0, u, a, b, reponse, k; i < this.nbQuestions && cpt < 50;) {
       const nomSuite = ['u', 'v', 'w']
       const s = choice(nomSuite)

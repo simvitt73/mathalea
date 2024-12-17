@@ -35,7 +35,7 @@ export default class SignePuissance extends Exercice {
     this.consigne += this.nbQuestions > 1 ? 'des expressions suivantes.' : 'de l\'expression suivante.'
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.listeCanReponsesACompleter = []
     this.listeCanEnonces = []

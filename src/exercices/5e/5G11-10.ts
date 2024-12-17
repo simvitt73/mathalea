@@ -87,7 +87,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     this.answers = {}
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.figuresApiGeom = []
     this.nbPoints = contraindreValeur(1, 5, this.sup2, 3) // on veut entre 1 et 5 points à construire

@@ -55,7 +55,7 @@ export default function AireDeTriangles () {
   this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     
     this.autoCorrection = []

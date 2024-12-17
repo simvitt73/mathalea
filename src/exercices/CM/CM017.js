@@ -32,7 +32,7 @@ export default function DiviserDecimalPar101001000 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;

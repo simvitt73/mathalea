@@ -38,7 +38,7 @@ export default class SuperExoMathalea2d extends Exercice {
 
 
     
-    this.listeCorrections = []
+    
     // Ci-dessus On crée une liste aléatoire comprenant nbQuestions parmi les types disponibles.
     /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
   if (this.classe == 6) typesDeQuestionsDisponibles = [1, 2]

@@ -48,7 +48,7 @@ export default function CalculsPuissancesDe10 () {
 
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const listeFacteurs1 = [2, 3, 5, 7]
 

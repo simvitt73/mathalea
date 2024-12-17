@@ -39,7 +39,7 @@ export default function ExerciceLabyrintheNumeration () {
   this.sup5 = false
 
   this.nouvelleVersion = function () {
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

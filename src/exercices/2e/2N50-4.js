@@ -39,7 +39,7 @@ export default function ModeliserEquationsGeometrie () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'] //
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

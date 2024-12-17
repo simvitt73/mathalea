@@ -64,7 +64,7 @@ export default function ExerciceDevelopper () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'
     if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes'

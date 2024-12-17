@@ -44,7 +44,7 @@ export default class nomExercice extends Exercice {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typeQuestionsDisponibles: ('simple' | 'double')[]
     if (this.sup === 1) {

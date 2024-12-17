@@ -48,7 +48,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup

@@ -54,7 +54,7 @@ export default function AireDuParallelogramme () {
   } */
 
   this.nouvelleVersion = function () {
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     
     this.autoCorrection = []

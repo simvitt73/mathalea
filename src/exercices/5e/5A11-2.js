@@ -37,7 +37,7 @@ export default function ExerciceLabyrintheDivisibilite2 () {
   // this.consigne=`Trouver la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
     const tailleChiffre = 0.8
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

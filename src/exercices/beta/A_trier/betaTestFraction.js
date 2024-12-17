@@ -33,7 +33,7 @@ export default function TestFractions () {
     // const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
     // const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')
 
-    this.listeCorrections = []
+    
 
     
     const a = Number(evaluate(this.sup)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)

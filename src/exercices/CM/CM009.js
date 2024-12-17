@@ -35,7 +35,7 @@ export default function Moitie () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typesDeQuestionsDisponibles = range1(6)
     const listeTypeDeQuestions = combinaisonListes(

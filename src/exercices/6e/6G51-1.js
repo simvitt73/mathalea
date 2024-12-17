@@ -32,7 +32,7 @@ export default class ReconnaitreDesPointsAlignes extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = ['oui', 'non']

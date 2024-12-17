@@ -42,7 +42,7 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
   this.nouvelleVersion = function (numeroExercice) {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     this.figures = []

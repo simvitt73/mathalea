@@ -114,7 +114,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.answers = {}
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let choixDeLaxe: number[] = []
     this.figuresApiGeom = []

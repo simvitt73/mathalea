@@ -52,7 +52,7 @@ export default function DevelopperReduireExprComplexe () {
               : 'Développer puis réduire l\'expression littérale suivante.'
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const lettresPossibles = ['x', 'y', 'z', 't']
 

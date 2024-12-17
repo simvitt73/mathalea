@@ -22,7 +22,7 @@ export default function CalculerValeurManquanteVisuelPythagore () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 

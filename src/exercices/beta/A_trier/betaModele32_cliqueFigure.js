@@ -32,7 +32,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     this.figures = [] // Liste des objets de toutes les figures sur lesquelles on pourra cliquer avec leur id et un booléen de réponse

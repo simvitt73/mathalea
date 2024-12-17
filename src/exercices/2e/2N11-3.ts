@@ -32,7 +32,7 @@ export default class nomExercice extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typeQuestionsDisponibles: ('ensemble' | 'intervalle')[]
     if (this.sup === 1) {

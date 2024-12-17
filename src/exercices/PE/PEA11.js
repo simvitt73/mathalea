@@ -34,7 +34,7 @@ export default function PasserDUneBaseA1Autre () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let typesDeQuestionsDisponibles = ['vers_base_10', choice(['vers_base_n_3_chiffres', 'vers_base_n_4_chiffres']), choice(['plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres'])]
     if (this.nbQuestions > 3) {

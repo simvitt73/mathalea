@@ -31,7 +31,7 @@ export default function PositionsDeDroites () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, a1, b1, c1, k, a2, b2, c2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question

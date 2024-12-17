@@ -115,7 +115,7 @@ export default function PavageEtTranslation2d () {
     if (this.nbQuestions > 5) {
       taillePavage = 2
     }
-    this.listeCorrections = []
+    
 
     
     let Nx, Ny, index1, index2, A, B, d, image

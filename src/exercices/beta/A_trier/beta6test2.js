@@ -19,7 +19,7 @@ export default function MaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let listeTypeDeQuestionsDisponibles
     this.sup = parseInt(this.sup) // pour s'assurer d'avoir un nombre

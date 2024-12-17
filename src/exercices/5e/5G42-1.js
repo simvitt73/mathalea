@@ -33,7 +33,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     let texte, texteCorr

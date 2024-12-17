@@ -54,7 +54,7 @@ export default function ImageFonctionsRefs () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = []

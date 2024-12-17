@@ -42,7 +42,7 @@ export default function CalculerEtendues () {
     this.sup = parseInt(this.sup)
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let typeQuestionsDisponibles = ['notes', 'températures']
     if (this.sup === 1) typeQuestionsDisponibles = ['notes']

@@ -49,7 +49,7 @@ export default class Representerfonctionaffine extends Exercice {
     this.coefficients = []
 
     
-    this.listeCorrections = []
+    
     let typesDeQuestionsDisponibles: (1|2)[] = []
 
     if (this.sup === 1) {

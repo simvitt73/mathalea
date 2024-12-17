@@ -41,7 +41,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)

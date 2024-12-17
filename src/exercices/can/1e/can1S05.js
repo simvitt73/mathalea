@@ -34,7 +34,7 @@ export default function NatureSuiteEx () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
 
     let texte, texteCorr, a, b, u, d, props
     const nomSuite = ['u', 'v', 'w']

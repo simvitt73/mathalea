@@ -43,7 +43,7 @@ export default function Perimetre_aire_et_portions_de_disques () {
   this.nbQuestions = 3
 
   this.nouvelleVersion = function () {
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     
     this.autoCorrection = []

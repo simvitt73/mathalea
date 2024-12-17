@@ -73,7 +73,7 @@ export default function NoteLaCouleur6e () {
     const echelleDessin = 0.5
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let j, test
     let objetsEnonce = []

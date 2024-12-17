@@ -34,7 +34,7 @@ export default function NaturePolygone () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let objets
     let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX

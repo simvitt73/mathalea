@@ -80,7 +80,7 @@ export default function Transformations () {
     const couleurs = ['brown', 'green', 'blue']
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     const xO = 4
     const yO = 4
     const xuPossibles = combinaisonListes(rangeMinMax(-3, 3), 1)

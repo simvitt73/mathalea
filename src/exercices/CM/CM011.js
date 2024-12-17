@@ -34,7 +34,7 @@ export default function Quart () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typesDeQuestionsDisponibles = range1(5)
     const listeTypeDeQuestions = combinaisonListes(

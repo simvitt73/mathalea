@@ -34,7 +34,7 @@ export default function ReconnaitreFonctionDegre2 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.tailleDiaporama = 2
     const nomF = [
       ['f'], ['g'], ['h'], ['u'],

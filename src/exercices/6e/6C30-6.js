@@ -41,7 +41,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes', '', 'dizaines', 'centaines', 'milliers']
     let listeChoixAlea = range(6, [3])

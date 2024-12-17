@@ -44,7 +44,7 @@ export default class VitesseDistanceTemps extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = ['vitesse', 'temps', 'distance']

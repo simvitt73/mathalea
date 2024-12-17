@@ -90,7 +90,7 @@ export default function ModelisationProblemes () {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let colorA, colorB
     const schemas = []

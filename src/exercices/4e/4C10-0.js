@@ -85,7 +85,7 @@ export default function SigneProduitQuotientRelatifs () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}

@@ -36,7 +36,7 @@ export default class UtilerAppartientA extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const objetsEnonce = []

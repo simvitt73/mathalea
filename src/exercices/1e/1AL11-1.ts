@@ -36,7 +36,7 @@ export default class ReconnaitreSuites extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
 
     
-    this.listeCorrections = [] // Vide la liste de questions corrigées
+    
 
     for (let i = 0, a, b, r, q, u0, q1, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typeDeQuestion = listeTypeDeQuestions[i]

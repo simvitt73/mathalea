@@ -39,7 +39,7 @@ export default function Calculercoordonneesvecteurs () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let xA, yA, xB, yB, xABFraction, yABFraction, r

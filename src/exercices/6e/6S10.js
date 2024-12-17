@@ -40,7 +40,7 @@ export default function LectureDiagrammeBaton () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // vide la liste de questions corrigées
+    
     this.autoCorrection = []
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']

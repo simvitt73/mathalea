@@ -49,7 +49,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     
-    this.listeCorrections = [] // Vide la liste de questions corrigées
+    
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 

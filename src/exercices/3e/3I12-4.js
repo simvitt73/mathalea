@@ -49,7 +49,7 @@ export default function ComprendreScriptListeMultiples () {
     this.consigne += nbBriquesATrouver > 1 ? 'les briques manquantes.' : 'la brique manquante.'
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     /*
     if (!this.sup2) { // Si aucune liste n'est saisie

@@ -35,7 +35,7 @@ export default class decomposerDecimal extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []

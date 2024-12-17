@@ -50,7 +50,7 @@ export default function ConstruireUnTriangle () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let IEP
     let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection, nom, sommets

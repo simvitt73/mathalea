@@ -42,7 +42,7 @@ export default function ConstruireUnTriangleAvecCible () {
     let yMax
 
     
-    this.listeCorrections = []
+    
     let listeDeNomsDePolygones
     const celluleAleaRonde = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, 8))

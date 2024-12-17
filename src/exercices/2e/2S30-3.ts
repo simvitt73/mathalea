@@ -48,7 +48,7 @@ export default class ProbaUnionInter extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({

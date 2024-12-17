@@ -53,7 +53,7 @@ export default function ComparerPuissance10 () {
       let nbA2 = 0 // valeur numérique du nombre 2
 
     
-      this.listeCorrections = []
+    
       const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
       switch (listeTypeDeQuestions[i]) {
         case 1:

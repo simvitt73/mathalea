@@ -129,7 +129,7 @@ export default class nomExercice extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

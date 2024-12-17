@@ -30,7 +30,6 @@ export default function VecteursColineairesVF () {
   this.nouvelleVersion = function () {
     let ux, uy, vx, vy, k
 
-    this.listeCorrections = []
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5])) { //
         case 1 :

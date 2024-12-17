@@ -48,7 +48,7 @@ export default function DiviserPar101001000 () {
 
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, saisie: this.sup3 })
     const rang = ['millièmes', 'centièmes', 'dixièmes']

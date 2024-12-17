@@ -48,7 +48,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = ['Parallèles', 'Perpendiculaires']

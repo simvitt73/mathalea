@@ -38,7 +38,7 @@ export default function SecondDegreVariations () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.spacing = 1
     let texte, texteCorr, a, b, maFraction, c, maFractionN, props
     for (let i = 0; i < this.nbQuestions; i++) {

@@ -39,7 +39,7 @@ export default function RecompositionDecimale () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     context.anglePerspective = 30
     context.coeffPerspective = 0.5

@@ -42,7 +42,7 @@ export default function PavagesEtTransformations () {
   this.nouvelleVersion = function (numeroExercice) {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const objetsEnonce = []
     const objetsCorrection = []

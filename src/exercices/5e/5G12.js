@@ -148,7 +148,7 @@ export default function PavageEtDemiTour2D () {
     if (this.nbQuestions > 5) {
       taillePavage = 2
     }
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

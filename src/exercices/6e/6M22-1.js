@@ -55,7 +55,7 @@ export default function PerimetreAireDisques (pa = 3) {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     this.autoCorrection = []
     for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2, reponseL2bis, reponseA2bis; i < this.nbQuestions && cpt < 50;) {
       const choixValeurApprochee = (this.sup3 === 1 || this.sup3 === 4) ? true : this.sup3 === 2 ? false : choice([true, false])

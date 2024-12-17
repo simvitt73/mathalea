@@ -46,7 +46,7 @@ export default function VolumeBoule () {
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({

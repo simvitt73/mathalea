@@ -28,7 +28,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     this.autoCorrection = []
 
     /*

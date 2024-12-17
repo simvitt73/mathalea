@@ -48,8 +48,6 @@ export default function TermeDUneSuiteDefinieExplicitement () {
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    this.listeCorrections = [] // Vide la liste de questions corrigées
-
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, c, d, k; i < this.nbQuestions && cpt < 50;) {

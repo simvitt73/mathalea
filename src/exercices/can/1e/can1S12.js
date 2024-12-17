@@ -33,7 +33,7 @@ export default function NatureSuiteRec () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
 
     let texte, texteCorr, a, b, u, listeFractions1, fraction1, n1, d1, props
     const nomSuite = ['u', 'v', 'w']

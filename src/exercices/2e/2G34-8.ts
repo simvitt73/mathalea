@@ -42,7 +42,7 @@ export default class systemeEquationsPremDeg extends Exercice {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     let typeQuestionsDisponibles: ('lv1Uni' |'lv1Auc' |'lv1Inf' |'lv2Uni' |'lv2Auc' |'lv2Inf')[]

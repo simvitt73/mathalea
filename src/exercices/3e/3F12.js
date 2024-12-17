@@ -51,7 +51,7 @@ export default function FonctionsCalculsDImages () {
     let typesDeQuestions
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     // let typesDeQuestionsDisponibles = [1];
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({

@@ -43,7 +43,7 @@ export default function NotationPuissance () {
     this.titre = titre
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let listeTypeDeQuestions
     switch (this.sup) {

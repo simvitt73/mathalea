@@ -44,7 +44,7 @@ export default function MultiplicationMentalDecimaux () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const typeDeQuestionsDisponibles = ['add', 'mul', 'add_deci', 'mul_deci'] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     this.interactif = true // Il n'existe pas de version non QCM

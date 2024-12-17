@@ -43,7 +43,7 @@ export default function EquivalenceProgrammesCalcul () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     for (let i = 0, texte, texteCorr, texteOperationA1, texteOperationA2, texteOperationB1, texteOperationB3, signeA2, signeB1, signeB3, signeB1B2, signeB1B2B3, cpt = 0; i < this.nbQuestions && cpt < 50;) {

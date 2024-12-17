@@ -19,7 +19,7 @@ export default function ExerciceZeroMathalea2d3d () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
 
     const l = randint(5, 10)
     const p = randint(2, 5)

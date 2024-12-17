@@ -61,7 +61,7 @@ export default function LectureExpressionFonctionsAffines () {
     let nbDroites = parseInt(this.sup2)
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const colors = ['blue', 'red', 'black', 'purple', 'brown']
     this.contenu = '' // Liste de questions

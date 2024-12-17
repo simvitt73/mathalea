@@ -32,7 +32,7 @@ class OperationsReciproques extends Exercice {
   nouvelleVersion (): void {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     type TypeQuestionsDisponibles = 'x+' | '+x' | 'x-' | '-x' | '/+' | '+/' | '/-' | '-/'

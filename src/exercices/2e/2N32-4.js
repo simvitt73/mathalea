@@ -33,7 +33,7 @@ export default function SimplifierUneSommeDeRacinesCarrees () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const e1 = randint(2, 8) * choice([-1, 1])

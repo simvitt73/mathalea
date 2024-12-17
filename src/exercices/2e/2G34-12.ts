@@ -36,7 +36,7 @@ export default class IntersectionDroitesPoints extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const pointIntersectionExactDD = function (d1:Array<FractionEtendue>, d2:Array<FractionEtendue>) {
       const x = (d2[1]).differenceFraction(d1[1]).diviseFraction((d1[0]).differenceFraction(d2[0])).simplifie()

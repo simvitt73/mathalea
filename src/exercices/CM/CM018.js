@@ -32,7 +32,7 @@ export default function SommeDeDeuxNombresMariesEtUnEntier () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typesDeQuestionsDisponibles = [1, 2]
     const listeTypeDeQuestions = combinaisonListes(

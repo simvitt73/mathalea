@@ -36,7 +36,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.consigne = this.nbQuestions === 1
       ? 'Donner le résultat du calcul suivant en écriture décimale.'

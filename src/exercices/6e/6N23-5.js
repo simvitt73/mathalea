@@ -43,7 +43,7 @@ export default function SensDeLaFraction () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nin: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions })
 

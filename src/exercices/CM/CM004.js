@@ -38,7 +38,7 @@ export default function QuatreOperations () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typesDeQuestionsDisponibles = range1(4)
     const listeTypeDeQuestions = combinaisonListes(

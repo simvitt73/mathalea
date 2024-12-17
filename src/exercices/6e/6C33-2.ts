@@ -39,7 +39,7 @@ export default class ExpressionsDepuisCalculs extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const avecDivision = !!this.sup

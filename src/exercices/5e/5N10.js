@@ -39,7 +39,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     let typesDesSensDemandes

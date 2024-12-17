@@ -43,7 +43,7 @@ export default class systemeEquationsPremDeg extends Exercice {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     let typeQuestionsDisponibles: ('p1' | 'p2')[]

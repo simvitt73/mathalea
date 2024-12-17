@@ -347,7 +347,7 @@ export default function ProblemesAiresRectangles () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let choixDesTables
 

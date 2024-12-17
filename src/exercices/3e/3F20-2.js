@@ -58,7 +58,7 @@ export default function FonctionsAffinesOuLineaires () {
 
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions })
     for (let i = 0; i < this.nbQuestions; i++) {

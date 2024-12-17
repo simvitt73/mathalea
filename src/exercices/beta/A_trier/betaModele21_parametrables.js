@@ -33,7 +33,7 @@ export default class nomExercice extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']

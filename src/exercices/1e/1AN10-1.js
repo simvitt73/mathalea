@@ -34,7 +34,7 @@ export default function Tauxvariation () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]
     // this.sup = contraindreValeur(1, 5, this.sup, 5)

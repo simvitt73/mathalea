@@ -45,7 +45,7 @@ export default class HomothetieRapport extends Exercice {
 
 
     
-    this.listeCorrections = []
+    
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 

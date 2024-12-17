@@ -46,7 +46,7 @@ export default function ProblemesEvenementsRecurrents () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const preListePremiers = listeNombresPremiersStrictJusqua(12)

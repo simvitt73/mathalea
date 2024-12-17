@@ -23,7 +23,7 @@ export default function CalculerUneExpressionLitteralePythagore () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let a, b, n, s, d, racs, racd, miracs, miracd
     const typesDeQuestionsDisponibles = ['type1', 'type2']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

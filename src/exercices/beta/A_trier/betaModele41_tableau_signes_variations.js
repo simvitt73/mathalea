@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     for (let i = 0, texte, texteCorr, ligne1, ligne2, ligne3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 2) // On définit les variables aléatoires de l'exo...

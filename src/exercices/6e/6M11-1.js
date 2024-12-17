@@ -44,7 +44,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     this.autoCorrection = []
 
     const QuestionsDisponibles = gestionnaireFormulaireTexte({

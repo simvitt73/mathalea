@@ -39,7 +39,7 @@ class EquationTrigo extends Exercice {
   nouvelleVersion (): void {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     type TypeQuestionsDisponibles = 'num' | 'den' | 'angle'

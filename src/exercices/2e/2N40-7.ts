@@ -67,7 +67,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
       : 'Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes'
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typeExpression = ['a+b*x', 'b*(a+c*x)', 'a*x^2+b*x+c']

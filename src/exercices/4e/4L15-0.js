@@ -54,7 +54,7 @@ export default function TrouverErreurResolEqDeg1 () {
 
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     // typesDeQuestionsDisponibles=[1];
 

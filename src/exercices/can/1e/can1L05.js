@@ -41,7 +41,7 @@ export default function ResoudreEquationSecondDegre2 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let texte, texteCorr, a, b, c, d, x1, x2
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
