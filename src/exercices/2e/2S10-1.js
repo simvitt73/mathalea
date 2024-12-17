@@ -112,7 +112,7 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}=${miseEnEvidence(texNombre(pourc, 3))} \\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: String(100), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ3: { value: pourc.toFixed(4) }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: String(100), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ3: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           break
 
         case 'Pourcentage':

@@ -50,9 +50,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      50
+      81
     ) // Liste tous les couples possibles (2,3)≠(3,2)
-    for (let i = 0, reponse, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, reponse, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 80;) {
       a = couples[cpt][0]
       b = couples[cpt][1]
       const ordre = this.sup3 ? [true] : [true, false]
@@ -115,9 +115,8 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
-      } else {
-        cpt++
       }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
