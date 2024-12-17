@@ -25,7 +25,7 @@ export const refs = {
 export default class ReconnaitreDesPointsAlignes extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 2
   }
 

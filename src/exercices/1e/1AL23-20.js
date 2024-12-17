@@ -26,11 +26,11 @@ export const refs = {
 }
 export default function Resolutionavecformecanonique () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
   this.spacingCorr = 3
 
   this.nouvelleVersion = function () {

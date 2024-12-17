@@ -41,7 +41,7 @@ export const refs = {
 }
 export default function DivisionDecimale () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli

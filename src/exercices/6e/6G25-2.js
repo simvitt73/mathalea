@@ -20,7 +20,7 @@ export const refs = {
 }
 export default function PavagesEtSymetries () {
   PavagesEtTransformations.call(this)
-  this.titre = titre
+
   this.level = 6
   this.besoinFormulaireNumerique = false
 }

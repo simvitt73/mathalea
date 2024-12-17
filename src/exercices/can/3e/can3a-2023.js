@@ -51,7 +51,7 @@ function compareNombres (a, b) {
 
 export default function SujetCAN2023troisieme () {
   Exercice.call(this)
-  this.titre = titre
+
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.nbQuestions = 30

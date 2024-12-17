@@ -33,7 +33,7 @@ export const refs = {
 }
 export default function ImageFonctionAlgebrique () {
   Exercice.call(this)
-  this.titre = titre
+
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = ''

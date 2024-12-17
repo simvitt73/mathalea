@@ -17,7 +17,7 @@ export const refs = {
 }
 export default function Parite () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Soit $n$ un entier naturel.'
   this.nbQuestions = 4
   this.nbCols = 2

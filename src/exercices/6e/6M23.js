@@ -17,9 +17,9 @@ export const refs = {
 }
 export default function Reglages6M23 () {
   ExerciceConversionsAires.call(this)
-  this.titre = titre
+
   this.interactif = false
   this.sup = 3
-  this.nbColsCorr = 1
+
   this.nbQuestions = 10
 }

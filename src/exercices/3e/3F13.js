@@ -29,7 +29,7 @@ export const refs = {
 }
 export default function AntecedentGraphique () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.sup = 2
 

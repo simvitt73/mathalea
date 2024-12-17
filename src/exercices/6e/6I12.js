@@ -39,11 +39,11 @@ export const refs = {
 }
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
-  this.titre = titre
+
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'

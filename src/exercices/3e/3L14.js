@@ -31,7 +31,7 @@ export const refs = {
 }
 export default function ResoudreUneEquationProduitNul () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 5
 
 

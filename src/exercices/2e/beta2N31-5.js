@@ -25,7 +25,7 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
 export default class CalculerAvecEcritureScientifique extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.interactifReady = interactifReady
     this.interactifType = interactifType
     this.correctionDetailleeDisponible = true

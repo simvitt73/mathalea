@@ -24,9 +24,9 @@ export const refs = {
 }
 export default function ExprimerEnFonctionDesAutresFormules () {
   Exercice.call(this)
-  this.titre = titre
 
-  this.nbColsCorr = 1
+
+
 
 
   this.nbQuestions = 1

@@ -36,11 +36,11 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
     this.nbQuestions = 3
   }
 
-  this.titre = titre
+
   this.consigne = ''
 
 
-  this.nbColsCorr = 1
+
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 

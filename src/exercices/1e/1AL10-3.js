@@ -23,7 +23,7 @@ export const refs = {
 }
 export default function TermeDUneSuiteDefinieExplicitement () {
   Exercice.call(this)
-  this.titre = titre
+
   // this.consigne = 'Une suite étant donnée, calculer le terme demandé.'
   this.nbQuestions = 1
   this.sup = 4

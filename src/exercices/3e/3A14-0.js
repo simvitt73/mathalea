@@ -30,7 +30,7 @@ export const refs = {
 }
 export default function DesChocolatsDansDesBoites () {
   Exercice.call(this)
-  this.titre = titre
+
   this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
   this.consigne = ''
   context.isHtml ? this.spacing = 1 : this.spacing = 2

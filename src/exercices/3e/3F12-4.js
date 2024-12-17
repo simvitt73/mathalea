@@ -33,7 +33,7 @@ export const refs = {
 }
 export default function ImageGraphique () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.sup = 3
 

@@ -16,7 +16,7 @@ export const uuid = '4adca'
 export default class DivisionParQuatreCM2 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'

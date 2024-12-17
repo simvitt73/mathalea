@@ -28,7 +28,7 @@ export const refs = {
 }
 export default function Determinerfonctionaffine () {
   Exercice.call(this)
-  this.titre = titre
+
 
 
   this.nbQuestions = 3

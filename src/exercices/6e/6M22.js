@@ -17,7 +17,7 @@ export const refs = {
 }
 export default function Reglages6M22 () {
   ExercicePerimetresEtAires.call(this)
-  this.titre = titre
+
   this.sup = '4-5'
   this.exo = 'OnlyDisk'
   this.besoinFormulaireTexte = [

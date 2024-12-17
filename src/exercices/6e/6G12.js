@@ -17,7 +17,7 @@ export const refs = {
 export default class TracerDesParalleles extends ParalleleEtPerpendiculaires {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = 1
     this.type = 2
   }

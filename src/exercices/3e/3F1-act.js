@@ -58,7 +58,7 @@ export function katexPopup (texte, titrePopup, textePopup) {
 export default function FonctionNotionVocabulaire () {
   Exercice.call(this)
   this.sup = 1
-  this.titre = titre
+
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Étudier différents procédés de calcul.'
   context.isHtml ? this.spacing = 3 : this.spacing = 1

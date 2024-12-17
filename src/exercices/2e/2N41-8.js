@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function MettreAuMemeDenominateurLit () {
   Exercice.call(this)
-  this.titre = titre
+
 
 
 

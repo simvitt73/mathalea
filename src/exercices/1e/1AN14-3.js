@@ -28,12 +28,12 @@ const termNames = ['u', 'v', 'w', 'z']
 
 export default function DeriveePoly () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 3
   // Sortie LaTeX
 
-  this.nbColsCorr = 1 // Nombre de colonnes dans la correction
+
   this.spacing = 2
   this.spacingCorr = 2
   this.sup = '6'

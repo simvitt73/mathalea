@@ -33,10 +33,10 @@ export default function ColorierDeplacement () {
   this.sup2 = false // 1 : sans boucle ; true : avec boucle
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.titre = titre
+
   this.consigne = 'Dans le quadrillage, effectuer le programme.'
 
-  this.nbColsCorr = 1
+
   this.nbQuestionsModifiable = false
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1

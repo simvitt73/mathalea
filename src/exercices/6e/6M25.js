@@ -16,10 +16,10 @@ export const refs = {
 }
 export default function ConnaitreFormulesDePerimetreEtAires () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
 
   this.nouvelleVersion = function () {
     const listeTypeDeQuestions = combinaisonListes(

@@ -30,7 +30,7 @@ export const refs = {
 export default class TrianglesSemblables extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 3
 
 

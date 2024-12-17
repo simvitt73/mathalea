@@ -34,7 +34,7 @@ export const refs = {
 export default class EvolutionsEnPourcentage extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.interactifReady = interactifReady
     this.interactifType = interactifType
     this.consigne = ''

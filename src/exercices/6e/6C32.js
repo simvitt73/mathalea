@@ -28,7 +28,7 @@ export const refs = {
 }
 export default function ProblemeCourse () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.spacing = 2
   this.spacingCorr = 2
@@ -36,7 +36,7 @@ export default function ProblemeCourse () {
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   this.sup = false
   // this.listeAvecNumerotation = false
 

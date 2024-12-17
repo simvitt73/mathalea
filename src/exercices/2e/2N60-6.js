@@ -34,7 +34,7 @@ export default function PositionRelative () {
   Exercice.call(this)
   this.sup = 1
   this.sup2 = 1
-  this.titre = titre
+
   this.nbQuestions = 1
   this.besoinFormulaireTexte = [
     'Choix des fonctions',

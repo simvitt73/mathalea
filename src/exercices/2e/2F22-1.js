@@ -96,7 +96,7 @@ function aleatoiriseCourbe (listeFonctions) {
 export default class LecturesGraphiquesSurSplines extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
     this.exoCustomResultat = true

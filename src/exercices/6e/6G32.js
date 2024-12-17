@@ -37,12 +37,12 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export default function SymetrieAxialeProprietes () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
+
   this.sup = '5'
   this.sup2 = true
 

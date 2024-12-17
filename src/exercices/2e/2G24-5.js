@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function Calculercoordonneesegalitevecteurs () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 2
 
 

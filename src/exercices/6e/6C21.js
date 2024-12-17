@@ -18,6 +18,6 @@ export const refs = {
 export default function DivisionsEuclidiennesNiv2 () {
   DivisionsEuclidiennesEgaliteFondamentale.call(this)
   this.sup = 3
-  this.titre = titre
+
   this.tailleDiaporama = 3
 }

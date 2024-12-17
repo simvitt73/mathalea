@@ -24,7 +24,7 @@ export const refs = {
 export default class ModeleAutomatisme2nde extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 1

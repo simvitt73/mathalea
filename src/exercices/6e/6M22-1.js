@@ -43,7 +43,7 @@ export const refs = {
  */
 export default function PerimetreAireDisques (pa = 3) {
   Exercice.call(this)
-  this.titre = titre
+
   this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.sup2 = true // rayon ou périmètre entier
   this.sup3 = 4

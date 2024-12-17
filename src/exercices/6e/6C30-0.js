@@ -29,7 +29,7 @@ export const refs = {
 }
 export default function MultiplierDecimaux () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
 

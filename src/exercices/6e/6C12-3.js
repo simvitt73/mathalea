@@ -35,7 +35,7 @@ export default function ExerciceInformationsProblemes () {
   this.sup = 1
   this.sup2 = 11
   this.sup3 = false
-  this.titre = titre
+
   this.spacing = 2
   this.nbQuestions = 10
 

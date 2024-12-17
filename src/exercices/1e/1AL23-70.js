@@ -32,10 +32,10 @@ export const refs = {
 }
 export default function TrouverEquationParabole () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
+
   this.spacingCorr = 3
   this.sup = 4
   this.correctionDetailleeDisponible = true

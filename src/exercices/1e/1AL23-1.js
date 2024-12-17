@@ -27,7 +27,7 @@ export const refs = {
 }
 export default function Formacanonique () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2

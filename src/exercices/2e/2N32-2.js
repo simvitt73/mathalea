@@ -20,7 +20,7 @@ export const refs = {
 }
 export default function Proprietesracinecarree () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 2
   this.nbCols = 2
 

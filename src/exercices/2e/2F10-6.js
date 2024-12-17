@@ -25,11 +25,11 @@ export const refs = {
 }
 export default function Variationsfonctionaffine () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 2 // On complète le nb de questions
 
-  this.nbColsCorr = 1
+
   this.video = ''
 
 

@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function VuesEmpilementCubes () {
   Exercice.call(this)
-  this.titre = titre
+
   this.sup = 1
   this.sup2 = 7
   this.sup3 = 3

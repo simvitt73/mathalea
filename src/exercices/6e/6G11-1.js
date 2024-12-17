@@ -35,10 +35,10 @@ export default class constructionPerpendiculaires extends Exercice {
 //
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 1
 
-    this.nbColsCorr = 1
+
     this.sup = 1
     this.sup2 = '1'
       this.spacing = (context.isHtml) ? 2 : 1

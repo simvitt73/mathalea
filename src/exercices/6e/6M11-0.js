@@ -19,7 +19,7 @@ export const refs = {
 export default class DecomposerFigureComplexe extends PerimetreOuAireDeFiguresComposees {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup4 = 4
     this.besoinFormulaire3Numerique = false
     this.besoinFormulaire4Numerique = false

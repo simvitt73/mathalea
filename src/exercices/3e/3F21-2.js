@@ -33,7 +33,7 @@ export const refs = {
 }
 export default function DeterminerFonctionAffine () {
   Exercice.call(this)
-  this.titre = titre
+
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = ''
@@ -46,7 +46,7 @@ export default function DeterminerFonctionAffine () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.titre = titre
+
 
 
     

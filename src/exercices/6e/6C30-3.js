@@ -30,14 +30,14 @@ export const refs = {
 }
 export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)
-  this.titre = titre
+
   this.interactif = true // Il n'existe pas de version non QCM
   this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.video = ''
 
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
 

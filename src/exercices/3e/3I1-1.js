@@ -86,7 +86,7 @@ export const refs = {
 }
 export default function ConjectureDeSyracuse () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 5 // Ici le nombre de questions
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions

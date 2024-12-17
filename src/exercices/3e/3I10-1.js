@@ -50,7 +50,7 @@ export default function ScratchMultiScript () {
 
   this.spacing = 2
   this.nbQuestions = 1
-  this.titre = titre
+
   this.typeExercice = 'Scratch'
 
 

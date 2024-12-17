@@ -23,7 +23,7 @@ export const refs = {
 }
 export default function SimplifierUneSommeDeRacinesCarrees () {
   Exercice.call(this)
-  this.titre = titre
+
   // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2

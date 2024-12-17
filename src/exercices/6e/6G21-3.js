@@ -18,7 +18,7 @@ export const refs = {
 export default class ConstruireUnTriangleParticulier extends ConstruireUnTriangle {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = 9
     this.nbQuestions = 6
   }

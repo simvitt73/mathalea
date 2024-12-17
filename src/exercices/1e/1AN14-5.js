@@ -36,7 +36,7 @@ export function prettyTex (expression) {
 
 export default function DeriveeProduit () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 3
   // Sortie LaTeX

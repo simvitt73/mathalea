@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function DevelopperIdentitesRemarquables2 () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Développer et réduire les expressions suivantes.'
 
 

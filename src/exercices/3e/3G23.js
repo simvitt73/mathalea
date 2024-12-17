@@ -39,7 +39,7 @@ export const refs = {
 export default function TrianglesEgaux () {
   Exercice.call(this)
   this.debug = false
-  this.titre = titre
+
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 

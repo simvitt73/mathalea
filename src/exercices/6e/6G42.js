@@ -20,5 +20,5 @@ export const refs = {
 }
 export default function UtiliserVocabulairePave () {
   Solide6e.call(this)
-  this.titre = titre
+
 }

@@ -15,7 +15,7 @@ export const uuid = 'c69f0'
 export default class SoustractionPasFacileCM2 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
