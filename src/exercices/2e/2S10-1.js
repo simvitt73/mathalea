@@ -34,8 +34,6 @@ export const refs = {
 export default function DiffentesEcrituresProportions () {
   Exercice.call(this)
   this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.sup = 4 // type de questions
 
   this.nouvelleVersion = function () {
