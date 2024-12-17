@@ -67,7 +67,7 @@ export default function ProblemesAdditifsFractions5e () {
   this.titre = titre
   this.consigne = ''
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 1 : this.spacing = 1

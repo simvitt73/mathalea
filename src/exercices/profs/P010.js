@@ -27,7 +27,7 @@ export default function VariationPolynomeDegre3 () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = '-1/-2/3/1' // Niveau de difficulté
   this.sup2 = true

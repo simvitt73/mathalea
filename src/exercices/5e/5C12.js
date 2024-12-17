@@ -26,7 +26,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     this.sup = 3
     this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.

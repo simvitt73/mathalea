@@ -34,7 +34,7 @@ export const refs = {
 
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   if (this.exo === '4L14-1') {

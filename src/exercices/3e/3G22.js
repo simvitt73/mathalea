@@ -27,7 +27,7 @@ export default function AgrandissementReduction () {
   this.nbQuestionsModifiable = false
   context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5
   context.isHtml ? this.spacing = 3 : this.spacing = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.quatrieme = false
   this.sup = 1 //

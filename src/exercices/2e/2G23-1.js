@@ -74,7 +74,7 @@ function estEgalAUnAutreSegment (s, s1, s2, s3) { // recherche si le segment s e
 export default function ImagePtParTranslation () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = '1'
   this.classe = 2

@@ -36,7 +36,7 @@ export default function FonctionsCalculsDImages () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 4
   // this.correctionDetailleeDisponible = true;
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 5
   let pourcentage, idDuDiv, idDuDivCorr, j

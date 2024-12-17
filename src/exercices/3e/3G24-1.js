@@ -32,7 +32,7 @@ export default class TrianglesSemblables extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 3
-    this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
     this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
     this.sup = 1
     this.video = '' // Id YouTube ou url

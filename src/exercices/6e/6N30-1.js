@@ -33,7 +33,7 @@ export default function LireAbscisseDecimaleBis2d () {
   this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
   this.nbQuestions = 3
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

@@ -30,7 +30,7 @@ export const refs = {
 export default function LireAbscissesFractionnairesComplexes () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.sup2 = true // avec des fractions simplifiées

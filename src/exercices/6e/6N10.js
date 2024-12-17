@@ -108,7 +108,7 @@ export default function EcrirePetitsNombresEntiers () {
   this.sup3 = 1 // Valeur du paramètre par défaut
   this.besoinFormulaire4CaseACocher = ['Activer le drag and drop pour l\'écriture en lettres', false]
   this.sup4 = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
   this.video = ''

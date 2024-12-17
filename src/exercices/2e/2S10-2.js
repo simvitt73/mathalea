@@ -40,7 +40,7 @@ export default function Proportions () {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 4 // type de questions mettre 4
 

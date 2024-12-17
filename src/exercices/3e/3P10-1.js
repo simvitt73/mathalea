@@ -25,7 +25,7 @@ export default function CoefficientEvolution () {
   Exercice.call(this)
   this.consigne = 'Compléter.'
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.version = 1

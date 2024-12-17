@@ -27,7 +27,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Développer puis réduire les expressions suivantes.'
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

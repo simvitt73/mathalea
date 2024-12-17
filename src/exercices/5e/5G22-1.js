@@ -42,7 +42,7 @@ export default function ProprietesMediatrice () {
   this.sup = 3
   this.besoinFormulaire2CaseACocher = ['Inclure des situations où aucun point n\'appartient pas à la médiatrice']
   this.sup2 = true
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

@@ -84,7 +84,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.sup = 13

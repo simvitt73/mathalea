@@ -26,7 +26,7 @@ export default function SignefonctionaffineVariation () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 2 // On complète le nb de questions
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.video = ''
   this.spacing = 1.75

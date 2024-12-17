@@ -22,7 +22,7 @@ export default function TraceCourbeInterpolee1 () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = '(-5;0)/(0;5)/(5;0)' // liste de points
   this.sup2 = true

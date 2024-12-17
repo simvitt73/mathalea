@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.consigne = ''
     this.nbQuestions = 5 // Nombre de questions par défaut
-    this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
     this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
     this.tailleDiaporama = 3
   }

@@ -35,7 +35,7 @@ export default function ReperagePointDuPlan () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

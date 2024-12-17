@@ -29,7 +29,7 @@ export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
   Exercice.call(this)
   this.consigne = 'Pour chaque expérience, calculer $P(A)$, $P(B)$, $P(A\\cap B)$ et $P(A\\cup B)$'
   this.nbQuestions = 2
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

@@ -48,7 +48,7 @@ export default function ExerciceInequationProduit () {
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 4 // Choix du nombre de questions
 
-  this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
+
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
 
   this.nouvelleVersion = function () {

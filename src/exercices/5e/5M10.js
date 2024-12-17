@@ -35,7 +35,7 @@ export default function AireDuParallelogramme () {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   /* const cadre = function (p, params) {

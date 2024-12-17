@@ -41,7 +41,7 @@ export const refs = {
 export default function ProprietesParallelesPerpendiculaires () {
   Exercice.call(this)
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 4
   this.sup2 = false

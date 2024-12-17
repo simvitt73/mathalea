@@ -20,7 +20,7 @@ export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, no
 export default function Solide6e () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1

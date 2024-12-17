@@ -25,7 +25,7 @@ export default function ProblemesAdditifsFractionsBis () {
   this.video = ''
   this.nbQuestions = 5
   this.consigne = 'Justifier vos réponses aux problèmes suivants.'
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)

@@ -41,7 +41,7 @@ export default function ReciproqueThales () {
   this.nbQuestions = 3
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.quatrieme = false
   this.sup = 1

@@ -47,7 +47,7 @@ export default function AireDeTriangles () {
   // eslint-disable-next-line no-undef
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 3
 

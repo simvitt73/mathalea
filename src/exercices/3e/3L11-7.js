@@ -29,7 +29,7 @@ export const refs = {
 export default function CarreDoubleDistributivite () {
   Exercice.call(this)
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2

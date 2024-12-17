@@ -32,7 +32,7 @@ export default function LireAbscisseDecimale () {
   this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

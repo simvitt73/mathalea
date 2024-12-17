@@ -18,7 +18,7 @@ export default function EquationAvecUnLogarithme () {
   Exercice.call(this)
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes :'
   this.nbQuestions = 2
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

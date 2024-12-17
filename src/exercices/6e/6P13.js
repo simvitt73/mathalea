@@ -42,7 +42,7 @@ export const refs = {
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.sup2 = 2

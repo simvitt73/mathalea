@@ -27,7 +27,7 @@ export const refs = {
 
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

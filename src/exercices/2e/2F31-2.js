@@ -29,7 +29,7 @@ export default function EncadrerAvecFctRef () {
   this.consigne = ''
   this.nbQuestions = 3
   // this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 5
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)

@@ -35,7 +35,7 @@ export default function CompleterParSymetrieCan () {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1

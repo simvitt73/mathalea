@@ -23,7 +23,7 @@ export default function DivisionDePolynomes () {
   this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
 
   this.nbQuestions = 2
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.sup = 1 // Niveau de difficulté

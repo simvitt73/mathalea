@@ -44,7 +44,7 @@ export default function PavageEtReflexion2d () {
 
   this.correctionDetaillee = true
   this.correctionDetailleeDisponible = true
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grands.
   this.sup2 = false // On cache les centres par défaut.

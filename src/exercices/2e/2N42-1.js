@@ -24,7 +24,7 @@ export const refs = {
 }
 export default function ExprimerEnFonctionDesAutres () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

@@ -33,7 +33,7 @@ export default function ExerciceLabyrintheMultiples () {
   Exercice.call(this)
   this.niveau = '6e'
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false

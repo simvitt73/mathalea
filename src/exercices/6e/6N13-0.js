@@ -27,7 +27,7 @@ export default class sensDesPrefixes extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 4
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = 1

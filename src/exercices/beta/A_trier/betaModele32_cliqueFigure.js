@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.consigne = 'Clique sur la bonne figure.'
     this.nbQuestions = 3
-    this.nbCols = 1
+
     this.nbColsCorr = 1
   }
 

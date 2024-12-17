@@ -45,7 +45,7 @@ export default class CalculDeLongueur extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     this.sup = false
     this.sup2 = '7'

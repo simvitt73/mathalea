@@ -36,7 +36,7 @@ export default function OrganiserDonneesDepuisTexte () {
   this.consigne = "Répondre aux questions à l'aide du texte."
   this.nbQuestions = 4
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = false // false -> effectif ; true -> masse
   this.sup2 = 4 // paramètre nombre de fruit

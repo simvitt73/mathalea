@@ -31,7 +31,7 @@ export default function LectureDiagrammeBaton () {
   this.consigne = "Répondre aux questions à l'aide du graphique."
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1

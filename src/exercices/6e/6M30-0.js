@@ -24,7 +24,7 @@ export default function VolumesPavesParDenombrement () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions
 
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
+
   this.nbColsCorr = 1// Le nombre de colonnes pour la correction LaTeX
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne

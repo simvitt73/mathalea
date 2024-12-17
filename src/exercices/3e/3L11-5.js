@@ -35,7 +35,7 @@ export default function IdentitesCalculs () {
   this.sup = 1
   this.nbQuestions = 3
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 1 : this.spacing = 1

@@ -39,7 +39,7 @@ export default function ConservationTransformation () {
   this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueurs et Angles\n3 : Mélange']
   this.sup = 1
   this.sup2 = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

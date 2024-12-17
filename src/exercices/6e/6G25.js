@@ -30,7 +30,7 @@ export const refs = {
 export default function ConstruireMediatrices6e () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   const celluleAlea = function (rang) {

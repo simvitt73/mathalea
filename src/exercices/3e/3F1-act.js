@@ -66,7 +66,7 @@ export default function FonctionNotionVocabulaire () {
   // this.nbQuestions;// = 4;
   this.nbQuestionsModifiable = false
   // this.correctionDetailleeDisponible = true;
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 5
 

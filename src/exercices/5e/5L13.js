@@ -28,7 +28,7 @@ export const refs = {
 export default function Reductionaxbx () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = true
 

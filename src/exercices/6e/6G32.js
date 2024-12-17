@@ -41,7 +41,7 @@ export default function SymetrieAxialeProprietes () {
   this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = '5'
   this.sup2 = true

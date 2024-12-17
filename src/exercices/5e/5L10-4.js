@@ -35,7 +35,7 @@ export default function TableauxEtFonction () {
 
   this.consigne = ''
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1

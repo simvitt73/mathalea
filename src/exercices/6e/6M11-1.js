@@ -35,7 +35,7 @@ export const refs = {
 export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   Exercice.call(this)
   this.interactif = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.nbQuestions = 1
   this.sup = 4

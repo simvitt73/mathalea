@@ -33,7 +33,7 @@ export default function SigneProduitQuotientRelatifs () {
   Exercice.call(this)
   this.consigne = 'Donner le signe des expressions numériques.'
   this.nbQuestions = 7
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
 

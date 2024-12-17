@@ -23,7 +23,7 @@ export const refs = {
 }
 export default function ImageAntecedentDepuisTableauOuFleche () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.nbQuestions = 1
 

@@ -26,7 +26,7 @@ export default function PavagesMathalea2d () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 4
   this.sup2 = '1-1'

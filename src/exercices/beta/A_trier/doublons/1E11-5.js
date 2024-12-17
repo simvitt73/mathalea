@@ -34,7 +34,7 @@ export default function Resolutionavecdelta () {
   this.titre = titre
   // this.consigne = ''
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacingCorr = 3
 

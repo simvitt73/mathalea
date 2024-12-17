@@ -30,7 +30,7 @@ class MultiplierPar001 extends Exercice {
     super()
     this.nbQuestions = 4 // Ici le nombre de questions
 
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
+
     this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
     this.consigne = 'Compléter les pointillés.'
     this.correctionDetailleeDisponible = true

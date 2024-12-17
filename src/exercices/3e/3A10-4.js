@@ -34,7 +34,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 2
   // this.correctionDetailleeDisponible = true;
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

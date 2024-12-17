@@ -16,7 +16,7 @@ export default function UtiliserLeCodagePourDecrire () {
   Exercice.call(this)
   this.titre = 'Utiliser le codage pour décrire une figure'
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = randint(1, 3)
   this.nouvelleVersion = function () {

@@ -40,7 +40,7 @@ export default function CalculDAngleFigureComplexe () {
   this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
   this.nbQuestions = 2
 
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.spacingCorr = 3
   this.correctionDetailleeDisponible = true

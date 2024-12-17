@@ -40,7 +40,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
     this.consigne = ''
     this.nbQuestions = 4
     this.spacing = 1.5
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     this.sup = 4 // type de questions
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une évolution en pourcentage\n2 : Calculer un taux d\'évolution\n3 : Calculer la valeur initiale en connaissant le taux d\'évolution et la valeur finale\n4 : Mélange']

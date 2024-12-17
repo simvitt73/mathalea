@@ -28,7 +28,7 @@ export default function ExerciceLabyrintheDivisibilite2 () {
   Exercice.call(this)
   this.niveau = '6e'
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 6
   this.sup3 = 1

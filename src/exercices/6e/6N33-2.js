@@ -34,7 +34,7 @@ export default function CalculerUnPourcentage () {
   this.nbQuestions = 1
   this.spacing = 2
   this.spacingCorr = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

@@ -36,7 +36,7 @@ export const dateDePublication = '01/01/2024'
 export default function CourseAuxNombresSpeciale2024 () {
   Exercice.call(this)
 
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.sup = 'x'

@@ -25,7 +25,7 @@ export default function TracerTriangle2Angles () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = false
 

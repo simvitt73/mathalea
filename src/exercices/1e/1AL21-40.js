@@ -33,7 +33,7 @@ export default function Resolutionavecformecanonique () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacingCorr = 1.5
   this.sup = 1

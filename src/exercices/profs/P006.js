@@ -23,7 +23,7 @@ export const uuid = 'bd5f7'
  */
 export default function NombreAPlacer () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.sup = 1

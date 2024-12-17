@@ -22,7 +22,7 @@ export const titre = 'Écrire une relation de Thalès'
 export default function RelationDeThales () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
 

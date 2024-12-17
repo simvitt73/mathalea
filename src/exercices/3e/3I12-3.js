@@ -32,7 +32,7 @@ export default function CompleterScriptDiviseurs () {
   this.spacing = 2
   this.nbQuestions = 1
   this.typeExercice = 'Scratch'
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({

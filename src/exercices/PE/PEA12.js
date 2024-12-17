@@ -27,7 +27,7 @@ export default function AdditionSoustractionBaseN () {
   this.consigne = 'Poser et effectuer les calculs suivants :'
   this.video = '-bIvS95dmYw'
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.pasDeVersionLatex = true

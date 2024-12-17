@@ -21,7 +21,7 @@ export default class FonctionsProbabilite extends FonctionsProbabilite2 {
     this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
     this.nbQuestions = 2
 
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2

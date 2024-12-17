@@ -30,7 +30,7 @@ export default class CliqueFigure extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.nbCols = 1
+
     this.nbColsCorr = 1
   }
 

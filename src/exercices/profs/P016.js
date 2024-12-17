@@ -20,7 +20,7 @@ export default function SimulateurDes () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = '6' // liste de dés
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

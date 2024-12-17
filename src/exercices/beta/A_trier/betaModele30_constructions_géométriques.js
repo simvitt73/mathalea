@@ -26,7 +26,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.consigne = 'consigne'
     this.nbQuestions = 1 // Ici le nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
+
     this.nbColsCorr = 1 // Le nombre de colonne pour la correction LaTeX
   }
 

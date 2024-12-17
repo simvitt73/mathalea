@@ -32,7 +32,7 @@ export default function ConstruireUnTriangleAvecCible () {
   Exercice.call(this)
   this.titre = 'Construire un triangle avec cible auto-corrective'
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.classe = 6
 

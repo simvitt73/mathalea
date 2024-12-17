@@ -31,7 +31,7 @@ export default class NomExercice extends Exercice {
     // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
     //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
 
-    this.nbCols = 1
+
     this.nbColsCorr = 1
   }
 

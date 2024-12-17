@@ -33,7 +33,7 @@ export default function ConstruireSymetriquePoint5e () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 3
   this.nouvelleVersion = function () {

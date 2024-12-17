@@ -31,7 +31,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
