@@ -38,7 +38,7 @@ export default function VariationPolynomeDegre3 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     // un tableau correct en exemple
     // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents

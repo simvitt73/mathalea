@@ -27,7 +27,7 @@ export default class SuperExoMathalea2d extends Exercice {
 
 
     
-    this.listeCorrections = []
+    
 
     const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
     const objetsCorrection = [] // Idem pour la correction

@@ -52,9 +52,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     const k = []
     let A, B, C, Aprime, Bprime, Cprime
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.

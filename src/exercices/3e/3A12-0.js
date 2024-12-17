@@ -45,7 +45,7 @@ export default class EngrenagesAnimes extends Exercice {
   nouvelleVersion (numeroExercice) {
 
     
-    this.listeCorrections = []
+    
 
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({
       min: 1,

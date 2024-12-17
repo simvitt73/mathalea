@@ -36,7 +36,7 @@ export default class ProbaConcret extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let index = 0
     let increment = 1

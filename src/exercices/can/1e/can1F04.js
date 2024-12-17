@@ -38,7 +38,7 @@ export default function LectureGraphiqueParaboleB () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let texte, texteCorr, a, alpha, beta, r, F, o
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

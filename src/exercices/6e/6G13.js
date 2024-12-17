@@ -45,7 +45,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
   nouvelleVersion (numeroExercice) {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const listeQuestions = gestionnaireFormulaireTexte({

@@ -50,7 +50,7 @@ export default function SimulateurAleatoire () {
     const tabEff = []// tableau d'effectifs temporaires - une dimension [eff]
     let S = 0 // effectif total
     const tabRes = [] // tableau des fréqeunces observées - deux dimensions [val, freq]
-    this.listeCorrections = []
+    
 
     
     const tabcoul = ['rouges', 'vertes', 'bleues', 'noires']

@@ -55,7 +55,7 @@ export default function ExprimerCosSinTan () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let fonctionsTrigonometriques = gestionnaireFormulaireTexte({
       saisie: this.sup2,

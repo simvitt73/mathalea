@@ -57,7 +57,7 @@ export default function PlacerLaVirgule () {
 
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const rang = ['millièmes', 'centièmes', 'dixièmes']
 

@@ -31,7 +31,7 @@ export default function ReconnaitreExp () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
 
     let texte, texteCorr, a, b, c, d, choix, listeFractions1, fractionR, monQcm
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

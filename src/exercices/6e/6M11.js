@@ -58,7 +58,7 @@ export default function AireCarresRectanglesTriangles () {
     const nom = creerNomDePolygone(11, 'QD')
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
     this.autoCorrection = []
     const c = randint(2, 6)
     const L = randint(2, 5)

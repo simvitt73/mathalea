@@ -33,7 +33,7 @@ export default function CalculerDiscriminant () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = []
+    
     if (this.nbQuestions > 1) this.consigne = 'Calculer le discriminant de chacune de ces expressions :'
     else this.consigne = 'Calculer le discriminant de cett expression :'
     let listeTypesDeQuestions

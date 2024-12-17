@@ -41,7 +41,7 @@ export default function DivisionEuclidienneEtAjout () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const dizaineDiviseur = gestionnaireFormulaireTexte({
       saisie: this.sup3,

@@ -32,7 +32,7 @@ export default function SolutionInequation () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice(['a', 'b', 'c'])) { //
         case 'a':

@@ -33,7 +33,7 @@ export default function SensVariationSuite () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
 
     let texte, texteCorr, monQcm, a, q, b, c, choix, listeFractions1, fraction1, n1, d1
     const nomSuite = ['u', 'v', 'w', 't']

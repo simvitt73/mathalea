@@ -130,7 +130,7 @@ export default function PavageEtRotation2D () {
     if (this.nbQuestions > 5) {
       taillePavage = 2
     }
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

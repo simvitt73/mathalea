@@ -59,7 +59,7 @@ class LireImageParApiGeom extends Exercice {
 
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
-    this.listeCorrections = []
+    
 
     
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)

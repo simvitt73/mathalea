@@ -31,8 +31,6 @@ export default function EquationDuSecondDegreAvecUnParametre () {
   this.typeExercice = 'xcas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nouvelleVersion = function () {
-    this.listeCorrections = [] // Liste de questions corrigées
-
     for (let i = 0, texte, texteCorr, a, a2, b2, c2, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)

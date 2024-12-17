@@ -45,7 +45,7 @@ export default function LireUnDiagramme () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typesDeQuestionsDisponibles
     if (this.sup2 < 5) {

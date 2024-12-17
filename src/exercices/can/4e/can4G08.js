@@ -39,7 +39,7 @@ export default function QuestionsAiresEtPerimetres () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, n, d, A, B, C, D, N, a1, maFraction, texte, texteCorr, reponse
       const objets = []

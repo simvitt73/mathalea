@@ -53,7 +53,7 @@ export default function ReciproqueThales () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = []
+    
     this.sup = contraindreValeur(1, 3, parseInt(this.sup), 1)
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 1)
     this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)

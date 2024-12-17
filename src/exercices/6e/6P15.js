@@ -50,7 +50,7 @@ export default function CalculerCoeffPropo () {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const typeDeCoefficient = ['Entier', 'Decimal', 'Fraction']
     let listeTypesDeCoefficient = []

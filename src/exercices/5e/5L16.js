@@ -38,7 +38,7 @@ export default function SimplifierEcritureLitterale () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     if (this.sup2) {

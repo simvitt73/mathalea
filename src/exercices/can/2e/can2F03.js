@@ -34,7 +34,7 @@ export default function SigneFonctionAffine () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, a, b, n, maFraction, monQcm
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice(['a', 'b'])) { //, 'b'

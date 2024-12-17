@@ -30,7 +30,7 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const nbCalculsParQuestion = Number(this.sup)
 

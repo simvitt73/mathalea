@@ -44,7 +44,7 @@ export default class nomExercice extends Exercice {
     const computeEngine = new ComputeEngine()
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) { // On ajuste la difficulté selon le paramètre.

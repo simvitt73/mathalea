@@ -57,7 +57,7 @@ export default function ReperageSurLaSphere () {
     this.sup = parseInt(this.sup)
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let listeTypeDeQuestions
     if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)

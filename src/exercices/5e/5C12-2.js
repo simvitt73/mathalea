@@ -44,7 +44,7 @@ export default class DistributiviteNumerique extends Exercice {
 
 
     
-    this.listeCorrections = []
+    
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 

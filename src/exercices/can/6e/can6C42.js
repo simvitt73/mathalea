@@ -32,7 +32,7 @@ export default class ComparerFractionAUn extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.consigne = 'Compléter avec $>$ ou $<$.'
     const listeFractions1 = [[7, 8, 11, 8], [5, 8, 7, 8], [4, 11, 7, 11], [2, 11, 10, 11],

@@ -39,7 +39,7 @@ export default function EcrireUneExpressionNumerique () {
     let reponse
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup4,

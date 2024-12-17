@@ -33,7 +33,7 @@ export default function ComparerAvecFctCarre () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr, a, b, props
       const choix = choice([1, 2, 3])

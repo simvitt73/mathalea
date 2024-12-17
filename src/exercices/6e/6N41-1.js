@@ -51,7 +51,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
   }
   const tailleChiffre = context.isAmc ? 1.1 : 0.7
   this.nouvelleVersion = function () {
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

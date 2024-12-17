@@ -30,7 +30,7 @@ export default function SommeDeDeuxNombresMaries () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (
       let i = 0, texte, texteCorr, a, b, u1, u2, cpt = 0;

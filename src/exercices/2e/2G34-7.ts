@@ -40,7 +40,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typeQuestionsDisponibles : ('lv1'|'lv2')[]
     if (this.sup === 1) {

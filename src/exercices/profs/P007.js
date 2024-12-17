@@ -48,7 +48,7 @@ export default function PavagesMathalea2d () {
         [Nx, Ny] = [parseInt(this.sup2.split('-')[0]), parseInt(this.sup2.split('-')[1])] // Sinon on créé un tableau à partir des valeurs séparées par des -
       }
     }
-    this.listeCorrections = []
+    
 
     
 

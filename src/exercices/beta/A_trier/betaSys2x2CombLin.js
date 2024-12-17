@@ -43,7 +43,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
     const niveau = +this.sup // Niveau 1 = écriture ax+by = c ; Niveau 2 = parenthèses ou factorisation
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, sys, varSol, varCoeff, coeff, droit, mat, equationX, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question

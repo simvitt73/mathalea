@@ -105,7 +105,7 @@ export default function ConjectureDeSyracuse () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     // On choisit un entier pour l'étude de la suite de Syracuse correspondante

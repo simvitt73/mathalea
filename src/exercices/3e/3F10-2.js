@@ -39,7 +39,7 @@ export default function CalculsImagesFonctions () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'
       ? gestionnaireFormulaireTexte({

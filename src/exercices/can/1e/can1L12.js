@@ -34,7 +34,7 @@ export default function TableauSignesSecondDegre () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const coul0 = 'blue'
     let texte, texteCorr, a, b, c, solution1, solution2, solution3, solution4, inegalite, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

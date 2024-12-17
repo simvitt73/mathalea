@@ -42,7 +42,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

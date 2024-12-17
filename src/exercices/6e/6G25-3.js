@@ -152,7 +152,7 @@ export default function PavageEtReflexion2d () {
     if (this.nbQuestions > 5) {
       taillePavage = 2
     }
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

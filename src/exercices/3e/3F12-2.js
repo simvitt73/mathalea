@@ -46,7 +46,7 @@ export default function ImageFonctionAlgebrique () {
     this.sup = parseInt(this.sup)
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {

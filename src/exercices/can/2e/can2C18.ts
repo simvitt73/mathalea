@@ -31,7 +31,7 @@ export default class entiersConsecutifs extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []

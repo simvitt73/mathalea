@@ -41,7 +41,7 @@ export default function VocabulaireNotationsFonctions2 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.consigne = this.interactif ? 'Cocher toutes les réponses correctes.' : ''
 

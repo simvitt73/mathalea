@@ -70,7 +70,7 @@ export default function CanNoteLaCouleur6 () {
     const rose = roseDesVents()
 
     
-    this.listeCorrections = []
+    
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []

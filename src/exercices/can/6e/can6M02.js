@@ -34,7 +34,7 @@ export default function LaBonneUnite () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const unites = [' cm', ' dm', ' m']
       const a = randint(0, 4)

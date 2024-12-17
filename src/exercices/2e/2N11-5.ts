@@ -65,7 +65,7 @@ export default class nomExercice extends Exercice {
     this.consigne = `Compléter avec ${this.sup5 ? symbole : 'le symbole qui convient'}.`
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse'| 'nombresContenanceTrue' | 'nombresContenanceFalse'| 'lettresElementTrue' | 'lettresElementFalse'| 'lettresContenanceTrue' | 'lettresContenanceFalse'|'erreur')[]
     typeQuestionsDisponibles = []

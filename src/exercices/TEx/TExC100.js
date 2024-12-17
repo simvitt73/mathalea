@@ -32,7 +32,7 @@ export default function EquationDuPremierDegreDansC () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question

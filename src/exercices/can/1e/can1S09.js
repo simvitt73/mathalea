@@ -35,7 +35,7 @@ export default function RelationRec () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const nomSuite = ['u', 'v', 'w']

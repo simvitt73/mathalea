@@ -46,7 +46,7 @@ export default function ConservationTransformation () {
     context.fenetreMathalea2d = [-6, -6, 6, 6]
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.sup = Number(this.sup)
     this.sup2 = Number(this.sup2)

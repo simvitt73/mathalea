@@ -41,7 +41,7 @@ export default function ReperagePaveDroit () {
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const hauteur = 12

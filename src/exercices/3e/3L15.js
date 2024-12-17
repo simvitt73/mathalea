@@ -45,7 +45,7 @@ export default function ExerciceEquations () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,

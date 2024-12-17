@@ -48,7 +48,7 @@ export default function Lecturegraphiquedeaetb () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     for (let i = 0, a, b, r, c, d, A, B, droiteAB, choix, s1, s2, o, texte, texteCorr, cpt = 0;

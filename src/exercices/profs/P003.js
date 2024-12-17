@@ -41,7 +41,7 @@ export default function FeuilleDAxesGradues () {
     const pas = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, defaut: 10, melange: 11, nbQuestions: this.nbQuestions, shuffle: false })
 
     
-    this.listeCorrections = []
+    
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 

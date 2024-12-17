@@ -34,7 +34,7 @@ export default function ComparerAvecFctRef () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, a, b, N, props
     for (let i = 0; i < this.nbQuestions;) {
       switch (choice([1, 2, 3])) { //

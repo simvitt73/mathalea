@@ -32,7 +32,7 @@ export default function Soustraire11 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typesDeQuestionsDisponibles = [1, 1, 1, 1, 2]
     const listeTypeDeQuestions = combinaisonListes(

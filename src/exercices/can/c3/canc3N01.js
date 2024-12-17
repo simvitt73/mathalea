@@ -30,7 +30,7 @@ export default function EcritureDeNombreEntier () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 9)
       const b = randint(1, 9, a)

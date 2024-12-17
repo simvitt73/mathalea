@@ -31,7 +31,7 @@ export default function Ajouter9 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;

@@ -50,7 +50,7 @@ export default function DeterminerFonctionAffine () {
 
 
     
-    this.listeCorrections = []
+    
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup) === 1) {
       typeDeQuestionsDisponibles = [0, 1]

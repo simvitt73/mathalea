@@ -31,7 +31,7 @@ export default function DeterminerLeNombre () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
 
     let texte, texteCorr, a, monQcm
 

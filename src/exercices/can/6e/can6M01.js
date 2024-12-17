@@ -27,7 +27,7 @@ export default function QuestionDePerimetres () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(3, 25)
       const b = randint(0, 1)

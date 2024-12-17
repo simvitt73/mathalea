@@ -36,7 +36,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, k, b, c, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5, 6])) {

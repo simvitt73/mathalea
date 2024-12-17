@@ -31,7 +31,7 @@ export default class nomExercice extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'

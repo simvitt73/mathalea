@@ -38,7 +38,7 @@ export default class ReconnaitreNombrePremier extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['premier', 'non premier']

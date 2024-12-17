@@ -32,7 +32,7 @@ export default function ReconnaitreExpL () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.tailleDiaporama = 2
     let texte, texteCorr, a, b, c, d, e, monQcm
     const nomVar = ['a', 'b', 'x', 'y']

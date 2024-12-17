@@ -39,7 +39,7 @@ export default function MettreEnEquationSansResoudre () {
 
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     typesDeQuestionsDisponibles = [1]
 

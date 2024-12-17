@@ -35,7 +35,7 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const choixab1 = [[2, 8], [-2, -8], [-2, 8], [2, -8], [2, 2], [3, -3], [3, 3], [10, 10], [4, 16], [5, 20], [10, 40], [-5, 20], [-5, -20],
       [2, 32], [-2, 32], [-9, 81], [9, 36], [-6, 24], [4, -36], [2, 50], [-2, 50], [3, -12], [3, -48], [3, 48], [-4, 36], [-4, -36]]//
     let texte, texteCorr, a, k, b, c, fraction, props

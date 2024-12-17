@@ -43,7 +43,7 @@ export default function ÉcrireUneExpressionLitterale () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 18,

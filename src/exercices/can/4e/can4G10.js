@@ -38,7 +38,7 @@ export default function TripletsPythagoriciensOuPas () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeTripletsPythagoriciens = [
         [3, 4, 5],

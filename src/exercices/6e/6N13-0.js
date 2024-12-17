@@ -44,7 +44,7 @@ export default class sensDesPrefixes extends Exercice {
     if (this.sup === 3) this.consigne += 'avec le calcul ou le préfixe correspondant.'
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typeQuestionsDisponibles
     if (this.sup === 1) {

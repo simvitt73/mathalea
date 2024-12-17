@@ -30,7 +30,7 @@ export default class egaliteCompleter extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []

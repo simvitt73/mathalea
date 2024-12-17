@@ -41,7 +41,7 @@ export default function CalculValeurApprocheeRacineCarree () {
     this.autoCorrection = []
 
     
-    this.listeCorrections = []
+    
     this.sup = parseInt(this.sup)
     let listeAvecOuSansCalculatrice
     if (this.sup === 1) {

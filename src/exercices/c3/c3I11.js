@@ -70,7 +70,7 @@ export default function NoteLaCouleurC3 () {
     const echelleDessin = 0.75
 
     
-    this.listeCorrections = []
+    
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []

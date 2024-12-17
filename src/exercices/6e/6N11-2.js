@@ -52,7 +52,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     let typesDeQuestions
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.pointsNonSolutions = []
     this.pointsSolutions = []

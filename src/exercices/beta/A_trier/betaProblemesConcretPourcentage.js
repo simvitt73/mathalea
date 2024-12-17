@@ -25,7 +25,7 @@ export default class ProblemesConcretsEtPourcentages extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const entreprises = ['La colossale', 'Fabrik2', 'RenovMax', 'VenteAToutPrix', 'Maison de demain', 'Les jardins d\'orient', 'Piquesous & compagnie']

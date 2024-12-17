@@ -40,7 +40,7 @@ export default function ArrondirUneValeur4e () {
 
 
     
-    this.listeCorrections = []
+    
     let n, nb, rac, angle, v
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {

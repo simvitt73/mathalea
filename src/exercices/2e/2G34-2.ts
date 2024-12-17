@@ -41,7 +41,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
     }
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const typeQuestionsDisponibles = ['unique', 'unique', 'inf', 'aucune']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)

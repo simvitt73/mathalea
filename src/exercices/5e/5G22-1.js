@@ -48,7 +48,7 @@ export default function ProprietesMediatrice () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {

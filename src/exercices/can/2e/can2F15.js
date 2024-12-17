@@ -34,7 +34,7 @@ export default function VariationFA () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, a, b, d, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-10, 10, 0) // coefficient a de la fonction affine

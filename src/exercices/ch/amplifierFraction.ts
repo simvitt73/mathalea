@@ -31,7 +31,6 @@ export default class AmplifierOuReduireFraction extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCorrections = []
     this.autoCorrection = []
 
     let typeQuestionsDisponibles: ('amplifier' | 'simplifier')[]

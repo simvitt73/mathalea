@@ -36,7 +36,7 @@ export default function CompteEstBon () {
     const choix = combinaisonListes(range1(5), this.nbQuestions)
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeQuestions[i]) {

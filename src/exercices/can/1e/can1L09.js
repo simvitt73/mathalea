@@ -37,7 +37,7 @@ export default function EquationSecondDegreParticuliere () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let texte, texteCorr, a, b, c, f
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

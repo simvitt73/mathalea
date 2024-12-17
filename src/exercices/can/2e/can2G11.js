@@ -32,7 +32,7 @@ export default function RelationChasles2 () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, props, n
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(7, ['QD'])

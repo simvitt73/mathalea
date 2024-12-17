@@ -58,7 +58,7 @@ class PlacerPointsSurAxe extends Exercice {
     let typesDeQuestions
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

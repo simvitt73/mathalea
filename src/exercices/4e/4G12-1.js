@@ -169,7 +169,6 @@ export default function TrouverLaTransformation () {
   this.nouvelleVersion = function () {
     this.autoCorrection = []
 
-    this.listeCorrections = []
     this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.sup2 = contraindreValeur(1, 4, isNaN(this.sup2) ? 3 : this.sup2, 3)
     const nbSousQuestions = this.sup2

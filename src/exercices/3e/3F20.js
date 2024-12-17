@@ -52,7 +52,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const typesDeQuestionsDisponibles = [
       'imageParExpression',

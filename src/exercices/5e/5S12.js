@@ -49,7 +49,7 @@ export default function ConstruireUnDiagramme () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typesDeQuestionsDisponibles
     if (this.sup3 < 5) {

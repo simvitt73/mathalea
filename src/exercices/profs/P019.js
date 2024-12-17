@@ -21,7 +21,7 @@ export default function GenerateurShikaku () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const largeur = contraindreValeur(4, 30, this.sup, 12)
     const hauteur = contraindreValeur(4, 30, this.sup2, 5)
     for (let i = 0, shikaku, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

@@ -35,7 +35,7 @@ export default function TableauSignes () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, a, b, ligne1, props, debutEnonce
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine

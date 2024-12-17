@@ -45,7 +45,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.consigne = this.interactif ? 'Choisir la bonne comparaison.' : 'Comparer :'
 

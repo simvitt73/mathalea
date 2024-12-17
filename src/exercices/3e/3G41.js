@@ -35,7 +35,7 @@ export default function VuesEmpilementCubes () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let objetsEnonce, objetsCorrection
 

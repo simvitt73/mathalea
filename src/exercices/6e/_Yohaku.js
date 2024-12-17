@@ -40,7 +40,7 @@ export default function FabriqueAYohaku () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     const type = this.type
     for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const donnees = []

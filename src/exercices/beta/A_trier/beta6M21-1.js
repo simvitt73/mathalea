@@ -28,7 +28,7 @@ export default class AireAssemblageRectangles extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     const typesFigure = [1]
     const typeDeQuestions = combinaisonListes(typesFigure, this.nbQuestions)

@@ -38,7 +38,7 @@ export default function Rendreentier () {
     this.consigne = ' Trouver une fraction égale à celle proposée en supprimant la racine carrée de son dénominateur.'
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const listeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

@@ -38,7 +38,7 @@ export default function PuissanceDecimaleOuFractionnaire () {
   this.nouvelleVersion = () => {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions

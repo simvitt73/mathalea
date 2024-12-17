@@ -44,7 +44,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     let typesDeQuestions
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     this.contenu = ''
     this.contenuCorrection = ''

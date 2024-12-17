@@ -93,7 +93,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     /*
     let typesDeProblemes = []

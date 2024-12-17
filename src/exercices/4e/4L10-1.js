@@ -53,7 +53,7 @@ export default function ReductionsPiegesClassiques () {
     this.consigne += this.nbQuestions > 1 ? 'les expressions suivantes.' : 'l\'expression suivante.'
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     const typesDeQuestionsDisponibles = [
       'ax+b',

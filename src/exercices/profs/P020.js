@@ -48,7 +48,7 @@ export default function EncodeurTexte (type = 'générateur') {
     this.sup3 = contraindreValeur(1, 3, this.sup3, 1)
 
     
-    this.listeCorrections = []
+    
     if (type === 'exo') {
       switch (this.sup3) {
         case 1:

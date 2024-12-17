@@ -33,7 +33,7 @@ export default class Pyramides extends Exercice {
   nouvelleVersion () {
 
     
-    this.listeCorrections = []
+    
     let operation
     const taille = parseInt(this.sup4)
     let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.

@@ -55,7 +55,7 @@ export default function ExerciceLabyrinthePremiers3e () {
         nbMax = 29
         break
     }
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

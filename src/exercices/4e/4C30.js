@@ -50,7 +50,7 @@ export default function PuissancesDeDix () {
 
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {

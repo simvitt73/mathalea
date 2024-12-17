@@ -38,7 +38,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
 
     
-    this.listeCorrections = [] // Liste de questions corrigées
+    
 
     let typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On créé 3 types de questions
     if (parseInt(this.sup) === 1) {

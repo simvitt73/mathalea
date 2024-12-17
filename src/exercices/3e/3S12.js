@@ -52,7 +52,7 @@ export default function CalculEffectifFrequence () {
 
 
     
-    this.listeCorrections = []
+    
     const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const symbolePourCent = context.isHtml ? '%' : '$\\%$'

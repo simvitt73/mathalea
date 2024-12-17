@@ -40,7 +40,7 @@ export default function ExerciceLabyrintheDivisibilite1 () {
   this.nouvelleVersion = function () {
     const tailleChiffre = 0.8
 
-    this.listeCorrections = []
+    
 
     
     this.autoCorrection = []

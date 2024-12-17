@@ -36,7 +36,7 @@ export default function AgrandissementReduction () {
   this.nouvelleVersion = function (numeroExercice) {
 
     
-    this.listeCorrections = []
+    
     let texte, texteCorr, r, r2, h1, h2, h3, c, c2, kprime
     const pi = Decimal.acos(-1)
     this.typeExercice = 'MG32'

@@ -53,7 +53,7 @@ export default function DernierChiffre () {
 
 
     
-    this.listeCorrections = []
+    
     this.autoCorrection = []
     let typeDeQuestionsDisponibles = []
     if (this.sup === 1) {
