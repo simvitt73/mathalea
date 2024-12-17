@@ -39,7 +39,7 @@ export default function CalculDAngleFigureComplexe () {
   Exercice.call(this)
   this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.spacingCorr = 3

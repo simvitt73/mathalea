@@ -30,7 +30,7 @@ export const refs = {
 export default function DenombrerCubes () {
   Exercice.call(this)
   this.nbQuestions = 3 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre

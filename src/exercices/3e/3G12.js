@@ -38,7 +38,7 @@ export const refs = {
 export default function PavageEtRotation2D () {
   Exercice.call(this)
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
   this.spacing = 2

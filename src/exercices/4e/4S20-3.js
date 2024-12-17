@@ -25,7 +25,7 @@ export default class ExerciceQcmStatistiques extends Exercice {
     super()
     this.consigne = 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     this.nbQuestions = 5 // Nombre de questions par défaut
-    this.nbQuestionsModifiable = true
+
     this.besoinFormulaireNumerique = ['Notions testées', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
     this.sup = 1
     this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']

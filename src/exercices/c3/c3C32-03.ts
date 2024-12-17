@@ -31,7 +31,7 @@ export default class ExerciceProbleme003 extends Exercice {
     this.sup = 1
     this.besoinFormulaire3CaseACocher = ['Opération posée dans la correction', false]
     this.sup3 = false
-    this.nbQuestionsModifiable = true
+
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }

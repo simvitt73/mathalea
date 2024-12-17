@@ -34,7 +34,7 @@ export default function VocabulaireNotationsFonctions () {
   this.correctionDetaillee = false
   this.spacing = 2
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
   this.consigne = 'Cocher toutes les réponses correctes.'
 
   this.nouvelleVersion = function () {

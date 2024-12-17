@@ -27,7 +27,7 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 6
-    this.nbQuestionsModifiable = true
+
     this.comment = 'Cet exercice permet de voir le symbole = autrement que la touche EXE de la calculatrice.'
     this.besoinFormulaireTexte = ['Types de questions',
       `Nombres séparés par des tirets

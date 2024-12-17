@@ -33,7 +33,7 @@ export const refs = {
 export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
 

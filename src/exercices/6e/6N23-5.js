@@ -33,7 +33,7 @@ export const refs = {
 export default function SensDeLaFraction () {
   Exercice.call(this)
   this.nbQuestions = 4
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false

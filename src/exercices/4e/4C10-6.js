@@ -33,7 +33,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
   this.correctionDetaillee = false
   this.spacing = 2
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
 
   this.nouvelleVersion = function () {
 

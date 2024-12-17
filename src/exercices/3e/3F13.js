@@ -35,7 +35,7 @@ export default function AntecedentGraphique () {
 
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   // this.listeAvecNumerotation = false
 

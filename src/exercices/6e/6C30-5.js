@@ -30,7 +30,7 @@ export const refs = {
 export default function MultiplierPar001 () {
   Exercice.call(this)
   this.nbQuestions = 4 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.consigne = 'Choisir la bonne réponse pour compléter les pointillés.'

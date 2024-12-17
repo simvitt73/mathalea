@@ -29,7 +29,7 @@ export const refs = {
 }
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)
-  this.nbQuestionsModifiable = true
+
   this.nbQuestions = 3
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.interactifType = 'mathLive'

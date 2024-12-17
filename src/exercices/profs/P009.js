@@ -26,7 +26,7 @@ export const uuid = '691a7'
 export default function SimulateurAleatoire () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.

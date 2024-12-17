@@ -23,7 +23,7 @@ export default function FeuilleDAxesGradues () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 3

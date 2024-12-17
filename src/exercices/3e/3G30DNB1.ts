@@ -38,7 +38,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.spacingCorr = 2.5
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.versionAleatoire()
     this.introduction = texteItalique('D\'après l\'exercice 4 du brevet Amérique du Sud 2024.<br>')
   }

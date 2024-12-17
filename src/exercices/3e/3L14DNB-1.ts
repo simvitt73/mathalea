@@ -30,7 +30,7 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.introduction = texteItalique('D\'après l\'exercice 2 du brevet Métropole 2024.')
 
     this.versionAleatoire(0)

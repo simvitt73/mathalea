@@ -44,7 +44,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.sup = 7
   this.sup2 = true
   this.sup3 = 1

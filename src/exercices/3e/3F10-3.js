@@ -36,7 +36,7 @@ export default function VocabulaireNotationsFonctions2 () {
   this.sup = 5
   this.spacing = 1.5
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
 
   this.nouvelleVersion = function () {
 

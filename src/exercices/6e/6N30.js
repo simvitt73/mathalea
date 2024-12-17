@@ -31,7 +31,7 @@ export default function LireAbscisseDecimale () {
   Exercice.call(this)
   this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
 

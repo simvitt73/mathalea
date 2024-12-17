@@ -42,7 +42,7 @@ export default function CalculPointSurCourbe () {
   this.consigne = ''
 
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.nouvelleVersion = function () {
 
     let typesDeQuestionsDisponibles

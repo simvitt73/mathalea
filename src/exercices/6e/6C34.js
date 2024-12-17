@@ -30,7 +30,7 @@ export default function DernierChiffre () {
   this.titre = titre
   this.consigne = 'Pour chaque calcul, déterminer le dernier chiffre du résultat.'
   this.nbQuestions = 4 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+
   this.nbCols = 2 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 2// Le nombre de colonne pour la correction LaTeX
   this.tailleDiaporama = 3

@@ -28,7 +28,7 @@ export default function ProprietesInegalites () {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 4

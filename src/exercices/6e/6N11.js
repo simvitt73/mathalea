@@ -41,7 +41,7 @@ export const refs = {
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this)
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
   this.sup = 4
   this.interactif = false
 

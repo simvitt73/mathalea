@@ -42,7 +42,7 @@ export const refs = {
 export default function QuestionsMasses () {
   Exercice.call(this)
   this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
-  this.nbQuestionsModifiable = true
+
   this.nbQuestions = 1
   this.sup = 9
   this.sup2 = false

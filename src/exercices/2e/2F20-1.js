@@ -36,7 +36,7 @@ export default function PointSurCourbe () {
   this.correctionDetaillee = false
 
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.nouvelleVersion = function () {
 
     this.sup = parseInt(this.sup)

@@ -41,7 +41,7 @@ export const refs = {
 export default function CalculDAngle () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = false

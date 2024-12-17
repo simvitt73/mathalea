@@ -24,7 +24,7 @@ export default class DistributiviteNumerique extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 6 // Ici le nombre de questions
-    this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+
     this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
     this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
     this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX

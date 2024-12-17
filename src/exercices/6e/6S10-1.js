@@ -34,7 +34,7 @@ export const refs = {
 export default function LireUnDiagramme () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false

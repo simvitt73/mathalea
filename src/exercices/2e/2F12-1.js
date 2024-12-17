@@ -41,7 +41,7 @@ export default function EquationsFonctionsRef () {
   this.correctionDetaillee = false
 
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.besoinFormulaireTexte = [
     'Type de questions', [
       'Nombres séparés par des tirets',

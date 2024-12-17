@@ -39,7 +39,7 @@ export default function PavageEtDemiTour2D () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
   this.nbCols = 1

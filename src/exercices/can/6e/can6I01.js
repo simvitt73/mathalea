@@ -43,7 +43,7 @@ export default function CanNoteLaCouleur6 () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false

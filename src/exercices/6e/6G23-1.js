@@ -32,7 +32,7 @@ export default function MesurerUnAngle () {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1

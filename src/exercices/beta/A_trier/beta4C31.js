@@ -30,7 +30,7 @@ export default function ComparerPuissance10 () {
   this.titre = titre
   this.consigne = 'Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en notation scientifique.'
   this.nbQuestions = 5 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+
   this.correctionDetailleeDisponible = true
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
   this.spacing = 2

@@ -37,7 +37,7 @@ export const refs = {
 export default function NoteLaCouleur6e () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
+
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false

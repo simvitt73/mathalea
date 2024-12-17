@@ -25,7 +25,7 @@ export default class FonctionsProbabilite1 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.nbQuestionsModifiable = true
+
     this.nbCols = 1
     this.nbColsCorr = 1
     context.isHtml ? this.spacing = 2 : this.spacing = 1

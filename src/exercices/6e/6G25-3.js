@@ -41,7 +41,7 @@ export default function PavageEtReflexion2d () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+
   this.correctionDetaillee = true
   this.correctionDetailleeDisponible = true
   this.nbCols = 1

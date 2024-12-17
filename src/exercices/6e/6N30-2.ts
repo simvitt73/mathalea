@@ -38,7 +38,7 @@ class PlacerPointsSurAxe extends Exercice {
     super()
     this.consigne = 'Placer trois points sur un axe gradué.'
     this.nbQuestions = 5
-    this.nbQuestionsModifiable = true
+
     this.nbCols = 1
     this.nbColsCorr = 1
 
