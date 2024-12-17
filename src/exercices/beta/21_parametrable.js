@@ -31,7 +31,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 12) // Comme la valeur ne sera pas modifiée, on la déclare avec const

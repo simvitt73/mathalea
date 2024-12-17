@@ -40,7 +40,7 @@ export default function FactoriserParNombreOux () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
-    this.autoCorrection = []
+
 
     let typesDeQuestionsDisponibles
     switch (this.sup) {

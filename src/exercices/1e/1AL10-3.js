@@ -37,7 +37,6 @@ export default function TermeDUneSuiteDefinieExplicitement () {
     ].join('\n')
   ]
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

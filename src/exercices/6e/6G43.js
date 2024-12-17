@@ -40,7 +40,7 @@ export default function DenombrerCubes () {
 
     
     
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:

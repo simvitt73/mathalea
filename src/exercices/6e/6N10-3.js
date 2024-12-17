@@ -127,7 +127,7 @@ export default function ChiffreNombreDe () {
         break
     }
 
-    this.autoCorrection = []
+
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const reponses = []

@@ -38,7 +38,7 @@ export default function CalculValeurApprocheeRacineCarree () {
   this.sup = 3
   this.sup2 = 1
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

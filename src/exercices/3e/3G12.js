@@ -133,7 +133,7 @@ export default function PavageEtRotation2D () {
     
 
     
-    this.autoCorrection = []
+
     let Nx
     let Ny
     let index1

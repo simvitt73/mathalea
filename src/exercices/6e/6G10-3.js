@@ -35,7 +35,7 @@ export default class CliqueFigure extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
     this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : context.vue !== 'diap' && !context.isAmc ? 'Entourer la bonne figure.' : 'Choisir la bonne figure représentant : ' /// Penser ici à AMC aussi.
     const typesDeQuestions = combinaisonListes(['segment', 'droite', 'demidroite', 'demidroite2'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

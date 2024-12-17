@@ -40,7 +40,7 @@ class EquationTrigo extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     type TypeQuestionsDisponibles = 'num' | 'den' | 'angle'
     type Trigo = 'cos' | 'sin' | 'tan'

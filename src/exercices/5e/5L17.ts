@@ -31,7 +31,7 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const nbCalculsParQuestion = Number(this.sup)
 
     const typeQuestionsDisponibles = ['Température ressentie', 'Distance de freinage', 'Pression en pascals', 'Pression en bars', 'Energie cinétique', 'Prix d\'un spectacle']

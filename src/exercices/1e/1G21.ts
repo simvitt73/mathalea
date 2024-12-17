@@ -153,7 +153,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const questions = [questionPointvNorm,
 		       questionPointvDir,

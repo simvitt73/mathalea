@@ -50,7 +50,7 @@ export default function ConstruireUnDiagramme () {
 
     
     
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles
     if (this.sup3 < 5) {
       typesDeQuestionsDisponibles = [parseInt(this.sup3)]

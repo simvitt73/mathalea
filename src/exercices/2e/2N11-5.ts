@@ -66,7 +66,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse'| 'nombresContenanceTrue' | 'nombresContenanceFalse'| 'lettresElementTrue' | 'lettresElementFalse'| 'lettresContenanceTrue' | 'lettresContenanceFalse'|'erreur')[]
     typeQuestionsDisponibles = []
     if (this.sup === 1) {

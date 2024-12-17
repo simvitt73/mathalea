@@ -99,7 +99,7 @@ export default function TableauxEtProportionnalite () {
     typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles)
 
-    this.autoCorrection = []
+
 
     this.consigne = this.interactif ? '' : 'Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.'
 

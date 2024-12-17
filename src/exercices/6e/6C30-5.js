@@ -46,7 +46,7 @@ export default function MultiplierPar001 () {
 
     
     
-    this.autoCorrection = []
+
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,

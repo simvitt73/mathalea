@@ -59,7 +59,7 @@ export default function AireCarresRectanglesTriangles () {
 
     
     
-    this.autoCorrection = []
+
     const c = randint(2, 6)
     const L = randint(2, 5)
     const l = randint(2, 5, L)

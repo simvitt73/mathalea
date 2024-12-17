@@ -36,7 +36,7 @@ export default function VuesEmpilementCubes () {
 
     
     
-    this.autoCorrection = []
+
     let objetsEnonce, objetsCorrection
 
     const dimensionsTab = gestionnaireFormulaireTexte({

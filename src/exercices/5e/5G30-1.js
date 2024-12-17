@@ -40,7 +40,7 @@ export default function EgaliteDAngles () {
 
     
     
-    this.autoCorrection = []
+
     const choix = this.sup === 3 ? combinaisonListes([1, 2], this.nbQuestions) : combinaisonListes([this.sup], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let figure = []

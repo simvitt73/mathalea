@@ -61,7 +61,7 @@ export default function VocabulaireDivisionEuclidienne () {
         ? "pour l'égalité proposée, "
         : 'pour chaque égalité proposée, '
     this.consigne += 'le mot adapté au nombre désigné.'
-    this.autoCorrection = []
+
     const QuestionsDisponibles = range(3)
     if (this.sup) {
       if (typeof this.sup === 'number') {

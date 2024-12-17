@@ -37,7 +37,7 @@ export default function ProblemeDeRatio () {
 
     
     
-    this.autoCorrection = []
+
     let prenoms = []
     const objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons']
     const sirops = ['de fraise', 'de citron', 'de cerise', 'de menthe', 'd\'orange']

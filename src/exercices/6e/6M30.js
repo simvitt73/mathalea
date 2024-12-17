@@ -49,7 +49,7 @@ export default function CalculDeVolumes () {
       this.sup = 1
       piApprox = true // calcul en prenant Pi environ 3
     }
-    this.autoCorrection = []
+
     switch (this.classe) {
       case 6 :
         thissup4Max = 2

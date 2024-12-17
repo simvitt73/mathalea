@@ -74,7 +74,7 @@ export default class ReconnaitreDesSolides extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
 
     const typeDeQuestion = gestionnaireFormulaireTexte({

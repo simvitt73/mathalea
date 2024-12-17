@@ -55,7 +55,7 @@ export default function APartirDeDivisionsEuclidiennes () {
     this.consigne = 'À partir '
     this.consigne += this.nbQuestions === 1 ? 'de la division euclidienne suivante, ' : 'des divisions euclidiennes suivantes, '
     this.consigne += "donner l'égalité fondamentale correspondante."
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles, typesDeQuestions
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 1, 1, 1]
     else if (this.sup === 2) typesDeQuestionsDisponibles = [1, 2, 2, 3]

@@ -49,7 +49,7 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     const typesDeQuestionsDisponibles = []
     let questionsParNiveau = []
     if (!this.sup2) {

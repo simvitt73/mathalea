@@ -33,7 +33,7 @@ class OperationsReciproques extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     type TypeQuestionsDisponibles = 'x+' | '+x' | 'x-' | '-x' | '/+' | '+/' | '/-' | '-/'
     const typeQuestionsDisponibles = ['x+', '+x', 'x-', '-x', '/+', '+/', '/-', '-/'] as TypeQuestionsDisponibles[]

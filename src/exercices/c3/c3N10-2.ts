@@ -43,7 +43,7 @@ class Decomp1 extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const typeDeQuestions = this.sup4 % 2 === 0 ? ['classe'] : this.sup4 < 5 ? ['chiffre'] : ['chiffre', 'classe']
 
     const listeTypesDeQuestion = combinaisonListes(typeDeQuestions, this.nbQuestions)

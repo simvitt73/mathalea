@@ -39,7 +39,7 @@ export default function DivisionsEuclidiennesEgalite () {
     this.consigne = 'Répondre  '
     this.consigne += this.nbQuestions === 1 ? 'à la question suivante' : 'aux questions suivantes'
     this.consigne += ' sans poser la division.'
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles, typesDeQuestions
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2]

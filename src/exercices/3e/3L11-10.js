@@ -40,7 +40,7 @@ export default function TableDoubleDistributivite () {
   this.nouvelleVersion = function () {
     this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
-    this.autoCorrection = []
+
 
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
@@ -50,7 +50,7 @@ export default function TableDoubleDistributivite () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.autoCorrection = []
+
     for (let i = 0, texte, texteCorr, termesRectangles, developpements, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 9)

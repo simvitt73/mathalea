@@ -22,7 +22,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
 

@@ -36,7 +36,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     /* if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'

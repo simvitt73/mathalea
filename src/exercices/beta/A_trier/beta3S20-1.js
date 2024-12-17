@@ -631,7 +631,7 @@ export default function CalculsProbabilites () {
     ].join('\n')
   ]
   this.nouvelleVersion = function () {
-    this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
+
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const nquestion = this.sup === 'all' ? randint(1, 10) : this.sup
       switch (nquestion) {

@@ -49,7 +49,7 @@ export default function ReperagePointDuPlan () {
 
     
     
-    this.autoCorrection = []
+
     let texte, texteCorr
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

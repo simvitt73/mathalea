@@ -42,7 +42,7 @@ export default function VocabulaireNotationsFonctions2 () {
 
     
     
-    this.autoCorrection = []
+
     this.consigne = this.interactif ? 'Cocher toutes les réponses correctes.' : ''
 
     const r = repere({

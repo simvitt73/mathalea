@@ -43,7 +43,7 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
 
     
     
-    this.autoCorrection = []
+
 
     this.figures = []
     const objetsCorrection = []

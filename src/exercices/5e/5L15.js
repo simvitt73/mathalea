@@ -41,7 +41,7 @@ export default function TesterUneEgalite () {
   this.sup3 = 2
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     let typesDeQuestionsDisponibles // = range1(5)
 

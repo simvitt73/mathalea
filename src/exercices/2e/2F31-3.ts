@@ -31,7 +31,7 @@ export default class ComparerImagesTableau extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

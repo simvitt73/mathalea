@@ -59,7 +59,7 @@ export default function RecomposerEntierC3 () {
 
     
     
-    this.autoCorrection = []
+
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: 4,

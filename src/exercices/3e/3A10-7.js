@@ -58,7 +58,7 @@ export default function ExerciceLabyrinthePremiers3e () {
     
 
     
-    this.autoCorrection = []
+
     let texte, texteCorr
     let laby = []
     let monChemin

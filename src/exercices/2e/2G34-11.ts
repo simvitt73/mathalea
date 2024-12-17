@@ -43,7 +43,7 @@ export default class IntersectionDroites extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let typeDeQuestionsDisponibles: ('deuxDroitesSG' |'troisDroitesSG' |'deuxDroitesHG'|'troisDroitesHG')[]
     if (this.sup === 1 && this.sup2 === 1) {
       typeDeQuestionsDisponibles = ['deuxDroitesSG']

@@ -20,7 +20,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const pG = randint(20, 60) // pG est un pourcentage
     const pN = randint(10, 100 - pG - 10)

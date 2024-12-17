@@ -348,7 +348,7 @@ export default function ProblemesAiresRectangles () {
 
     
     
-    this.autoCorrection = []
+
     let choixDesTables
 
     const nombreTotalEtapes = gestionnaireFormulaireTexte({

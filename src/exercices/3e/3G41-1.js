@@ -32,7 +32,7 @@ export default function ConstruireSectionPaveDroit () {
   this.nbQuestions = 3
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, objetsEnonce, A, B, D, E, Y, Z, YCorr, ZCorr, areteY, areteZ, s1, s2, s3, s4, s5, solideDessine, nomSolide, placeDuPoint1, placeDuPoint2, enonceFigure, sommetsPave, areteParallele,
       L, p, choixProfondeur, choixAreteParallele, h, traceTesPoints, choix, cpt = 0; i < this.nbQuestions && cpt < 50;) {

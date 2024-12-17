@@ -32,7 +32,7 @@ export default class NomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
     const listeTypeQuestions = gestionnaireFormulaireTexte( // retourne une liste de choix pour les questions à partir du paramètre saisie

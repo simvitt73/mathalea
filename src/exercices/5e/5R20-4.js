@@ -49,7 +49,7 @@ export default function ProblemesAdditifsRelatifs5e () {
       typesDeQuestionsDisponibles = [0]
     }
 
-    this.autoCorrection = []
+
 
     // typesDeQuestionsDisponibles=[1];
 

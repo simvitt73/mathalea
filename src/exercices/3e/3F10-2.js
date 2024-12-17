@@ -36,7 +36,7 @@ export default function CalculsImagesFonctions () {
   this.nbQuestions = 3
   this.fonctions = 'toutesLesFonctions'
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

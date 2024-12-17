@@ -34,7 +34,7 @@ export default function AirePerimetrePolygone () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     // on choisit un nom pour les variables 1 et 2
     const variable1 = ['a', 'b', 'c', 'd', 'e', 'f', 't', 'u', 'v', 'w', 'y', 'z']

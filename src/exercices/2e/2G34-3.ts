@@ -39,7 +39,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     let typeQuestionsDisponibles: ('lv1E1Ne2' | 'lv1Ne1E2' |'lv1E1E2' |'lv1Ne1Ne2' |'lv2E1Ne2' | 'lv2Ne1E2' |'lv2E1E2' |'lv2Ne1Ne2')[]
     if (this.sup === 1) {

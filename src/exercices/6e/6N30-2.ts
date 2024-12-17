@@ -59,7 +59,7 @@ class PlacerPointsSurAxe extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (this.sup > 3) {

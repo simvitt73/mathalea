@@ -74,7 +74,7 @@ export default function NoteLaCouleur6e () {
 
     
     
-    this.autoCorrection = []
+
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []

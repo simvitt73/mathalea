@@ -36,7 +36,7 @@ export default function SommeDeDurees () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     /*
     if (this.sup === 1) {

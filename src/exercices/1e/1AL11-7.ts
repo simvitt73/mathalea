@@ -36,7 +36,7 @@ export default class SuitesArithmeticoG extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     
     

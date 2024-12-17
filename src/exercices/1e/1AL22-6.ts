@@ -30,7 +30,7 @@ export default class variationPol2 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

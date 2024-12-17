@@ -43,7 +43,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

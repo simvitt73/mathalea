@@ -45,7 +45,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
 
     
     
-    this.autoCorrection = []
+
 
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,

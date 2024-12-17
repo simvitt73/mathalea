@@ -45,7 +45,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.contenu = ''
     this.contenuCorrection = ''
     this.figures = []

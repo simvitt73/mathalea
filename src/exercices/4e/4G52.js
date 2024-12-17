@@ -42,7 +42,7 @@ export default function ReperagePaveDroit () {
 
     
     
-    this.autoCorrection = []
+
 
     const hauteur = 12
     const largeur = 12

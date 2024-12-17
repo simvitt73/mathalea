@@ -43,7 +43,7 @@ export default function ExerciceLabyrintheDivisibilite1 () {
     
 
     
-    this.autoCorrection = []
+
     let texte, texteCorr
     let laby = []
     let monChemin

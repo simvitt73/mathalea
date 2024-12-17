@@ -28,7 +28,7 @@ export default function RelationDeThales () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let listeDeNomsDePolygones = []
-    this.autoCorrection = []
+
     if (this.level === 4) {
       this.sup = 1
     }

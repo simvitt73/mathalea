@@ -40,7 +40,7 @@ export default function ÉcrireUneExpressionLitterale () {
   this.sup2 = 19
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

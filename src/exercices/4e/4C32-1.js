@@ -32,7 +32,7 @@ export default function CalculsAvecPuissancesDeDix () {
   this.classe = 4
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     if (this.interactif) {
       this.consigne = this.nbQuestions === 1 ? 'Choisir la notation scientifique associée au nombre suivant.' : 'Choisir la notation scientifique associée à chacun des nombres suivants.'
     } else {

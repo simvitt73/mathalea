@@ -197,7 +197,7 @@ export default function SerieDeTransformations () {
     } else if (this.version === 2) {
       this.sup = 2 // On le bride à 2 pour les 5èmes
     } // on ne bride pas pour ce 4G12 et visiblement, il n'existe pas en 3ème. c'est donc la référence max ici.
-    this.autoCorrection = []
+
     this.sup = contraindreValeur(1, 4, this.sup, 4)
     if (this.sup === 1) typeDeTransfos = ['symax']
     else if (this.sup === 2) typeDeTransfos = ['symax', 'rot180']

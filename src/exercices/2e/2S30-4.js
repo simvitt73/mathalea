@@ -332,7 +332,7 @@ export default function CalculProbaExperience2Epreuves2e () {
   }
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     for (let i = 0, cpt = 0, question, numQuestionInteractif = 0; i < this.nbQuestions && cpt < 50;) {
       switch (i % 2) {

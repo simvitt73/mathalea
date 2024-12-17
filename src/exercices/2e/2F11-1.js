@@ -55,7 +55,7 @@ export default function ImageFonctionsRefs () {
 
     
     
-    this.autoCorrection = []
+
 
     const typeQuestionsDisponibles = []
     this.sup && typeQuestionsDisponibles.push('carré')

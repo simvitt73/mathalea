@@ -37,7 +37,7 @@ export default class ProbaConcret extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let index = 0
     let increment = 1
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({

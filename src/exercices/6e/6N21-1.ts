@@ -56,7 +56,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

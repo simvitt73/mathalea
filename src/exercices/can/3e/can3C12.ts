@@ -32,7 +32,7 @@ export default class EncadreRacine extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.listeCanEnonces = []
     this.spacingCorr = 1.5
     this.listeCanReponsesACompleter = []

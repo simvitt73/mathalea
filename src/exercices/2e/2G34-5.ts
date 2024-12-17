@@ -46,7 +46,7 @@ export default class systemeEquationsPremDeg extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.besoinFormulaire2CaseACocher = ['Solution contenant des fractions']
     let typeQuestionsDisponibles: ('lv1' | 'lv2' | 'lv3')[]
     if (this.sup === 1) {

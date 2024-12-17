@@ -40,7 +40,7 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const propositionsAMC = []
     const typeQuestionsDisponibles = ['nom', 'sommet', 'cote', 'diagonale']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)

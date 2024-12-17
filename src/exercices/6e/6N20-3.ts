@@ -32,7 +32,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'
     const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme']

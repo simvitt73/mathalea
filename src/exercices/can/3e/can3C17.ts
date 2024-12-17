@@ -32,7 +32,7 @@ export default class calculsAvecPuissance10 extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     const typesDeQuestionsDisponibles = combinaisonListes([1, 2, 3], this.nbQuestions) // EE : tu mets ici toutes les possibiiltés et tu les mélanges jusqu'à obtenir au moins nbQuestions

@@ -48,7 +48,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const typeQuestionsDisponibles = ['nul', 'aigu', 'droit', 'obtus', 'plat']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, triangle, explications, cpt = 0; i < this.nbQuestions && cpt < 50;) {

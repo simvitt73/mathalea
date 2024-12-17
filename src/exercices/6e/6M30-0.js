@@ -35,7 +35,7 @@ export default function VolumesPavesParDenombrement () {
 
     
     
-    this.autoCorrection = []
+
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const dimensions = []

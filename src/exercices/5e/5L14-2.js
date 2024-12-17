@@ -45,7 +45,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
   this.consigneModifiable = false
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     let reponse
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

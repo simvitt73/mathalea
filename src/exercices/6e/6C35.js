@@ -91,7 +91,7 @@ export default function ModelisationProblemes () {
 
     
     
-    this.autoCorrection = []
+
     let colorA, colorB
     const schemas = []
     let brouilleLesCartes

@@ -24,7 +24,7 @@ export default function PerimetreCarreRectangle () {
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     this.autoCorrection[0] = {}
     let a, b, question, correction, reponse, monQcm
     switch (choice(['a', 'b', 'c'])) {

@@ -106,7 +106,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let bornes = {}

@@ -68,7 +68,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const typeExpression = ['a+b*x', 'b*(a+c*x)', 'a*x^2+b*x+c']
     const typeDeNombres = ['entiers positifs', 'entiers relatifs']

@@ -51,7 +51,7 @@ export default function DivisionsEuclidiennes () {
     this.consigne = 'Poser et effectuer '
     this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante' : 'les divisions euclidiennes suivantes'
     this.consigne += '.'
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles, typesDeQuestions
     if (this.sup === 1) typesDeQuestionsDisponibles = [1]
     else if (this.sup === 2) typesDeQuestionsDisponibles = [1, 2, 2, 3]

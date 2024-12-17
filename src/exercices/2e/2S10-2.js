@@ -47,7 +47,7 @@ export default function Proportions () {
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
+
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['sous-population']

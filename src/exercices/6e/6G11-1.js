@@ -60,7 +60,7 @@ export default class constructionPerpendiculaires extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     let listeTypeDeQuestions = []
     listeTypeDeQuestions = gestionnaireFormulaireTexte({

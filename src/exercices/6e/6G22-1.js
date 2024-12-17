@@ -43,7 +43,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

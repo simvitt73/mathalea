@@ -67,7 +67,7 @@ export default function PuissancesEncadrement () {
           break
       }
     }
-    this.autoCorrection = []
+
 
     for (
       let i = 0, signe, texte, texteCorr, consigneAMC, exposantInf, exposantSup, cpt = 0;

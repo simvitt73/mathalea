@@ -40,7 +40,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
 
   this.nouvelleVersion = function () {
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
-    this.autoCorrection = []
+
     const tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 9,

@@ -36,7 +36,7 @@ export default class SignePuissance extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     this.listeCanReponsesACompleter = []
     this.listeCanEnonces = []
     let listeTypeDeQuestions = ['a^n', '-a^n', '(-a)^n', '-(-a)^n']

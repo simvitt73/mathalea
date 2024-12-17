@@ -44,7 +44,7 @@ export default function NotationPuissance () {
 
     
     
-    this.autoCorrection = []
+
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:

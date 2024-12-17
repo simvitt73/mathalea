@@ -498,7 +498,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée' : 'Répondre aux questions posées'
     this.consigne += !this.interactif ? ' en justifiant.' : '.'
-    this.autoCorrection = []
+
 
     const listeIndexSituations = gestionnaireFormulaireTexte({
       max: 6,

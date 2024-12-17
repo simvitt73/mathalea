@@ -29,7 +29,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
 
     
     
-    this.autoCorrection = []
+
 
     /*
     let typesDeQuestionsDisponibles = []

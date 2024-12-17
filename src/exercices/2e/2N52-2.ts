@@ -50,7 +50,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     
     

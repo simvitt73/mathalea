@@ -28,7 +28,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     for (let i = 0, texte, texteCorr, texteAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(-20, 20)
       const b = randint(-20, 20, [a])

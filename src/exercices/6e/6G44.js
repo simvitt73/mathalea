@@ -47,7 +47,7 @@ export default function NombreDeFacesEtDAretes () {
 
     
     
-    this.autoCorrection = []
+
     let typeDeQuestion = []
     const choixA = []
     const choixB = []

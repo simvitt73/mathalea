@@ -49,7 +49,6 @@ export default function can6eAll () {
     this.lastCallback = this.listeArguments[0]
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    this.autoCorrection = []
 
     if (this.sup === null || this.sup === '') {
       this.sup = 'All'

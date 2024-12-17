@@ -58,7 +58,7 @@ export default function AireDeTriangles () {
     
 
     
-    this.autoCorrection = []
+
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)

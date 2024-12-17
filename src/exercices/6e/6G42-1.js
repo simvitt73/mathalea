@@ -76,7 +76,7 @@ export default function LireFacePaveDroit () {
   this.nouvelleVersion = function () {
     this.sup4 = contraindreValeur(2, 6, this.sup4, 6)
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
-    this.autoCorrection = []
+
     /*
         let typesDeQuestionsIndisponibles = []
         if (!this.sup2) { // Si aucune liste n'est saisie

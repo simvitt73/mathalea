@@ -52,7 +52,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
     } else {
       this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée au maximum."
     }
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
