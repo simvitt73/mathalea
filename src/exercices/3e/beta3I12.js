@@ -16,7 +16,7 @@ export default function ExosScratch () {
   this.nbQuestions = 5
   this.typeExercice = 'Scratch'
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   const listeExos = [completerScriptMultiple, comprendreScriptMultiples, completerScriptDiviseurs, comprendreScriptListeMultiples]
   const listeParams = [
     [ // paramExo1 dans l'ordre : sup, sup2,sup3,sup4,nbQuestions

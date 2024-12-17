@@ -37,8 +37,6 @@ export default function CalculerCaracteristiques () {
   this.consigne = ''
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
-
   this.sup = 7
   this.sup2 = 4
   this.sup3 = true

@@ -35,7 +35,7 @@ export default function LireAbscisseRelative () {
   this.nbQuestions = 3
 
 
-  this.nbColsCorr = 1
+
 
 
   this.sup = 4

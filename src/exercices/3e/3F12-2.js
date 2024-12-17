@@ -39,7 +39,7 @@ export default function ImageFonctionAlgebrique () {
   this.consigne = ''
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
+
   this.sup = 5 // niveau de difficulté
 
   this.nouvelleVersion = function () {

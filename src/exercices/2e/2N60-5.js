@@ -35,7 +35,7 @@ export default function SolInequation () {
   this.titre = titre
   this.video = ''
 
-  this.nbColsCorr = 1
+
 
 
   this.nbQuestions = 1

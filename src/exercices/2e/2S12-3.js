@@ -37,7 +37,7 @@ export default function EvolutionsSuccesives () {
   this.consigne = ''
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
+
   this.sup = 4 // type de questions
 
 

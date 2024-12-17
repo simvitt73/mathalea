@@ -28,7 +28,7 @@ export default function MettreAuMemeDenominateurLit () {
   Exercice.call(this)
   this.titre = titre
 
-  this.nbColsCorr = 1
+
 
 
   this.nbQuestions = 2

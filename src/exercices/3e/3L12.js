@@ -33,8 +33,6 @@ export default function FactoriserIdentitesRemarquables3 () {
   Exercice.call(this)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
 
-  this.nbColsCorr = 1
-
   this.nbQuestions = 4
   this.sup = 4
   this.sup2 = true

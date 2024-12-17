@@ -28,7 +28,7 @@ export default function PpcmEngrenages () {
   this.nbQuestionsModifiable = false
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
   this.sup = false
 
   this.nouvelleVersion = function (numeroExercice) {

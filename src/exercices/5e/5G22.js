@@ -35,7 +35,7 @@ export default function DroiteRemarquableDuTriangle () {
   this.spacing = 2
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 1
 
   this.nouvelleVersion = function () {

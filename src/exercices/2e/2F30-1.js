@@ -28,7 +28,7 @@ export default function VariationsCourbe () {
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 

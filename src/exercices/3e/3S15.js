@@ -34,7 +34,7 @@ export default function CalculerEtendues () {
   this.nbQuestions = 1
 
 
-  this.nbColsCorr = 1
+
 
   this.sup = 1
 

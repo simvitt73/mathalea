@@ -32,7 +32,7 @@ export default function ExerciceEquations () {
   Exercice.call(this)
   this.nbQuestions = 6
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.sup = 4
   this.sup2 = true
   this.spacingCorr = 3

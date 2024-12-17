@@ -29,7 +29,7 @@ export default function ReductionSiPossible () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
+
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
   this.tailleDiaporama = 3

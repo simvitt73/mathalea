@@ -23,7 +23,7 @@ export default function Proprietesracinecarree () {
   this.titre = titre
   this.nbQuestions = 2
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.sup = 1 //
   this.nouvelleVersion = function () {
     this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`

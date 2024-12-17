@@ -27,7 +27,7 @@ export default function RepresenterUnSolide5e () {
   this.titre = titre
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.sup2 = 1
   this.classe = 5

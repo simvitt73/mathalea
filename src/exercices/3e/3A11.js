@@ -26,7 +26,7 @@ export default function FractionsIrreductibles () {
   context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = true
 
   this.nouvelleVersion = function () {

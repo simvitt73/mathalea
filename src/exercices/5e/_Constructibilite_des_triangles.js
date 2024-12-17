@@ -31,7 +31,7 @@ export default function ConstructibiliteDesTriangles () {
   this.beta = ''
 
 
-  this.nbColsCorr = 1
+
 
   let typesDeQuestionsDisponibles
 

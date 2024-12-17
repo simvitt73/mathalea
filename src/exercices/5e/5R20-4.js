@@ -34,7 +34,7 @@ export default function ProblemesAdditifsRelatifs5e () {
   this.consigne = ''
 
 
-  this.nbColsCorr = 1
+
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 0.5

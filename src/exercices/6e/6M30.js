@@ -34,7 +34,6 @@ export default function CalculDeVolumes () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
   this.sup = 1
   this.classe = 6
   this.sup3 = 2

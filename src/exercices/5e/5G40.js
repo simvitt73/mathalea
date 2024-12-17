@@ -37,7 +37,7 @@ export default function ConstructionsParallelogrammes () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 5
   this.sup2 = 2
   this.spacingCorr = 2

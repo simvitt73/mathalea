@@ -26,7 +26,7 @@ export default function CoefficientEvolution () {
   this.consigne = 'Compléter.'
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.version = 1
 

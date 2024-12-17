@@ -29,7 +29,7 @@ export default function ComparerAvecFonctionRef () {
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 6
   this.sup2 = true
   this.sup2 = 1

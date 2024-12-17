@@ -35,7 +35,7 @@ export default function TesterUneEgalite () {
   Exercice.call(this)
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.sup2 = false
   this.sup3 = 2

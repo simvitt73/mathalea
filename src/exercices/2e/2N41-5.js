@@ -35,7 +35,7 @@ export default function DevelopperIdentitesRemarquables4 () {
   }
   this.consigne = 'Développer puis réduire les expressions suivantes.'
 
-  this.nbColsCorr = 1
+
 
 
   this.nbQuestions = 4

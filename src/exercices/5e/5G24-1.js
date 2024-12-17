@@ -30,7 +30,7 @@ export default function TrianglesEgaux () {
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.video = '' // Id YouTube ou url
   this.spacing = 2

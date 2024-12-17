@@ -38,7 +38,7 @@ export default function DesChocolatsDansDesBoites () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
 
   this.nouvelleVersion = function () {
     context.anglePerspective = 50

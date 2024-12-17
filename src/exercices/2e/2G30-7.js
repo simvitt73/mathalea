@@ -38,7 +38,6 @@ export default function Lecturegraphiquedeaetb () {
   Exercice.call(this)
   this.nbQuestions = 1// On complète le nb de questions
 
-  this.nbColsCorr = 1
   this.tailleDiaporama = 3
 
   this.sup = 1

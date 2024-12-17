@@ -26,7 +26,7 @@ export default function IdentitesRemarquablesEtRacineCarree () {
   Exercice.call(this)
   this.nbQuestions = 5
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.sup = 1
 
   this.nouvelleVersion = function () {

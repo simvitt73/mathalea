@@ -27,7 +27,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
+
   this.sup = '3'
   this.sup2 = '10'
   this.sup3 = 13

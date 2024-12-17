@@ -39,7 +39,7 @@ export default function ReduireUneExpressionLitterale () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
+
   this.sup = 9 // valeur maximale des coefficients
   this.sup2 = false // avec des nombres décimaux
 

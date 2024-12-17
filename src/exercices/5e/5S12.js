@@ -36,7 +36,7 @@ export default function ConstruireUnDiagramme () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.sup = 3

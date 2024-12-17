@@ -22,7 +22,7 @@ export default function ProblemeDeRatio () {
   this.nbQuestions = 4 // Ici le nombre de questions
 
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.sup = 3

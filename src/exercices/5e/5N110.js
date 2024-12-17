@@ -32,7 +32,7 @@ export default function VariationEnPourcentages () {
   this.nbQuestions = 5
 
   this.spacingCorr = 2
-  this.nbColsCorr = 1
+
 
   this.interactifType = 'mathLive'
 

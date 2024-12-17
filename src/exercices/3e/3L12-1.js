@@ -34,7 +34,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
 
-  this.nbColsCorr = 1
+
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5

@@ -29,7 +29,7 @@ export default function ExerciceComparerQuatreFractions () {
   this.spacing = 2
   context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
   this.nbQuestions = 2
-  this.nbColsCorr = 1
+
   this.sup = false
 
   this.besoinFormulaireCaseACocher = ['Inclure des nombres négatifs']

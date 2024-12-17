@@ -33,7 +33,7 @@ export default function CalculerDesMoyennes () {
   this.nbQuestions = 1
 
   this.spacingCorr = 2.5
-  this.nbColsCorr = 1
+
 
   this.sup = 1
 

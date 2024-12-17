@@ -43,7 +43,7 @@ export default function PavageEtRotation2D () {
   this.correctionDetaillee = true
   this.spacing = 2
 
-  this.nbColsCorr = 1
+
   this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
   this.sup2 = false // On cache les barycentres par défaut.
   this.sup3 = 7
