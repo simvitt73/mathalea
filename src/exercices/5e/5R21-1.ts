@@ -41,7 +41,7 @@ class SoustractionRelatifs extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const listeTypeQuestions = combinaisonListes(this.typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

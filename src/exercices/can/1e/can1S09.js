@@ -36,7 +36,7 @@ export default function RelationRec () {
 
     
     
-    this.autoCorrection = []
+
 
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)

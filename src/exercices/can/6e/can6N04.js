@@ -44,7 +44,7 @@ export default class AbscisseFractionnaire extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(2, 6) // dénominateur

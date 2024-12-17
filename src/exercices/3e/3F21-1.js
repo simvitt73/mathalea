@@ -62,7 +62,7 @@ export default function LectureExpressionFonctionsAffines () {
 
     
     
-    this.autoCorrection = []
+
     const colors = ['blue', 'red', 'black', 'purple', 'brown']
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

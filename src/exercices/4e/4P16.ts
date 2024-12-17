@@ -36,7 +36,7 @@ export default class NomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const valMaxParametre = 8
     const listeDesProblemes = gestionnaireFormulaireTexte({

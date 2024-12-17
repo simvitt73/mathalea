@@ -37,7 +37,7 @@ export default function ValeurApprocheeDePourcentages () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const denominateurDisponibles = [100, 200, 300, 1000]
     const listeTypeDeQuestions = combinaisonListes(denominateurDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

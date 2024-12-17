@@ -105,7 +105,7 @@ export default function ExercicesAnglesAIC () {
   this.nbQuestions = 3
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
+
     const nquestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 7,

@@ -50,7 +50,7 @@ export default function ArrondirUneValeur6e () {
     }
     this.amcType = this.sup2 === 1 ? 'qcmMono' : 'AMCHybride'
     this.spacing = (this.interactif && this.sup === 2) ? 3 : 1
-    this.autoCorrection = []
+
     if (!context.isAmc && !this.interactif) {
       this.consigne = 'Encadrer '
       this.consigne += this.nbQuestions > 1 ? 'chaque' : 'ce'

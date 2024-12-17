@@ -37,7 +37,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
 
     
     
-    this.autoCorrection = []
+
     this.consigne = this.nbQuestions === 1
       ? 'Donner le résultat du calcul suivant en écriture décimale.'
       : 'Donner le résultat des calculs suivants en écriture décimale.'

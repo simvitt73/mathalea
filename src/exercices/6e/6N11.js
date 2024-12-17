@@ -52,7 +52,7 @@ export default function LireAbscisseEntiere2d () {
 
     
     
-    this.autoCorrection = []
+
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (this.sup === 4) {

@@ -42,7 +42,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const problemesNaturels = [
       /* {

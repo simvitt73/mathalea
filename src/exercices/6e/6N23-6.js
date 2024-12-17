@@ -52,7 +52,7 @@ export default function DivisionFraction () {
   this.sup3 = '10'
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,

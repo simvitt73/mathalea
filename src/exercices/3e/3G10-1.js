@@ -53,7 +53,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
     
     
-    this.autoCorrection = []
+
     
     const k = []
     let A, B, C, Aprime, Bprime, Cprime

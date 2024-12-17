@@ -37,7 +37,7 @@ export default class UtilerAppartientA extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const objetsEnonce = []
     const lettres = choisitLettresDifferentes(6)

@@ -33,7 +33,7 @@ export default function CalculPuissanceSimple () {
 
     
     
-    this.autoCorrection = []
+
     const bases = [2, 3, 5, 7]
     for (let i = 0, a, b, c, index, texte, texteCorr; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}

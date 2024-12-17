@@ -47,7 +47,7 @@ export default function ConservationTransformation () {
 
     
     
-    this.autoCorrection = []
+
     this.sup = Number(this.sup)
     this.sup2 = Number(this.sup2)
     let typesDeTransformationsDisponibles

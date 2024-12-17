@@ -26,7 +26,7 @@ export default function YohakuCan6a () {
   this.nbQuestionsModifiable = false
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

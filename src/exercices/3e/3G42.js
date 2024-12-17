@@ -47,7 +47,7 @@ export default function VolumeBoule () {
 
     
     
-    this.autoCorrection = []
+
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

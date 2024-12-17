@@ -33,7 +33,7 @@ export default function ProprietesDesParallelogrammes () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     this.consigne = "À l'aide de la définition ou d'une propriété d'un parallélogramme, "
     this.consigne += this.nbQuestions === 1

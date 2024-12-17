@@ -29,7 +29,7 @@ export default function CalculsAvecPuissancesDeDixBis () {
   this.nbQuestions = 5
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     if (this.interactif) {
       this.consigne = this.nbQuestions === 1 ? 'Choisir l\'exposant manquant dans l\'égalité suivante.' : 'Choisir l\'exposant manquant dans les égalités suivantes.'
     } else {

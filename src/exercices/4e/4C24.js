@@ -47,7 +47,7 @@ export default function SimplifierFractions () {
 
     
     
-    this.autoCorrection = []
+
     if (this.nbQuestions === 1) {
       this.consigne = 'Simplifier le plus possible la fraction suivante.'
     }

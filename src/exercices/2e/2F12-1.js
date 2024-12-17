@@ -54,7 +54,7 @@ export default function EquationsFonctionsRef () {
   ]
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

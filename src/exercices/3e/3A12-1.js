@@ -36,7 +36,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.sup = '4'
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const listeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

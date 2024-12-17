@@ -49,7 +49,7 @@ export default class ArrondirUnDecimal extends Exercice {
   }
 
   nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 6,

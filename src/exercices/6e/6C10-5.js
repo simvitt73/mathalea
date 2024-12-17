@@ -48,7 +48,7 @@ export default function ExerciceLabyrintheMultiples () {
     
 
     
-    this.autoCorrection = []
+
     let table
     if (this.sup === 1) {
       table = combinaisonListes([2, 5, 10], this.nbQuestions)

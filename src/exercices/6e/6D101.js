@@ -37,7 +37,7 @@ export default function HeuresDecimales () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Écrire les durées suivantes en heures et minutes.' : 'Écrire la durée suivante en heures et minutes.'
-    this.autoCorrection = []
+
 
     for (let i = 0, partieEntiere, partieDecimale, minutes, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       partieEntiere = randint(1, 12)

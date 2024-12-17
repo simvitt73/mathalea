@@ -315,7 +315,7 @@ export default function SymetrieAxialePavageTriangulaire () {
 
     
     
-    this.autocorrection = []
+
     const objetsEnonce = []
     let paramsEnonce = {}
     let texte = ''

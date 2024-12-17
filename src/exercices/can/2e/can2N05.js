@@ -39,7 +39,7 @@ export default function NombresPremiers () {
 
     
     
-    this.autoCorrection = []
+
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}

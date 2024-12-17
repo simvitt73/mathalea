@@ -151,7 +151,7 @@ export default function PavageEtDemiTour2D () {
     
 
     
-    this.autoCorrection = []
+
     let Nx
     let Ny
     let index1

@@ -51,7 +51,7 @@ export default function ConstruireUnTriangle () {
 
     
     
-    this.autoCorrection = []
+
     let IEP
     let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection, nom, sommets
     if (this.classe === 6 || this.classe === 5) {

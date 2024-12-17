@@ -49,7 +49,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
     const nombreDeCalculs = gestionnaireFormulaireTexte({ shuffle: false, saisie: this.sup2, nbQuestions: this.nbQuestions, min: 2, max: 4, defaut: 4, melange: 5 })

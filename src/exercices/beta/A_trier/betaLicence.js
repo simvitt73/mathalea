@@ -32,7 +32,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.spacing = 3
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

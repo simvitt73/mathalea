@@ -41,7 +41,7 @@ export default function DeterminerDesMedianes () {
   }
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
     const typeDeQuestions = gestionnaireFormulaireTexte({

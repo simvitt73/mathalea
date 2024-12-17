@@ -47,7 +47,7 @@ export default function LecturesGraphiques () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const typeFonctionsDisponibles = ['minimum', 'maximum', 'image', 'plusPetitAntécédent', 'plusGrandAntécédent', 'nombreAntécédents'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

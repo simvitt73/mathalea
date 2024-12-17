@@ -54,7 +54,7 @@ export default function DernierChiffre () {
 
     
     
-    this.autoCorrection = []
+
     let typeDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['somme']

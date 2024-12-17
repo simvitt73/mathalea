@@ -41,7 +41,7 @@ export default function LectureDiagrammeBaton () {
 
     
     
-    this.autoCorrection = []
+
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé

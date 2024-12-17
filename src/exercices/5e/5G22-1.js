@@ -49,7 +49,7 @@ export default function ProprietesMediatrice () {
 
     
     
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['appartient']

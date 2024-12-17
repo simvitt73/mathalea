@@ -42,7 +42,7 @@ export default function CalculsPuissancesDe10 () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.autoCorrection = []
+
 
     this.consigne = 'Donner la notation scientifique.'
 

@@ -35,7 +35,7 @@ export default function TablesAdditionsSoustractions () {
   this.spacing = 2
   this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     let listeTypeDeQuestions = []

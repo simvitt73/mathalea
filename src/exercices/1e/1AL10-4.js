@@ -44,7 +44,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
     ].join('\n')
   ]
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

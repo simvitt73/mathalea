@@ -33,7 +33,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let typeQuestionsDisponibles: ('ensemble' | 'intervalle')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['ensemble']

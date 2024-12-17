@@ -40,7 +40,7 @@ export default function RepresenterUnSolide4e () {
   this.sup2 = 1
   this.classe = 4
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles
 
     if (this.sup === 3) {

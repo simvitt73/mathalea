@@ -22,7 +22,7 @@ export default function NomExercice () {
   this.sup2 = false // asymptotes
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const nom = ['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]

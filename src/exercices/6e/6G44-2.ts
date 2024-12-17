@@ -68,7 +68,7 @@ export default class DecrireAssemblageDeSolides extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const troncs = ['prisme', 'cylindre', 'prisme sans', 'cylindre sans']
     const chapeaux = ['haut', 'bas', 'les deux']
     const combinaisons = []

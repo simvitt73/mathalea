@@ -34,7 +34,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     if (this.nbQuestions === 1) {
       this.consigne = 'Résoudre l\'équation suivante.'
     } else {

@@ -41,7 +41,6 @@ export default function DoubleDistributivite () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {

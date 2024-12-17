@@ -68,7 +68,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
     
     
-    this.autoCorrection = []
+
 
     const tripletsPythagoriciens = [
       [3, 4, 5],

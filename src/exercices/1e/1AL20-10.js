@@ -30,7 +30,7 @@ export default function CalculerDiscriminant () {
   this.listeAvecNumerotation = false
   this.nouvelleVersion = function () {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
-    this.autoCorrection = []
+
 
     
     

@@ -48,7 +48,7 @@ export default function ListeDesDiviseurs5e () {
     let typesDeQuestions
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    this.autoCorrection = []
+
 
     this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
     const nombresDeChiffresMax = gestionnaireFormulaireTexte({

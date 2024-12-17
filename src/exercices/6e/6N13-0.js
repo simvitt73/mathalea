@@ -45,7 +45,7 @@ export default class sensDesPrefixes extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let typeQuestionsDisponibles
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['OnPartDuPrefixe']

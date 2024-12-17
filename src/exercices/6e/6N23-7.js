@@ -40,7 +40,7 @@ export default function RecompositionDecimale () {
 
     
     
-    this.autoCorrection = []
+
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const cubeUnite = paveLPH3d(0, 0, 0, 0.6, 10, 10, 10, 'black')

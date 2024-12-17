@@ -37,7 +37,6 @@ export default function DiffentesEcrituresProportions () {
   this.sup = 4 // type de questions
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['Decimal']

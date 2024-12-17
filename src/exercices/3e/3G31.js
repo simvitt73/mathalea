@@ -59,7 +59,7 @@ export default function CalculDAngle () {
 
     
     
-    this.autoCorrection = []
+
     let listChoixRapportTrigo = []
     for (let i = 0; i < this.nbQuestions; i++) {
       const nom = creerNomDePolygone(3, 'QD')

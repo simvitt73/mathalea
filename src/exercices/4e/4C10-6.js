@@ -36,7 +36,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
   this.nbQuestionsModifiable = true
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles
     switch (this.sup) {

@@ -34,7 +34,7 @@ export default function MesurePrincipale () {
   this.video = '' // Id YouTube ou url
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const typeQuestionsDisponibles = [
       {

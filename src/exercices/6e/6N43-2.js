@@ -36,7 +36,7 @@ export default function TableauCriteresDeDivisibilite () {
 
   this.nouvelleVersion = function () {
     this.modeQcm = this.interactif
-    this.autoCorrection = []
+
     if (!this.modeQcm) {
       this.consigne =
         'Compléter le tableau en mettant oui ou non dans chaque case.'
@@ -44,7 +44,7 @@ export default function TableauCriteresDeDivisibilite () {
       this.consigne =
         'Mettre une croix dans la case qui convient (ou les cases qui conviennent).'
     }
-    this.autoCorrection = []
+
 
     const listeDesNombresPossibles = [
       'div2', // Divisible uniquement par 2

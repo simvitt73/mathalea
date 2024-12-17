@@ -35,7 +35,7 @@ export default function ArrondirUneValeur4e () {
   context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     this.consigne = 'Arrondir chaque nombre à l\'unité, puis au dixième, puis au centième.'
 
 

@@ -53,7 +53,7 @@ export default function PremierOuPas () {
         : 'Indiquer si le nombre suivant est premier ou pas.' + (this.interactif ? '' : ' Justifier s\'il ne l\'est pas.')
     let typesDeQuestions
 
-    this.autoCorrection = []
+
 
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

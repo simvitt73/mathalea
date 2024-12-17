@@ -38,7 +38,7 @@ export default class EchellesCartes extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let typeQuestionsDisponibles: ('carte' | 'reelle' | 'echelle')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['carte']

@@ -40,7 +40,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     // let typesDeQuestionsDisponibles = range1(10)
     let typesDeQuestionsDisponibles

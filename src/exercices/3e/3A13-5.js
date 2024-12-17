@@ -38,7 +38,7 @@ export default function DivisionEuclidienneEtAjout () {
   this.sup3 = '14-15-16-17'
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     
     

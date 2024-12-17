@@ -53,7 +53,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
 
     
     
-    this.autoCorrection = []
+
     this.pointsNonSolutions = []
     this.pointsSolutions = []
     this.contenu = '' // Liste de questions

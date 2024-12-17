@@ -40,7 +40,7 @@ export default function ExerciceInformationsProblemes () {
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     // Ebauche de la consigne en fonction des possibilités
     const cocheIndique = ['coche', 'indique']
     const chaqueCe = ['chaque', 'ce']

@@ -44,7 +44,7 @@ export default function FractionsCalculsSimples () {
 
   this.nouvelleVersion = function () {
     if (this.correctionDetaillee) this.nbColsCorr = 1
-    this.autoCorrection = []
+
 
     if (this.sup) {
       this.consigne = 'Calculer en s\'aidant éventuellement du schéma.'

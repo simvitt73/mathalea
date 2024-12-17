@@ -56,7 +56,6 @@ export default class ExerciceQcm extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     if (this.sup2) {
       this.consigne = this.bonnesReponses == null
         ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>

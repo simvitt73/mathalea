@@ -42,7 +42,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
   this.sup = 6
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,

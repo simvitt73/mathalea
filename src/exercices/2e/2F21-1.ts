@@ -58,7 +58,7 @@ export default class EtudeFctPoly3 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

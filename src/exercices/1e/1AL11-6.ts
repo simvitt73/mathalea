@@ -48,7 +48,7 @@ export default class SuitesExplicites extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

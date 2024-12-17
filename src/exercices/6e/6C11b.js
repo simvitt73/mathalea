@@ -60,7 +60,7 @@ export default function DivisionsEuclidiennesEgaliteFondamentale () {
       this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante ' : 'les divisions euclidiennes suivantes '
       this.consigne += "puis donner l'égalité fondamentale correspondante."
     }
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles, typesDeQuestions
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 1, 1, 1]
     else if (this.sup === 2) typesDeQuestionsDisponibles = [1, 2, 2, 3]

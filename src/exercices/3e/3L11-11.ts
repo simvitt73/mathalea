@@ -49,7 +49,7 @@ export default class NomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const typesDeQuestionsDisponibles = [1]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

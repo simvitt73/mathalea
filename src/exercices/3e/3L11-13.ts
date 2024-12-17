@@ -44,7 +44,7 @@ export default class nomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let typeQuestionsDisponibles: ('addition' | 'soustraction' | 'signe')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['addition']

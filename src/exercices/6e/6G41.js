@@ -39,7 +39,7 @@ export default function RepresenterUnSolide () {
   this.amcType = amcType
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     let typeDeQuestionsDisponibles
 
     if (this.sup === 3) { typeDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typeDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typeDeQuestionsDisponibles = [1, 2, 4, 6] } else { typeDeQuestionsDisponibles = [parseInt(this.sup)] }

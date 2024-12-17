@@ -34,7 +34,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
 
     
     
-    this.autoCorrection = []
+
 
     let texte, texteCorr
     let questionsDirects = ['par1', 'par2', 'par3', 'par4', 'par5', 'rect1', 'rect2', 'rect3', 'rect4', 'rect5', 'losange1', 'losange2', 'losange3', 'losange4', 'losange5', 'carre1', 'carre2', 'carre3', 'carre4', 'carre5']

@@ -41,7 +41,7 @@ export default function TableauxEtFonction () {
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const L1 = randint(3, 7)

@@ -40,7 +40,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
 
     
     
-    this.autoCorrection = []
+
 
     let typesDesSensDemandes
     if (this.sup === 1) {

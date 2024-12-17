@@ -37,7 +37,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const A = new Decimal(choice([randint(10, 99), randint(100, 999)]) * 10 + randint(1, 9))

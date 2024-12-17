@@ -44,7 +44,7 @@ export default function CalculPointSurCourbe () {
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:

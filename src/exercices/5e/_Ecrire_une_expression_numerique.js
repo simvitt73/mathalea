@@ -35,7 +35,7 @@ export default function EcrireUneExpressionNumerique () {
 
   this.nouvelleVersion = function () {
     this.interactifType = this.version !== 2 ? 'mathLive' : 'listeDeroulante'
-    this.autoCorrection = []
+
     let reponse
 
     

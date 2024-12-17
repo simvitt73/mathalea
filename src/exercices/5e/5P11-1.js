@@ -45,7 +45,7 @@ export default class VitesseDistanceTemps extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     let typesDeQuestionsDisponibles = ['vitesse', 'temps', 'distance']
     if (this.sup === 1) {

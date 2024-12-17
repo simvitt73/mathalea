@@ -47,7 +47,7 @@ export default function ProblemesEvenementsRecurrents () {
 
     
     
-    this.autoCorrection = []
+
 
     const preListePremiers = listeNombresPremiersStrictJusqua(12)
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)

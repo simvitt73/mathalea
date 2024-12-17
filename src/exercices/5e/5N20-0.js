@@ -83,7 +83,7 @@ export default function ProblemesAdditifsFractions5e () {
       typesDeQuestionsDisponibles = [0]
     }
 
-    this.autoCorrection = []
+
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus

@@ -54,7 +54,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
     
 
     
-    this.autoCorrection = []
+
     this.sup = Math.max(2, this.sup)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const mesfractions = []

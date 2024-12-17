@@ -160,7 +160,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     // on va chercher une spline aléatoire
 
     this.listeCorrections = ['']
-    this.autoCorrection = []
+
     const aleaF1 = randint(1, 20, [5, 9, 10, 15]) // EE : J'enlève e, i, j et o.
     const f1 = lettreMinusculeDepuisChiffre(aleaF1)
     const f2 = lettreMinusculeDepuisChiffre(randint(1, 20, [5, 9, 10, 15, aleaF1]))

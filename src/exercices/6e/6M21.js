@@ -94,7 +94,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
 
     
     
-    this.autoCorrection = []
+
     /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13

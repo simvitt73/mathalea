@@ -44,7 +44,7 @@ export default function ImageGraphique () {
   this.nbCols = 1
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

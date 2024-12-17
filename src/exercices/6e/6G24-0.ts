@@ -115,7 +115,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     let choixDeLaxe: number[] = []
     this.figuresApiGeom = []
     if (this.sup === 5) {

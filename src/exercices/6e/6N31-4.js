@@ -51,7 +51,7 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, melange: 11, defaut: 11, nbQuestions: this.nbQuestions, listeOfCase: ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a'] })
     for (let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {

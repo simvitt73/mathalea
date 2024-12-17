@@ -32,7 +32,7 @@ export default function ValeurApprocheeDivisionDecimale () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Une fraction irréductible avec un dénominateur qui comporte un facteur différent de 2 ou de 5

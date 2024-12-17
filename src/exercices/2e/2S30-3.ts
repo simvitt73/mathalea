@@ -49,7 +49,7 @@ export default class ProbaUnionInter extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,

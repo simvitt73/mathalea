@@ -155,7 +155,7 @@ export default function PavageEtReflexion2d () {
     
 
     
-    this.autoCorrection = []
+
     let Nx
     let Ny
     let index1

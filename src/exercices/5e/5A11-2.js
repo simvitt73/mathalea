@@ -40,7 +40,7 @@ export default function ExerciceLabyrintheDivisibilite2 () {
     
 
     
-    this.autoCorrection = []
+
 
     let texte; let texteCorr; let laby; let monChemin = [[]]
     const listeCouples = shuffle([[2, 3], [2, 9], [5, 3], [5, 9], [10, 3], [10, 9]])

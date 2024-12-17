@@ -37,7 +37,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.comment = 'Dans cet exercice, un système est donné à résoudre. Les solutions sont entières comprises entre -10 et 10.<br>Le niveau 1 correspond à des inconnues seulement dans les membres de gauche;<br>Le niveau 2 à des inconnues dans les deux membres, mais ordonnées;<br>Le niveau 3 à des inconnues dans le désordre dans les deux membres.'
       let texte = ''

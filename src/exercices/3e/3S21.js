@@ -41,7 +41,7 @@ export default function CalculProbaExperience2Epreuves3e () {
   this.spacing = context.isHtml ? 2 : 1.5
   this.spacingCorr = context.isHtml ? 2 : 1.5
   this.nouvelleVersion = function () {
-    this.autoCorrection = []
+
 
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,

@@ -40,7 +40,7 @@ export default function LireAbscissesFractionnairesComplexes () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.autoCorrection = []
+
 
     let typeDeQuestions
     if (this.sup > 2) {

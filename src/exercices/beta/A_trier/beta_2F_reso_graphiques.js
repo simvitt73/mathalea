@@ -30,7 +30,7 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     const typeQuestionsDisponibles = ['2solA'] // On créé 3 types de questions
 

@@ -39,7 +39,7 @@ export default function SimplifierEcritureLitterale () {
 
     
     
-    this.autoCorrection = []
+
 
     if (this.sup2) {
       this.consigne = 'On a simplifié des écritures littérales.<br>Réécrire chaque expression en écrivant les symboles × qui sont sous-entendus.'

@@ -97,7 +97,7 @@ export default class ProblemesAvecEquations extends Exercice {
 
     
     
-    this.autoCorrection = []
+
     const listeDeProblemes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

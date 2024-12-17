@@ -71,7 +71,7 @@ class LireImageParApiGeom extends Exercice {
 
     
     this.listeCorrections = ['']
-    this.autoCorrection = []
+
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     const mesPoints = spline.pointsOfSpline

@@ -43,7 +43,7 @@ export default function TableauProportion () {
   this.nbQuestionsModifiable = false
   this.nouvelleVersion = function () {
     this.answers = {}
-    this.autoCorrection = []
+
 
     let typesDeQuestionsDisponibles = [1]
     if (this.sup === 2) {
@@ -53,7 +53,7 @@ export default function TableauProportion () {
     }
     const toutPourUn = (listePoints) => [Math.min(...listePoints), 1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.autoCorrection = []
+
     let index = 0
     let increment = 1
     for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {

@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
 
     
     
-    this.autoCorrection = []
+
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 2) // Ici ça ne sert à rien, c'est juste pour la fonction questionJamaisPosee()

@@ -171,7 +171,7 @@ export default class anglesTrianglesTableau extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
+
 
     let typesDeQuestionsDisponibles
     switch (this.sup) {
