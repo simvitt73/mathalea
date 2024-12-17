@@ -38,7 +38,8 @@ export default function ExerciceLabyrintheDivisibilite2 () {
   this.nouvelleVersion = function () {
     const tailleChiffre = 0.8
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
 
     let texte; let texteCorr; let laby; let monChemin = [[]]

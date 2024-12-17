@@ -52,7 +52,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)

@@ -43,7 +43,8 @@ export default class systemeEquationsPremDeg extends Exercice {
     } else {
       this.consigne = 'Résoudre les systèmes d\'équations suivants par combinaison linéaire :'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.besoinFormulaire2CaseACocher = ['Solution contenant des fractions']

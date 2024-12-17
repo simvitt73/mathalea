@@ -51,7 +51,8 @@ export default function ReductionsPiegesClassiques () {
   this.nouvelleVersion = function () {
     this.consigne = 'Réduire et simplifier, si possible, '
     this.consigne += this.nbQuestions > 1 ? 'les expressions suivantes.' : 'l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [

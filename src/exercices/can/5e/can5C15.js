@@ -24,7 +24,8 @@ export default function NombreATrouver () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(-9, 9, 0)

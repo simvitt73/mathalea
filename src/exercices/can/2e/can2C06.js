@@ -24,7 +24,8 @@ export default function SimplificationsRacinesCarrees () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     const a = choice([8, 18, 32, 50, 72, 98, 40, 200, 12, 27, 48, 75, 20, 45, 24, 28, 300, 500, 600, 700, 40, 44, 52, 60, 63, 90, 54])

@@ -55,7 +55,8 @@ export default function AireDuParallelogramme () {
 
   this.nouvelleVersion = function () {
     this.listeCorrections = [] // Liste de questions corrigées
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du parallélogramme suivant."
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions

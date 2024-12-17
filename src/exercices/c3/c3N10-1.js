@@ -56,7 +56,8 @@ export default function RecomposerEntierC3 () {
   this.sup5 = false
   this.nombreDeChiffresMin = 4
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({

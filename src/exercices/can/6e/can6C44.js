@@ -30,7 +30,8 @@ export default class ComparerFraction extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.consigne = 'Compléter avec $>$ ou $<$.'

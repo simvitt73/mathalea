@@ -41,7 +41,8 @@ export default function SolInequation () {
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)//, 2, 3

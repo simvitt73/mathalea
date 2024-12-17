@@ -33,7 +33,8 @@ export default function EncadrerTableau () {
   this.nbQuestions = 1
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let question1, correction1, ligne1

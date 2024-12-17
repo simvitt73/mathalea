@@ -32,7 +32,8 @@ export default function VolumesPavesParDenombrement () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     context.anglePerspective = 30

@@ -46,7 +46,8 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const computeEngine = new ComputeEngine()

@@ -27,7 +27,8 @@ export default function QuestionDAires () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(2, 9)

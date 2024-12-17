@@ -46,7 +46,8 @@ export default function EncodeurTexte (type = 'générateur') {
       'être supérieur/à un nombre signifie/être plus grand que ce nombre', 'Il faut toujours/vérifier la cohérence/de ses résultats',
       'Pour tracer des/droites ou des segments/on utilise une règle', 'Pour tracer des/droites perpendiculaires/utilise ton équerre']
     this.sup3 = contraindreValeur(1, 3, this.sup3, 1)
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     if (type === 'exo') {
       switch (this.sup3) {

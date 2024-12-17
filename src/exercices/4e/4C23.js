@@ -45,7 +45,8 @@ export default function SommeOuProduitFractions () {
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typeQuestionsDisponibles = []

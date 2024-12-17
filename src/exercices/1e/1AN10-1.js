@@ -32,7 +32,8 @@ export default function Tauxvariation () {
   this.sup = 1
   // this.sup = parseInt(this.sup)
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]

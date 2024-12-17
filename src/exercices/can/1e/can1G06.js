@@ -30,7 +30,8 @@ export default function ProduitScalaireFiguresClassiques () {
   this.typeExercice = 'simple'
   this.formatChampTexte = ''
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let A, B, C, D, I, E, F, O, a, b, c, d, segmentEB, segmentFC, segmentAD, sol, angle, objets, f1, poly, a1, a2, a3, a4, a5, a6, choix, choixb, xmin, ymin, ymax, xmax

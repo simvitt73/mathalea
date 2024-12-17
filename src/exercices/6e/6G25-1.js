@@ -312,7 +312,8 @@ export default function SymetrieAxialePavageTriangulaire () {
   }
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autocorrection = []
     const objetsEnonce = []

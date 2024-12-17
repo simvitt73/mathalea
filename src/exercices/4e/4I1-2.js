@@ -40,7 +40,8 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

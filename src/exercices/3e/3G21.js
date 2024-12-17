@@ -51,7 +51,8 @@ export default function ReciproqueThales () {
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrection = []
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.sup = contraindreValeur(1, 3, parseInt(this.sup), 1)
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 1)

@@ -40,7 +40,8 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     if (this.sup5) {
       this.consigne += ' La calculatrice est autorisée.'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

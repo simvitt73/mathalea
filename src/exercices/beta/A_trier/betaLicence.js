@@ -33,7 +33,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let question0 = '15 centaines + 32 dizaines'

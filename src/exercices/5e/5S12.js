@@ -47,7 +47,8 @@ export default function ConstruireUnDiagramme () {
 
   //  this.sup3 = false;
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typesDeQuestionsDisponibles

@@ -34,7 +34,8 @@ export default class UtilerAppartientA extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

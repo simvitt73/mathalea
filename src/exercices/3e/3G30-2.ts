@@ -37,7 +37,8 @@ class EquationTrigo extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

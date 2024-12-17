@@ -32,7 +32,8 @@ export default function DoubleMoitieTiersTriple () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = range1(4)

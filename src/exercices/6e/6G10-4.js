@@ -98,7 +98,8 @@ export default function VocabulaireDuCercle () {
     const typesDeQuestions = String(this.sup3 ?? typesDeQuestionsParDefaut)
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     if (context.isHtml) this.consigne += '<br><br>'
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'

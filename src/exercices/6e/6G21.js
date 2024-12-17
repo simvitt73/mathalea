@@ -48,7 +48,8 @@ export default function ConstruireUnTriangle () {
   this.sup2 = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let IEP

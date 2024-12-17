@@ -34,7 +34,8 @@ export default function CompteEstBon () {
     let a, b, c, d, cible, tirage
     const typesDeQuestions = gestionnaireFormulaireTexte(({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions }))
     const choix = combinaisonListes(range1(5), this.nbQuestions)
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

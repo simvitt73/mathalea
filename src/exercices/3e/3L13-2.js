@@ -50,7 +50,8 @@ export default function EqResolvantesThales () {
     this.consigne = (this.nbQuestions === 1 || context.vue === 'diap') ? this.consigneSingulier : this.consignePluriel
     typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
 
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

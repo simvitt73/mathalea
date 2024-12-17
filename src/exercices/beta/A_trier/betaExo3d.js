@@ -17,7 +17,8 @@ export default function ExerciceZeroMathalea2d3d () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
 
     const l = randint(5, 10)

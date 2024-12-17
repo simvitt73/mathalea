@@ -203,7 +203,8 @@ export default function SerieDeTransformations () {
     else if (this.sup === 2) typeDeTransfos = ['symax', 'rot180']
     else if (this.sup === 3) typeDeTransfos = ['symax', 'trans', 'rot180']
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, texte, texteCorr, paramsCorrection, paramsEnonce, nbTransfMin, nbTransfMax, nbVoisins, futursVoisinsPossibles, parcoursPossible, numeroFigure, chemin, objetsEnonce, objetsCorrection, polys, transfos, leurre0; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}

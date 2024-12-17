@@ -23,7 +23,8 @@ export default function CalculAvecRacineCarree1 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let d

@@ -32,10 +32,12 @@ export default function TripletsPythagoriciensOuPas () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeTripletsPythagoriciens = [

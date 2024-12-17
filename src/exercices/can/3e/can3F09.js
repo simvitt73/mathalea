@@ -29,7 +29,8 @@ export const refs = {
 }
 export default function ReconnaitreFonctionAffine () {
   Exercice.call(this)
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.formatInteractif = 'calcul'
   this.nbQuestions = 1

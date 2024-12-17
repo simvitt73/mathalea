@@ -30,7 +30,8 @@ export default function OrdonneeAbscisseFonctionLineaire () {
   this.typeExercice = 'simple'
   this.formatChampTexte = ''
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let xA, yB

@@ -47,7 +47,8 @@ export default class Representerfonctionaffine extends Exercice {
   nouvelleVersion () {
     this.figures = []
     this.coefficients = []
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let typesDeQuestionsDisponibles: (1|2)[] = []
 

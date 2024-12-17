@@ -33,8 +33,6 @@ export default function LectureGraphiqueParabolebEtc () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
   this.nouvelleVersion = function () {
     let texte, texteCorr, alpha, beta, r, o, f, a, A, traceA
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

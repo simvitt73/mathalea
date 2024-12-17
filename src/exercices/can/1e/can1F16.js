@@ -33,7 +33,8 @@ export default function LectureGraphiqueTangente () {
   this.nbQuestions = 1
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
     switch (choice([1, 2])) { //, 2
       case 1:// second degré (x-alpha)^2+beta

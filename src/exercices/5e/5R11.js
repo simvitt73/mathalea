@@ -45,7 +45,8 @@ export default function LireAbscisseRelative () {
 
   this.nouvelleVersion = function () {
     let typesDeQuestions
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let objets = []

@@ -29,7 +29,8 @@ export default function PariteDunNombre () {
   this.tailleDiaporama = 2
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, a, b, c, d, e, f, g, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5])) {

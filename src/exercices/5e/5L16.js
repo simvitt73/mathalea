@@ -36,7 +36,8 @@ export default function SimplifierEcritureLitterale () {
   this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

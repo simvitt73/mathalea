@@ -41,7 +41,8 @@ export default class AbscisseFractionnaire extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

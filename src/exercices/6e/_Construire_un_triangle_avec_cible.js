@@ -40,7 +40,8 @@ export default function ConstruireUnTriangleAvecCible () {
     let IEP
     let xMin
     let yMax
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let listeDeNomsDePolygones
     const celluleAleaRonde = function (rang) {

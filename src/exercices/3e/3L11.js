@@ -62,7 +62,8 @@ export default function ExerciceDevelopper () {
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'

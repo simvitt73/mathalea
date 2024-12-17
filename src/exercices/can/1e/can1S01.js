@@ -29,7 +29,8 @@ export default function CalculTermeSuiteExp () {
   this.nbQuestions = 1
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, b, c, k, choix, listeFractions1, fraction1

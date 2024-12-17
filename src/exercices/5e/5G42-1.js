@@ -31,7 +31,8 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

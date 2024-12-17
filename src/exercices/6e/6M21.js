@@ -91,7 +91,8 @@ export default function CompareAireEtPerimetreAvecRectangle () {
   this.sup2 = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     /*

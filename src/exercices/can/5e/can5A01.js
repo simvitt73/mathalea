@@ -26,7 +26,8 @@ export const refs = {
 }
 export default function RepetitionScratch () {
   Exercice.call(this)
-  this.listeQuestions = []
+
+    
   this.listeCorrections = []
   this.typeExercice = 'Scratch'
   this.nbQuestions = 1

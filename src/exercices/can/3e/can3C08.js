@@ -26,7 +26,8 @@ export default function ProgrammeCalcul () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   // ${texNombre(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombre((a / 5 - e) * (a / 5 - e))}$
   this.nouvelleVersion = function () {
     const a = calculANePlusJamaisUtiliser(randint(2, 9) * 5)

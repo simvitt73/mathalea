@@ -29,9 +29,11 @@ export default function ComparerAvecFctRef () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1.2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let texte, texteCorr, a, b, N, props
     for (let i = 0; i < this.nbQuestions;) {

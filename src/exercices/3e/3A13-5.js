@@ -39,7 +39,8 @@ export default function DivisionEuclidienneEtAjout () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const dizaineDiviseur = gestionnaireFormulaireTexte({

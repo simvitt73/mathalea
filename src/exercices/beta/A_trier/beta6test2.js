@@ -17,7 +17,8 @@ export default function MaFonctionQuiCreeExercice () {
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let listeTypeDeQuestionsDisponibles

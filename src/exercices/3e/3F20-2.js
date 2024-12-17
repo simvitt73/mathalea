@@ -56,7 +56,8 @@ export default function FonctionsAffinesOuLineaires () {
     fonctionsLineaires.numeroExercice = this.numeroExercice // indispensable pour l'interactif
     fonctionsLineaires.nouvelleVersion()
 
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions })

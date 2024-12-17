@@ -412,7 +412,8 @@ export default class PatronsSolides extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
 
     function formateGrille (modele) {

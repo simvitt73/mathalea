@@ -25,11 +25,13 @@ export default function SolutionInequation () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   let a, b, c, d
   this.date = 1635094684684
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice(['a', 'b', 'c'])) { //

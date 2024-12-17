@@ -66,7 +66,8 @@ export default class nomExercice extends Exercice {
       operations += `${nbBesoinsFormulaireCaseACocher > 1 ? ',' : ''} $A \\setminus B$ et $B \\setminus A$`
     }
     this.consigne = `Pour chaque paire d'ensembles, écrire l'ensemble correspondant à ${operations}.`
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typeQuestionsDisponibles: ('nombres' | 'lettres')[]

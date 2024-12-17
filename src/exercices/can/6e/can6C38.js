@@ -27,7 +27,8 @@ export default function YohakuCan6a () {
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     const laCase = randint(0, 3)
     // on rempli les cases du Yohaku

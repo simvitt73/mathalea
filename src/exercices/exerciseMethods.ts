@@ -11,7 +11,6 @@ export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?:
 }
 
 export function exportedReinit (this: Exercice) {
-  this.listeQuestions = []
   this.listeCorrections = []
   this.listeCanEnonces = []
   this.listeCanReponsesACompleter = []

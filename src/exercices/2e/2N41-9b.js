@@ -46,7 +46,8 @@ export default function DevelopperReduireExprComplexe () {
             this.nbQuestions > 1
               ? 'Développer puis réduire les expressions littérales suivantes.'
               : 'Développer puis réduire l\'expression littérale suivante.'
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z', 't']

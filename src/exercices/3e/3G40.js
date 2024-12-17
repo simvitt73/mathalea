@@ -55,7 +55,8 @@ export default function ReperageSurLaSphere () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let listeTypeDeQuestions

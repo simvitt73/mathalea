@@ -47,7 +47,7 @@ export default function TermeDUneSuiteDefinieExplicitement () {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
+
     this.listeCorrections = [] // Vide la liste de questions corrigées
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

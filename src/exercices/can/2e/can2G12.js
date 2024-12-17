@@ -26,10 +26,10 @@ export default function VecteursColineairesVF () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
   this.nouvelleVersion = function () {
     let ux, uy, vx, vy, k
-    this.listeQuestions = []
+
     this.listeCorrections = []
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5])) { //

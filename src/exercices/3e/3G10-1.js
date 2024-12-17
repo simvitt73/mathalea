@@ -50,7 +50,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
   this.sup = '4-5-6'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.listeCorrections = [] // Liste de questions corrigées

@@ -29,9 +29,11 @@ export default function TableauSignesSecondDegre () {
   this.tailleDiaporama = 1
 
   this.spacing = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     const coul0 = 'blue'
     let texte, texteCorr, a, b, c, solution1, solution2, solution3, solution4, inegalite, props

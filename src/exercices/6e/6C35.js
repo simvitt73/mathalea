@@ -88,7 +88,8 @@ export default function ModelisationProblemes () {
     } else {
       this.consigne = 'Associer chaque problème avec sa modélisation.'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let colorA, colorB

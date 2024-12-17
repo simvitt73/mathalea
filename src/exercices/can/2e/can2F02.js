@@ -28,7 +28,8 @@ export default function CalculImageQuotient () {
   this.nbQuestions = 1
   this.formatChampTexte = ' '
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     let a, c

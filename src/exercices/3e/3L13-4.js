@@ -39,7 +39,8 @@ export default class problemes extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     for (let i = 0, solutionDecimale, cpt = 0, exercice = {}; i < this.nbQuestions && cpt < 50;) {

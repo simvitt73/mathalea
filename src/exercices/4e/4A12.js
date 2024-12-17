@@ -44,7 +44,8 @@ export default function ProblemesEvenementsRecurrents () {
   this.interactif = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

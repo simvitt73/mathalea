@@ -30,7 +30,6 @@ export default class EquationsEtInequations extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
     this.listeCorrections = []
     this.tailleDiaporama = 3
     if (context.vue === 'diap' || this.nbQuestions === 1) {

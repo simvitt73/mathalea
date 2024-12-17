@@ -37,7 +37,8 @@ export default function DenombrerCubes () {
   this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions

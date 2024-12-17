@@ -37,7 +37,8 @@ export default class ExpressionsDepuisCalculs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

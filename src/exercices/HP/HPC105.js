@@ -42,7 +42,8 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     const computeEngine = new ComputeEngine()
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let listeTypeDeQuestionsDisponibles

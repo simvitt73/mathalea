@@ -46,7 +46,8 @@ export default function ProprietesMediatrice () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typesDeQuestionsDisponibles, listeSurLaMediatrice

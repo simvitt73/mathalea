@@ -37,7 +37,8 @@ export default function CalculsImagesFonctions () {
   this.fonctions = 'toutesLesFonctions'
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'

@@ -45,7 +45,8 @@ export default function CalculerCaracteristiques () {
   this.sup3 = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const questionsDisponibles = gestionnaireFormulaireTexte({

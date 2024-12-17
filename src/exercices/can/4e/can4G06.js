@@ -31,7 +31,8 @@ export default function CalculLongueurThales () {
   this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let nom, a, b, c, k, A, B, C, D, E, G, H, xmin, xmax, ymin, ymax, objets, pol

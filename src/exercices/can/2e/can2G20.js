@@ -33,7 +33,8 @@ export default function EquationDroite () {
   this.typeExercice = 'simple'
   this.formatChampTexte = ''
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, o, A, B, Bx, By, sABx, sBBx, maFraction, lA, traceA, lB, lABx, lBBx, lABx2, lBBx2, sBAx, Ax, sAxA, traceB, d, r1, xmin, xmax, ymin, ymax, objet, objetC, objetC2

@@ -29,7 +29,8 @@ export default function Ajouter9 () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (

@@ -56,7 +56,8 @@ export default function ExerciceLabyrinthePremiers3e () {
         break
     }
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     let texte, texteCorr
     let laby = []

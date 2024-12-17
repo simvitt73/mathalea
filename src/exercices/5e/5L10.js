@@ -41,7 +41,8 @@ export default function ÉcrireUneExpressionLitterale () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({

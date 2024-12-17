@@ -24,7 +24,8 @@ export default function EquationAvecUneValeurAbsolue () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, a, b, pente, signe, entier, cpt = 0; i < this.nbQuestions && cpt < 50;) {

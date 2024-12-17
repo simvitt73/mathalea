@@ -26,7 +26,8 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
   this.consigne = 'Déterminer la dernière opération à effectuer s\'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questionss
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 

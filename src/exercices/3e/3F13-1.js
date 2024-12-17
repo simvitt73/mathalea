@@ -37,7 +37,8 @@ export default function AntecedentEtImageGraphique () {
   }
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     const r = repere({
       xMin: -5,
       xMax: 5,

@@ -28,7 +28,8 @@ export default function CalculFonctionDeriveeQuotient () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let m; let p; let a

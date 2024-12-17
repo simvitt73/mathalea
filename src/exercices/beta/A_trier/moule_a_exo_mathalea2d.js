@@ -37,7 +37,8 @@ export default class SuperExoMathalea2d extends Exercice {
   // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     // Ci-dessus On crée une liste aléatoire comprenant nbQuestions parmi les types disponibles.
     /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.

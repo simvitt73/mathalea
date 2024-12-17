@@ -42,7 +42,6 @@ export default function Lecturefonctionaffine () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     let typeDeQuestionsDisponibles

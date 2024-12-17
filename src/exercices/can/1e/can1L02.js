@@ -31,7 +31,8 @@ export default function NombreSolutionsSecondDegre () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, b, c, d, maFraction

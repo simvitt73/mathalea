@@ -30,9 +30,11 @@ export default function TableauSignesSecondDegre () {
   this.tailleDiaporama = 1.3
 
   this.spacing = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let texte, texteCorr, a, b, c, tableau1, tableau2, tableau3
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

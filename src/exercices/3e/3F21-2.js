@@ -48,7 +48,8 @@ export default function DeterminerFonctionAffine () {
   this.nouvelleVersion = function () {
     this.titre = titre
 
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup) === 1) {

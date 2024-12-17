@@ -21,7 +21,8 @@ export default function ConstructionsDeTransformes () {
 
   this.nouvelleVersion = function (numeroExercice) {
     const anim = new Alea2iep()
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
 
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection

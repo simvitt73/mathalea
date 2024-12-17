@@ -36,7 +36,8 @@ export default class systemeEquationsPremDegSol extends Exercice {
 
   nouvelleVersion () {
     this.consigne = 'Déterminer si le couple proposé est solution du système d\'équations.'
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

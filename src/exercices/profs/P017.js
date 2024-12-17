@@ -38,7 +38,8 @@ export default function EncadrerAireDisque () {
 
   this.nouvelleVersion = function () {
     let texte = ''
-    this.listeQuestions = []
+
+    
     this.listeCorrections = [''] // Liste de questions corrigées
     let objets = []
 

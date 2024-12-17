@@ -24,7 +24,8 @@ export default function ÉcrireUnQuotient () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) {

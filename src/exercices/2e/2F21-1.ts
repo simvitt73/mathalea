@@ -69,7 +69,8 @@ export default class EtudeFctPoly3 extends Exercice {
 
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
+
+    
     this.listeCorrections = [] // Vide la liste de questions corrigées
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question

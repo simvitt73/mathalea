@@ -21,7 +21,8 @@ export default function CalculerUneExpressionLitteralePythagore () {
   this.video = ''
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let a, b, n, s, d, racs, racd, miracs, miracd
     const typesDeQuestionsDisponibles = ['type1', 'type2']

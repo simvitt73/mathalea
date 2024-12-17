@@ -29,9 +29,11 @@ export const refs = {
 export default function ReconnaitreFonctionDegre2 () {
   Exercice.call(this)
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.tailleDiaporama = 2
     const nomF = [

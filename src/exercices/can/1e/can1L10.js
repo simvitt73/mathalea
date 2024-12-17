@@ -23,7 +23,8 @@ export default function SimplifierTauxVariations () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(-12, 12, [0])

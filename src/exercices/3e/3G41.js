@@ -33,7 +33,8 @@ export default function VuesEmpilementCubes () {
   this.nbQuestions = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let objetsEnonce, objetsCorrection

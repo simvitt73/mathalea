@@ -44,7 +44,8 @@ export default function SimplifierFractions () {
   this.video = ''
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     if (this.nbQuestions === 1) {

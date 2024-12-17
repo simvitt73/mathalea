@@ -53,7 +53,8 @@ export default function GraphiquesEtProportionnalite2 () {
       typesDeQuestionsDisponibles = [1]
     }
 
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     // typesDeQuestionsDisponibles=[1];

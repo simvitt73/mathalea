@@ -65,7 +65,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
         this.consigne = 'Calculer le périmètre des figures suivantes.'
         break
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

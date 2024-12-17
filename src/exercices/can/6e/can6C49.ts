@@ -28,7 +28,8 @@ export default class egaliteCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.listeCanEnonces = []

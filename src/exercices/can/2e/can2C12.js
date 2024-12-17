@@ -30,7 +30,8 @@ export default function TauxGlobal () {
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
   this.optionsChampTexte = { texteApres: ' $\\%$' }
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, b, coeffG

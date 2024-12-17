@@ -38,7 +38,8 @@ export default class systemeEquationsPremDegComp extends Exercice {
     } else {
       this.consigne = 'Résoudre les systèmes suivants par substitution :'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typeQuestionsDisponibles : ('lv1'|'lv2')[]

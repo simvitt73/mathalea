@@ -31,7 +31,8 @@ export default function SimplifierUneSommeDeRacinesCarrees () {
   this.sup = 1
   this.spacingCorr = context.isHtml ? 2 : 1
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

@@ -33,7 +33,8 @@ export default function CalculFonctionDeriveeUnsurU () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let m; let p

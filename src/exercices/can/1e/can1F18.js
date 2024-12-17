@@ -35,7 +35,8 @@ export default function CalculFonctionDeriveeAsurU () {
   this.tailleDiaporama = 2
   this.compare = functionCompare
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a; let m; let p

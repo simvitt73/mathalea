@@ -27,9 +27,11 @@ export default function RelationChasles2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 3
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let texte, texteCorr, props, n
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

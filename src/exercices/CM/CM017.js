@@ -30,7 +30,8 @@ export default function DiviserDecimalPar101001000 () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (

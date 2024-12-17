@@ -37,7 +37,8 @@ export default function EgaliteDAngles () {
   this.spacing = 2
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const choix = this.sup === 3 ? combinaisonListes([1, 2], this.nbQuestions) : combinaisonListes([this.sup], this.nbQuestions)

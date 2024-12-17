@@ -149,7 +149,8 @@ export default function PavageEtDemiTour2D () {
       taillePavage = 2
     }
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     let Nx
     let Ny

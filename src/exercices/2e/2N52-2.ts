@@ -51,7 +51,8 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
 
   nouvelleVersion () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -62,7 +63,8 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
+
+    
     this.listeCorrections = [] // Vide la liste de questions corrigées
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

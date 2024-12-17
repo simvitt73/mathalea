@@ -34,7 +34,8 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
   this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
   this.sup = 3
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.consigne = this.nbQuestions === 1

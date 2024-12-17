@@ -78,7 +78,8 @@ export default function Transformations () {
     d3.opacite = 0.5
     d4.opacite = 0.5
     const couleurs = ['brown', 'green', 'blue']
-    this.listeQuestions = []
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
     const xO = 4
     const yO = 4

@@ -26,7 +26,8 @@ export default class MetaExercice extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.listeCanEnonces = []

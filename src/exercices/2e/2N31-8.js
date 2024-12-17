@@ -34,7 +34,8 @@ export default function ConversionsPuissancesDe10 () {
   this.correctionDetaillee = !context.isHtml
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = ['m>km', 'u>M', 'u>G', 'g>t', 'M>G', 'M>T', 'G>T', 'm>mm', 'm>um', 'm>nm'] // On créé 3 types de questions

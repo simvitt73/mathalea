@@ -158,7 +158,7 @@ class resolutionEquationInequationGraphique extends Exercice {
 
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
-    this.listeQuestions = []
+
     this.listeCorrections = ['']
     this.autoCorrection = []
     const aleaF1 = randint(1, 20, [5, 9, 10, 15]) // EE : J'enlève e, i, j et o.

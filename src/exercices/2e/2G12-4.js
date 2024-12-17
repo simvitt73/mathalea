@@ -32,7 +32,8 @@ export default function NaturePolygone () {
   this.nbColsCorr = 1
   this.sup = 3
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let objets

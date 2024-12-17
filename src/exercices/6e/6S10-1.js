@@ -43,7 +43,8 @@ export default function LireUnDiagramme () {
   this.sup2 = 5
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typesDeQuestionsDisponibles

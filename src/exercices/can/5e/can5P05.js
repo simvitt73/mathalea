@@ -27,7 +27,8 @@ export default function PoucentageP2 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = ''
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, u, b

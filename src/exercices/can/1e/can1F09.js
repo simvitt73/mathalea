@@ -31,7 +31,8 @@ export default function CalculFonctionDeriveeAffine2 () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
   this.formatInteractif = 'fractionEgale'
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     const listeFractions = [[2, 5], [-2, 3], [-3, 4], [5, 7], [-3, 7],

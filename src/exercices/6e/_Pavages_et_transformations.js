@@ -40,7 +40,8 @@ export default function PavagesEtTransformations () {
   // this.sup = 1 // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
   // context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const objetsEnonce = []

@@ -32,7 +32,8 @@ export default function CalculHypotenusePythagore () {
   this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   let a, b
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(3, ['QD'])

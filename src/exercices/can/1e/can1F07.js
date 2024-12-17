@@ -31,7 +31,8 @@ export default function AxeSymetrieParabole () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, x1, x2, somme, moinsb, b, c, maFraction, alpha, beta

@@ -31,7 +31,8 @@ export default function AngleTriangleIsocele () {
   this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, A, B, C, objets, nom, pol, xmin, xmax, ymin, ymax

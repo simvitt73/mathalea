@@ -28,9 +28,11 @@ export default function NatureSuiteRec () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1.5
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
 
     let texte, texteCorr, a, b, u, listeFractions1, fraction1, n1, d1, props

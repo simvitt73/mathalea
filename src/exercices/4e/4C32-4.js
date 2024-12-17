@@ -46,7 +46,8 @@ export default function CalculsPuissancesDe10 () {
 
     this.consigne = 'Donner la notation scientifique.'
 
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const listeFacteurs1 = [2, 3, 5, 7]

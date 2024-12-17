@@ -33,9 +33,11 @@ export default function NombresPremiers () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.spacing = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

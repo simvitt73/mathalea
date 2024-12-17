@@ -34,7 +34,8 @@ export default class systemeEquationsPremDegComp extends Exercice {
 
   nouvelleVersion () {
     this.consigne = 'Déterminer le point d\' intersection des droites suivantes :'
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

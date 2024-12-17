@@ -28,7 +28,8 @@ export default function IntersectionIntervalles () {
   this.formatChampTexte = KeyboardType.clavierEnsemble
   this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
     const cours = 'L’intersection de deux intervalles $I$ et $J$ est l’ensemble qui contient les nombres appartenant à $I$ et à $J$.<br>'
     switch (choice([1, 1, 2, 3, 4, 5, 6, 7, 8, 9])) { // 1,1,2,3,4,5,6,7,8

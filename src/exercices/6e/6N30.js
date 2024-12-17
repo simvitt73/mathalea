@@ -42,7 +42,8 @@ export default function LireAbscisseDecimale () {
     this.autoCorrection = []
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions

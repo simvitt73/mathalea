@@ -31,7 +31,8 @@ export default class Pyramides extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let operation
     const taille = parseInt(this.sup4)

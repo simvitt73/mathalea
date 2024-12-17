@@ -31,7 +31,8 @@ export default function CoordonneesSommetParabole () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let texte, texteCorr, a, b, c

@@ -39,7 +39,8 @@ export default function DiviserUnNombreParPuissanceDeDix () {
   this.sup2 = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']

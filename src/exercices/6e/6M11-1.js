@@ -42,7 +42,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   this.sup2 = 3
   this.sup3 = true
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 

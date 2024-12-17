@@ -37,7 +37,8 @@ export default function QuestionsAiresEtPerimetres () {
   this.tailleDiaporama = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, n, d, A, B, C, D, N, a1, maFraction, texte, texteCorr, reponse

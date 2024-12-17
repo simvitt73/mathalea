@@ -52,7 +52,8 @@ export default function TrouverErreurResolEqDeg1 () {
       typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
     }
 
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     // typesDeQuestionsDisponibles=[1];

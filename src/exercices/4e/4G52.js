@@ -39,7 +39,8 @@ export default function ReperagePaveDroit () {
   this.sup2 = 1
 
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

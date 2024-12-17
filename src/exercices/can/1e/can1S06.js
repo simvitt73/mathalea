@@ -27,7 +27,8 @@ export default function CalculTermeSuiteRec () {
   this.nbQuestions = 1
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, u

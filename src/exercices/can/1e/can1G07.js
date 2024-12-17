@@ -27,7 +27,8 @@ export default function RechercheCoordonneesProdScal () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatInteractif = 'fractionEgale'
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     const ux = randint(-10, 10)

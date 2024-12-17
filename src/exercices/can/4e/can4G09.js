@@ -33,7 +33,8 @@ export default function TripletsPythagoriciens () {
   this.tailleDiaporama = 2
   this.sup = 1
   this.besoinFormulaireNumerique = ['Type de question', 3, '1: calcul de l\'hypoténuse\n2: Calcul d\'un côté de l\'angle droit\n3: L\'un ou l\'autre']
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     const listeTripletsPythagoriciens = [

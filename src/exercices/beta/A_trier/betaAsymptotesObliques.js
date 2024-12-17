@@ -23,7 +23,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.typeExercice = 'xcas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = ['type1'] // On créé 3 types de questions

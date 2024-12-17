@@ -32,10 +32,12 @@ export default function LectureGraphiqueParaboleB () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let texte, texteCorr, a, alpha, beta, r, F, o

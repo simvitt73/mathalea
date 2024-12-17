@@ -38,7 +38,8 @@ class SoustractionRelatifs extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

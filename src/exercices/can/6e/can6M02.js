@@ -32,7 +32,8 @@ export default function LaBonneUnite () {
     ['coline', 75, 150, ' m']
   ]
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const unites = [' cm', ' dm', ' m']

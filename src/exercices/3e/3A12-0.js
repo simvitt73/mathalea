@@ -43,7 +43,8 @@ export default class EngrenagesAnimes extends Exercice {
   // eslint-disable-next-line no-unused-vars
 
   nouvelleVersion (numeroExercice) {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
 
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({

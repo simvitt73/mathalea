@@ -63,7 +63,8 @@ export default class nomExercice extends Exercice {
       symbole += `${nbBesoinsFormulaireCaseACocher > 1 ? ' ou ' : ''} les symboles $\\subset, \\not\\subset$`
     }
     this.consigne = `Compléter avec ${this.sup5 ? symbole : 'le symbole qui convient'}.`
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse'| 'nombresContenanceTrue' | 'nombresContenanceFalse'| 'lettresElementTrue' | 'lettresElementFalse'| 'lettresContenanceTrue' | 'lettresContenanceFalse'|'erreur')[]

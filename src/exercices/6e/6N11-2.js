@@ -50,7 +50,8 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     }
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.pointsNonSolutions = []

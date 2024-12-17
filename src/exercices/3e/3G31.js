@@ -56,7 +56,8 @@ export default function CalculDAngle () {
   }
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let listChoixRapportTrigo = []

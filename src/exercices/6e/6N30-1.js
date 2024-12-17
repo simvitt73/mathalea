@@ -68,7 +68,8 @@ export default function LireAbscisseDecimaleBis2d () {
       saisie: this.sup
     })
 
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions

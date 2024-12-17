@@ -40,7 +40,8 @@ export default function ExerciceLabyrintheNumeration () {
 
   this.nouvelleVersion = function () {
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     const tailleChiffre = !this.sup5 ? 0.7 : 1.1
     let texte, texteCorr

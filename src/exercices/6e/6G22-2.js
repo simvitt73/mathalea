@@ -45,7 +45,8 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const typeQuestionsDisponibles = ['nul', 'aigu', 'droit', 'obtus', 'plat']

@@ -40,7 +40,8 @@ class Decomp1 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const typeDeQuestions = this.sup4 % 2 === 0 ? ['classe'] : this.sup4 < 5 ? ['chiffre'] : ['chiffre', 'classe']

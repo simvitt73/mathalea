@@ -33,9 +33,11 @@ export default function SecondDegreVariations () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.spacing = 1
     let texte, texteCorr, a, b, maFraction, c, maFractionN, props

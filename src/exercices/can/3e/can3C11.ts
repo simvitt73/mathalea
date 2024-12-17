@@ -27,7 +27,8 @@ export default class calculsRacinesCarresPafaits extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.listeCanEnonces = []

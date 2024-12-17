@@ -41,7 +41,8 @@ export default function EquivalenceProgrammesCalcul () {
   }
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

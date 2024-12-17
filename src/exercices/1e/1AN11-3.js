@@ -31,7 +31,8 @@ export default function Equationdetangente () {
   this.video = '' // Id YouTube ou url
   this.sup = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [this.sup]

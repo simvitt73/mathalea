@@ -44,7 +44,8 @@ export default function Perimetre_aire_et_portions_de_disques () {
 
   this.nouvelleVersion = function () {
     this.listeCorrections = [] // Liste de questions corrigées
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,

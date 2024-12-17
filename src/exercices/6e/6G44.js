@@ -44,7 +44,8 @@ export default function NombreDeFacesEtDAretes () {
     if (this.version === 3) {
       this.sup = 3
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typeDeQuestion = []

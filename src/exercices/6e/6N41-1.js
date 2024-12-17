@@ -52,7 +52,8 @@ export default function ExerciceLabyrintheFractionsEgales () {
   const tailleChiffre = context.isAmc ? 1.1 : 0.7
   this.nouvelleVersion = function () {
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     this.sup = Math.max(2, this.sup)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

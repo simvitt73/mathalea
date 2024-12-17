@@ -52,7 +52,8 @@ export default function ImageFonctionsRefs () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

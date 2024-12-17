@@ -47,7 +47,8 @@ export default function ComprendreScriptListeMultiples () {
     const nbBriquesATrouver = contraindreValeur(1, 10, this.sup2, randint(1, 10))
     this.consigne = 'Compléter '
     this.consigne += nbBriquesATrouver > 1 ? 'les briques manquantes.' : 'la brique manquante.'
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     /*

@@ -22,7 +22,8 @@ export default function FormeCanonique () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const alpha = randint(-3, 3, [0])

@@ -30,7 +30,8 @@ export default function CalculPuissanceSimple () {
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const bases = [2, 3, 5, 7]

@@ -24,7 +24,8 @@ export default function TestFractions () {
   this.nbQuestions = 1
   this.sup = randint(1, 1000)
   this.sup2 = randint(2, 1000)
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.besoinFormulaireTexte = ['numérateur ', '']
   this.besoinFormulaire2Texte = ['dénominateur ', '']
   this.nouvelleVersion = function () {
@@ -33,7 +34,8 @@ export default function TestFractions () {
     // const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')
 
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     const a = Number(evaluate(this.sup)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionEtendue(a, b)

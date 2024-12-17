@@ -48,7 +48,8 @@ export default function CalculerCoeffPropo () {
       if (2 * a - 3 * b === 0 || 2 * a - 3 * c === 0 || 2 * b - 3 * c === 0 || 3 * a - 2 * b === 0 || 3 * a - 2 * c === 0 || 3 * b - 2 * c === 0) return true
       return false
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const typeDeCoefficient = ['Entier', 'Decimal', 'Fraction']

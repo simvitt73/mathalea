@@ -38,7 +38,8 @@ export default function ArrondirUneValeur4e () {
     this.autoCorrection = []
     this.consigne = 'Arrondir chaque nombre à l\'unité, puis au dixième, puis au centième.'
 
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let n, nb, rac, angle, v
 

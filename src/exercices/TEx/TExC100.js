@@ -30,7 +30,8 @@ export default function EquationDuPremierDegreDansC () {
   this.video = '' // Id YouTube ou url
   this.spacingCorr = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0; i < this.nbQuestions && cpt < 50;) {

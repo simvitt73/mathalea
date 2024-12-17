@@ -39,7 +39,8 @@ export default function VocabulaireNotationsFonctions2 () {
   this.nbQuestionsModifiable = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.consigne = this.interactif ? 'Cocher toutes les réponses correctes.' : ''

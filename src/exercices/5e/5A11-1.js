@@ -41,7 +41,8 @@ export default function ExerciceLabyrintheDivisibilite1 () {
     const tailleChiffre = 0.8
 
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     let texte, texteCorr
     let laby = []

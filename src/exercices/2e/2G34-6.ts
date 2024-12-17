@@ -39,7 +39,8 @@ export default class systemeEquationsPremDegComp extends Exercice {
     } else {
       this.consigne = 'Résoudre les systèmes d\'équations suivants par comparaison :'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typeQuestionsDisponibles: ('lv1' | 'lv2')[]

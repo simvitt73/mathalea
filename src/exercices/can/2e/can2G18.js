@@ -36,7 +36,8 @@ export default function LectureGraphiqueVecteurRepere () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 1
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let texte, texteCorr, xa, ya, k1, k2, o, r1, A, B, vAB, xmin, xmax, ymin, ymax, nomvAB, AB

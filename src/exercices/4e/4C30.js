@@ -48,7 +48,8 @@ export default function PuissancesDeDix () {
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
 
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = []

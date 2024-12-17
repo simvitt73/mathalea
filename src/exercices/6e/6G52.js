@@ -46,7 +46,8 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

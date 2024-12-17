@@ -60,14 +60,16 @@ class LireImageParApiGeom extends Exercice {
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
     this.figure = new Figure({ xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     this.figure.create('Grid')
     // this.figure.options.limitNumberOfElement.set('Point', 1)
-    this.listeQuestions = []
+
+    
     this.listeCorrections = ['']
     this.autoCorrection = []
 

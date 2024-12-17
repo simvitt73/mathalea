@@ -29,9 +29,11 @@ export default function InequationCasParticuliers () {
   this.tailleDiaporama = 1
 
   this.spacing = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let texte, texteCorr, a, b, solution1, solution2, solution3, solution4, inegalite, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

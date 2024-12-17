@@ -153,7 +153,8 @@ export default function PavageEtReflexion2d () {
       taillePavage = 2
     }
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     let Nx
     let Ny

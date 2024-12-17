@@ -39,7 +39,8 @@ export default class LectureSigneAffine extends Exercice {
     // Le reste est identique pour les trois niveaux
     // Le bloc décidant de l'aléatoire
     let a, b
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, min: 1, max: 3, defaut: 4, melange: 4, shuffle: true })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

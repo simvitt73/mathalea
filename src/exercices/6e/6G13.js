@@ -43,7 +43,8 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
   }
 
   nouvelleVersion (numeroExercice) {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

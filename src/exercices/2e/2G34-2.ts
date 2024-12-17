@@ -39,7 +39,8 @@ export default class systemeEquationsPremDegComp extends Exercice {
     } else {
       this.consigne = 'Déterminer la position relative des droites et en déduire le nombre de solutions des systèmes d\'équations :'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const typeQuestionsDisponibles = ['unique', 'unique', 'inf', 'aucune']

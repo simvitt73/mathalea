@@ -36,7 +36,8 @@ export default class ReconnaitreNombrePremier extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

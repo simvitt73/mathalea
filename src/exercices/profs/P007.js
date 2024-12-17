@@ -49,7 +49,8 @@ export default function PavagesMathalea2d () {
       }
     }
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
 
     const monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     const typeDePavage = this.sup === 8 ? randint(1, 7) : this.sup

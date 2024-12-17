@@ -49,7 +49,8 @@ export default function LireAbscisseEntiere2d () {
     this.consigne = "Lire l'abscisse de chacun des points suivants."
     if (this.interactif) { this.consigne += texteGras(' Penser à mettre les espaces nécessaires.') }
     let typesDeQuestions
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions

@@ -49,7 +49,8 @@ export default function FonctionsCalculsDImages () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     // let typesDeQuestionsDisponibles = [1];

@@ -38,7 +38,8 @@ export default function LectureDiagrammeBaton () {
   this.spacing = 2
   this.spacingCorr = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // vide la liste de questions
+
+    
     this.listeCorrections = [] // vide la liste de questions corrigées
     this.autoCorrection = []
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]

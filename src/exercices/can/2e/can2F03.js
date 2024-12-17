@@ -29,9 +29,11 @@ export default function SigneFonctionAffine () {
   this.tailleDiaporama = 2
   this.listeAvecNumerotation = true
 
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let texte, texteCorr, a, b, n, maFraction, monQcm
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

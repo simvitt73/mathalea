@@ -46,7 +46,8 @@ export default function ExerciceLabyrintheMultiples () {
 
   this.nouvelleVersion = function () {
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     this.autoCorrection = []
     let table
     if (this.sup === 1) {

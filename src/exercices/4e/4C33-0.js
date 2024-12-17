@@ -41,7 +41,8 @@ export default function NotationPuissance () {
 
   this.nouvelleVersion = function () {
     this.titre = titre
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let listeTypeDeQuestions

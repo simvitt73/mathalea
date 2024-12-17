@@ -33,7 +33,8 @@ export default function CoeffDirDroite () {
   this.formatChampTexte = ' '
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, o, A, B, Bx, sABx, sBBx, m, lA, traceA, lB, lABx, lBBx, traceB, d, r1, xmin, xmax, ymin, ymax, objet, objetC

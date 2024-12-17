@@ -68,7 +68,8 @@ export default function CanNoteLaCouleur6 () {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.4
     const rose = roseDesVents()
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     let j, test
     let objetsEnonce = []

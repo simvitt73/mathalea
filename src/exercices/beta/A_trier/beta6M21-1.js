@@ -26,7 +26,8 @@ export default class AireAssemblageRectangles extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const typesFigure = [1]

@@ -51,7 +51,8 @@ export default function SimulateurAleatoire () {
     let S = 0 // effectif total
     const tabRes = [] // tableau des fréqeunces observées - deux dimensions [val, freq]
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     const tabcoul = ['rouges', 'vertes', 'bleues', 'noires']
     const tabNbBoules = [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)]
     let nbBoules = 0; let f; let choix

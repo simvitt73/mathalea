@@ -31,7 +31,8 @@ export default function ÉcrirePourcentage () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ' '
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     const listeFractions1 = [[1, 2], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],

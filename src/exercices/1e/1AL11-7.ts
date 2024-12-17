@@ -37,7 +37,8 @@ export default class SuitesArithmeticoG extends Exercice {
 
   nouvelleVersion () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Vide la liste de questions
+
+    
     this.listeCorrections = [] // Vide la liste de questions corrigées
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

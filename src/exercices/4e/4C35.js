@@ -36,7 +36,8 @@ export default function PuissanceDecimaleOuFractionnaire () {
   this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
 
   this.nouvelleVersion = () => {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

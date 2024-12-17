@@ -40,7 +40,8 @@ export default class systemeEquationsPremDeg extends Exercice {
     } else {
       this.consigne = 'Les systèmes suivants ont-ils une, aucune ou une infinité de solutions ?'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

@@ -29,7 +29,8 @@ export default function RechercheValeurPythagore () {
   this.typeExercice = 'simple'
   this.formatChampTexte = ''
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, A, B, C, objets, nom, pol

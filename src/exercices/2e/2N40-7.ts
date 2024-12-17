@@ -65,7 +65,8 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
     this.consigne = this.nbQuestions === 1
       ? 'Calculer, pour la valeur donnée de $x$, le résultat de l\'expression suivante'
       : 'Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes'
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

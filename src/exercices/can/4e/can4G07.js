@@ -30,7 +30,8 @@ export default function CalculLongueurThalesMilieu () {
   this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let a, A, B, C, D, E, objets, nom

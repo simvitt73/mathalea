@@ -59,7 +59,8 @@ export default function LectureExpressionFonctionsAffines () {
     }
     let k = Math.pow(2, preK - 1)
     let nbDroites = parseInt(this.sup2)
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const colors = ['blue', 'red', 'black', 'purple', 'brown']

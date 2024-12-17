@@ -29,9 +29,11 @@ export default function NatureSuiteEx () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
 
     let texte, texteCorr, a, b, u, d, props

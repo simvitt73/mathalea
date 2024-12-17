@@ -71,7 +71,8 @@ export default function NoteLaCouleur6e () {
       ['(0) Blanc', '(1) Noir', '(2) Rouge', '(3) Bleu', '(4) Orange', '(5) Rose', '(6) Jaune', '(7) Vert', '(8) Gris']
     ]
     const echelleDessin = 0.5
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let j, test

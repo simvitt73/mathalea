@@ -116,7 +116,8 @@ export default function PavageEtTranslation2d () {
       taillePavage = 2
     }
     this.listeCorrections = []
-    this.listeQuestions = []
+
+    
     let Nx, Ny, index1, index2, A, B, d, image
     let monpavage, fenetre
     let texte = ''

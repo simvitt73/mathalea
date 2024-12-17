@@ -26,7 +26,8 @@ export default function YohakuCan6b () {
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     const laCase = randint(0, 3)
     const yohaku1 = new Yohaku({ type: 'entiers', largeur: 2, hauteur: 2, taille: 2, operation: 'multiplication', valeurMax: 10, solution: false, cellules: [] })

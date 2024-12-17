@@ -22,7 +22,8 @@ export default function mesureAngleCosSin () {
   this.typeExercice = 'simple'
   this.formatChampTexte = ''
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const choix1 = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]'])

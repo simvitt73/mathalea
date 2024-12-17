@@ -35,7 +35,8 @@ export default class MesurerDistancePointDroite extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

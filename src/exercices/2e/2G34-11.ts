@@ -40,7 +40,8 @@ export default class IntersectionDroites extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     let typeDeQuestionsDisponibles: ('deuxDroitesSG' |'troisDroitesSG' |'deuxDroitesHG'|'troisDroitesHG')[]

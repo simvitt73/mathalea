@@ -29,7 +29,8 @@ export default function CalculLongueurThales2 () {
   this.formatChampTexte = ''
 
   this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+    
 
   this.nouvelleVersion = function () {
     let nom, a, b, c, k, A, B, C, D, E, objets

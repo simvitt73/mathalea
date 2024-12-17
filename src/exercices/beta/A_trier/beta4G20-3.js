@@ -20,7 +20,8 @@ export default function CalculerValeurManquanteVisuelPythagore () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

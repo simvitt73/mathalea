@@ -55,7 +55,8 @@ export default function PlacerLaVirgule () {
       }
     }
 
-    this.listeQuestions = [] // tableau contenant la liste des questions
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
     const rang = ['millièmes', 'centièmes', 'dixièmes']

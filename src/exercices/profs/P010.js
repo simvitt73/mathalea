@@ -36,7 +36,8 @@ export default function VariationPolynomeDegre3 () {
   this.typeExercice = 'xcas'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+
+    
     this.listeCorrections = [] // Liste de questions corrigées
 
     // un tableau correct en exemple

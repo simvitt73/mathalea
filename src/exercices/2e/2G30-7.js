@@ -46,7 +46,8 @@ export default function Lecturegraphiquedeaetb () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 

@@ -34,7 +34,8 @@ export default function SignefonctionaffineVariation () {
   this.sup = 1
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.sup = parseInt(this.sup)
     let typeDeQuestionsDisponibles

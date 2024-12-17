@@ -41,7 +41,8 @@ export default class systemeEquationsPremDeg extends Exercice {
     } else {
       this.consigne = 'Résourdre les problèmes suivants :'
     }
-    this.listeQuestions = []
+
+    
     this.listeCorrections = []
     this.autoCorrection = []
 
