@@ -25,10 +25,10 @@ export const refs = {
 }
 export default function RacineCareeDeCarresParfaits () {
   Exercice.call(this)
-  this.titre = titre
+
   this.amcReady = amcReady
   this.amcType = amcType
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.nbQuestions = 4
   this.nbCols = 2

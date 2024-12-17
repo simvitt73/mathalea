@@ -34,7 +34,7 @@ export const refs = {
 export default function EvolutionsSuccesives () {
   Exercice.call(this)
 
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 1

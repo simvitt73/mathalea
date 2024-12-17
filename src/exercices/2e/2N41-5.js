@@ -26,7 +26,7 @@ export const refs = {
 export default function DevelopperIdentitesRemarquables4 () {
   Exercice.call(this)
 
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.correctionDetailleeDisponible = true
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

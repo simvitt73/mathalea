@@ -23,12 +23,12 @@ export const dateDePublication = '/11/2021' // La date de publication initiale a
  */
 export default function Can10Questions6N1 () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
+
+
   this.interactifType = interactifType
   this.nbQuestions = 10
 
-  this.nbColsCorr = 1
+
 
   this.nouvelleVersion = function () {
     let questions = []

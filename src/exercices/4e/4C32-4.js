@@ -29,13 +29,13 @@ export const refs = {
 export default function CalculsPuissancesDe10 () {
   Exercice.call(this)
   this.sup = 1
-  this.titre = titre
+
   this.amcReady = amcReady
   this.amcType = amcType
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
 
-  this.nbColsCorr = 1
+
   this.nbQuestions = 5
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).

@@ -35,7 +35,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
   constructor () {
     super()
 
-    this.interactifReady = interactifReady
+
     this.interactifType = interactifType
     this.consigne = ''
     this.nbQuestions = 4

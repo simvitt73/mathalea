@@ -38,10 +38,10 @@ export default function ExerciceConversionsAires () {
   this.sup3 = 1 // interactifType Qcm
   this.sup4 = false // tableau
   this.spacing = 2
-  this.nbColsCorr = 1
+
   this.amcReady = amcReady
   this.amcType = amcType
-  this.interactifReady = interactifReady
+
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {

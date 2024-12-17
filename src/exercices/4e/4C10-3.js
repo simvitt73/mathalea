@@ -28,8 +28,8 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
   Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
-  this.titre = titre
-  this.interactifReady = interactifReady
+
+
   this.interactifType = interactifType
   this.consigne = 'Calculer.'
   this.spacing = 2

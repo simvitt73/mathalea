@@ -28,7 +28,7 @@ export const refs = {
 export default function DistributiviteSimpleDoubleReduction () {
   Exercice.call(this)
 
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.nbQuestions = 5
 

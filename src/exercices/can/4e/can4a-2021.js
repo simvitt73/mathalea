@@ -50,7 +50,7 @@ export const refs = {
 export default function SujetCAN20214ieme () {
   Exercice.call(this)
 
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.nbQuestions = 30
 
