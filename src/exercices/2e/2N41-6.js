@@ -36,7 +36,7 @@ export default function DevelopperIdentitesRemarquables2 () {
   this.sup = 4
   this.sup2 = 4
 
-  this.interactifType = interactifType
+
   this.correctionDetailleeDisponible = true
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   if (!context.isHtml) {

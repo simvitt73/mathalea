@@ -29,7 +29,7 @@ export default function RacineCareeDeCarresParfaits () {
   this.amcReady = amcReady
   this.amcType = amcType
 
-  this.interactifType = interactifType
+
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2

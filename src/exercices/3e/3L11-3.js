@@ -29,7 +29,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.nbQuestions = 5
 
 

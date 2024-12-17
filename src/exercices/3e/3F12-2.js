@@ -35,7 +35,7 @@ export default function ImageFonctionAlgebrique () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.consigne = ''
   this.nbQuestions = 5
 

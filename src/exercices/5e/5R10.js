@@ -37,7 +37,7 @@ export default function TermeInconnuDeSomme () {
   this.spacing = 2
   this.interactif = false
 
-  this.interactifType = interactifType
+
   this.amcType = amcType
   this.amcReady = amcReady
 

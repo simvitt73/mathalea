@@ -27,7 +27,7 @@ export default function ReciproquePythagore () {
   this.amcReady = amcReady
   this.amcType = amcType
 
-  this.interactifType = interactifType
+
   this.consigne = ''
   this.nbQuestions = 3
 

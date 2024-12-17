@@ -52,7 +52,6 @@ function compareNombres (a, b) {
 export default function SujetCAN2023troisieme () {
   Exercice.call(this)
 
-  this.interactifType = interactifType
   this.nbQuestions = 30
 
   this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>

@@ -32,7 +32,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
 
 
   this.spacing = context.isHtml ? 3 : 2

@@ -33,7 +33,7 @@ export default function CalculsPuissancesDe10 () {
   this.amcReady = amcReady
   this.amcType = amcType
 
-  this.interactifType = interactifType
+
 
 
   this.nbQuestions = 5

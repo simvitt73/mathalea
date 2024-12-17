@@ -49,7 +49,7 @@ export default function SujetCAN20215ieme () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.nbQuestions = 30
 
 

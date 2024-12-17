@@ -27,7 +27,7 @@ export default function DevelopperIdentitesRemarquables4 () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.correctionDetailleeDisponible = true
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   if (!context.isHtml) {

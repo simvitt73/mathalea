@@ -26,7 +26,7 @@ export default function ExerciceQuotientsRelatifs () {
   Exercice.call(this)
   this.sup = false
 
-  this.interactifType = interactifType
+
 
   this.consigne = 'Calculer.'
   this.spacing = 2

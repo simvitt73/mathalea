@@ -36,7 +36,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
     super()
 
 
-    this.interactifType = interactifType
+
     this.consigne = ''
     this.nbQuestions = 4
     this.spacing = 1.5

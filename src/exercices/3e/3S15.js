@@ -29,7 +29,7 @@ export default function CalculerEtendues () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.consigne = ''
   this.nbQuestions = 1
 

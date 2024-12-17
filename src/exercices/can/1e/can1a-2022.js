@@ -56,7 +56,7 @@ export default function SujetCAN2022Premiere () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.nbQuestions = 30
 
 

@@ -30,7 +30,7 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
   this.sup2 = false // écriture simplifiée
 
 
-  this.interactifType = interactifType
+
   this.consigne = 'Calculer.'
   this.spacing = 2
 

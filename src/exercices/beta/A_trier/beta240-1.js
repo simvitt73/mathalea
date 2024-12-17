@@ -20,7 +20,7 @@ export default function ResoudreEnXetY () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbQuestions = 5
 

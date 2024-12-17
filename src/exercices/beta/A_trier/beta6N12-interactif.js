@@ -18,7 +18,7 @@ export const interactifReady = true
 export default function MultiplierEntierPar101001000 () {
   Exercice.call(this)
 
-  this.interactifType = interactifType
+
   this.consigne = 'Calculer'
   this.nbQuestions = 8
   this.nbCols = 2

@@ -25,7 +25,7 @@ export default function Can10Questions6N2 () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.nbQuestions = 10
 
 

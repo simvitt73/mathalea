@@ -60,7 +60,7 @@ export default class PrioritesEtRelatifs extends Exercice {
     super()
 
 
-    this.interactifType = interactifType
+
     this.consigne = 'Calculer.'
     this.spacing = 2
     this.nbQuestions = 6

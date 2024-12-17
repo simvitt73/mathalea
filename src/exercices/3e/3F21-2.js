@@ -35,7 +35,7 @@ export default function DeterminerFonctionAffine () {
   Exercice.call(this)
 
 
-  this.interactifType = interactifType
+
   this.consigne = ''
   this.sup = 1
   this.nbQuestions = 2

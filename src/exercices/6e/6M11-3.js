@@ -43,7 +43,7 @@ export default function AireCarresRectanglesTriangles () {
   this.amcType = amcType
   this.interactif = false
 
-  this.interactifType = interactifType
+
   this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
   this.spacing = 2
 

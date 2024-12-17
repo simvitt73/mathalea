@@ -32,7 +32,6 @@ export const refs = {
 export default function CalculerCaracteristiques () {
   Exercice.call(this)
 
-  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 4
 

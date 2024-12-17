@@ -21,5 +21,5 @@ export default function EgalitesEntreFractions5e () {
   EgalitesEntreFractions.call(this)
 
 
-  this.interactifType = interactifType
+
 }
