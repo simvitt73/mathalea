@@ -31,7 +31,6 @@ export default function ProblemesDeRobinets () {
     const b = calculANePlusJamaisUtiliser(60 / a) // nombres de litres/min
     const c = randint(2, b - 1, [10]) % 10 // volume du seau à remplir
     this.reponse = calculANePlusJamaisUtiliser(c * a)
-    console.log(a, b, c)
     this.question = `Le débit d'eau d'un robinet est de $${b}$ L/min.<br>
     
     Combien de secondes faut-il pour remplir un seau de $${c}$ L ?`
