@@ -41,7 +41,7 @@ export default function VocabulaireDesTriangles () {
 
   this.nouvelleVersion = function () {
     let texteIntro = ''
-    // eslint-disable-next-line no-undef
+
     if (context.isHtml) {
       if (this.classe === 6) {
         texteIntro += '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'

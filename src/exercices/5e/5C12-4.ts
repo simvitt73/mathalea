@@ -149,7 +149,8 @@ class MettreDesParentheses extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
     if (this.nbQuestions > 1) {
       this.consigne =
         'Mettre des parenthèses si besoin dans les égalités suivantes afin que celles-ci soient justes.<br>'

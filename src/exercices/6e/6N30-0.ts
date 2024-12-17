@@ -101,7 +101,8 @@ class ReperageEntiersOuDecimaux extends Exercice {
             ]
           ]
 
-    this.reinit()
+    
+    
     const choix = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,

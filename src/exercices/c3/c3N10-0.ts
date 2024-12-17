@@ -52,7 +52,8 @@ class DragAndDropNumerationEntiere extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
     // Pour activer le mélange
     const desordonne = this.sup5
     const enLettre = this.sup

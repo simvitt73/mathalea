@@ -38,7 +38,8 @@ class DerivationSimple extends Exercice {
 
   nouvelleVersion () {
     // initialise les propriété exportée de l'exo comme this.autoCorrection, this.listeQuestions...
-    this.reinit()
+    
+    
     // on récupère la liste des valeurs saisies dans le formulaire
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: this.nbQuestions })
     // Boucle principale pour fabriquer les question

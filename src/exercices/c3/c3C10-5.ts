@@ -37,7 +37,8 @@ class ExerciceTablesSoustractions extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 4, defaut: 1, melange: 5 })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const total = randint(2, this.sup)

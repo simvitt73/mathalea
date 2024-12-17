@@ -45,7 +45,8 @@ export default function OrganiserDonneesDepuisTexte () {
   this.spacingCorr = context.isHtml ? 2 : 1
 
   this.nouvelleVersion = function () {
-    this.reinit()
+    
+    
     const nbAmis = contraindreValeur(2, 4, this.sup3, 4) // min = 2;
     let texte
     let texteCorr

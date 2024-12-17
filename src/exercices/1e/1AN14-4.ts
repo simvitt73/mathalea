@@ -33,7 +33,8 @@ class DerivationSommesSimples extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const lesFonctions: {fonction: string, derivee: string}[] = []

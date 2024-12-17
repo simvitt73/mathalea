@@ -183,7 +183,8 @@ export default class RepresenterUneFraction extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
     const listeDeProblemes = combinaisonListes(listePb, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const probleme = listeDeProblemes[i]

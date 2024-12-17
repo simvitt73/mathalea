@@ -96,7 +96,8 @@ export default class Quartiles extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let q1: number
       let q2: number

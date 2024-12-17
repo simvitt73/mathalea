@@ -56,8 +56,6 @@ export default class ExerciceProblemesComplexes extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit() // initiase les tableaux des questions/réponses
-
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 10,
       defaut: 11,

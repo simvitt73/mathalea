@@ -36,7 +36,6 @@ class DerivationFonctionsUsuelles extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -196,7 +195,7 @@ class DerivationFonctionsUsuelles extends Exercice {
       if (this.questionJamaisPosee(i, laFonction)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] }, compare: functionCompare } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] } }, compare: functionCompare })
         i++
         cpt--
       }

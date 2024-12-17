@@ -111,7 +111,8 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
       ],
       this.nbQuestions
     )
-    this.reinit()
+    
+    
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 4, defaut: 5, melange: 5 })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       const { a, b, A, aSurA, bSurA, phi } = listeDeValeurs[i]

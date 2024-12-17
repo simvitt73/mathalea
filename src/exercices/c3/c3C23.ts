@@ -38,7 +38,8 @@ class CalculsFractionsSimples extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
+    
+    
 
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
