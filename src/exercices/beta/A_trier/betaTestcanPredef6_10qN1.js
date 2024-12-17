@@ -26,7 +26,7 @@ export default function Can10Questions6N1 () {
 
 
 
-  this.nbQuestions = 10
+
 
 
 

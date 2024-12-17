@@ -24,7 +24,7 @@ export const refs = {
 export default function SommeDeDeuxNombresMariesEtUnEntier () {
   Exercice.call(this)
   this.consigne = 'Calculer.'
-  this.nbQuestions = 10
+
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 3

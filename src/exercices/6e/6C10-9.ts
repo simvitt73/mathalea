@@ -25,7 +25,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 10
+
     this.sup = '3-4-5-6-7-8-9'
     this.sup2 = 9
     this.comment = 'Le multiplicande est issu des tables choisies et le multiplicateur est compris entre 2 et la valeur maximale ci-dessus (qui doit être au moins 5).'

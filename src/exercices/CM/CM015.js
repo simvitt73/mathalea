@@ -23,7 +23,7 @@ export const refs = {
 export default function SommeDeDeuxNombresMaries () {
   Exercice.call(this)
   this.consigne = 'Calculer.'
-  this.nbQuestions = 10
+
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 3

@@ -17,7 +17,7 @@ export default class NomExercice extends Exercice {
     super()
 
     this.consigne = 'Consigne'
-    this.nbQuestions = 10
+
 
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4 : Mélange']
     this.sup = '1-1-2-3'

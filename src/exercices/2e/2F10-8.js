@@ -18,5 +18,5 @@ export const refs = {
 export default function FonctionsAffinesS () {
   FonctionsAffinesOuLineaires.call(this)
   this.lycee = true
-  this.nbQuestions = 10
+
 }

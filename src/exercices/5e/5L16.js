@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function SimplifierEcritureLitterale () {
   Exercice.call(this)
-  this.nbQuestions = 10
+
 
   this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']
   this.sup = 3

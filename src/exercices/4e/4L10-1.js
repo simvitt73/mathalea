@@ -44,7 +44,7 @@ export const refs = {
 export default function ReductionsPiegesClassiques () {
   Exercice.call(this)
 
-  this.nbQuestions = 10
+
   this.sup = true
   this.listeAvecNumerotation = false
 

@@ -16,7 +16,7 @@ export default class nomExercice extends Exercice {
     super()
 
     this.consigne = 'Calcule'
-    this.nbQuestions = 10
+
 
     this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.sup = 2 // Valeur du paramètre par défaut
