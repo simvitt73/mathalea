@@ -36,7 +36,7 @@ export default function CalculerCaracteristiques () {
   this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 4
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbColsCorr = 1
   this.nbCols = 1

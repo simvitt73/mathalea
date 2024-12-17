@@ -29,7 +29,7 @@ export default function MettreAuMemeDenominateurLit () {
   this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 2
   this.sup = 3

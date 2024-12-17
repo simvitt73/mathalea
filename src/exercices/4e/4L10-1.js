@@ -43,7 +43,7 @@ export const refs = {
 }
 export default function ReductionsPiegesClassiques () {
   Exercice.call(this)
-  this.spacing = 1
+
   this.nbQuestions = 10
   this.sup = true
   this.listeAvecNumerotation = false

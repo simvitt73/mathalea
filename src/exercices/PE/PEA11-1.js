@@ -76,7 +76,7 @@ export default function PasserDeLaBase12Ou16ALaBase10 () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
   this.nouvelleVersion = function () {

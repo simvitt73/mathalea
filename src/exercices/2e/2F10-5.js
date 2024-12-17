@@ -33,7 +33,7 @@ export default function Signefonctionaffine () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.video = ''
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.sup = 1
   this.sup2 = 1

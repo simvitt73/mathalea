@@ -34,7 +34,7 @@ export default function FactoriserIdentitesRemarquables3 () {
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 4
   this.sup = 4

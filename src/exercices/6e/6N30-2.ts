@@ -41,7 +41,7 @@ class PlacerPointsSurAxe extends Exercice {
     this.nbQuestionsModifiable = true
     this.nbCols = 1
     this.nbColsCorr = 1
-    this.spacing = 1
+
     this.spacingCorr = 1
     this.sup = 1
     this.exoCustomResultat = true

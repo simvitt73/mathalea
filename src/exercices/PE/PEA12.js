@@ -29,7 +29,7 @@ export default function AdditionSoustractionBaseN () {
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.pasDeVersionLatex = true
   this.spacingCorr = context.isHtml ? 2 : 1
   this.sup = 3

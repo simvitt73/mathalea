@@ -31,7 +31,7 @@ export const refs = {
 export default function CalculerDesMoyennes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.spacing = 1
+
   this.spacingCorr = 2.5
   this.nbColsCorr = 1
   this.nbCols = 1

@@ -32,7 +32,7 @@ export default function CalculerEtendues () {
   this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbColsCorr = 1
   this.nbCols = 1

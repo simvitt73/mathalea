@@ -39,7 +39,7 @@ export default function EquationsFonctionsRef () {
   this.consigne = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
-  this.spacing = 1
+
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.besoinFormulaireTexte = [

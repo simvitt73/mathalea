@@ -30,7 +30,7 @@ export default function EtudierGraphiqueParite () {
   this.consigne = 'Déterminer, par lecture graphique mais en le justifiant, si la fonction $f$ représentée est paire, impaire ou ni paire, ni impaire.'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.nbQuestions = 1
 

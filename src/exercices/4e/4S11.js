@@ -30,7 +30,7 @@ export const refs = {
 export default function DeterminerDesMedianes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.spacing = 1
+
   this.spacingCorr = 1.5
   this.nbCols = 1
   this.nbColsCorr = 1

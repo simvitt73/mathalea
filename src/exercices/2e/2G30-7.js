@@ -40,7 +40,7 @@ export default function Lecturegraphiquedeaetb () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
-  this.spacing = 1
+
   this.spacingCorr = 1
   this.spacingCorr = 1
   this.sup = 1

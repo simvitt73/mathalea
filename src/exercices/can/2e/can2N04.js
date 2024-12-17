@@ -24,7 +24,7 @@ export default function ReunionIntervalles () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.spacing = 1
+
   this.formatChampTexte = KeyboardType.clavierEnsemble
   this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }

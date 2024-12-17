@@ -30,7 +30,7 @@ export default function VariationEnPourcentages () {
   Exercice.call(this)
   this.consigne = 'Calculer le nouveau prix.'
   this.nbQuestions = 5
-  this.spacing = 1
+
   this.spacingCorr = 2
   this.nbColsCorr = 1
   this.nbCols = 1

@@ -32,7 +32,7 @@ export default function AntecedentGraphique () {
   this.titre = titre
   this.consigne = ''
   this.sup = 2
-  this.spacing = 1
+
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true

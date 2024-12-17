@@ -21,7 +21,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
   this.sup = false
   this.titre = titre
   this.consigne = 'Calculer.'
-  this.spacing = 1
+
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 

@@ -43,7 +43,7 @@ export default function Proportions () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 4 // type de questions mettre 4
-  this.spacing = 1
+
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {

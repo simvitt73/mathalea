@@ -52,7 +52,7 @@ export default function MultiplicationsBaseN () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
+
   this.pasDeVersionLatex = true
   this.spacingCorr = context.isHtml ? 2 : 1
 

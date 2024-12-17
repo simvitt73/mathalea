@@ -34,7 +34,7 @@ export const dateDePublication = '28/11/2024'
 export default class Exercice3A10DNB0 extends ExerciceBrevetA {
   constructor () {
     super()
-    this.spacing = 1
+
     this.spacingCorr = 2
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false

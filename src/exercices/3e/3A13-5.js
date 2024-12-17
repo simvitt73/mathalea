@@ -31,7 +31,7 @@ export const refs = {
 }
 export default function DivisionEuclidienneEtAjout () {
   Exercice.call(this)
-  this.spacing = 1
+
   this.nbQuestions = 5
   this.sup = true
   this.sup2 = 3

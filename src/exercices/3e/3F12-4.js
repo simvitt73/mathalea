@@ -36,7 +36,7 @@ export default function ImageGraphique () {
   this.titre = titre
   this.consigne = ''
   this.sup = 3
-  this.spacing = 1
+
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
   this.nbQuestions = 1
   this.pointsParQuestions = 3

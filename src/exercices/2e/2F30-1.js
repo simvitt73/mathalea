@@ -31,7 +31,7 @@ export default function VariationsCourbe () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1// Interligne des questions
+
   this.spacingCorr = 1 // Interligne des réponses
   this.nouvelleVersion = function () {
     let typeDeQuestionsDisponibles
