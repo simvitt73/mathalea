@@ -34,8 +34,8 @@ export default function ExerciceLabyrintheMultiples () {
   this.niveau = '6e'
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
+
+
   this.pas_de_version_HMTL = false
   this.tailleDiaporama = 2
   this.sup = 4

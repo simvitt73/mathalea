@@ -23,7 +23,7 @@ export default function ProblemeDeRatio () {
 
 
 
-  this.pasDeVersionLatex = false
+
   this.pas_de_version_HMTL = false
   this.sup = 3
   this.spacing = 2

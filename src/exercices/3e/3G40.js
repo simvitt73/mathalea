@@ -40,7 +40,7 @@ export default function ReperageSurLaSphere () {
 
 
 
-  this.pasDeVersionLatex = false
+
   this.pas_de_version_HMTL = false
 
   this.sup = 3

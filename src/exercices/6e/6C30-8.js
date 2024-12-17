@@ -31,8 +31,8 @@ export default function DiviserPar101001000 () {
   this.nbQuestions = 4 // Ici le nombre de questions
 
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+
+
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Compléter les pointillés.'
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.

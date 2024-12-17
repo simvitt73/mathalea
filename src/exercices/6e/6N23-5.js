@@ -35,8 +35,8 @@ export default function SensDeLaFraction () {
   this.nbQuestions = 4
 
 
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
+
+
   this.pas_de_version_HMTL = false
   this.sup = '5'
 

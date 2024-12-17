@@ -35,12 +35,12 @@ export const refs = {
 }
 export default function NoteLaCouleurC3 () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 1
 
 
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
+
+
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.sup = 1

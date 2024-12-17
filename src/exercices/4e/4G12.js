@@ -44,8 +44,8 @@ export default function SerieDeTransformations () {
   this.nbQuestions = 1
 
 
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
+
+
   this.pas_de_version_HMTL = false
   const A = point(0, 0)
   let typeDeTransfos

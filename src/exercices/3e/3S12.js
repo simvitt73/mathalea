@@ -36,12 +36,8 @@ export default function CalculEffectifFrequence () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions
 
-
-
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
-  this.correctionDetailleeDisponible = false
   this.spacing = 2 // Interligne des questions
   this.spacingCorr = 2 // Interligne des réponses
 
@@ -50,9 +46,6 @@ export default function CalculEffectifFrequence () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
-
-    
-    
     const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const symbolePourCent = context.isHtml ? '%' : '$\\%$'

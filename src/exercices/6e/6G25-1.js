@@ -35,8 +35,8 @@ export default function SymetrieAxialePavageTriangulaire () {
   Exercice.call(this)
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+
+
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false

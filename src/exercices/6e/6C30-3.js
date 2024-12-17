@@ -38,7 +38,7 @@ export default function MultiplicationMentalDecimaux () {
 
 
 
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
 
   this.nouvelleVersion = function () {

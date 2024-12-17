@@ -34,7 +34,7 @@ export default function DernierChiffre () {
   this.nbCols = 2 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 2// Le nombre de colonne pour la correction LaTeX
   this.tailleDiaporama = 3
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
 
   this.correctionDetailleeDisponible = true

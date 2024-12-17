@@ -29,8 +29,6 @@ export default function ExerciceLabyrinthePremiers3e () {
   Exercice.call(this)
   this.nbQuestions = 3
 
-
-  this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.sup = 3
   this.sup2 = 6
@@ -55,9 +53,6 @@ export default function ExerciceLabyrinthePremiers3e () {
         nbMax = 29
         break
     }
-    
-
-    
 
     let texte, texteCorr
     let laby = []

@@ -27,8 +27,8 @@ export default function TransformationsDeTriangle () {
   this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+
+
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 

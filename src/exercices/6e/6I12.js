@@ -44,7 +44,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.nbQuestionsModifiable = false
 
 
-  this.pasDeVersionLatex = false
+
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.sup = 9 // 7 instructions par défaut, paramètre réglable.
