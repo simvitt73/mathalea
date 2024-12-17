@@ -25,7 +25,6 @@ export default function SignefonctionaffineVariation () {
   Exercice.call(this)
   this.nbQuestions = 2 // On complète le nb de questions
 
-  this.video = ''
   this.spacing = 1.75
   this.spacingCorr = 1.75
   this.sup = 1

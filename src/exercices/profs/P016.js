@@ -22,7 +22,6 @@ export default function SimulateurDes () {
 
   this.sup = '6' // liste de dés
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     let texte

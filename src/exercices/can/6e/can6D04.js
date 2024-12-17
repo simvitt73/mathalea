@@ -22,5 +22,4 @@ export default function ConvertirMinutesHeures () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.correctionDetailleeDisponible = false
-  this.correctionDetaillee = false
 }

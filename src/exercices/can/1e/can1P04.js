@@ -35,7 +35,6 @@ export default function CalculProbaArbre2e () {
 
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     const rationnel = this.sup

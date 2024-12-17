@@ -30,8 +30,6 @@ export default function Signefonctionaffine () {
   Exercice.call(this)
   this.nbQuestions = 1 // On complète le nb de questions
 
-  this.video = ''
-
   this.sup = 1
   this.sup2 = 1
   this.correctionDetaillee = false

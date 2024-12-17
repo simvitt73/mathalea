@@ -25,7 +25,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'Déterminer la matrice de l\'application linéaire définie ci-dessous dans la base canonique.'
     this.nbQuestions = 4
 
@@ -37,7 +37,7 @@ export default class nomExercice extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
-    this.video = ''
+
   }
 
   nouvelleVersion () {

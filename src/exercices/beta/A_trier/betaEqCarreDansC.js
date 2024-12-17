@@ -15,10 +15,10 @@ export default function ResoudreDesEquationsCarreeDansC () {
   this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations :'
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nouvelleVersion = function () {
 

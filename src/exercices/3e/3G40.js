@@ -42,7 +42,7 @@ export default function ReperageSurLaSphere () {
 
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.video = ''
+
   this.sup = 3
   this.sup2 = false
   this.sup3 = false

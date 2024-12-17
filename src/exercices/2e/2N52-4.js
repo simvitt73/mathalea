@@ -26,7 +26,7 @@ export const refs = {
 export default function Equationspresqueproduitnulle () {
   Exercice.call(this)
 
-  this.video = ''
+
 
 
 

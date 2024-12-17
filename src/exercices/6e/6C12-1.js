@@ -49,7 +49,7 @@ export default function QuestionsMasses () {
   this.sup3 = false
   this.sup4 = 3
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {

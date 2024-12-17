@@ -17,7 +17,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     const pG = randint(20, 60) // pG est un pourcentage

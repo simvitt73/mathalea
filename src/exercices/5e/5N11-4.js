@@ -28,13 +28,13 @@ export const refs = {
 }
 export default function ValeurApprocheeDePourcentages () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
 
   this.nouvelleVersion = function () {
 

@@ -30,10 +30,10 @@ export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
   this.consigne = 'Pour chaque expérience, calculer $P(A)$, $P(B)$, $P(A\\cap B)$ et $P(A\\cup B)$'
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1)
   this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = ['type1']

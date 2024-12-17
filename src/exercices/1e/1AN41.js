@@ -30,7 +30,7 @@ export default function MesurePrincipale () {
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
+
 
   this.nouvelleVersion = function () {
     const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]

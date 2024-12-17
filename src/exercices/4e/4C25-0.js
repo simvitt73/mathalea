@@ -22,11 +22,11 @@ export const refs = {
 export default function ProblemesAdditifsFractionsBis () {
   Exercice.call(this)
   this.sup = '6'
-  this.video = ''
+
   this.nbQuestions = 5
   this.consigne = 'Justifier vos réponses aux problèmes suivants.'
 
-  this.nbColsCorr = 1
+
 
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)

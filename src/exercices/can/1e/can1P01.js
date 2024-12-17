@@ -37,7 +37,6 @@ export default function ProbabilitesNotation () {
 
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     for (let i = 0, cpt = 0, p1, p2, p3, p4, p5, p6, texte, texteCorr, choix; i < this.nbQuestions && cpt < 50;) {

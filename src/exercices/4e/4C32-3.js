@@ -23,8 +23,8 @@ export default function ProblemesPuissancesDe10EtConversions () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
+
+
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
   this.nouvelleVersion = function () {

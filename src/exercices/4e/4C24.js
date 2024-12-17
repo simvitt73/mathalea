@@ -41,7 +41,7 @@ export default function SimplifierFractions () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
-  this.video = ''
+
 
   this.nouvelleVersion = function () {
 

@@ -20,7 +20,7 @@ export default function LireUnTableauDevariations () {
   this.nbQuestions = 1
   this.sup = 3 // Niveau de difficulté
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.nouvelleVersion = function () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {

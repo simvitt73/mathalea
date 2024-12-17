@@ -21,10 +21,10 @@ export default function PositionsDeDroites () {
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
 
   const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] //, 'type1', 'type2' On créé 2 types de questions
   const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

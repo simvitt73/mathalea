@@ -26,13 +26,13 @@ export const refs = {
 }
 export default function TrianglesEgaux () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 3
 
 
   this.sup = 1 // Niveau de difficulté
-  this.video = '' // Id YouTube ou url
+
   this.spacing = 2
 
   this.nouvelleVersion = function () {

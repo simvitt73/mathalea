@@ -26,7 +26,6 @@ export default function TraceCourbeSpline () {
   this.sup2 = '(2;2)/(0;0)/(0;0)/(1;1)'
   this.sup3 = '1/1/1/1'
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     const noeuds = []

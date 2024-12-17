@@ -114,7 +114,7 @@ export default function EqResolvantesThales () {
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.niveau = '5e'
 
   this.nouvelleVersion = function () {

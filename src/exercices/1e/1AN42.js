@@ -31,7 +31,7 @@ export default function MesurePrincipale () {
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
+
   this.sup = 1
   this.nouvelleVersion = function () {
 

@@ -16,10 +16,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.consigne = 'Montrez que la fonction $f$ admet une asymptote oblique en $+\\infty$ dont on donnera l\'équation et la position relative'
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.typeExercice = 'xcas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nouvelleVersion = function () {

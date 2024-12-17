@@ -61,7 +61,7 @@ export default function ExercicesThales () {
   this.nbCols = 0
   this.nbColsCorr = 0
   this.tailleDiaporama = 1
-  this.video = ''
+
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)

@@ -27,7 +27,7 @@ export default function CompleterUneFacture () {
 
   this.sup = 2 // Niveau de difficulté
   // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
 
   this.nouvelleVersion = function () {
 

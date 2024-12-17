@@ -35,7 +35,6 @@ export default function ProbaLoiVA () {
 
   this.nbQuestions = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     const listeFractions = [[1, 5, 1, 3], [1, 5, 2, 3], [1, 5, 1, 4], [1, 5, 3, 4], [1, 5, 1, 2], [2, 5, 1, 2], [1, 6, 1, 2],

@@ -19,10 +19,10 @@ export default function EquationAvecUnLogarithme () {
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes :'
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = ['lnu=lnv', '2lnu=lnv', 'lnu+lnv=lnw']

@@ -26,7 +26,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'Calcul du déterminant d\'une matrice carrée'
     this.nbQuestions = 3
 
@@ -38,7 +38,7 @@ export default class nomExercice extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
-    this.video = ''
+
   }
 
   nouvelleVersion () {

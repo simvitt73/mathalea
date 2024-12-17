@@ -24,7 +24,7 @@ export const refs = {
 }
 export default function Reconnaitrefonctionaffine () {
   Exercice.call(this)
-  this.video = ''
+
   this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
 
 

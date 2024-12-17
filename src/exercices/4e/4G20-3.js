@@ -36,13 +36,12 @@ export const refs = {
 export default class calculsDeCarre extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = 1
     this.nbQuestions = 6
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     this.consigneModifiable = false
-    this.correctionDetailleeDisponible = false
     this.besoinFormulaireNumerique = ['Type de nombre', 4, ' 1: Entier naturel \n2 : Entier relatif\n3 : Nombre décimal positif \n4 : Nombre décimal relatif \n5 : Fractionnaire relatif \n6 : Mélange']
     this.comment = 'Il est possible de faire cet exercice de tête en connaissant les 15 premiers carrés parfaits.'
   }

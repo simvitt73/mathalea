@@ -38,12 +38,12 @@ export default function FractionsCalculsSimples () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 4 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.correctionDetaillee = true
   this.correctionDetailleeDisponible = true
 
   this.nouvelleVersion = function () {
-    if (this.correctionDetaillee) this.nbColsCorr = 1
+
 
 
     if (this.sup) {

@@ -35,7 +35,6 @@ export default function CalculProbaFormuleProbaTotale () {
 
   this.nbQuestions = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     for (let i = 0, cpt = 0, reponse1, reponse2, pA, pBsachantA, pBbarresachantAbarre, pBbarresachantA, pAbarre, pBsachantAbarre, omega, texte, texteCorr, objets; i < this.nbQuestions && cpt < 50;) {

@@ -55,7 +55,7 @@ export default class CalculsHomothetie extends Exercice {
     this.nbCols = 0 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
     this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-    this.video = '' // Id YouTube ou url
+
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
     context.isHtml ? (this.spacing = 1.5) : (this.spacing = 0)

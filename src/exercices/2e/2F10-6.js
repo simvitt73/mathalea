@@ -28,8 +28,6 @@ export default function Variationsfonctionaffine () {
 
   this.nbQuestions = 2 // On complète le nb de questions
 
-  this.video = ''
-
   this.sup = 4
 
   this.nouvelleVersion = function () {

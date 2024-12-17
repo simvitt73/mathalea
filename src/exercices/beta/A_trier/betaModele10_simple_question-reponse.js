@@ -14,13 +14,13 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'Calcule'
     this.nbQuestions = 10 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-    this.video = '' // Id YouTube ou url
+
   }
 
   nouvelleVersion () {

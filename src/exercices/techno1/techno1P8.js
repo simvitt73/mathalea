@@ -27,7 +27,7 @@ export default class nomExercice extends Exercice {
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.video = '' // Id YouTube ou url
+
   }
 
   nouvelleVersion () {

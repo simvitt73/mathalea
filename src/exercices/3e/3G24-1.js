@@ -35,7 +35,7 @@ export default class TrianglesSemblables extends Exercice {
 
 
     this.sup = 1
-    this.video = '' // Id YouTube ou url
+
     this.spacing = 2
     this.spacingCorr = 3
     this.besoinFormulaireTexte = ['Types de questions (nombre séparés par des tirets)', '1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués']

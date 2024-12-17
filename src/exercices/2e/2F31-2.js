@@ -32,7 +32,7 @@ export default function EncadrerAvecFctRef () {
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
   context.isHtml ? (this.spacingCorr = 2.2) : (this.spacingCorr = 1)
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.nouvelleVersion = function () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

@@ -30,7 +30,7 @@ export default function ProbabilitesSimples () {
 
   // this.sup = 1  // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
 
   this.nouvelleVersion = function () {
     for (let i = 0; i < this.nbQuestions; i++) {

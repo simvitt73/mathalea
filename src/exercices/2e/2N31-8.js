@@ -29,7 +29,7 @@ export default function ConversionsPuissancesDe10 () {
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
+
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = !context.isHtml
 

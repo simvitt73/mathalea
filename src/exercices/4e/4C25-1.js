@@ -25,12 +25,12 @@ export const refs = {
 export default function ProblemesMultiplicatifsFractions () {
   Exercice.call(this)
   this.sup = '8'
-  this.video = ''
+
   this.nbQuestions = 4
-  this.titre = titre
+
   this.consigne = 'Justifier vos réponses aux problèmes suivants.'
 
-  this.nbColsCorr = 1
+
 
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)

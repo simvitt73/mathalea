@@ -27,7 +27,7 @@ export default function Tauxvariation () {
   Exercice.call(this)
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.sup = 1
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]

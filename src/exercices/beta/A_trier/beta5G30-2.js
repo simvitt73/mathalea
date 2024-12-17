@@ -63,9 +63,7 @@ export default function ExercicesAnglesAIC () {
   this.nbCols = 0
   this.nbColsCorr = 0
   this.tailleDiaporama = 1
-  this.video = ''
-  this.correctionDetailleeDisponible = false
-  this.correctionDetaillee = true
+
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice

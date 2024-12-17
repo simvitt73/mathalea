@@ -29,7 +29,7 @@ export default function DivisibleDiviseurMultiple () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.setReponse = function (i, listeBonnesReponses) {
     this.autoCorrection[i] = {}
     this.autoCorrection[i].listeReponses = listeBonnesReponses

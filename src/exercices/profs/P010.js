@@ -28,11 +28,11 @@ export default function VariationPolynomeDegre3 () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = '-1/-2/3/1' // Niveau de difficulté
   this.sup2 = true
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   this.typeExercice = 'xcas'
 
   this.nouvelleVersion = function () {

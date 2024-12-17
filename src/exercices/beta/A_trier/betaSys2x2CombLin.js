@@ -34,9 +34,9 @@ export default function Systeme2x2parCombinaisonLineaire () {
   this.consigne = 'Résoudre chacun des systèmes suivants $\\emph{par combinaisons}$'
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.sup = 1 // Ecriture simple du système
   this.nouvelleVersion = function () {

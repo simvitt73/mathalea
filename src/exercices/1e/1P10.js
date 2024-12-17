@@ -35,7 +35,7 @@ export default function ProbabilitesConditionnelles () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.spacing = context.isHtml ? 2 : 1
   this.spacingCorr = context.isHtml ? 3 : 1
-  this.video = '' // Id YouTube ou url
+
   this.sup = false
   this.sup2 = 3
 

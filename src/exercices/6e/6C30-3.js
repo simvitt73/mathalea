@@ -34,7 +34,7 @@ export default function MultiplicationMentalDecimaux () {
   this.interactif = true // Il n'existe pas de version non QCM
   this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
   this.nbQuestions = 4 // Ici le nombre de questions
-  this.video = ''
+
 
 
 

@@ -20,7 +20,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+
   const omega = new Arbre({
     racine: true,
     rationnel: this.sup,
