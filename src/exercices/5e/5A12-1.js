@@ -45,7 +45,7 @@ export default function PremierOuPas5e () {
     let typesDeQuestions
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions

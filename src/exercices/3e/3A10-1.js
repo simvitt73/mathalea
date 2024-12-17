@@ -53,8 +53,6 @@ export default function PremierOuPas () {
         : 'Indiquer si le nombre suivant est premier ou pas.' + (this.interactif ? '' : ' Justifier s\'il ne l\'est pas.')
     let typesDeQuestions
 
-    this.contenuCorrection = '' // Liste de questions corrigées
-
     let typesDeQuestionsDisponibles // = [1, 2, 3, 6, 7];
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3, 8]

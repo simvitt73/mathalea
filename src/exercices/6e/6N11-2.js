@@ -57,7 +57,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     this.pointsNonSolutions = []
     this.pointsSolutions = []
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [this.sup],

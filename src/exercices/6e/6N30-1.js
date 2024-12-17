@@ -73,7 +73,7 @@ export default function LireAbscisseDecimaleBis2d () {
     
 
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     const d = []
     this.contenu = this.consigne
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {

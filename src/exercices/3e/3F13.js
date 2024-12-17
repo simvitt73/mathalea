@@ -41,7 +41,7 @@ export default function AntecedentGraphique () {
 
   this.nouvelleVersion = function () {
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     let a, b, c, x1, x2, x3, fx1, fx2, fx3, texte, texteCorr, f
     let indexInteractif = 0
     let incrementInteractif

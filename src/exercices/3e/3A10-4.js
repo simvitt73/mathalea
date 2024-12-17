@@ -38,7 +38,6 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.contenuCorrection = '' // Liste de questions corrigées
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
       // let premiers_dispos = premiersEntreBornes(2,11);

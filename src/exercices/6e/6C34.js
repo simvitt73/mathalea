@@ -68,7 +68,7 @@ export default function DernierChiffre () {
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, a = 0, b = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.contenuCorrection = ''
+
       switch (listeTypeDeQuestions[i]) {
         case 'somme':
           a = randint(11, 999)

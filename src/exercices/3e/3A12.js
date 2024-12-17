@@ -34,7 +34,7 @@ export default function PpcmEngrenages () {
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
 
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)

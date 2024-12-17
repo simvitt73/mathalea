@@ -46,7 +46,7 @@ export default function DecompositionFacteursPremiers () {
   this.nouvelleVersion = function () {
     let typesDeQuestions
 
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     /* From Sebastien Lozano
         let typesDeQuestionsDisponibles = [1, 2, 3]
         typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
