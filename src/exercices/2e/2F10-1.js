@@ -29,7 +29,7 @@ export default function Reconnaitrefonctionaffine () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.nbQuestions = 5
 
   this.nouvelleVersion = function () {

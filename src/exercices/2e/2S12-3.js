@@ -40,7 +40,7 @@ export default function EvolutionsSuccesives () {
   this.nbColsCorr = 1
   this.sup = 4 // type de questions
 
-  this.spacingCorr = 1
+
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

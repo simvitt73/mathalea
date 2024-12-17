@@ -27,7 +27,7 @@ export const refs = {
 export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this)
 
-  this.spacingCorr = 1
+
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.nbCols = 1

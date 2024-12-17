@@ -35,7 +35,6 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
   this.nbQuestions = 4
   this.sup = 4
   this.sup2 = true
@@ -118,7 +117,6 @@ export default function FactoriserIdentitesRemarquables3 () {
           break
       }
       if (this.sup2) {
-        this.spacingCorr = 1
         // On enlève la première égalité pour ne pas avoir A = A en première ligne
         texteCorr = texteCorr.slice(4)
         // On découpe

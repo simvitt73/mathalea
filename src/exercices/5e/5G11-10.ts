@@ -70,7 +70,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 1
-    this.spacingCorr = 1
+
     this.besoinFormulaireNumerique = [
       'Type d\'aide',
       4,

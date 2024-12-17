@@ -35,7 +35,7 @@ export default function LireAbscisseDecimale () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.sup = 1
   this.interactif = false
   this.nouvelleVersion = function () {

@@ -56,7 +56,7 @@ class AgrandirReduireFigure extends Exercice {
     this.sup = 7
     this.sup2 = '15'
     this.nbQuestions = 4
-    this.spacingCorr = 1
+
     this.spacing = 2
   }
 

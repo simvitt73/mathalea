@@ -28,7 +28,7 @@ class EqCartDroite extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.spacingCorr = 1
+
     this.version = 1
   }
 

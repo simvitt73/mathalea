@@ -77,7 +77,7 @@ export default function DevelopperIdentitesRemarquables3 () {
         reponse1 = new FractionEtendue(ns * ns, ds * ds)
       }
       if (this.sup2) {
-        this.spacingCorr = 1
+
         // On enlève la première égalité pour ne pas avoir A = A en première ligne
         texteCorr = texteCorr.slice(4)
         // On découpe

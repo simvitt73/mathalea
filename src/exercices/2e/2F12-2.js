@@ -37,7 +37,7 @@ export default function ResoudreGraphFonctionRef () {
   this.sup = 4
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.spacing = 1.5 // Interligne des questions
-  this.spacingCorr = 1 // Interligne des réponses
+
   this.nouvelleVersion = function () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {

@@ -86,15 +86,11 @@ export default function CompareAireEtPerimetreAvecRectangle () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacingCorr = 1
+
   this.sup = 13
   this.sup2 = 3
 
   this.nouvelleVersion = function () {
-
-    
-    
-
     /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13

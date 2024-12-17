@@ -25,7 +25,7 @@ export default function ResoudreEquationsQuotient () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.nbQuestions = 2
   this.sup = 3
   this.nouvelleVersion = function () {

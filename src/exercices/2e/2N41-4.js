@@ -30,7 +30,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.nbQuestions = 3
   this.sup = 5
   this.interactifReady = interactifReady

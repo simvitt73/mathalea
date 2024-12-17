@@ -37,7 +37,7 @@ export default function SolInequation () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {

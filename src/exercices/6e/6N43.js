@@ -32,7 +32,7 @@ export default function CriteresDeDivisibilite () {
   this.sup = 4 // Correspond au facteur commun
   this.consigne = 'Répondre aux questions suivantes en justifiant.'
   this.spacing = 2
-  this.spacingCorr = 1
+
   this.nbQuestions = 5
 
   this.nouvelleVersion = function () {

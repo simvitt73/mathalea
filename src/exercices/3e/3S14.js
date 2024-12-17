@@ -37,7 +37,6 @@ export default function CalculerCaracteristiques () {
   this.consigne = ''
   this.nbQuestions = 4
 
-  this.spacingCorr = 1
   this.nbColsCorr = 1
   this.nbCols = 1
   this.sup = 7
@@ -45,10 +44,6 @@ export default function CalculerCaracteristiques () {
   this.sup3 = true
 
   this.nouvelleVersion = function () {
-
-    
-    
-
     const questionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

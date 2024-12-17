@@ -38,7 +38,7 @@ export default function MultiplierDecimaux () {
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
-  this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
+
   this.nbQuestions = 4
   this.sup = false
   this.sup2 = 3

@@ -170,7 +170,7 @@ export default function ReductionSiPossible () {
           break
       }
       if (this.sup2) {
-        this.spacingCorr = 1
+
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''

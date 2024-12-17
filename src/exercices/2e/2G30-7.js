@@ -41,16 +41,9 @@ export default function Lecturegraphiquedeaetb () {
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
 
-  this.spacingCorr = 1
-  this.spacingCorr = 1
   this.sup = 1
 
   this.nouvelleVersion = function () {
-
-    
-    
-
-
     for (let i = 0, a, b, r, c, d, A, B, droiteAB, choix, s1, s2, o, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       b = randint(-5, 5) // ordonnée à l'origine

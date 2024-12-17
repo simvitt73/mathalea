@@ -49,7 +49,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
     this.spacingCorr = 3
   } else {
 
-    this.spacingCorr = 1
+
   }
   this.vspace = -1
   this.nbCols = 1

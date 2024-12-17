@@ -22,6 +22,6 @@ export default function UneEquationMoyenne () {
   this.correctionDetaillee = false
   this.sup = false
   this.sup2 = 2
-  this.spacingCorr = 1
+
   this.consigne = 'Résoudre l’équation :'
 }

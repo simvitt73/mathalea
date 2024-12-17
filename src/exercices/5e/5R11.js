@@ -37,7 +37,7 @@ export default function LireAbscisseRelative () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.sup = 4
   const changeCoord = function (x, abs0, pas1) {
     return (abs0 + (x - abs0) * 3 * pas1)

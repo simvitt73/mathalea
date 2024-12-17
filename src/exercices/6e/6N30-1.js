@@ -36,7 +36,7 @@ export default function LireAbscisseDecimaleBis2d () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.sup = 7
   this.interactif = false
   this.niveau = 6

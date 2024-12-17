@@ -38,7 +38,7 @@ export default function ReperagePointDuPlan () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.sup = 1
   this.sup2 = true
   this.sup3 = 5

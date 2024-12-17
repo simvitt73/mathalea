@@ -22,6 +22,6 @@ export default function UneEquationSimple () {
   this.correctionDetaillee = false
   this.sup = false
   this.sup2 = 1
-  this.spacingCorr = 1
+
   this.consigne = 'Résoudre l’équation :'
 }

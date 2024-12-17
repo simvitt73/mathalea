@@ -32,7 +32,7 @@ export default function Variationsfonctionaffine () {
   this.nbColsCorr = 1
   this.video = ''
 
-  this.spacingCorr = 1
+
   this.sup = 4
 
   this.nouvelleVersion = function () {

@@ -32,7 +32,7 @@ export default function VariationsCourbe () {
   this.sup = 1
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.spacingCorr = 1 // Interligne des réponses
+
   this.nouvelleVersion = function () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {

@@ -37,7 +37,7 @@ export default function DevelopperIdentitesRemarquables4 () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.spacingCorr = 1
+
   this.nbQuestions = 4
   this.sup = 5
   this.nouvelleVersion = function () {

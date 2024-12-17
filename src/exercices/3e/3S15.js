@@ -33,7 +33,7 @@ export default function CalculerEtendues () {
   this.consigne = ''
   this.nbQuestions = 1
 
-  this.spacingCorr = 1
+
   this.nbColsCorr = 1
   this.nbCols = 1
   this.sup = 1
