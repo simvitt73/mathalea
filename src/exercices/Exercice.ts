@@ -119,6 +119,7 @@ export default class Exercice {
     this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
     this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
 
+    this.listeQuestions = []
     this.listeCorrections = [] // Idem avec la correction.
     this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
     this.contenuCorrection = '' // Idem avec la correction

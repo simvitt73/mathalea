@@ -19,6 +19,7 @@ export default function Exercice () {
   this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
   this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
 
+  this.listeQuestions = []
   this.listeCorrections = [] // Idem avec la correction.
   this.listeCanEnonces = []
   this.listeCanReponsesACompleter = []

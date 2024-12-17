@@ -26,15 +26,14 @@ export default class MetaExercice extends Exercice {
   }
 
   nouvelleVersion (): void {
-
-    
+    this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     this.nbQuestionsModifiable = this.sup3
     this.besoinFormulaire2Texte = false
-    let listeTypeDeQuestions : (string|number)[]
+    let listeTypeDeQuestions : (string | number)[]
     let listeDeQuestions = this.sup2
     let ExercicesRef = this.Exercices
     if (this.sup3) {
