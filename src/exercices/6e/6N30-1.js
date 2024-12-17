@@ -72,7 +72,7 @@ export default function LireAbscisseDecimaleBis2d () {
     
     
 
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
     const d = []
     this.contenu = this.consigne

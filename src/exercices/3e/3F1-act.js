@@ -75,7 +75,7 @@ export default function FonctionNotionVocabulaire () {
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     let j, idDuDivDiag, idDuDivCorr
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
     let typesDeQuestionsDisponibles
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !

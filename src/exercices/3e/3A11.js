@@ -32,7 +32,7 @@ export default function FractionsIrreductibles () {
   this.nouvelleVersion = function () {
     let typesDeQuestions
 
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1]

@@ -42,7 +42,7 @@ export default function FeuilleDAxesGradues () {
 
     
     
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
 
     for (let i = 0, texte; i < this.nbQuestions; i++) {

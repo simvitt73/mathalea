@@ -33,7 +33,7 @@ export default function PpcmEngrenages () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 2, 3]

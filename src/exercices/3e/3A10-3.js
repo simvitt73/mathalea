@@ -45,7 +45,7 @@ export default function DecompositionFacteursPremiers () {
   this.sup2 = 4
   this.nouvelleVersion = function () {
     let typesDeQuestions
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
     /* From Sebastien Lozano
         let typesDeQuestionsDisponibles = [1, 2, 3]

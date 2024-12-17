@@ -32,7 +32,7 @@ export default function NombreAPlacer () {
   this.titre = titre
 
   this.nouvelleVersion = function () {
-    this.contenu = ''
+
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0

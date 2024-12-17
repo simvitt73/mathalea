@@ -46,7 +46,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     
     
 
-    this.contenu = ''
+
     this.contenuCorrection = ''
     this.figures = []
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }

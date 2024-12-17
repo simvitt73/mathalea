@@ -51,7 +51,7 @@ export default function ReperagePointDuPlan () {
     
 
     let texte, texteCorr
-    this.contenu = '' // Liste de questions
+
     this.contenuCorrection = '' // Liste de questions corrigées
     let listePoints = []
     const points = []
