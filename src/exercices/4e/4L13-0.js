@@ -29,7 +29,7 @@ export default function MettreEnEquationSansResoudre () {
   this.titre = titre
   this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   let typesDeQuestionsDisponibles

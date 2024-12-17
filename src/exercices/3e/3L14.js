@@ -33,7 +33,7 @@ export default function ResoudreUneEquationProduitNul () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5

@@ -100,7 +100,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
   this.consigne = 'Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l\'ordre de grandeur du résultat.'
   this.sup = 6
   this.sup2 = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2

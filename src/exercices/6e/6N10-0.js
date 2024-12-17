@@ -31,7 +31,7 @@ export const refs = {
 export default function ÉcrireNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 3

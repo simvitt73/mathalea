@@ -32,7 +32,7 @@ export const refs = {
 export default function FactoriserIdentitesRemarquables3 () {
   Exercice.call(this)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nbQuestions = 4

@@ -72,7 +72,7 @@ export default function ModelisationProblemes () {
   this.sup = 2
   this.sup2 = 3
   this.sup3 = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.video = ''
   this.correctionDetailleeDisponible = true

@@ -31,7 +31,7 @@ export default function EncadrerAireDisque () {
   this.titre = titre
   this.consigne = ''
   this.spacing = context.isHtml ? 2 : 1
-  this.nbCols = 1
+
   this.nbQuestions = 1
   this.sup = 10
   this.sup2 = 10

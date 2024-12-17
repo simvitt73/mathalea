@@ -24,7 +24,7 @@ export default function VocabulaireDesTriangles () {
   this.consigne = 'Donner la nature des triangles en justifiant.'
   this.sup = 1
   this.sup2 = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   if (this.classe === 6) {
     if (this.sup === 1) {

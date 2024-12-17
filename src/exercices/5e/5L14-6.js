@@ -22,7 +22,7 @@ export default function DeterminerDerniereOperationExpNum () {
   this.debug = false
   this.consigne = ''
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = true
   this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.

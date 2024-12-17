@@ -32,7 +32,7 @@ export default function Parallélogramme () {
   this.titre = titre
   this.sup = parseInt(this.sup)
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1 //
   this.correctionDetaillee = false

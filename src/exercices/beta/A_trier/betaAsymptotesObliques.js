@@ -15,7 +15,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)
   this.consigne = 'Montrez que la fonction $f$ admet une asymptote oblique en $+\\infty$ dont on donnera l\'équation et la position relative'
   this.nbQuestions = 2
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

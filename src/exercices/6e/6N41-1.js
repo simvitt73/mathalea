@@ -35,7 +35,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
   Exercice.call(this)
   this.niveau = '6e'
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup2 = 3
   this.sup = 10

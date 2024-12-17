@@ -77,7 +77,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
   Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
   this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url

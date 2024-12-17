@@ -20,7 +20,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
   Exercice.call(this)
   this.debug = false
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup3 = 5
   this.consigne = 'Déterminer la dernière opération à effectuer s\'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.'

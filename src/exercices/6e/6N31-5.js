@@ -31,7 +31,7 @@ export default function EncadrerUnDecimal () {
   this.sup = 4 // Type de questions
   this.nbQuestions = 4
   this.consigneCorrection = 'Encadrer'
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? this.spacing = 1.5 : this.spacing = 1.5
   context.isHtml ? this.spacingCorr = 1.2 : this.spacingCorr = 1.5

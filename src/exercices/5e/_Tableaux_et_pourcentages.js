@@ -78,7 +78,7 @@ export default function TableauxEtPourcentages () {
     this.consigne = 'Compléter le tableau suivant.'
   }
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.nbQuestionsModifiable = false
   // context.isHtml? this.spacing = 3 : this.spacing = 2;

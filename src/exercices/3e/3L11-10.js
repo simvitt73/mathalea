@@ -27,7 +27,7 @@ export const refs = {
 }
 export default function TableDoubleDistributivite () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2

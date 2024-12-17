@@ -32,7 +32,7 @@ export default function CalculsLoiNormale () {
   this.titre = titre
   this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
   this.nbQuestions = 4
-  this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
 

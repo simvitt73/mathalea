@@ -33,7 +33,7 @@ export default function ProblemesAdditifsRelatifs5e () {
   this.titre = titre
   this.consigne = ''
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 2 : this.spacing = 1

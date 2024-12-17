@@ -42,7 +42,7 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
   this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false

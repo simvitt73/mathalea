@@ -33,7 +33,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.typeExercice = 'Scratch'
   this.interactif = true

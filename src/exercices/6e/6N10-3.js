@@ -98,7 +98,7 @@ export default function ChiffreNombreDe () {
 
   this.nbQuestions = 6
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5

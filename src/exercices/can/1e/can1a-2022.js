@@ -58,7 +58,7 @@ export default function SujetCAN2022Premiere () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.nbQuestions = 30
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

@@ -34,7 +34,7 @@ export default function CalculsPuissancesDe10 () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.nbQuestions = 5
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.

@@ -51,7 +51,7 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
     this.sup = 1
     this.sup2 = false
     this.nbQuestions = 2
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     this.spacing = context.isHtml ? 3 : 1.5
     this.spacingCorr = context.isHtml ? 2.5 : 1.5

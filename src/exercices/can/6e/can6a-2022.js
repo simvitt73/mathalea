@@ -47,7 +47,7 @@ export const refs = {
 export default function SujetCAN2022Sixieme () {
   Exercice.call(this)
   this.nbQuestions = 30
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>

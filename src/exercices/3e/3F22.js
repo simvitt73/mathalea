@@ -40,7 +40,7 @@ export default function AntecedentParCalcul () {
   this.consigne = 'Répondre aux questions suivantes avec une valeur exacte simplifiée. '
   this.nbQuestions = 4
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacingCorr = context.isHtml ? 2 : 1
   this.sup = '1'

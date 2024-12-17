@@ -27,7 +27,7 @@ export default function Can10Questions6N2 () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.nbQuestions = 10
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

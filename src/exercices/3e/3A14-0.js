@@ -37,7 +37,7 @@ export default function DesChocolatsDansDesBoites () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

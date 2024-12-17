@@ -108,7 +108,7 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 4
   }
   this.sup = 1 // Niveau de difficulté
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5

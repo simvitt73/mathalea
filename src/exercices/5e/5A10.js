@@ -37,7 +37,7 @@ export default function ListeDesDiviseurs5e () {
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 2
   this.sup2 = 6

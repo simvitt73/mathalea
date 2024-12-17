@@ -27,7 +27,7 @@ export const refs = {
 export default function EncadrerRacineCarreeEntre2Entiers () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.nouvelleVersion = function () {

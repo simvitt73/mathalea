@@ -32,7 +32,7 @@ export default class EngrenagesAnimes extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = false

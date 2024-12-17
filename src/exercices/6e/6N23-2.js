@@ -52,7 +52,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
 
   }
   this.vspace = -1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.nbQuestions = 1

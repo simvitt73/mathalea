@@ -29,7 +29,7 @@ export const refs = {
 export default function ÉcrireNombresEntiersFormates () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

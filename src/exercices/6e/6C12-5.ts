@@ -176,7 +176,7 @@ export default class RepresenterUneFraction extends Exercice {
     super()
     this.consigne = 'Trouve la bonne réponse en utilisant les ordres de grandeurs.'
     this.nbQuestions = 4
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     // this.sup = 3
     // this.besoinFormulaireNumerique = ['Type de problèmes']

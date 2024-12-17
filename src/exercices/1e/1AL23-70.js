@@ -34,7 +34,7 @@ export default function TrouverEquationParabole () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacingCorr = 3
   this.sup = 4

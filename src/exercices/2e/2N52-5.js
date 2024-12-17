@@ -22,7 +22,7 @@ export const refs = {
 export default function ResoudreEquationsQuotient () {
   Exercice.call(this)
   this.titre = titre
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

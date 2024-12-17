@@ -29,7 +29,7 @@ export default function TrianglesEgaux () {
   this.titre = titre
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 3
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.video = '' // Id YouTube ou url

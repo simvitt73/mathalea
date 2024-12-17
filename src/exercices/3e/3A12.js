@@ -27,7 +27,7 @@ export default function PpcmEngrenages () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestionsModifiable = false
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = false
 

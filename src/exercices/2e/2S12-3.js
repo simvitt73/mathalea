@@ -36,7 +36,7 @@ export default function EvolutionsSuccesives () {
   this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 4 // type de questions
 

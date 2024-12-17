@@ -29,7 +29,7 @@ export default function ProprietesInegalites () {
   this.consigne = ''
   this.nbQuestions = 1
 
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 4
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

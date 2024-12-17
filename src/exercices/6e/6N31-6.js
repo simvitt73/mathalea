@@ -29,7 +29,7 @@ export default class ArrondirUnDecimal extends Exercice {
     this.sup = 7 // Type de questions
     this.nbQuestions = 6
 
-    this.nbCols = 1
+
     this.nbColsCorr = 1
     context.isHtml ? this.spacing = 1.2 : this.spacing = 1.5
     context.isHtml ? this.spacingCorr = 1.2 : this.spacingCorr = 1.5

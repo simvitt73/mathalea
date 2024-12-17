@@ -46,7 +46,7 @@ export default function AireCarresRectanglesTriangles () {
   this.interactifType = interactifType
   this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
   this.spacing = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1

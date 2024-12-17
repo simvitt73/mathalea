@@ -42,7 +42,7 @@ export default function TrianglesEgaux () {
   this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.nouvelleVersion = function () {
     let texte = ''

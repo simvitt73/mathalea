@@ -27,7 +27,7 @@ export default function FormeLitteraleIntroduireUneLettre () {
 
   this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   // context.isHtml? this.spacing = 3 : this.spacing = 2;

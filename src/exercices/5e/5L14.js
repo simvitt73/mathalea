@@ -36,7 +36,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

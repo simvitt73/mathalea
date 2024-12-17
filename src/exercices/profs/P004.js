@@ -23,7 +23,7 @@ export const uuid = 'ad5f6'
  */
 export default function FeuilleDeZooms () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.sup = 1
   this.titre = titre
   this.nbQuestionsModifiable = false

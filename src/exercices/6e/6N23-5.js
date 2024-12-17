@@ -34,7 +34,7 @@ export default function SensDeLaFraction () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false

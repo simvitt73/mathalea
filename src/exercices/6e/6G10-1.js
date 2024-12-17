@@ -30,7 +30,7 @@ export const refs = {
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this)
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

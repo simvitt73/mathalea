@@ -30,7 +30,7 @@ export default function RepresenterUnSolide () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1

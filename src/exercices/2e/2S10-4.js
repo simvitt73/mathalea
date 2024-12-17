@@ -31,7 +31,7 @@ export const uuid = '3f39d'
 
 export default function TableauProportion () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 1.5 : 2
   this.spacingCorr = context.isHtml ? 1 : 2

@@ -32,7 +32,7 @@ export default function CalculProbaArbre2e () {
   this.sup = true
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

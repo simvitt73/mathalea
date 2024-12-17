@@ -28,7 +28,7 @@ export const refs = {
 export default function ReduireDinstinctionSommeProduit () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   let typesDeQuestionsDisponibles
   this.sup = 3

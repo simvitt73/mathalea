@@ -23,7 +23,7 @@ export default function CompleterUneFacture () {
   this.consigne = 'Compléter le tableau suivant.'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 2 // Niveau de difficulté
   // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

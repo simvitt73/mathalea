@@ -38,7 +38,7 @@ export default function NoteLaCouleur6e () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false

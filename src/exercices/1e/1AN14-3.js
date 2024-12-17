@@ -32,7 +32,7 @@ export default function DeriveePoly () {
   this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 3
   // Sortie LaTeX
-  this.nbCols = 1 // Nombre de colonnes
+
   this.nbColsCorr = 1 // Nombre de colonnes dans la correction
   this.spacing = 2
   this.spacingCorr = 2

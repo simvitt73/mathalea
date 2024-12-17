@@ -23,7 +23,7 @@ export default function TrouverEquationDeParabole () {
   this.titre = titre
   this.consigne = 'Etude d\'une parabole'
   this.nbQuestions = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1)
   this.sup = 1

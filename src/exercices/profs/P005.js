@@ -21,7 +21,7 @@ export const uuid = 'ad5f7'
  */
 export default function FeuilleDeGrilles () {
   Exercice.call(this)
-  this.nbCols = 1
+
   this.sup = 1
   this.nbQuestionsModifiable = false
   this.nbQuestions = 1

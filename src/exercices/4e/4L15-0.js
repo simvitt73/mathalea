@@ -37,7 +37,7 @@ export default function TrouverErreurResolEqDeg1 () {
     this.consigne = this.consigne.replace('<br>', '')
   }
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2

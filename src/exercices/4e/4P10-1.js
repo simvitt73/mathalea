@@ -38,7 +38,7 @@ export default function GraphiquesEtProportionnalite2 () {
   this.consigne = ''
   this.spacingCorr = 2
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 2 : this.spacing = 1

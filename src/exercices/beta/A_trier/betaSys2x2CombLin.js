@@ -33,7 +33,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
   Exercice.call(this)
   this.consigne = 'Résoudre chacun des systèmes suivants $\\emph{par combinaisons}$'
   this.nbQuestions = 2
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url

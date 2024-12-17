@@ -27,7 +27,7 @@ export default function Equationspresqueproduitnulle () {
   Exercice.call(this)
   this.titre = titre
   this.video = ''
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

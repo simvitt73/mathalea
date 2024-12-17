@@ -34,7 +34,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
 

@@ -22,7 +22,7 @@ export default function TraceCourbeSpline () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = '(-3;-2)/(-1;0)/(1;-3)/(3;4)' // liste de points
   this.sup2 = '(2;2)/(0;0)/(0;0)/(1;1)'

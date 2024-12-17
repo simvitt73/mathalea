@@ -36,7 +36,7 @@ export default class ProblemesPythagore extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 2
-    this.nbCols = 1
+
     this.nbColsCorr = 1
 
     this.sup = 3

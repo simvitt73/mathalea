@@ -34,7 +34,7 @@ export default function ProblemesGrandeursComposees () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

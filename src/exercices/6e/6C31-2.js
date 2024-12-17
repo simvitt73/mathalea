@@ -28,7 +28,7 @@ export const refs = {
 export default function ValeurApprocheeDivisionDecimale () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

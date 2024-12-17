@@ -33,7 +33,7 @@ export const refs = {
 export default function ConstruireHomothetiePoint3e () {
   Exercice.call(this)
   this.nbQuestions = 2
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 3
   this.sup2 = 3

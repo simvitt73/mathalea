@@ -29,7 +29,7 @@ export default function ProblemesMultiplicatifsFractions () {
   this.nbQuestions = 4
   this.titre = titre
   this.consigne = 'Justifier vos réponses aux problèmes suivants.'
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)

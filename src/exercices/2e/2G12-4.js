@@ -28,7 +28,7 @@ export default function NaturePolygone () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 3
   this.nouvelleVersion = function () {

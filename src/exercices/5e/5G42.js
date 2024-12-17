@@ -29,7 +29,7 @@ export const refs = {
 export default function DemonstrationsParallelogrammes () {
   Exercice.call(this)
   this.nbQuestions = 7
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
 
   this.nouvelleVersion = function () {

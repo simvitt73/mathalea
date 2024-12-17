@@ -28,7 +28,7 @@ export default function Variationsfonctionaffine () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 2 // On complète le nb de questions
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.video = ''
 

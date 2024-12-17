@@ -33,7 +33,7 @@ export const refs = {
 export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this)
   this.nbQuestions = 4
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
   this.sup = true

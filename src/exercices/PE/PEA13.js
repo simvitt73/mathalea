@@ -50,7 +50,7 @@ export default function MultiplicationsBaseN () {
   this.video = 'pkp9e8XDH3M'
   this.consigne = 'Poser et effectuer les calculs suivants :'
   this.nbQuestions = 3
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.pasDeVersionLatex = true

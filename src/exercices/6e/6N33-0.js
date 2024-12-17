@@ -36,7 +36,7 @@ export default function FractionDuneQuantite () {
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = 1
   this.sup2 = true
-  this.nbCols = 1
+
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {

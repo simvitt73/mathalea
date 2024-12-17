@@ -35,7 +35,7 @@ export default function ProblemeCourse () {
   // Modification de l'exercice pour avoir plusieurs question. On peut revenir à la version initiale en décommentant. Jean-Claude Lhote
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = false
   // this.listeAvecNumerotation = false

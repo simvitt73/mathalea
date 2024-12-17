@@ -33,7 +33,7 @@ export default function ProportionnalitePasProportionnalite () {
   context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
   this.nbQuestions = 5
   this.nbColsCorr = 1
-  this.nbCols = 1
+
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false
   this.sup = 6

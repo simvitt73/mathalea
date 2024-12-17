@@ -34,7 +34,7 @@ export default function Thales2D () {
 
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
   this.sup2 = 1 // correction Triangles imbriqués / correction droites sécantes

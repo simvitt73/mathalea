@@ -23,7 +23,7 @@ export default function ResoudreEnXetY () {
   this.interactifType = interactifType
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbQuestions = 5
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 

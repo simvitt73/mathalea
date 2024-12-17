@@ -29,7 +29,7 @@ export default function ProblemesThales () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.nbCols = 1
+
   this.nbColsCorr = 1
   this.sup = 3
 
