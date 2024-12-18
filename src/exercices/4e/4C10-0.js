@@ -33,7 +33,6 @@ export default function SigneProduitQuotientRelatifs () {
   this.consigne = 'Donner le signe des expressions numériques.'
   this.nbQuestions = 7
 
-  this.nbColsCorr = 1
   this.sup = 1
 
   let typesDeQuestionsDisponibles

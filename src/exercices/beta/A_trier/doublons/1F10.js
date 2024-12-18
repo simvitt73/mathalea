@@ -28,7 +28,7 @@ export const refs = {
 }
 export default function CalculsDeDerives () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 6
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX

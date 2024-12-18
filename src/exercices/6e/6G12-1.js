@@ -38,7 +38,6 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
     super()
     this.nbQuestions = 1
 
-    this.nbColsCorr = 1
     this.sup = 1
     this.type = 3
     this.besoinFormulaire2CaseACocher = ['Avec auto-correction à l\'aide des carreaux']

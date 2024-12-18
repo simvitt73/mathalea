@@ -37,7 +37,7 @@ export default function CourseAuxNombresSpeciale2024 () {
   Exercice.call(this)
 
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.sup = 'x'
   this.nbQuestions = 30

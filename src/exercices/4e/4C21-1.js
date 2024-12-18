@@ -37,11 +37,11 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
     this.sup = 2 // Niveau de difficulté
     this.sup2 = false // Avec ou sans relatifs
     this.sup3 = false // Fraction irréductible attendue
-    this.titre = titre
+
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5
-    this.nbColsCorr = 1
+
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
     this.besoinFormulaire3CaseACocher = ['Fraction irréductible attendue']

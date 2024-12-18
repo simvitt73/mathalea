@@ -27,7 +27,7 @@ export const titre = 'Puissances de 10'
  */
 export default function ComparerPuissance10 () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en notation scientifique.'
   this.nbQuestions = 5 // Ici le nombre de questions
 

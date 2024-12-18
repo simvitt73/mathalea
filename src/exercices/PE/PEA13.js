@@ -51,8 +51,6 @@ export default function MultiplicationsBaseN () {
   this.consigne = 'Poser et effectuer les calculs suivants :'
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
-
   this.pasDeVersionLatex = true
   this.spacingCorr = context.isHtml ? 2 : 1
 

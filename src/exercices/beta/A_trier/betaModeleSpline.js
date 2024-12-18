@@ -74,7 +74,7 @@ function nombreAntecedents (choix) {
 export default class BetaModeleSpline extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = '4'
     this.spacingCorr = 2.5
     this.nbQuestions = 1 // Nombre de questions par défaut

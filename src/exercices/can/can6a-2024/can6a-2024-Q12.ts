@@ -16,7 +16,7 @@ export const uuid = 'd149d'
 export default class SoustractionDecimaux extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'

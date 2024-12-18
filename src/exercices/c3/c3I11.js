@@ -64,8 +64,6 @@ export default function NoteLaCouleurC3 () {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.75
 
-    
-    
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []

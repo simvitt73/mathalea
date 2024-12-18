@@ -32,7 +32,6 @@ export default function ÉcrireNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 3
   this.nouvelleVersion = function () {

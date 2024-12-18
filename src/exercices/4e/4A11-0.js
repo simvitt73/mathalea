@@ -19,7 +19,7 @@ export const refs = {
 }
 export default function ExerciceDecomposerEnFacteursPremiers4e () {
   ExerciceDecomposerEnFacteursPremiers.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4
   this.sup = 3 // 5 facteurs par défaut
   this.sup2 = true // une multiplication par 100 une fois sur quatre

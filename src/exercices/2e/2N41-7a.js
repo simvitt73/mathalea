@@ -28,8 +28,6 @@ export const refs = {
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this)
 
-  this.nbColsCorr = 1
-
   this.nbQuestions = 5
   this.sup = 1
 

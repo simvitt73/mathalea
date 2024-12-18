@@ -44,10 +44,6 @@ export default function PlacerLaVirgule () {
       }
     }
 
-
-    
-    
-
     const rang = ['millièmes', 'centièmes', 'dixièmes']
 
     // Indispensable d'exporter les solutions pour rendre le QCM interactif

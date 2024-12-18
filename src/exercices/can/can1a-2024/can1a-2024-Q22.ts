@@ -15,7 +15,7 @@ export const uuid = '88bc2'
 export default class nombreDerive extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

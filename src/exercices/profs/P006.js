@@ -29,7 +29,6 @@ export default function NombreAPlacer () {
   this.sup = 1
   this.sup2 = 2573
   this.sup3 = false
-  this.titre = titre
 
   this.nouvelleVersion = function () {
     let texte = ''

@@ -19,7 +19,7 @@ export const refs = {
 }
 export default function PavagesEtTranslation () {
   PavagesEtTransformations.call(this)
-  this.titre = titre
+
   this.level = 4
   this.besoinFormulaireNumerique = false
 }

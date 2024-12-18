@@ -21,5 +21,4 @@ export const refs = {
 export default function Transformations4e () {
   Transformations.call(this)
   this.sup = choice(['1-7-8', '2-7-8', '3-7-8', '4-7-8'])
-  this.titre = titre
 }

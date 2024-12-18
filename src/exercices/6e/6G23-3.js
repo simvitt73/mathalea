@@ -32,7 +32,6 @@ export default function TracerTriangle2Angles () {
   Exercice.call(this)
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
   this.sup = false
   this.sup2 = false
   this.sup3 = '3' // Type de questions

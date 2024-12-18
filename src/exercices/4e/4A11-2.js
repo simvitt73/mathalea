@@ -13,5 +13,4 @@ export const refs = {
 }
 export default function FractionsIrreductibles4e () {
   FractionsIrreductibles.call(this)
-  this.titre = titre
 }

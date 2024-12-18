@@ -32,7 +32,6 @@ export default function ProblemesAiresRectangles () {
   this.consigne = "Trouver la mesure désignée par un point d'interrogation."
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
   this.sup = 5
   this.sup2 = 2
   this.sup4 = 1

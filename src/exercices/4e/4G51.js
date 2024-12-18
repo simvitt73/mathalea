@@ -32,10 +32,9 @@ export const refs = {
 }
 export default function RepresenterUnSolide4e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
-  this.titre = titre
+
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
   this.classe = 4

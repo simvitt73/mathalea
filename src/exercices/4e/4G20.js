@@ -133,7 +133,7 @@ export default class Pythagore2D extends Exercice {
     super()
     this.nbQuestions = 3
     this.nbCols = 3
-    this.nbColsCorr = 1
+
     this.sup = 3
     this.sup2 = 3
     this.sup3 = false

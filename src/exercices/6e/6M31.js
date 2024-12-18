@@ -44,7 +44,6 @@ export default function ExerciceConversionsVolumes () {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
   this.spacing = 2
-  this.nbColsCorr = 1
 
   function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
     let a = new Decimal(0)

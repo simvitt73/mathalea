@@ -29,7 +29,7 @@ export const refs = {
 export default function ArrondirUneValeur4e () {
   Exercice.call(this)
   this.nbQuestions = 3
-  this.nbColsCorr = 1
+
   this.version = 1
   context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
   context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)

@@ -29,7 +29,7 @@ export const refs = {
 }
 export default function PremierOuPas5e () {
   Exercice.call(this)
-  this.titre = titre
+
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'
   // this.consigne += `<br>`;

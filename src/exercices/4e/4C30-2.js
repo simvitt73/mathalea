@@ -32,7 +32,6 @@ export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)
   this.nbQuestions = 8
 
-  this.nbColsCorr = 1
   this.sup = 3 // exposants positifs et négatifs par défaut
 
   this.nouvelleVersion = function () {

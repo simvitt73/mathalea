@@ -16,7 +16,7 @@ export const uuid = 'abe93'
 export default class TauxCoeff extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

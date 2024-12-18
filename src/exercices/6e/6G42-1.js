@@ -36,7 +36,6 @@ export default function LireFacePaveDroit () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
   this.sup = 3
   this.sup2 = 7
   this.sup3 = 1

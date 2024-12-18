@@ -37,8 +37,6 @@ export default function FractionDuneQuantite () {
   this.sup = 1
   this.sup2 = true
 
-  this.nbColsCorr = 1
-
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles
     let listeTypeDeQuestions = []

@@ -32,7 +32,6 @@ export default function ProportionnalitePasProportionnalite () {
   context.isHtml ? this.spacing = 2 : this.spacing = 1.4
   context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
   this.nbQuestions = 5
-  this.nbColsCorr = 1
 
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false

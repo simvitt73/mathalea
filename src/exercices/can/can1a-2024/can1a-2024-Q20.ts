@@ -19,7 +19,7 @@ export const uuid = 'd5ba3'
 export default class Esperance extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase

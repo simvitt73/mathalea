@@ -48,7 +48,6 @@ export default function AireDeTriangles () {
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
   this.sup = 3
 
   this.correctionDetailleeDisponible = true

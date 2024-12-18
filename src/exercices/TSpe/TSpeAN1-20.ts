@@ -27,7 +27,7 @@ export const dateDePublication = '16/06/2024'
 class EquaDiffs extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.besoinFormulaireTexte = ['Types d\'équations (nombre séparés par des tirets)', '1 : y\'= ay\n2 : y\'= ay + b\n3 : y\'= ay + f\n4 : Mélange']
     this.sup = '1'
     this.nbQuestions = 2

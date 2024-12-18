@@ -11,11 +11,11 @@ export const titre = 'Utiliser toutes les transformations'
 
 export default function ConstructionsDeTransformes () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 1 // Ici le nombre de questions
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
   this.consigne = 'Construire les points suivants.'
   this.video = 'hFoN9sMWnac'
 

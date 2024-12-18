@@ -16,7 +16,7 @@ export const uuid = 'a9e45'
 export default class Equation1degre extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

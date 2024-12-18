@@ -28,7 +28,6 @@ export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this)
 
   this.nbQuestions = 5
-  this.nbColsCorr = 1
 
   this.sup = false
   this.listeAvecNumerotation = false

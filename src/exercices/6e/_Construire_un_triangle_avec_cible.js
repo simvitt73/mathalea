@@ -33,7 +33,6 @@ export default function ConstruireUnTriangleAvecCible () {
   this.titre = 'Construire un triangle avec cible auto-corrective'
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
   this.classe = 6
 
   this.nouvelleVersion = function () {

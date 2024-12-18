@@ -25,7 +25,7 @@ export default function FeuilleDeZooms () {
   Exercice.call(this)
 
   this.sup = 1
-  this.titre = titre
+
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {

@@ -18,7 +18,7 @@ export const dateDePublication = '22/07/2023' // La date de publication initiale
 export default class BetaRepere extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = '-5;5;-2;2'
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false

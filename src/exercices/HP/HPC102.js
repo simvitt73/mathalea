@@ -29,11 +29,10 @@ export const refs = {
 }
 export default function CalculsLoiNormale () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
 
   this.spacingCorr = 1.5

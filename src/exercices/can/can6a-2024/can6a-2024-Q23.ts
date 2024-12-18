@@ -17,7 +17,7 @@ export const uuid = '21c40' // prochain uuid : 63897
 export default class Moitie extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     // this.formatInteractif = 'calcul'

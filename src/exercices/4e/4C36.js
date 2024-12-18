@@ -32,7 +32,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 5
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Problèmes \'\'naturels\'\'\n2 : Problèmes avec des puissances de 10\n3 : Mélange']
     this.sup = '3'

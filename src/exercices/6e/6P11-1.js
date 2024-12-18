@@ -38,7 +38,6 @@ export default function ProportionnaliteParLineariteBis () {
 
   context.isHtml ? this.spacing = 2 : this.spacing = 1
 
-  this.nbColsCorr = 1
   /*  if (context.isAmc) {
     titre = 'Résoudre un problème relevant de la proportionnalité'
   } */

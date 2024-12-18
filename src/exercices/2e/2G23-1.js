@@ -75,7 +75,6 @@ export default function ImagePtParTranslation () {
   Exercice.call(this)
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1
   this.sup = '1'
   this.classe = 2
   this.nouvelleVersion = function () {

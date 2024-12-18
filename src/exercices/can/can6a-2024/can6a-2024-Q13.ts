@@ -17,7 +17,7 @@ export const uuid = '0f2c6'
 export default class CoutBDEtRomans extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'

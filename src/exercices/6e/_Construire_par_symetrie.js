@@ -34,7 +34,6 @@ export default class ConstruireParSymetrie extends Exercice {
     super()
     this.nbQuestions = 1
 
-    this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = 1
     this.sup3 = 1

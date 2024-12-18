@@ -31,7 +31,6 @@ export default function ExerciceLabyrintheNumeration () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
   this.sup2 = 1
   this.sup3 = 1
   this.sup4 = 1

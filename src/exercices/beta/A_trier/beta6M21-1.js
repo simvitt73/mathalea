@@ -22,7 +22,7 @@ export default class AireAssemblageRectangles extends Exercice {
     this.consigne = 'Calculer l\'aire grisée.'
     this.nbQuestions = 2
 
-    this.nbColsCorr = 1
+
   }
 
   nouvelleVersion () {

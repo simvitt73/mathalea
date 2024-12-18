@@ -16,7 +16,7 @@ export const uuid = '5157a'
 export default class PointsCourbe extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false

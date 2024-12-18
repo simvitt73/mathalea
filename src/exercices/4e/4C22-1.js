@@ -33,13 +33,12 @@ export const refs = {
 export default function ExerciceTrouverInverse () {
   Exercice.call(this)
   this.sup = 1 // Avec ou sans relatifs
-  this.titre = titre
+
   this.consigne =
         "Calculer l'inverse et donner la réponse sous forme décimale ou de fraction simplifiée quand c'est impossible"
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
-  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles

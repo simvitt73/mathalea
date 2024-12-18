@@ -17,7 +17,7 @@ export const uuid = 'b4205'
 export default class Fatorisation1 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

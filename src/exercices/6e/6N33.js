@@ -37,7 +37,6 @@ export default function FractionDUnNombre () {
   this.sup = true
   this.sup2 = false
   this.nbCols = 2
-  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     const listeFractions = [

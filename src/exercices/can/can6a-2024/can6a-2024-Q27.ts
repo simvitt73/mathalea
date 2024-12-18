@@ -21,7 +21,7 @@ export const uuid = '32d25'
 export default class FractionDeRectangle extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     // this.formatInteractif = 'calcul'

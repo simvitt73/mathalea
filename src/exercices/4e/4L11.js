@@ -18,7 +18,7 @@ export const refs = {
 }
 export default function Factoriser4e () {
   FactoriserParNombreOux.call(this)
-  this.titre = titre
+
   this.sup = 4
   this.nbQuestions = 8
 }

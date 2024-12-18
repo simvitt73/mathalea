@@ -12,12 +12,12 @@ export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythago
 
 export default function CalculerValeurManquanteVisuelPythagore () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = "Dans chaque cas, calculer la valeur manquante indiquée par un point d'interrogation."
   this.nbQuestions = 4 // Ici le nombre de questions
 
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
 
   this.nouvelleVersion = function () {
 

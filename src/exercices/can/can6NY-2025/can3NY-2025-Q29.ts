@@ -24,7 +24,7 @@ export const refs = {
 export default class ComparerFractions extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false

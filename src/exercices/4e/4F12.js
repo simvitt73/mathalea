@@ -36,7 +36,6 @@ export default function ExploiterRepresentationGraphique () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
   this.nbQuestionsModifiable = false
   this.sup = 4
 

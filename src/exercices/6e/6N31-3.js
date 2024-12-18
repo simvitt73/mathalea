@@ -33,7 +33,7 @@ export default function ArrondirUneValeur6e () {
   Exercice.call(this)
 
   this.nbQuestions = 3
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.sup2 = 1
   this.spacingCorr = context.isHtml ? 2.5 : 1

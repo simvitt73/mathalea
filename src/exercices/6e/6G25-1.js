@@ -308,10 +308,6 @@ export default function SymetrieAxialePavageTriangulaire () {
   }
 
   this.nouvelleVersion = function (numeroExercice) {
-
-    
-    
-
     const objetsEnonce = []
     let paramsEnonce = {}
     let texte = ''

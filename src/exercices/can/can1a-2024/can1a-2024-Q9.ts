@@ -18,7 +18,7 @@ export const uuid = 'fa173'
 export default class EncadreRacParDeuxEntiers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'

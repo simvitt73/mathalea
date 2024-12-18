@@ -48,8 +48,6 @@ export default function ExerciceInequationProduit () {
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 4 // Choix du nombre de questions
 
-  this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
-
   this.nouvelleVersion = function () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir

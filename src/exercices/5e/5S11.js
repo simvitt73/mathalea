@@ -20,7 +20,7 @@ export const refs = {
 }
 export default function LectureDiagrammeBarre5e () {
   LectureDiagrammeBaton.call(this)
-  // this.titre = titre
+
   this.sup = 3
   this.sup2 = 2
 }

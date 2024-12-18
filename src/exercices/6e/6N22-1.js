@@ -26,7 +26,6 @@ export default function RapportsSurUnSegment () {
 
   this.consigne = 'Sur tous les axes, les graduations sont régulières.'
 
-  this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5

@@ -30,7 +30,6 @@ export default function PuissancesEncadrement () {
   this.sup = 4
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
   this.classe = 4 // Ce distinguo permet de supprimer les 10^0 du niveau 4ème
   this.nouvelleVersion = function () {
     const listeTypeDeQuestions = []

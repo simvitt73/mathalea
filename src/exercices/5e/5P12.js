@@ -20,7 +20,7 @@ export const refs = {
 }
 export default function PartagerSelonUnRatio () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 1
   this.sup = 1
   this.correctionDetailleeDisponible = true
