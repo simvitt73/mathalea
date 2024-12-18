@@ -49,12 +49,12 @@ function compareNombres (a, b) {
 
 export default function SujetCAN2023Seconde () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
+
+
   this.interactifType = interactifType
   this.nbQuestions = 30
 
-  this.nbColsCorr = 1
+
   this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>

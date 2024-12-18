@@ -33,7 +33,7 @@ export default function DevelopperIdentitesRemarquables3 () {
 
   this.nbQuestions = 3
   this.sup = 5
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.correctionDetailleeDisponible = true
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

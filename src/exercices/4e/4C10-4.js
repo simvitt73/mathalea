@@ -25,9 +25,9 @@ export const refs = {
 export default function ExerciceQuotientsRelatifs () {
   Exercice.call(this)
   this.sup = false
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
-  this.titre = titre
+
   this.consigne = 'Calculer.'
   this.spacing = 2
   this.nbQuestions = 6

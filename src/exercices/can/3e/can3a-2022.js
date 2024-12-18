@@ -44,7 +44,7 @@ export const refs = {
 export default function SujetCAN2022troisieme () {
   Exercice.call(this)
 
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.nbQuestions = 30// 10,20,30
 

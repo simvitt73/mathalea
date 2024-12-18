@@ -26,7 +26,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
   constructor () {
     super()
 
-    this.interactifReady = interactifReady
+
     this.interactifType = interactifType
     this.correctionDetailleeDisponible = true
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

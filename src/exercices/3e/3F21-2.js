@@ -34,7 +34,7 @@ export const refs = {
 export default function DeterminerFonctionAffine () {
   Exercice.call(this)
 
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.consigne = ''
   this.sup = 1

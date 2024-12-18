@@ -32,11 +32,11 @@ export default function TermeInconnuDeSomme () {
   this.sup = 1
   this.sup3 = 1
   this.sup2 = 20 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.titre = titre
+
   this.consigne = 'Calculer le terme manquant.'
   this.spacing = 2
   this.interactif = false
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady

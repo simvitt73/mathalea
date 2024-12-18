@@ -58,14 +58,14 @@ export const refs = {
 export default class PrioritesEtRelatifs extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.interactifReady = interactifReady
+
+
     this.interactifType = interactifType
     this.consigne = 'Calculer.'
     this.spacing = 2
     this.nbQuestions = 6
     this.nbCols = 2
-    this.nbColsCorr = 1
+
     this.sup = 3
     this.besoinFormulaireNumerique = [
       'Type de calculs',

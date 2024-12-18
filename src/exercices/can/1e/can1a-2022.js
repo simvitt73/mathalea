@@ -54,12 +54,12 @@ export const refs = {
 }
 export default function SujetCAN2022Premiere () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
+
+
   this.interactifType = interactifType
   this.nbQuestions = 30
 
-  this.nbColsCorr = 1
+
 
   this.nouvelleVersion = function () {
     this.listeCanEnonces = []

@@ -30,10 +30,10 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
-  this.titre = titre
+
   this.amcReady = amcReady
   this.amcType = amcType
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.consigne = 'Compléter :'
   this.spacing = 0.5

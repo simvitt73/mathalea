@@ -23,15 +23,15 @@ export const refs = {
 }
 export default function ReciproquePythagore () {
   Exercice.call(this)
-  this.titre = titre
+
   this.amcReady = amcReady
   this.amcType = amcType
-  this.interactifReady = interactifReady
+
   this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
+
   this.sup = 3
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
 

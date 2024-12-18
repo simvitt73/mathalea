@@ -51,7 +51,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
     this.spacingCorr = context.isHtml ? 3 : 0.5
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.interactifReady = interactifReady
+
     this.interactifType = interactifType
     this.amcType = amcType
     this.amcReady = amcReady

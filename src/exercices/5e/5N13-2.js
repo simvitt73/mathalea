@@ -19,7 +19,7 @@ export const refs = {
 }
 export default function EgalitesEntreFractions5e () {
   EgalitesEntreFractions.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
+
+
   this.interactifType = interactifType
 }
