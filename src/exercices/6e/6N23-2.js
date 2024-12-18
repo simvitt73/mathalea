@@ -47,8 +47,6 @@ export default function LireAbscisseDecimaleTroisFormes () {
   if (context.isHtml) {
     this.spacing = 2
     this.spacingCorr = 3
-  } else {
-
   }
   this.vspace = -1
 

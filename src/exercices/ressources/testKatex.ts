@@ -6,7 +6,7 @@ export const titre = 'Katex sandbox'
 export default class KatexSandbox {
   typeExercice: string
   numeroExercice!: number
-  titre: string
+  // titre: string
   container: HTMLDivElement
 
   constructor () {
