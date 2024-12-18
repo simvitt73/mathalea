@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Ajout du paramètre Déterminer/calculer/mélange par Guillaume Valmont le 17/02/2023
- * Référence
+
  * Date de publication
 */
 export const dateDeModifImportante = '17/02/2023'

@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can4G01
+
 */
 export const uuid = 'f0b9b'
 export const ref = 'can4G01'

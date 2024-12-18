@@ -23,7 +23,7 @@ export const dateDeModifImportante = '10/10/2022'
 /**
  * Problèmes d'événements récurrents avec résolution à l'aide de décompositions en produits de facteurs premiers
  * @author Guillaume Valmont
- * Référence 4A12
+
  * 30/10/2021
  * Ajout de questions possibles le 10/10/2022 par Guillaume Valmont
  */

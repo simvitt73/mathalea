@@ -17,7 +17,7 @@ export const dateDePublication = '20/03/2022' // La date de publication initiale
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Rémi Angot
- * Référence
+
  */
 export default function TestFractions () {
   Exercice.call(this)

@@ -31,7 +31,7 @@ export const dateDeModifImportante = '16/12/2024'
  * et en travaillant la reconnaissance et la production (QCM ou réponse libre)
  * @author Guillaume Valmont
  * Ajout Mireille du centre de cercle, milieu de diamètre et nombre de sous-questions le 16/11/2024
- * Référence 6G10-4
+
  */
 export const uuid = '03b49'
 

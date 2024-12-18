@@ -40,7 +40,7 @@ export const refs = {
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
  * Gilles Mora
- * Référence
+
  */
 
 function compareNombres (a, b) {

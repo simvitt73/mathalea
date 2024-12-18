@@ -32,7 +32,7 @@ export const refs = {
 /**
  * Réduire une expression en fonction de ln/log de x
  * @autor  Jean-Claude Lhote
- * Référence TSpeF1-0
+
  */
 export default class DomaineDefFnLog extends Exercice {
   version: string

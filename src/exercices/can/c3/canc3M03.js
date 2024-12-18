@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 /*!
  * @author Gilles Mora
  * Créé le 5/11/2022
- * Référence canc3M03
+
  */
 
 export const uuid = '85e82'

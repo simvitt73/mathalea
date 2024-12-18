@@ -17,7 +17,7 @@ export const dateDeModifImportante = '29/10/2021'
 /**
  * Intercaler un nombre décimal entre deux décimaux
  * @author Rémi Angot
- * Référence 6N31-4
+
  * Ajout AMC : Janvier 2022 par EE
  */
 export const uuid = 'b86b9'

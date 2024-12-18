@@ -31,7 +31,7 @@ export const dateDePublication = '03/02/2022' // La date de publication initiale
 /**
  * Description didactique de l'exercice
  * @author Frédéric PIOU
- * Référence
+
 */
 export default function ExercicesThales () {
   Exercice.call(this)

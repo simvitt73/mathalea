@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
 /**
  * Description didactique de l'exercice
  * @author Laurence CANDILLE
- * Référence
+
  */
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this)

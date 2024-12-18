@@ -10,7 +10,7 @@ export const dateDePublication = '08/07/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora avec Jean-Claude pour la partie interactive
- * Référence can2G17
+
  *
  */
 export const uuid = 'dacc1'

@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair
  * @author Rémi Angot
- * Référence CM009
+
  */
 export const uuid = '14688'
 export const ref = 'CM009'

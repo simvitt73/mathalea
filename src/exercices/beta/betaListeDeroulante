@@ -32,7 +32,7 @@ const fonctionsAuChoix = [
 /**
  * Affiche une courbe et demande de choisir sa définition dans une liste
  * @author Jean-Claude Lhote
- * Référence (betaListeDeroulante)
+
  */
 export default class BetaListeDeroulante extends Exercice {
   constructor () {

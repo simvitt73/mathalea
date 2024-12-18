@@ -14,7 +14,7 @@ export const dateDePublication = '23/11/2024'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = '42983'
 

@@ -15,7 +15,7 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)'
 /**
  * @author Jean-claude Lhote
  * Publié le 20/02/2021
- * Référence 6C30-4
+
  * Relecture : Décembre 2021 par EE
  */
 export const uuid = '47a54'

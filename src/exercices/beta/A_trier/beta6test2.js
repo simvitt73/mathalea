@@ -7,7 +7,7 @@ export const titre = 'Mon test'
 /**
  * Exercice de test
  * @author
- * Référence 6test2
+
 */
 export default function MaFonctionQuiCreeExercice () {
   Exercice.call(this)

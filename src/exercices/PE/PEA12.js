@@ -9,7 +9,7 @@ export const dateDePublication = '31/10/2021'
 
 /**
 * Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
-* référence PEA12
+
 * * soustraction en base n
 * *
 * *

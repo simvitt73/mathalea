@@ -11,7 +11,7 @@ export const dateDeModifImportante = '' // Une date de modification importante a
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence
+
 */
 export const uuid = '86f71'
 export const ref = 'techno1P2-2'

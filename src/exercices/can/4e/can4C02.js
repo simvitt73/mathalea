@@ -10,7 +10,7 @@ export const dateDeModifImportante = '05/12/2021'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can4C02
+
  */
 export const uuid = '87d2f'
 export const ref = 'can4C02'

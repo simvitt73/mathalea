@@ -14,7 +14,7 @@ export const dateDeModifImportante = '21/05/2023'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can2L05 // pour l'instant
+
  * Date de publication 24/10/2021 modifié le 21/05/23 interactif n'est plus un qcm
 */
 export const uuid = '96a78'

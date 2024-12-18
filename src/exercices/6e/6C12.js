@@ -29,7 +29,7 @@ export const dateDePublication = '02/11/2021'
  * Chacune de ces questions indépendantes trouve de l'intérêt par le choix de l'opération à effectuer
  * et donc à donner du sens à chacune des opérations.
  * @author Eric Elter (ES6 : Loïc Geeraerts)
- * Référence 6C12 - Exercice aisément adaptable pour les CM.
+
  * Date octobre 2021
  */
 

@@ -16,7 +16,7 @@ export const uuid = '295a8'
 /**
  * Trace une courbe interpolee par des splines.
  * @author Jean-Claude Lhote
- * Référence P014
+
  */
 export default function TraceCourbeInterpolee1 () {
   Exercice.call(this)

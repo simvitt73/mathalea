@@ -18,7 +18,7 @@ export const interactifType = 'cliqueFigure'
 /**
  * Plusieurs éléments sont proposés, il faut choisir le bon (par clic si interactif, par case à cocher par AMC)
  * @author ANGOT Rémi (Ajout AMC par Eric Elter)
- * Référence
+
 */
 export const uuid = '83763'
 

@@ -12,7 +12,7 @@ export const titre = 'Lire une image graphiquement'
 /*!
  * @author Gilles Mora
   *
- * Référence can3F01
+
 */
 export const uuid = '966a6'
 export const ref = 'can3F01'

@@ -53,7 +53,7 @@ export const dateDeModifImportante = '20/06/2024' // Ajout de l'équilibre entre
  * * a*b÷(c+d)
  * * a*(b÷c+d)
  * @author Rémi Angot
- * Référence 6C33
+
  */
 export const uuid = '4c10a'
 

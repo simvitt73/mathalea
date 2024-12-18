@@ -10,7 +10,7 @@ export const uuid = '88bc2'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class nombreDerive extends Exercice {
   constructor () {

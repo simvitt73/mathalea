@@ -24,7 +24,7 @@ export const titre = 'Poser des multiplications de nombres décimaux'
  * * x,xx * x0x
  * * 0,xx * x,x
  * @author Rémi Angot
- * Référence 6C30
+
  */
 export const uuid = '52939'
 

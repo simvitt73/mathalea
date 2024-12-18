@@ -24,7 +24,7 @@ export const refs = {
 /**
  * Description didactique de l'exercice
  * @autor Claire Rousset (un peu aidé par Jean-Claude Lhote)
- * Référence TSpeAN1-0
+
  */
 export default class InequationsLog extends Exercice {
   constructor () {

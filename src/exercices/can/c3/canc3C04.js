@@ -12,7 +12,7 @@ export const dateDePublication = '16/11/2021'
 /*!
  * @author Jean-Claude Lhote
  * Date de publication 16/11/2021
- * Référence canc3C04
+
  */
 export const uuid = '4ba86'
 export const ref = 'canc3C04'

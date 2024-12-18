@@ -17,7 +17,7 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence
+
  */
 export const uuid = 'b9e6a'
 

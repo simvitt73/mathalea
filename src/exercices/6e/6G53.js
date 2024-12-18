@@ -19,7 +19,7 @@ export const dateDePublication = '01/03/2023'
 /**
  * Simple exercice de mesure de distance entre un point et une droite
  * @author Guillaume Valmont
- * Référence 6G53
+
 */
 export const uuid = '29c3b'
 

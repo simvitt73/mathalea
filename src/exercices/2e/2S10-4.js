@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 /**
  * Compléter ou utiliser un tableau
  * @author Gilles Mora +Jean-Claude Lhote pour l'interactif
- * Références 2S10-4
+
  */
 export const uuid = '3f39d'
 // Je déréférence temporairement pour éviter que cet exo non finalisé apparaîsse dans le menu.

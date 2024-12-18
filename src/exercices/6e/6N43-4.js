@@ -14,7 +14,7 @@ export const interactifType = 'custom'
 /**
  * Compléter des phrases avec les mots divisible, divieur et multiple
  * @author Rémi Angot
- * Référence 6N43-4
+
  */
 export const uuid = 'f894a'
 

@@ -8,7 +8,7 @@ export const titre = 'Déterminer si trois points sont alignés'
 /**
  * Déterminer si trois points sont alignés avec les coefficients directeurs
  * @author Stéphane Guyon
- * Référence 2G33-1
+
 */
 export const uuid = 'b1777'
 

@@ -599,7 +599,7 @@ function exercicesPourcentagesConversion () {
 /**
  * Calculs de fréquences, probabilités, ratios
  * @author Frédéric PIOU
- * Référence
+
 */
 
 export default function CalculsProbabilites () {

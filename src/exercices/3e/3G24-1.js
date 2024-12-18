@@ -19,7 +19,7 @@ export const titre = 'Triangles semblables'
 /**
  * Deux triangles semblables sont codés, il faut reconnaître les côtés homologues
  * @author Mickael Guironnet
- * Référence 3G24-1
+
 */
 export const uuid = 'f4b7e'
 

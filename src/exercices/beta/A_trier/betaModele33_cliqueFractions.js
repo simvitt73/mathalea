@@ -19,7 +19,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Description didactique de l'exercice
  * @author Rémi Angot
- * Référence
+
  */
 export default class NomExercice extends Exercice {
   barres = []

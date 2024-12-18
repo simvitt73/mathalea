@@ -18,7 +18,7 @@ export const refs = {
 /**
  * Description didactique de l'exercice Différencier événéments impossibles, certains, ou possibles
  * @author Mireille Gain
- * Référence 4S20-2
+
 */
 export default class nomExercice extends Exercice {
   constructor () {

@@ -11,7 +11,7 @@ export const uuid = '5157a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class PointsCourbe extends Exercice {
   constructor () {

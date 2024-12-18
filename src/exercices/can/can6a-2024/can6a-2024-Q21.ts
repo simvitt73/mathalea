@@ -13,7 +13,7 @@ export const uuid = 'e3c35'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 export default class AbscisseEnDemis extends Exercice {
   constructor () {

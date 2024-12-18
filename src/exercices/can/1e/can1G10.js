@@ -16,7 +16,7 @@ export const dateDeModifImportante = '06/11/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can1G10
+
  *
 */
 

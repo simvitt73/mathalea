@@ -9,7 +9,7 @@ export const dateDePublication = '1/11/2021'
 
 /**
  * @author Rémi Angot
- * Référence PEG23
+
 */
 export const uuid = 'b976a'
 

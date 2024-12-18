@@ -5,7 +5,7 @@ import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
 /**
- * Référence 5L14-4
+
  * Déterminer la dernière opération à effectuer dans une expression littérale
  * @author Sébastien Lozano fork Jean-Claude Lhote
  * Rendu paramétrable et ajout de la structure d'une expression le 14/08/2021 : Guillaume Valmont

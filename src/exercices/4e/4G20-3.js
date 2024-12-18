@@ -24,7 +24,7 @@ export const interactifType = 'mathLive'
  * * Décimal relatif
  * * Fractionnaire relatif
  * @author Sébastien LOZANO
- * Référence 4G20-3
+
  */
 
 export const uuid = 'e564b'

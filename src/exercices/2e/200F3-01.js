@@ -21,7 +21,7 @@ export const refs = {
 /**
  * trois niveaux, trouver les signes d'une fonction affine
  * @author Jean-Claude Lhote
- * Référence
+
  */
 export default class LectureSigneAffine extends Exercice {
   constructor () {

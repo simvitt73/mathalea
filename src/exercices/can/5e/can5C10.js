@@ -6,7 +6,7 @@ export const titre = 'Décomposer en produit de facteurs premiers'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can5C10
+
  */
 export const uuid = '1b91d'
 export const ref = 'can5C10'

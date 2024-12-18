@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, milliers, millions, milliards
  * @author Jean-Claude Lhote
- * Référence 6N10-0 (anciennement 6N10)
+
  */
 
 export const uuid = '6babf'

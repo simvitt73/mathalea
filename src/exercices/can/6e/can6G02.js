@@ -8,7 +8,7 @@ export const titre = 'Compter les cubes'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6G02
+
  */
 export const uuid = '76b93'
 export const ref = 'can6G02'

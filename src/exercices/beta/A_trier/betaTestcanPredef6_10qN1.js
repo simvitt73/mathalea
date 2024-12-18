@@ -19,7 +19,7 @@ export const dateDePublication = '/11/2021' // La date de publication initiale a
 
 /**
  * @author Gilles Mora
- * Référence
+
  */
 export default function Can10Questions6N1 () {
   Exercice.call(this)

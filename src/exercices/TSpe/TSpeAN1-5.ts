@@ -22,7 +22,7 @@ const listeExposants = [1, 2, 3, -1, -2, -3]
 /**
  * Réduire une expression en fonction de ln/log de x
  * @autor  Jean-Claude Lhote
- * Référence TSpeAN1-5
+
  */
 export default class ExpressionsLogX extends Exercice {
   version: string

@@ -62,7 +62,7 @@ function schemaBarre () {
 /**
  * Résoudre des équations du premier degré
  * @author Frédéric PIOU
- * Référence
+
 */
 
 export default function EquationsProgression () {

@@ -45,7 +45,7 @@ export const refs = {
 /**
  * Aléatoirisation du sujet 2023 de CAN 5e
  * Gilles Mora
- * Référence can5a-2023
+
  */
 
 function compareNombres (a, b) {

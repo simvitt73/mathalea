@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can4G07
+
  * Date de publication septembre 2021
 */
 export const uuid = 'ae712'

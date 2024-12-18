@@ -10,7 +10,7 @@ export const uuid = 'dcd81'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author  Gilles Mora
- * Référence
+
 */
 export default class SoustractionPasFacile extends Exercice {
   constructor () {

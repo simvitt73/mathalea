@@ -9,7 +9,7 @@ export const dateDePublication = '17/11/2022'
 /**
  *
  * @author Gilles Mora
- * Référence can1L10
+
 */
 
 export const uuid = 'cc9ee'

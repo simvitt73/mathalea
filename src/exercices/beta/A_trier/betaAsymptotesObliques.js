@@ -9,7 +9,7 @@ export const titre = 'Asymptote oblique'
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)

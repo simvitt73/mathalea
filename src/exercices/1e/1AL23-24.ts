@@ -15,7 +15,7 @@ export const uuid = '2a6c7'
 * Ce model est prévu pour les exercice où le nombre de questions est fixe
 * et où on ne demande pas la même chose à toutes les questions
 * @author Samuel Rattoray
-* Référence
+
 */
 
 export const refs = {

@@ -13,7 +13,7 @@ export const dateDeModifImportante = '09/02/2022' // Une date de modification im
 /**
  * Description didactique de l'exercice
  * @author Mathieu Degrange
- * Référence
+
 */
 export default function NomExercice () {
   Exercice.call(this)

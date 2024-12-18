@@ -16,7 +16,7 @@ export const titre = 'Triangles égaux et côtés homologues'
 /**
  * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
  * @author Rémi Angot
- * Référence 5G24-1
+
 */
 export const uuid = '10148'
 export const ref = '5G24-1'

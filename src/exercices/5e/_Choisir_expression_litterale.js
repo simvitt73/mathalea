@@ -12,7 +12,7 @@ import { estentier, randint, calculANePlusJamaisUtiliser } from '../../modules/o
  * @param {boolean} timesOn=true
  * @returns {string,string,string,number,string,string} [expf,expl,expc,nbval,lastOp, structureExpression]
  * @author Jean Claude Lhote forked by Sébastien LOZANO
- * Référence 5C12, 5L14-4, 5L14-6 et exrire_une_expression_numerique
+
  * Ajout de la structure de l'expression le 14/08/2021 : Guillaume Valmont
  */
 export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true) {

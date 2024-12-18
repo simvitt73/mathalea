@@ -196,7 +196,7 @@ class Population {
  * Calculs de fréquences sur une série qualitative
  * avec un effectif manquant et l'effectif total donné
  * @author Eve & Sylvain CHAMBON
- * Référence 5S13-2
+
  */
 export const uuid = 'ff67d'
 export const ref = '5S13-2'

@@ -14,7 +14,7 @@ export const dateDePublication = '28/10/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can5P03
+
  * Date de publication
 */
 export const uuid = '57777'

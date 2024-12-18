@@ -18,7 +18,7 @@ export const dateDePublication = '16/05/2022'
 
 /**
  * @author Guillaume Valmont
- * Référence 4G10-2
+
 */
 export const uuid = '6a2dd'
 export const ref = '4G10-2'

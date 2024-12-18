@@ -21,7 +21,7 @@ export const dateDeModifImportante = '13/12/2024'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = '5621b'
 

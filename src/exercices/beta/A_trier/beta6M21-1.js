@@ -14,7 +14,7 @@ export const dateDePublication = '12/04/2022' // La date de publication initiale
 /**
  * Aire d'assemblage de rectangles
  * @author Rémi Angot
- * Référence 6M21
+
 */
 export default class AireAssemblageRectangles extends Exercice {
   constructor () {

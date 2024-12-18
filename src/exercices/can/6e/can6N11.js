@@ -10,7 +10,7 @@ export const dateDePublication = '20/01/2022'
 /*!
  * @author Eric Elter
  * Créé le 20/01/2022
- * Référence can6N11
+
  */
 export const uuid = '79452'
 export const ref = 'can6N11'

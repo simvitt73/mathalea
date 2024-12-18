@@ -6,7 +6,7 @@ export const titre = 'Connaître le cours sur le périmètre et l\'aire'
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
  * @author Rémi Angot
- * Référence 6M25
+
  */
 export const uuid = 'dc7ba'
 

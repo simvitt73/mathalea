@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 /**
  * Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
  * @author Rémi Angot
- * Référence CM014
+
  */
 export const uuid = '9d994'
 export const ref = 'CM014'

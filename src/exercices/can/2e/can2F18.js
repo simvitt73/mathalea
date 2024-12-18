@@ -14,7 +14,7 @@ export const titre = 'Déterminer un extremum graphiquement'
 /*!
  * @author Gilles MORA
   *
- * Référence can2F18
+
 */
 export const uuid = '5a908'
 export const ref = 'can2F18'

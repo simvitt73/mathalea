@@ -27,7 +27,7 @@ const dessSysteme = (s, d, niveau) =>
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
  */
 export default function Systeme2x2parCombinaisonLineaire () {
   Exercice.call(this)

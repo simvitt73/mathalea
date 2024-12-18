@@ -16,7 +16,7 @@ export const dateDePublication = '24/09/2022'
 /**
  *
  * @author Gilles Mora
- * Référence can1F21
+
  *
 */
 

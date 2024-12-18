@@ -11,7 +11,7 @@ export const titre = 'Exercice exemple'
 /**
  * Description didactique de l'exercice
  * @author
- * Référence
+
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)

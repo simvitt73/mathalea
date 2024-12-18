@@ -26,7 +26,7 @@ export const dateDeModifImportante = '28/05/2023'
 /**
  * Lire la pente et l'ordonnée à l'origine d'une droite pour en déduire la forme algébrique de la fonction affine
  * @author Rémi Angot (modifié par EE pour l'ajout de paramètres)
- * Référence
+
  */
 export const uuid = '056fa'
 

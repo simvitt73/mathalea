@@ -13,7 +13,7 @@ export const dateDePublication = '22/07/2023' // La date de publication initiale
 /**
  * Un constructeur de Repère amélioré
  * @author Jean-Claude Lhote
- * Référence (betaRepere)
+
  */
 export default class BetaRepere extends Exercice {
   constructor () {

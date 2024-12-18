@@ -13,7 +13,7 @@ export const interactifType = 'custom'
 /**
  * Tracer un triangle à partir de longueurs des 3 côtés
  * @author Rémi Angot
- * Références geoTriangle-1
+
  */
 
 

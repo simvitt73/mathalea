@@ -8,7 +8,7 @@ export const dateDePublication = '20/11/2022'
 
 /**
  * @author Rémi Angot
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {

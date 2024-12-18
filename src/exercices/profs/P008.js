@@ -22,7 +22,7 @@ export const uuid = '691a6'
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
  * @author Rémi Angot
- * Référence 6C11
+
  */
 export default function OperationsPosees () {
   Exercice.call(this)

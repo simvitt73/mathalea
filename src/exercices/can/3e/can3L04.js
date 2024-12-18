@@ -12,7 +12,7 @@ export const interactifType = 'qcm'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can3L04
+
  * Date de publication 24/10/2021
 */
 export const uuid = 'e7754'

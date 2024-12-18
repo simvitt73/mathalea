@@ -16,7 +16,7 @@ export const dateDePublication = '01/10/2023'
 
 /**
  * @author Jean-Claude  Lhote
- * Référence can4G09
+
  * Date de publication 1/10/2023
  */
 export const uuid = '96bcd'

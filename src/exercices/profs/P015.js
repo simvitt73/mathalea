@@ -20,7 +20,7 @@ export const uuid = '085ed'
 /**
  * Proposisiton des étapes de construction du puzzles géométriques type tangram, œuf magique ...
  * @author Sébastien LOZANO
- * Référence P015
+
  */
 
 export default function PuzzlesGeometriques () {

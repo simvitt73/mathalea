@@ -8,7 +8,7 @@ export const amcType = 'AMCNum'
 
 /**
  * @author Rémi Angot
- * référence 6N13
+
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '3eae0'

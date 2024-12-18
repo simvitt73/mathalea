@@ -16,7 +16,7 @@ export const titre = 'Compter et lister les diviseurs d\'un entier à partir de 
 /**
  * Compter et lister les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
- * Référence 3A10-4
+
  */
 export const uuid = '4117b'
 

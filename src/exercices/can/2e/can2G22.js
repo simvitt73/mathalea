@@ -11,7 +11,7 @@ export const dateDePublication = '29/11/2023'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can2G22
+
  *
 */
 export const uuid = '9ff07'

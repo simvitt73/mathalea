@@ -17,7 +17,7 @@ export const dateDePublication = '29/09/2024'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = '3ae4a'
 
@@ -49,7 +49,6 @@ export default class TermesSASG extends Exercice {
   }
 
   nouvelleVersion () {
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -59,9 +58,6 @@ export default class TermesSASG extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
-    
-    
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''

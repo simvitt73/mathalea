@@ -10,7 +10,7 @@ export const dateDePublication = '07/01/2022'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora // Suppression de calcul et mise en place de Decimal par Jean-Claude Lhote
- * Référence
+
 */
 function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   if (a instanceof Decimal) {

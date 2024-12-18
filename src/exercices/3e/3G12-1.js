@@ -10,7 +10,7 @@ export const dateDeModifImportante = '15/01/2023' //  Par EE
 /**
  * Rotations dans un pavage.
  * @author Jean-Claude Lhote
- * référence 3G12-1
+
  */
 export const uuid = '034f1'
 

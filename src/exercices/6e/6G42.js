@@ -10,7 +10,7 @@ export const dateDeModifImportante = '07/06/2023'
 /**
  * @author Jean-Claude Lhote
  * vocabulaire arête, face, perpendicularité dans l'espace, parallélisme dans l'espace
- * référence : 6G42
+
  */
 export const uuid = 'b36df'
 

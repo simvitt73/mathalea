@@ -19,7 +19,7 @@ export const dateDeModifImportante = '22/08/2024'
 /**
  * Additionner deux entiers
  * @author Rémi Angot
- * Référence 6C10-4
+
  */
 export const uuid = 'ace0a'
 

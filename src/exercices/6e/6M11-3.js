@@ -28,7 +28,7 @@ export const dateDePublication = '27/11/2022'
  *
  * @author Sébastien LOZANO
  * Lachement repiquer à Remi Angot et adapté
- * Référence 6M11-3
+
  */
 export const uuid = '5563e'
 

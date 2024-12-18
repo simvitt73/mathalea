@@ -17,7 +17,7 @@ export const interactifType = 'qcm'
 /**
  * Description didactique de l'exercice
  * @author Rémi Angot (questions de Martine Loubet)
- * Référence
+
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)

@@ -23,7 +23,7 @@ export const interactifType = 'mathLive'
  * cas 4 : f(x1) et f(x2) donnés a et b rationnels
  * x1, x2, f(x1) et f(x2) sont toujours entiers relatifs
  * @author Jean-Claude Lhote
- * Référence 3F21-2
+
  */
 export const uuid = 'b8b33'
 

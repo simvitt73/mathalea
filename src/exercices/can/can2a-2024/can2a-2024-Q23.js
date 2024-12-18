@@ -11,7 +11,7 @@ export const uuid = '32d90'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {

@@ -17,7 +17,7 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
 /**
  * Trouver les coordonnées du sommet d'une parabole donnée par sa forme canonique.
  * @author Gilles Mora
- * Référence can1F01
+
  */
 export const uuid = 'f2035'
 export const ref = 'can1F01'

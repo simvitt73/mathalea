@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
 /**
  * Somme de 3 nombres dont 2 ont des chiffres des unités compléments à 10
  * @author Rémi Angot
- * Référence CM018
+
  */
 export const uuid = '678f9'
 export const ref = 'CM018'

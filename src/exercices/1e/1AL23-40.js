@@ -14,7 +14,7 @@ export const titre = 'Résoudre une inéquation du second degré'
 /**
  * Résoudre une inéquation du second degré
  * @author Stéphane Guyon
- * Référence 1E11
+
  */
 export const uuid = '77bcc'
 

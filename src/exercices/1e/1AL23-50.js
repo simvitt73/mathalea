@@ -16,7 +16,7 @@ export const titre = 'Représentation graphique d\'un polynôme du second degré
  * - les racines
  * - les coordonnées du sommet et/ou la valeur de l'extremum
  * - les 3 trucs précédents
- * référence 1E12-1
+
  */
 export const uuid = 'a896e'
 

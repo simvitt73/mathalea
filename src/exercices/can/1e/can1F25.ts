@@ -15,7 +15,7 @@ export const titre = 'Déterminer graphiquement le nombre de solutions de l\'éq
 /*!
  * @author Gilles MORA
   *
- * Référence can1F25
+
 */
 export const uuid = 'd96b4'
 export const refs = {

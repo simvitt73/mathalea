@@ -12,7 +12,7 @@ export const uuid = '9bbc7'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class additionnerFrac extends Exercice {
   constructor () {

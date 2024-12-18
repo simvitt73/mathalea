@@ -13,7 +13,7 @@ export const titre = 'Le compte est bon original'
 /**
  * Un "Le compte est bon" avec des solutions "formatées" pour travailler certains incontournables du calcul mental
  *  @author Jean-Claude Lhote
- * Référence CM021
+
  */
 export const uuid = 'bd6ff'
 export const ref = 'CM021'

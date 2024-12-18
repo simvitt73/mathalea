@@ -21,7 +21,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = 'd5b6c'
 export const ref = 'can2F07'

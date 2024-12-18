@@ -10,7 +10,7 @@ export const dateDePublication = '07/06/2022'
 /**
  *
  * @author Gilles Mora repris de 1E11-3 de Stéphane
- * Référence can1L06
+
 */
 export const uuid = 'd1ad9'
 export const ref = 'can1L06'

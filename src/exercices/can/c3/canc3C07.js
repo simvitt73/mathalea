@@ -12,7 +12,7 @@ export const dateDePublication = '25/07/2022'
 
 /*!
  * @author Gilles Mora
- * Référence canc3C07
+
  */
 export const uuid = '02561'
 export const ref = 'canc3C07'

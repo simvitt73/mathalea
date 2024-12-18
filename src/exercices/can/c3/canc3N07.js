@@ -17,7 +17,7 @@ export const dateDeModifImportante = '26/10/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = 'ba5d4'
 export const ref = 'canc3N07'

@@ -10,7 +10,7 @@ export const dateDePublication = '15/11/2022'
 /*!
  * @author Gilles Mora
  * Créé le 20/01/2022
- * Référence can6P06
+
  */
 
 export const uuid = 'fb422'

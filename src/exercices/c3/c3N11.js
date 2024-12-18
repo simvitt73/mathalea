@@ -10,7 +10,7 @@ export const dateDeModifImportante = '26/08/2024'
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, milliers, millions, milliards
  * @author Jean-Claude Lhote
- * Référence 6N10
+
  */
 export const uuid = 'c0fb1'
 

@@ -23,7 +23,7 @@ export const amcType = 'AMCNum'
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
  * @author Jean-Claude Lhote (et EE pour passage en interactif intégral)
- * Référence 2S30-4
+
  */
 export const uuid = 'cee5d'
 

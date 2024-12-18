@@ -12,7 +12,7 @@ export const uuid = 'cc48b'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class AjouteDecimauxPieges extends Exercice {

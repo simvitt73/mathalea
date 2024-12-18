@@ -7,7 +7,7 @@ export const titre = 'Division de polynômes'
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
 */
 export const uuid = 'ad6a2'
 

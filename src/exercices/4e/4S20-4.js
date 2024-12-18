@@ -15,7 +15,7 @@ export const refs = {
 /**
  * Description didactique de l'exercice Calculer des probabilités avec des cartes à jouer.
  * @author Mireille Gain
- * Référence 4S20-3
+
 */
 export default class ExerciceQcmStatistiques extends Exercice {
   constructor () {

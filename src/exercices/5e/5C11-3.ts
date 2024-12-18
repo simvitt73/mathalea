@@ -21,7 +21,7 @@ export const refs = {
 /**
  * Travail sur le sens de l'égalité
  * @author Rémi Angot
- * Référence 5C13
+
 */
 export default class CompleterEgalite extends Exercice {
   constructor () {

@@ -19,7 +19,7 @@ export const dateDeModifImportante = '09/08/2022'
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @author Rémi Angot
- * Référence 6N12
+
  * Ajout de la division par Guillaume Valmont le 09/08/2022
  */
 export const uuid = 'bb9d8'

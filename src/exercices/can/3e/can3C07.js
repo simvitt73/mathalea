@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can3C07
+
  * Date de publication sptembre 2021
 */
 export const dateDeModifImportante = '06/12/2021'

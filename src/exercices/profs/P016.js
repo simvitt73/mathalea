@@ -13,7 +13,7 @@ export const dateDePublication = '06/04/2022'
 /**
  * Simule des lancers de dés
  * @author Jean-Claude Lhote
- * Référence P016
+
 */
 export default function SimulateurDes () {
   Exercice.call(this)

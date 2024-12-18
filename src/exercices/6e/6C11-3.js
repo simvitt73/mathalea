@@ -34,7 +34,7 @@ export const dateDePublication = '09/09/2022'
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
  * @author Eric Elter (à partir de 6C11)
- * Référence 6C11-3
+
  */
 export const uuid = 'd0cd7'
 

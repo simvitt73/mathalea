@@ -12,7 +12,7 @@ const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' 
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
 */
 export default function EquationAvecUnLogarithme () {
   Exercice.call(this)

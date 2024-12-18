@@ -22,7 +22,7 @@ export const dateDeModifImportante = '11/12/2024'
 /**
  * Description didactique de l'exercice
  * @author Laurence CANDILLE, Olivier Mimeau (ajout d'un cas) et Rémi Angot (refactorisation)
- * Référence 6C22
+
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '99522'

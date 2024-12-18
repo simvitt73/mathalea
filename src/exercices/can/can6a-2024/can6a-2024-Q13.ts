@@ -12,7 +12,7 @@ export const uuid = '0f2c6'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 export default class CoutBDEtRomans extends Exercice {
   constructor () {

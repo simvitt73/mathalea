@@ -17,7 +17,7 @@ export const dateDePublication = '20/08/2022' // La date de publication initiale
 /**
  * Calculs avec des multiplications et des puissances de 10
  * @author Mickael Guironnet
- * Référence 4C32-4
+
  * 2022-08-18
 */
 export const uuid = '8b399'

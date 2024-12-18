@@ -23,7 +23,7 @@ const choixFnct = [
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
 */
 export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
   Exercice.call(this)

@@ -31,7 +31,7 @@ export const refs = {
 /**
  * Aléatoirisation du sujet 2023 de CAN CM2
  * @author Sébastien LOZANO
- * Référence canc3a-2023
+
  */
 
 function compareNombres (a, b) {

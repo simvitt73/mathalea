@@ -9,7 +9,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Description didactique de l'exercice
  * @author
- * Référence
+
 */
 export default class nomExercice extends Exercice {
   constructor () {

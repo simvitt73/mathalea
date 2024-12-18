@@ -17,7 +17,7 @@ export const dateDeModifImportante = '02/04/2023' // Une date de modification im
  * Description didactique de l'exercice
  * @author Stéphane Guyon rendu interactif par JC Lhote + utilisation de decimal.js
  * Choix des types de problèmes par Guillaume Valmont le 02/04/2023
- * Référence 3G22-1
+
  */
 export const uuid = 'a0ad1'
 

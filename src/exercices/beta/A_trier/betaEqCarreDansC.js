@@ -8,7 +8,7 @@ export const titre = 'Racine carrée nombre complexe'
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
 */
 export default function ResoudreDesEquationsCarreeDansC () {
   Exercice.call(this)

@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
 /**
  * Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
  * @author Rémi Angot
- * Référence CM011
+
  */
 export const uuid = 'b434c'
 export const ref = 'CM011'

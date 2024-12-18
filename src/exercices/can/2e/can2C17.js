@@ -10,7 +10,7 @@ export const dateDePublication = '30/03/2023'
 /**
  * utilisation des égalités remarquables pour développer
  * @author Gilles Mora
- * Référence can2C17
+
 */
 export const uuid = '9883e'
 export const ref = 'can2C17'

@@ -36,7 +36,7 @@ export const dateDePublication = '02/05/2022' // La date de publication initiale
 /**
  * Description didactique de l'exercice
  * Gilles Mora avec aide EE et JCL
- * Référence
+
  */
 
 function compareNombres (a, b) {

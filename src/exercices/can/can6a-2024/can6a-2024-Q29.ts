@@ -10,7 +10,7 @@ export const uuid = '17db4'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class DivisionParCinq extends Exercice {

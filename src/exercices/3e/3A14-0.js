@@ -18,7 +18,7 @@ export const titre = 'Arithmétique & volumes'
 /**
  * diviseurs communs, calcul de volume
  * @author Jean-Claude Lhote
- * Référence dnb06_2022_5
+
  */
 export const uuid = '2e22a'
 

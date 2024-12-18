@@ -13,7 +13,7 @@ export const interactifReady = true
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @author Rémi Angot
- * Référence 6N12
+
  */
 export default function MultiplierEntierPar101001000 () {
   Exercice.call(this)

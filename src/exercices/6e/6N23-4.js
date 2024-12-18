@@ -25,7 +25,7 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  * * 128/10
  * * 8+5/100+7/100
  * @author Rémi Angot
- * Référence 6N23-4
+
  * Ajout de paramètres, Interactivité et AMC : Janvier 2022 par EE
  */
 export const uuid = 'e8e24'

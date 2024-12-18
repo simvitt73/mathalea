@@ -19,7 +19,7 @@ export const dateDeModifImportante = '17/04/2024'
 /**
  * Calculer les coordonnées d'un point image ou antécédent d'un autre par une translation
  * @author Stéphane Guyon, Jean-Claude Lhote, Stéphan Grignon et Nathan Scheinmann
- * Référence 2G23-2
+
  */
 export const uuid = 'fa7b9'
 

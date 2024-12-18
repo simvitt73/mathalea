@@ -13,7 +13,7 @@ export const dateDeModifImportante = '26/10/2024'
 /*!
  * @author Jean-Claude Lhote +Gilles Mora pour modif (intégration du can6N02)
  * Créé pendant l'été 2021
- * Référence can6N03
+
  */
 export const uuid = '1dbee'
 export const ref = 'can6N03'

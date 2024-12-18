@@ -9,7 +9,7 @@ export const titre = 'Résoudre une équation avec une valeur absolue'
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+
  */
 export default function EquationAvecUneValeurAbsolue () {
   Exercice.call(this)

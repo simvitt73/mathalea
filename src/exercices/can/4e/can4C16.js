@@ -11,7 +11,7 @@ export const dateDePublication = '07/09/2023'
 
 /*!
  * @author Gilles Mora
- * Référence can4C16
+
  */
 
 export const uuid = '07df0'

@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot
- * Référence CM002
+
  */
 export const uuid = '77511'
 export const ref = 'CM002'

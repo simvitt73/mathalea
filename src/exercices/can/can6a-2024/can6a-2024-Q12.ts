@@ -11,7 +11,7 @@ export const uuid = 'd149d'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 export default class SoustractionDecimaux extends Exercice {
   constructor () {

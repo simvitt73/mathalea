@@ -14,7 +14,7 @@ export const dateDePublication = '04/03:2022' // La date de publication initiale
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Stéphane Guyon
- * Référence
+
  */
 export const uuid = '84eaa'
 export const ref = 'can2G15'

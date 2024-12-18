@@ -14,7 +14,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Description didactique de l'exercice
  * @author Maxime Nguyen
- * Référence ExC101
+
 */
 export const uuid = '88241'
 export const ref = 'ExC101'

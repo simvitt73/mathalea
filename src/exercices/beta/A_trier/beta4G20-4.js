@@ -9,7 +9,7 @@ export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 /**
  * Description didactique de l'exercice : Calculer_une_expression_litterale_type_pythagore
  * @author Mireille Gain
- * Référence : 4G20-4
+
 */
 export default function CalculerUneExpressionLitteralePythagore () {
   Exercice.call(this)

@@ -18,7 +18,7 @@ export const titre = 'Utiliser tables de multiplication pour effectuer produits 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @author Rémi Angot
- * Référence 6C10-2
+
  */
 export const uuid = '23bc8'
 

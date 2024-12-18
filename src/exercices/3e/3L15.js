@@ -20,7 +20,7 @@ export const dateDeModifImportante = '21/06/2023' // EE : Rajout d'un paramètre
  * Résoudre une équation du type ax2 + bx = 0
  *
  * @author Rémi Angot
- * Référence 3L15
+
  */
 export const uuid = '231d2'
 

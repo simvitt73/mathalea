@@ -15,7 +15,7 @@ export const uuid = '53eb1'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 export default class PerimetreRectangle extends Exercice {
   constructor () {

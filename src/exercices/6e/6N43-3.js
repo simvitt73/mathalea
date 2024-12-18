@@ -16,7 +16,7 @@ export const dateDeModifImportante = '07/03/2023'
  * Vrai ou faux sur les notions de diviseur ou multiple
  * @author Rémi Angot
  * Ajout du critère de divisibilité par 10 par Guillaume Valmont le 07/03/2022
- * Référence 6N43-3
+
 */
 export const uuid = 'bbdd6'
 

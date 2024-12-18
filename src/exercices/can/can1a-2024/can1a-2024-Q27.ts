@@ -13,7 +13,7 @@ export const uuid = 'fe2e1'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class probaArbre extends Exercice {
   constructor () {

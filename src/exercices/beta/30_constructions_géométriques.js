@@ -22,7 +22,7 @@ export const refs = {
 /**
  * Description didactique de l'exercice
  * @author NomAuteur(s)
- * Référence
+
  */
 export default class NomExercice extends Exercice {
   constructor () {
