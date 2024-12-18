@@ -26,7 +26,7 @@ export const dateDePublication = '09/10/2022'
  */
 
 export const uuid = 'df825'
-export const ref = '6G11-1'
+
 export const refs = {
   'fr-fr': ['6G11-1'],
   'fr-ch': ['9ES3-2']

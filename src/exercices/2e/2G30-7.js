@@ -29,7 +29,7 @@ export const amcType = 'AMCHybride'
  * @author Stéphane Guyon + modif Gilles Mora (droite verticale)
  */
 export const uuid = '41e6f'
-export const ref = '2G30-7'
+
 export const refs = {
   'fr-fr': ['2G30-7'],
   'fr-ch': ['11FA9-7', '1F2-6']

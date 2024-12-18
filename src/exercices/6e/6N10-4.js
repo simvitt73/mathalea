@@ -21,7 +21,7 @@ export const amcType = 'AMCOpen'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'dc348'
-export const ref = '6N10-4'
+
 export const refs = {
   'fr-fr': ['6N10-4'],
   'fr-ch': ['9NO1-5']

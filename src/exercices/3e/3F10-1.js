@@ -22,7 +22,7 @@ export const titre = 'Utiliser le vocabulaire et les notations des fonctions (g√
 * @author Jean-Claude Lhote
 */
 export const uuid = '0eecd'
-export const ref = '3F10-1'
+
 export const refs = {
   'fr-fr': ['3F10-1'],
   'fr-ch': ['10FA5-5', '1F1-4']

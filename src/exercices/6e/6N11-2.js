@@ -25,7 +25,7 @@ export const amcType = 'AMCOpen'
  * Correction : Problème de score 19/10/22 par Rémi ANGOT
  */
 export const uuid = '4f2a3'
-export const ref = '6N11-2'
+
 export const refs = {
   'fr-fr': ['6N11-2'],
   'fr-ch': ['9NO2-2']

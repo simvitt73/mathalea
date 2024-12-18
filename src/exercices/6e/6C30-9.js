@@ -17,7 +17,7 @@ export const dateDePublication = '20/12/2022'
  * idée originale de Mireille Gain
 */
 export const uuid = 'c6836'
-export const ref = '6C30-9'
+
 export const refs = {
   'fr-fr': ['6C30-9'],
   'fr-ch': ['9NO8-17']

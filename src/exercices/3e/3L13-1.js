@@ -27,7 +27,7 @@ export const dateDeModifImportante = '24/06/2024'
  * Rendre interactif Laurence Candille
  */
 export const uuid = '1802d'
-export const ref = '3L13-1'
+
 export const refs = {
   'fr-fr': ['3L13-1'],
   'fr-ch': ['11FA6-5']

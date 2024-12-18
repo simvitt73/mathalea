@@ -17,7 +17,7 @@ export const dateDePublication = '22/02/2023'
  * Référence 6G51-1
 */
 export const uuid = '02320'
-export const ref = '6G51-1'
+
 export const refs = {
   'fr-fr': ['6G51-1'],
   'fr-ch': ['9ES1-4']

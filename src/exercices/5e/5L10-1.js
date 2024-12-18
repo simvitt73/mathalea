@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  */
 
 export const uuid = 'fefa0'
-export const ref = '5L10-1'
+
 export const refs = {
   'fr-fr': ['5L10-1'],
   'fr-ch': ['9FA2-4', '10FA1-5']

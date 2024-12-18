@@ -22,7 +22,7 @@ export const amcType = 'AMCOpen'
  * Ajout du paramétrage : Guillaume Valmont 13/08/2021
  */
 export const uuid = '5f5a6'
-export const ref = '3L11-4'
+
 export const refs = {
   'fr-fr': ['3L11-4'],
   'fr-ch': ['11FA3-2']

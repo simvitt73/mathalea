@@ -28,7 +28,7 @@ export const dateDeModifImportante = '05/09/2024'
  * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
 export const uuid = '23c48'
-export const ref = '6N23-3'
+
 export const refs = {
   'fr-fr': ['6N23-3'],
   'fr-ch': ['9NO11-7']

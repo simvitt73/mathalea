@@ -21,7 +21,7 @@ export const dateDePublication = '14/11/2020'
  * @author Sébastien Lozano
  */
 export const uuid = 'edbd5'
-export const ref = '3L11-5'
+
 export const refs = {
   'fr-fr': ['3L11-5'],
   'fr-ch': ['11FA2-5']

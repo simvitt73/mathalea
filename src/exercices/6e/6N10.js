@@ -91,7 +91,7 @@ export const etiquettesNumeration = [
  * Ajout d'une version drag & drop pour la version 'en lettres' par Jean-Claude Lhote
  */
 export const uuid = '0688e'
-export const ref = '6N10'
+
 export const refs = {
   'fr-fr': ['6N10'],
   'fr-ch': ['9NO1-1']

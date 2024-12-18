@@ -21,7 +21,7 @@ export const dateDeModifImportante = '29/10/2021'
  * Ajout AMC : Janvier 2022 par EE
  */
 export const uuid = 'b86b9'
-export const ref = '6N31-4'
+
 export const refs = {
   'fr-fr': ['6N31-4'],
   'fr-ch': ['9NO7-7']

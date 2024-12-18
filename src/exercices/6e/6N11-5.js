@@ -18,7 +18,7 @@ export const interactifType = 'qcm'
  * Mise en interactif par Jean-Claude Lhote
  */
 export const uuid = 'a7aa7'
-export const ref = '6N11-5'
+
 export const refs = {
   'fr-fr': ['6N11-5'],
   'fr-ch': ['9NO2-5']

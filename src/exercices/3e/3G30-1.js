@@ -32,7 +32,7 @@ export const dateDeModifImportante = '21/08/2024'
  * Rendu interactif et AMC par EE (Mars 2022)
  */
 export const uuid = '0d1f7'
-export const ref = '3G30-1'
+
 export const refs = {
   'fr-fr': ['3G30-1'],
   'fr-ch': []

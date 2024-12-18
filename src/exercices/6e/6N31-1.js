@@ -13,7 +13,7 @@ export const titre = 'Encadrer un décimal par deux entiers consécutifs'
  * @author Sébastien Lozano
  */
 export const uuid = '3e083'
-export const ref = '6N31-1'
+
 export const refs = {
   'fr-fr': ['6N31-1'],
   'fr-ch': ['9NO7-5']

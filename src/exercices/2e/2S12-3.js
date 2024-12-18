@@ -24,7 +24,7 @@ export const dateDePublication = '16/01/2022'
  * 2S12-3
  */
 export const uuid = '509db'
-export const ref = '2S12-3'
+
 export const refs = {
   'fr-fr': ['2S12-3'],
   'fr-ch': []

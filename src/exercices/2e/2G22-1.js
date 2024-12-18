@@ -34,7 +34,7 @@ export const dateDeModifImportante = '06/08/2024'
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote, rendu interactif par Eric Elter
  */
 export const uuid = '3a3ec'
-export const ref = '2G22-1'
+
 export const refs = {
   'fr-fr': ['2G22-1'],
   'fr-ch': []

@@ -11,7 +11,7 @@ export const interactifReady = true
  * @author Sébastien LOZANO
  */
 export const uuid = '6575c'
-export const ref = '2N30-5'
+
 export const refs = {
   'fr-fr': ['2N30-5'],
   'fr-ch': ['1CN-5']

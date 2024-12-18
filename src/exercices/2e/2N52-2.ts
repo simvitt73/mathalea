@@ -22,7 +22,7 @@ export const dateDeModifImportante = '12/10/2024'
 * 2N52-2, ex 2L11-1
 */
 export const uuid = 'bb6d5'
-export const ref = '2N52-2'
+
 export const refs = {
   'fr-fr': ['2N52-2'],
   'fr-ch': ['11FA10-6']

@@ -27,7 +27,7 @@ export const dateDeModifImportante = '12/04/2023' // Ajout de trois paramètres 
  * @author Rémi Angot
  */
 export const uuid = 'd1513'
-export const ref = '6M11-1'
+
 export const refs = {
   'fr-fr': ['6M11-1'],
   'fr-ch': ['9GM1-4']

@@ -35,7 +35,7 @@ export const dateDeModifImportante = '05/09/2024'
  * Trois formes sont demandées : décimale, fraction décimale, décomposition partie entière + partie décimale fractionnaire.
  */
 export const uuid = '12773'
-export const ref = '6N23-2'
+
 export const refs = {
   'fr-fr': ['6N23-2'],
   'fr-ch': ['9NO11-7']

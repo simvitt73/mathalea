@@ -32,7 +32,7 @@ export const dateDeModifImportante = '09/05/2023'
  * Publié le 03/05/2022
  */
 export const uuid = '329fe'
-export const ref = '6G23-5'
+
 export const refs = {
   'fr-fr': ['6G23-5'],
   'fr-ch': ['9ES5-8']

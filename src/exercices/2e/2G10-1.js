@@ -9,7 +9,7 @@ export const amcType = 'AMCHybride'
  * @author Sébastien LOZANO
  */
 export const uuid = '430b9'
-export const ref = '2G10-1'
+
 export const refs = {
   'fr-fr': ['2G10-1'],
   'fr-ch': []

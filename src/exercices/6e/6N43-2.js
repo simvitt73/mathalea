@@ -19,7 +19,7 @@ export const titre = 'Utiliser les critères de divisibilité (plusieurs possibl
  * 6N43-2
  */
 export const uuid = 'fa2eb'
-export const ref = '6N43-2'
+
 export const refs = {
   'fr-fr': ['6N43-2'],
   'fr-ch': ['9NO4-5']

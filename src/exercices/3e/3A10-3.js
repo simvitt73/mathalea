@@ -23,7 +23,7 @@ export const titre = 'Décomposer un entier en produit de facteurs premiers'
  * @author Sébastien Lozano (Rajout par EE du this.sup2 et de l'AMC)
  */
 export const uuid = '32f33'
-export const ref = '3A10-3'
+
 export const refs = {
   'fr-fr': ['3A10-3'],
   'fr-ch': ['9NO4-17', '1CN-2']

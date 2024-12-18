@@ -8,7 +8,7 @@ import { consecutiveCompare, fonctionComparaison } from '../../lib/interactif/co
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
-export const ref = '6N20-3'
+
 export const refs = {
   'fr-fr': ['6N20-3'],
   'fr-ch': ['9NO11-3']

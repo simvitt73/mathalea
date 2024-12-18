@@ -12,7 +12,7 @@ export const titre = 'Lecture graphique du signe d\'une fonction affine'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'e39b8'
-export const ref = '200F3-01'
+
 export const refs = {
   'fr-fr': ['200F3-01'],
   'fr-ch': []

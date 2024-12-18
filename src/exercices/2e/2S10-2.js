@@ -31,7 +31,7 @@ export const dateDeModifImportante = '28/04/2023' // ajout du cas entreprise
  * ajout du cas entreprise par Gilles Mora
  */
 export const uuid = '612a5'
-export const ref = '2S10-2'
+
 export const refs = {
   'fr-fr': ['2S10-2'],
   'fr-ch': ['9NO14-8']

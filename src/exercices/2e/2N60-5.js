@@ -25,7 +25,7 @@ export const amcType = 'qcmMono'
 * 2N60-5
 */
 export const uuid = '2844c'
-export const ref = '2N60-5'
+
 export const refs = {
   'fr-fr': ['2N60-5'],
   'fr-ch': []

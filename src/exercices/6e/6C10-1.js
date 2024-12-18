@@ -13,7 +13,7 @@ export const dateDeModifImportante = '27/08/2024'
  * @author Rémi Angot (ES6 : Loïc Geeraerts)
  */
 export const uuid = '0e6bd'
-export const ref = '6C10-1'
+
 export const refs = {
   'fr-fr': ['6C10-1'],
   'fr-ch': ['9NO3-8']

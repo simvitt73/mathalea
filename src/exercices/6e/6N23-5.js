@@ -25,7 +25,7 @@ export const titre = 'Donner une écriture fractionnaire'
  * Publié le 10/03/2021
  */
 export const uuid = '4d0dd'
-export const ref = '6N23-5'
+
 export const refs = {
   'fr-fr': ['6N23-5'],
   'fr-ch': ['9NO10-4']

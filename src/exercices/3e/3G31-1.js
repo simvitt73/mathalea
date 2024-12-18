@@ -30,7 +30,7 @@ export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complex
  * @author Rémi Angot
  */
 export const uuid = '35e0b'
-export const ref = '3G31-1'
+
 export const refs = {
   'fr-fr': ['3G31-1'],
   'fr-ch': []

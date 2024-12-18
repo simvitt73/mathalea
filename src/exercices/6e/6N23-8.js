@@ -21,7 +21,7 @@ export const dateDePublication = '28/09/22'
  * Le numérateur est de la forme X, XX, X0X, X00X ou XXX
  * @author Mickael Guironet
  */
-export const ref = '6N23-8'
+
 export const refs = {
   'fr-fr': ['6N23-8'],
   'fr-ch': ['9NO10-10']

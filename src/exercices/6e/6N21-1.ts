@@ -22,7 +22,7 @@ export const amcType = 'AMCHybride'
  * @author Eric Elter // (sur la base de 6N21)
  */
 export const uuid = '778c0'
-export const ref = '6N21-1'
+
 export const refs = {
   'fr-fr': ['6N21-1'],
   'fr-ch': ['9NO11-5']

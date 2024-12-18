@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '27/06/2024' // suppression de coquilles, nettoyage du code et interactivité. Jean-Claude Lhote
 export const uuid = '843e5'
-export const ref = '6N31-2'
+
 export const refs = {
   'fr-fr': ['6N31-2'],
   'fr-ch': ['9NO8-12']

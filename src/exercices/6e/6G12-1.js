@@ -27,7 +27,7 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  */
 
 export const uuid = 'd14bc'
-export const ref = '6G12-1'
+
 export const refs = {
   'fr-fr': ['6G12-1'],
   'fr-ch': ['9ES3-4']

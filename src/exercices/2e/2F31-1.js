@@ -20,7 +20,7 @@ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   return a < 0 ? `(${result})` : result
 }
 export const uuid = '1803c'
-export const ref = '2F31-1'
+
 export const refs = {
   'fr-fr': ['2F31-1'],
   'fr-ch': []

@@ -17,7 +17,6 @@ export const amcType = 'AMCNum'
 export const dateDeModifImportante = '5/11/2023'
 export const uuid = '731f0'
 
-export const ref = '1AL20-10'
 export const refs = {
   'fr-fr': ['1AL20-10'],
   'fr-ch': ['11FA10-8']

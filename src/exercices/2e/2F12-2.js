@@ -22,7 +22,7 @@ export const dateDePublication = '14/02/2023'
  * Référence
  */
 export const uuid = '277d3'
-export const ref = '2F12-2'
+
 export const refs = {
   'fr-fr': ['2F12-2'],
   'fr-ch': []

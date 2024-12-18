@@ -26,7 +26,7 @@ export const dateDeModifImportante = '04/05/2023'
  */
 
 export const uuid = '018f3'
-export const ref = '2S12-2'
+
 export const refs = {
   'fr-fr': ['2S12-2'],
   'fr-ch': []

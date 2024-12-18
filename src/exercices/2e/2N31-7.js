@@ -18,7 +18,7 @@ export const interactifReady = true
  * @author Jean-Claude Lhote (adapté par Eric Elter)
  */
 export const uuid = 'f49ff'
-export const ref = '2N31-7'
+
 export const refs = {
   'fr-fr': ['2N31-7'],
   'fr-ch': ['10NO2-15']

@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const titre = 'Calcul mental et calcul littéral'
 
 export const uuid = '74c5a'
-export const ref = '2N40-6'
+
 export const refs = {
   'fr-fr': ['2N40-6'],
   'fr-ch': []

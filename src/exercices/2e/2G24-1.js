@@ -25,7 +25,7 @@ export const dateDeModifImportante = '30/06/2023'
  * @author Stéphane Guyon & Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = 'f71c1'
-export const ref = '2G24-1'
+
 export const refs = {
   'fr-fr': ['2G24-1'],
   'fr-ch': []

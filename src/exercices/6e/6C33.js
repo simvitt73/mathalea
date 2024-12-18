@@ -56,7 +56,7 @@ export const dateDeModifImportante = '20/06/2024' // Ajout de l'équilibre entre
  * Référence 6C33
  */
 export const uuid = '4c10a'
-export const ref = '6C33'
+
 export const refs = {
   'fr-fr': ['6C33'],
   'fr-ch': []

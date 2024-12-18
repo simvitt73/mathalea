@@ -17,7 +17,7 @@ export const titre = 'Produire une formule à partir d\'un tableau'
  */
 
 export const uuid = '7aba6'
-export const ref = '5L10-4'
+
 export const refs = {
   'fr-fr': ['5L10-4'],
   'fr-ch': ['10FA1-9']

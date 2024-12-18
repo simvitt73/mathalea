@@ -20,7 +20,7 @@ export const titre = 'Reconnaître un quadrilatère particulier à partir de ses
  * @author Rémi Angot
 */
 export const uuid = '4e52e'
-export const ref = '6G33'
+
 export const refs = {
   'fr-fr': ['6G33'],
   'fr-ch': ['9ES4-6']

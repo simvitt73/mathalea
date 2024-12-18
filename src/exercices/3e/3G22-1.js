@@ -20,7 +20,7 @@ export const dateDeModifImportante = '02/04/2023' // Une date de modification im
  * Référence 3G22-1
  */
 export const uuid = 'a0ad1'
-export const ref = '3G22-1'
+
 export const refs = {
   'fr-fr': ['3G22-1'],
   'fr-ch': []

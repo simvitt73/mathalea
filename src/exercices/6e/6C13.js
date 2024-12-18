@@ -22,7 +22,7 @@ export const interactifType = ['qcm', 'mathLive']
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'ed0ea'
-export const ref = '6C13'
+
 export const refs = {
   'fr-fr': ['6C13'],
   'fr-ch': ['9FA2-1']

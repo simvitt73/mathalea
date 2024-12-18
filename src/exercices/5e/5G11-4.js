@@ -12,7 +12,7 @@ export const dateDeModifImportante = '28/12/2022'
  * @author Jean-Claude Lhote
  */
 export const uuid = '08f60'
-export const ref = '5G11-4'
+
 export const refs = {
   'fr-fr': ['5G11-4'],
   'fr-ch': ['9ES6-9']

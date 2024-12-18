@@ -24,7 +24,7 @@ export const amcType = 'AMCHybride'
  * Rendre l'exercice interactif Laurence Candille
  */
 export const uuid = '6b3e4'
-export const ref = '6D101'
+
 export const refs = {
   'fr-fr': ['6D101'],
   'fr-ch': ['10GM3-2']

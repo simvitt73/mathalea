@@ -14,7 +14,7 @@ export const dateDeModifImportante = '15/11/2023'
  * @author Stéphane Guyon et Gilles Mora (interactif + modif correction)
  */
 export const uuid = '55cc0'
-export const ref = '2N32-1'
+
 export const refs = {
   'fr-fr': ['2N32-1'],
   'fr-ch': ['11NO1-4', '1CN-6']

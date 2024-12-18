@@ -19,7 +19,7 @@ export const dateDeModifImportante = '12/07/2023'
  * @author Gilles Mora, Louis Paternault
  */
 export const uuid = '1ca05'
-export const ref = '2F31-2'
+
 export const refs = {
   'fr-fr': ['2F31-2'],
   'fr-ch': []

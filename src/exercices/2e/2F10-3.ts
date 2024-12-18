@@ -26,7 +26,7 @@ export const interactifType = 'custom'
 * 2F10-3
 */
 export const uuid = 'c360e'
-export const ref = '2F10-3'
+
 export const refs = {
   'fr-fr': ['2F10-3'],
   'fr-ch': ['10FA5-15']

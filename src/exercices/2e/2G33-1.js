@@ -11,7 +11,7 @@ export const titre = 'Déterminer si trois points sont alignés'
  * Référence 2G33-1
 */
 export const uuid = 'b1777'
-export const ref = '2G33-1'
+
 export const refs = {
   'fr-fr': ['2G33-1'],
   'fr-ch': ['11FA9-8', '1F2-7']

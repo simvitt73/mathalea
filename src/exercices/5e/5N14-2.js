@@ -18,7 +18,7 @@ export const dateDeModifImportante = '02/03/2024'
 * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
 */
 export const uuid = 'ce9ca'
-export const ref = '5N14-2'
+
 export const refs = {
   'fr-fr': ['5N14-2'],
   'fr-ch': ['9NO12-6']

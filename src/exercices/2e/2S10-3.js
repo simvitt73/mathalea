@@ -12,7 +12,7 @@ export const dateDePublication = '10/05/2023'
  * @author Stéphane Guyon cloné par Gilles Mora
  */
 export const uuid = '0f1d1'
-export const ref = '2S10-3'
+
 export const refs = {
   'fr-fr': ['2S10-3'],
   'fr-ch': []

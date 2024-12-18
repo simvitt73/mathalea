@@ -21,7 +21,7 @@ export const dateDeModifImportante = '10/06/2024'
  * @author Jean-Claude Lhote  (Amélioration AMC par Eric Elter)
  */
 export const uuid = '4197c'
-export const ref = '3L11-1'
+
 export const refs = {
   'fr-fr': ['3L11-1'],
   'fr-ch': ['11FA2-3']

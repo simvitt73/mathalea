@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '37267'
-export const ref = '6C11-1'
+
 export const refs = {
   'fr-fr': ['6C11-1'],
   'fr-ch': ['9NO3-5']

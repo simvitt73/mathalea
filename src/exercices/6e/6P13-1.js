@@ -12,7 +12,7 @@ export const titre = 'Remplir une facture'
  * publié le
 */
 export const uuid = '837cd'
-export const ref = '6P13-1'
+
 export const refs = {
   'fr-fr': ['6P13-1'],
   'fr-ch': ['9FA3-14']

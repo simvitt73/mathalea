@@ -25,7 +25,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '13/04/2023'
 export const dateDeModifImportante = '16/05/2024'
-export const ref = '3F20'
+
 export const refs = {
   'fr-fr': ['3F20'],
   'fr-ch': ['10FA5-12', '11FA8-6']

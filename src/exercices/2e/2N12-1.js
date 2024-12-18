@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
  */
 export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 export const uuid = 'd309b'
-export const ref = '2N12-1'
+
 export const refs = {
   'fr-fr': ['2N12-1'],
   'fr-ch': ['9NO11-9']

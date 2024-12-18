@@ -10,7 +10,7 @@ export const dateDeModifImportante = '21/05/2023'
  * @constructor
  */
 export const uuid = 'c1961'
-export const ref = '2F10-8'
+
 export const refs = {
   'fr-fr': ['2F10-8'],
   'fr-ch': []

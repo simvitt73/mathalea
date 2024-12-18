@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
  * @author Sébastien LOZANO
  */
 export const uuid = 'cb572'
-export const ref = '2N30-4'
+
 export const refs = {
   'fr-fr': ['2N30-4'],
   'fr-ch': []

@@ -18,7 +18,7 @@ export const titre = 'Étudier graphiquement la parité d\'une fonction'
 * 2F20
 */
 export const uuid = '6e82d'
-export const ref = '2F25-1'
+
 export const refs = {
   'fr-fr': ['2F25-1'],
   'fr-ch': []

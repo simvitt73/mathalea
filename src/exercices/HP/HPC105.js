@@ -16,7 +16,7 @@ export const dateDePublication = '26/11/2024' // La date de publication initiale
  * @author Maxime Nguyen
  */
 export const uuid = 'de526'
-export const ref = 'HPC105'
+
 export const refs = {
   'fr-fr': ['HPC105'],
   'fr-ch': []

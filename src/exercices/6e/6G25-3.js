@@ -31,7 +31,7 @@ export const dateDePublication = '14/12/2020'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '328b1'
-export const ref = '6G25-3'
+
 export const refs = {
   'fr-fr': ['6G25-3'],
   'fr-ch': ['9ES6-20']

@@ -19,7 +19,7 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
 */
 export const uuid = 'af2c2'
-export const ref = '5G40-1'
+
 export const refs = {
   'fr-fr': ['5G40-1'],
   'fr-ch': ['9ES2-1']

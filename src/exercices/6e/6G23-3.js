@@ -23,7 +23,7 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
  * @author Mickael Guironnet - Rémi Angot
  */
 export const uuid = '73630'
-export const ref = '6G23-3'
+
 export const refs = {
   'fr-fr': ['6G23-3'],
   'fr-ch': ['9ES5-6']

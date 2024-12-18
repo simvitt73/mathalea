@@ -10,7 +10,7 @@ export const dateDePublication = '17/12/2022'
  * @author Mickael Guironnet
  */
 export const uuid = 'f4fdd'
-export const ref = '6G21-2'
+
 export const refs = {
   'fr-fr': ['6G21-2'],
   'fr-ch': ['9ES4-9']

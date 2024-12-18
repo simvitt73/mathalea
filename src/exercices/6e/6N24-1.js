@@ -14,7 +14,7 @@ export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 00
  * 6N24-1
  */
 export const uuid = 'ec005'
-export const ref = '6N24-1'
+
 export const refs = {
   'fr-fr': ['6N24-1'],
   'fr-ch': ['9NO10-5']

@@ -28,7 +28,7 @@ export const titre = 'Résoudre une inéquation quotient'
  * @author Guillaume Valmont
  */
 export const uuid = '0716b'
-export const ref = '2N61-4'
+
 export const refs = {
   'fr-fr': ['2N61-4'],
   'fr-ch': []

@@ -34,7 +34,7 @@ export const dateDeModifImportante = '31/03/2023'
  * - Ajout d'un paramètre Mélange
  */
 export const uuid = 'e5ddd'
-export const ref = '3F21-1'
+
 export const refs = {
   'fr-fr': ['3F21-1'],
   'fr-ch': ['11FA8-10']

@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * @author Sébastien LOZANO
  */
 export const uuid = '4bc38'
-export const ref = '2S20-2'
+
 export const refs = {
   'fr-fr': ['2S20-2'],
   'fr-ch': []

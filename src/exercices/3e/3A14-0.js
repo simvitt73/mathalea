@@ -21,7 +21,7 @@ export const titre = 'Arithmétique & volumes'
  * Référence dnb06_2022_5
  */
 export const uuid = '2e22a'
-export const ref = '3A14-0'
+
 export const refs = {
   'fr-fr': ['3A14-0'],
   'fr-ch': ['11GM2-2']

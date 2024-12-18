@@ -20,7 +20,7 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 * @author Rémi Angot
 */
 export const uuid = 'eea67'
-export const ref = '3G20-1'
+
 export const refs = {
   'fr-fr': ['3G20-1'],
   'fr-ch': ['11GM3-8']

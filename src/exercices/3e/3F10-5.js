@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * @author Eric Elter
  */
 export const uuid = 'c9382'
-export const ref = '3F10-5'
+
 export const refs = {
   'fr-fr': ['3F10-5'],
   'fr-ch': ['1F1-7']

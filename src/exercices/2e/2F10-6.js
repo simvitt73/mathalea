@@ -18,7 +18,7 @@ export const dateDeModifImportante = '18/05/2023'
  * @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
  */
 export const uuid = 'b72b0'
-export const ref = '2F10-6'
+
 export const refs = {
   'fr-fr': ['2F10-6'],
   'fr-ch': []

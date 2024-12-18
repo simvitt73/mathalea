@@ -16,7 +16,7 @@ export const titre = 'Résoudre une équation avec des valeurs absolues'
  * @author Stéphane Guyon
  */
 export const uuid = 'e471c'
-export const ref = '2N15-2'
+
 export const refs = {
   'fr-fr': ['2N15-2'],
   'fr-ch': []

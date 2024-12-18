@@ -21,7 +21,7 @@ export const dateDePublication = '05/02/2023'
  * @author Guillaume Valmont // d'après 6I10 de Erwan Duplessy
  */
 export const uuid = '594eb'
-export const ref = '6I10-1'
+
 export const refs = {
   'fr-fr': ['6I10-1'],
   'fr-ch': []

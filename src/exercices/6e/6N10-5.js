@@ -21,7 +21,7 @@ export const dateDeModifImportante = '29/10/2024'
  * Ajout AMC et remaniement du code pour moins d'évidence dans la solution : Janvier 2022 par EE
  */
 export const uuid = '80645'
-export const ref = '6N10-5'
+
 export const refs = {
   'fr-fr': ['6N10-5'],
   'fr-ch': ['9NO1-6']

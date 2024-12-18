@@ -26,7 +26,7 @@ export const titre = 'Parcourir un labyrinthe de fractions égales'
  * Parcourir un labyrinthe de fractions en passant par des fractions égales.
  */
 export const uuid = 'f8a4d'
-export const ref = '6N41-1'
+
 export const refs = {
   'fr-fr': ['6N41-1'],
   'fr-ch': ['9NO12-2']

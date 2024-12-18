@@ -17,7 +17,7 @@ export const dateDePublication = '28/12/2022'
  * @author Rémi Angot
 */
 export const uuid = '8ed19'
-export const ref = '1AL11-8'
+
 export const refs = {
   'fr-fr': ['1AL11-8'],
   'fr-ch': []

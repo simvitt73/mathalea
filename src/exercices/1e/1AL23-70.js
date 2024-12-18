@@ -25,7 +25,7 @@ export const titre = 'Déterminer une équation de parabole'
  * 3) connaissant les deux racines et un autre point de passage à coordonnées entières
  */
 export const uuid = '392b3'
-export const ref = '1AL23-7'
+
 export const refs = {
   'fr-fr': ['1AL23-7'],
   'fr-ch': ['1F3-6']

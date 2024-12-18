@@ -23,7 +23,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '08/09/2024'
 export const uuid = 'a2ac2'
-export const ref = '2F22-1'
+
 export const refs = {
   'fr-fr': ['2F22-1'],
   'fr-ch': ['10FA5-17']

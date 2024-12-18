@@ -22,7 +22,7 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (QCM)'
  * Relecture : Décembre 2021 par EE
  */
 export const uuid = '021f3'
-export const ref = '6C30-5'
+
 export const refs = {
   'fr-fr': ['6C30-5'],
   'fr-ch': ['9NO8-4']

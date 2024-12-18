@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
  * @author Gilles Mora
 */
 export const uuid = '12afc'
-export const ref = '1AL11-7'
+
 export const refs = {
   'fr-fr': ['1AL11-7'],
   'fr-ch': []

@@ -20,7 +20,7 @@ export const dateDeModifImportante = '06/02/2024'
  * @author Rémi Angot (Amélioration AMC par Eric Elter)
  */
 export const uuid = 'f6853'
-export const ref = '3L11-2'
+
 export const refs = {
   'fr-fr': ['3L11-2'],
   'fr-ch': ['10FA1-13']

@@ -29,7 +29,7 @@ export const dateDeModifImportante = '20/02/2023'
  * @author Rémi Angot
  */
 export const uuid = 'afb2f'
-export const ref = '3F12-3'
+
 export const refs = {
   'fr-fr': ['3F12-3'],
   'fr-ch': ['10FA5-11', '11FA8-5', '1F1-11']

@@ -22,7 +22,7 @@ export const amcType = 'qcmMono'
  * Référence 3A10-1
  */
 export const uuid = 'bba55'
-export const ref = '3A10-1'
+
 export const refs = {
   'fr-fr': ['3A10-1'],
   'fr-ch': ['9NO4-9']

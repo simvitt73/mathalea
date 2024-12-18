@@ -39,7 +39,7 @@ export const dateDePublication = '05/03/2022'
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
  */
 export const uuid = '2045e'
-export const ref = '3G32-0'
+
 export const refs = {
   'fr-fr': ['3G32-0'],
   'fr-ch': []

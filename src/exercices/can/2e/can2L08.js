@@ -25,7 +25,6 @@ export default function ResoudreEquationAvecQuotient () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
 
-    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(-10, 10, 0)

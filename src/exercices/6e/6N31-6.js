@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
  * * 6N31-6
  * @author Mickael Guironnet
  */
-export const ref = '6N31-6'
+
 export const refs = {
   'fr-fr': ['6N31-6'],
   'fr-ch': ['9NO7-9']

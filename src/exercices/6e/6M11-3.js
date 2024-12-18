@@ -31,7 +31,7 @@ export const dateDePublication = '27/11/2022'
  * Référence 6M11-3
  */
 export const uuid = '5563e'
-export const ref = '6M11-3'
+
 export const refs = {
   'fr-fr': ['6M11-3'],
   'fr-ch': ['9GM1-1']

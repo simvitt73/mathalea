@@ -18,7 +18,7 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul'
 * 2N52-4 (ex 2L12-2)
 */
 export const uuid = '93432'
-export const ref = '2N52-4'
+
 export const refs = {
   'fr-fr': ['2N52-4'],
   'fr-ch': ['11FA10-3']

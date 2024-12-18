@@ -10,7 +10,7 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote   (Ajout AMC par Eric Elter)
  */
 export const uuid = 'adfb5'
-export const ref = '6G24-2'
+
 export const refs = {
   'fr-fr': ['6G24-2'],
   'fr-ch': ['9ES6-13']

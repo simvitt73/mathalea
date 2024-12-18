@@ -16,7 +16,7 @@ export const dateDeModifImportante = '22/09/2024'
  * @author Gilles Mora (Gaelle Morvan)
  */
 export const uuid = 'f0c2d'
-export const ref = '1AL10-3'
+
 export const refs = {
   'fr-fr': ['1AL10-3'],
   'fr-ch': []

@@ -23,7 +23,7 @@ export const dateDeModifImportante = '25/09/2024'
  * Problème à partir de https://twitter.com/blatherwick_sam/status/1497292774621822979
  */
 export const uuid = 'cd2f2'
-export const ref = '3L13-4'
+
 export const refs = {
   'fr-fr': ['3L13-4'],
   'fr-ch': ['11FA6-9']

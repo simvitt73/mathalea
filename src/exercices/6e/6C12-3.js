@@ -25,7 +25,7 @@ export const dateDeModifImportante = '28/03/2024'
  * @author Eric Elter
  */
 export const uuid = '7fb24'
-export const ref = '6C12-3'
+
 export const refs = {
   'fr-fr': ['6C12-3'],
   'fr-ch': ['9NO16-2']

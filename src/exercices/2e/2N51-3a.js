@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const uuid = '7959f'
-export const ref = '2N51-3a'
+
 export const refs = {
   'fr-fr': ['2N51-3a'],
   'fr-ch': []

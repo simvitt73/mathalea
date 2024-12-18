@@ -79,7 +79,7 @@ function syracuse ({ N = '1' }) {
 }
 
 export const uuid = '9ff49'
-export const ref = '3I1-1'
+
 export const refs = {
   'fr-fr': ['3I1-1'],
   'fr-ch': []

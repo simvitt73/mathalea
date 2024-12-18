@@ -19,7 +19,7 @@ export const dateDeModifImportante = '11/10/2024'
  * @author Gaelle Morvan et Gilles Mora pour MAJ (interactif, nouveau cas)
  */
 export const uuid = 'b8c14'
-export const ref = '1AL10-4'
+
 export const refs = {
   'fr-fr': ['1AL10-4'],
   'fr-ch': []

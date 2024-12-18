@@ -19,7 +19,7 @@ export const dateDePublication = '12/06/2023'
  * @author Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '222f6'
-export const ref = '2G24-5'
+
 export const refs = {
   'fr-fr': ['2G24-5'],
   'fr-ch': []

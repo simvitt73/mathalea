@@ -23,7 +23,7 @@ export const titre = 'Estimer un angle sans rapporteur sur l\'énoncé'
  * @author Jean-Claude Lhote
  */
 export const uuid = 'c7f7a'
-export const ref = '6G23-1'
+
 export const refs = {
   'fr-fr': ['6G23-1'],
   'fr-ch': ['9ES5-4']

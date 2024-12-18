@@ -25,7 +25,7 @@ export const titre = 'Étudier la position relative de deux courbes'
  * 2N60-6
  */
 export const uuid = '53e8f'
-export const ref = '2N60-6'
+
 export const refs = {
   'fr-fr': ['2N60-6'],
   'fr-ch': []

@@ -37,7 +37,7 @@ export const amcType = 'qcmMono'
  * @author Mickael Guironnet (Adapté par Eric Elter pour que les nouvelles fonctions 3d soient bien utilisées)
  * Créé le 24/09/2022
  */
-export const ref = '6G44-1'
+
 export const refs = {
   'fr-fr': ['6G44-1'],
   'fr-ch': ['9ES7-8', '10ES1-1', '11ES1-1']

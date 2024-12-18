@@ -22,7 +22,7 @@ export const dateDePublication = '9/3/2024'
  * @author Guillaume Valmont à partir de 6G44 de Jean-Claude Lhote
  */
 export const uuid = '083b9'
-export const ref = '6G44-2'
+
 export const refs = {
   'fr-fr': ['6G44-2'],
   'fr-ch': []

@@ -22,7 +22,7 @@ export const dateDePublication = '25/01/2024'
  * @author Jean-Claude Lhote à partir de 6N21-1 de Mickaël Guironnet
  */
 export const uuid = '442f4'
-export const ref = '6N21-2'
+
 export const refs = {
   'fr-fr': ['6N21-2'],
   'fr-ch': ['9NO11-6']

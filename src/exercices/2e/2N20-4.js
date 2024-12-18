@@ -12,7 +12,7 @@ export const amcType = 'qcmMono'
  */
 
 export const uuid = 'c04cc'
-export const ref = '2N20-4'
+
 export const refs = {
   'fr-fr': ['2N20-4'],
   'fr-ch': []

@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon  + Jean-Claude Lhote (interactif) + Gilles Mora
 */
 export const uuid = '0ec77'
-export const ref = '2G30-4'
+
 export const refs = {
   'fr-fr': ['2G30-4'],
   'fr-ch': ['1F2-4']

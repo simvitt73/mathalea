@@ -15,7 +15,7 @@ export const dateDePublication = '19/04/2024'
  * @author Eric Elter
  */
 export const uuid = '9c78f'
-export const ref = '6P12-1'
+
 export const refs = {
   'fr-fr': ['6P12-1'],
   'fr-ch': []

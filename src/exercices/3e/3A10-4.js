@@ -19,7 +19,7 @@ export const titre = 'Compter et lister les diviseurs d\'un entier à partir de 
  * Référence 3A10-4
  */
 export const uuid = '4117b'
-export const ref = '3A10-4'
+
 export const refs = {
   'fr-fr': ['3A10-4'],
   'fr-ch': ['9NO4-8']

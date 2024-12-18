@@ -15,7 +15,7 @@ export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
  */
 
 export const uuid = '7781a'
-export const ref = '6N22-1'
+
 export const refs = {
   'fr-fr': ['6N22-1'],
   'fr-ch': ['9NO10-6']

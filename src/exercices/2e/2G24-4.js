@@ -23,7 +23,7 @@ export const dateDeModifImportante = '14/06/2023'
  * @author Stéphan Grignon & Jean-Claude Lhote Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '68693'
-export const ref = '2G24-4'
+
 export const refs = {
   'fr-fr': ['2G24-4'],
   'fr-ch': []

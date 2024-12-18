@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon
  */
 export const uuid = '660de'
-export const ref = '2N32-5'
+
 export const refs = {
   'fr-fr': ['2N32-5'],
   'fr-ch': ['11NO1-8', '1CN-10']

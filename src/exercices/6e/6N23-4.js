@@ -29,7 +29,7 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  * Ajout de paramètres, Interactivité et AMC : Janvier 2022 par EE
  */
 export const uuid = 'e8e24'
-export const ref = '6N23-4'
+
 export const refs = {
   'fr-fr': ['6N23-4'],
   'fr-ch': ['9NO10-3']

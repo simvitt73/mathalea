@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
  * @author Eric Elter // Sur la base d'autres labyrinthes déjà créés
  */
 export const uuid = '9552d'
-export const ref = '3A10-7'
+
 export const refs = {
   'fr-fr': ['3A10-7'],
   'fr-ch': ['9NO4-15']

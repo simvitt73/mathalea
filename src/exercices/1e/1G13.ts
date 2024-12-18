@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
  * @author Gilles Mora+Jean Claude Lhote interactif
  */
 export const uuid = '816d5'
-export const ref = '1G13'
+
 export const refs = {
   'fr-fr': ['1G13'],
   'fr-ch': []

@@ -36,7 +36,7 @@ export const titre = "Donner l'égalité fondamentale issue d'une division eucli
  * @author Rémi Angot
  */
 export const uuid = '731f5'
-export const ref = '6C11b'
+
 export const refs = {
   'fr-fr': ['6C11b'],
   'fr-ch': ['']

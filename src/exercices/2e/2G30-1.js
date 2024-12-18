@@ -24,7 +24,7 @@ export const amcType = 'AMCHybride'
  * @author Stéphane Guyon
  */
 export const uuid = '1ea16'
-export const ref = '2G30-1'
+
 export const refs = {
   'fr-fr': ['2G30-1'],
   'fr-ch': ['11FA9-9', '1F2-1']

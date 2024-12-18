@@ -31,7 +31,7 @@ export const dateDeModifImportante = '20/11/2023'
  * @author Rémi Angot (AMC par EE)
  */
 export const uuid = 'f9a02'
-export const ref = '6M22-1'
+
 export const refs = {
   'fr-fr': ['6M22-1'],
   'fr-ch': ['10GM1-2']

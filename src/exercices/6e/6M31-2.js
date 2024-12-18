@@ -32,7 +32,7 @@ export const dateDeModifImportante = '05/06/2023'
  * Référence 6M31-2
  */
 export const uuid = 'f4d29'
-export const ref = '6M31-2'
+
 export const refs = {
   'fr-fr': ['6M31-2'],
   'fr-ch': ['10GM3-6']

@@ -36,7 +36,7 @@ export const dateDePublication = '27/09/2022'
  * @author Jean-Claude Lhote
  */
 export const uuid = '2ecd9'
-export const ref = '3I10-1'
+
 export const refs = {
   'fr-fr': ['3I10-1'],
   'fr-ch': []

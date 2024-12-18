@@ -14,7 +14,7 @@ export const titre = 'Résoudre une équation du premier degré à solutions ent
  * @author Rémi Angot
  */
 export const uuid = '5a02b'
-export const ref = '3L13-0'
+
 export const refs = {
   'fr-fr': ['3L13-0'],
   'fr-ch': []

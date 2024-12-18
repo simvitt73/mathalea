@@ -20,7 +20,7 @@ export const titre = 'Déterminer la forme canonique d\'un polynôme du second d
  * @author Stéphane Guyon
  */
 export const uuid = '60504'
-export const ref = '1AL23-1'
+
 export const refs = {
   'fr-fr': ['1AL23-1'],
   'fr-ch': ['1F3-2']

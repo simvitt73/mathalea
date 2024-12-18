@@ -20,7 +20,7 @@ export const amcType = 'AMCHybride'
  * * 6N31-5
  * @author Mickael Guironnet (rendu AMC par Eric Elter)
  */
-export const ref = '6N31-5'
+
 export const refs = {
   'fr-fr': ['6N31-5'],
   'fr-ch': ['9NO7-8']

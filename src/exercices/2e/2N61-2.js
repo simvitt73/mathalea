@@ -33,7 +33,7 @@ export const titre = 'Résoudre une inéquation-produit'
  * 17/07/2021
  */
 export const uuid = '014a4'
-export const ref = '2N61-2'
+
 export const refs = {
   'fr-fr': ['2N61-2'],
   'fr-ch': []

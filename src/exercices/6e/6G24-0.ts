@@ -30,7 +30,7 @@ export const interactifReady = true
 export const interactifType = 'custom'
 
 export const uuid = '26ea4'
-export const ref = '6G24-0'
+
 export const refs = {
   'fr-fr': ['6G24-0'],
   'fr-ch': ['9ES6-11']

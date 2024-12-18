@@ -8,7 +8,7 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import { fonctionComparaison, type OptionsComparaisonType } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const uuid = 'e116b'
-export const ref = 'c3N10-2'
+
 export const refs = {
   'fr-fr': ['c3N10-2'],
   'fr-ch': []

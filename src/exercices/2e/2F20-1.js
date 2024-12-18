@@ -22,7 +22,7 @@ export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 * 3F10-1
 */
 export const uuid = '36795'
-export const ref = '2F20-1'
+
 export const refs = {
   'fr-fr': ['2F20-1'],
   'fr-ch': ['11FA9-1']

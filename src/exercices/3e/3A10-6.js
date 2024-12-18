@@ -21,7 +21,6 @@ export const dateDeModifImportante = '30/09/2024'
  * @author Eric Elter
  */
 
-export const ref = '3A10-6'
 export const refs = {
   'fr-fr': ['3A10-6'],
   'fr-ch': ['9NO4-7']

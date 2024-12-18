@@ -21,7 +21,7 @@ export const titre = 'Déterminer le signe d\'une fonction affine'
  * 2F10-3
  */
 export const uuid = '03b71'
-export const ref = '2F10-5'
+
 export const refs = {
   'fr-fr': ['2F10-5'],
   'fr-ch': []

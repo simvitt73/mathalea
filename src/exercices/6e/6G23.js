@@ -21,7 +21,7 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote
  */
 export const uuid = '34e3c'
-export const ref = '6G23'
+
 export const refs = {
   'fr-fr': ['6G23'],
   'fr-ch': ['9ES5-3']

@@ -18,7 +18,7 @@ export const titre = 'Développer $(a+b)^2$'
  * 2N41-4, ex 2L12-2
  */
 export const uuid = '877a9'
-export const ref = '2N41-4'
+
 export const refs = {
   'fr-fr': ['2N41-4'],
   'fr-ch': ['11FA2-10']

@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
  * @author Eric Elter
  */
 export const uuid = '4e68a'
-export const ref = '2S30-1'
+
 export const refs = {
   'fr-fr': ['2S30-1'],
   'fr-ch': []

@@ -22,7 +22,7 @@ export const titre = 'Triangles semblables'
  * Référence 3G24-1
 */
 export const uuid = 'f4b7e'
-export const ref = '3G24-1'
+
 export const refs = {
   'fr-fr': ['3G24-1'],
   'fr-ch': []

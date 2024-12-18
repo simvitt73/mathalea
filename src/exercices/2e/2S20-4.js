@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
  * @author Sébastien LOZANO
  */
 export const uuid = '55d00'
-export const ref = '2S20-4'
+
 export const refs = {
   'fr-fr': ['2S20-4'],
   'fr-ch': []

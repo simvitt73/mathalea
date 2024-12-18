@@ -24,7 +24,7 @@ export const dateDeModifImportante = '14/05/2023' // par EE : Décoquillage et p
  * Référence 6C32-1
  */
 export const uuid = 'e906e'
-export const ref = '6C32-1'
+
 export const refs = {
   'fr-fr': ['6C32-1'],
   'fr-ch': ['9FA3-8']

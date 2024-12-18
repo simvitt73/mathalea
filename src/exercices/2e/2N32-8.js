@@ -11,7 +11,7 @@ export const dateDePublication = '09/05/2023'
  * @author Guillaume Valmont  (Amélioration AMC par Eric Elter) cloné par Gilles Mora
  */
 export const uuid = '99c84'
-export const ref = '2N32-8'
+
 export const refs = {
   'fr-fr': ['2N32-8'],
   'fr-ch': []

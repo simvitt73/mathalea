@@ -23,7 +23,7 @@ export const dateDeModifImportante = '15/10/2023'
  * @author Stéphan Grignon (modifié par EE pour une meilleure visibilité de la correction)
  */
 export const uuid = 'd2b57'
-export const ref = '2G23-1'
+
 export const refs = {
   'fr-fr': ['2G23-1'],
   'fr-ch': []

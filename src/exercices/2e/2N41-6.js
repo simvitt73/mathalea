@@ -19,7 +19,7 @@ export const dateDeModifImportante = '26/04/2023' // Correction par Rémi Angot 
  * 2N41-6, ex 2L10
  */
 export const uuid = '04b0a'
-export const ref = '2N41-6'
+
 export const refs = {
   'fr-fr': ['2N41-6'],
   'fr-ch': ['11FA2-13']

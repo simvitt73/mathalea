@@ -13,7 +13,7 @@ export const titre = 'Déterminer un antécédent par une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'd341f'
-export const ref = '3F22'
+
 export const refs = {
   'fr-fr': ['3F22'],
   'fr-ch': []

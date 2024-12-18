@@ -18,7 +18,7 @@ export const dateDePublication = '06/02/2021'
 * @author Stéphane Guyon & Jean-claude Lhote
 */
 export const uuid = '53762'
-export const ref = '2N52-1'
+
 export const refs = {
   'fr-fr': ['2N52-1'],
   'fr-ch': ['11FA10-2']

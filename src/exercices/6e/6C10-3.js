@@ -18,7 +18,7 @@ export const titre = 'Utiliser tables de multiplication pour effectuer produits 
  * Référence 6C10-3
  */
 export const uuid = 'a5c5a'
-export const ref = '6C10-3'
+
 export const refs = {
   'fr-fr': ['6C10-3'],
   'fr-ch': ['9NO8-7']

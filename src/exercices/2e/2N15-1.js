@@ -9,7 +9,7 @@ export const titre = 'Utiliser la notion de valeur absolue d\'une quantité'
  * @author Stéphane Guyon
  */
 export const uuid = '0d8b3'
-export const ref = '2N15-1'
+
 export const refs = {
   'fr-fr': ['2N15-1'],
   'fr-ch': []

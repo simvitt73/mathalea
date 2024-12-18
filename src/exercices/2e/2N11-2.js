@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon
  */
 export const uuid = 'dc2a5'
-export const ref = '2N11-2'
+
 export const refs = {
   'fr-fr': ['2N11-2'],
   'fr-ch': []

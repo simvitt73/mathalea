@@ -32,7 +32,7 @@ export const interactifReady = true
  * Ajout interactivité : 1/12/2024 par Jean-Claude Lhote
  */
 export const uuid = 'be1e4'
-export const ref = '6N31'
+
 export const refs = {
   'fr-fr': ['6N31'],
   'fr-ch': ['9NO7-4']

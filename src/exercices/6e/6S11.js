@@ -26,7 +26,7 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export const uuid = '99d95'
-export const ref = '6S11'
+
 export const refs = {
   'fr-fr': ['6S11'],
   'fr-ch': ['9FA1-3']

@@ -10,7 +10,7 @@ export const titre = 'Déterminer la parité d\'une expression'
  * @author Stéphane Guyon
  */
 export const uuid = '3ec5c'
-export const ref = '2N20-8'
+
 export const refs = {
   'fr-fr': ['2N20-8'],
   'fr-ch': ['11FA4-2']

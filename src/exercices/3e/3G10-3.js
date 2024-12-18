@@ -20,7 +20,7 @@ export const titre = 'Construire l\'image d\'un point par une rotation avec cibl
  * Publié le 30/11/2020
  */
 export const uuid = '19ce6'
-export const ref = '3G10-3'
+
 export const refs = {
   'fr-fr': ['3G10-3'],
   'fr-ch': ['10ES2-8']

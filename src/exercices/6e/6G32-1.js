@@ -31,7 +31,7 @@ export const dateDeModifImportante = '27/06/2024' // EE : Rajout du paramètre d
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'cd69a'
-export const ref = '6G32-1'
+
 export const refs = {
   'fr-fr': ['6G32-1'],
   'fr-ch': ['9ES6-26']

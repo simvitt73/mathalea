@@ -21,7 +21,7 @@ export const titre = 'Calculer mentalement le pourcentage d\'un nombre'
  * Ajout niveau 2 + 1 correction différente cgrolleau 03/2021
  */
 export const uuid = '66756'
-export const ref = '6N33-1'
+
 export const refs = {
   'fr-fr': ['6N33-1'],
   'fr-ch': ['9NO14-3']

@@ -27,7 +27,7 @@ export const dateDePublication = '30/05/2021'
  * @author MireilleGain
  */
 export const uuid = '65288'
-export const ref = '6P11-2'
+
 export const refs = {
   'fr-fr': ['6P11-2'],
   'fr-ch': ['9FA3-11']

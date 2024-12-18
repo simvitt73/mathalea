@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
  * @author Matthieu Devillers
  */
 export const uuid = '5a4ad'
-export const ref = '2N41-5'
+
 export const refs = {
   'fr-fr': ['2N41-5'],
   'fr-ch': ['11FA2-11']

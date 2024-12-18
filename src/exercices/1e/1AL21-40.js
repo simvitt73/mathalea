@@ -24,7 +24,7 @@ export const titre = 'Factoriser un polynôme du second degré'
  * Référence 1E13
  */
 export const uuid = '334ca'
-export const ref = '1AL21-40'
+
 export const refs = {
   'fr-fr': ['1AL21-40'],
   'fr-ch': ['11FA10-12'] // OK?

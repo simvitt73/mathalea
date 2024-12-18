@@ -34,7 +34,7 @@ export const dateDeModifImportante = '06/05/2024'
  * Ajout de la possibilité de demander un découpage au lieu de calculer des périmètres ou des aires par Guillaume Valmont le 28/10/2023
  */
 export const uuid = '5999f'
-export const ref = '6M11-2'
+
 export const refs = {
   'fr-fr': ['6M11-2'],
   'fr-ch': ['9GM1-8', '10GM1-6']

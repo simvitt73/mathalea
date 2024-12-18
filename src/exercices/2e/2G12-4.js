@@ -19,7 +19,7 @@ export const dateDeModifImportante = '30/11/2023'
  * @author Stéphane Guyon + Gilles Mora
  */
 export const uuid = 'd633a'
-export const ref = '2G12-4'
+
 export const refs = {
   'fr-fr': ['2G12-4'],
   'fr-ch': ['11GM1-7']

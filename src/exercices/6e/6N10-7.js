@@ -45,7 +45,7 @@ function remplaceParZero (chaine, place) {
  * @author Jean-Claude Lhote
  */
 export const uuid = 'f899b'
-export const ref = '6N10-7'
+
 export const refs = {
   'fr-fr': ['6N10-7'],
   'fr-ch': ['9NO1-9']

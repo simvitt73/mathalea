@@ -19,7 +19,7 @@ export const titre = 'Mettre au même dénominateur des expressions littérales'
  * 2N41-8
  */
 export const uuid = '641bc'
-export const ref = '2N41-8'
+
 export const refs = {
   'fr-fr': ['2N41-8'],
   'fr-ch': []

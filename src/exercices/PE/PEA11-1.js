@@ -20,7 +20,7 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 * @author Rémi Angot
 */
 export const uuid = 'a24a6'
-export const ref = 'PEA11-1'
+
 export const refs = {
   'fr-fr': ['PEA11-1'],
   'fr-ch': []

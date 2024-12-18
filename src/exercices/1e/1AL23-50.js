@@ -19,7 +19,7 @@ export const titre = 'Représentation graphique d\'un polynôme du second degré
  * référence 1E12-1
  */
 export const uuid = 'a896e'
-export const ref = '1AL23-50'
+
 export const refs = {
   'fr-fr': ['1AL23-50'],
   'fr-ch': ['1F3-1']

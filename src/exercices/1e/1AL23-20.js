@@ -19,7 +19,7 @@ export const titre = 'Équation du second degré (via forme canonique)'
  * @author Stéphane Guyon
  */
 export const uuid = '89559'
-export const ref = '1AL23-20'
+
 export const refs = {
   'fr-fr': ['1AL23-20'],
   'fr-ch': []

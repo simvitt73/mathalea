@@ -22,7 +22,7 @@ export const amcType = 'AMCHybride'
  * @author Jean-Claude Lhote
  */
 export const uuid = '2a611'
-export const ref = '5G11-6'
+
 export const refs = {
   'fr-fr': ['5G11-6'],
   'fr-ch': ['9ES6-16']

@@ -24,7 +24,7 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  * @author Sébastien Lozano
  */
 export const uuid = '77d18'
-export const ref = '3F1-act'
+
 export const refs = {
   'fr-fr': ['3F1-act'],
   'fr-ch': ['10FA5-3']

@@ -17,7 +17,7 @@ export const dateDeModifImportante = '07/03/2024'
  * Déterminer une équation de tangente en utilisant un nombre dérivé
 */
 export const uuid = '4c8c7'
-export const ref = '1AN11-3'
+
 export const refs = {
   'fr-fr': ['1AN11-3'],
   'fr-ch': []

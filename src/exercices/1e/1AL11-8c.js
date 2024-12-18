@@ -17,7 +17,7 @@ export const dateDePublication = '28/12/2022'
  * Calculer \sum_{k=0}^n u_k, avec n et (u_n) (suite géométrique) données
  * @author Rémi Angot
 */
-export const ref = '1AL11-8c'
+
 export const refs = {
   'fr-fr': ['1AL11-8c'],
   'fr-ch': []

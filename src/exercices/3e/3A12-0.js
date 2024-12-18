@@ -22,7 +22,7 @@ export const dateDeModifImportante = '17/01/2024'
  * Résoudre des problèmes de ppcm avec les engrenages.
  */
 export const uuid = '6b37f'
-export const ref = '3A12-0'
+
 export const refs = {
   'fr-fr': ['3A12-0'],
   'fr-ch': []

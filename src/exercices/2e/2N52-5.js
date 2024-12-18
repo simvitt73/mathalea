@@ -14,7 +14,7 @@ export const titre = 'Résoudre des équations avec un quotient'
 * 2N41-8
 */
 export const uuid = 'b5828'
-export const ref = '2N52-5'
+
 export const refs = {
   'fr-fr': ['2N52-5'],
   'fr-ch': []

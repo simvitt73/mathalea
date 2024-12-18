@@ -12,7 +12,7 @@ export const interactifType = 'qcm'
  * @author Mickael Guironnet
  */
 export const uuid = '32e02'
-export const ref = '6C13-1'
+
 export const refs = {
   'fr-fr': ['6C13-1'],
   'fr-ch': ['9NO1-7']

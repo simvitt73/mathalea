@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '27/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '7761e' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = '2F32-2'// @todo à modifier aussi
+
 export const refs = {
   'fr-fr': ['2F32-2'],
   'fr-ch': []

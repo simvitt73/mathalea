@@ -36,7 +36,7 @@ export const dateDeModifImportante = '23/09/2024'
  * * cloner par Gilles Mora pour le ref seconde le 05/06/23.
  */
 export const uuid = '622b9'
-export const ref = '2N50-1'
+
 export const refs = {
   'fr-fr': ['2N50-1'],
   'fr-ch': ['11FA6-7']
