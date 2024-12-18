@@ -1,11 +1,13 @@
+/*
 import { Courbe } from '../../lib/2d/courbes.js'
 import { Repere } from '../../lib/2d/reperes.js'
 import { brent, tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
 // import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.ts'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
+*/
+import Exercice from '../Exercice.ts'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true
@@ -48,6 +50,7 @@ export default class BetaEtudeFonction extends Exercice {
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
    */
     //     Avec ln
+    /*
     const fonction = x => x * Math.log(Math.abs(x)) // Pour le tableau de signes et de variations
     const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
     const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
@@ -60,6 +63,7 @@ export default class BetaEtudeFonction extends Exercice {
     const time = Date.now()
     const { root, iter } = brent(exampleFunction, 1, 10, 1e-13)
     const duree = Date.now() - time
+    */
     /*
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({

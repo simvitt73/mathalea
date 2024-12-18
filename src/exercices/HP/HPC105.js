@@ -1,6 +1,5 @@
 import { Matrice } from '../../lib/mathFonctions/Matrice.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreIndiceeDepuisChiffre, lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
