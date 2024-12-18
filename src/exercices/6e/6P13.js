@@ -143,10 +143,10 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.nouvelleVersion = function () {
     this.introduction = (this.sup2 && this.interactif && context.isHtml)
       ? lampeMessage({
-        titre: 'Calculatrice autorisée.',
-        texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
-        couleur: 'nombres'
-      })
+          titre: 'Calculatrice autorisée.',
+          texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+          couleur: 'nombres'
+        })
       : ''
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -301,6 +301,7 @@ export default function AugmenterEtReduireDunPourcentage () {
         }
           break
       }
+
       if (this.questionJamaisPosee(i, prixIntial, prixFinal)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isAmc) {
