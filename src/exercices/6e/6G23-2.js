@@ -22,11 +22,11 @@ export const refs = {
 }
 export default function TracerTriangle2Angles () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
+
   this.sup = false
 
   this.nouvelleVersion = function () {

@@ -29,7 +29,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   // Multiplier deux nombres
   Exercice.call(this)
   this.sup = tablesParDefaut
-  this.titre = titre
+
   this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3

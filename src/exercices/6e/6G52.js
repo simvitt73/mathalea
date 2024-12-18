@@ -35,7 +35,7 @@ export const refs = {
 export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 2
 
     this.correctionDetailleeDisponible = true

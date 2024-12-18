@@ -38,7 +38,7 @@ export const refs = {
 }
 export default function AireCarresRectanglesTriangles () {
   Exercice.call(this)
-  this.titre = titre
+
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactif = false
@@ -47,7 +47,7 @@ export default function AireCarresRectanglesTriangles () {
   this.consigne = "Calculer l'aire des 3 figures suivantes."
   this.spacing = 2
 
-  this.nbColsCorr = 1
+
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

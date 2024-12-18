@@ -27,7 +27,7 @@ export const refs = {
 }
 export default function CalculerEtendues () {
   Exercice.call(this)
-  this.titre = titre
+
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = ''

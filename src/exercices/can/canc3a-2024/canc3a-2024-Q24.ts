@@ -17,7 +17,7 @@ export const uuid = '25b8a'
 export default class PlaceVirguleProduitCM2 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     // this.formatInteractif = 'calcul'

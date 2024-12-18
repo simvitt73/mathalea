@@ -20,7 +20,7 @@ export const refs = {
 }
 export default function PavagesEtRotation () {
   PavagesEtTransformations.call(this)
-  this.titre = titre
+
   this.level = 3
   this.besoinFormulaireNumerique = false
   this.besoinFormulaire2Texte = false

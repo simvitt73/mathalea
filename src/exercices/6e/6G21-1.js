@@ -11,6 +11,6 @@ export const refs = {
 }
 export default function ConstruireUnTriangleAvecCible6e () {
   ConstruireUnTriangleAvecCible.call(this)
-  this.titre = titre
+
   this.classe = 6
 }

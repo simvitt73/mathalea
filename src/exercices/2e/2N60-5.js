@@ -32,7 +32,7 @@ export const refs = {
 }
 export default function SolInequation () {
   Exercice.call(this)
-  this.titre = titre
+
   this.video = ''
 
 

@@ -27,7 +27,7 @@ export const refs = {
 export default function DernierChiffre () {
   Exercice.call(this)
   this.sup = 3
-  this.titre = titre
+
   this.consigne = 'Pour chaque calcul, déterminer le dernier chiffre du résultat.'
   this.nbQuestions = 4 // Ici le nombre de questions
 

@@ -21,7 +21,7 @@ export const refs = {
 export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
     this.nbQuestions = 3
     this.sup = 4

@@ -29,12 +29,12 @@ export const refs = {
 }
 export default function ConstruireSymetriquePoint6e () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   this.sup = 3
   this.nouvelleVersion = function () {
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup); let nontrouve; let assezloin; let cible

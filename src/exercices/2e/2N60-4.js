@@ -34,7 +34,7 @@ export const refs = {
 }
 export default function ExerciceInequation1 () {
   Exercice.call(this)
-  this.titre = titre
+
   this.spacing = 1.5
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   this.correctionDetailleeDisponible = true

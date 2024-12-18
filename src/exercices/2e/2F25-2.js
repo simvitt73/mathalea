@@ -29,7 +29,7 @@ export const refs = {
 }
 export default function EtudierPariteFonction () {
   Exercice.call(this)
-  this.titre = titre
+
   this.video = ''
   this.consigne = ''
 

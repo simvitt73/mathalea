@@ -25,7 +25,7 @@ export const refs = {
 }
 export default function Calculercoordonneessommevecteurs () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 2
 
 

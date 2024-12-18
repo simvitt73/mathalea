@@ -19,7 +19,7 @@ export const refs = {
 export default function Reglages6M10 () {
   ExercicePerimetresEtAires.call(this)
   this.sup = '1-2-3'
-  this.titre = titre
+
   this.exo = 'NoDisk'
   this.besoinFormulaire4CaseACocher = false
   this.besoinFormulaireTexte = [

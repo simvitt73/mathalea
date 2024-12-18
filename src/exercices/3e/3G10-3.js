@@ -27,7 +27,7 @@ export const refs = {
 }
 export default function ConstruireRotationPoint3e () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

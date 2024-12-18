@@ -81,7 +81,7 @@ function aleatoiriseCourbe () {
 export default class BetaModeleSpline extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = '4'
     this.nbQuestions = 1 // Nombre de questions par défaut
   }

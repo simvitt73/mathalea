@@ -38,11 +38,11 @@ export const refs = {
 }
 export default function SymetrieAxialeConservation1 () {
   Exercice.call(this)
-  this.titre = titre
+
   this.spacing = 2
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.sup2 = false
   this.sup3 = 4

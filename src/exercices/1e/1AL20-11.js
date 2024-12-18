@@ -31,7 +31,7 @@ export const refs = {
 }
 export default function CalculDiscriminant () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
   this.nbQuestions = 6
   this.nbCols = 2

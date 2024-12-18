@@ -40,7 +40,7 @@ export default function ExerciceInformationsProblemes () {
   // Multiplier deux nombres
   Exercice.call(this)
   this.sup = 11
-  this.titre = titre
+
   this.spacing = 2
   this.nbQuestions = 10
 

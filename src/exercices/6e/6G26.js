@@ -19,7 +19,7 @@ export const refs = {
 }
 export default function SerieDeTransformations6e () {
   SerieDeTransformations.call(this)
-  this.titre = titre
+
   this.version = 1
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = false

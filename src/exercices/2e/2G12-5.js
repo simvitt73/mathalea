@@ -37,7 +37,7 @@ export const refs = {
 }
 export default function ParallélogrammeSommet () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 1
 
 

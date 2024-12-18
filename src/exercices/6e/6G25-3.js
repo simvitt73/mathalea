@@ -38,14 +38,14 @@ export const refs = {
 }
 export default function PavageEtReflexion2d () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 3
 
   this.correctionDetaillee = true
   this.correctionDetailleeDisponible = true
 
-  this.nbColsCorr = 1
+
   this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grands.
   this.sup2 = false // On cache les centres par défaut.
   this.sup3 = 7

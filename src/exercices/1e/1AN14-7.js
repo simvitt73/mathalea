@@ -24,7 +24,7 @@ export const refs = {
 }
 export default function DeriveeComposee () {
   Exercice.call(this)
-  this.titre = titre
+
   // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
   this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 5

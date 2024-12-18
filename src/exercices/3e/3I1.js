@@ -21,7 +21,7 @@ export default function InstructionConditionnelle () {
   this.sup = 1
   this.nbQuestions = 2
 
-  this.titre = titre
+
   this.consigne = 'Donner les coordonnées de la position finale du lutin.'
   this.typeExercice = 'Scratch'
   this.nbCols = 2

@@ -26,7 +26,7 @@ export const refs = {
 export default class LectureSigneAffine extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 1
     this.sup = '4'
     this.besoinFormulaireTexte = ['type de fonction (nombre séparés par des tirets)', '1: Fonction constante\n2: Fonction affine\n3: Fonction linéaire\n4: Mélange']

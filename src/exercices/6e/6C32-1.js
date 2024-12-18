@@ -33,7 +33,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
   constructor () {
     super()
     this.sup = 11
-    this.titre = titre
+
     this.spacing = 1.5
     if (context.isHtml) this.spacingCorr = 1.5
     this.nbQuestions = 3

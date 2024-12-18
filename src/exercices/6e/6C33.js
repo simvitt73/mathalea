@@ -63,11 +63,11 @@ export const refs = {
 }
 export default function Priorites () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Calculer.'
   this.nbQuestions = 5
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.sup = 3
   this.sup2 = false
   this.sup3 = true

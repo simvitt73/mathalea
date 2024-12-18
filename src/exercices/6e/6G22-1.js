@@ -33,7 +33,7 @@ export const refs = {
 export default class VocabulaireDeBaseDesAngles extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.correctionDetailleeDisponible = true
     this.nbQuestions = 4
     this.sup = 5

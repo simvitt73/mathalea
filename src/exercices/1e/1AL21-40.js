@@ -31,10 +31,10 @@ export const refs = {
 }
 export default function Resolutionavecformecanonique () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
   this.spacingCorr = 1.5
   this.sup = 1
 

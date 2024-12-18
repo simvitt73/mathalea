@@ -27,10 +27,10 @@ export const refs = {
 }
 export default function Calculercoordonneesdifferencevecteurs () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true

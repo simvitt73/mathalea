@@ -36,7 +36,7 @@ export const dateDePublication = '08/10/2024'
 export default function AntecedentParCalcul () {
   Exercice.call(this)
   this.besoinFormulaireTexte = ['Type de fonction affine', '1 : ax+b (a et b petits relatifs)\n2 : ax+b (a et b grands relatifs)\n3 : a(x+b) + c (petits relatifs)\n4 : a(bx + c) + dx + e (petits relatifs)\n5 : Mélange']
-  this.titre = titre
+
   this.consigne = 'Répondre aux questions suivantes avec une valeur exacte simplifiée. '
   this.nbQuestions = 4
 

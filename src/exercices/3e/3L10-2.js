@@ -23,7 +23,7 @@ export const refs = {
 export default class ReduireExpressionComplexe extends OpposeExpression {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = '5-6-7-8-9-10'
   }
 }

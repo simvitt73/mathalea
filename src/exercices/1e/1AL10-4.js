@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function TermeDUneSuiteDefinieParRecurrence () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 1
   this.sup = 6
   this.sup2 = 3

@@ -25,10 +25,10 @@ export const refs = {
 export default class sensDesPrefixes extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 4
 
-    this.nbColsCorr = 1
+
     this.sup = 1
     this.sup2 = 1
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner la signification du préfixe\n2 : Donner le préfixe correspondant\n3 : Mélange']

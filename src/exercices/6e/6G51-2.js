@@ -26,7 +26,7 @@ export const refs = {
 export default class UtilerAppartientA extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'Compléter en utilisant les symboles $\\in$ et $\\notin$.'
     this.nbQuestions = 8
     this.nbCols = 4

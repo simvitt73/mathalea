@@ -81,7 +81,7 @@ export const refs = {
 }
 export default function CompareAireEtPerimetreAvecRectangle () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = ''
   this.nbQuestions = 3
 

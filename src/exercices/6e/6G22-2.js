@@ -36,7 +36,7 @@ export const refs = {
 export default class ReconnaitreUnAngleParticulier extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.correctionDetailleeDisponible = true
     this.nbQuestions = 4
     this.nbColsCorr = 2

@@ -35,7 +35,7 @@ export const refs = {
 }
 export default function ReperageSurLaSphere () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4
 
 

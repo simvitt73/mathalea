@@ -26,11 +26,11 @@ export const refs = {
 }
 export default function PlacerLaVirgule () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4 // Ici le nombre de questions
 
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'

@@ -25,10 +25,10 @@ export const refs = {
 }
 export default function Equationspresqueproduitnulle () {
   Exercice.call(this)
-  this.titre = titre
+
   this.video = ''
 
-  this.nbColsCorr = 1
+
 
 
   this.nbQuestions = 3

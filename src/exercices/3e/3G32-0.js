@@ -47,7 +47,7 @@ export const refs = {
 export default class ProblemesTrigoLongueur extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']
     this.sup = true
     this.besoinFormulaire2Texte = [

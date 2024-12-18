@@ -52,7 +52,7 @@ export const refs = {
 }
 export default function CalculPythagoreEspace () {
   Exercice.call(this)
-  this.titre = titre
+
   this.nbQuestions = 4
   this.sup2 = 1
   this.sup = 10

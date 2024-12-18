@@ -39,7 +39,7 @@ export const refs = {
 class AgrandirReduireFigure extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.besoinFormulaireTexte = [
       'Type de figures', [
         'Nombres séparés par des tirets',
