@@ -32,8 +32,6 @@ export default function AppliquerUnPourcentage () {
   this.spacing = 2
   this.spacingCorr = 2
 
-  this.nbColsCorr = 1
-
   this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = [1, 2]
     const choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

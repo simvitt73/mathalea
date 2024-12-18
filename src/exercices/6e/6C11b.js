@@ -111,11 +111,11 @@ export default function DivisionsEuclidiennesEgaliteFondamentale () {
       a = b * q + r
       texte = this.sup2
         ? Operation({
-            operande1: a,
-            operande2: b,
-            type: 'divisionE',
-            options: { solutions: false }
-          })
+          operande1: a,
+          operande2: b,
+          type: 'divisionE',
+          options: { solutions: false }
+        })
         : `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
         texteCorr = Operation({

@@ -5,7 +5,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison, type OptionsComparaisonType } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const uuid = 'e116b'
 export const ref = 'c3N10-2'
@@ -27,7 +27,7 @@ export const interactifType = 'mathLive'
 class Decomp1 extends Exercice {
   constructor (numeroExercice: number) {
     super()
-    this.titre = titre
+
     this.interactif = false
     this.numeroExercice = numeroExercice
     this.nbQuestions = 5
@@ -40,17 +40,13 @@ class Decomp1 extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
     const typeDeQuestions = this.sup4 % 2 === 0 ? ['classe'] : this.sup4 < 5 ? ['chiffre'] : ['chiffre', 'classe']
 
     const listeTypesDeQuestion = combinaisonListes(typeDeQuestions, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       const ordonne = this.sup4 < 3 || (this.sup4 === 5 && choice([true, false]))
       const nombreArray: number[] = []
-      const chiffresAvecExposantOrd: {chiffre: number, exposant:number, classe: string}[] = []
+      const chiffresAvecExposantOrd: { chiffre: number, exposant: number, classe: string }[] = []
       const nbZeros = this.sup2 ? randint(1, Math.max(this.sup - 2, 1)) : 0
       for (let k = 0; k < this.sup; k++) {
         const chiffre = this.sup2 ? k === this.sup - 1 ? randint(1, 9, nombreArray) : randint(0, 9, nombreArray) : randint(1, 9, nombreArray)
@@ -79,7 +75,7 @@ class Decomp1 extends Exercice {
       const nombreStr = nombreArray.map(el => String(el)).join('')
       const items = chiffresAvecExposantEtClasse.filter(el => el.chiffre !== 0)
       let decompo = ''
-      const objetReponses: Record<string, {value: string|{value:string, nombre:boolean}, compare?: unknown}> = {}
+      const objetReponses: Record<string, { value: string | { value: string, nombre: boolean }, compare?: unknown, options?: OptionsComparaisonType }> = {}
       if (listeTypesDeQuestion[i] === 'chiffre') {
         for (let k = 0; k < items.length; k++) {
           decompo += `%{champ${k + 1}}\\text{${glossaire[items[k].exposant][items[k].chiffre > 1 ? 1 : 0]}}+`

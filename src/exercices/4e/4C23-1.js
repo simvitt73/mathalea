@@ -42,7 +42,7 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.sup2 = false
   this.sup3 = true
   this.sup4 = true
-  this.titre = titre
+
   this.consigne = 'Calculer et donner un résultat simplifié au maximum.'
   this.nbCols = 2
 

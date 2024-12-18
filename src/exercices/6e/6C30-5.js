@@ -31,7 +31,6 @@ export default function MultiplierPar001 () {
   Exercice.call(this)
   this.nbQuestions = 4 // Ici le nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.consigne = 'Choisir la bonne réponse pour compléter les pointillés.'
 
   this.sup = false

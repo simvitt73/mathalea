@@ -31,8 +31,6 @@ export default function ConstruireMediatrices6e () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
-
   const celluleAlea = function (rang) {
     const lettre = lettreDepuisChiffre(randint(1, rang))
     const chiffre = Number(randint(1, rang)).toString()

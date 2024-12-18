@@ -25,10 +25,8 @@ export const refs = {
 }
 export default function TracerAvecScratch () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
 
-  this.nbColsCorr = 1
+  this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
 
   this.typeExercice = 'Scratch'
 

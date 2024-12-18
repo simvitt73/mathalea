@@ -36,7 +36,6 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   Exercice.call(this)
   this.interactif = false
 
-  this.nbColsCorr = 1
   this.nbQuestions = 1
   this.sup = 4
   this.sup2 = 3

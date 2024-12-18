@@ -15,7 +15,7 @@ class ExternalApp extends Exercice {
   constructor (url: string) {
     super()
     this.url = new URL(url)
-    this.titre = titre
+
     this.typeExercice = 'html'
     this.state = ''
     this.container = document.createElement('div')

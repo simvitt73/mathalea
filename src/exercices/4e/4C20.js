@@ -18,7 +18,7 @@ export const refs = {
 }
 export default function ExerciceComparerDeuxFractions4e () {
   ExerciceComparerDeuxFractions.call(this)
-  this.titre = titre
+
   this.sup = 11
   this.sup2 = true
 }

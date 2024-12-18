@@ -41,7 +41,6 @@ export default class CalculsDeDureesOuHoraires extends Exercice {
     this.spacing = 2
     this.nbQuestions = 3
 
-    this.nbColsCorr = 1
     this.spacingCorr = 2
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',

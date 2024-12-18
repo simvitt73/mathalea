@@ -11,7 +11,7 @@ export default class KatexSandbox {
 
   constructor () {
     this.typeExercice = 'html'
-    this.titre = titre
+
     this.container = document.createElement('div')
     this.container.setAttribute('overflow', 'auto')
     this.container.id = 'katex-sandbox'

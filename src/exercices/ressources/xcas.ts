@@ -15,7 +15,7 @@ class xCas extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'html xcas'
-    this.titre = titre
+
     this.html = document.createElement('div')
     let firstTime = true
     const intro = document.createElement('p')

@@ -17,7 +17,7 @@ export const refs = {
 }
 export default function CalculDeVolumes4e () {
   CalculDeVolumes.call(this)
-  this.titre = titre
+
   this.sup = 1
   this.classe = 4
   this.sup4 = 7

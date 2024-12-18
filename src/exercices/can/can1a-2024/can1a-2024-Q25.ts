@@ -15,7 +15,7 @@ export const uuid = 'fb465'
 export default class puissances1 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

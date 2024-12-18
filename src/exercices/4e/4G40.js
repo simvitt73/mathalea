@@ -18,7 +18,7 @@ export const refs = {
 export default class CalculDeLongueur4e extends CalculDeLongueur {
   constructor () {
     super()
-    this.titre = titre
+
     this.level = 4
     this.sup = 1
     this.sup2 = '3'

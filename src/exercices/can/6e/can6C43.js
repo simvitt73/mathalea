@@ -29,7 +29,7 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
     this.consigne = 'Compléter avec $>$ ou $<$.'
     this.spacing = 2
     this.spacingCorr = 2
-    this.nbColsCorr = 1
+
     this.sup2 = false
   }
 

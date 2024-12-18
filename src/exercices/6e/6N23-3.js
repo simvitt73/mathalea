@@ -43,7 +43,6 @@ export default function LireUneAbscisseAvecZoom () {
   }
   this.vspace = -1
 
-  this.nbColsCorr = 1
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {

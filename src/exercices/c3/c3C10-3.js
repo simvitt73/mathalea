@@ -21,7 +21,7 @@ export const refs = {
 }
 export default function MultiplierDecimauxPar101001000CM () {
   MultiplierDecimauxPar101001000.call(this)
-  this.titre = titre
+
   this.sup = 1 // Par défaut, pas de fractions
   this.sup3 = false // Peu importe ici, car pas de décimaux par défaut
   this.sup4 = true // Par défaut, que des entiers

@@ -18,7 +18,7 @@ export const refs = {
 }
 export default function SigneQuotientRelatifs () {
   SigneProduitQuotientRelatifs.call(this)
-  this.titre = titre
+
   this.beta = ''// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
   this.exo = this.beta + '4C10-2'
   this.sup = 5

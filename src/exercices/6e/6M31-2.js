@@ -46,7 +46,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
   this.sup4 = 2
   this.spacing = 2
   this.nbQuestions = 8
-  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup4 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'

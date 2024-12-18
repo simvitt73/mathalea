@@ -44,7 +44,6 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
-  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     if (!this.sup3 && !context.isAmc) {

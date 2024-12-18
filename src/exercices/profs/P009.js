@@ -27,7 +27,6 @@ export default function SimulateurAleatoire () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true

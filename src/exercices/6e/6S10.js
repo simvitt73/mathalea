@@ -32,7 +32,6 @@ export default function LectureDiagrammeBaton () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
   this.spacing = 2

@@ -22,7 +22,7 @@ export const uuid = '9f20b' // @todo à changer dans un nouvel exo (utiliser pnp
 export default class BetaEtudeFonction extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = 3
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false

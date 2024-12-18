@@ -43,7 +43,7 @@ export default function ExerciceMultiplierFractions () {
   this.spacing = 3
   this.spacingCorr = 3
   this.nbQuestions = 5
-  this.nbColsCorr = 1
+
   this.sup2 = true // méthode de simplification par défaut = factorisation
   this.sup4 = 1 // multiplications par défaut
   this.nouvelleVersion = function () {

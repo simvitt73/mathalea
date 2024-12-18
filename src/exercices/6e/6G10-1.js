@@ -31,8 +31,6 @@ export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this)
   this.nbQuestions = 3
 
-  this.nbColsCorr = 1
-
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif || context.isAmc) ? 'Cocher les propositions correspondant à la figure.' : 'Décrire précisément, avec des mots, la figure et donner sa notation mathématique.'
     const typesDeQuestionsDisponibles = [1, 4, choice([2, 3])]

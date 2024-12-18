@@ -37,7 +37,6 @@ export default function OrganiserDonneesDepuisTexte () {
   this.nbQuestions = 4
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
   this.sup = false // false -> effectif ; true -> masse
   this.sup2 = 4 // paramètre nombre de fruit
   this.sup3 = 3 // paramètre nombre d'amis

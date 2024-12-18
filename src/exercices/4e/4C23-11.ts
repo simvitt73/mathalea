@@ -30,7 +30,7 @@ export default class FractionEtPriorites extends Exercice {
     this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : produit en premier\n2 : produit en deuxième sans piège\n3 : produit en deuxième avec piège\n4 : quotient en premier\n5 : quotient en deuxième sans piège\n6 : quotient en deuxième avec piège\n7 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Présence de nombre relatifs', false]
     this.sup = '3'
-    this.titre = titre
+
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true
   }

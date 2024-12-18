@@ -26,7 +26,6 @@ export default class SignePuissance extends Exercice {
     super()
     this.nbQuestions = 5
 
-    this.nbColsCorr = 1
     this.interactif = false
   }
 

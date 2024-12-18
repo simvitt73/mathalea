@@ -33,7 +33,7 @@ export default class PuissancesEtPrefixe extends Exercice {
     super()
     this.nbQuestions = 5
     this.nbCols = 2
-    this.nbColsCorr = 1
+
     this.sup = 1
     this.besoinFormulaireNumerique = ['Type de questions', 2, '1: De la puissance de 10 au préfixe\n2: Du préfixe à la puissance de 10']
   }

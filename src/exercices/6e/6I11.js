@@ -67,9 +67,6 @@ export default function NoteLaCouleur6e () {
     ]
     const echelleDessin = 0.5
 
-    
-    
-
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []

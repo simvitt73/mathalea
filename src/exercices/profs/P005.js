@@ -25,7 +25,6 @@ export default function FeuilleDeGrilles () {
   this.sup = 1
   this.nbQuestionsModifiable = false
   this.nbQuestions = 1
-  this.titre = titre
 
   this.nouvelleVersion = function () {
     const objets = []; let fleche; let A; let B; let C; let D; let texte = ''

@@ -35,7 +35,7 @@ export const refs = {
 }
 export default function ExerciceEquationASolutionEntiere () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

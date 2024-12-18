@@ -33,7 +33,6 @@ export default function SommeDeDurees () {
   this.sup = '1-2' // 2 niveaux de difficultés
   this.spacing = 2
   this.nbQuestions = 5
-  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     /*

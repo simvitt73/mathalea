@@ -49,7 +49,6 @@ export default class RepresenterUnVecteur extends Exercice {
     super()
     this.nbQuestions = 2
 
-    this.nbColsCorr = 1
     this.sup = 1 //
     this.besoinFormulaireNumerique = [
       'Situations différentes',

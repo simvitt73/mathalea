@@ -31,7 +31,6 @@ export default class DecompositionNombreDecimal extends Exercice {
     this.consigne = 'Compléter les phrases suivantes.'
     this.nbQuestions = 5
 
-    this.nbColsCorr = 1
     this.sup = 7
     this.besoinFormulaireNumerique = ['Choix de questions', 7, "1 : 'Chiffre des'\n2 : 'Nombre de'\n3 : Partie entière ou partie décimale\n4 : 'Chiffre des' ou 'nombre de'\n5 : 'Chiffre des' ou partie entière ou partie décimale\n6 : 'Nombre de' ou partie entière ou partie décimale\n7 : Mélange"]
     this.besoinFormulaire2CaseACocher = ['Avec nombre entier ?']

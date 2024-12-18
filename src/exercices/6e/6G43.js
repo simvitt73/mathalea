@@ -31,7 +31,6 @@ export default function DenombrerCubes () {
   Exercice.call(this)
   this.nbQuestions = 3 // Ici le nombre de questions
 
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
   this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice

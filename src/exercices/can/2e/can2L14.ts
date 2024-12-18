@@ -22,7 +22,7 @@ export const refs = {
 export default class EquationsCarree extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

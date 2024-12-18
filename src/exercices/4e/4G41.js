@@ -22,5 +22,4 @@ export default function CalculDAngle4e () {
   CalculDAngle.call(this)
   this.level = 4
   this.sup = true
-  this.titre = titre
 }

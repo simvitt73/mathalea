@@ -18,7 +18,7 @@ export const refs = {
 }
 export default function PavagesEtDemiTour () {
   PavagesEtTransformations.call(this)
-  this.titre = titre
+
   this.level = 5
   this.besoinFormulaireNumerique = false
 }

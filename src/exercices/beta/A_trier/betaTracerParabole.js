@@ -20,11 +20,11 @@ export const titre = 'Etude d\'une parabole'
  */
 export default function TrouverEquationDeParabole () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = 'Etude d\'une parabole'
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1
+
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1)
   this.sup = 1
   this.correctionDetailleeDisponible = true

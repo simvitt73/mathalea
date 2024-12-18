@@ -34,7 +34,7 @@ export default class PourcentageDunNombre extends Exercice {
     this.spacing = 2
     this.spacingCorr = 3.5
     this.nbCols = 2
-    this.nbColsCorr = 1
+
     this.sup = true
     this.interactif = false
     this.sup2 = '1-2-4-5'

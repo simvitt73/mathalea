@@ -48,7 +48,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
     this.sup = 20
     this.sup2 = false // écriture simplifiée
     this.sup3 = false // nombres décimaux
-    this.titre = titre
+
     this.consigne = 'Calculer.'
     this.nbCols = 3
     this.nbColsCorr = 2

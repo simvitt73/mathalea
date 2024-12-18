@@ -39,7 +39,7 @@ export default class Pythagore2DBlockly extends Exercice {
   //
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 2
     this.sup = 3
     this.sup2 = 3

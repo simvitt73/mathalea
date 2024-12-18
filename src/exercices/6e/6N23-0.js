@@ -31,7 +31,6 @@ export default function ÉcrireNombresDecimal () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
   this.sup3 = 3

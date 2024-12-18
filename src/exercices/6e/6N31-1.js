@@ -30,7 +30,6 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
 
   this.consigne = 'Encadrer chaque nombre proposé par deux nombres entiers consécutifs.'
 
-  this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5

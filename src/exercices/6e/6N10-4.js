@@ -30,8 +30,6 @@ export default function ÉcrireNombresEntiersFormates () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
-
   this.nouvelleVersion = function () {
     this.consigne = 'Écrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.'
     function zeroSuperflus (n) {

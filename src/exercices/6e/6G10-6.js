@@ -36,7 +36,6 @@ export default class constructionElementaire extends Exercice {
     super()
     this.nbQuestions = 1
 
-    this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = 4
     this.besoinFormulaireNumerique = [

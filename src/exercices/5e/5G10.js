@@ -16,5 +16,4 @@ export const refs = {
 export default function SymetrieAxiale5e () {
   Transformations.call(this)
   this.sup = choice(['1-2-3', '1-2-4', '2-3-4', '1-3-4'])
-  this.titre = titre
 }

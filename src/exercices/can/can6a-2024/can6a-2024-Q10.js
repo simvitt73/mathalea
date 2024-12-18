@@ -16,7 +16,7 @@ export const uuid = '8c474'
 export default class TrouverLongueur extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 1
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestionsModifiable = false

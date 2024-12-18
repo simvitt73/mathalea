@@ -9,11 +9,11 @@ export const titre = 'Parenthèses manquantes'
  */
 export default function Priorites () {
   Exercice.call(this)
-  this.titre = titre
+
   this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br> S'il y a plusieurs fois la même égalité trouve des solutions différentes."
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1
+
   this.spacing = 3
   this.spacingCorr = 3
 

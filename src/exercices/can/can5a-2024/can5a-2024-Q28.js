@@ -16,7 +16,7 @@ export const uuid = '8bef8'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.spacing = 3
     this.typeExercice = 'simple'
     this.nbQuestions = 1

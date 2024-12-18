@@ -43,7 +43,6 @@ export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this)
   this.nbQuestions = 2
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.sup2 = 2
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -144,10 +143,10 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.nouvelleVersion = function () {
     this.introduction = (this.sup2 && this.interactif && context.isHtml)
       ? lampeMessage({
-          titre: 'Calculatrice autorisée.',
-          texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
-          couleur: 'nombres'
-        })
+        titre: 'Calculatrice autorisée.',
+        texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+        couleur: 'nombres'
+      })
       : ''
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

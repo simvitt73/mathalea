@@ -17,7 +17,6 @@ export default function UtiliserLeCodagePourDecrire () {
   this.titre = 'Utiliser le codage pour décrire une figure'
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
   this.sup = randint(1, 3)
   this.nouvelleVersion = function () {
     let nom; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection

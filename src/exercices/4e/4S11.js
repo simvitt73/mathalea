@@ -33,7 +33,6 @@ export default function DeterminerDesMedianes () {
 
   this.spacingCorr = 1.5
 
-  this.nbColsCorr = 1
   this.sup = 1
   if (context.isHtml) {
     this.spacing = 2

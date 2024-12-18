@@ -21,6 +21,6 @@ export const refs = {
 export default function EquationsFractions () {
   EqResolvantesThales.call(this)
   this.exo = '4L15-1'
-  this.titre = titre
+
   this.sup = 1
 }

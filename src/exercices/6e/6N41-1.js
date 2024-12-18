@@ -36,7 +36,6 @@ export default function ExerciceLabyrintheFractionsEgales () {
   this.niveau = '6e'
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
   this.sup2 = 3
   this.sup = 10
   this.sup3 = 1

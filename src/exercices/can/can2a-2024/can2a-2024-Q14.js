@@ -16,7 +16,7 @@ export const uuid = 'd51f8'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.formatInteractif = 'qcm'
     this.typeExercice = 'simple'

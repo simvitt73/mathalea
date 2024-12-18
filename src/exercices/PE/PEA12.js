@@ -28,8 +28,6 @@ export default function AdditionSoustractionBaseN () {
   this.video = '-bIvS95dmYw'
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
-
   this.pasDeVersionLatex = true
   this.spacingCorr = context.isHtml ? 2 : 1
   this.sup = 3

@@ -19,7 +19,7 @@ export const refs = {
 export default function ExerciceTableauMultiplicationsRelatifs () {
   Exercice.call(this)
   this.sup = false
-  this.titre = titre
+
   this.consigne = 'Calculer.'
 
   this.nbQuestions = 1

@@ -33,7 +33,6 @@ export default function PavagesEtTransformations () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
   this.listeAvecNumerotation = false
   this.besoinFormulaire2Texte = ['Choix des pavages', 'Nombres séparés par des tirets\nChoix entre 1 et 7\nChoix 8 pour un mélange de tous les pavages']
   this.sup2 = 1

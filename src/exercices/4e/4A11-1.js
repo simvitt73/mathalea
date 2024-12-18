@@ -17,5 +17,4 @@ export const refs = {
 }
 export default function DecompositionFacteursPremiers4e () {
   decompositionFacteursPremiers.call(this)
-  this.titre = titre
 }

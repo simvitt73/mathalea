@@ -23,7 +23,7 @@ export default function SigneProduitRelatifs () {
   this.exo = this.beta + '4C10-1'
   this.sup = 4
   this.nbQuestions = 3
-  this.titre = titre
+
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,

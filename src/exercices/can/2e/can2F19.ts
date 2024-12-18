@@ -22,7 +22,7 @@ export const refs = {
 export default class FonctionAffAvec2Images extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable

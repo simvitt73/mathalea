@@ -35,7 +35,7 @@ export default function PuissancesDeDix () {
   context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 5
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.sup2 = 4
   this.sup3 = false
@@ -61,16 +61,16 @@ export default function PuissancesDeDix () {
     }
     const listeTypeDeQuestions = this.besoinFormulaireNumerique
       ? combinaisonListes(
-          typesDeQuestionsDisponibles,
-          this.nbQuestions
-        )
+        typesDeQuestionsDisponibles,
+        this.nbQuestions
+      )
       : gestionnaireFormulaireTexte({
-          nbQuestions: this.nbQuestions,
-          saisie: this.sup2,
-          max: 3,
-          melange: 4,
-          defaut: 4
-        })
+        nbQuestions: this.nbQuestions,
+        saisie: this.sup2,
+        max: 3,
+        melange: 4,
+        defaut: 4
+      })
 
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'red'

@@ -17,6 +17,6 @@ export const refs = {
 }
 export default function PremierOuPas4e () {
   PremierOuPas.call(this)
-  this.titre = titre
+
   this.sup2 = false
 }

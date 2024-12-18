@@ -15,7 +15,7 @@ export const uuid = '40cd8'
 export default class FractionAvecPi extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

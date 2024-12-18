@@ -30,14 +30,12 @@ export default function TrouverErreurResolEqDeg1 () {
     this.nbQuestions = 3
   }
 
-  this.titre = titre
   this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
   // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
   if (!context.isHtml) {
     this.consigne = this.consigne.replace('<br>', '')
   }
 
-  this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
