@@ -605,7 +605,6 @@ function exercicesPourcentagesConversion () {
 export default function CalculsProbabilites () {
   Exercice.call(this)
 
-  this.nbQuestions = 10
   this.nbCols = 0
   this.nbColsCorr = 0
   this.tailleDiaporama = 1

@@ -37,7 +37,7 @@ export default function ExerciceInformationsProblemes () {
   this.sup3 = false
 
   this.spacing = 2
-  this.nbQuestions = 10
+
 
   this.nouvelleVersion = function () {
 

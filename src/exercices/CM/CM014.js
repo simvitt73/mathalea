@@ -25,7 +25,7 @@ export const refs = {
 export default function DoubleMoitieTiersTriple () {
   Exercice.call(this)
   this.consigne = 'Calculer.'
-  this.nbQuestions = 10
+
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1 // niveau de difficulté

@@ -40,7 +40,7 @@ export default function ExerciceOperationsRelatifs () {
   this.sup3 = 10 // Valeur maximum
   this.consigne = 'Calculer.'
   this.spacing = 2
-  this.nbQuestions = 10
+
 
   this.nouvelleVersion = function () {
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)

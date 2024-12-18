@@ -24,7 +24,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
-    this.nbQuestions = 10
+
     this.besoinFormulaireNumerique = ['Type de calcul', 4, 'Addition\nSoustraction\n Avec un signe devant la première parenthèse\nMélange']
     this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
     this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']

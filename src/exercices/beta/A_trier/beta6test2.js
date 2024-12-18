@@ -12,7 +12,7 @@ export const titre = 'Mon test'
 export default function MaFonctionQuiCreeExercice () {
   Exercice.call(this)
   this.consigne = 'Calculer'
-  this.nbQuestions = 10
+
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
 

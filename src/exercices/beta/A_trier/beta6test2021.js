@@ -11,7 +11,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)
 
   this.nbQuestionsModifiable = false
-  // this.nbQuestions = 10;
+
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté

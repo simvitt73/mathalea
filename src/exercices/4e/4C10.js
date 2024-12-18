@@ -30,7 +30,7 @@ export default function ProduitsEtQuotientRelatifs () {
   this.consigne = 'Calculer.'
   this.sup = 1
   this.sup2 = 1
-  this.nbQuestions = 10
+
   this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
   this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
 

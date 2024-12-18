@@ -25,7 +25,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Développer et réduire en utilisant les identités remarquables.'
-    this.nbQuestions = 10
+
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - (x+a)^2\n2 - (x-a)^2\n3 - (x-a)(x-b)\n4 - (x+a)(x+b)\n5 - (ax+by)^2\n6 - (ax-by)^2\n7 - (ax+by)(ax-by)\n8 - (ax+b)(ax+c)\n9 - Mélange']
     this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
     this.besoinFormulaire3Numerique = ['Degré maximum', 5, '1\n2\n3\n4\n5']

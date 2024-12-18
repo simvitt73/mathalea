@@ -26,7 +26,7 @@ export const refs = {
 }
 export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {
   Exercice.call(this)
-  this.nbQuestions = 10
+
 
   this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une fraction\n2 : D\'une fraction à l\'écriture décimale\n3 : Mélange']
   this.sup = 3

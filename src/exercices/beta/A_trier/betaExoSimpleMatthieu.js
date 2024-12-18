@@ -12,7 +12,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.consigne = "Ceci est la consigne (en gras) de l'exercice."
   this.introduction = "Ceci est l'introduction (pas en gras) de l'exercice"
   this.nbQuestionsModifiable = false // le nombre de questions est fixe dans cet exercice.
-  // this.nbQuestions = 10;
+
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté

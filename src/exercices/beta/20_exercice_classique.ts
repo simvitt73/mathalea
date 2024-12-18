@@ -19,7 +19,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Consigne'
-    this.nbQuestions = 10
+
   }
 
   nouvelleVersion () {
