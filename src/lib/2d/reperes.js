@@ -1,4 +1,4 @@
-import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
@@ -1525,13 +1525,6 @@ export function Repere ({
     xThickListe = false
     yThickListe = false
   }
-  this.bordures = [
-    xMin * xUnite - 1 - yLegende.length / 3,
-    yMin * yUnite - 1,
-    xMax * xUnite + 1 + xLegende.length / 3,
-    yMax * yUnite + 1
-  ]
-
   const objets = []
   // LES AXES
   const ordonneeAxe = Math.max(0, yMin)
@@ -1895,6 +1888,8 @@ export function Repere ({
     )
   }
   this.objets = objets
+  const bords = fixeBordures(this.objets)
+  this.bordures = [bords.xmin, bords.ymin, bords.xmax, bords.ymax]
   // pour pouvoir ajouter des objets à ce Repere après l'avoir créé.
   this.addObjet = function (objet) {
     if (!(objet instanceof ObjetMathalea2D)) return

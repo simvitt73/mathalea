@@ -50,8 +50,10 @@ export default function LireElementsCarac () {
         case 1: // Signe du coefficient dominant
           texte = 'Quel est le signe du coefficient dominant'
           // On choisit 2 racines entières distinctes dans [-10;10]
-          x1 = randint(-10, 10)
-          x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
+          do {
+            x1 = randint(-10, 10)
+            x2 = randint(-10, 10, x1)
+          } while (x1 * x2 > 0)// Flemme de coder la gestion d'une racine double
           // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
@@ -61,8 +63,10 @@ export default function LireElementsCarac () {
         case 2: // Racines
           texte = 'Quelles sont les racines'
           // On choisit 2 racines entières distinctes dans [-10;10]
-          x1 = randint(-10, 10)
-          x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
+          do {
+            x1 = randint(-10, 10)
+            x2 = randint(-10, 10, x1)
+          } while (x1 * x2 > 0) // Flemme de coder la gestion d'une racine double
           // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
@@ -118,7 +122,7 @@ export default function LireElementsCarac () {
         Yscale = 1
       }
       r = repere({
-        xMmin: Xmin,
+        xMin: Xmin,
         yMin: premierMultipleInferieur(Yscale, Ymin),
         yMax: premierMultipleSuperieur(Yscale, Ymax),
         xMax: Xmax,
@@ -132,7 +136,10 @@ export default function LireElementsCarac () {
       svgYmax = Math.max(Ymax / Yscale, 1)
 
       F = x => a * x ** 2 + b * x + c
-
+      const objets = [
+        r,
+        courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 })
+      ]
       texte += mathalea2d({
         xmin: Xmin - 1,
         xmax: Xmax + 1,
@@ -140,8 +147,7 @@ export default function LireElementsCarac () {
         ymax: svgYmax + 2,
         pixelsParCm,
         scale: 0.6
-      }, r,
-      courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 }))
+      }, objets)
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
