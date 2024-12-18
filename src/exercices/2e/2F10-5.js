@@ -31,7 +31,7 @@ export default function Signefonctionaffine () {
   this.consigne = ''
   this.nbQuestions = 1 // On complète le nb de questions
 
-  this.nbColsCorr = 1
+
   this.video = ''
 
 

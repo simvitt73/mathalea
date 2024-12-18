@@ -45,7 +45,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   context.fenetreMathalea2d = [-9, -9, 9, 9]
   this.sup = '4-5-6'
 

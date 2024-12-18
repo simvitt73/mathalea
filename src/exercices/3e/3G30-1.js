@@ -41,7 +41,7 @@ export default function ExprimerCosSinTan () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   this.sup2 = '4'
   if (context.isHtml) {

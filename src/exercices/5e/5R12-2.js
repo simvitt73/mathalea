@@ -36,7 +36,7 @@ export default function ReperagePointDuPlan () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
 
 
   this.sup = 1

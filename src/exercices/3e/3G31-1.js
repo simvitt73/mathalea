@@ -41,7 +41,7 @@ export default function CalculDAngleFigureComplexe () {
   this.nbQuestions = 2
 
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.spacingCorr = 3
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = context.isHtml

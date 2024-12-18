@@ -24,7 +24,7 @@ export default function ResoudreEquatioeX2EgalA () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1
+
   this.sup = 1
   // eslint-disable-next-line no-undef
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5

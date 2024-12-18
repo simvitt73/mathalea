@@ -40,7 +40,7 @@ export default function ParallélogrammeSommet () {
   this.titre = titre
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 1 //
   // this.correctionDetaillee = false
   // this.correctionDetailleeDisponible = true

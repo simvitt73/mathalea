@@ -32,7 +32,7 @@ export default function ConstruireRotationPoint3e () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   this.sup = 3
   this.nouvelleVersion = function () {
     let nontrouve, assezloin, cible

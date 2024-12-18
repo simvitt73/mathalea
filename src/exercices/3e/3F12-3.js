@@ -38,7 +38,7 @@ export default function TableauDeValeurs () {
   Exercice.call(this)
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup = 5 // niveau de difficulté
   this.correctionDetailleeDisponible = true
 

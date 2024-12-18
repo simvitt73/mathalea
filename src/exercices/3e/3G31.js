@@ -43,7 +43,7 @@ export default function CalculDAngle () {
   this.nbQuestions = 2
 
 
-  this.nbColsCorr = 1
+
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false

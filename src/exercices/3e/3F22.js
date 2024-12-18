@@ -41,7 +41,7 @@ export default function AntecedentParCalcul () {
   this.nbQuestions = 4
 
 
-  this.nbColsCorr = 1
+
   this.spacingCorr = context.isHtml ? 2 : 1
   this.sup = '1'
 

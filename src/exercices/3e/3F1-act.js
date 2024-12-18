@@ -67,7 +67,7 @@ export default function FonctionNotionVocabulaire () {
   this.nbQuestionsModifiable = false
   // this.correctionDetailleeDisponible = true;
 
-  this.nbColsCorr = 1
+
   this.sup = 5
 
   const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel

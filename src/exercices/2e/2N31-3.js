@@ -36,7 +36,7 @@ export default function PuissancesDUnRelatif2 () {
   this.spacing = 2
   this.spacingCorr = 2.5
   this.nbQuestions = 8
-  this.nbColsCorr = 1
+
 
   this.nouvelleVersion = function () {
 

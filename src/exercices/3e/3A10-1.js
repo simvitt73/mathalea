@@ -35,7 +35,7 @@ export default function PremierOuPas () {
 
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.nbQuestions = 5
   this.sup = 1
   this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers

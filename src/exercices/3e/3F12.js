@@ -37,7 +37,7 @@ export default function FonctionsCalculsDImages () {
   this.nbQuestions = 4
   // this.correctionDetailleeDisponible = true;
 
-  this.nbColsCorr = 1
+
   this.sup = 5
   let pourcentage, idDuDiv, idDuDivCorr, j
   const numEx = '3F12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel

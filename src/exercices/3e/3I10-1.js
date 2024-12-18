@@ -53,7 +53,7 @@ export default function ScratchMultiScript () {
   this.titre = titre
   this.typeExercice = 'Scratch'
 
-  this.nbColsCorr = 1
+
   this.sup = '1-2-3'
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false

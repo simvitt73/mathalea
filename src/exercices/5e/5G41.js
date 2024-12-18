@@ -46,7 +46,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   this.sup = 8
   this.sup2 = 2
   this.correctionDetaillee = false

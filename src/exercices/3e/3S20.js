@@ -22,7 +22,7 @@ export default class FonctionsProbabilite extends FonctionsProbabilite2 {
     this.nbQuestions = 2
 
 
-    this.nbColsCorr = 1
+
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
     this.sup = 1

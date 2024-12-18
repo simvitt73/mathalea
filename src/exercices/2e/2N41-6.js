@@ -29,7 +29,7 @@ export default function DevelopperIdentitesRemarquables2 () {
   this.titre = titre
   this.consigne = 'Développer et réduire les expressions suivantes.'
 
-  this.nbColsCorr = 1
+
 
 
   this.nbQuestions = 5

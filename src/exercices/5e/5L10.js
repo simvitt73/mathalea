@@ -34,7 +34,7 @@ export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
   this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
   this.sup = true
   this.sup2 = 19

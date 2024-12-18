@@ -32,7 +32,7 @@ export default function CompleterParSymetrie5e () {
   this.consigne = ''
   this.nbQuestions = 1
 
-  this.nbColsCorr = 1
+
   this.sup2 = 1
   this.pointsNonSolution = []
   this.pointsSolution = []

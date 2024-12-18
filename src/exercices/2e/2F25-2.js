@@ -33,7 +33,7 @@ export default function EtudierPariteFonction () {
   this.video = ''
   this.consigne = ''
 
-  this.nbColsCorr = 1
+
 
 
   this.nbQuestions = 1

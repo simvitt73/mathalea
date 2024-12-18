@@ -25,7 +25,6 @@ export default function VocabulaireDesTriangles () {
   this.sup = 1
   this.sup2 = false
 
-  this.nbColsCorr = 1
   if (this.classe === 6) {
     if (this.sup === 1) {
       this.nbQuestions = 4

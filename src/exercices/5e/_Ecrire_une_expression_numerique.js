@@ -25,7 +25,7 @@ export default function EcrireUneExpressionNumerique () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.nbColsCorr = 1
+
   this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
   this.sup3 = true // Si présence ou pas du signe "fois"
   this.sup4 = 6

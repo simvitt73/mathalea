@@ -43,7 +43,7 @@ export default class ExerciceInequationQuotient extends Exercice {
     this.sup = 1 // Choix du type d'inéquation
     this.nbQuestions = 4 // Choix du nombre de questions
 
-    this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
+
     // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
     this.besoinFormulaireNumerique = [
       'Type d\'inéquation',

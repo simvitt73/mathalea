@@ -31,7 +31,7 @@ export default function AntecedentEtImageGraphique () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nbColsCorr = 1
+
   if (context.isHtml) {
     this.spacingCorr = 2
   }

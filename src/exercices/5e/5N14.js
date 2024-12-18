@@ -33,7 +33,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
-  this.nbColsCorr = 1
+
   this.sup2 = false
 
   this.nouvelleVersion = function () {

@@ -39,7 +39,7 @@ export default function PremierOuPasCriterePar7Par11 () {
   this.nbQuestions = 7
 
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.besoinFormulaireCaseACocher = ['Afficher un coup de pouce']
   this.sup = true
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...

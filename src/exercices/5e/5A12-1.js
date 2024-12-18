@@ -38,7 +38,7 @@ export default function PremierOuPas5e () {
   this.nbQuestions = 7
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 2
-  this.nbColsCorr = 1
+
   this.sup = 1
 
   this.nouvelleVersion = function () {
