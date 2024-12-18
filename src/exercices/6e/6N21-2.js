@@ -31,7 +31,7 @@ export default function LireAbscissesFractionnairesComplexes () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+
   this.sup = 1 // Niveau de difficulté
   this.sup2 = true // avec des fractions simplifiées
   this.sup3 = false // valeurs positives si false sinon valeurs positives et négatives
@@ -39,7 +39,7 @@ export default function LireAbscissesFractionnairesComplexes () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
 
 
     let typeDeQuestions

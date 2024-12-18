@@ -36,7 +36,6 @@ export default function Signefonctionaffine () {
   this.sup2 = 1
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     const listeFractions = [
       [10, 9],
       [2, 3],

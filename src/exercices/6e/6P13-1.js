@@ -51,7 +51,7 @@ export default function CompleterUneFacture () {
       q2 = randint(2, 8, [q1])
       q3 = randint(2, 8, [q1, q2])
       r = randint(3, 9)
-      this.sup = parseInt(this.sup)
+      
       if (this.sup === 1) {
         if (context.isHtml) {
           texte = '$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n'

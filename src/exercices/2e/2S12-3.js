@@ -37,8 +37,6 @@ export default function EvolutionsSuccesives () {
   this.sup = 4 // type de questions
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let typesDeQuestions, CM, CMr, CMra, p, pr, nom, nomr, t, tr, metier

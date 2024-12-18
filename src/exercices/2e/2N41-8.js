@@ -36,7 +36,7 @@ export default function MettreAuMemeDenominateurLit () {
   this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
   Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]

@@ -32,7 +32,7 @@ export default function ExprimerEnFonctionDesAutresFormules () {
   this.nbQuestions = 1
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])

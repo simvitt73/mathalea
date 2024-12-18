@@ -43,7 +43,6 @@ export default class EvolutionsEnPourcentage extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']

@@ -24,7 +24,7 @@ export const refs = {
 }
 export default function RepresenterUnSolide5e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
-  this.titre = titre
+
   this.nbQuestions = 1
 
 
@@ -33,7 +33,7 @@ export default function RepresenterUnSolide5e () {
   this.classe = 5
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles
-    this.sup = parseInt(this.sup)
+    
     if (this.sup === 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
 
     const listeTypeDeQuestions = combinaisonListes(

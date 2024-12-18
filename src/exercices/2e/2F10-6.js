@@ -33,8 +33,6 @@ export default function Variationsfonctionaffine () {
   this.sup = 4
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]

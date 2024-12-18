@@ -77,7 +77,7 @@ export default class PrioritesEtRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
+    
     let listeQuestionsDisponibles
     if (this.sup === 1) {
       listeQuestionsDisponibles = range1(11)

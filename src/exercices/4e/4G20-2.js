@@ -41,7 +41,7 @@ export default function RacineCareeDeCarresParfaits () {
   this.nouvelleVersion = function () {
     let listeRacines = []
     let listeQuestions = []
-    this.sup = parseInt(this.sup)
+    
     this.sup2 = parseInt(this.sup2)
     if (this.sup === 1) {
       listeQuestions = [1]

@@ -27,7 +27,7 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   this.sup = 2 //
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     this.consigne = (this.sup === 2) ? `Écrire le${this.nbQuestions > 1 ? 's' : ''} nombre${this.nbQuestions > 1 ? 's' : ''} proposé${this.nbQuestions > 1 ? 's' : ''} sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible.` : ''
 
     

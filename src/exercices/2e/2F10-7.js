@@ -30,9 +30,6 @@ export default function SignefonctionaffineVariation () {
   this.spacingCorr = 1.75
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-
-    this.sup = parseInt(this.sup)
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['Signes1']

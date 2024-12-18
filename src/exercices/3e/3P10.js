@@ -37,7 +37,7 @@ export default function EvolutionsEnPourcentage () {
   this.sup = 4 // type de questions
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']

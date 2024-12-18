@@ -42,7 +42,7 @@ export default function CalculValeurApprocheeRacineCarree () {
 
     
     
-    this.sup = parseInt(this.sup)
+    
     let listeAvecOuSansCalculatrice
     if (this.sup === 1) {
       listeAvecOuSansCalculatrice = ['avec']

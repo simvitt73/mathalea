@@ -76,7 +76,7 @@ export default function Priorites () {
   this.nouvelleVersion = function () {
     const deuxOperations = [1, 2, 3, 4, 5, 6, 7, 13, 14, 15, 16, 17] // 12 possibilités
     const troisOperations = [8, 9, 10, 11, 12, 18, 19, 20, 21, 22] // 10 possibilités
-    this.sup = parseInt(this.sup)
+    
     let listeTypeDeQuestions
     let questionsDisponibles = [] //
     if (parseInt(this.sup) === 1) {

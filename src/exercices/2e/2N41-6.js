@@ -43,7 +43,7 @@ export default function DevelopperIdentitesRemarquables2 () {
     this.correctionDetaillee = false
   }
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     const listeFractions = [
       [1, 2],
       [1, 3],

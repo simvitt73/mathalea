@@ -40,7 +40,7 @@ class PlacerPointsSurAxe extends Exercice {
     this.nbQuestions = 5
 
 
-    this.nbColsCorr = 1
+
 
 
     this.sup = 1
@@ -53,7 +53,7 @@ class PlacerPointsSurAxe extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
+    
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
 

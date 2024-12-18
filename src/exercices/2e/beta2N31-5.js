@@ -45,7 +45,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
+    
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // Produit

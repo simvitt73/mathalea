@@ -37,7 +37,7 @@ export default class sensDesPrefixes extends Exercice {
 
   nouvelleVersion () {
     this.consigne = 'Compléter '
-    this.sup = parseInt(this.sup)
+    
     this.sup2 = parseInt(this.sup2)
     if (this.sup === 1) this.consigne += 'avec le calcul correspondant.'
     if (this.sup === 2) this.consigne += 'avec le préfixe correspondant.'

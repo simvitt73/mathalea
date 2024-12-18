@@ -66,7 +66,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   }
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     this.sup2 = parseInt(this.sup2)
 
 

@@ -29,7 +29,7 @@ export default function ResoudreEquationsQuotient () {
   this.nbQuestions = 2
   this.sup = 3
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]

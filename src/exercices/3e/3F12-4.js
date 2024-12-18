@@ -42,7 +42,6 @@ export default function ImageGraphique () {
   // this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, ymax, f
 
     function initialiseVariables () {

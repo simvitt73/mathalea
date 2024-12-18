@@ -39,8 +39,6 @@ export default function ImageFonctionAlgebrique () {
   this.sup = 5 // niveau de difficulté
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b']

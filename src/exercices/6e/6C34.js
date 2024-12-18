@@ -47,7 +47,7 @@ export default function DernierChiffre () {
     if (this.version === 2) {
       this.sup = 2
     }
-    this.sup = parseInt(this.sup)
+    
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 

@@ -41,7 +41,7 @@ export default function CalculsPuissancesDe10 () {
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    
 
 
     this.consigne = 'Donner la notation scientifique.'

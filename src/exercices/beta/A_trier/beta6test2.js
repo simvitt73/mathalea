@@ -17,19 +17,12 @@ export default function MaFonctionQuiCreeExercice () {
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
 
   this.nouvelleVersion = function () {
-
-    
-    
-
     let listeTypeDeQuestionsDisponibles
-    this.sup = parseInt(this.sup) // pour s'assurer d'avoir un nombre
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['niveau1']
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles = ['niveau1', 'niveau2', 'niveau2']
-    }
-    if (this.sup === 3) {
+    } else {
       listeTypeDeQuestionsDisponibles = ['niveau1', 'niveau2', 'niveau3', 'niveau3', 'niveau3']
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)

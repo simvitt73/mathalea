@@ -33,8 +33,6 @@ export default function CalculerEtendues () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-
     let typeQuestionsDisponibles = ['notes', 'températures']
     if (this.sup === 1) typeQuestionsDisponibles = ['notes']
     if (this.sup === 2) typeQuestionsDisponibles = ['températures']

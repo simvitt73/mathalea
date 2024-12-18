@@ -37,7 +37,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
 
   this.nouvelleVersion = function () {
 
-    this.sup = parseInt(this.sup)
+    
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1: // multiplications

@@ -37,7 +37,6 @@ export default function PointSurCourbe () {
   this.nbQuestions = 2
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:
