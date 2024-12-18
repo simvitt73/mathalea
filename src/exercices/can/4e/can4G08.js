@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
 export const dateDeModifImportante = '23/11/2024'
 /**
  * @author Gilles Mora
- * Référence can4G08
+
  * Date de publication septembre 2021
 */
 export const uuid = 'b1a48'

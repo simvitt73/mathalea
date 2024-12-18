@@ -25,7 +25,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote (Adapté par Eric Elter pour que les nouvelles fonctions 3d soient bien utilisées)
  * Créé le 3/11/2021
- * Référence can6G06
+
  */
 export const uuid = 'da6a4'
 

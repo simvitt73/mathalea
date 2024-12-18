@@ -12,7 +12,7 @@ export const dateDePublication = '24/01/2023'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
  * Date de publication
 */
 

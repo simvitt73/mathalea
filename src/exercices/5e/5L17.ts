@@ -11,7 +11,7 @@ export const titre = 'Traduire la relation de dépendance entre deux grandeurs p
 export const dateDePublication = '28/05/2024'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Guillaume Valmont
 */
 export const uuid = '01387'

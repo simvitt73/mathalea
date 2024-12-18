@@ -15,7 +15,7 @@ export const dateDePublication = '27/02/2023'
 /**
  * Aléatoirisation de https://www.youtube.com/watch?v=s-KelQ875a8
  * @author Guillaume Valmont
- * Référence 6G51-2
+
 */
 export const uuid = 'a8f1f'
 

@@ -9,7 +9,7 @@ export const dateDePublication = '04/10/2023'
 /*!
  * @author  Gilles Mora (J'ai repris l'ex 4C10-3)
  *
- * Référence can4C19
+
  */
 export const uuid = '1ae99'
 export const ref = 'can4C19'

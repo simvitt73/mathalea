@@ -5,7 +5,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Stéphane Guyon  + Jean-Claude Lhote (interactif) + Gilles Mora
 */
 export const uuid = '0ec77'

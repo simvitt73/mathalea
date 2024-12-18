@@ -10,7 +10,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
  * Créé pendant l'été 2021
- * Référence can5C11
+
  */
 export const uuid = '606fd'
 export const ref = 'can5C11'

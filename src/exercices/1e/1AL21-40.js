@@ -21,7 +21,7 @@ export const titre = 'Factoriser un polynôme du second degré'
  * Factoriser, si possible, un polynôme du second degré
  * On utilise un calcul intérmédiaire de discriminant
  * @author Stéphane Guyon
- * Référence 1E13
+
  */
 export const uuid = '334ca'
 

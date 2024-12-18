@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote et Gilles Mora
  * Septembre 2021
- * Référence can2L01
+
  */
 export const uuid = '3b832'
 export const ref = 'can2L01'

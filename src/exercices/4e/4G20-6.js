@@ -16,7 +16,7 @@ export const amcType = 'AMCHybride'
 /**
  * Encadrer une racine carrée et en donner une valeur approchée
  * @author Guillaume Valmont  (Amélioration AMC par Eric Elter)
- * Référence 4G20-6
+
  * Date de publication : 08/08/2021
  */
 export const uuid = '516d1'

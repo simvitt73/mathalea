@@ -43,9 +43,9 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
   }
 }
 /**
- * Description didactique de l'exercice
+ * 
  * @author Frédéric PIOU
- * Référence
+
 */
 export default function ExercicesAnglesAIC () {
   Exercice.call(this)

@@ -21,7 +21,7 @@ export const titre = 'Résoudre des problèmes de grandeurs composées et de con
 /**
  * problèmes de grandeurs composées
  * @author Jean-Claude Lhote
- * Référence : 4P10
+
  */
 export const uuid = '72c5a'
 export const ref = '4P10'

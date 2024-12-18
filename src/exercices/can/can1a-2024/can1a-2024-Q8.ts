@@ -11,7 +11,7 @@ export const uuid = 'e3466'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class raisonSuiteG extends Exercice {
   constructor () {

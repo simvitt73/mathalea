@@ -10,7 +10,7 @@ export const uuid = 'd7ce2'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class QuestionDeDifference extends Exercice {

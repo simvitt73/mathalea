@@ -16,9 +16,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice Différencier événéments compatibles, incompatibles, contraires.
+ *  Différencier événéments compatibles, incompatibles, contraires.
  * @author Mireille Gain
- * Référence 4S20-3
+
 */
 export default class ExerciceQcmStatistiques extends Exercice {
   constructor () {

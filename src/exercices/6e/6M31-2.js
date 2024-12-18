@@ -29,7 +29,7 @@ export const dateDeModifImportante = '05/06/2023'
  * * 3 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @author Rémi Angot
- * Référence 6M31-2
+
  */
 export const uuid = 'f4d29'
 

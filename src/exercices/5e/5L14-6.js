@@ -7,7 +7,7 @@ import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
 
 /**
- * Référence 5L14-6
+
  * Déterminer la dernière opération à effectuer dans une expression numérique
  * @author Sébastien Lozano
  */

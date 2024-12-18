@@ -12,7 +12,7 @@ export const dateDePublication = '24/01/2023'
 /*!
  * @author Gilles Mora
  *
- * Référence canc3C15
+
  */
 
 export const uuid = 'aa8af'

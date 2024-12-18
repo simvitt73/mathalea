@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 /**
  * Division d'un entier par 10, 100, 1000
  * @author Rémi Angot
- * Référence CM016
+
  */
 export const uuid = '8f2a4'
 export const ref = 'CM016'

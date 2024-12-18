@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6P03
+
  */
 export const uuid = 'b0f1a'
 export const ref = 'can6P03'

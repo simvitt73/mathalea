@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 /**
  * Ensemble de questions pour course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
  */
 export const uuid = '32a0f'
 export const ref = 'canc3a'

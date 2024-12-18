@@ -23,9 +23,9 @@ export const dateDePublication = '1/08/2021'
 export const dateDeModifImportante = '5/08/2022'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Jean-Claude Lhote
- * Référence 2F32-2
+
  */
 export const uuid = '573f2'
 

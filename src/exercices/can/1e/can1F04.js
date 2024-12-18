@@ -18,7 +18,7 @@ export const dateDeModifImportante = '23/10/2024'
 /**
  *
  * @author Gilles Mora
- * Référence can1F04
+
  */
 export const uuid = '0f0de'
 export const ref = 'can1F04'

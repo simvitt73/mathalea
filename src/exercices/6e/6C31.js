@@ -31,7 +31,7 @@ export const titre = 'Effectuer divisions décimales'
  *
  * Niveau de difficulté 2 : division par 3, 7 ou 9
  * @author Rémi Angot
- * Référence 6C31
+
  */
 export const uuid = '294bb'
 

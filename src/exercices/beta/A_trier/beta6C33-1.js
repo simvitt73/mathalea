@@ -5,7 +5,7 @@ export const titre = 'Parenthèses manquantes'
 /**
  * Priorités opératoires, placer les parenthèses.
  * @author Cédric Grolleau
- * Référence 6C33-1
+
  */
 export default function Priorites () {
   Exercice.call(this)

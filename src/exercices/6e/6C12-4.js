@@ -28,7 +28,7 @@ export const dateDeModifImportante = '04/04/2024'
 /**
  * Résoudre des problèmes dont certaines informations sont inutiles.
  * @author Eric Elter
- * Référence 6C12-4 (d'après 6C12-3)
+
  */
 export const uuid = '529ad'
 

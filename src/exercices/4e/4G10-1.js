@@ -10,7 +10,7 @@ export const dateDeModifImportante = '28/12/2022'
 /**
  * Transformations : symétrie centrale et repérage
  * @author Jean-Claude Lhote
- * référence 4G10-1 réglage de 3G10-1
+
  */
 export const uuid = '7b40c'
 export const ref = '4G10-1'

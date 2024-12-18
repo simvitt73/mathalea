@@ -13,9 +13,9 @@ import Exercice from '../deprecatedExercice.js'
 export const titre = 'Comparer deux images avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
 /**
- * Description didactique de l'exercice
+ * 
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = '9315e'
 

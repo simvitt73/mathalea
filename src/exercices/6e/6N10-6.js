@@ -27,7 +27,7 @@ export const dateDePublication = '20/01/2022'
  * * Tous les choix sont paramétrables
  * *
  * @author Eric Elter
- * Référence 6N10-6
+
  */
 
 export const uuid = 'c5438'

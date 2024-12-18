@@ -23,7 +23,7 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers
  * @author Rémi Angot (AMC par EE)
- * Référence 6N20-1
+
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '1f5de'

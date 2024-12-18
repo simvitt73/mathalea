@@ -9,7 +9,7 @@ export const amcType = 'AMCHybride'
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @author Jean-Claude Lhote
- * référence 5G11
+
  * Pas de version LaTeX
  */
 export const uuid = 'ec32b'

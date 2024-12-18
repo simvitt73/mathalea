@@ -20,9 +20,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ * 
  * @autor  Jean-Claude Lhote
- * Référence TSpeAN1-2
+
  */
 export default class CalculsLog extends Exercice {
   version: string

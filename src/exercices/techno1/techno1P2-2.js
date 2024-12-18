@@ -9,9 +9,9 @@ export const dateDePublication = '25/06/2022' // La date de publication initiale
 export const dateDeModifImportante = '' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Stéphane Guyon
- * Référence
+
 */
 export const uuid = '86f71'
 export const ref = 'techno1P2-2'

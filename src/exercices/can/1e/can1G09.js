@@ -16,7 +16,7 @@ export const dateDePublication = '31/10/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can1G09
+
  *
 */
 

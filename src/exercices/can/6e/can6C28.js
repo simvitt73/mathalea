@@ -13,7 +13,7 @@ export const dateDeModifImportante = '19/09/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora & Jean-Claude Lhote
- * Référence can6C26
+
  * Date de publication 21/10/2021
 */
 export const uuid = '2ce71'

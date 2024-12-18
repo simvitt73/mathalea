@@ -20,7 +20,7 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ * 
  * @autor  Jean-Claude Lhote
  */
 export default class EquationsLog extends Exercice {

@@ -14,7 +14,7 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * Première question : Demande d'évaluer les deux programmes de calcul pour une valeur entre -9 et 9 et demande d'émettre une conjecture
  * Deuxième question : Demande de démontrer cette conjecture
  * @author Guillaume Valmont
- * Référence 4L12
+
 */
 export const uuid = '501f9'
 export const ref = '4L12'

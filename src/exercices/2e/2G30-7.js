@@ -25,7 +25,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
- * Description didactique de l'exercice
+ * 
  * @author Stéphane Guyon + modif Gilles Mora (droite verticale)
  */
 export const uuid = '41e6f'

@@ -19,7 +19,7 @@ export const amcType = 'qcmMono'
  * et un nombre premier inferieur à 529
  * dans cet exo on n'utilise pas les critères par 7 et 11
  * @author Sébastien Lozano + Jean-Claude Lhote pour l'interactivité.
- * Référence 3A10-1
+
  */
 export const uuid = 'bba55'
 

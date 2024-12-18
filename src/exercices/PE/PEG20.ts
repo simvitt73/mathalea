@@ -11,7 +11,7 @@ export const dateDePublication = '29/10/2021'
 /**
  * Application du théorème de Thalès pour multiplier la longueur d'un segment par ue fraction
  * @author Rémi Angot
- * Référence PEG20
+
 */
 export const uuid = '44b85'
 

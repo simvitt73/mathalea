@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry modifié par Rémi Angot (choix des fonctions + parenthèses)
  * mise en jour par Jean-Claude Lhote à la demande des collègues de lycée (notations + paramétrage + quelques améliorations esthétiques)
- * Référence 1AN14-4
+
  */
 
 export const uuid = '1a60f'

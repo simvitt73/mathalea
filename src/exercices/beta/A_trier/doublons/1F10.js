@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
 /**
  * Calculs de dérivés
  * @author Rémi Angot
- * Référence 1F10
+
 */
 export const uuid = '2af1c'
 export const ref = '1F10'

@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
  *
  * Par défaut c'est un mélange d'additions, soustractions avec et sans trou avec des nombres jusqu'à 20.
  * @author Rémi Angot
- * Référence CM000
+
  */
 export const uuid = '6d698'
 export const ref = 'CM000'

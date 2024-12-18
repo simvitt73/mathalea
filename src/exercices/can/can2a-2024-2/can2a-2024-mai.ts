@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'can2a-2024-2'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author
 */
 

@@ -21,7 +21,7 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Nathan Scheinmann
 */
 

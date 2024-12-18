@@ -14,7 +14,7 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Nathan Scheinmann
  */
 

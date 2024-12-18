@@ -27,9 +27,9 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '05/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ * 
  * Gilles Mora
- * Référence
+
  */
 
 function compareNombres (a, b) {

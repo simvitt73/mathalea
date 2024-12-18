@@ -14,7 +14,7 @@ export const interactifReady = true
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 1 et 256
  * @author Stéphane Guyon et Guillaume Valmont
- * Référence 4G20-2
+
  * Mis à jour le 08/08/2021
  */
 export const uuid = 'f5cbd'

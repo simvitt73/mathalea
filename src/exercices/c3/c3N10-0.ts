@@ -14,7 +14,7 @@ export const dateDeModifImportante = '24/09/2024'
 /**
  * Exercice modèle pour la nouvelle fonctionnalité de Drag&Drop
  * @author Jean-Claude Lhote
- * Référence c3N10-0
+
 */
 export const uuid = '6498e'
 export const refs = {

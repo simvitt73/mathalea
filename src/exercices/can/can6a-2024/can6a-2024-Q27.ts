@@ -15,7 +15,7 @@ export const uuid = '32d25'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class FractionDeRectangle extends Exercice {

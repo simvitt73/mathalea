@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Calcul de puissances
  * @author Gilles Mora
  * Publié le 22/10/2021
- * Référence can4C09
+
 */
 export const uuid = '92186'
 export const ref = 'can4C09'

@@ -28,7 +28,7 @@ export const interactifReady = true
  *
  * Pas de version LaTeX
  * @author Rémi Angot
- * Référence 6M11
+
  */
 export const uuid = 'eb45a'
 

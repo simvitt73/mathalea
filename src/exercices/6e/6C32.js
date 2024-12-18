@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 /**
  * On achète 2 aliments dont on connaît la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
  * @author Rémi Angot
- * Référence 6C32
+
  */
 export const uuid = '96b94'
 

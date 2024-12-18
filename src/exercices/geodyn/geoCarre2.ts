@@ -11,7 +11,7 @@ export const interactifType = 'custom'
 /**
  * Tracer un carré
  * @author Rémi Angot
- * Références geoCarre2
+
  */
 
 

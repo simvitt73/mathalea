@@ -21,7 +21,7 @@ export const refs = {
 /**
  * Exprimer un nombre en fonction de ln(2), ln(3), ln(5)...
  * @autor  Jean-Claude Lhote
- * Référence canTSpeAN01
+
  */
 export default class ExpressionsLog extends Exercice {
   version: string

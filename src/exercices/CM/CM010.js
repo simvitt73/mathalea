@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
 /**
  * Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3
  * @author Rémi Angot
- * Référence CM010
+
  */
 export const uuid = '6a3de'
 export const ref = 'CM010'

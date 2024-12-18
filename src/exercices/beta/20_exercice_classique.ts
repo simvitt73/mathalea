@@ -12,7 +12,7 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * Description didactique de l'exercice
+ * 
  * @author
 */
 export default class nomExercice extends Exercice {

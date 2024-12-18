@@ -10,7 +10,7 @@ export const amcType = 'AMCOpen'
 /**
  * Problèmes avec des multiplications ou des divisions avec des puissances de 10 et des conversions
  * @author Rémi Angot
- * Référence 4C32-3
+
  * 2021-02-05
 */
 export const uuid = '051c7'

@@ -69,7 +69,7 @@ function nombreAntecedents (choix) {
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Jean-Claude Lhote
- * Référence (2F22-1)
+
  */
 export default class BetaModeleSpline extends Exercice {
   constructor () {

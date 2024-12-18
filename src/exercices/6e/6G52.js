@@ -24,7 +24,7 @@ export const dateDePublication = '11/09/2022'
  * Donner tous les couples de droites perpendiculaires en justifiant
  * Refactoring pour les noms des droites Mickael Guironnet
  * @author Guillaume Valmont
- * Référence 6G52
+
 */
 export const uuid = '5bac3'
 

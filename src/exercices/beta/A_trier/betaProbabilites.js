@@ -5,9 +5,9 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 export const titre = 'Probabilités simples'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Rémi Angot et Matthieu Devillers
- * Référence
+
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)

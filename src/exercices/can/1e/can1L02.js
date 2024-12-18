@@ -19,7 +19,7 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
 /**
  * Trouver le nombre de solutions d'une équation.
  * @author Gilles Mora
- * Référence can1L02
+
 */
 export const uuid = 'c74ea'
 export const ref = 'can1L02'

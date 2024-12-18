@@ -15,9 +15,9 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author
- * Référence
+
  */
 export default class NomExercice extends Exercice {
   constructor () {

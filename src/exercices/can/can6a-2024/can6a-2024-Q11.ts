@@ -11,7 +11,7 @@ export const uuid = 'e1faf'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 export default class CompareDecimalFraction extends Exercice {
   constructor () {

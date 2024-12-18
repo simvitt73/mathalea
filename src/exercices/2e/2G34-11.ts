@@ -16,7 +16,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2024'
 /**
- * Description didactique de l'exercice
+ * 
  * @author Nathan Scheinmann
 */
 

@@ -12,7 +12,7 @@ export const dateDeModifImportante = '09/05/2023'
 /**
 * Modèle d'exercice très simple pour la course aux nombres
 * @author Stéphane Guyon et Gilles Mora pour augmenter les cas
-* Référence
+
 * Date de publication
 */
 export const uuid = 'f0c23'

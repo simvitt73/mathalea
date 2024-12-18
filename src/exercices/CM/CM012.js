@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
 /**
  * 100-...=
  * @author Rémi Angot
- * Référence CM012
+
  */
 export const uuid = '67962'
 export const ref = 'CM012'

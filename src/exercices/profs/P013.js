@@ -14,7 +14,7 @@ export const uuid = '5b767'
 /**
  * Trace une courbe interpolee par portions cosinusoïdales.
  * @author Jean-Claude Lhote
- * Référence P013
+
 */
 export default function TraceCourbeInterpolee1 () {
   Exercice.call(this)

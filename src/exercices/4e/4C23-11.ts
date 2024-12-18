@@ -16,7 +16,7 @@ export const dateDePublication = '20/06/2024'
 
 /**
  * @author Jean-Claude Lhote
- * Référence 4C23-11
+
  */
 export const uuid = 'f7f49'
 export const ref = '4C23-11'

@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 /**
  * Retrouver le nombre de départ
  * @author Rémi Angot
- * Références 6C13-3
+
  */
 export const uuid = '2be1d'
 

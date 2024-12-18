@@ -12,7 +12,7 @@ export const dateDePublication = '01/05/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * Description didactique de l'exercice
+ * 
  * @author Rémi Angot et Matthieu Devillers
 */
 export const uuid = '850b0'

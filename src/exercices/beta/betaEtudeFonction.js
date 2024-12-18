@@ -19,7 +19,7 @@ export const uuid = '9f20b' // @todo à changer dans un nouvel exo (utiliser pnp
 /**
  * Aléatoirise un polynome et dresse le tableau de signes et le tableau de variations
  * @author Jean-Claude Lhote
- * Référence (betaPolynome)
+
  */
 export default class BetaEtudeFonction extends Exercice {
   constructor () {

@@ -21,7 +21,7 @@ export const dateDeModifImportante = '14/05/2023' // par EE : Décoquillage et p
  * Résoudre des problèmes (plus complexes)
  * @author Mikael Guironnet
  * Relecture typographique par Rémi Angot
- * Référence 6C32-1
+
  */
 export const uuid = 'e906e'
 

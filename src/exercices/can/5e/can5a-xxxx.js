@@ -21,7 +21,7 @@ export const amcType = 'AMCNum'
  * Course aux nombres avec 30 questions début de 5e
  * @author jeanclaude Lhote
  * Créé pendant l'été 2021
- * Référence canPredef5-1
+
  */
 export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'

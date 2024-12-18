@@ -19,9 +19,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Rémi Angot
- * Référence
+
 */
 export default class SimplifierExponentielles extends Exercice {
   can: boolean

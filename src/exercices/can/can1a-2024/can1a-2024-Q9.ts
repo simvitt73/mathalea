@@ -12,7 +12,7 @@ export const uuid = 'fa173'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 
 export default class EncadreRacParDeuxEntiers extends Exercice {

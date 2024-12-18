@@ -16,7 +16,7 @@ export const dateDePublication = '16/04/2022' // La date de publication initiale
 /**
  * Pour l'instant on va faire les cubes et les parallélépipèdes rectangles
  * @author Jean-Claude Lhote
- * Référence
+
  */
 /** type Cellule = { bordG, bordH } */
 

@@ -18,7 +18,7 @@ export const dateDeModifImportante = '22/08/2024'
 /**
  * @author Eric Elter (déclinaison de 6C30-5 de Jean-Claude Lhote)
  * Publié le 08/12/2021
- * Référence 6C30-8
+
  */
 export const uuid = '9540b'
 

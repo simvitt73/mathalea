@@ -10,7 +10,7 @@ export const dateDePublication = '12/12/2021'
 
 /**
  * @author Eric Elter
- * Référence c3C10-3
+
  * Date décembre 2021
  */
 export const uuid = 'f92e1'

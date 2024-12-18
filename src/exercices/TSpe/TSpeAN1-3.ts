@@ -18,9 +18,9 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * Description didactique de l'exercice
+ * 
  * @author Jean-Claude Lhote et modifié par Claire Rousset
- * Référence TSpeAN1-3
+
 */
 export default class ExerciceCalculsProprietesLog extends Exercice {
   version: string

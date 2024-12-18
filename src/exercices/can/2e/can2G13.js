@@ -12,7 +12,7 @@ export const dateDePublication = '6/12/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Florence Tapiero
- * Référence can2G13
+
  * Date de publication décembre 2021
 */
 export const uuid = '3a0e1'

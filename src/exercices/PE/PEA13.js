@@ -10,7 +10,7 @@ export const dateDePublication = '2/11/2021'
 
 /**
 * Multiplications dans une autre base
-* référence PEA13
+
 *
 * @author Rémi Angot
 */

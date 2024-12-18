@@ -20,9 +20,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Claire Rousset
- * Référence
+
 */
 export default class ExerciceCalculsAvecLog extends Exercice {
   constructor () {

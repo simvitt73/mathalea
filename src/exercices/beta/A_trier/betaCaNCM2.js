@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 /**
  * Ensemble de questions pour course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
  */
 export default function CourseAuxNombresCM () {
   Exercice.call(this)

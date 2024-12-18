@@ -21,7 +21,7 @@ export const titre = 'Calcul du discriminant d\'une équation du second degré'
 /**
  * Calculer le discriminant d'une équation
  * @author Rémi Angot
- * Référence 1E10
+
 */
 export const uuid = 'feb39'
 

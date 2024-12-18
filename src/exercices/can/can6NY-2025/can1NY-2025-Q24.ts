@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora+Eric Elter
- * Référence
+
 */
 export default class inequationAResoudre extends Exercice {
   constructor () {

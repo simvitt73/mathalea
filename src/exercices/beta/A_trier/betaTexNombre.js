@@ -19,7 +19,7 @@ bmath.config({ number: 'BigNumber' })
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Rémi Angot
- * Référence
+
 */
 export default function NomExercice () {
   Exercice.call(this)

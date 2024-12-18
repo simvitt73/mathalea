@@ -10,7 +10,7 @@ export const uuid = 'df70c'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class termeSuite extends Exercice {
   constructor () {

@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
  * Créé le 03/08/2022
- * Référence canc3M02
+
  */
 export const uuid = 'cb91f'
 export const ref = 'canc3M02'

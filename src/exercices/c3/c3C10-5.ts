@@ -14,7 +14,7 @@ export const dateDePublication = '22/08/2024'
 /**
  * Soustraire deux entiers
  * @author Jean-Claude Lhote
- * Référence c3C10-5
+
  */
 export const uuid = '3751c'
 export const refs = {

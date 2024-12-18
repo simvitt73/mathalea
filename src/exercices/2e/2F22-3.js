@@ -99,7 +99,7 @@ function aleatoiriseCourbe (choix) {
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Gilles Mora (Jean-Claude Lhote pour la programmation)
- * Référence (2F22-3)
+
  */
 export default class BetaModeleSpline extends Exercice {
   constructor () {

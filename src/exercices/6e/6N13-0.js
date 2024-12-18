@@ -14,7 +14,7 @@ export const dateDePublication = '17/09/2022'
 /**
  * Associer les préfixes à leur opération correspondante
  * @author Rémi Angot
- * Référence 6N13-0
+
  */
 export const uuid = '5d1e2'
 

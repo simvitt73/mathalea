@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
 /**
  * Une soustraction dont le premier terme est un multiple de 10
  * @author Rémi Angot
- * Référence CM013
+
  */
 export const uuid = '5e009'
 export const ref = 'CM013'

@@ -10,7 +10,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
   * Créé pendant l'été 2021
- * Référence can3G01
+
 */
 export const uuid = 'dcc68'
 export const ref = 'can3G01'

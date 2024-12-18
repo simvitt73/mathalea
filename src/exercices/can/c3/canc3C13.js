@@ -11,7 +11,7 @@ export const dateDePublication = '17/11/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
  * Date de publication
 */
 

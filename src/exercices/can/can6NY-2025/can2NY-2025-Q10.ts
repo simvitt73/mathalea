@@ -19,7 +19,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
+
 */
 export default class calcPuissanceDe10 extends Exercice {
   constructor () {

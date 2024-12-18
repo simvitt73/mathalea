@@ -15,9 +15,9 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Stéphane Guyon
- * Référence
+
  */
 export const uuid = 'b9e6a'
 

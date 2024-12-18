@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '14/12/2024'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Gilles Mora
 */
 export const uuid = '6487c'

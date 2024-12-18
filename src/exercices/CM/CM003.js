@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot
- * Référence CM003
+
  */
 export const uuid = '9db38'
 export const ref = 'CM003'

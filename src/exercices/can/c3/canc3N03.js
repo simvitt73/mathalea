@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Date de publication septembre 2021
- * Référence canc3C01
+
  */
 export const uuid = '44f8c'
 export const ref = 'canc3N03'

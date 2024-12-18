@@ -12,7 +12,7 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 
 /**
 * Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
-* référence PEA11-1
+
 * * Convertir en base 10
 * * Convertir vers une base entre 2 et 7
 * * Trouver le plus grand nombre à 3 ou 4 chiffres d'une base ainsi que son successeur et le convertir en base 10 ou le plus petit et son prédecesseur

@@ -9,7 +9,7 @@ export const titre = 'Partager une quantité en deux ou trois parts selon un rat
 /**
  * Partager une quantité en deux ou trois parts selon un ratio donné.
  * @author Guillaume Valmont
- * Référence 5P12
+
  * Date de publication : 24/07/2021
 */
 export const uuid = '60910'

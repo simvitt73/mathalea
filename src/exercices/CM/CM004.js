@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
  * * Niveau 2 Addition 2 chiffres + 2 chiffres ne dépassant pas 100, soustraction dont le résultat est entre 11 et 19, tables de 6 à 9
  * * Niveau 3 Addition 2 chiffre + 2 chiffres dépassant 100, soustraction dont le résultat est entre 21 et 39, table de 7, 8, 11 ou 12,
  * @author Rémi Angot
- * Référence CM004
+
  */
 export const uuid = 'ac900'
 export const ref = 'CM004'

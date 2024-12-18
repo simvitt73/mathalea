@@ -21,9 +21,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice : Résolution d'équations du type a^x = b
+ *  : Résolution d'équations du type a^x = b
  * @autor Claire Rousset
- * Référence TSpeAN1-6
+
  */
 export default class EquationsLog extends Exercice {
   constructor () {

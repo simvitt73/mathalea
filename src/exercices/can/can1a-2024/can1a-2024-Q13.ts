@@ -10,7 +10,7 @@ export const uuid = '3828e'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ProduitScalaire extends Exercice {
   constructor () {

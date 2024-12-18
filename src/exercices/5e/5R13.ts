@@ -20,7 +20,7 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice : Comparaison de nombres relatifs
+ *  : Comparaison de nombres relatifs
  * @author Claire Rousset
  */
 export default class InequationsLog extends Exercice {

@@ -29,7 +29,7 @@ export const titre = "Conversions d'aires"
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @author Rémi Angot
- * Référence 6M23
+
  */
 export default function ExerciceConversionsAires () {
   Exercice.call(this)

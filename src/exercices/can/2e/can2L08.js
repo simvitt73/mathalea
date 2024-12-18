@@ -11,7 +11,7 @@ export const dateDePublication = '04/03/2022'
 /**
  *
  * @author Gilles Mora
- * Référence can2L08
+
 */
 export const uuid = 'c1123'
 export const ref = 'can2L08'

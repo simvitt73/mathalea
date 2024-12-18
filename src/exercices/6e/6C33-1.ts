@@ -20,7 +20,7 @@ export const titre = 'Organiser des calculs en une seule ligne'
 export const dateDePublication = '31/05/2024'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Guillaume Valmont
 */
 export const uuid = '2b06d'

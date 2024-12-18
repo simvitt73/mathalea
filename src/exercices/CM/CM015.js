@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
 /**
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10
  * @author Rémi Angot
- * Référence CM015
+
  */
 export const uuid = 'fbd32'
 export const ref = 'CM015'

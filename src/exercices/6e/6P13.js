@@ -22,7 +22,7 @@ export const dateDePublication = '23/07/2021'
 export const dateDeModifImportante = '16/04/2023'
 
 /**
- * Description didactique de l'exercice
+ * 
  * augmenter ou diminuer un prix d'un pourcentage,
  * le calcul intermédiaire du montant de l'augmentation ou de la baisse est demandé
  * Quatre niveaux :

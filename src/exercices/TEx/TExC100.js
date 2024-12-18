@@ -9,9 +9,9 @@ export const titre = 'Résoudre une équation du premier degré dans C'
 export const dateDePublication = '30/10/2021'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Eric Schrafstetter
- * Référence ExC100
+
 */
 export const uuid = '8e72e'
 export const ref = 'ExC100'

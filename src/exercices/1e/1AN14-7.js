@@ -14,7 +14,7 @@ export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
 /**
  * Calculer la dérivée de x -> f(ax+b)
  * @author Jean-Léon Henry
- * Référence 1AN14-6
+
  */
 
 export const uuid = '3391d'

@@ -10,7 +10,7 @@ export const interactifType = 'custom'
 /**
  * Tracer un parallélogramme
  * @author Rémi Angot
- * Références geoParallelogramme2
+
  */
 
 

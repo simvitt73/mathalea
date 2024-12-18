@@ -16,7 +16,7 @@ export const dateDePublication = '20/06/2022' // La date de publication initiale
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = '45511'
 export const ref = 'can1F08'

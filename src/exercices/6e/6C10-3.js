@@ -15,7 +15,7 @@ export const titre = 'Utiliser tables de multiplication pour effectuer produits 
 /**
  * Multiplier deux nombres décimaux
  * @author Rémi Angot
- * Référence 6C10-3
+
  */
 export const uuid = 'a5c5a'
 

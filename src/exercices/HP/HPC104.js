@@ -12,10 +12,10 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Maxime Nguyen
  * Terminé par Jean-Claude Lhote (correction du cas 3x3 détaillée + mise en place classe MatriceCarree)
- * Référence HPC104
+
  */
 export const uuid = '2806f'
 

@@ -11,7 +11,7 @@ export const dateDePublication = '30/10/2021'
  * On souhaite savoir quand ces fonctions possèdent deux racines distinctes.
  * Il faut déterminer les valeurs de m telles que \Delta > 0
  * @author Eric Schrafstetter
- * Référence 1E15
+
 */
 export const uuid = 'fe4df'
 

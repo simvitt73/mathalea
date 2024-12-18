@@ -13,7 +13,7 @@ export const amcType = 'qcmMono'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C01
+
  */
 export const uuid = 'de779'
 export const ref = 'can6C01'

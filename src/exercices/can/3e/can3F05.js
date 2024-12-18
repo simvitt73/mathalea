@@ -11,7 +11,7 @@ export const dateDeModifImportante = '13/10/2022'
 /*!
  * @author Jean-Claude Lhote/Gilles Mora
   * Créé pendant l'été 2021
- * Référence can3C04
+
 */
 export const uuid = '83a8a'
 export const ref = 'can3F05'

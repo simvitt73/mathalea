@@ -7,7 +7,7 @@ export const amcType = 'AMCOpen'
 /**
  * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021)
  * @ Loïc Geeraerts (Refactoring (ES6))
- * référence 6G11
+
  */
 export const uuid = '7ff97'
 

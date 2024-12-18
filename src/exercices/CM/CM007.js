@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
 /**
  * Un nombre à 2 chiffres non multiple de 10 + 11
  * @author Rémi Angot
- * Référence CM007
+
  */
 export const uuid = '9fe43'
 export const ref = 'CM007'

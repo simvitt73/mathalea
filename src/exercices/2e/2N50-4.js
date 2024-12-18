@@ -16,9 +16,9 @@ import { context } from '../../modules/context'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
- * Description didactique de l'exercice
+ * 
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = 'cf5b7'
 

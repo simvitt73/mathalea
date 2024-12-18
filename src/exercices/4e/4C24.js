@@ -18,7 +18,7 @@ export const dateDeModifImportante = '03/10/2023'
 
 /**
  * @author Guillaume Valmont (amendée par Eric Elter pour this.sup2 et une version 3e)
- * Référence 4C24
+
  */
 export const uuid = '612b9'
 export const ref = '4C24'

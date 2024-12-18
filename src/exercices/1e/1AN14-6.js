@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
  * Calculer la dérivée d'un quotient
  * @author Jean-Léon Henry
  * Finalisé par Jean-Claude Lhote
- * Référence 1AN14-5
+
  */
 
 export const uuid = 'b32f2'

@@ -21,7 +21,7 @@ export const dateDeModifImportante = '10/06/2022' // Une date de modification im
 /**
  * étude de variation d'une fonction du 2nd degré.
  * @author Gilles Mora
- * Référence can1F02
+
 */
 export const uuid = 'cc460'
 export const ref = 'can1F02'

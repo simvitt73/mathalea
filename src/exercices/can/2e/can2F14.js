@@ -17,7 +17,7 @@ export const dateDePublication = '27/09/2022' // La date de publication initiale
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can2F14
+
  * Date de publication
 */
 

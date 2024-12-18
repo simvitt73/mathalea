@@ -48,7 +48,7 @@ Correction de quelques coquilles
  * * Dans un triangle rectangle, un angle mesure le tiers de l'autre.
  * @author Jean-Claude Lhote
  * Ajout de schémas aux questions "faciles" par Guillaume Valmont le 04/03/2023
- * Référence 5G31
+
  */
 export const uuid = 'dc8c9'
 export const ref = '5G31'

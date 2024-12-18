@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 /**
  * On donne un arbre de probabilité et on doit calculer une probabilité partielle manquante
  * @author Jean-Claude Lhote
- * Référence can2P03
+
  */
 export const uuid = 'd15f3'
 export const ref = 'can1P04'

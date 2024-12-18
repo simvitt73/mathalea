@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
  * @author Rémi Angot
- * Référence CM017
+
  */
 export const uuid = 'fc635'
 export const ref = 'CM017'

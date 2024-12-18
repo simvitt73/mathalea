@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer si des droites sont parallèles, sécantes ou confondues'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Stéphane Guyon
 */
 export const uuid = 'e715d'

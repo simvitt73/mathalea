@@ -31,9 +31,9 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '13/07/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
- * Description didactique de l'exercice
+ * 
  * Gilles Mora
- * Référence
+
  */
 
 function compareNombres (a, b) {

@@ -29,7 +29,7 @@ export const dateDeModifImportante = '01/04/2023'
  * * xxx,x+xxx
  * * x0x+xx9,x
  * @author Rémi Angot (Modifié par EE pour modifier le nb de décimales des termes)
- * Référence 6C20
+
  */
 export const uuid = '01873'
 

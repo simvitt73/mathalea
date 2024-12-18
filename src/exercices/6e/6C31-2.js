@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
  *
  *
  * @author Rémi Angot
- * Référence 6C31-2
+
  * 2020-12-07
  */
 export const uuid = '013ef'

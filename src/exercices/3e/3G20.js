@@ -8,7 +8,7 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 /**
  * Calcul de longueurs avec le théorème de Thalès
  * @author Rémi Angot
- * Référence 3G20
+
 */
 export const uuid = '74eac'
 

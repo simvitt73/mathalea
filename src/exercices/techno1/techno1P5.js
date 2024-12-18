@@ -10,7 +10,7 @@ export const amcType = 'AMCNum'
 /**
 * Modèle d'exercice très simple pour la course aux nombres
 * @author Stéphane Guyon
-* Référence
+
 * Date de publication
 */
 export const uuid = '5b5c0'

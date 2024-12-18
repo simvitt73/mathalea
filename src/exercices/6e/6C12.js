@@ -22,14 +22,14 @@ export const amcType = 'AMCHybride'
 export const dateDePublication = '02/11/2021'
 
 /**
- * Description didactique de l'exercice
+ * 
  * À partir d'un prix, proposer différentes questions qui permettent de répondre, selon les questions,
  * soit de tête (*10), soit après un calcul posé (multiplication, addition ou soustraction),
  * soit après un calcul avec calculatrice (division)
  * Chacune de ces questions indépendantes trouve de l'intérêt par le choix de l'opération à effectuer
  * et donc à donner du sens à chacune des opérations.
  * @author Eric Elter (ES6 : Loïc Geeraerts)
- * Référence 6C12 - Exercice aisément adaptable pour les CM.
+
  * Date octobre 2021
  */
 
