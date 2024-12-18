@@ -3,10 +3,8 @@ import {
   type BoxedExpression
 } from '@cortex-js/compute-engine'
 import type { Parser, ParseLatexOptions, LatexDictionaryEntry } from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
-// import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
-// import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
@@ -271,21 +269,6 @@ function inputToGrandeur (input: string): Grandeur | false {
     return new Grandeur(mesure, unite)
   }
   return false
-}
-
-/**
- * Couteau suisse de la comparaison. Devrait correspondre à une très grosse majorité des comparaisons.
- * Comparaison de nombres ou bien d'expressions : c'est la fonction qui choisit.
- * @param {string} input
- * @param {string|number|Decimal|FractionEtendue} goodAnswer
- * @author Eric Elter
- * @return ResultType
- */
-export function calculCompare (input: string, goodAnswer: string): ResultType {
-  // Si goodAnswer est un nombre, alors on utilise la comparaison d'un nombre
-  // if (typeof goodAnswer === 'number' || goodAnswer instanceof Decimal || goodAnswer instanceof FractionEtendue) return numberCompare(input, goodAnswer)
-  // Sinon on utilise la comparaison d'une expression non réduite
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
 }
 
 /**
@@ -1469,7 +1452,8 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   })
 
   if (!AllExist) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
+    if (splitGoodAnswer.length === 1) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas la valeur attendue.' }
+    else return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
     return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés dans le bon ordre.' }
