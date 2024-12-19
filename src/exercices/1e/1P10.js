@@ -20,7 +20,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '01/06/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * 
+ *
  * @author Stephane Guyon
  */
 export const uuid = '9ccfd'

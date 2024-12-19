@@ -17,7 +17,7 @@ import { context } from '../../modules/context.js'
 export const titre = 'Résoudre graphiquement une inéquation avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
 /**
- * 
+ *
  * @author Gilles Mora
 
  */

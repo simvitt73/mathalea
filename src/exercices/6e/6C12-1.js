@@ -22,7 +22,7 @@ export const amcType = 'AMCHybride'
 export const dateDePublication = '02/11/2021'
 
 /**
- * 
+ *
  * À partir d'une masse, proposer différentes questions qui permettent de répondre, selon les questions,
  * soit de tête (*10), soit après un calcul posé (multiplication, addition ou soustraction),
  * soit après un calcul avec calculatrice (division)

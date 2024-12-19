@@ -14,7 +14,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '02/04/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * 
+ *
  * @author Stéphane Guyon rendu interactif par JC Lhote + utilisation de decimal.js
  * Choix des types de problèmes par Guillaume Valmont le 02/04/2023
 

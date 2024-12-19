@@ -12,7 +12,7 @@ import Exercice from '../deprecatedExercice.js'
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
 export const dateDePublication = '14/02/2023'
 /**
- * 
+ *
  * @author Gilles Mora
 
  */

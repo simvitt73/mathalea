@@ -12,7 +12,7 @@ export const dateDePublication = '26/11/2024' // La date de publication initiale
 // export const dateDeModifImportante = '26/11/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * 
+ *
  * @author Maxime Nguyen
  */
 export const uuid = 'de526'

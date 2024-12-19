@@ -28,7 +28,7 @@ export const titre = 'Modéliser un problème par une inéquation'
 export const dateDePublication = '14/02/2023'
 export const dateDeModifImportante = '07/06/2024'
 /**
- * 
+ *
  * @author Gilles Mora
 
 */

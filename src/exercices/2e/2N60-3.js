@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
 export const dateDePublication = '14/02/2023'
 /**
- * 
+ *
  * @author Gilles Mora
 
 */

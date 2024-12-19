@@ -9,7 +9,7 @@ export const titre = 'Résoudre une équation du premier degré dans C'
 export const dateDePublication = '30/10/2021'
 
 /**
- * 
+ *
  * @author Eric Schrafstetter
 
 */

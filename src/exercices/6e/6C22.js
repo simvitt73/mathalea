@@ -20,7 +20,7 @@ export const dateDePublication = '10/07/2021'
 export const dateDeModifImportante = '11/12/2024'
 
 /**
- * 
+ *
  * @author Laurence CANDILLE, Olivier Mimeau (ajout d'un cas) et Rémi Angot (refactorisation)
 
  * Relecture : Novembre 2021 par EE

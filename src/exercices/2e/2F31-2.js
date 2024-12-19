@@ -15,7 +15,7 @@ export const titre =
 export const dateDePublication = '31/01/2022'
 export const dateDeModifImportante = '12/07/2023'
 /**
- * 
+ *
  * @author Gilles Mora, Louis Paternault
  */
 export const uuid = '1ca05'

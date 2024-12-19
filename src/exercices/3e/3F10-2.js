@@ -38,33 +38,33 @@ export default function CalculsImagesFonctions () {
   this.nouvelleVersion = function () {
     const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'
       ? gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 2,
+        defaut: 3,
+        melange: 3,
+        nbQuestions: this.nbQuestions,
+        listeOfCase: ['linéaire', 'affine']
+      })
+      : this.fonctions === 'polynomialesOuRationnelles'
+        ? gestionnaireFormulaireTexte({
           saisie: this.sup,
           min: 1,
           max: 2,
           defaut: 3,
           melange: 3,
           nbQuestions: this.nbQuestions,
-          listeOfCase: ['linéaire', 'affine']
+          listeOfCase: ['polynôme', 'fraction']
         })
-      : this.fonctions === 'polynomialesOuRationnelles'
-        ? gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            min: 1,
-            max: 2,
-            defaut: 3,
-            melange: 3,
-            nbQuestions: this.nbQuestions,
-            listeOfCase: ['polynôme', 'fraction']
-          })
         : gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            min: 1,
-            max: 4,
-            defaut: 5,
-            melange: 5,
-            nbQuestions: this.nbQuestions,
-            listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
-          })
+          saisie: this.sup,
+          min: 1,
+          max: 4,
+          defaut: 5,
+          melange: 5,
+          nbQuestions: this.nbQuestions,
+          listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
+        })
 
     let sousChoix
     if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question pour les questions

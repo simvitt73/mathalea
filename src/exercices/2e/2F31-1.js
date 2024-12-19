@@ -8,7 +8,7 @@ import Decimal from 'decimal.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
 /**
- * 
+ *
  * @author Gilles Mora // Suppression de calcul et mise en place de Decimal par Jean-Claude Lhote
 
 */

@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * 
+ *
  * @author Mireille Gain
 */
 export default class nomExercice extends Exercice {

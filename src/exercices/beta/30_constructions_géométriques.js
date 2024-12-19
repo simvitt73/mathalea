@@ -20,7 +20,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @author NomAuteur(s)
 
  */

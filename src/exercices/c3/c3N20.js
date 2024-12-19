@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 export const dateDePublication = '24/03/2021'
 
 /**
- * 
+ *
  * @author Benjamin Angot
  */
 

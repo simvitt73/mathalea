@@ -23,7 +23,7 @@ export const dateDePublication = '1/08/2021'
 export const dateDeModifImportante = '5/08/2022'
 
 /**
- * 
+ *
  * @author Jean-Claude Lhote
 
  */

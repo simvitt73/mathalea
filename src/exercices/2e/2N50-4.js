@@ -16,7 +16,7 @@ import { context } from '../../modules/context'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
- * 
+ *
  * @author Gilles Mora
 
  */
