@@ -10,7 +10,7 @@ export const dateDePublication = '13/11/2020'
 
 /**
  * Conversion vers unité de référence sens multiplication
-  * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'c9ba6'

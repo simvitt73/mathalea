@@ -29,7 +29,7 @@ export const dateDeModifImportante = '09/04/2022'
  * Ajout d'une option pour ne pas exiger une fraction irréductible le 09/04/2022 par Guillaume Valmont
  */
 export const uuid = '72ce7'
-export const ref = '4C22'
+
 export const refs = {
   'fr-fr': ['4C22'],
   'fr-ch': ['10NO5-6']

@@ -21,7 +21,7 @@ export const dateDePublication = '09/06/2021'
  * Ajout d'un paramètre permettant de choisir entre placer un point et lire ses coordonnées
  */
 export const uuid = '9c916'
-export const ref = '4G52'
+
 export const refs = {
   'fr-fr': ['4G52'],
   'fr-ch': []

@@ -19,7 +19,7 @@ export const dateDeModifImportante = '05/09/2023'
  * Ajout du choix du signe de l'exposant par Guillaume Valmont le 26/04/2023
  */
 export const uuid = '5d72b'
-export const ref = '4C32-0'
+
 export const refs = {
   'fr-fr': ['4C32-0'],
   'fr-ch': ['10NO2-5']

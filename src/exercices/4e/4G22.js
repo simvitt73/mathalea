@@ -27,7 +27,7 @@ export const interactifType = ['qcm', 'mathLive']
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter)
  */
 export const uuid = 'b18e8'
-export const ref = '4G22'
+
 export const refs = {
   'fr-fr': ['4G22'],
   'fr-ch': ['10GM4-3', '11GM1-4']

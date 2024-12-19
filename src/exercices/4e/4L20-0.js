@@ -28,7 +28,7 @@ export const titre = 'Résoudre une équation du premier degré à solutions ent
  * 4L20-0
  */
 export const uuid = '515b0'
-export const ref = '4L20-0'
+
 export const refs = {
   'fr-fr': ['4L20-0'],
   'fr-ch': ['10FA3-6']

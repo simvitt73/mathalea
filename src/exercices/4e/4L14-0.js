@@ -12,7 +12,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
  * @author Sébastien Lozano
  */
 export const uuid = 'a1c9a'
-export const ref = '4L14-0'
+
 export const refs = {
   'fr-fr': ['4L14-0'],
   'fr-ch': ['10FA3-2', '11FA6-1']

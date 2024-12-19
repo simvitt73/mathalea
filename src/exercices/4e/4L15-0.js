@@ -15,7 +15,7 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
  * @author Sébastien Lozano
  */
 export const uuid = 'df5a3'
-export const ref = '4L15-0'
+
 export const refs = {
   'fr-fr': ['4L15-0'],
   'fr-ch': ['10FA3-8']

@@ -14,7 +14,7 @@ export const amcType = 'AMCOpen'
  * 2021-02-05
 */
 export const uuid = '051c7'
-export const ref = '4C32-3'
+
 export const refs = {
   'fr-fr': ['4C32-3'],
   'fr-ch': ['10NO2-6']

@@ -20,7 +20,7 @@ export const amcType = 'AMCHybride'
  * Date de publication : 08/08/2021
  */
 export const uuid = '516d1'
-export const ref = '4G20-6'
+
 export const refs = {
   'fr-fr': ['4G20-6'],
   'fr-ch': ['10NO3-4']

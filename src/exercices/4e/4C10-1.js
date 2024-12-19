@@ -12,7 +12,7 @@ export const amcType = 'qcmMono'
  * @author Sébastien Lozano
  */
 export const uuid = '4fd42'
-export const ref = '4C10-1'
+
 export const refs = {
   'fr-fr': ['4C10-1'],
   'fr-ch': ['10NO4-3']

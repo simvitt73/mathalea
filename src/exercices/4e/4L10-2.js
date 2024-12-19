@@ -21,7 +21,7 @@ export const dateDeModifImportante = '11/05/2024'
  * @author Mireille Gain
 */
 export const uuid = 'af8bb'
-export const ref = '4L10-2'
+
 export const refs = {
   'fr-fr': ['4L10-2'],
   'fr-ch': ['10FA2-3']

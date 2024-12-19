@@ -122,7 +122,7 @@ export function pythagoreCompare (input, goodAnswer) {
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter )
  */
 export const uuid = 'bd660'
-export const ref = '4G20'
+
 export const refs = {
   'fr-fr': ['4G20'],
   'fr-ch': ['10GM4-1', '11GM1-1']

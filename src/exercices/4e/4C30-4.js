@@ -23,7 +23,7 @@ export const dateDePublication = '12/04/2022' // La date de publication initiale
  * @author Rémi Angot
  */
 export const uuid = 'b0b3c'
-export const ref = '4C30-4'
+
 export const refs = {
   'fr-fr': ['4C30-4'],
   'fr-ch': []

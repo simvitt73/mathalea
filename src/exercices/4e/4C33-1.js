@@ -31,7 +31,7 @@ export const dateDeModifImportante = '05/11/2024'
  * @author Sébastien Lozano
  */
 export const uuid = 'bae57'
-export const ref = '4C33-1'
+
 export const refs = {
   'fr-fr': ['4C33-1'],
   'fr-ch': ['10NO2-11']

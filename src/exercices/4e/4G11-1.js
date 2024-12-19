@@ -12,7 +12,7 @@ export const amcType = 'AMCHybride'
 
  */
 export const uuid = '48253'
-export const ref = '4G11-1'
+
 export const refs = {
   'fr-fr': ['4G11-1'],
   'fr-ch': ['10ES2-10']

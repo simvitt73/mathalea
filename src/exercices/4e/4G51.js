@@ -25,7 +25,7 @@ export const dateDeModifImportante = '18/06/2022'
  * AMC pour Eric Elter le 25/11/2024
  */
 export const uuid = '0e754'
-export const ref = '4G51'
+
 export const refs = {
   'fr-fr': ['4G51'],
   'fr-ch': ['9ES7-3']

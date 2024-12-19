@@ -13,7 +13,7 @@ export const interactifType = 'qcm'
  */
 
 export const uuid = '9c484'
-export const ref = '4G20-5'
+
 export const refs = {
   'fr-fr': ['4G20-5'],
   'fr-ch': ['10NO3-3']

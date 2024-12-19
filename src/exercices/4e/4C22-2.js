@@ -29,7 +29,7 @@ export const interactifType = 'mathLive'
  * 4C22-2
  */
 export const uuid = '55354'
-export const ref = '4C22-2'
+
 export const refs = {
   'fr-fr': ['4C22-2'],
   'fr-ch': ['10NO5-7']

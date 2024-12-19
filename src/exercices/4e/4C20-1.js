@@ -8,7 +8,7 @@ export const dateDeModifImportante = '02/03/2024'
  * @author Guillaume Valmont
  */
 export const uuid = '7e31e'
-export const ref = '4C20-1'
+
 export const refs = {
   'fr-fr': ['4C20-1'],
   'fr-ch': []

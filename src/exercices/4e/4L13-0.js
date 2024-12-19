@@ -16,7 +16,7 @@ export const titre = 'Mettre en équation un problème sans objectif de résolut
  * @author Sébastien Lozano
  */
 export const uuid = '5a6f2'
-export const ref = '4L13-0'
+
 export const refs = {
   'fr-fr': ['4L13-0'],
   'fr-ch': ['10FA3-9']

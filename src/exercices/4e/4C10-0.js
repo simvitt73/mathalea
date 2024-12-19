@@ -23,7 +23,7 @@ export const titre = 'Signe d\'un produit ou d\'un quotient de nombres relatifs'
  * @author Sébastien Lozano
  */
 export const uuid = '450ae'
-export const ref = '4C10-0'
+
 export const refs = {
   'fr-fr': ['4C10-0'],
   'fr-ch': ['10NO4-2']

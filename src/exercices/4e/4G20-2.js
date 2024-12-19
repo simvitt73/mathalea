@@ -18,7 +18,7 @@ export const interactifReady = true
  * Mis à jour le 08/08/2021
  */
 export const uuid = 'f5cbd'
-export const ref = '4G20-2'
+
 export const refs = {
   'fr-fr': ['4G20-2'],
   'fr-ch': ['10NO3-1']

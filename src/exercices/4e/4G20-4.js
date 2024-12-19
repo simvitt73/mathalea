@@ -21,7 +21,7 @@ export const titre = 'Arrondir une racine carrée'
  */
 
 export const uuid = '41187'
-export const ref = '4G20-4'
+
 export const refs = {
   'fr-fr': ['4G20-4'],
   'fr-ch': ['10NO3-2']

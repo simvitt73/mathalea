@@ -22,7 +22,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  */
 export const uuid = '93df9'
-export const ref = '4C30-2'
+
 export const refs = {
   'fr-fr': ['4C30-2'],
   'fr-ch': ['10NO2-4']

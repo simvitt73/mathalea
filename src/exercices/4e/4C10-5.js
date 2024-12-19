@@ -11,7 +11,7 @@ export const titre = 'Multiplications de deux entiers relatifs dans un tableau Ã
 * 4C10-5
 */
 export const uuid = 'c8f4b'
-export const ref = '4C10-5'
+
 export const refs = {
   'fr-fr': ['4C10-5'],
   'fr-ch': ['10NO4-7']
