@@ -23,7 +23,7 @@ export const titre = 'Écrire sous la forme d\'une expression algébrique sans p
 * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
 */
 export const uuid = '070b4'
-export const ref = '5R22-2'
+
 export const refs = {
   'fr-fr': ['5R22-2'],
   'fr-ch': ['9NO9-16']

@@ -15,7 +15,7 @@ export const titre = 'Résoudre un problème en utilisant une somme algébrique 
  */
 
 export const uuid = '6667e'
-export const ref = '5R20-4'
+
 export const refs = {
   'fr-fr': ['5R20-4'],
   'fr-ch': ['9NO9-9']

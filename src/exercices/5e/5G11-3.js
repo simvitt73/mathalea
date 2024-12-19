@@ -22,7 +22,7 @@ export const titre = 'Construire le symétrique d\'un point avec cible auto-corr
  * Publié le 30/11/2020
  */
 export const uuid = '34032'
-export const ref = '5G11-3'
+
 export const refs = {
   'fr-fr': ['5G11-3'],
   'fr-ch': ['9ES6-8']

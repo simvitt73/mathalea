@@ -12,7 +12,7 @@ export const dateDePublication = '4/12/2021'
 
  */
 export const uuid = 'dbc1d'
-export const ref = '5G12-2'
+
 export const refs = {
   'fr-fr': ['5G12-2'],
   'fr-ch': []

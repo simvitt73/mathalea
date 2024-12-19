@@ -28,7 +28,7 @@ export const amcType = 'AMCHybride'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  */
 export const uuid = 'b611a'
-export const ref = '5G40'
+
 export const refs = {
   'fr-fr': ['5G40'],
   'fr-ch': ['9ES4-4']

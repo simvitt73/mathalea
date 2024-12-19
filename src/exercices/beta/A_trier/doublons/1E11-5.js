@@ -23,7 +23,7 @@ export const titre = 'Résoudre une équation du second degré avec le discrimin
  * Doublon avec 1AL23-21
  */
 export const uuid = '3de81'
-export const ref = '1E11-5'
+
 export const refs = {
   'fr-fr': [],
   'fr-ch': []

@@ -19,7 +19,7 @@ export const titre = 'Parcourir un labyrinthe de multiples avec critères choisi
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
 export const uuid = '5618d'
-export const ref = '5A11-2'
+
 export const refs = {
   'fr-fr': ['5A11-2'],
   'fr-ch': ['9NO4-12']

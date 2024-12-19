@@ -11,7 +11,7 @@ export const titre = 'Déterminer la dernière opération à effectuer dans une 
  * Rendu paramétrable et ajout de la structure d'une expression le 14/08/2021 : Guillaume Valmont
  */
 export const uuid = '97f1a'
-export const ref = '5L14-4'
+
 export const refs = {
   'fr-fr': ['5L14-4'],
   'fr-ch': ['11FA5-2']

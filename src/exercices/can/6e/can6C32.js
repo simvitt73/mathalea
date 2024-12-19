@@ -15,7 +15,7 @@ export const dateDePublication = '09/05/2022'
  * @author  Jean-Claude Lhote
  */
 export const uuid = '109ae'
-export const ref = 'can6C32'
+
 export const refs = {
   'fr-fr': ['can6C32'],
   'fr-ch': []

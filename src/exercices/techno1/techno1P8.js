@@ -16,7 +16,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Stéphane Guyon
 */
 export const uuid = '1aad3'
-export const ref = 'techno1P8'
+
 export const refs = {
   'fr-fr': ['techno1P8'],
   'fr-ch': []

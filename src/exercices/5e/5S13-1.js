@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
  * Publié le 08/08/2021
  */
 export const uuid = '7d429'
-export const ref = '5S13-1'
+
 export const refs = {
   'fr-fr': ['5S13-1'],
   'fr-ch': ['11NO2-3']

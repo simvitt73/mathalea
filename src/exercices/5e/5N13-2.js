@@ -12,7 +12,7 @@ export const titre = 'Égalités entre fractions simples'
  * 5N13-2 et 6N41
  */
 export const uuid = '4718e'
-export const ref = '5N13-2'
+
 export const refs = {
   'fr-fr': ['5N13-2'],
   'fr-ch': ['9NO12-4']

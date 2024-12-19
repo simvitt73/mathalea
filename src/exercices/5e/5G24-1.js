@@ -19,7 +19,7 @@ export const titre = 'Triangles égaux et côtés homologues'
 
 */
 export const uuid = '10148'
-export const ref = '5G24-1'
+
 export const refs = {
   'fr-fr': ['5G24-1'],
   'fr-ch': ['9ES2-8']

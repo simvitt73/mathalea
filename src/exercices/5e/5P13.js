@@ -33,7 +33,7 @@ export const dateDeModifImportante = '05/07/2024'
  * @author Eric Elter
  */
 export const uuid = 'edb61'
-export const ref = '5P13'
+
 export const refs = {
   'fr-fr': ['5P13'],
   'fr-ch': ['10FA4-1']

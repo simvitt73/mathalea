@@ -31,7 +31,7 @@ export const amcType = 'AMCNum'
  */
 
 export const uuid = '3a526'
-export const ref = 'can6a-CoopMaths'
+
 export const refs = {
   'fr-fr': ['can6a-CoopMaths'],
   'fr-ch': []

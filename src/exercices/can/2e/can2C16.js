@@ -11,12 +11,10 @@ export const dateDePublication = '16/11/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-
- * ref can2C16
-*/
+ */
 
 export const uuid = '04048'
-export const ref = 'can2C16'
+
 export const refs = {
   'fr-fr': ['can2C16'],
   'fr-ch': []
@@ -28,7 +26,6 @@ export default function ProgrammeCalcul2 () {
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
 
-    
   // ${texNombre(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombre((a / 5 - e) * (a / 5 - e))}$
   this.nouvelleVersion = function () {
     let a, b, reponse, f1, f2

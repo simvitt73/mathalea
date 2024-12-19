@@ -19,7 +19,7 @@ export const dateDePublication = '21/10/2021'
  * @author Gilles Mora & Jean-Claude Lhote
 */
 export const uuid = '31096'
-export const ref = 'can6C26'
+
 export const refs = {
   'fr-fr': ['can6C26'],
   'fr-ch': []

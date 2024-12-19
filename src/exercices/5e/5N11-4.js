@@ -21,7 +21,7 @@ export const dateDeModifImportante = '10/01/2024'
  * Amélioration de l'interactivité par Eric Elter le 10/01/2024
  */
 export const uuid = '6b534'
-export const ref = '5N11-4'
+
 export const refs = {
   'fr-fr': ['5N11-4'],
   'fr-ch': ['9NO14-7']

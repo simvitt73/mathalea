@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'betaSpline' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = 'betaSpline'// @todo à modifier aussi
+
 // une liste de nœuds pour définir une fonction Spline
 const noeuds1 = [{ x: -4, y: -0.5, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
   { x: -3, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: false },

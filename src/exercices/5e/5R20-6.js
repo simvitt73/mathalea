@@ -9,7 +9,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const uuid = '598c3'
-export const ref = '5R20-6'
+
 export const refs = {
   'fr-fr': ['5R20-6'],
   'fr-ch': ['9NO9-11']

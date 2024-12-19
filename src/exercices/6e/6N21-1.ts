@@ -6,7 +6,6 @@ import { context } from '../../modules/context.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
 import { arrondi } from '../../lib/outils/nombres'
-import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions.js'
 
@@ -56,8 +55,6 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
   }
 
   nouvelleVersion () {
-
-
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -186,7 +183,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this, i, idAddendum: ref, figure, defaultAction: 'POINT' })
+          texte += '<br>' + figureApigeom({ exercice: this, i, idAddendum: refs['fr-fr'][0], figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -241,7 +238,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     if (this.figures == null) return ['KO']
     if (this.figures[i] == null) return ['KO']
     this.answers[this.figures[i].id] = this.figures[i].json
-    const result: ('OK'|'KO')[] = []
+    const result: ('OK' | 'KO')[] = []
     const figure = this.figures[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
@@ -302,7 +299,7 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
   step?: number,
   stepBis?: number,
   points?: Array<{ x: number, label: string }>
-}): { figure: Figure, latex: string} {
+}): { figure: Figure, latex: string } {
   const width = Math.floor(((xMax - xMin) + 0.4) * 30 * scale * 3 * scale)
   const height = 80
   const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: true })

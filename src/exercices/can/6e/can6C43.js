@@ -16,7 +16,7 @@ export const dateDeModifImportante = '12/10/2024'
  * @author Remi Angot repris par Gilles Mora pour une question can
  */
 export const uuid = 'f3b31'
-export const ref = 'can6C43'
+
 export const refs = {
   'fr-fr': ['can6C43'],
   'fr-ch': []

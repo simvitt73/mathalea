@@ -20,7 +20,7 @@ export const titre = 'Résoudre une équation du second degré'
 */
 
 export const uuid = '0fbd1'
-export const ref = '1E11'
+
 export const refs = {
   'fr-fr': [],
   'fr-ch': []

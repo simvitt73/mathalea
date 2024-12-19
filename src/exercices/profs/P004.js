@@ -8,7 +8,7 @@ import { calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Droites graduées avec zoom'
-export const ref = 'P004'
+
 export const refs = {
   'fr-fr': ['P004'],
   'fr-ch': []
@@ -18,7 +18,6 @@ export const uuid = 'ad5f6'
 /**
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
  * L'enseignant peut ajouter "à la main" les données qu'il souhaite
- * ref P004
  * @author Jean-Claude Lhote
  */
 export default function FeuilleDeZooms () {

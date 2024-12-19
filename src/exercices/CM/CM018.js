@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
 
  */
 export const uuid = '678f9'
-export const ref = 'CM018'
+
 export const refs = {
   'fr-fr': ['CM018'],
   'fr-ch': []

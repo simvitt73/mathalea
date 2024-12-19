@@ -7,7 +7,7 @@ export const interactifReady = false
  * Publié le 21/08/2021
  */
 export const uuid = '36116'
-export const ref = '5G20-0'
+
 export const refs = {
   'fr-fr': ['5G20-0'],
   'fr-ch': []

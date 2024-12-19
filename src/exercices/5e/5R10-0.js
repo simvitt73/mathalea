@@ -19,7 +19,7 @@ export const interactifReady = true
 */
 
 export const uuid = 'cab80'
-export const ref = '5R10'
+
 export const refs = {
   'fr-fr': ['5R10'],
   'fr-ch': ['9NO9-3']

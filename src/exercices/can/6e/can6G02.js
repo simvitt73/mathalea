@@ -11,7 +11,7 @@ export const titre = 'Compter les cubes'
 
  */
 export const uuid = '76b93'
-export const ref = 'can6G02'
+
 export const refs = {
   'fr-fr': ['can6G02'],
   'fr-ch': []

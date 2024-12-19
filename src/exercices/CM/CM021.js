@@ -16,7 +16,7 @@ export const titre = 'Le compte est bon original'
 
  */
 export const uuid = 'bd6ff'
-export const ref = 'CM021'
+
 export const refs = {
   'fr-fr': ['CM021'],
   'fr-ch': []

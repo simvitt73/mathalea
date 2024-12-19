@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  */
 export const uuid = 'a29bd'
-export const ref = '5P11-1'
+
 export const refs = {
   'fr-fr': ['5P11-1'],
   'fr-ch': ['11FA11-1']

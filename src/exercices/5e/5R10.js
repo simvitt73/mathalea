@@ -21,7 +21,7 @@ export const titre = 'Trouver le terme manquant d\'une somme de nombres relatifs
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  */
 export const uuid = '61b4a'
-export const ref = '5R20-1'
+
 export const refs = {
   'fr-fr': ['5R20-1'],
   'fr-ch': ['9NO9-4']

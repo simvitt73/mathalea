@@ -19,7 +19,7 @@ export const dateDeModifImportante = '15/10/2022' // Ajout du programme équival
 * Ajout de la possibilité d'afficher un résultat qui n'est pas développé par Guillaume Valmont le 11/05/2022
 */
 export const uuid = '12bb6'
-export const ref = '5L10-2'
+
 export const refs = {
   'fr-fr': ['5L10-2'],
   'fr-ch': ['9FA2-5', '10FA1-8']

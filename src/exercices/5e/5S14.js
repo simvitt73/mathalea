@@ -23,7 +23,7 @@ export const dateDeModifImportante = '24/06/2024'
  * 12/01/2023 : Mickael Guironnet Refactoring (remodifié par EE car il n'y avait plus de correction et l'interactif ne fonctionnait plus)
  */
 export const uuid = 'ab91d'
-export const ref = '5S14'
+
 export const refs = {
   'fr-fr': ['5S14'],
   'fr-ch': ['11NO2-4']

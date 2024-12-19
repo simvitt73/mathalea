@@ -24,7 +24,7 @@ export const description = 'Déterminer si une égalité de deux fractions est v
  * @author Sébastien Lozano
  */
 export const uuid = 'd1fb2'
-export const ref = '5N14-3'
+
 export const refs = {
   'fr-fr': ['5N14-3'],
   'fr-ch': ['9NO12-7']

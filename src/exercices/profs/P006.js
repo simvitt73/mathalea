@@ -9,7 +9,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
-export const ref = 'P006'
+
 export const refs = {
   'fr-fr': ['P006'],
   'fr-ch': []
@@ -18,7 +18,6 @@ export const uuid = 'bd5f7'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
- * ref P006
  * @author Jean-Claude Lhote
  */
 export default function NombreAPlacer () {

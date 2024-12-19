@@ -10,7 +10,7 @@ export const dateDeModifImportante = '14/11/2021'
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  */
 export const uuid = '49786'
-export const ref = '5G11-2'
+
 export const refs = {
   'fr-fr': ['5G11-2'],
   'fr-ch': ['9ES6-6']

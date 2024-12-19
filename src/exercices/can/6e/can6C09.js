@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  */
 export const uuid = '592c7'
-export const ref = 'can6C09'
+
 export const refs = {
   'fr-fr': ['can6C09'],
   'fr-ch': []

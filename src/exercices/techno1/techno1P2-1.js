@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
 * @author Stéphane Guyon
 */
 export const uuid = 'a66ad'
-export const ref = 'techno1P2-1'
+
 export const refs = {
   'fr-fr': ['techno1P2-1'],
   'fr-ch': []

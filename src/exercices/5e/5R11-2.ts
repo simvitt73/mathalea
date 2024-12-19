@@ -23,7 +23,7 @@ export const dateDeModifImportante = '03/05/2024'
 * @author Jean-Claude Lhote et Rémi Angot
 */
 export const uuid = '6d576'
-export const ref = '5R11-2'
+
 export const refs = {
   'fr-fr': ['5R11-2'],
   'fr-ch': ['9NO9-2']

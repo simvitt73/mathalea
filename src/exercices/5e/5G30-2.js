@@ -71,7 +71,7 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * rendu interactif par Guillaume Valmont le 21/01/2024
 */
 export const uuid = '19812'
-export const ref = '5G30-2'
+
 export const refs = {
   'fr-fr': ['5G30-2'],
   'fr-ch': ['11ES2-2']

@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const dateDeModifImportante = '25/11/2024'
 
 export const uuid = '93d9f'
-export const ref = '5I12'
+
 export const refs = {
   'fr-fr': ['5I12'],
   'fr-ch': []

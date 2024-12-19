@@ -20,7 +20,7 @@ export const dateDeModifImportante = '19/11/2023'
  * @author Sébastien Lozano (modifié par EE)
  */
 export const uuid = '46234'
-export const ref = '5L12-1'
+
 export const refs = {
   'fr-fr': ['5L12-1'],
   'fr-ch': ['10FA1-14']

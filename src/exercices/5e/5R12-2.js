@@ -26,7 +26,7 @@ export const dateDeModifImportante = '24/11/2024'
  * @author Jean-Claude Lhote - Eric Elter (pour l'interactivité)
  */
 export const uuid = 'ab968'
-export const ref = '5R12-2'
+
 export const refs = {
   'fr-fr': ['5R12-2'],
   'fr-ch': ['9FA1-7']

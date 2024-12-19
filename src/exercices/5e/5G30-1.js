@@ -25,7 +25,7 @@ export const dateDeModifImportante = '10/12/2023'
  * @author Jean-Claude Lhote inspiré d'exercices du manuel sésamath.
  */
 export const uuid = 'd12db'
-export const ref = '5G30-1'
+
 export const refs = {
   'fr-fr': ['5G30-1'],
   'fr-ch': ['11ES2-1']

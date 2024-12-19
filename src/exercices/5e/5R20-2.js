@@ -21,7 +21,7 @@ export const titre = 'Addition à trou de deux entiers relatifs'
 * 5R20-2
 */
 export const uuid = 'ce842'
-export const ref = '5R20-2'
+
 export const refs = {
   'fr-fr': ['5R20-2'],
   'fr-ch': ['9NO9-7']

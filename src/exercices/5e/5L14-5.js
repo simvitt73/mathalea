@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
  * @author Sébastien Lozano forking 5L13 of Rémi Angot
  */
 export const uuid = '72764'
-export const ref = '5L14-5'
+
 export const refs = {
   'fr-fr': ['5L14-5'],
   'fr-ch': ['9FA2-7']

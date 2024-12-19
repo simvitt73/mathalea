@@ -20,7 +20,7 @@ export const amcType = 'qcmMono'
  */
 
 export const uuid = 'aa997'
-export const ref = '5P10'
+
 export const refs = {
   'fr-fr': ['5P10'],
   'fr-ch': ['9FA3-3']

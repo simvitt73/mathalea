@@ -11,7 +11,7 @@ import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } f
 export const titre = 'Problèmes de ratio'
 
 export const uuid = '0a637'
-export const ref = '5P12-1'
+
 export const refs = {
   'fr-fr': ['5P12-1'],
   'fr-ch': ['9NO14-10']

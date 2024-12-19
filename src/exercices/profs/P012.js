@@ -8,7 +8,7 @@ import {
 } from '../../modules/outils.js'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
-export const ref = 'P012'
+
 export const refs = {
   'fr-fr': ['P012'],
   'fr-ch': []
@@ -17,7 +17,6 @@ export const uuid = '62f5e'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts
- * ref P012
  * @author Jean-Claude Lhote
  */
 export default function Camemberts () {
