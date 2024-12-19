@@ -152,6 +152,13 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
      */
   // JSDOC Validee par EE Aout 2022
   this.estSecant = function (objet) {
+    // Si le segment est de longueur nulle, on ne peut définir sa direction et ça pose problème pour les calculs d'intersection
+    // On regarde si la première extémité (qui est aussi la deuxième est sur l'objet)
+    if (Math.abs(this.x1 - this.x2) < 0.01 && Math.abs(this.y1 - this.y2) < 0.01) {
+      const P1 = point(this.x1, this.y1)
+      return P1.estSur(objet)
+    }
+
     const ab = droite(this.extremite1, this.extremite2)
     ab.isVisible = false
     if (objet instanceof Cercle) {
@@ -237,6 +244,12 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.color = colorToLatexOrHTML(color)
     this.styleExtremites = styleExtremites
   }
+
+  this.x1 = arrondi(this.x1, 2)
+  this.y1 = arrondi(this.y1, 2)
+  this.x2 = arrondi(this.x2, 2)
+  this.y2 = arrondi(this.y2, 2)
+
   this.epaisseur = 1
   this.opacite = 1
   this.pointilles = ''

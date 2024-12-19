@@ -1,6 +1,7 @@
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
+import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles.js'
 import { traceCompas } from './cercle.js'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
@@ -253,6 +254,12 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     this.x2 = xsav
     this.y2 = ysav
   }
+  // Limiter la taille des coordonnées à 2 décimales amplement suffisantes
+  this.x1 = arrondi(this.x1, 2)
+  this.y1 = arrondi(this.y1, 2)
+  this.x2 = arrondi(this.x2, 2)
+  this.y2 = arrondi(this.y2, 2)
+
   this.normal = vecteur(this.a, this.b)
   this.directeur = vecteur(this.b, -this.a)
   this.angleAvecHorizontale = angleOriente(

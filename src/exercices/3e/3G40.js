@@ -45,7 +45,7 @@ export default function ReperageSurLaSphere () {
   const inclinaison = 5
   const O = point3d(0, 0, 0, false, 'O')
 
-  const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison)
+  const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison, false)
 
   this.nouvelleVersion = function () {
     let listeTypeDeQuestions
@@ -195,25 +195,10 @@ export default function ReperageSurLaSphere () {
         case 1:
           texte += `${numAlpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
           texteCorrection += `${numAlpha(i)} Les coordonnées de $${nom[i]}$ sont `
-          texteCorrection += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
+          texteCorrection += this.sup2 ? `($${latitudes[i]}^\\circ$ ; $${longitudes[i]}^\\circ$).<br>` : `($${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]} ; $${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]}).<br>`
           objetsEnonce.push(croix, lab)
           objetsCorrection.push(croix, lab)
           if (context.isAmc) {
-            this.autoCorrection[0].propositions.push(
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    texte: ' ',
-                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                    enonce: `${numAlpha(iAMC)} Donner la longitude du point $${nom[i]}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                    sanscadre: false,
-                    pointilles: false
-                  }
-                ]
-              }
-            )
-            iAMC++
             this.autoCorrection[0].propositions.push(
               {
                 type: 'AMCOpen',
@@ -228,16 +213,31 @@ export default function ReperageSurLaSphere () {
                 ]
               }
             )
+            iAMC++
+            this.autoCorrection[0].propositions.push(
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: ' ',
+                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    enonce: `${numAlpha(iAMC)} Donner la longitude du point $${nom[i]}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false,
+                    pointilles: false
+                  }
+                ]
+              }
+            )
           }
           iAMC++
           break
         case 2:
 
           texteAMC = `Placer le point $${nom[i]}$ de  coordonnées GPS `
-          texteAMC += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
+          texteAMC += this.sup2 ? `($${latitudes[i]}^\\circ$ ; $${longitudes[i]}^\\circ$).<br>` : `($${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]} ; $${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]}).<br>`
           texte += `${numAlpha(i)} ` + texteAMC
           texteCorrection += `${numAlpha(i)} Le point $${nom[i]}$ de coordonnées GPS `
-          texteCorrection += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
+          texteCorrection += this.sup2 ? `($${latitudes[i]}^\\circ$ ; $${longitudes[i]}^\\circ$).<br>` : `($${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]} ; $${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]}).<br>`
           texteCorrection += ' est placé sur cette sphère.<br>'
           objetsCorrection.push(croix, lab)
           if (context.isAmc) {
