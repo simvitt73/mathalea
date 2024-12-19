@@ -8,7 +8,7 @@ import { createList } from '../../lib/format/lists'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Étudier une suite arithmético-géométrique'
 export const dateDePublication = '30/11/2024'
@@ -132,8 +132,8 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
       )
       const reponse1 = `${new Decimal(u0).sub(k)} \\times ${ecritureParentheseSiNegatif(a)}^n`
       const reponse2 = `${new Decimal(u0).sub(k)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`
-      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison } })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1 } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2 } })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

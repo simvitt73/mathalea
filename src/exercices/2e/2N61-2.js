@@ -12,7 +12,6 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -682,7 +681,6 @@ export default function ExerciceInequationProduit () {
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,
-            compare: fonctionComparaison,
             options: { intervalle: true }
           }
         })

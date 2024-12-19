@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { fraction } from '../../modules/fractions.js'
 
 export const interactifReady = true
@@ -151,7 +151,7 @@ export default function DevelopperIdentitesRemarquables2 () {
           } else {
             texteCorr += `$(x+${a})^2=x^2+${2 * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `x^2+${2 * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `x^2+${2 * a}x+${a * a}` } })
           break
         case 2:
           texte = `$(x-${a})^2$` // (x-a)²
@@ -159,7 +159,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=x^2-${2 * a}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}` } })
           break
         case 3:
           texte = `$(x-${a})(x+${a})$` // (x-a)(x+a)
@@ -167,7 +167,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(x-${a})(x+${a})=x^2-${a}^2=x^2-${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `x^2-${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `x^2-${a * a}` } })
           break
         case 4:
           texte = `$(${b}x+${a})^2$` // (bx+a)²  b>1
@@ -175,7 +175,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2+${2 * b * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2+${2 * b * a}x+${a * a}` } })
           break
         case 5:
           texte = `$(${b}x-${a})^2$` // (bx-a)² b>1
@@ -183,7 +183,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}` } })
           break
         case 6:
           texte = `$(${b}x-${a})(${b}x+${a})$` // (bx-a)(bx+a) b>1
@@ -191,7 +191,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x-${a})(${b}x+${a})=(${b}x)^2-${a}^2=${b * b}x^2-${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${a * a}` } })
           break
         case 7:
           texte = `$\\left(${frac}x+${a}\\right)^2$` // (kx+a)² k rationnel
@@ -199,7 +199,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${new FractionEtendue(ns, ds).simplifie().texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x+${a}\\right)^2=\\left(${frac}x\\right)^2+2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2+${new FractionEtendue(ns * 2 * a, ds)}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${frac2}x^2+${dblProdFrac}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${frac2}x^2+${dblProdFrac}x+${a * a}` } })
           break
         case 8:
           texte = `$\\left(${frac}x-${a}\\right)^2$` // (kx-a)² k rationnel
@@ -207,7 +207,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x-${a}\\right)^2=\\left(${frac}x\\right)^2-2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2-${dblProdFrac}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${dblProdFrac}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${dblProdFrac}x+${a * a}` } })
           break
         case 9:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
@@ -216,7 +216,7 @@ export default function DevelopperIdentitesRemarquables2 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x-${a}\\right)\\left(${frac}x+${a}\\right)=\\left(${frac}x\\right)^2-${a}^2=${frac2}x^2-${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${a * a}` } })
           break
       }
       if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')

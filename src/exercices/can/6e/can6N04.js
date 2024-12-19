@@ -12,7 +12,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'Lire une abscisse sur une droite graduée'
 export const interactifReady = true
@@ -71,7 +71,7 @@ export default class AbscisseFractionnaire extends Exercice {
 
       if (!(context.isAmc)) {
         this.question += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-        handleAnswers(this, i, { reponse: { value: c.texFraction, compare: fonctionComparaison, options: {} } })
+        handleAnswers(this, i, { reponse: { value: c.texFraction, options: {} } })
       }
 
       if (pgcd(a, b) === 1) {

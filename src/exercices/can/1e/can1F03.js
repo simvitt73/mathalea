@@ -9,7 +9,7 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Lire graphiquement le signe de $a$ et de $\\Delta$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,8 +56,8 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } },
-            champ2: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '>', options: { texteSansCasse: true } },
+            champ2: { value: '<', options: { texteSansCasse: true } }
           }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -104,8 +104,8 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } },
-            champ2: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '>', options: { texteSansCasse: true } },
+            champ2: { value: '>', options: { texteSansCasse: true } }
           }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -153,8 +153,8 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } },
-            champ2: { value: '=', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '>', options: { texteSansCasse: true } },
+            champ2: { value: '=', options: { texteSansCasse: true } }
           }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -202,8 +202,8 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } },
-            champ2: { value: '=', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '<', options: { texteSansCasse: true } },
+            champ2: { value: '=', options: { texteSansCasse: true } }
           }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -251,8 +251,8 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } },
-            champ2: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '<', options: { texteSansCasse: true } },
+            champ2: { value: '>', options: { texteSansCasse: true } }
           }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -301,8 +301,8 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } },
-            champ2: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '<', options: { texteSansCasse: true } },
+            champ2: { value: '<', options: { texteSansCasse: true } }
           }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$

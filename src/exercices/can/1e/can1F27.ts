@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction.js'
 import { rienSi1, reduireAxPlusB } from '../../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { abs } from '../../../lib/outils/nombres'
 export const titre = 'Retrouver un polynôme du second degré à partir de son tableau de signes'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default class PolyTableauSignes extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
     this.formatChampTexte = ''
     this.spacingCorr = 2
   }

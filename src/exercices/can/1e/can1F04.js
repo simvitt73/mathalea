@@ -7,7 +7,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Lire graphiquement le signe de $b$ dans $ax^2+bx+c$'
 export const interactifReady = true
@@ -58,7 +58,7 @@ export default function LectureGraphiqueParaboleB () {
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += remplisLesBlancs(this, i, 'b\\, %{champ1}\\, 0', 'clavierCompare')
-            handleAnswers(this, i, { champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { champ1: { value: '>', options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -108,7 +108,7 @@ export default function LectureGraphiqueParaboleB () {
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += remplisLesBlancs(this, i, 'b\\, %{champ1}\\, 0', 'clavierCompare')
-            handleAnswers(this, i, { champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { champ1: { value: '<', options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -157,7 +157,7 @@ export default function LectureGraphiqueParaboleB () {
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += remplisLesBlancs(this, i, 'b\\, %{champ1}\\, 0', 'clavierCompare')
-            handleAnswers(this, i, { champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { champ1: { value: '<', options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -206,7 +206,7 @@ export default function LectureGraphiqueParaboleB () {
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += remplisLesBlancs(this, i, 'b\\, %{champ1}\\, 0', 'clavierCompare')
-            handleAnswers(this, i, { champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { champ1: { value: '>', options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -252,7 +252,7 @@ export default function LectureGraphiqueParaboleB () {
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += remplisLesBlancs(this, i, 'b\\, %{champ1}\\, 0', 'clavierCompare')
-            handleAnswers(this, i, { champ1: { value: '=', compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { champ1: { value: '=', options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -296,7 +296,7 @@ export default function LectureGraphiqueParaboleB () {
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += remplisLesBlancs(this, i, 'b\\, %{champ1}\\, 0', 'clavierCompare')
-            handleAnswers(this, i, { champ1: { value: '=', compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { champ1: { value: '=', options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({

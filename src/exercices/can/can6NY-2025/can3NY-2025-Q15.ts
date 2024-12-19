@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 export const titre = 'Réduire une expression'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default class reduireExpression extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { factorisation: true }
   }
 

@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { cercle } from '../../../lib/2d/cercle.js'
 import { point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
@@ -95,7 +95,7 @@ export default function LireUneDuree () {
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille2, petiteAiguille2, texteParPosition('Heure de fin', 0, -2.5)) +
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
           'Combien de temps cela a-t-il duré ?'
-    this.reponse = { reponse: { value: `${h2 - h1}h ${m2 - m1}`, compare: fonctionComparaison, options: { HMS: true } } }
+    this.reponse = { reponse: { value: `${h2 - h1}h ${m2 - m1}`, options: { HMS: true } } }
     this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${Math.round((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
     if (h2 === h1) {

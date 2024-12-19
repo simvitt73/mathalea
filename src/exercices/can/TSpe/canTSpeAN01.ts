@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
@@ -102,7 +102,7 @@ export default class ExpressionsLog extends Exercice {
         texte = `Exprimer en fonction de $${logString} ${a}$ le nombre suivant  : ` + `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance, { texteAvant: '=' })
-          handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: answer } })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

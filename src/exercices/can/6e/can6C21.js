@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Trouver le complément à 1*'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default function ComplementAUn () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'

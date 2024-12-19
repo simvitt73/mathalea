@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -24,7 +24,6 @@ export default function Tables5A9 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {

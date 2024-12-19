@@ -5,7 +5,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 import Exercice from '../deprecatedExercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { checkLeCompteEstBon, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { checkLeCompteEstBon } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
 export const amcReady = true
@@ -68,7 +68,7 @@ export default function ÉcrireUneExpressionMathador () {
       }
 
       texteCorr += `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
-      if (!this.sup) handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+      if (!this.sup) handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], options: { operationSeulementEtNonResultat: true } } })
       if (context.isAmc) {
         this.autoCorrection[i] =
         {

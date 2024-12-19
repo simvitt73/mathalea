@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -29,8 +29,7 @@ export default class decomposerDecimal extends Exercice {
     this.spacingCorr = 1.5
     this.formatInteractif = 'calcul'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
 

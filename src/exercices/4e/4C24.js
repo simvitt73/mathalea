@@ -5,7 +5,6 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
@@ -97,7 +96,7 @@ export default function SimplifierFractions () {
       const f = new FractionEtendue(numerateur, denominateur)
       texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' =' })}`
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
-      handleAnswers(this, i, { reponse: { value: f.simplifie().toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+      handleAnswers(this, i, { reponse: { value: f.simplifie().toLatex(), options: { fractionIrreductible: true } } })
 
       if (context.isAmc) {
         if (this.sup3 === 1) {

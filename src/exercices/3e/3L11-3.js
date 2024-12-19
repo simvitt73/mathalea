@@ -6,7 +6,6 @@ import { listeQuestionsToContenuSansNumero, randint, printlatex } from '../../mo
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
@@ -116,7 +115,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false }, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false } } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {

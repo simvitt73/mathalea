@@ -10,7 +10,6 @@ import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 export const interactifReady = true
@@ -814,7 +813,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
       if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`, { texteAvant: '<br>$I=$' })
-          handleAnswers(this, i, { reponse: { value: aRemplacer, compare: fonctionComparaison, options: { intervalle: true } } })
+          handleAnswers(this, i, { reponse: { value: aRemplacer, options: { intervalle: true } } })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -1,6 +1,6 @@
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -27,7 +27,6 @@ export default function DivisionPar9 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {

@@ -6,7 +6,6 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Additionner des durées'
 export const interactifReady = true
@@ -129,7 +128,7 @@ export default function SommeDeDurees () {
 
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
-        handleAnswers(this, i, { reponse: { value: t1.add(t2).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+        handleAnswers(this, i, { reponse: { value: t1.add(t2).toString(), options: { HMS: true } } })
       }
 
       if (this.questionJamaisPosee(i, m1, s1, h1, t1, m2, s2, h2, t2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

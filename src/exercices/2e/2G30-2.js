@@ -6,7 +6,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une équation réduite de droite'
 export const dateDeModifImportante = '08/12/2024'
@@ -85,7 +84,7 @@ export default function EquationReduiteDeDroites () {
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$(${nomDroite}) : y=$` })
         reponse = reduireAxPlusB(new FractionEtendue(n, d).simplifie(), new FractionEtendue(d * yA - n * xA, d).simplifie())
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
 
       // Correction commune aux deux this.sup
       texteCorr += `=${new FractionEtendue(n, d).texFraction}`

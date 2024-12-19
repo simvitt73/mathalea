@@ -5,7 +5,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  fonctionComparaison,
   expressionDeveloppeeEtNonReduiteCompare
 } from '../../lib/interactif/comparisonFunctions'
 
@@ -316,7 +315,7 @@ export default function SimplifierEcritureLitterale () {
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$ ' })
       }
       if (!this.sup2) {
-        handleAnswers(this, i, { reponse: { value: reponse }, compare: fonctionComparaison })
+        handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
         handleAnswers(this, i, { reponse: { value: reponse }, compare: expressionDeveloppeeEtNonReduiteCompare })
       }

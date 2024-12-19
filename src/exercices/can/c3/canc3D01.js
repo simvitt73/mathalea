@@ -7,7 +7,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.j
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
@@ -60,7 +60,7 @@ export default function LireHeure () {
     ` +
 
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
-    this.reponse = { reponse: { value: `${h}h ${m}`, compare: fonctionComparaison, options: { HMS: true } } }
+    this.reponse = { reponse: { value: `${h}h ${m}`, options: { HMS: true } } }
     this.correction = `$${miseEnEvidence(h)}$ ${texteEnCouleurEtGras('h')} $${miseEnEvidence(m === 0 ? '' : m === 5 ? '0' + m : m)}$`
     if (context.isAmc) {
       this.autoCorrection = [

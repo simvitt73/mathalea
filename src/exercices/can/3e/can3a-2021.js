@@ -18,7 +18,7 @@ import Hms from '../../../modules/Hms'
 import { min, round } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 3e sujet 2021'
@@ -431,7 +431,7 @@ export default function SujetCAN20213ieme () {
 
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
 
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
 
@@ -690,7 +690,7 @@ export default function SujetCAN20213ieme () {
 
           reponse = b.simplifie()
 
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -965,7 +965,7 @@ export default function SujetCAN20213ieme () {
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
             reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
           }
-          handleAnswers(this, i, { reponse: { value: fraction(b + 4, a).toLatex(), compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: fraction(b + 4, a).toLatex() } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }

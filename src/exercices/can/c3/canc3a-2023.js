@@ -12,7 +12,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import ClasseCan2023 from './_Canc3a.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
@@ -155,7 +155,7 @@ export default function SujetCAN2023CM2 () {
           texte = sommeDeDurees.texte
           texteCorr = sommeDeDurees.texteCorr
           texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: sommeDeDurees.reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: sommeDeDurees.reponse }).toString(), options: { HMS: true } } })
           nbChamps = 1
           this.listeCanEnonces.push(sommeDeDurees.canEnonce)
           this.listeCanReponsesACompleter.push(sommeDeDurees.canReponseACompleter)

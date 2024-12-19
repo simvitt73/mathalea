@@ -14,7 +14,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { point } from '../../lib/2d/points'
 import { choice } from '../../lib/outils/arrayOutils'
 
@@ -184,13 +184,13 @@ export default function Lecturegraphiquedeaetb () {
 
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '<br>L\'équation réduite de la droite est : $y=$' })
         const reponse = reduireAxPlusB(coeffDir.simplifie(), b)
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
         texteCorr = 'On observe que la droite est verticale.'
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '<br>L\'équation réduite de la droite est : ' })
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $x=${miseEnEvidence(a)}$.`
         const reponse = `x=${a}`
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { egaliteExpression: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { egaliteExpression: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre

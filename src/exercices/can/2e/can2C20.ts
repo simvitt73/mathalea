@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { prenomF } from '../../../lib/outils/Personne'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { pgcd } from '../../../lib/outils/primalite'
 export const titre = 'Résoudre un problème avec des fractions'
 export const interactifReady = true
@@ -29,7 +29,6 @@ export default class ProblemeFractions extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { fractionEgale: true }
   }
 

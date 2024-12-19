@@ -4,7 +4,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { prenomM } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Résoudre un problème avec une division'
 export const interactifReady = true
@@ -27,8 +27,7 @@ export default class problemeDivision extends Exercice {
     this.spacing = 1.5
     this.formatInteractif = 'calcul'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     switch (randint(1, 6)) { // 1,2, 3

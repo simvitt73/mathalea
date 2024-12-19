@@ -7,7 +7,6 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner différentes écritures de nombres décimaux'
 export const amcReady = true
@@ -79,10 +78,10 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              champ1: { value: u, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ2: { value: d, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ3: { value: c, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ4: { value: arrondi(u + d / 10 + c / 100, 2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u, options: { nombreDecimalSeulement: true } },
+              champ2: { value: d, options: { nombreDecimalSeulement: true } },
+              champ3: { value: c, options: { nombreDecimalSeulement: true } },
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2), options: { nombreDecimalSeulement: true } }
             }
             )
           } else {
@@ -175,10 +174,10 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              champ1: { value: u, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ3: { value: d, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ2: { value: c, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ4: { value: arrondi(u + d / 10 + c / 100, 2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u, options: { nombreDecimalSeulement: true } },
+              champ3: { value: d, options: { nombreDecimalSeulement: true } },
+              champ2: { value: c, options: { nombreDecimalSeulement: true } },
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2), options: { nombreDecimalSeulement: true } }
             }
             )
           } else {
@@ -274,9 +273,9 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-              champ1: { value: n, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ2: { value: 100, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ3: { value: arrondi(u + d / 10 + c / 100, 2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: n, options: { nombreDecimalSeulement: true } },
+              champ2: { value: 100, options: { nombreDecimalSeulement: true } },
+              champ3: { value: arrondi(u + d / 10 + c / 100, 2), options: { nombreDecimalSeulement: true } }
             }
             )
           } else {
@@ -333,7 +332,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              champ1: { value: u * 10, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u * 10, options: { nombreDecimalSeulement: true } }
             }
             )
           } else {
@@ -370,7 +369,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              champ1: { value: u * 100, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u * 100, options: { nombreDecimalSeulement: true } }
             }
             )
           } else {
@@ -407,10 +406,10 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              champ1: { value: u * 10 + d, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ2: { value: c, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ3: { value: 0, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ4: { value: arrondi(u * 10 + d + c / 10, 2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u * 10 + d, options: { nombreDecimalSeulement: true } },
+              champ2: { value: c, options: { nombreDecimalSeulement: true } },
+              champ3: { value: 0, options: { nombreDecimalSeulement: true } },
+              champ4: { value: arrondi(u * 10 + d + c / 10, 2), options: { nombreDecimalSeulement: true } }
             }
             )
           } else {
@@ -500,8 +499,8 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-              champ1: { value: n, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-              champ2: { value: arrondi(u + d / 10, 1), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+              champ1: { value: n, options: { nombreDecimalSeulement: true } },
+              champ2: { value: arrondi(u + d / 10, 1), options: { nombreDecimalSeulement: true } }
             }
             )
           } else {

@@ -6,7 +6,6 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse, handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '08/09/2024'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
@@ -95,7 +94,7 @@ export default function ÉcrireNombresDecimal () {
         } else {
           texteCorr = `${nombreEnLettres(nombre, type)}.`
         }
-        handleAnswers(this, i, { reponse: { value: nombreEnLettres(200.3, 1), compare: fonctionComparaison, options: { texteSansCasse: true } } })
+        handleAnswers(this, i, { reponse: { value: nombreEnLettres(200.3, 1), options: { texteSansCasse: true } } })
       } else {
         if (context.vue !== 'diap') {
           texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, '') : '\\dotfill'}`

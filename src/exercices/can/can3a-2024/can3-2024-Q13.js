@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { signe } from '../../../lib/outils/nombres'
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -89,7 +89,7 @@ export default class NomExercice extends Exercice {
       }
     }
 
-    this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
+    this.reponse = { reponse: { value: reponse } }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (!this.interactif) {

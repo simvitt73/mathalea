@@ -5,7 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer le périmètre de carrés, rectangles et cercles (calcul mental)'
@@ -47,7 +47,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = 4 \\times ${texNombre(c)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = ${miseEnEvidence(texNombre(4 * c))}~\\text{cm}$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{carré} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(4 * c), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(4 * c), options: { nombreDecimalSeulement: true } } })
           }
           break
         case 'rectangle':
@@ -60,7 +60,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = 2 \\times ${texNombre(L + l)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = ${miseEnEvidence(texNombre(2 * (L + l)))}~\\text{cm}$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{rectangle} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(2 * L + 2 * l), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(2 * L + 2 * l), options: { nombreDecimalSeulement: true } } })
           }
           break
         case 'cercleRayon':
@@ -71,7 +71,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = 2 \\times ${texNombre(r)}~\\text{cm} \\times \\pi$`
             texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = ${miseEnEvidence(`${texNombre(2 * r)}\\pi`)}~\\text{cm}$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{cercle} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: `${2 * r}\\pi`, compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
+            handleAnswers(this, i, { reponse: { value: `${2 * r}\\pi`, options: { exclusifFactorisation: true } } })
           }
           break
         case 'cercleDiametre':
@@ -81,7 +81,7 @@ export default class PerimetresCalculMental extends Exercice {
           texteCorr = '$\\mathcal{P}_\\text{cercle} = d \\times \\pi$'
           texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = ${miseEnEvidence(`${texNombre(d)}\\pi`)}~\\text{cm}$`
           texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{cercle} =$', texteApres: '$~\\text{cm}$' })
-          handleAnswers(this, i, { reponse: { value: `${d}\\pi`, compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `${d}\\pi`, options: { exclusifFactorisation: true } } })
         }
       }
       if (this.questionJamaisPosee(i, texte)) {

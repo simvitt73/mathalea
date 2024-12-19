@@ -12,7 +12,6 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fraction } from '../../modules/fractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { sp } from '../../lib/outils/outilString'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '25/03/2024'
 export const amcReady = true
@@ -162,7 +161,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           texte += '<br>' + props.texte
         }
         if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
@@ -237,7 +236,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         }
 
         if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
       texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })

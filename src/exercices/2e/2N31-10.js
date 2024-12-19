@@ -8,7 +8,6 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs littéraux avec des puissances et leurs règles de calculs'
 
@@ -201,7 +200,7 @@ export default function PuissancesDUnRelatif2 () {
           break
       }
       if (this.interactif && !context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
+        handleAnswers(this, i, { reponse: { value: reponseInteractive, options: { puissance: true } } })
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
       }
       if (context.isAmc) {

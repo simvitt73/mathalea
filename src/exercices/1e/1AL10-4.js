@@ -7,7 +7,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
@@ -153,7 +153,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(texNombre(u, 0))}$.`
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
 
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
       if (this.questionJamaisPosee(i, a, u, k)) { // Si la question n'a jamais été posée, on en créé une autre

@@ -6,7 +6,7 @@ import Decimal from 'decimal.js'
 import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { pgcd } from '../../../lib/outils/primalite'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Passer d\'un décimal à une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +29,6 @@ export default function DecimalVersFractionIr () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionIrreductible: true }
 
   this.nouvelleVersion = function () {

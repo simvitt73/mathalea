@@ -10,7 +10,6 @@ import { pow } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '22/09/2024'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
@@ -289,7 +288,7 @@ export default function ChiffreNombreDe () {
       }
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
-      handleAnswers(this, i, { reponse: { value: texNombre(reponses[listeTypeDeQuestions[i]]), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+      handleAnswers(this, i, { reponse: { value: texNombre(reponses[listeTypeDeQuestions[i]]), options: { nombreAvecEspace: true } } })
 
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(1, 2)

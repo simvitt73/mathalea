@@ -7,7 +7,7 @@ import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,6 @@ export default function EquationsGSpline () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = KeyboardType.clavierEnsemble
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { ensembleDeNombres: true }
 
   this.nouvelleVersion = function () {

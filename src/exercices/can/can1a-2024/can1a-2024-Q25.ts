@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer avec une puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,8 +22,7 @@ export default class puissances1 extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     // this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteAvant: '$?=$' }
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     if (this.canOfficielle) {

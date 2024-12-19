@@ -6,7 +6,7 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
@@ -437,7 +437,7 @@ export default function TrouverChiffre () {
           }
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
 
       texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)) : ''
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {

@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -139,7 +139,6 @@ export default class AnglesEtVocabulaire extends Exercice {
             {
               reponse: {
                 value: goodAnswer,
-                compare: fonctionComparaison,
                 options: { unite: true }
               }
             }

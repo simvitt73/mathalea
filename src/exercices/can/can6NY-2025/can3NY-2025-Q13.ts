@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { milieu, point } from '../../../lib/2d/points'
 import { latex2d } from '../../../lib/2d/textes'
@@ -28,7 +28,6 @@ export default class longueurDansTriangle extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' cm' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 

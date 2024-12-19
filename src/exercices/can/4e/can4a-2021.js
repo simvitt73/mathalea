@@ -22,7 +22,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { context } from '../../../modules/context.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN 4e sujet 2021'
 export const interactifReady = true
@@ -610,7 +610,7 @@ export default function SujetCAN20214ieme () {
            <br>
           `
 
-          handleAnswers(this, i, { reponse: { value: r.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: r.toLatex(), options: { fractionIrreductible: true } } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }

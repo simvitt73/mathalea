@@ -10,7 +10,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
 export const interactifReady = true
@@ -112,7 +111,7 @@ export default function ImageFonctionsRefs () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         // setReponse(this, i, solution, { digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true })
-        handleAnswers(this, i, { reponse: { value: solution.texFraction, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: solution.texFraction } })
         i++
       }
       cpt++

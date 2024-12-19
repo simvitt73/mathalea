@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -138,7 +138,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
       // Fin de cette uniformisation
 
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-      handleAnswers(this, i, { reponse: { value: reponseAMC, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+      handleAnswers(this, i, { reponse: { value: reponseAMC, options: { nombreDecimalSeulement: true } } })
 
       if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre

@@ -3,7 +3,7 @@ import { rienSi1 } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { fraction } from '../../../modules/fractions'
 export const titre = 'Réduire une expression avec une fraction'
 export const interactifReady = true
@@ -27,9 +27,6 @@ export default function ReduireAvecFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
-
-    
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const couplend = choice([[1, 2], [3, 2], [5, 2], [7, 2], [1, 3], [2, 3], [4, 3], [5, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux

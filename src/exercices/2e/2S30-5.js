@@ -12,7 +12,7 @@ import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '.
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice'
@@ -153,7 +153,7 @@ export default class FonctionsProbabilite2 extends Exercice {
           const den = probaMemeSaveur.den
           texteCorr += `La probabilité de cet événement est donc : $1-${probaMemeSaveur.texFraction}=${fraction(den, den).texFraction}-${probaMemeSaveur.texFraction}=${fraction(den - num, den).texFraction}${probaContraire.texSimplificationAvecEtapes()}$.`
           // question a
-          handleAnswers(this, 6 * i, { reponse: { value: 9 }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
+          handleAnswers(this, 6 * i, { reponse: { value: 9 }, options: { nombreDecimalSeulement: true } })
           /* handleAnswers(this, 6 * i + 1, {
             reponse: {
               value: 9,
@@ -165,12 +165,12 @@ export default class FonctionsProbabilite2 extends Exercice {
               }
             }
           }) */
-          handleAnswers(this, 6 * i + 1, { reponse: { value: issues.split(' '), compare: fonctionComparaison, options: { texteSansCasse: true } } })
+          handleAnswers(this, 6 * i + 1, { reponse: { value: issues.split(' '), options: { texteSansCasse: true } } })
           // questions b, c, d, e
-          handleAnswers(this, 6 * i + 2, { reponse: { value: 'non', compare: fonctionComparaison, options: { texteSansCasse: true } } })
-          handleAnswers(this, 6 * i + 3, { reponse: { value: probaMemeSaveurParticuliere.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 4, { reponse: { value: probaMemeSaveur.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 5, { reponse: { value: probaContraire.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 2, { reponse: { value: 'non', options: { texteSansCasse: true } } })
+          handleAnswers(this, 6 * i + 3, { reponse: { value: probaMemeSaveurParticuliere.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 4, { reponse: { value: probaMemeSaveur.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 5, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
           break
         }
         case 1:
@@ -248,13 +248,13 @@ export default class FonctionsProbabilite2 extends Exercice {
           texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${fraction(q / 4 - 1, q - 1).texFraction}$.`
           if (q === 52) { texteCorr += `$=${fraction(4, 17).texFraction}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${fraction(1, 4).texFraction}\\times${fraction(4, 17).texFraction}=${fraction(1, 17).texFraction}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${quart.texFraction}\\times${fraction(7, 31).texFractionSimplifiee}=${fraction(7, 124).texFraction}$.` }
           // Partie 1
-          handleAnswers(this, 6 * i + 0, { reponse: { value: fraction(1, 2).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 1, { reponse: { value: quatreCartes.produitFraction(quatreCartes).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 2, { reponse: { value: quart.produitFraction(quart).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 0, { reponse: { value: fraction(1, 2).texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 1, { reponse: { value: quatreCartes.produitFraction(quatreCartes).texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 2, { reponse: { value: quart.produitFraction(quart).texFraction, options: { fractionEgale: true } } })
           // Partie 2
-          handleAnswers(this, 6 * i + 3, { reponse: { value: memeCouleur.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 4, { reponse: { value: quatreCartes.produitFraction(troisCartes).texFractionSimplifiee, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 5, { reponse: { value: fraction(7, 124).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 3, { reponse: { value: memeCouleur.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 4, { reponse: { value: quatreCartes.produitFraction(troisCartes).texFractionSimplifiee, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 5, { reponse: { value: fraction(7, 124).texFraction, options: { fractionEgale: true } } })
           break }
         case 2:
         { n[0] = randint(2, 5); m[0] = randint(2, 5)
@@ -321,9 +321,9 @@ export default class FonctionsProbabilite2 extends Exercice {
           texteCorr += numAlpha(2) + ' L\'événement "choisir des chaussettes et un T-shirt de couleurs différentes" est l\'événement contraire de l\'événement "choisir des chaussettes et un T-shirt de même couleur".<br>'
           texteCorr += `Donc sa probabilité est : $1-${probaTotale.texFractionSimplifiee}=${fraction(1).texSommeFraction(probaTotale.oppose())}$.<br>`
 
-          handleAnswers(this, 3 * i + 0, { reponse: { value: produit1.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 3 * i + 1, { reponse: { value: probaTotale.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
-          handleAnswers(this, 3 * i + 2, { reponse: { value: probaContraire.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 3 * i + 0, { reponse: { value: produit1.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 3 * i + 1, { reponse: { value: probaTotale.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, 3 * i + 2, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
           break }
         case 3:
           quidam = prenomM()

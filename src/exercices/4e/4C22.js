@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 
@@ -163,7 +163,7 @@ export default class ExerciceMultiplierFractions extends Exercice {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: fractionIrreductibleDemandee } } })
+        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: fractionIrreductibleDemandee } } })
 
         if (context.isAmc) {
           texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte

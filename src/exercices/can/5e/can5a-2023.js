@@ -27,7 +27,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
@@ -1135,7 +1135,7 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 4, minute: 30 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 4, minute: 30 }).toString(), options: { HMS: true } } })
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           if (m === 2) {
@@ -1145,7 +1145,7 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
             Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 3, minute: 30 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 3, minute: 30 }).toString(), options: { HMS: true } } })
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           this.listeCanEnonces.push(texte)

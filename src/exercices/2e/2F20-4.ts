@@ -18,7 +18,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { point } from '../../lib/2d/points'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
@@ -571,7 +571,6 @@ class resolutionEquationInequationGraphique extends Exercice {
         handleAnswers(this, indexQuestion, {
           reponse: {
             value: `\\{${Array.from(soluces).join(';')}\\}`,
-            compare: fonctionComparaison,
             options: { ensembleDeNombres: true }
           }
         }) // on s'en fiche du formatInteractif, c'est la fonction compare qui fait ce qu'il faut
@@ -589,7 +588,6 @@ class resolutionEquationInequationGraphique extends Exercice {
       handleAnswers(this, indexQuestion, {
         reponse: {
           value: soluces2,
-          compare: fonctionComparaison,
           options: { intervalle: true }
         }
       })

@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../src/lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -57,7 +57,7 @@ export default class PuissancesEtPrefixe extends Exercice {
         texte = this.interactif
           ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
           : `${prefixe}`
-        handleAnswers(this, i, { reponse: { value: `10^{${exposant}}`, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: `10^{${exposant}}` } })
         texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$ ou $${miseEnEvidence(texNombre(reponseDecimale, 9))}$.`
       }
       if (context.isAmc) {

@@ -8,7 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import FractionEtendue from '../../modules/FractionEtendue'
 import { abs, rangeMinMax } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -95,14 +95,14 @@ export default function ExerciceLabyrintheFractionsEgales () {
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
       if (this.interactif) {
         /* texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, '  clavierDeBase')
-        handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1], compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1] } })
         texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, '  clavierDeBase')
-        handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length } })
         texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.` */
         texte += ajouteChampTexteMathLive(this, 2 * 0, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
-        handleAnswers(this, 2 * 0, { reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}`, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * 0, { reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}` } })
         texte += ajouteChampTexteMathLive(this, 2 * 0 + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
-        handleAnswers(this, 2 * 0 + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * 0 + 1, { reponse: { value: `${laby.chemin2d.length - 1}` } })
       }
       if (context.isAmc) {
         this.autoCorrection[0] = {

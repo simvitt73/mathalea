@@ -2,7 +2,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellisseme
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Déterminer le complément à 100'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default function ComplementACent () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'

@@ -2,7 +2,7 @@ import { texteParPosition } from '../../../lib/2d/textes.ts'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer dans une pyramide additive inverse'
@@ -23,7 +23,6 @@ export const refs = {
 export default function PyramideAdd3EtagesBaseInconnue () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'

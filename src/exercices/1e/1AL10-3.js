@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison, functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
@@ -12,7 +12,6 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '22/09/2024'
 /**
- * 1N10
  * @author Gilles Mora (Gaelle Morvan)
  */
 export const uuid = 'f0c2d'
@@ -24,7 +23,6 @@ export const refs = {
 export default function TermeDUneSuiteDefinieExplicitement () {
   Exercice.call(this)
 
-  // this.consigne = 'Une suite étant donnée, calculer le terme demandé.'
   this.nbQuestions = 1
   this.sup = 4
   this.besoinFormulaireTexte = [
@@ -108,7 +106,7 @@ u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k}^2 ${b === 1 ? '
           texte += `<br>Calculer $u_{${k}}$. <br>
           Donner le résultat sous la forme d'une fraction irréductible ou d'un nombre entier.`
           reponse = new FractionEtendue(a * k + b, c * k + d).simplifie()
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br>
          $\\begin{aligned}
 u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecritureAlgebrique(b)}}{${c === 1 ? '' : c === -1 ? '-' : `${c} \\times`} ${k} ${ecritureAlgebrique(d)}}\\\\

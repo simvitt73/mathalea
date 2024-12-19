@@ -11,7 +11,6 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = ['AMCOpen', 'AMCNum', 'qcmMult', 'qcmMono']
@@ -207,7 +206,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (this.interactifType === 'mathLive' || this.amcType === 'AMCNum') {
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup2, fractionSimplifiee: !this.sup2 } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: this.sup2, fractionSimplifiee: !this.sup2 } } })
           if (context.isAmc) {
             texte = 'Simplifier la fraction suivante au maximum.\\\\\n' + texte
             this.autoCorrection[i] = {

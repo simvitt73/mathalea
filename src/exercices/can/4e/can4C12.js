@@ -1,4 +1,4 @@
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
@@ -27,7 +27,6 @@ export default function CalculMoitieFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionIrreductible: true }
   this.spacingCorr = 2.5
   this.nouvelleVersion = function () {

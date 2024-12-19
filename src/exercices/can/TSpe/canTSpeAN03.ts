@@ -8,7 +8,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { fraction } from '../../../modules/fractions.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+
 
 export const titre = 'Résolution d\'inéquations du type a^x<b'
 export const dateDePublication = '4/5/2024'
@@ -115,7 +115,7 @@ export default class ExerciceCalculsDeLog extends Exercice {
 
       if (this.interactif) {
         // demander à Eric Elter pourquoi la comparaison d'intervalles ne fonctionne pas.
-        handleAnswers(this, i, { reponse: { value: `${crochetG} ${borneG} ; ${borneD} ${crochetD}`, compare: fonctionComparaison, options: { intervalle: true } } })
+        handleAnswers(this, i, { reponse: { value: `${crochetG} ${borneG} ; ${borneD} ${crochetD}`, options: { intervalle: true } } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
       }

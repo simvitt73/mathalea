@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Diviser des fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,6 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
     //  this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.canOfficielle = false
   }
 

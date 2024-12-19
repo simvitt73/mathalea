@@ -23,7 +23,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN 6e sujet 2023'
 export const interactifReady = true
@@ -343,7 +343,7 @@ export default function SujetCAN2023Sixieme () {
 
           texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: reponse }).toString(), options: { HMS: true } } })
 
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots\\text{ h }\\ldots \\text{ min}$')

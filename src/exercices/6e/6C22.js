@@ -8,7 +8,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résoudre des problèmes de type : ... de plus ou ... de moins'
 export const interactifReady = true
@@ -142,7 +141,7 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           break
       }
       if (context.isAmc) setReponse(this, i, somme)
-      else handleAnswers(this, i, { reponse: { value: texPrix(somme), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+      else handleAnswers(this, i, { reponse: { value: texPrix(somme), options: { nombreDecimalSeulement: true } } })
 
       if (this.questionJamaisPosee(i, m, somme)) {
         // Si la question n'a jamais été posée, on en crée une autre

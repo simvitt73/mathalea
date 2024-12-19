@@ -3,7 +3,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { sp } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const interactifReady = true
@@ -367,7 +367,7 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
       }
 
       if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) + `$${varAExprimer} =$` }) }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -58,8 +58,8 @@ $${Math.floor(Math.sqrt(a))}^2< ${a} < ${Math.ceil(Math.sqrt(a))}^2$<br>`
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: `${Math.floor(Math.sqrt(a))}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-        champ2: { value: `${Math.ceil(Math.sqrt(a))}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+        champ1: { value: `${Math.floor(Math.sqrt(a))}`, options: { nombreDecimalSeulement: true } },
+        champ2: { value: `${Math.ceil(Math.sqrt(a))}`, options: { nombreDecimalSeulement: true } }
       }
       )
 

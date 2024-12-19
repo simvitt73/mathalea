@@ -16,7 +16,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
@@ -98,7 +98,7 @@ export default function ModeliseInequations () {
             }
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: ' km' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
+            handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
 
         case 'typeE2':
@@ -128,7 +128,7 @@ export default function ModeliseInequations () {
             reponse = texNombre(Math.floor((budget - b) / a), 0)
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: ' km' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
+            handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
         case 'typeE3':
           { const PB = new Decimal(randint(7, 25, [10, 20])).div(2)// prix billet
@@ -154,7 +154,7 @@ export default function ModeliseInequations () {
             reponse = Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? texNombre((RT - PB * EM) / PB, 0) : texNombre(Math.floor((RT - PB * EM) / PB) + 1, 0)
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: '€' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
+            handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
 
         case 'typeE4':
@@ -218,7 +218,7 @@ export default function ModeliseInequations () {
               reponse = choix ? `[0;${f.texFraction}]` : `[${f.texFraction};${L}]`
               texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
             }
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } }) }
+            handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } }) }
           break
 
         case 'typeE5':
@@ -269,7 +269,7 @@ export default function ModeliseInequations () {
             reponse = new FractionEtendue(P - 2 * b - 2 * a, 4).texFraction
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$x>$' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -333,7 +333,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
               reponse = f.texFraction
             }
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$x>$' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -370,7 +370,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
               texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: c * a > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
             }
             reponse = f.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -417,7 +417,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             }
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: a - 2 * b > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
             reponse = f.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
 
           break

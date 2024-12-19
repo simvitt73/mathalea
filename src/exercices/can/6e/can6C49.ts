@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -47,7 +47,7 @@ export default class egaliteCompleter extends Exercice {
           choix = choice([true, false])
           this.reponse = texNombre(a + b + c, 0)
           texte = 'Compléter l\'égalité.<br>'
-          handleAnswers(this, i, { champ1: { value: this.reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { champ1: { value: this.reponse } })
           texte += remplisLesBlancs(this, i, `${choix ? `${a}+${b}= %{champ1} -${c}` : `%{champ1} -${c}=${a}+${b} `}`, 'fillInTheBlank ' + KeyboardType.clavierNumbers, '\\ldots')
           texteCorr = `Le nombre cherché vérifie  l'égalité : 
            ${choix ? `$${a + b}= \\ldots -${c}$` : `$\\ldots -${c}=${a + b}$ `}.<br>
@@ -67,7 +67,7 @@ export default class egaliteCompleter extends Exercice {
           choix = choice([true, false])
           this.reponse = texNombre(a + b - c, 0)
           texte = 'Compléter l\'égalité.<br>'
-          handleAnswers(this, i, { champ1: { value: this.reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { champ1: { value: this.reponse } })
           texte += remplisLesBlancs(this, i, `${choix ? `${a}+${b}= %{champ1} +${c}` : `%{champ1} +${c}=${a}+${b} `}`, 'fillInTheBlank ' + KeyboardType.clavierNumbers, '\\ldots')
           texteCorr = `Le nombre cherché vérifie  l'égalité : 
              ${choix ? `$${a + b}= \\ldots +${c}$` : `$\\ldots +${c}=${a + b}$ `}.<br>

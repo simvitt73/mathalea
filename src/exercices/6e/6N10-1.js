@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
@@ -118,7 +118,7 @@ export default function ExerciceNumerationEntier () {
       const reponse = texNombre(this.sup2 ? b * Math.pow(10, rangB) + a * Math.pow(10, rangA) : b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef))
 
       // setReponse(this, i, texNombre(reponse), { formatInteractif: 'texte' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { nombreAvecEspace: true } } })
       if (this.sup2) {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })
       } else {

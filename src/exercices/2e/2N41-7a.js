@@ -6,7 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { pgcd } from '../../lib/outils/primalite'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -146,7 +146,7 @@ export default function FactoriserIdentitesRemarquables2 () {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: fonctionComparaison, options: { factorisation: true } } })
+      handleAnswers(this, i, { reponse: { value: reponseAttendue, options: { factorisation: true } } })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

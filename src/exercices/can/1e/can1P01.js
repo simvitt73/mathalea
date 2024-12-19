@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'Écrire une probabilité avec les notations'
 export const dateDePublication = '21/07/2022'
@@ -62,7 +62,7 @@ export default function ProbabilitesNotation () {
             texte += ` $= ${texNombre(p2, 2)}$`
             texteCorr = `Il ne s'agit pas d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des élèves du lycée.<br>
             $P(F\\cap R)=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['p( F\\cap R)', 'p( R\\cap F)', 'P( F\\cap R)', 'P( R\\cap F)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['p( F\\cap R)', 'p( R\\cap F)', 'P( F\\cap R)', 'P( R\\cap F)'], options: { texteAvecCasse: true } } })
             this.canEnonce += `Dans ce lycée il y a $${p1}\\,\\%$ de filles demi-pensionnaires.`
             this.canReponseACompleter = ` En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
@@ -85,7 +85,7 @@ export default function ProbabilitesNotation () {
             $\\ldots = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur l'ensemble des filles.<br>
             $P_F(R)=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{F}({R})', 'P_{F}(R)', 'p_{F}({R})', 'p_{F}(R)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{F}({R})', 'P_{F}(R)', 'p_{F}({R})', 'p_{F}(R)'], options: { texteAvecCasse: true } } })
           } else if (choix === 'q3') {
             if (choice([true, false])) {
               texte += ` Dans ce lycée $${p1}\\,\\%$ des garçons sont demi-pensionnaires.<br>`
@@ -105,7 +105,7 @@ export default function ProbabilitesNotation () {
             $\\ldots = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur l'ensemble des garçons.<br>
             $P_{\\overline{F}}(R)=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{\\overline{F}}({R})', 'p_{\\overline{F}}({R})', 'P_{\\overline{F}}({ R})', 'p_{\\overline{F}}({ R})', 'P_{\\overline{F}}(R)', 'p_{\\overline{F}}(R)', 'P_{\\overline{F}}( R)', 'p_{\\overline{F}}( R)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{\\overline{F}}({R})', 'p_{\\overline{F}}({R})', 'P_{\\overline{F}}({ R})', 'p_{\\overline{F}}({ R})', 'P_{\\overline{F}}(R)', 'p_{\\overline{F}}(R)', 'P_{\\overline{F}}( R)', 'p_{\\overline{F}}( R)'], options: { texteAvecCasse: true } } })
           } else if (choix === 'q4') {
             texte += ` Dans ce lycée, il y a $${p1}\\,\\%$ de garçons demi-pensionnaires.<br>
             En utilisant les événements $F$ et $R$, compléter avec une  probabilité :<br>`
@@ -121,7 +121,7 @@ export default function ProbabilitesNotation () {
             $\\ldots = ${texNombre(p2, 2)}$`
             texteCorr = `Il ne s'agit pas d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des élèves du lycée.<br>
             $P(\\overline{F}\\cap R)=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['p(\\overline{F}\\cap R)', 'p(R\\cap \\overline{F})', 'P(\\overline{F}\\cap R)', 'P(R\\cap \\overline{F})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['p(\\overline{F}\\cap R)', 'p(R\\cap \\overline{F})', 'P(\\overline{F}\\cap R)', 'P(R\\cap \\overline{F})'], options: { texteAvecCasse: true } } })
           } else if (choix === 'q5') {
             if (choice([true, false])) {
               texte += ` Dans ce lycée $${p1}\\,\\%$ des demi-pensionnaires sont des garçons.<br>`
@@ -141,7 +141,7 @@ export default function ProbabilitesNotation () {
             $\\ldots = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur l'ensemble des demi-pensionnaires.<br>
             $P_{R}(\\overline{F})=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{R}({\\overline{F}})', 'p_{R}({\\overline{F}})', 'P{_R}({\\overline{F}})', 'P_R({\\overline{F}})', 'P{_R}({\\overline{F}})', 'P_{R}(\\overline{F})', 'p_{R}(\\overline{F})', 'P{_R}(\\overline{F})', 'P_R(\\overline{F})', 'P{_R}(\\overline{F})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{R}({\\overline{F}})', 'p_{R}({\\overline{F}})', 'P{_R}({\\overline{F}})', 'P_R({\\overline{F}})', 'P{_R}({\\overline{F}})', 'P_{R}(\\overline{F})', 'p_{R}(\\overline{F})', 'P{_R}(\\overline{F})', 'P_R(\\overline{F})', 'P{_R}(\\overline{F})'], options: { texteAvecCasse: true } } })
           }
 
           break
@@ -178,7 +178,7 @@ export default function ProbabilitesNotation () {
             $\\ldots = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes du fournisseur A.<br>
               $P_A(C)=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{A}({C})', 'P_{A}(C)', 'p_{A}({C})', 'p_{A}(C)', 'P_{A}({ C})', 'P_{A}( C)', 'p_{A}({ C})', 'p_{A}( C)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{A}({C})', 'P_{A}(C)', 'p_{A}({C})', 'p_{A}(C)', 'P_{A}({ C})', 'P_{A}( C)', 'p_{A}({ C})', 'p_{A}( C)'], options: { texteAvecCasse: true } } })
           } else if (choix === 'q2') {
             if (choice([true, false])) {
               texte += ` $${p3}\\,\\%$ des pommes provenant du fournisseur A ne sont pas commercialisables.<br>
@@ -197,7 +197,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes du fournisseur A.<br>
               $P_A(\\overline{C})=${texNombre(p4, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{A}(\\overline{C})', 'p_{A}(\\overline{C})', 'P_A(\\overline{C})', 'P{_A}(\\overline{C})', 'p_A(\\overline{C})', 'p{_A}(\\overline{C})', 'P_{A}(\\overline{C})', 'p_{A}(\\overline{C})', 'P_A(\\overline{C})', 'P{_A}(\\overline{C})', 'p_A(\\overline{C})', 'p{_A}(\\overline{C})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{A}(\\overline{C})', 'p_{A}(\\overline{C})', 'P_A(\\overline{C})', 'P{_A}(\\overline{C})', 'p_A(\\overline{C})', 'p{_A}(\\overline{C})', 'P_{A}(\\overline{C})', 'p_{A}(\\overline{C})', 'P_A(\\overline{C})', 'P{_A}(\\overline{C})', 'p_A(\\overline{C})', 'p{_A}(\\overline{C})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p4, 2)}$`
           } else if (choix === 'q3') {
@@ -218,7 +218,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes commercialisables.<br>
               $P_C(A)=${texNombre(p6, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{C}({A})', 'P_{C}(A)', 'p_{C}({A})', 'p_{C}(A)', 'P_{C}({ A})', 'P_{C}( A)', 'p_{C}({ A})', 'p_{C}( A)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{C}({A})', 'P_{C}(A)', 'p_{C}({A})', 'p_{C}(A)', 'P_{C}({ A})', 'P_{C}( A)', 'p_{C}({ A})', 'p_{C}( A)'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p6, 2)}$`
           } else if (choix === 'q4') {
@@ -239,7 +239,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes non commercialisables.<br>
               $P_{\\overline{C}}(\\overline{A})=${texNombre(p6, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_\\overline{C}({\\overline{A}})', 'p_\\overline{C}({\\overline{A}})', 'P_\\overline{C}({\\overline{A}})', 'P{_\\overline{C}}({\\overline{A}})', 'p_\\overline{C}({\\overline{A}})', 'p{_\\overline{C}}({\\overline{A}})', 'P_\\overline{C}(\\overline{A})', 'p_\\overline{C}(\\overline{A})', 'P_\\overline{C}(\\overline{A})', 'P{_\\overline{C}}(\\overline{A})', 'p_\\overline{C}(\\overline{A})', 'p{_\\overline{C}}(\\overline{A})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_\\overline{C}({\\overline{A}})', 'p_\\overline{C}({\\overline{A}})', 'P_\\overline{C}({\\overline{A}})', 'P{_\\overline{C}}({\\overline{A}})', 'p_\\overline{C}({\\overline{A}})', 'p{_\\overline{C}}({\\overline{A}})', 'P_\\overline{C}(\\overline{A})', 'p_\\overline{C}(\\overline{A})', 'P_\\overline{C}(\\overline{A})', 'P{_\\overline{C}}(\\overline{A})', 'p_\\overline{C}(\\overline{A})', 'p{_\\overline{C}}(\\overline{A})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p6, 2)}$`
           } else if (choix === 'q5') {
@@ -254,7 +254,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes.<br>
               $P(A\\cap C)=${texNombre(p6, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P(A\\cap C)', 'p(A\\cap C)', 'P(C\\cap A)', 'p(C\\cap A)', 'P( A\\cap C)', 'p( A\\cap C)', 'P( C\\cap A)', 'p( C\\cap A)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P(A\\cap C)', 'p(A\\cap C)', 'P(C\\cap A)', 'p(C\\cap A)', 'P( A\\cap C)', 'p( A\\cap C)', 'P( C\\cap A)', 'p( C\\cap A)'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p6, 2)}$`
           } else if (choix === 'q6') {
@@ -269,7 +269,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes.<br>
             $P(\\overline{A}\\cap C)=${texNombre(p6, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P(\\overline{A}\\cap C)', 'p(\\overline{A}\\cap C)', 'P(C\\cap\\overline{A})', 'P(C\\cap\\overline{A})', 'P( C\\cap\\overline{A})', 'P( C\\cap\\overline{A})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P(\\overline{A}\\cap C)', 'p(\\overline{A}\\cap C)', 'P(C\\cap\\overline{A})', 'P(C\\cap\\overline{A})', 'P( C\\cap\\overline{A})', 'P( C\\cap\\overline{A})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p6, 2)}$`
           } else if (choix === 'q7') {
@@ -284,7 +284,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes.<br>
           $P(A\\cap \\overline{C})=${texNombre(p6, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P(\\overline{C}\\cap A)', 'p(\\overline{C}\\cap A)', 'P(A\\cap\\overline{C})', 'P(A\\cap\\overline{C})', 'P( A\\cap\\overline{C})', 'P( A\\cap\\overline{C})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P(\\overline{C}\\cap A)', 'p(\\overline{C}\\cap A)', 'P(A\\cap\\overline{C})', 'P(A\\cap\\overline{C})', 'P( A\\cap\\overline{C})', 'P( A\\cap\\overline{C})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p6, 2)}$`
           }
@@ -320,7 +320,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes malades.<br>
                 $P_M(T)=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{M}({T})', 'P_{M}(T)', 'p_{M}({T})', 'p_{M}(T)', 'P_{M}({ T})', 'P_{M}( T)', 'p_{M}({ T})', 'p_{M}( T)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{M}({T})', 'P_{M}(T)', 'p_{M}({T})', 'p_{M}(T)', 'P_{M}({ T})', 'P_{M}( T)', 'p_{M}({ T})', 'p_{M}( T)'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
           } else if (choix === 'q2') {
@@ -341,7 +341,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes non malades.<br>
                 $P_{\\overline{M}}(\\overline{T})=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{\\overline{M}}({\\overline{T}})', 'P_{\\overline{M}}(\\overline{T})', 'p_{\\overline{M}}({\\overline{T}})', 'p_{\\overline{M}}(\\overline{T})', 'P_{\\overline{M}}({\\overline{T}})', 'P_{\\overline{M}}(\\overline{T})', 'p_{\\overline{M}}({\\overline{T}})', 'p_{\\overline{M}}(\\overline{T})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{\\overline{M}}({\\overline{T}})', 'P_{\\overline{M}}(\\overline{T})', 'p_{\\overline{M}}({\\overline{T}})', 'p_{\\overline{M}}(\\overline{T})', 'P_{\\overline{M}}({\\overline{T}})', 'P_{\\overline{M}}(\\overline{T})', 'p_{\\overline{M}}({\\overline{T}})', 'p_{\\overline{M}}(\\overline{T})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
           } else if (choix === 'q3') {
@@ -364,7 +364,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des tests positifs.<br>
                 $P_{T}(\\overline{M})=${texNombre(p2, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{T}({\\overline{M}})', 'p_{T}({\\overline{M}})', 'P_T({\\overline{M}})', 'P{_T}({\\overline{M}})', 'p_T({\\overline{M}})', 'p{_T}({\\overline{M}})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{T}({\\overline{M}})', 'p_{T}({\\overline{M}})', 'P_T({\\overline{M}})', 'P{_T}({\\overline{M}})', 'p_T({\\overline{M}})', 'p{_T}({\\overline{M}})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
           } else if (choix === 'q4') {
@@ -385,7 +385,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des tests positifs.<br>
                 $P_{\\overline{T}}(M)=${texNombre(p4, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P_{\\overline{T}}({M})', 'p_{\\overline{T}}({M})', 'P_\\overline{T}({M})', 'P{_\\overline{T}}({M})', 'p_\\overline{T}({M})', 'p{_\\overline{T}}({M})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P_{\\overline{T}}({M})', 'p_{\\overline{T}}({M})', 'P_\\overline{T}({M})', 'P{_\\overline{T}}({M})', 'p_\\overline{T}({M})', 'p{_\\overline{T}}({M})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p4, 2)}$`
           } else if (choix === 'q5') {
@@ -401,7 +401,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes.<br>
                 $P(T\\cap M)=${texNombre(p4, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P(M\\cap T)', 'p(M\\cap T)', 'P(T\\cap M)', 'p(T\\cap M)', 'P( M\\cap T)', 'p( M\\cap T)', 'P( T\\cap M)', 'p( T\\cap M)'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P(M\\cap T)', 'p(M\\cap T)', 'P(T\\cap M)', 'p(T\\cap M)', 'P( M\\cap T)', 'p( M\\cap T)', 'P( T\\cap M)', 'p( T\\cap M)'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p4, 2)}$`
           } else if (choix === 'q6') {
@@ -417,7 +417,7 @@ export default function ProbabilitesNotation () {
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes.<br>
                 $P(T\\cap \\overline{M})=${texNombre(p4, 2)}$.`
-            handleAnswers(this, i, { reponse: { value: ['P(\\overline{M}\\cap T)', 'p(\\overline{M}\\cap T)', 'P(T\\cap \\overline{M})', 'p(T\\cap \\overline{M})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: ['P(\\overline{M}\\cap T)', 'p(\\overline{M}\\cap T)', 'P(T\\cap \\overline{M})', 'p(T\\cap \\overline{M})'], options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p4, 2)}$`
           }

@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -799,7 +799,6 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,
-            compare: fonctionComparaison,
             options: { intervalle: true }
           }
         })

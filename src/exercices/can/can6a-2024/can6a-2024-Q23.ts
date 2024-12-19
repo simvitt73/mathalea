@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
@@ -23,8 +23,7 @@ export default class Moitie extends Exercice {
     // this.formatInteractif = 'calcul'
     this.formatChampTexte = ''
     this.canOfficielle = false
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     let entier: number

@@ -4,7 +4,6 @@ import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer une somme de termes'
 export const interactifReady = true
@@ -30,7 +29,6 @@ export default class SommeSuite extends Exercice {
     this.spacingCorr = 2
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 

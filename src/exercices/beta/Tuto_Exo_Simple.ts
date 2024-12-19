@@ -129,7 +129,7 @@ $    Le this indique que ces paramétrages sont liés à l'objet Exercice.
     Conseil : Donc, ne pas décommenter tout de suite.
     this.formatChampTexte = KeyboardType.clavierDeBase // Format du champ de réponse + type de clavier virtuel de l'exercice.
     this.optionsChampTexte = { texteAvant: 'Pour écrire quelque chose avant le champ de réponse', texteApres: "ben, là, c'est après" }
-    this.compare = fonctionComparaison // Type de fonction de comparaison utilisée. Voir wiki : https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Choisir-sa-fonction-de-comparaison-dans-handleAnwsers()#2-pour-comparer-des-nombres-entiers-d%C3%A9cimaux-et-pas-forc%C3%A9ment-fractionnaires-exclusivement-sous-leur-forme-num%C3%A9rique
+    // Type de fonction de comparaison utilisée. Voir wiki : https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Choisir-sa-fonction-de-comparaison-dans-handleAnwsers()#2-pour-comparer-des-nombres-entiers-d%C3%A9cimaux-et-pas-forc%C3%A9ment-fractionnaires-exclusivement-sous-leur-forme-num%C3%A9rique
     this.optionsDeComparaison = { fractionEgale: true } // Option possible de la fonction de comparaison utilisée
   */
   }

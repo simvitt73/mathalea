@@ -5,7 +5,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { fonctionComparaison, type OptionsComparaisonType } from '../../lib/interactif/comparisonFunctions'
+import { type OptionsComparaisonType } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const uuid = 'e116b'
 
@@ -84,7 +84,7 @@ class Decomp1 extends Exercice {
       } else {
         for (let k = 0; k < items.length; k++) {
           decompo += `${String(items[k].chiffre)}\\times %{champ${k + 1}}+`
-          objetReponses[`champ${k + 1}`] = { value: texNombre(10 ** items[k].exposant, 0), compare: fonctionComparaison, options: { nombreAvecEspace: true } }
+          objetReponses[`champ${k + 1}`] = { value: texNombre(10 ** items[k].exposant, 0), options: { nombreAvecEspace: true } }
         }
       }
 

@@ -18,7 +18,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import Hms from '../../../modules/Hms'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2021'
@@ -227,7 +227,7 @@ export default function SujetCAN2021Sixieme () {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
 
           nbChamps = 1
 
@@ -720,7 +720,7 @@ export default function SujetCAN2021Sixieme () {
                         }))
           texteCorr = `L'unité est divisée en $${a}$. <br>
           $1=\\dfrac{${a}}{${a}}$ et $2=\\dfrac{${2 * a}}{${a}}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: true } } })
           if (this.interactif) {
             texte += '<br> ' + ajouteChampTexteMathLive(this, index, '')
           }

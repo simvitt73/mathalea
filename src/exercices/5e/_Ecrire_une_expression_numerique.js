@@ -10,7 +10,6 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -226,7 +225,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: ' Résultat : ' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
         }
         // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen)
@@ -266,7 +265,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: ' Calcul : ' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { operationSeulementEtNonResultat: true } } })
           }
         }
 

@@ -8,7 +8,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { fraction } from '../../modules/fractions.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+
 
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec log'
 export const dateDePublication = '4/5/2024'
@@ -217,7 +217,7 @@ export default class InequationsLog extends Exercice {
       }
       texteCorr += `<br>Ainsi, $S=${miseEnEvidence(answer)}$`
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
+        handleAnswers(this, i, { reponse: { value: answer, options: { intervalle: true } } })
         texte += '<br>$S= $'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }

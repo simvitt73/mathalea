@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Trinome from '../../modules/Trinome'
@@ -97,7 +97,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           b = randint(2, 19, [4, 8, 9, 12, 16])
           texte = `${choix ? `$x^{2}-${a * a}=0$` : `$${a * a}-x^2=0$`} `// x²-a²=0
           reponse = `\\{-${a};${a}\\}`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
           texteCorr = `${texteGras('Méthode 1 :')}<br>` + CorrIdentite + `$a=${choix ? 'x' : `${a}`}$ et $b=${choix ? `${a}` : 'x'}$.<br>
          Résoudre l'équation revient à résoudre ${choix ? `$(x-${a})(x+${a})=0$` : `$(${a}-x)(${a}+x)=0$`} (on reconnaît une équation produit nul).<br>  
         ${choix ? `$x-${a}=0$` : `$${a}-x=0$`} ou ${choix ? `$x+${a}=0$` : `$${a}+x=0$`}<br>
@@ -124,7 +124,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
         Puisque $${b}$` + CorrPositif
           texteCorr += ` $-\\sqrt{${b}}$ et $\\sqrt{${b}}$.<br>`
           texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$.`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
 
           break
         case 3:
@@ -134,7 +134,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           texte = `$x^{2}+${a * a}=0$` // x²+a²=0
           texteCorr += `On isole le carré. L'équation s'écrit $x^{2}=-${a * a}$.<br>
           Comme  $-${a * a}$` + CorrNegatif
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
 
           break
 
@@ -154,7 +154,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
               } else {
                 texteCorr = `Puisque $${a}$ ` + CorrNegatif
               }
-              handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+              handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
               break
             case 'b' :
               b = randint(1, 12)
@@ -170,7 +170,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
                 reponse = '\\emptyset'
                 texteCorr += `Puisque $${a}$ ` + CorrNegatif
               }
-              handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+              handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
               break
           }
           break
@@ -190,7 +190,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
             texteCorr += ` $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.<br>`
             texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${k}}\\,;\\,\\sqrt{${k}}\\}`)}$.`
           }
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
 
           break
         case 6:
@@ -224,7 +224,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           }
 
           if (this.interactif) { texte += '' + texteInteractif }
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
           break
 
         case 7:
@@ -251,7 +251,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           }
 
           if (this.interactif) { texte += '' + texteInteractif }
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
           break
       }
 

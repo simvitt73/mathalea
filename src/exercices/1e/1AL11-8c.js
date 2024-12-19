@@ -6,7 +6,7 @@ import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer la somme des termes d\'une suite géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,7 +34,6 @@ export default class SommeSuiteGeometrique extends Exercice {
     this.correctionDetailleeDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 

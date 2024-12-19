@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -23,8 +23,7 @@ export default class PlaceVirguleProduitCM2 extends Exercice {
     // this.formatInteractif = 'calcul'
     this.formatChampTexte = ''
     this.canOfficielle = false
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     let coeff: number

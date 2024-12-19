@@ -15,7 +15,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -224,9 +224,9 @@ export default function LireAbscisseDecimaleTroisFormes () {
       texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(`${texNombre(x2.floor())} + ${new FractionEtendue(multiple * (x2 - x2.floor()), multiple).toLatex()}`)}$.<br>`
       texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${miseEnEvidence(new FractionEtendue(multiple * x3, multiple).toLatex())}$.`
       if (!context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: x1, compare: fonctionComparaison } })
-        handleAnswers(this, i + 1, { reponse: { value: `${Math.floor(x2)}+${new FractionEtendue(multiple * (x2 - x2.floor()), multiple).toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
-        handleAnswers(this, i + 2, { reponse: { value: x3, compare: fonctionComparaison, options: { fractionDecimale: true } } })
+        handleAnswers(this, i, { reponse: { value: x1 } })
+        handleAnswers(this, i + 1, { reponse: { value: `${Math.floor(x2)}+${new FractionEtendue(multiple * (x2 - x2.floor()), multiple).toLatex()}`, options: { operationSeulementEtNonResultat: true } } })
+        handleAnswers(this, i + 2, { reponse: { value: x3, options: { fractionDecimale: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: '', // on le remplira à la fin.

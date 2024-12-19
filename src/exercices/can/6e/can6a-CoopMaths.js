@@ -15,7 +15,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import Hms from '../../../modules/Hms'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const dateDeModifImportante = '11/09/2024'
 export const dateDePublication = '5/08/2021'
@@ -262,7 +262,7 @@ export default function CourseAuxNombres6e () {
           texte = `Convertir $${d}$ minutes en heures et minutes (format : ... h ...min)`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           resultat = new Hms({ hour: a, minute: b })
-          handleAnswers(this, q, { reponse: { value: resultat.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, q, { reponse: { value: resultat.toString(), options: { HMS: true } } })
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierHms)
           break
         case 'q14':

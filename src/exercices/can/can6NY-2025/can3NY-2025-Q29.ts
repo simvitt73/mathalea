@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -29,7 +29,6 @@ export default class ComparerFractions extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'fillInTheBlank'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -48,11 +47,11 @@ export default class ComparerFractions extends Exercice {
         this.correction = `$f(${miseEnEvidence(texNombre(a, 0))}) =${miseEnEvidence(texNombre(b, 0))}$`
         handleAnswers(this, 0, {
           bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: String(a), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-          champ2: { value: String(b), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+          champ1: { value: String(a), options: { nombreDecimalSeulement: true } },
+          champ2: { value: String(b), options: { nombreDecimalSeulement: true } }
         }
         )
-        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(a), compare: fonctionComparaison }, champ2: { value: String(b), compare: fonctionComparaison } }
+        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(a) }, champ2: { value: String(b) } }
         this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
         break
 
@@ -67,7 +66,7 @@ export default class ComparerFractions extends Exercice {
           champ2: { value: String(a) }
         }
         )
-        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(b), compare: fonctionComparaison }, champ2: { value: String(a), compare: fonctionComparaison } }
+        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(b) }, champ2: { value: String(a) } }
         this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
         break
     }

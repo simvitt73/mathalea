@@ -7,7 +7,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -353,10 +353,10 @@ export default function IntervallesDeR () {
           if (typeDeQuestion < 9) {
             reponse = texteCorr.split('I=')[1] // On prend la réponse après 'I='
             reponse = reponse.substring(0, reponse.length - 1)// et on vire le $ de la fin.
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } })
           } else {
             reponse = texteCorr.match(/\$(.*)\$/g)[0] // On prend ce qui est entre les $ $.
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
         }

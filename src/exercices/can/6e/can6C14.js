@@ -2,7 +2,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellisseme
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Calculer la somme de quatre entiers qui se marient'
 export const interactifReady = true
@@ -23,7 +23,6 @@ export const refs = {
 export default function Somme4EntiersQuiSeMarient () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.nbQuestions = 1

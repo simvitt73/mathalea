@@ -9,7 +9,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer des calculs avec des puissances'
@@ -342,7 +342,7 @@ export default function PuissancesDunRelatif1 () {
       }
 
       if (this.interactif && !context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
+        handleAnswers(this, i, { reponse: { value: reponseInteractive, options: { puissance: true } } })
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: ' $=$' })
       }
       if (context.isAmc) {

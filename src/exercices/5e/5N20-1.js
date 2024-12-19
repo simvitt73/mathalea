@@ -9,7 +9,6 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -117,19 +116,19 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
                 if (s !== 1) {
                   texteCorr += `$=${texFraction((a * k + n * c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k + n * c) / s, d / s)}$`
                 }
-                reponse = { num: a * k + n * c, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+                reponse = { num: a * k + n * c, den: d, options: { fractionIrreductible: true } }
               } else {
                 s = pgcd(n * a * k + c, d)
                 if (s !== 1) {
                   texteCorr += `$=${texFraction((n * a * k + c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((n * a * k + c) / s, d / s)}$`
                 }
-                reponse = { num: n * a * k + c, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+                reponse = { num: n * a * k + c, den: d, options: { fractionIrreductible: true } }
               }
             } else {
               if (ordreDesFractions === 1) {
-                reponse = { num: a * k + n * c, den: d, compare: fonctionComparaison }
+                reponse = { num: a * k + n * c, den: d }
               } else {
-                reponse = { num: n * a * k + c, den: d, compare: fonctionComparaison }
+                reponse = { num: n * a * k + c, den: d }
               }
             }
           } else {
@@ -166,20 +165,20 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
                   if (a * k - n * c > 0) texteCorr += `$=${texFraction((a * k - n * c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k - n * c) / s, (d / s))}$`
                   else texteCorr += `$=-${texFraction((-(a * k - n * c) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - n * c) / s), (d / s))}$`
                 }
-                reponse = { num: a * k - n * c, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+                reponse = { num: a * k - n * c, den: d, options: { fractionIrreductible: true } }
               } else {
                 s = pgcd(n * a * k - c, d)
                 if (s !== 1 && c - n * a * k !== 0) {
                   if (c - n * a * k > 0) texteCorr += `$=${texFraction(((c - n * a * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((c - n * a * k) / s), (d / s))}$`
                   else texteCorr += `$=-${texFraction((-(c - n * a * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(c - n * a * k) / s), (d / s))}$`
                 }
-                reponse = { num: c - n * a * k, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+                reponse = { num: c - n * a * k, den: d, options: { fractionIrreductible: true } }
               }
             } else {
               if (ordreDesFractions === 1) {
-                reponse = { num: a * k - n * c, den: d, compare: fonctionComparaison }
+                reponse = { num: a * k - n * c, den: d }
               } else {
-                reponse = { num: c - n * a * k, den: d, compare: fonctionComparaison }
+                reponse = { num: c - n * a * k, den: d }
               }
             }
           }
@@ -234,20 +233,20 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
                 if (a * k - c * k - e > 0) texteCorr += `$=${texFraction(((a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a * k - c * k - e) / s), (d / s))}$`
                 else texteCorr += `$=-${texFraction((-(a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - c * k - e) / s), (d / s))}$`
               }
-              reponse = { num: a * k - c * k - e, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+              reponse = { num: a * k - c * k - e, den: d, options: { fractionIrreductible: true } }
             } else {
               s = pgcd(a * k - c - k * e, d)
               if (s !== 1 && a * k - c - k * e !== 0) {
                 if (a * k - c - k * e > 0) texteCorr += `$=${texFraction(((a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a * k - c - k * e) / s), (d / s))}$`
                 else texteCorr += `$=-${texFraction((-(a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - c - k * e) / s), (d / s))}$`
               }
-              reponse = { num: a * k - c - k * e, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+              reponse = { num: a * k - c - k * e, den: d, options: { fractionIrreductible: true } }
             }
           } else {
             if (ordreDesFractions === 2) {
-              reponse = { num: a * k - c * k - e, den: d, compare: fonctionComparaison }
+              reponse = { num: a * k - c * k - e, den: d }
             } else {
-              reponse = { num: a * k - c - k * e, den: d, compare: fonctionComparaison }
+              reponse = { num: a * k - c - k * e, den: d }
             }
           }
           break
@@ -264,9 +263,9 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
               if (s !== 1) {
                 texteCorr += `$=${texFraction(((a + n * b) / s) + miseEnEvidence('\\times ' + s, 'blue'), (b / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a + n * b) / s), (b / s))}$`
               }
-              reponse = { num: a + n * b, den: b, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+              reponse = { num: a + n * b, den: b, options: { fractionIrreductible: true } }
             } else {
-              reponse = { num: a + n * b, den: b, compare: fonctionComparaison }
+              reponse = { num: a + n * b, den: b }
             }
           } else {
             texte = `$${new FractionEtendue(a, b).texFSD} - ${n}$`
@@ -280,9 +279,9 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
                 if (a - n * b > 0) texteCorr += `$=${texFraction(((a - n * b) / s) + miseEnEvidence('\\times ' + s, 'blue'), (b / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a - n * b) / s), (b / s))}$`
                 else texteCorr += `$=-${texFraction((-(a - n * b) / s) + miseEnEvidence('\\times ' + s, 'blue'), (b / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a - n * b) / s), (b / s))}$`
               }
-              reponse = { num: a - n * b, den: b, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+              reponse = { num: a - n * b, den: b, options: { fractionIrreductible: true } }
             } else {
-              reponse = { num: a - n * b, den: b, compare: fonctionComparaison }
+              reponse = { num: a - n * b, den: b }
             }
           }
           break
@@ -309,9 +308,9 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
               if (a * k - c + e * k > 0) texteCorr += `$=${texFraction(((a * k - c + e * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a * k - c + e * k) / s), (d / s))}$`
               else texteCorr += `$=-${texFraction((-(a * k - c + e * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - c + e * k) / s), (d / s))}$`
             }
-            reponse = { num: a * k - c + e * k, den: d, compare: fonctionComparaison, options: { fractionIrreductible: true } }
+            reponse = { num: a * k - c + e * k, den: d, options: { fractionIrreductible: true } }
           } else {
-            reponse = { num: a * k - c + e * k, den: d, compare: fonctionComparaison }
+            reponse = { num: a * k - c + e * k, den: d }
           }
           break
       }

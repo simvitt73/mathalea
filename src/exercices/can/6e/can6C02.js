@@ -1,6 +1,6 @@
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -25,7 +25,6 @@ export default function NombrePairFois5 () {
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nbQuestions = 1
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
 

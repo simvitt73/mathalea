@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 
@@ -24,8 +24,7 @@ export default class AjouteDecimauxPieges extends Exercice {
     // this.formatInteractif = 'calcul'
     this.formatChampTexte = ''
     this.canOfficielle = false
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     let a: Decimal

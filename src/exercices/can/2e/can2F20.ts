@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Déterminer une image par une fonction affine (non définie explicitement)'
@@ -26,8 +26,7 @@ export default class ImageFctAff extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     const nom = ['f', 'g', 'h']

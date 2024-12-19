@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+
 import { rienSi1 } from '../../../lib/outils/ecritures.js'
 
 export const titre = 'Calculs avec la fonction logarithme'
@@ -155,7 +155,7 @@ export default class CalculsLog extends Exercice {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance, { texteAvant: '=' })
-          handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: answer } })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

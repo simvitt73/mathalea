@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Rendre une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -43,7 +43,6 @@ export default class NomExercice extends Exercice {
       this.reponse = {
         reponse: {
           value: b.simplifie().texFraction,
-          compare: fonctionComparaison,
           options: { fractionIrreductible: true }
         }
       }

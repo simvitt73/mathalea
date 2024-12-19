@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +28,6 @@ export default class calcAvecDecimaux extends Exercice {
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = ''
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 

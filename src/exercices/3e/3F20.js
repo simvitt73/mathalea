@@ -16,7 +16,6 @@ import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Fonctions linéaires'
 export const interactifType = 'mathLive'
@@ -297,7 +296,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteAMC = `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
-            handleAnswers(this, i, { reponse: { value: `${coefficientString}x`, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: `${coefficientString}x` } })
           }
           break
         case 'expressionParGraphique':
@@ -327,7 +326,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteAMC = `Coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
-            handleAnswers(this, i, { reponse: { value: `${coefficientString}x`, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: `${coefficientString}x` } })
           }
           break
       }

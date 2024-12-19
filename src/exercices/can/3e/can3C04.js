@@ -3,7 +3,7 @@ import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecat
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,6 @@ export default function SommeEntierEtFractionIrred () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionIrreductible: true }
 
   this.nouvelleVersion = function () {

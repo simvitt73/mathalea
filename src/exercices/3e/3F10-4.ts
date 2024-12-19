@@ -14,7 +14,7 @@ import type Point from 'apigeom/src/elements/points/Point'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { lectureImage } from '../../lib/2d/courbes'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
@@ -183,7 +183,7 @@ class LireImageParApiGeom extends Exercice {
       this.listeQuestions = [emplacementPourFigure + enonce]
       const reponses = []
       for (let i = 0; i < nbColonnes; i++) {
-        reponses.push([`L1C${i + 1}`, { value: this.Y[i], compare: fonctionComparaison }])
+        reponses.push([`L1C${i + 1}`, { value: this.Y[i] }])
       }
       reponses.push(['bareme', toutAUnPoint])
       handleAnswers(this, 0, Object.fromEntries(reponses))

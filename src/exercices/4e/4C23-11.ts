@@ -6,7 +6,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Effectuer des calculs complexes avec des fractions'
@@ -233,7 +233,7 @@ export default class FractionEtPriorites extends Exercice {
       if (this.questionJamaisPosee(i, a.texFraction, b.texFraction, c.texFraction)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, options: { fractionIrreductible: true } } })
         i++
       }
       cpt++

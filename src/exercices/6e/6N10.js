@@ -7,7 +7,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import DragAndDrop from '../../lib/interactif/DragAndDrop'
 
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
@@ -281,7 +281,7 @@ export default function EcrirePetitsNombresEntiers () {
             this.dragAndDrops.push(leDragAndDrop)
             handleAnswers(this, i, { rectangle1: { value: [nombreEnEtiquettes.filter(el => el !== idTiret).join('|'), nombreEnEtiquettes.join('|')], options: { ordered: true, multi: true } } }, { formatInteractif: 'dnd' })
           } else {
-            handleAnswers(this, i, { reponse: { value: nombreEnLettres(NombreAEcrire), compare: fonctionComparaison, options: { texteSansCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: nombreEnLettres(NombreAEcrire), options: { texteSansCasse: true } } })
           }
         }
         if (context.vue !== 'diap') {
@@ -298,7 +298,7 @@ export default function EcrirePetitsNombresEntiers () {
           setReponse(this, i, NombreAEcrire) // Utile uniquement pour l'AMC
           this.autoCorrection[i].enonce = this.consigne + '\\\\' + nombreEnLettres(NombreAEcrire) + '\\\\'
         } else {
-          handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+          handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), options: { nombreAvecEspace: true } } })
         }
         if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!context.isHtml ? ': $\\pointilles[5cm]$' : !this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`

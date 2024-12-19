@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -129,9 +129,9 @@ export default function ExerciceLabyrintheNumeration () {
     const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte += ajouteChampTexteMathLive(this, 2 * 0, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
-    handleAnswers(this, 2 * 0, { reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}`, compare: fonctionComparaison } })
+    handleAnswers(this, 2 * 0, { reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}` } })
     texte += ajouteChampTexteMathLive(this, 2 * 0 + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
-    handleAnswers(this, 2 * 0 + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
+    handleAnswers(this, 2 * 0 + 1, { reponse: { value: `${laby.chemin2d.length - 1}` } })
     texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     if (context.isAmc) {

@@ -24,7 +24,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 5e sujet 2020'
@@ -206,7 +206,7 @@ export default function SujetCAN20205ieme () {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + c + 1, minute: b + d - 60 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + c + 1, minute: b + d - 60 }).toString(), options: { HMS: true } } })
 
           nbChamps = 1
           break
@@ -551,7 +551,7 @@ export default function SujetCAN20205ieme () {
           } else {
             texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=$`
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
           }
 
           nbChamps = 1

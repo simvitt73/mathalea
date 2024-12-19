@@ -20,7 +20,7 @@ import { handleAnswers, setReponse } from '../../../lib/interactif/gestionIntera
 import Hms from '../../../modules/Hms'
 import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
@@ -702,7 +702,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           reponse = new FractionEtendue(2024, d).simplifie()
           texte = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$`
           texteCorr = `$\\dfrac{${texNombre(n)}}{${texNombre(d)}}=${miseEnEvidence(reponse)}$`
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -780,7 +780,7 @@ export default function CourseAuxNombresSpeciale2024 () {
             texte = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n1)}}{${texNombre(d2)}}$`
             texteCorr = `$\\dfrac{${texNombre(n1)}}{${texNombre(d2)}}=${miseEnEvidence(reponse)}$`
           }
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -1291,7 +1291,7 @@ export default function CourseAuxNombresSpeciale2024 () {
             }
             texteCorr = ` Comme $0,4$ h $=0,4\\times 60$ min $= 24$ min, on en déduit $20,4$ h  $=${miseEnEvidence('20')}$ h $${miseEnEvidence('24')}$ min.`
             reponse = new Hms({ hour: 20, minute: 24 })
-            handleAnswers(this, index, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: reponse.toString(), options: { HMS: true } } })
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             this.listeCanEnonces.push('Compléter.')
             this.listeCanReponsesACompleter.push('$20,4$ h  $=\\ldots$ h $\\ldots$ min')
@@ -1763,7 +1763,7 @@ export default function CourseAuxNombresSpeciale2024 () {
               Compléter (en heures/minutes) : 
                 $${texNombre(a, 0)}$ min  $=$`
               reponse = new Hms({ hour: 33, minute: 2024 % 60 - (2024 - a) })
-              handleAnswers(this, index, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+              handleAnswers(this, index, { reponse: { value: reponse.toString(), options: { HMS: true } } })
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
             texteCorr = ` Le résultat indique qu'il y a 33 heures pleines dans $${texNombre(2024)}$ min. <br>
@@ -1803,7 +1803,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           ${a > 0 ? `$\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}$` : `$\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}$`}`
           texteCorr = ` $${a > 0 ? `\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}` : `\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}`}
             =${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(2024)}}`)}$`
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -2476,7 +2476,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           texteCorr = `On ajoute $${k}$ minutes à chaque fois, donc l'heure qui suit est $${miseEnEvidence(h + 1)}$ h $${miseEnEvidence(24 + 3 * k - 60)}$ min.`
 
           reponse = new Hms({ hour: h + 1, minute: 24 + 3 * k - 60 })
-          handleAnswers(this, index, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: reponse.toString(), options: { HMS: true } } })
           texte += !this.interactif ? '$\\ldots$ h $\\ldots$ min' : ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           this.listeCanEnonces.push('Compléter la suite.')
           this.listeCanReponsesACompleter.push(`$${h}$ h $24$ min <br> $${h}$ h $${24 + k}$ min <br> $${h}$ h $${24 + 2 * k}$ min <br>  $\\ldots$ h $\\ldots$ min`)
@@ -2495,7 +2495,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           texte += !this.interactif ? '<br>' : ajouteChampTexteMathLive(this, index, '')
           texte += `<br>$${Nombre1[0]}$${sp(4)};${sp(4)}  $${Nombre1[1]}$${sp(4)};${sp(4)}  $${Nombre1[2]}$`
           texteCorr = `$${f1.texFraction} > 1$ et $${f2.texFraction}<1$, donc le plus ${choix ? 'grand' : 'petit'} nombre est : $${miseEnEvidence(reponse)}$.`
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: true } } })
           this.listeCanEnonces.push(`Quel est le plus ${choix ? 'grand' : 'petit'} nombre ?<br>
           Entourer ce nombre.`)
           this.listeCanReponsesACompleter.push(`$${Nombre1[0]}$${sp(4)};${sp(4)}  $${Nombre1[1]}$${sp(4)};${sp(4)}  $${Nombre1[2]}$`)

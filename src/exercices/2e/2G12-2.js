@@ -14,7 +14,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
@@ -101,8 +101,8 @@ export default function Milieu () {
           objets.push(g, T, L, s, o, I, J)
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: xM.texFraction, compare: fonctionComparaison },
-            champ2: { value: yM.texFraction, compare: fonctionComparaison }
+            champ1: { value: xM.texFraction },
+            champ2: { value: yM.texFraction }
           })
 
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
@@ -132,8 +132,8 @@ export default function Milieu () {
           objets.push(g, T, L, s, o, I, J)
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: new Decimal(xM).mul(2).sub(xA).toString(), compare: fonctionComparaison },
-            champ2: { value: new Decimal(yM).mul(2).sub(yA).toString(), compare: fonctionComparaison }
+            champ1: { value: new Decimal(xM).mul(2).sub(xA).toString() },
+            champ2: { value: new Decimal(yM).mul(2).sub(yA).toString() }
           })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$.`
@@ -192,8 +192,8 @@ export default function Milieu () {
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$.`
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: xM.texFraction, compare: fonctionComparaison },
-            champ2: { value: yM.texFraction, compare: fonctionComparaison }
+            champ1: { value: xM.texFraction },
+            champ2: { value: yM.texFraction }
           })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,

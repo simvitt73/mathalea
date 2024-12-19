@@ -7,7 +7,7 @@ import { context } from '../../../modules/context.js'//
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { fractionCliquable } from '../../../modules/2dinteractif.js'
 export const titre = 'Résoudre un problème de reste en fraction'
 export const interactifReady = true
@@ -32,7 +32,6 @@ export default function ProblemeResteFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionEgale: true }
   this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   this.formatInteractif = 'fractionEgale'

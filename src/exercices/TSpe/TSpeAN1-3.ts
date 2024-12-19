@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+
 
 export const titre = 'Calculs utilisant les propriétés des logarithmes'
 export const dateDePublication = '27/07/2024'
@@ -90,7 +90,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       texte = `${intro}$${texte}$`
       const answer = `${A.exp}${logString}(${A.base})${signe}${B.exp}${logString}(${B.base})`
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: answer } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }

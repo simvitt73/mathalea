@@ -18,7 +18,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, randi
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN Seconde sujet 2021'
 export const interactifReady = true
@@ -393,7 +393,7 @@ export default function SujetCAN2021Seconde () {
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
 
           reponse = fraction(b.n, b.d).simplifie()
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -857,7 +857,7 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
             texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
             reponse = fraction(p[c - 2], 36).simplifie()
           }
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }

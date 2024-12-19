@@ -5,7 +5,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { context } from '../../modules/context.js'
 
 export const titre = 'Calculer avec des priorités (Scratch)'
@@ -102,7 +102,7 @@ export default class CalculsAvecPriorité extends Exercice {
         [
           ...texteMath.slice(1).map((el, index) => [
                 `L${index + 2}C1`,
-                { value: el, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } }
+                { value: el, options: { operationSeulementEtNonResultat: true } }
           ]),
           ...resultat.slice(1).map((el, index) => [
                 `L${index + 2}C2`,

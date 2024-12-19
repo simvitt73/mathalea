@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 export const titre = 'Factoriser avec une égalité remarquable'
@@ -27,8 +27,7 @@ export default class FatorisationEgR extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     switch (choice([1, 2, 3])) {

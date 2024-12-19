@@ -9,7 +9,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { grille } from '../../../lib/2d/reperes.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer la longueur d\'une ligne brisée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,8 +27,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     let A, B, C, D, E, F, G, H, J, K, a, b, s1, s2, s3, s4, s5, s6, s7, s8, xmin, xmax, ymin, ymax, objets

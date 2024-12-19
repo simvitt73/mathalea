@@ -9,7 +9,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { sp } from '../../lib/outils/outilString.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
@@ -161,7 +161,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       /* if (!context.isAmc) {
         setReponse(this, i, [reponse, produitAvecPuissances])
       } */
-      handleAnswers(this, i, { reponse: { value: [reponse, produitAvecPuissances], compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
+      handleAnswers(this, i, { reponse: { value: [reponse, produitAvecPuissances], options: { exclusifFactorisation: true } } })
 
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

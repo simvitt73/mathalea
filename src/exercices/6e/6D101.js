@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Hms from '../../modules/Hms'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { minToHoraire } from '../../lib/outils/dateEtHoraires'
 import { sp } from '../../lib/outils/outilString'
@@ -64,7 +64,7 @@ export default function HeuresDecimales () {
         minutes = partieDecimale * 6
       }
       if (!context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: new Hms({ hour: partieEntiere, minute: minutes }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+        handleAnswers(this, i, { reponse: { value: new Hms({ hour: partieEntiere, minute: minutes }).toString(), options: { HMS: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,

@@ -6,7 +6,6 @@ import { context } from '../../modules/context.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -172,7 +171,7 @@ export default function NotationPuissance () {
           }
           texte = this.sup === 3 ? `Simplifier ${enonce} en utilisant la notation puissance` : enonce
           texteCorr = correction
-          handleAnswers(this, i, { reponse: { value: puissances, compare: fonctionComparaison, options: { puissance: true } } })
+          handleAnswers(this, i, { reponse: { value: puissances, options: { puissance: true } } })
           break
         }
       }

@@ -9,7 +9,7 @@ import Hms from '../../modules/Hms'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Operation from '../../modules/operations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'Convertir des durées'
 export const interactifReady = true
@@ -178,7 +178,7 @@ export default class ConversionsDeDurees extends Exercice {
       if (this.interactif) {
         texte = texte.replace('.', ' : ')
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
-        handleAnswers(this, i, { reponse: { value: this.expectedAnswers[i].toString(), compare: fonctionComparaison, options: { HMS: true } } })
+        handleAnswers(this, i, { reponse: { value: this.expectedAnswers[i].toString(), options: { HMS: true } } })
       }
       // if (this.listeQuestions.indexOf(texte) === -1) {
       if (this.questionJamaisPosee(i, m, s, h, j)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

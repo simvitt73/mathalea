@@ -6,7 +6,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer un antécédent par une fonction affine'
@@ -124,7 +124,7 @@ export default function AntecedentParCalcul () {
       if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         if (this.interactif) {
           texte += `<br>${ajouteChampTexteMathLive(this, i, '')}`
-          handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, options: { fractionEgale: true } } })
         }
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)

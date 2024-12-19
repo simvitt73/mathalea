@@ -8,7 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
@@ -164,7 +164,7 @@ export default class BetaModeleSpline extends Exercice {
       const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
-      handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], compare: fonctionComparaison, options: { texteSansCasse: true } } })
+      handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], options: { texteSansCasse: true } } })
 
       const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
 

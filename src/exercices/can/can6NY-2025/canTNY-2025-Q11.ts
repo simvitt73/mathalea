@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer un antécédent'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +24,6 @@ export default class calcAntecedent extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.compare = fonctionComparaison
     // this.optionsDeComparaison = { fractionEgale: true }
   }
 

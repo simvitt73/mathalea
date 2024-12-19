@@ -8,7 +8,6 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -280,7 +279,7 @@ export default function MultiplierDecimauxPar101001000 () {
           exposantNbChiffres: 0
         }
       } else {
-        handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+        handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5), options: { nombreDecimalSeulement: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre

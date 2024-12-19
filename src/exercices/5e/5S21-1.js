@@ -5,7 +5,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Trouver des probabilités simples'
 export const dateDePublication = '01/05/2021'
@@ -54,8 +54,8 @@ export default function ProbabilitesSimples () {
       const reponse2 = texNombre(1 - (pG + pN) / 100)
       correction1 += `P(«${sp(1)}Perdre le match${sp(1)}») $=${miseEnEvidence(`${reponse2}`)} $<br>`
       if (this.questionJamaisPosee(i, pG)) {
-        handleAnswers(this, 2 * i, { reponse: { value: reponse1, compare: fonctionComparaison } })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: reponse2, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i, { reponse: { value: reponse1 } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: reponse2 } })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(correction1)
       }

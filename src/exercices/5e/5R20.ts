@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+
 import Decimal from 'decimal.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -128,7 +128,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)

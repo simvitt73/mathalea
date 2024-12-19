@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Déterminer la valeur de $p$ dans une fonction affine'
 export const interactifReady = true
@@ -28,8 +28,7 @@ export default class TrouverpFonctionAffine extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     const nom = ['f', 'g', 'h']

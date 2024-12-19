@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -196,7 +196,7 @@ export default class ProbaUnionInter extends Exercice {
           break
       }
 
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

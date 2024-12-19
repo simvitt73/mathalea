@@ -11,7 +11,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtNonReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Utiliser la simple distributivité'
@@ -155,7 +155,7 @@ export default function ExerciceDevelopper () {
         handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       } else {
         texteCorr += '<br>En réduisant l\'expression, on obtient : <br>'
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
       }
 
       texteCorr += ` $${lettreDepuisChiffre(i + 1)}=${reponseRed}$`

@@ -10,7 +10,7 @@ import { signe } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { randint, printlatex } from '../../../modules/outils.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,6 @@ export const refs = {
 }
 export default function ReduireExp () {
   Exercice.call(this)
-  this.compare = fonctionComparaison
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
@@ -142,7 +141,7 @@ export default function ReduireExp () {
         }
         break
     }
-    this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
+    this.reponse = { reponse: { value: reponse } }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

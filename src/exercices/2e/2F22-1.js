@@ -13,7 +13,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
@@ -161,9 +161,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}` +
       (this.interactif ? ' : ' : '.') + ajouteChampTexteMathLive(this, 3 * i + 2, ' ')
 
-      handleAnswers(this, 3 * i, { reponse: { value: nombreAntecedentCherches0, compare: fonctionComparaison } })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponseQ3, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i, { reponse: { value: nombreAntecedentCherches0 } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponseQ3 } })
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
           ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$ (tracé rouge en pointillés).'}<br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses tracée en pointillés verts) d'équation $y = ${y1}$.`}<br>

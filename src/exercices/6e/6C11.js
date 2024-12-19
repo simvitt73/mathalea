@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -120,7 +119,6 @@ export default function DivisionsEuclidiennes () {
       handleAnswers(this, 2 * i, {
         reponse: {
           value: `${q}`,
-          compare: fonctionComparaison,
           options: { nombreDecimalSeulement: true }
         }
       })
@@ -128,7 +126,6 @@ export default function DivisionsEuclidiennes () {
       handleAnswers(this, 2 * i + 1, {
         reponse: {
           value: `${r}`,
-          compare: fonctionComparaison,
           options: { nombreDecimalSeulement: true }
         }
       })

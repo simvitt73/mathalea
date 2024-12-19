@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { round } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const uuid = 'a1d0b'
 export const titre = 'Calculer avec des nombres en notation scientifique'
@@ -109,7 +108,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ecritureScientifique: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { ecritureScientifique: true } } })
       if (this.questionJamaisPosee(i, reponse, somme, a, b, c, prod)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

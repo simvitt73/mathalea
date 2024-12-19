@@ -8,7 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { minToHoraire } from '../../lib/outils/dateEtHoraires'
 
@@ -169,9 +169,9 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
           }
         } else {
           if (listeTypeQuestions[i] === 'min vers h et min') {
-            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: b }).toString(), options: { HMS: true } } })
           } else {
-            handleAnswers(this, i, { reponse: { value: new Hms({ minute: a, second: b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, i, { reponse: { value: new Hms({ minute: a, second: b }).toString(), options: { HMS: true } } })
           }
         }
 

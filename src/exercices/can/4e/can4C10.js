@@ -4,7 +4,7 @@ import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecat
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer une somme/différence de fractions égyptiennes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,6 @@ export default function SommeDifferenceFractionsEgyptiennes () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionIrreductible: true }
 
   this.nouvelleVersion = function () {

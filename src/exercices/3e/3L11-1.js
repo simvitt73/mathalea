@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'
@@ -119,7 +119,7 @@ export default function DoubleDistributivite () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {

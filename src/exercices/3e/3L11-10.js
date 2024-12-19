@@ -7,7 +7,7 @@ import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtNonReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Table de double distributivité'
@@ -181,7 +181,7 @@ export default function TableDoubleDistributivite () {
       handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L1C2: { value: L1C2, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C1: { value: L2C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C2: { value: L2C2, compare: expressionDeveloppeeEtNonReduiteCompare } })
       handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: expressionDeveloppeeEtNonReduiteCompare } })
       const reponse = developpements.reduit
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre

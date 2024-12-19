@@ -7,7 +7,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Comparer une fraction avec 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -60,7 +60,7 @@ export default class ComparerFractionAUn extends Exercice {
         this.reponse = '<'
         handleAnswers(this, i,
           {
-            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '<', options: { texteSansCasse: true } }
           }
         )
         this.canEnonce = 'Compléter avec $>$ ou $<$.'
@@ -71,7 +71,7 @@ export default class ComparerFractionAUn extends Exercice {
             On en déduit :    $${b.texFraction} ${miseEnEvidence('>')} 1$.`
         handleAnswers(this, i,
           {
-            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
+            champ1: { value: '>', options: { texteSansCasse: true } }
           }
         )
         this.reponse = '>'

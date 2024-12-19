@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { calculer, toTex } from '../../modules/outilsMathjs'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -158,8 +158,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
 
       handleAnswers(this, i, {
         reponse: {
-          value: corrDetails.result,
-          compare: fonctionComparaison
+          value: corrDetails.result
         }
       })
 

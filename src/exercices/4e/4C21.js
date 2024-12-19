@@ -11,7 +11,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -204,7 +203,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
 
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
       reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)
-      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
 
       if (context.isAmc) {
         texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte

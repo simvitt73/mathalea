@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -112,7 +112,7 @@ export default class ProbaUnionInter extends Exercice {
             }
 
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
         case 2:// proba d'obtenir un nombre premier
@@ -135,7 +135,7 @@ export default class ProbaUnionInter extends Exercice {
             }
 
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -160,7 +160,7 @@ export default class ProbaUnionInter extends Exercice {
                 Ainsi, la probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est $\\dfrac{${miseEnEvidence(choix1 ? `${a}` : `${b}`)}}{${miseEnEvidence(nbBoules)}}$.`
 
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
         case 4://
@@ -192,7 +192,7 @@ export default class ProbaUnionInter extends Exercice {
               reponse = new FractionEtendue(1, 4).texFraction
             }
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
         case 5:{
@@ -214,7 +214,7 @@ export default class ProbaUnionInter extends Exercice {
           Il y a donc $${k * choixProba[1]}$ boules au total dans l'urne et donc $${k * choixProba[1]}-${k * choixProba[0]}=${miseEnEvidence(reponse)}$ boules bleues.`
 
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(), texteApres: 'boules bleues' })
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
         }
           break
       }

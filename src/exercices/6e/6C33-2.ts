@@ -5,7 +5,7 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
-import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -166,7 +166,7 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
 Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
-      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+      handleAnswers(this, i, { reponse: { value: redaction, options: { operationSeulementEtNonResultat: true } } })
       //   if (!this.correctionDetaillee) texteCorr = ''
       //   texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 

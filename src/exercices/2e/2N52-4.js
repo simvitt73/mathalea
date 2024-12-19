@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre des équations se ramenant au produit-nul'
@@ -212,7 +212,6 @@ export default function Equationspresqueproduitnulle () {
       handleAnswers(this, i, {
         reponse: {
           value: `\\{${valeursSolution}\\}`,
-          compare: fonctionComparaison,
           options: { ensembleDeNombres: true }
         }
       })

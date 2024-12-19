@@ -20,7 +20,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true
@@ -724,7 +724,7 @@ export default function SujetCAN20215ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 2, minute: b + c - 60 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 2, minute: b + c - 60 }).toString(), options: { HMS: true } } })
 
           nbChamps = 1
           break

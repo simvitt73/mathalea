@@ -7,7 +7,7 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -99,7 +99,7 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         answer = '\\emptyset'
       }
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+        handleAnswers(this, i, { reponse: { value: answer, options: { ensembleDeNombres: true } } })
         texte += '<br>'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '$S=$' })
       }

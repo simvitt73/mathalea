@@ -1,4 +1,4 @@
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
@@ -26,7 +26,6 @@ export default function MultiplierFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionIrreductible: true }
 
   this.nouvelleVersion = function () {

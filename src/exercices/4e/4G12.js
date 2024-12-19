@@ -17,7 +17,6 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mod } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true
@@ -418,7 +417,7 @@ export default function SerieDeTransformations () {
           }
         ]
       } else {
-        handleAnswers(this, i, { reponse: { value: chemin.toString().replaceAll(',', ';'), compare: fonctionComparaison, options: { suiteRangeeDeNombres: true } } })
+        handleAnswers(this, i, { reponse: { value: chemin.toString().replaceAll(',', ';'), options: { suiteRangeeDeNombres: true } } })
       }
       texte += context.isHtml ? '<br>' : '\n\\newpage'
       texteCorr += context.isHtml ? '<br>' : '\n\\newpage'

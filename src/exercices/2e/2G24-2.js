@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -172,8 +172,8 @@ export default function Calculercoordonneessommevecteurs () {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: wxFraction.texFraction, compare: fonctionComparaison },
-        champ2: { value: wyFraction.texFraction, compare: fonctionComparaison }
+        champ1: { value: wxFraction.texFraction },
+        champ2: { value: wyFraction.texFraction }
       })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,

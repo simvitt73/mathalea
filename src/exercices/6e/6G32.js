@@ -15,7 +15,7 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
@@ -182,13 +182,13 @@ export default function SymetrieAxialeProprietes () {
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en crée une autre
         if (this.interactif) {
           if (reponse.indexOf('cm') !== -1) {
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0.1 } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { unite: true, precisionUnite: 0.1 } } })
             texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]')
           } else if (reponse.indexOf('°') !== -1) {
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unite: true, precisionUnite: 1 } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { unite: true, precisionUnite: 1 } } })
             texte += ajouteChampTexteMathLive(this, i, ' angles college6eme')
           } else {
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { texteSansCasse: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { texteSansCasse: true } } })
             texte += ajouteChampTexteMathLive(this, i, ' alphanumeric')
           }
         }

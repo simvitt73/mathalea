@@ -3,7 +3,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer l\'intersection de deux intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,6 @@ export default function IntersectionIntervalles () {
   this.tailleDiaporama = 2
 
   this.formatChampTexte = KeyboardType.clavierEnsemble
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
 
     

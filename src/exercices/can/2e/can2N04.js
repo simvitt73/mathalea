@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer la réunion de deux intervalles'
 export const interactifReady = true
@@ -26,7 +26,6 @@ export default function ReunionIntervalles () {
   this.tailleDiaporama = 2
 
   this.formatChampTexte = KeyboardType.clavierEnsemble
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   this.nouvelleVersion = function () {
     const cours = 'La réunion de deux intervalles $I$ et $J$ (notée $I\\cup J$) est l’ensemble qui contient les nombres appartenant à  au moins un des deux intervalles $I$ ou $J$.<br>'

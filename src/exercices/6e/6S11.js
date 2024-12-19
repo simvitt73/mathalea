@@ -9,7 +9,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Organiser des données dans un tableau'
@@ -142,7 +142,7 @@ export default function OrganiserDonneesDepuisTexte () {
       const ligne = Math.floor(i / (nbFruits + 1))
       const colonne = i % (nbFruits + 1)
       const ref = `L${ligne + 1}C${colonne + 1}`
-      const valeur = Object.assign({}, { value: `${tabLinesCorr[i]}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
+      const valeur = Object.assign({}, { value: `${tabLinesCorr[i]}`, options: { nombreDecimalSeulement: true } })
       const cellule = Object.fromEntries([[ref, valeur]])
       objetReponse = Object.assign(objetReponse, cellule)
     }
@@ -274,7 +274,7 @@ export default function OrganiserDonneesDepuisTexte () {
       texte += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLines, 1, true, 0, 0, false)
     }
     handleAnswers(this, 0, objetReponse)
-    handleAnswers(this, 1, { reponse: { value: `${sommeTotale}${this.sup ? ' kg' : ''}`, compare: fonctionComparaison, options: this.sup ? { unite: true } : { nombreDecimalSeulement: true } } })
+    handleAnswers(this, 1, { reponse: { value: `${sommeTotale}${this.sup ? ' kg' : ''}`, options: this.sup ? { unite: true } : { nombreDecimalSeulement: true } } })
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

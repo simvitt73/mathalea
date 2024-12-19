@@ -12,7 +12,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 export const interactifReady = true
@@ -159,8 +158,8 @@ export default function ReperagePointDuPlan () {
     if (this.interactif) {
       for (let i = 0; i < nbPoints; i++) {
         texte += `<br>Les coordonnées de $${nom[i]}$ sont ` + sp(3) + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, { texteAvant: '(' }) + sp() + ';' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase) + ').'
-        handleAnswers(this, 2 * i, { reponse: { value: points[i].x, compare: fonctionComparaison } })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: points[i].y, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i, { reponse: { value: points[i].x } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: points[i].y } })
       }
     }
 

@@ -22,7 +22,6 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver les coordonnées de l\'image d\'un point par une rotation et une homothétie'
 export const interactifReady = true
@@ -618,7 +617,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
         texte += ajouteChampTexteMathLive(this, i, '')
         texte += '<br>'
         if (context.isAmc) setReponse(this, i, [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`])
-        handleAnswers(this, i, { reponse: { value: [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+        handleAnswers(this, i, { reponse: { value: [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`], options: { texteAvecCasse: true } } })
 
         if (context.isAmc) {
           enonceAmc += '<br>'

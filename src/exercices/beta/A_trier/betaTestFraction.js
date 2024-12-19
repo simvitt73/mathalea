@@ -6,7 +6,7 @@ import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 // import * as pkg from '@cortex-js/compute-engine'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 // const { ComputeEngine } = pkg
 export const interactifReady = true
@@ -40,7 +40,7 @@ export default function TestFractions () {
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionEtendue(a, b)
     const f2 = new Fraction(a, b)
-    handleAnswers(this, 0, { reponse: { value: f1.valeurDecimale, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, 0, { reponse: { value: f1.valeurDecimale, options: { nombreDecimalSeulement: true } } })
     let texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif} avec ${this.autoCorrection[0].reponse.param.decimals} chiffres après la virgule): ` + ajouteChampTexteMathLive(this, 0, '')
     texte += `<br>$${f1.texFractionSR}${f1.texSimplificationAvecEtapes()}$<br><br>`
     texte += `$${f1.texFractionSR}${simplificationDeFractionAvecEtapes(f1.num, f1.den)}$`

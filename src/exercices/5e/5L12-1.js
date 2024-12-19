@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Réduire et simplifier, si possible, un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -84,9 +84,9 @@ export default function ReduireDinstinctionSommeProduit () {
 
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
-        handleAnswers(this, 2 * i, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme } })
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit } })
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit
       texteCorr += listeTypeDeQuestions[i] > 1 ? correctionSommeFinale : correctionProduitFinal

@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../lib/outils/texNombre'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 
@@ -171,7 +171,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc && this.interactif) {
-            handleAnswers(this, 2 * i, { reponse: { value: String(montantReduction), compare: fonctionComparaison } })
+            handleAnswers(this, 2 * i, { reponse: { value: String(montantReduction) } })
           } else {
             propositionsAMC = [
               {
@@ -199,7 +199,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
-            handleAnswers(this, 2 * i + 1, { reponse: { value: String(prixFinal), compare: fonctionComparaison } })
+            handleAnswers(this, 2 * i + 1, { reponse: { value: String(prixFinal) } })
           } else {
             propositionsAMC.push(
               {
@@ -242,7 +242,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc) {
-            handleAnswers(this, 2 * i, { reponse: { value: texNombre(montantAugmentation, 2), compare: fonctionComparaison } })
+            handleAnswers(this, 2 * i, { reponse: { value: texNombre(montantAugmentation, 2) } })
           } else {
             propositionsAMC = [
               {
@@ -270,7 +270,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
-            handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(prixFinal, 2), compare: fonctionComparaison } })
+            handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(prixFinal, 2) } })
           } else {
             propositionsAMC.push(
               {

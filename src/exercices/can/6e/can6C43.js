@@ -5,7 +5,7 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -74,7 +74,7 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
         texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${miseEnEvidence(signe2)} ${fraction.texFSD} $.`
       }
 
-      handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+      handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
 
       if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -6,7 +6,6 @@ import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif
 import { format } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner l\'écriture décimale ou la fraction décimale'
 export const interactifReady = true
@@ -68,7 +67,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
-          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), options: { nombreDecimalSeulement: true } } })
           texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, '')
           texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
@@ -95,7 +94,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [listePoints[0], 1],
-            champ1: { value: String(a), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+            champ1: { value: String(a), options: { nombreDecimalSeulement: true } }
           }
           )
 
@@ -105,7 +104,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
               : ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${texNombre(n, precision, this.sup3)} = $` })
 
             if (!this.sup2) {
-              handleAnswers(this, i, { reponse: { value: n, compare: fonctionComparaison, options: { fractionDecimale: true } } })
+              handleAnswers(this, i, { reponse: { value: n, options: { fractionDecimale: true } } })
             }
           } else {
             texte = `$${texNombre(n, precision, this.sup3)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`

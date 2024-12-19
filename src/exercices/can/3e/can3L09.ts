@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 export const titre = 'Réduire une expression avec des parenthèses précédées d\'un signe $+$ ou $-$'
@@ -27,8 +27,7 @@ export default class ReduireAvecParentheses extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     switch (choice([1, 2])) {
@@ -40,7 +39,7 @@ export default class ReduireAvecParentheses extends Exercice {
           const d = randint(-10, 10, 0)
           const choix = choice([true, false])
           this.reponse = choix ? reduireAxPlusB(a + c, d, variable) : reduireAxPlusB(c, d + a, variable)// texNombre(b).mul(-1).plus(a), 2) + `${variable}`
-          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
+          this.reponse = { reponse: { value: this.reponse } }
           this.question = `Écrire le plus simplement possible  $${choix ? `${rienSi1(a)}${variable}` : `${a}`}+(${reduireAxPlusB(c, d, variable)})$.`
           if (this.interactif) { this.question += `<br>$${choix ? `${rienSi1(a)}${variable}` : `${a}`}+(${reduireAxPlusB(c, d, variable)})=$` }
           this.correction = 'Les parenthèses sont précédées d\'un signe $+$ (on les supprime sans changer l\'expression entre parenthèses). <br>'
@@ -59,7 +58,7 @@ export default class ReduireAvecParentheses extends Exercice {
           const d = randint(-10, 10, 0)
           const choix = choice([true, false])
           this.reponse = choix ? reduireAxPlusB(a - c, -d, variable) : reduireAxPlusB(-c, a - d, variable)// texNombre(b).mul(-1).plus(a), 2) + `${variable}`
-          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
+          this.reponse = { reponse: { value: this.reponse } }
           this.question = `Écrire le plus simplement possible  $${choix ? `${rienSi1(a)}${variable}` : `${a}`}-(${reduireAxPlusB(c, d, variable)})$.`
           if (this.interactif) { this.question += `<br>$${choix ? `${rienSi1(a)}${variable}` : `${a}`}-(${reduireAxPlusB(c, d, variable)})=$` }
           this.correction = 'Les parenthèses sont précédées d\'un signe $-$ (on les supprime en prenant l\'opposé  des termes de l\'expression entre parenthèses). <br>'

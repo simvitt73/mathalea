@@ -8,7 +8,7 @@ import { Droite, droite, droiteParPointEtPente, droiteParPointEtPerpendiculaire 
 import { angleOriente, codageAngle } from '../../lib/2d/angles.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+
 import { range } from '../../lib/outils/nombres.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { bleuMathalea, vertMathalea } from '../../lib/colors.js'
@@ -418,7 +418,7 @@ export default class VocabulaireAngles extends Exercice {
         texteSousFigure += choixDeroulant(this, i, choixTypeAngles, 'la réponse la plus adaptée')
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          reponse: { value: choixTypeAngles[choixQuestion], compare: fonctionComparaison, options: { texteSansCasse: true } }
+          reponse: { value: choixTypeAngles[choixQuestion], options: { texteSansCasse: true } }
         }, { formatInteractif: 'listeDeroulante' })
       }
 

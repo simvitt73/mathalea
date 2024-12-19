@@ -5,7 +5,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Résoudre une inéquation'
 export const interactifReady = true
@@ -30,7 +30,6 @@ export default function SolutionInequation () {
   this.tailleDiaporama = 2
   this.spacing = 3
   this.formatChampTexte = KeyboardType.clavierEnsemble
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   this.nouvelleVersion = function () {
     let a, b, maFraction, n

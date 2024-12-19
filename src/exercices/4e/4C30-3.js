@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Donner l\'écriture entière d\'une puissance'
@@ -61,7 +61,7 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
           texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${miseEnEvidence(texNombre(a ** n, 0))}$`
-          handleAnswers(this, i, { reponse: { value: a ** n, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a ** n, options: { resultatSeulementEtNonOperation: true } } })
 
           break
         case '-':
@@ -69,7 +69,7 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
           texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=${miseEnEvidence('\\dfrac{1}{' + texNombre(a ** n, 0)) + '}'}$`
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(1, a ** n).simplifie().toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(1, a ** n).simplifie().toLatex(), options: { fractionEgale: true } } })
           break
       }
 

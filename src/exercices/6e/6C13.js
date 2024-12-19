@@ -9,7 +9,7 @@ import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 export const dateDeModifImportante = '30/06/2024' // Ajout de l'interactivité par Jean-Claude Lhote
 export const interactifReady = true
@@ -157,7 +157,7 @@ export default function VocabulaireEtOperations () {
           texte += `${expf}.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '')
-            handleAnswers(this, i, { reponse: { value: resultat, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: resultat, options: { nombreDecimalSeulement: true } } })
           }
           expf = 'L' + expf.substring(1)
           texteCorr += numAlpha(i) + `${expf} s'écrit ${expn}.<br>`

@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 export const titre = 'Trouver un nombre entre deux valeurs'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default class nombreEntreDeuxValeurs extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
@@ -36,7 +35,6 @@ export default class nombreEntreDeuxValeurs extends Exercice {
     this.reponse = {
       reponse: {
         value: `]${valInf};${valSup}[`,
-        compare: fonctionComparaison,
         options: { estDansIntervalle: true }
       }
     }

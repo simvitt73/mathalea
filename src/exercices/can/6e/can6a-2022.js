@@ -20,7 +20,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true
@@ -323,7 +323,7 @@ export default function SujetCAN2022Sixieme () {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: 60 - b + d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: 60 - b + d }).toString(), options: { HMS: true } } })
 
           nbChamps = 1
           break
@@ -372,7 +372,7 @@ export default function SujetCAN2022Sixieme () {
               texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
           } else {
             a = randint(6, 10)
             b = choice([20, 25, 30, 35])
@@ -385,7 +385,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
               texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
           }
 
           nbChamps = 1

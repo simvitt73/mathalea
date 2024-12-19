@@ -6,7 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { context } from '../../modules/context'
 export const titre = 'Équations différentielles'
 export const interactifReady = true
@@ -133,7 +133,7 @@ class EquaDiffs extends Exercice {
       if (this.questionJamaisPosee(i, a)) {
         if (this.interactif && context.isHtml) {
           texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$y=$ ' })
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

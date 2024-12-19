@@ -7,7 +7,7 @@ import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
@@ -191,7 +191,7 @@ export default function ListeDesDiviseurs5e () {
       }
       texteCorr += '.'
 
-      handleAnswers(this, i, { reponse: { value: listeDesDiviseurs(M).join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: listeDesDiviseurs(M).join(';'), options: { suiteDeNombres: true } } })
 
       if (context.isAmc) {
         this.autoCorrection[i] = {

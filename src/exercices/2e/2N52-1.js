@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
@@ -135,7 +135,7 @@ export default function EquationsProduitsNuls2 () {
           break
       }
       texte += sp(4) + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 

@@ -14,7 +14,7 @@ import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteracti
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -119,7 +119,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(arrondi(a - b))),
             decimals: 0
           })
-        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
 
         i++
       }

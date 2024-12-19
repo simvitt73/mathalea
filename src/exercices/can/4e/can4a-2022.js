@@ -18,7 +18,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'CAN 4e sujet 2022'
 export const interactifReady = true
@@ -717,7 +717,7 @@ export default function SujetCAN2022quatrieme () {
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
 
           reponse = fraction(b.n, b.d).simplifie()
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }

@@ -16,7 +16,7 @@ import {
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = "Ranger des nombres entiers dans l'ordre croissant ou décroissant"
 export const dateDeModifImportante = '28/08/2024'
 export const interactifReady = true
@@ -122,17 +122,17 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
       handleAnswers(this, i,
         {
           // @ts-expect-error problème typage handleAnswers
-          champ1: { value: nombresRanges[0], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ1: { value: nombresRanges[0], options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ2: { value: nombresRanges[1], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ2: { value: nombresRanges[1], options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ3: { value: nombresRanges[2], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ3: { value: nombresRanges[2], options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ4: { value: nombresRanges[3], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ4: { value: nombresRanges[3], options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ5: { value: nombresRanges[4], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ5: { value: nombresRanges[4], options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ6: { value: nombresRanges[5], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+          champ6: { value: nombresRanges[5], options: { nombreDecimalSeulement: true } }
         }
       )
 

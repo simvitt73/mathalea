@@ -17,7 +17,7 @@ import {
 } from '../../lib/interactif/gestionInteractif'
 import { texteGras } from '../../lib/outils/embellissements'
 import { latex2d } from '../../lib/2d/textes'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Lire l'abscisse entière d'un point (grands nombres)"
@@ -169,21 +169,18 @@ export default function LireAbscisseEntiere2d () {
         handleAnswers(this, 3 * i, {
           reponse: {
             value: texNombre(reponse1, 0),
-            compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
         handleAnswers(this, 3 * i + 1, {
           reponse: {
             value: texNombre(reponse2, 0),
-            compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
         handleAnswers(this, 3 * i + 2, {
           reponse: {
             value: texNombre(reponse3, 0),
-            compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })

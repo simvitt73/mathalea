@@ -6,7 +6,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '12/09/2024'
 export const interactifReady = true
@@ -30,7 +30,6 @@ export default function InequationsGSpline () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.formatChampTexte = KeyboardType.clavierEnsemble
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true }
 
   this.nouvelleVersion = function () {
@@ -143,7 +142,6 @@ On en déduit `
             this.reponse = {
               reponse: {
                 value: [`[${theSpline.x[0]};${theSpline.x[3]}[\\cup]${theSpline.x[3]};${theSpline.x[8]}]`, `]${theSpline.x[3]};${theSpline.x[8]}]\\cup[${theSpline.x[0]};${theSpline.x[3]}[`],
-                compare: fonctionComparaison,
                 options: { intervalle: true }
               }
             }
@@ -177,7 +175,6 @@ On en déduit `
             this.reponse = {
               reponse: {
                 value: [`\\{${theSpline.x[0]}\\}\\cup[${theSpline.x[6]};${theSpline.x[8]}]`, `[${theSpline.x[6]};${theSpline.x[8]}]\\cup\\{${theSpline.x[0]}\\}`],
-                compare: fonctionComparaison,
                 options: { intervalle: true }
               }
             }
@@ -199,7 +196,6 @@ On en déduit `
             this.reponse = {
               reponse: {
                 value: [`[${theSpline.x[0]};${solutions1[0]}[\\cup]${solutions1[1]};${theSpline.x[8]}]`, `]${solutions1[1]};${theSpline.x[8]}]\\cup [${theSpline.x[0]};${solutions1[0]}[`],
-                compare: fonctionComparaison,
                 options: { intervalle: true }
               }
             }
@@ -210,7 +206,6 @@ On en déduit `
             this.reponse = {
               reponse: {
                 value: [`[${theSpline.x[0]};${solutions1[0]}]\\cup[${solutions1[1]};${theSpline.x[8]}]`, `[${solutions1[1]};${theSpline.x[8]}]\\cup[${theSpline.x[0]};${solutions1[0]}]`],
-                compare: fonctionComparaison,
                 options: { intervalle: true }
               }
             }

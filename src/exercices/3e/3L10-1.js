@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
@@ -156,7 +156,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {

@@ -7,7 +7,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,8 +26,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     if (this.canOfficielle) {

@@ -10,7 +10,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { pgcd } from '../../../lib/outils/primalite'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
@@ -33,7 +33,6 @@ export default function MilieuEntre1EtFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = ''
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionIrreductible: true }
 
   this.nouvelleVersion = function () {

@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -52,7 +52,7 @@ export default function FactoriserIdentitesremarquables2 () {
                     $(${a}x${ecritureAlgebrique(b)})^2-${c * c}= (\\color{green} ${a}x${ecritureAlgebrique(b)}\\color{black})^2-\\color{blue}${c}\\color{black}^2 $ <br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}=\\left[\\color{green} (${a}x${ecritureAlgebrique(b)})\\color{black}-\\color{blue} ${c}\\right] \\left[ \\color{green}(${a}x${ecritureAlgebrique(b)})\\color{black}+\\color{blue}${c}\\right] $<br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}= (${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})$`
-          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(a, b - c)})(${reduireAxPlusB(a, b + c)})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(a, b - c)})(${reduireAxPlusB(a, b + c)})`, options: { factorisation: true } } })
           break
         case 2:
           texte = `$${c * c}-(${a}x${ecritureAlgebrique(b)})^2$` // c²-(ax+b)²
@@ -62,7 +62,7 @@ export default function FactoriserIdentitesremarquables2 () {
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=\\left[ \\color{green}${c}\\color{black}-(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] \\left[ \\color{green}${c}\\color{black}+(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] $<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${c}${ecritureAlgebrique(-a)}x${ecritureAlgebrique(-b)}) (${c}${ecritureAlgebrique(a)}x${ecritureAlgebrique(b)})$<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})$`
-          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(a, b + c)})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(a, b + c)})`, options: { factorisation: true } } })
           break
         case 3: {
           texte = `$(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2$` // (ax+b)²-(cx+d)²
@@ -90,7 +90,7 @@ export default function FactoriserIdentitesremarquables2 () {
               texteCorr += `${facteur1}(${facteur2})$`
             }
           }
-          handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, options: { factorisation: true } } })
         } break
         case 4: { // e²(ax+b)²-f²(cx+d)²
           const e = randint(2, 6, [a, b])
@@ -112,7 +112,7 @@ $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecr
           } else {
             texteCorr += ` &= ${miseEnEvidence(`(${facteur2})(${facteur1})`)}\\end{aligned}$`
           }
-          handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, options: { factorisation: true } } })
         } break
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })

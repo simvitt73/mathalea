@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Multiplier deux décimaux'
@@ -26,7 +26,6 @@ export const refs = {
 export default function MultiplierDeuxDecimaux () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { nombreDecimalSeulement: true }
   this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'

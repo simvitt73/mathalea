@@ -5,7 +5,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+
 
 export const titre = 'Résolution d\'équations du type $x^a = b$'
 export const dateDePublication = '28/08/2024'
@@ -166,7 +166,7 @@ export default class EquationsLog extends Exercice {
       }
 
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+        handleAnswers(this, i, { reponse: { value: answer, options: { ensembleDeNombres: true } } })
         texte += '<br>'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '$S=$' })
       }

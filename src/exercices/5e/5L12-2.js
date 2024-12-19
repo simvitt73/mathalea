@@ -11,7 +11,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Réduire et simplifier une expression littérale (somme et produit)'
 export const interactifReady = true
@@ -132,7 +131,7 @@ export default function ReduireUneExpressionLitterale () {
       texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(3, 1)}${'y'}\\times${texNombre(2, 2)}`
       */
       texteCorr += `=${miseEnEvidence(reponse)}$`
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: sp() + '= ' })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

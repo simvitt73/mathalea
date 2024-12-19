@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -74,7 +74,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>$${trinome.texCalculRacine2()}$.`
         texteCorr += '<br>On peut donc factoriser le polynôme sous la forme : $P(x)=a(x-x_1)(x-x_2)$.'
         texteCorr += `<br>$P(x)=${miseEnEvidence(trinome.texFormeFactorisee)}$`
-        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: fonctionComparaison, options: { factorisation: true } } })
+        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, options: { factorisation: true } } })
       } else if (listeTypeDeQuestions[i] === 'identiteRemarquable') {
         // k(x-x1)(x-x1)
         x1 = randint(-5, 2, [0])
@@ -95,7 +95,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br> $x_0 = ${trinome.texCalculRacine1()}$.`
         texteCorr += '<br>On peut donc factoriser le polynôme sous la forme : $P(x)=a(x-x_0)^2$.'
         texteCorr += `<br>$P(x)=${miseEnEvidence(trinome.texFormeFactorisee)}$`
-        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: fonctionComparaison, options: { factorisation: true } } })
+        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, options: { factorisation: true } } })
       } else { // listeTypeDeQuestions[i] === 'pasDeSolution'
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])

@@ -10,7 +10,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
@@ -121,7 +120,7 @@ export default function NotationScientifique () {
               approx: 0
             })
           } else {
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ecritureScientifique: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { ecritureScientifique: true } } })
           }
         } else {
           if (context.isAmc) {
@@ -130,7 +129,7 @@ export default function NotationScientifique () {
               decimals: Math.max(0, listeTypeDeQuestions[i] - exp)
             })
           } else {
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
           }
         }
 

@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer une valeur remarquable '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,6 @@ export default class ValeurRemarquable extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { sansTrigo: true }
     this.formatChampTexte = KeyboardType.clavierFullOperations
   }

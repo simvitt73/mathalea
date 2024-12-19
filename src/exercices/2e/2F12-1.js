@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu, randint
@@ -696,7 +696,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           }
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
       texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
       texteCorr = correction
       if (this.interactif) { texte += '<br>$\\textit{Respecter les notations}$.' }

@@ -15,7 +15,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -485,7 +484,7 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+        handleAnswers(this, i, { reponse: { value: correctionSansSchema, options: { operationSeulementEtNonResultat: true } } })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
         colonne1 += ajouteChampTexteMathLive(this, i, ' college6eme', { texteAvant: sp(5) + '<br>Opération :' })
@@ -493,7 +492,7 @@ export default function ModelisationProblemes () {
         texteCorr += 'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' + schemas[brouilleLesCartes[i]]
       } else {
         texteCorr += `Cet énoncé est associé avec le schéma ${texteEnCouleurEtGras(lettres[i])}.`
-        handleAnswers(this, i, { reponse: { value: lettres[i], compare: fonctionComparaison, options: { texteSansCasse: true } } })
+        handleAnswers(this, i, { reponse: { value: lettres[i], options: { texteSansCasse: true } } })
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
         }

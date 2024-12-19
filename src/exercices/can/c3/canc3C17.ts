@@ -4,7 +4,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Résoudre un problème avec une addition'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,8 +26,7 @@ export default class problemeAddition extends Exercice {
     this.spacing = 1.5
     this.formatInteractif = 'calcul'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
-  }
+    }
 
   nouvelleVersion () {
     switch (randint(1, 7)) { // 1,2, 3

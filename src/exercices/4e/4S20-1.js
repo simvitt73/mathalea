@@ -3,7 +3,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,7 +64,7 @@ export default class nomExercice extends Exercice {
       }
       if (this.interactif) {
         texte += ajouteChampTexte(this, i, KeyboardType.alphanumeric)
-        handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } })
+        handleAnswers(this, i, { reponse: { value: rep, options: { texteSansCasse: true } } })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

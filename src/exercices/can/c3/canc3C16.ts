@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -52,8 +52,8 @@ Ainsi le double du plus petit nombre est $${n1 + n2 - 1}$.<br>
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: `${n1}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-        champ2: { value: `${n2}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+        champ1: { value: `${n1}`, options: { nombreDecimalSeulement: true } },
+        champ2: { value: `${n2}`, options: { nombreDecimalSeulement: true } }
       }
       )
       this.canEnonce = texte

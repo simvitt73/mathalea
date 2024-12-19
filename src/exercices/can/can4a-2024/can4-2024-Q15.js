@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { pgcd } from '../../../lib/outils/primalite'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 
 export const titre = 'Additionner deux fractions de dénominateurs comptatibles'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.canOfficielle = false
   }
 

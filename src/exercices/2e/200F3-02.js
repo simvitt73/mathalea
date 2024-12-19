@@ -6,7 +6,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lecture graphique de domaine de définition'
@@ -165,7 +165,6 @@ export default class LectureEnsebleDef extends Exercice {
     this.reponse = {
       reponse: {
         value: `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`,
-        compare: fonctionComparaison,
         options: { intervalle: true }
       }
     }

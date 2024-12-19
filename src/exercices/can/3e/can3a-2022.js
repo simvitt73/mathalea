@@ -15,7 +15,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 3e sujet 2022'
@@ -493,7 +493,7 @@ export default function SujetCAN2022troisieme () {
             texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
             texteCorr = `$${texNombre(b.plus(a), 2)}\\text{ h } = ${a}\\text{ h }+${texNombre(b, 2)} \\times 60\\text{ min } = ${a}\\text{ h }${texNombre(d, 0)}\\text{ min }$`
 
             nbChamps = 1
@@ -819,7 +819,7 @@ export default function SujetCAN2022troisieme () {
             Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 4, minute: c - 60 + b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 4, minute: c - 60 + b }).toString(), options: { HMS: true } } })
 
             nbChamps = 1
           }

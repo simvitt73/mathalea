@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
@@ -28,8 +28,7 @@ export default function ExprimerVariable () {
 
     
   this.formatChampTexte = ' '
-  // this.compare = fonctionComparaison
-  this.nouvelleVersion = function () {
+  // this.nouvelleVersion = function () {
     { const a = randint(-9, 9, 0)
       const b = randint(-5, 9, [0, a, -a])
       const c = randint(-9, 9, 0)
@@ -58,7 +57,7 @@ export default function ExprimerVariable () {
           this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(b)}${var2}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(b)}${var2}}{${-a}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
-        this.reponse = { reponse: { value: a < 0 ? `${var1}=${`\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}`}` : `${var1}=${`\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`}`, compare: fonctionComparaison, options: { egaliteExpression: true } } }
+        this.reponse = { reponse: { value: a < 0 ? `${var1}=${`\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}`}` : `${var1}=${`\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`}`, options: { egaliteExpression: true } } }
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
         
@@ -75,7 +74,7 @@ export default function ExprimerVariable () {
           this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(a)}${var1}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
-        this.reponse = { reponse: { value: b < 0 ? `${var2}=${`\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`}` : `${var2}=${`\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`}`, compare: fonctionComparaison, options: { egaliteExpression: true } } }
+        this.reponse = { reponse: { value: b < 0 ? `${var2}=${`\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`}` : `${var2}=${`\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`}`, options: { egaliteExpression: true } } }
       }
     }
     // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras

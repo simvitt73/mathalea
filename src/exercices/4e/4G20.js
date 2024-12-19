@@ -15,7 +15,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { RedactionPythagore } from './_pythagore.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -227,7 +227,7 @@ export default class Pythagore2D extends Exercice {
         }
         texteCorr = redaction[0]
         texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, '  unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
-        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse.toFixed(1), 'cm'), compare: fonctionComparaison, options: { precisionUnite: 0.1, unite: true } } })
+        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse.toFixed(1), 'cm'), options: { precisionUnite: 0.1, unite: true } } })
 
         if (context.isAmc) {
           this.autoCorrection[i] = {

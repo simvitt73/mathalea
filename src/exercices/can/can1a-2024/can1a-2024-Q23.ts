@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 
 export const titre = 'Résoudre une inéquation'
@@ -57,7 +57,6 @@ export default class solutionInequation extends Exercice {
     this.reponse = {
       reponse: {
         value: reponse,
-        compare: fonctionComparaison,
         options: { intervalle: true }
       }
     }

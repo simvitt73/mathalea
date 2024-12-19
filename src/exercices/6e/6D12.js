@@ -9,7 +9,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
 export const interactifReady = true
@@ -334,7 +333,7 @@ export default class CalculsDeDureesOuHoraires extends Exercice {
       if (this.interactif) {
         texte += '<br>'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms, { texteAvant: texteInteractif + ' : ' })
-        handleAnswers(this, i, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse.toString(), options: { HMS: true } } })
       }
 
       if (this.questionJamaisPosee(i, m1, d1, h1, m2, d2, h2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

@@ -8,7 +8,6 @@ import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/out
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -137,7 +136,7 @@ export default function FactoriserParNombreOux () {
       }
       if (!context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { operationSeulementEtNonResultat: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,

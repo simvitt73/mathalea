@@ -1,6 +1,6 @@
 import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -99,7 +99,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
         ]
         listeCorrection = [correction1, correction4]
       } else {
-        listeEnonce = [`Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} km en continuant à ${sportif.verbe} à la même vitesse ?` + ajouteQuestionMathlive({ exercice: this, question: i, objetReponse: { reponse: { value: dureeAvances, compare: fonctionComparaison, options: { HMS: true } } }, typeInteractivite: 'mathlive', texteApres: '(en h et min)', classe: KeyboardType.clavierHms })]
+        listeEnonce = [`Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} km en continuant à ${sportif.verbe} à la même vitesse ?` + ajouteQuestionMathlive({ exercice: this, question: i, objetReponse: { reponse: { value: dureeAvances, options: { HMS: true } } }, typeInteractivite: 'mathlive', texteApres: '(en h et min)', classe: KeyboardType.clavierHms })]
         listeCorrection = [correction5]
       }
       enonce += listeEnonce.length > 1

@@ -4,7 +4,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
@@ -27,7 +27,6 @@ export default function FractionCommeFacteurManquant () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionComparaison
   this.optionsDeComparaison = { fractionEgale: true }
   this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
 

@@ -10,7 +10,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer des produits et des quotients de nombres relatifs'
 export const interactifReady = true
@@ -75,12 +74,12 @@ export default function ProduitsEtQuotientRelatifs () {
           if (listeTypesDeNombre[i] < 3) {
             texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(a.mul(b), 1) + '$'
-            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), options: { resultatSeulementEtNonOperation: true } } })
           } else {
             texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)}`
             texteCorr = texte.split('=')[0] + ' = ' + a.texProduitFraction(b, true) + '$'
             // setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
-            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, options: { resultatSeulementEtNonOperation: true } } })
           }
           break
 
