@@ -221,7 +221,7 @@ export default function Distance () {
           setReponse(this, i, ['OUI', 'oui', 'Oui'], { formatInteractif: 'texte' })
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
-          texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $${A.nom}${B.nom}$ ?`
+          texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $[${A.nom}${B.nom}]$ ?`
           if (this.interactif) {
             texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexte(this, i)
           }
