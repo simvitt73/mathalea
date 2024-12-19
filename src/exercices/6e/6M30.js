@@ -204,7 +204,7 @@ export default function CalculDeVolumes () {
             l = randint(6, 10)
             volume = c.mul(h * l).div(2)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
-            texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
+            // texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
             if (choice([false, true])) {
               texte += ` d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$. La base du prisme droit est un triangle rectangle dont les côtés de l'angle droit mesurent $${texNombre(c, 1)}${listeUnites[j][0]}$ et $${h}${listeUnites[j][0]}$.`
             } else {
