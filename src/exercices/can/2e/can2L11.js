@@ -26,9 +26,8 @@ export default function ExprimerVariable () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
 
-    
   this.formatChampTexte = ' '
-  // this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     { const a = randint(-9, 9, 0)
       const b = randint(-5, 9, [0, a, -a])
       const c = randint(-9, 9, 0)
