@@ -12,7 +12,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '21/05/2023'
-
+export const ref = '3F20-2'
 export const refs = {
   'fr-fr': ['3F20-2'],
   'fr-ch': ['10FA5-14', '11FA8-8']
@@ -47,15 +47,18 @@ export default function FonctionsAffinesOuLineaires () {
     fonctionsAffines.sup = this.sup
     fonctionsAffines.sup2 = this.sup2
     fonctionsAffines.numeroExercice = this.numeroExercice // indispensable pour l'interactif
-    fonctionsAffines.nouvelleVersion()
+    fonctionsAffines.nouvelleVersionWrapper()
     fonctionsLineaires.interactif = this.interactif
     fonctionsLineaires.nbQuestions = this.nbQuestions
     fonctionsLineaires.lycee = this.lycee
     fonctionsLineaires.sup = this.sup
     fonctionsLineaires.sup2 = this.sup3
     fonctionsLineaires.numeroExercice = this.numeroExercice // indispensable pour l'interactif
-    fonctionsLineaires.nouvelleVersion()
+    fonctionsLineaires.nouvelleVersionWrapper()
 
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
     const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions })
     for (let i = 0; i < this.nbQuestions; i++) {
       if (choixFonction[i] === 'affine') {

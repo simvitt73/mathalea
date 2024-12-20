@@ -90,7 +90,7 @@ export default class MetaExercice extends Exercice {
         Question.numeroExercice = 0
         Question.canOfficielle = !!this.sup
         Question.interactif = this.interactif
-        Question.nouvelleVersion()
+        Question.nouvelleVersionWrapper()
         //* ************ Question Exo simple *************//
         if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
           const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
