@@ -29,6 +29,7 @@ import { contraindreValeur } from '../modules/outils'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange'
 import { resizeContent } from './components/sizeTools'
 import Decimal from 'decimal.js'
+import { tick } from 'svelte'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -354,8 +355,9 @@ export function mathaleaHandleStringFromUrl (text: string): boolean | number | s
   }
 }
 
-export function mathaleaRenderDiv (div: HTMLElement | null, zoom?: number): void {
+export async function mathaleaRenderDiv (div: HTMLElement | null, zoom?: number): Promise<void> {
   if (!div) return
+  await tick()
   const params = get(globalOptions)
   zoom = zoom ?? Number(params.z)
 
@@ -364,6 +366,7 @@ export function mathaleaRenderDiv (div: HTMLElement | null, zoom?: number): void
   if (zoom !== -1) {
     resizeContent(div, zoom)
   }
+  return Promise.resolve()
 }
 
 function renderKatex (element: HTMLElement) {

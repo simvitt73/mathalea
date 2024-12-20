@@ -237,7 +237,6 @@
   afterUpdate(async () => {
     log('afterUpdate:' + exercise.id)
     if (exercise) {
-      await tick()
       if (isInteractif) {
         await loadMathLive()
         if (exercise?.interactifType === 'cliqueFigure' && !isCorrectionVisible) {

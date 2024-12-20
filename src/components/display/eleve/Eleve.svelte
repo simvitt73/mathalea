@@ -272,7 +272,6 @@
     ) {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathaleaVueProf
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-      await tick()
       const body = document.querySelector<HTMLElement>('body')
       if (body) {
         mathaleaRenderDiv(body)
@@ -338,17 +337,15 @@
     }
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
-    await tick()
     const feedback = document.querySelector<HTMLElement>(`#feedbackEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)
     // nécessaire pour le feedback
     if (feedback !== null && feedback !== undefined) mathaleaRenderDiv(feedback)
     mathaleaRenderDiv(divsCorrection[i])
   }
 
-  async function switchCorrectionVisible (i: number) {
+  function switchCorrectionVisible (i: number) {
     isCorrectionVisible[i] = !isCorrectionVisible[i]
     if (isCorrectionVisible[i]) {
-      await tick()
       mathaleaRenderDiv(divsCorrection[i])
     }
   }

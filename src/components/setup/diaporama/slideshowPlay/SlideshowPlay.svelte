@@ -132,7 +132,7 @@
     }
     for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
       const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
-      mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
+      await mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
     }
     document.dispatchEvent(exercicesAffiches)
   }
@@ -141,12 +141,12 @@
     await tick()
     const optimalZoomForViews = new Array(nbVues).fill(0)
     for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
-      optimalZoomForViews[vueIndex] = findOptimalZoomForView(vueIndex)
+      optimalZoomForViews[vueIndex] = await findOptimalZoomForView(vueIndex)
     }
     return Math.min(...optimalZoomForViews)
   }
 
-  function findOptimalZoomForView (vueIndex: number) {
+  async function findOptimalZoomForView (vueIndex: number) {
     const MIN_ZOOM = 0.5
     const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
     const questionDiv = document.getElementById('question' + vueIndex)
@@ -160,7 +160,7 @@
         item.style.display = 'inline-block'
       })
     }
-    mathaleaRenderDiv(exerciseContainerDiv, 1)
+    await mathaleaRenderDiv(exerciseContainerDiv, 1)
     const { height: questionHeight, width: questionWidth } = getSizes(questionDiv)
     const { height: correctionHeight, width: correctionWidth } = getSizes(correctionDiv)
     const containerWidth = exerciseContainerDiv.clientWidth
