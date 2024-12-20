@@ -405,10 +405,10 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
     if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
     if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
-    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
     if (ex.interactif === '1') url.searchParams.append('i', '1')
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
+    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
   }
   updateURLFromReferentielLocale(url)
   updateGlobalOptionsInURL(url)
