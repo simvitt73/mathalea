@@ -122,11 +122,11 @@ export default class MetaExercice extends Exercice {
           } else {
             if (Question.compare == null) {
               if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse)
-              else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
+              else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } })
+              // else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
             } else {
               const compare = Question.compare
               const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
-
               if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
                 const reponse = String(Question.reponse)
                 handleAnswers(this, indexQuestion, {

@@ -4,6 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer avec les chiffres (relatifs)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,9 +24,9 @@ export default class calcAvecChiffresRel extends Exercice {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.formatChampTexte = ''
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = functionCompare
   }
 
   nouvelleVersion () {

@@ -43,11 +43,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   nouvelleVersion () {
     let typesDeQuestions
 
-    
-    
-
-
-
     this.figures = []
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
@@ -151,7 +146,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined || this.figures === undefined) return ['KO']
-    const result: ('OK'|'KO')[] = []
+    const result: ('OK' | 'KO')[] = []
     const figure = this.figures[i] as Figure
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale

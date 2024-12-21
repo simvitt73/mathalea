@@ -25,7 +25,6 @@ export default class nombreATrouver extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    // this.optionsDeComparaison = { fractionEgale: true }
   }
 
   nouvelleVersion () {
@@ -38,7 +37,7 @@ export default class nombreATrouver extends Exercice {
     const listeNom = ['R', 'x', 'y', 'T', 'z', 'U', 'A', 'B', 'C']
     const Nom = choice(listeNom)
     if (choice([true, false])) {
-      this.reponse = new FractionEtendue(a * c + b, c).inverse()
+      this.reponse = new FractionEtendue(a * c + b, c).inverse().texFraction
       this.question = `Calculer $${Nom}$  sachant que : <br>
      $\\dfrac{1}{${Nom}}=${a}+${fracbSurC}$.`
       this.correction = `$\\dfrac{1}{${Nom}}=${a}+${fracbSurC} = \\dfrac{${a} \\times ${texNombre(c)}}{${texNombre(c)}} + \\dfrac{${b}}{${texNombre(c)}} = \\dfrac{${texNombre(a * c)}}{${texNombre(c)}} + \\dfrac{${b}}{${texNombre(c)}}  =${d.texFraction}$<br><br>
@@ -46,7 +45,7 @@ export default class nombreATrouver extends Exercice {
       this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}+${fracbSurC}$`// 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
     } else {
-      this.reponse = new FractionEtendue(a * c - b, c).inverse()
+      this.reponse = new FractionEtendue(a * c - b, c).inverse().texFraction
       this.question = `Calculer $${Nom}$  sachant que : <br>
          $\\dfrac{1}{${Nom}}=${a}-${fracbSurC}$.`
       this.correction = `$\\dfrac{1}{${Nom}}=${a}-${fracbSurC} = \\dfrac{${a} \\times ${texNombre(c)}}{${texNombre(c)}} - \\dfrac{${b}}{${texNombre(c)}} = \\dfrac{${texNombre(a * c)}}{${texNombre(c)}} - \\dfrac{${b}}{${texNombre(c)}}  =${e.texFraction}$<br><br>
