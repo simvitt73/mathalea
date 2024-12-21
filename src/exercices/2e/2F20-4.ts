@@ -569,12 +569,12 @@ class resolutionEquationInequationGraphique extends Exercice {
       }
     }
     if (this.sup !== 1) {
-      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}].<br>`
+      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $\\left[${texNombre(xMin - 0.5, 1)};${texNombre(xMax + 1.5, 1)}\\right]$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
         enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>'
       }
-      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
+      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin - 0.5, xMax + 1.5)
 
       handleAnswers(this, indexQuestion, {
         reponse: {
