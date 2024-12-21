@@ -98,7 +98,7 @@ export default class ReconnaitreSuites extends Exercice {
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
-          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${r}$.`)}`
+          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${r}$`)}.`
           break
 
         case 2:// SG
@@ -162,7 +162,7 @@ export default class ReconnaitreSuites extends Exercice {
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
-          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${texNombre(q, 2)}$.`)}`
+          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite géométrique de raison $${texNombre(q, 2)}$`)}.`
           break
 
         default:// NiNi
