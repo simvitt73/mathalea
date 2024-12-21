@@ -1850,24 +1850,24 @@ export function functionCompare (
   let a: number
   let b: number
   let c: number
-  let variablea: object
-  let variableb: object
-  let variablec: object
+  let variablea: Record<string, number>
+  let variableb: Record<string, number>
+  let variablec: Record<string, number>
   do {
     [a, b, c] = [valAlea(), valAlea(), valAlea()]
     variablea = Object.fromEntries([[variable ?? 'x', a]])
     variableb = Object.fromEntries([[variable ?? 'x', b]])
     variablec = Object.fromEntries([[variable ?? 'x', c]])
   } while (
-    Number.isNaN(goodAnswerFn(variablea)) ||
-    Number.isNaN(goodAnswerFn(variableb)) ||
-    Number.isNaN(goodAnswerFn(variablec))
+    Number.isNaN(goodAnswerFn(variablea) as number) ||
+    Number.isNaN(goodAnswerFn(variableb) as number) ||
+    Number.isNaN(goodAnswerFn(variablec) as number)
   )
   let isOk = true
   for (const x of [a, b, c]) {
     const vars = Object.fromEntries([[variable ?? 'x', x]])
-    const y1 = inputFn(vars)
-    const y2 = goodAnswerFn(vars)
+    const y1 = Number(inputFn(vars))
+    const y2 = Number(goodAnswerFn(vars))
     isOk = isOk && Math.abs(y1 - y2) < 1e-10
   }
   return { isOk }
