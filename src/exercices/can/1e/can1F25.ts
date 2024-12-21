@@ -31,7 +31,7 @@ export default class ResolEquationDerivee extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'solution(s)' }
-    // this.formatInteractif = 'calcul'
+
     }
 
   nouvelleVersion () {

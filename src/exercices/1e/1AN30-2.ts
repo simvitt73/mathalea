@@ -19,7 +19,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @author Rémi Angot
 
 */

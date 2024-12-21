@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: ' est égal à : ' }
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

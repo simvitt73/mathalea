@@ -15,7 +15,7 @@ export const dateDePublication = '26/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * 
+ *
  * @author Gilles Mora
 */
 export const uuid = 'ae872'
@@ -34,10 +34,6 @@ export default class ProbaConcret extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
     let index = 0
     let increment = 1
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({

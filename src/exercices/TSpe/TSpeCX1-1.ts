@@ -74,8 +74,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
       ...listePourMoins3PiSur4,
       ...listePourMoins5PiSur6
     ], this.nbQuestions)
-    
-    
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       const { a, b, A, aSurA, moinsBSurA, phi } = listeDeValeurs[i]
       const w = randint(1, 5) * choice([-1, 1])

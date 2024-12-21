@@ -56,9 +56,9 @@ const aleaPopulation = function (effectif:number, valeurMin:number, valeurMax:nu
 }
 
 const trouveQuartiles = function (yGrecs: number[], pts: Point[]): [number, number, number] {
-  let d1: Droite|null = null
-  let d2: Droite|null = null
-  let d3: Droite|null = null
+  let d1: Droite | null = null
+  let d2: Droite | null = null
+  let d3: Droite | null = null
   let cpt = 0
   do {
     for (let i = 0; i < pts.length; i++) {
@@ -96,8 +96,6 @@ export default class Quartiles extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let q1: number
       let q2: number

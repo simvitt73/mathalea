@@ -32,7 +32,7 @@ export default function ReconnaitreFonctionAffine () {
 
     
   this.formatChampTexte = ''
-  this.formatInteractif = 'calcul'
+
   this.nbQuestions = 1
   this.tailleDiaporama = 2
 

@@ -4,7 +4,7 @@ export const dateDeModifImportante = '07/07/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * 
+ *
  * @author Stéphane Guyon  + Jean-Claude Lhote (interactif) + Gilles Mora
 */
 export const uuid = 'd1da3'

@@ -64,10 +64,7 @@ export default class nomExercice extends Exercice {
     }
     this.consigne = `Compléter avec ${this.sup5 ? symbole : 'le symbole qui convient'}.`
 
-    
-    
-
-    let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse'| 'nombresContenanceTrue' | 'nombresContenanceFalse'| 'lettresElementTrue' | 'lettresElementFalse'| 'lettresContenanceTrue' | 'lettresContenanceFalse'|'erreur')[]
+    let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse' | 'nombresContenanceTrue' | 'nombresContenanceFalse' | 'lettresElementTrue' | 'lettresElementFalse' | 'lettresContenanceTrue' | 'lettresContenanceFalse' | 'erreur')[]
     typeQuestionsDisponibles = []
     if (this.sup === 1) {
       if (this.sup3 === true) {

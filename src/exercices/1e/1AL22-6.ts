@@ -17,7 +17,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @author Gilles Mora
 */
 
@@ -30,8 +30,6 @@ export default class variationPol2 extends Exercice {
   }
 
   nouvelleVersion () {
-
-
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

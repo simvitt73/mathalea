@@ -16,7 +16,6 @@ export const interactifType = 'custom'
 
  */
 
-
 export const refs = {
   'fr-fr': ['triangle1'],
   'fr-ch': []
@@ -58,7 +57,7 @@ class ConstructionTriangle extends Exercice {
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [
       string,
       string,
-      string,
+      string
     ]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
 
@@ -117,7 +116,7 @@ class ConstructionTriangle extends Exercice {
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [
       string,
       string,
-      string,
+      string
     ]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
     let { message, isValid } = this.figure.checkDistance({

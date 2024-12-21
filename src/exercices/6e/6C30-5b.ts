@@ -30,8 +30,6 @@ class MultiplierPar001 extends Exercice {
     super()
     this.nbQuestions = 4 // Ici le nombre de questions
 
-
-
     this.consigne = 'Compléter les pointillés.'
     this.correctionDetailleeDisponible = true
 

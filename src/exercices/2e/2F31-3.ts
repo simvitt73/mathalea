@@ -17,7 +17,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @author Gilles Mora
 */
 
@@ -31,8 +31,6 @@ export default class ComparerImagesTableau extends Exercice {
   }
 
   nouvelleVersion () {
-
-
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

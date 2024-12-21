@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '29/09/2024'
 
 /**
- * 
+ *
  * @author Gilles Mora
 
 */

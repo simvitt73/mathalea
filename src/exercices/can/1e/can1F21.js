@@ -53,7 +53,7 @@ export default function EcondDegreAbscisseOrdonneeSommet () {
           L'abscisse du sommet est donc : $-\\dfrac{${b}}{2\\times${ecritureParentheseSiNegatif(a)} }= ${r.texFraction}${r.texSimplificationAvecEtapes()}$.`
       this.reponse = r
     } else {
-      this.formatInteractif = 'calcul'
+
       a = randint(-3, 3, 0)
       b = randint(-2, 2) * 2 * a
       c = randint(-9, 9)

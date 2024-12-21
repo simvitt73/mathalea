@@ -39,7 +39,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
     const b = randint(-4, 4, 0)
 
     const rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
-    this.formatInteractif = 'calcul'
+
     this.question = `$f$ est une fonction affine${this.interactif ? '.' : ' définie par $f(x)=\\ldots$'}<br>`
     this.question += `
     ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },

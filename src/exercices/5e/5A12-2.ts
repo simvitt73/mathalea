@@ -36,11 +36,6 @@ export default class ReconnaitreNombrePremier extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     const typeQuestionsDisponibles = ['premier', 'non premier']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)

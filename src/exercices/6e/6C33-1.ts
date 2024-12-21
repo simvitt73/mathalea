@@ -20,7 +20,7 @@ export const titre = 'Organiser des calculs en une seule ligne'
 export const dateDePublication = '31/05/2024'
 
 /**
- * 
+ *
  * @author Guillaume Valmont
 */
 export const uuid = '2b06d'
@@ -46,10 +46,6 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
     const nombreDeCalculs = gestionnaireFormulaireTexte({ shuffle: false, saisie: this.sup2, nbQuestions: this.nbQuestions, min: 2, max: 4, defaut: 4, melange: 5 })

@@ -28,7 +28,7 @@ export default function FractionVersDecimal () {
     let a, b, c, maFraction
     let resultat
     this.formatChampTexte = ''
-    this.formatInteractif = 'calcul'
+
     switch (choice([1, 2, 3])) {
       case 1:// conversion fraction <->décimale cinquième
         a = randint(1, 12, [5, 10])

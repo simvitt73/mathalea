@@ -94,7 +94,7 @@ export default class EquationsLog extends Exercice {
       let texteCorr = ''
       let a: number
       let b: number
-      let quotient: number|[number, number]|null
+      let quotient: number | [number, number] | null
       let base: number | null
       switch (listeTypeQuestions[i]) {
         case 1: // rationnel

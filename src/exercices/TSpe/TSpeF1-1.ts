@@ -35,8 +35,6 @@ class DerivationLnU extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let laFonctionFEnLatex: string

@@ -19,7 +19,7 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * 
+ *
  * @author Nathan Scheinmann
 */
 

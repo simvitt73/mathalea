@@ -26,7 +26,6 @@ class EqCartVectNormal extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion (): void {

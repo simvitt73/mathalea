@@ -19,7 +19,7 @@ export default class BillesMultiplieesCM2 extends Exercice {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+
     this.formatChampTexte = ''
     this.optionsChampTexte = { texteApres: ' billes.' }
     this.canOfficielle = false

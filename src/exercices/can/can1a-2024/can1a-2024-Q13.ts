@@ -20,7 +20,7 @@ export default class ProduitScalaire extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.formatInteractif = 'calcul'
+
   }
 
   nouvelleVersion () {

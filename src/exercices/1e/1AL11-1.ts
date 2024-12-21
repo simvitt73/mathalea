@@ -12,7 +12,7 @@ export const interactifType = 'qcm'
 export const dateDePublication = '23/11/2024'
 
 /**
- * 
+ *
  * @author Gilles Mora
 
 */
@@ -34,9 +34,6 @@ export default class ReconnaitreSuites extends Exercice {
     // this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
     const typeDeQuestionsDisponibles = [1, 2, 3]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-
-    
-    
 
     for (let i = 0, a, b, r, q, u0, q1, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typeDeQuestion = listeTypeDeQuestions[i]

@@ -15,7 +15,7 @@ export const dateDePublication = '25/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * 
+ *
  * @author Gilles Mora
 */
 export const uuid = 'ea35b'
@@ -44,11 +44,6 @@ export default class ProbaUnionInter extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

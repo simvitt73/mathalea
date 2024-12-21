@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -36,7 +36,6 @@ export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
   }
 
   nouvelleVersion () {
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -46,9 +45,6 @@ export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
-    
-    
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 

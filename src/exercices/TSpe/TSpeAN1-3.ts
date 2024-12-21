@@ -7,7 +7,6 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-
 export const titre = 'Calculs utilisant les propriétés des logarithmes'
 export const dateDePublication = '27/07/2024'
 export const uuid = '3e6bf'
@@ -18,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * 
+ *
  * @author Jean-Claude Lhote et modifié par Claire Rousset
 
 */
@@ -50,7 +49,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       const valeurA = A.base ** A.exp
       const valeurB = B.base ** B.exp
       const valeurAfoisB = valeurA * valeurB
-      const exprime = (A: {base: number, exp: number}) => `${A.base}^${A.exp}`
+      const exprime = (A: { base: number, exp: number }) => `${A.base}^${A.exp}`
       const intro = `Exprimer, en fonction de $${logString} \\left(${A.base}\\right)$ et $${logString} \\left(${B.base}\\right)$, le nombre suivant : &nbsp `
       let texte: string
       let texteCorr = ''

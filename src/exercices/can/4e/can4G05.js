@@ -26,7 +26,7 @@ export default class DiagonaleCarre extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    // this.formatInteractif = 'calcul'
+
     }
 
   nouvelleVersion () {

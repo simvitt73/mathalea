@@ -27,7 +27,7 @@ export default class TrouverpDroite extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    // this.formatInteractif = 'calcul'
+
     }
 
   nouvelleVersion () {

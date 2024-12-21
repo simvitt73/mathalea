@@ -96,7 +96,7 @@ export default function QuestionsAiresEtPerimetres () {
           a = randint(1, 10)
           c = a * a
           reponse = 4 * a
-          this.formatInteractif = 'calcul'
+
           texte = `Déterminer le périmètre  d'un carré d'aire $${c}$ cm$^2$. `
           texteCorr = `Le côté du carré est $\\sqrt{${c}}=${a}$.<br>
          Son périmètre est donc $4\\times ${a}=${miseEnEvidence(4 * a)}$ cm.`
@@ -112,7 +112,7 @@ export default function QuestionsAiresEtPerimetres () {
           a1 = randint(5, 20)
           a = a1 * 4
           reponse = a1
-          this.formatInteractif = 'calcul'
+
           texte = `Le périmètre d'un carré est $${a}$ cm. <br>Quelle est la longueur du côté du carré ? `
           texteCorr = `Le côté du carré est $${a}\\div 4=${miseEnEvidence(a1)}$ cm.`
           handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
@@ -156,7 +156,7 @@ export default function QuestionsAiresEtPerimetres () {
             c = randint(2, 4)// coefficient
             texte = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
           Quelle est l'aire du rectangle ainsi obtenu ?`
-            this.formatInteractif = 'calcul'
+
             texteCorr = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
           Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${miseEnEvidence(a * c * c)}$ cm$^2$.
       <br>`
@@ -226,7 +226,7 @@ export default function QuestionsAiresEtPerimetres () {
           $AC=\\dfrac{2\\times ${b}}{${a}}=${miseEnEvidence(new FractionEtendue(2 * b, a).simplifie().texFraction)}$ m.
       <br>`
           reponse = 2 * b / a
-          this.formatInteractif = 'calcul'
+
           handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
           this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
           texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: 'm' })

@@ -26,7 +26,7 @@ export default class ReduireAvecParentheses extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    // this.formatInteractif = 'calcul'
+
     }
 
   nouvelleVersion () {

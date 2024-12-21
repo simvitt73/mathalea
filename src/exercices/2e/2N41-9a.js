@@ -9,6 +9,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
+import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Développer puis réduire des expressions littérales complexes'
 export const dateDePublication = '20/04/2024'

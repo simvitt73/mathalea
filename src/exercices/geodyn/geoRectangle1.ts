@@ -13,7 +13,6 @@ export const interactifType = 'custom'
 
  */
 
-
 export const refs = {
   'fr-fr': ['rectangle1'],
   'fr-ch': []

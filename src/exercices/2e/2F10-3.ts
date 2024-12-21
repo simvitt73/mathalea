@@ -48,9 +48,7 @@ export default class Representerfonctionaffine extends Exercice {
     this.figures = []
     this.coefficients = []
 
-    
-    
-    let typesDeQuestionsDisponibles: (1|2)[] = []
+    let typesDeQuestionsDisponibles: (1 | 2)[] = []
 
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -254,7 +252,7 @@ export default class Representerfonctionaffine extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined) return 'KO'
-    let result: 'OK'|'KO' = 'KO'
+    let result: 'OK' | 'KO' = 'KO'
     if (this.figures?.[i] == null) throw new Error('La figure n\'a pas été créée')
     const figure = this.figures[i]
     if (this.answers == null) this.answers = {}

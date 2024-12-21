@@ -176,5 +176,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('Techno1')
   // testRunAllLots('HP')
 
-  testRunAllLots('5e/5R10-0.js')
+  testRunAllLots('4e/4C32.js')
 }

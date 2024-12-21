@@ -54,8 +54,8 @@ function positionneLabel (pointA: Point, pointB: Point) {
  * supprime les points hors cadre
  * @param points
  */
-function deletePoints (points: {x: number, y:number}[], type : number) {
-  const newPoints: {x: number, y:number}[] = []
+function deletePoints (points: { x: number, y: number }[], type : number) {
+  const newPoints: { x: number, y: number }[] = []
   const typeV = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: -1 }]
   for (const point of points) {
     if (point.x >= -7.5 && point.x <= 7.5 && point.y >= -7.5 && point.y <= 7.5 && point.x !== point.y && point.x !== -point.y) {
@@ -71,7 +71,7 @@ function deletePoints (points: {x: number, y:number}[], type : number) {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: {x: number, y:number}[]) {
+function checkDistance (points: { x: number, y: number }[]) {
   for (const point of points) {
     if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
       return false
@@ -113,9 +113,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
 
-    
-    
-
     let choixDeLaxe: number[] = []
     this.figuresApiGeom = []
     if (this.sup === 5) {
@@ -135,15 +132,15 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       const objets = []
       let objetsCorrection: object[] = []
       const d: Droite[] = []
-      let labelD!: LatexParCoordonnees|Vide2d
+      let labelD!: LatexParCoordonnees | Vide2d
 
       objets.length = 0
       objetsCorrection.length = 0
       middle.length = 0
       symetriques.length = 0
       antecedents.length = 0
-      let nuage: {x: number, y:number}[] = []
-      let nuageSaved: {x: number, y:number}[] = []
+      let nuage: { x: number, y: number }[] = []
+      let nuageSaved: { x: number, y: number }[] = []
       // On construit les points
       do {
         nuage = []

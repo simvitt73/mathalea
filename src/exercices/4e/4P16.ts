@@ -29,15 +29,9 @@ export default class NomExercice extends Exercice {
     super()
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange']
     this.sup = 8
-
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     const valMaxParametre = 8
     const listeDesProblemes = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,

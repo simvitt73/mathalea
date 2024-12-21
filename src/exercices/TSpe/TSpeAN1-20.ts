@@ -36,8 +36,7 @@ class EquaDiffs extends Exercice {
 
   nouvelleVersion () {
     // initialise les propriété exportée de l'exo comme this.autoCorrection, this.listeQuestions...
-    
-    
+
     // on récupère la liste des valeurs saisies dans le formulaire
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,

@@ -30,7 +30,7 @@ export const refs = {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: {x: number, y:number}[]) {
+function checkDistance (points: { x: number, y: number }[]) {
   const [x0, y0] = [points[0].x, points[0].y]
   const [x1, y1] = [points[1].x, points[1].y]
   const [x2, y2] = [points[2].x, points[2].y]
@@ -56,7 +56,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
   antecedents!: PointApigeom[][]
   labels!: string[][]
   centres!: PointApigeom[]
-  typesDeQuestions!: ('segment'|'droite'|'demidroite'|'cercle'|'triangle')[]
+  typesDeQuestions!: ('segment' | 'droite' | 'demidroite' | 'cercle' | 'triangle')[]
   nbPoints!: number[]
   exoCustomResultat: boolean
   figuresApiGeom!: SuperFigure[]
@@ -81,9 +81,6 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
 
-    
-    
-
     this.figuresApiGeom = []
     this.antecedents = []
     this.labels = []
@@ -92,7 +89,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.nbPoints = []
     this.typesDeQuestions = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup2, min: 1, max: 5, melange: 6, defaut: 6, listeOfCase: ['segment', 'droite', 'demidroite', 'cercle', 'triangle'] }) as typeof this.typesDeQuestions
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20;) {
-      let nuage: {x: number, y:number}[] = []
+      let nuage: { x: number, y: number }[] = []
       // On construit les points
       do {
         nuage = []
@@ -265,10 +262,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     const cords1 = rotationCoord(this.antecedents[i][0], this.centres[i], 180)
     const cords2 = rotationCoord(this.antecedents[i][1], this.centres[i], 180)
     const cords3 = rotationCoord(this.antecedents[i][2], this.centres[i], 180)
-    let resultat: {isValid: boolean, message: string} = { isValid: true, message: '' }
-    let resultat2: {isValid: boolean, message: string} = { isValid: true, message: '' }
-    let resultat3: {isValid: boolean, message: string} = { isValid: true, message: '' }
-    let resultat4: {isValid: boolean, message: string} = { isValid: true, message: '' }
+    let resultat: { isValid: boolean, message: string } = { isValid: true, message: '' }
+    let resultat2: { isValid: boolean, message: string } = { isValid: true, message: '' }
+    let resultat3: { isValid: boolean, message: string } = { isValid: true, message: '' }
+    let resultat4: { isValid: boolean, message: string } = { isValid: true, message: '' }
     switch (typefigure) {
       case 'segment':
         resultat = checkSegment({ figure: this.figuresApiGeom[i], point1: cords1, point2: cords2 })

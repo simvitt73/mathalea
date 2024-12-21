@@ -12,14 +12,13 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * 
+ *
  * @author
 */
 export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Consigne'
-
   }
 
   nouvelleVersion () {

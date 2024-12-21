@@ -27,7 +27,7 @@ export default function AbscisseDroiteEntiers () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = ''
-  this.formatInteractif = 'calcul'
+
 
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

@@ -66,10 +66,6 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
       ? 'Calculer, pour la valeur donnée de $x$, le résultat de l\'expression suivante'
       : 'Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes'
 
-    
-    
-
-
     const typeExpression = ['a+b*x', 'b*(a+c*x)', 'a*x^2+b*x+c']
     const typeDeNombres = ['entiers positifs', 'entiers relatifs']
 

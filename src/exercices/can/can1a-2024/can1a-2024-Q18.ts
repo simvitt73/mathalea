@@ -20,7 +20,7 @@ export default class DistanceEtVitesse extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'km/h' }
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

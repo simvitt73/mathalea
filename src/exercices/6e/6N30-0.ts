@@ -34,7 +34,7 @@ export const dateDePublication = '26/08/2024'
 let listesPas: Array<[number, number][]>
 
 class ReperageEntiersOuDecimaux extends Exercice {
-  version:string
+  version: string
   constructor () {
     super()
     this.version = 'décimaux'
@@ -101,8 +101,6 @@ class ReperageEntiersOuDecimaux extends Exercice {
             ]
           ]
 
-    
-    
     const choix = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,

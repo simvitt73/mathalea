@@ -28,22 +28,22 @@ export const refs = {
 }
 
 type Cell = {
-  value: number|string;
+  value: number | string;
   regionId: number;
-};
+}
 
 type Rectangle = {
   topLeft: [number, number];
   bottomRight: [number, number];
-};
+}
 
 class shikaku extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
   goodAnswers: Array<Coords[]>
-  longueur:number
-  largeur:number
+  longueur: number
+  largeur: number
 
   constructor () {
     super()

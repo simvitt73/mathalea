@@ -32,7 +32,6 @@ export default function LectureGraphiqueNombreDerivee () {
   this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
-    
   const listeFractions = [[1, 1], [1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [3, 4], [3, 2], [4, 3], [5, 3], [5, 4]]
   this.nouvelleVersion = function () {
     let b; let f; let r; let alpha; let beta; let a; let F; let o; let nbre; let tang; let frac; let fraction = []
@@ -81,7 +80,7 @@ export default function LectureGraphiqueNombreDerivee () {
           r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${f(nbre)}$.`
-        this.formatInteractif = 'calcul'
+
         this.reponse = f(nbre)
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
@@ -130,7 +129,7 @@ export default function LectureGraphiqueNombreDerivee () {
           r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${f(nbre)}$.`
-        this.formatInteractif = 'calcul'
+
         this.reponse = f(nbre)
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`

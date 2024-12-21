@@ -29,12 +29,7 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
-    type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'
+    type TypeQuestionsDisponibles = 'dixieme' | 'centieme' | 'millieme'
     const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
@@ -72,7 +67,7 @@ export default class nomExercice extends Exercice {
       }
       handleAnswers(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-        feedback: (saisies: {champ1: string, champ2: string}) => {
+        feedback: (saisies: { champ1: string, champ2: string }) => {
           const rep1 = saisies.champ1
           const rep2 = saisies.champ2
           // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.

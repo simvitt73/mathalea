@@ -14,7 +14,6 @@ export const interactifType = 'custom'
 
  */
 
-
 export const refs = {
   'fr-fr': ['carre2'],
   'fr-ch': []

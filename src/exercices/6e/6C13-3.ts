@@ -30,11 +30,6 @@ class OperationsReciproques extends Exercice {
   }
 
   nouvelleVersion (): void {
-
-    
-    
-
-
     type TypeQuestionsDisponibles = 'x+' | '+x' | 'x-' | '-x' | '/+' | '+/' | '/-' | '-/'
     const typeQuestionsDisponibles = ['x+', '+x', 'x-', '-x', '/+', '+/', '/-', '-/'] as TypeQuestionsDisponibles[]
 

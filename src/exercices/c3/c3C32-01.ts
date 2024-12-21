@@ -33,7 +33,6 @@ export default class ExerciceProbleme001 extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Schéma dans l\'énoncé (élèves à besoin seulement)', false]
     this.sup2 = false
     this.besoinFormulaire3CaseACocher = ['Opération posée dans la correction', false]
-
   }
 
   nouvelleVersion () {

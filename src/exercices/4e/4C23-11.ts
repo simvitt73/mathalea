@@ -36,8 +36,6 @@ export default class FractionEtPriorites extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     this.consigne = this.interactif
       ? 'Donner le résultat du calcul sous forme d\'une fraction irréductible.'
       : 'Effectuer les calculs suivant en respectant les priorités opératoires.'

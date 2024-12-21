@@ -61,7 +61,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     } else if (this.sup2 === true) {
       this.sup2 = 3
     }
-    
+
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

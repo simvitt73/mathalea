@@ -12,7 +12,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @author
 
 */
@@ -20,7 +20,6 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Consigne'
-
   }
 
   nouvelleVersion () {

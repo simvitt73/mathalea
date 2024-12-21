@@ -16,7 +16,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * 
+ *
  * @author Gilles Mora
 */
 export const uuid = 'b30ac'
@@ -48,7 +48,6 @@ export default class SuitesExplicites extends Exercice {
   }
 
   nouvelleVersion () {
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -58,9 +57,6 @@ export default class SuitesExplicites extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
-    
-    
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''

@@ -27,7 +27,7 @@ export default class decomposerDecimal extends Exercice {
     this.nbQuestions = 1
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.formatInteractif = 'calcul'
+
     this.formatChampTexte = KeyboardType.clavierDeBase
     }
 

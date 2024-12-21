@@ -19,7 +19,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteApres: ' min', texteAvant: '$=$' }
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

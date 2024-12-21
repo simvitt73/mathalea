@@ -20,7 +20,7 @@ export default class CoutBDEtRomans extends Exercice {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+
     this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = ''
     this.canOfficielle = false

@@ -34,8 +34,8 @@ class squaro extends Exercice {
   figureCorrection!: Figure
   goodAnswers: Array<{ x: number; y: number }>
   nbSommets: Array<number>
-  longueur:number
-  largeur:number
+  longueur: number
+  largeur: number
   blueButton!: HTMLElement
 
   constructor () {

@@ -11,7 +11,7 @@ export const titre = 'Traduire la relation de dépendance entre deux grandeurs p
 export const dateDePublication = '28/05/2024'
 
 /**
- * 
+ *
  * @author Guillaume Valmont
 */
 export const uuid = '01387'
@@ -28,10 +28,6 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
     const nbCalculsParQuestion = Number(this.sup)
 
     const typeQuestionsDisponibles = ['Température ressentie', 'Distance de freinage', 'Pression en pascals', 'Pression en bars', 'Energie cinétique', 'Prix d\'un spectacle']

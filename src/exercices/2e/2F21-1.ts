@@ -19,7 +19,7 @@ export const titre = 'Modéliser une situation à l\'aide d\'une fonction'
 export const dateDePublication = '14/02/2023'
 export const dateDeModifImportante = '13/12/2024'
 /**
- * 
+ *
  * @author Gilles Mora
 
 */
@@ -58,7 +58,6 @@ export default class EtudeFctPoly3 extends Exercice {
   }
 
   nouvelleVersion () {
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -70,8 +69,6 @@ export default class EtudeFctPoly3 extends Exercice {
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    
-    
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       const nomF = [

@@ -34,7 +34,7 @@ export default function LectureGraphiqueFonctionAffine2 () {
 
     
   this.formatChampTexte = ''
-  this.formatInteractif = 'calcul'
+
   this.formatChampTexte = ' '
   this.nouvelleVersion = function () {
     const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)

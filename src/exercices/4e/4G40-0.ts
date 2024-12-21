@@ -39,8 +39,6 @@ export default class VocabulaireTriangleRectangle extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const mainlevee = this.sup
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, melange: 3, defaut: 3, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {

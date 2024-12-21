@@ -12,7 +12,6 @@ import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import type FractionEtendue from '../../modules/FractionEtendue'
 
-
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '2c20c'

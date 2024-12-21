@@ -33,8 +33,6 @@ export default class EtudeFctPoly3 extends Exercice {
   }
 
   nouvelleVersion () {
-
-
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

@@ -10,7 +10,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Operation from '../../modules/operations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-
 export const titre = 'Convertir des durées'
 export const interactifReady = true
 // export const interactifType = 'custom'

@@ -127,11 +127,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const [texte, texteCorr, ax, ay, bx, by] = i % 2 === 0 ? questionRacine() : questionInterpolation()
       if (this.questionJamaisPosee(i, ax, ay, bx, by)) {

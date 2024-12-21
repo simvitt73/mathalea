@@ -19,6 +19,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCHybride'

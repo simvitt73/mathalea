@@ -23,7 +23,7 @@ export default function CombienDeFois () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatInteractif = 'calcul'
+
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     switch (choice([1, 1, 2, 2, 3, 3, 4])) {

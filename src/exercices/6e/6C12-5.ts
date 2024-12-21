@@ -177,14 +177,11 @@ export default class RepresenterUneFraction extends Exercice {
     this.consigne = 'Trouve la bonne réponse en utilisant les ordres de grandeurs.'
     this.nbQuestions = 4
 
-
     // this.sup = 3
     // this.besoinFormulaireNumerique = ['Type de problèmes']
   }
 
   nouvelleVersion () {
-    
-    
     const listeDeProblemes = combinaisonListes(listePb, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const probleme = listeDeProblemes[i]

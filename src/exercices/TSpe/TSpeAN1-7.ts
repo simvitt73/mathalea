@@ -6,7 +6,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-
 export const titre = 'Résolution d\'équations du type $x^a = b$'
 export const dateDePublication = '28/08/2024'
 export const dateDeModifImportante = '28/08/2024'

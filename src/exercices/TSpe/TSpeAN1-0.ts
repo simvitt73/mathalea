@@ -9,7 +9,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { fraction } from '../../modules/fractions.js'
 
-
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec log'
 export const dateDePublication = '4/5/2024'
 export const dateDeModifImportante = '18/07/2024'
@@ -22,7 +21,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @autor Claire Rousset (un peu aidé par Jean-Claude Lhote)
 
  */
@@ -97,7 +96,7 @@ export default class InequationsLog extends Exercice {
       let texteCorr = ''
       let a: number
       let b: number
-      let quotient: number|[number, number]|null
+      let quotient: number | [number, number] | null
       let base: number | null
       switch (listeTypeQuestions[i]) {
         case 1: // rationnel

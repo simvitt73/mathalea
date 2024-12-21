@@ -10,7 +10,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-
 export const titre = 'Calculs avec des grands traits de fractions'
 export const interactifReady = true
 export const interactifType = 'mathlive'

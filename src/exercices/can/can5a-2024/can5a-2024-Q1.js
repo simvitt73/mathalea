@@ -20,7 +20,7 @@ export default class Can2024Q1 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

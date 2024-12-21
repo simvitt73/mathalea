@@ -22,7 +22,7 @@ export const refs = {
 export default class PartageSegmentCompasRegle extends Exercice {
   constructor () {
     super()
-      this.nbQuestions = 1
+    this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }
 

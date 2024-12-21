@@ -32,7 +32,7 @@ export default function ProgrammeCalcul2 () {
 
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //, 2, 3, 4, 5, 6, 7, 8
       case 1:// x^2+y^2
-        this.formatInteractif = 'calcul'
+
         a = randint(-5, 5, 0)
         b = randint(-10, 10, [0, a])
 
@@ -47,7 +47,7 @@ export default function ProgrammeCalcul2 () {
 
         break
       case 2:// (x+y)^2
-        this.formatInteractif = 'calcul'
+
         a = randint(-5, 5, 0)
         b = randint(-7, 7, [0, a])
 
@@ -63,7 +63,7 @@ export default function ProgrammeCalcul2 () {
         break
 
       case 3:// 2(x+y)^2
-        this.formatInteractif = 'calcul'
+
         a = randint(-5, 5, 0)
         b = randint(-5, 5, [0, a])
 
@@ -79,7 +79,7 @@ export default function ProgrammeCalcul2 () {
         break
 
       case 4:// 2(x*y)et 2*(x+y)
-        this.formatInteractif = 'calcul'
+
         if (choice([true, false])) {
           a = randint(-10, 10, 0)
           b = randint(-5, 5, [0, a])

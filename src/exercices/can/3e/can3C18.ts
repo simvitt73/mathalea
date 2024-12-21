@@ -27,7 +27,7 @@ export default class calculDansQuotient extends Exercice {
     this.nbQuestions = 1
     this.spacingCorr = 1.5
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    // this.formatInteractif = 'calcul'
+
     }
 
   nouvelleVersion () {

@@ -10,7 +10,6 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
 
-
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '03/04/2022'
@@ -42,7 +41,6 @@ export default class ExerciceInequationQuotient extends Exercice {
     this.correctionDetaillee = false // Désactive la correction détaillée par défaut
     this.sup = 1 // Choix du type d'inéquation
     this.nbQuestions = 4 // Choix du nombre de questions
-
 
     // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
     this.besoinFormulaireNumerique = [

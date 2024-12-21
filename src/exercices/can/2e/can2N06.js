@@ -25,7 +25,7 @@ export default function DecimalForme () {
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.formatChampTexte = ''
-    this.formatInteractif = 'calcul'
+
 
     const puissance = randint(1, 5)
     const puissance10 = 10 ** puissance

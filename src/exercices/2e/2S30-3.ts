@@ -46,11 +46,6 @@ export default class ProbaUnionInter extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

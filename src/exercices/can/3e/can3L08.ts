@@ -31,7 +31,7 @@ export default class EnFonctionDeAire extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.formatInteractif = 'calcul'
+
     this.compare = functionCompare
   }
 

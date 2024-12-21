@@ -72,9 +72,6 @@ export default class ReconnaitreDesSolides extends Exercice {
     const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
 
-    
-    
-
     this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
 
     const typeDeQuestion = gestionnaireFormulaireTexte({
@@ -98,7 +95,7 @@ export default class ReconnaitreDesSolides extends Exercice {
 
       let prisme, pyra, cone, cylindre, pave, sphere
       let texteCorrection = ''
-      let reponse = '' as string|string[]
+      let reponse = '' as string | string[]
       const solide = solides[choix - 1]
       switch (solide) {
         case 'prisme': // Prisme  ?

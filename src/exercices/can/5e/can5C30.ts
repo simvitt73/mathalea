@@ -28,7 +28,7 @@ export default class fractionsDecimaux extends Exercice {
     super()
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    // this.formatInteractif = 'calcul'
+
     }
 
   nouvelleVersion () {

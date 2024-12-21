@@ -46,7 +46,7 @@ function positionneLabel (pointA: Point, pointB: Point) {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: {x: number, y:number}[]) {
+function checkDistance (points: { x: number, y: number }[]) {
   for (const point of points) {
     if (point.y < -8 || point.y > 8) {
       return false
@@ -62,7 +62,7 @@ function checkDistance (points: {x: number, y:number}[]) {
 class ConstrctionsSymetrieCentralePoints extends Exercice {
   antecedents!: object[][]
   labels!: string[][]
-  centres!: Point[]|PointApigeom[]
+  centres!: Point[] | PointApigeom[]
   exoCustomResultat: boolean
   nbPoints!: number
   figuresApiGeom!: SuperFigure[]
@@ -86,9 +86,6 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
 
-    
-    
-
     this.figuresApiGeom = []
     this.nbPoints = contraindreValeur(1, 5, this.sup2, 3) // on veut entre 1 et 5 points à construire
     this.antecedents = []
@@ -105,7 +102,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       objetsCorrection.length = 0
       symetriques.length = 0
       antecedents.length = 0
-      let nuage: {x: number, y:number}[] = []
+      let nuage: { x: number, y: number }[] = []
       // On construit les points
       do {
         nuage = []

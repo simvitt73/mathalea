@@ -13,7 +13,6 @@ export const interactifType = 'custom'
 
  */
 
-
 export const refs = {
   'fr-fr': ['parallelogramme1'],
   'fr-ch': []

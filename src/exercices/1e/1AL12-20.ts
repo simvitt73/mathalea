@@ -37,7 +37,6 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
   }
 
   nouvelleVersion () {
-
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -47,9 +46,6 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
-    
-    
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 

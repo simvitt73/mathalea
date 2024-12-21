@@ -64,7 +64,7 @@ export default function CoeffDirecteurDroite () {
         xB = xA + 1
         yB = b + a * xB
         rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
-        this.formatInteractif = 'calcul'
+
         this.question = `Donner le coefficient directeur de la droite.<br><br>
         `
         this.question += `
@@ -76,7 +76,7 @@ export default function CoeffDirecteurDroite () {
       case 3:// coefficient directeur droite a partir equ reduite
         a = randint(-9, 9, 0)
         b = randint(-9, 9, 0)
-        this.formatInteractif = 'calcul'
+
         if (choice([true, false])) {
           this.question = `On considère la droite d'équation $y=${reduireAxPlusB(a, b)}$. <br>
 

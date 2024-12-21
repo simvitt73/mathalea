@@ -25,7 +25,7 @@ export default function CalculAvecUnite () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatInteractif = 'calcul'
+
   this.formatChampTexte = KeyboardType.clavierDeBase
   this.nouvelleVersion = function () {
     const prefixes = ['k', 'h', 'da', '', 'd', 'c', 'm']

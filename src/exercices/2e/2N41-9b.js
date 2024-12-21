@@ -10,6 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
+import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Développer puis réduire des expressions littérales complexes (avec fractions)'
 export const dateDePublication = '20/04/2024'

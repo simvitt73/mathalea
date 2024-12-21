@@ -25,7 +25,7 @@ export default class calcAvecDecimaux extends Exercice {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = ''
     this.formatChampTexte = KeyboardType.clavierDeBase

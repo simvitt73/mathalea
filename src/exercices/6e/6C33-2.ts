@@ -14,7 +14,7 @@ export const titre = 'Organiser des calculs en une seule ligne'
 export const dateDePublication = '31/05/2024'
 
 /**
- * 
+ *
  * @author Guillaume Valmont
 */
 export const uuid = '2z3e5'
@@ -37,11 +37,6 @@ export default class ExpressionsDepuisCalculs extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     const avecDivision = !!this.sup
 
     const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']

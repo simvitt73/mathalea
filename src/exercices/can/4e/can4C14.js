@@ -27,7 +27,7 @@ export default function AugmenterFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatInteractif = 'calcul'
+
   this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     switch (choice([1, 2, 3, 4])) {

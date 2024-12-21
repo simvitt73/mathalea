@@ -65,10 +65,6 @@ export default class DecrireAssemblageDeSolides extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
     const troncs = ['prisme', 'cylindre', 'prisme sans', 'cylindre sans']
     const chapeaux = ['haut', 'bas', 'les deux']
     const combinaisons = []

@@ -50,10 +50,6 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
   }
 
   nouvelleVersion () {
-
-
-    
-    
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -63,9 +59,6 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
-    
-    
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''

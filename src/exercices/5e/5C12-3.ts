@@ -47,9 +47,6 @@ class DistributiviteNumerique extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
     const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2, 3, 4] : this.sup === 2 ? [3, 4] : [1, 2]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = 'Utiliser la distributivité pour calculer de façon astucieuse '

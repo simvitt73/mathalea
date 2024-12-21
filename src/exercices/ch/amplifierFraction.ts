@@ -17,7 +17,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @author Remi Angot & Nathan Scheinmann
  */
 

@@ -27,7 +27,7 @@ export default function EntierPlusFractionVersDecimal () {
     let a, b, c, maFraction, maFraction2
     let resultat
     this.formatChampTexte = ''
-    this.formatInteractif = 'calcul'
+
     switch (choice([1, 2, 3, 4])) {
       case 1:// fraction addition avec un entier
         c = choice([2, 4, 5])
