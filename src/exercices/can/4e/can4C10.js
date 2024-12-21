@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
  * publié le 23/10/2021
 */
 export const uuid = '8cbb4'
-export const ref = 'can4C10'
+
 export const refs = {
   'fr-fr': ['can4C10'],
   'fr-ch': []

@@ -43,7 +43,7 @@ export const refs = {
  */
 function positionneLabel (pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
-  else if (pointA > pointB.x) return 'below right'
+  else if (pointA.x > pointB.x) return 'below right'
   else {
     if (pointA.y > pointB.y) return 'above left'
     else return 'below right'
@@ -78,7 +78,7 @@ function checkDistance (points: { x: number, y: number }[]) {
     }
   }
   return true
-}
+} */
 
 /**
  * Construction interactive de symétriques de points

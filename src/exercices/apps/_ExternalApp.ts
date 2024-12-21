@@ -3,8 +3,6 @@ import { globalOptions, resultsByExercice, exercicesParams } from '../../lib/sto
 import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
 import Exercice from '../Exercice'
 
-const titre = 'Application externe'
-
 class ExternalApp extends Exercice {
   typeExercice: string
   container: HTMLDivElement

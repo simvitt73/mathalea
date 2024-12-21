@@ -17,7 +17,7 @@ export const amcType = 'AMCHybride'
  * Créé pendant l'été 2021
  */
 export const uuid = '84b48'
-export const ref = 'can6C15'
+
 export const refs = {
   'fr-fr': ['can6C15'],
   'fr-ch': []

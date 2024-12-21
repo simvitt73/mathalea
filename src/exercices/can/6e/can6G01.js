@@ -11,7 +11,7 @@ export const titre = 'Trouver le symétrique d’un point'
 
  */
 export const uuid = '135d4'
-export const ref = 'can6G01'
+
 export const refs = {
   'fr-fr': ['can6G01'],
   'fr-ch': []

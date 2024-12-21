@@ -7,6 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fon
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 
 import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
+import engine from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -39,8 +40,8 @@ export default class ExpressionsDepuisCalculs extends Exercice {
   nouvelleVersion () {
     const avecDivision = !!this.sup
 
-    const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    // const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
+    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const nbOps = gestionnaireFormulaireTexte({ defaut: 2, saisie: this.sup2, min: 2, max: 4, melange: 5, nbQuestions: this.nbQuestions }) as number[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200; cpt++) {
       const A = randint(2, 9)

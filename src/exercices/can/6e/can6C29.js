@@ -17,7 +17,7 @@ export const amcReady = true
  * @author Gilles Mora
 */
 export const uuid = 'c9168'
-export const ref = 'can6C29'
+
 export const refs = {
   'fr-fr': ['can6C29'],
   'fr-ch': []

@@ -17,7 +17,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 
 */
 export const uuid = '88241'
-export const ref = 'ExC101'
+
 export const refs = {
   'fr-fr': ['TExC101'],
   'fr-ch': []

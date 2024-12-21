@@ -4,7 +4,7 @@ export const titre = 'CAN Spéciale année 2024 - 5ème'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '53c5a'
-export const ref = 'can5a-NY2024'
+
 export const refs = {
   'fr-fr': ['can5a-NY2024'],
   'fr-ch': []

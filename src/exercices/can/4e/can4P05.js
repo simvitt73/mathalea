@@ -19,7 +19,7 @@ export const dateDeModifImportante = '02/11/2024' // Une date de modification im
  * @author Guillaume Valmont
  */
 export const uuid = '8171f'
-export const ref = 'can4P05'
+
 export const refs = {
   'fr-fr': ['can4P05'],
   'fr-ch': []

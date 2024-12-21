@@ -13,7 +13,7 @@ export const dateDePublication = '31/10/2024'
  * @author Gilles Mora
  */
 export const uuid = 'a7a49'
-export const ref = 'canc3C17'
+
 export const refs = {
   'fr-fr': ['canc3C17'],
   'fr-ch': []

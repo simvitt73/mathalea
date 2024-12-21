@@ -14,7 +14,7 @@ export const dateDePublication = '30/10/2021'
 
 */
 export const uuid = '8e72e'
-export const ref = 'ExC100'
+
 export const refs = {
   'fr-fr': ['TExC100'],
   'fr-ch': []

@@ -18,7 +18,7 @@ export const dateDeModifImportante = '17/04/2024'
 
 */
 export const uuid = 'e7e0c'
-export const ref = 'can1S12'
+
 export const refs = {
   'fr-fr': ['can1S12'],
   'fr-ch': []

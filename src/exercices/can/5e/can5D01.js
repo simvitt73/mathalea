@@ -22,7 +22,7 @@ export const dateDeModifImportante = '08/02/2022' // Une date de modification im
  * Créé pendant l'été 2021
  */
 export const uuid = 'd8797'
-export const ref = 'can5D01'
+
 export const refs = {
   'fr-fr': ['can5D01'],
   'fr-ch': []

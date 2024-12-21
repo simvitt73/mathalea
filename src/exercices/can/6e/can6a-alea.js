@@ -18,7 +18,7 @@ export const amcReady = false
  * ATTENTION : exercice avec chargement dynamique des questions.
  */
 export const uuid = '315b6'
-export const ref = 'can6a-Aléa'
+
 export const refs = {
   'fr-fr': ['can6a-Aléa'],
   'fr-ch': []

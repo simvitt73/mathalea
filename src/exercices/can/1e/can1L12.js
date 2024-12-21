@@ -18,7 +18,7 @@ export const dateDePublication = '07/10/2023' // La date de publication initiale
 
  */
 export const uuid = '7c76a'
-export const ref = 'can1L12'
+
 export const refs = {
   'fr-fr': ['can1L12'],
   'fr-ch': []

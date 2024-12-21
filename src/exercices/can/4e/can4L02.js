@@ -11,7 +11,7 @@ export const titre = 'Résoudre une équation $ax+b=c$'
 
  */
 export const uuid = 'c5700'
-export const ref = 'can4L02'
+
 export const refs = {
   'fr-fr': ['can4L02'],
   'fr-ch': []

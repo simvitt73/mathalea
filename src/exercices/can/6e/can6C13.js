@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021 modifié le 21/05/2022 (support de la classe Decimal)
  */
 export const uuid = 'c3e17'
-export const ref = 'can6C13'
+
 export const refs = {
   'fr-fr': ['can6C13'],
   'fr-ch': []

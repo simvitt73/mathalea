@@ -47,7 +47,7 @@ function compareNombres (a, b) {
 }
 
 export const uuid = '99a59'
-export const ref = 'can1a-2022'
+
 export const refs = {
   'fr-fr': ['can1a-2022'],
   'fr-ch': []

@@ -17,7 +17,7 @@ export const titre = 'Résoudre une équation graphiquement'
  * @author Gilles Mora
 */
 export const uuid = '9d293'
-export const ref = 'can2F16'
+
 export const refs = {
   'fr-fr': ['can2F16'],
   'fr-ch': []

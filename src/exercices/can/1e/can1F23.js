@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const titre = 'Dresser le tableau de signes d\'une fonction dérivée à partir d\'un graphique'
 export const dateDePublication = '18/11/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'ad915' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = 'can1F23'// @todo à modifier aussi
+
 export const refs = {
   'fr-fr': ['can1F23'],
   'fr-ch': []
