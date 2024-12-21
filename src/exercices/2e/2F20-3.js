@@ -70,25 +70,39 @@ export default function LecturesGraphiques () {
       grilleSecondaireYMin: -4,
       grilleSecondaireYMax: 4
     })
-    const noeuds = []
-    for (let x = -4, y = -5; x < 5; x += 2) {
-      y = randint(-4, 4, y)
-      noeuds.push([x, y])
-      mini = Math.min(y, mini)
-      maxi = Math.max(y, maxi)
-    }
-    const minimum = [-15, 5]
-    const maximum = [-15, -5]
-    for (let i = 0; i < noeuds.length; i++) {
-      if (minimum[1] > noeuds[i][1]) {
-        minimum[0] = noeuds[i][0]
-        minimum[1] = noeuds[i][1]
+    let noeuds = []
+    let minima
+    let maxima
+    let minimum
+    let maximum
+    let cptBoucleInf = 0
+    const doubleYPrec = 0
+    do {
+      noeuds = []
+      for (let x = -4, y = -5; x < 5; x += 2) {
+        const doubleY = randint(-8, 8, doubleYPrec)
+        y = doubleY / 2
+        noeuds.push([x, y])
+        mini = Math.min(y, mini)
+        maxi = Math.max(y, maxi)
       }
-      if (maximum[1] < noeuds[i][1]) {
-        maximum[0] = noeuds[i][0]
-        maximum[1] = noeuds[i][1]
+      minimum = [-15, 5]
+      maximum = [-15, -5]
+      for (let i = 0; i < noeuds.length; i++) {
+        if (minimum[1] > noeuds[i][1]) {
+          minimum[0] = noeuds[i][0]
+          minimum[1] = noeuds[i][1]
+        }
+        if (maximum[1] < noeuds[i][1]) {
+          maximum[0] = noeuds[i][0]
+          maximum[1] = noeuds[i][1]
+        }
       }
-    }
+      minima = noeuds.filter(n => n[1] === mini)
+      maxima = noeuds.filter(n => n[1] === maxi)
+      cptBoucleInf++
+    } while ((minima.length > 1 || maxima.length > 1) && cptBoucleInf < 1000)
+
     const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.1 })
     this.introduction = 'Voici la représentation graphique de la fonction $f$ définie sur $[-4;4]$.<br>' + mathalea2d({
       xmin: -13.5,
@@ -105,7 +119,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, minimum[1])
           reponses[i] = minimum[1]
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le minimum de $f$ est $${minimum[1]}$ et il est atteint en $x=${minimum[0]}$.<br>`
+          texteCorr = `Le minimum de $f$ est $${texNombre(minimum[1], 1)}$ et il est atteint en $x=${minimum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(minimum[0] * 3, 0, minimum[0] * 3, minimum[1] * 2, 'blue')
             s[0].pointilles = 5
@@ -126,7 +140,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, maximum[1])
           reponses[i] = maximum[1]
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le maximum de $f$ est $${maximum[1]}$ et il est atteint en $x=${maximum[0]}$.<br>`
+          texteCorr = `Le maximum de $f$ est $${texNombre(maximum[1], 1)}$ et il est atteint en $x=${maximum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(maximum[0] * 3, 0, maximum[0] * 3, maximum[1] * 2, 'blue')
             s[0].pointilles = 5
