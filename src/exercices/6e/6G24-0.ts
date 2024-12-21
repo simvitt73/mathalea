@@ -71,14 +71,14 @@ function deletePoints (points: { x: number, y: number }[], type : number) {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: { x: number, y: number }[]) {
-  for (const point of points) {
-    if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
-      return false
-    }
-  }
-  return true
-} */
+// function checkDistance (points: { x: number, y: number }[]) {
+//   for (const point of points) {
+//     if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
+//       return false
+//     }
+//   }
+//   return true
+// }
 
 /**
  * Construction interactive de symétriques de points
