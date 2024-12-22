@@ -443,7 +443,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     } while (integraleDiff < 0.2 && cpt < 50)
     const yMax = yMin + 12
     const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
-    this.figureApiGeom = new SuperFigure({ xMin: xMin - 0.2, yMin, width: 348, height: 378, isDynamic: true })
+    this.figureApiGeom = new SuperFigure({ xMin: xMin - 0.5, yMin, width: 378, height: 378, isDynamic: true })
     this.figureApiGeom.options.automaticUserMessage = false
     this.figureApiGeom.userMessage = 'Cliquer sur le point $M$ pour le déplacer.'
     this.figureApiGeom.create('Grid')
