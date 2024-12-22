@@ -594,7 +594,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.figureApiGeom.ui.send('DRAG')
     if (context.isHtml) {
       if (this.interactif) {
-        this.listeQuestions = [enonce + figureApigeom({ exercice: this, i: 0, figure: this.figureApiGeom, isDynamic: true, width: 348, height: 378 })]
+        this.listeQuestions = [enonce + figureApigeom({ exercice: this, i: 0, figure: this.figureApiGeom, isDynamic: true, width: 378, height: 378 })]
       } else {
         this.listeQuestions = [enonce + wrapperApigeomToMathalea(this.figureApiGeom)]
       }
