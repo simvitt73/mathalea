@@ -627,10 +627,10 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
   hauteur: number
   colorBackground: [string, string]
   taille: string = 'footnotesize'
-  options?: { anchor: string, dx: string, dy: string }
+  options?: { anchor: string, dx?: string, dy?: string }
   bordures: [number, number, number, number]
   style: string
-  constructor (texte: string, x:number, y:number, color:string, largeur:number, hauteur:number, colorBackground:string, tailleCaracteres:number = 8, options:{ anchor: string, dx: string, dy: string }) {
+  constructor (texte: string, x:number, y:number, color:string, largeur:number, hauteur:number, colorBackground:string, tailleCaracteres:number = 8, options:{ anchor: string, dx?: string, dy?: string }) {
     super()
     this.x = x
     this.y = y
@@ -710,7 +710,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
   }
 }
 
-export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{ anchor: string, dx: string, dy: string }) {
+export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{ anchor: string, dx?: string, dy?: string }) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }

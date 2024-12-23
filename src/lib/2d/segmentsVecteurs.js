@@ -252,7 +252,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
 
   this.epaisseur = 1
   this.opacite = 1
-  this.pointilles = ''
+  this.pointilles = 0
 
   this.bordures = [Math.min(this.x1, this.x2), Math.min(this.y1, this.y2), Math.max(this.x1, this.x2), Math.max(this.y1, this.y2)]
   this.extremite1 = point(this.x1, this.y1)

@@ -56,7 +56,7 @@ export interface ReponseParams {
 export type clickFigures = { id: string; solution: boolean }[]
 
 export type AnswerType = {
-  value: string | string[]
+  value: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Grandeur[] | FractionEtendue[] | Decimal[]
   compare?: CompareFunction
   options?: OptionsComparaisonType
 }
@@ -110,6 +110,8 @@ export interface AutoCorrection {
     texte: string
     statut?: number | boolean
     sanscadre?: boolean
+    type?: string,
+    feedback?: string
   }[]
   reponse?: {
     valeur?: Valeur
@@ -118,7 +120,17 @@ export interface AutoCorrection {
   options?: {
     ordered?: boolean,
     vertical?: boolean,
-    lastChoice?: number
+    lastChoice?: number,
+    barreseparation?: boolean,
+    numerotationEnonce?: boolean
+    multicols?: boolean
+    nbCols?: number,
+    digits?: number,
+    decimals?: number,
+    signe?: boolean,
+    exposantNbChiffres?: number,
+    exposantSigne?: boolean,
+    approx?: number,
   }
 }
 

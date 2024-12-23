@@ -48,7 +48,7 @@ export default function TablesMultiplicationsDivisions (
       enleveDoublons: true
     })
     const couples = creerCouples(
-      tables,
+      tables.map(Number),
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
       this.nbQuestions
     ) // Liste tous les couples possibles (2,3)≠(3,2)

@@ -10,10 +10,9 @@ export const refs = {
   'fr-fr': ['6C23'],
   'fr-ch': []
 }
-class ExerciceAdditionnerFractions6e extends CalculsFractionsSimples {
+export default class ExerciceAdditionnerFractions6e extends CalculsFractionsSimples {
   constructor () {
     super()
     this.sup = '1-2'
   }
 }
-export default ExerciceAdditionnerFractions6e

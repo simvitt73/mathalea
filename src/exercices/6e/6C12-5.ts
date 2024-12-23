@@ -191,23 +191,23 @@ export default class RepresenterUneFraction extends Exercice {
         enonce: '',
         propositions: [
           {
-            texte: reponses[0],
+            texte: reponses[0].toString(),
             statut: true
           },
           {
-            texte: reponses[1],
+            texte: reponses[1].toString(),
             statut: false
           },
           {
-            texte: reponses[2],
+            texte: reponses[2].toString(),
             statut: false
           },
           {
-            texte: reponses[3],
+            texte: reponses[3].toString(),
             statut: false
           },
           {
-            texte: reponses[4],
+            texte: reponses[4].toString(),
             statut: false
           }
         ],

@@ -1,4 +1,4 @@
-import AdditionsSoustractionsMultiplicationsPosees from '../6e/6C10.js'
+import AdditionsSoustractionsMultiplicationsPosees from '../6e/6C10'
 export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,9 @@ export const refs = {
   'fr-fr': ['c3C10'],
   'fr-ch': []
 }
-export default function OperationsPosees () {
-  AdditionsSoustractionsMultiplicationsPosees.call(this)
-  this.nbQuestions = 3
+export default class OperationsPosees extends AdditionsSoustractionsMultiplicationsPosees {
+  constructor () {
+    super()
+    this.nbQuestions = 3
+  }
 }

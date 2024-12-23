@@ -1,4 +1,4 @@
-import QuestionsPrix from '../6e/6C12.js'
+import QuestionsPrix from '../6e/6C12'
 export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true
 export const interactifType = 'mathLive'
