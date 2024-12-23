@@ -3,11 +3,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { context } from '../../modules/context'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Classer des probabilités (événements impossibles, certains, possibles).'
+export const titre = 'Différencier événéments impossibles, certains, ou possibles (lancer de dés)'
 
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '48b39'
@@ -20,31 +19,26 @@ export const refs = {
  * @author Mireille Gain
 
 */
-export default class nomExercice extends Exercice {
+export default class ExerciceProbaLancerDeDes extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 5 // Nombre de questions par défaut
+    this.nbQuestions = 5
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireCaseACocher = ['Afficher un jeu de 32 cartes']
-    this.sup = true
     this.spacing = 1.2
     this.spacingCorr = 1.2
   }
 
   nouvelleVersion () {
     this.consigne = 'Classer chaque événement suivant qu\'il est impossible, certain, ou possible).'
-    if (context.isHtml && this.sup) {
-      const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
-      this.consigne += imageCartes
-    }
-    const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5'] // On crée les 5 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5']
+    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     let texteCorr = ''
     const n = randint(1, 5) // n est le nombre le plus petit du dé
     const m = randint(10, 17) // m est le nombre le plus grand du dé
-    let texte = `On lance un dé équilibré à $ ${texNombre(m - n + 1)}$ faces numérotées de $ ${texNombre(n)}$ à $ ${texNombre(m)}$. On regarde la face du dessus.<br>`
+    this.consigne += `<br><br>On lance un dé équilibré à $ ${texNombre(m - n + 1)}$ faces numérotées de $ ${texNombre(n)}$ à $ ${texNombre(m)}$. On regarde la face du dessus.<br>`
 
-    for (let i = 0, k, p, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, k, p, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
       let bonneReponse
       k = choice([1, 2, 3, 4])
       p = choice([1, 2, 3, 4]) // p est un petit nombre entier qu'on va enlever à n ou ajouter à p
@@ -149,6 +143,6 @@ export default class nomExercice extends Exercice {
       cpt++
     }
 
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this)
   }
 }

@@ -7,7 +7,7 @@ import { context } from '../../modules/context'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const titre = 'Classifier des probabilités (événements contraires / non contraires, compatibles/ incompatibles).'
+export const titre = 'Différencier événements contraires, non contraires, compatibles, incompatibles (jeu de cartes)'
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '00bb0'
 export const refs = {
@@ -20,14 +20,14 @@ export const refs = {
  * @author Mireille Gain
 
 */
-export default class ExerciceQcmStatistiques extends Exercice {
+export default class ExerciceProba extends Exercice {
   constructor () {
     super()
     this.consigne = 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.'
-    this.nbQuestions = 5 // Nombre de questions par défaut
+    this.nbQuestions = 5
 
     this.besoinFormulaireNumerique = ['Notions testées', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
-    this.sup = 1
+    this.sup = true
     this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']
     this.sup2 = true
     this.spacing = 1.2
@@ -43,7 +43,7 @@ export default class ExerciceQcmStatistiques extends Exercice {
       this.consigne += imageCartes
     }
     const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
+    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let bonneReponse
@@ -79,11 +79,11 @@ export default class ExerciceQcmStatistiques extends Exercice {
           break
         case 'type3':
           if (k === 1) {
-            texte = 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont...<br>'
-            texteCorr = 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('contraires') + '. (et donc incompatibles)<br>'
+            texte = 'Les événements « Obtenir une carte de couleur Noire » et « Obtenir une carte de couleur Rouge » sont...<br>'
+            texteCorr = 'Les événements « Obtenir une carte de couleur Noire » et « Obtenir une carte de couleur Rouge » sont ' + texteEnCouleurEtGras('contraires') + '. (et donc incompatibles)<br>'
           } else {
-            texte = 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont...<br>'
-            texteCorr = 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('contraires') + '. (et donc incompatibles)<br>'
+            texte = 'Les événements « Obtenir une carte de couleur Rouge » et « Obtenir une carte de couleur Noire » sont...<br>'
+            texteCorr = 'Les événements « Obtenir une carte de couleur Rouge » et « Obtenir une carte de couleur Noire » sont ' + texteEnCouleurEtGras('contraires') + '. (et donc incompatibles)<br>'
           }
           bonneReponse = 'contraires'
           break
@@ -109,13 +109,13 @@ export default class ExerciceQcmStatistiques extends Exercice {
           break
         case 'type6':
           if (k === 1) {
-            texte = 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont...<br>'
-            texteCorr = 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('contraires')
+            texte = 'Les événements « Obtenir un Carreau ou un Coeur » et « Obtenir une carte de couleur Noire » sont...<br>'
+            texteCorr = 'Les événements « Obtenir un Carreau ou un Coeur » et « Obtenir une carte de couleur Noire » sont ' + texteEnCouleurEtGras('contraires')
             if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
             texteCorr += '.<br>'
           } else {
-            texte = 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont...<br>'
-            texteCorr = 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('contraires')
+            texte = 'Les événements « Obtenir un Trèfle ou un Pique » et « Obtenir une carte de couleur Rouge » sont...<br>'
+            texteCorr = 'Les événements « Obtenir un Trèfle ou un Pique » et « Obtenir une carte de couleur Rouge » sont ' + texteEnCouleurEtGras('contraires')
             if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
             texteCorr += '.<br>'
           }
@@ -123,13 +123,13 @@ export default class ExerciceQcmStatistiques extends Exercice {
           break
         case 'type7':
           if (k === 1) {
-            texte = 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont...<br>'
-            texteCorr = 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont ' + texteEnCouleurEtGras('contraires')
+            texte = 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont...<br>'
+            texteCorr = 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont ' + texteEnCouleurEtGras('contraires')
             if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
             texteCorr += '.<br>'
           } else {
-            texte = 'Les événements "Obtenir une figure autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont...<br>'
-            texteCorr = 'Les événements "Obtenir une figure autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texte = 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont...<br>'
+            texteCorr = 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
             if (this.sup === 2) { texteCorr += ' (et donc incompatibles)' }
             texteCorr += '.<br>'
           }
@@ -157,11 +157,11 @@ export default class ExerciceQcmStatistiques extends Exercice {
           break
         case 'type10':
           if (k === 2) {
-            texte = `Les événements "Ne pas obtenir ${valeur}" et "Obtenir ${valeur}" sont...<br>`
-            texteCorr = `Les événements "Ne pas obtenir ${figure}" et "Obtenir ${figure}" sont ` + texteEnCouleurEtGras('contraires') + ' (et donc incompatibles).<br>'
+            texte = `Les événements « Ne pas obtenir ${valeur} » et « Obtenir ${valeur} » sont...<br>`
+            texteCorr = `Les événements « Ne pas obtenir ${figure} » et « Obtenir ${figure} » sont ` + texteEnCouleurEtGras('contraires') + ' (et donc incompatibles).<br>'
           } else {
-            texte = `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont...<br>`
-            texteCorr = `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont ` + texteEnCouleurEtGras('contraires') + ' (et donc incompatibles).<br>'
+            texte = `Les événements « Obtenir ${valeur} » et « Ne pas obtenir ${valeur} » sont...<br>`
+            texteCorr = `Les événements « Obtenir ${valeur} » et « Ne pas obtenir ${valeur} » sont ` + texteEnCouleurEtGras('contraires') + ' (et donc incompatibles).<br>'
           }
           bonneReponse = 'contraires'
           break
@@ -176,6 +176,7 @@ export default class ExerciceQcmStatistiques extends Exercice {
           bonneReponse = 'non contraires'
           break
         case 'type12':
+        default :
           if (k === 1) {
             texte = `Les événements « Ne pas obtenir un ${couleur} » et « Obtenir un ${rouge} » sont...<br>`
             texteCorr = `Les événements « Ne pas obtenir un ${couleur} » et « Obtenir un ${rouge} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
@@ -224,6 +225,6 @@ export default class ExerciceQcmStatistiques extends Exercice {
       i++
       cpt++
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this)
   }
 }
