@@ -1,9 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -24,12 +24,16 @@ export const refs = {
   'fr-fr': ['6C30-4'],
   'fr-ch': ['9NO8-3']
 }
-export default function PlacerLaVirgule () {
-  Exercice.call(this)
-  this.nbQuestions = 4 // Ici le nombre de questions
-  this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
-  this.sup = false
-  this.nouvelleVersion = function () {
+export default class PlacerLaVirgule extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
+    this.nbQuestions = 4 // Ici le nombre de questions
+    this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
+    this.sup = false
+  }
+
+  nouvelleVersion () {
     if (this.nbQuestions > 1) {
       if (this.interactif) {
         this.consigne = 'Déterminer le résultat de ces multiplications.'
@@ -110,6 +114,4 @@ export default function PlacerLaVirgule () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
 } // Fin de l'exercice.

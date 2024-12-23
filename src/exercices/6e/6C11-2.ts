@@ -7,14 +7,14 @@ import {
 } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { max, min, mod } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
