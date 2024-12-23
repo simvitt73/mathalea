@@ -550,7 +550,7 @@ export default class ConstruireParSymetrie extends Exercice {
         case 6: // 3 symétries centrales de points
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
+          B = point(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
           d.isVisible = true
           ;[A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
@@ -591,7 +591,7 @@ export default class ConstruireParSymetrie extends Exercice {
         case 7: // Symétrie centrale de triangle
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
+          B = point(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
           d.isVisible = true
           ;[A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
