@@ -210,6 +210,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\red', '\\blue', '\\white'], '\\usepackage{pst-fun}', contents)
   testIfLoaded(['\\euro'], '\\usepackage[gen]{eurosym}', contents)
   testIfLoaded(['\\tkzTabInit'], '\\usepackage{tkz-tab}', contents)
+  testIfLoaded(['\\tkzGrid'], '\\usepackage{tkz-base}', contents)
   testIfLoaded(['{tabularx}', '{tabular}'], '\\usepackage{tabularx}', contents)
   testIfLoaded(['\\ang', '\\num{'], '\\usepackage{siunitx}', contents)
   testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
