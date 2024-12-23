@@ -1,8 +1,8 @@
-import { sp } from '../../lib/outils/outilString.js'
-import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { sp } from '../../lib/outils/outilString'
+import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { min } from 'mathjs'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import Exercice from '../Exercice.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 export const titre = 'Connaître le vocabulaire lié aux 4 opérations'
 export const interactifReady = true
 export const interactifType = 'qcm'

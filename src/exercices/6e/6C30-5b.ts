@@ -1,9 +1,9 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { sp } from '../../lib/outils/outilString.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['6C30-5b'],
   'fr-ch': []
 }
-class MultiplierPar001 extends Exercice {
+export default class MultiplierPar001Bis extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4 // Ici le nombre de questions
@@ -111,4 +111,3 @@ class MultiplierPar001 extends Exercice {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
-export default MultiplierPar001

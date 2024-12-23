@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -28,13 +28,15 @@ export const refs = {
   'fr-fr': ['6C30-3'],
   'fr-ch': ['9NO8-11']
 }
-export default function MultiplicationMentalDecimaux () {
-  Exercice.call(this)
+export default class MultiplicationMentalDecimaux extends Exercice {
+  constructor () {
+    super()
+    this.interactif = true // Il n'existe pas de version non QCM
+    this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
+    this.nbQuestions = 4 // Ici le nombre de questions
+  }
 
-  this.interactif = true // Il n'existe pas de version non QCM
-  this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
-  this.nbQuestions = 4 // Ici le nombre de questions
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typeDeQuestionsDisponibles = ['add', 'mul', 'add_deci', 'mul_deci'] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     this.interactif = true // Il n'existe pas de version non QCM
@@ -194,7 +196,7 @@ export default function MultiplicationMentalDecimaux () {
         texte += '<br>' + props.texte
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

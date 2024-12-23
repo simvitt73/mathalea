@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
@@ -65,7 +65,7 @@ export default class nomExercice extends Exercice {
             callback: (exercice: Exercice, question: number) => {
               let feedback = ''
               const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
-              if (mfe == null) return { isOk: false, score: { nbBonnesReponses: 0, nbReponses: 0 } }
+              if (mfe == null) return { isOk: false, feedback, score: { nbBonnesReponses: 0, nbReponses: 0 } }
               const facteur1 = Number(mfe.getPromptValue('champ1') || 0)
               const facteur2 = Number(mfe.getPromptValue('champ2') || 0)
               const isOk = (facteur1 * facteur2 === a * b && facteur1 !== 1 && facteur2 !== 1)

@@ -1,16 +1,16 @@
-import { glisseNombre } from '../../lib/2d/GlisseNombre.js'
+import { glisseNombre } from '../../lib/2d/GlisseNombre'
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message.js'
+import { lampeMessage } from '../../lib/format/message'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { min } from 'mathjs'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -30,15 +30,21 @@ export const refs = {
   'fr-fr': ['6C30-6'],
   'fr-ch': ['9NO8-5']
 }
-export default function MultiplierUnNombreParPuissanceDeDix () {
-  Exercice.call(this)
-  this.nbQuestions = 5 // Ici le nombre de questions
+export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Les nombres-exemples sont entiers', false]
+    this.besoinFormulaire2CaseACocher = ['Exercice avec un raisonnement associé', true]
+    this.besoinFormulaire3Numerique = ['Type de questions', 3, ' 1 : Dizaines, centaines, milliers\n 2 : Dixièmes, centièmes, millièmes\n 3 : Mélange']
 
-  this.sup = false
-  this.sup2 = true
-  this.sup3 = 3
+    this.nbQuestions = 5 // Ici le nombre de questions
 
-  this.nouvelleVersion = function () {
+    this.sup = false
+    this.sup2 = true
+    this.sup3 = 3
+  }
+
+  nouvelleVersion () {
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes', '', 'dizaines', 'centaines', 'milliers']
     let listeChoixAlea = range(6, [3])
     if (!this.sup2 || this.interactif || context.isAmc) { this.nbQuestions = min(this.nbQuestions, 6) }
@@ -146,7 +152,4 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Les nombres-exemples sont entiers', false]
-  this.besoinFormulaire2CaseACocher = ['Exercice avec un raisonnement associé', true]
-  this.besoinFormulaire3Numerique = ['Type de questions', 3, ' 1 : Dizaines, centaines, milliers\n 2 : Dixièmes, centièmes, millièmes\n 3 : Mélange']
 }

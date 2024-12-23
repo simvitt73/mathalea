@@ -1,4 +1,4 @@
-import MultiplierUnNombreParPuissanceDeDix from './6C30-6.js'
+import MultiplierUnNombreParPuissanceDeDix from './6C30-6'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -19,8 +19,10 @@ export const refs = {
   'fr-fr': ['6N12-1'],
   'fr-ch': ['9nO8-6']
 }
-export default function Exercice6N121 () {
-  MultiplierUnNombreParPuissanceDeDix.call(this)
-  this.sup = true
-  this.sup3 = 1
+export default class Exercice6N121 extends MultiplierUnNombreParPuissanceDeDix {
+  constructor () {
+    super()
+    this.sup = true
+    this.sup3 = 1
+  }
 }

@@ -1,14 +1,14 @@
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
   gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import Exercice from '../Exercice.js'
+} from '../../modules/outils'
+import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 export const dateDeModifImportante = '30/06/2024' // Ajout de l'interactivité par Jean-Claude Lhote
