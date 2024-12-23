@@ -5,17 +5,17 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude } from '../../lib/2d/transformations.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.ts'
 import { degres, radians } from '../../lib/mathFonctions/trigo.js'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils.ts'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre.ts'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { miseEnEvidence } from '../../lib/outils/embellissements.ts'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,16 +35,20 @@ export const refs = {
   'fr-fr': ['3G31-1'],
   'fr-ch': []
 }
-export default function CalculDAngleFigureComplexe () {
-  Exercice.call(this)
-  this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
-  this.nbQuestions = 2
+export default class CalculDAngleFigureComplexe extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
+    this.nbQuestions = 2
 
-  this.spacingCorr = 3
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = context.isHtml
+    this.spacingCorr = 3
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = context.isHtml
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireCaseACocher = ['Figure codée', false]
+  }
+
+  nouvelleVersion () {
     for (let i = 0; i < this.nbQuestions; i++) {
       const typesDeQuestion = choice(['BA-AD-BAC', 'BA-AD-ACB'])
       let texte, texteCorr
@@ -81,6 +85,7 @@ export default function CalculDAngleFigureComplexe () {
       const ACB = Math.round(angle(A, C, B))
 
       const objetsMathalea = [t1, t2, c1, c2, labels]
+      console.log(typesDeQuestion)
       switch (typesDeQuestion) { // Suivant le type de question, le contenu sera différent
         case 'BA-AD-BAC':
           if (this.sup) {
@@ -130,9 +135,9 @@ export default function CalculDAngleFigureComplexe () {
           texteCorr += `La somme des angles d'un triangle est égale à $180^\\circ$.<br> Donc $\\widehat{${B.nom + C.nom + A.nom}}=180^\\circ-90^\\circ-${BAC}^\\circ=${miseEnEvidence(90 - BAC)}^\\circ$.<br>`
           texteCorr += `De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.<br>`
           if (this.interactif) {
-            setReponse(this, 3 * i, ACD)
-            setReponse(this, 3 * i + 1, 90 - BAC)
-            setReponse(this, 3 * i + 2, 90 - ACD)
+            handleAnswers(this, 3 * i, { reponse: { value: String(ACD), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - BAC), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD), options: { nombreDecimalSeulement: true } } })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
               texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
               texteApres: '$^\\circ$'
@@ -199,15 +204,15 @@ export default function CalculDAngleFigureComplexe () {
           texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180^\\circ$. <br> Donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${miseEnEvidence(90 - ACB)}^\\circ$.`
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.`
           if (this.interactif) {
-            setReponse(this, 3 * i, ACD)
-            setReponse(this, 3 * i + 1, 90 - ACB)
-            setReponse(this, 3 * i + 2, 90 - ACD)
+            handleAnswers(this, 3 * i, { reponse: { value: String(ACD), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - ACB), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD), options: { nombreDecimalSeulement: true } } })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
               texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
               texteApres: '$^\\circ$'
             })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
-              texteAvant: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
+              texteAvant: `$\\widehat{${B.nom + A.nom + C.nom}}=$`,
               texteApres: '$^\\circ$'
             })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
@@ -288,11 +293,9 @@ export default function CalculDAngleFigureComplexe () {
       if (this.questionJamaisPosee(i, nom, BAC)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-   
       }
     }
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Figure codée']
 }
