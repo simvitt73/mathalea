@@ -167,7 +167,7 @@
                 </span>
               </span>
             {/if}
-            {#if ending.features.qcm}
+            {#if ending.features.qcmcam}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"

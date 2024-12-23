@@ -32,6 +32,7 @@ export interface Features {
   interactif?: FeatureParams
   amc?: FeatureParams
   qcm?: FeatureParams
+  qcmcam?: FeatureParams
 }
 
 /**
@@ -124,7 +125,7 @@ export interface StaticItemInreferentiel extends BaseItemInReferentiel {
   pngCor: string
   tex: string
   texCor: string
-  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c' |'evacom'
+  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c' | 'evacom'
 }
 
 /**
