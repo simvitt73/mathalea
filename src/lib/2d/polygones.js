@@ -222,6 +222,7 @@ export function Polygone (...points) {
   this.distanceDesHachures = 10
   this.couleurDeRemplissage = ''
   this.opaciteDeRemplissage = 0.5
+  this.epaisseur = 1
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
@@ -598,10 +599,11 @@ export class BoiteBuilder {
 
   /**
      * La méthode retourne l'objet afin de la rendre chaînable
-     * @param {string} color
-     * @param {string} colorBackground
-     * @param {number} opacity
-     * @param {number} backgroudOpacity
+     * @param {Object} params
+     * @param {string} [params.color]
+     * @param {string} [params.colorBackground]
+     * @param {number} [params.opacity]
+     * @param {number} [params.backgroudOpacity]
      * @return {BoiteBuilder}
      */
   addColor ({ color, colorBackground, opacity, backgroudOpacity }) {

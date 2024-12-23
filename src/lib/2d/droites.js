@@ -621,6 +621,7 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @property {number} opaciteMediatrice Taux d'opacité de la médiatrice
  * @property {number} pointillesMediatrice Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
  * @property {string} couleurConstruction Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
+ * @return {Mediatrice|Droite}
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -652,6 +653,7 @@ export function Mediatrice (
   this.opaciteMediatrice = opaciteMediatrice
   this.pointillesMediatrice = pointillesMediatrice
   this.couleurConstruction = couleurConstruction
+  this.epaisseur = 1
   const O = milieu(A, B)
   const m = rotation(A, O, 90)
   const n = rotation(A, O, -90)
@@ -748,7 +750,7 @@ export function Mediatrice (
  * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 2, avec une opacité de 50 % sans nom
  * // Les traits de construction sont dessinés en vert avec la marque 'OO' pour le segment initial et la marque 'XX' pour les rayons, toutes ces marques étant rouge.
  * @author Rémi Angot {amendée par Eric Elter en juin 2022}
- * @return {Mediatrice}
+ * @return {Mediatrice|Droite}
  */
 // JSDOC Validee par EE Juin 2022
 export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {

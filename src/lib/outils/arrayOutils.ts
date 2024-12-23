@@ -78,8 +78,6 @@ export function areSameValues (v1: unknown, v2: unknown): boolean {
  * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
  * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
  * on concatène 2 fois la même liste, mais avec des ordres différents.
- * @param {string[]} E1 - Liste
- * @param {string[]} E2 - Liste
  * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
  * @author Rémi Angot
  */
@@ -219,7 +217,7 @@ export function nouveauTableauPriveDunElement<T> (array: T[], index: number) {
  *
  * @author Rémi Angot
  */
-export function choice<T> (liste: T[], listeAEviter: T[] = []): T {
+export function choice<T> (liste: T[], listeAEviter: T[] | T = []): T {
   if (!Array.isArray(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }

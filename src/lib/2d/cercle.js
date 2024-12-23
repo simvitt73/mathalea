@@ -370,6 +370,7 @@ export function Arc (
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   this.pointilles = 0
+  this.epaisseur = 1
   if (typeof angle !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }

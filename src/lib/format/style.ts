@@ -55,7 +55,8 @@ export function texcolors (i: number, fondblanc = true) {
  * @param {string} texte à mettre en gras
  * @author Rémi Angot
  */
-export function texteGras (texte: string) {
+export function texteGras (texte: string | number) {
+  if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {

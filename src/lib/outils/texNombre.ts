@@ -202,7 +202,10 @@ export function scientifiqueToDecimal (mantisse: number, exp: number) {
  * @param {boolean?} aussiCompleterEntiers=false si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb: number | Decimal, precision: number, completerZeros = false, aussiCompleterEntiers = false) {
+export function stringNombre (nb: number | Decimal, precision?: number, completerZeros?:boolean, aussiCompleterEntiers?:boolean) {
+  if (completerZeros === undefined) completerZeros = false
+  if (aussiCompleterEntiers === undefined) aussiCompleterEntiers = false
+  if (precision === undefined) precision = 8
   if (typeof nb === 'string') {
     window.notify('stringNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
   }

@@ -429,7 +429,9 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
- * @param {number} [echelleMark=1] Taille relative de la marque de l'angle
+ * @param {object} [options={}]
+ * @param {number} [options.echelleMark=1] Taille relative de la marque de l'angle
+ * @param {number} [options.angleArrondi=0] Arrondi de l'angle
  * @example codageAngle(H,K,30)
  * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
  * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.

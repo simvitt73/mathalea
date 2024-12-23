@@ -43,6 +43,7 @@ export default class Exercice {
   canReponseACompleter?: string // Seulement pour les exercices de type simple
   formatChampTexte?: string // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
+  tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple
   // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
   optionsDeComparaison?: Partial<OptionsComparaisonType>
@@ -51,6 +52,7 @@ export default class Exercice {
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
   figures?: Figure[] | clickFigures[]
+  amcReady?: boolean
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number

@@ -37,7 +37,7 @@ type Rectangle = {
   bottomRight: [number, number];
 }
 
-class shikaku extends Exercice {
+export default class shikaku extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
@@ -452,5 +452,3 @@ class shikaku extends Exercice {
     return ['KO']
   }
 }
-
-export default shikaku

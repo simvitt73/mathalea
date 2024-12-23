@@ -229,11 +229,11 @@ export function homothetie (Objet, O, k, nom = '', positionLabel = 'above', colo
 
 /**
  * Renvoie le point M symétrique du point A par la droite d.
- * @param {Point} A Objet de type Point (ses coordonnées x et y renseignées)
+ * @param {Point|Polygone|Droite|Segment|Vecteur} A Objet de type Point (ses coordonnées x et y renseignées)
  * @param {Droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
  * @param {string} M Nom de l'image. Facultatif, vide par défaut.
  * @param {string} positionLabel Facultatif, 'above' par défaut.
- * @return {Point} M image de A par la symétrie axiale d'axe d.
+ * @return {Point|Polygone|Droite|Segment|Vecteur} M image de A par la symétrie axiale d'axe d.
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Jean-Claude Lhote
  */
@@ -325,7 +325,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
 /**
  * Construit l'image d'un objet par affinité orthogonale
  * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
- * @param {number} d Direction de l'affinité
+ * @param {Droite} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
  * @param {string} [positionLabel = 'above'] Position de l'image (uniquement valable pour un point)
