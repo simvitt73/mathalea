@@ -138,6 +138,7 @@ class resolutionEquationInequationGraphique extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
+    this.listePackages = ['tkz-base']
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.exoCustomResultat = true
