@@ -8,7 +8,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Calculer le périmètre de carrés, rectangles et cercles (calcul mental)'
+export const titre = 'Calculer mentalement le périmètre de carrés, rectangles et cercles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '13/12/2024'
@@ -25,13 +25,14 @@ export const refs = {
 export default class PerimetresCalculMental extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Calculer le périmètre exacte des figures suivantes.'
     this.nbQuestions = 4
     this.spacingCorr = 2
-    // this.besoinFormulaireCaseACocher = ['Tracer les figures', false]
   }
 
   nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? 'Calculer le périmètre exact de la figures suivante.'
+      : 'Calculer le périmètre exact des figures suivantes.'
     const typeQuestionsDisponibles = ['carré', 'rectangle', 'cercleRayon', 'cercleDiametre']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
