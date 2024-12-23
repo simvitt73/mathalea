@@ -1,4 +1,4 @@
-import EncodeurTexte from '../profs/P020.js'
+import EncodeurTexte from '../profs/P020'
 export const titre = 'Message secret à décoder avec les tables de multiplication'
 export const interactifReady = false
 

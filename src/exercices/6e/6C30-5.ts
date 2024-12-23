@@ -1,11 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { sp } from '../../lib/outils/outilString.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '20/02/2021'
 export const dateDeModifImportante = '22/08/2024'
@@ -27,17 +27,22 @@ export const refs = {
   'fr-fr': ['6C30-5'],
   'fr-ch': ['9NO8-4']
 }
-export default function MultiplierPar001 () {
-  Exercice.call(this)
-  this.nbQuestions = 4 // Ici le nombre de questions
+export default class MultiplierPar001 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : Fraction décimale à retrouver\n4 : Mélange']
 
-  this.consigne = 'Choisir la bonne réponse pour compléter les pointillés.'
+    this.nbQuestions = 4 // Ici le nombre de questions
 
-  this.sup = false
-  this.sup2 = 4
+    this.consigne = 'Choisir la bonne réponse pour compléter les pointillés.'
+
+    this.sup = false
+    this.sup2 = 4
+  }
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function MultiplierPar0001 () {
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
@@ -173,6 +178,4 @@ export default function MultiplierPar001 () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : Fraction décimale à retrouver\n4 : Mélange']
 }
