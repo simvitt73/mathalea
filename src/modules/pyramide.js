@@ -19,7 +19,7 @@ export default class Pyramide {
     this.nombreEtages = nombreEtages
     this.rangeData = rangeData
     this.valeurs = []
-    this.isVisible = []
+    this.isVisible = [][]
     this.fractionOn = fractionOn
     for (let y = nombreEtages - 1; y >= 0; y--) {
       this.valeurs[y] = []

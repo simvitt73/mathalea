@@ -408,7 +408,7 @@ export default function PuzzlesGeometriques () {
     }
 
     if (this.sup2) {
-      texte += anim.htmlBouton(this.numeroExercice)
+      texte += anim.htmlBouton(this.numeroExercice ?? 0, 0)
     }
     this.contenu = texte
     this.listeQuestions[0] = this.contenu

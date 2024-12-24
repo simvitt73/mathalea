@@ -1,14 +1,14 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import Exercice from '../deprecatedExercice'
-import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
+import { context } from '../../modules/context.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 import DragAndDrop from '../../lib/interactif/DragAndDrop'
+import Exercice from '../Exercice'
 
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 export const amcReady = true
@@ -96,24 +96,25 @@ export const refs = {
   'fr-fr': ['6N10'],
   'fr-ch': ['9NO1-1']
 }
-export default function EcrirePetitsNombresEntiers () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class EcrirePetitsNombresEntiers extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 5
+    this.besoinFormulaireTexte = ['Type de nombres', 'Nombres séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
+    this.sup = 4 // Valeur du paramètre par défaut
+    this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Les nombres se terminent par 80.\n2 : Les nombres contiennent un nombre entre 81 et 99.\n3 : Les nombres se terminent par un multiple de 100.\n4 : Les nombres commencent par mille.\n5 : Les nombres ne possèdent ni centaines ou ni centaines de mille.']
+    this.sup2 = 0 // Valeur du paramètre par défaut
+    this.besoinFormulaire3Numerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
+    this.sup3 = 1 // Valeur du paramètre par défaut
+    this.besoinFormulaire4CaseACocher = ['Activer le drag and drop pour l\'écriture en lettres', false]
+    this.sup4 = false
 
-  this.besoinFormulaireTexte = ['Type de nombres', 'Nombres séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
-  this.sup = 4 // Valeur du paramètre par défaut
-  this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Les nombres se terminent par 80.\n2 : Les nombres contiennent un nombre entre 81 et 99.\n3 : Les nombres se terminent par un multiple de 100.\n4 : Les nombres commencent par mille.\n5 : Les nombres ne possèdent ni centaines ou ni centaines de mille.']
-  this.sup2 = 0 // Valeur du paramètre par défaut
-  this.besoinFormulaire3Numerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
-  this.sup3 = 1 // Valeur du paramètre par défaut
-  this.besoinFormulaire4CaseACocher = ['Activer le drag and drop pour l\'écriture en lettres', false]
-  this.sup4 = false
+    this.tailleDiaporama = 3
 
-  this.tailleDiaporama = 3
+    this.dragAndDrops = []
+  }
 
-  this.dragAndDrops = []
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typeDeConsigne = []
     if (this.sup3 === 1) {
       this.consigne = 'Écrire le nombre en lettres.'

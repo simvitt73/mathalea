@@ -25,8 +25,10 @@ export function rienSi1 (a: number | FractionEtendue) {
   }
   if (a instanceof FractionEtendue && (a.isEqual(fraction(1, 1)))) return ''
   if (a instanceof FractionEtendue && (a.isEqual(fraction(-1, 1)))) return '-'
-  if (equal(a, 1)) return ''
-  if (equal(a, -1)) return '-'
+  if (!(a instanceof FractionEtendue)) {
+    if (egal(a, 1)) return ''
+    if (egal(a, -1)) return '-'
+  }
 
   if (Number(a) || a === 0) return stringNombre(a as number, 7) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
@@ -39,7 +41,8 @@ export function rienSi1 (a: number | FractionEtendue) {
  * // 'dm'+texteExposant(3)
  * @author Rémi Angot
  */
-export function texteExposant (texte: string) {
+export function texteExposant (texte: string | number) {
+  if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
@@ -200,7 +203,7 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
  * // (-3x)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiMoins (expr: string | number| FractionEtendue) {
+export function ecritureParentheseSiMoins (expr: string | number | FractionEtendue) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
   else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
   else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, 7)})`
@@ -237,7 +240,6 @@ export function calculAligne (numero: number, etapes: number[]) {
  */
 export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: number) {
   if (a instanceof FractionEtendue) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ ts-expect-errors
     return egal(a.num / a.den, arrondi(a.num / a.den, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {

@@ -106,6 +106,7 @@ export type LegacyReponse = string | FractionEtendue | Decimal | number
 export type LegacyReponses = LegacyReponse[] | LegacyReponse
 export interface AutoCorrection {
   enonce?: string
+  enonceAvant?: boolean
   propositions?: {
     texte: string
     statut?: number | boolean

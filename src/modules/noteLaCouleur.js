@@ -249,12 +249,16 @@ class NoteLaCouleur {
     }
   }
 }
-
+/**
+  *
+  * @param {NoteLaCouleurParams} param0
+  * @returns
+  */
 export function noteLaCouleur ({
   x = 15,
   y = 15,
   orientation = 90,
-  plateau = [],
+  plateau = [[]],
   relatif = true,
   nx = 16,
   ny = 12,
@@ -263,7 +267,7 @@ export function noteLaCouleur ({
   return new NoteLaCouleur({ x, y, orientation, relatif, plateau, nx, ny, pas })
 }
 
-class Plateau2dNLC {
+export class Plateau2dNLC {
   constructor ({
     type = 1, melange = false, scale = 0.5, relatif = true, pas = 30, nx = 16, ny = 12,
     plateau = [

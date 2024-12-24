@@ -3,9 +3,10 @@ import { gestionnaireFormulaireTexte } from '../../../modules/outils'
 import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../lib/outils/arrayOutils'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import Exercice from '../../deprecatedExercice'
+
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
+import Exercice from '../../deprecatedExercice'
 export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

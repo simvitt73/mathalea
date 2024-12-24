@@ -18,15 +18,12 @@ import { context } from './context.js'
  * @example x=angleScratchTo2d(90) // x=0
  * @example x=angleScratchTo2d(-90) // x=180
  * @example x=angleScratchTo2d(-120) // x=-150
- * @return {angleModulo}
+ * @return {number}
  */
 // JSDOC Validee par EE Juin 2022
-export function angleScratchTo2d (x) {
-  const angle2d = 90 - x
-  return angleModulo(angle2d)
-}
+export const angleScratchTo2d = (x) => angleModulo(90 - x)
 
-function ObjetLutin () {
+export function ObjetLutin () {
   ObjetMathalea2D.call(this, {})
   this.x = 0
   this.y = 0
@@ -49,7 +46,7 @@ function ObjetLutin () {
   this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
   this.color = colorToLatexOrHTML('black')
   this.epaisseur = 2
-  this.pointilles = ''
+  this.pointilles = 0
   this.opacite = 1
   this.style = ''
   this.animation = ''
@@ -117,7 +114,7 @@ function ObjetLutin () {
  * Crée une nouvelle instance de l'objet lutin
  * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
  * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns {object} Instance d'un lutin
+ * @returns {ObjetLutin} Instance d'un lutin
  */
 export function creerLutin (...args) {
   return new ObjetLutin(...args)

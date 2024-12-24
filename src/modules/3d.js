@@ -1877,7 +1877,7 @@ class PaveLPH3d {
  * @param {number} l longueur
  * @param {number} h hauteur
  * @param {*} color couleur
- * @returns {object}
+ * @returns {PaveLPH3d}
  */
 export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
   return new PaveLPH3d(x, y, z, c, l, p, h, color)

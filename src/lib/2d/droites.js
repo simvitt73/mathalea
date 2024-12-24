@@ -530,7 +530,7 @@ export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
  * @example droiteParPointEtParallele(M, d2) // Trace la droite parallèle à d2 passant par le point M
  * @example droiteParPointEtParallele(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 parallèle à d2 passant par le point M
  * @author Jean-Claude Lhote
- * @return {droiteParPointEtVecteur}
+ * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {

@@ -114,17 +114,9 @@ export default function SommeDeVecteurs () {
       anim.pointCreer(C)
       const objets = [U, V, p[1], tracePoint(A, 'red'), UU, VV, u.representant(A), v.representant(B), latexParPoint('A', posLabelA, 'red', 12, 12, '')]
       if (context.isHtml) objets.push(translationAnimee(UU, vecteur(M, A)), translationAnimee(VV, vecteur(N, B)))
-      /* texteCorr += mathalea2d({
-        xmin: Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1,
-        ymin: Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1,
-        xmax: Math.max(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) + 1,
-        ymax: Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 1,
-        scale: 0.7
-      }, objets) */
-
       texteCorr += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objets)), objets) // translationAnimee n'a pas de bordure
       texteCorr += "Remarque : comme $\\overrightarrow{AB} = \\vec{u}$ et $\\overrightarrow{BC} = \\vec{v}$, alors $\\vec{u}+\\vec{v}=\\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}$ d'après la relation de Chasles."
-      texteCorr += anim.htmlBouton(numeroExercice, i)
+      texteCorr += anim.htmlBouton(numeroExercice ?? 0, i)
       if (this.questionJamaisPosee(i, xU, yU, xV, yV)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

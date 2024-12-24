@@ -91,7 +91,7 @@ export default function TracerTriangle2Angles () {
       }
       const anim = new Alea2iep()
       anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
-      texteCorr += anim.htmlBouton(this.numeroExercice, i)
+      texteCorr += anim.htmlBouton(this.numeroExercice ?? 0, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -137,7 +137,7 @@ export default function ConstruisMonTriangle () {
       mainlevee: true,
       amplitude: 0.5
     }
-    const texte = mathalea2d(paramsEnonce, objetsEnonceml) + '<br>' + anim.htmlBouton(this.numeroExercice)
+    const texte = mathalea2d(paramsEnonce, objetsEnonceml) + '<br>' + anim.htmlBouton(this.numeroExercice ?? 0, 0)
     this.contenu = texte
     this.listeQuestions[0] = this.contenu
   }
