@@ -13,7 +13,7 @@ import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
@@ -35,7 +35,7 @@ export const dateDePublication = '04/09/2022' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * 
+ *
  * Gilles Mora
 
  */
@@ -50,21 +50,20 @@ export const refs = {
   'fr-fr': ['can5a-2020'],
   'fr-ch': []
 }
-export default function SujetCAN20205ieme () {
-  Exercice.call(this)
+export default class SujetCAN20205ieme extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30
 
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+Il est composé de 30 questions réparties de la façon suivante :<br>
+Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
+En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
+  }
 
-
-  this.nbQuestions = 30
-
-
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
-  Il est composé de 30 questions réparties de la façon suivante :<br>
-  Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
-  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
-  En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
-  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.

@@ -3,7 +3,7 @@ import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib
 import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
@@ -29,16 +29,48 @@ export const refs = {
   'fr-fr': ['can5a-xxxx'],
   'fr-ch': []
 }
-export default function CourseAuxNombres5e () {
-  Exercice.call(this)
+export default class CourseAuxNombres5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des questions',
+  `Nombres séparés par des tirets\n1 : Multiplication (facteur 12 à 19)\n
+2 : Somme à abc + de\n
+3 : Différence abc - de\n
+4 : Somme de deux décimaux avec retenue\n
+5 : Somme astucieuse\n
+6 : Conversion en heures et minutes\n
+7 : Triple et moitié\n
+8 : Produit avec facteur 100\n
+9 : Division\n
+10 : Reste de division par diviseur à 2 chiffres\n
+11 : Priorité opératoire\n
+12 : Recomposer une nombre avec chevauchement\n
+13 : conversion heures et minutes vers minutes\n
+14 :  Reste de la division par 3\n
+15 :  Une division par 9 qui tombe juste\n
+16 :  ajouter un nombre de la forme 10n+9\n
+17 :  quart d'un nombre\n
+18 :  addition à trou\n
+19 :  Nombre impair de 2 chiffres × 5\n
+20 :  Prix de la mitié\n
+21 :  Ordre de grandeur\n
+22 :  Conversion cm ou mm -> m\n
+23 :  Fraction m/n d'une quantité de L\n
+24 :  Reste de la division euclidienne\n
+25 :  Ordre de grandeur : hauteurs\n
+26 :  Appliquer un pourcentage\n
+27 :  Calcul de distance à vitesse constante\n
+28 :  Comparaison de périmètre\n
+29 :  Repérage fraction\n
+30 : Proportionnalité par linéarité\n`]
+    this.nbQuestions = 30
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nbQuestions = 30
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     let a, b, c, d, resultat, propositions
@@ -431,35 +463,4 @@ export default function CourseAuxNombres5e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions',
-        `Nombres séparés par des tirets\n1 : Multiplication (facteur 12 à 19)\n
-  2 : Somme à abc + de\n
-  3 : Différence abc - de\n
-  4 : Somme de deux décimaux avec retenue\n
-  5 : Somme astucieuse\n
-  6 : Conversion en heures et minutes\n
-  7 : Triple et moitié\n
-  8 : Produit avec facteur 100\n
-  9 : Division\n
-  10 : Reste de division par diviseur à 2 chiffres\n
-  11 : Priorité opératoire\n
-  12 : Recomposer une nombre avec chevauchement\n
-  13 : conversion heures et minutes vers minutes\n
-  14 :  Reste de la division par 3\n
-  15 :  Une division par 9 qui tombe juste\n
-  16 :  ajouter un nombre de la forme 10n+9\n
-  17 :  quart d'un nombre\n
-  18 :  addition à trou\n
-  19 :  Nombre impair de 2 chiffres × 5\n
-  20 :  Prix de la mitié\n
-  21 :  Ordre de grandeur\n
-  22 :  Conversion cm ou mm -> m\n
-  23 :  Fraction m/n d'une quantité de L\n
-  24 :  Reste de la division euclidienne\n
-  25 :  Ordre de grandeur : hauteurs\n
-  26 :  Appliquer un pourcentage\n
-  27 :  Calcul de distance à vitesse constante\n
-  28 :  Comparaison de périmètre\n
-  29 :  Repérage fraction\n
-  30 : Proportionnalité par linéarité\n`]
 }
