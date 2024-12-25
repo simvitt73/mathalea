@@ -3,7 +3,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import {
   calculANePlusJamaisUtiliser,
@@ -38,14 +38,21 @@ export const refs = {
   'fr-fr': ['6N11'],
   'fr-ch': ['9NO2-1']
 }
-export default function LireAbscisseEntiere2d () {
-  Exercice.call(this)
-  this.nbQuestions = 3
+export default class LireAbscisseEntiere2d extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange'
+    ]
+    this.nbQuestions = 3
 
-  this.sup = 4
-  this.interactif = false
+    this.sup = 4
+    this.interactif = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = "Lire l'abscisse de chacun des points suivants."
     if (this.interactif) { this.consigne += texteGras(' Penser à mettre les espaces nécessaires.') }
     let typesDeQuestions
@@ -262,9 +269,4 @@ export default function LireAbscisseEntiere2d () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    '1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange'
-  ]
 }

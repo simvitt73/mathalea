@@ -1300,6 +1300,8 @@ class Prisme3d {
  * @param {Vecteur3d} vecteur Vecteur normal à la base dont la norme indique la hauteur du prisme droit.
  * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
  * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du prisme.
+ * @param {string} [nomBase2] Nom de la base 2
+ * @param {string[]} [positionLabels2] Position des labels de la base 2
  * @example prisme3d(p, v)
  * // Retourne un prisme droit de base p dont un vecteur normal à la base est v.
  * @example prisme3d(p, v, 'blue', true)

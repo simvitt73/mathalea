@@ -98,7 +98,7 @@ export interface Valeur {
   ) => {
     isOk: boolean
     feedback: string
-    score: { nbBonnesReponses: number; nbReponses: number }
+    score: { nbBonnesReponses: number, nbReponses: number }
   }
 }
 

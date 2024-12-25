@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -28,14 +28,16 @@ export const refs = {
   'fr-fr': ['6N22-2'],
   'fr-ch': ['9NO10-13']
 }
-export default function AjouterDesFractionsDunite () {
-  Exercice.call(this)
+export default class AjouterDesFractionsDunite extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let sc, objets
     const ppc = 20
     if (context.isHtml) {

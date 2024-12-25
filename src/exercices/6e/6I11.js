@@ -5,7 +5,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { createLink } from '../../lib/outils/modales'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin'
@@ -34,19 +34,25 @@ export const refs = {
   'fr-fr': ['6I11'],
   'fr-ch': []
 }
-export default function NoteLaCouleur6e () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.typeExercice = 'Scratch'
-  this.sup = 1
-  this.sup2 = 1
-  this.sup3 = 4
-  this.sup4 = true
-  this.relatif = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+export default class NoteLaCouleur6e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
+    this.besoinFormulaire2Numerique = ['Type de programme', 3, '1 : Avancer et tourner\n2 : Boucles\n3 : Mélange']
+    this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
+    this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
+    this.nbQuestions = 1
+    this.typeExercice = 'Scratch'
+    this.sup = 1
+    this.sup2 = 1
+    this.sup3 = 4
+    this.sup4 = true
+    this.relatif = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const damier = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
@@ -425,8 +431,4 @@ export default function NoteLaCouleur6e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
-  this.besoinFormulaire2Numerique = ['Type de programme', 3, '1 : Avancer et tourner\n2 : Boucles\n3 : Mélange']
-  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
-  this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 }

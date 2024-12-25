@@ -10,7 +10,7 @@ import { abs, arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -41,19 +41,23 @@ export const refs = {
   'fr-fr': ['6M20'],
   'fr-ch': ['9GM1-3']
 }
-export default function AireDeTriangles () {
-  Exercice.call(this)
-  this.spacing = 2
+export default class AireDeTriangles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de triangles', 4, '1 : Que des triangles sans angle obtus\n2 : Que des triangles avec un angle obtus\n3 : Mélange']
 
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 3
+    this.spacing = 2
 
-  this.sup = 3
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 3
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+    this.sup = 3
 
-  this.nouvelleVersion = function () {
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)
@@ -163,5 +167,4 @@ export default function AireDeTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de triangles', 4, '1 : Que des triangles sans angle obtus\n2 : Que des triangles avec un angle obtus\n3 : Mélange']
 }

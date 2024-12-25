@@ -2,7 +2,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,16 +26,27 @@ export const refs = {
   'fr-ch': ['9NO7-8']
 }
 export const uuid = 'a8c21'
-export default function EncadrerUnDecimal () {
-  Exercice.call(this)
-  this.sup = 4 // Type de questions
-  this.nbQuestions = 4
-  this.consigneCorrection = 'Encadrer'
+export default class EncadrerUnDecimal extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Encadrer à l\'unité',
+        '2 : Encadrer au dixième',
+        '3 : Encadrer au centième',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+    this.sup = 4 // Type de questions
+    this.nbQuestions = 4
+    this.consigneCorrection = 'Encadrer'
 
-  context.isHtml ? this.spacing = 1.5 : this.spacing = 1.5
-  context.isHtml ? this.spacingCorr = 1.2 : this.spacingCorr = 1.5
+    context.isHtml ? this.spacing = 1.5 : this.spacing = 1.5
+    context.isHtml ? this.spacingCorr = 1.2 : this.spacingCorr = 1.5
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     /*
         let listeTypeDeQuestions = []
         if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
@@ -206,13 +217,4 @@ export default function EncadrerUnDecimal () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Encadrer à l\'unité',
-      '2 : Encadrer au dixième',
-      '3 : Encadrer au centième',
-      '4 : Mélange'
-    ].join('\n')
-  ]
 }

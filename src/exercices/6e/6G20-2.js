@@ -13,7 +13,10 @@ export const refs = {
   'fr-fr': ['6G20-2'],
   'fr-ch': []
 }
-export default function VocabulaireDesTriangles6e () {
-  VocabulaireDesTriangles.call(this)
+export default class VocabulaireDesTriangles6e extends VocabulaireDesTriangles {
+ constructor() {
+ super()
+
+ }
   this.classe = 6
 }

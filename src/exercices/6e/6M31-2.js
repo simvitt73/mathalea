@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { min } from 'mathjs'
@@ -37,17 +37,30 @@ export const refs = {
   'fr-fr': ['6M31-2'],
   'fr-ch': ['10GM3-6']
 }
-export default function UnitesDeVolumesEtDeCapacite () {
-  Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
-  Exercice.call(this)
-  this.sup = 1 // Niveau de difficulté de l'exercice
-  this.sup2 = false // Avec des nombres décimaux ou pas
-  this.sup3 = 4
-  this.sup4 = 2
-  this.spacing = 2
-  this.nbQuestions = 8
+export default class UnitesDeVolumesEtDeCapacite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Unités de volume vers litres\n2 : Litres vers unités de volume\n3 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.besoinFormulaire3Numerique = ['Avec tableau', 4, 'Uniquement dans l\'énoncé\nUniquement dans la correction\nDans l\'énoncé et dans la correction\nNi dans l\'enoncé, ni dans la correction']
 
-  this.nouvelleVersion = function () {
+    this.sup = 1 // Niveau de difficulté de l'exercice
+    this.sup2 = false // Avec des nombres décimaux ou pas
+    this.sup3 = 4
+    this.sup4 = 2
+    this.spacing = 2
+    this.nbQuestions = 8
+  }
+
+  nouvelleVersion () {
+    if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
+
+    Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
+
     this.consigne = (this.interactif && this.sup4 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup4 === 2 ? 'mathLive' : 'qcm'
     let listeTypeDeQuestions
@@ -287,14 +300,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    3,
-    '1 : Unités de volume vers litres\n2 : Litres vers unités de volume\n3 : Mélange'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  this.besoinFormulaire3Numerique = ['Avec tableau', 4, 'Uniquement dans l\'énoncé\nUniquement dans la correction\nDans l\'énoncé et dans la correction\nNi dans l\'enoncé, ni dans la correction']
-  if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
 }
 
 function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {

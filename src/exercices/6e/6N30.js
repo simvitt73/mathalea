@@ -3,7 +3,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -27,14 +27,22 @@ export const refs = {
   'fr-fr': ['6N30'],
   'fr-ch': ['9NO7-1']
 }
-export default function LireAbscisseDecimale () {
-  Exercice.call(this)
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
-  this.nbQuestions = 3
+export default class LireAbscisseDecimale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Une seule décimale\n2 : Deux décimales \n3 : Trois décimales\n4 : Mélange'
+    ]
+    this.consigne = "Lire l'abscisse de chacun des points suivants."
+    this.nbQuestions = 3
 
-  this.sup = 1
-  this.interactif = false
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.interactif = false
+  }
+
+  nouvelleVersion () {
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
 
@@ -150,9 +158,4 @@ export default function LireAbscisseDecimale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    '1 : Une seule décimale\n2 : Deux décimales \n3 : Trois décimales\n4 : Mélange'
-  ]
 }

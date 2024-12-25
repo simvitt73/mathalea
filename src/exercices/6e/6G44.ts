@@ -12,7 +12,7 @@ import {
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -33,14 +33,19 @@ export const refs = {
   'fr-fr': ['6G44'],
   'fr-ch': ['9ES7-7']
 }
-export default function NombreDeFacesEtDAretes () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.formatChampTexte = ''
-  this.sup = 3
-  this.listeAvecNumerotation = false
+export default class NombreDeFacesEtDAretes extends Exercice {
+  version: number
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Sur le nombre d\'arêtes\n 2 : Sur le nombre de faces\n 3 : Mélange']
+    this.nbQuestions = 4
+    this.formatChampTexte = ''
+    this.sup = 3
+    this.listeAvecNumerotation = false
+    this.version = 6
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.version === 3) {
       this.sup = 3
     }
@@ -85,7 +90,7 @@ export default function NombreDeFacesEtDAretes () {
       }
       // choix = j + 1
       const base = polygone3d(points3D)
-      const corps = prisme3d(base, point3d(0, 0, -2))
+      const corps = prisme3d(base, vecteur3d(0, 0, -2))
       const base2 = translation3d(base, k)
       const chapeau1 = choix < 7 ? pyramide3d(base2, s1) : choix < 9 ? pyramide3d(base, s1) : choix < 13 ? pyramideTronquee3d(base, s1, coeff) : pyramide3d(base, s1)
       const chapeau2 = choix < 9 ? pyramide3d(base, s2) : choix < 11 ? pyramideTronquee3d(base, s2, coeff) : choix < 13 ? pyramide3d(base, s2) : pyramideTronquee3d(base, s2, coeff)
@@ -350,5 +355,4 @@ export default function NombreDeFacesEtDAretes () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Sur le nombre d\'arêtes\n 2 : Sur le nombre de faces\n 3 : Mélange']
 }

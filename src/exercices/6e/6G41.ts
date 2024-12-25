@@ -1,11 +1,11 @@
 import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { labelPoint } from '../../lib/2d/textes'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -26,18 +26,28 @@ export const refs = {
   'fr-fr': ['6G41'],
   'fr-ch': ['9ES7-1']
 }
-export default function RepresenterUnSolide () {
-  Exercice.call(this) // Héritage de la classe Exercice ()
+export default class RepresenterUnSolide extends Exercice {
+  classe: number
+  constructor () {
+    super()
+    // Héritage de la classe Exercice ()
+    this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
 
-  this.nbQuestions = 1
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.nbQuestions = 1
 
-  this.sup = 1
-  this.sup2 = 1
-  this.classe = 6
-  this.amcReady = amcReady
-  this.amcType = amcType
+    this.sup = 1
+    this.sup2 = 1
+    this.classe = 6
+    this.amcReady = amcReady
+    this.amcType = amcType
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
 
     if (this.sup === 3) { typeDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typeDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typeDeQuestionsDisponibles = [1, 2, 4, 6] } else { typeDeQuestionsDisponibles = [parseInt(this.sup)] }
@@ -67,8 +77,8 @@ export default function RepresenterUnSolide () {
     let carreaux; let g
     let objetsEnonce = []
     let objetsCorrection = []
-    let listeDeNomsDePolygones
-    for (let i = 0, texte, enonce, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    let listeDeNomsDePolygones: string[] = []
+    for (let i = 0, enonce, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 2 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
@@ -110,6 +120,7 @@ export default function RepresenterUnSolide () {
           break
 
         case 0:
+        default:
           A = point(5, 0, nom[0], 'left')
           B = point(9 + randint(1, 3), 0, nom[1], 'right')
           C = point(B.x, randint(3, 7), nom[2], 'right')
@@ -339,7 +350,7 @@ export default function RepresenterUnSolide () {
       }
 
       correction += mathalea2d(params, objetsCorrection)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, A.x, A.y, B.x, B.y, C.x, C.y, D.x, D.y)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = enonce + '<br>'
         this.listeCorrections[i] = correction + '<br>'
@@ -351,11 +362,4 @@ export default function RepresenterUnSolide () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
-
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

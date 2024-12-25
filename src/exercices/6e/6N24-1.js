@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
@@ -19,13 +19,16 @@ export const refs = {
   'fr-fr': ['6N24-1'],
   'fr-ch': ['9NO10-5']
 }
-export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 () {
-  Exercice.call(this)
-  this.consigne = "Donner l'écriture décimale."
-  this.spacing = 2
-  this.spacingCorr = 2
+export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = "Donner l'écriture décimale."
+    this.spacing = 2
+    this.spacingCorr = 2
+  }
+
+  nouvelleVersion () {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;

@@ -5,7 +5,7 @@ import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
@@ -27,18 +27,23 @@ export const refs = {
   'fr-fr': ['6P10'],
   'fr-ch': ['9FA3-1']
 }
-export default function ProportionnalitePasProportionnalite () {
-  Exercice.call(this)
-  context.isHtml ? this.spacing = 2 : this.spacing = 1.4
-  context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
-  this.nbQuestions = 5
+export default class ProportionnalitePasProportionnalite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Avec \'je ne sais pas\' dans le QCM']
 
-  this.nbColsModifiable = false
-  this.nbColsCorrModifiable = false
-  this.sup = 6
-  this.sup2 = true
+    context.isHtml ? this.spacing = 2 : this.spacing = 1.4
+    context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.nbColsModifiable = false
+    this.nbColsCorrModifiable = false
+    this.sup = 6
+    this.sup2 = true
+  }
+
+  nouvelleVersion () {
     let bonneReponse
 
     this.consigne = this.interactif ? 'Cocher la bonne réponse.' : this.nbQuestions > 1 ? 'Répondre aux questions posées en justifiant.' : 'Répondre à la question posée en justifiant.'
@@ -330,6 +335,4 @@ export default function ProportionnalitePasProportionnalite () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Avec \'je ne sais pas\' dans le QCM']
 }

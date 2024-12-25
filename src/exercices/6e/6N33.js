@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -28,17 +28,21 @@ export const refs = {
   'fr-fr': ['6N33'],
   'fr-ch': ['9NO14-1']
 }
-export default function FractionDUnNombre () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.consigne = 'Calculer.'
-  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
-  this.sup = true
-  this.sup2 = false
-  this.nbCols = 2
+export default class FractionDUnNombre extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Forcer résultat entier', true]
+    this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes', false]
+    this.nbQuestions = 5
+    this.consigne = 'Calculer.'
+    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.sup = true
+    this.sup2 = false
+    this.nbCols = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -211,6 +215,4 @@ export default function FractionDUnNombre () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Forcer résultat entier', true]
-  this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes', false]
 }

@@ -3,7 +3,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { pave3d, point3d } from '../../modules/3d'
@@ -32,16 +32,8 @@ export const refs = {
   'fr-fr': ['6G42-1'],
   'fr-ch': ['9ES7-5']
 }
-export default function LireFacePaveDroit () {
-  Exercice.call(this)
-  this.nbQuestions = 1
 
-  this.sup = 3
-  this.sup2 = 7
-  this.sup3 = 1
-  this.sup4 = 6
-
-  /**
+/**
      * Inverse une chaîne de caractères
      * @param {string} str Chaîne à inverser
      * @author Eric Elter
@@ -49,50 +41,45 @@ export default function LireFacePaveDroit () {
      * @example inverseChaine('parfait') renvoie 'tiafrap'
      * @example inverseChaine('1234') renvoie '4321'
      */
-  function inverseChaine (str) {
-    return (str === '') ? '' : inverseChaine(str.substr(1)) + str.charAt(0)
+function inverseChaine (str: string): string {
+  return (str === '') ? '' : inverseChaine(str.substr(1)) + str.charAt(0)
+}
+
+function differentsNomsPossiblesDUneFace (face: string, nomSolide: string): string[] {
+  let nouvelleFaceChiffree = ''
+  let nouvelleFace = ''
+  const tabChiffre: string[] = [face, inverseChaine(face)]
+  const tab = []
+  for (let i = 0; i < face.length - 1; i++) {
+    nouvelleFaceChiffree = `${tabChiffre[2 * i].charAt(3)}${tabChiffre[2 * i].slice(0, 3)}`
+    tabChiffre.push(nouvelleFaceChiffree, inverseChaine(nouvelleFaceChiffree))
+  }
+  for (let i = 0; i < tabChiffre.length; i++) {
+    nouvelleFace = ''
+    for (let j = 0; j < face.length; j++) {
+      nouvelleFace += nomSolide[Number(tabChiffre[i][j])]
+    }
+    tab.push(nouvelleFace)
+  }
+  return tab
+}
+export default class LireFacePaveDroit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de faces à trouver (entre 1 et 6)', 6]
+    this.besoinFormulaire2Texte = ['Faces à exclure du choix', 'Nombres séparés par des tirets\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure']
+    this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique']
+    this.besoinFormulaire4Numerique = ['Nombre de réponses dans le QCM (entre 2 et 6)', 6]
+    this.nbQuestions = 1
+    this.sup = 3
+    this.sup2 = 7
+    this.sup3 = 1
+    this.sup4 = 6
   }
 
-  function differentsNomsPossiblesDUneFace (face, nomSolide) {
-    let nouvelleFaceChiffree = ''
-    let nouvelleFace = ''
-    const tabChiffre = [face, inverseChaine(face)]
-    const tab = []
-    for (let i = 0; i < face.length - 1; i++) {
-      nouvelleFaceChiffree = tabChiffre[2 * i][3] + tabChiffre[2 * i].slice(0, 3)
-      tabChiffre.push(nouvelleFaceChiffree, inverseChaine(nouvelleFaceChiffree))
-    }
-    for (let i = 0; i < tabChiffre.length; i++) {
-      nouvelleFace = ''
-      for (let j = 0; j < face.length; j++) {
-        nouvelleFace += nomSolide[tabChiffre[i][j]]
-      }
-      tab.push(nouvelleFace)
-    }
-    return tab
-  }
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup4 = contraindreValeur(2, 6, this.sup4, 6)
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
-
-    /*
-        let typesDeQuestionsIndisponibles = []
-        if (!this.sup2) { // Si aucune liste n'est saisie
-          typesDeQuestionsIndisponibles = 7
-        } else {
-          if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-            typesDeQuestionsIndisponibles[0] = contraindreValeur(1, 6, this.sup2, 1)
-          } else {
-            typesDeQuestionsIndisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < typesDeQuestionsIndisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              typesDeQuestionsIndisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsIndisponibles[i]), 1) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-        if (compteOccurences(typesDeQuestionsIndisponibles, 7) > 0) typesDeQuestionsIndisponibles = [] // Teste si l'utilisateur a choisi rien
-        enleveDoublonNum(typesDeQuestionsIndisponibles)
-        */
 
     const typesDeQuestionsIndisponibles = gestionnaireFormulaireTexte({
       max: 6,
@@ -100,10 +87,11 @@ export default function LireFacePaveDroit () {
       nbQuestions: this.nbQuestions,
       shuffle: false,
       saisie: this.sup2,
-      enleveDoublons: true
-    })
+      enleveDoublons: true,
+      melange: 0
+    }).map(Number)
 
-    function comparerNombres (a, b) {
+    function comparerNombres (a: number, b: number): number {
       return a - b
     }
 
@@ -116,10 +104,11 @@ export default function LireFacePaveDroit () {
     let indiceQuestion
 
     for (let i = 0, texte, texteCorr, objetsEnonce, A, B, D, E, solideDessine, nomSolide, enonceAMC, enonceFigure,
-      L, p, choixProfondeur, facesPossibles, h, resultatsPossibles, resultatsImpossibles, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      L, p, choixProfondeur, facesPossibles, h, resultatsPossibles, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
       objetsEnonce = []
+      let resultatsImpossibles = []
       context.anglePerspective = choice([-30, -60, 30, 60])
 
       L = randint(5, 20)
@@ -145,6 +134,7 @@ export default function LireFacePaveDroit () {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: enonceFigure,
+          // @ts-expect-error
           enonceCentre: false,
           options: {
             ordered: false
@@ -182,10 +172,13 @@ export default function LireFacePaveDroit () {
             statut: true
           }]
           for (let j = 0; j < Math.min(resultatsImpossibles.length, this.sup4 - 1); j++) {
-            this.autoCorrection[indiceQuestion].propositions.push({
-              texte: `${resultatsImpossibles[j]}`,
-              statut: false
-            })
+            const props = this.autoCorrection[indiceQuestion].propositions
+            if (props) {
+              props.push({
+                texte: `${resultatsImpossibles[j]}`,
+                statut: false
+              })
+            }
           }
 
           this.autoCorrection[indiceQuestion].options = {}
@@ -195,9 +188,11 @@ export default function LireFacePaveDroit () {
           texte += ajouteChampTexteMathLive(this, indiceQuestion, ' ') + KeyboardType.alphanumeric + '<br>'
         }
         if (context.isAmc) {
+          // @ts-expect-error
           this.autoCorrection[i].propositions.push(
             {
               type: 'qcmMono',
+              // @ts-expect-error
               enonce: enonceAMC,
               propositions: [
                 {
@@ -208,10 +203,15 @@ export default function LireFacePaveDroit () {
             }
           )
           for (let j = 0; j < Math.min(resultatsImpossibles.length, this.sup4 - 1); j++) {
-            this.autoCorrection[i].propositions[ee].propositions.push({
-              texte: `${resultatsImpossibles[j]}`,
-              statut: false
-            })
+            const props = this.autoCorrection[i].propositions
+            if (props) {
+              // @ts-expect-error
+              const props2 = props[ee].propositions
+              props2.push({
+                texte: `${resultatsImpossibles[j]}`,
+                statut: false
+              })
+            }
           }
         }
       }
@@ -226,8 +226,4 @@ export default function LireFacePaveDroit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de faces à trouver (entre 1 et 6)', 6]
-  this.besoinFormulaire2Texte = ['Faces à exclure du choix', 'Nombres séparés par des tirets\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure']
-  this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique']
-  this.besoinFormulaire4Numerique = ['Nombre de réponses dans le QCM (entre 2 et 6)', 6]
 }

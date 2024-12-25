@@ -3,7 +3,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texPrix } from '../../lib/format/style'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -25,14 +25,17 @@ export const refs = {
   'fr-fr': ['6N33-3'],
   'fr-ch': ['9NO15-2']
 }
-export default function AppliquerUnPourcentage () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.spacingCorr = 2
+export default class AppliquerUnPourcentage extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.spacingCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]
     const choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const listePourcentages = [10, 20, 30, 40, 50]

@@ -1,6 +1,6 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -20,20 +20,21 @@ export const refs = {
   'fr-fr': ['6N22-1'],
   'fr-ch': ['9NO10-6']
 }
-export default function RapportsSurUnSegment () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class RapportsSurUnSegment extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Sur tous les axes, les graduations sont régulières.'
+    this.nbQuestions = 2
 
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.consigne = 'Sur tous les axes, les graduations sont régulières.'
 
-  let typesDeQuestionsDisponibles
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+  }
 
-  this.nouvelleVersion = function () {
-    typesDeQuestionsDisponibles = [0, 1]
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [0, 1]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 

@@ -4,7 +4,7 @@ import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -34,15 +34,20 @@ export const refs = {
   'fr-fr': ['6M22-2'],
   'fr-ch': ['10GM1-3']
 }
-export default function Perimetre_aire_et_portions_de_disques () {
-  Exercice.call(this)
-  this.sup = 3 // 1 : périmètre, 2 : aire, 3 : périmètres et aires
-  this.sup2 = 4
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 3
+export default class Perimetre_aire_et_portions_de_disques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
+    this.besoinFormulaire2Texte = ['Type de figures', '1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.sup = 3 // 1 : périmètre, 2 : aire, 3 : périmètres et aires
+    this.sup2 = 4
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 3
+  }
+
+  nouvelleVersion () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       max: 3,
@@ -272,7 +277,4 @@ export default function Perimetre_aire_et_portions_de_disques () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
-  this.besoinFormulaire2Texte = ['Type de figures', '1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
 }

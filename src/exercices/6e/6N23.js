@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,16 +26,19 @@ export const refs = {
   'fr-fr': ['6N23'],
   'fr-ch': []
 }
-export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
-  Exercice.call(this)
-  this.consigne = "Donner l'écriture décimale."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
+export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = "Donner l'écriture décimale."
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;

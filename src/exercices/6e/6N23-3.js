@@ -4,7 +4,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -33,19 +33,22 @@ export const refs = {
   'fr-fr': ['6N23-3'],
   'fr-ch': ['9NO11-7']
 }
-export default function LireUneAbscisseAvecZoom () {
-  Exercice.call(this)
-  this.niveau = 'sixième'
-  this.sup = 3
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 3
+export default class LireUneAbscisseAvecZoom extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']
+    this.niveau = 'sixième'
+    this.sup = 3
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 3
+    }
+    this.vspace = -1
+
+    this.nbQuestions = 1
   }
-  this.vspace = -1
 
-  this.nbQuestions = 1
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let reponse1
       let reponse2A
@@ -637,5 +640,4 @@ export default function LireUneAbscisseAvecZoom () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']
 }

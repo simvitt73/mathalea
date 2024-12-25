@@ -1,6 +1,6 @@
 import { droite } from '../../lib/2d/droites'
 import { pointAdistance, pointSurDroite, tracePoint } from '../../lib/2d/points'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { labelPoint } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
@@ -85,7 +85,7 @@ export default class ReconnaitreDesPointsAlignes extends Exercice {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, A.nom, B.nom, typesDeQuestionsDisponibles === 'oui' ? C.nom : D.nom)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, A.nom, B.nom, typesDeQuestionsDisponibles[i] === 'oui' ? C.nom : D.nom)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

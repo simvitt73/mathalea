@@ -7,7 +7,7 @@ import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -32,15 +32,24 @@ export const refs = {
   'fr-fr': ['6M11-1'],
   'fr-ch': ['9GM1-4']
 }
-export default function PerimetreOuAireDeCarresRectanglesTriangles () {
-  Exercice.call(this)
-  this.interactif = false
+export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de figures',
+      'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
+    ]
+    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
+    this.besoinFormulaire3CaseACocher = ['Avec figures']
+    this.interactif = false
 
-  this.nbQuestions = 1
-  this.sup = 4
-  this.sup2 = 3
-  this.sup3 = true
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.sup = 4
+    this.sup2 = 3
+    this.sup3 = true
+  }
+
+  nouvelleVersion () {
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
@@ -292,10 +301,4 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de figures',
-    'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
-  ]
-  this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
-  this.besoinFormulaire3CaseACocher = ['Avec figures']
 }

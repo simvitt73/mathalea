@@ -2,7 +2,7 @@ import { droiteGraduee } from '../../lib/2d/reperes'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -28,16 +28,22 @@ export const refs = {
   'fr-fr': ['6N30-1'],
   'fr-ch': ['9NO7-2']
 }
-export default function LireAbscisseDecimaleBis2d () {
-  Exercice.call(this)
-  this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
-  this.nbQuestions = 3
+export default class LireAbscisseDecimaleBis2d extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des subdivisions',
+      'Nombres séparés par des tirets\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
+    ]
+    this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
+    this.nbQuestions = 3
 
-  this.sup = 7
-  this.interactif = false
-  this.niveau = 6
+    this.sup = 7
+    this.interactif = false
+    this.niveau = 6
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     // numeroExercice est 0 pour l'exercice 1
     /*
         let QuestionsDisponibles
@@ -183,8 +189,4 @@ export default function LireAbscisseDecimaleBis2d () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des subdivisions',
-    'Nombres séparés par des tirets\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
-  ]
 }

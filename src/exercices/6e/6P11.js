@@ -10,7 +10,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -846,18 +846,24 @@ export const refs = {
   'fr-fr': ['6P11'],
   'fr-ch': ['9FA3-9']
 }
-export default function ProportionnaliteParLinearite () {
-  let question
-  Exercice.call(this)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nbQuestions = 6
+export default class ProportionnaliteParLinearite extends Exercice {
+  constructor () {
+    super()
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.nbQuestions = 6
 
-  this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
-  this.sup = false
-  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
-  this.sup2 = 7
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
+    this.sup = false
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
+    this.sup2 = 7
+  }
+
+  nouvelleVersion () {
+    let question
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+
     if (this.interactif) {
       this.consigne = ''
     } else {

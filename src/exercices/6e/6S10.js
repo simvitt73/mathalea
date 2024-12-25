@@ -2,7 +2,7 @@ import { repere } from '../../lib/2d/reperes'
 import { traceBarre } from '../../lib/2d/diagrammes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -26,17 +26,23 @@ export const refs = {
   'fr-fr': ['6S10'],
   'fr-ch': ['9FA1-1']
 }
-export default function LectureDiagrammeBaton () {
-  Exercice.call(this)
-  this.consigne = "Répondre aux questions à l'aide du graphique."
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class LectureDiagrammeBaton extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : 4 espèces\n2 : 5 espèces\n3 : 6 espèces']
+    this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
 
-  this.sup = 1
-  this.sup2 = 1
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nouvelleVersion = function () {
+    this.consigne = "Répondre aux questions à l'aide du graphique."
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    this.sup = 1
+    this.sup2 = 1
+    this.spacing = 2
+    this.spacingCorr = 2
+  }
+
+  nouvelleVersion () {
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
@@ -198,6 +204,4 @@ export default function LectureDiagrammeBaton () {
       this.listeQuestions[2] += `<br>${qcm2.texte}`
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : 4 espèces\n2 : 5 espèces\n3 : 6 espèces']
-  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
 }

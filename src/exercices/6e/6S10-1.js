@@ -9,7 +9,7 @@ import { rotation, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -31,12 +31,18 @@ export const refs = {
   'fr-fr': ['6S10-1'],
   'fr-ch': ['9FA1-2']
 }
-export default function LireUnDiagramme () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.sup = 3
-  this.sup2 = 5
-  this.nouvelleVersion = function () {
+export default class LireUnDiagramme extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
+    this.besoinFormulaire2Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
+
+    this.nbQuestions = 2
+    this.sup = 3
+    this.sup2 = 5
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     if (this.sup2 < 5) {
       typesDeQuestionsDisponibles = [this.sup2]
@@ -341,6 +347,4 @@ export default function LireUnDiagramme () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
-  this.besoinFormulaire2Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
 }

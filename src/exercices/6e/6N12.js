@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -28,16 +28,20 @@ export const refs = {
   'fr-fr': ['6N12'],
   'fr-ch': ['9NO3-2']
 }
-export default function MultiplierEntierPar101001000 () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 2
-  this.sup2 = 1
+export default class MultiplierEntierPar101001000 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication ou division par 10, 100 ou 1 000\n2 : Multiplication ou division par 10, 100, 1 000, 10 000 ou 100 000']
+    this.besoinFormulaire2Numerique = ['Multiplication ou division', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
+    this.consigne = 'Calculer.'
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 2
+    this.sup2 = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -142,6 +146,4 @@ export default function MultiplierEntierPar101001000 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication ou division par 10, 100 ou 1 000\n2 : Multiplication ou division par 10, 100, 1 000, 10 000 ou 100 000']
-  this.besoinFormulaire2Numerique = ['Multiplication ou division', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
 }

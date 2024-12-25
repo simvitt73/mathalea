@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { format } from 'mathjs'
@@ -26,19 +26,32 @@ export const refs = {
   'fr-ch': ['9NO10-10']
 }
 export const uuid = '708a9'
-export default function ExerciceEcritureDecimaleOuFractionDecimale () {
-  Exercice.call(this)
-  this.consigne = "Donner l'écriture décimale ou la fraction décimale."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = '1-2' // Type de question
-  this.sup2 = true
-  this.sup3 = true
+export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Ecriture décimale -> fraction décimale',
+        '2 : Fraction décimale -> écriture décimale',
+        '3 : Mélange'
+      ].join('\n')
+    ]
+    this.besoinFormulaire2CaseACocher = ['Dénominateur déjà saisi']
+    this.besoinFormulaire3CaseACocher = ['Avec des zéros inutiles']
 
-  this.nouvelleVersion = function () {
+    this.consigne = "Donner l'écriture décimale ou la fraction décimale."
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = '1-2' // Type de question
+    this.sup2 = true
+    this.sup3 = true
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 2,
       defaut: 3,
@@ -132,15 +145,5 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Ecriture décimale -> fraction décimale',
-      '2 : Fraction décimale -> écriture décimale',
-      '3 : Mélange'
-    ].join('\n')
-  ]
-  this.besoinFormulaire2CaseACocher = ['Dénominateur déjà saisi']
-  this.besoinFormulaire3CaseACocher = ['Avec des zéros inutiles']
 }
 const texFraction = (a, b) => `\\dfrac{${a}}{${b}}`

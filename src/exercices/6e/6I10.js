@@ -3,7 +3,7 @@ import { polygone } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
@@ -24,22 +24,27 @@ export const refs = {
   'fr-fr': ['6I10'],
   'fr-ch': []
 }
-export default function ColorierDeplacement () {
-  Exercice.call(this)
-  this.typeExercice = 'Scratch'
-  this.sup = 1 // nombre de commandes = this.sup + 2
-  this.sup2 = false // 1 : sans boucle ; true : avec boucle
-  this.sup3 = false
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class ColorierDeplacement extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'instructions de déplacements', 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions']
+    this.besoinFormulaire2CaseACocher = ['Avec une boucle']
+    this.besoinFormulaire3CaseACocher = ['Sans retour sur ses pas']
+    this.typeExercice = 'Scratch'
+    this.sup = 1 // nombre de commandes = this.sup + 2
+    this.sup2 = false // 1 : sans boucle ; true : avec boucle
+    this.sup3 = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.consigne = 'Dans le quadrillage, effectuer le programme.'
+    this.consigne = 'Dans le quadrillage, effectuer le programme.'
 
-  this.nbQuestionsModifiable = false
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestionsModifiable = false
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     function scratchblocksTikz (codeSvg, codeTikz) {
       // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {
@@ -211,7 +216,4 @@ export default function ColorierDeplacement () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'instructions de déplacements', 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions']
-  this.besoinFormulaire2CaseACocher = ['Avec une boucle']
-  this.besoinFormulaire3CaseACocher = ['Sans retour sur ses pas']
 }

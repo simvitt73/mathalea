@@ -8,7 +8,7 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -65,8 +65,10 @@ function segmentAlternatif (reponses) {
   }
 }
 
-export default function VocabulaireDuCercle () {
-  Exercice.call(this)
+export default class VocabulaireDuCercle extends Exercice {
+ constructor() {
+ super()
+ 
   this.nbQuestions = 1
 
   this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
@@ -93,7 +95,8 @@ export default function VocabulaireDuCercle () {
 
   this.avecLeCentreQuiEstAussiLeMilieu = false
 
-  this.nouvelleVersion = function () {
+   }
+ nouvelleVersion() {
     const typesDeQuestions = String(this.sup3 ?? typesDeQuestionsParDefaut)
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     if (context.isHtml) this.consigne += '<br><br>'

@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu,
   randint,
@@ -30,12 +30,16 @@ export const refs = {
   'fr-fr': ['6N23-5'],
   'fr-ch': ['9NO10-4']
 }
-export default function SensDeLaFraction () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.sup = '5'
+export default class SensDeLaFraction extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de questions', '1: Le quotient de a par b\n2: Le nombre qui, multiplié par b, donne a\n3: a divisé par b\n4 Nombre décimal\n5: Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.sup = '5'
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nin: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions })
 
     for (let i = 0, texte, texteCorr, a, b, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -207,6 +211,4 @@ export default function SensDeLaFraction () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireTexte = ['Type de questions', '1: Le quotient de a par b\n2: Le nombre qui, multiplié par b, donne a\n3: a divisé par b\n4 Nombre décimal\n5: Mélange']
 }

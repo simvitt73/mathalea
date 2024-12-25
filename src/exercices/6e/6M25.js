@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 export const titre = 'Connaître le cours sur le périmètre et l\'aire'
 
@@ -14,12 +14,14 @@ export const refs = {
   'fr-fr': ['6M25'],
   'fr-ch': ['10GM1-4']
 }
-export default function ConnaitreFormulesDePerimetreEtAires () {
-  Exercice.call(this)
+export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4
+    this.nbQuestions = 4
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeQuestions = combinaisonListes(
       [
         'pi',

@@ -5,7 +5,7 @@ import {
   nombreDeChiffresDansLaPartieEntiere
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -41,17 +41,36 @@ export const refs = {
   'fr-fr': ['6N23-6'],
   'fr-ch': ['9NO10-7']
 }
-export default function DivisionFraction () {
-  Exercice.call(this)
-  this.consigne = 'Calculer la valeur décimale des fractions suivantes.'
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
-  this.nbQuestions = 4
-  this.sup = 1
-  // this.sup2 = false
-  this.sup3 = '10'
+export default class DivisionFraction extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      2,
+      '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près'
+    ]
+    // this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+    this.besoinFormulaire3Texte = ['Types de questions', `Nombres séparés par des tirets
+1 : entier divisé par 4 (quotient exact)
+2 : entier divisé par 8 (quotient exact)
+3 : entier divisé par 6 (quotient exact)
+4 : entier divisé par 2 (quotient exact)
+5 : entier divisé par 5 (quotient exact)
+6 : entier divisé par 10 (quotient exact)
+7 : entier divisé par 7 (quotient approché)
+8 : entier divisé par 9 (quotient approché)
+9 : entier divisé par 3 (quotient approché)
+10 : Mélange`]
+    this.consigne = 'Calculer la valeur décimale des fractions suivantes.'
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
+    this.nbQuestions = 4
+    this.sup = 1
+    // this.sup2 = false
+    this.sup3 = '10'
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: this.sup === 1 ? 1 : 7,
@@ -153,23 +172,6 @@ export default function DivisionFraction () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Type de questions',
-    2,
-    '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près'
-  ]
-  // this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire3Texte = ['Types de questions', `Nombres séparés par des tirets
-1 : entier divisé par 4 (quotient exact)
-2 : entier divisé par 8 (quotient exact)
-3 : entier divisé par 6 (quotient exact)
-4 : entier divisé par 2 (quotient exact)
-5 : entier divisé par 5 (quotient exact)
-6 : entier divisé par 10 (quotient exact)
-7 : entier divisé par 7 (quotient approché)
-8 : entier divisé par 9 (quotient approché)
-9 : entier divisé par 3 (quotient approché)
-10 : Mélange`]
 }
 
 function texFraction (num, den) {

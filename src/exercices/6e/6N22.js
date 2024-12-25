@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -29,20 +29,25 @@ export const refs = {
   'fr-fr': ['6N22'],
   'fr-ch': ['9NO13-2']
 }
-export default function FractionsCalculsSimples () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.sup = true
-  this.sup2 = 5
-  this.nbQuestions = 6 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 4 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class FractionsCalculsSimples extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec un schéma interactif']
+    this.besoinFormulaire2Texte = ['Type d\'opérations', 'Nombres séparés par des tirets\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange']
 
-  this.correctionDetaillee = true
-  this.correctionDetailleeDisponible = true
+    this.consigne = 'Calculer.'
+    this.sup = true
+    this.sup2 = 5
+    this.nbQuestions = 6 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 4 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = function () {
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     if (this.sup) {
       this.consigne = 'Calculer en s\'aidant éventuellement du schéma.'
     } else {
@@ -222,6 +227,4 @@ export default function FractionsCalculsSimples () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireCaseACocher = ['Avec un schéma interactif']
-  this.besoinFormulaire2Texte = ['Type d\'opérations', 'Nombres séparés par des tirets\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange']
 }

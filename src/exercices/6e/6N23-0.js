@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive'
@@ -26,14 +26,21 @@ export const refs = {
   'fr-fr': ['6N23-0'],
   'fr-ch': ['9NO7-10']
 }
-export default function ÉcrireNombresDecimal () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class ÉcrireNombresDecimal extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
+    this.besoinFormulaire3Numerique = ['Type d\'écriture', 3, '1 : Écriture avec le mot virgule\n2 : Ériture sans le mot virgule\n3 : Mélange']
 
-  this.sup = 1
-  this.sup2 = 1
-  this.sup3 = 3
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+
+    this.sup = 1
+    this.sup2 = 1
+    this.sup3 = 3
+  }
+
+  nouvelleVersion () {
     let formatEcriture = []
     if (this.sup === 1) {
       formatEcriture = combinaisonListes([true], this.nbQuestions)
@@ -125,7 +132,4 @@ export default function ÉcrireNombresDecimal () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
-  this.besoinFormulaire3Numerique = ['Type d\'écriture', 3, '1 : Écriture avec le mot virgule\n2 : Ériture sans le mot virgule\n3 : Mélange']
 }

@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -27,13 +27,19 @@ export const refs = {
   'fr-fr': ['6N10-0'],
   'fr-ch': ['9NO1-2']
 }
-export default function ÉcrireNombresEntiers () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class ÉcrireNombresEntiers extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
+    this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire (jusqu\'à la classe des milliers) \n2 : Facile (jusqu\'à la classe des millions)\n3 : Moyen (jusqu\'à la classe des milliards)\n4 : Difficile']
 
-  this.sup = 1
-  this.sup2 = 3
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+
+    this.sup = 1
+    this.sup2 = 3
+  }
+
+  nouvelleVersion () {
     let typeDeConsigne = []
     if (this.sup === 1) {
       this.consigne = 'Écrire le nombre en lettres.'
@@ -99,6 +105,4 @@ export default function ÉcrireNombresEntiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
-  this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire (jusqu\'à la classe des milliers) \n2 : Facile (jusqu\'à la classe des millions)\n3 : Moyen (jusqu\'à la classe des milliards)\n4 : Difficile']
 }
