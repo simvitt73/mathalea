@@ -21,7 +21,7 @@ export const refs = {
 
 /**
  *
- * @autor  Jean-Claude Lhote
+ * @author  Jean-Claude Lhote
  */
 export default class EquationsLog extends Exercice {
   version: string

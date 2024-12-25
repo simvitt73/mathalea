@@ -9,7 +9,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 import { rienSi1 } from '../../../lib/outils/ecritures'
 
-export const titre = 'Calculs avec la fonction logarithme'
+export const titre = 'Calculer avec la fonction logarithme'
 export const dateDePublication = '22/7/2024'
 export const uuid = 'b9c63'
 export const interactifReady = true
@@ -33,7 +33,6 @@ export default class CalculsLog extends Exercice {
     this.consigne = 'Calculer.'
     this.spacingCorr = 3
     this.sup = '4'
-    this.sup2 = false
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : logarithme(a^n)\n2 : logarithme(1/a^n)\n3 : exponentiation\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.comment = 'Exercice de calculs de logarithmes'
@@ -154,7 +153,7 @@ export default class CalculsLog extends Exercice {
       if (this.questionJamaisPosee(i, n, listeTypeQuestions[i])) {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance, { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' })
           handleAnswers(this, i, { reponse: { value: answer } })
         }
         this.listeQuestions[i] = texte

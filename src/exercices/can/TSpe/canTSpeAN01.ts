@@ -20,7 +20,7 @@ export const refs = {
 
 /**
  * Exprimer un nombre en fonction de ln(2), ln(3), ln(5)...
- * @autor  Jean-Claude Lhote
+ * @author  Jean-Claude Lhote
 
  */
 export default class ExpressionsLog extends Exercice {
@@ -101,7 +101,7 @@ export default class ExpressionsLog extends Exercice {
       if (this.questionJamaisPosee(i, n, listeTypeQuestions[i], k instanceof FractionEtendue ? k.texFraction : k)) {
         texte = `Exprimer en fonction de $${logString} ${a}$ le nombre suivant  : ` + `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance, { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' })
           handleAnswers(this, i, { reponse: { value: answer } })
         }
         this.listeQuestions[i] = texte

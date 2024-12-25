@@ -22,7 +22,7 @@ export const refs = {
 
 /**
  *  : Résolution d'équations du type a^x = b
- * @autor Claire Rousset
+ * @author Claire Rousset
 
  */
 export default class EquationsLog extends Exercice {

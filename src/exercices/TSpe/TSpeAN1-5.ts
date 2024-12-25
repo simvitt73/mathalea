@@ -21,7 +21,7 @@ export const refs = {
 const listeExposants = [1, 2, 3, -1, -2, -3]
 /**
  * Réduire une expression en fonction de ln/log de x
- * @autor  Jean-Claude Lhote
+ * @author  Jean-Claude Lhote
 
  */
 export default class ExpressionsLogX extends Exercice {

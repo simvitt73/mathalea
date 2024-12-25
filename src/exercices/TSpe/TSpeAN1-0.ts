@@ -22,7 +22,7 @@ export const refs = {
 
 /**
  *
- * @autor Claire Rousset (un peu aidé par Jean-Claude Lhote)
+ * @author Claire Rousset (un peu aidé par Jean-Claude Lhote)
 
  */
 export default class InequationsLog extends Exercice {
