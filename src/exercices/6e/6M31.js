@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texTexte } from '../../lib/format/texTexte'
@@ -38,22 +38,33 @@ export const refs = {
   'fr-fr': ['6M31'],
   'fr-ch': ['9GM2-3']
 }
-export default function ExerciceConversionsVolumes () {
-  Exercice.call(this)
-  this.sup = 1 // Niveau de difficulté de l`exercice
-  this.sup2 = false // Avec des nombres décimaux ou pas
-  this.sup3 = 1 // interactifType Qcm
-  this.spacing = 2
 
-  function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
-    let a = new Decimal(0)
-    for (let i = 0; i < nbChiffres; i++) {
-      a = a.add(randint(1, 9) * 10 ** i)
-    }
-    return a
+function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
+  let a = new Decimal(0)
+  for (let i = 0; i < nbChiffres; i++) {
+    a = a.add(randint(1, 9) * 10 ** i)
+  }
+  return a
+}
+export default class ExerciceConversionsVolumes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.besoinFormulaire4CaseACocher = ['Avec tableau', false]
+
+    this.sup = 1 // Niveau de difficulté de l`exercice
+    this.sup2 = false // Avec des nombres décimaux ou pas
+    this.sup3 = 1 // interactifType Qcm
+    this.spacing = 2
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    if (context.isHtml && !(context.vue === 'diap')) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
 
@@ -318,14 +329,6 @@ export default function ExerciceConversionsVolumes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    5,
-    '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Mélange'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  if (context.isHtml && !(context.vue === 'diap')) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
-  this.besoinFormulaire4CaseACocher = ['Avec tableau', false]
 }
 
 function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {

@@ -1,5 +1,5 @@
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
@@ -38,16 +38,31 @@ export const refs = {
   'fr-fr': ['6N23-1'],
   'fr-ch': ['9NO10-11']
 }
-export default function ExerciceDifferentesEcrituresNombresDecimaux () {
-  Exercice.call(this)
-  this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = '1-2-3' // Type de question
+export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : n/100 = ...+.../10 + .../100',
+        '2 : n/100 = ...+.../100 + .../10',
+        '3 : .../100 = u + d/10 + c/100',
+        '4 : u = .../10',
+        '5 : u = .../100',
+        '6 : n/10 = ... + .../10 + .../100',
+        '7 :  .../100 = u + d/10',
+        '8 : Mélange'
+      ].join('\n')
+    ]
+    this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = '1-2-3' // Type de question
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestions
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 7,
@@ -557,17 +572,4 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : n/100 = ...+.../10 + .../100',
-      '2 : n/100 = ...+.../100 + .../10',
-      '3 : .../100 = u + d/10 + c/100',
-      '4 : u = .../10',
-      '5 : u = .../100',
-      '6 : n/10 = ... + .../10 + .../100',
-      '7 :  .../100 = u + d/10',
-      '8 : Mélange'
-    ].join('\n')
-  ]
 }

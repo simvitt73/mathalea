@@ -8,7 +8,7 @@ import {
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -40,20 +40,23 @@ export const refs = {
   'fr-fr': ['6N23-2'],
   'fr-ch': ['9NO11-7']
 }
-export default function LireAbscisseDecimaleTroisFormes () {
-  Exercice.call(this)
-  this.niveau = 'sixième'
+export default class LireAbscisseDecimaleTroisFormes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']
+    this.niveau = 'sixième'
 
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 3
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 3
+    }
+    this.vspace = -1
+
+    this.sup = 1
+    this.nbQuestions = 1
   }
-  this.vspace = -1
 
-  this.sup = 1
-  this.nbQuestions = 1
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let d1
       let extremite
@@ -327,5 +330,4 @@ export default function LireAbscisseDecimaleTroisFormes () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']
 }

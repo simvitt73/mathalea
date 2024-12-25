@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -27,15 +27,20 @@ export const refs = {
   'fr-fr': ['6G43'],
   'fr-ch': ['9ES7-6']
 }
-export default function DenombrerCubes () {
-  Exercice.call(this)
-  this.nbQuestions = 3 // Ici le nombre de questions
+export default class DenombrerCubes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, 'De taille 3\nDe taille 4\nDe taille 5\nDe taille 6\nDe taille 7']
+    this.nbQuestions = 3 // Ici le nombre de questions
 
-  this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
-  this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
+    this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
+    this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
+  }
+
+  nouvelleVersion () {
+    let typesDeQuestionsDisponibles: number[] = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:
         typesDeQuestionsDisponibles = [1]
@@ -48,7 +53,7 @@ export default function DenombrerCubes () {
         break
     }
 
-    function empilementCubes (long, larg, hmax) {
+    function empilementCubes (long: number, larg: number, hmax: number) {
       const tabHauteurs = new Array(larg)
       for (let i = 0; i < larg; i++) {
         tabHauteurs[i] = new Array(long)
@@ -172,6 +177,4 @@ export default function DenombrerCubes () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, 'De taille 3\nDe taille 4\nDe taille 5\nDe taille 6\nDe taille 7']
 }

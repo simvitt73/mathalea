@@ -389,7 +389,8 @@ export function shuffle3tableaux<T, U, V> (obj1: T[], obj2: U[], obj3: V[]): voi
  *
  * @author Rémi Angot
  */
-export function combinaisonListes<T> (liste: T[], tailleMinimale: number) {
+export function combinaisonListes<T> (liste: T[], tailleMinimale?: number) {
+  if (tailleMinimale === undefined) tailleMinimale = liste.length
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = shuffle(liste) // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {

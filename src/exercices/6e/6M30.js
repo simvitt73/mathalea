@@ -3,7 +3,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -30,18 +30,30 @@ export const refs = {
   'fr-fr': ['6M30'],
   'fr-ch': ['9GM3-2']
 }
-export default function CalculDeVolumes () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class CalculDeVolumes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : Sans conversion\n2 : Avec des conversions'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
+    this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+    this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n3 : Mélange']
 
-  this.sup = 1
-  this.classe = 6
-  this.sup3 = 2
+    this.nbQuestions = 4
 
-  this.sup4 = 3
-  let thissup4Max
+    this.sup = 1
+    this.classe = 6
+    this.sup3 = 2
 
-  this.nouvelleVersion = function () {
+    this.sup4 = 3
+  }
+
+  nouvelleVersion () {
+    let thissup4Max
+
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     let piApprox = false
     if (this.sup === 3) {
@@ -443,12 +455,4 @@ export default function CalculDeVolumes () {
       this.sup = 3
     }
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    2,
-    '1 : Sans conversion\n2 : Avec des conversions'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
-  this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
-  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n3 : Mélange']
 }

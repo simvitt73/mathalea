@@ -3,7 +3,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -29,15 +29,19 @@ export const refs = {
   'fr-fr': ['6N33-0'],
   'fr-ch': ['9NO14-2']
 }
-export default function FractionDuneQuantite () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
-  this.sup = 1
-  this.sup2 = true
+export default class FractionDuneQuantite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu'à 3h)\n3 : Tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"]
+    this.besoinFormulaire2CaseACocher = ['Avec dessin', true]
+    this.nbQuestions = 5
+    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.sup = 1
+    this.sup2 = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     let listeTypeDeQuestions = []
     const choixdenh = combinaisonListes([3, 4, 5, 10, 12, 20, 30], this.nbQuestions)
@@ -181,6 +185,4 @@ export default function FractionDuneQuantite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu'à 3h)\n3 : Tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"]
-  this.besoinFormulaire2CaseACocher = ['Avec dessin', true]
 }

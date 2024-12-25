@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sommeDesChiffres } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const amcReady = true
@@ -27,15 +27,19 @@ export const refs = {
   'fr-fr': ['6N43'],
   'fr-ch': ['9NO4-4']
 }
-export default function CriteresDeDivisibilite () {
-  Exercice.call(this)
-  this.sup = 4 // Correspond au facteur commun
-  this.consigne = 'Répondre aux questions suivantes en justifiant.'
-  this.spacing = 2
+export default class CriteresDeDivisibilite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Critères de divisibilité par 2, 5 et10\n2 : Critères de divisibilité par 3 et 9\n3 : Critères de divisibilité par 2, 3, 5, 9 et 10\n4 : Avec ou sans critère de divisibilité']
 
-  this.nbQuestions = 5
+    this.sup = 4 // Correspond au facteur commun
+    this.consigne = 'Répondre aux questions suivantes en justifiant.'
+    this.spacing = 2
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+  }
+
+  nouvelleVersion () {
     let listeExercicesDisponibles
     if (this.sup === 1) {
       listeExercicesDisponibles = [2, 5, 10]
@@ -219,5 +223,4 @@ export default function CriteresDeDivisibilite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Critères de divisibilité par 2, 5 et10\n2 : Critères de divisibilité par 3 et 9\n3 : Critères de divisibilité par 2, 3, 5, 9 et 10\n4 : Avec ou sans critère de divisibilité']
 }

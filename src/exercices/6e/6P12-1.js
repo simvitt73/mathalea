@@ -20,8 +20,10 @@ export const refs = {
   'fr-fr': ['6P12-1'],
   'fr-ch': []
 }
-export default function EchellesProblemes6eme () {
-  EchellesProblemes.call(this)
-  this.sup = '2-3'
-  this.sup2 = true
+export default class EchellesProblemes6eme extends EchellesProblemes {
+  constructor () {
+    super()
+    this.sup = '2-3'
+    this.sup2 = true
+  }
 }

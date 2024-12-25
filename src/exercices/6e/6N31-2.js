@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -48,64 +48,62 @@ function myOrdreOpe3 (n) {
     return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
   }
 }
-export default function OrdreDeGrandeurOperationsDecimaux () {
-  Exercice.call(this)
-  this.besoinFormulaireTexte = ['choix des opérations (nombre séparés par des tirets', '1 : Produit\n2 : Somme\n3 : Différence\n4 : multiplication par 0,1 ; 0,01 ; 0,001\n5 : Quotient\n6 : Mélange']
-  this.besoinFormulaire2Numerique = ['Nombre de ligne dans le tableau', 5]
-  this.beta = false
-  if (this.beta) {
-    this.nbQuestions = 1
-  } else {
-    this.nbQuestions = 1
+// une fonction pour ordre de grandeur en fonction de ... opération 5
+function myOrdreOpe5 (mult) {
+  switch (mult) {
+    case 1:
+      return ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
+    case 10:
+      return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
+    case 100:
+      return ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
+    case 1000:
+    default:
+      return [`\\text{${miseEnEvidence(('X'))}`, '', '', '', '', '']
   }
-  // une fonction pour ordre de grandeur en fonction de ... opération 4
-  function myOrdreOpe4 (d, n) {
-    switch (d) {
-      case 0.1:
-        if (n > 5000) {
-          return ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
-        } else {
-          return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
-        }
-      case 0.01:
-        if (n > 5000) {
-          return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
-        } else {
-          return ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
-        }
-      case 0.001:
-      default:
-        if (n > 5000) {
-          return ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
-        } else {
-          return [`${miseEnEvidence('\\text{X}')}`, '', '', '', '', '']
-        }
-    }
-  }
-  // une fonction pour ordre de grandeur en fonction de ... opération 5
-  function myOrdreOpe5 (mult) {
-    switch (mult) {
-      case 1:
+}
+// une fonction pour ordre de grandeur en fonction de ... opération 4
+function myOrdreOpe4 (d, n) {
+  switch (d) {
+    case 0.1:
+      if (n > 5000) {
         return ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
-      case 10:
+      } else {
         return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
-      case 100:
+      }
+    case 0.01:
+      if (n > 5000) {
+        return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
+      } else {
         return ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
-      case 1000:
-      default:
-        return [`\\text{${miseEnEvidence(('X'))}`, '', '', '', '', '']
-    }
+      }
+    case 0.001:
+    default:
+      if (n > 5000) {
+        return ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
+      } else {
+        return [`${miseEnEvidence('\\text{X}')}`, '', '', '', '', '']
+      }
+  }
+}
+export default class OrdreDeGrandeurOperationsDecimaux extends Exercice {
+  constructor () {
+    super()
+
+    this.besoinFormulaireTexte = ['choix des opérations (nombre séparés par des tirets', '1 : Produit\n2 : Somme\n3 : Différence\n4 : multiplication par 0,1 ; 0,01 ; 0,001\n5 : Quotient\n6 : Mélange']
+    this.besoinFormulaire2Numerique = ['Nombre de ligne dans le tableau', 5]
+    this.nbQuestions = 1
+
+    this.consigne = 'Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l\'ordre de grandeur du résultat.'
+    this.sup = 6
+    this.sup2 = 3
+
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   }
 
-  this.consigne = 'Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l\'ordre de grandeur du résultat.'
-  this.sup = 6
-  this.sup2 = 3
-
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 6, nbQuestions: this.sup2 })
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

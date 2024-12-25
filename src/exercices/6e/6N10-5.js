@@ -1,6 +1,6 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe } from '../../modules/Labyrinthe'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -26,18 +26,27 @@ export const refs = {
   'fr-fr': ['6N10-5'],
   'fr-ch': ['9NO1-6']
 }
-export default function ExerciceLabyrintheNumeration () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class ExerciceLabyrintheNumeration extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des dizaines de mille et des dix-millièmes']
+    // this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, ' 1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
+    this.besoinFormulaire2Numerique = ['Quel chiffre recherché ?', 3, ' 1 : Unité ou au-dessus\n 2 : En dessous de l\'unité\n 3 : Peu importe']
+    this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 7 ou bien 1 si vous laissez le hasard décider)', 7]
+    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 7 ou bien 1 si vous laissez le hasard décider)', 7]
+    this.besoinFormulaire5CaseACocher = ['Que des nombres entiers']
 
-  this.sup2 = 1
-  this.sup3 = 1
-  this.sup4 = 1
-  this.sup = true
-  this.sup5 = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function () {
+    this.sup2 = 1
+    this.sup3 = 1
+    this.sup4 = 1
+    this.sup = true
+    this.sup5 = false
+  }
+
+  nouvelleVersion () {
     const tailleChiffre = !this.sup5 ? 0.7 : 1.1
     let texte, texteCorr
     const nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3)
@@ -152,10 +161,4 @@ export default function ExerciceLabyrintheNumeration () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des dizaines de mille et des dix-millièmes']
-  // this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, ' 1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
-  this.besoinFormulaire2Numerique = ['Quel chiffre recherché ?', 3, ' 1 : Unité ou au-dessus\n 2 : En dessous de l\'unité\n 3 : Peu importe']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 7 ou bien 1 si vous laissez le hasard décider)', 7]
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 7 ou bien 1 si vous laissez le hasard décider)', 7]
-  this.besoinFormulaire5CaseACocher = ['Que des nombres entiers']
 } // Fin de l'exercice.

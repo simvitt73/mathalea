@@ -17,10 +17,12 @@ export const refs = {
   'fr-fr': ['6G26'],
   'fr-ch': []
 }
-export default function SerieDeTransformations6e () {
-  SerieDeTransformations.call(this)
-
-  this.version = 1
-  this.nbQuestions = 1
-  this.besoinFormulaireNumerique = false
+export default class SerieDeTransformations6e extends SerieDeTransformations {
+  version: number
+  constructor () {
+    super()
+    this.version = 1
+    this.nbQuestions = 1
+    this.besoinFormulaireNumerique = []
+  }
 }

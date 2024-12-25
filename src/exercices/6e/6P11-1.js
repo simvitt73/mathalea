@@ -9,7 +9,7 @@ import {
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -33,16 +33,18 @@ export const refs = {
   'fr-fr': ['6P11-1'],
   'fr-ch': ['9FA3-10']
 }
-export default function ProportionnaliteParLineariteBis () {
-  Exercice.call(this)
+export default class ProportionnaliteParLineariteBis extends Exercice {
+  constructor () {
+    super()
 
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
 
-  /*  if (context.isAmc) {
+    /*  if (context.isAmc) {
     titre = 'Résoudre un problème relevant de la proportionnalité'
   } */
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const tabHash = []
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
     const prenomliste = prenom(6)

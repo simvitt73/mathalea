@@ -157,29 +157,21 @@ export default class ReconnaitreDesSolides extends Exercice {
         {
           if (axe === 3) {
             cone = cone3d(point3d(0, 0, 0), point3d(0, -7, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)), 'black', true, 'black', 'white')
-            for (let kk = 15; kk < 25; kk++) {
+            /* for (let kk = 15; kk < 25; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
-            }
-            // c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
-            // c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
-            /* const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
-                        const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
-                        const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
-                        const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
-                        cone.c2d.length = 0
-                        cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d) */
+            } */
             objets.push(...cone.c2d)
           } else if (axe === 2) {
             cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
-            for (let kk = 3; kk < 3 + 17; kk++) {
+            /* for (let kk = 3; kk < 3 + 17; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
-            }
+            } */
             objets.push(...cone.c2d)
           } else {
             cone = cone2d({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
             const t = tracePoint(cone.centre)
             const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5) as Segment
-            g.pointilles = '2'
+            g.pointilles = 2
             objets.push(cone, g, t)
           }
           reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
@@ -197,7 +189,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             const g = []
             for (let i = 0; i < c1.listePoints.length; i += 2) {
               const s = segment(c3.listePoints[i], c1.listePoints[i])
-              s.pointilles = '2'
+              s.pointilles = 2
               s.opacite = 0.3
               g.push(s)
             }
@@ -228,7 +220,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             }
             for (let i = 0; i < c2.listePoints.length; i += 2) {
               const s = segment(c4.listePoints[i], c2.listePoints[i])
-              s.pointilles = '2'
+              s.pointilles = 2
               s.opacite = 0.3
               g.push(s)
             }

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -24,15 +24,18 @@ export const refs = {
   'fr-fr': ['6N43-2'],
   'fr-ch': ['9NO4-5']
 }
-export default function TableauCriteresDeDivisibilite () {
-  Exercice.call(this)
+export default class TableauCriteresDeDivisibilite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Gros nombres', false]
 
-  this.nbQuestions = 5
+    this.nbQuestions = 5
 
-  this.sup = false
-  this.listeAvecNumerotation = false
+    this.sup = false
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.modeQcm = this.interactif
 
     if (!this.modeQcm) {
@@ -517,5 +520,4 @@ export default function TableauCriteresDeDivisibilite () {
       }
     }
   }
-  this.besoinFormulaireCaseACocher = ['Gros nombres', false]
 }

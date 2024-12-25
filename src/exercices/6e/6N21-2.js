@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -27,16 +27,21 @@ export const refs = {
   'fr-fr': ['6N21-2'],
   'fr-ch': ['9NO11-6']
 }
-export default function LireAbscissesFractionnairesComplexes () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class LireAbscissesFractionnairesComplexes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté :', 3, '1 : Graduation en 1/4, 1/6, 1/8, 1/9, 1/10\n2 : Graduation en 1/12, 1/14, 1/16, 1/18 et 1/20\n3 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Avec des fractions simplifiées', true]
+    this.besoinFormulaire3CaseACocher = ['Avec des valeurs négatives', false]
+    this.nbQuestions = 5
 
-  this.sup = 1 // Niveau de difficulté
-  this.sup2 = true // avec des fractions simplifiées
-  this.sup3 = false // valeurs positives si false sinon valeurs positives et négatives
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 1 // Niveau de difficulté
+    this.sup2 = true // avec des fractions simplifiées
+    this.sup3 = false // valeurs positives si false sinon valeurs positives et négatives
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typeDeQuestions
     if (this.sup > 2) {
       typeDeQuestions = combinaisonListes([0, 1], this.nbQuestions)
@@ -130,9 +135,6 @@ export default function LireAbscissesFractionnairesComplexes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté :', 3, '1 : Graduation en 1/4, 1/6, 1/8, 1/9, 1/10\n2 : Graduation en 1/12, 1/14, 1/16, 1/18 et 1/20\n3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Avec des fractions simplifiées', true]
-  this.besoinFormulaire3CaseACocher = ['Avec des valeurs négatives', false]
 }
 
 function trouveNumerateur (den, min, max, fractionsAEviter = []) {

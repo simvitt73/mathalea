@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -30,15 +30,22 @@ export const refs = {
   'fr-fr': ['6N10-1'],
   'fr-ch': []
 }
-export default function ExerciceNumerationEntier () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.sup = false
-  this.sup2 = true
-  this.sup3 = 3
-  this.sup4 = 1
+export default class ExerciceNumerationEntier extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Décomposition avec que des entiers à un chiffre']
+    this.besoinFormulaire2CaseACocher = ['Décomposition vers les unités']
+    this.besoinFormulaire3Numerique = ['Chevauchement des unités', 3, '1 : Sans chevauchement des unités\n2 : Avec chevauchement des unités\n3 : Mélange']
+    this.besoinFormulaire4Numerique = ['Variante', 3, '1 : Jusqu\'aux millions\n2 : Jusqu\'aux centaines de milliards\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.sup = false
+    this.sup2 = true
+    this.sup3 = 3
+    this.sup4 = 1
+  }
+
+  nouvelleVersion () {
     this.sup3 = Number(this.sup3)
     this.sup4 = Number(this.sup4)
     let listeTypeDeQuestions = []
@@ -157,8 +164,4 @@ export default function ExerciceNumerationEntier () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Décomposition avec que des entiers à un chiffre']
-  this.besoinFormulaire2CaseACocher = ['Décomposition vers les unités']
-  this.besoinFormulaire3Numerique = ['Chevauchement des unités', 3, '1 : Sans chevauchement des unités\n2 : Avec chevauchement des unités\n3 : Mélange']
-  this.besoinFormulaire4Numerique = ['Variante', 3, '1 : Jusqu\'aux millions\n2 : Jusqu\'aux centaines de milliards\n3 : Mélange']
 }

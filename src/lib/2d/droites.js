@@ -127,12 +127,12 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
 
       // droite d'équation ax +by +c =0
       this.nom = ''
-      this.a = arg1
-      this.b = arg2
-      this.c = arg3
-      a = arg1
-      b = arg2
-      c = arg3
+      this.a = Number(arg1)
+      this.b = Number(arg2)
+      this.c = Number(arg3)
+      a = Number(arg1)
+      b = Number(arg2)
+      c = Number(arg3)
       if (egal(a, 0)) {
         this.x1 = 0
         this.x2 = 1
@@ -174,12 +174,12 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
           arg3
         })
       }
-      this.a = arg1
-      this.b = arg2
-      this.c = arg3
-      a = arg1
-      b = arg2
-      c = arg3
+      this.a = Number(arg1)
+      this.b = Number(arg2)
+      this.c = Number(arg3)
+      a = Number(arg1)
+      b = Number(arg2)
+      c = Number(arg3)
       this.nom = arg4
       if (egal(a, 0)) {
         this.x1 = 0
@@ -222,12 +222,12 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
         arg3
       })
     }
-    this.a = arg1
-    this.b = arg2
-    this.c = arg3
-    a = arg1
-    b = arg2
-    c = arg3
+    this.a = Number(arg1)
+    this.b = Number(arg2)
+    this.c = Number(arg3)
+    a = Number(arg1)
+    b = Number(arg2)
+    c = Number(arg3)
     this.nom = arg4
     this.color = colorToLatexOrHTML(arg5)
     if (egal(a, 0)) {

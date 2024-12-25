@@ -8,7 +8,7 @@ import { homothetie, projectionOrtho, rotation, translation } from '../../lib/2d
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { min, max } from 'mathjs'
@@ -79,15 +79,33 @@ export const refs = {
   'fr-fr': ['6M21'],
   'fr-ch': ['9GM1-10']
 }
-export default function CompareAireEtPerimetreAvecRectangle () {
-  Exercice.call(this)
+export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de figures',
+  `Nombres séparés par des tirets :
+  1 : Polygone inscrit dans un rectangle
+  2 : Rectangle inscrit dans un polygone
+  3 : Rectangle avec deux demi-disques alternés qui s'emboitent
+  4 : Rectangle avec deux demi-disques alternés qui ne s'emboitent pas
+  5 : Rectangle avec deux demi-disques en plus
+  6 : Rectangle avec deux demi-disques en moins
+  7 : Quadrilatère inscrit dans un rectangle
+  8 : Rectangle inscrit dans un quadrilatère
+  9 : Rectangle avec deux triangles alternés qui s'emboîtent
+  10 : Rectangle avec deux triangles alternés qui ne s'emboîtent pas
+  11 : Rectangle avec deux triangles en plus
+  12 : Rectangle avec deux triangles en moins
+  13 : Mélange `]
+    this.besoinFormulaire2Numerique = ['Périmètres et/ou aires', 4, '1 : Que des périmètres\n2 : Que des aires\n3 : Les deux\n4 : L\'un ou l\'autre au hasard des questions']
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
 
-  this.sup = 13
-  this.sup2 = 3
+    this.sup = 13
+    this.sup2 = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13
@@ -1090,21 +1108,4 @@ export default function CompareAireEtPerimetreAvecRectangle () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireTexte = ['Type de figures',
-  `Nombres séparés par des tirets :
-  1 : Polygone inscrit dans un rectangle
-  2 : Rectangle inscrit dans un polygone
-  3 : Rectangle avec deux demi-disques alternés qui s'emboitent
-  4 : Rectangle avec deux demi-disques alternés qui ne s'emboitent pas
-  5 : Rectangle avec deux demi-disques en plus
-  6 : Rectangle avec deux demi-disques en moins
-  7 : Quadrilatère inscrit dans un rectangle
-  8 : Rectangle inscrit dans un quadrilatère
-  9 : Rectangle avec deux triangles alternés qui s'emboîtent
-  10 : Rectangle avec deux triangles alternés qui ne s'emboîtent pas
-  11 : Rectangle avec deux triangles en plus
-  12 : Rectangle avec deux triangles en moins
-  13 : Mélange `]
-  this.besoinFormulaire2Numerique = ['Périmètres et/ou aires', 4, '1 : Que des périmètres\n2 : Que des aires\n3 : Les deux\n4 : L\'un ou l\'autre au hasard des questions']
 }

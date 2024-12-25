@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -20,12 +20,16 @@ export const refs = {
   'fr-fr': ['6M30-0'],
   'fr-ch': ['9GM3-1']
 }
-export default function VolumesPavesParDenombrement () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nouvelleVersion = function () {
+export default class VolumesPavesParDenombrement extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const dimensions = []

@@ -1,7 +1,7 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
@@ -18,31 +18,27 @@ export const refs = {
   'fr-fr': ['6N31-1'],
   'fr-ch': ['9NO7-5']
 }
-export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
-  Exercice.call(this)
-  this.beta = false
-  this.sup = 1
-  if (this.beta) {
-    this.nbQuestions = 3
-  } else {
-    this.nbQuestions = 3
+export default class EncadrerUnDecimalParDeuxEntiersConsecutifs extends Exercice {
+  constructor () {
+    super()
+
+    this.beta = false
+    this.sup = 1
+    if (this.beta) {
+      this.nbQuestions = 3
+    } else {
+      this.nbQuestions = 3
+    }
+
+    this.consigne = 'Encadrer chaque nombre proposé par deux nombres entiers consécutifs.'
+
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   }
 
-  this.consigne = 'Encadrer chaque nombre proposé par deux nombres entiers consécutifs.'
-
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.beta) {
-      typesDeQuestionsDisponibles = [0, 1, 2]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = shuffle([0, 1, 2])
-    }
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = shuffle([0, 1, 2])
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus

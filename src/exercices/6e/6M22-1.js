@@ -12,7 +12,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
 
@@ -41,18 +41,24 @@ export const refs = {
  * Fonctions diverses pour la création des exercices
  * @module
  */
-export default function PerimetreAireDisques (pa = 3) {
-  Exercice.call(this)
+export default class PerimetreAireDisques extends Exercice {
+  constructor (pa = 3) {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
+    this.besoinFormulaire2CaseACocher = ['Rayon et diamètre entiers', true]
+    this.besoinFormulaire3Numerique = ['Valeur approchée et/ou exacte', 4, '1 : Que la valeur approchée\n2 : Que la valeur exacte\n3 : Une valeur approchée ou la valeur exacte\n4 : Une valeur approchée et la valeur exacte']
+    this.besoinFormulaire4Numerique = ['Rayon ou diamètre', 3, '1 : Que des rayons\n2 : Que des diamètres\n3 : Mélange']
 
-  this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
-  this.sup2 = true // rayon ou périmètre entier
-  this.sup3 = 4
-  this.sup4 = 3
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 4
+    this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
+    this.sup2 = true // rayon ou périmètre entier
+    this.sup3 = 4
+    this.sup4 = 3
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 4
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2, reponseL2bis, reponseA2bis; i < this.nbQuestions && cpt < 50;) {
       const choixValeurApprochee = (this.sup3 === 1 || this.sup3 === 4) ? true : this.sup3 === 2 ? false : choice([true, false])
       const choixValeurExacte = (this.sup3 === 2 || this.sup3 === 4) ? true : this.sup3 === 1 ? false : !choixValeurApprochee
@@ -361,9 +367,4 @@ export default function PerimetreAireDisques (pa = 3) {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
-  this.besoinFormulaire2CaseACocher = ['Rayon et diamètre entiers', true]
-  this.besoinFormulaire3Numerique = ['Valeur approchée et/ou exacte', 4, '1 : Que la valeur approchée\n2 : Que la valeur exacte\n3 : Une valeur approchée ou la valeur exacte\n4 : Une valeur approchée et la valeur exacte']
-  this.besoinFormulaire4Numerique = ['Rayon ou diamètre', 3, '1 : Que des rayons\n2 : Que des diamètres\n3 : Mélange']
 }

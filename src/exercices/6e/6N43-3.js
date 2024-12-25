@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sommeDesChiffres } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const amcReady = true
@@ -24,47 +24,51 @@ export const refs = {
   'fr-fr': ['6N43-3'],
   'fr-ch': ['9NO4-2']
 }
-export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
-  Exercice.call(this)
-  this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
-  this.nbQuestions = 5
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  function justification (N, a, booleen) {
-    let result
-    if (booleen === true) {
-      if (N === 2) {
-        result = ', car son chiffre des unités est $0$, $2$, $4$, $6$ ou $8$.'
-      } else if (N === 5) {
-        result = ', car son chiffre des unités est $0$, ou $5$.'
-      } else if (N === 3 || N === 9) {
-        result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui est divisible par $${N}$.`
-      } else if (N === 10) {
-        result = ', car son chiffre des unités est $0$.'
-      } else {
-        result = `, car $${texNombre(a)} = ${N}\\times ${calculANePlusJamaisUtiliser(a / N)}$.`
-      }
+function justification (N, a, booleen) {
+  let result
+  if (booleen === true) {
+    if (N === 2) {
+      result = ', car son chiffre des unités est $0$, $2$, $4$, $6$ ou $8$.'
+    } else if (N === 5) {
+      result = ', car son chiffre des unités est $0$, ou $5$.'
+    } else if (N === 3 || N === 9) {
+      result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui est divisible par $${N}$.`
+    } else if (N === 10) {
+      result = ', car son chiffre des unités est $0$.'
+    } else {
+      result = `, car $${texNombre(a)} = ${N}\\times ${calculANePlusJamaisUtiliser(a / N)}$.`
     }
-    if (booleen === false) {
-      if (N === 2) {
-        result = ", car son chiffre des unités n'est pas $0$, $2$, $4$, $6$ ou $8$."
-      } else if (N === 5) {
-        result = ", car son chiffre des unités n'est pas $0$, ou $5$."
-      } else if (N === 3 || N === 9) {
-        result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui n'est pas divisible par $${N}$.`
-      } else if (N === 10) {
-        result = ', car son chiffre des unités n\'est pas $0$.'
-      } else {
-        result = `, car $${texNombre(a)} = ${N}\\times ${Math.floor(a / N)}+ ${a % N}$.`
-      }
+  }
+  if (booleen === false) {
+    if (N === 2) {
+      result = ", car son chiffre des unités n'est pas $0$, $2$, $4$, $6$ ou $8$."
+    } else if (N === 5) {
+      result = ", car son chiffre des unités n'est pas $0$, ou $5$."
+    } else if (N === 3 || N === 9) {
+      result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui n'est pas divisible par $${N}$.`
+    } else if (N === 10) {
+      result = ', car son chiffre des unités n\'est pas $0$.'
+    } else {
+      result = `, car $${texNombre(a)} = ${N}\\times ${Math.floor(a / N)}+ ${a % N}$.`
     }
-    return result
+  }
+  return result
+}
+export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité\n4 : Critère de divisibilité par 10']
+
+    this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
+    this.nbQuestions = 5
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup2 = parseInt(this.sup2)
 
     let typeDeQuestionsDisponibles = ['Ndiviseur', 'divisibleParN', 'multipleDeN', 'NdiviseurF', 'divisibleParNF', 'multipleDeNF', 'NdiviseurEnvers', 'divisibleParNEnvers', 'multipleDeNEnvers']
@@ -185,7 +189,6 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité\n4 : Critère de divisibilité par 10']
 }
 
 // python3 list-to-js.py pour faire apparaître l'exercice dans le menu

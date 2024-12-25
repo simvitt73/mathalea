@@ -2,7 +2,7 @@ import { miseEnCouleur, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/o
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -484,17 +484,21 @@ export const refs = {
   'fr-fr': ['6P12'],
   'fr-ch': ['9FA3-12']
 }
-export default function ProportionnaliteParCoefDeProportionnalite () {
-  Exercice.call(this)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nbQuestions = 6
+export default class ProportionnaliteParCoefDeProportionnalite extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
-  this.sup = false
-  this.sup2 = 7
-  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
-  this.nouvelleVersion = function () {
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.nbQuestions = 6
+
+    this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
+    this.sup = false
+    this.sup2 = 7
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée' : 'Répondre aux questions posées'
     this.consigne += !this.interactif ? ' en justifiant.' : '.'
 

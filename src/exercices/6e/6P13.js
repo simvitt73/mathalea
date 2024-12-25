@@ -4,7 +4,7 @@ import { lampeMessage } from '../../lib/format/message'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -39,114 +39,120 @@ export const refs = {
   'fr-fr': ['6P13'],
   'fr-ch': ['9FA3-13']
 }
-export default function AugmenterEtReduireDunPourcentage () {
-  Exercice.call(this)
-  this.nbQuestions = 2
 
-  this.sup = 1 // Niveau de difficulté
-  this.sup2 = 2
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  function nombreDecimales (prMin, prMax, n) {
-    let pourcent
-    if (n === 0) {
-      do {
-        pourcent = randint(1, 9) * 10
-      } while (pourcent < prMin || pourcent > prMax)
-    } else if (n === 1) {
-      do {
-        pourcent = choice([10, 20, 25, 30, 50, 60, 70, 75])
-      } while (pourcent < prMin || pourcent > prMax)
-    } else if (n === 2) {
-      do {
-        pourcent = randint(1, 9) + randint(1, 9) * 10
-      } while (pourcent < prMin || pourcent > prMax)
-    } else {
-      do {
-        pourcent = (randint(10, 90) * 100 + randint(1, 9) * 10) / 100
-      } while (pourcent < prMin || pourcent > prMax)
-    }
-    return pourcent
+function nombreDecimales (prMin, prMax, n) {
+  let pourcent
+  if (n === 0) {
+    do {
+      pourcent = randint(1, 9) * 10
+    } while (pourcent < prMin || pourcent > prMax)
+  } else if (n === 1) {
+    do {
+      pourcent = choice([10, 20, 25, 30, 50, 60, 70, 75])
+    } while (pourcent < prMin || pourcent > prMax)
+  } else if (n === 2) {
+    do {
+      pourcent = randint(1, 9) + randint(1, 9) * 10
+    } while (pourcent < prMin || pourcent > prMax)
+  } else {
+    do {
+      pourcent = (randint(10, 90) * 100 + randint(1, 9) * 10) / 100
+    } while (pourcent < prMin || pourcent > prMax)
   }
-  const situationsAugmentations = [
-    {
-      quoi: 'Le loyer de l\'appartement de',
-      quoiReponse: 'son loyer',
-      verbe: 'il augmente',
-      moitieMin: 250,
-      moitieMax: 500,
-      prMin: 2,
-      prMax: 15
-    },
-    {
-      quoi: 'L\'abonnement à la salle de sport de',
-      quoiReponse: 'son abonnement',
-      verbe: 'il augmente',
-      moitieMin: 15,
-      moitieMax: 40,
-      prMin: 2,
-      prMax: 10
-    },
-    {
-      quoi: 'Les frais de scolarité de',
-      quoiReponse: 'ses frais de scolarité',
-      verbe: 'ils augmentent',
-      moitieMin: 200,
-      moitieMax: 400,
-      prMin: 5,
-      prMax: 20
-    },
-    {
-      quoi: 'Les frais de transport annuels de',
-      quoiReponse: 'ses frais de transport',
-      verbe: 'ils augmentent',
-      moitieMin: 500,
-      moitieMax: 800,
-      prMin: 5,
-      prMax: 15
-    }
-  ]
-  const situationsReductions = [
-    {
-      quoi: 'Un billet d\'avion',
-      quoiReponse: 'son billet d\'avion',
-      moitieMin: 50,
-      moitieMax: 100,
-      prMin: 10,
-      prMax: 60
-    },
-    {
-      quoi: 'Un pantalon',
-      quoiReponse: 'son pantalon',
-      moitieMin: 25,
-      moitieMax: 40,
-      prMin: 10,
-      prMax: 70
-    },
-    {
-      quoi: 'Un billet de cinéma',
-      quoiReponse: 'son billet de cinéma',
-      moitieMin: 3,
-      moitieMax: 6,
-      prMin: 20,
-      prMax: 50
-    },
-    {
-      quoi: 'Un gâteau au chocolat',
-      quoiReponse: 'son gâteau au chocolat',
-      moitieMin: 15,
-      moitieMax: 25,
-      prMin: 10,
-      prMax: 40
-    }
-  ]
+  return pourcent
+}
+const situationsAugmentations = [
+  {
+    quoi: 'Le loyer de l\'appartement de',
+    quoiReponse: 'son loyer',
+    verbe: 'il augmente',
+    moitieMin: 250,
+    moitieMax: 500,
+    prMin: 2,
+    prMax: 15
+  },
+  {
+    quoi: 'L\'abonnement à la salle de sport de',
+    quoiReponse: 'son abonnement',
+    verbe: 'il augmente',
+    moitieMin: 15,
+    moitieMax: 40,
+    prMin: 2,
+    prMax: 10
+  },
+  {
+    quoi: 'Les frais de scolarité de',
+    quoiReponse: 'ses frais de scolarité',
+    verbe: 'ils augmentent',
+    moitieMin: 200,
+    moitieMax: 400,
+    prMin: 5,
+    prMax: 20
+  },
+  {
+    quoi: 'Les frais de transport annuels de',
+    quoiReponse: 'ses frais de transport',
+    verbe: 'ils augmentent',
+    moitieMin: 500,
+    moitieMax: 800,
+    prMin: 5,
+    prMax: 15
+  }
+]
+const situationsReductions = [
+  {
+    quoi: 'Un billet d\'avion',
+    quoiReponse: 'son billet d\'avion',
+    moitieMin: 50,
+    moitieMax: 100,
+    prMin: 10,
+    prMax: 60
+  },
+  {
+    quoi: 'Un pantalon',
+    quoiReponse: 'son pantalon',
+    moitieMin: 25,
+    moitieMax: 40,
+    prMin: 10,
+    prMax: 70
+  },
+  {
+    quoi: 'Un billet de cinéma',
+    quoiReponse: 'son billet de cinéma',
+    moitieMin: 3,
+    moitieMax: 6,
+    prMin: 20,
+    prMax: 50
+  },
+  {
+    quoi: 'Un gâteau au chocolat',
+    quoiReponse: 'son gâteau au chocolat',
+    moitieMin: 15,
+    moitieMax: 25,
+    prMin: 10,
+    prMax: 40
+  }
+]
+export default class AugmenterEtReduireDunPourcentage extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Valeurs entières et 10%, 20%...\n2 : Valeurs entières et 10%, 20%... mais aussi 25% et 50%\n3 : Valeurs entières et 4%, 23%...\n4 : Une décimale comme 34,5%']
+    this.besoinFormulaire2CaseACocher = ['Avec indication de la calculatrice (en interactif)']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+
+    this.sup = 1 // Niveau de difficulté
+    this.sup2 = 2
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     this.introduction = (this.sup2 && this.interactif && context.isHtml)
       ? lampeMessage({
-          titre: 'Calculatrice autorisée.',
-          texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
-          couleur: 'nombres'
-        })
+        titre: 'Calculatrice autorisée.',
+        texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+        couleur: 'nombres'
+      })
       : ''
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -319,6 +325,4 @@ export default function AugmenterEtReduireDunPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Valeurs entières et 10%, 20%...\n2 : Valeurs entières et 10%, 20%... mais aussi 25% et 50%\n3 : Valeurs entières et 4%, 23%...\n4 : Une décimale comme 34,5%']
-  this.besoinFormulaire2CaseACocher = ['Avec indication de la calculatrice (en interactif)']
 }

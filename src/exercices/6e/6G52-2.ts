@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import {
+  Droite,
   droite,
   droiteParPointEtParallele,
   droiteParPointEtPente,
@@ -7,11 +8,11 @@ import {
 } from '../../lib/2d/droites'
 import { point, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { latexParCoordonneesBox } from '../../lib/2d/textes.ts'
+import { LatexParCoordonneesBox, latexParCoordonneesBox } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
@@ -38,17 +39,23 @@ export const refs = {
   'fr-fr': ['6G52-2'],
   'fr-ch': ['9ES3-7']
 }
-export default function ProprietesParallelesPerpendiculaires () {
-  Exercice.call(this)
-  this.nbQuestions = 3
+export default class ProprietesParallelesPerpendiculaires extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
+    this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
+    this.nbQuestions = 3
 
-  this.sup = 4
-  this.sup2 = false
-  this.sup3 = true
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.nouvelleVersion = function () {
-    const typesDeQuestionsDisponibles = []
+    this.sup = 4
+    this.sup2 = false
+    this.sup3 = true
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles:number[] = []
     let questionsParNiveau = []
     if (!this.sup2) {
       questionsParNiveau.push(range(3))
@@ -59,10 +66,9 @@ export default function ProprietesParallelesPerpendiculaires () {
     } else {
       questionsParNiveau = [[2], [5], [15], [31], [2, 5, 15, 31]]
     }
-    let QuestionsDisponibles = []
     const IndiceNew = [0, 0, 0, 0, 0]
     let NumQuestionsDisponibles
-    QuestionsDisponibles = gestionnaireFormulaireTexte({
+    const QuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 4,
@@ -70,9 +76,9 @@ export default function ProprietesParallelesPerpendiculaires () {
       melange: 5,
       nbQuestions: this.nbQuestions,
       shuffle: true
-    })
+    }).map(Number)
     for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-      NumQuestionsDisponibles = contraindreValeur(1, 5, parseInt(QuestionsDisponibles[i % QuestionsDisponibles.length]), 4) - 1
+      NumQuestionsDisponibles = contraindreValeur(1, 5, QuestionsDisponibles[i % QuestionsDisponibles.length], 4) - 1
       typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
       if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
         IndiceNew[NumQuestionsDisponibles] = i
@@ -97,8 +103,8 @@ export default function ProprietesParallelesPerpendiculaires () {
       const P = []
       const objets = []
       const objets2 = []
-      let code = []
-      let code2 = []
+      let code: number[][] = []
+      let code2: number[][] = []
 
       switch (listeTypeDeQuestions[i]) {
       // \n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 : Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
@@ -232,7 +238,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       P.push(point(0, 0))
       let droiteP = droiteParPointEtPente(P[0], randint(-1, 1, -2) / 10, '', droiteColor[couleurd[0]])
       droiteP.epaisseur = 2
-      droite.pointilles = false
+      droiteP.pointilles = 0
       d.push(droiteP)
       const droiteE = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
       droiteE.epaisseur = 2
@@ -245,7 +251,7 @@ export default function ProprietesParallelesPerpendiculaires () {
           P.push(point((x + 1) * 2, (x + 1) * 2))
           droiteP = droiteParPointEtParallele(P[x + 1], d[codeAll[x][0] - 1], '', droiteColor[couleurd[x + 1]])
           droiteP.epaisseur = 2
-          droiteP.pointilles = d[[codeAll[x][0] - 1]].pointilles
+          droiteP.pointilles = d[codeAll[x][0] - 1].pointilles
           d.push(droiteP)
           const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
           droiteP2.epaisseur = 2
@@ -293,7 +299,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br>'
       if ([2, 5, 15, 31].indexOf(listeTypeDeQuestions[i]) === -1 && !this.sup2) {
         texteCorr += ' Les droites données parallèles dans l\'énoncé sont de même '
-        texteCorr += (context.html) ? ' couleur/style.<br>' : 'style.<br>'
+        texteCorr += (context.isHtml) ? ' couleur/style.<br>' : 'style.<br>'
       }
       texteCorr += mathalea2d({
         xmin: -2,
@@ -350,7 +356,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       ]
       /****************************************************/
 
-      if (this.questionJamaisPosee(i, numDroites, JSON.stringify(code), JSON.stringify(code2))) {
+      if (this.questionJamaisPosee(i, numDroites.join(''), JSON.stringify(code), JSON.stringify(code2))) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte + '<br>'
         this.listeCorrections[i] = texteCorr + '<br>'
@@ -361,9 +367,6 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
-  this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
 }
 
 /**
@@ -384,7 +387,12 @@ export default function ProprietesParallelesPerpendiculaires () {
  *
  * @author Mickael Guironnet
  */
-export function labelOnLine (droite, nom, options = {}) {
+export function labelOnLine (droite: Droite, nom: string, options:{
+  preferedPosition?: 'left' | 'right' | 'above' | 'below' | 'auto',
+  usedPosition?: string[],
+  taille?: number,
+  color?: string
+} = {}) {
   if (options.preferedPosition === undefined) options.preferedPosition = 'auto'
   if (options.usedPosition === undefined) options.usedPosition = []
   if (options.taille === undefined) options.taille = 6
@@ -396,7 +404,12 @@ export function labelOnLine (droite, nom, options = {}) {
   const largeur = Math.ceil((nom.replaceAll('$', '').length) * options.taille * 10 / 12)
   const hauteur = 20
   let absNom, ordNom, leNom, anchor, usedPosition
-  const positions = []
+  const positions: {
+    label: LatexParCoordonneesBox,
+    position: string,
+    anch: string,
+    colision: [number, boolean][]
+  }[] = []
   if (nom !== '') {
     if (egal(droite.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
       // droite quasi verticale
@@ -405,7 +418,7 @@ export function labelOnLine (droite, nom, options = {}) {
       anchor = 'right'
       usedPosition = 'below'
       leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-      positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
     } else if (egal(droite.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
       // droite quasi horizontale
       absNom = context.fenetreMathalea2d[0] + 1 // l'abscisse du label est xmin +1
@@ -413,7 +426,7 @@ export function labelOnLine (droite, nom, options = {}) {
       anchor = 'above'
       usedPosition = 'left'
       leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-      positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
       // y=(-a.x-c)/b est l'equation cartésienne et x=(-by-c)/a
       const y0 = (-droite.a * (context.fenetreMathalea2d[0] + 1) - droite.c) / droite.b
@@ -430,7 +443,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
         // à gauche : soit en dessous ou en dessous
         absNom = context.fenetreMathalea2d[0] + 1
@@ -441,7 +454,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
       }
       if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
@@ -454,7 +467,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
       }
       if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
@@ -467,7 +480,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
         // en bas de l'autre côté
         absNom = x0 - (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm + (droite.pente > 0 ? 1 : 1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente + (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
@@ -478,7 +491,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
       }
       if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
@@ -491,7 +504,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
         // au haut de l'autre côté
         absNom = x1 - (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm + (droite.pente > 0 ? 1 : 1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente + (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
@@ -502,7 +515,7 @@ export function labelOnLine (droite, nom, options = {}) {
           if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-          positions.push({ label: leNom, position: usedPosition, anch: anchor })
+          positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
         }
       }
       let xgauche, xdroite
@@ -518,28 +531,28 @@ export function labelOnLine (droite, nom, options = {}) {
       }
       // au milieu
       absNom = (xgauche + xdroite) / 2
-      ordNom = pointSurDroite(droite, absNom).y
+      ordNom = pointSurDroite(droite, absNom, '').y
       anchor = (droite.pente > 0 ? 'left' : 'right')
       usedPosition = 'middle'
       leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
-      positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor, colision: [] })
     }
 
     // vérifie s'il y a des colisions entre labels
     for (let i = 0; i < positions.length; i++) {
       if (positions[i].position === 'middle') continue
-      const coli = []
+      const coli:[number, boolean][] = []
       for (let j = 0; j < options.usedPosition.length; j++) {
-        const label = options.usedPosition[j]
-        const dis = segment(point(label.x, label.y), point(positions[i].label.x, positions[i].label.y)).longueur * context.pixelsParCm
+        const label = positions[i].label as LatexParCoordonneesBox// options.usedPosition[j] (JC- 25/12/2024 options.usedPosition[j] est un string)
+        const dis = segment(point(label.x, label.y), point(label.x, label.y)).longueur * context.pixelsParCm
         // colision deux rectangles
         const XYlabel = [label.x * context.pixelsParCm - label.largeur / 2, label.x * context.pixelsParCm + label.largeur / 2, label.y * context.pixelsParCm - label.hauteur / 2, label.y * context.pixelsParCm + label.hauteur / 2]
-        const XYlabel2 = [positions[i].label.x * context.pixelsParCm - positions[i].label.largeur / 2, positions[i].label.x * context.pixelsParCm + positions[i].label.largeur / 2, positions[i].label.y * context.pixelsParCm - positions[i].label.hauteur / 2, positions[i].label.y * context.pixelsParCm + positions[i].label.hauteur / 2]
+        const XYlabel2 = [label.x * context.pixelsParCm - label.largeur / 2, label.x * context.pixelsParCm + label.largeur / 2, label.y * context.pixelsParCm - label.hauteur / 2, label.y * context.pixelsParCm + label.hauteur / 2]
         if (debug) console.info('coli:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + ':texte:' + label.texte + ':XYlabel:' + XYlabel[0].toFixed(1) + ',' + XYlabel[1].toFixed(1) + ',' + XYlabel[2].toFixed(1) + ',' + XYlabel[3].toFixed(1) + ':XYlabel2:' + XYlabel2[0].toFixed(1) + ',' + XYlabel2[1].toFixed(1) + ',' + XYlabel2[2].toFixed(1) + ',' + XYlabel2[3].toFixed(1))
         const colision = (XYlabel[0] < XYlabel2[1]) && (XYlabel[1] > XYlabel2[0]) && (XYlabel[2] < XYlabel2[3]) && (XYlabel[3] > XYlabel2[2])
         // colision deux cercles
         const r0 = Math.max(label.largeur / 2, label.hauteur / 2)
-        const r1 = Math.max(positions[i].label.largeur / 2, positions[i].label.hauteur / 2)
+        const r1 = Math.max(label.largeur / 2, label.hauteur / 2)
         let colision2 = true
         if (dis > r0 + r1 || dis < Math.abs(r0 - r1)) colision2 = false
         coli[j] = [dis, colision]
@@ -549,7 +562,7 @@ export function labelOnLine (droite, nom, options = {}) {
     }
     // 1ere stratégie : la préférence de l'utilisateur
     // on vérifie seulement s'il y a une colision
-    const found = [false, 0]
+    const found: [boolean, number] = [false, 0]
     for (let i = 0; i < positions.length && !found[0]; i++) {
       if (positions[i].position === 'middle') continue
       if (positions[i].position === options.preferedPosition) {

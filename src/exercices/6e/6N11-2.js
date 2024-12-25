@@ -4,7 +4,7 @@ import { labelPoint, latex2d } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, egal } from '../../modules/outils'
 import { pointCliquable } from '../../modules/2dinteractif'
@@ -30,15 +30,23 @@ export const refs = {
   'fr-fr': ['6N11-2'],
   'fr-ch': ['9NO2-2']
 }
-export default function PlacerUnPointAbscisseEntiere2d () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : Ordre de grandeur : centaines de mille\n4 : Mélange'
+    ]
 
-  this.sup = 1
-  this.pointsNonSolutions = []
-  this.pointsSolutions = []
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.pointsNonSolutions = []
+    this.pointsSolutions = []
+  }
+
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne = 'Placer un point sur un axe gradué.'
     } else {
@@ -191,8 +199,9 @@ export default function PlacerUnPointAbscisseEntiere2d () {
 
     listeQuestionsToContenu(this)
   }
+
   // Gestion de la correction
-  this.correctionInteractive = (i) => {
+  correctionInteractive = (i) => {
     let resultat
     let aucunMauvaisPointsCliques = true
     const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
@@ -210,9 +219,4 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     }
     return resultat
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : Ordre de grandeur : centaines de mille\n4 : Mélange'
-  ]
 }

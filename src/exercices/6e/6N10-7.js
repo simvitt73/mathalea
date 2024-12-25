@@ -9,7 +9,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -50,15 +50,34 @@ export const refs = {
   'fr-fr': ['6N10-7'],
   'fr-ch': ['9NO1-9']
 }
-export default function RecomposerEntierC3 () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.sup = 5 // nombre de chiffres minimum du nombre à décomposer
-  this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
-  this.sup3 = '1' // 5 initialement à remettre, le 1 c'est pour tester.
-  this.sup4 = 4
+export default class RecomposerEntierC3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Nombre de chiffres minimum des nombres à décomposer',
+      6
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Nombre de chiffres maximum des nombres à décomposer',
+      7
+    ]
+    this.besoinFormulaire3Texte = [
+      'Type de questions',
+      'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Mélange'
+    ]
+    this.besoinFormulaire4Texte = [
+      'Nombre de chiffres de la partie décimale',
+      '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange'
+    ]
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.sup = 5 // nombre de chiffres minimum du nombre à décomposer
+    this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
+    this.sup3 = '1' // 5 initialement à remettre, le 1 c'est pour tester.
+    this.sup4 = 4
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 12,
       defaut: 13,
@@ -652,23 +671,8 @@ export default function RecomposerEntierC3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Nombre de chiffres minimum des nombres à décomposer',
-    6
-  ]
-  this.besoinFormulaire2Numerique = [
-    'Nombre de chiffres maximum des nombres à décomposer',
-    7
-  ]
-  this.besoinFormulaire3Texte = [
-    'Type de questions',
-    'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Mélange'
-  ]
-  this.besoinFormulaire4Texte = [
-    'Nombre de chiffres de la partie décimale',
-    '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange'
-  ]
-  this.correctionInteractive = (i) => {
+
+  correctionInteractive = (i) => {
     const champsTexte = []
     const saisies = []
     if (this.premierChamp[i] === undefined) return 'OK'

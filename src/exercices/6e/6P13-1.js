@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Remplir une facture'
@@ -17,17 +17,20 @@ export const refs = {
   'fr-fr': ['6P13-1'],
   'fr-ch': ['9FA3-14']
 }
-export default function CompleterUneFacture () {
-  Exercice.call(this)
+export default class CompleterUneFacture extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans réduction\n2 : Avec réduction']
 
-  this.consigne = 'Compléter le tableau suivant.'
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.consigne = 'Compléter le tableau suivant.'
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.sup = 2 // Niveau de difficulté
-  // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 2 // Niveau de difficulté
+    // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeArticles = [['Feuilletés au fromage', calculANePlusJamaisUtiliser(randint(50, 80) / 10)],
         ['Feuilletés à la viande', calculANePlusJamaisUtiliser(randint(50, 80) / 10)],
@@ -160,5 +163,4 @@ export default function CompleterUneFacture () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans réduction\n2 : Avec réduction']
 }

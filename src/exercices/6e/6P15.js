@@ -9,7 +9,7 @@ import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -30,16 +30,20 @@ export const refs = {
  * @author jean-claude Lhote
  */
 
-export default function CalculerCoeffPropo () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = false
-  this.spacing = 2
-  this.spacingCorr = 3
-  this.nbQuestions = 5
-  this.besoinFormulaireNumerique = ['Type de coefficient', 4, '1 : Entier\n2 : Decimal\n3 : Fraction\n4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Calcul mental (entier)', false] // MGU : à généraliser pour les autres catégories
-  this.nouvelleVersion = function () {
+export default class CalculerCoeffPropo extends Exercice {
+  constructor () {
+    super()
+
+    this.sup = 1
+    this.sup2 = false
+    this.spacing = 2
+    this.spacingCorr = 3
+    this.nbQuestions = 5
+    this.besoinFormulaireNumerique = ['Type de coefficient', 4, '1 : Entier\n2 : Decimal\n3 : Fraction\n4 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Calcul mental (entier)', false] // MGU : à généraliser pour les autres catégories
+  }
+
+  nouvelleVersion () {
     const isBetterWithLinearity = function (nombres) {
       const [a, b, c] = nombres
       if (a % b === 0 || a % c === 0 || b % c === 0 || b % a === 0 || c % a === 0 || c % b === 0) return true

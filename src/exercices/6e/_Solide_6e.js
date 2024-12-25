@@ -6,7 +6,7 @@ import { labelPoint } from '../../lib/2d/textes'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -17,15 +17,18 @@ export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, no
  * fonction servant à plusieurs exercices autour du cube et du pavé droit
  * @author Jean-Claude Lhote
  */
-export default function Solide6e () {
-  Exercice.call(this)
+export default class Solide6e extends Exercice {
+ constructor() {
+ super()
   this.nbQuestions = 1
 
   this.sup = 1
   this.sup2 = 1
   this.sup3 = 5
   this.titre = ''
-  this.nouvelleVersion = function () {
+ }
+
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2] : [this.sup]
 
     const listeTypeDeQuestions = combinaisonListes(

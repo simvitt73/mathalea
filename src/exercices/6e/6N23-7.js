@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -24,13 +24,17 @@ export const refs = {
   'fr-fr': ['6N23-7'],
   'fr-ch': ['9NO10-8']
 }
-export default function RecompositionDecimale () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.spacingCorr = 3
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nouvelleVersion = function () {
+export default class RecompositionDecimale extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.spacingCorr = 3
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const cubeUnite = paveLPH3d(0, 0, 0, 0.6, 10, 10, 10, 'black')

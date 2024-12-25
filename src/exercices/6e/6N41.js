@@ -1,6 +1,6 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -25,15 +25,19 @@ export const refs = {
   'fr-fr': ['6N41'],
   'fr-ch': ['9NO12-1']
 }
-export default function EgalitesEntreFractions () {
-  Exercice.call(this)
-  this.sup = 11 // Correspond au facteur commun
-  this.sup2 = 2 // alternance numérateur ou dénominateur imposé.
-  this.consigne = 'Compléter les égalités.'
-  this.spacing = 2
-  this.spacingCorr = 2
+export default class EgalitesEntreFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange']
+    this.sup = 11 // Correspond au facteur commun
+    this.sup2 = 2 // alternance numérateur ou dénominateur imposé.
+    this.consigne = 'Compléter les égalités.'
+    this.spacing = 2
+    this.spacingCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeFractions = [
       [1, 2],
       [1, 3],
@@ -337,8 +341,6 @@ export default function EgalitesEntreFractions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
-  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange']
 }
 
 function stringTexFraction (a, b) {

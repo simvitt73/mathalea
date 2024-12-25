@@ -9,7 +9,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi, troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texTexte } from '../../lib/format/texTexte'
@@ -39,18 +39,27 @@ export const refs = {
   'fr-fr': ['6M11-2'],
   'fr-ch': ['9GM1-8', '10GM1-6']
 }
-export default function PerimetreOuAireDeFiguresComposees () {
-  Exercice.call(this)
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 2
+export default class PerimetreOuAireDeFiguresComposees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Types de figures',
+      'Nombres séparés par des tirets\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-disque\n5 : Rectangle & disque \n6 : Rectangle & demi-disque & triangle\n7 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
+    this.besoinFormulaire3Numerique = ['Choix de la précision (pour les valeurs approchées)', 2, '1 : À l\'unité\n 2 : Au dixième']
+    this.besoinFormulaire4Numerique = ['Choix de la demande ', 3, '1 : Que le périmètre\n 2 : Que l\'aire\n3 : Périmètre et aire\n4 : Découpage']
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 2
 
-  this.sup = 7
-  this.sup2 = true
-  this.sup3 = 1
-  this.sup4 = 3
+    this.sup = 7
+    this.sup2 = true
+    this.sup3 = 1
+    this.sup4 = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     switch (this.sup4) {
       case 4:
         this.consigne = 'Décomposer les figures suivantes en plusieurs figures simples.'
@@ -580,11 +589,4 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Types de figures',
-    'Nombres séparés par des tirets\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-disque\n5 : Rectangle & disque \n6 : Rectangle & demi-disque & triangle\n7 : Mélange'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
-  this.besoinFormulaire3Numerique = ['Choix de la précision (pour les valeurs approchées)', 2, '1 : À l\'unité\n 2 : Au dixième']
-  this.besoinFormulaire4Numerique = ['Choix de la demande ', 3, '1 : Que le périmètre\n 2 : Que l\'aire\n3 : Périmètre et aire\n4 : Découpage']
 }

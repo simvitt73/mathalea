@@ -18,6 +18,9 @@ export const refs = {
   'fr-fr': ['6G42'],
   'fr-ch': ['9ES7-4']
 }
-export default function UtiliserVocabulairePave () {
-  Solide6e.call(this)
+export default class UtiliserVocabulairePave extends Solide6e {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+  }
 }

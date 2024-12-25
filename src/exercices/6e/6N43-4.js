@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
 import { context } from '../../modules/context'
@@ -22,20 +22,22 @@ export const refs = {
   'fr-fr': ['6N43-4'],
   'fr-ch': ['9NO4-3']
 }
-export default function DivisibleDiviseurMultiple () {
-  Exercice.call(this)
+export default class DivisibleDiviseurMultiple extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 6 // 6 questions au maximum
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 6 // 6 questions au maximum
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.setReponse = function (i, listeBonnesReponses) {
-    this.autoCorrection[i] = {}
-    this.autoCorrection[i].listeReponses = listeBonnesReponses
+    this.setReponse = function (i, listeBonnesReponses) {
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].listeReponses = listeBonnesReponses
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let b = randint(6, 17, [9, 10])
     let q = randint(11, 99)
     let r = randint(1, b - 1)
@@ -129,7 +131,8 @@ export default function DivisibleDiviseurMultiple () {
     }
     listeQuestionsToContenu(this)
   }
-  this.correctionInteractive = function (i) {
+
+  correctionInteractive = function (i) {
     const select1 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i}`)
     const select2 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i + 1}`)
     let isOk = false

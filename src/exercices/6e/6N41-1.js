@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
 import { labyrinthe } from '../../modules/Labyrinthe'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -31,25 +31,32 @@ export const refs = {
   'fr-fr': ['6N41-1'],
   'fr-ch': ['9NO12-2']
 }
-export default function ExerciceLabyrintheFractionsEgales () {
-  Exercice.call(this)
-  this.niveau = '6e'
-  this.nbQuestions = 1
+export default class ExerciceLabyrintheFractionsEgales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Facteur maximum', 20]
+    this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+    this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.niveau = '6e'
+    this.nbQuestions = 1
 
-  this.sup2 = 3
-  this.sup = 10
-  this.sup3 = 1
-  this.sup4 = 1
-
-  if (this.niveau === 'CM') {
-    this.sup = 10
     this.sup2 = 3
-  } else {
-    this.sup = 13
-    this.sup2 = 4
+    this.sup = 10
+    this.sup3 = 1
+    this.sup4 = 1
+
+    if (this.niveau === 'CM') {
+      this.sup = 10
+      this.sup2 = 3
+    } else {
+      this.sup = 13
+      this.sup2 = 4
+    }
   }
-  const tailleChiffre = context.isAmc ? 1.1 : 0.7
-  this.nouvelleVersion = function () {
+
+  nouvelleVersion () {
+    const tailleChiffre = context.isAmc ? 1.1 : 0.7
     this.sup = Math.max(2, this.sup)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const mesfractions = []
@@ -134,8 +141,4 @@ export default function ExerciceLabyrintheFractionsEgales () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Facteur maximum', 20]
-  this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 }

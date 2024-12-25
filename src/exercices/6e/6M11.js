@@ -7,7 +7,7 @@ import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { texteExposant } from '../../lib/outils/ecritures'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -36,21 +36,23 @@ export const refs = {
   'fr-fr': ['6M11'],
   'fr-ch': ['9GM1-2']
 }
-export default function AireCarresRectanglesTriangles () {
-  Exercice.call(this)
+export default class AireCarresRectanglesTriangles extends Exercice {
+  constructor () {
+    super()
 
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactif = false
+    this.amcReady = amcReady
+    this.amcType = amcType
+    this.interactif = false
 
-  this.consigne = "Calculer l'aire des 3 figures suivantes."
-  this.spacing = 2
+    this.consigne = "Calculer l'aire des 3 figures suivantes."
+    this.spacing = 2
 
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')

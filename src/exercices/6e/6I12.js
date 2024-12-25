@@ -5,7 +5,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
@@ -37,16 +37,20 @@ export const refs = {
   'fr-fr': ['6I12'],
   'fr-ch': []
 }
-export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
-  Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
+export default class AlgoTortue extends Exercice { // ça c'est la classe qui permet de créer cet exercice
+  constructor () {
+    super()
+    this.exoCustomResultat = false
+    this.besoinFormulaireNumerique = ["Nombre d'instructions (limité à 20)", 20] // gestion des paramètres supplémentaires
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.typeExercice = 'Scratch'
+    this.sup = 9 // 7 instructions par défaut, paramètre réglable.
+    this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
+    this.listeAvecNumerotation = false
+  }
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.typeExercice = 'Scratch'
-  this.sup = 9 // 7 instructions par défaut, paramètre réglable.
-  this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
-  this.listeAvecNumerotation = false
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
     // const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     // const yDepart = 0
@@ -270,13 +274,12 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       }
     })
   }
-  this.besoinFormulaireNumerique = ["Nombre d'instructions (limité à 20)", 20] // gestion des paramètres supplémentaires
 
   // Pour pouvoir récupérer this dans la correction interactive
   // Pour distinguer les deux types de codage de recuperation des résultats
-  this.exoCustomResultat = false
+
   // Gestion de la correction
-  this.correctionInteractive = () => {
+  correctionInteractive = (i) => {
     let nbBonnesReponses = 0
     let nbMauvaisesReponses = 0
     let nbFiguresCliquees = 0

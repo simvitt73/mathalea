@@ -3,7 +3,7 @@ import { codageSegments } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -25,24 +25,27 @@ export const refs = {
   'fr-fr': ['6G33'],
   'fr-ch': ['9ES4-6']
 }
-export default function ReconnaitreQuadrilatereParticulier () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = context.isHtml
-  this.sup = 4
-  this.besoinFormulaireTexte = [
-    'Type de quadrilatères', [
-      'Nombres séparés par des tirets',
-      '1 : Losange',
-      '2 : Rectangle',
-      '3 : Carré',
-      '4 : Mélange'
-    ].join('\n')
-  ]
+export default class ReconnaitreQuadrilatereParticulier extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = context.isHtml
+    this.sup = 4
+    this.besoinFormulaireTexte = [
+      'Type de quadrilatères', [
+        'Nombres séparés par des tirets',
+        '1 : Losange',
+        '2 : Rectangle',
+        '3 : Carré',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const listeDeQuad = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -55,7 +58,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
         'carre'
       ],
       nbQuestions: this.nbQuestions
-    })
+    }).map(String)
 
     this.consigne = !this.interactif ? '' : this.nbQuestions === 1 ? 'Cocher la bonne réponse.' : 'Pour chaque question, cocher la bonne réponse.'
 
@@ -271,15 +274,22 @@ export default function ReconnaitreQuadrilatereParticulier () {
       this.autoCorrection[i].enonce = `${texte}\n`
 
       // 0: losange, 1: rectangle, 2: carré, 3: trapèze, 4: parallélogramme
+      const autoCorr = this.autoCorrection[i].propositions
       switch (listeDeQuad[i]) {
         case 'losange' :
-          this.autoCorrection[i].propositions[0].statut = true
+          if (autoCorr && autoCorr[0]) {
+            autoCorr[0].statut = true
+          }
           break
         case 'rectangle' :
-          this.autoCorrection[i].propositions[1].statut = true
+          if (autoCorr && autoCorr[1]) {
+            autoCorr[1].statut = true
+          }
           break
         case 'carre' :
-          this.autoCorrection[i].propositions[2].statut = true
+          if (autoCorr && autoCorr[2]) {
+            autoCorr[2].statut = true
+          }
           break
       }
 

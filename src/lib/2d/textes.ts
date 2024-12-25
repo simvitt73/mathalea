@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
@@ -604,8 +604,8 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
  * @param tailleCaracteres
  */
 export function latexParCoordonnees (texte: string, x:number, y:number, color:string = 'black', largeur: number = 50, hauteurLigne:number = 20, colorBackground:string = '', tailleCaracteres:number = 8) {
-  if (texte === '') return vide2d()
-  else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
+  if (texte === '') texte = '\\phatom{ }'
+  return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
 /**
@@ -712,8 +712,8 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
 }
 
 export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{ anchor: string, dx?: string, dy?: string }) {
-  if (texte === '') return vide2d()
-  else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
+  if (texte === '') texte = '\\phantom{ }' // pour éviter les latex vides
+  return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }
 
 type LetterSizeType = 'tiny' | 'small' | 'scriptsize' | 'footnotesize' | 'large' | 'Large' | 'LARGE' | 'huge' | 'normalsize'

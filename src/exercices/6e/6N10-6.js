@@ -1,7 +1,7 @@
 import { choice, combinaisonListes2 } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -36,16 +36,20 @@ export const refs = {
   'fr-fr': ['6N10-6'],
   'fr-ch': ['9NO13-4']
 }
-export default function SommeFractionsDecimales () {
-  Exercice.call(this)
-  this.nbQuestions = 6
-  this.besoinFormulaireTexte = ['Type des calculs', 'Nombres séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
-  this.besoinFormulaire2Numerique = ['Forme de la solution', 3, '1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Les deux']
-  this.sup = '7'
-  this.sup2 = 3
-  this.tailleDiaporama = 2
-  this.can = false
-  this.nouvelleVersion = function () {
+export default class SommeFractionsDecimales extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 6
+    this.besoinFormulaireTexte = ['Type des calculs', 'Nombres séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
+    this.besoinFormulaire2Numerique = ['Forme de la solution', 3, '1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Les deux']
+    this.sup = '7'
+    this.sup2 = 3
+    this.tailleDiaporama = 2
+    this.can = false
+  }
+
+  nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     // this.sup2 = contraindreValeur(1, 3, this.sup2, 3)

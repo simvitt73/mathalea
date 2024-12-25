@@ -6,7 +6,7 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -36,21 +36,23 @@ export const refs = {
   'fr-fr': ['6M11-3'],
   'fr-ch': ['9GM1-1']
 }
-export default function AireCarresRectanglesTriangles () {
-  Exercice.call(this)
+export default class AireCarresRectanglesTriangles extends Exercice {
+  constructor () {
+    super()
 
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactif = false
+    this.amcReady = amcReady
+    this.amcType = amcType
+    this.interactif = false
 
-  this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
-  this.spacing = 2
+    this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
+    this.spacing = 2
 
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')

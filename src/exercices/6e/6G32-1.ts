@@ -3,17 +3,18 @@ import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors, texteGras } from '../../lib/format/style'
 import { lettreDepuisChiffre, numAlpha, reverseString } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
+import type { MathfieldElement } from 'mathlive'
 const cleaner = generateCleaner(['parentheses', 'espaces'])
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 
@@ -36,19 +37,27 @@ export const refs = {
   'fr-fr': ['6G32-1'],
   'fr-ch': ['9ES6-26']
 }
-export default function SymetrieAxialeConservation1 () {
-  Exercice.call(this)
+export default class SymetrieAxialeConservation1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type d\'axe :', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire']
+    this.besoinFormulaire3Numerique = ['Nombre de symétriques à trouver', 26]
+    this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"]
 
-  this.spacing = 2
-  this.nbQuestions = 1
+    this.spacing = 2
+    this.nbQuestions = 1
 
-  this.sup = 1
-  this.sup2 = false
-  this.sup3 = 4
+    this.sup = 1
+    this.sup2 = false
+    this.sup3 = 4
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['Segment', 'Droite', '1/2droite', 'Triangle', 'Angle']
-    const points = []; const traces = []; const nom = []; let alternance
+    const points = []
+    const traces = []
+    const nom = []
+    const alternance = this.sup2 === true ? 2 : 1
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       for (let ii = 0; ii < 25; ii++) nom.push(lettreDepuisChiffre(ii + 1))
       const noms = shuffle(nom)
@@ -56,7 +65,12 @@ export default function SymetrieAxialeConservation1 () {
       texteCorr = `${texteGras('Dans la symétrie d\'axe (d), on observe les choses suivantes.')}`
       // On prépare la figure...
       let axe = this.sup
-      let d; let nonchoisi; const coords = []; let x; let y; const objetsEnonce = []; const objetsCorrection = []; let nomd; let labelPos
+      let d
+      let nonchoisi
+      const coords: number[][] = []
+      let x: number = 1
+      let y: number = 1
+      const objetsEnonce = []; const objetsCorrection = []; let nomd; let labelPos
       if (axe === 5) axe = randint(1, 4) // choix de l'axe et des coordonnées
       switch (axe) {
         case 1: d = droite(1, 0, 0)
@@ -67,7 +81,9 @@ export default function SymetrieAxialeConservation1 () {
             while (!nonchoisi) { // Le nouveau point est-il déjà dans la liste ?
               [x, y] = [randint(-5, 0), randint(-5, 5)]
               nonchoisi = true
-              for (let j = 0; j < ii; j++) { if (coords[j][0] === x && coords[j][1] === y) nonchoisi = false }
+              for (let j = 0; j < ii; j++) {
+                if (coords[j][0] === x && coords[j][1] === y) nonchoisi = false
+              }
             }
             coords.push([x, y]) // on stocke les 12 points
           }
@@ -102,7 +118,9 @@ export default function SymetrieAxialeConservation1 () {
           }
           for (let j = 0; j < 12; j++) coords.push([coords[j][1], coords[j][0]]) // on stocke les 12 images
           break
-        case 4: d = droite(1, 1, 0)
+        case 4:
+        default:
+          d = droite(1, 1, 0)
           labelPos = 'above'
           nomd = texteParPosition('(d)', -5.8, 5.4)
           for (let ii = 0; ii < 12; ii++) {
@@ -129,9 +147,8 @@ export default function SymetrieAxialeConservation1 () {
         traces.push(tracePoint(points[ii]))
       }
       // On rédige les questions et les réponses
-      if (this.sup2 === true) alternance = 2
-      else alternance = 1
-      const index = function (ii) {
+
+      const index = function (ii: number) {
         return (ii + 12 * (ii % alternance)) % 24
       }
       objetsEnonce.length = 0
@@ -147,7 +164,7 @@ export default function SymetrieAxialeConservation1 () {
 
       texte = 'Dans la symétrie d\'axe (d), répondre aux questions suivantes.<br>'
       for (let ii = 0, s1, s2, texteAMC, choix; ii < this.sup3;) {
-        let reponse
+        let reponse: string
         switch (listeTypeDeQuestions[ii]) {
           case 'Segment':
             choix = randint(0, 10) + randint(0, 1) * 12
@@ -188,6 +205,7 @@ export default function SymetrieAxialeConservation1 () {
             reponse = `${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}`
             break
           case 'Angle':
+          default:
             choix = randint(0, 9) + randint(0, 1) * 12
             while (points[index(choix)].estSur(droite(points[index(choix + 1)], points[index(choix + 2)]))) {
               choix = randint(0, 9) + randint(0, 1) * 12
@@ -206,9 +224,19 @@ export default function SymetrieAxialeConservation1 () {
 
         if (this.interactif) {
           const typeDeQuestion = listeTypeDeQuestions[ii]
-          const callback = function (exercice, question) {
+          const callback = function (exercice: Exercice, question: number) {
             let feedback = ''
-            const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
+            const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+            if (mfe == null) {
+              return {
+                isOk: false,
+                feedback: 'Erreur de saisie',
+                score: {
+                  nbBonnesReponses: 0,
+                  nbReponses: 1
+                }
+              }
+            }
             let saisie = cleaner(mfe.value)
             let isOk = false
             switch (typeDeQuestion) {
@@ -282,6 +310,7 @@ export default function SymetrieAxialeConservation1 () {
                 break
 
               case 'Angle':
+              default:
                 if (saisie.startsWith('\\widehat{')) {
                   saisie = saisie.slice(9, -1)
                   if (saisie.length === 3) {
@@ -321,9 +350,11 @@ export default function SymetrieAxialeConservation1 () {
           handleAnswers(this, i * this.sup3 + ii, { reponse: { value: reponse }, callback })
         }
         if (context.isAmc) {
+          // @ts-expect-error
           this.autoCorrection[i].propositions.push(
             {
               type: 'AMCOpen',
+              // @ts-expect-error
               propositions: [
                 {
                   texte: ' ',
@@ -340,7 +371,6 @@ export default function SymetrieAxialeConservation1 () {
         texte += texteAMC + '<br>'
         ii++
       }
-      d.isVisible = true
       objetsEnonce.push(nomd, d)
       objetsCorrection.push(nomd, d)
       for (let ii = 0; ii < 24; ii++) {
@@ -351,6 +381,7 @@ export default function SymetrieAxialeConservation1 () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Pour chaque question ci-dessous, placer sur cette figure, l\'objet mathématique cité puis tracer son symétrique. Répondre ensuite à la question.<br>' + enonceAMC + '<br>'
         this.autoCorrection[i].enonceAvant = false
+        // @ts-expect-error
         this.autoCorrection[i].enonceAvantUneFois = true
       }
 
@@ -366,7 +397,4 @@ export default function SymetrieAxialeConservation1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'axe :', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire']
-  this.besoinFormulaire3Numerique = ['Nombre de symétriques à trouver', 26]
-  this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"]
 }

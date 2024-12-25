@@ -42,6 +42,8 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
 export function Polyline (...points) {
   ObjetMathalea2D.call(this, {})
   this.epaisseur = 1
+  this.pointilles = 0
+  this.opacite = 1
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]

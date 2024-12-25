@@ -2,7 +2,7 @@ import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '..
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -90,19 +90,24 @@ function nombreDeJustif (type, str, rang, cduNum) {
   return sortie
 }
 
-export default function ChiffreNombreDe () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 3
+export default class ChiffreNombreDe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Chiffre des ...\n2 : Nombre de ...\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Nombre maximum', 3, '1 : 1 000\n2 : 1 000 000\n3 : 1 000 000 000']
 
-  this.nbQuestions = 6
+    this.sup = 1
+    this.sup2 = 3
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.nbQuestions = 6
+  }
 
-  let typesDeQuestionsDisponibles = []
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    let typesDeQuestionsDisponibles = []
     this.consigne = (this.interactif && this.sup > 1) ? texteGras('Penser à mettre les espaces nécessaires.') : ''
     let listeChiffres = []
     let listeLettres = []
@@ -324,6 +329,4 @@ export default function ChiffreNombreDe () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Chiffre des ...\n2 : Nombre de ...\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Nombre maximum', 3, '1 : 1 000\n2 : 1 000 000\n3 : 1 000 000 000']
 }

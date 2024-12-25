@@ -8,7 +8,7 @@ import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'qcmMult'
@@ -29,16 +29,18 @@ export const refs = {
   'fr-fr': ['6N31-3'],
   'fr-ch': ['9NO7-6']
 }
-export default function ArrondirUneValeur6e () {
-  Exercice.call(this)
+export default class ArrondirUneValeur6e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
+    this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Question ouverte']
+    this.nbQuestions = 3
+    this.sup = 1
+    this.sup2 = 1
+    this.spacingCorr = context.isHtml ? 2.5 : 1
+  }
 
-  this.nbQuestions = 3
-
-  this.sup = 1
-  this.sup2 = 1
-  this.spacingCorr = context.isHtml ? 2.5 : 1
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.version === 3) {
       this.sup = 3
     } else if (this.version === 4) {
@@ -286,6 +288,4 @@ export default function ArrondirUneValeur6e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
-  this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Question ouverte']
 }

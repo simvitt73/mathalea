@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -26,11 +26,14 @@ export const refs = {
   'fr-fr': ['6N10-4'],
   'fr-ch': ['9NO1-5']
 }
-export default function ÉcrireNombresEntiersFormates () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class ÉcrireNombresEntiersFormates extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Écrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.'
     function zeroSuperflus (n) {
       const nzero = randint(0, 2); let nombrestring = n.toString()

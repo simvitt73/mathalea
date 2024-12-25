@@ -2,7 +2,7 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -31,19 +31,26 @@ export const refs = {
   'fr-fr': ['6S11'],
   'fr-ch': ['9FA1-3']
 }
-export default function OrganiserDonneesDepuisTexte () {
-  Exercice.call(this)
-  this.consigne = "Répondre aux questions à l'aide du texte."
-  this.nbQuestions = 4
-  this.nbQuestionsModifiable = false
+export default class OrganiserDonneesDepuisTexte extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 4]
+    this.besoinFormulaire3Numerique = ['Nombre d\'amis', 4]
+    this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false]
+    this.besoinFormulaire4CaseACocher = ['Avec au moins un fruit de chaque', false]
 
-  this.sup = false // false -> effectif ; true -> masse
-  this.sup2 = 4 // paramètre nombre de fruit
-  this.sup3 = 3 // paramètre nombre d'amis
-  this.spacing = context.isHtml ? 2 : 1
-  this.spacingCorr = context.isHtml ? 2 : 1
+    this.consigne = "Répondre aux questions à l'aide du texte."
+    this.nbQuestions = 4
+    this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function () {
+    this.sup = false // false -> effectif ; true -> masse
+    this.sup2 = 4 // paramètre nombre de fruit
+    this.sup3 = 3 // paramètre nombre d'amis
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
+  }
+
+  nouvelleVersion () {
     const nbAmis = contraindreValeur(2, 4, this.sup3, 4) // min = 2;
     let texte
     let texteCorr
@@ -279,8 +286,4 @@ export default function OrganiserDonneesDepuisTexte () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 4]
-  this.besoinFormulaire3Numerique = ['Nombre d\'amis', 4]
-  this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false]
-  this.besoinFormulaire4CaseACocher = ['Avec au moins un fruit de chaque', false]
 }
