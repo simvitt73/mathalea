@@ -9,7 +9,7 @@ import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fraction } from '../../../modules/fractions'
 
-export const titre = 'Résolution d\'inéquations du type a^x<b'
+export const titre = 'Résoudre des inéquations du type a^x<b'
 export const dateDePublication = '4/5/2024'
 export const uuid = 'ce764'
 export const interactifReady = true
@@ -26,7 +26,6 @@ export const refs = {
 export default class ExerciceCalculsDeLog extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Résoudre les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
     this.nbQuestions = 5
     this.spacingCorr = 2
     this.sup = '4'
@@ -34,6 +33,10 @@ export default class ExerciceCalculsDeLog extends Exercice {
   }
 
   nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? 'Résoudre l\'inéquation suivante. '
+      : 'Résoudre les inéquations suivantes. '
+    this.consigne += 'Les solutions devront être écrites sous la forme d\'un intervalle.'
     type Operators = '>=' | '>' | '<=' | '<'
     const operators:Operators[] = ['>=', '>', '<=', '<']
 
@@ -116,7 +119,7 @@ export default class ExerciceCalculsDeLog extends Exercice {
         // demander à Eric Elter pourquoi la comparaison d'intervalles ne fonctionne pas.
         handleAnswers(this, i, { reponse: { value: `${crochetG} ${borneG} ; ${borneD} ${crochetD}`, options: { intervalle: true } } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b, listeOperators[i])) {
         this.listeQuestions[i] = texte
