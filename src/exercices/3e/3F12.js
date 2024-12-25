@@ -2,7 +2,7 @@ import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
   listeQuestionsToContenu,
@@ -26,26 +26,32 @@ export const refs = {
   'fr-fr': ['3F12'],
   'fr-ch': ['10FA5-9', '11FA8-3']
 }
-export default function FonctionsCalculsDImages () {
-  Exercice.call(this)
-  this.sup = 5
-  // pas de différence entre la version html et la version latex pour la consigne
+export default class FonctionsCalculsDImages extends Exercice {
+  constructor () {
+    super()
+    // this.besoinFormulaireNumerique = ['Règle à travailler', 5, '1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Règle à travailler',
+      'Nombres séparés par des tirets\n1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
 
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 4
-  // this.correctionDetailleeDisponible = true;
+    this.sup = 5
+    // pas de différence entre la version html et la version latex pour la consigne
 
-  this.sup = 5
-  let pourcentage, idDuDiv, idDuDivCorr, j
-  const numEx = '3F12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 4
+    // this.correctionDetailleeDisponible = true;
 
-  if (context.isHtml) {
-    pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
-  } else { // sortie LaTeX
+    this.sup = 5
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
+    let pourcentage, idDuDiv, idDuDivCorr, j
+    const numEx = '3F12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
+    if (context.isHtml) {
+      pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
+    } else { // sortie LaTeX
+    }
     let typesDeQuestions
 
     // let typesDeQuestionsDisponibles = [1];
@@ -224,7 +230,4 @@ export default function FonctionsCalculsDImages () {
 
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Règle à travailler', 5, '1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
-  this.besoinFormulaireTexte = ['Règle à travailler',
-    'Nombres séparés par des tirets\n1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
 }

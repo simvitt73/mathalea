@@ -4,7 +4,7 @@ import { katexPopup2 } from '../../lib/format/message'
 import { numAlpha } from '../../lib/outils/outilString'
 import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils'
 export const titre = 'Résoudre un exercice d\'engrenages'
@@ -21,16 +21,19 @@ export const refs = {
   'fr-fr': ['3A12'],
   'fr-ch': ['9NO4-23']
 }
-export default function PpcmEngrenages () {
-  Exercice.call(this)
-  context.isHtml ? this.spacing = 2 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestionsModifiable = false
-  this.nbQuestions = 4
+export default class PpcmEngrenages extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = false
+    context.isHtml ? this.spacing = 2 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestionsModifiable = false
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.sup = false
+  }
+
+  nouvelleVersion (numeroExercice) {
     let typesDeQuestions
 
     const typesDeQuestionsDisponibles = [1, 2, 3]

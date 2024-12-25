@@ -3,7 +3,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -22,18 +22,22 @@ export const refs = {
   'fr-fr': ['1AN14-7'],
   'fr-ch': []
 }
-export default function DeriveeComposee () {
-  Exercice.call(this)
+export default class DeriveeComposee extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Inclure l\'exponentielle']
 
-  // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 5
-  // Sortie LaTeX
-  this.nbCols = 2 // Nombre de colonnes
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = false
+    // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
+    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.nbQuestions = 5
+    // Sortie LaTeX
+    this.nbCols = 2 // Nombre de colonnes
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction
+    this.sup = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
@@ -145,5 +149,4 @@ export default function DeriveeComposee () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Inclure l\'exponentielle']
 }

@@ -9,7 +9,7 @@ import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
 export const dateDePublication = '14/02/2023'
@@ -24,16 +24,20 @@ export const refs = {
   'fr-fr': ['2N60-3'],
   'fr-ch': []
 }
-export default function ProprietesInegalites () {
-  Exercice.call(this)
+export default class ProprietesInegalites extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer des expressions avec des racines carrées\n2 : Encadrer une expression avec une inconnue\n3 : Encadrer une expression avec deux inconnues\n4 : Mélange des cas précédents']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 4
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
-  this.spacingCorr = 2 // Interligne des réponses
-  this.nouvelleVersion = function () {
+    this.sup = 4
+    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.spacing = 1.5 // Interligne des questions
+    this.spacingCorr = 2 // Interligne des réponses
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -235,5 +239,4 @@ ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer des expressions avec des racines carrées\n2 : Encadrer une expression avec une inconnue\n3 : Encadrer une expression avec deux inconnues\n4 : Mélange des cas précédents']
 }

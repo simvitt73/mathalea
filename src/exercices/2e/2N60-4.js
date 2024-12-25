@@ -6,7 +6,7 @@ import { abs, signe } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { pgcd } from '../../lib/outils/primalite'
 import { texSymbole } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -32,20 +32,28 @@ export const refs = {
   'fr-fr': ['2N60-4'],
   'fr-ch': []
 }
-export default function ExerciceInequation1 () {
-  Exercice.call(this)
+export default class ExerciceInequation1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire2Numerique = [
+      "Type d'inéquations",
+      4,
+      '1 : ax≤b ou x+a≤b ou x-a≤b\n2 : ax+b≤c\n3 : ax+b≤cx+d\n4 : Les 2 types précédents'
+    ]
 
-  this.spacing = 1.5
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-  this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
+    this.spacing = 1.5
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.correctionDetailleeDisponible = true
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
+    this.sup = true // Avec des nombres relatifs
+    this.sup2 = 4 // Choix du type d'inéquation
+    this.nbQuestions = 2
   }
-  this.sup = true // Avec des nombres relatifs
-  this.sup2 = 4 // Choix du type d'inéquation
-  this.nbQuestions = 2
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les inéquations suivantes' : 'l\'inéquation suivante') + '.'
     let listeTypeDeQuestions
 
@@ -310,10 +318,4 @@ export default function ExerciceInequation1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire2Numerique = [
-    "Type d'inéquations",
-    4,
-    '1 : ax≤b ou x+a≤b ou x-a≤b\n2 : ax+b≤c\n3 : ax+b≤cx+d\n4 : Les 2 types précédents'
-  ]
 }

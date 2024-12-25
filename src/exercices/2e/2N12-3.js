@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -24,12 +24,17 @@ export const refs = {
   'fr-fr': ['2N12-3'],
   'fr-ch': ['10NO3-5']
 }
-export default function EncadrerRacineCarreeEntre2Entiers () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer sqrt(a)\n2 : Encadrer a+b*sqrt(c) avec des entiers\n3 : Encadrer a+b*sqrt(c) avec des décimaux\n4 : Mélange']
 
-  this.sup = 1
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['Encadrer1']
@@ -156,5 +161,4 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer sqrt(a)\n2 : Encadrer a+b*sqrt(c) avec des entiers\n3 : Encadrer a+b*sqrt(c) avec des décimaux\n4 : Mélange']
 }

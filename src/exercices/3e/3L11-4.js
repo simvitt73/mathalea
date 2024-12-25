@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,18 +26,21 @@ export const refs = {
   'fr-fr': ['3L11-4'],
   'fr-ch': ['11FA3-2']
 }
-export default function FactoriserParNombreOux () {
-  Exercice.call(this)
-  this.sup = 4
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.listeAvecNumerotation = false
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+export default class FactoriserParNombreOux extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.sup = 4
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.listeAvecNumerotation = false
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
 
     let typesDeQuestionsDisponibles

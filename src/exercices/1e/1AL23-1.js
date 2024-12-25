@@ -4,7 +4,7 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -25,15 +25,18 @@ export const refs = {
   'fr-fr': ['1AL23-1'],
   'fr-ch': ['1F3-2']
 }
-export default function Formacanonique () {
-  Exercice.call(this)
+export default class Formacanonique extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.spacingCorr = 3
-  this.besoinFormulaireCaseACocher = ['Le coefficient de $x^2$ est 1', false]
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.spacingCorr = 3
+    this.besoinFormulaireCaseACocher = ['Le coefficient de $x^2$ est 1', false]
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Déterminer la forme canonique ' + (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') + ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
     if (this.interactif) {
       // this.consigne += '<br> '

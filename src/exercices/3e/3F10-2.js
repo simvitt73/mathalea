@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -27,44 +27,53 @@ export const refs = {
   'fr-fr': ['3F10-2'],
   'fr-ch': ['10FA5-6', '11FA8-2', '1F1-10']
 }
-export default function CalculsImagesFonctions () {
-  Exercice.call(this)
-  this.sup = 2
-  this.sup2 = 1
-  this.sup3 = 1
-  this.spacing = 2
-  this.nbQuestions = 3
-  this.fonctions = 'toutesLesFonctions'
-  this.nouvelleVersion = function () {
+export default class CalculsImagesFonctions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
+    ]
+    this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
+    this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 : Mélange']
+
+    this.sup = 2
+    this.sup2 = 1
+    this.sup3 = 1
+    this.spacing = 2
+    this.nbQuestions = 3
+    this.fonctions = 'toutesLesFonctions'
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'
       ? gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 2,
+        defaut: 3,
+        melange: 3,
+        nbQuestions: this.nbQuestions,
+        listeOfCase: ['linéaire', 'affine']
+      })
+      : this.fonctions === 'polynomialesOuRationnelles'
+        ? gestionnaireFormulaireTexte({
           saisie: this.sup,
           min: 1,
           max: 2,
           defaut: 3,
           melange: 3,
           nbQuestions: this.nbQuestions,
-          listeOfCase: ['linéaire', 'affine']
+          listeOfCase: ['polynôme', 'fraction']
         })
-      : this.fonctions === 'polynomialesOuRationnelles'
-        ? gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            min: 1,
-            max: 2,
-            defaut: 3,
-            melange: 3,
-            nbQuestions: this.nbQuestions,
-            listeOfCase: ['polynôme', 'fraction']
-          })
         : gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            min: 1,
-            max: 4,
-            defaut: 5,
-            melange: 5,
-            nbQuestions: this.nbQuestions,
-            listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
-          })
+          saisie: this.sup,
+          min: 1,
+          max: 4,
+          defaut: 5,
+          melange: 5,
+          nbQuestions: this.nbQuestions,
+          listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
+        })
 
     let sousChoix
     if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question pour les questions
@@ -314,9 +323,4 @@ export default function CalculsImagesFonctions () {
       }
     }
   }
-  this.besoinFormulaireTexte = [
-    'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
-  ]
-  this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
-  this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 : Mélange']
 }

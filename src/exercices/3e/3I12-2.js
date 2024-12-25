@@ -3,7 +3,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 import { min } from 'mathjs'
@@ -25,18 +25,37 @@ export const refs = {
   'fr-fr': ['3I12-2'],
   'fr-ch': []
 }
-export default function ComprendreScriptMultiples () {
-  Exercice.call(this)
-  this.sup = 9
-  this.sup2 = 5
-  this.sup3 = 4
-  this.sup4 = 3
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 1
-  this.typeExercice = 'Scratch'
+export default class ComprendreScriptMultiples extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Question(s) à sélectionner',
+      'Nombres séparés par des tirets\n1 : Nombre de variables\n2 : Nom de variables\n3 : Description du script\n4 : Test du script avec deux nombres multiples\n5 : Test du script avec deux nombres non multiples\n6 : Action initiale\n   ------------   \n7 : Une seule question parmi celles choisies\n8 : Deux questions parmi celles choisies\n9 : Trois questions parmi celles choisies\n10 : Quatre questions parmi celles choisies\n11 : Cinq questions parmi celles choisies\n12 : L\'ensemble des six questions'
+    ]
+    this.besoinFormulaire2Texte = [
+      'Choix sur la brique intiale',
+      'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
+    ]
+    this.besoinFormulaire3Texte = [
+      'Choix sur une des phrases finales',
+      'Nombres séparés par des tirets\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Choix de l\'ordre sur la brique modulo', 3,
+      '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard'
+    ]
 
-  this.nouvelleVersion = function () {
+    this.sup = 9
+    this.sup2 = 5
+    this.sup3 = 4
+    this.sup4 = 3
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 1
+    this.typeExercice = 'Scratch'
+  }
+
+  nouvelleVersion () {
     /*
     let optionsBriques = []
 
@@ -240,20 +259,4 @@ export default function ComprendreScriptMultiples () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Question(s) à sélectionner',
-    'Nombres séparés par des tirets\n1 : Nombre de variables\n2 : Nom de variables\n3 : Description du script\n4 : Test du script avec deux nombres multiples\n5 : Test du script avec deux nombres non multiples\n6 : Action initiale\n   ------------   \n7 : Une seule question parmi celles choisies\n8 : Deux questions parmi celles choisies\n9 : Trois questions parmi celles choisies\n10 : Quatre questions parmi celles choisies\n11 : Cinq questions parmi celles choisies\n12 : L\'ensemble des six questions'
-  ]
-  this.besoinFormulaire2Texte = [
-    'Choix sur la brique intiale',
-    'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
-  ]
-  this.besoinFormulaire3Texte = [
-    'Choix sur une des phrases finales',
-    'Nombres séparés par des tirets\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
-  ]
-  this.besoinFormulaire4Numerique = [
-    'Choix de l\'ordre sur la brique modulo', 3,
-    '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard'
-  ]
 }

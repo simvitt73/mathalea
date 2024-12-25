@@ -9,7 +9,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { creerBoutonMathalea2d } from '../../lib/outils/modales'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
@@ -36,19 +36,37 @@ export const refs = {
   'fr-fr': ['3G21'],
   'fr-ch': ['11GM3-5']
 }
-export default function ReciproqueThales () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+export default class ReciproqueThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Réciproque ou contraposée',
+      3,
+      ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Triangles emboîtés ou papillon',
+      3,
+      ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
+    ]
+    this.nbQuestions = 3
+    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
 
-  this.quatrieme = false
-  this.sup = 1
-  this.sup2 = 3
-  this.sup3 = 3
+    this.quatrieme = false
+    this.sup = 1
+    this.sup2 = 3
+    this.sup3 = 3
 
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
-  this.nouvelleVersion = function (numeroExercice) {
+  }
+
+  nouvelleVersion (numeroExercice) {
     this.sup = contraindreValeur(1, 3, parseInt(this.sup), 1)
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 1)
     this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)
@@ -428,20 +446,4 @@ export default function ReciproqueThales () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    3,
-    ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
-  ]
-  this.besoinFormulaire2Numerique = [
-    'Réciproque ou contraposée',
-    3,
-    ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
-  ]
-  this.besoinFormulaire3Numerique = [
-    'Triangles emboîtés ou papillon',
-    3,
-    ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
-  ]
 }

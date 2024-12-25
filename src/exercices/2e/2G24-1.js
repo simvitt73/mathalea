@@ -6,7 +6,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -30,13 +30,18 @@ export const refs = {
   'fr-fr': ['2G24-1'],
   'fr-ch': []
 }
-export default function Calculercoordonneesvecteurs () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.sup = 1
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+export default class Calculercoordonneesvecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire']
+
+    this.nbQuestions = 2
+    this.sup = 1
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let xA, yA, xB, yB, xABFraction, yABFraction, r
       const nomsPoints = creerNomDePolygone(2, ['Q', 'I', 'J', 'O', 'X', 'Y', 'Z'])
@@ -174,5 +179,4 @@ export default function Calculercoordonneesvecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire']
 }

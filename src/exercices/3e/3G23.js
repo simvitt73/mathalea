@@ -15,7 +15,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
@@ -36,14 +36,17 @@ export const refs = {
   'fr-fr': ['3G23'],
   'fr-ch': ['11GM3-6']
 }
-export default function TrianglesEgaux () {
-  Exercice.call(this)
-  this.debug = false
+export default class TrianglesEgaux extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.debug = false
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const typesDeQuestions = randint(1, 1)

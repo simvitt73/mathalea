@@ -1,6 +1,6 @@
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Operation from '../../modules/operations'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -29,15 +29,24 @@ export const refs = {
   'fr-fr': ['3A13-5'],
   'fr-ch': ['9NO4-25']
 }
-export default function DivisionEuclidienneEtAjout () {
-  Exercice.call(this)
+export default class DivisionEuclidienneEtAjout extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Inclure la division euclidienne']
 
-  this.nbQuestions = 5
-  this.sup = true
-  this.sup2 = 3
-  this.sup3 = '14-15-16-17'
+    this.besoinFormulaire2Numerique = ['Type de questions', 3,
+      '1 : Ajouter un nombre\n2 : Soustraire un nombre\n3 : Mélange'
+    ]
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets\nChoix entre 0 et 29']
+
+    this.nbQuestions = 5
+    this.sup = true
+    this.sup2 = 3
+    this.sup3 = '14-15-16-17'
+  }
+
+  nouvelleVersion () {
     const dizaineDiviseur = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: 0,
@@ -159,12 +168,4 @@ export default function DivisionEuclidienneEtAjout () {
 
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireCaseACocher = ['Inclure la division euclidienne']
-
-  this.besoinFormulaire2Numerique = ['Type de questions', 3,
-    '1 : Ajouter un nombre\n2 : Soustraire un nombre\n3 : Mélange'
-  ]
-
-  this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets\nChoix entre 0 et 29']
 }

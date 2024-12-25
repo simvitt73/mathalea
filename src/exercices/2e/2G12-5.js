@@ -14,7 +14,7 @@ import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outil
 import { abs } from '../../lib/outils/nombres'
 import { texteGras } from '../../lib/format/style'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -35,15 +35,19 @@ export const refs = {
   'fr-fr': ['2G12-5'],
   'fr-ch': ['11GM1-8']
 }
-export default function ParallélogrammeSommet () {
-  Exercice.call(this)
+export default class ParallélogrammeSommet extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Avec des entiers \n2 : Avec des décimaux\n3 : Situation concrète ']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 1 //
+    this.sup = 1 //
   // this.correctionDetaillee = false
   // this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -414,5 +418,4 @@ export default function ParallélogrammeSommet () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Avec des entiers \n2 : Avec des décimaux\n3 : Situation concrète ']
 }

@@ -6,7 +6,7 @@ import {
   reduireAxPlusB, reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -48,20 +48,26 @@ export const refs = {
   'fr-fr': ['3L11'],
   'fr-ch': ['10FA2-2', '11FA2-2']
 }
-export default function ExerciceDevelopper () {
-  Exercice.call(this)
-  this.sup = 3 // difficulté
-  this.sup2 = 2 // consigne
-  this.sup3 = 7 // forme de développement
-  this.sup4 = false
-  this.nbQuestions = 6
-  this.spacing = 2
-  this.spacingCorr = 2
+export default class ExerciceDevelopper extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif']
+    this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer \n2 : Développer et réduire']
+    this.besoinFormulaire3Texte = ['Forme de développement', 'Nombres séparés par des tirets\n1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
+    this.besoinFormulaire4CaseACocher = ['$x$ est la seule lettre utilisée']
+    this.sup = 3 // difficulté
+    this.sup2 = 2 // consigne
+    this.sup3 = 7 // forme de développement
+    this.sup4 = false
+    this.nbQuestions = 6
+    this.spacing = 2
+    this.spacingCorr = 2
 
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'
     if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes'
     this.consigne += '.'
@@ -254,8 +260,4 @@ export default function ExerciceDevelopper () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif']
-  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer \n2 : Développer et réduire']
-  this.besoinFormulaire3Texte = ['Forme de développement', 'Nombres séparés par des tirets\n1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
-  this.besoinFormulaire4CaseACocher = ['$x$ est la seule lettre utilisée']
 }

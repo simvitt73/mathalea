@@ -4,7 +4,7 @@ import { katexPopup2 } from '../../lib/format/message'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -21,18 +21,24 @@ export const refs = {
   'fr-fr': ['3G22'],
   'fr-ch': []
 }
-export default function AgrandissementReduction () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
+export default class AgrandissementReduction extends Exercice {
+  constructor () {
+    super()
+    this.started = false
+    this.timeoutHandle = null
+    this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Calcul d\'aires et de volumes\n 2 : Problème complexe\n 3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Coefficient de réduction (Calcul d\'aires et de volumes)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Mélange']
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
 
-  this.quatrieme = false
-  this.sup = 1 //
-  this.sup2 = 1
+    this.quatrieme = false
+    this.sup = 1 //
+    this.sup2 = 1
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     let texte, texteCorr, r, r2, h1, h2, h3, c, c2, kprime
     const pi = Decimal.acos(-1)
     this.typeExercice = 'MG32'
@@ -711,8 +717,4 @@ export default function AgrandissementReduction () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.started = false
-  this.timeoutHandle = null
-  this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Calcul d\'aires et de volumes\n 2 : Problème complexe\n 3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Coefficient de réduction (Calcul d\'aires et de volumes)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Mélange']
 }

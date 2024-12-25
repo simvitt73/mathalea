@@ -8,7 +8,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 
@@ -84,13 +84,16 @@ export const refs = {
   'fr-fr': ['3I1-1'],
   'fr-ch': []
 }
-export default function ConjectureDeSyracuse () {
-  Exercice.call(this)
+export default class ConjectureDeSyracuse extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 5
-  this.nbQuestionsModifiable = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.nbQuestionsModifiable = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     let entier = randint(1, 200)

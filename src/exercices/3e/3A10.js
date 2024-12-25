@@ -2,7 +2,7 @@ import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '..
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, egal, randint, contraindreValeur } from '../../modules/outils'
 
@@ -19,21 +19,25 @@ export const refs = {
   'fr-fr': ['3A10'],
   'fr-ch': ['9NO4-1']
 }
-export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
-  Exercice.call(this)
-  // context.isHtml ? this.spacing = 3 : this.spacing = 2;
-  context.isHtml ? this.spacing = 1 : this.spacing = 2
-  // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
-  this.nbQuestions = 5
+export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
+    this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
+    // context.isHtml ? this.spacing = 3 : this.spacing = 2;
+    context.isHtml ? this.spacing = 1 : this.spacing = 2
+    // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
+    this.nbQuestions = 5
 
-  this.sup = '3'
-  this.sup2 = '10'
-  this.sup3 = 13
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+    this.sup = '3'
+    this.sup2 = '10'
+    this.sup3 = 13
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup3 = contraindreValeur(2, 16, this.sup3, 10)
     let nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
     const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
@@ -244,6 +248,4 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
-  this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
 }

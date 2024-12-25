@@ -11,7 +11,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { texteGras } from '../../lib/format/style'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
@@ -27,15 +27,18 @@ export const refs = {
   'fr-fr': ['2G12-3'],
   'fr-ch': ['11GM1-6']
 }
-export default function Parallélogramme () {
-  Exercice.call(this)
+export default class Parallélogramme extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 1 //
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.sup = 1 //
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

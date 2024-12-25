@@ -11,7 +11,7 @@ import { sp } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Probabilités conditionnelles'
 
@@ -29,28 +29,32 @@ export const refs = {
   'fr-fr': ['1P10'],
   'fr-ch': []
 }
-export default function ProbabilitesConditionnelles () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Nombre de questions par défaut
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = context.isHtml ? 2 : 1
-  this.spacingCorr = context.isHtml ? 3 : 1
 
-  this.sup = false
-  this.sup2 = 3
-
-  /**
+/**
      *
      * @param {Number} proba La probabilité à afficher
      * @param {Boolean} rationnel Si true alors // \\dfrac sinon 0,..
      * @returns la chaine latex pour écrire la proba.
      * version arrondie au millième
      */
-  function texProba (proba, rationnel) {
-    return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
+function texProba (proba, rationnel) {
+  return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
+}
+export default class ProbabilitesConditionnelles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
+    this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
+    this.nbQuestions = 1 // Nombre de questions par défaut
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 3 : 1
+
+    this.sup = false
+    this.sup2 = 3
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let objets
     let listeTypeDeQuestions
     this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
@@ -217,6 +221,4 @@ export default function ProbabilitesConditionnelles () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
-  this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
 }

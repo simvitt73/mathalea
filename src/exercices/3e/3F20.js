@@ -13,7 +13,7 @@ import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -34,21 +34,24 @@ export const uuid = 'aeb5a'
  * Questions sur les fonctions linéaires
  * @author Jean-Claude Lhote
  */
-export default function FonctionsLineaires () {
-  Exercice.call(this)
-  this.comment = `L'exercice propose différents types de questions sur les fonctions linéaires :<br>
+export default class FonctionsLineaires extends Exercice {
+  constructor () {
+    super()
+
+    this.comment = `L'exercice propose différents types de questions sur les fonctions linéaires :<br>
 calcul d'image, calcul d'antécédent ou détermination du coefficient.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
 Certaines questions de calcul d'image nécessitent le calcul du coefficient au préalable.<br>
 Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>`
-  this.sup = 1 // coefficient entier relatif
-  this.nbQuestions = 8
-  this.sup2 = '9'
+    this.sup = 1 // coefficient entier relatif
+    this.nbQuestions = 8
+    this.sup2 = '9'
 
-  this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
-  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']
+    this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
+    this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [
       'imageParExpression',
       'imageParValeurs',

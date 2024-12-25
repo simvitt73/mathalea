@@ -2,7 +2,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -28,21 +28,25 @@ export const refs = {
   'fr-fr': ['3A10-3'],
   'fr-ch': ['9NO4-17', '1CN-2']
 }
-export default function DecompositionFacteursPremiers () {
-  Exercice.call(this)
-  // pas de différence entre la version html et la version latex pour la consigne
-  // mais une différence selon que l'exo est affiché en interactif ou non
+export default class DecompositionFacteursPremiers extends Exercice {
+  constructor () {
+    super()
 
-  context.isHtml ? this.spacing = 2 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 3
-  // this.correctionDetailleeDisponible = true;
+    // pas de différence entre la version html et la version latex pour la consigne
+    // mais une différence selon que l'exo est affiché en interactif ou non
 
-  this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
-  this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
-  this.sup = true
-  this.sup2 = 4
-  this.nouvelleVersion = function () {
+    context.isHtml ? this.spacing = 2 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 3
+    // this.correctionDetailleeDisponible = true;
+
+    this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
+    this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
+    this.sup = true
+    this.sup2 = 4
+  }
+
+  nouvelleVersion () {
     let typesDeQuestions
 
     /* From Sebastien Lozano

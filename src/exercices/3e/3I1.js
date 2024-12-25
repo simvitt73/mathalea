@@ -1,4 +1,4 @@
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Instruction conditionnelle (scratch)'
@@ -15,21 +15,26 @@ export const refs = {
   'fr-fr': ['3I1'],
   'fr-ch': []
 }
-export default function InstructionConditionnelle () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  this.nbQuestions = 2
+export default class InstructionConditionnelle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Variante', 3, '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées']
 
-  this.consigne = 'Donner les coordonnées de la position finale du lutin.'
-  this.typeExercice = 'Scratch'
-  this.nbCols = 2
+    this.debug = false
+    this.sup = 1
+    this.nbQuestions = 2
 
-  this.nbQuestionsModifiable = false
-  context.isHtml ? this.spacing = 1 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+    this.consigne = 'Donner les coordonnées de la position finale du lutin.'
+    this.typeExercice = 'Scratch'
+    this.nbCols = 2
+
+    this.nbQuestionsModifiable = false
+    context.isHtml ? this.spacing = 1 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
   // let typesDeQuestionsDisponibles;
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     function scratchblocksTikz (codeSvg, codeTikz) {
       if (context.isHtml) {
         return codeSvg
@@ -108,5 +113,4 @@ export default function InstructionConditionnelle () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Variante', 3, '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées']
 }

@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { signe } from '../../lib/outils/nombres'
 
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -28,15 +28,19 @@ export const refs = {
   'fr-fr': ['2G24-4'],
   'fr-ch': []
 }
-export default function Calculercoordonneesproduitvecteurs () {
-  Exercice.call(this)
+export default class Calculercoordonneesproduitvecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Situations différentes ', '1 : Coordonnées entières\n2 : Coordonnées en écriture fractionnaire\n3 : À partir de quatre points\n4 : Mélange']
 
-  this.nbQuestions = 2
+    this.nbQuestions = 2
 
-  this.sup = '1'
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.sup = '1'
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -172,5 +176,4 @@ export default function Calculercoordonneesproduitvecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', '1 : Coordonnées entières\n2 : Coordonnées en écriture fractionnaire\n3 : À partir de quatre points\n4 : Mélange']
 }

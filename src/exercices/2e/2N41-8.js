@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -24,14 +24,18 @@ export const refs = {
   'fr-fr': ['2N41-8'],
   'fr-ch': []
 }
-export default function MettreAuMemeDenominateurLit () {
-  Exercice.call(this)
+export default class MettreAuMemeDenominateurLit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange']
 
-  this.nbQuestions = 2
-  this.sup = 3
-  this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
+    this.nbQuestions = 2
+    this.sup = 3
+    this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
   Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
@@ -305,5 +309,4 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange']
 }

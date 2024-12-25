@@ -13,7 +13,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { droite } from '../../lib/2d/droites'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -38,22 +38,62 @@ export const refs = {
   'fr-fr': ['3G31'],
   'fr-ch': []
 }
-export default function CalculDAngle () {
-  Exercice.call(this)
-  this.nbQuestions = 2
 
-  this.sup = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.debug = false
-  this.spacing = 2
-  if (context.isHtml) {
-    this.spacingCorr = 3
-  } else {
-    this.spacingCorr = 2
+/**
+   * Détermine si le rectangle est en intersection avec le segment
+   * Décale de 5 pixels dans le sens
+   * @param {*} A extremité du segment
+   * @param {C} B extremité du segment
+   * @param {*} centre centre du rectangle || variable mis à jour (décaléé droite ou à gauche)
+   * @param {*} demirectWitdh demi longueur du rectangle
+   * @param {*} demirectHeight demi largeur du rectangle
+   * @param {*} pixelsParCm nombre de pixels par unité de mesure
+   * @returns retourne les points d'intersection (les quatre premiers sont les points d'intersection, les quatre suivants sont des booleans si 'intersection ou pas)
+   */
+function intersectionSegmentRectangle (A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration = 4) {
+  const pgauche = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
+  const pdroite = pointIntersectionDD(droite(A, B), droite(point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
+  const phaut = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
+  const pbas = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
+  const bgauche = pgauche.y >= centre.y - demirectHeight / pixelsParCm && pgauche.y <= centre.y + demirectHeight / pixelsParCm
+  const bdroite = pdroite.y >= centre.y - demirectHeight / pixelsParCm && pdroite.y <= centre.y + demirectHeight / pixelsParCm
+  const bhaut = phaut.x >= centre.x - demirectWitdh / pixelsParCm && phaut.x <= centre.x + demirectWitdh / pixelsParCm
+  const bbas = pbas.x >= centre.x - demirectWitdh / pixelsParCm && pbas.x <= centre.x + demirectWitdh / pixelsParCm
+
+  if (bgauche) {
+    centre.x = centre.x + 5 / pixelsParCm
+    if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+  } else if (bdroite) {
+    centre.x = centre.x - 5 / pixelsParCm
+    if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+  } else if ((bbas || bhaut) && centre.x > pbas.x) {
+    centre.x = centre.x + 5 / pixelsParCm
+    if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+  } else if ((bbas || bhaut) && centre.x < pbas.x) {
+    centre.x = centre.x - 5 / pixelsParCm
+    if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+  }
+  return { pgauche, pdroite, phaut, pbas, bgauche, bdroite, bhaut, bbas }
+}
+export default class CalculDAngle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
+    this.nbQuestions = 2
+
+    this.sup = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    this.debug = false
+    this.spacing = 2
+    if (context.isHtml) {
+      this.spacingCorr = 3
+    } else {
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listChoixRapportTrigo = []
     for (let i = 0; i < this.nbQuestions; i++) {
       const nom = creerNomDePolygone(3, 'QD')
@@ -332,43 +372,5 @@ export default function CalculDAngle () {
       }
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-  }
-  this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
-
-  /**
-   * Détermine si le rectangle est en intersection avec le segment
-   * Décale de 5 pixels dans le sens
-   * @param {*} A extremité du segment
-   * @param {C} B extremité du segment
-   * @param {*} centre centre du rectangle || variable mis à jour (décaléé droite ou à gauche)
-   * @param {*} demirectWitdh demi longueur du rectangle
-   * @param {*} demirectHeight demi largeur du rectangle
-   * @param {*} pixelsParCm nombre de pixels par unité de mesure
-   * @returns retourne les points d'intersection (les quatre premiers sont les points d'intersection, les quatre suivants sont des booleans si 'intersection ou pas)
-   */
-  function intersectionSegmentRectangle (A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration = 4) {
-    const pgauche = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
-    const pdroite = pointIntersectionDD(droite(A, B), droite(point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
-    const phaut = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
-    const pbas = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
-    const bgauche = pgauche.y >= centre.y - demirectHeight / pixelsParCm && pgauche.y <= centre.y + demirectHeight / pixelsParCm
-    const bdroite = pdroite.y >= centre.y - demirectHeight / pixelsParCm && pdroite.y <= centre.y + demirectHeight / pixelsParCm
-    const bhaut = phaut.x >= centre.x - demirectWitdh / pixelsParCm && phaut.x <= centre.x + demirectWitdh / pixelsParCm
-    const bbas = pbas.x >= centre.x - demirectWitdh / pixelsParCm && pbas.x <= centre.x + demirectWitdh / pixelsParCm
-
-    if (bgauche) {
-      centre.x = centre.x + 5 / pixelsParCm
-      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
-    } else if (bdroite) {
-      centre.x = centre.x - 5 / pixelsParCm
-      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
-    } else if ((bbas || bhaut) && centre.x > pbas.x) {
-      centre.x = centre.x + 5 / pixelsParCm
-      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
-    } else if ((bbas || bhaut) && centre.x < pbas.x) {
-      centre.x = centre.x - 5 / pixelsParCm
-      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
-    }
-    return { pgauche, pdroite, phaut, pbas, bgauche, bdroite, bhaut, bbas }
   }
 }

@@ -1,7 +1,7 @@
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -27,15 +27,18 @@ export const refs = {
   'fr-fr': ['3A12-1'],
   'fr-ch': ['9NO4-24']
 }
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange']
 
-  this.nbQuestions = 3
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.interactifType = 'mathLive'
-  this.sup = '4'
+    this.nbQuestions = 3
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.interactifType = 'mathLive'
+    this.sup = '4'
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -288,5 +291,4 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange']
 }

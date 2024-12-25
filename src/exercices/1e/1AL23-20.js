@@ -6,7 +6,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/
 import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions'
 import { egal, listeQuestionsToContenu } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'
@@ -24,15 +24,17 @@ export const refs = {
   'fr-fr': ['1AL23-20'],
   'fr-ch': []
 }
-export default function Resolutionavecformecanonique () {
-  Exercice.call(this)
+export default class Resolutionavecformecanonique extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
-  this.nbQuestions = 4
+    this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
+    this.nbQuestions = 4
 
-  this.spacingCorr = 3
+    this.spacingCorr = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne += '<br> '
     }

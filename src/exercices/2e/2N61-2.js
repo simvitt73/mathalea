@@ -10,7 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -37,17 +37,24 @@ export const refs = {
   'fr-fr': ['2N61-2'],
   'fr-ch': []
 }
-export default function ExerciceInequationProduit () {
-  Exercice.call(this)
-  this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
-  this.spacing = 2 // Espace entre deux lignes
-  this.spacingCorr = 2 // Espace entre deux lignes pour la correction
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false // Désactive la correction détaillée par défaut
-  this.sup = 1 // Choix du type d'inéquation
-  this.nbQuestions = 4 // Choix du nombre de questions
+export default class ExerciceInequationProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Type d\'inéquation',
+      6,
+      '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
+    ]
+    this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
+    this.spacing = 2 // Espace entre deux lignes
+    this.spacingCorr = 2 // Espace entre deux lignes pour la correction
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false // Désactive la correction détaillée par défaut
+    this.sup = 1 // Choix du type d'inéquation
+    this.nbQuestions = 4 // Choix du nombre de questions
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
     const separateur = ';'
@@ -703,9 +710,4 @@ export default function ExerciceInequationProduit () {
     listeQuestionsToContenu(this)
   }
   // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
-  this.besoinFormulaireNumerique = [
-    'Type d\'inéquation',
-    6,
-    '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
-  ]
 }

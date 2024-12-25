@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -25,18 +25,21 @@ export const refs = {
   'fr-fr': ['3L11-10'],
   'fr-ch': ['11FA2-6']
 }
-export default function TableDoubleDistributivite () {
-  Exercice.call(this)
+export default class TableDoubleDistributivite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.sup = 1
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.exoCustomResultat = true
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+    this.sup = 1
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+    this.exoCustomResultat = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
 
@@ -193,5 +196,4 @@ export default function TableDoubleDistributivite () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
 }

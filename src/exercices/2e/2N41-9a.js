@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -33,20 +33,42 @@ export const refs = {
   'fr-ch': []
 }
 
-export default function DevelopperReduireExprComplexe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 3
-  this.sup = '3'
-  this.sup2 = false
-  this.sup3 = 3
-  this.sup4 = true
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nouvelleVersion = function () {
+export default class DevelopperReduireExprComplexe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Types de questions',
+      `Nombres séparés par des tirets
+1 : '(ax+b)(cx+d)+(ex+f)(gx+h)'
+2 : '(ax+b)(cx+d)-(ex+f)(gx+h)'
+3 : '(ax+b)^2 + (cx+d)^2'
+4 : '(ax+b)^2 - (cx+d)^2'
+5 : '(ax+b)^2 + (cx+d)(ex+f)'
+6 : '(ax+b)^2 - (cx+d)(ex+f)'
+7 : '(cx+d)(ex+f) + (ax+b)^2'
+8 : '(cx+d)(ex+f) - (ax+b)^2'
+9 : '(ax+b)(ax-b) + (cx+d)^2'
+10 : '(ax-b)(ax+b) - (cx+d)^2'
+11 : 'Mélange'
+`]
+    this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
+    this.besoinFormulaire3Numerique = ['Niveau de détail dans la correction détaillée', 3]
+    this.besoinFormulaire4CaseACocher = ['Couleur dans la correction', true]
+    // Héritage de la classe Exercice()
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 3
+    this.sup = '3'
+    this.sup2 = false
+    this.sup3 = 3
+    this.sup4 = true
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     this.consigne =
             this.nbQuestions > 1
               ? 'Développer puis réduire les expressions littérales suivantes.'
@@ -265,22 +287,4 @@ export default function DevelopperReduireExprComplexe () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireTexte = [
-    'Types de questions',
-        `Nombres séparés par des tirets
-1 : '(ax+b)(cx+d)+(ex+f)(gx+h)'
-2 : '(ax+b)(cx+d)-(ex+f)(gx+h)'
-3 : '(ax+b)^2 + (cx+d)^2'
-4 : '(ax+b)^2 - (cx+d)^2'
-5 : '(ax+b)^2 + (cx+d)(ex+f)'
-6 : '(ax+b)^2 - (cx+d)(ex+f)'
-7 : '(cx+d)(ex+f) + (ax+b)^2'
-8 : '(cx+d)(ex+f) - (ax+b)^2'
-9 : '(ax+b)(ax-b) + (cx+d)^2'
-10 : '(ax-b)(ax+b) - (cx+d)^2'
-11 : 'Mélange'
-`]
-  this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
-  this.besoinFormulaire3Numerique = ['Niveau de détail dans la correction détaillée', 3]
-  this.besoinFormulaire4CaseACocher = ['Couleur dans la correction', true]
 }

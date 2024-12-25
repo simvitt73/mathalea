@@ -14,7 +14,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '25/05/2023'
 export const titre = 'Étudier la position relative de deux courbes'
@@ -30,19 +30,22 @@ export const refs = {
   'fr-fr': ['2N60-6'],
   'fr-ch': []
 }
-export default function PositionRelative () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
+export default class PositionRelative extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.besoinFormulaireTexte = [
-    'Choix des fonctions',
-    '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
-  ]
-  this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
+    this.sup = 1
+    this.sup2 = 1
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.besoinFormulaireTexte = [
+      'Choix des fonctions',
+      '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
+    ]
+    this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

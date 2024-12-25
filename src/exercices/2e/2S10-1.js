@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -31,12 +31,16 @@ export const refs = {
   'fr-fr': ['2S10-1'],
   'fr-ch': []
 }
-export default function DiffentesEcrituresProportions () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.sup = 4 // type de questions
+export default class DiffentesEcrituresProportions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Décimal vers fraction ou pourcentage \n2 : Pourcentage vers fraction ou décimal\n3 : Fraction vers décimal ou pourcentage \n4 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.sup = 4 // type de questions
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['Decimal']
@@ -165,5 +169,4 @@ export default function DiffentesEcrituresProportions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Décimal vers fraction ou pourcentage \n2 : Pourcentage vers fraction ou décimal\n3 : Fraction vers décimal ou pourcentage \n4 : Mélange']
 }

@@ -12,7 +12,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -37,21 +37,26 @@ export const refs = {
   'fr-fr': ['3G30-1'],
   'fr-ch': []
 }
-export default function ExprimerCosSinTan () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class ExprimerCosSinTan extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner jusque 3 rapports trigonométriques\n2 : Donner jusque 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes']
+    this.besoinFormulaire2Texte = ['Rapports trigonométriques', 'Nombres séparés par des tirets : \n1 : Cosinus\n2 : Sinus\n3 : Tangente\n4 : Les trois']
 
-  this.sup = 1
-  this.sup2 = '4'
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 3
-  } else {
-    this.spacing = 2
-    this.spacingCorr = 2
+    this.nbQuestions = 1
+
+    this.sup = 1
+    this.sup2 = '4'
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 3
+    } else {
+      this.spacing = 2
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let fonctionsTrigonometriques = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -578,7 +583,4 @@ export default function ExprimerCosSinTan () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner jusque 3 rapports trigonométriques\n2 : Donner jusque 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes']
-  this.besoinFormulaire2Texte = ['Rapports trigonométriques', 'Nombres séparés par des tirets : \n1 : Cosinus\n2 : Sinus\n3 : Tangente\n4 : Les trois']
 }

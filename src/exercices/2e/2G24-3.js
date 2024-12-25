@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -25,15 +25,19 @@ export const refs = {
   'fr-fr': ['2G24-3'],
   'fr-ch': []
 }
-export default function Calculercoordonneesdifferencevecteurs () {
-  Exercice.call(this)
+export default class Calculercoordonneesdifferencevecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations différentes ', 4, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire\n 3 : À partir de quatre points\n4 : Mélange']
 
-  this.nbQuestions = 2
+    this.nbQuestions = 2
 
-  this.sup = 1
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['t1'] // On donne 2 vecteurs à coordonnées entières
@@ -193,5 +197,4 @@ export default function Calculercoordonneesdifferencevecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 4, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire\n 3 : À partir de quatre points\n4 : Mélange']
 }

@@ -13,7 +13,7 @@ import { prenomF } from '../../lib/outils/Personne'
 import { pgcd } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -38,16 +38,20 @@ export const refs = {
   'fr-fr': ['2N60-1'],
   'fr-ch': []
 }
-export default function ModeliseInequations () {
-  Exercice.call(this)
+export default class ModeliseInequations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Situation concrète\n2 : Situation géométrique\n3 : Programme de calcul\n4 : Mélange des cas précédents']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 4
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
-  this.spacingCorr = 1.5// Interligne des réponses
-  this.nouvelleVersion = function () {
+    this.sup = 4
+    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.spacing = 1.5 // Interligne des questions
+    this.spacingCorr = 1.5// Interligne des réponses
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3']//
@@ -433,5 +437,4 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Situation concrète\n2 : Situation géométrique\n3 : Programme de calcul\n4 : Mélange des cas précédents']
 }

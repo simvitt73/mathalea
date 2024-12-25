@@ -2,7 +2,7 @@ import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
 export const dateDePublication = '20/12/2021'
@@ -15,13 +15,17 @@ export const refs = {
   'fr-fr': ['2F32-3'],
   'fr-ch': []
 }
-export default function LireUnTableauDevariations () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.sup = 3 // Niveau de difficulté
-  this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class LireUnTableauDevariations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Minimum et maximum\n2 :Encadrement\n3 :Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.sup = 3 // Niveau de difficulté
+    this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -205,5 +209,4 @@ export default function LireUnTableauDevariations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Minimum et maximum\n2 :Encadrement\n3 :Mélange']
 }

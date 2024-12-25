@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -22,14 +22,17 @@ export const refs = {
   'fr-fr': ['2N32-6'],
   'fr-ch': ['11NO1-9', '1CN-11']
 }
-export default function IdentitesRemarquablesEtRacineCarree () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 2
+export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1
+    this.nbQuestions = 5
+    this.nbCols = 2
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'

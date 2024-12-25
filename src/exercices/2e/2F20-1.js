@@ -8,7 +8,7 @@ import {
 } from '../../lib/outils/ecritures'
 import { texteCentre } from '../../lib/format/miseEnPage'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import {
   listeQuestionsToContenu, randint
@@ -27,16 +27,25 @@ export const refs = {
   'fr-fr': ['2F20-1'],
   'fr-ch': ['11FA9-1']
 }
-export default function PointSurCourbe () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+export default class PointSurCourbe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      4,
+      '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
+    ]
+    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Abscisse du point A entière\n2 : Abscisse du point A fractionnaire\n3 : Mélange']
 
-  this.nbQuestions = 2
+    this.sup = 1
+    this.sup2 = 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -367,10 +376,4 @@ export default function PointSurCourbe () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    4,
-    '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
-  ]
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Abscisse du point A entière\n2 : Abscisse du point A fractionnaire\n3 : Mélange']
 }

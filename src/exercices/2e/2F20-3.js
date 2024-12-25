@@ -7,7 +7,7 @@ import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutil
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, numTrie } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -33,18 +33,21 @@ export const refs = {
   'fr-fr': ['2F20-3'],
   'fr-ch': ['11FA9-4']
 }
-export default function LecturesGraphiques () {
-  Exercice.call(this)
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nbQuestions = 6
-  this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+export default class LecturesGraphiques extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    this.nbQuestions = 6
+    this.nbQuestionsModifiable = false
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
-  this.nouvelleVersion = function () {
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     const typeFonctionsDisponibles = ['minimum', 'maximum', 'image', 'plusPetitAntécédent', 'plusGrandAntécédent', 'nombreAntécédents'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let mini = 4

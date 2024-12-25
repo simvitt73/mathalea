@@ -5,7 +5,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
@@ -32,27 +32,31 @@ export const refs = {
   'fr-fr': ['2F12-1'],
   'fr-ch': []
 }
-export default function EquationsFonctionsRef () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+export default class EquationsFonctionsRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
 
-  this.nbQuestions = 2
+    this.sup = 1
+    this.sup2 = 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
 
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : x^2=k',
-      '2 : sqrt(x)=k',
-      '3 : 1/x=k',
-      '4 : x^3=k',
-      '5 : Mélange'
-    ].join('\n')
-  ]
+    this.nbQuestions = 2
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : x^2=k',
+        '2 : sqrt(x)=k',
+        '3 : 1/x=k',
+        '4 : x^3=k',
+        '5 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -710,5 +714,4 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
 }

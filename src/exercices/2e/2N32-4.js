@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -21,15 +21,19 @@ export const refs = {
   'fr-fr': ['2N32-4'],
   'fr-ch': ['11NO1-7', '1CN-9']
 }
-export default function SimplifierUneSommeDeRacinesCarrees () {
-  Exercice.call(this)
+export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1
-  this.spacingCorr = context.isHtml ? 2 : 1
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1
+    this.spacingCorr = context.isHtml ? 2 : 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const e1 = randint(2, 8) * choice([-1, 1])
       const e2 = randint(2, 8) * choice([-1, 1])
@@ -74,5 +78,4 @@ export default function SimplifierUneSommeDeRacinesCarrees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 }

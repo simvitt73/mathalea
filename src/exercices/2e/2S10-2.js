@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -36,16 +36,19 @@ export const refs = {
   'fr-fr': ['2S10-2'],
   'fr-ch': ['9NO14-8']
 }
-export default function Proportions () {
-  Exercice.call(this)
+export default class Proportions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer l\'effectif d\'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l\'effectif de la population totale \n4 : Mélange']
 
-  this.nbQuestions = 2
+    this.nbQuestions = 2
 
-  this.sup = 4 // type de questions mettre 4
+    this.sup = 4 // type de questions mettre 4
 
-  this.spacingCorr = 2
+    this.spacingCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['sous-population']
@@ -302,5 +305,4 @@ export default function Proportions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer l\'effectif d\'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l\'effectif de la population totale \n4 : Mélange']
 }

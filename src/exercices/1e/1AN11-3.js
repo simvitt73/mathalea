@@ -5,7 +5,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer une équation de tangente'
@@ -22,15 +22,19 @@ export const refs = {
   'fr-fr': ['1AN11-3'],
   'fr-ch': []
 }
-export default function Equationdetangente () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class Equationdetangente extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : Avec formule\n2 : Avec démonstration']
+    this.nbQuestions = 1 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.sup = 2
-  this.nouvelleVersion = function () {
+    this.sup = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [this.sup]
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
@@ -93,5 +97,4 @@ export default function Equationdetangente () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : Avec formule\n2 : Avec démonstration']
 }

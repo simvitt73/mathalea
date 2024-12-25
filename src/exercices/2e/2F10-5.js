@@ -11,7 +11,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '06/07/2023'
 export const titre = 'Déterminer le signe d\'une fonction affine'
@@ -26,14 +26,20 @@ export const refs = {
   'fr-fr': ['2F10-5'],
   'fr-ch': []
 }
-export default function Signefonctionaffine () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // On complète le nb de questions
+export default class Signefonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : En utilisant le sens de variation d\'une fonction affine\n2 : En utilisant le calcul']
 
-  this.sup = 1
-  this.sup2 = 1
-  this.correctionDetaillee = false
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1 // On complète le nb de questions
+
+    this.sup = 1
+    this.sup2 = 1
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
     const listeFractions = [
       [10, 9],
       [2, 3],
@@ -269,6 +275,4 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : En utilisant le sens de variation d\'une fonction affine\n2 : En utilisant le calcul']
 }

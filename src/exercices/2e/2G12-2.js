@@ -9,7 +9,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -30,14 +30,19 @@ export const refs = {
   'fr-fr': ['2G12-2'],
   'fr-ch': ['11GM1-5']
 }
-export default function Milieu () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class Milieu extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations', 4, '1 : Application directe  \n2 : Application directe (fractions) \n3 : Application indirecte \n4 : Mélange ']
 
-  this.sup = 1 //
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+
+    this.sup = 1 //
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -224,5 +229,4 @@ export default function Milieu () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations', 4, '1 : Application directe  \n2 : Application directe (fractions) \n3 : Application indirecte \n4 : Mélange ']
 }

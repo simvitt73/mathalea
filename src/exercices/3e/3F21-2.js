@@ -3,7 +3,7 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
@@ -31,17 +31,20 @@ export const refs = {
   'fr-fr': ['3F21-2'],
   'fr-ch': ['11FA9-3']
 }
-export default function DeterminerFonctionAffine () {
-  Exercice.call(this)
+export default class DeterminerFonctionAffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile\n3 : Très difficile']
 
-  this.sup = 1
-  this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 1
+    this.nbQuestions = 2
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    // this.sup = 1
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup) === 1) {
       typeDeQuestionsDisponibles = [0, 1]
@@ -235,5 +238,4 @@ export default function DeterminerFonctionAffine () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile\n3 : Très difficile']
 }

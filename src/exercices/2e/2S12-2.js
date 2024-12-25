@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -31,14 +31,17 @@ export const refs = {
   'fr-fr': ['2S12-2'],
   'fr-ch': []
 }
-export default function EvolutionsSuccesives () {
-  Exercice.call(this)
+export default class EvolutionsSuccesives extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 1 // type de question
+    this.sup = 1 // type de question
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
@@ -490,5 +493,4 @@ export default function EvolutionsSuccesives () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
 }

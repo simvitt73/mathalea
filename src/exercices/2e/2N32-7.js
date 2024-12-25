@@ -2,7 +2,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
@@ -26,15 +26,26 @@ export const refs = {
   'fr-fr': ['2N32-7'],
   'fr-ch': ['1CN-12']
 }
-export default function Rendreentier () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 2
-  this.listeAvecNumerotation = false
+export default class Rendreentier extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Dénominateur « racine de a »',
+        '2 : Dénominateur « a + racine de b »',
+        '3 : Dénominateur « a + b racine de x »',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+    this.nbQuestions = 1
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 2
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = ' Trouver une fraction égale à celle proposée en supprimant la racine carrée de son dénominateur.'
 
     const listeQuestions = gestionnaireFormulaireTexte({
@@ -138,13 +149,4 @@ export default function Rendreentier () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Dénominateur « racine de a »',
-      '2 : Dénominateur « a + racine de b »',
-      '3 : Dénominateur « a + b racine de x »',
-      '4 : Mélange'
-    ].join('\n')
-  ]
 }

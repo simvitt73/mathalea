@@ -3,7 +3,7 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -27,17 +27,25 @@ export const refs = {
   'fr-fr': ['3F10-1'],
   'fr-ch': ['10FA5-5', '1F1-4']
 }
-export default function VocabulaireNotationsFonctions () {
-  Exercice.call(this)
-  this.sup = 2
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.spacing = 2
-  this.nbQuestions = 3
+export default class VocabulaireNotationsFonctions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      3,
+      '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Avec éventuellement un graphique', false]
+    this.sup = 2
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    this.spacing = 2
+    this.nbQuestions = 3
 
-  this.consigne = 'Cocher toutes les réponses correctes.'
+    this.consigne = 'Cocher toutes les réponses correctes.'
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     const r = repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     switch (this.sup) {
@@ -139,10 +147,4 @@ export default function VocabulaireNotationsFonctions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    3,
-    '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Avec éventuellement un graphique', false]
 }

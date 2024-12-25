@@ -6,7 +6,7 @@ import {
   reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils'
@@ -30,12 +30,14 @@ export const refs = {
   'fr-fr': ['2N60-5'],
   'fr-ch': []
 }
-export default function SolInequation () {
-  Exercice.call(this)
+export default class SolInequation extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)//, 2, 3
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0, x0, a, b, c, d, e, m, p, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]

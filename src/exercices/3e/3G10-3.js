@@ -7,7 +7,7 @@ import { rotation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -25,14 +25,19 @@ export const refs = {
   'fr-fr': ['3G10-3'],
   'fr-ch': ['10ES2-8']
 }
-export default function ConstruireRotationPoint3e () {
-  Exercice.call(this)
+export default class ConstruireRotationPoint3e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
+    // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.sup = 3
-  this.nouvelleVersion = function () {
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let nontrouve, assezloin, cible
     const angle = randint(-8, 8, 0) * 10
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
@@ -109,6 +114,4 @@ export default function ConstruireRotationPoint3e () {
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
-  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }

@@ -7,7 +7,7 @@ import { createList } from '../../lib/format/lists.ts'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { decompositionFacteursPremiers, premierAvec } from '../../lib/outils/primalite'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites'
@@ -26,17 +26,19 @@ export const refs = {
   'fr-fr': ['3A14-0'],
   'fr-ch': ['11GM2-2']
 }
-export default function DesChocolatsDansDesBoites () {
-  Exercice.call(this)
+export default class DesChocolatsDansDesBoites extends Exercice {
+  constructor () {
+    super()
 
-  this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
+    this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
 
-  context.isHtml ? this.spacing = 1 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    context.isHtml ? this.spacing = 1 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     context.anglePerspective = 50
     const premier1 = choice([2, 3, 5, 7])
     const premier2 = choice([2, 3, 5, 7])

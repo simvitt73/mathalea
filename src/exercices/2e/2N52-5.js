@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const dateDePublication = '02/05/2023'
@@ -19,12 +19,16 @@ export const refs = {
   'fr-fr': ['2N52-5'],
   'fr-ch': []
 }
-export default function ResoudreEquationsQuotient () {
-  Exercice.call(this)
+export default class ResoudreEquationsQuotient extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
 
-  this.nbQuestions = 2
-  this.sup = 3
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]
@@ -246,5 +250,4 @@ x&=${texFractionReduite(-e * d + f * b, e * c - f * a)}
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
 }

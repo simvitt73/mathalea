@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
@@ -29,16 +29,20 @@ export const refs = {
   'fr-fr': ['3L12'],
   'fr-ch': ['11FA3-4']
 }
-export default function FactoriserIdentitesRemarquables3 () {
-  Exercice.call(this)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+export default class FactoriserIdentitesRemarquables3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
 
-  this.nbQuestions = 4
-  this.sup = 4
-  this.sup2 = true
-  this.tailleDiaporama = 3
+    this.nbQuestions = 4
+    this.sup = 4
+    this.sup2 = true
+    this.tailleDiaporama = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
     const Fractions = [
       [1, 2],
@@ -150,6 +154,4 @@ export default function FactoriserIdentitesRemarquables3 () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }

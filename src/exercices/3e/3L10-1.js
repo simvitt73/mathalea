@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -28,19 +28,21 @@ export const refs = {
   'fr-fr': ['3L10-1'],
   'fr-ch': ['11FA1-2']
 }
-export default function ParenthesesPrecedesDeMoinsOuPlus () {
-  Exercice.call(this)
+export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
+  constructor () {
+    super()
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
 
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.sup = false
-  this.besoinFormulaireCaseACocher = ['Sanctionner les formes non simplifiées', false]
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+    this.sup = false
+    this.besoinFormulaireCaseACocher = ['Sanctionner les formes non simplifiées', false]
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']

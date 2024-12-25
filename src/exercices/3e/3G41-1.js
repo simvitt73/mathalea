@@ -4,7 +4,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { pave3d, point3d } from '../../modules/3d'
@@ -26,12 +26,14 @@ export const refs = {
   'fr-fr': ['3G41-1'],
   'fr-ch': []
 }
-export default function ConstruireSectionPaveDroit () {
-  Exercice.call(this)
+export default class ConstruireSectionPaveDroit extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, objetsEnonce, A, B, D, E, Y, Z, YCorr, ZCorr, areteY, areteZ, s1, s2, s3, s4, s5, solideDessine, nomSolide, placeDuPoint1, placeDuPoint2, enonceFigure, sommetsPave, areteParallele,
       L, p, choixProfondeur, choixAreteParallele, h, traceTesPoints, choix, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''

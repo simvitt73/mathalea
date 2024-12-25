@@ -1,6 +1,6 @@
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -22,15 +22,19 @@ export const refs = {
   'fr-fr': ['2G30-2'],
   'fr-ch': ['11FA9-5', '1F2-2']
 }
-export default function EquationReduiteDeDroites () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class EquationReduiteDeDroites extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Détermination équation réduite de droite à partir de 2 points \n2 : Détermination équation réduite à partir d\'un point et d\'un vecteur directeur.']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     if (this.sup === 1) this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
     else this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
 
@@ -119,5 +123,4 @@ export default function EquationReduiteDeDroites () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Détermination équation réduite de droite à partir de 2 points \n2 : Détermination équation réduite à partir d\'un point et d\'un vecteur directeur.']
 }

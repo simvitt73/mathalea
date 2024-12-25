@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -26,19 +26,24 @@ export const refs = {
   'fr-fr': ['3L11-1'],
   'fr-ch': ['11FA2-3']
 }
-export default function DoubleDistributivite () {
-  Exercice.call(this)
+export default class DoubleDistributivite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaire3CaseACocher = ['Sanctionner les formes non simplifiées', false]
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.sup = 1
-  this.sup2 = true
-  this.sup3 = false
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+    this.sup = 1
+    this.sup2 = true
+    this.sup3 = false
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
 
     let typesDeQuestionsDisponibles = [1, 2]
@@ -199,7 +204,4 @@ export default function DoubleDistributivite () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
-  this.besoinFormulaire3CaseACocher = ['Sanctionner les formes non simplifiées', false]
 }

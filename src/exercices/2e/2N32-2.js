@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -18,14 +18,17 @@ export const refs = {
   'fr-fr': ['2N32-2'],
   'fr-ch': ['11NO1-5', '1CN-7']
 }
-export default function Proprietesracinecarree () {
-  Exercice.call(this)
+export default class Proprietesracinecarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 2
-  this.nbCols = 2
+    this.nbQuestions = 2
+    this.nbCols = 2
 
-  this.sup = 1 //
-  this.nouvelleVersion = function () {
+    this.sup = 1 //
+  }
+
+  nouvelleVersion () {
     this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]; let typesDeQuestions//,
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

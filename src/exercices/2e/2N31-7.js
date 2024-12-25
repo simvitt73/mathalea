@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { rangeMinMax } from '../../lib/outils/nombres'
@@ -23,12 +23,16 @@ export const refs = {
   'fr-fr': ['2N31-7'],
   'fr-ch': ['10NO2-15']
 }
-export default function CalculsAvecPuissancesDeDixBis () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 5
+export default class CalculsAvecPuissancesDeDixBis extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+    this.besoinFormulaire2CaseACocher = ['Avec des exposants élevés', false]
+    this.sup = 1
+    this.nbQuestions = 5
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne = this.nbQuestions === 1 ? 'Choisir l\'exposant manquant dans l\'égalité suivante.' : 'Choisir l\'exposant manquant dans les égalités suivantes.'
     } else {
@@ -112,6 +116,4 @@ export default function CalculsAvecPuissancesDeDixBis () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
-  this.besoinFormulaire2CaseACocher = ['Avec des exposants élevés', false]
 }

@@ -6,7 +6,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 import { mathalea2d } from '../../modules/2dGeneralites'
 
@@ -27,15 +27,19 @@ export const refs = {
   'fr-fr': ['2F12-2'],
   'fr-ch': []
 }
-export default function ResoudreGraphFonctionRef () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class ResoudreGraphFonctionRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
 
-  this.sup = 4
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    this.sup = 4
+    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.spacing = 1.5 // Interligne des questions
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
@@ -626,5 +630,4 @@ export default function ResoudreGraphFonctionRef () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
 }

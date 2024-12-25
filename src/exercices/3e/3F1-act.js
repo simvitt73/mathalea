@@ -10,7 +10,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Fonctions : Notion et vocabulaire'
 
@@ -55,23 +55,27 @@ export function katexPopup (texte, titrePopup, textePopup) {
   }
 }
 
-export default function FonctionNotionVocabulaire () {
-  Exercice.call(this)
-  this.sup = 1
+export default class FonctionNotionVocabulaire extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonction', 5, '1 : Périmètre d\'un carré\n2 : Aire d\'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d\'un entier positif\n5 : Les quatre']
 
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Étudier différents procédés de calcul.'
-  context.isHtml ? this.spacing = 3 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  // this.nbQuestions;// = 4;
-  this.nbQuestionsModifiable = false
-  // this.correctionDetailleeDisponible = true;
+    this.sup = 1
 
-  this.sup = 5
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Étudier différents procédés de calcul.'
+    context.isHtml ? this.spacing = 3 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    // this.nbQuestions;// = 4;
+    this.nbQuestionsModifiable = false
+    // this.correctionDetailleeDisponible = true;
 
-  const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+    this.sup = 5
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
+    const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
     let typesDeQuestions
     let j, idDuDivDiag, idDuDivCorr
 
@@ -657,5 +661,4 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fonction', 5, '1 : Périmètre d\'un carré\n2 : Aire d\'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d\'un entier positif\n5 : Les quatre']
 }

@@ -11,7 +11,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texteCentre } from '../../lib/format/miseEnPage'
 import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import {
@@ -35,14 +35,22 @@ export const refs = {
   'fr-fr': ['2F20-2'],
   'fr-ch': ['11FA9-2']
 }
-export default function CalculPointSurCourbe () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
+export default class CalculPointSurCourbe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      4,
+      '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
+    ]
+    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange']
+    this.sup = 1
+    this.sup2 = 1
 
-  this.nbQuestions = 2
+    this.nbQuestions = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -479,10 +487,4 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    4,
-    '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
-  ]
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange']
 }

@@ -1,6 +1,6 @@
 import { choice, compteOccurences, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { cube } from '../../modules/3d'
@@ -24,15 +24,21 @@ export const refs = {
   'fr-fr': ['3G41'],
   'fr-ch': []
 }
-export default function VuesEmpilementCubes () {
-  Exercice.call(this)
+export default class VuesEmpilementCubes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Longueur, largeur et hauteur sous la forme abc', 'a étant la longueur du solide (a>1)\nb étant la largeur du solide (b>1)\nc étant sa hauteur du solide (c>1)\n Choisir 0 ou 1 si on souhaite laisser le hasard faire.']
+    this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles']
+    // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
+    this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]
 
-  this.sup = 1
-  this.sup2 = 7
-  this.sup3 = 3
-  this.nbQuestions = 2
+    this.sup = 1
+    this.sup2 = 7
+    this.sup3 = 3
+    this.nbQuestions = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let objetsEnonce, objetsCorrection
 
     const dimensionsTab = gestionnaireFormulaireTexte({
@@ -180,9 +186,4 @@ export default function VuesEmpilementCubes () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireTexte = ['Longueur, largeur et hauteur sous la forme abc', 'a étant la longueur du solide (a>1)\nb étant la largeur du solide (b>1)\nc étant sa hauteur du solide (c>1)\n Choisir 0 ou 1 si on souhaite laisser le hasard faire.']
-  this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles']
-  // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
-  this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]
 }

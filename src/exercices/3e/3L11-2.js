@@ -1,6 +1,6 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -25,19 +25,37 @@ export const refs = {
   'fr-fr': ['3L11-2'],
   'fr-ch': ['10FA1-13']
 }
-export default function ReductionSiPossible () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class ReductionSiPossible extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaire3Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : ax+b',
+        '2 : ax+bx',
+        '3 : ax+bx²',
+        '4 : ax*b',
+        '5 : b*ax',
+        '6 : ax+b+cx+d',
+        '7 : b+ax+d+cx',
+        '8 : ax+b+x',
+        '9 : Mélange'
+      ].join('\n')
+    ]
+    this.nbQuestions = 5
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.tailleDiaporama = 3
-  this.sup = false
-  this.sup2 = false
-  this.sup3 = 9
-  this.listeAvecNumerotation = false
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.tailleDiaporama = 3
+    this.sup = false
+    this.sup2 = false
+    this.sup3 = 9
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes, si cela est possible.' : 'Réduire l\'expression suivante, si cela est possible.'
 
     const exclus = []
@@ -245,21 +263,4 @@ export default function ReductionSiPossible () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-
-  this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
-  this.besoinFormulaire3Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : ax+b',
-      '2 : ax+bx',
-      '3 : ax+bx²',
-      '4 : ax*b',
-      '5 : b*ax',
-      '6 : ax+b+cx+d',
-      '7 : b+ax+d+cx',
-      '8 : ax+b+x',
-      '9 : Mélange'
-    ].join('\n')
-  ]
 }

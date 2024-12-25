@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint, printlatex } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -24,18 +24,20 @@ export const refs = {
   'fr-fr': ['3L11-3'],
   'fr-ch': ['11FA2-4']
 }
-export default function DistributiviteSimpleDoubleReduction () {
-  Exercice.call(this)
+export default class DistributiviteSimpleDoubleReduction extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 5
+    this.nbQuestions = 5
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.tailleDiaporama = 3
-  this.comment = 'L\'expression peut être au hasard de la forme :<br>$cx+e(ax+b)$<br> $ex+(ax+b)(cx+d)$<br> $e+(ax+b)(cx+d)$<br> $e-(ax+b)(cx+d)$<br> $(ax \\times b)(cx+d)$<br> $e(ax+b)-(d+cx)$.'
-  this.listeAvecNumerotation = false
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.tailleDiaporama = 3
+    this.comment = 'L\'expression peut être au hasard de la forme :<br>$cx+e(ax+b)$<br> $ex+(ax+b)(cx+d)$<br> $e+(ax+b)(cx+d)$<br> $e-(ax+b)(cx+d)$<br> $(ax \\times b)(cx+d)$<br> $e(ax+b)-(d+cx)$.'
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
 
     const typesDeQuestionsDisponibles = ['cx+e(ax+b)', 'ex+(ax+b)(cx+d)', 'e+(ax+b)(cx+d)', 'e-(ax+b)(cx+d)', '(ax*b)(cx+d)', 'e(ax+b)-(d+cx)']

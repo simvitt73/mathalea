@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -29,13 +29,17 @@ export const refs = {
   'fr-fr': ['3P10'],
   'fr-ch': ['10FA4-5']
 }
-export default function EvolutionsEnPourcentage () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class EvolutionsEnPourcentage extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange']
 
-  this.sup = 4 // type de questions
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
+    this.sup = 4 // type de questions
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']
@@ -301,5 +305,4 @@ export default function EvolutionsEnPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange']
 }

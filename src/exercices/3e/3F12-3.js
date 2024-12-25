@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -34,14 +34,18 @@ export const refs = {
   'fr-fr': ['3F12-3'],
   'fr-ch': ['10FA5-11', '11FA8-5', '1F1-11']
 }
-export default function TableauDeValeurs () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class TableauDeValeurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
-  this.sup = 5 // niveau de difficulté
-  this.correctionDetailleeDisponible = true
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    this.sup = 5 // niveau de difficulté
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     this.spacing = this.interactif ? 2 : 1
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -375,5 +379,4 @@ export default function TableauDeValeurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 }

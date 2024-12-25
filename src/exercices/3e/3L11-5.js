@@ -3,7 +3,7 @@ import { warnMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,24 +26,28 @@ export const refs = {
   'fr-fr': ['3L11-5'],
   'fr-ch': ['11FA2-5']
 }
-export default function IdentitesCalculs () {
-  Exercice.call(this)
-  this.can = false // pour décliner en version CAN
-  this.canVersion = '' // Pour distinguer les déclinaisons
-  // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
-  // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
-  this.sup = 1
-  this.nbQuestions = 3
+export default class IdentitesCalculs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"]
 
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 1 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-  this.tailleDiaporama = 3
+    this.can = false // pour décliner en version CAN
+    this.canVersion = '' // Pour distinguer les déclinaisons
+    // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
+    // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
+    this.sup = 1
+    this.nbQuestions = 3
 
-  let typesDeQuestionsDisponibles
-  this.nouvelleVersion = function () {
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 1 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant ' : 'Effectuer les calculs suivants '
     this.consigne += 'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
+    let typesDeQuestionsDisponibles
 
     // une fonction pour gérer un \hfill dans la sortie LaTeX
     const myhfill = function () {
@@ -367,5 +371,4 @@ export default function IdentitesCalculs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"]
 }

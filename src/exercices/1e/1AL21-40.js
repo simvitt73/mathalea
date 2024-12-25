@@ -11,7 +11,7 @@ import {
 import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions'
 import { egal, listeQuestionsToContenu } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'
@@ -29,15 +29,17 @@ export const refs = {
   'fr-fr': ['1AL21-40'],
   'fr-ch': ['11FA10-12'] // OK?
 }
-export default function Resolutionavecformecanonique () {
-  Exercice.call(this)
+export default class Resolutionavecformecanonique extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4
+    this.nbQuestions = 4
 
-  this.spacingCorr = 1.5
-  this.sup = 1
+    this.spacingCorr = 1.5
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = 'Factoriser sur $\\mathbb{R}$, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant de degré 2 : '
     if (this.interactif) {
       this.consigne += '<br> '

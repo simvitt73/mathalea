@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -29,17 +29,20 @@ export const refs = {
   'fr-fr': ['3L14'],
   'fr-ch': ['11FA10-1']
 }
-export default function ResoudreUneEquationProduitNul () {
-  Exercice.call(this)
+export default class ResoudreUneEquationProduitNul extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l\'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
 
-  this.nbQuestions = 5
+    this.nbQuestions = 5
 
-  this.sup = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+    this.sup = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
 
-  this.tailleDiaporama = 3
+    this.tailleDiaporama = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     let listeTypeDeQuestions = []
     switch (contraindreValeur(1, 8, this.sup, 1)) {
@@ -351,5 +354,4 @@ export default function ResoudreUneEquationProduitNul () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l\'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
 }

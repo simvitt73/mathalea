@@ -2,7 +2,7 @@ import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -25,12 +25,14 @@ export const refs = {
   'fr-fr': ['2N11-1'],
   'fr-ch': []
 }
-export default function IntervallesDeR () {
-  Exercice.call(this)
+export default class IntervallesDeR extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4
+    this.nbQuestions = 4
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

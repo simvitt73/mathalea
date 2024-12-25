@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteExposant } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { cylindre3d, point3d, sphere3d, vecteur3d } from '../../modules/3d'
@@ -34,17 +34,22 @@ export const refs = {
   'fr-fr': ['3G42'],
   'fr-ch': ['11GM2-3']
 }
-export default function VolumeBoule () {
-  Exercice.call(this)
-  this.video = 'YQF7CBY-uEk'
-  this.nbQuestions = 3 // Ici le nombre de questions
-  this.sup = '1-2-4'
-  const unites = ['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm']
+export default class VolumeBoule extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : À partir du rayon\n2 : À partir du diamètre\n3 : À partir de l\'aire\n4 : En résolvant un problème\n5 : Mélange']
+
+    this.video = 'YQF7CBY-uEk'
+    this.nbQuestions = 3 // Ici le nombre de questions
+    this.sup = '1-2-4'
+
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
+    const unites = ['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm']
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -154,5 +159,4 @@ export default function VolumeBoule () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : À partir du rayon\n2 : À partir du diamètre\n3 : À partir de l\'aire\n4 : En résolvant un problème\n5 : Mélange']
 } // Fin de l'exercice.

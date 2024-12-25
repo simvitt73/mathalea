@@ -2,7 +2,7 @@ import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -23,16 +23,18 @@ export const refs = {
   'fr-fr': ['2N52-4'],
   'fr-ch': ['11FA10-3']
 }
-export default function Equationspresqueproduitnulle () {
-  Exercice.call(this)
+export default class Equationspresqueproduitnulle extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 3
-  this.spacingCorr = 3
-  this.nbQuestions = 5
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+    this.nbQuestions = 3
+    this.spacingCorr = 3
+    this.nbQuestions = 5
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : 'l\'équation suivante'} :`
     if (this.interactif) {
       this.consigne += "<br>On donnera la réponse sous forme d'un ensemble de solution."

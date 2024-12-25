@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -26,17 +26,20 @@ export const refs = {
   'fr-fr': ['2F10-4'],
   'fr-ch': ['11FA8-11']
 }
-export default function Determinerfonctionaffine () {
-  Exercice.call(this)
+export default class Determinerfonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Avec deux images (nombres entiers)\n 2 : Avec deux images (fractions)\n 3 : Avec deux points\n 4 : Mélange des cas précédents']
 
-  this.nbQuestions = 3
-  this.spacingCorr = context.isHtml ? 2 : 1
-  this.sup = 1
-  this.comment = `Dans le premier cas, les nombres $a$ et $b$ obtenus sont des nombres entiers. <br>
+    this.nbQuestions = 3
+    this.spacingCorr = context.isHtml ? 2 : 1
+    this.sup = 1
+    this.comment = `Dans le premier cas, les nombres $a$ et $b$ obtenus sont des nombres entiers. <br>
   Le deuxième cas est plus complexe puisque les nombres $a$ et $b$ sont des fractions. <br>
   Dans le troisième cas, les nombres $a$ et $b$ sont quelconques.`
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // on donne f(a)=b et f(c)=d cas entier
@@ -220,5 +223,4 @@ export default function Determinerfonctionaffine () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Avec deux images (nombres entiers)\n 2 : Avec deux images (fractions)\n 3 : Avec deux points\n 4 : Mélange des cas précédents']
 }

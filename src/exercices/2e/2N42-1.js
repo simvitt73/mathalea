@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -21,12 +21,16 @@ export const refs = {
   'fr-fr': ['2N42-1'],
   'fr-ch': ['11FA5-3']
 }
-export default function ExprimerEnFonctionDesAutres () {
-  Exercice.call(this)
+export default class ExprimerEnFonctionDesAutres extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Niveau 3\n 4 : Mélange des niveaux précédents']
 
-  this.nbQuestions = 1
-  this.sup = 1
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -450,5 +454,4 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Niveau 3\n 4 : Mélange des niveaux précédents']
 }

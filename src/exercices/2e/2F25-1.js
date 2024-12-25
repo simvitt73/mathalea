@@ -5,7 +5,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { abs } from 'mathjs'
@@ -23,14 +23,16 @@ export const refs = {
   'fr-fr': ['2F25-1'],
   'fr-ch': []
 }
-export default function EtudierGraphiqueParite () {
-  Exercice.call(this)
+export default class EtudierGraphiqueParite extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Déterminer, par lecture graphique mais en le justifiant, si la fonction $f$ représentée est paire, impaire ou ni paire, ni impaire.'
+    this.consigne = 'Déterminer, par lecture graphique mais en le justifiant, si la fonction $f$ représentée est paire, impaire ou ni paire, ni impaire.'
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]//
 

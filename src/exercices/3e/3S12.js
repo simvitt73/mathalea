@@ -5,7 +5,7 @@ import { texFractionSigne } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -32,14 +32,19 @@ export const refs = {
   'fr-fr': ['3S12'],
   'fr-ch': []
 }
-export default function CalculEffectifFrequence () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.sup = 1
-  this.nouvelleVersion = function () {
+export default class CalculEffectifFrequence extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 5 espèces\n choix 2 : 6 espèces\n choix 3 : 7 espèces']
+
+    this.nbQuestions = 1
+    this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const symbolePourCent = context.isHtml ? '%' : '$\\%$'
@@ -273,5 +278,4 @@ export default function CalculEffectifFrequence () {
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 5 espèces\n choix 2 : 6 espèces\n choix 3 : 7 espèces']
 } // Fin de l'exercice.

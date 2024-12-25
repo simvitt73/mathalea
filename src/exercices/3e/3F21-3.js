@@ -8,7 +8,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -34,18 +34,25 @@ export const refs = {
   'fr-fr': ['3F21-3'],
   'fr-ch': ['11FA8-12']
 }
-export default function PenteEtOrdonneeOrigineDroite () {
-  Exercice.call(this)
+export default class PenteEtOrdonneeOrigineDroite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
+    this.besoinFormulaireNumerique = ['Coefficient directeur ', 3, '1 : Entier\n2 : Décimal\n3: Peu importe']
+    this.besoinFormulaire3Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
+    this.besoinFormulaire4Numerique = ['Type de fonctions ', 3, '1 : Linéaires\n2 : Affines et non linéaires\n3: Affines ou linéaires']
 
-  this.nbQuestions = 2
-  // this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.sup = 3
-  this.sup2 = 3
-  this.sup3 = 3
-  this.sup4 = 2
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+    // this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 3
+    this.sup2 = 3
+    this.sup3 = 3
+    this.sup4 = 2
+  }
+
+  nouvelleVersion () {
     let questionInteractif = 0
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const signeNum = (this.sup2 === 3 ? choice([-1, 1]) : (this.sup2 === 2 ? -1 : 1))
@@ -200,8 +207,4 @@ export default function PenteEtOrdonneeOrigineDroite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
-  this.besoinFormulaireNumerique = ['Coefficient directeur ', 3, '1 : Entier\n2 : Décimal\n3: Peu importe']
-  this.besoinFormulaire3Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
-  this.besoinFormulaire4Numerique = ['Type de fonctions ', 3, '1 : Linéaires\n2 : Affines et non linéaires\n3: Affines ou linéaires']
 }

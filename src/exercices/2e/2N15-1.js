@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Utiliser la notion de valeur absolue d\'une quantité'
@@ -14,16 +14,18 @@ export const refs = {
   'fr-fr': ['2N15-1'],
   'fr-ch': []
 }
-export default function ValeurAbsolue () {
-  Exercice.call(this)
+export default class ValeurAbsolue extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Déterminer la valeur du nombre proposé.'
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
+    this.consigne = 'Déterminer la valeur du nombre proposé.'
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 //
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -24,15 +24,19 @@ export const refs = {
   'fr-fr': ['2G24-5'],
   'fr-ch': []
 }
-export default function Calculercoordonneesegalitevecteurs () {
-  Exercice.call(this)
+export default class Calculercoordonneesegalitevecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Situations différentes ', '1 : À partir d\'une égalité\n 2 : À partir d\'une somme\n 3 : À partir d\'un produit par un réel\n4 : Mélange']
 
-  this.nbQuestions = 2
+    this.nbQuestions = 2
 
-  this.sup = '1'
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.sup = '1'
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 3,
@@ -255,5 +259,4 @@ export default function Calculercoordonneesegalitevecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', '1 : À partir d\'une égalité\n 2 : À partir d\'une somme\n 3 : À partir d\'un produit par un réel\n4 : Mélange']
 }

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -21,13 +21,16 @@ export const refs = {
   'fr-fr': ['2N32-5'],
   'fr-ch': ['11NO1-8', '1CN-10']
 }
-export default function DoubleDistributiviteAvecRacineCarree () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
+export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'

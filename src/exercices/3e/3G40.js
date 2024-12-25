@@ -20,7 +20,7 @@ import {
   listeQuestionsToContenuSansNumero,
   randint
 } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'
@@ -33,21 +33,27 @@ export const refs = {
   'fr-fr': ['3G40'],
   'fr-ch': []
 }
-export default function ReperageSurLaSphere () {
-  Exercice.call(this)
+export default class ReperageSurLaSphere extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
+    this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud présent']
+    this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 
-  this.nbQuestions = 4
-  this.sup = 3
-  this.sup2 = false
-  this.sup3 = false
-  this.sup4 = false
-  this.listeAvecNumerotation = false
-  const inclinaison = 5
-  const O = point3d(0, 0, 0, false, 'O')
+    this.nbQuestions = 4
+    this.sup = 3
+    this.sup2 = false
+    this.sup3 = false
+    this.sup4 = false
+    this.listeAvecNumerotation = false
+  }
 
-  const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison, false)
+  nouvelleVersion () {
+    const inclinaison = 5
+    const O = point3d(0, 0, 0, false, 'O')
 
-  this.nouvelleVersion = function () {
+    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison, false)
     let listeTypeDeQuestions
     if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
     else if (this.sup === 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
@@ -273,9 +279,4 @@ export default function ReperageSurLaSphere () {
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
   }
-
-  this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
-  this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud présent']
-  this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 }

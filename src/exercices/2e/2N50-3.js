@@ -7,7 +7,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fraction } from '../../modules/fractions'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils'
 
 export const titre = 'Modéliser une situation à l\'aide d\'une équation'
@@ -21,16 +21,20 @@ export const refs = {
   'fr-fr': ['2N50-3'],
   'fr-ch': ['10FA3-12', '11FA6-8']
 }
-export default function ModeliserEquations () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 3
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class ModeliserEquations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    // this.nbQuestionsModifiable = false
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 3
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
@@ -380,5 +384,4 @@ export default function ModeliserEquations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange']
 }

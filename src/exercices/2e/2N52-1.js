@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -23,16 +23,20 @@ export const refs = {
   'fr-fr': ['2N52-1'],
   'fr-ch': ['11FA10-2']
 }
-export default function EquationsProduitsNuls2 () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.sup = 1
-  this.spacingCorr = 3
-  this.nbQuestions = 2
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+export default class EquationsProduitsNuls2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Mélange des cas précédents']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3
+    this.sup = 1
+    this.spacingCorr = 3
+    this.nbQuestions = 2
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     let typesDeQuestionsDisponibles = []
     if (this.sup < 4) {
@@ -161,5 +165,4 @@ export default function EquationsProduitsNuls2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Mélange des cas précédents']
 }

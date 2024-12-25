@@ -6,7 +6,7 @@ import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer des caractéristiques d\'une série'
@@ -29,16 +29,25 @@ export const refs = {
   'fr-ch': ['11NO2-11']
 }
 
-export default function CalculerCaracteristiques () {
-  Exercice.call(this)
+export default class CalculerCaracteristiques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de séries',
+      'Nombres séparés par des tirets\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
+    this.besoinFormulaire2Texte = [
+      'Choix des questions',
+      'Nombres séparés par des tirets\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
+    this.besoinFormulaire3CaseACocher = ['Avec du vocabulaire explicatif']
 
-  this.nbQuestions = 4
+    this.nbQuestions = 4
 
-  this.sup = 7
-  this.sup2 = 4
-  this.sup3 = true
+    this.sup = 7
+    this.sup2 = 4
+    this.sup3 = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const questionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -532,11 +541,4 @@ export default function CalculerCaracteristiques () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de séries',
-    'Nombres séparés par des tirets\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
-  this.besoinFormulaire2Texte = [
-    'Choix des questions',
-    'Nombres séparés par des tirets\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
-  this.besoinFormulaire3CaseACocher = ['Avec du vocabulaire explicatif']
 }

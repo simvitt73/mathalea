@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,15 +26,32 @@ export const refs = {
   'fr-fr': ['3L10'],
   'fr-ch': ['11FA1-1']
 }
-export default function OpposeExpression () {
-  Exercice.call(this)
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacing = context.isHtml ? 3 : 2
-  this.nbQuestions = 6
-  this.sup = '1-2-3-4'
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.nouvelleVersion = function () {
+export default class OpposeExpression extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Types de questions',
+  `Nombres séparés par des tirets
+1 : '-(ax+b)'
+2 : '(ax+b)'
+3 : '-(ax2+bx+c)'
+4 : '(ax2+bx+c)'
+5 : '(ax+b)-(cx+d)'
+6 : '-(ax+b)+(cx+d)'
+7 : '(ax+b)-(cx2+dx+e)'
+8 : '-(ax+b)+(cx2+dx+e)'
+9 : '(ax2+bx+c)-(dx2+ex+f)'
+10 : '-(ax2+bx+c)+(dx2+ex+f)'
+11 : Mélange`
+    ]
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacing = context.isHtml ? 3 : 2
+    this.nbQuestions = 6
+    this.sup = '1-2-3-4'
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
 
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
@@ -242,18 +259,4 @@ export default function OpposeExpression () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireTexte = ['Types de questions',
-        `Nombres séparés par des tirets
-1 : '-(ax+b)'
-2 : '(ax+b)'
-3 : '-(ax2+bx+c)'
-4 : '(ax2+bx+c)'
-5 : '(ax+b)-(cx+d)'
-6 : '-(ax+b)+(cx+d)'
-7 : '(ax+b)-(cx2+dx+e)'
-8 : '-(ax+b)+(cx2+dx+e)'
-9 : '(ax2+bx+c)-(dx2+ex+f)'
-10 : '-(ax2+bx+c)+(dx2+ex+f)'
-11 : Mélange`
-  ]
 }

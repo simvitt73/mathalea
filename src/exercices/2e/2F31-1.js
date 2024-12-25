@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Decimal from 'decimal.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
@@ -25,16 +25,20 @@ export const refs = {
   'fr-fr': ['2F31-1'],
   'fr-ch': []
 }
-export default function ComparerAvecFctRef () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1
-  this.spacingCorr = 2
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class ComparerAvecFctRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 5, '1 : carré\n2 : inverse\n3 : cube\n4 : racine carrée\n5 : mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1
+    this.spacingCorr = 2
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['carré']
@@ -210,5 +214,4 @@ export default function ComparerAvecFctRef () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 5, '1 : carré\n2 : inverse\n3 : cube\n4 : racine carrée\n5 : mélange']
 }

@@ -4,7 +4,7 @@ import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -71,13 +71,18 @@ function estEgalAUnAutreSegment (s, s1, s2, s3) { // recherche si le segment s e
   (s.extremite2.x === s3.extremite2.x && s.extremite2.y === s3.extremite2.y))))
 }
 
-export default function ImagePtParTranslation () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class ImagePtParTranslation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Situations différentes ', 'Nombres séparés par des tirets \n1 : À partir d\'une point\n2 : À partir d\'une segment\n3 : À partir d\'un triangle\n4 : Mélange']
 
-  this.sup = '1'
-  this.classe = 2
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+
+    this.sup = '1'
+    this.classe = 2
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -450,5 +455,4 @@ export default function ImagePtParTranslation () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', 'Nombres séparés par des tirets \n1 : À partir d\'une point\n2 : À partir d\'une segment\n3 : À partir d\'un triangle\n4 : Mélange']
 }

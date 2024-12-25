@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { texteGras } from '../../lib/format/style'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -19,16 +19,19 @@ export const refs = {
   'fr-fr': ['2N32-1'],
   'fr-ch': ['11NO1-4', '1CN-6']
 }
-export default function ExistenceDUneRacineCarree () {
-  Exercice.call(this)
+export default class ExistenceDUneRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
-  this.correctionDetaillee = true
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 //
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     if (!this.interactif) {
       this.consigne = ' Le nombre proposé existe-t-il ? Justifier.'
     } else {

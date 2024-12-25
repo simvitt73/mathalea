@@ -8,7 +8,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Comparer deux images avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
@@ -23,17 +23,22 @@ export const refs = {
   'fr-fr': ['2F11-2'],
   'fr-ch': []
 }
-export default function ComparerAvecFonctionRef () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class ComparerAvecFonctionRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange']
+    this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)']
 
-  this.sup = 6
-  this.sup2 = true
-  this.sup2 = 1
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    this.sup = 6
+    this.sup2 = true
+    this.sup2 = 1
+    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.spacing = 1.5 // Interligne des questions
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -355,6 +360,4 @@ export default function ComparerAvecFonctionRef () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)']
 }

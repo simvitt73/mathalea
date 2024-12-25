@@ -1,6 +1,6 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
@@ -29,18 +29,21 @@ export const refs = {
   'fr-fr': ['3S21'],
   'fr-ch': ['11NO2-14']
 }
-export default function CalculProbaExperience2Epreuves3e () {
-  Exercice.call(this)
+export default class CalculProbaExperience2Epreuves3e extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Deux épreuves indépendantes\n2 : Deux épreuves avec remise\n3 : Mélange']
-  this.niveau = '3eme'
-  this.sup = 1
-  this.sup2 = false
-  this.tailleDiaporama = 1
-  this.nbQuestions = 1
-  this.spacing = context.isHtml ? 2 : 1.5
-  this.spacingCorr = context.isHtml ? 2 : 1.5
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Deux épreuves indépendantes\n2 : Deux épreuves avec remise\n3 : Mélange']
+    this.niveau = '3eme'
+    this.sup = 1
+    this.sup2 = false
+    this.tailleDiaporama = 1
+    this.nbQuestions = 1
+    this.spacing = context.isHtml ? 2 : 1.5
+    this.spacingCorr = context.isHtml ? 2 : 1.5
+  }
+
+  nouvelleVersion () {
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,

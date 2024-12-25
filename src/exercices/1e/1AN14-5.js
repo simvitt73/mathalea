@@ -3,7 +3,7 @@ import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { signe } from '../../lib/outils/nombres'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
@@ -34,23 +34,26 @@ export function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '').replaceAll('~', '')
 }
 
-export default function DeriveeProduit () {
-  Exercice.call(this)
+export default class DeriveeProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 
-  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 3
-  // Sortie LaTeX
-  this.nbCols = 2 // Nombre de colonnes
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = '6'
-  // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  // const reglesDeSimplifications = math.simplify.rules.slice()
-  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.nbQuestions = 3
+    // Sortie LaTeX
+    this.nbCols = 2 // Nombre de colonnes
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction
+    this.sup = '6'
+    // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
+    // const reglesDeSimplifications = math.simplify.rules.slice()
+    // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
+    // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
+    // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+    // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
@@ -258,5 +261,4 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 }

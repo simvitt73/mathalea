@@ -5,7 +5,7 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '01/10/2022'
 export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction affine en lien avec son sens de variation'
@@ -21,14 +21,19 @@ export const refs = {
   'fr-fr': ['2F10-7'],
   'fr-ch': []
 }
-export default function SignefonctionaffineVariation () {
-  Exercice.call(this)
-  this.nbQuestions = 2 // On complète le nb de questions
+export default class SignefonctionaffineVariation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Donner le tableau de signes.\n2 : Utiliser le tableau de signes.\n3 : Mélange.']
 
-  this.spacing = 1.75
-  this.spacingCorr = 1.75
-  this.sup = 1
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2 // On complète le nb de questions
+
+    this.spacing = 1.75
+    this.spacingCorr = 1.75
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['Signes1']
@@ -226,5 +231,4 @@ export default function SignefonctionaffineVariation () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Donner le tableau de signes.\n2 : Utiliser le tableau de signes.\n3 : Mélange.']
 }

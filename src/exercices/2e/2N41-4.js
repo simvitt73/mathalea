@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -23,20 +23,25 @@ export const refs = {
   'fr-fr': ['2N41-4'],
   'fr-ch': ['11FA2-10']
 }
-export default function DevelopperIdentitesRemarquables3 () {
-  Exercice.call(this)
+export default class DevelopperIdentitesRemarquables3 extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Développer puis réduire les expressions suivantes.'
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
 
-  this.nbQuestions = 3
-  this.sup = 5
+    this.consigne = 'Développer puis réduire les expressions suivantes.'
 
-  this.correctionDetailleeDisponible = true
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
+    this.nbQuestions = 3
+    this.sup = 5
+
+    this.correctionDetailleeDisponible = true
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
   }
-  this.nouvelleVersion = function () {
+
+  nouvelleVersion () {
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -158,5 +163,4 @@ export default function DevelopperIdentitesRemarquables3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
 }

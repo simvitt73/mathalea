@@ -8,7 +8,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
@@ -25,14 +25,18 @@ export const refs = {
   'fr-fr': ['3G20-1'],
   'fr-ch': ['11GM3-8']
 }
-export default function ProblemesThales () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class ProblemesThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange']
 
-  this.sup = 3
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function () {
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const typesDeQuestions = (this.sup === 1 || this.sup === 2) ? this.sup : choice([1, 2])
@@ -157,5 +161,4 @@ export default function ProblemesThales () {
 
     // this.besoinFormulaire2CaseACocher = ['Sans figures']
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange']
 }

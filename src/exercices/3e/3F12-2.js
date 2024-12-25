@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
@@ -31,14 +31,17 @@ export const refs = {
   'fr-fr': ['3F12-2'],
   'fr-ch': ['10FA5-10', '11FA8-4', '1F1-9']
 }
-export default function ImageFonctionAlgebrique () {
-  Exercice.call(this)
+export default class ImageFonctionAlgebrique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
-  this.nbQuestions = 5
+    this.nbQuestions = 5
 
-  this.sup = 5 // niveau de difficulté
+    this.sup = 5 // niveau de difficulté
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b']
@@ -179,5 +182,4 @@ export default function ImageFonctionAlgebrique () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 }

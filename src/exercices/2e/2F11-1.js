@@ -4,7 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -32,25 +32,28 @@ export const refs = {
   'fr-fr': ['2F11-1'],
   'fr-ch': []
 }
-export default function ImageFonctionsRefs () {
-  Exercice.call(this)
-  this.nbQuestions = 8
+export default class ImageFonctionsRefs extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireCaseACocher = ['Fonction carré']
-  this.besoinFormulaire2CaseACocher = ['Fonction cube']
-  this.besoinFormulaire3CaseACocher = ['Fonction racine carrée']
-  this.besoinFormulaire4CaseACocher = ['Fonction inverse']
-  this.sup = true
-  this.sup2 = true
-  this.sup3 = true
-  this.sup4 = true
-  this.can = false // course aux nombres, si true les calculs pourront être fait de tête
+    this.nbQuestions = 8
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+    this.besoinFormulaireCaseACocher = ['Fonction carré']
+    this.besoinFormulaire2CaseACocher = ['Fonction cube']
+    this.besoinFormulaire3CaseACocher = ['Fonction racine carrée']
+    this.besoinFormulaire4CaseACocher = ['Fonction inverse']
+    this.sup = true
+    this.sup2 = true
+    this.sup3 = true
+    this.sup4 = true
+    this.can = false // course aux nombres, si true les calculs pourront être fait de tête
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     const typeQuestionsDisponibles = []
     this.sup && typeQuestionsDisponibles.push('carré')
     this.sup2 && typeQuestionsDisponibles.push('cube')

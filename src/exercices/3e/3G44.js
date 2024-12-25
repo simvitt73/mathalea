@@ -7,7 +7,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
@@ -50,14 +50,19 @@ export const refs = {
   'fr-fr': ['3G44'],
   'fr-ch': ['11GM2-5']
 }
-export default function CalculPythagoreEspace () {
-  Exercice.call(this)
+export default class CalculPythagoreEspace extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 
-  this.nbQuestions = 4
-  this.sup2 = 1
-  this.sup = 10
+    this.nbQuestions = 4
+    this.sup2 = 1
+    this.sup = 10
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    if (context.isAmc) this.besoinFormulaire2Numerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
+
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -555,6 +560,4 @@ export default function CalculPythagoreEspace () {
     }
     listeQuestionsToContenu(this)
   }
-  if (context.isAmc) this.besoinFormulaire2Numerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
-  this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 }

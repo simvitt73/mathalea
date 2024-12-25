@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegati
 import { arcenciel } from '../../lib/format/style'
 import { signe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -24,26 +24,29 @@ export const refs = {
   'fr-fr': ['1AL10-4'],
   'fr-ch': []
 }
-export default function TermeDUneSuiteDefinieParRecurrence () {
-  Exercice.call(this)
+export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Calcul de u(1)\n2 : Calcul de u(k)\n3 : Mélange']
+    this.nbQuestions = 1
+    this.sup = 6
+    this.sup2 = 3
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Suite arithmétique',
+        '2 : Suite géométrique',
+        '3 : Suite arithmético-géométrique',
+        '4 : Suite de la forme u(n+1) = a+/-u(n)²',
+        '5 : Suite de la forme u(n+1)=au(n)+/-bn',
+        '6 : Mélange'
+      ].join('\n')
+    ]
+  }
 
-  this.nbQuestions = 1
-  this.sup = 6
-  this.sup2 = 3
-  this.spacing = 1.5
-  this.spacingCorr = 1.5
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Suite arithmétique',
-      '2 : Suite géométrique',
-      '3 : Suite arithmético-géométrique',
-      '4 : Suite de la forme u(n+1) = a+/-u(n)²',
-      '5 : Suite de la forme u(n+1)=au(n)+/-bn',
-      '6 : Mélange'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -165,5 +168,4 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
     }
     listeQuestionsToContenu(this) // La liste de question et la liste de la correction
   }
-  this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Calcul de u(1)\n2 : Calcul de u(k)\n3 : Mélange']
 }

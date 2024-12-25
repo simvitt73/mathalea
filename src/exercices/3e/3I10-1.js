@@ -4,7 +4,7 @@ import { lampeMessage } from '../../lib/format/message'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -41,22 +41,30 @@ export const refs = {
   'fr-fr': ['3I10-1'],
   'fr-ch': []
 }
-export default function ScratchMultiScript () {
-  Exercice.call(this)
-  function nombreDeNegatifs (arr) {
-    const initialValue = 0
-    return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)
+function nombreDeNegatifs (arr) {
+  const initialValue = 0
+  return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)
+}
+
+export default class ScratchMultiScript extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Compétence évaluée',
+      'Nombres séparés par des tirets\n1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
+    ]
+
+    this.spacing = 2
+    this.nbQuestions = 1
+
+    this.typeExercice = 'Scratch'
+
+    this.sup = '1-2-3'
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaille = false
   }
 
-  this.spacing = 2
-  this.nbQuestions = 1
-
-  this.typeExercice = 'Scratch'
-
-  this.sup = '1-2-3'
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaille = false
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.introduction = lampeMessage({
       titre: 'Information',
       texte: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`) +
@@ -436,8 +444,4 @@ export default function ScratchMultiScript () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Compétence évaluée',
-    'Nombres séparés par des tirets\n1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
-  ]
 }

@@ -1,6 +1,6 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -29,18 +29,22 @@ export const uuid = '3f39d'
 //   'fr-ch': []
 //  }
 
-export default function TableauProportion () {
-  Exercice.call(this)
+export default class TableauProportion extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Tableau à compléter\n 2 : Utiliser un tableau\n 3 : Mélange']
 
-  this.spacing = context.isHtml ? 1.5 : 2
-  this.spacingCorr = context.isHtml ? 1 : 2
-  this.nbQuestions = 1
-  this.sup = 2
-  this.tailleDiaporama = 1
-  this.listeAvecNumerotation = false
-  this.exoCustomResultat = true
-  this.nbQuestionsModifiable = false
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 1.5 : 2
+    this.spacingCorr = context.isHtml ? 1 : 2
+    this.nbQuestions = 1
+    this.sup = 2
+    this.tailleDiaporama = 1
+    this.listeAvecNumerotation = false
+    this.exoCustomResultat = true
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     this.answers = {}
 
     let typesDeQuestionsDisponibles = [1]
@@ -178,5 +182,4 @@ export default function TableauProportion () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Tableau à compléter\n 2 : Utiliser un tableau\n 3 : Mélange']
 }

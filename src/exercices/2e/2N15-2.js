@@ -3,7 +3,7 @@ import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -21,18 +21,20 @@ export const refs = {
   'fr-fr': ['2N15-2'],
   'fr-ch': []
 }
-export default function ValeurAbsolueEtEquation () {
-  Exercice.call(this)
+export default class ValeurAbsolueEtEquation extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
-  this.correction_detaille_disponible = true
-  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 //
+    this.correction_detaille_disponible = true
+    context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

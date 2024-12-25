@@ -1,5 +1,5 @@
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -25,11 +25,13 @@ export const refs = {
   'fr-fr': ['3G22-1'],
   'fr-ch': []
 }
-export default function Agrandissement () {
-  Exercice.call(this)
-  this.sup = '9'
+export default class Agrandissement extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireTexte = ['Choix des types de problèmes', `Nombres séparés par des tirets
+    this.sup = '9'
+
+    this.besoinFormulaireTexte = ['Choix des types de problèmes', `Nombres séparés par des tirets
   1 : Calcul de A2 connaissant k et A1
   2 : Calcul de V2 connaissant V1 et k
   3 : Calcul de A1 connaissant k et A2
@@ -39,8 +41,9 @@ export default function Agrandissement () {
   7 : Calcul de k connaissant V1 et V2
   8 : Conservation des angles
   9 : Mélange`]
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

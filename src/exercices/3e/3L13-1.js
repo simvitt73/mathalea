@@ -5,7 +5,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 // import { lampeMessage } from '../../lib/format/message'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -32,21 +32,24 @@ export const refs = {
   'fr-fr': ['3L13-1'],
   'fr-ch': ['11FA6-5']
 }
-export default function ExerciceEquation1Tiret2 () {
-  Exercice.call(this)
-  // this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
-  this.comment = 'Les équations sont de la forme :<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
-  this.spacing = 2
-  this.interactifType = 'mathLive'
-  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
-  this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  }
-  this.nbQuestions = 3
-  this.tailleDiaporama = 3
+export default class ExerciceEquation1Tiret2 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    // this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
+    this.comment = 'Les équations sont de la forme :<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
+    this.spacing = 2
+    this.interactifType = 'mathLive'
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
+    this.correctionDetailleeDisponible = true
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
+    this.nbQuestions = 3
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
 
     // let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']

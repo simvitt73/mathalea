@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -28,20 +28,24 @@ export const refs = {
   'fr-fr': ['3L15'],
   'fr-ch': ['11FA10-4']
 }
-export default function ExerciceEquations () {
-  Exercice.call(this)
-  this.nbQuestions = 6
-  this.nbCols = 2
+export default class ExerciceEquations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
+    this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
+    this.nbQuestions = 6
+    this.nbCols = 2
 
-  this.sup = 4
-  this.sup2 = true
-  this.spacingCorr = 3
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 4
+    this.sup2 = true
+    this.spacingCorr = 3
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.comment = 'Dans le niveau plus facile, l\'énoncé contient un maximum d\'entiers positifs. <br>'
-  this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
+    this.comment = 'Dans le niveau plus facile, l\'énoncé contient un maximum d\'entiers positifs. <br>'
+    this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
 
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({
@@ -251,8 +255,6 @@ export default function ExerciceEquations () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireTexte = ["Type d'équations", "Nombres séparés par des tirets : \n1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
-  this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
-  this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
 }
 
 function ax2plusbx (a, b) {

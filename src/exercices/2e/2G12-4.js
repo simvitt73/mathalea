@@ -9,7 +9,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texteParPosition } from '../../lib/2d/textes.ts'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Déterminer la nature d\'un polygone avec les coordonnées'
@@ -24,13 +24,17 @@ export const refs = {
   'fr-fr': ['2G12-4'],
   'fr-ch': ['11GM1-7']
 }
-export default function NaturePolygone () {
-  Exercice.call(this)
+export default class NaturePolygone extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations', 3, '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 3
-  this.nouvelleVersion = function () {
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let objets
     let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX
 
@@ -397,5 +401,4 @@ export default function NaturePolygone () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations', 3, '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ']
 }

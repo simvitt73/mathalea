@@ -5,7 +5,7 @@ import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMath
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -26,17 +26,20 @@ export const refs = {
   'fr-fr': ['3F13'],
   'fr-ch': ['11FA7-4']
 }
-export default function AntecedentGraphique () {
-  Exercice.call(this)
+export default class AntecedentGraphique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonctions', 3, '1 : Affine\n2 : Polynôme du 2nd degré\n3 : Mélange']
 
-  this.sup = 2
+    this.sup = 2
 
-  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
-  this.nbQuestions = 1
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
+    this.nbQuestions = 1
 
-  // this.listeAvecNumerotation = false
+    // this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let a, b, c, x1, x2, x3, fx1, fx2, fx3, texte, texteCorr, f
     let indexInteractif = 0
     let incrementInteractif
@@ -126,5 +129,4 @@ export default function AntecedentGraphique () {
 
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions', 3, '1 : Affine\n2 : Polynôme du 2nd degré\n3 : Mélange']
 }

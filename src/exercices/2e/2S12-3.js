@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -29,14 +29,16 @@ export const refs = {
   'fr-fr': ['2S12-3'],
   'fr-ch': []
 }
-export default function EvolutionsSuccesives () {
-  Exercice.call(this)
+export default class EvolutionsSuccesives extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
 
-  this.sup = 4 // type de questions
+    this.sup = 4 // type de questions
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let typesDeQuestions, CM, CMr, CMra, p, pr, nom, nomr, t, tr, metier

@@ -7,7 +7,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une inéquation du second degré'
 
@@ -22,17 +22,19 @@ export const refs = {
   'fr-fr': ['1AL23-40'],
   'fr-ch': []
 }
-export default function ResoudreEquationDegre2 () {
-  Exercice.call(this)
+export default class ResoudreEquationDegre2 extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les inéquations suivantes.'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.spacingCorr = 3
-  // this.sup = 1
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les inéquations suivantes.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.spacingCorr = 3
+    // this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     // let listeTypeDeQuestions
     // if (this.sup === 1) {
     const listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)

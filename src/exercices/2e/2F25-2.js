@@ -6,7 +6,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB, rienSi1
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
@@ -27,12 +27,14 @@ export const refs = {
   'fr-fr': ['2F25-2'],
   'fr-ch': []
 }
-export default function EtudierPariteFonction () {
-  Exercice.call(this)
+export default class EtudierPariteFonction extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     let bonneReponse
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]//

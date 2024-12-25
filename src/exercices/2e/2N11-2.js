@@ -2,7 +2,7 @@ import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -24,13 +24,16 @@ export const refs = {
   'fr-fr': ['2N11-2'],
   'fr-ch': []
 }
-export default function UnionEtIntersectionIntervallesDeR () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
+export default class UnionEtIntersectionIntervallesDeR extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const X1 = point(0, 0)

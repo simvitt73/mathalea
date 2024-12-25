@@ -5,7 +5,7 @@ import { latexParPoint } from '../../lib/2d/textes.ts'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { katexPopup2 } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -39,18 +39,22 @@ export const refs = {
   'fr-fr': ['3F21-1'],
   'fr-ch': ['11FA8-10']
 }
-export default function LectureExpressionFonctionsAffines () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class LectureExpressionFonctionsAffines extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'\n4 : Mélange"]
+    this.besoinFormulaire2Numerique = ['Nombre de droites (1 à 5)', 5]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.sup = 1
-  this.sup2 = 3
-  this.lineaire = false
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.sup = 1
+    this.sup2 = 3
+    this.lineaire = false
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     let explain = ''
     let preK = this.sup
     if (this.sup === 4) {
@@ -191,6 +195,4 @@ export default function LectureExpressionFonctionsAffines () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'\n4 : Mélange"]
-  this.besoinFormulaire2Numerique = ['Nombre de droites (1 à 5)', 5]
 }

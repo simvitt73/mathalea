@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -25,13 +25,16 @@ export const refs = {
   'fr-fr': ['1AN41'],
   'fr-ch': []
 }
-export default function MesurePrincipale () {
-  Exercice.call(this)
-  this.nbQuestions = 3 // Nombre de questions par défaut
-  this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+export default class MesurePrincipale extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3 // Nombre de questions par défaut
+    this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  }
+
+  nouvelleVersion () {
     const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
     const alfa = lettresGrecques[randint(0, 7)][1]
     this.consigne = `Déterminer la mesure principale de l'angle $${alfa}$, c'est-à-dire sa mesure sur $]-\\pi;\\pi]$`

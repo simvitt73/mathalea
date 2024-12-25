@@ -10,7 +10,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { modalTexteLong } from '../../lib/outils/modales'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -29,17 +29,20 @@ export const refs = {
   'fr-fr': ['1AL20-11'],
   'fr-ch': ['11FA10-7']
 }
-export default function CalculDiscriminant () {
-  Exercice.call(this)
+export default class CalculDiscriminant extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
-  this.nbQuestions = 6
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  if (context.isHtml) {
-    this.spacingCorr = 2
+    this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
+    this.nbQuestions = 6
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    if (context.isHtml) {
+      this.spacingCorr = 2
+    }
   }
-  this.nouvelleVersion = function (numeroExercice) {
+
+  nouvelleVersion (numeroExercice) {
     const listeTypesEquations = combinaisonListes(['0solution', '1solution', '2solutions'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, c, x1, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let aNbPointsIntersection

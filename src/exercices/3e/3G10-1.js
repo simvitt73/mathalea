@@ -16,7 +16,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -40,14 +40,18 @@ export const refs = {
   'fr-fr': ['3G10-1'],
   'fr-ch': ['11ES3-1']
 }
-export default function TransformationsDuPlanEtCoordonnees () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class TransformationsDuPlanEtCoordonnees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Homothétie de rapport décimal (agrandissement)\n6 : Homothétie de rapport fractionnaire (réduction)\n7: Mélange']
 
-  context.fenetreMathalea2d = [-9, -9, 9, 9]
-  this.sup = '4-5-6'
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    context.fenetreMathalea2d = [-9, -9, 9, 9]
+    this.sup = '4-5-6'
+  }
+
+  nouvelleVersion () {
     const k = []
     let A, B, C, Aprime, Bprime, Cprime
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
@@ -776,5 +780,4 @@ export default function TransformationsDuPlanEtCoordonnees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Homothétie de rapport décimal (agrandissement)\n6 : Homothétie de rapport fractionnaire (réduction)\n7: Mélange']
 }

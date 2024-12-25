@@ -11,7 +11,7 @@ import {
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -30,16 +30,20 @@ export const refs = {
   'fr-fr': ['1AL23-7'],
   'fr-ch': ['1F3-6']
 }
-export default function TrouverEquationParabole () {
-  Exercice.call(this)
+export default class TrouverEquationParabole extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 5
+    this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Passant par trois points à coordonnées entières 1\n2 : Connaissant le sommet et un point de passage\n3 : Connaissant les deux racines et un point de passage\n4 : Mélange des trois type de questions']
 
-  this.spacingCorr = 3
-  this.sup = 4
-  this.correctionDetailleeDisponible = true
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.spacingCorr = 3
+    this.sup = 4
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     this.consigne = "Trouver l'expression de "
     this.consigne += this.nbQuestions > 1 ? 'chacune des fonctions suivantes.' : 'la fonction suivante.'
     const pixelsParCm = 20
@@ -169,5 +173,4 @@ ${f(x1) - f(-x1)}=${2 * x1}b
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Passant par trois points à coordonnées entières 1\n2 : Connaissant le sommet et un point de passage\n3 : Connaissant les deux racines et un point de passage\n4 : Mélange des trois type de questions']
 }

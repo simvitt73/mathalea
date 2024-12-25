@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionSigne } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -22,14 +22,16 @@ export const refs = {
   'fr-fr': ['2F10-1'],
   'fr-ch': ['11FA8-1']
 }
-export default function Reconnaitrefonctionaffine () {
-  Exercice.call(this)
+export default class Reconnaitrefonctionaffine extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
+    this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
 
-  this.nbQuestions = 5
+    this.nbQuestions = 5
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let bonneReponse
 
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions)

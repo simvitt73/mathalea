@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -25,13 +25,16 @@ export const refs = {
   'fr-ch': ['11FA3-5']
 }
 
-export default function FactoriserIdentitesRemarquables2 () {
-  Exercice.call(this)
+export default class FactoriserIdentitesRemarquables2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
 
-  this.nbQuestions = 5
-  this.sup = 1
+    this.nbQuestions = 5
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Factoriser l\'expression suivante.' : 'Factoriser les expressions suivantes.'
     const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
@@ -157,5 +160,4 @@ export default function FactoriserIdentitesRemarquables2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
 }

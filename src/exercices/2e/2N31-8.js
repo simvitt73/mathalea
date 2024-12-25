@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -23,17 +23,20 @@ export const refs = {
   'fr-fr': ['2N31-8'],
   'fr-ch': []
 }
-export default function ConversionsPuissancesDe10 () {
-  Exercice.call(this)
-  this.consigne = 'Compléter :'
-  this.nbQuestions = 5
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+export default class ConversionsPuissancesDe10 extends Exercice {
+  constructor () {
+    super()
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = !context.isHtml
+    this.consigne = 'Compléter :'
+    this.nbQuestions = 5
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
-  this.nouvelleVersion = function () {
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = !context.isHtml
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['m>km', 'u>M', 'u>G', 'g>t', 'M>G', 'M>T', 'G>T', 'm>mm', 'm>um', 'm>nm'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque `cycle`
     const listeDeSens = combinaisonListes(['div', 'fois'], this.nbQuestions)

@@ -1,4 +1,4 @@
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -18,15 +18,19 @@ export const refs = {
   'fr-fr': ['2N32-3'],
   'fr-ch': ['11NO1-6', '1CN-8']
 }
-export default function ExtraireUnCarreParfaitDUneRacineCarree () {
-  Exercice.call(this)
-  this.titre = 'Écrire une racine carrée sous la forme $a\\sqrt{b}$'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 2 //
+export default class ExtraireUnCarreParfaitDUneRacineCarree extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 
-  this.nouvelleVersion = function () {
+    this.titre = 'Écrire une racine carrée sous la forme $a\\sqrt{b}$'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 2 //
+  }
+
+  nouvelleVersion () {
     this.consigne = (this.sup === 2) ? `Écrire le${this.nbQuestions > 1 ? 's' : ''} nombre${this.nbQuestions > 1 ? 's' : ''} proposé${this.nbQuestions > 1 ? 's' : ''} sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible.` : ''
 
     let a, b, c, d, texte, texteCorr, reponse
@@ -63,5 +67,4 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 }

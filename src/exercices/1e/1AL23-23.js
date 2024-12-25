@@ -1,7 +1,7 @@
 import { texteGras } from '../../lib/format/style'
 
 import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 export const titre = 'Nombre de solutions d\'une équation du second degré à paramètre'
 export const dateDePublication = '30/10/2021'
@@ -19,17 +19,21 @@ export const refs = {
   'fr-fr': ['1AL23-23'],
   'fr-ch': []
 }
-export default function EquationDuSecondDegreAvecUnParametre () {
-  Exercice.call(this)
-  this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
-  this.nbQuestions = 2
+export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
+    this.nbQuestions = 2
 
-  this.typeExercice = 'xcas'
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nouvelleVersion = function () {
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
+    this.typeExercice = 'xcas'
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, a, a2, b2, c2, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)

@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { OutilsStats } from '../../modules/outilsStat'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -25,14 +25,17 @@ export const refs = {
   'fr-fr': ['3S15'],
   'fr-ch': ['11NO2-12']
 }
-export default function CalculerEtendues () {
-  Exercice.call(this)
+export default class CalculerEtendues extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Série de notes\n2 : Série de températures\n3 : Mélange']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 1
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typeQuestionsDisponibles = ['notes', 'températures']
     if (this.sup === 1) typeQuestionsDisponibles = ['notes']
     if (this.sup === 2) typeQuestionsDisponibles = ['températures']
@@ -72,5 +75,4 @@ export default function CalculerEtendues () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Série de notes\n2 : Série de températures\n3 : Mélange']
 }

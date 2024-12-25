@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { simpExp } from '../../lib/outils/puissance'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.ts'
@@ -28,17 +28,20 @@ export const refs = {
   'fr-fr': ['2N31-10'],
   'fr-ch': ['']
 }
-export default function PuissancesDUnRelatif2 () {
-  Exercice.call(this)
-  this.consigne = 'Écrire sous la forme '
-  context.isHtml
-    ? (this.consigne += '$\\mathbf{a^n}$.')
-    : (this.consigne += '$a^n$.')
-  this.spacing = 2
-  this.spacingCorr = 2.5
-  this.nbQuestions = 8
+export default class PuissancesDUnRelatif2 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Écrire sous la forme '
+    context.isHtml
+      ? (this.consigne += '$\\mathbf{a^n}$.')
+      : (this.consigne += '$a^n$.')
+    this.spacing = 2
+    this.spacingCorr = 2.5
+    this.nbQuestions = 8
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

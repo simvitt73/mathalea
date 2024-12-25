@@ -3,7 +3,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -28,18 +28,22 @@ export const refs = {
   'fr-fr': ['3L12-1'],
   'fr-ch': ['11FA2-12']
 }
-export default function DevelopperIdentitesRemarquables3 () {
-  Exercice.call(this)
+export default class DevelopperIdentitesRemarquables3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.sup = 2
-  this.sup2 = true
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+    this.sup = 2
+    this.sup2 = true
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
 
     const Fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
@@ -164,6 +168,4 @@ export default function DevelopperIdentitesRemarquables3 () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }

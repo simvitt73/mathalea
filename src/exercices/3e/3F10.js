@@ -1,6 +1,6 @@
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -21,12 +21,14 @@ export const refs = {
   'fr-fr': ['3F10'],
   'fr-ch': ['10FA5-4', '1F1-6']
 }
-export default function ImageAntecedentDepuisTableauOuFleche () {
-  Exercice.call(this)
+export default class ImageAntecedentDepuisTableauOuFleche extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, texteAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(-20, 20)
       const b = randint(-20, 20, [a])

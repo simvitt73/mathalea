@@ -5,7 +5,7 @@ import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -31,13 +31,25 @@ export const refs = {
   'fr-fr': ['3F10-3'],
   'fr-ch': ['10FA5-7', '11FA7-1', '1F1-5']
 }
-export default function VocabulaireNotationsFonctions2 () {
-  Exercice.call(this)
-  this.sup = 5
-  this.spacing = 1.5
-  this.nbQuestions = 3
+export default class VocabulaireNotationsFonctions2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Traduire une égalité par une phrase',
+        '2 : Traduire une phrase par une égalité',
+        '3 : Interprétation graphique',
+        '4 : Expression littérale',
+        '5 : Mélange'
+      ].join('\n')
+    ]
+    this.sup = 5
+    this.spacing = 1.5
+    this.nbQuestions = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.interactif ? 'Cocher toutes les réponses correctes.' : ''
 
     const r = repere({
@@ -542,14 +554,4 @@ export default function VocabulaireNotationsFonctions2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Traduire une égalité par une phrase',
-      '2 : Traduire une phrase par une égalité',
-      '3 : Interprétation graphique',
-      '4 : Expression littérale',
-      '5 : Mélange'
-    ].join('\n')
-  ]
 }

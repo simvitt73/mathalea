@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -21,12 +21,16 @@ export const refs = {
   'fr-fr': ['2N41-7b'],
   'fr-ch': ['11FA3-6']
 }
-export default function FactoriserIdentitesremarquables2 () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.sup = '1'
+export default class FactoriserIdentitesremarquables2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type d\'expression (numéros séparés par des tirets)', '1 : forme (ax+b)²-c²\n2 : forme c²-(ax+b)²\n3 : (ax+b)²-(cx+d)²\n4 : a²(bx+c)²-d²(ex+f)²\n5 : Mélange des cas précédents']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3
+    this.sup = '1'
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Factoriser l\'expression suivante.' : 'Factoriser les expressions suivantes.'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -139,5 +143,4 @@ $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecr
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type d\'expression (numéros séparés par des tirets)', '1 : forme (ax+b)²-c²\n2 : forme c²-(ax+b)²\n3 : (ax+b)²-(cx+d)²\n4 : a²(bx+c)²-d²(ex+f)²\n5 : Mélange des cas précédents']
 }

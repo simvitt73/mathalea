@@ -9,7 +9,7 @@ import { codageSegments } from '../../lib/2d/codages'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { texteParPosition } from '../../lib/2d/textes.ts'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -32,14 +32,19 @@ export const refs = {
   'fr-fr': ['2G12-1'],
   'fr-ch': []
 }
-export default function Distance () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class Distance extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe\n2 :  Application indirecte \n3 : Mélange']
 
-  this.sup = 1 //
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+
+    this.sup = 1 //
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     if (this.sup === 1) {
@@ -342,5 +347,4 @@ export default function Distance () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe\n2 :  Application indirecte \n3 : Mélange']
 }

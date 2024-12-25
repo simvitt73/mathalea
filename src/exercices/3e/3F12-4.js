@@ -9,7 +9,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Lire l\'image d\'un nombre à partir d\'un graphique'
@@ -31,17 +31,20 @@ export const refs = {
   'fr-fr': ['3F12-4'],
   'fr-ch': ['11FA7-3', '1F1-3']
 }
-export default function ImageGraphique () {
-  Exercice.call(this)
+export default class ImageGraphique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 
-  this.sup = 3
+    this.sup = 3
 
-  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
-  this.nbQuestions = 1
-  this.pointsParQuestions = 3
-  // this.nbQuestionsModifiable = false
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
+    this.nbQuestions = 1
+    this.pointsParQuestions = 3
+    // this.nbQuestionsModifiable = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, ymax, f
 
     function initialiseVariables () {
@@ -198,6 +201,4 @@ export default function ImageGraphique () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 }

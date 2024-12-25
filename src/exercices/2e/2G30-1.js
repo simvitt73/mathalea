@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { unSiPositifMoinsUnSinon } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -29,15 +29,18 @@ export const refs = {
   'fr-fr': ['2G30-1'],
   'fr-ch': ['11FA9-9', '1F2-1']
 }
-export default function CoefficientDirecteurDeDroite () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class CoefficientDirecteurDeDroite extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     const typeQuestionsDisponibles = ['Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite verticale'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     if (!this.interactif) {

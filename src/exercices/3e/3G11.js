@@ -10,7 +10,7 @@ import { arcenciel, texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
@@ -30,14 +30,19 @@ export const refs = {
   'fr-fr': ['3G11'],
   'fr-ch': ['11ES3-3']
 }
-export default function ConstruireHomothetiePoint3e () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class ConstruireHomothetiePoint3e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Une seule cible par point\n2 : Plusieurs cibles pour un seul point\n3 : Mélange']
 
-  this.sup = 3
-  this.sup2 = 3
+    this.nbQuestions = 2
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.sup = 3
+    this.sup2 = 3
+  }
+
+  nouvelleVersion (numeroExercice) {
     let plusieursCiblesPourUnPoint = true
     const listeRapports = [-2, -1.5, -0.5, 0.5, 1.5, 2]
     const choixCodage = ['OO', '|||', '//']
@@ -232,6 +237,4 @@ export default function ConstruireHomothetiePoint3e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
-  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Une seule cible par point\n2 : Plusieurs cibles pour un seul point\n3 : Mélange']
 }

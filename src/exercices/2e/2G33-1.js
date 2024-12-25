@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Déterminer si trois points sont alignés'
 /**
@@ -16,17 +16,19 @@ export const refs = {
   'fr-fr': ['2G33-1'],
   'fr-ch': ['11FA9-8', '1F2-7']
 }
-export default function Alignementdetroispoints () {
-  Exercice.call(this)
+export default class Alignementdetroispoints extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer si les 3 points $A$, $B$ et $C$ suivants sont ou non alignés.'
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer si les 3 points $A$, $B$ et $C$ suivants sont ou non alignés.'
+    this.nbQuestions = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typeQuestionsDisponibles = ['oui', 'non'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, xA, yA, xB, yB, xC, yC, k, n1, d1, n2, d2, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

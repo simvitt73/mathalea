@@ -14,7 +14,7 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -35,21 +35,24 @@ export const uuid = '20d20'
  * Questions sur les fonctions affines
  * @author Jean-Claude Lhote
  */
-export default function FonctionsAffines () {
-  Exercice.call(this)
-  this.comment = `L'exercice propose différents types de questions sur les fonctions affines comme son homologue 3F20 sur les fonctions affines :<br>
+export default class FonctionsAffines extends Exercice {
+  constructor () {
+    super()
+
+    this.comment = `L'exercice propose différents types de questions sur les fonctions affines comme son homologue 3F20 sur les fonctions affines :<br>
 calcul d'image, calcul d'antécédent.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
 Certaines questions de calcul d'image nécessitent des calculs préalables.<br>
 Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50% ainsi que l'ordonnée à l'origine.<br>`
-  this.sup = 1 // coefficient entier relatif
-  this.nbQuestions = 8
-  this.sup2 = this.lycee ? '11' : '9'
-  this.spacingCorr = 3
+    this.sup = 1 // coefficient entier relatif
+    this.nbQuestions = 8
+    this.sup2 = this.lycee ? '11' : '9'
+    this.spacingCorr = 3
 
-  this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
+    this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.besoinFormulaire2Texte = this.lycee
       ? ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique (formule des accroissements)\n10: Expression par valeurs (formule des accroissements)\n11: Mélange']
       : ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']

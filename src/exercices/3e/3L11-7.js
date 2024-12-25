@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,17 +26,21 @@ export const refs = {
   'fr-fr': ['3L11-7'],
   'fr-ch': ['11FA2-8']
 }
-export default function CarreDoubleDistributivite () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class CarreDoubleDistributivite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Écrire toutes les multiplications dans la correction']
 
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.sup = true
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.sup = true
+    this.tailleDiaporama = 3
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
 
     const typesDeQuestionsDisponibles = ['(ax+b)2', '(b+ax)2', '(ax-b)2', '(b-ax)2']
@@ -181,5 +185,4 @@ export default function CarreDoubleDistributivite () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireCaseACocher = ['Écrire toutes les multiplications dans la correction']
 }

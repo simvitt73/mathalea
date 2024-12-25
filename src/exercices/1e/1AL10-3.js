@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -20,21 +20,23 @@ export const refs = {
   'fr-fr': ['1AL10-3'],
   'fr-ch': []
 }
-export default function TermeDUneSuiteDefinieExplicitement () {
-  Exercice.call(this)
+export default class TermeDUneSuiteDefinieExplicitement extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.sup = 4
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Affine',
+        '2 : Second degré',
+        '3 : Homographique',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+  }
 
-  this.nbQuestions = 1
-  this.sup = 4
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Affine',
-      '2 : Second degré',
-      '3 : Homographique',
-      '4 : Mélange'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

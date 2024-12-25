@@ -9,7 +9,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -26,16 +26,18 @@ export const refs = {
   'fr-fr': ['2N50-4'],
   'fr-ch': ['11FA6-10']
 }
-export default function ModeliserEquationsGeometrie () {
-  Exercice.call(this)
+export default class ModeliserEquationsGeometrie extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 1
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'] //
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, b, c, d, e, A, B, C, D, E, M, N, P, H, F, K, L, objets, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

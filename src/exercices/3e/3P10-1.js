@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
@@ -21,16 +21,20 @@ export const refs = {
   'fr-fr': ['3P10-1'],
   'fr-ch': ['10FA4-6']
 }
-export default function CoefficientEvolution () {
-  Exercice.call(this)
-  this.consigne = 'Compléter.'
-  this.nbQuestions = 4
+export default class CoefficientEvolution extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange']
 
-  this.sup = 1
-  this.version = 1
+    this.consigne = 'Compléter.'
+    this.nbQuestions = 4
 
-  // this.nouvelleVersion = function (numeroExercice) {
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.version = 1
+  }
+
+  // }
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     if (this.sup === 1) {
@@ -116,5 +120,4 @@ export default function CoefficientEvolution () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange']
 }

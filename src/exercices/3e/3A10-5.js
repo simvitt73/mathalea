@@ -1,6 +1,6 @@
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -57,7 +57,43 @@ export function extraitLaDecomposition (expression) {
   }
   return decompo
 }
-
+function ecrireReponse (alpha, a, beta, b, gamma, c) {
+  let reponse = ''
+  let reponse2 = ''
+  if (a !== 0) {
+    reponse += `${alpha}`
+    reponse2 += `${alpha}`
+    if (a !== 1) {
+      for (let k = 1; k < a; k++) {
+        reponse += `\\times${alpha}`
+      }
+      reponse2 += `^${a}`
+    }
+  }
+  if (b !== 0) {
+    reponse += a === 0 ? '' : '\\times'
+    reponse2 += a === 0 ? '' : '\\times'
+    reponse += `${beta}`
+    reponse2 += `${beta}`
+    if (b !== 1) {
+      for (let k = 1; k < b; k++) {
+        reponse += `\\times${beta}`
+      }
+      reponse2 += `^${b}`
+    }
+  }
+  if (c !== 0) {
+    reponse += `\\times${gamma}`
+    reponse2 += `\\times${gamma}`
+    if (c !== 1) {
+      for (let k = 1; k < c; k++) {
+        reponse += `\\times${gamma}`
+      }
+      reponse2 += `^${c}`
+    }
+  }
+  return ([reponse, reponse2])
+}
 function compareLesDecomposition (decompo1, decompo2) {
   if (!(Array.isArray(decompo1) && Array.isArray(decompo2))) return { isOk: false, feedback: 'La réponse n\'a pas la forme attendue' }
   // On verifie que les deux décomposition sont bien le même nombre sinon on sort
@@ -88,54 +124,19 @@ function compareLesDecomposition (decompo1, decompo2) {
   return { isOk: true, feedback: '' }
 }
 
-export default function RecourirDecompositionFacteursPremiers () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
-  this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]
-  this.sup = 6
-  this.sup2 = 4
-  this.tailleDiaporama = 2
+export default class RecourirDecompositionFacteursPremiers extends Exercice {
+  constructor () {
+    super()
 
-  function ecrireReponse (alpha, a, beta, b, gamma, c) {
-    let reponse = ''
-    let reponse2 = ''
-    if (a !== 0) {
-      reponse += `${alpha}`
-      reponse2 += `${alpha}`
-      if (a !== 1) {
-        for (let k = 1; k < a; k++) {
-          reponse += `\\times${alpha}`
-        }
-        reponse2 += `^${a}`
-      }
-    }
-    if (b !== 0) {
-      reponse += a === 0 ? '' : '\\times'
-      reponse2 += a === 0 ? '' : '\\times'
-      reponse += `${beta}`
-      reponse2 += `${beta}`
-      if (b !== 1) {
-        for (let k = 1; k < b; k++) {
-          reponse += `\\times${beta}`
-        }
-        reponse2 += `^${b}`
-      }
-    }
-    if (c !== 0) {
-      reponse += `\\times${gamma}`
-      reponse2 += `\\times${gamma}`
-      if (c !== 1) {
-        for (let k = 1; k < c; k++) {
-          reponse += `\\times${gamma}`
-        }
-        reponse2 += `^${c}`
-      }
-    }
-    return ([reponse, reponse2])
+    this.nbQuestions = 4
+    this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
+    this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]
+    this.sup = 6
+    this.sup2 = 4
+    this.tailleDiaporama = 2
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 3)
     this.consigne = 'Décomposer, en produit de facteurs premiers, '
     this.consigne += (this.nbQuestions === 1 || context.isAmc) ? 'le nombre suivant.' : 'les nombres suivants.'

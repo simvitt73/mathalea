@@ -3,7 +3,7 @@ import { repere } from '../../lib/2d/reperes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randint, texConsigne } from '../../modules/outils'
@@ -26,16 +26,19 @@ export const refs = {
   'fr-fr': ['3F13-1'],
   'fr-ch': []
 }
-export default function AntecedentEtImageGraphique () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class AntecedentEtImageGraphique extends Exercice {
+  constructor () {
+    super()
 
-  if (context.isHtml) {
-    this.spacingCorr = 2
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    if (context.isHtml) {
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const r = repere({
       xMin: -5,
       xMax: 5,

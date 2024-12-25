@@ -4,7 +4,7 @@ import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, similitude, translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
@@ -22,13 +22,18 @@ export const refs = {
   'fr-fr': ['2G21-1'],
   'fr-ch': []
 }
-export default function SommeDeVecteurs () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 3 //
-  this.nouvelleVersion = function (numeroExercice) {
+export default class SommeDeVecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n2 : Cas général\n3 : Mélange']
+
+    this.nbQuestions = 2
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 3 //
+  }
+
+  nouvelleVersion (numeroExercice) {
     let choix = 1
     let u, v, A, B, C, xU, yU, xV, yV, p, U, V, M, N, UU, VV, posLabelA
     for (let i = 0, texte, texteCorr, anim, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -126,5 +131,4 @@ export default function SommeDeVecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n2 : Cas général\n3 : Mélange']
 }

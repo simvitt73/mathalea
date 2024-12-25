@@ -3,7 +3,7 @@ import { warnMessage } from '../../lib/format/message'
 import { numAlpha } from '../../lib/outils/outilString'
 import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Rendre irréductible une fraction'
@@ -18,17 +18,20 @@ export const refs = {
   'fr-fr': ['3A11'],
   'fr-ch': ['9NO12-8']
 }
-export default function FractionsIrreductibles () {
-  Exercice.call(this)
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
-  context.isHtml ? this.spacing = 4 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
-  this.nbQuestions = 1
+export default class FractionsIrreductibles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
+    context.isHtml ? this.spacing = 4 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
+    this.nbQuestions = 1
 
-  this.sup = true
+    this.sup = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestions
 
     const typesDeQuestionsDisponibles = [1]
@@ -267,5 +270,4 @@ export default function FractionsIrreductibles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
 }

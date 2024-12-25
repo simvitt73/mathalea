@@ -5,7 +5,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Taux de variation des fonctions de référence'
 
@@ -23,13 +23,18 @@ export const refs = {
   'fr-ch': []
 }
 
-export default function Tauxvariation () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Nombre de questions par défaut
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class Tauxvariation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine\n 2 : Fonction carré\n 3: Fonction inverse\n 4: Fonction racine carrée\n 5: Mélange']
 
-  this.sup = 1
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1 // Nombre de questions par défaut
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]
     // this.sup = contraindreValeur(1, 5, this.sup, 5)
     if (this.sup !== 5) typesDeQuestionsDisponibles = [this.sup]
@@ -135,5 +140,4 @@ export default function Tauxvariation () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine\n 2 : Fonction carré\n 3: Fonction inverse\n 4: Fonction racine carrée\n 5: Mélange']
 }

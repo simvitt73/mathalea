@@ -9,7 +9,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -33,13 +33,18 @@ export const refs = {
   'fr-fr': ['2F10-2'],
   'fr-ch': ['11FA8-13']
 }
-export default function Lecturefonctionaffine () {
-  Exercice.call(this)
-  this.nbQuestions = 1// On complète le nb de questions
-  this.sup = 1
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+export default class Lecturefonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Coefficient directeur entier\n2 :Coefficient directeur fractionnaire\n3 :Mélange']
+
+    this.nbQuestions = 1// On complète le nb de questions
+    this.sup = 1
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -387,5 +392,4 @@ export default function Lecturefonctionaffine () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Coefficient directeur entier\n2 :Coefficient directeur fractionnaire\n3 :Mélange']
 }

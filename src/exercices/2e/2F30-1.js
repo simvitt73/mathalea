@@ -7,7 +7,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
 export const dateDePublication = '14/02/2023'
@@ -22,14 +22,18 @@ export const refs = {
   'fr-fr': ['2F30-1'],
   'fr-ch': []
 }
-export default function VariationsCourbe () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class VariationsCourbe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Avec un repère classique\n2 : Avec des grandes valeurs\n3 : Mélange des cas précédents']
 
-  this.sup = 1
-  this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']// 'typeE1', 'typeE2',
@@ -737,5 +741,4 @@ export default function VariationsCourbe () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Avec un repère classique\n2 : Avec des grandes valeurs\n3 : Mélange des cas précédents']
 }

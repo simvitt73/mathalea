@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Déterminer la parité d\'une expression'
@@ -15,15 +15,17 @@ export const refs = {
   'fr-fr': ['2N20-8'],
   'fr-ch': ['11FA4-2']
 }
-export default function Parite () {
-  Exercice.call(this)
+export default class Parite extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Soit $n$ un entier naturel.'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
+    this.consigne = 'Soit $n$ un entier naturel.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

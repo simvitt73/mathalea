@@ -5,7 +5,7 @@ import { texteParPosition } from '../../lib/2d/textes.ts'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -34,15 +34,19 @@ export const refs = {
   'fr-fr': ['2G30-7'],
   'fr-ch': ['11FA9-7', '1F2-6']
 }
-export default function Lecturegraphiquedeaetb () {
-  Exercice.call(this)
-  this.nbQuestions = 1// On complète le nb de questions
+export default class Lecturegraphiquedeaetb extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Types de questions ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires']
 
-  this.tailleDiaporama = 3
+    this.nbQuestions = 1// On complète le nb de questions
 
-  this.sup = 1
+    this.tailleDiaporama = 3
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, a, b, r, c, d, A, B, droiteAB, choix, s1, s2, o, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       b = randint(-5, 5) // ordonnée à l'origine
@@ -203,5 +207,4 @@ export default function Lecturegraphiquedeaetb () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de questions ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires']
 }

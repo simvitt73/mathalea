@@ -3,7 +3,7 @@ import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -24,12 +24,16 @@ export const refs = {
   'fr-fr': ['1AL23-50'],
   'fr-ch': ['1F3-1']
 }
-export default function LireElementsCarac () {
-  Exercice.call(this)
-  this.nbQuestions = 5 // Nombre de questions par défaut
-  this.sup = 4
+export default class LireElementsCarac extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Signe du coefficient dominant\n2 : Racines\n3 : Coordonnées du sommet\n4 : Mélange des trois type de questions']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5 // Nombre de questions par défaut
+    this.sup = 4
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Répondre à '
     this.consigne += this.nbQuestions > 1 ? 'ces questions' : 'cette question'
     this.consigne += ' par lecture graphique.'
@@ -158,5 +162,4 @@ export default function LireElementsCarac () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Signe du coefficient dominant\n2 : Racines\n3 : Coordonnées du sommet\n4 : Mélange des trois type de questions']
 }
