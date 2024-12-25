@@ -9,7 +9,6 @@ import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fraction } from '../../../modules/fractions'
 
-
 export const titre = 'Résolution d\'inéquations du type a^x<b'
 export const dateDePublication = '4/5/2024'
 export const uuid = 'ce764'
@@ -20,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * 
+ *
  * @author Claire Rousset
 
 */
@@ -35,7 +34,7 @@ export default class ExerciceCalculsDeLog extends Exercice {
   }
 
   nouvelleVersion () {
-    type Operators = '>='| '>'| '<='| '<'
+    type Operators = '>=' | '>' | '<=' | '<'
     const operators:Operators[] = ['>=', '>', '<=', '<']
 
     // La liste des signes de comparaison pour varier
@@ -44,8 +43,8 @@ export default class ExerciceCalculsDeLog extends Exercice {
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: '1-2', min: 1, max: 4, melange: 4, defaut: 4, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on déclare les objets A et B qui servent à définir a et b
-      let A: {base: number, exp: number}
-      let B: {base: number, exp: number}
+      let A: { base: number, exp: number }
+      let B: { base: number, exp: number }
       switch (listeTypeQuestions[i]) {
         case 1:do { // Cas rationnel : même base pour a et b, mais exposants non multiples
           A = { base: choice([2, 5]), exp: randint(-3, 3, [0, -1, 1]) }

@@ -71,7 +71,6 @@ export default class EquationsRacCarree extends Exercice {
       case 1 :// sqrt(x)<k
         { const choix = choice([true, false])
           sAAx.epaisseur = 2
-          // @ts-expect-error problème typage pointilles à revoir
           sAAx.pointilles = 5
           sAxBx.epaisseur = 2
           sAxBx.tailleExtremites = 6
@@ -104,7 +103,6 @@ export default class EquationsRacCarree extends Exercice {
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
-          // @ts-expect-error problème typage pointilles à revoir
           sAAx.pointilles = 5
           const AxI = point(4, 0)
           const sAxAxI = segment(Ax, AxI, 'red')

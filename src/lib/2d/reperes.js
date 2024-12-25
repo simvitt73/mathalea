@@ -1935,7 +1935,7 @@ export function Repere ({
 /**
  *
  * @param {object} params
- * @return {object}
+ * @return {Repere}
  * @author Rémi Angot
  */
 export function repere ({

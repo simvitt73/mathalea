@@ -28,6 +28,7 @@ export const refs = {
 export default class CosEtsin extends Exercice {
   constructor () {
     super()
+    this.can = false
     this.consigne = 'Déterminer la valeur exacte de :'
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX

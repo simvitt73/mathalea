@@ -12,7 +12,7 @@ export const dateDePublication = '04/10/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * 
+ *
  * @author Stéphane Guyon
 */
 

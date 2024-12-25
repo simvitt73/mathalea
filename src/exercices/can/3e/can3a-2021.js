@@ -10,7 +10,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
@@ -42,8 +42,10 @@ export const refs = {
   'fr-fr': ['can3a-2021'],
   'fr-ch': []
 }
-export default function SujetCAN20213ieme () {
-  Exercice.call(this)
+export default class SujetCAN20213ieme extends Exercice {
+constructor (){
+super()
+
   this.nbQuestions = 30// 10,20,30
 
 
@@ -53,7 +55,9 @@ export default function SujetCAN20213ieme () {
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
+  
+}
+ nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.

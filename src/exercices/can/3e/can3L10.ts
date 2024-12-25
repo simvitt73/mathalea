@@ -24,8 +24,7 @@ export default class ReduireAvecParentheses2 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-
-    }
+  }
 
   nouvelleVersion () {
     const variable = choice(['x', 'y', 'a', 'b', 'n'])

@@ -27,7 +27,7 @@ export default class problemeMultiplication extends Exercice {
     this.spacing = 1.5
 
     this.formatChampTexte = KeyboardType.clavierDeBase
-    }
+  }
 
   nouvelleVersion () {
     switch (randint(1, 6)) { // 1,2, 3

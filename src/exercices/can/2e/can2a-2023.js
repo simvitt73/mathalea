@@ -13,7 +13,7 @@ import { abs, arrondi, range1 } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
@@ -47,21 +47,21 @@ function compareNombres (a, b) {
   return a - b
 }
 
-export default function SujetCAN2023Seconde () {
-  Exercice.call(this)
+export default class SujetCAN2023Seconde extends Exercice {
+  constructor () {
+    super()
 
+    this.nbQuestions = 30
 
-
-  this.nbQuestions = 30
-
-
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     let typeQuestionsDisponibles = []

@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * 
+ *
  * @author
 */
 

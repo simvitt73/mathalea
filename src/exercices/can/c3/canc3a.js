@@ -8,7 +8,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { personne, prenom } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
@@ -32,20 +32,54 @@ export const refs = {
   'fr-fr': ['canc3a'],
   'fr-ch': []
 }
-export default function CourseAuxNombresCM () {
-  Exercice.call(this)
-  this.nbQuestions = 30
-  if (this.interactif) {
-    this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
-  } else {
-    this.consigne = ''
+export default class CourseAuxNombresCM extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des questions',
+  ` Nombres séparés par des tirets\n1 : Somme d'entiers\n
+2 : Différence d'entiers\n
+3 : Somme d'entiers avec retenue\n
+4 : Différence d'entiers avec retenue\n
+5 : Décomposition\n
+6 : Division d'entiers\n
+7 : Somme décimal et entier\n
+8 : Somme de décimaux\n
+9 : Différence de décimaux\n
+10 : Différence décimaux\n
+11 : Division d'entiers\n
+12 : Addition d'entiers\n
+13 : Différence d'entiers\n
+14 : Produit d'entiers\n
+15 : Produit décimal entier\n
+16 : Ajout d'un décimal à un entier\n
+17 : Fait numérique table de x\n
+18 : Multiplication par 4\n
+19 : Différence de décimaux\n
+20 : Somme de décimaux\n
+21 : Multiple de 8\n
+22 : Multiplication entier et décimal\n
+23 : Multiplier par 20\n
+24 : Proportionnalité\n
+25 : Quotient par 4\n
+26 : Triple d'entier\n
+27 : Soustraction entiers mesures\n
+28 : Durée\n
+29 : Proportionnalité\n
+30 : Addition d'entiers mesures\n
+31 : Mélange`]
+    this.nbQuestions = 30
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   }
 
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  nouvelleVersion () {
+    if (this.interactif) {
+      this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
+    } else {
+      this.consigne = ''
+    }
 
-  this.nouvelleVersion = function () {
     let a, b, c, d, resultat, objets, A, B, C
 
     const listeIndex = gestionnaireFormulaireTexte({
@@ -586,36 +620,4 @@ export default function CourseAuxNombresCM () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions',
-        ` Nombres séparés par des tirets\n1 : Somme d'entiers\n
-  2 : Différence d'entiers\n
-  3 : Somme d'entiers avec retenue\n
-  4 : Différence d'entiers avec retenue\n
-  5 : Décomposition\n
-  6 : Division d'entiers\n
-  7 : Somme décimal et entier\n
-  8 : Somme de décimaux\n
-  9 : Différence de décimaux\n
-  10 : Différence décimaux\n
-  11 : Division d'entiers\n
-  12 : Addition d'entiers\n
-  13 : Différence d'entiers\n
-  14 : Produit d'entiers\n
-  15 : Produit décimal entier\n
-  16 : Ajout d'un décimal à un entier\n
-  17 : Fait numérique table de x\n
-  18 : Multiplication par 4\n
-  19 : Différence de décimaux\n
-  20 : Somme de décimaux\n
-  21 : Multiple de 8\n
-  22 : Multiplication entier et décimal\n
-  23 : Multiplier par 20\n
-  24 : Proportionnalité\n
-  25 : Quotient par 4\n
-  26 : Triple d'entier\n
-  27 : Soustraction entiers mesures\n
-  28 : Durée\n
-  29 : Proportionnalité\n
-  30 : Addition d'entiers mesures\n
-  31 : Mélange`]
 }

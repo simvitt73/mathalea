@@ -26,7 +26,7 @@ export default class problemeSoustraction extends Exercice {
     this.spacing = 1.5
 
     this.formatChampTexte = KeyboardType.clavierDeBase
-    }
+  }
 
   nouvelleVersion () {
     switch (randint(1, 7)) { // 1,2, 3

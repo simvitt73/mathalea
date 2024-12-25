@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { complex, add } from 'mathjs'
 export const titre = 'Somme de nombres complexes'
@@ -19,12 +19,15 @@ export const refs = {
   'fr-fr': ['canTExC01'],
   'fr-ch': []
 }
-export default function SommeDeComplexes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.typeExercice = 'simple'
+export default class SommeDeComplexes extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.typeExercice = 'simple'
+  }
+
+  nouvelleVersion () {
     const z1 = complex(randint(-5, 5), randint(-5, 5))
     const z2 = complex(randint(-5, 5), randint(-5, 5))
     this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a + b$.`

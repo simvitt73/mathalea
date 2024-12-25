@@ -30,7 +30,6 @@ export default class EquationsCarree extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-
   }
 
   nouvelleVersion () {
@@ -53,9 +52,9 @@ export default class EquationsCarree extends Exercice {
       case 1 :// x^2<k
         { const choix = choice([true, false])
           sAAx.epaisseur = 2
-          sAAx.pointilles = '5'
+          sAAx.pointilles = 5
           sBBx.epaisseur = 2
-          sBBx.pointilles = '5'
+          sBBx.pointilles = 5
           const sAxBx = segment(Bx, Ax, 'red')
           sAxBx.epaisseur = 2
           sAxBx.styleExtremites = choix ? ']-[' : '[-]'
@@ -103,9 +102,9 @@ export default class EquationsCarree extends Exercice {
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
-          sAAx.pointilles = '5'
+          sAAx.pointilles = 5
           sBBx.epaisseur = 2
-          sBBx.pointilles = '5'
+          sBBx.pointilles = 5
           const BxI = point(-4, 0)
           const sBxBxI = segment(BxI, Bx, 'red')
           sBxBxI.epaisseur = 2

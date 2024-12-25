@@ -20,7 +20,7 @@ export const refs = {
 }
 
 /**
- * 
+ *
  * @autor  Jean-Claude Lhote
 
  */
