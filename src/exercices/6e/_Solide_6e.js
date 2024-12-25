@@ -18,17 +18,23 @@ export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, no
  * @author Jean-Claude Lhote
  */
 export default class Solide6e extends Exercice {
- constructor() {
- super()
-  this.nbQuestions = 1
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.sup = 1
+    this.sup2 = 1
+    this.sup3 = 5
+    this.titre = ''
+    this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
+  }
 
-  this.sup = 1
-  this.sup2 = 1
-  this.sup3 = 5
-  this.titre = ''
- }
-
-  nouvelleVersion() {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2] : [this.sup]
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -526,11 +532,4 @@ export default class Solide6e extends Exercice {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
-  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
 }

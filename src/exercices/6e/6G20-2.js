@@ -14,9 +14,8 @@ export const refs = {
   'fr-ch': []
 }
 export default class VocabulaireDesTriangles6e extends VocabulaireDesTriangles {
- constructor() {
- super()
-
- }
-  this.classe = 6
+  constructor () {
+    super()
+    this.classe = 6
+  }
 }
