@@ -9,7 +9,6 @@ export const titre = 'Encadrer un décimal par deux entiers consécutifs'
 
 /**
  * * Encadrer_un_decimal_par_deux_entiers_consecutifs
- * * 6N31-1
  * @author Sébastien Lozano
  */
 export const uuid = '3e083'
@@ -21,26 +20,15 @@ export const refs = {
 export default class EncadrerUnDecimalParDeuxEntiersConsecutifs extends Exercice {
   constructor () {
     super()
-
-    this.beta = false
-    this.sup = 1
-    if (this.beta) {
-      this.nbQuestions = 3
-    } else {
-      this.nbQuestions = 3
-    }
-
+    this.nbQuestions = 3
     this.consigne = 'Encadrer chaque nombre proposé par deux nombres entiers consécutifs.'
-
-    // this.nbQuestionsModifiable = false;
-    context.isHtml ? this.spacing = 3 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion () {
     const typesDeQuestionsDisponibles = shuffle([0, 1, 2])
 
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -75,41 +63,9 @@ export default class EncadrerUnDecimalParDeuxEntiersConsecutifs extends Exercice
         correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
       })
 
-      // };
-      // autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-        case 1:
-          texte = `${enonces[1].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[2].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-      }
+      texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

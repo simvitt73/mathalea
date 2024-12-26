@@ -19,26 +19,22 @@ export const dateDeModifImportante = '10/12/2023'
  * 5G2 exercice parent il faudra supprimmer la version beta5G2 de la liste des choix du fichier mathalea_exercices.js
  * 5G21-1
  * 5G31-1
- * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
- * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
  * @author Sébastien Lozano
  */
 export default class ConstructibiliteDesTriangles extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème\n3 : Mélange']
-    this.besoinFormulaire2CaseACocher = ['Accepter triangle plat']
+    this.besoinFormulaire2CaseACocher = ['Accepter triangle plat', false]
     this.sup = 1
-    this.sup2 = false
     this.nbQuestions = 3
-    this.beta = ''
   }
 
   nouvelleVersion () {
     let typesDeQuestionsDisponibles
 
     let consigneAMC
-    if (this.exo === this.beta + '5G21-1') { // via longueurs
+    if (this.exo === '5G21-1') { // via longueurs
       consigneAMC = !this.interactif || context.isAmc
         ? 'Justifier si les longueurs données permettent de construire le triangle'
         : 'Indiquer si, avec les informations fournies, le triangle est constructible'
@@ -50,7 +46,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
         // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
     }
     this.consigne = consigneAMC + '.'
-    if (this.exo === this.beta + '5G21-1') { // via longueurs
+    if (this.exo === '5G21-1') { // via longueurs
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [1, 2, 3]
       } else if (this.sup === 3) {
@@ -62,7 +58,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
       } else {
         typesDeQuestionsDisponibles = [4]
       }
-    } else if (this.exo === this.beta + '5G31-1') { // via angles
+    } else if (this.exo === '5G31-1') { // via angles
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [5, 6, 7]
       } else if (this.sup === 3) {
@@ -393,17 +389,17 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           {
             texte: `Le triangle ${triangle.getNom()} est constructible`,
             statut: !(listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7),
-            feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+            feedback: (this.exo === '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
           },
           {
             texte: `Le triangle ${triangle.getNom()} n'est pas constructible`,
             statut: (listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7),
-            feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+            feedback: (this.exo === '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
           },
           {
             texte: `On ne peut pas savoir si le triangle ${triangle.getNom()} est constructible ou pas`,
             statut: false,
-            feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+            feedback: (this.exo === '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
           }
         ]
 

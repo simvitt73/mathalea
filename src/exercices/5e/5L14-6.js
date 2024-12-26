@@ -22,13 +22,7 @@ export default class DeterminerDerniereOperationExpNum extends Exercice {
     super()
     this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
     this.besoinFormulaireCaseACocher = ['Avec le signe × devant les parenthèses', true]
-
-    this.debug = false
-    this.consigne = ''
     this.nbQuestions = 4
-
-    this.sup = true
-    this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
   }
 
   nouvelleVersion () {

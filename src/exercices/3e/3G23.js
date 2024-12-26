@@ -39,9 +39,6 @@ export const refs = {
 export default class TrianglesEgaux extends Exercice {
   constructor () {
     super()
-
-    this.debug = false
-
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }

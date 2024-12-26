@@ -1,4 +1,4 @@
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
@@ -23,28 +23,12 @@ export const refs = {
 export default class ProblemesAdditifsRelatifs5e extends Exercice {
   constructor () {
     super()
-
-    this.debug = false
-    this.sup = 1
-    if (this.debug) {
-      this.nbQuestions = 1
-    } else {
-      this.nbQuestions = 1
-    }
-
-    // this.nbQuestionsModifiable = false;
-    context.isHtml ? this.spacing = 2 : this.spacing = 1
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 0.5
+    this.nbQuestions = 1
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 0.5
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [0]
-
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let gainPerteUnitaire // pour le gain/perte unitaire
       let gainMultiple // pour le gain multiple
@@ -173,19 +157,8 @@ ${texteEnCouleur(`Globalement, ${situations[k].prenom} ${situations[k].bilan[3]}
         })
       }
 
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

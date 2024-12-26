@@ -23,32 +23,21 @@ export const refs = {
 export default class TrouverErreurResolEqDeg1 extends Exercice {
   constructor () {
     super()
-
-    this.debug = false
-    this.sup = 1
-    if (this.debug) {
-      this.nbQuestions = 5
-    } else {
-      this.nbQuestions = 3
-    }
-
-    this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
+    this.nbQuestions = 3
     // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
     if (!context.isHtml) {
-      this.consigne = this.consigne.replace('<br>', '')
+      this.consigne = this.consigne.replace('<br>', ' ')
     }
-
-    // this.nbQuestionsModifiable = false;
-    context.isHtml ? this.spacing = 3 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
+      : "Trouver l'erreur dans la résolution suivante.<br>On ne demande pas de résoudre l'équation."
     const typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
 
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const variables = ['x', 't', 'u', 'v', 'w', 'y', 'z']
 
@@ -294,61 +283,8 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
         `
         })
       }
-
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += `
-             `
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 3:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-        case 4:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-        case 5:
-          texte = `${enonces[4].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
-          break
-      }
+      texte = `${enonces[listeTypeDeQuestions[i] - 1].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
@@ -359,6 +295,4 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }

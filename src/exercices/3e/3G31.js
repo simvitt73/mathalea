@@ -1,5 +1,5 @@
 import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { milieu, point, pointIntersectionDD, tracePoint } from '../../lib/2d/points'
+import { milieu, point, pointIntersectionDD } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes.ts'
@@ -80,17 +80,10 @@ export default class CalculDAngle extends Exercice {
     super()
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
     this.nbQuestions = 2
-
-    this.sup = false
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
-    this.debug = false
     this.spacing = 2
-    if (context.isHtml) {
-      this.spacingCorr = 3
-    } else {
-      this.spacingCorr = 2
-    }
+    this.spacingCorr = context.isHtml ? 3 : 2
   }
 
   nouvelleVersion () {
@@ -242,8 +235,9 @@ export default class CalculDAngle extends Exercice {
       }
 
       objetsEnonce.push(p2, codage, nomme, texteAngle, texteAB, texteBC, codageDeAngle)
-      if (this.debug) {
-        objetsEnonce.push(tracePoint(pLabelAB, pLabelAC, pLabelBC),
+      /*
+      // Ne pas supprimer : Utile en cas de débuggage
+      objetsEnonce.push(tracePoint(pLabelAB, pLabelAC, pLabelBC),
           segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm), point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm)),
           segment(point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm)),
           segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm)),
@@ -256,7 +250,7 @@ export default class CalculDAngle extends Exercice {
           segment(point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm)),
           segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm)),
           segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm)))
-      }
+      */
 
       objetsCorrection.push(p4, codageb, nommeb, t1b, t2b, t3b, hypo, codageDeAngleB)
 

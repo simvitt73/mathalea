@@ -17,8 +17,6 @@ export const titre = 'Signe d\'un produit ou d\'un quotient de nombres relatifs'
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un produit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
  * 4C10-0 exercice parent de 4C10-1 et 4C10-2
  * 4C10-0 contient tous les cas
- * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
- * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
 
  * @author Sébastien Lozano
  */
@@ -31,18 +29,17 @@ export const refs = {
 export default class SigneProduitQuotientRelatifs extends Exercice {
   constructor () {
     super()
-
-    this.consigne = 'Donner le signe des expressions numériques.'
     this.nbQuestions = 7
-
-    this.sup = 1
   }
 
   nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? 'Donner le signe des expressions numériques.'
+      : 'Donner le signe de l\'expression numérique.'
     let typesDeQuestionsDisponibles
 
-    this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
-    if (this.exo === this.beta + '4C10-1') {
+    // this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+    if (this.exo === '4C10-1') {
       // signe d'un produit
       switch (this.sup) {
         case 1: // 2 facteurs
@@ -58,7 +55,7 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           typesDeQuestionsDisponibles = [1, 2, 3]
           break
       }
-    } else if (this.exo === this.beta + '4C10-2') {
+    } else if (this.exo === '4C10-2') {
       // signe d'un quotient
       switch (this.sup) {
         case 1: // quotient de 2 nombres

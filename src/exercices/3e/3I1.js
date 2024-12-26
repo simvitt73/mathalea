@@ -19,19 +19,12 @@ export default class InstructionConditionnelle extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Variante', 3, '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées']
-
-    this.debug = false
     this.sup = 1
     this.nbQuestions = 2
-
     this.consigne = 'Donner les coordonnées de la position finale du lutin.'
     this.typeExercice = 'Scratch'
     this.nbCols = 2
-
     this.nbQuestionsModifiable = false
-    context.isHtml ? this.spacing = 1 : this.spacing = 1
-    context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-  // let typesDeQuestionsDisponibles;
   }
 
   nouvelleVersion () {

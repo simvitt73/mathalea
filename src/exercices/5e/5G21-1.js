@@ -19,7 +19,9 @@ export const refs = {
   'fr-fr': ['5G21-1'],
   'fr-ch': ['9ES4-12']
 }
-export default function ConstructibiliteDesTrianglesLongueurs () {
-  this.exo = '5G21-1'
-  ConstructibiliteDesTriangles.call(this)
+export default class ConstructibiliteDesTrianglesLongueurs extends ConstructibiliteDesTriangles {
+  constructor () {
+    super()
+    this.exo = '5G21-1'
+  }
 }

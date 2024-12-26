@@ -26,13 +26,9 @@ export const refs = {
 export default class TracerAvecScratch extends Exercice {
   constructor () {
     super()
-
     this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
-
     this.typeExercice = 'Scratch'
-
     this.nbQuestions = 3
-    this.debug = false
   }
 
   nouvelleVersion () {
@@ -273,58 +269,8 @@ export default class TracerAvecScratch extends Exercice {
       enonces.push(mySituation(5)[0])
       enonces.push(mySituation(6)[0])
       enonces.push(mySituation(8)[0])
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 3:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-        case 4:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-        case 5:
-          texte = `${enonces[4].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
-          break
-      }
+      texte = `${enonces[listeTypeDeQuestions[i] - 1].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

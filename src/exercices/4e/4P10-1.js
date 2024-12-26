@@ -2,7 +2,7 @@ import { courbe } from '../../lib/2d/courbes'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
@@ -28,29 +28,12 @@ export const refs = {
 export default class GraphiquesEtProportionnalite2 extends Exercice {
   constructor () {
     super()
-
-    this.debug = false
-    if (this.debug) {
-      this.nbQuestions = 2
-    } else {
-      this.nbQuestions = 1
-    }
-
+    this.nbQuestions = 1
     this.spacingCorr = 2
-
-    // this.nbQuestionsModifiable = false;
-    context.isHtml ? this.spacing = 2 : this.spacing = 1
-    // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+    this.spacing = context.isHtml ? 2 : 1
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1]
-
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
       const prixUnitaireOranges = choice([1.2, 1.4, 1.6, 1.8])
@@ -188,18 +171,8 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
         <br><br>${texteEnCouleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent ${texPrix(calculANePlusJamaisUtiliser(situation.qte2 * situation.prix_unitaire)).replace('{,}', ',')} €.`)}
         `
       })
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

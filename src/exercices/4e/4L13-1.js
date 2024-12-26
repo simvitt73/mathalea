@@ -1,4 +1,3 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
 import Exercice from '../Exercice'
@@ -18,28 +17,12 @@ export const refs = {
 export default class FormeLitteraleIntroduireUneLettre extends Exercice {
   constructor () {
     super()
-
-    this.debug = false
     this.sup = 1
-    if (this.debug) {
-      this.nbQuestions = 3
-    } else {
-      this.nbQuestions = 2
-    }
-
+    this.nbQuestions = 2
     this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
-
-    // this.nbQuestionsModifiable = false;
-    // context.isHtml? this.spacing = 3 : this.spacing = 2;
-    // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1]
-
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer le pluriel
       const pluriel = function (n, obj) {
@@ -81,18 +64,8 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
         <br>${texteEnCouleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
         `
       })
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
@@ -103,6 +76,4 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }

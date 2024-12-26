@@ -7,14 +7,13 @@ import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
-export const titre = 'Fractions égales et égalité des produits en croix'
+export const titre = 'Manipuler fractions égales et égalité des produits en croix'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifType = 'qcm'
 export const interactifReady = true
 export const dateDePublication = '23/05/2021'
-// export const dateDeModifImportante = '25/01/2023' // 1ere modif
 export const dateDeModifImportante = '26/08/2023'
 
 export const description = 'Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange.'
@@ -103,20 +102,10 @@ export default class EqResolvantesThales extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Petits entiers\n2 : Grands entiers\n3 : Décimaux\n4 : Mélange']
-
-    this.debug = false
-    if (this.debug) {
-      this.nbQuestions = 4
-    } else {
-      this.nbQuestions = 4
-    }
+    this.nbQuestions = 4
     this.sup = 1 // Niveau de difficulté
-
-    context.isHtml ? this.spacing = 3 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
     this.niveau = '5e'
   }
 
@@ -177,50 +166,8 @@ export default class EqResolvantesThales extends Exercice {
           correction: justification
         })
       }
-      // autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-        case 1:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-        case 3:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-      }
+      texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
