@@ -5,7 +5,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
@@ -33,18 +33,24 @@ export const refs = {
   'fr-fr': ['4C21'],
   'fr-ch': ['9NO13-5']
 }
-export default function ExerciceAdditionnerOuSoustraireDesFractions () {
-  Exercice.call(this)
-  this.sup = 2 // Niveau de difficulté
-  this.sup2 = false // Avec ou sans relatifs
-  this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
-  this.sup4 = false // Par défaut c'est l'ancienne correction qui est affichée
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
+export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+    this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.sup = 2 // Niveau de difficulté
+    this.sup2 = false // Avec ou sans relatifs
+    this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
+    this.sup4 = false // Par défaut c'est l'ancienne correction qui est affichée
+    this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (!this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer.'
     } else {
@@ -231,8 +237,4 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
 
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
-  this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
 }

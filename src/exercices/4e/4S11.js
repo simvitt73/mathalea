@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
@@ -27,19 +27,23 @@ export const refs = {
   'fr-fr': ['4S11'],
   'fr-ch': ['11NO2-9']
 }
-export default function DeterminerDesMedianes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class DeterminerDesMedianes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
 
-  this.spacingCorr = 1.5
+    this.nbQuestions = 1
 
-  this.sup = 1
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 2
+    this.spacingCorr = 1.5
+
+    this.sup = 1
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -123,5 +127,4 @@ export default function DeterminerDesMedianes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
 }

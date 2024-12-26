@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import { number, fraction } from 'mathjs'
@@ -11,8 +11,10 @@ export const titre = 'Probabilités simples'
  * @author Rémi Angot et Matthieu Devillers
 
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+constructor() {
+super()
+
   this.sup = true
 
   this.nbQuestionsModifiable = false
@@ -125,7 +127,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     ]
   })
 
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     omega.setTailles()

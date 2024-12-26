@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -27,14 +27,23 @@ export const refs = {
   'fr-fr': ['CM000'],
   'fr-ch': []
 }
-export default function TablesAdditionsSoustractions () {
-  Exercice.call(this)
-  this.sup = 20
-  this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.tailleDiaporama = 3
-  this.nouvelleVersion = function () {
+export default class TablesAdditionsSoustractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
+    this.besoinFormulaire2Numerique = [
+      'Style de questions',
+      6,
+      '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous'
+    ]
+    this.sup = 20
+    this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     this.sup2 = parseInt(this.sup2)
     let listeTypeDeQuestions = []
     if (this.sup2 === 1) {
@@ -149,10 +158,4 @@ export default function TablesAdditionsSoustractions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
-  this.besoinFormulaire2Numerique = [
-    'Style de questions',
-    6,
-    '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous'
-  ]
 }

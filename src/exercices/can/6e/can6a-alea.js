@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,22 +24,38 @@ export const refs = {
   'fr-fr': ['can6a-Aléa'],
   'fr-ch': []
 }
-export default function can6eAll () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.sup = 'All'
-  this.lastCallback = ''
-  this.debug = false
+export default class can6eAll extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés\n par des tirets',
+        'All : mélange',
+        'C1 à C47 : can de 6C01 à 6C47',
+        'G1 à G7 : can de 6G01 à 6G07',
+        'M1 à M7 : can de 6M01 à 6M13',
+        'N1 à N17 : can de 6N01 à 6N17',
+        'C : mélange calcul',
+        'G : mélange géométrie',
+        'M : mélange mesure',
+        'N : mélange numération'
+      ].join('\n')
+    ]
+    this.nbQuestions = 4
+    this.sup = 'All'
+    this.lastCallback = ''
+    this.debug = false
 
-  this.log = function (str) {
-    if (this.debug) console.info(str)
+    this.log = function (str) {
+      if (this.debug) console.info(str)
+    }
+
+    this.nouvelleVersionWrapper = function () {
+      this.nouvelleVersion()
+    }
   }
 
-  this.nouvelleVersionWrapper = function () {
-    this.nouvelleVersion()
-  }
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.questionJamaisPosee(0, this.seed, this.sup, this.sup2, this.sup3, this.interactif, this.nbQuestions)
     if (this.lastCallback === this.listeArguments[0]) {
       // identique
@@ -276,19 +292,4 @@ export default function can6eAll () {
     }
     this.log('fin nouvelleVersion')
   }
-
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés\n par des tirets',
-      'All : mélange',
-      'C1 à C47 : can de 6C01 à 6C47',
-      'G1 à G7 : can de 6G01 à 6G07',
-      'M1 à M7 : can de 6M01 à 6M13',
-      'N1 à N17 : can de 6N01 à 6N17',
-      'C : mélange calcul',
-      'G : mélange géométrie',
-      'M : mélange mesure',
-      'N : mélange numération'
-    ].join('\n')
-  ]
 }

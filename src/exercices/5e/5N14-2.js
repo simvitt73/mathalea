@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { compareFractions, texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -23,18 +23,21 @@ export const refs = {
   'fr-fr': ['5N14-2'],
   'fr-ch': ['9NO12-6']
 }
-export default function ExerciceComparerQuatreFractions () {
-  Exercice.call(this)
-  this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
-  this.spacing = 2
-  context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
-  this.nbQuestions = 2
+export default class ExerciceComparerQuatreFractions extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = false
+    this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
+    this.spacing = 2
+    context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
+    this.nbQuestions = 2
 
-  this.besoinFormulaireCaseACocher = ['Inclure des nombres négatifs']
+    this.sup = false
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireCaseACocher = ['Inclure des nombres négatifs']
+  }
+
+  nouvelleVersion () {
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions * 4)
     for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, positifOuNegatif = [], texte = '', texteCorr; i < this.nbQuestions; i++) {
       if (this.sup === true) {

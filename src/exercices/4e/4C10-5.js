@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
 
@@ -16,16 +16,19 @@ export const refs = {
   'fr-fr': ['4C10-5'],
   'fr-ch': ['10NO4-7']
 }
-export default function ExerciceTableauMultiplicationsRelatifs () {
-  Exercice.call(this)
-  this.sup = false
+export default class ExerciceTableauMultiplicationsRelatifs extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Calculer.'
+    this.sup = false
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.consigne = 'Calculer.'
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     const listeSignes1 = combinaisonListes([-1, 1], 4)
     let a1 = randint(2, 9)
     let a2 = randint(2, 9, a1)

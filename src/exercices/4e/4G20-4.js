@@ -5,7 +5,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -26,15 +26,18 @@ export const refs = {
   'fr-fr': ['4G20-4'],
   'fr-ch': ['10NO3-2']
 }
-export default function ArrondirUneValeur4e () {
-  Exercice.call(this)
-  this.nbQuestions = 3
+export default class ArrondirUneValeur4e extends Exercice {
+  constructor () {
+    super()
 
-  this.version = 1
-  context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
-  context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
+    this.nbQuestions = 3
 
-  this.nouvelleVersion = function () {
+    this.version = 1
+    context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
+    context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Arrondir chaque nombre à l\'unité, puis au dixième, puis au centième.'
 
     let n, nb, rac, angle, v

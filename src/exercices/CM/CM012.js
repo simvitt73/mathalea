@@ -1,4 +1,4 @@
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -20,15 +20,18 @@ export const refs = {
   'fr-fr': ['CM012'],
   'fr-ch': []
 }
-export default function ComplementA100 () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
+export default class ComplementA100 extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+    this.consigne = 'Calculer.'
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;

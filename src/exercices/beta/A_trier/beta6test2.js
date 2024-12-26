@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 export const titre = 'Mon test'
@@ -9,14 +9,18 @@ export const titre = 'Mon test'
  * @author
 
 */
-export default function MaFonctionQuiCreeExercice () {
-  Exercice.call(this)
-  this.consigne = 'Calculer'
+export default class MaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Nombre inférieur à 100 n2 : Nombre inférieur à 1 000\n3 : Nombre inférieur à 10 000']
 
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+    this.consigne = 'Calculer'
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+  }
+
+  nouvelleVersion () {
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['niveau1']
@@ -55,5 +59,4 @@ export default function MaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Nombre inférieur à 100 n2 : Nombre inférieur à 1 000\n3 : Nombre inférieur à 10 000']
 }

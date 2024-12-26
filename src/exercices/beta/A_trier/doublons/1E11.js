@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texFractionFromString, texFractionReduite, texFractionSigne } from '../../../lib/outils/deprecatedFractions'
 import {
@@ -25,17 +25,20 @@ export const refs = {
   'fr-fr': [],
   'fr-ch': []
 }
-export default function ResoudreEquationDegre2 () {
-  Exercice.call(this)
+export default class ResoudreEquationDegre2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire']
 
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.spacingCorr = 3
-  this.sup = 1
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.spacingCorr = 3
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeTypeDeQuestions
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'solutionDouble', 'pasDeSolution'], this.nbQuestions)
@@ -181,5 +184,4 @@ export default function ResoudreEquationDegre2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire']
 }

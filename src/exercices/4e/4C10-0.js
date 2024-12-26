@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
 import { Relatif } from '../../modules/Relatif'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
@@ -28,16 +28,19 @@ export const refs = {
   'fr-fr': ['4C10-0'],
   'fr-ch': ['10NO4-2']
 }
-export default function SigneProduitQuotientRelatifs () {
-  Exercice.call(this)
-  this.consigne = 'Donner le signe des expressions numériques.'
-  this.nbQuestions = 7
+export default class SigneProduitQuotientRelatifs extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1
+    this.consigne = 'Donner le signe des expressions numériques.'
+    this.nbQuestions = 7
 
-  let typesDeQuestionsDisponibles
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    let typesDeQuestionsDisponibles
+
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     if (this.exo === this.beta + '4C10-1') {
       // signe d'un produit

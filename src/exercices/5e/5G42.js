@@ -7,7 +7,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -26,11 +26,14 @@ export const refs = {
   'fr-fr': ['5G42'],
   'fr-ch': ['9ES2-3']
 }
-export default function DemonstrationsParallelogrammes () {
-  Exercice.call(this)
-  this.nbQuestions = 7
+export default class DemonstrationsParallelogrammes extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 7
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const lesNoms = []

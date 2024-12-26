@@ -5,7 +5,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
@@ -18,8 +18,10 @@ export const titre = 'Etude d\'une parabole'
 /**
  * @author Eric Schrafstetter
  */
-export default function TrouverEquationDeParabole () {
-  Exercice.call(this)
+export default class TrouverEquationDeParabole extends Exercice {
+constructor() {
+super()
+
 
   this.consigne = 'Etude d\'une parabole'
   this.nbQuestions = 2
@@ -29,7 +31,8 @@ export default function TrouverEquationDeParabole () {
   this.sup = 1
   this.correctionDetailleeDisponible = true
 
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     let typesDeQuestionsDisponibles
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1]

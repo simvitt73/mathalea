@@ -8,7 +8,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -26,16 +26,20 @@ export const uuid = '0ff0f'
  * @author Eric Elter
 
 */
-export default function EncadrerAireDisque () {
-  Exercice.call(this)
+export default class EncadrerAireDisque extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'étapes (entre 1 et 50)', 50]
+    this.besoinFormulaire2Numerique = ['Rayon du disque (nombre entier entre 1 et 20)', 20]
 
-  this.spacing = context.isHtml ? 2 : 1
+    this.spacing = context.isHtml ? 2 : 1
 
-  this.nbQuestions = 1
-  this.sup = 10
-  this.sup2 = 10
+    this.nbQuestions = 1
+    this.sup = 10
+    this.sup2 = 10
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte = ''
 
     this.listeCorrections = [''] // Liste de questions corrigées
@@ -169,7 +173,4 @@ export default function EncadrerAireDisque () {
 
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes (entre 1 et 50)', 50]
-  this.besoinFormulaire2Numerique = ['Rayon du disque (nombre entier entre 1 et 20)', 20]
 }

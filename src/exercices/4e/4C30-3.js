@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -26,14 +26,18 @@ export const refs = {
   'fr-fr': ['4C30-3'],
   'fr-ch': ['9NO5-2']
 }
-export default function EcritureDecimalePuissance () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // exposants positifs par défaut
+export default class EcritureDecimalePuissance extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = false // A garder pour le clone 3C10-1
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // exposants positifs par défaut
+  }
+
+  nouvelleVersion () {
     const listeDeCalculs = combinaisonListes([[2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [5, 2], [5, 3], [6, 2], [6, 3], [7, 2], [7, 3], [8, 2], [8, 3], [9, 2], [9, 3]], this.nbQuestions)
 
     let listeTypeDeQuestions
@@ -85,5 +89,4 @@ export default function EcritureDecimalePuissance () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = false // A garder pour le clone 3C10-1
 }

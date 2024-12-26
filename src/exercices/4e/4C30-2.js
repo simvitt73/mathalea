@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -27,13 +27,17 @@ export const refs = {
   'fr-fr': ['4C30-2'],
   'fr-ch': ['10NO2-4']
 }
-export default function EcritureDecimalePuissanceDe10 () {
-  Exercice.call(this)
-  this.nbQuestions = 8
+export default class EcritureDecimalePuissanceDe10 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange']
 
-  this.sup = 3 // exposants positifs et négatifs par défaut
+    this.nbQuestions = 8
 
-  this.nouvelleVersion = function () {
+    this.sup = 3 // exposants positifs et négatifs par défaut
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? "Donner l'écriture décimale du nombre suivant."
       : "Donner l'écriture décimale des nombres suivants."
@@ -90,5 +94,4 @@ export default function EcritureDecimalePuissanceDe10 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange']
 }

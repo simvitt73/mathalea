@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
@@ -24,16 +24,20 @@ export const refs = {
   'fr-fr': ['4C32-0'],
   'fr-ch': ['10NO2-5']
 }
-export default function EcritureDecimaleApresPuissancesDeDix () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
-  this.sup = 3
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+
+    this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Donner le résultat du calcul suivant en écriture décimale.'
       : 'Donner le résultat des calculs suivants en écriture décimale.'

@@ -5,7 +5,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -22,15 +22,26 @@ export const refs = {
   'fr-fr': ['5G51'],
   'fr-ch': ['9ES7-2']
 }
-export default function RepresenterUnSolide5e () {
-  Exercice.call(this) // Héritage de la classe Exercice ()
+export default class RepresenterUnSolide5e extends Exercice {
+  constructor () {
+    super()
+    // Héritage de la classe Exercice ()
+    this.besoinFormulaireNumerique = ['Type de solides', 5, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange']
 
-  this.nbQuestions = 1
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
 
-  this.sup = 1
-  this.sup2 = 1
-  this.classe = 5
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+
+    this.sup = 1
+    this.sup2 = 1
+    this.classe = 5
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
 
     if (this.sup === 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
@@ -343,11 +354,4 @@ export default function RepresenterUnSolide5e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 5, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange']
-
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

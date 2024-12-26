@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 
@@ -18,14 +18,17 @@ export const refs = {
   'fr-fr': ['5R20-5'],
   'fr-ch': ['9NO9-10']
 }
-export default function ExerciceTableauAdditionsRelatifs () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
+export default class ExerciceTableauAdditionsRelatifs extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.consigne = 'Calculer.'
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     const listeSignes1 = combinaisonListes([-1, 1], 4)
     let a1 = randint(2, 9)
     let a2 = randint(2, 9, a1)

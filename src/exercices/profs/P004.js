@@ -5,7 +5,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { troncature } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Droites graduées avec zoom'
 
@@ -20,14 +20,18 @@ export const uuid = 'ad5f6'
  * L'enseignant peut ajouter "à la main" les données qu'il souhaite
  * @author Jean-Claude Lhote
  */
-export default function FeuilleDeZooms () {
-  Exercice.call(this)
+export default class FeuilleDeZooms extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1
+    this.besoinFormulaireNumerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom']
 
-  this.nbQuestionsModifiable = false
+    this.sup = 1
 
-  this.nouvelleVersion = function () {
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
     let xmin, origine, xmax, x1, x2, x3, x21, x31, pA1, pA2, pB1, pB2, pC1, pC2, pD1, pD2, sA, sB, sC, sD, extremite,
@@ -213,5 +217,4 @@ export default function FeuilleDeZooms () {
       this.listeQuestions[0] = this.contenu
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom']
 }

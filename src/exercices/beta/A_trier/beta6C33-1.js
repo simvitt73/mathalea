@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
 export const titre = 'Parenthèses manquantes'
 
@@ -7,17 +7,18 @@ export const titre = 'Parenthèses manquantes'
  * @author Cédric Grolleau
 
  */
-export default function Priorites () {
-  Exercice.call(this)
+export default class Priorites extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br> S'il y a plusieurs fois la même égalité trouve des solutions différentes."
-  this.nbQuestions = 2
+    this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br> S'il y a plusieurs fois la même égalité trouve des solutions différentes."
+    this.nbQuestions = 2
 
+    this.spacing = 3
+    this.spacingCorr = 3
+  }
 
-  this.spacing = 3
-  this.spacingCorr = 3
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte; let texteCorr; let a; let b; let c; let d; let i; let e
     let m; let n; let f; let l; let g; let k; let p; let prevchoice; let choice; let cpt = 0 //
     texte = ''

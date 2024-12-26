@@ -6,7 +6,7 @@ import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -76,32 +76,35 @@ export const refs = {
   'fr-fr': ['5G30-2'],
   'fr-ch': ['11ES2-2']
 }
-export default function ExercicesAnglesAIC () {
-  Exercice.call(this)
-  const formulaire = [
-    '1 : Angles marqués alternes-internes ou correspondants ?',
-    '2 : Déterminer si des droites sont parallèles (angles marqués).',
-    '3 : Déterminer si des droites sont parallèles (angles nommés).',
-    '4 : Calculer la mesure d\'un angle (angles marqués).',
-    '5 : Calculer la mesure d\'un angle (angles nommés).',
-    '6 : Marquer un angle alterne-interne ou correspondant à un angle marqué.',
-    '7 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
-    '8 : Mélange'
-  ]
+export default class ExercicesAnglesAIC extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
+    const formulaire = [
+      '1 : Angles marqués alternes-internes ou correspondants ?',
+      '2 : Déterminer si des droites sont parallèles (angles marqués).',
+      '3 : Déterminer si des droites sont parallèles (angles nommés).',
+      '4 : Calculer la mesure d\'un angle (angles marqués).',
+      '5 : Calculer la mesure d\'un angle (angles nommés).',
+      '6 : Marquer un angle alterne-interne ou correspondant à un angle marqué.',
+      '7 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
+      '8 : Mélange'
+    ]
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 1
+    this.nbQuestions = 1
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
 
-  context.isHtml ? (this.spacing = 1.75) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 1.75) : (this.spacingCorr = 0)
-  this.sup = 8 // Type d'exercice
-  this.nbQuestions = 3
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 1
 
-  this.nouvelleVersion = function () {
+    context.isHtml ? (this.spacing = 1.75) : (this.spacing = 0)
+    context.isHtml ? (this.spacingCorr = 1.75) : (this.spacingCorr = 0)
+    this.sup = 8 // Type d'exercice
+    this.nbQuestions = 3
+  }
+
+  nouvelleVersion () {
     const nquestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 7,

@@ -4,7 +4,7 @@ import { texteParPositionEchelle } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { createLink } from '../../lib/outils/modales'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -33,20 +33,26 @@ export const refs = {
   'fr-fr': ['c3I11'],
   'fr-ch': []
 }
-export default function NoteLaCouleurC3 () {
-  Exercice.call(this)
+export default class NoteLaCouleurC3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
+    this.besoinFormulaire2CaseACocher = ['Graduations', true]
+    this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
+    this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 
-  this.nbQuestions = 1
-  this.typeExercice = 'Scratch'
-  this.sup = 1
-  this.sup2 = true
-  this.sup3 = 4
-  this.sup4 = true
-  this.relatif = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+    this.nbQuestions = 1
+    this.typeExercice = 'Scratch'
+    this.sup = 1
+    this.sup2 = true
+    this.sup3 = 4
+    this.sup4 = true
+    this.relatif = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const damier = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Jaune', 'Rose', 'Blanc'],
@@ -314,8 +320,4 @@ export default function NoteLaCouleurC3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
-  this.besoinFormulaire2CaseACocher = ['Graduations', true]
-  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
-  this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 }

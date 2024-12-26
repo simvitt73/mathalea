@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 export const titre = 'Probabilités simples'
 
@@ -9,8 +9,10 @@ export const titre = 'Probabilités simples'
  * @author Rémi Angot et Matthieu Devillers
 
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+constructor() {
+super()
+
 
   this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -18,7 +20,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     const pG = randint(20, 60) // pG est un pourcentage
     const pN = randint(10, 100 - pG - 10)
     const sport = choice(['hand-ball', 'football', 'rugby', 'basket', 'volley-ball', 'water-polo', 'baseball'])

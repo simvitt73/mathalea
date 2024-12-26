@@ -3,7 +3,7 @@ import { polygone } from '../../lib/2d/polygones'
 import { choice } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -28,15 +28,19 @@ function etapeCorrective (str, sup) {
   return sup === 1 ? '' : str
 }
 
-export default function TableauxEtFonction () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 1
+export default class TableauxEtFonction extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Les mêmes unités\n2 : Unités différentes']
 
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1
+    this.sup = 1
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const L1 = randint(3, 7)
       const L2 = L1 + 1
@@ -181,5 +185,4 @@ $${situations[k].secondeQ}$
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Les mêmes unités\n2 : Unités différentes']
 }

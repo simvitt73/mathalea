@@ -3,7 +3,7 @@ import { texFractionFromString, fractionSimplifiee } from '../../lib/outils/depr
 import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { complex, multiply } from 'mathjs'
 export const titre = 'Résoudre une équation du premier degré dans C'
 export const dateDePublication = '30/10/2021'
@@ -19,16 +19,20 @@ export const refs = {
   'fr-fr': ['TExC100'],
   'fr-ch': []
 }
-export default function EquationDuPremierDegreDansC () {
-  Exercice.call(this)
-  this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations ci-dessous. On écrira les solutions sous forme algébrique.'
-  this.nbQuestions = 2
+export default class EquationDuPremierDegreDansC extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations ci-dessous. On écrira les solutions sous forme algébrique.'
+    this.nbQuestions = 2
 
-  this.spacingCorr = 2
-  this.nouvelleVersion = function () {
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
+    this.spacingCorr = 2
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 

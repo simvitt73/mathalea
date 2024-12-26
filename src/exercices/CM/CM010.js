@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -23,16 +23,19 @@ export const refs = {
   'fr-fr': ['CM010'],
   'fr-ch': []
 }
-export default function Tiers () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
+export default class Tiers extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // niveau de difficulté
-  this.tailleDiaporama = 3
+    this.consigne = 'Calculer.'
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // niveau de difficulté
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = range1(4)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

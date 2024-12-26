@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
@@ -15,32 +15,28 @@ export const refs = {
   'fr-fr': ['4L13-1'],
   'fr-ch': ['9FA2-9', '10FA3-10']
 }
-export default function FormeLitteraleIntroduireUneLettre () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 3
-  } else {
-    this.nbQuestions = 2
-  }
+export default class FormeLitteraleIntroduireUneLettre extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
-
-  // this.nbQuestionsModifiable = false;
-  // context.isHtml? this.spacing = 3 : this.spacing = 2;
-  // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
+    this.debug = false
+    this.sup = 1
     if (this.debug) {
-      typesDeQuestionsDisponibles = [1]
+      this.nbQuestions = 3
     } else {
-      typesDeQuestionsDisponibles = [1]
+      this.nbQuestions = 2
     }
 
-    typesDeQuestionsDisponibles = [1]
+    this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
+
+    // this.nbQuestionsModifiable = false;
+    // context.isHtml? this.spacing = 3 : this.spacing = 2;
+    // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+  }
+
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [1]
+
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 

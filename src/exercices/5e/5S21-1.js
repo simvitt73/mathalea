@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -21,15 +21,18 @@ export const refs = {
   'fr-fr': ['5S21-1'],
   'fr-ch': ['11NO2-7']
 }
-export default function ProbabilitesSimples () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+export default class ProbabilitesSimples extends Exercice {
+  constructor () {
+    super()
 
-  // this.sup = 1  // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
-  this.nouvelleVersion = function () {
+    // this.sup = 1  // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     for (let i = 0; i < this.nbQuestions;) {
       let texte
 

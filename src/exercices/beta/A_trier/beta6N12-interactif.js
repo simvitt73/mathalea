@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../../lib/format/message'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -15,22 +15,24 @@ export const interactifReady = true
  * @author Rémi Angot
 
  */
-export default function MultiplierEntierPar101001000 () {
-  Exercice.call(this)
+export default class MultiplierEntierPar101001000 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par 10, 100 ou 1 000\n2 : Multiplication par 10, 100, 1 000, 10 000 ou 100 000']
 
+    this.consigne = 'Calculer'
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 2
+    this.introduction = lampeMessage({
+      titre: 'Calculatrice interdite.',
+      texte: 'Aide : utiliser le glisse nombre si besoin.',
+      couleur: 'nombres'
+    })
+  }
 
-  this.consigne = 'Calculer'
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 2
-  this.introduction = lampeMessage({
-    titre: 'Calculatrice interdite.',
-    texte: 'Aide : utiliser le glisse nombre si besoin.',
-    couleur: 'nombres'
-  })
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -96,5 +98,4 @@ export default function MultiplierEntierPar101001000 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par 10, 100 ou 1 000\n2 : Multiplication par 10, 100, 1 000, 10 000 ou 100 000']
 }

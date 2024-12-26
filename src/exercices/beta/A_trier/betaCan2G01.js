@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Périmètres de carrés et de rectangles'
@@ -16,15 +16,17 @@ export const amcType = 'AMCNum'
 /**
  * @author Gilles Mora
  */
-export default function PerimetreCarreRectangle () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.interactifType = ''
-  this.listeAvecNumerotation = false
+export default class PerimetreCarreRectangle extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.interactifType = ''
+    this.listeAvecNumerotation = false
+  }
 
+  nouvelleVersion () {
     this.autoCorrection[0] = {}
     let a, b, question, correction, reponse, monQcm
     switch (choice(['a', 'b', 'c'])) {

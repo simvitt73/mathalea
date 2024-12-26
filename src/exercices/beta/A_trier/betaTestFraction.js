@@ -1,5 +1,5 @@
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { evaluate, Fraction } from 'mathjs'
@@ -19,8 +19,10 @@ export const dateDePublication = '20/03/2022' // La date de publication initiale
  * @author Rémi Angot
 
  */
-export default function TestFractions () {
-  Exercice.call(this)
+export default class TestFractions extends Exercice {
+constructor() {
+super()
+
   this.nbQuestions = 1
   this.sup = randint(1, 1000)
   this.sup2 = randint(2, 1000)
@@ -28,7 +30,8 @@ export default function TestFractions () {
     
   this.besoinFormulaireTexte = ['numérateur ', '']
   this.besoinFormulaire2Texte = ['dénominateur ', '']
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     // const engine = new ComputeEngine({ numericMode: 'decimal', numericPrecision: 30 })
     // const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
     // const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')

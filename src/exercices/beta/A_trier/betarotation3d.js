@@ -1,5 +1,5 @@
 import { texcolors } from '../../../lib/format/style'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 
 import { point3d, polygone3d, rotation3d, droite3d } from '../../../modules/3d'
@@ -9,13 +9,16 @@ export const titre = 'Rotation 3d de polygones'
  * @author Jean-Claude Lhote
  * essais en vue de faire des animations de patrons de solides
  */
-export default function BetaRotation3d () {
-  Exercice.call(this)
+export default class BetaRotation3d extends Exercice {
+constructor() {
+super()
+
 
   this.spacing = 2
   this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     const objets = []
     const O = point3d(0, 0, 0)
     const C = point3d(0, -2, 0)

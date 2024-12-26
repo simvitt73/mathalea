@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -31,15 +31,21 @@ export const refs = {
   'fr-fr': ['5L15'],
   'fr-ch': ['10FA3-1']
 }
-export default function TesterUneEgalite () {
-  Exercice.call(this)
-  this.nbQuestions = 3
+export default class TesterUneEgalite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Entiers naturels\n2 : Entiers relatifs']
+    this.besoinFormulaire2CaseACocher = ['Avec des expressions du second degré']
+    this.besoinFormulaire3Numerique = ['Type d\'exercices AMC', 2, '1 : Question ouverte\n2 : Réponses numériques']
 
-  this.sup = 1
-  this.sup2 = false
-  this.sup3 = 2
+    this.nbQuestions = 3
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.sup2 = false
+    this.sup3 = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles // = range1(5)
 
     if (!this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] } else { typesDeQuestionsDisponibles = [6, 7, 3] }
@@ -411,7 +417,4 @@ export default function TesterUneEgalite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Entiers naturels\n2 : Entiers relatifs']
-  this.besoinFormulaire2CaseACocher = ['Avec des expressions du second degré']
-  this.besoinFormulaire3Numerique = ['Type d\'exercices AMC', 2, '1 : Question ouverte\n2 : Réponses numériques']
 }

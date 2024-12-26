@@ -3,7 +3,7 @@ import { texFractionFromString, texFractionReduite } from '../../lib/outils/depr
 import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -30,17 +30,24 @@ export const refs = {
   'fr-fr': ['4C22-1'],
   'fr-ch': ['10NO5-5']
 }
-export default function ExerciceTrouverInverse () {
-  Exercice.call(this)
-  this.sup = 1 // Avec ou sans relatifs
+export default class ExerciceTrouverInverse extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      ' 1 : Nombres entiers\n 2 : Nombres décimaux\n 3 : Fractions\n 4 : Mélange'
+    ]
+    this.sup = 1 // Avec ou sans relatifs
 
-  this.consigne =
+    this.consigne =
         "Calculer l'inverse et donner la réponse sous forme décimale ou de fraction simplifiée quand c'est impossible"
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     const listeEntiers = [
       [1, 1],
@@ -373,9 +380,4 @@ export default function ExerciceTrouverInverse () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    ' 1 : Nombres entiers\n 2 : Nombres décimaux\n 3 : Fractions\n 4 : Mélange'
-  ]
 }

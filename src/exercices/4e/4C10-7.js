@@ -6,7 +6,7 @@ import {
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -33,15 +33,29 @@ export const refs = {
   'fr-fr': ['4C10-7'],
   'fr-ch': ['10NO4-9']
 }
-export default function ExerciceOperationsRelatifs () {
-  Exercice.call(this)
-  this.sup = false // écriture simplifiée
-  this.sup2 = 5 // Mélange par défaut
-  this.sup3 = 10 // Valeur maximum
-  this.consigne = 'Calculer.'
-  this.spacing = 2
+export default class ExerciceOperationsRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
+    this.besoinFormulaire2Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : multiplication',
+        '2 : division',
+        '3 : addition',
+        '4 : soustraction',
+        '5 : Mélange'
+      ].join('\n')
+    ]
+    this.besoinFormulaire3Numerique = ['Valeur maximale', 99999]
+    this.sup = false // écriture simplifiée
+    this.sup2 = 5 // Mélange par défaut
+    this.sup3 = 10 // Valeur maximum
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -165,16 +179,4 @@ export default function ExerciceOperationsRelatifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
-  this.besoinFormulaire2Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : multiplication',
-      '2 : division',
-      '3 : addition',
-      '4 : soustraction',
-      '5 : Mélange'
-    ].join('\n')
-  ]
-  this.besoinFormulaire3Numerique = ['Valeur maximale', 99999]
 }

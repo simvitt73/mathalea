@@ -9,7 +9,7 @@ import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, xcas } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Étude de fonctions de degré 3'
 
@@ -23,18 +23,24 @@ export const uuid = '691a8'
  * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)
  * @author Jean-Claude Lhote
  */
-export default function VariationPolynomeDegre3 () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class VariationPolynomeDegre3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple']
+    this.besoinFormulaire2CaseACocher = ['Représentation graphique', true]
+    this.besoinFormulaire3CaseACocher = ['Valeurs exactes', false]
 
-  this.sup = '-1/-2/3/1' // Niveau de difficulté
-  this.sup2 = true
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.typeExercice = 'xcas'
+    this.sup = '-1/-2/3/1' // Niveau de difficulté
+    this.sup2 = true
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = function () {
+    this.typeExercice = 'xcas'
+  }
+
+  nouvelleVersion () {
     // un tableau correct en exemple
     // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
     // lgt = taille de la première colonne tout est en cm
@@ -589,7 +595,4 @@ export default function VariationPolynomeDegre3 () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple']
-  this.besoinFormulaire2CaseACocher = ['Représentation graphique', true]
-  this.besoinFormulaire3CaseACocher = ['Valeurs exactes', false]
 }

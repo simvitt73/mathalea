@@ -9,7 +9,7 @@ import {
 import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombreCoul } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -36,16 +36,20 @@ export const refs = {
   'fr-fr': ['5R22'],
   'fr-ch': ['9NO9-15']
 }
-export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = false // écriture simplifiée
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.nbQuestions = 6 // Pour que les colonnes soient équilibrées !
-  this.listeAvecNumerotation = false
+export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
+  constructor (max = 20) {
+    super()
+    this.sup = max
+    this.sup2 = false // écriture simplifiée
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.nbQuestions = 6 // Pour que les colonnes soient équilibrées !
+    this.listeAvecNumerotation = false
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.interactif ? 'Calculer.' : 'Calculer, en détaillant les calculs.'
     let relatifs
     let sommesSignees
@@ -214,6 +218,4 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
 }

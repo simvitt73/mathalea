@@ -1,24 +1,27 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 export const titre = 'Ceci est le titre de l\'exercice BetaExosimpleMatthieu'
 
 /**
- * 
+ *
  * @Matthieu_Devillers
 
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
-  this.consigne = "Ceci est la consigne (en gras) de l'exercice."
-  this.introduction = "Ceci est l'introduction (pas en gras) de l'exercice"
-  this.nbQuestionsModifiable = false // le nombre de questions est fixe dans cet exercice.
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1; // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.consigne = "Ceci est la consigne (en gras) de l'exercice."
+    this.introduction = "Ceci est l'introduction (pas en gras) de l'exercice"
+    this.nbQuestionsModifiable = false // le nombre de questions est fixe dans cet exercice.
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    // this.sup = 1; // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
+
+  nouvelleVersion () {
     const a = randint(1, 10)
     const b = randint(20, 50)
     const question1 = `Combien fait ${a} + ${b} ?<br>`

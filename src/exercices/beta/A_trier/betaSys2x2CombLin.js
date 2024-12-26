@@ -10,7 +10,7 @@ import { abs } from '../../../lib/outils/nombres'
 
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, ppcm, randint } from '../../../modules/outils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 
 export const titre = '2G35-3'
 
@@ -29,8 +29,10 @@ const dessSysteme = (s, d, niveau) =>
  * @author Eric Schrafstetter
 
  */
-export default function Systeme2x2parCombinaisonLineaire () {
-  Exercice.call(this)
+export default class Systeme2x2parCombinaisonLineaire extends Exercice {
+constructor() {
+super()
+
   this.consigne = 'Résoudre chacun des systèmes suivants $\\emph{par combinaisons}$'
   this.nbQuestions = 2
 
@@ -39,7 +41,8 @@ export default function Systeme2x2parCombinaisonLineaire () {
 
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.sup = 1 // Ecriture simple du système
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     const niveau = +this.sup // Niveau 1 = écriture ax+by = c ; Niveau 2 = parenthèses ou factorisation
 
     

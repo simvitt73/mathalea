@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { compareNombres } from '../../lib/outils/nombres'
 import { texFactorisation } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -29,18 +29,23 @@ export const refs = {
   'fr-fr': ['5A13'],
   'fr-ch': ['9NO4-10']
 }
-export default function ExerciceDecomposerEnFacteursPremiers () {
-  Exercice.call(this)
-  this.spacing = 2
-  this.nbQuestions = 6
-  this.sup = 2 // 4 facteurs par défaut
-  this.sup2 = false // pas de multiplication par 100
-  this.sup3 = false // Que pour les 2ndes
-  this.sup4 = false // Decomposition avec des puissances
-  this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
+    this.besoinFormulaire2CaseACocher = ['Grands nombres (une fois sur quatre)']
 
-  this.nouvelleVersion = function () {
+    this.spacing = 2
+    this.nbQuestions = 6
+    this.sup = 2 // 4 facteurs par défaut
+    this.sup2 = false // pas de multiplication par 100
+    this.sup3 = false // Que pour les 2ndes
+    this.sup4 = false // Decomposition avec des puissances
+    this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
+    this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers." : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers."
     let grandNombres
     let listeFacteurs1, listeFacteurs2
@@ -181,6 +186,4 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
-  this.besoinFormulaire2CaseACocher = ['Grands nombres (une fois sur quatre)']
 }

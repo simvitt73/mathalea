@@ -2,7 +2,7 @@ import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu } from '../../../modules/outils'
@@ -65,37 +65,34 @@ function schemaBarre () {
 
 */
 
-export default function EquationsProgression () {
-  Exercice.call(this)
-  const formulaire = []
-  for (let i = 0; i < nbCase; i++) formulaire.push(`${i}`)
-  this.nbQuestions = 0
-  this.besoinFormulaireNumerique = [
-    'Type de questions', nbCase, formulaire.join('\n')
-  ]
+export default class EquationsProgression extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 0
-  this.nbColsCorr = 0
-  this.tailleDiaporama = 1
+    this.nbCols = 0
+    this.nbColsCorr = 0
+    this.tailleDiaporama = 1
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 'all' // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, debug = true) {
-    const ddbug = debug
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
+    this.sup = 'all' // Type d'exercice
+  }
+
+  nouvelleVersion () {
+    const ddbug = false
+    const formulaire = []
+    for (let i = 0; i < nbCase; i++) formulaire.push(`${i}`)
+    this.nbQuestions = 0
+    this.besoinFormulaireNumerique = [
+      'Type de questions', nbCase, formulaire.join('\n')
+    ]
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 'all' ? 1 : formulaire.length - 1
 
     let nquestion = 0
     for (let i = 0, exercice = { texte: '', texteCorr: '' }, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question
       nquestion = this.sup === 'all' ? cpt + 1 : this.sup
-      if (ddbug) {
-        console.info(`
-        ********************************
-        Exercice ${i + 1} Case ${nquestion}
-        ********************************`)
-      }
       switch (nquestion) {
         case 1: {
           exercice = traduireProgrammeCalcul(['+', '*'], parse(1), ddbug)

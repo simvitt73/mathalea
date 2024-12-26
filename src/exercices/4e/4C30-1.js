@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -25,13 +25,20 @@ export const refs = {
   'fr-fr': ['4C30-1'],
   'fr-ch': ['9NO5-1']
 }
-export default function PuissancesEncadrement () {
-  Exercice.call(this)
-  this.sup = 4
-  this.nbQuestions = 5
+export default class PuissancesEncadrement extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Niveau de difficulté',
+      'Nombres séparés par des tirets\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Mélange'
+    ]
+    this.sup = 4
+    this.nbQuestions = 5
 
-  this.classe = 4 // Ce distinguo permet de supprimer les 10^0 du niveau 4ème
-  this.nouvelleVersion = function () {
+    this.classe = 4 // Ce distinguo permet de supprimer les 10^0 du niveau 4ème
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = []
     let signeChange
     this.consigne = this.nbQuestions === 1
@@ -199,9 +206,4 @@ export default function PuissancesEncadrement () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireTexte = [
-    'Niveau de difficulté',
-    'Nombres séparés par des tirets\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Mélange'
-  ]
 }

@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -28,11 +28,15 @@ export const refs = {
   'fr-fr': ['5R10-1'],
   'fr-ch': ['9NO9-5']
 }
-export default function DevinerNombreRelatif () {
-  Exercice.call(this)
-  this.spacing = 2
-  this.nbQuestions = 3
-  this.nouvelleVersion = function () {
+export default class DevinerNombreRelatif extends Exercice {
+  constructor () {
+    super()
+
+    this.spacing = 2
+    this.nbQuestions = 3
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let dixieme; let signe; let centieme; let unite; let somme; let produit; let facteurs; const type = ['négatif', 'nul', 'positif']

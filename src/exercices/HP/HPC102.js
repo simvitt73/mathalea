@@ -2,7 +2,7 @@ import { courbe, integrale } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { aleaVariables } from '../../modules/outilsMathjs.ts'
@@ -27,16 +27,20 @@ export const refs = {
   'fr-fr': ['HPC102'],
   'fr-ch': []
 }
-export default function CalculsLoiNormale () {
-  Exercice.call(this)
+export default class CalculsLoiNormale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Loi normale centrée réduite \n2 : Loi normale quelconque']
 
-  this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
-  this.nbQuestions = 4
+    this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
+    this.nbQuestions = 4
 
-  this.sup = 1
+    this.sup = 1
 
-  this.spacingCorr = 1.5
-  this.nouvelleVersion = function () {
+    this.spacingCorr = 1.5
+  }
+
+  nouvelleVersion () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {
@@ -299,5 +303,4 @@ export default function CalculsLoiNormale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Loi normale centrée réduite \n2 : Loi normale quelconque']
 }

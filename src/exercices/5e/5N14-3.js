@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
@@ -99,24 +99,28 @@ function justifyEq (bool, deuxFractions, decimal = false) {
   return strOut
 }
 
-export default function EqResolvantesThales () {
-  Exercice.call(this)
-  this.debug = false
-  if (this.debug) {
-    this.nbQuestions = 4
-  } else {
-    this.nbQuestions = 4
+export default class EqResolvantesThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Petits entiers\n2 : Grands entiers\n3 : Décimaux\n4 : Mélange']
+
+    this.debug = false
+    if (this.debug) {
+      this.nbQuestions = 4
+    } else {
+      this.nbQuestions = 4
+    }
+    this.sup = 1 // Niveau de difficulté
+
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
+    this.niveau = '5e'
   }
-  this.sup = 1 // Niveau de difficulté
 
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-
-  this.niveau = '5e'
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Les égalités suivantes sont-elles vraies ? Justifier.' : 'L\'égalité suivante est-elle vraie ? Justifier.'
 
     const listeTypeDeQuestions = Number(this.sup < 4) ? Array(this.nbQuestions).fill(Number(this.sup)) : Array(this.nbQuestions).fill(0).map(() => randint(1, 3))
@@ -247,5 +251,4 @@ export default function EqResolvantesThales () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Petits entiers\n2 : Grands entiers\n3 : Décimaux\n4 : Mélange']
 }

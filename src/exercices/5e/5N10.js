@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -24,18 +24,20 @@ export const refs = {
   'fr-fr': ['5N10'],
   'fr-ch': ['9NO10-2', '1CN-3']
 }
-export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {
-  Exercice.call(this)
+export default class PasserEcritureDecimaleEcritureFractionnaireInversement extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une fraction\n2 : D\'une fraction à l\'écriture décimale\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Uniquement des fractions décimales']
-  this.sup2 = false
+    this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une fraction\n2 : D\'une fraction à l\'écriture décimale\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['Uniquement des fractions décimales']
+    this.sup2 = false
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDesSensDemandes
     if (this.sup === 1) {
       typesDesSensDemandes = ['DecimaleAFractionnaire']

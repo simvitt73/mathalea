@@ -5,7 +5,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
 import { personne, personnes } from '../../lib/outils/Personne'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 export const titre = 'Problèmes de ratio'
@@ -17,13 +17,18 @@ export const refs = {
   'fr-ch': ['9NO14-10']
 }
 // Ancien 5N15 avant septembre 2023
-export default function ProblemeDeRatio () {
-  Exercice.call(this)
-  this.nbQuestions = 4 // Ici le nombre de questions
-  this.sup = 3
-  this.spacing = 2
-  this.spacingCorr = 3
-  this.nouvelleVersion = function () {
+export default class ProblemeDeRatio extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
+
+    this.nbQuestions = 4 // Ici le nombre de questions
+    this.sup = 3
+    this.spacing = 2
+    this.spacingCorr = 3
+  }
+
+  nouvelleVersion () {
     let prenoms = []
     const objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons']
     const sirops = ['de fraise', 'de citron', 'de cerise', 'de menthe', 'd\'orange']
@@ -290,6 +295,4 @@ export default function ProblemeDeRatio () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
 } // Fin de l'exercice.

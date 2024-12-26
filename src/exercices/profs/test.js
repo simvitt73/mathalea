@@ -1,5 +1,5 @@
 // import { ComputeEngine } from '@cortex-js/compute-engine'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -48,11 +48,15 @@ console.info('-\\dfrac{-12}{-13}'.replace(/^\\dfrac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)
 }))
 */
 
-export default function desTestsPourInteractivité () {
-  Exercice.call(this)
-  // this.consigne = 'Quel est le résultat des calculs suivants ?'
-  this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
-  this.nouvelleVersion = function () {
+export default class desTestsPourInteractivité extends Exercice {
+  constructor () {
+    super()
+
+    // this.consigne = 'Quel est le résultat des calculs suivants ?'
+    this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
       b = randint(2, 12)

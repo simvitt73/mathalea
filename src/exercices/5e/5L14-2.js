@@ -2,7 +2,7 @@ import { choice, combinaisonListes, enleveElement } from '../../lib/outils/array
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { range } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -38,13 +38,16 @@ export const refs = {
   'fr-fr': ['5L14-2'],
   'fr-ch': ['10FA1-1', '11FA1-4']
 }
-export default function ExerciceSubstituer (difficulte = 1) {
-  Exercice.call(this)
-  this.sup = difficulte
+export default class ExerciceSubstituer extends Exercice {
+  constructor (difficulte = 1) {
+    super()
+    this.sup = difficulte
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
 
-  this.consigneModifiable = false
+    this.consigneModifiable = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let reponse
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -137,5 +140,4 @@ export default function ExerciceSubstituer (difficulte = 1) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
 }

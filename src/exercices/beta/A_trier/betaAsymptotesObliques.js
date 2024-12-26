@@ -2,31 +2,30 @@
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { xcas, listeQuestionsToContenu } from '../../../modules/outils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { context } from '../../../modules/context'
 export const titre = 'Asymptote oblique'
 
 /**
- * 
+ *
  * @author Eric Schrafstetter
 
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
-  this.consigne = 'Montrez que la fonction $f$ admet une asymptote oblique en $+\\infty$ dont on donnera l\'équation et la position relative'
-  this.nbQuestions = 2
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
 
+    this.consigne = 'Montrez que la fonction $f$ admet une asymptote oblique en $+\\infty$ dont on donnera l\'équation et la position relative'
+    this.nbQuestions = 2
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.typeExercice = 'xcas'
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nouvelleVersion = function () {
+    this.typeExercice = 'xcas'
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+  }
 
-    
-    
-
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, etape, signe, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

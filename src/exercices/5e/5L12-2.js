@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -42,15 +42,34 @@ export const refs = {
   'fr-fr': ['5L12-2'],
   'fr-ch': ['10FA1-10']
 }
-export default function ReduireUneExpressionLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class ReduireUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.besoinFormulaire3Texte = [
+      'Type de questions ', [
+        'Nombres séparés par des tirets',
+        '1 : ax+bx+c',
+        '2 : ax+b+x+c',
+        '3 : ax^2+bx+c+dx^2+x',
+        '4 : a+x+b+c+dx',
+        '5 : ax+y+bx+c+dy',
+        '6 : ax × bx',
+        '7 : ax+c',
+        '8 : ax × b',
+        '9 : ax+bx',
+        '10 : Mélange'
+      ].join('\n')
+    ]
+    this.nbQuestions = 5
 
-  this.sup = 9 // valeur maximale des coefficients
-  this.sup2 = false // avec des nombres décimaux
-  this.sup3 = '6-7-8-9' // Type de question
+    this.sup = 9 // valeur maximale des coefficients
+    this.sup2 = false // avec des nombres décimaux
+    this.sup3 = '6-7-8-9' // Type de question
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Réduire et simplifier l\'expression suivante' : 'Réduire et simplifier les expressions suivantes'
     this.consigne += ', si c\'est possible.'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
@@ -156,21 +175,4 @@ export default function ReduireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  this.besoinFormulaire3Texte = [
-    'Type de questions ', [
-      'Nombres séparés par des tirets',
-      '1 : ax+bx+c',
-      '2 : ax+b+x+c',
-      '3 : ax^2+bx+c+dx^2+x',
-      '4 : a+x+b+c+dx',
-      '5 : ax+y+bx+c+dy',
-      '6 : ax × bx',
-      '7 : ax+c',
-      '8 : ax × b',
-      '9 : ax+bx',
-      '10 : Mélange'
-    ].join('\n')
-  ]
 }

@@ -6,7 +6,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -46,16 +46,36 @@ export const refs = {
   'fr-fr': ['c3N10-1'],
   'fr-ch': ['9NO1-8']
 }
-export default function RecomposerEntierC3 () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.sup = false // false pour des puissances de 10 en chiffres, true pour lettres
-  this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
-  this.sup3 = '5'
-  this.sup4 = '4'
-  this.sup5 = false
-  this.nombreDeChiffresMin = 4
-  this.nouvelleVersion = function () {
+export default class RecomposerEntierC3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = [
+      'Puissance de 10 en chiffres/lettres',
+      false
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Nombre de chiffres maximum des nombres à décomposer',
+      9
+    ]
+    this.besoinFormulaire3Texte = [
+      'Types de question séparés par des tirets',
+      '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange'
+    ]
+    this.besoinFormulaire4Texte = [
+      'Présence de zéro(s) ',
+      'Nombres séparés par des tirets\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+    ]
+    this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
+    this.nbQuestions = 4
+    this.sup = false // false pour des puissances de 10 en chiffres, true pour lettres
+    this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
+    this.sup3 = '5'
+    this.sup4 = '4'
+    this.sup5 = false
+    this.nombreDeChiffresMin = 4
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: 4,
@@ -334,24 +354,8 @@ export default function RecomposerEntierC3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = [
-    'Puissance de 10 en chiffres/lettres',
-    false
-  ]
-  this.besoinFormulaire2Numerique = [
-    'Nombre de chiffres maximum des nombres à décomposer',
-    9
-  ]
-  this.besoinFormulaire3Texte = [
-    'Types de question séparés par des tirets',
-    '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange'
-  ]
-  this.besoinFormulaire4Texte = [
-    'Présence de zéro(s) ',
-    'Nombres séparés par des tirets\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
-  ]
-  this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
-  this.correctionInteractive = (i) => {
+
+  correctionInteractive (i) {
     const champsTexte = []
     const saisies = []
     if (this.premierChamp[i] === undefined) return 'OK'

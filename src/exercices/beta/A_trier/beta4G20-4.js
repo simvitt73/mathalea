@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
 import { troncature } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, carreParfait } from '../../../modules/outils'
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
@@ -11,19 +11,17 @@ export const titre = 'Calculer la racine carrée de (x² +/- y²)'
  * @author Mireille Gain
 
 */
-export default function CalculerUneExpressionLitteralePythagore () {
-  Exercice.call(this)
+export default class CalculerUneExpressionLitteralePythagore extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Dans chaque cas, calculer a² + b² et a² - b²; puis donner la racine carrée de chaque résultat en valeur arrondie au centième.'
-  this.nbQuestions = 2
-  this.nbCols = 3
-  this.nbColsCorr = 2
+    this.consigne = 'Dans chaque cas, calculer a² + b² et a² - b²; puis donner la racine carrée de chaque résultat en valeur arrondie au centième.'
+    this.nbQuestions = 2
+    this.nbCols = 3
+    this.nbColsCorr = 2
+  }
 
-
-  this.nouvelleVersion = function () {
-
-    
-    
+  nouvelleVersion () {
     let a, b, n, s, d, racs, racd, miracs, miracd
     const typesDeQuestionsDisponibles = ['type1', 'type2']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

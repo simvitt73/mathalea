@@ -3,7 +3,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { Relatif } from '../../modules/Relatif'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils'
@@ -26,15 +26,22 @@ export const refs = {
   'fr-fr': ['4C10-6'],
   'fr-ch': ['10NO4-8']
 }
-export default function ExerciceTableauMultiplicationsRelatifs () {
-  Exercice.call(this)
-  this.sup = 3
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.spacing = 2
-  this.nbQuestions = 3
+export default class ExerciceTableauMultiplicationsRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Multiplications\n2 : Quotients \n3 : Multiplications et quotients \n4 : Multiplications avec plusieurs fois la lettre (dont puissances) \n5 : Mélange '
+    ]
+    this.sup = 3
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    this.spacing = 2
+    this.nbQuestions = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1: // multiplications
@@ -269,9 +276,4 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    5,
-    '1 : Multiplications\n2 : Quotients \n3 : Multiplications et quotients \n4 : Multiplications avec plusieurs fois la lettre (dont puissances) \n5 : Mélange '
-  ]
 }

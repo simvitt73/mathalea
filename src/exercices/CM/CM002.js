@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -24,16 +24,27 @@ export const refs = {
   'fr-fr': ['CM002'],
   'fr-ch': []
 }
-export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') {
-  // Diviser deux nombres
-  Exercice.call(this)
-  this.sup = tablesParDefaut
-  this.sup2 = 1 // classique|a_trous|melange
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.tailleDiaporama = 3
+export default class TablesDeDivisions extends Exercice {
+  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des tables',
+      'Nombres séparés par des tirets'
+    ] // Texte, tooltip
+    this.besoinFormulaire2Numerique = [
+      'Style de questions',
+      3,
+      '1 : Classique\n2: À trous\n3: Mélangé'
+    ]
+    // Diviser deux nombres
+    this.sup = tablesParDefaut
+    this.sup2 = 1 // classique|a_trous|melange
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.tailleDiaporama = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup2 = parseInt(this.sup2)
     const tables = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -91,13 +102,4 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des tables',
-    'Nombres séparés par des tirets'
-  ] // Texte, tooltip
-  this.besoinFormulaire2Numerique = [
-    'Style de questions',
-    3,
-    '1 : Classique\n2: À trous\n3: Mélangé'
-  ]
 }

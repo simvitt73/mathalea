@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -23,17 +23,19 @@ export const refs = {
   'fr-fr': ['5L16'],
   'fr-ch': ['9FA2-8']
 }
-export default function SimplifierEcritureLitterale () {
-  Exercice.call(this)
+export default class SimplifierEcritureLitterale extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Procédure inverse']
-  this.sup2 = false
-  this.nbCols = 2
-  this.nbColsCorr = 2
+    this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['Procédure inverse']
+    this.sup2 = false
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.sup2) {
       this.consigne = 'On a simplifié des écritures littérales.<br>Réécrire chaque expression en écrivant les symboles × qui sont sous-entendus.'
     } else {

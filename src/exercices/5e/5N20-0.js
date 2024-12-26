@@ -9,7 +9,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
@@ -58,25 +58,21 @@ function myLabelPosition (y) {
     return 'above'
   }
 }
-export default function ProblemesAdditifsFractions5e () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  this.nbQuestions = 1
+export default class ProblemesAdditifsFractions5e extends Exercice {
+  constructor () {
+    super()
 
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 1 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+    this.debug = false
+    this.sup = 1
+    this.nbQuestions = 1
 
-  let typesDeQuestionsDisponibles
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 1 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+  }
 
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [0]
-    }
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [0]
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus

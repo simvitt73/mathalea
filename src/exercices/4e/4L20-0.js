@@ -4,7 +4,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -33,23 +33,31 @@ export const refs = {
   'fr-fr': ['4L20-0'],
   'fr-ch': ['10FA3-6']
 }
-export default function ExerciceEquationASolutionEntiere () {
-  Exercice.call(this)
+export default class ExerciceEquationASolutionEntiere extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire2Numerique = [
+      "Type d'équations",
+      4,
+      '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Mélange'
+    ]
 
-  this.consigne = 'Résoudre les équations suivantes.'
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  } else {
-    this.correctionDetaillee = true
+    this.consigne = 'Résoudre les équations suivantes.'
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.correctionDetailleeDisponible = true
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    } else {
+      this.correctionDetaillee = true
+    }
+    this.sup = true // Avec des nombres relatifs
+    this.sup2 = 4 // Choix du type d'équation
+    this.nbQuestions = 6
   }
-  this.sup = true // Avec des nombres relatifs
-  this.sup2 = 4 // Choix du type d'équation
-  this.nbQuestions = 6
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
@@ -245,10 +253,4 @@ export default function ExerciceEquationASolutionEntiere () {
       }
     }
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire2Numerique = [
-    "Type d'équations",
-    4,
-    '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Mélange'
-  ]
 }

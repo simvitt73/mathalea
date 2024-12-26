@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
@@ -22,18 +22,22 @@ export const refs = {
   'fr-fr': ['PEA12'],
   'fr-ch': []
 }
-export default function AdditionSoustractionBaseN () {
-  Exercice.call(this)
-  this.consigne = 'Poser et effectuer les calculs suivants :'
-  this.video = '-bIvS95dmYw'
-  this.nbQuestions = 4
+export default class AdditionSoustractionBaseN extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Uniquement des additions\n2 : Uniquement des soustractions\n3 Additions et soustractions']
+    this.besoinFormulaire2Numerique = ['Choix des bases', 3, '1 : Bases 2 à 5\n2 : Bases 12 et 16\n3 Bases 2 à base 16']
+    this.consigne = 'Poser et effectuer les calculs suivants :'
+    this.video = '-bIvS95dmYw'
+    this.nbQuestions = 4
 
-  this.pasDeVersionLatex = true
-  this.spacingCorr = context.isHtml ? 2 : 1
-  this.sup = 3
-  this.sup2 = 3
+    this.pasDeVersionLatex = true
+    this.spacingCorr = context.isHtml ? 2 : 1
+    this.sup = 3
+    this.sup2 = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeOperations = []
     let listeBases = []
     if (this.sup === 1) {
@@ -133,6 +137,4 @@ export default function AdditionSoustractionBaseN () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Uniquement des additions\n2 : Uniquement des soustractions\n3 Additions et soustractions']
-  this.besoinFormulaire2Numerique = ['Choix des bases', 3, '1 : Bases 2 à 5\n2 : Bases 12 et 16\n3 Bases 2 à base 16']
 }

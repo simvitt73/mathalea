@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -27,17 +27,20 @@ export const refs = {
   'fr-fr': ['5N11-3'],
   'fr-ch': ['9NO14-6']
 }
-export default function FractionVersPourcentage () {
-  Exercice.call(this)
-  this.consigne = 'Compléter.'
-  this.nbQuestions = 6
-  this.nbCols = 2
-  this.nbColsCorr = 2
+export default class FractionVersPourcentage extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Partir d\'une fraction de dénominateur autre que 100\n2 : Partir d\'une fraction de dénominateur 100']
-  this.sup = 1
+    this.consigne = 'Compléter.'
+    this.nbQuestions = 6
+    this.nbCols = 2
+    this.nbColsCorr = 2
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Partir d\'une fraction de dénominateur autre que 100\n2 : Partir d\'une fraction de dénominateur 100']
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     this.introduction = this.interactif ? 'La première fraction est facultative : elle sera corrigée, mais ne sera pas prise en compte dans le barème.' : ''
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]
@@ -82,7 +85,7 @@ export default function FractionVersPourcentage () {
     listeQuestionsToContenu(this)
   }
 
-  this.correctionInteractive = function (i) {
+  correctionInteractive (i) {
     const reponseAttendue = this.autoCorrection[i].reponse.valeur.champ4.value
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'

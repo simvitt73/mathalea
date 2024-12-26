@@ -1,30 +1,29 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { context } from '../../../modules/context'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { complex } from 'mathjs'
 export const titre = 'Racine carrée nombre complexe'
 
 /**
- * 
+ *
  * @author Eric Schrafstetter
 
 */
-export default function ResoudreDesEquationsCarreeDansC () {
-  Exercice.call(this)
-  this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations :'
-  this.nbQuestions = 2
+export default class ResoudreDesEquationsCarreeDansC extends Exercice {
+  constructor () {
+    super()
 
+    this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations :'
+    this.nbQuestions = 2
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nouvelleVersion = function () {
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+  }
 
-    
-    
-
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, a, b, z, zr, s, zx, zsol, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 

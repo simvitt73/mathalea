@@ -4,7 +4,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -30,18 +30,23 @@ export const refs = {
   'fr-fr': ['5R12-2'],
   'fr-ch': ['9FA1-7']
 }
-export default function ReperagePointDuPlan () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class ReperagePointDuPlan extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
+    this.besoinFormulaire2CaseACocher = ['Grille pour les demis ou pour les quarts']
+    this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.sup = 1
-  this.sup2 = true
-  this.sup3 = 5
-  this.quartDePlan = false
-  this.listeAvecNumerotation = false
+    this.sup = 1
+    this.sup2 = true
+    this.sup3 = 5
+    this.quartDePlan = false
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte, texteCorr
 
     let listePoints = []
@@ -171,7 +176,4 @@ export default function ReperagePointDuPlan () {
 
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
-  this.besoinFormulaire2CaseACocher = ['Grille pour les demis ou pour les quarts']
-  this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
 }

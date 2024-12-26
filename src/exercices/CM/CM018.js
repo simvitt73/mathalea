@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -21,15 +21,18 @@ export const refs = {
   'fr-fr': ['CM018'],
   'fr-ch': []
 }
-export default function SommeDeDeuxNombresMariesEtUnEntier () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
+export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+    this.consigne = 'Calculer.'
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

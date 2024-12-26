@@ -1,6 +1,6 @@
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 export const titre = 'Démontrer l\'équivalence de deux programmes de calcul'
 
@@ -22,25 +22,28 @@ export const refs = {
   'fr-fr': ['4L12'],
   'fr-ch': ['11FA4-1']
 }
-export default function EquivalenceProgrammesCalcul () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class EquivalenceProgrammesCalcul extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.video = 'https://www.youtube.com/watch?v=-iw4OkMhgCA'
+    this.nbQuestions = 1
 
-  this.testeProgrammesDeCalcul = function (nombreATester, A1, A2, B1, B2, B3, signeA2, signeB1, signeB3) {
-    return `${texteGras('Programme A :')}<br>
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.video = 'https://www.youtube.com/watch?v=-iw4OkMhgCA'
+
+    this.testeProgrammesDeCalcul = function (nombreATester, A1, A2, B1, B2, B3, signeA2, signeB1, signeB3) {
+      return `${texteGras('Programme A :')}<br>
     $${nombreATester} \\times ${A1} = ${nombreATester * A1}$ <br>
     $${nombreATester * A1} ${signeA2} ${A2} = ${miseEnEvidence(nombreATester * A1 + A2)}$ <br><br>
     ${texteGras('Programme B :')}<br>
     $${nombreATester} ${signeB1} ${B1} = ${nombreATester + B1}$ <br>
     $${nombreATester + B1} \\times ${B2} = ${(nombreATester + B1) * B2}$ <br>
     $${(nombreATester + B1) * B2} ${signeB3} ${B3} = ${miseEnEvidence((nombreATester + B1) * B2 + B3)}$ <br><br>`
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, texteOperationA1, texteOperationA2, texteOperationB1, texteOperationB3, signeA2, signeB1, signeB3, signeB1B2, signeB1B2B3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const B1 = randint(-9, 9, [0])
       const B2 = randint(2, 6)

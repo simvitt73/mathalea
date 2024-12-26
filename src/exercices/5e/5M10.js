@@ -9,7 +9,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Aire du parallélogramme'
@@ -29,14 +29,16 @@ export const refs = {
   'fr-fr': ['5M10'],
   'fr-ch': ['9GM1-5']
 }
-export default function AireDuParallelogramme () {
-  Exercice.call(this)
-  this.consigne = "Calculer l'aire des parallélogrammes suivants."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 1
+export default class AireDuParallelogramme extends Exercice {
+  constructor () {
+    super()
 
-  /* const cadre = function (p, params) {
+    this.consigne = "Calculer l'aire des parallélogrammes suivants."
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 1
+
+    /* const cadre = function (p, params) {
     let xmin = 0; let xmax = 0; let ymin = 0; let ymax = 0
     for (let i = 0; i < 4; i++) {
       xmin = Math.min(xmin, p[0].listePoints[i].x - 1)
@@ -50,8 +52,9 @@ export default function AireDuParallelogramme () {
     params.ymax = ymax
     return params
   } */
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du parallélogramme suivant."
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
     const nom = creerNomDePolygone(this.nbQuestions * 4, 'QD')

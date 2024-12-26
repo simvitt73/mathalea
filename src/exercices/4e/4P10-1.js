@@ -8,7 +8,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
@@ -25,29 +25,26 @@ export const refs = {
   'fr-fr': ['4P10-1'],
   'fr-ch': ['9FA3-15', '10FA4-3']
 }
-export default function GraphiquesEtProportionnalite2 () {
-  Exercice.call(this)
-  this.debug = false
-  if (this.debug) {
-    this.nbQuestions = 2
-  } else {
-    this.nbQuestions = 1
+export default class GraphiquesEtProportionnalite2 extends Exercice {
+  constructor () {
+    super()
+
+    this.debug = false
+    if (this.debug) {
+      this.nbQuestions = 2
+    } else {
+      this.nbQuestions = 1
+    }
+
+    this.spacingCorr = 2
+
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
   }
 
-  this.spacingCorr = 2
-
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [1]
-    } else {
-      typesDeQuestionsDisponibles = [1]
-    }
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [1]
 
     // typesDeQuestionsDisponibles=[1];
 

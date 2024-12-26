@@ -1,7 +1,7 @@
 import { courbeInterpolee } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 export const titre = 'Interpolation cosinusoïdale'
 
@@ -16,18 +16,23 @@ export const uuid = '5b767'
  * @author Jean-Claude Lhote
 
 */
-export default function TraceCourbeInterpolee1 () {
-  Exercice.call(this)
+export default class TraceCourbeInterpolee1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Liste des points sous la forme: (x0;y0),(x1;y1);..']
+    this.besoinFormulaire2CaseACocher = ['Afficher les points ', true]
+    this.besoinFormulaire3Numerique = ['Modèles de couleur ', 3, '1 : Points rouges sur courbe noire\n2 : Points bleus sur courbe rouge\n3 : Points verts sur courbe bleue']
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.sup = '(-5;0)/(0;5)/(5;0)' // liste de points
-  this.sup2 = true
-  this.sup3 = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = '(-5;0)/(0;5)/(5;0)' // liste de points
+    this.sup2 = true
+    this.sup3 = 1
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const liste = this.sup.split('/')
     const points = []
     const objets = []
@@ -72,7 +77,4 @@ export default function TraceCourbeInterpolee1 () {
     this.contenu = mathalea2d({ xmin: xMin - 1, xmax: xMax + 1, ymin: yMin - 1, ymax: yMax + 1 }, objets)
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireTexte = ['Liste des points sous la forme: (x0;y0),(x1;y1);..']
-  this.besoinFormulaire2CaseACocher = ['Afficher les points ', true]
-  this.besoinFormulaire3Numerique = ['Modèles de couleur ', 3, '1 : Points rouges sur courbe noire\n2 : Points bleus sur courbe rouge\n3 : Points verts sur courbe bleue']
 }

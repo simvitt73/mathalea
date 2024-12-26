@@ -3,7 +3,7 @@ import { rienSi1 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -34,14 +34,18 @@ export const refs = {
   'fr-fr': ['5L12'],
   'fr-ch': ['10FA1-12']
 }
-export default function ReduireUneExpressionLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class ReduireUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale des coefficients (sup. à 1)', 999]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.nbQuestions = 5
 
-  this.sup = 9 // valeur maximale des coefficients
-  this.sup2 = false // avec des nombres décimaux
+    this.sup = 9 // valeur maximale des coefficients
+    this.sup2 = false // avec des nombres décimaux
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Réduire l\'expression suivante.' : 'Réduire les expressions suivantes.'
 
     const typesDeQuestionsDisponibles = range1(7)
@@ -139,6 +143,4 @@ export default function ReduireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale des coefficients (sup. à 1)', 999]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

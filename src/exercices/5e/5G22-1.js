@@ -15,7 +15,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -34,16 +34,19 @@ export const refs = {
   'fr-fr': ['5G22-1'],
   'fr-ch': ['9ES3-10']
 }
-export default function ProprietesMediatrice () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class ProprietesMediatrice extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Situation', 3, '1 : Liée à une médiatrice (ou pas)\n2 : Liée à une équidistance (ou pas)\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Inclure des situations où aucun point n\'appartient pas à la médiatrice']
-  this.sup2 = true
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireNumerique = ['Situation', 3, '1 : Liée à une médiatrice (ou pas)\n2 : Liée à une équidistance (ou pas)\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['Inclure des situations où aucun point n\'appartient pas à la médiatrice']
+    this.sup2 = true
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['appartient']

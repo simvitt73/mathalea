@@ -5,7 +5,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -32,15 +32,19 @@ export const refs = {
   'fr-fr': ['5S13'],
   'fr-ch': ['11NO2-1']
 }
-export default function CalculerDesFrequences () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class CalculerDesFrequences extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures']
 
-  this.spacingCorr = 1.5
+    this.nbQuestions = 1
 
-  this.sup = 1
+    this.spacingCorr = 1.5
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, temperatures, nombreTemperatures, nombreNotes, notes, reponse, nombreDes, nombreFaces, nombreTirages, indexValeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // ici on lance des dés
         nombreDes = randint(1, 2)
@@ -242,5 +246,4 @@ export default function CalculerDesFrequences () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures']
 }

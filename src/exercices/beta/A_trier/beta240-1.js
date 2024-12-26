@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../../lib/outils/outilString'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
@@ -16,22 +16,17 @@ export const interactifType = 'mathLive'
  * @author Eric Schrafstetter
  * 3L11-3
  */
-export default function ResoudreEnXetY () {
-  Exercice.call(this)
+export default class ResoudreEnXetY extends Exercice {
+  constructor () {
+    super()
 
+    this.consigne = 'Développer et réduire les expressions suivantes.'
+    this.nbQuestions = 5
 
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  }
 
-  this.consigne = 'Développer et réduire les expressions suivantes.'
-  this.nbQuestions = 5
-
-
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-
-  this.nouvelleVersion = function () {
-
-    
-    
-
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['cx+e(ax+b)', 'ex+(ax+b)(cx+d)', 'e+(ax+b)(cx+d)', 'e-(ax+b)(cx+d)', '(ax*b)(cx+d)', 'e(ax+b)-(d+cx)']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, reponse, a, b, c, d, e, cpt = 0; i < this.nbQuestions && cpt < 50;) {

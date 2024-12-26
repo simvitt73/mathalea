@@ -1,5 +1,5 @@
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { randint } from '../../modules/outils'
 export const titre = 'Appliquer un pourcentage'
@@ -17,13 +17,17 @@ export const refs = {
   'fr-fr': ['techno1P2-1'],
   'fr-ch': []
 }
-export default function Proportion () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 3
-  this.formatChampTexte = ''
+export default class Proportion extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple'
+    this.nbQuestions = 3
+    this.formatChampTexte = ''
   // this.optionsChampTexte = { texteApres: ' €' }
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     const b = randint(3, 80)/* Pourcentage */
     const a = randint(10, 100)/* Valeur */
     this.question = `Calculer  $${b}\\,\\%$ de $${a}$. `

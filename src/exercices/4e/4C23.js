@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -28,23 +28,29 @@ export const refs = {
   'fr-fr': ['4C23'],
   'fr-ch': ['10NO5-4']
 }
-export default function SommeOuProduitFractions () {
-  Exercice.call(this)
-  this.spacing = context.isHtml ? 4 : 3
-  this.spacingCorr = context.isHtml ? 4 : 3
-  this.nbColonneModifiable = false
-  this.consigne = 'Effectuer les calculs suivants.'
-  this.nbQuestions = 8 // Nombre de questions par défaut
-  this.nbCols = 4 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class SommeOuProduitFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
+    ]
+    this.spacing = context.isHtml ? 4 : 3
+    this.spacingCorr = context.isHtml ? 4 : 3
+    this.nbColonneModifiable = false
+    this.consigne = 'Effectuer les calculs suivants.'
+    this.nbQuestions = 8 // Nombre de questions par défaut
+    this.nbCols = 4 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.sup = '1-3'
-  this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = false
-  this.listeAvecNumerotation = false
+    this.sup = '1-3'
+    this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
+    this.correctionDetaillee = false
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typeQuestionsDisponibles = []
     const typeQuestionsPossibles = [
       ['sommeMult', 'sommeAvecEntier'],
@@ -303,8 +309,4 @@ export default function SommeOuProduitFractions () {
 
     listeQuestionsToContenuSansNumero(this, false) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions',
-    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
-  ]
 }

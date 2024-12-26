@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale'
 
@@ -17,16 +17,21 @@ export const refs = {
   'fr-fr': ['5L14-6'],
   'fr-ch': ['11FA5-1']
 }
-export default function DeterminerDerniereOperationExpNum () {
-  Exercice.call(this)
-  this.debug = false
-  this.consigne = ''
-  this.nbQuestions = 4
+export default class DeterminerDerniereOperationExpNum extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
+    this.besoinFormulaireCaseACocher = ['Avec le signe × devant les parenthèses', true]
 
-  this.sup = true
-  this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
+    this.debug = false
+    this.consigne = ''
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
+    this.sup = true
+    this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [5] // expressions complexes
     let expn; let expc; let decimal = 1; let nbOperations; let resultats; let lastOp
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -61,6 +66,4 @@ export default function DeterminerDerniereOperationExpNum () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
-  this.besoinFormulaireCaseACocher = ['Avec le signe × devant les parenthèses', true]
 }

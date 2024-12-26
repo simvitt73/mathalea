@@ -8,7 +8,7 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { creerBoutonMathalea2d } from '../../lib/outils/modales'
 import { texteGras } from '../../lib/format/style'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
@@ -19,13 +19,17 @@ export const titre = 'Écrire une relation de Thalès'
  * Relation de Thalès
  * @author Sébastien LOZANO
 */
-export default function RelationDeThales () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class RelationDeThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
 
-  this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+  }
+
+  nouvelleVersion (numeroExercice) {
     let listeDeNomsDePolygones = []
 
     if (this.level === 4) {
@@ -172,5 +176,4 @@ export default function RelationDeThales () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
 }

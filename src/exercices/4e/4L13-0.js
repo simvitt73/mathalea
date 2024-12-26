@@ -5,7 +5,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
@@ -21,19 +21,18 @@ export const refs = {
   'fr-fr': ['4L13-0'],
   'fr-ch': ['10FA3-9']
 }
-export default function MettreEnEquationSansResoudre () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 2
+export default class MettreEnEquationSansResoudre extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
+    this.sup = 1
+    this.nbQuestions = 2
 
-  let typesDeQuestionsDisponibles
+    this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
+  }
 
-  this.nouvelleVersion = function () {
-    typesDeQuestionsDisponibles = [1, 2]
-
-    typesDeQuestionsDisponibles = [1]
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [1, 2]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 

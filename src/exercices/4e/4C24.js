@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context'
@@ -25,23 +25,27 @@ export const refs = {
   'fr-fr': ['4C24'],
   'fr-ch': ['9NO12-9']
 }
-export default function SimplifierFractions () {
-  Exercice.call(this)
-  this.consigne = 'Simplifier le plus possible les fractions suivantes.'
-  this.nbQuestions = 5
+export default class SimplifierFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
 
-  // this.besoinFormulaireNumerique = ['Nombre de facteurs communs', 3, '1, 2 ou 3']
-  this.besoinFormulaireTexte = ['Nombre maximum de facteurs communs', '1, 2, 3 ou 4']
-  // this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
-  this.besoinFormulaire2Texte = ['Choix des facteurs premiers utilisés', 'Nombres séparés par des tirets.\nChoisir valeur entre 2 et 23.']
-  this.sup = 2
-  this.sup2 = '2-3-5-7'
-  this.sup3 = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+    this.consigne = 'Simplifier le plus possible les fractions suivantes.'
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    // this.besoinFormulaireNumerique = ['Nombre de facteurs communs', 3, '1, 2 ou 3']
+    this.besoinFormulaireTexte = ['Nombre maximum de facteurs communs', '1, 2, 3 ou 4']
+    // this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
+    this.besoinFormulaire2Texte = ['Choix des facteurs premiers utilisés', 'Nombres séparés par des tirets.\nChoisir valeur entre 2 et 23.']
+    this.sup = 2
+    this.sup2 = '2-3-5-7'
+    this.sup3 = 2
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+  }
+
+  nouvelleVersion () {
     if (this.nbQuestions === 1) {
       this.consigne = 'Simplifier le plus possible la fraction suivante.'
     }
@@ -152,5 +156,4 @@ export default function SimplifierFractions () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
 }

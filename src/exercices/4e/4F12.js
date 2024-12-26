@@ -6,7 +6,7 @@ import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { prenomF } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -32,14 +32,18 @@ export const refs = {
   'fr-fr': ['4F12'],
   'fr-ch': ['10FA5-2']
 }
-export default function ExploiterRepresentationGraphique () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class ExploiterRepresentationGraphique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo (non disponible en interactif)\n3 : Température\n4 : Au hasard']
 
-  this.nbQuestionsModifiable = false
-  this.sup = 4
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    this.nbQuestionsModifiable = false
+    this.sup = 4
+  }
+
+  nouvelleVersion () {
     // Vitesses initiales donnant une hauteur entière et une portée entière
     // Vitesses initiales donnant une hauteur entière et une durée de vol entière.
     const vitessesInitiales = [28.27, 35.2, 49.6, 63.55, 70.85, 77.45, 84.85, 91.65]
@@ -545,5 +549,4 @@ export default function ExploiterRepresentationGraphique () {
       }
     } else listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo (non disponible en interactif)\n3 : Température\n4 : Au hasard']
 }

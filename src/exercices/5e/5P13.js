@@ -5,7 +5,7 @@ import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -38,15 +38,19 @@ export const refs = {
   'fr-fr': ['5P13'],
   'fr-ch': ['10FA4-1']
 }
-export default function EchellesProblemes () {
-  Exercice.call(this)
-  this.sup = 4
-  this.sup2 = false
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 3
+export default class EchellesProblemes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Avec un tableau dans la correction']
+    this.sup = 4
+    this.sup2 = false
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     // Ebauche de la consigne en fonction des possibilités
     const chaqueCe = ['chaque', 'ce']
     this.consigne = 'Résoudre '
@@ -382,6 +386,4 @@ export default function EchellesProblemes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Avec un tableau dans la correction']
 }

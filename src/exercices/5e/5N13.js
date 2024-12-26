@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { choice, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -30,14 +30,19 @@ export const refs = {
   'fr-fr': ['5N13'],
   'fr-ch': ['9NO12-3']
 }
-export default function Exercice_fractions_simplifier (max = 11) {
-  Exercice.call(this)
-  this.sup = max // Correspond au facteur commun
-  this.sup2 = false
-  this.spacing = 2
-  this.spacingCorr = 3
+export default class Exercice_fractions_simplifier extends Exercice {
+  constructor (max = 11) {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
+    this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
+    this.besoinFormulaire3CaseACocher = ['QCM']
+    this.sup = max // Correspond au facteur commun
+    this.sup2 = false
+    this.spacing = 2
+    this.spacingCorr = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     this.amcType = this.sup3 ? (!this.sup2 ? 'qcmMult' : 'qcmMono') : (!this.sup2 ? 'AMCOpen' : 'AMCNum')
 
@@ -234,7 +239,4 @@ export default function Exercice_fractions_simplifier (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
-  this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
-  this.besoinFormulaire3CaseACocher = ['QCM']
 }

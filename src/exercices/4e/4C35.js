@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -25,17 +25,20 @@ export const refs = {
   'fr-fr': ['4C35'],
   'fr-ch': ['10NO2-12']
 }
-export default function PuissanceDecimaleOuFractionnaire () {
-  Exercice.call(this)
-  this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = false
-  this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
-  this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
+export default class PuissanceDecimaleOuFractionnaire extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = () => {
+    this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = false
+    this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
+    this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
+  }
+
+  nouvelleVersion () {
     const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions
     const typesDeQuestions = this.sup2 || context.isAmc // Ici on ne prends que les exposants positifs pour ne pas influencer par le format de réponse AMC
       ? ['puissance0', 'puissance1', 'puissancePos', 'puissancePos', 'puissancePos', 'puissancePos']

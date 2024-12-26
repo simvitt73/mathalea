@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -26,20 +26,23 @@ export const refs = {
   'fr-fr': ['5R20-2'],
   'fr-ch': ['9NO9-7']
 }
-export default function ExerciceAdditionsRelatifsATrou (max = 20) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = false // écriture simplifiée
+export default class ExerciceAdditionsRelatifsATrou extends Exercice {
+  constructor (max = 10) {
+    super()
+    this.sup = max
+    this.sup2 = false // écriture simplifiée
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+    this.amcReady = amcReady
+    this.amcType = amcType
 
-  this.amcReady = amcReady
-  this.amcType = amcType
+    this.consigne = 'Compléter :'
+    this.spacing = 0.5
+    this.nbCols = 3
+    this.nbColsCorr = 3
+  }
 
-  this.consigne = 'Compléter :'
-  this.spacing = 0.5
-  this.nbCols = 3
-  this.nbColsCorr = 3
-
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.numeroExercice = numeroExercice
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
@@ -93,6 +96,4 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
 }

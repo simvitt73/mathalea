@@ -7,7 +7,7 @@ import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -24,17 +24,19 @@ export const refs = {
   'fr-fr': ['5G24-1'],
   'fr-ch': ['9ES2-8']
 }
-export default function TrianglesEgaux () {
-  Exercice.call(this)
+export default class TrianglesEgaux extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Compléter les phrases suivantes.'
-  this.nbQuestions = 3
+    this.consigne = 'Compléter les phrases suivantes.'
+    this.nbQuestions = 3
 
-  this.sup = 1 // Niveau de difficulté
+    this.sup = 1 // Niveau de difficulté
 
-  this.spacing = 2
+    this.spacing = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const zoom = context.vue === 'diap' ? 0.5 : 1
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']

@@ -1,6 +1,6 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
@@ -23,23 +23,20 @@ export const refs = {
   'fr-fr': ['4I1'],
   'fr-ch': []
 }
-export default function TracerAvecScratch () {
-  Exercice.call(this)
+export default class TracerAvecScratch extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
+    this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
 
-  this.typeExercice = 'Scratch'
+    this.typeExercice = 'Scratch'
 
-  let typesDeQuestionsDisponibles
-  this.nbQuestions = 3
-  this.debug = false
+    this.nbQuestions = 3
+    this.debug = false
+  }
 
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    } else {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    }
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
     const fenetreMathalea2D = { xmin: -10, ymin: -15, xmax: 60, ymax: 2, pixelsParCm: 10, scale: 0.2 }
     const pixelsParCm = fenetreMathalea2D.pixelsParCm * 5 / 100

@@ -5,7 +5,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
@@ -20,34 +20,31 @@ export const refs = {
   'fr-fr': ['4L15-0'],
   'fr-ch': ['10FA3-8']
 }
-export default function TrouverErreurResolEqDeg1 () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 5
-  } else {
-    this.nbQuestions = 3
-  }
+export default class TrouverErreurResolEqDeg1 extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
-  // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
-  if (!context.isHtml) {
-    this.consigne = this.consigne.replace('<br>', '')
-  }
-
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-  let typeDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
+    this.debug = false
+    this.sup = 1
     if (this.debug) {
-      typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+      this.nbQuestions = 5
     } else {
-      typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
+      this.nbQuestions = 3
     }
+
+    this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
+    // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
+    if (!context.isHtml) {
+      this.consigne = this.consigne.replace('<br>', '')
+    }
+
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+  }
+
+  nouvelleVersion () {
+    const typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
 
     // typesDeQuestionsDisponibles=[1];
 

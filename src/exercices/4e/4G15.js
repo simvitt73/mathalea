@@ -4,7 +4,7 @@ import { nommePolygone, polygone, polygoneAvecNom, renommePolygone } from '../..
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -21,13 +21,16 @@ export const refs = {
   'fr-fr': ['4G15'],
   'fr-ch': ['10ES2-7']
 }
-export default function TransformationsDeTriangle () {
-  Exercice.call(this)
-  this.titre = 'Tranformations de triangle'
-  this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
-  this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
+export default class TransformationsDeTriangle extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.titre = 'Tranformations de triangle'
+    this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
+    this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
+  }
+
+  nouvelleVersion (numeroExercice) {
     const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
     const objetsCorrection = [] // Idem pour la correction
 

@@ -1,7 +1,7 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
 import { objet } from '../6e/6C35'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Partager une quantité en deux ou trois parts selon un ratio donné'
@@ -18,14 +18,18 @@ export const refs = {
   'fr-fr': ['5P12'],
   'fr-ch': ['9NO14-9']
 }
-export default function PartagerSelonUnRatio () {
-  Exercice.call(this)
+export default class PartagerSelonUnRatio extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.sup = 1
-  this.correctionDetailleeDisponible = true
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Partager en deux parts\n2 : Partager en trois parts']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.sup = 1
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, objet1, prenom1, prenom2, prenom3, quantite1, quantite2, quantite3, facteur, total, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objet1 = objet()
       prenom1 = prenomF()
@@ -96,5 +100,4 @@ export default function PartagerSelonUnRatio () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Partager en deux parts\n2 : Partager en trois parts']
 }

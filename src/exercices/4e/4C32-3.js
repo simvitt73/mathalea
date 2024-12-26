@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
@@ -19,13 +19,16 @@ export const refs = {
   'fr-fr': ['4C32-3'],
   'fr-ch': ['10NO2-6']
 }
-export default function ProblemesPuissancesDe10EtConversions () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class ProblemesPuissancesDe10EtConversions extends Exercice {
+  constructor () {
+    super()
 
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['info', 'info2', 'electricite', 'lumiere']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, a1, b, b1, c, c1, u, cpt = 0; i < this.nbQuestions && cpt < 50;) {

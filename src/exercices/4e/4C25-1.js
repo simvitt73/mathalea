@@ -2,7 +2,7 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { prenomF } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { fraction, listeFractions } from '../../modules/fractions'
@@ -22,18 +22,22 @@ export const refs = {
   'fr-fr': ['4C25-1'],
   'fr-ch': ['10NO5-10']
 }
-export default function ProblemesMultiplicatifsFractions () {
-  Exercice.call(this)
-  this.sup = '8'
+export default class ProblemesMultiplicatifsFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union', '1: bouteille (3 fractions)\n2 : examen (3 fractions)\n3 : élections (3 fractions)\n4 : argent (3 fractions)\n5 : jeu tv(4 fractions)\n6 : timbres(4 fractions)\n7 : fleurs(4 fractions)\n8 : mélange']
 
-  this.nbQuestions = 4
+    this.sup = '8'
 
-  this.consigne = 'Justifier vos réponses aux problèmes suivants.'
+    this.nbQuestions = 4
 
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+    this.consigne = 'Justifier vos réponses aux problèmes suivants.'
 
-  this.nouvelleVersion = function () {
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -488,5 +492,4 @@ export default function ProblemesMultiplicatifsFractions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union', '1: bouteille (3 fractions)\n2 : examen (3 fractions)\n3 : élections (3 fractions)\n4 : argent (3 fractions)\n5 : jeu tv(4 fractions)\n6 : timbres(4 fractions)\n7 : fleurs(4 fractions)\n8 : mélange']
 }

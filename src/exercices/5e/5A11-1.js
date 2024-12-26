@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe } from '../../modules/Labyrinthe'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -25,17 +25,25 @@ export const refs = {
   'fr-fr': ['5A11-1'],
   'fr-ch': ['9NO4-11']
 }
-export default function ExerciceLabyrintheDivisibilite1 () {
-  Exercice.call(this)
-  this.niveau = '5e'
-  this.nbQuestions = 5
+export default class ExerciceLabyrintheDivisibilite1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Critères de divisibilité pour chaque question', 'Nombres séparés par des tirets']
+    this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+    this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 
-  this.sup = '2-5-10'
-  this.sup3 = 1
-  this.sup4 = 1
-  this.sup2 = this.niveau === 'CM' ? 3 : 4
+    this.niveau = '5e'
+    this.nbQuestions = 5
+
+    this.sup = '2-5-10'
+    this.sup3 = 1
+    this.sup4 = 1
+    this.sup2 = this.niveau === 'CM' ? 3 : 4
   // this.consigne=`Trouver la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     const tailleChiffre = 0.8
 
     let texte, texteCorr
@@ -89,8 +97,4 @@ export default function ExerciceLabyrintheDivisibilite1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Critères de divisibilité pour chaque question', 'Nombres séparés par des tirets']
-  this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 } // Fin de l'exercice.

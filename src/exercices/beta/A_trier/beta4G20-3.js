@@ -1,28 +1,23 @@
-/* eslint-disable no-unused-vars */
 import { point } from '../../../lib/2d/points'
 import { barycentre, carre, polygone } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythagore'
 
-export default function CalculerValeurManquanteVisuelPythagore () {
-  Exercice.call(this)
+export default class CalculerValeurManquanteVisuelPythagore extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = "Dans chaque cas, calculer la valeur manquante indiquée par un point d'interrogation."
-  this.nbQuestions = 4 // Ici le nombre de questions
+    this.consigne = "Dans chaque cas, calculer la valeur manquante indiquée par un point d'interrogation."
+    this.nbQuestions = 4 // Ici le nombre de questions
+  }
 
-
-
-
-  this.nouvelleVersion = function () {
-
-    
-    
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 

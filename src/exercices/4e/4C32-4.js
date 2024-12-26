@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs, texFactorisation } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
@@ -26,18 +26,22 @@ export const refs = {
   'fr-fr': ['4C32-4'],
   'fr-ch': ['10NO2-7', '11NO1-1']
 }
-export default function CalculsPuissancesDe10 () {
-  Exercice.call(this)
-  this.sup = 1
+export default class CalculsPuissancesDe10 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile']
 
-  this.amcReady = amcReady
-  this.amcType = amcType
+    this.sup = 1
 
-  this.nbQuestions = 5
-  this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+    this.amcReady = amcReady
+    this.amcType = amcType
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
+    this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Donner la notation scientifique.'
 
     const listeFacteurs1 = [2, 3, 5, 7]
@@ -118,6 +122,4 @@ export default function CalculsPuissancesDe10 () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile']
 }

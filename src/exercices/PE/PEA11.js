@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Passer de la base dix à une autre base et inversement'
@@ -21,14 +21,16 @@ export const refs = {
   'fr-fr': ['PEA11'],
   'fr-ch': []
 }
-export default function PasserDUneBaseA1Autre () {
-  Exercice.call(this)
+export default class PasserDUneBaseA1Autre extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
 
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = ['vers_base_10', choice(['vers_base_n_3_chiffres', 'vers_base_n_4_chiffres']), choice(['plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres'])]
     if (this.nbQuestions > 3) {
       typesDeQuestionsDisponibles = ['vers_base_10', 'vers_base_n_3_chiffres', 'vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']

@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -7,20 +7,15 @@ import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../../modules/3d'
 
 export const titre = 'Exo zéroMathalea2d3d'
 
-export default function ExerciceZeroMathalea2d3d () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+export default class ExerciceZeroMathalea2d3d extends Exercice {
+  constructor () {
+    super()
 
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+  }
 
-
-   = false // mettre à true si on ne veut pas de l'exercice en ligne
-
-  this.nouvelleVersion = function () {
-
-    
-    
-
+  nouvelleVersion () {
     const l = randint(5, 10)
     const p = randint(2, 5)
     const h = randint(3, 6)

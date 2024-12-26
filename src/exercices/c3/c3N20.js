@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -24,18 +24,22 @@ export const refs = {
   'fr-fr': ['c3N20'],
   'fr-ch': ['9NO13-3']
 }
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
-  this.consigne = "Donner l'écriture décimale des nombres suivants."
-  this.nbQuestions = 6
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : L\'ordre est respecté\n 2 : L\'ordre des termes est aléatoire']
 
-  this.sup = 2
+    this.consigne = "Donner l'écriture décimale des nombres suivants."
+    this.nbQuestions = 6
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = function () {
+    this.sup = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On créé 3 types de questions
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = ['type1', 'type5']
@@ -91,5 +95,4 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : L\'ordre est respecté\n 2 : L\'ordre des termes est aléatoire']
 }

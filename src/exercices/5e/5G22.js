@@ -12,7 +12,7 @@ import {
 } from '../../lib/2d/triangle'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { Triangle } from '../../modules/Triangle'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -29,15 +29,18 @@ export const refs = {
   'fr-fr': ['5G22'],
   'fr-ch': ['9ES3-9']
 }
-export default function DroiteRemarquableDuTriangle () {
-  Exercice.call(this)
+export default class DroiteRemarquableDuTriangle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
 
-  this.spacing = 2
-  this.nbQuestions = 1
+    this.spacing = 2
+    this.nbQuestions = 1
 
-  this.sup = 1
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const triangles = []
     const sommets = [[]]
     const A = []
@@ -123,5 +126,4 @@ export default function DroiteRemarquableDuTriangle () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
 }

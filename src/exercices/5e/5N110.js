@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,16 +26,19 @@ export const refs = {
   'fr-fr': ['5N110'],
   'fr-ch': ['9NO14-11']
 }
-export default function VariationEnPourcentages () {
-  Exercice.call(this)
-  this.consigne = 'Calculer le nouveau prix.'
-  this.nbQuestions = 5
+export default class VariationEnPourcentages extends Exercice {
+  constructor () {
+    super()
 
-  this.spacingCorr = 2
+    this.consigne = 'Calculer le nouveau prix.'
+    this.nbQuestions = 5
 
-  this.interactifType = 'mathLive'
+    this.spacingCorr = 2
 
-  this.nouvelleVersion = function () {
+    this.interactifType = 'mathLive'
+  }
+
+  nouvelleVersion () {
     let reponse
     for (let i = 0, prix, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       prix = choice([new Decimal(randint(2, 9)),

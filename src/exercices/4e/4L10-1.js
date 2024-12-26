@@ -6,7 +6,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -41,13 +41,16 @@ export const refs = {
   'fr-fr': ['4L10-1'],
   'fr-ch': ['10FA1-15']
 }
-export default function ReductionsPiegesClassiques () {
-  Exercice.call(this)
+export default class ReductionsPiegesClassiques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 
-  this.sup = true
-  this.listeAvecNumerotation = false
+    this.sup = true
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = 'Réduire et simplifier, si possible, '
     this.consigne += this.nbQuestions > 1 ? 'les expressions suivantes.' : 'l\'expression suivante.'
 
@@ -164,5 +167,4 @@ export default function ReductionsPiegesClassiques () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 }

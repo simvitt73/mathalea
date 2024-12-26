@@ -1,7 +1,7 @@
 import { combinaisonListesSansChangerOrdre } from '../../../lib/outils/arrayOutils'
 import { range1 } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import {
   calculANePlusJamaisUtiliser,
   listeQuestionsToContenu,
@@ -21,20 +21,55 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
 
  */
-export default function CourseAuxNombresCM () {
-  Exercice.call(this)
-  if (this.interactif) {
-    this.consigne =
+export default class CourseAuxNombresCM extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des questions ',
+  `Nombres séparés par des tirets\n1 : Somme d'entiers\n
+2 : Différence d'entiers\n
+3 : Somme d'entiers avec retenue\n
+4 : Différence d'entiers avec retenue\n
+5 : Décomposition\n
+6 : Division d'entiers\n
+7 : Somme décimal et entier\n
+8 : Somme de décimaux\n
+9 : Différence de décimaux\n
+10 : Différence décimaux\n
+11 : Addition d'entiers\n
+12 : Soustraction d'entiers\n
+13 : Produit de trois entiers\n
+14 : Produit entier et décimal\n
+15 : division d'entiers\n
+16 : soustraction entier et décimal coût\n
+17 : soustraction entier et décimal coût\n
+18 : triple de décimal\n
+19 : quart de décimal\n
+20 : Périmètre carré\n
+21 : Division entier par 10\n
+22 : Multiplication et addition d'entiers\n
+23 : Soustraction de grands entiers\n
+24 : Suite de nombres\n
+25 : Augmentation décimaux\n
+26 : Soustraction décimaux\n
+27 : Multiplication entier par décimal\n
+28 : Moitié de décimal\n
+29 : Soustraction grands entiers\n
+30 : Quotient d'entiers`
+    ]
+    if (this.interactif) {
+      this.consigne =
       "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
-  } else {
-    this.consigne = ''
+    } else {
+      this.consigne = ''
+    }
+
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   }
 
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let a, b, c, resultat
     let questions = []
     if (!this.sup) {
@@ -191,37 +226,4 @@ export default function CourseAuxNombresCM () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des questions ',
-    `Nombres séparés par des tirets\n1 : Somme d'entiers\n
-  2 : Différence d'entiers\n
-  3 : Somme d'entiers avec retenue\n
-  4 : Différence d'entiers avec retenue\n
-  5 : Décomposition\n
-  6 : Division d'entiers\n
-  7 : Somme décimal et entier\n
-  8 : Somme de décimaux\n
-  9 : Différence de décimaux\n
-  10 : Différence décimaux\n
-  11 : Addition d'entiers\n
-  12 : Soustraction d'entiers\n
-  13 : Produit de trois entiers\n
-  14 : Produit entier et décimal\n
-  15 : division d'entiers\n
-  16 : soustraction entier et décimal coût\n
-  17 : soustraction entier et décimal coût\n
-  18 : triple de décimal\n
-  19 : quart de décimal\n
-  20 : Périmètre carré\n
-  21 : Division entier par 10\n
-  22 : Multiplication et addition d'entiers\n
-  23 : Soustraction de grands entiers\n
-  24 : Suite de nombres\n
-  25 : Augmentation décimaux\n
-  26 : Soustraction décimaux\n
-  27 : Multiplication entier par décimal\n
-  28 : Moitié de décimal\n
-  29 : Soustraction grands entiers\n
-  30 : Quotient d'entiers`
-  ]
 }

@@ -1,7 +1,7 @@
 import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { fraction, listeFractions } from '../../modules/fractions'
@@ -19,17 +19,21 @@ export const refs = {
   'fr-fr': ['4C25-0'],
   'fr-ch': ['9NO15-3']
 }
-export default function ProblemesAdditifsFractionsBis () {
-  Exercice.call(this)
-  this.sup = '6'
+export default class ProblemesAdditifsFractionsBis extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
 
-  this.nbQuestions = 5
-  this.consigne = 'Justifier vos réponses aux problèmes suivants.'
+    this.sup = '6'
 
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+    this.nbQuestions = 5
+    this.consigne = 'Justifier vos réponses aux problèmes suivants.'
 
-  this.nouvelleVersion = function () {
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -542,5 +546,4 @@ export default function ProblemesAdditifsFractionsBis () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
 }

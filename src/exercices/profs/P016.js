@@ -1,6 +1,6 @@
 import { sp } from '../../lib/outils/outilString'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 export const titre = 'Simulateur de Dés'
 
 export const refs = {
@@ -15,15 +15,18 @@ export const dateDePublication = '06/04/2022'
  * @author Jean-Claude Lhote
 
 */
-export default function SimulateurDes () {
-  Exercice.call(this)
+export default class SimulateurDes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Liste des dés séparés par des tirets (de 4 à 20, par défaut 6)']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = '6' // liste de dés
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = '6' // liste de dés
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte
     const liste = gestionnaireFormulaireTexte({ saisie: this.sup, min: 4, max: 100, defaut: 6, shuffle: false, nbQuestions: this.sup.split('-').length })
     texte = 'Vous jetez les dés et vous obtenez : <br><br>'
@@ -42,5 +45,4 @@ export default function SimulateurDes () {
     this.listeCorrections = ['']
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Liste des dés séparés par des tirets (de 4 à 20, par défaut 6)']
 }

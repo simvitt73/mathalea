@@ -4,7 +4,7 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const amcReady = true
@@ -30,18 +30,22 @@ export const refs = {
   'fr-fr': ['4C10-10'],
   'fr-ch': ['10NO4-6']
 }
-export default function ExerciceMultiplicationsRelatifsATrou (max = 10) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = false // écriture simplifiée
+export default class ExerciceMultiplicationsRelatifsATrou extends Exercice {
+  constructor (max = 10) {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+    this.sup = max
+    this.sup2 = false // écriture simplifiée
 
-  this.amcReady = amcReady
-  this.amcType = amcType
+    this.amcReady = amcReady
+    this.amcType = amcType
 
-  this.consigne = 'Compléter :'
-  this.spacing = 2
+    this.consigne = 'Compléter :'
+    this.spacing = 2
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.numeroExercice = numeroExercice
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
@@ -96,6 +100,4 @@ export default function ExerciceMultiplicationsRelatifsATrou (max = 10) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
 }

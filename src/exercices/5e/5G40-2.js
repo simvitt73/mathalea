@@ -6,7 +6,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -29,15 +29,18 @@ export const refs = {
   'fr-fr': ['5G40-2'],
   'fr-ch': ['9ES2-2']
 }
-export default function ParallelogrammeAPartirDUneFigure () {
-  Exercice.call(this)
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+export default class ParallelogrammeAPartirDUneFigure extends Exercice {
+  constructor () {
+    super()
 
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
-  this.nbQuestions = 4
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Pour la figure suivante, tracée '
       : 'Pour chacune des figures suivantes, tracées '

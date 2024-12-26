@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero } from '../../modules/outils'
 
@@ -18,16 +18,19 @@ export const uuid = 'ad5f5'
  * publié le ?/2/2020
  * Réécrit le 14/08/2021 avec mathalea2d
  */
-export default function FeuilleDAxesGradues () {
-  Exercice.call(this)
+export default class FeuilleDAxesGradues extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Nombres de parts', '1: unité\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n6: sixièmes\n7: septièmes\n8: huitièmes\n9: neuvièmes\n10: dixièmes\n11: mélange']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.spacing = 3
-  this.sup = 10
-  this.nbQuestions = 4
+    this.spacing = 3
+    this.sup = 10
+    this.nbQuestions = 4
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const pas = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, defaut: 10, melange: 11, nbQuestions: this.nbQuestions, shuffle: false })
 
     for (let i = 0, texte; i < this.nbQuestions; i++) {
@@ -47,5 +50,4 @@ export default function FeuilleDAxesGradues () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireTexte = ['Nombres de parts', '1: unité\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n6: sixièmes\n7: septièmes\n8: huitièmes\n9: neuvièmes\n10: dixièmes\n11: mélange']
 }

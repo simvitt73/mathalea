@@ -5,7 +5,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -29,17 +29,21 @@ export const refs = {
   'fr-fr': ['5R11'],
   'fr-ch': ['9NO9-1']
 }
-export default function LireAbscisseRelative () {
-  Exercice.call(this)
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
-  this.nbQuestions = 3
+const changeCoord = function (x, abs0, pas1) {
+  return (abs0 + (x - abs0) * 3 * pas1)
+}
+export default class LireAbscisseRelative extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
 
-  this.sup = 4
-  const changeCoord = function (x, abs0, pas1) {
-    return (abs0 + (x - abs0) * 3 * pas1)
+    this.consigne = "Lire l'abscisse de chacun des points suivants."
+    this.nbQuestions = 3
+
+    this.sup = 4
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestions
 
     let objets = []
@@ -198,5 +202,4 @@ export default function LireAbscisseRelative () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
 }

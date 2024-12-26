@@ -10,7 +10,7 @@ import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/
 import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
 import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -38,154 +38,160 @@ export const refs = {
   'fr-fr': ['4G12'],
   'fr-ch': ['9ES6-23', '10ES2-5']
 }
-export default function SerieDeTransformations () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  const A = point(0, 0)
-  let typeDeTransfos
-  this.sup = 4
-  this.sup2 = 6
-  this.sup3 = false
-  const motifs = [
-    polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
-    polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
-    polygone([point(2, 1), point(3, 1), point(3, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 4), point(1, 4), point(1, 3), point(2, 3)]),
-    polygone([point(1, 1), point(4, 1), point(4, 2), point(5, 2), point(5, 4), point(4, 4), point(4, 5), point(3, 5), point(3, 6), point(2, 6), point(2, 2), point(1, 2)]),
-    polygone([point(2, 1), point(5, 1), point(5, 3), point(6, 3), point(6, 4), point(4, 4), point(4, 3), point(3, 3), point(3, 5), point(5, 5), point(5, 6), point(2, 6)]),
-    polygone([point(1, 1), point(5, 1), point(5, 2), point(2, 2), point(2, 3), point(3, 3), point(3, 4), point(2, 4), point(2, 5), point(4, 5), point(4, 6), point(1, 6)]),
-    polygone([point(2, 6), point(2, 1), point(5, 1), point(5, 2), point(3, 2), point(3, 6)]),
-    polygone([point(2, 6), point(5, 6), point(5, 5), point(4, 5), point(4, 1), point(1, 1), point(1, 2), point(3, 2), point(3, 5), point(2, 5)]),
-    polygone([point(2, 1), point(3, 1), point(6, 1), point(6, 2), point(3, 2), point(3, 3), point(5, 3), point(5, 5), point(3, 5), point(3, 6), point(2, 6)]),
-    polygone([point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 6), point(2, 6)]),
-    polygone([point(2, 1), point(2, 6), point(5, 6), point(5, 3), point(3, 3), point(5, 1), point(4, 1), point(3, 2), point(3, 1)]),
-    polygone([point(2, 1), point(6, 1), point(6, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 3), point(5, 3), point(5, 2), point(2, 2)]),
-    polygone([point(2, 1), point(4, 1), point(5, 2), point(5, 1), point(6, 1), point(6, 6), point(5, 6), point(5, 3), point(4, 2), point(3, 2), point(3, 6), point(2, 6)]),
-    polygone([point(1, 6), point(2, 6), point(4, 3), point(5, 5), point(6, 5), point(4, 1), point(3, 1)]),
-    polygone([point(2, 6), point(3, 6), point(4, 4), point(5, 6), point(6, 6), point(3, 1), point(2, 1), point(3, 3)]),
-    polygone([point(1, 1), point(6, 1), point(6, 2), point(3, 5), point(5, 5), point(5, 6), point(1, 6), point(5, 2), point(1, 2)]),
-    polygone([point(3, 6), point(3, 5), point(2, 5), point(2, 4), point(3, 4), point(3, 3), point(1, 3), point(1, 2), point(3, 2), point(3, 1), point(4, 1), point(4, 2), point(5, 2), point(5, 3), point(4, 3), point(4, 4), point(6, 4), point(6, 5), point(4, 5), point(4, 6)]),
-    polygone([point(2, 1), point(3, 3), point(2, 3), point(2, 4), point(6, 4), point(6, 3), point(5, 3), point(5, 1), point(4, 1), point(4, 3), point(3, 1)]),
-    polygone([point(2, 2), point(3, 3), point(3, 2), point(4, 3), point(4, 2), point(5, 3), point(5, 2), point(6, 3), point(6, 5), point(2, 5)]),
-    polygone([point(1, 1), point(3, 1), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 2), point(1, 2)]),
-    polygone([point(1, 1), point(6, 1), point(6, 2), point(4, 2), point(4, 4), point(5, 4), point(5, 5), point(1, 5), point(1, 4), point(3, 4), point(3, 2), point(1, 2)]),
-    polygone([point(2, 1), point(2, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1), point(5, 1), point(5, 2), point(4, 2), point(4, 1)]),
-    polygone([point(2, 6), point(2, 4), point(1, 4), point(1, 2), point(2, 2), point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 4), point(4, 4), point(4, 5), point(3, 5), point(3, 6)]),
-    polygone([point(1, 3), point(1, 1), point(3, 1), point(3, 2), point(6, 2), point(6, 5), point(3, 5), point(3, 3)]),
-    polygone([point(2, 1), point(2, 2), point(1, 2), point(1, 4), point(2, 4), point(2, 3), point(3, 3), point(3, 2), point(4, 2), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1)]),
-    polygone([point(3, 1), point(3, 2), point(1, 2), point(1, 3), point(2, 3), point(2, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 4), point(6, 4), point(6, 3), point(5, 3), point(5, 2), point(4, 2), point(4, 1)])
-  ]
-  const noeuds = []
-  const maGrille = []
-  const labels = []
-  maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
-  for (let i = 0; i < 6; i++) {
-    maGrille.push(segment(i * 3.2, 0, i * 3.2, 16))
-    maGrille.push(segment(0, i * 3.2, 16, i * 3.2))
-    for (let j = 0; j < 6; j++) {
-      labels[i * 6 + j] = i * 6 + j < 26 ? lettreDepuisChiffre(i * 6 + j + 1) : lettreDepuisChiffre((i * 6 + j) % 26 + 1) + "'"
-      noeuds[i * 6 + j] = point(i * 3.2, j * 3.2, labels[i * 6 + j], 'above right')
-      maGrille.push(tracePoint(noeuds[i * 6 + j]))
-    }
+this.nbQuestions = 1
+const A = point(0, 0)
+let typeDeTransfos
+
+const motifs = [
+  polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
+  polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
+  polygone([point(2, 1), point(3, 1), point(3, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 4), point(1, 4), point(1, 3), point(2, 3)]),
+  polygone([point(1, 1), point(4, 1), point(4, 2), point(5, 2), point(5, 4), point(4, 4), point(4, 5), point(3, 5), point(3, 6), point(2, 6), point(2, 2), point(1, 2)]),
+  polygone([point(2, 1), point(5, 1), point(5, 3), point(6, 3), point(6, 4), point(4, 4), point(4, 3), point(3, 3), point(3, 5), point(5, 5), point(5, 6), point(2, 6)]),
+  polygone([point(1, 1), point(5, 1), point(5, 2), point(2, 2), point(2, 3), point(3, 3), point(3, 4), point(2, 4), point(2, 5), point(4, 5), point(4, 6), point(1, 6)]),
+  polygone([point(2, 6), point(2, 1), point(5, 1), point(5, 2), point(3, 2), point(3, 6)]),
+  polygone([point(2, 6), point(5, 6), point(5, 5), point(4, 5), point(4, 1), point(1, 1), point(1, 2), point(3, 2), point(3, 5), point(2, 5)]),
+  polygone([point(2, 1), point(3, 1), point(6, 1), point(6, 2), point(3, 2), point(3, 3), point(5, 3), point(5, 5), point(3, 5), point(3, 6), point(2, 6)]),
+  polygone([point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 6), point(2, 6)]),
+  polygone([point(2, 1), point(2, 6), point(5, 6), point(5, 3), point(3, 3), point(5, 1), point(4, 1), point(3, 2), point(3, 1)]),
+  polygone([point(2, 1), point(6, 1), point(6, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 3), point(5, 3), point(5, 2), point(2, 2)]),
+  polygone([point(2, 1), point(4, 1), point(5, 2), point(5, 1), point(6, 1), point(6, 6), point(5, 6), point(5, 3), point(4, 2), point(3, 2), point(3, 6), point(2, 6)]),
+  polygone([point(1, 6), point(2, 6), point(4, 3), point(5, 5), point(6, 5), point(4, 1), point(3, 1)]),
+  polygone([point(2, 6), point(3, 6), point(4, 4), point(5, 6), point(6, 6), point(3, 1), point(2, 1), point(3, 3)]),
+  polygone([point(1, 1), point(6, 1), point(6, 2), point(3, 5), point(5, 5), point(5, 6), point(1, 6), point(5, 2), point(1, 2)]),
+  polygone([point(3, 6), point(3, 5), point(2, 5), point(2, 4), point(3, 4), point(3, 3), point(1, 3), point(1, 2), point(3, 2), point(3, 1), point(4, 1), point(4, 2), point(5, 2), point(5, 3), point(4, 3), point(4, 4), point(6, 4), point(6, 5), point(4, 5), point(4, 6)]),
+  polygone([point(2, 1), point(3, 3), point(2, 3), point(2, 4), point(6, 4), point(6, 3), point(5, 3), point(5, 1), point(4, 1), point(4, 3), point(3, 1)]),
+  polygone([point(2, 2), point(3, 3), point(3, 2), point(4, 3), point(4, 2), point(5, 3), point(5, 2), point(6, 3), point(6, 5), point(2, 5)]),
+  polygone([point(1, 1), point(3, 1), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 2), point(1, 2)]),
+  polygone([point(1, 1), point(6, 1), point(6, 2), point(4, 2), point(4, 4), point(5, 4), point(5, 5), point(1, 5), point(1, 4), point(3, 4), point(3, 2), point(1, 2)]),
+  polygone([point(2, 1), point(2, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1), point(5, 1), point(5, 2), point(4, 2), point(4, 1)]),
+  polygone([point(2, 6), point(2, 4), point(1, 4), point(1, 2), point(2, 2), point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 4), point(4, 4), point(4, 5), point(3, 5), point(3, 6)]),
+  polygone([point(1, 3), point(1, 1), point(3, 1), point(3, 2), point(6, 2), point(6, 5), point(3, 5), point(3, 3)]),
+  polygone([point(2, 1), point(2, 2), point(1, 2), point(1, 4), point(2, 4), point(2, 3), point(3, 3), point(3, 2), point(4, 2), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1)]),
+  polygone([point(3, 1), point(3, 2), point(1, 2), point(1, 3), point(2, 3), point(2, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 4), point(6, 4), point(6, 3), point(5, 3), point(5, 2), point(4, 2), point(4, 1)])
+]
+const noeuds = []
+const maGrille = []
+const labels = []
+maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
+for (let i = 0; i < 6; i++) {
+  maGrille.push(segment(i * 3.2, 0, i * 3.2, 16))
+  maGrille.push(segment(0, i * 3.2, 16, i * 3.2))
+  for (let j = 0; j < 6; j++) {
+    labels[i * 6 + j] = i * 6 + j < 26 ? lettreDepuisChiffre(i * 6 + j + 1) : lettreDepuisChiffre((i * 6 + j) % 26 + 1) + "'"
+    noeuds[i * 6 + j] = point(i * 3.2, j * 3.2, labels[i * 6 + j], 'above right')
+    maGrille.push(tracePoint(noeuds[i * 6 + j]))
+  }
+}
+
+function transfoPoly (pol, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }) {
+  switch (type) { // type est l'une des chaines suivantes 'symax', 'trans', 'rot90', 'rot180'
+    case 'symax':
+      return symetrieAxiale(pol, axe)
+    case 'trans':
+      return translation(pol, vecteur)
+    case 'rot90':
+      return rotation(pol, centre, sens ? angle : -angle)
+    case 'rot180':
+      return rotation(pol, centre, 180)
+    default:
+      return pol
+  }
+}
+
+function definitElements (type, depart, arrivee, leSens = true, num = 0) {
+  let texte, texteCorr, texteInteractif, axeSymetrie, nomDroite, nomCentreRotation, centreRotation,
+    centreSymetrie, nomSegment
+  const sensProgression = (arrivee - depart === 6) ? 'Est' : (arrivee - depart === -6) ? 'Ouest' : (arrivee - depart === 1) ? 'Nord' : 'Sud'
+  switch (type) {
+    case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
+      switch (sensProgression) {
+        case 'Est' :
+          axeSymetrie = droite(noeuds[arrivee], noeuds[arrivee + 1])
+          nomDroite = '(' + noeuds[arrivee].nom + noeuds[arrivee + 1].nom + ')'
+          break
+        case 'Ouest' :
+          axeSymetrie = droite(noeuds[depart], noeuds[depart + 1])
+          nomDroite = '(' + noeuds[depart].nom + noeuds[depart + 1].nom + ')'
+          break
+        case 'Nord' :
+          axeSymetrie = droite(noeuds[arrivee], noeuds[arrivee + 6])
+          nomDroite = '(' + noeuds[arrivee].nom + noeuds[arrivee + 6].nom + ')'
+          break
+        case 'Sud' :
+          axeSymetrie = droite(noeuds[depart], noeuds[depart + 6])
+          nomDroite = '(' + noeuds[depart].nom + noeuds[depart + 6].nom + ')'
+          break
+      }
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie d'axe $${nomDroite}$.`
+      texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie d'axe (${sp(1)}\\ldots${sp(1)})`
+      texteInteractif = "Une symétrie axiale dont l'axe passe par deux points du quadrillage."
+      return { texte, texteCorr, texteInteractif, type, axe: axeSymetrie }
+    case 'trans': // facile pour la translation : depart->arrivee
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
+      texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la translation transformant${sp(1)}\\ldots${sp(1)}en${sp(1)}\\ldots${sp(1)}`
+      texteInteractif = 'Une translation définie par deux points du quadrillage.'
+      return { texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+    case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
+      switch (sensProgression) {
+        case 'Est' :
+          centreRotation = leSens ? noeuds[arrivee + 1] : noeuds[arrivee]
+          nomCentreRotation = leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom
+          break
+        case 'Ouest' :
+          centreRotation = leSens ? noeuds[depart] : noeuds[depart + 1]
+          nomCentreRotation = leSens ? noeuds[depart].nom : noeuds[depart + 1].nom
+          break
+        case 'Nord' :
+          centreRotation = leSens ? noeuds[arrivee] : noeuds[arrivee + 6]
+          nomCentreRotation = leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom
+          break
+        case 'Sud' :
+          centreRotation = leSens ? noeuds[depart + 6] : noeuds[depart]
+          nomCentreRotation = leSens ? noeuds[depart + 6].nom : noeuds[depart].nom
+          break
+      }
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90^\\circ$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
+      texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90^\\circ$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
+      texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
+      return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens }
+    case 'rot180': // pas besoin du sens, mais le milieu choisi dépend de depart et arrivee
+      switch (sensProgression) {
+        case 'Est' :
+          centreSymetrie = milieu(noeuds[arrivee], noeuds[arrivee + 1])
+          nomSegment = '[' + noeuds[arrivee + 1].nom + noeuds[arrivee].nom + ']'
+          break
+        case 'Ouest' :
+          centreSymetrie = milieu(noeuds[depart], noeuds[depart + 1])
+          nomSegment = '[' + noeuds[depart + 1].nom + noeuds[depart].nom + ']'
+          break
+        case 'Nord' :
+          centreSymetrie = milieu(noeuds[arrivee], noeuds[arrivee + 6])
+          nomSegment = '[' + noeuds[arrivee + 6].nom + noeuds[arrivee].nom + ']'
+          break
+        case 'Sud' :
+          centreSymetrie = milieu(noeuds[depart], noeuds[depart + 6])
+          nomSegment = '[' + noeuds[depart + 6].nom + noeuds[depart].nom + ']'
+          break
+      }
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie dont le centre est le milieu de $${nomSegment}$.`
+      texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie dont le centre est le milieu de $[$${sp(1)}\\ldots${sp(1)}$]$`
+      texteInteractif = "Une symétrie centrale dont le centre est un milieu d'un côté de case."
+      return { texte, texteCorr, texteInteractif, type, centre: centreSymetrie }
+  }
+}
+export default class SerieDeTransformations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
+    this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 6, '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16']
+    this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
+    this.sup = 4
+    this.sup2 = 6
+    this.sup3 = false
   }
 
-  function transfoPoly (pol, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }) {
-    switch (type) { // type est l'une des chaines suivantes 'symax', 'trans', 'rot90', 'rot180'
-      case 'symax':
-        return symetrieAxiale(pol, axe)
-      case 'trans':
-        return translation(pol, vecteur)
-      case 'rot90':
-        return rotation(pol, centre, sens ? angle : -angle)
-      case 'rot180':
-        return rotation(pol, centre, 180)
-      default:
-        return pol
-    }
-  }
-
-  function definitElements (type, depart, arrivee, leSens = true, num = 0) {
-    let texte, texteCorr, texteInteractif, axeSymetrie, nomDroite, nomCentreRotation, centreRotation,
-      centreSymetrie, nomSegment
-    const sensProgression = (arrivee - depart === 6) ? 'Est' : (arrivee - depart === -6) ? 'Ouest' : (arrivee - depart === 1) ? 'Nord' : 'Sud'
-    switch (type) {
-      case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
-        switch (sensProgression) {
-          case 'Est' :
-            axeSymetrie = droite(noeuds[arrivee], noeuds[arrivee + 1])
-            nomDroite = '(' + noeuds[arrivee].nom + noeuds[arrivee + 1].nom + ')'
-            break
-          case 'Ouest' :
-            axeSymetrie = droite(noeuds[depart], noeuds[depart + 1])
-            nomDroite = '(' + noeuds[depart].nom + noeuds[depart + 1].nom + ')'
-            break
-          case 'Nord' :
-            axeSymetrie = droite(noeuds[arrivee], noeuds[arrivee + 6])
-            nomDroite = '(' + noeuds[arrivee].nom + noeuds[arrivee + 6].nom + ')'
-            break
-          case 'Sud' :
-            axeSymetrie = droite(noeuds[depart], noeuds[depart + 6])
-            nomDroite = '(' + noeuds[depart].nom + noeuds[depart + 6].nom + ')'
-            break
-        }
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie d'axe $${nomDroite}$.`
-        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie d'axe (${sp(1)}\\ldots${sp(1)})`
-        texteInteractif = "Une symétrie axiale dont l'axe passe par deux points du quadrillage."
-        return { texte, texteCorr, texteInteractif, type, axe: axeSymetrie }
-      case 'trans': // facile pour la translation : depart->arrivee
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
-        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la translation transformant${sp(1)}\\ldots${sp(1)}en${sp(1)}\\ldots${sp(1)}`
-        texteInteractif = 'Une translation définie par deux points du quadrillage.'
-        return { texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
-      case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-        switch (sensProgression) {
-          case 'Est' :
-            centreRotation = leSens ? noeuds[arrivee + 1] : noeuds[arrivee]
-            nomCentreRotation = leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom
-            break
-          case 'Ouest' :
-            centreRotation = leSens ? noeuds[depart] : noeuds[depart + 1]
-            nomCentreRotation = leSens ? noeuds[depart].nom : noeuds[depart + 1].nom
-            break
-          case 'Nord' :
-            centreRotation = leSens ? noeuds[arrivee] : noeuds[arrivee + 6]
-            nomCentreRotation = leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom
-            break
-          case 'Sud' :
-            centreRotation = leSens ? noeuds[depart + 6] : noeuds[depart]
-            nomCentreRotation = leSens ? noeuds[depart + 6].nom : noeuds[depart].nom
-            break
-        }
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90^\\circ$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90^\\circ$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
-        texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
-        return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens }
-      case 'rot180': // pas besoin du sens, mais le milieu choisi dépend de depart et arrivee
-        switch (sensProgression) {
-          case 'Est' :
-            centreSymetrie = milieu(noeuds[arrivee], noeuds[arrivee + 1])
-            nomSegment = '[' + noeuds[arrivee + 1].nom + noeuds[arrivee].nom + ']'
-            break
-          case 'Ouest' :
-            centreSymetrie = milieu(noeuds[depart], noeuds[depart + 1])
-            nomSegment = '[' + noeuds[depart + 1].nom + noeuds[depart].nom + ']'
-            break
-          case 'Nord' :
-            centreSymetrie = milieu(noeuds[arrivee], noeuds[arrivee + 6])
-            nomSegment = '[' + noeuds[arrivee + 6].nom + noeuds[arrivee].nom + ']'
-            break
-          case 'Sud' :
-            centreSymetrie = milieu(noeuds[depart], noeuds[depart + 6])
-            nomSegment = '[' + noeuds[depart + 6].nom + noeuds[depart].nom + ']'
-            break
-        }
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie dont le centre est le milieu de $${nomSegment}$.`
-        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie dont le centre est le milieu de $[$${sp(1)}\\ldots${sp(1)}$]$`
-        texteInteractif = "Une symétrie centrale dont le centre est un milieu d'un côté de case."
-        return { texte, texteCorr, texteInteractif, type, centre: centreSymetrie }
-    }
-  }
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.version === 1) { // On bride this.sup à 1 pour les 6èmes
       this.sup = 1
     } else if (this.version === 2) {
@@ -427,7 +433,4 @@ export default function SerieDeTransformations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
-  this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 6, '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16']
-  this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
 }

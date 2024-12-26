@@ -1,6 +1,6 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -25,14 +25,18 @@ export const refs = {
   'fr-fr': ['5L12-1'],
   'fr-ch': ['10FA1-14']
 }
-export default function ReduireDinstinctionSommeProduit () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class ReduireDinstinctionSommeProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Avec des mots\n2 : Avec des signes\n3 : Mélange']
 
-  let typesDeQuestionsDisponibles
-  this.sup = 3
-  this.nouvelleVersion = function () {
-    typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
+    this.nbQuestions = 2
+
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     const variables = ['x', 'y', 'z', 'a', 'b', 'c']
@@ -117,5 +121,4 @@ export default function ReduireDinstinctionSommeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Avec des mots\n2 : Avec des signes\n3 : Mélange']
 }

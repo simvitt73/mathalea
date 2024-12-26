@@ -1,5 +1,5 @@
 import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 export const dateDePublication = '30/10/2021'
 export const titre = 'Division de polynômes'
@@ -15,19 +15,22 @@ export const refs = {
   'fr-fr': ['HPC100'],
   'fr-ch': []
 }
-export default function DivisionDePolynomes () {
-  Exercice.call(this)
-  this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
+export default class DivisionDePolynomes extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 2
+    this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
 
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 2
 
-  this.typeExercice = 'xcas'
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = function () {
+    this.typeExercice = 'xcas'
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)

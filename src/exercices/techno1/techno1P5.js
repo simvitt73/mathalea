@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Déterminer un effectif à partir d\'une proportion'
 export const interactifReady = true
@@ -19,13 +19,17 @@ export const refs = {
   'fr-fr': ['techno1P5'],
   'fr-ch': []
 }
-export default function Effectif () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.formatChampTexte = ''
-  this.optionsChampTexte = { texteApres: ' €' }
-  this.nouvelleVersion = function () {
+export default class Effectif extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+    this.formatChampTexte = ''
+    this.optionsChampTexte = { texteApres: ' €' }
+  }
+
+  nouvelleVersion () {
     let a, b, c
     switch (choice(['association', 'lycée', 'election'])) {
       case 'association':

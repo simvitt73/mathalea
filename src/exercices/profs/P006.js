@@ -3,7 +3,7 @@ import { droiteGraduee } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, troncature } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser } from '../../modules/outils'
@@ -20,16 +20,21 @@ export const uuid = 'bd5f7'
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
  * @author Jean-Claude Lhote
  */
-export default function NombreAPlacer () {
-  Exercice.call(this)
+export default class NombreAPlacer extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
+    this.besoinFormulaire2Numerique = ['Saisir le nombre du millièmes du nombre décimal ', 99999]
+    this.besoinFormulaire3CaseACocher = ['Afficher les abscisses']
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.sup = 1
-  this.sup2 = 2573
-  this.sup3 = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 1
+    this.sup2 = 2573
+    this.sup3 = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0
@@ -151,7 +156,4 @@ export default function NombreAPlacer () {
     }
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
-  this.besoinFormulaire2Numerique = ['Saisir le nombre du millièmes du nombre décimal ', 99999]
-  this.besoinFormulaire3CaseACocher = ['Afficher les abscisses']
 }

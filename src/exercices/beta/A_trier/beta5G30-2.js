@@ -5,7 +5,7 @@ import { point } from '../../../lib/2d/points'
 import { vecteur } from '../../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, translation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu } from '../../../modules/outils'
@@ -14,7 +14,12 @@ import { aleaVariables } from '../../../modules/outilsMathjs.ts'
 export const titre = 'Angles et parallèles'
 // eslint-disable-next-line no-debugger
 debugger
-
+const formulaire = [
+  '0 : Mélange des types de questions',
+  '1 : Angle alterne-interne ou correspondant ?',
+  '2 : Déterminer si des droites sont parallèles.',
+  '3 : Calculer la mesure d\'un angle.'
+]
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '08/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '08/01/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -47,27 +52,25 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * @author Frédéric PIOU
 
 */
-export default function ExercicesAnglesAIC () {
-  Exercice.call(this)
-  const formulaire = [
-    '0 : Mélange des types de questions',
-    '1 : Angle alterne-interne ou correspondant ?',
-    '2 : Déterminer si des droites sont parallèles.',
-    '3 : Calculer la mesure d\'un angle.'
-  ]
-  this.nbQuestions = 0
-  this.besoinFormulaireNumerique = [
-    'Type de questions', this.nbQuestions, formulaire.join('\n')
-  ]
+export default class ExercicesAnglesAIC extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 0
-  this.nbColsCorr = 0
-  this.tailleDiaporama = 1
+    this.nbQuestions = 0
+    this.besoinFormulaireNumerique = [
+      'Type de questions', this.nbQuestions, formulaire.join('\n')
+    ]
 
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 0 // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, dDebug = false) {
+    this.nbCols = 0
+    this.nbColsCorr = 0
+    this.tailleDiaporama = 1
+
+    context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
+    this.sup = 0 // Type d'exercice
+  }
+
+  nouvelleVersion () {
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
 
     let nquestion = 0

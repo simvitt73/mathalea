@@ -1,7 +1,7 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -30,19 +30,31 @@ export const refs = {
   'fr-fr': ['5A10'],
   'fr-ch': ['9NO4-6']
 }
-export default function ListeDesDiviseurs5e () {
-  Exercice.call(this)
+export default class ListeDesDiviseurs5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
+    this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
+    this.besoinFormulaire4Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Avec aide (tableau)',
+        '2 : Sans Aide (tableau)',
+        '3 : Mélange'
+      ].join('\n')
+    ]
 
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 3
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 3
 
-  this.sup = 2
-  this.sup2 = 6
-  this.sup3 = 10
-  this.sup4 = 3
+    this.sup = 2
+    this.sup2 = 6
+    this.sup3 = 10
+    this.sup4 = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestions
 
     this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
@@ -211,16 +223,6 @@ export default function ListeDesDiviseurs5e () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
-  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
-  this.besoinFormulaire4Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Avec aide (tableau)',
-      '2 : Sans Aide (tableau)',
-      '3 : Mélange'
-    ].join('\n')
-  ]
 }
 
 /**

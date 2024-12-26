@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -24,16 +24,19 @@ export const refs = {
   'fr-fr': ['4C10'],
   'fr-ch': ['10NO4-1']
 }
-export default function ProduitsEtQuotientRelatifs () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.sup = 1
-  this.sup2 = 1
+export default class ProduitsEtQuotientRelatifs extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
+    this.consigne = 'Calculer.'
+    this.sup = 1
+    this.sup2 = 1
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
+  }
+
+  nouvelleVersion () {
     this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.sup2 = contraindreValeur(1, 4, this.sup2, 1)
     const typesDeQuestions = []

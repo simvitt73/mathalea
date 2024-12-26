@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
@@ -16,15 +16,21 @@ export const refs = {
   'fr-fr': ['5L14-4'],
   'fr-ch': ['11FA5-2']
 }
-export default function DeterminerDerniereOperationExpressionLitterale () {
-  Exercice.call(this)
-  this.debug = false
-  this.nbQuestions = 4
+export default class DeterminerDerniereOperationExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Signe × explicite', true]
+    this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
+    this.besoinFormulaire3Texte = ['Nombre d\'opérations', 'Nombres séparés par des tirets\n1 : 1 opération\n2 : 2 opérations\n3 : 3 opérations\n4 : 4 opérations\n5 : Entre 2 et 5 opérations']
 
-  this.sup3 = 5
-  this.consigne = 'Déterminer la dernière opération à effectuer s\'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.'
+    this.debug = false
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
+    this.sup3 = 5
+    this.consigne = 'Déterminer la dernière opération à effectuer s\'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.'
+  }
+
+  nouvelleVersion () {
     /*
     let typesDeQuestionsDisponibles = []
     if (!this.sup3 || this.sup3 === 'NaN') { // Si aucune liste n'est saisie
@@ -92,7 +98,4 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Signe × explicite', true]
-  this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
-  this.besoinFormulaire3Texte = ['Nombre d\'opérations', 'Nombres séparés par des tirets\n1 : 1 opération\n2 : 2 opérations\n3 : 3 opérations\n4 : 4 opérations\n5 : Entre 2 et 5 opérations']
 }

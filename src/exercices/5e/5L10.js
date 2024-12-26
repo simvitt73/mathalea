@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -30,15 +30,40 @@ export const refs = {
   'fr-fr': ['5L10'],
   'fr-ch': ['9FA2-3', '10FA1-4']
 }
-export default function ÉcrireUneExpressionLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class ÉcrireUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Texte = ['Type de questions', [
+      'Nombres séparés par des tirets',
+      ' 1 : Double',
+      ' 2 : Triple',
+      ' 3 : Moitié',
+      ' 4 : Quart',
+      ' 5 : Entier suivant',
+      ' 6 : Entier précédent',
+      ' 7 : Carré',
+      ' 8 : Cube',
+      ' 9 : Opposé',
+      '10 : Inverse',
+      '11 : Somme de deux nombres',
+      '12 : Produit de deux nombres V1',
+      '13 : Produit de deux nombres V2',
+      '14 : Quotient de deux nombres V1',
+      '15 : Quotient de deux nombres V2',
+      '16 : Nombre pair',
+      '17 : Nombre impair',
+      '18 : Multiple',
+      '19 : Mélange'
+    ].join('\n')
+    ]
+    this.nbQuestions = 4
 
-  this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
-  this.sup = true
-  this.sup2 = 19
+    this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
+    this.sup = true
+    this.sup2 = 19
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 18,
       defaut: 19,
@@ -718,27 +743,4 @@ export default function ÉcrireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Texte = ['Type de questions', [
-    'Nombres séparés par des tirets',
-    ' 1 : Double',
-    ' 2 : Triple',
-    ' 3 : Moitié',
-    ' 4 : Quart',
-    ' 5 : Entier suivant',
-    ' 6 : Entier précédent',
-    ' 7 : Carré',
-    ' 8 : Cube',
-    ' 9 : Opposé',
-    '10 : Inverse',
-    '11 : Somme de deux nombres',
-    '12 : Produit de deux nombres V1',
-    '13 : Produit de deux nombres V2',
-    '14 : Quotient de deux nombres V1',
-    '15 : Quotient de deux nombres V2',
-    '16 : Nombre pair',
-    '17 : Nombre impair',
-    '18 : Multiple',
-    '19 : Mélange'
-  ].join('\n')
-  ]
 }

@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texPrix } from '../../lib/format/style'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 
@@ -57,67 +57,59 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = $
  * * modification le 27/11/2020 ajout de la modulation de la demande
  * @author Sébastien Lozano
  */
-export default function TableauxEtPourcentages () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1 // nature du coefficient entre les pourcentages, entier/decimal
-  this.sup2 = 1 // nombre de colonnes
-  if (this.debug) {
-    this.nbQuestions = 1
-  } else {
-    this.nbQuestions = 1
-  }
-  if (this.exo === '5N11-1') { // prix constant
-    this.titre = 'Tableaux et pourcentages - prix constant'
-    this.consigne = 'Compléter le tableau suivant. Le prix est fixe.'
-  } else if (this.exo === '5N11-2') { // pourcentage constant
-    this.titre = 'Tableaux et pourcentages - pourcentage constant'
-    this.consigne = 'Compléter le tableau suivant. Le pourcentage est fixe.'
-  } else {
-    this.titre = 'Tableaux et pourcentages'
-    this.consigne = 'Compléter le tableau suivant.'
-  }
-
-  this.nbQuestionsModifiable = false
-  // context.isHtml? this.spacing = 3 : this.spacing = 2;
-  // context.isHtml? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
-  this.correctionDetailleeDisponible = true
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
+export default class TableauxEtPourcentages extends Exercice {
+  constructor () {
+    super()
+    if (this.exo === '5N11-1') { // prix constant
+      this.besoinFormulaireNumerique = ['Le coefficient entre les pourcentages', 2, '1 : est entier.\n2 : est décimal.']
+      this.besoinFormulaire3CaseACocher = ['Modulation de ce qui est demandé']
+      this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir (fixé à 3 lorsque la case ci-dessous est cochée)', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
+    }
+    if (this.exo === '5N11-2') { // pourcentage
+      this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
+    }
+    this.debug = false
+    this.sup = 1 // nature du coefficient entre les pourcentages, entier/decimal
+    this.sup2 = 1 // nombre de colonnes
     if (this.debug) {
-      if (this.sup2 === 1) {
-        typesDeQuestionsDisponibles = [0]
-      }
-      if (this.sup2 === 2) {
-        typesDeQuestionsDisponibles = [1]
-      }
-      if (this.sup2 === 3) {
-        typesDeQuestionsDisponibles = [2]
-      }
-      if (this.sup2 === 4) {
-        typesDeQuestionsDisponibles = [3]
-      }
-      if (this.sup3) {
-        typesDeQuestionsDisponibles = [4]
-      }
+      this.nbQuestions = 1
     } else {
-      if (this.sup2 === 1) {
-        typesDeQuestionsDisponibles = [0]
-      }
-      if (this.sup2 === 2) {
-        typesDeQuestionsDisponibles = [1]
-      }
-      if (this.sup2 === 3) {
-        typesDeQuestionsDisponibles = [2]
-      }
-      if (this.sup2 === 4) {
-        typesDeQuestionsDisponibles = [3]
-      }
-      if (this.sup3) {
-        typesDeQuestionsDisponibles = [4]
-      }
+      this.nbQuestions = 1
+    }
+    if (this.exo === '5N11-1') { // prix constant
+      this.titre = 'Tableaux et pourcentages - prix constant'
+      this.consigne = 'Compléter le tableau suivant. Le prix est fixe.'
+    } else if (this.exo === '5N11-2') { // pourcentage constant
+      this.titre = 'Tableaux et pourcentages - pourcentage constant'
+      this.consigne = 'Compléter le tableau suivant. Le pourcentage est fixe.'
+    } else {
+      this.titre = 'Tableaux et pourcentages'
+      this.consigne = 'Compléter le tableau suivant.'
+    }
+
+    this.nbQuestionsModifiable = false
+    // context.isHtml? this.spacing = 3 : this.spacing = 2;
+    // context.isHtml? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
+    let typesDeQuestionsDisponibles
+
+    if (this.sup2 === 1) {
+      typesDeQuestionsDisponibles = [0]
+    }
+    if (this.sup2 === 2) {
+      typesDeQuestionsDisponibles = [1]
+    }
+    if (this.sup2 === 3) {
+      typesDeQuestionsDisponibles = [2]
+    }
+    if (this.sup2 === 4) {
+      typesDeQuestionsDisponibles = [3]
+    }
+    if (this.sup3) {
+      typesDeQuestionsDisponibles = [4]
     }
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
@@ -438,13 +430,5 @@ ${situations[k].tableau_corr}
       cpt++
     }
     listeQuestionsToContenu(this)
-  }
-  if (this.exo === '5N11-1') { // prix constant
-    this.besoinFormulaireNumerique = ['Le coefficient entre les pourcentages', 2, '1 : est entier.\n2 : est décimal.']
-    this.besoinFormulaire3CaseACocher = ['Modulation de ce qui est demandé']
-    this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir (fixé à 3 lorsque la case ci-dessous est cochée)', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
-  }
-  if (this.exo === '5N11-2') { // pourcentage
-    this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
   }
 }

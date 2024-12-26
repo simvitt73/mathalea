@@ -1,7 +1,7 @@
 import { repere } from '../../lib/2d/reperes'
 import { traceBarre } from '../../lib/2d/diagrammes'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
@@ -23,21 +23,28 @@ export const uuid = '691a7'
 * L\'élève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
-export default function SimulateurAleatoire () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Ici le nombre de questions
+export default class SimulateurAleatoire extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type d\'expérience', 2, '1 : Tirage de dés\n 2 : Tirage dans une urne']
+    this.besoinFormulaire2Texte = ['Nombre de tirages', `Taper un nombre entier : ${10000} par exemple`]
+    this.besoinFormulaire3CaseACocher = ['Équiprobabilité', true]
 
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.sup = 1 // situation 1=dés
-  this.sup2 = 10000 // nbLancers
-  this.sup3 = false // true = équiprobable, false = jeu truqué
+    this.nbQuestions = 1 // Ici le nombre de questions
 
-  //  this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
+    // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    this.sup = 1 // situation 1=dés
+    this.sup2 = 10000 // nbLancers
+    this.sup3 = false // true = équiprobable, false = jeu truqué
+
+    //  this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
@@ -238,11 +245,4 @@ export default function SimulateurAleatoire () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  this.besoinFormulaireNumerique = ['Type d\'expérience', 2, '1 : Tirage de dés\n 2 : Tirage dans une urne']
-  this.besoinFormulaire2Texte = ['Nombre de tirages', `Taper un nombre entier : ${10000} par exemple`]
-  this.besoinFormulaire3CaseACocher = ['Équiprobabilité', true]
 } // Fin de l'exercice.

@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, texEnumerateSansNumero } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -19,27 +19,30 @@ export const refs = {
   'fr-fr': ['5G20-1'],
   'fr-ch': ['9ES2-7']
 }
-export default function VocabulaireDesTriangles () {
-  Exercice.call(this)
-  this.consigne = 'Donner la nature des triangles en justifiant.'
-  this.sup = 1
-  this.sup2 = false
+export default class VocabulaireDesTriangles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
+    this.consigne = 'Donner la nature des triangles en justifiant.'
+    this.sup = 1
+    this.sup2 = false
 
-  if (this.classe === 6) {
-    if (this.sup === 1) {
-      this.nbQuestions = 4
-    } else {
+    if (this.classe === 6) {
+      if (this.sup === 1) {
+        this.nbQuestions = 4
+      } else {
+        this.nbQuestions = 5
+      }
+    } else if (this.classe === 5) {
       this.nbQuestions = 5
     }
-  } else if (this.classe === 5) {
-    this.nbQuestions = 5
+    this.classe = 5
   }
-  this.classe = 5
 
-  let typeDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texteIntro = ''
+    if (this.classe === 6) { this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs'] }
+    let typeDeQuestionsDisponibles
 
     if (context.isHtml) {
       if (this.classe === 6) {
@@ -309,6 +312,4 @@ export default function VocabulaireDesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  if (this.classe === 6) { this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs'] }
-  this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }

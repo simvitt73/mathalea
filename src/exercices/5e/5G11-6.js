@@ -4,7 +4,7 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -27,15 +27,19 @@ export const refs = {
   'fr-fr': ['5G11-6'],
   'fr-ch': ['9ES6-16']
 }
-export default function CompleterParSymetrie5e () {
-  Exercice.call(this)
+export default class CompleterParSymetrie5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup2 = 1
-  this.pointsNonSolution = []
-  this.pointsSolution = []
-  this.nouvelleVersion = function () {
+    this.sup2 = 1
+    this.pointsNonSolution = []
+    this.pointsSolution = []
+  }
+
+  nouvelleVersion () {
     if (this.interactif) this.consigne = 'Placer les points en cliquant, puis vérifier la réponse.'
     const couples = []
     const pointsCliquables = [[]]
@@ -187,8 +191,8 @@ export default function CompleterParSymetrie5e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
-  this.correctionInteractive = (i) => {
+
+  correctionInteractive (i) {
     let resultat
     let aucunMauvaisPointsCliques = true
     for (const monPoint of this.pointsNonSolution[i]) {

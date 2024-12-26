@@ -6,7 +6,7 @@ import { grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -15,23 +15,25 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 
 /**
- * 
+ *
  * @author Rémi Angot (questions de Martine Loubet)
 
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestionsModifiable = false
-  this.nbQuestions = 19 // Pour la boucle des feedbacks
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestionsModifiable = false
+    this.nbQuestions = 19 // Pour la boucle des feedbacks
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    // this.sup = 1
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.spacing = 3
+    this.spacing = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let question0 = '15 centaines + 32 dizaines'
     this.autoCorrection[0] = {}
     this.autoCorrection[0].options = { ordered: true, vertical: true }

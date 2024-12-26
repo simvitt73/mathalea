@@ -2,7 +2,7 @@ import { diagrammeBarres } from '../../../lib/2d/diagrammes'
 import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { decompositionFacteursPremiers } from '../../../lib/outils/primalite'
 import { listeEntiersSommeConnue } from '../../../modules/debarras/listeEntiersSommeConnue'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { randint, listeQuestionsToContenu, num } from '../../../modules/outils'
@@ -602,34 +602,37 @@ function exercicesPourcentagesConversion () {
 
 */
 
-export default function CalculsProbabilites () {
-  Exercice.call(this)
+export default class CalculsProbabilites extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 0
-  this.nbColsCorr = 0
-  this.tailleDiaporama = 1
+    this.nbCols = 0
+    this.nbColsCorr = 0
+    this.tailleDiaporama = 1
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 'all' // Type d'exercice
-  this.besoinFormulaireNumerique = [
-    'Type de questions', 9, [
-      '0 : Mélange des types de questions',
-      '1 : Calculer une fréquence à partir du diagramme des effectifs (valeur exacte).',
-      '2 : Calculer une fréquence à partir du diagramme des effectifs (valeur approchée).',
-      '3 : Calculer une fréquence à partir du diagramme des effectifs (pourcentage).',
-      '4 : Calcul d\'une probabilité à partir d\'un ratio.',
-      '5 : Calcul d\'un probabilité à partir de pobabilités.',
-      '6 : Expérience à deux épreuves (avec remise) : Calcul d\'une probabilité à partir de ratios.',
-      '7 : Expérience à deux épreuves différentes : Calcul d\'une probabilité à partir de ratios.',
-      '8 : Diagramme des effectifs : Utilisation de la stabilistation des fréquences.',
-      '9 : Simplifier un ratio.',
-      '10 : Convertir un nombre en pourcentages.'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
+    this.sup = 'all' // Type d'exercice
+    this.besoinFormulaireNumerique = [
+      'Type de questions', 9, [
+        '0 : Mélange des types de questions',
+        '1 : Calculer une fréquence à partir du diagramme des effectifs (valeur exacte).',
+        '2 : Calculer une fréquence à partir du diagramme des effectifs (valeur approchée).',
+        '3 : Calculer une fréquence à partir du diagramme des effectifs (pourcentage).',
+        '4 : Calcul d\'une probabilité à partir d\'un ratio.',
+        '5 : Calcul d\'un probabilité à partir de pobabilités.',
+        '6 : Expérience à deux épreuves (avec remise) : Calcul d\'une probabilité à partir de ratios.',
+        '7 : Expérience à deux épreuves différentes : Calcul d\'une probabilité à partir de ratios.',
+        '8 : Diagramme des effectifs : Utilisation de la stabilistation des fréquences.',
+        '9 : Simplifier un ratio.',
+        '10 : Convertir un nombre en pourcentages.'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const nquestion = this.sup === 'all' ? randint(1, 10) : this.sup
       switch (nquestion) {

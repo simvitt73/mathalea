@@ -2,7 +2,7 @@ import { combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
@@ -23,16 +23,20 @@ export const dateDeModifImportante = '10/12/2023'
  * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
  * @author Sébastien Lozano
  */
-export default function ConstructibiliteDesTriangles () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = false
-  this.nbQuestions = 3
-  this.beta = ''
+export default class ConstructibiliteDesTriangles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème\n3 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Accepter triangle plat']
+    this.sup = 1
+    this.sup2 = false
+    this.nbQuestions = 3
+    this.beta = ''
+  }
 
-  let typesDeQuestionsDisponibles
+  nouvelleVersion () {
+    let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = function () {
     let consigneAMC
     if (this.exo === this.beta + '5G21-1') { // via longueurs
       consigneAMC = !this.interactif || context.isAmc
@@ -452,10 +456,4 @@ export default function ConstructibiliteDesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  if (this.exo === this.beta + '5G21-1') {
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 longueurs\n2 : 2 longueurs et le périmètre\n3 : Mélange']
-  } else {
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème\n3 : Mélange']
-  }
-  this.besoinFormulaire2CaseACocher = ['Accepter triangle plat']
 }

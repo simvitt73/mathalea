@@ -1,5 +1,5 @@
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import Decimal from 'decimal.js'
 import { all, create } from 'mathjs'
@@ -21,14 +21,17 @@ bmath.config({ number: 'BigNumber' })
  * @author Rémi Angot
 
 */
-export default function NomExercice () {
-  Exercice.call(this)
+export default class NomExercice extends Exercice {
+constructor() {
+super()
+
   this.nbQuestions = 1
   this.sup = 0.001
   this.sup2 = 2
 
     
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
 
     
     Decimal.set({ precision: 40, toExpNeg: -40, toExpPos: 40 })

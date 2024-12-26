@@ -6,7 +6,7 @@ import { translation } from '../../lib/2d/transformations'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, egal, randint } from '../../modules/outils'
@@ -26,19 +26,25 @@ export const refs = {
   'fr-fr': ['4G11'],
   'fr-ch': ['10ES2-9']
 }
-export default function PavageEtTranslation2d () {
-  Exercice.call(this)
+export default class PavageEtTranslation2d extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
+    this.besoinFormulaire2CaseACocher = ['Montrer les centres']
+    this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
 
-  this.correctionDetaillee = true
-  this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
 
-  this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
-  this.sup2 = false // On cache les centres par défaut.
-  this.sup3 = 7
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = function () {
+    this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
+    this.sup2 = false // On cache les centres par défaut.
+    this.sup3 = 7
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
@@ -228,7 +234,4 @@ export default function PavageEtTranslation2d () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
-  this.besoinFormulaire2CaseACocher = ['Montrer les centres']
-  this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
 }

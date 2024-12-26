@@ -10,7 +10,7 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -31,16 +31,19 @@ export const refs = {
   'fr-fr': ['5G13'],
   'fr-ch': ['9ES6-24']
 }
-export default function ConservationTransformation () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class ConservationTransformation extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Symétrie axiale ou centrale\n4 : Translation'] // Je n'ajoute pas de nouvelle option de mélange, ce serait bien d'ajouter la rotation avant.
-  this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueurs et Angles\n3 : Mélange']
-  this.sup = 1
-  this.sup2 = 3
+    this.nbQuestions = 2
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Symétrie axiale ou centrale\n4 : Translation'] // Je n'ajoute pas de nouvelle option de mélange, ce serait bien d'ajouter la rotation avant.
+    this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueurs et Angles\n3 : Mélange']
+    this.sup = 1
+    this.sup2 = 3
+  }
+
+  nouvelleVersion () {
     context.fenetreMathalea2d = [-6, -6, 6, 6]
 
     this.sup = Number(this.sup)

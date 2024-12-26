@@ -10,7 +10,7 @@ import {
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
@@ -35,23 +35,36 @@ export const refs = {
   'fr-fr': ['4C23-1'],
   'fr-ch': ['10NO6-3']
 }
-export default function ExerciceAdditionnerFractionProduit () {
-  Exercice.call(this)
-  this.sup = 3
-  this.sup2 = false
-  this.sup3 = true
-  this.sup4 = true
+export default class ExerciceAdditionnerFractionProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Style d\'expressions',
+      4,
+      `   1 : Fractions faciles, tout enchaînement d'opérations possibles
+  2 : Fractions standards, tout enchaînement d'opérations possibles
+  3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
+  4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
+    ]
+    this.besoinFormulaire2CaseACocher = ['Utiliser les nombres relatifs', false]
+    this.besoinFormulaire3CaseACocher = ['Utiliser les divisions', true]
+    this.besoinFormulaire4CaseACocher = ['Présentation des calculs en colonnes', true]
+    this.sup = 3
+    this.sup2 = false
+    this.sup3 = true
+    this.sup4 = true
 
-  this.consigne = 'Calculer et donner un résultat simplifié au maximum.'
-  this.nbCols = 2
+    this.consigne = 'Calculer et donner un résultat simplifié au maximum.'
+    this.nbCols = 2
 
-  this.spacingCorr = 2
-  this.nbQuestions = 6
-  this.nbColsCorr = this.sup4 ? 2 : 1
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+    this.spacingCorr = 2
+    this.nbQuestions = 6
+    this.nbColsCorr = this.sup4 ? 2 : 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
     const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles()
@@ -329,15 +342,4 @@ export default function ExerciceAdditionnerFractionProduit () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = [
-    'Style d\'expressions',
-    4,
-        `   1 : Fractions faciles, tout enchaînement d'opérations possibles
-    2 : Fractions standards, tout enchaînement d'opérations possibles
-    3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
-    4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
-  ]
-  this.besoinFormulaire2CaseACocher = ['Utiliser les nombres relatifs', false]
-  this.besoinFormulaire3CaseACocher = ['Utiliser les divisions', true]
-  this.besoinFormulaire4CaseACocher = ['Présentation des calculs en colonnes', true]
 }

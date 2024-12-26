@@ -1,7 +1,7 @@
 import { courbe } from '../../../lib/2d/courbes'
 import { repere } from '../../../lib/2d/reperes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 export const titre = 'Lecture graphique de limites'
@@ -10,20 +10,30 @@ export const titre = 'Lecture graphique de limites'
 export const dateDePublication = '01/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '09/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
+const xversreel = (x, sens) => {
+  let output = this.sup ? '\\substack{' : ''
+  output += `x \\to ${x}`
+  output += this.sup ? `\\\\x ${sens === '+' ? '>' : '<'} ${x}}` : `^${sens}`
+  return output
+}
+
 /**
- * 
+ *
  * @author Mathieu Degrange
 
 */
-export default function NomExercice () {
-  Exercice.call(this)
-  this.nbQuestions = 3 // Nombre de questions par défaut
-  this.sup = false // x>2 au lieu de x->2+
-  this.sup2 = false // asymptotes
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Notation x>2 au lieu de 2+']
+    this.besoinFormulaire2CaseACocher = ['Question sur les asymptotes']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3 // Nombre de questions par défaut
+    this.sup = false // x>2 au lieu de x->2+
+    this.sup2 = false // asymptotes
+  }
 
-
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const nom = ['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]
       texte = `Déterminer graphiquement les ${this.sup2 ? 'limites et asymtpotes' : 'limites'} de la fonction $${nom}$ dont la courbe représentative est tracée ci-dessous.<br>`
@@ -139,14 +149,4 @@ export default function NomExercice () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireCaseACocher = ['Notation x>2 au lieu de 2+']
-
-  const xversreel = (x, sens) => {
-    let output = this.sup ? '\\substack{' : ''
-    output += `x \\to ${x}`
-    output += this.sup ? `\\\\x ${sens === '+' ? '>' : '<'} ${x}}` : `^${sens}`
-    return output
-  }
-
-  this.besoinFormulaire2CaseACocher = ['Question sur les asymptotes']
 }

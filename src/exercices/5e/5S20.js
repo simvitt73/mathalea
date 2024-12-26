@@ -3,7 +3,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -21,16 +21,20 @@ export const refs = {
   'fr-fr': ['5S20'],
   'fr-ch': ['11NO2-5']
 }
-export default function PlacerProbabilites () {
-  Exercice.call(this)
+export default class PlacerProbabilites extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Changer le type d\'axe']
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.sup = true
-  this.nouvelleVersion = function () {
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.sup = true
+  }
+
+  nouvelleVersion () {
     const lstEvenenementA = [] // liste des évènements disponibles : p === 0 ou p === 1
     const lstEvenenementB = [] // liste des évènements disponibles : p < 0.5
     const lstEvenenementC = [] // liste des évènements disponibles : p = 0.5
@@ -172,5 +176,4 @@ export default function PlacerProbabilites () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
-  this.besoinFormulaireCaseACocher = ['Changer le type d\'axe']
 }

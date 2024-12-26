@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 
@@ -28,13 +28,18 @@ export const refs = {
   'fr-fr': ['4C32'],
   'fr-ch': ['10NO2-16']
 }
-export default function NotationScientifique () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.nbQuestions = 5
-  this.interactif = false
-  this.nouvelleVersion = function () {
+export default class NotationScientifique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
+    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+    this.sup = 1
+    this.sup2 = 1
+    this.nbQuestions = 5
+    this.interactif = false
+  }
+
+  nouvelleVersion () {
     Decimal.set({ toExpNeg: -15, toExpPos: 20 })
     let reponse
     if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique du nombre suivant.' : 'Donner la notation scientifique des nombres suivants.'
@@ -177,6 +182,4 @@ export default function NotationScientifique () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
-  this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

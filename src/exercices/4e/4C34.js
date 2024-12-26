@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -73,19 +73,23 @@ export const refs = {
   'fr-fr': ['4C34'],
   'fr-ch': ['10NO6-1']
 }
-export default function PrioritesEtRelatifsEtPuissances () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 5
+export default class PrioritesEtRelatifsEtPuissances extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['AMC : Que la réponse numérique (pas de question ouverte)', 'false']
 
-  this.tailleDiaporama = 3
-  this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
-  this.spacing = context.isHtml ? 3 : 1
-  this.spacingCorr = context.isHtml ? 3 : 1
-  this.listeAvecNumerotation = false
-  this.sup = false
+    this.consigne = 'Calculer.'
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.tailleDiaporama = 3
+    this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
+    this.spacing = context.isHtml ? 3 : 1
+    this.spacingCorr = context.isHtml ? 3 : 1
+    this.listeAvecNumerotation = false
+    this.sup = false
+  }
+
+  nouvelleVersion () {
     if (this.sup) this.amcType = 'AMCNum'
     let reponse
 
@@ -223,5 +227,4 @@ export default function PrioritesEtRelatifsEtPuissances () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireCaseACocher = ['AMC : Que la réponse numérique (pas de question ouverte)', 'false']
 }

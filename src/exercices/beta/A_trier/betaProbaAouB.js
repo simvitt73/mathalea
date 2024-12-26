@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texFractionFromString, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { context } from '../../../modules/context'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 export const titre = '2S30-6'
 
 const multiple = (n, d) => n % d === 0
@@ -25,8 +25,10 @@ const choixFnct = [
  * @author Eric Schrafstetter
 
 */
-export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
-  Exercice.call(this)
+export default class CalculDeProbabilitesAvecDeuxEnsemblesAetB extends Exercice {
+constructor() {
+super()
+
   this.consigne = 'Pour chaque expérience, calculer $P(A)$, $P(B)$, $P(A\\cap B)$ et $P(A\\cup B)$'
   this.nbQuestions = 2
 
@@ -35,7 +37,8 @@ export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1)
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['type1']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 

@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Proportions'
 export const interactifReady = true
@@ -19,12 +19,16 @@ export const refs = {
   'fr-fr': ['techno1P3'],
   'fr-ch': []
 }
-export default function Proportion () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.formatChampTexte = ''
-  this.nouvelleVersion = function () {
+export default class Proportion extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+    this.formatChampTexte = ''
+  }
+
+  nouvelleVersion () {
     let a, b, c, d
     switch (choice(['simple'])) {
       case 'simple':

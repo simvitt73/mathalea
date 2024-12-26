@@ -4,7 +4,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
@@ -29,16 +29,18 @@ export const refs = {
   'fr-fr': ['4I1-2'],
   'fr-ch': []
 }
-export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
-  Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class AlgoTortue extends Exercice { // ça c'est la classe qui permet de créer cet exercice
+  constructor () {
+    super() // la classe parente qui définit les attributs commun à tous les exercices
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.typeExercice = 'Scratch'
-  this.interactif = true
-  this.listeAvecNumerotation = false
+    this.typeExercice = 'Scratch'
+    this.interactif = true
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) { // la méthode qui crée une nouvelle version de l'exercice
     this.figures = []
     const objetsCorrection = []
     const paramsCorrection = {}

@@ -7,7 +7,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -30,15 +30,24 @@ export const refs = {
   'fr-fr': ['4G51'],
   'fr-ch': ['9ES7-3']
 }
-export default function RepresenterUnSolide4e () {
-  Exercice.call(this) // Héritage de la classe Exercice ()
+export default class RepresenterUnSolide4e extends Exercice {
+  constructor () {
+    super()
+    // Héritage de la classe Exercice ()
+    this.besoinFormulaireNumerique = ['Type de solides', 9, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes']
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.nbQuestions = 1
 
-  this.nbQuestions = 1
+    this.sup = 1
+    this.sup2 = 1
+    this.classe = 4
+  }
 
-  this.sup = 1
-  this.sup2 = 1
-  this.classe = 4
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
 
     if (this.sup === 3) {
@@ -414,10 +423,4 @@ export default function RepresenterUnSolide4e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 9, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes']
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

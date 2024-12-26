@@ -21,15 +21,9 @@ export default class AireAssemblageRectangles extends Exercice {
     super()
     this.consigne = 'Calculer l\'aire grisée.'
     this.nbQuestions = 2
-
-
   }
 
   nouvelleVersion () {
-
-    
-    
-
     const typesFigure = [1]
     const typeDeQuestions = combinaisonListes(typesFigure, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

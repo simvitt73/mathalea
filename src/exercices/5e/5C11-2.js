@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import TrouverSolutionMathador from './_TrouverSolutionMathador'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { checkLeCompteEstBon } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -26,16 +26,19 @@ export const refs = {
   'fr-fr': ['5C11-2'],
   'fr-ch': ['9NO6-3']
 }
-export default function ÉcrireUneExpressionMathador () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.spacing = 1.5
-  this.besoinFormulaireCaseACocher = ['Calculs cachés', false]
-  this.besoinFormulaire2CaseACocher = ['4 opérations différentes obligatoires', false]
-  this.sup = false
-  this.sup2 = false
+export default class ÉcrireUneExpressionMathador extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.spacing = 1.5
+    this.besoinFormulaireCaseACocher = ['Calculs cachés', false]
+    this.besoinFormulaire2CaseACocher = ['4 opérations différentes obligatoires', false]
+    this.sup = false
+    this.sup2 = false
+  }
+
+  nouvelleVersion () {
     let expression, calculsSuccessifs, solutionMathador, quidam
     this.tirage = []
     this.cible = []
@@ -93,8 +96,9 @@ export default function ÉcrireUneExpressionMathador () {
     }
     listeQuestionsToContenu(this)
   }
+
   // EE : Modele Correction Interactive
-  this.correctionInteractive = function (i) {
+  correctionInteractive (i) {
     // Champ réponse : Son nom est en dur, ne rien changer
     const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
 

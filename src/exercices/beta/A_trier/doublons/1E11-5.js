@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choisiDelta } from '../../../lib/mathFonctions/outilsMaths'
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
@@ -29,15 +29,17 @@ export const refs = {
   'fr-ch': []
 }
 
-export default function Resolutionavecdelta () {
-  Exercice.call(this)
+export default class Resolutionavecdelta extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = ''
-  this.nbQuestions = 4
+    this.consigne = ''
+    this.nbQuestions = 4
 
-  this.spacingCorr = 3
+    this.spacingCorr = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne = '<br> '
     }

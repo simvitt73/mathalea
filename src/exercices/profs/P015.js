@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points'
 import { infoMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import Alea2iep from '../../modules/Alea2iep'
 import { randint, enumerate, enumerateSansPuceSansNumero } from '../../modules/outils'
@@ -23,15 +23,19 @@ export const uuid = '085ed'
 
  */
 
-export default function PuzzlesGeometriques () {
-  Exercice.call(this)
+export default class PuzzlesGeometriques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de puzzle', 4, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd \n 4 : Sam Loyd bis']
+    this.besoinFormulaire2CaseACocher = ['Animation disponible']
 
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
-  this.sup = 1
-  this.sup2 = true
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+    this.sup = 1
+    this.sup2 = true
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const type = parseInt(this.sup)
     const anim = new Alea2iep()
     // anim.taille(1200, 1200)
@@ -413,6 +417,4 @@ export default function PuzzlesGeometriques () {
     this.contenu = texte
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireNumerique = ['Type de puzzle', 4, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd \n 4 : Sam Loyd bis']
-  this.besoinFormulaire2CaseACocher = ['Animation disponible']
 }

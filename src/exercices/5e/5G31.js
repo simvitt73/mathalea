@@ -5,7 +5,7 @@ import { triangle2points2angles } from '../../lib/2d/triangle'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -56,27 +56,49 @@ export const refs = {
   'fr-fr': ['5G31'],
   'fr-ch': ['9ES2-9']
 }
-export default function ExerciceAnglesTriangles () {
-  Exercice.call(this)
-  this.sup = '1-2-3-4-5'
-  this.sup2 = false
-  this.sup3 = true
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
-  context.isHtml ? this.spacing = 2 : this.spacing = 2
-  this.nbQuestions = 5
-  this.correctionDetailleeDisponible = true
-  this.nbCols = 2
-  this.nbColsCorr = 2
-
-  const troisiemeAngle = function (a1, a2) {
-    if (a1 + a2 <= 180) {
-      return 180 - (a1 + a2)
-    } else {
-      return -1
-    }
+const troisiemeAngle = function (a1, a2) {
+  if (a1 + a2 <= 180) {
+    return 180 - (a1 + a2)
+  } else {
+    return -1
+  }
+}
+export default class ExerciceAnglesTriangles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Situations différentes', [
+        'Nombres séparés par des tirets',
+        '1 : Triangle quelconque avec deux angles aigus connus',
+        '2 : Triangle rectangle avec un angle aigu connu',
+        '3 : Triangle isocèle avec un angle à la base connu',
+        '4 : Triangle rectangle isocèle',
+        '5 : Triangle équilatéral',
+        '6 : Triangle rectangle avec un angle aigu double de l\'autre (*)',
+        '7 : Triangle rectangle avec un angle aigu quart de l\'autre (*)',
+        '8 : Triangle rectangle avec un angle aigu quintuple de l\'autre (*)',
+        '9 : Triangle rectangle avec un angle aigu tiers de l\'autre (*)',
+        '10 : Triangle rectangle avec un angle aigu deux tiers de l\'autre (*)',
+        '11 : Triangle isocèle avec un angle aigu double de l\'autre (*)',
+        '12 : Triangle isocèle avec l\'angle au sommet principal connu (*)',
+        '13 : Mélange',
+        '(*) : Question plus difficile'
+      ].join('\n')
+    ]
+    this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions']
+    this.besoinFormulaire3CaseACocher = ['Dans l\'ordre des situations différentes']
+    this.sup = '1-2-3-4-5'
+    this.sup2 = false
+    this.sup3 = true
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+    context.isHtml ? this.spacing = 2 : this.spacing = 2
+    this.nbQuestions = 5
+    this.correctionDetailleeDisponible = true
+    this.nbCols = 2
+    this.nbColsCorr = 2
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -633,25 +655,4 @@ export default function ExerciceAnglesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Situations différentes', [
-      'Nombres séparés par des tirets',
-      '1 : Triangle quelconque avec deux angles aigus connus',
-      '2 : Triangle rectangle avec un angle aigu connu',
-      '3 : Triangle isocèle avec un angle à la base connu',
-      '4 : Triangle rectangle isocèle',
-      '5 : Triangle équilatéral',
-      '6 : Triangle rectangle avec un angle aigu double de l\'autre (*)',
-      '7 : Triangle rectangle avec un angle aigu quart de l\'autre (*)',
-      '8 : Triangle rectangle avec un angle aigu quintuple de l\'autre (*)',
-      '9 : Triangle rectangle avec un angle aigu tiers de l\'autre (*)',
-      '10 : Triangle rectangle avec un angle aigu deux tiers de l\'autre (*)',
-      '11 : Triangle isocèle avec un angle aigu double de l\'autre (*)',
-      '12 : Triangle isocèle avec l\'angle au sommet principal connu (*)',
-      '13 : Mélange',
-      '(*) : Question plus difficile'
-    ].join('\n')
-  ]
-  this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions']
-  this.besoinFormulaire3CaseACocher = ['Dans l\'ordre des situations différentes']
 }

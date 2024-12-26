@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -25,20 +25,23 @@ export const refs = {
   'fr-fr': ['4C33-0'],
   'fr-ch': ['10NO2-1']
 }
-export default function NotationPuissance () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.besoinFormulaireNumerique = ['Type de calcul', 3, '1 : Écrire sous forme de produit\n2 : Écrire sous forme de puissance\n3 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  this.sup = 1
-  this.besoinFormulaire2Numerique = ['Mantisse', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
-  this.sup2 = 3
-  this.besoinFormulaire3Numerique = false
-  this.sup3 = 1
-  this.besoinFormulaire4Numerique = ['Signe devant la mantisse', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
-  this.sup4 = 3
-  this.classe = 4
+export default class NotationPuissance extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.besoinFormulaireNumerique = ['Type de calcul', 3, '1 : Écrire sous forme de produit\n2 : Écrire sous forme de puissance\n3 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
+    this.sup = 1
+    this.besoinFormulaire2Numerique = ['Mantisse', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
+    this.sup2 = 3
+    this.besoinFormulaire3Numerique = false
+    this.sup3 = 1
+    this.besoinFormulaire4Numerique = ['Signe devant la mantisse', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
+    this.sup4 = 3
+    this.classe = 4
+  }
+
+  nouvelleVersion () {
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:

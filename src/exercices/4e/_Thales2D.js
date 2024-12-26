@@ -10,7 +10,7 @@ import { texteGras } from '../../lib/format/style'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -29,19 +29,25 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
  * @author Rémi Angot
  * Utilisée dans 4G30 et 3G20
  */
-export default function Thales2D () {
-  Exercice.call(this)
+export default class Thales2D extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
 
-  this.nbQuestions = 1
+    this.nbQuestions = 1
 
-  this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
-  this.sup2 = 1 // correction Triangles imbriqués / correction droites sécantes
-  this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+    this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+    this.sup2 = 1 // correction Triangles imbriqués / correction droites sécantes
+    this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
+    if (this.level === 3) {
+      this.besoinFormulaire2Numerique = ['Correction', 2, '1 : Triangles imbriqués\n2 : Droites sécantes']
+    }
     let listeDeNomsDePolygones = []
 
     if (this.level === 4) {
@@ -289,10 +295,5 @@ export default function Thales2D () {
       cpt++
     }
     listeQuestionsToContenu(this)
-  }
-  this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
-
-  if (this.level === 3) {
-    this.besoinFormulaire2Numerique = ['Correction', 2, '1 : Triangles imbriqués\n2 : Droites sécantes']
   }
 }

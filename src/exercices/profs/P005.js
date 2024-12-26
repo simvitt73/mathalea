@@ -3,7 +3,7 @@ import { carre, polygone } from '../../lib/2d/polygones'
 import { grille, lignesHorizontales, lignesVerticales } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes.ts'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Grilles décimales'
@@ -18,14 +18,18 @@ export const uuid = 'ad5f7'
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
  * @author Jean-Claude Lhote
  */
-export default function FeuilleDeGrilles () {
-  Exercice.call(this)
+export default class FeuilleDeGrilles extends Exercice {
+  constructor () {
+    super()
 
-  this.sup = 1
-  this.nbQuestionsModifiable = false
-  this.nbQuestions = 1
+    this.besoinFormulaireNumerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000']
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.nbQuestionsModifiable = false
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
     const objets = []; let fleche; let A; let B; let C; let D; let texte = ''
     if (parseInt(this.sup) === 1) { // On travaille au dixième
       for (let i = 0; i < 5; i++) {
@@ -116,5 +120,4 @@ export default function FeuilleDeGrilles () {
     this.listeQuestions[0] = this.contenu
     // listeDeChosesAImprimer(this);
   }
-  this.besoinFormulaireNumerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000']
 }

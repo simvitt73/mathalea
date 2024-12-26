@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -23,21 +23,23 @@ export const refs = {
   'fr-fr': ['4G20-2'],
   'fr-ch': ['10NO3-1']
 }
-export default function RacineCareeDeCarresParfaits () {
-  Exercice.call(this)
+export default class RacineCareeDeCarresParfaits extends Exercice {
+  constructor () {
+    super()
 
-  this.amcReady = amcReady
-  this.amcType = amcType
+    this.amcReady = amcReady
+    this.amcType = amcType
 
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine de ...\n2 : Trouver le nombre positif dont le carré est ...\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Entier maximum', 2, '1 : 144\n2 : 256']
-  this.sup = 1
-  this.sup2 = 2
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine de ...\n2 : Trouver le nombre positif dont le carré est ...\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Entier maximum', 2, '1 : 144\n2 : 256']
+    this.sup = 1
+    this.sup2 = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeRacines = []
     let listeQuestions = []
 

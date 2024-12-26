@@ -8,7 +8,7 @@ import { rotation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -27,14 +27,18 @@ export const refs = {
   'fr-fr': ['5G11-3'],
   'fr-ch': ['9ES6-8']
 }
-export default function ConstruireSymetriquePoint5e () {
-  Exercice.call(this)
+export default class ConstruireSymetriquePoint5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
 
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.sup = 3
-  this.nouvelleVersion = function () {
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
@@ -110,6 +114,4 @@ export default function ConstruireSymetriquePoint5e () {
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
-  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }

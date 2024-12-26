@@ -6,7 +6,7 @@ import { context } from '../../modules/context'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -36,7 +36,20 @@ export const refs = {
   'fr-fr': ['4C33-1'],
   'fr-ch': ['10NO2-11']
 }
+// une fonction pour des infos supp sur les exposants
+function remarquesPuissances (base, baseUtile, exposant) {
+  let sortie = ''
+  if (base < 0 && exposant % 2 === 0) {
+    sortie += '<br>'
+    sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant pair de deux nombres opposés sont égales, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$.`
+  }
+  if (base < 0 && exposant % 2 === 1) {
+    sortie += '<br>'
+    sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$.`
+  }
 
+  return sortie
+}
 /**
  * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
  * @param b1 base1
@@ -62,33 +75,27 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
   }
 }
 
-export default function PuissancesDunRelatif1 () {
-  Exercice.call(this)
-  this.consigne = 'Écrire sous la forme $a^n$.'
-  context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nbQuestions = 5
-  this.correctionDetailleeDisponible = true
-  this.sup = 5
-  this.sup2 = 1
-  this.classe = 4
+export default class PuissancesDunRelatif1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
 
-  // une fonction pour des infos supp sur les exposants
-  function remarquesPuissances (base, baseUtile, exposant) {
-    let sortie = ''
-    if (base < 0 && exposant % 2 === 0) {
-      sortie += '<br>'
-      sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant pair de deux nombres opposés sont égales, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$.`
-    }
-    if (base < 0 && exposant % 2 === 1) {
-      sortie += '<br>'
-      sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$.`
-    }
-
-    return sortie
+    this.besoinFormulaire2Numerique = [
+      'Signe de la mantisse',
+      3,
+      '1 : Positif\n2 : Négatif\n3 : Mélange'
+    ]
+    this.consigne = 'Écrire sous la forme $a^n$.'
+    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.nbQuestions = 5
+    this.correctionDetailleeDisponible = true
+    this.sup = 5
+    this.sup2 = 1
+    this.classe = 4
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -365,11 +372,4 @@ export default function PuissancesDunRelatif1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
-
-  this.besoinFormulaire2Numerique = [
-    'Signe de la mantisse',
-    3,
-    '1 : Positif\n2 : Négatif\n3 : Mélange'
-  ]
 }

@@ -4,7 +4,7 @@ import { rangeMinMax } from '../../../lib/outils/nombres'
 import { numAlpha } from '../../../lib/outils/outilString'
 import { ecriturePuissance } from '../../../lib/outils/puissance'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
@@ -25,22 +25,24 @@ export const titre = 'Puissances de 10'
  * date : 15/11/2020
  * 4C30-4
  */
-export default function ComparerPuissance10 () {
-  Exercice.call(this)
+export default class ComparerPuissance10 extends Exercice {
+  constructor () {
+    super()
 
-  this.consigne = 'Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en notation scientifique.'
-  this.nbQuestions = 5 // Ici le nombre de questions
+    this.consigne = 'Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en notation scientifique.'
+    this.nbQuestions = 5 // Ici le nombre de questions
 
-  this.correctionDetailleeDisponible = true
-  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1
+    this.correctionDetailleeDisponible = true
+    context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
@@ -52,8 +54,6 @@ export default function ComparerPuissance10 () {
       let nbA1 = 0 // valeur numérique du nombre 1
       let nbA2 = 0 // valeur numérique du nombre 2
 
-    
-    
       const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
       switch (listeTypeDeQuestions[i]) {
         case 1:

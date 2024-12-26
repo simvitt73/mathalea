@@ -8,7 +8,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { arete3d, point3d } from '../../modules/3d'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Se repérer sur un pavé droit'
 export const amcReady = true
@@ -26,19 +26,22 @@ export const refs = {
   'fr-fr': ['4G52'],
   'fr-ch': []
 }
-export default function ReperagePaveDroit () {
-  Exercice.call(this)
-  this.consigne = 'Dans le repère $(A;I;J;K)$ :'
-  this.nbQuestions = 3
-  this.tailleDiaporama = 2
+export default class ReperagePaveDroit extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
-  this.sup = 1
+    this.consigne = 'Dans le repère $(A;I;J;K)$ :'
+    this.nbQuestions = 3
+    this.tailleDiaporama = 2
 
-  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
-  this.sup2 = 1
+    this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
+    this.sup = 1
 
-  this.nouvelleVersion = function () { // c'est ici que les données sont relatives
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
+    this.sup2 = 1
+  }
+
+  nouvelleVersion () { // c'est ici que les données sont relatives
     const hauteur = 12
     const largeur = 12
     const profondeur = 12

@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -22,15 +22,19 @@ export const refs = {
   'fr-fr': ['4C10-4'],
   'fr-ch': ['10NO5-2']
 }
-export default function ExerciceQuotientsRelatifs () {
-  Exercice.call(this)
-  this.sup = false
+export default class ExerciceQuotientsRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplication de 2 à 9']
 
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.nbQuestions = 6
+    this.sup = false
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.nbQuestions = 6
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions)
     let typesDeNombres = combinaisonListes(['tables', 'horstables'], this.nbQuestions)
     if (this.sup) {
@@ -70,5 +74,4 @@ export default function ExerciceQuotientsRelatifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplication de 2 à 9']
 }

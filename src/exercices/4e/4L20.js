@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { abs, signe } from '../../lib/outils/nombres'
 
@@ -34,18 +34,34 @@ function gestionEspaceMiseEnEvidence (texte) { // EE : Pour améliorer la gestio
   return (sp(2) + texte[0] + sp(2) + texteSepare[1])
 }
 
-export default function ExerciceEquation1 () {
-  Exercice.call(this)
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = context.isHtml
-  this.sup = true // Avec des nombres relatifs
-  this.sup2 = '1-2-3-4-5' // Choix du type d'équation
-  this.sup3 = true
-  this.nbQuestions = 6
+export default class ExerciceEquation1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire2Texte = ["Type d'équations", [
+      'Nombres séparés par des tirets',
+      '1 : ax+b=0',
+      '2 : ax+b=c',
+      '3 : ax=b',
+      '4 : x+b=c',
+      '5 : ax+b=cx+d',
+      '6 : x/a=b',
+      '7 : ax/b=c',
+      '8 : Mélange'
+    ].join('\n')
+    ]
+    this.besoinFormulaire3CaseACocher = ['Avec seulement la lettre $x$']
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = context.isHtml
+    this.sup = true // Avec des nombres relatifs
+    this.sup2 = '1-2-3-4-5' // Choix du type d'équation
+    this.sup3 = true
+    this.nbQuestions = 6
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Résoudre l\'équation suivante.'
       : 'Résoudre les équations suivantes.'
@@ -326,18 +342,4 @@ export default function ExerciceEquation1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire2Texte = ["Type d'équations", [
-    'Nombres séparés par des tirets',
-    '1 : ax+b=0',
-    '2 : ax+b=c',
-    '3 : ax=b',
-    '4 : x+b=c',
-    '5 : ax+b=cx+d',
-    '6 : x/a=b',
-    '7 : ax/b=c',
-    '8 : Mélange'
-  ].join('\n')
-  ]
-  this.besoinFormulaire3CaseACocher = ['Avec seulement la lettre $x$']
 }

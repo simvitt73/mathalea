@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { nombreAvecEspace, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
 
@@ -16,33 +16,31 @@ export const titre = 'Stabilisation des fréquences'
 * L\'élève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
-export default function StabilisationFrequence () {
-  Exercice.call(this)
+export default class StabilisationFrequence extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4 // Ici le nombre de questions
+    this.besoinFormulaireNumerique = ['Type d\'expérience', 2, '1 : Tirage de dés\n 2 : Tirage dans une urne']
+    this.besoinFormulaire2Texte = ['Nombre de tirages']
+    this.besoinFormulaire3CaseACocher = ['équiprobabilité', true]
 
+    this.nbQuestions = 4 // Ici le nombre de questions
 
+    this.sup = 1 // situation 1=dés
+    this.sup2 = 10000 // nbLancers
+    this.sup3 = false // true = équiprobable, false = jeu truqué
 
-
-   = false // mettre à true si on ne veut pas de l'exercice en ligne
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-
-  this.sup = 1 // situation 1=dés
-  this.sup2 = 10000 // nbLancers
-  this.sup3 = false // true = équiprobable, false = jeu truqué
-
-  if (context.isHtml) {
-    this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
-  }
+    if (context.isHtml) {
+      this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
+    }
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
-
-    
-    
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
@@ -279,8 +277,4 @@ export default function StabilisationFrequence () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  this.besoinFormulaireNumerique = ['Type d\'expérience', 2, '1 : Tirage de dés\n 2 : Tirage dans une urne']
-  this.besoinFormulaire2Texte = ['Nombre de tirages']
-  this.besoinFormulaire3CaseACocher = ['équiprobabilité', true]
 } // Fin de l'exercice.

@@ -4,7 +4,7 @@ import { milieu, point, pointAdistance, pointIntersectionLC } from '../../lib/2d
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de la hauteur'
@@ -21,12 +21,15 @@ export const refs = {
   'fr-fr': ['PEG21'],
   'fr-ch': []
 }
-export default function RacineCarrAvecTheoremeHauteur () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class RacineCarrAvecTheoremeHauteur extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion (numeroExercice) {
     const couplesPossibles = [[1, 5], [2, 3], [1, 7], [2, 4], [2, 5], [3, 4], [3, 5]]
     const couple = choice(couplesPossibles)
     const a = couple[0]

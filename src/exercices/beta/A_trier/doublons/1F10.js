@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import {
   reduireAxPlusB,
@@ -26,14 +26,18 @@ export const refs = {
   'fr-fr': [],
   'fr-ch': []
 }
-export default function CalculsDeDerives () {
-  Exercice.call(this)
+export default class CalculsDeDerives extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Fonctions de base \n2 : ku'] // \n3 : u/v, uv'];
 
-  this.nbQuestions = 6
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
-  this.sup = 1
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 6
+    this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const quoi = this.nbQuestions === 1 ? 'la dérivée de la fonction suivante' : 'les dérivées des fonctions suivantes'
     this.consigne = 'Donner ' + quoi
 
@@ -173,5 +177,4 @@ export default function CalculsDeDerives () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Fonctions de base \n2 : ku'] // \n3 : u/v, uv'];
 }

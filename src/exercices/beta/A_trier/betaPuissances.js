@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils'
 
 export const titre = 'Exercice exemple'
@@ -13,8 +13,10 @@ export const titre = 'Exercice exemple'
  * @author
 
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+constructor() {
+super()
+
 
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -25,7 +27,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.spacingCorr = 4
   this.listeAvecNumerotation = false
 
-  this.nouvelleVersion = function () {
+  }
+nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['type1']// , 'type2', 'type3']; // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let a, b, c, c1, c2, e1, e2, e3, e4, e5

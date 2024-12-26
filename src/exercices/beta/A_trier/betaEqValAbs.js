@@ -2,32 +2,30 @@ import { texMasse } from '../../../lib/format/style'
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint, xcas } from '../../../modules/outils'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 
 export const titre = 'Résoudre une équation avec une valeur absolue'
 
 /**
- * 
+ *
  * @author Eric Schrafstetter
 
  */
-export default function EquationAvecUneValeurAbsolue () {
-  Exercice.call(this)
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations :'
-  this.nbQuestions = 2
+export default class EquationAvecUneValeurAbsolue extends Exercice {
+  constructor () {
+    super()
 
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations :'
+    this.nbQuestions = 2
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.typeExercice = 'xcas'
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.typeExercice = 'xcas'
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+  }
 
-  this.nouvelleVersion = function () {
-
-    
-    
-
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, a, b, pente, signe, entier, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0) + '*x+' + randint(-20, 20)
@@ -102,7 +100,6 @@ export default function EquationAvecUneValeurAbsolue () {
         texteCorr += `$x=${xcas('xcas2')}$`
         entier = (1e3 * +`${xcas('approx(xcas2,4)')}`) % 1 === 0 ? '' : `\\simeq${xcas('approx(xcas2,4)')}`
         if (`${xcas('xcas2>=x1')}`.includes('true')) {
-          // eslint-disable-next-line no-unused-vars
           // etape = `$x=${xcas('xcas2')}\\simeq${xcas('approx(xcas2,4)')}$`
           texteCorr += `<br>Cette solution $\\textbf{convient}$ car $x=${xcas('xcas2')}${entier}\\in [${xcas('x1')},+\\infty[$`
         } else {

@@ -13,7 +13,7 @@ import { texcolors } from '../../lib/format/style'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -31,16 +31,23 @@ export const refs = {
   'fr-fr': ['5S12'],
   'fr-ch': ['9FA1-4']
 }
-export default function ConstruireUnDiagramme () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.sup = 3
-  this.sup2 = 1
-  this.sup3 = 1
-  this.sup4 = true
-  this.listeAvecNumerotation = false
-  this.nouvelleVersion = function () {
+export default class ConstruireUnDiagramme extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
+    this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
+    this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien\n5 : Au hasard']
+    this.besoinFormulaire4CaseACocher = ['Valeur exactes', true]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 3
+    this.sup2 = 1
+    this.sup3 = 1
+    this.sup4 = true
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     if (this.sup3 < 5) {
       typesDeQuestionsDisponibles = [parseInt(this.sup3)]
@@ -314,8 +321,4 @@ export default function ConstruireUnDiagramme () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
-  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
-  this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien\n5 : Au hasard']
-  this.besoinFormulaire4CaseACocher = ['Valeur exactes', true]
 }

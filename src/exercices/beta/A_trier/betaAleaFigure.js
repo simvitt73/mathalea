@@ -1,4 +1,4 @@
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import { parse, create, all, unit } from 'mathjs'
@@ -33,43 +33,47 @@ export const dateDePublication = '03/02/2022' // La date de publication initiale
  * @author Frédéric PIOU
 
 */
-export default function ExercicesThales () {
-  Exercice.call(this)
-  const formulaire = [
-    '1 : Angles marqués alternes-internes ou correspondants ?',
-    '2 : Déterminer si des droites sont parallèles (angles marqués).',
-    '3 : Calculer la mesure d\'un angle.',
-    '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué.',
-    '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
-    '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles).',
-    '7 : Calculer la mesure d\'un angle. (utiliser le nom des angles) ?',
-    '8 : Mélange des questions'
-  ]
-  this.nbQuestions = 1
-  this.besoinFormulaireNumerique = [
-    'Type de questions', nbCase, formulaire.join('\n')
-  ]
-  this.besoinFormulaire2Numerique = true
-  this.besoinFormulaire2Numerique = [
-    'Configuration ? ', 3, ['1 - Triangles emboités\n 2 - Papillon\n 3 - Mélange']
-  ]
-  this.besoinFormulaire3Numerique = true
-  this.besoinFormulaire3Numerique = [
-    'Configuration ? ', 3, ['1 - Calcul de ON\n 2 - Calcul de AB\n 3 - Calcul de AM']
-  ]
-  this.consigne = ''
-  this.nbCols = 0
-  this.nbColsCorr = 0
-  this.tailleDiaporama = 1
+export default class ExercicesThales extends Exercice {
+  constructor () {
+    super()
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 2)
-  this.sup = 'all'
-  this.sup2 = 3
-  this.sup3 = 1
-  this.nouvelleVersion = function (numeroExercice, dDebug = true) {
+    const formulaire = [
+      '1 : Angles marqués alternes-internes ou correspondants ?',
+      '2 : Déterminer si des droites sont parallèles (angles marqués).',
+      '3 : Calculer la mesure d\'un angle.',
+      '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué.',
+      '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
+      '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles).',
+      '7 : Calculer la mesure d\'un angle. (utiliser le nom des angles) ?',
+      '8 : Mélange des questions'
+    ]
+    this.nbQuestions = 1
+    this.besoinFormulaireNumerique = [
+      'Type de questions', nbCase, formulaire.join('\n')
+    ]
+    this.besoinFormulaire2Numerique = true
+    this.besoinFormulaire2Numerique = [
+      'Configuration ? ', 3, ['1 - Triangles emboités\n 2 - Papillon\n 3 - Mélange']
+    ]
+    this.besoinFormulaire3Numerique = true
+    this.besoinFormulaire3Numerique = [
+      'Configuration ? ', 3, ['1 - Calcul de ON\n 2 - Calcul de AB\n 3 - Calcul de AM']
+    ]
+    this.consigne = ''
+    this.nbCols = 0
+    this.nbColsCorr = 0
+    this.tailleDiaporama = 1
+
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 2)
+    this.sup = 'all'
+    this.sup2 = 3
+    this.sup3 = 1
+  }
+
+  nouvelleVersion () {
     if (this.sup === 'all') this.nbQuestions = nbCase
 
     let nquestion = 0
@@ -79,12 +83,6 @@ export default function ExercicesThales () {
         nquestion = cpt + 1
       } else {
         nquestion = this.sup
-      }
-      if (dDebug) {
-        console.info(`
-          ********************************
-          Exercice ${i + 1} Case ${nquestion}
-          ********************************`)
       }
       switch (nquestion) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 7: {

@@ -2,7 +2,7 @@ import loadjs from 'loadjs'
 
 // import JSON uuidsRessources
 import renderMathInElement from 'katex/contrib/auto-render'
-import Exercice from '../exercices/deprecatedExercice'
+import Exercice from '../exercices/Exercice'
 import type TypeExercice from '../exercices/Exercice'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'

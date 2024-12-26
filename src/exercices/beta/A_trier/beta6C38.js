@@ -3,7 +3,7 @@ import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { lampeMessage } from '../../../lib/format/message'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -14,22 +14,25 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * 
+ *
  * @author Laurence CANDILLE
 
  */
-export default function AugmenterEtReduireDunPourcentage () {
-  Exercice.call(this)
+export default class AugmenterEtReduireDunPourcentage extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20% ..\n2 : Valeurs entières et 4%, 23% ..\n3 : Une décimale comme 34,5%']
 
-  this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.nbQuestions = 2
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.interactifType = 'mathLive'
+    this.interactifType = 'mathLive'
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const n = parseInt(this.sup) - 1
     this.introduction = lampeMessage({
       titre: 'Calculatrice autorisée.',
@@ -112,5 +115,4 @@ export default function AugmenterEtReduireDunPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20% ..\n2 : Valeurs entières et 4%, 23% ..\n3 : Une décimale comme 34,5%']
 }

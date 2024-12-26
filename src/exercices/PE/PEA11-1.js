@@ -6,7 +6,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 
 export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 
@@ -69,14 +69,16 @@ export function baseValeur (n) {
   }
 }
 
-export default function PasserDeLaBase12Ou16ALaBase10 () {
-  Exercice.call(this)
+export default class PasserDeLaBase12Ou16ALaBase10 extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
 
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['vers_base_10', 'vers_base_n_3_chiffres']
     if (this.nbQuestions === 3) {
       typesDeQuestionsDisponibles.push(choice(['vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']))

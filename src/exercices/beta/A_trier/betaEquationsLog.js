@@ -4,27 +4,30 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
 import { context } from '../../../modules/context'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 export const titre = 'Résoudre des équations avec logarithmes'
 const drteParab = l => l.length === 2 ? `${l[0]}x${ecritureAlgebrique(l[1])}` : `${l[0]}x^2${ecritureAlgebrique(l[1])}x${ecritureAlgebrique(l[2])}`
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calculANePlusJamaisUtiliser(v, 3))
 
 /**
- * 
+ *
  * @author Eric Schrafstetter
 
 */
-export default function EquationAvecUnLogarithme () {
-  Exercice.call(this)
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes :'
-  this.nbQuestions = 2
+export default class EquationAvecUnLogarithme extends Exercice {
+  constructor () {
+    super()
 
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes :'
+    this.nbQuestions = 2
 
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.sup = 1 // Niveau de difficulté
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = function () {
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['lnu=lnv', '2lnu=lnv', 'lnu+lnv=lnw']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const Txtsimplifier = '<br>L\'équation étant du type $\\ln(a)=\\ln(b)$, nous pouvons enlever les logarithmes des 2 côtés de l\'égalité :'
@@ -90,7 +93,7 @@ export default function EquationAvecUnLogarithme () {
           texteCorr += `$x_1=\\dfrac{${ecritureAlgebrique(-a[1])}-${texRacineCarree(b)}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}${EgalEnviron(x1, 3)}$`
           texteCorr += ` et $x_2=\\dfrac{${ecritureAlgebrique(-a[1])}+${texRacineCarree(b)}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}${EgalEnviron(x2)}$`
           // On va vérifier si les solutions conviennent
-          // eslint-disable-next-line no-unused-vars
+
           ;[x1, x2].forEach((v, i) => {
             texteCorr += `<br>Vérifions si $x_${i + 1}$ est bien dans le domaine de définition de l'équation : `
             faux = false

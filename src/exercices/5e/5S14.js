@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois } from '../../lib/outils/dateEtHoraires'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { OutilsStats } from '../../modules/outilsStat'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -28,15 +28,19 @@ export const refs = {
   'fr-fr': ['5S14'],
   'fr-ch': ['11NO2-4']
 }
-export default function CalculerDesMoyennes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class CalculerDesMoyennes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
 
-  this.spacingCorr = 2.5
+    this.nbQuestions = 1
 
-  this.sup = 1
+    this.spacingCorr = 2.5
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -131,5 +135,4 @@ export default function CalculerDesMoyennes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
 }

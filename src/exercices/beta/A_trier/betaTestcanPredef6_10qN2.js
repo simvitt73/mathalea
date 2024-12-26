@@ -4,7 +4,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { range1 } from '../../../lib/outils/nombres'
 import { prenomF } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
@@ -21,8 +21,9 @@ export const dateDePublication = '/11/2021' // La date de publication initiale a
  * @author Gilles Mora
 
  */
-export default function Can10Questions6N2 () {
-  Exercice.call(this)
+export default class Can10Questions6N2 extends Exercice {
+constructor() {
+super()
 
 
 
@@ -30,7 +31,9 @@ export default function Can10Questions6N2 () {
 
 
 
-  this.nouvelleVersion = function () {
+
+  }
+nouvelleVersion () {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée

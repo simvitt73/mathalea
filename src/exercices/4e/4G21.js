@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -21,18 +21,21 @@ export const refs = {
   'fr-fr': ['4G21'],
   'fr-ch': ['11GM1-3']
 }
-export default function ReciproquePythagore () {
-  Exercice.call(this)
+export default class ReciproquePythagore extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "]
 
-  this.amcReady = amcReady
-  this.amcType = amcType
+    this.amcReady = amcReady
+    this.amcType = amcType
 
-  this.nbQuestions = 3
+    this.nbQuestions = 3
 
-  this.sup = 3
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.sup = 3
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeTypeDeQuestions = []
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['rectangle'], this.nbQuestions)
@@ -215,5 +218,4 @@ export default function ReciproquePythagore () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "]
 }

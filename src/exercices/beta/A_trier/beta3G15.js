@@ -3,27 +3,25 @@ import { point, tracePoint, tracePointSurDroite } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
 import { homothetie, rotation, symetrieAxiale, translation2Points } from '../../../lib/2d/transformations'
 import { numAlpha } from '../../../lib/outils/outilString'
-import Exercice from '../../deprecatedExercice'
+import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
 import Alea2iep from '../../../modules/Alea2iep'
 export const titre = 'Utiliser toutes les transformations'
 
-export default function ConstructionsDeTransformes () {
-  Exercice.call(this)
+export default class ConstructionsDeTransformes extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
 
+    this.consigne = 'Construire les points suivants.'
+    this.video = 'hFoN9sMWnac'
+  }
 
-  this.consigne = 'Construire les points suivants.'
-  this.video = 'hFoN9sMWnac'
-
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     const anim = new Alea2iep()
-
-    
-    
 
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
 

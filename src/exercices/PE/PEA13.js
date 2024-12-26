@@ -2,7 +2,7 @@ import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { valeurBase } from './PEA11-1'
 
 export const titre = 'Multiplications dans d\'autres bases'
@@ -45,16 +45,20 @@ export function baseNVersBase10 (stringNombre, b) {
   return result
 }
 
-export default function MultiplicationsBaseN () {
-  Exercice.call(this)
-  this.video = 'pkp9e8XDH3M'
-  this.consigne = 'Poser et effectuer les calculs suivants :'
-  this.nbQuestions = 3
+export default class MultiplicationsBaseN extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix de la base', 9, '3 à 9 (au hasard si laissé vide)']
 
-  this.pasDeVersionLatex = true
-  this.spacingCorr = context.isHtml ? 2 : 1
+    this.video = 'pkp9e8XDH3M'
+    this.consigne = 'Poser et effectuer les calculs suivants :'
+    this.nbQuestions = 3
 
-  this.nouvelleVersion = function () {
+    this.pasDeVersionLatex = true
+    this.spacingCorr = context.isHtml ? 2 : 1
+  }
+
+  nouvelleVersion () {
     const base = (this.sup === undefined || this.sup < 3 || this.sup > 9) ? randint(3, 5) : this.sup
     if ([3, 4, 5].includes(base)) {
       this.listeQuestions[0] = `Écrire la table de Pythagore en base ${base}.`
@@ -109,7 +113,6 @@ export default function MultiplicationsBaseN () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix de la base', 9, '3 à 9 (au hasard si laissé vide)']
 }
 
 const tableDePythagore = (n) => {

@@ -1,4 +1,4 @@
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 
@@ -19,15 +19,20 @@ export const uuid = '62f5e'
  * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts
  * @author Jean-Claude Lhote
  */
-export default function Camemberts () {
-  Exercice.call(this)
-  this.nb_cols = 1
-  this.nbQuestions = 3
-  this.nb_questions_modifiable = false
-  this.sup = '2-3-4-5' // nombre de parts
-  this.sup2 = '5' // nombre de disques par ligne
+export default class Camemberts extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (de 2 à 12)']
+    this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (de 1 à 5)']
 
-  this.nouvelleVersion = function () {
+    this.nb_cols = 1
+    this.nbQuestions = 3
+    this.nb_questions_modifiable = false
+    this.sup = '2-3-4-5' // nombre de parts
+    this.sup2 = '5' // nombre de disques par ligne
+  }
+
+  nouvelleVersion () {
     if (this.sup === '') {
       this.sup = '2-3-4-5'
     }
@@ -49,6 +54,4 @@ export default function Camemberts () {
     }
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (de 2 à 12)']
-  this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (de 1 à 5)']
 }

@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -24,13 +24,17 @@ export const refs = {
   'fr-fr': ['5L13'],
   'fr-ch': ['10FA1-11']
 }
-export default function Reductionaxbx () {
-  Exercice.call(this)
-  this.nbQuestions = 5
+export default class Reductionaxbx extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 
-  this.sup = true
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.sup = true
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions !== 1
       ? 'Réduire les expressions suivantes.'
       : 'Réduire l\'expression suivante.'
@@ -82,6 +86,4 @@ export default function Reductionaxbx () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 }

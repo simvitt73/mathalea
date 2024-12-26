@@ -8,7 +8,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -30,13 +30,18 @@ export const refs = {
   'fr-fr': ['5G30-1'],
   'fr-ch': ['11ES2-1']
 }
-export default function EgaliteDAngles () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 1
-  this.spacing = 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nouvelleVersion = function () {
+export default class EgaliteDAngles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
+
+    this.sup = 1
+    this.nbQuestions = 1
+    this.spacing = 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+  }
+
+  nouvelleVersion () {
     const choix = this.sup === 3 ? combinaisonListes([1, 2], this.nbQuestions) : combinaisonListes([this.sup], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let figure = []
@@ -300,5 +305,4 @@ export default function EgaliteDAngles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
 }

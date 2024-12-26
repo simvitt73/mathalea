@@ -10,7 +10,7 @@ import { rotation, similitude } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
@@ -33,16 +33,22 @@ export const refs = {
   'fr-fr': ['5G40'],
   'fr-ch': ['9ES4-4']
 }
-export default function ConstructionsParallelogrammes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class ConstructionsParallelogrammes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
+    this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
 
-  this.sup = 5
-  this.sup2 = 2
-  this.spacingCorr = 2
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 1
+
+    this.sup = 5
+    this.sup2 = 2
+    this.spacingCorr = 2
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion (numeroExercice) {
     const tailleGrille = 0.2 + this.sup2 * 0.2
 
     // const typeQuestionsDisponibles = [1, 2, 3, 4]
@@ -323,6 +329,4 @@ export default function ConstructionsParallelogrammes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
-  this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
 }

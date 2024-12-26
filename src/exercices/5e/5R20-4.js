@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix, texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
@@ -20,29 +20,25 @@ export const refs = {
   'fr-fr': ['5R20-4'],
   'fr-ch': ['9NO9-9']
 }
-export default function ProblemesAdditifsRelatifs5e () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 1
-  } else {
-    this.nbQuestions = 1
+export default class ProblemesAdditifsRelatifs5e extends Exercice {
+  constructor () {
+    super()
+
+    this.debug = false
+    this.sup = 1
+    if (this.debug) {
+      this.nbQuestions = 1
+    } else {
+      this.nbQuestions = 1
+    }
+
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 0.5
   }
 
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 0.5
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      //   typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [0]
-    }
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [0]
 
     // typesDeQuestionsDisponibles=[1];
 
