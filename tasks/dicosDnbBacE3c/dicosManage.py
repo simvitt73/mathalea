@@ -98,10 +98,14 @@ def newEntry(file:str,dicoType:str)->list:
         else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
         if ('sti2d' in filename) :
-            lieu = locationName(filename.split('_')[3])
+            if ('sujet1' in filename or 'sujet2' in filename) :
+                lieu = locationName(filename.split('_')[4])
+                numeroInitial = filename.split('_')[5]
+            else :
+                lieu = locationName(filename.split('_')[3])
+                numeroInitial = filename.split('_')[4]
             annee = filename.split('_')[1]
             mois = filename.split('_')[2]
-            numeroInitial = filename.split('_')[4]
             dicoType = 'sti2d'
             newLines = f'''  {filename}: {{                
                 annee: '{annee}',                
