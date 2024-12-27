@@ -56,7 +56,7 @@
 
   const dispatch = createEventDispatcher()
 
-  function newSettings () {
+  function dispatchNewSettings () {
     dispatch('settings', {
       nbQuestions,
       duration,
@@ -166,8 +166,8 @@
           min="1"
           max="100"
           bind:value={nbQuestions}
-          on:change={newSettings}
-          on:input={newSettings}
+          on:change={dispatchNewSettings}
+          on:input={dispatchNewSettings}
           class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
         />
       </div>
@@ -188,7 +188,7 @@
           id="settings-check1-{exercice.uuid}"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup}
-          on:change={newSettings}
+          on:change={dispatchNewSettings}
         />
       </div>
     {/if}
@@ -205,7 +205,7 @@
               name="formNum1"
               id="settings-formNum1-{exerciceIndex}"
               bind:value={sup}
-              on:change={newSettings}
+              on:change={dispatchNewSettings}
             >
               {#each formNum1.champs as entree, i}
                 <option
@@ -233,7 +233,7 @@
             min="1"
             max={formNum1.champs}
             bind:value={sup}
-            on:change={newSettings}
+            on:change={dispatchNewSettings}
           />
         </div>
       {/if}
@@ -242,7 +242,7 @@
       <form
         id="settings-form-formText1-{exerciceIndex}"
         name="settings-form-formText1"
-        on:submit|preventDefault={newSettings}
+        on:submit|preventDefault={dispatchNewSettings}
       >
         {#if typeof exercice.besoinFormulaireTexte !== 'boolean'}
           <label
@@ -261,7 +261,7 @@
               id="settings-formText1-{exerciceIndex}"
               type="text"
               bind:value={sup}
-              on:input={newSettings}
+              on:input={dispatchNewSettings}
             />
           </div>
         {/if}
@@ -285,7 +285,7 @@
           type="checkbox"
           class="ml-2  bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup2}
-          on:change={newSettings}
+          on:change={dispatchNewSettings}
         />
       </div>
     {/if}
@@ -302,7 +302,7 @@
               name="settings-formNum2"
               id="settings-formNum2-{exerciceIndex}"
               bind:value={sup2}
-              on:change={newSettings}
+              on:change={dispatchNewSettings}
             >
               {#each formNum2.champs as entree, i}
                 <option
@@ -330,7 +330,7 @@
             min="1"
             max={formNum2.champs}
             bind:value={sup2}
-            on:change={newSettings}
+            on:change={dispatchNewSettings}
           />
         </div>
       {/if}
@@ -339,7 +339,7 @@
       <form
         id="settings-form-formText2-{exerciceIndex}"
         name="settings-form-formText2"
-        on:submit|preventDefault={newSettings}
+        on:submit|preventDefault={dispatchNewSettings}
       >
         {#if typeof exercice.besoinFormulaire2Texte !== 'boolean'}
           <label
@@ -358,7 +358,7 @@
               id="settings-formText2-{exerciceIndex}"
               type="text"
               bind:value={sup2}
-              on:input={newSettings}
+              on:input={dispatchNewSettings}
             />
           </div>
         {/if}
@@ -382,7 +382,7 @@
           type="checkbox"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup3}
-          on:change={newSettings}
+          on:change={dispatchNewSettings}
         />
       </div>
     {/if}
@@ -399,7 +399,7 @@
               name="settings-formNum3"
               id="settings-formNum3-{exerciceIndex}"
               bind:value={sup3}
-              on:change={newSettings}
+              on:change={dispatchNewSettings}
             >
               {#each formNum3.champs as entree, i}
                 <option
@@ -427,7 +427,7 @@
             min="1"
             max={formNum3.champs}
             bind:value={sup3}
-            on:change={newSettings}
+            on:change={dispatchNewSettings}
           />
         </div>
       {/if}
@@ -436,7 +436,7 @@
       <form
         id="settings-form-formText3-{exerciceIndex}"
         name="settings-form-formText3"
-        on:submit|preventDefault={newSettings}
+        on:submit|preventDefault={dispatchNewSettings}
       >
         {#if typeof exercice.besoinFormulaire3Texte !== 'boolean'}
           <label
@@ -455,7 +455,7 @@
               id="settings-formText3-{exerciceIndex}"
               type="text"
               bind:value={sup3}
-              on:input={newSettings}
+              on:input={dispatchNewSettings}
             />
           </div>
         {/if}
@@ -479,7 +479,7 @@
           type="checkbox"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup4}
-          on:change={newSettings}
+          on:change={dispatchNewSettings}
         />
       </div>
     {/if}
@@ -496,7 +496,7 @@
               name="settings-formNum4"
               id="settings-formNum4-{exerciceIndex}"
               bind:value={sup4}
-              on:change={newSettings}
+              on:change={dispatchNewSettings}
             >
               {#each formNum4.champs as entree, i}
                 <option
@@ -524,7 +524,7 @@
             min="1"
             max={formNum4.champs}
             bind:value={sup4}
-            on:change={newSettings}
+            on:change={dispatchNewSettings}
           />
         </div>
       {/if}
@@ -534,7 +534,7 @@
         id="settings-form-formText4-{exerciceIndex}"
         name="settings-form-formText4"
         class="flex flex-col justify-start"
-        on:submit|preventDefault={newSettings}
+        on:submit|preventDefault={dispatchNewSettings}
       >
         {#if typeof exercice.besoinFormulaire4Texte !== 'boolean'}
           <label
@@ -553,7 +553,7 @@
               id="settings-formText4-{exerciceIndex}"
               type="text"
               bind:value={sup4}
-              on:input={newSettings}
+              on:input={dispatchNewSettings}
             />
           </div>
         {/if}
@@ -577,7 +577,7 @@
          type="checkbox"
          class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
          bind:checked={sup5}
-         on:change={newSettings}
+         on:change={dispatchNewSettings}
        />
      </div>
    {/if}
@@ -594,7 +594,7 @@
              name="settings-formNum5"
              id="settings-formNum5-{exerciceIndex}"
              bind:value={sup5}
-             on:change={newSettings}
+             on:change={dispatchNewSettings}
            >
              {#each formNum5.champs as entree, i}
                <option
@@ -622,7 +622,7 @@
            min="1"
            max={formNum5.champs}
            bind:value={sup5}
-           on:change={newSettings}
+           on:change={dispatchNewSettings}
          />
        </div>
      {/if}
@@ -632,7 +632,7 @@
        id="settings-form-formText5-{exerciceIndex}"
        name="settings-form-formText5"
        class="flex flex-col justify-start"
-       on:submit|preventDefault={newSettings}
+       on:submit|preventDefault={dispatchNewSettings}
      >
        {#if typeof exercice.besoinFormulaire5Texte !== 'boolean'}
          <label
@@ -651,7 +651,7 @@
              id="settings-formText5-{exerciceIndex}"
              type="text"
              bind:value={sup5}
-             on:input={newSettings}
+             on:input={dispatchNewSettings}
            />
          </div>
        {/if}
@@ -672,14 +672,14 @@
           id="settings-correction-detaillee-{exerciceIndex}"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={correctionDetaillee}
-          on:change={newSettings}
+          on:change={dispatchNewSettings}
         />
       </div>
     {/if}
     <form
       id="settings-form-formAlea-{exerciceIndex}"
       name="settings-form-formAlea"
-      on:submit|preventDefault={newSettings}
+      on:submit|preventDefault={dispatchNewSettings}
     >
       <label
         class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
@@ -693,7 +693,7 @@
         id="settings-formAlea-{exerciceIndex}"
         type="text"
         bind:value={alea}
-        on:input={newSettings}
+        on:input={dispatchNewSettings}
       />
     </form>
     {#if exercice.comment !== undefined}
