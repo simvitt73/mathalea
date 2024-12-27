@@ -4,18 +4,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybrides'
-
-/**
- * Clone de 4C34 pour les 2nde
- * @author Sébastien Lozano
- */
-
 export const uuid = '6fda8'
-
 export const refs = {
   'fr-fr': ['2N31-4'],
   'fr-ch': []
 }
-export default function PrioritesEtRelatifsEtPuissances2e () {
-  PrioritesEtRelatifsEtPuissances.call(this)
+export default class PrioritesEtRelatifsEtPuissances2e extends PrioritesEtRelatifsEtPuissances {
 }

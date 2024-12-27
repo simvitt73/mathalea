@@ -6,18 +6,14 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '28/10/2021'
 export const dateDeModifImportante = '28/12/2022'
-
-/**
- * Transformations : symétrie centrale et repérage
- * @author Jean-Claude Lhote
- */
 export const uuid = '2d2bb'
-
 export const refs = {
   'fr-fr': ['5G11-5'],
   'fr-ch': ['9ES6-10']
 }
-export default function SymetriesEtCoordonnees5e () {
-  TransformationsDuPlanEtCoordonnees.call(this)
-  this.sup = '1-2'
+export default class SymetriesEtCoordonnees5e extends TransformationsDuPlanEtCoordonnees {
+  constructor () {
+    super()
+    this.sup = '1-2'
+  }
 }

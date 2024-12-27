@@ -4,21 +4,15 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'qcmMono'
-
-/**
- * @author Guillaume Valmont
- * reference 4C20
- * Publié le 14/08/2021
- */
 export const uuid = 'd7e11'
-
 export const refs = {
   'fr-fr': ['4C20'],
   'fr-ch': []
 }
-export default function ExerciceComparerDeuxFractions4e () {
-  ExerciceComparerDeuxFractions.call(this)
-
-  this.sup = 11
-  this.sup2 = true
+export default class ExerciceComparerDeuxFractions4e extends ExerciceComparerDeuxFractions {
+  constructor () {
+    super()
+    this.sup = 11
+    this.sup2 = true
+  }
 }

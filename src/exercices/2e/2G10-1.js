@@ -3,17 +3,10 @@ export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
 export const interactifReady = false
 export const amcReady = true
 export const amcType = 'AMCHybride'
-
-/**
- * Clone de 5G42 pour les 2nde
- * @author Sébastien LOZANO
- */
 export const uuid = '430b9'
-
 export const refs = {
   'fr-fr': ['2G10-1'],
   'fr-ch': []
 }
-export default function EgaliteDAngles2nde () {
-  EgaliteDAngles.call(this)
+export default class EgaliteDAngles2nde extends EgaliteDAngles {
 }

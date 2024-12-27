@@ -4,18 +4,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
-
-/**
- * Clone de 3L11-3 pour les 2nde
- * @author Sébastien Lozano
- */
-
 export const uuid = '60cc5'
-
 export const refs = {
   'fr-fr': ['2N40-4'],
   'fr-ch': ['11FA2-7']
 }
-export default function DistributiviteSimpleDoubleReduction2e () {
-  DistributiviteSimpleDoubleReduction.call(this)
+export default class DistributiviteSimpleDoubleReduction2e extends DistributiviteSimpleDoubleReduction {
 }

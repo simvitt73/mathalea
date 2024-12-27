@@ -3,18 +3,14 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Écrire une expression littérale'
 export const dateDePublication = '23/11/2023'
-/**
- * @author Gilles Mora
- *
-
- */
 export const uuid = 'b7307'
-
 export const refs = {
   'fr-fr': ['can5L02'],
   'fr-ch': []
 }
-export default function ÉcrireUneExpressionLitteraleCAN () {
-  ÉcrireUneExpressionLitterale.call(this)
-  this.nbQuestions = 1
+export default class ÉcrireUneExpressionLitteraleCAN extends ÉcrireUneExpressionLitterale {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+  }
 }

@@ -4,18 +4,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
-/**
- * Clone de 4C32 pour les 2nde
- * @author Sébastien Lozano
- */
-
 export const uuid = 'c9404'
-
 export const refs = {
   'fr-fr': ['2N31-1'],
   'fr-ch': []
 }
-export default function NotationScientifique2e () {
-  NotationScientifique.call(this)
+export default class NotationScientifique2e extends NotationScientifique {
 }

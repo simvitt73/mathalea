@@ -4,20 +4,16 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
 export const dateDePublication = '18/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
-/**
- * @author Degrange Mathieu
- */
 export const uuid = '1afde'
-
 export const refs = {
   'fr-fr': ['can2F13'],
   'fr-ch': []
 }
-export default function CANImageFonctionsRefs () {
-  ImageFonctionsRefs.call(this)
-  this.can = true
-  this.nbQuestions = 1
+export default class CANImageFonctionsRefs extends ImageFonctionsRefs {
+  constructor () {
+    super()
+    this.can = true
+    this.nbQuestions = 1
+  }
 }

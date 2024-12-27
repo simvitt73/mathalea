@@ -5,20 +5,16 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
-/**
- * Clone de 3A10 pour les 2nde
- *
- * @author Jean-Claude Lhote
- */
-
 export const uuid = 'c04cc'
 
 export const refs = {
   'fr-fr': ['2N20-4'],
   'fr-ch': []
 }
-export default function PremierOuPas2nde () {
-  PremierOuPas.call(this)
-  this.sup = 1
-  this.sup2 = false
+export default class PremierOuPas2nde extends PremierOuPas {
+  constructor () {
+    super()
+    this.sup = 1
+    this.sup2 = false
+  }
 }
