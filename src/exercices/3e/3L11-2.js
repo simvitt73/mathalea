@@ -48,7 +48,7 @@ export default class ReductionSiPossible extends Exercice {
 
     this.spacing = context.isHtml ? 3 : 2
     this.spacingCorr = context.isHtml ? 3 : 2
-    this.tailleDiaporama = 3
+
     this.sup = false
     this.sup2 = false
     this.sup3 = 9

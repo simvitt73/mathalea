@@ -23,7 +23,7 @@ export default class MutliplierParN0N extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.typeExercice = 'simple'
     this.formatChampTexte = ''
   }

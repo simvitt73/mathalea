@@ -46,7 +46,7 @@ export default class ProbabilitesConditionnelles extends Exercice {
     this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
     this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
     this.nbQuestions = 1 // Nombre de questions par défaut
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
     this.spacing = context.isHtml ? 2 : 1
     this.spacingCorr = context.isHtml ? 3 : 1
 

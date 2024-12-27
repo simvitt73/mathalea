@@ -45,7 +45,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
     this.nbQuestions = 2
     // this.nbCols = 2 // Uniquement pour la sortie LaTeX
     // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
     this.sup = 3
     this.sup2 = 3
     this.sup3 = 3

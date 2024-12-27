@@ -31,12 +31,11 @@ export const refs = {
 }
 export default class ExerciceLabyrintheMultiples extends Exercice {
   niveau: string
-  tailleDiaporama: number
-  constructor () {
+   constructor () {
     super()
     this.niveau = '6e'
     this.nbQuestions = 3
-    this.tailleDiaporama = 2
+
     this.besoinFormulaireNumerique = ['Tables', 4, '1 : Tables de 2,5 et 10\n2 : Tables de 3 et 9\n3 : Tables de 4,6,7 et 8\n4 : Mélange']
     this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
     this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]

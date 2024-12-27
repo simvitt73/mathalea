@@ -32,7 +32,7 @@ export default class ProblemeResteFraction extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.optionsDeComparaison = { fractionEgale: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'

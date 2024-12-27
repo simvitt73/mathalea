@@ -46,7 +46,7 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
       this.correctionDetaillee = false
     }
     this.nbQuestions = 3
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

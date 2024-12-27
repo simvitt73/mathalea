@@ -36,7 +36,7 @@ export default class CalculProbaArbre2e extends Exercice {
     this.nbQuestions = 1
 
     // this.sup = 1; // Niveau de difficulté
-    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

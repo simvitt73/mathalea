@@ -34,7 +34,7 @@ export default class TableDoubleDistributivite extends Exercice {
     this.spacingCorr = context.isHtml ? 3 : 2
     this.nbQuestions = 5
     this.sup = 1
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
     this.exoCustomResultat = true
   }

@@ -38,7 +38,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
     this.sup = 1 // Niveau de difficulté
     this.sup2 = true // avec des fractions simplifiées
     this.sup3 = false // valeurs positives si false sinon valeurs positives et négatives
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

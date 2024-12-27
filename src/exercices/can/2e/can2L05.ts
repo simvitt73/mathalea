@@ -29,7 +29,7 @@ export default class SolutionInequation extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.spacing = 3
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }

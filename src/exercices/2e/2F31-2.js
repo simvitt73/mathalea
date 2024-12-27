@@ -36,7 +36,7 @@ export default class EncadrerAvecFctRef extends Exercice {
     this.sup = 5
     context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
     context.isHtml ? (this.spacingCorr = 2.2) : (this.spacingCorr = 1)
-    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

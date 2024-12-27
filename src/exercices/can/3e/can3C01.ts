@@ -29,7 +29,7 @@ export default class CalculPuissanceSimple extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.formatChampTexte = ''
   }
 

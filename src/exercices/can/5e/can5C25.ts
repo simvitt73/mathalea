@@ -23,7 +23,7 @@ export default class AdditionRelatifCAN extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 10
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

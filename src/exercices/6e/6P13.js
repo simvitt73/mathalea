@@ -143,7 +143,7 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
 
     this.sup = 1 // Niveau de difficulté
     this.sup2 = 2
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

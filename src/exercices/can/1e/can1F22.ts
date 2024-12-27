@@ -34,7 +34,7 @@ export default class ReconnaitreFonctionDegre2 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.tailleDiaporama = 2
+
     const nomF = [
       ['f'], ['g'], ['h'], ['u'],
       ['v'], ['w'], ['r']

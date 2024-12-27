@@ -24,15 +24,14 @@ export const refs = {
 export default class QuartOuTiers extends Exercice {
   typeExercice: string
   nbQuestions: number
-  tailleDiaporama: number
-  optionsDeComparaison: { nombreDecimalSeulement: boolean }
+   optionsDeComparaison: { nombreDecimalSeulement: boolean }
   formatChampTexte: string
 
   constructor () {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = 'clavierNumbers'
   }

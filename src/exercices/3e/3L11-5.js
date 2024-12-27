@@ -41,7 +41,7 @@ export default class IdentitesCalculs extends Exercice {
     // this.nbQuestionsModifiable = false;
     context.isHtml ? this.spacing = 1 : this.spacing = 1
     context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

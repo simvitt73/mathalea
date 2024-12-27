@@ -27,7 +27,7 @@ export default class SuiteSurDroiteGraduee extends Exercice {
     super()
 
     this.typeExercice = 'simple'
-    this.tailleDiaporama = 2
+
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.nbQuestions = 1
   }

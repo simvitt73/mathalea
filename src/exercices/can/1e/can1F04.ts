@@ -32,7 +32,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
 
     this.nbQuestions = 1
     this.formatChampTexte = ''
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

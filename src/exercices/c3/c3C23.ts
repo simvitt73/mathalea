@@ -24,15 +24,14 @@ export const refs = {
   'fr-ch': ['9NO13-1']
 }
 class CalculsFractionsSimples extends Exercice {
-  tailleDiaporama: number
-  version: string
+   version: string
   constructor () {
     super()
     this.formatInteractif = 'fractionEgale'
     this.nbQuestions = 6
     this.sup = '1-2'
     this.consigne = 'Calculer.'
-    this.tailleDiaporama = 4
+
     this.version = 'c3'
     this.besoinFormulaireTexte = ['Opérations', 'Nombres séparés par des tirets\n1 : Additions\n2 : Soustractions\n3: Multiplications par un entier\n4: Mélange']
   }

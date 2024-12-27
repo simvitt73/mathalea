@@ -28,7 +28,7 @@ export default class MultiplierPar extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = ''
     this.typeExercice = 'simple'
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

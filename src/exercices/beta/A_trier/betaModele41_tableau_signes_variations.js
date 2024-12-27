@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
+
 
   }
 

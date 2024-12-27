@@ -27,7 +27,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     this.nbQuestions = 2
 
     this.sup = 1 // Niveau de difficulté
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.typeExercice = 'xcas'
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)

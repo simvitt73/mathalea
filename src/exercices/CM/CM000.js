@@ -40,7 +40,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
     this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
     this.consigne = 'Calculer.'
     this.spacing = 2
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

@@ -30,7 +30,7 @@ export default class InequationsGSpline extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 1
+
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.optionsDeComparaison = { texteSansCasse: true }
   }

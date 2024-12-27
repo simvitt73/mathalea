@@ -58,7 +58,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
     this.sup2 = false
     this.sup3 = 3
     this.sup4 = true
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true

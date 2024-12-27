@@ -35,7 +35,7 @@ export default class DernierChiffre extends Exercice {
 
     this.nbCols = 2 // Le nombre de colonnes dans l'énoncé LaTeX
     this.nbColsCorr = 2// Le nombre de colonne pour la correction LaTeX
-    this.tailleDiaporama = 3
+
     this.correctionDetailleeDisponible = true
     this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
     this.version = 1

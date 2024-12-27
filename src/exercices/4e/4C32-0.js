@@ -31,7 +31,7 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
     this.nbQuestions = 4
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
+
 
     this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
     this.sup = 3

@@ -30,7 +30,7 @@ export default class EquationsEtInequations extends Exercice {
   }
 
   nouvelleVersion () {
-    this.tailleDiaporama = 3
+
     if (context.vue === 'diap' || this.nbQuestions === 1) {
       this.introduction = 'Résoudre dans $\\mathbb{R}$ :'
     } else this.introduction = 'Résoudre dans $\\mathbb{R}$ les équations et inéquations suivantes.'

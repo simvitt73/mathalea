@@ -33,7 +33,7 @@ export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange']
 
     this.nbQuestions = 3
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
     this.interactifType = 'mathLive'
     this.sup = '4'
   }

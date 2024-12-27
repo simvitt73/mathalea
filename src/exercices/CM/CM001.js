@@ -22,6 +22,6 @@ export const refs = {
 export default class TablesParametres extends TablesDeMultiplications {
   constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super(tablesParDefaut)
-    this.tailleDiaporama = 3
+
   }
 }

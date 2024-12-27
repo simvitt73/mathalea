@@ -22,7 +22,7 @@ export default class FractionDecimaleEcritureDecimale2 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.typeExercice = 'simple'
     this.formatChampTexte = ''
   }

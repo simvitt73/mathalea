@@ -53,7 +53,7 @@ export default class CalculsHomothetie extends Exercice {
     this.nbQuestions = 4 // Nombre de questions par défaut
     this.nbCols = 0 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true

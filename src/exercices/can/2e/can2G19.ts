@@ -36,7 +36,7 @@ export default class CoeffDirDroite extends Exercice {
     this.formatInteractif = 'fractionEgale'
     this.nbQuestions = 1
 
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

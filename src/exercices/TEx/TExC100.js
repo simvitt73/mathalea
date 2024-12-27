@@ -27,7 +27,7 @@ export default class EquationDuPremierDegreDansC extends Exercice {
     this.nbQuestions = 2
 
     this.sup = 1 // Niveau de difficulté
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.spacingCorr = 2
   }

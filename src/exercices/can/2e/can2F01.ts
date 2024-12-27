@@ -29,7 +29,7 @@ export default class CalculImageSecondDegre extends Exercice {
     this.typeExercice = 'simple'
     this.formatChampTexte = ''
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

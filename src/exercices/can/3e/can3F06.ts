@@ -27,7 +27,7 @@ export default class CoefficientFonctionAffine extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
 
     this.formatChampTexte = ''
   }

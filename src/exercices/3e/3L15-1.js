@@ -31,7 +31,7 @@ export default class ResoudreEquatioeX2EgalA extends Exercice {
 
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
 
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

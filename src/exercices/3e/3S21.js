@@ -37,7 +37,7 @@ export default class CalculProbaExperience2Epreuves3e extends Exercice {
     this.niveau = '3eme'
     this.sup = 1
     this.sup2 = false
-    this.tailleDiaporama = 1
+
     this.nbQuestions = 1
     this.spacing = context.isHtml ? 2 : 1.5
     this.spacingCorr = context.isHtml ? 2 : 1.5

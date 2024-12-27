@@ -28,7 +28,7 @@ export default class Proportionnalite2 extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = ''
     this.formatInteractif = 'fractionEgale'
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

@@ -26,7 +26,7 @@ export default class SolutionInequation extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

@@ -34,7 +34,7 @@ export default class PointSurCercleTrigo extends Exercice {
     this.formatChampTexte = ''
     this.nbQuestions = 1
 
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

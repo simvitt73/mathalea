@@ -23,7 +23,7 @@ export default class PerimetreCarreRectangle extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.optionsChampTexte = { texteApres: ' cm' }
     this.formatChampTexte = ''
   }

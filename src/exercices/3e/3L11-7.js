@@ -36,7 +36,7 @@ export default class CarreDoubleDistributivite extends Exercice {
     this.spacing = context.isHtml ? 3 : 2
     this.spacingCorr = context.isHtml ? 3 : 2
     this.sup = true
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
   }
 

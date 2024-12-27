@@ -47,7 +47,7 @@ export default class OpposeExpression extends Exercice {
     this.spacing = context.isHtml ? 3 : 2
     this.nbQuestions = 6
     this.sup = '1-2-3-4'
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
   }
 

@@ -33,7 +33,7 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
 
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
+
 
     this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
     this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : Collège\n2 : Lycée']

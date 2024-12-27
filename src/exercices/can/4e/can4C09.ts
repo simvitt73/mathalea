@@ -23,7 +23,7 @@ export default class PuissancesDe2345 extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    this.tailleDiaporama = 2
+
     this.nbQuestions = 1
     this.formatChampTexte = ''
   }

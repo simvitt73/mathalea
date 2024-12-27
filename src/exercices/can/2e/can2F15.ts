@@ -28,7 +28,7 @@ export default class VariationFA extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 1.3
+
   }
 
   nouvelleVersion () {

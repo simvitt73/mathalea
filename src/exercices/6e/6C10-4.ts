@@ -27,14 +27,13 @@ export const refs = {
   'fr-ch': ['9NO3-16']
 }
 export default class ExerciceTablesAdditions extends Exercice {
-  tailleDiaporama: number
-  constructor (max = 20) {
+   constructor (max = 20) {
     super()
     this.consigne = 'Calculer.'
     this.sup2 = '1'
     this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
     this.spacing = 2
-    this.tailleDiaporama = 3
+
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Calculer la somme\n2: Calculer un terme manquant\n3: Mélange']
   }

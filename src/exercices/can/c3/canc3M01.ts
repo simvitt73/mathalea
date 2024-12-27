@@ -26,7 +26,7 @@ export default class TrouverLaBonneUnite extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.typeExercice = 'simple'
     this.formatInteractif = 'texte'
     this.formatChampTexte = KeyboardType.alphanumeric

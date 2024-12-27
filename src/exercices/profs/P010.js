@@ -35,7 +35,7 @@ export default class VariationPolynomeDegre3 extends Exercice {
 
     this.sup = '-1/-2/3/1' // Niveau de difficulté
     this.sup2 = true
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.typeExercice = 'xcas'
   }

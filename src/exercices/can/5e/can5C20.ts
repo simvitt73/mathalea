@@ -26,7 +26,7 @@ export default class Soustraire2Decimaux2 extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = ''
     this.typeExercice = 'simple'
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

@@ -39,7 +39,7 @@ export default class FactoriserUneExpression3e extends Exercice {
     this.correctionDetaillee = true
     this.spacing = context.isHtml ? 3 : 2
     this.spacingCorr = context.isHtml ? 3 : 2
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
   }
 

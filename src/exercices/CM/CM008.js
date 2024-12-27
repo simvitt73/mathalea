@@ -29,7 +29,7 @@ export default class Soustraire11 extends Exercice {
 
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

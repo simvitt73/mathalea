@@ -608,7 +608,7 @@ export default class CalculsProbabilites extends Exercice {
 
     this.nbCols = 0
     this.nbColsCorr = 0
-    this.tailleDiaporama = 1
+
 
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true

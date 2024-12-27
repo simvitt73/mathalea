@@ -35,7 +35,7 @@ export default class ComparerAvecFctRef extends Exercice {
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.sup = 1
     this.spacingCorr = 2
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

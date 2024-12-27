@@ -24,8 +24,7 @@ export const refs = {
   'fr-ch': ['9NO8-7']
 }
 export default class ExerciceTablesMultiplicationsEtDecimaux extends Exercice {
-  tailleDiaporama: number
-  constructor (
+   constructor (
     tablesParDefaut = '2-3-4-5-6-7-8-9'
   ) {
     super()
@@ -37,7 +36,7 @@ export default class ExerciceTablesMultiplicationsEtDecimaux extends Exercice {
     ] // Texte, tooltip
     this.consigne = 'Calculer.'
     this.spacing = 2
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

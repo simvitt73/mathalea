@@ -23,7 +23,7 @@ export default class AdditionRelatifATrou extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 20
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

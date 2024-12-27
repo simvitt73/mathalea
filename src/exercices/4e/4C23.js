@@ -42,7 +42,7 @@ export default class SommeOuProduitFractions extends Exercice {
     this.nbQuestions = 8 // Nombre de questions par défaut
     this.nbCols = 4 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.sup = '1-3'
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.

@@ -31,7 +31,7 @@ export default class RelationRec extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

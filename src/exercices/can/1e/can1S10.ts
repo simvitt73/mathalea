@@ -28,7 +28,7 @@ export default class SensVariationSuite extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.spacing = 2
   }
 

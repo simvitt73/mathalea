@@ -81,7 +81,7 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
     this.consigne = 'Calculer.'
     this.nbQuestions = 5
 
-    this.tailleDiaporama = 3
+
     this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
     this.spacing = context.isHtml ? 3 : 1
     this.spacingCorr = context.isHtml ? 3 : 1

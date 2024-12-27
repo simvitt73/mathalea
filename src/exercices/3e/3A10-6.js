@@ -39,7 +39,7 @@ export default class TrouverChiffre extends Exercice {
     this.sup2 = 9
     this.sup3 = 1
 
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

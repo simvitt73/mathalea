@@ -38,7 +38,7 @@ export default class TableauProportion extends Exercice {
     this.spacingCorr = context.isHtml ? 1 : 2
     this.nbQuestions = 1
     this.sup = 2
-    this.tailleDiaporama = 1
+
     this.listeAvecNumerotation = false
     this.exoCustomResultat = true
     this.nbQuestionsModifiable = false

@@ -23,15 +23,14 @@ export const refs = {
 
 export default class NombrePairFois5 extends Exercice {
   typeExercice: string
-  tailleDiaporama: number
-  nbQuestions: number
+   nbQuestions: number
   optionsDeComparaison: { nombreDecimalSeulement: boolean }
   formatChampTexte: string
 
   constructor () {
     super()
     this.typeExercice = 'simple'
-    this.tailleDiaporama = 2
+
     this.nbQuestions = 1
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers as string

@@ -25,7 +25,7 @@ export default class YohakuCan6a extends Exercice {
     super()
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

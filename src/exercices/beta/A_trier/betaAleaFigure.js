@@ -62,7 +62,7 @@ export default class ExercicesThales extends Exercice {
     this.consigne = ''
     this.nbCols = 0
     this.nbColsCorr = 0
-    this.tailleDiaporama = 1
+
 
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true

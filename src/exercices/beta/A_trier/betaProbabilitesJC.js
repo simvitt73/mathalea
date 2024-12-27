@@ -21,7 +21,7 @@ super()
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
   // this.sup = 1; // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
   const omega = new Arbre({
     racine: true,

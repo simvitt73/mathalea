@@ -28,7 +28,7 @@ export default class SigneFonctionAffine extends Exercice {
 
     this.date = 1635094684684
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.listeAvecNumerotation = true
   }
 

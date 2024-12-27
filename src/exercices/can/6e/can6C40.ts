@@ -28,7 +28,7 @@ export default class CalculMoitieDecimal extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
   }

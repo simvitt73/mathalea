@@ -40,7 +40,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
       'Niveau attendu de la CAN',
       '7 : CM2\n6 : 6ème\n5 : 5ème\n4 : 4ème\n3 : 3ème\n2 : Seconde\n1 : Première\n0 : Terminale\nx : Au Hasard'
     ]
-    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
     this.sup = 'x'
     this.nbQuestions = 30
   }

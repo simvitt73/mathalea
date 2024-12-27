@@ -35,7 +35,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
     this.nbQuestions = 1
 
     this.sup = 4
-    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
     this.spacing = 1.5 // Interligne des questions
   }
 

@@ -109,7 +109,7 @@ export default class EcrirePetitsNombresEntiers extends Exercice {
     this.besoinFormulaire4CaseACocher = ['Activer le drag and drop pour l\'écriture en lettres', false]
     this.sup4 = false
 
-    this.tailleDiaporama = 3
+
 
     this.dragAndDrops = []
   }

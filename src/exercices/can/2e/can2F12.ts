@@ -29,7 +29,7 @@ export default class ComparerAvecFctRef extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.spacing = 1.2
   }
 

@@ -27,7 +27,7 @@ export default class RelationChasles2 extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.spacing = 3
   }
 

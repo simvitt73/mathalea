@@ -28,7 +28,7 @@ export default class TableauSignesSecondDegre extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 1
+
   }
 
   nouvelleVersion () {

@@ -19,6 +19,6 @@ export default class DivisionsEuclidiennesNiv2 extends DivisionsEuclidiennesEgal
   constructor () {
     super()
     this.sup = 3
-    this.tailleDiaporama = 3
+
   }
 }

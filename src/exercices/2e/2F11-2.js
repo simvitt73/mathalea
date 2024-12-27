@@ -34,7 +34,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
     this.sup = 6
     this.sup2 = true
     this.sup2 = 1
-    this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
     this.spacing = 1.5 // Interligne des questions
   }
 

@@ -41,7 +41,7 @@ export default class TablesDeDivisions extends Exercice {
     this.sup2 = 1 // classique|a_trous|melange
     this.consigne = 'Calculer.'
     this.spacing = 2
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

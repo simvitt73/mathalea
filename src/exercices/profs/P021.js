@@ -29,7 +29,7 @@ export default class TraceCourbeSpline extends Exercice {
     this.sup = '(-3;-2)/(-1;0)/(1;-3)/(3;4)' // liste de points
     this.sup2 = '(2;2)/(0;0)/(0;0)/(1;1)'
     this.sup3 = '1/1/1/1'
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

@@ -22,7 +22,7 @@ export default class EquationAvecUnLogarithme extends Exercice {
     this.nbQuestions = 2
 
     this.sup = 1 // Niveau de difficulté
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   }

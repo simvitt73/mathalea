@@ -30,7 +30,7 @@ export default class FSomme2Decimaux extends Exercice {
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

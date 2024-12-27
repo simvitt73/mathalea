@@ -49,7 +49,7 @@ export default class QuestionsPrix extends Exercice {
     this.sup2 = false
     this.sup3 = false
     this.sup4 = 3
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.interactifType = 'mathLive'
 

@@ -63,7 +63,7 @@ export default class ExerciceDevelopper extends Exercice {
     this.spacing = 2
     this.spacingCorr = 2
 
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
   }
 

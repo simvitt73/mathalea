@@ -24,7 +24,7 @@ export default class ComplementACent extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.typeExercice = 'simple'

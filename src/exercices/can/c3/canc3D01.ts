@@ -30,7 +30,7 @@ export default class LireHeure extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 1
+
     this.typeExercice = 'simple'
     this.formatChampTexte = KeyboardType.clavierHms
   }

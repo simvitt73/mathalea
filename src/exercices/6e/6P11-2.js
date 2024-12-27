@@ -39,7 +39,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
     this.sup = 4 // Niveau de difficulté
     this.sup2 = false
     this.sup3 = false
-    this.tailleDiaporama = 3
+
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Multiplication\n2 : Division\n3 : Passage par l\'unité\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec tableau dans la correction']
     this.besoinFormulaire3CaseACocher = ['Avec des situations de non-proportionnalité']

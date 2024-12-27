@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function IdentitesCalculs2e () {
-  this.tailleDiaporama = 2
+
   this.formatChampTexte = ''
   this.can = true
   this.canVersion = 'v1'

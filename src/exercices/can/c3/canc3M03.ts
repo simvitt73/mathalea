@@ -25,7 +25,7 @@ export default class CalculAvecUnite extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.typeExercice = 'simple'
 
     this.formatChampTexte = KeyboardType.clavierDeBase

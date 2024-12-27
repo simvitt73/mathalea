@@ -19,6 +19,6 @@ export default class AppliquerUnPourcentageBis extends AppliquerUnPourcentage {
   constructor () {
     super()
     this.bis = true
-    this.tailleDiaporama = 2
+
   }
 }

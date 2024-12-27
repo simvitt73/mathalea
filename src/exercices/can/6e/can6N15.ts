@@ -22,7 +22,7 @@ export const refs = {
 export default class EcrirePetitsNombresEntiersCan extends EcrirePetitsNombresEntiers {
   constructor () {
     super()
-    this.tailleDiaporama = 1
+
     this.formatChampTexte = ''
     this.nbQuestions = 1 // on en fait un exo qui n'aura qu'une question
     this.nbQuestionsModifiable = false // on fait disparaitre le paramètre nombre de questions

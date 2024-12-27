@@ -133,7 +133,7 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
     this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]
     this.sup = 6
     this.sup2 = 4
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

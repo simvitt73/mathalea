@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
 
     this.nbQuestions = 5 // Nombre de questions par défaut
 
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

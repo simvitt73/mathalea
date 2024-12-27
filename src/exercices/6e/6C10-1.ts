@@ -19,10 +19,8 @@ export const refs = {
   'fr-ch': ['9NO3-8']
 }
 export default class TablesParametres extends TablesDeMultiplications {
-  tailleDiaporama: number
   constructor () {
     super()
     this.sup = '2-3-4-5-6-7-8-9-10'
-    this.tailleDiaporama = 3
   }
 }

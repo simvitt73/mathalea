@@ -30,7 +30,7 @@ export default class CoordonneesSommetParabole extends Exercice {
 
     this.nbQuestions = 1
     this.formatChampTexte = ''
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

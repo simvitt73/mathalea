@@ -21,7 +21,7 @@ export default class ConvertirMinutesHeures extends ConversionHeuresMinutesOuMin
   constructor () {
     super(true)
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.correctionDetailleeDisponible = false
   }
 }

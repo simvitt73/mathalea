@@ -41,7 +41,7 @@ export default class FractionsCalculsSimples extends Exercice {
     this.nbQuestions = 6 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 4 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true

@@ -21,5 +21,5 @@ export default function ExerciceEquation3e () {
   this.sup = true
   this.sup2 = 8
   this.sup3 = false
-  this.tailleDiaporama = 3
+
 }

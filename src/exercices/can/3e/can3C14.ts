@@ -29,7 +29,7 @@ export default class DecimalVersFractionIr extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.formatChampTexte = ''
     this.optionsDeComparaison = { fractionIrreductible: true }
   }

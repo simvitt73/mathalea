@@ -16,7 +16,6 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export default class ExoRose extends Exercice {
-  tailleDiaporama: number
   operation: string
   type: string
   typeDonnees: string
@@ -33,7 +32,7 @@ export default class ExoRose extends Exercice {
     this.besoinFormulaire3Numerique = ['Type de questions', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
 
     this.spacing = 2
-    this.tailleDiaporama = 1
+
     this.nbQuestions = 1
     this.sup = 10
     this.sup2 = 4

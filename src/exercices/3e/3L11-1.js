@@ -39,7 +39,7 @@ export default class DoubleDistributivite extends Exercice {
     this.sup = 1
     this.sup2 = true
     this.sup3 = false
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
   }
 

@@ -29,7 +29,7 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     this.nbQuestions = 6 // 6 questions au maximum
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
     this.setReponse = function (i, listeBonnesReponses) {
       this.autoCorrection[i] = {}

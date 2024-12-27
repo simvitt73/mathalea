@@ -39,7 +39,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
     this.sup = 2
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
 
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

@@ -30,7 +30,7 @@ export default class TripletsPythagoriciens extends Exercice {
     this.typeExercice = 'simple'
     this.formatChampTexte = ''
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.sup = 1
     this.besoinFormulaireNumerique = ['Type de question', 3, '1: calcul de l\'hypoténuse\n2: Calcul d\'un côté de l\'angle droit\n3: L\'un ou l\'autre']
   }

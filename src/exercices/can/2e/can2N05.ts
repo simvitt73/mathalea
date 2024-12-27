@@ -33,7 +33,7 @@ export default class NombresPremiers extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 1
+
   }
 
   nouvelleVersion () {

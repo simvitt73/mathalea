@@ -40,7 +40,7 @@ export default class EqResolvantesThales extends Exercice {
     this.sup = 1
     this.consignePluriel = 'Résoudre les équations suivantes.'
     this.consigneSingulier = 'Résoudre l\'équation suivante.'
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

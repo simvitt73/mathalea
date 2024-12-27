@@ -31,7 +31,7 @@ export default class DoubleMoitieTiersTriple extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = 1 // niveau de difficulté
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

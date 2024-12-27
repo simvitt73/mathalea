@@ -29,7 +29,7 @@ export default class OrdreDeGrandeur extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

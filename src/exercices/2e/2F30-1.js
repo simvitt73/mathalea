@@ -30,7 +30,7 @@ export default class VariationsCourbe extends Exercice {
     this.nbQuestions = 1
 
     this.sup = 1
-    this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

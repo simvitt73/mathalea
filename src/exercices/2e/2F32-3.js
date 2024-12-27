@@ -22,7 +22,7 @@ export default class LireUnTableauDevariations extends Exercice {
 
     this.nbQuestions = 1
     this.sup = 3 // Niveau de difficulté
-    this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
   }
 
   nouvelleVersion () {

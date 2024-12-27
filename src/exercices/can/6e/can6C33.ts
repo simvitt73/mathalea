@@ -27,7 +27,7 @@ export default class PyramideMul3Etages extends Exercice {
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.typeExercice = 'simple'
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

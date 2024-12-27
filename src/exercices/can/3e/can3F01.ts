@@ -26,7 +26,7 @@ export default class ImageSpline extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.tailleDiaporama = 1
+
     this.formatChampTexte = ''
   }
 

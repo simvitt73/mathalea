@@ -22,7 +22,7 @@ export default function IdentitesCalculs2e () {
   identitesCalculs.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.tailleDiaporama = 2
+
   this.formatChampTexte = ''
   this.can = true
   this.canVersion = 'v2'

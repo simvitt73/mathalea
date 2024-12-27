@@ -39,7 +39,7 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
     this.nbQuestions = 5
     this.sup = 2
     this.sup2 = true
-    this.tailleDiaporama = 3
+
     this.listeAvecNumerotation = false
   }
 

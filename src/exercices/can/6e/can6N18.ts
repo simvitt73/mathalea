@@ -30,7 +30,7 @@ export default class EncadrerDizaine extends Exercice {
     super()
     this.nbQuestions = 1
     this.formatChampTexte = ''
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

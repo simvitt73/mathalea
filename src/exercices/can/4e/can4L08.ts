@@ -26,13 +26,13 @@ export default class ReconnaitreExpL extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    this.tailleDiaporama = 2
+
     let texte, texteCorr, a, b, c, d, e, monQcm
     const nomVar = ['a', 'b', 'x', 'y']
     const inc = choice(nomVar)

@@ -34,7 +34,7 @@ export default class ReconnaitreFonctionAffine extends Exercice {
     this.formatChampTexte = ''
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

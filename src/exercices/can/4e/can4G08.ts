@@ -35,7 +35,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
     super()
     this.formatChampTexte = ''
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

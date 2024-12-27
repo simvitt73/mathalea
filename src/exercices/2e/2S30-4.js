@@ -329,7 +329,7 @@ export default class CalculProbaExperience2Epreuves2e extends Exercice {
     this.besoinFormulaire3CaseACocher = ['Équiprobabilité', false]
     this.sup = true
     this.sup2 = false
-    this.tailleDiaporama = 2
+
     this.sup3 = false
     this.nbQuestions = 1
     this.spacing = 2

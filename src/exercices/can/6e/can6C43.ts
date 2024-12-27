@@ -25,7 +25,7 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.consigne = 'Compléter avec $>$ ou $<$.'
     this.spacing = 2
     this.spacingCorr = 2

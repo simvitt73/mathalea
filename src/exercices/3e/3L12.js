@@ -39,7 +39,7 @@ export default class FactoriserIdentitesRemarquables3 extends Exercice {
     this.nbQuestions = 4
     this.sup = 4
     this.sup2 = true
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

@@ -28,7 +28,7 @@ export default class NatureSuiteRec extends Exercice {
     super()
 
     this.nbQuestions = 1
-    this.tailleDiaporama = 2
+
     this.spacing = 1.5
   }
 

@@ -34,7 +34,7 @@ export default class LectureGraphiqueTangente extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = ''
-    this.tailleDiaporama = 2
+
   }
 
   nouvelleVersion () {

@@ -27,15 +27,14 @@ export const refs = {
   'fr-ch': ['9NO3-15']
 }
 export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exercice {
-  tailleDiaporama: number
-  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+   constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super()
     // Multiplier deux nombres
     this.sup = tablesParDefaut
     this.sup2 = 1
     this.consigne = 'Calculer.'
     this.spacing = 2
-    this.tailleDiaporama = 3
+
     this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 9)', 'Nombres séparés par des tirets'] // Texte, tooltip
     if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
   }

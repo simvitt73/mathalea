@@ -37,7 +37,7 @@ super()
   this.nbQuestions = 2
 
 
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.sup = 1 // Ecriture simple du système

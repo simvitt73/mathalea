@@ -45,7 +45,7 @@ export default class SommeFractionsDecimales extends Exercice {
     this.besoinFormulaire2Numerique = ['Forme de la solution', 3, '1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Les deux']
     this.sup = '7'
     this.sup2 = 3
-    this.tailleDiaporama = 2
+
     this.can = false
   }
 

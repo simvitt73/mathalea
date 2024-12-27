@@ -42,7 +42,7 @@ export default class SimplifierFractions extends Exercice {
     this.sup3 = 2
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
+
   }
 
   nouvelleVersion () {

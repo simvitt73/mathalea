@@ -34,7 +34,7 @@ super()
 
 
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+
 
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1)
   }
