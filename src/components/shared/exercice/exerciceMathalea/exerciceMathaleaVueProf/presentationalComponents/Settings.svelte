@@ -31,6 +31,14 @@
   let formNum4: FormNumerique
   let formNum5: FormNumerique
 
+  let previousSeed: string | undefined
+  $: {
+    if (previousSeed !== exercice.seed) {
+      previousSeed = exercice.seed
+      alea = exercice.seed ?? ''
+    }
+  }
+
   onMount(() => {
     nbQuestions = exercice.nbQuestions
     duration = exercice.duration || 10
@@ -39,7 +47,6 @@
     sup3 = exercice.sup3 === 'false' ? false : exercice.sup3
     sup4 = exercice.sup4 === 'false' ? false : exercice.sup4
     sup5 = exercice.sup5 === 'false' ? false : exercice.sup5
-    alea = exercice.seed ?? ''
     correctionDetaillee = exercice.correctionDetaillee
 
     if (Array.isArray(exercice.besoinFormulaireNumerique) && exercice.besoinFormulaireNumerique.length > 0) {
