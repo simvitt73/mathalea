@@ -2,14 +2,14 @@ import {
   colorToLatexOrHTML,
   ObjetMathalea2D
 } from '../../modules/2dGeneralites.js'
-import { arrondi } from '../outils/nombres'
+import { arrondi } from '../outils/nombres.js'
 import { angleModulo, angleOriente } from './angles.js'
-import { droite, mediatrice } from './droites.js'
-import { point } from './points.js'
+import { Droite, droite, mediatrice } from './droites.js'
+import { Point, point } from './points.js'
 import { pattern } from './polygones.js'
 import { longueur } from './segmentsVecteurs.js'
 import { rotation } from './transformations.js'
-import MainLevee from './MainLevee'
+import MainLevee from './MainLevee.js'
 import { radians } from '../mathFonctions/trigo.js'
 
 /**
@@ -46,35 +46,46 @@ import { radians } from '../mathFonctions/trigo.js'
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function Cercle (
-  O,
-  r,
-  color = 'black',
-  couleurDeRemplissage = 'none',
-  couleurDesHachures = 'none',
-  epaisseur = 1,
-  pointilles = 0,
-  opacite = 1,
-  opaciteDeRemplissage = 1.1,
-  epaisseurDesHachures = 1,
-  distanceDesHachures = 10
-) {
-  ObjetMathalea2D.call(this, {})
-  this.color = colorToLatexOrHTML(color)
-  this.centre = O
-  this.rayon = r
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
-  this.opaciteDeRemplissage = opaciteDeRemplissage
-  this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
-  this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
-  this.epaisseurDesHachures = epaisseurDesHachures
-  this.distanceDesHachures = distanceDesHachures
-  this.bordures = [O.x - r, O.y - r, O.x + r, O.y + r]
-  this.epaisseur = epaisseur
-  this.pointilles = pointilles
-  this.opacite = opacite
+export class Cercle extends ObjetMathalea2D {
+  centre: Point
+  rayon: number
+  couleurDeRemplissage: string[]
+  opaciteDeRemplissage: number
+  hachures: boolean
+  couleurDesHachures: string[]
+  epaisseurDesHachures: number
+  distanceDesHachures: number
 
-  this.svg = function (coeff) {
+  constructor (
+    O: Point,
+    r: number,
+    color = 'black',
+    couleurDeRemplissage = 'none',
+    couleurDesHachures = 'none',
+    epaisseur = 1,
+    pointilles = 0,
+    opacite = 1,
+    opaciteDeRemplissage = 1.1,
+    epaisseurDesHachures = 1,
+    distanceDesHachures = 10
+  ) {
+    super()
+    this.color = colorToLatexOrHTML(color)
+    this.centre = O
+    this.rayon = r
+    this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+    this.opaciteDeRemplissage = opaciteDeRemplissage
+    this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
+    this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
+    this.epaisseurDesHachures = epaisseurDesHachures
+    this.distanceDesHachures = distanceDesHachures
+    this.bordures = [O.x - r, O.y - r, O.x + r, O.y + r]
+    this.epaisseur = epaisseur
+    this.pointilles = pointilles
+    this.opacite = opacite
+  }
+
+  svg (coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -110,26 +121,27 @@ export function Cercle (
           couleurDeRemplissage: this.couleurDeRemplissage[0],
           opaciteDeRemplissage: this.opaciteDeRemplissage
         }) +
-        `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        `<circle cx="${this.centre.xSVG(coeff)}" cy="${this.centre.ySVG(coeff)}" r="${this.rayon * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       )
     } else {
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      if (this.couleurDeRemplissage === '') {
+      if (this.couleurDeRemplissage[0] === '') {
         this.style += ' fill="none" '
       } else {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
 
-      return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${
-        r * coeff
+      return `<circle cx="${this.centre.xSVG(coeff)}" cy="${this.centre.ySVG(coeff)}" r="${
+        this.rayon * coeff
       }" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
-  this.tikz = function () {
-    let optionsDraw = []
+
+  tikz () {
+    let optionsDraw: string = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -162,7 +174,7 @@ export function Cercle (
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (
-      this.couleurDeRemplissage !== '' &&
+      this.couleurDeRemplissage[1] !== '' &&
       this.couleurDeRemplissage[1] !== 'none' &&
       this.couleurDeRemplissage[1] !== ''
     ) {
@@ -188,17 +200,20 @@ export function Cercle (
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
-  }
-  this.svgml = (coeff) => {
-    const mainLevee = MainLevee.create()
-    const code = mainLevee.circle(O.x, O.y, r * coeff)
-    mainLevee.destroy()
-    return code
+    return `\\draw${optionsDraw} (${this.centre.x},${this.centre.y}) circle (${this.rayon});`
   }
 
-  this.tikzml = function (amp) {
-    let optionsDraw = []
+  svgml (coeff: number) {
+    const mainLevee = MainLevee.create()
+    if (mainLevee != null) {
+      const code = mainLevee.circle(this.centre.x, this.centre.y, this.rayon * coeff)
+      mainLevee.destroy()
+      return code
+    } else return ''
+  }
+
+  tikzml (amp: number) {
+    let optionsDraw = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -215,7 +230,7 @@ export function Cercle (
     )
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
-    const code = `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
+    const code = `\\draw${optionsDraw} (${this.centre.x},${this.centre.y}) circle (${this.rayon});`
     return code
   }
 }
@@ -244,8 +259,8 @@ export function Cercle (
  */
 // JSDOC Validee par EE Juin 2022
 export function cercle (
-  O,
-  r,
+  O: Point,
+  r: number,
   color = 'black',
   couleurDeRemplissage = 'none',
   couleurDesHachures = 'none',
@@ -295,8 +310,8 @@ export function cercle (
  */
 // JSDOC Validee par EE Juin 2022
 export function cercleCentrePoint (
-  O,
-  M,
+  O: Point,
+  M: Point,
   color = 'black',
   couleurDeRemplissage = 'none',
   couleurDesHachures = 'none',
@@ -349,63 +364,82 @@ export function cercleCentrePoint (
  * @class
  **/
 // JSDOC Validee par EE Juin 2022
-export function Arc (
-  M,
-  Omega,
-  angle,
-  rayon = false,
-  couleurDeRemplissage = 'none',
-  color = 'black',
-  opaciteDeRemplissage = 0.2,
-  couleurDesHachures = 'none'
-) {
-  ObjetMathalea2D.call(this, {})
-  this.typeObjet = 'arc'
-  this.color = colorToLatexOrHTML(color)
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
-  this.opaciteDeRemplissage = opaciteDeRemplissage
-  this.opacite = 1
-  this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
-  this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
-  this.epaisseurDesHachures = 1
-  this.distanceDesHachures = 10
-  this.pointilles = 0
-  this.epaisseur = 1
-  if (typeof angle !== 'number') {
-    angle = angleOriente(M, Omega, angle)
+export class Arc extends ObjetMathalea2D {
+  rayons: boolean
+  couleurDeRemplissage: string[]
+  opaciteDeRemplissage: number
+  hachures: boolean
+  couleurDesHachures: string[]
+  epaisseurDesHachures: number
+  distanceDesHachures: number
+  angle: number
+  rayon: number
+  angleFin: number
+  azimut: number
+  pointDepart: Point
+  centre: Point
+  pointFinal: Point
+  constructor (
+    M: Point,
+    omega: Point,
+    angle: Point | number,
+    rayons = false,
+    couleurDeRemplissage = 'none',
+    color = 'black',
+    opaciteDeRemplissage = 0.2,
+    couleurDesHachures = 'none'
+  ) {
+    super()
+    this.pointDepart = M
+    this.centre = omega
+    this.rayons = rayons
+    this.typeObjet = 'arc'
+    this.color = colorToLatexOrHTML(color)
+    this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+    this.opaciteDeRemplissage = opaciteDeRemplissage
+    this.opacite = 1
+    this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
+    this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
+    this.epaisseurDesHachures = 1
+    this.distanceDesHachures = 10
+    this.pointilles = 0
+    this.epaisseur = 1
+    this.angle = angle instanceof Point ? angleOriente(M, omega, angle) : angle
+    const medX: number[] = []
+    const medY: number[] = []
+    for (let ee = 1; ee < 9; ee++) {
+      medX.push(rotation(M, omega, (ee * this.angle) / 10).x)
+      medY.push(rotation(M, omega, (ee * this.angle) / 10).y)
+    }
+    this.rayon = longueur(omega, M)
+    const A = point(omega.x + 1, omega.y)
+    this.azimut = angleOriente(A, omega, M)
+    this.angleFin = this.azimut + this.angle
+    const angleSVG = angleModulo(this.angle)
+
+    this.pointFinal = rotation(M, omega, angleSVG)
+    this.bordures = [
+      Math.min(M.x, this.pointFinal.x, ...medX) - 0.1,
+      Math.min(M.y, this.pointFinal.y, ...medY) - 0.1,
+      Math.max(M.x, this.pointFinal.x, ...medX) + 0.1,
+      Math.max(M.y, this.pointFinal.y, ...medY) + 0.1
+    ]
   }
-  const medX = []
-  const medY = []
-  for (let ee = 1; ee < 9; ee++) {
-    medX.push(rotation(M, Omega, (ee * angle) / 10).x)
-    medY.push(rotation(M, Omega, (ee * angle) / 10).y)
-  }
-  const l = longueur(Omega, M)
-  let large = 0
-  let sweep = 0
-  const A = point(Omega.x + 1, Omega.y)
-  const azimut = angleOriente(A, Omega, M)
-  const anglefin = azimut + angle
-  const angleSVG = angleModulo(angle)
-  if (angle > 180) {
-    sweep = 0 // option pour path : permet de savoir quel morceau de cercle tracé parmi les 2 possibles. Voir https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths pour plus de détails
-    large = 1 // option pour path : permet de savoir sur un morceau de cercle choisi, quel parcours prendre.
-  } else if (angle < -180) {
-    large = 1
-    sweep = 1
-  } else {
-    large = 0
-    sweep = 1 - (angle > 0)
-  }
-  const N = rotation(M, Omega, angleSVG)
-  this.bordures = [
-    Math.min(M.x, N.x, ...medX) - 0.1,
-    Math.min(M.y, N.y, ...medY) - 0.1,
-    Math.max(M.x, N.x, ...medX) + 0.1,
-    Math.max(M.y, N.y, ...medY) + 0.1
-  ]
-  if (rayon) {
-    this.svg = function (coeff) {
+
+  svg (coeff: number) {
+    let sweep: number
+    let large: number
+    if (this.angle > 180) {
+      sweep = 0 // option pour path : permet de savoir quel morceau de cercle tracé parmi les 2 possibles. Voir https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths pour plus de détails
+      large = 1 // option pour path : permet de savoir sur un morceau de cercle choisi, quel parcours prendre.
+    } else if (this.angle < -180) {
+      large = 1
+      sweep = 1
+    } else {
+      large = 0
+      sweep = 1 - (this.angle > 0 ? 1 : 0)
+    }
+    if (this.rayons) {
       this.style = ''
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
@@ -442,26 +476,25 @@ export function Arc (
             couleurDeRemplissage: this.couleurDeRemplissage[0],
             opaciteDeRemplissage: this.opaciteDeRemplissage
           }) +
-          `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+          `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
         )
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
         if (
-          this.couleurDeRemplissage === '' ||
-          this.couleurDeRemplissage === undefined
+          this.couleurDeRemplissage[0] === '' ||
+          this.couleurDeRemplissage[0] === undefined ||
+          this.couleurDeRemplissage[0] === 'none'
         ) {
           this.style += ' fill="none" '
         } else {
           this.style += ` fill="${this.couleurDeRemplissage[0]}" `
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
-        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
+        return `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
       }
-    }
-  } else {
-    this.svg = function (coeff) {
+    } else {
       this.style = ''
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
@@ -487,19 +520,21 @@ export function Arc (
         this.style += ` stroke-opacity="${this.opacite}" `
       }
       if (
-        this.couleurDeRemplissage === '' ||
-        this.couleurDeRemplissage === undefined
+        this.couleurDeRemplissage[0] === '' ||
+        this.couleurDeRemplissage[0] === undefined ||
+        this.couleurDeRemplissage[0] === 'none'
       ) {
         this.style += ' fill="none" '
       } else {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
+      return `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
-  this.tikz = function () {
-    let optionsDraw = []
+
+  tikz () {
+    let optionsDraw: string = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -529,9 +564,9 @@ export function Arc (
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (
-      rayon &&
+      this.rayons &&
       this.couleurDeRemplissage[1] !== 'none' &&
-      this.couleurDeRemplissage !== ''
+      this.couleurDeRemplissage[1] !== ''
     ) {
       tableauOptions.push(
         `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`
@@ -553,37 +588,36 @@ export function Arc (
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    if (rayon) { return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;` } else { return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;` }
+    const lng = longueur(this.centre, this.pointDepart)
+    if (this.rayons) { return `\\draw  ${optionsDraw} (${this.pointFinal.x},${this.pointFinal.y}) -- (${this.centre.x},${this.centre.y}) -- (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${lng}) ;` } else { return `\\draw${optionsDraw} (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${lng}) ;` }
   }
-  let code
 
-  this.svgml = (coeff) => {
-    const width = longueur(M, Omega) * coeff * 2
+  svgml (coeff: number) {
+    const width = longueur(this.pointDepart, this.centre) * coeff * 2
     const height = width
-    const closed = rayon
-    const A = point(Omega.x + 1, Omega.y)
-    const end = radians(angleOriente(M, Omega, A))
-    const start = end - radians(angle)
+    const closed = this.rayons
+    const A = point(this.centre.x + 1, this.centre.y)
+    const end = radians(angleOriente(this.pointDepart, this.centre, A))
+    const start = end - radians(this.angle)
     const mainLevee = MainLevee.create()
-    code = mainLevee.arc(
-      Omega.xSVG(coeff),
-      Omega.ySVG(coeff),
-      width,
-      height,
-      start > end ? end : start,
-      start > end ? start : end,
-      closed
-    )
-    mainLevee.destroy()
-    return code
+    if (mainLevee != null) {
+      const code = mainLevee.arc(
+        this.centre.xSVG(coeff),
+        this.centre.ySVG(coeff),
+        width,
+        height,
+        start > end ? end : start,
+        start > end ? start : end,
+        closed
+      )
+      mainLevee.destroy()
+      return code
+    } else return ''
   }
 
-  this.tikzml = function (amp) {
-    let optionsDraw = []
+  tikzml (amp: number) {
+    let optionsDraw: string = ''
     const tableauOptions = []
-    const A = point(Omega.x + 1, Omega.y)
-    const azimut = arrondi(angleOriente(A, Omega, M), 1)
-    const anglefin = arrondi(azimut + angle, 1)
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
     }
@@ -599,7 +633,7 @@ export function Arc (
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
-    return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
+    return `\\draw${optionsDraw} (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${arrondi(longueur(this.centre, this.pointDepart), 2)}) ;`
   }
 }
 
@@ -621,9 +655,9 @@ export function Arc (
  */
 // JSDOC Validee par EE Juin 2022
 export function arc (
-  M,
-  Omega,
-  angle,
+  M: Point,
+  Omega: Point,
+  angle: Point | number,
   rayon = false,
   couleurDeRemplissage = 'none',
   color = 'black',
@@ -660,9 +694,9 @@ export function arc (
  */
 // JSDOC Validee par EE Juin 2022
 export function arcPointPointAngle (
-  M,
-  N,
-  angle,
+  M: Point,
+  N: Point,
+  angle: number,
   rayon = false,
   couleurDeRemplissage = 'none',
   color = 'black',
@@ -672,10 +706,8 @@ export function arcPointPointAngle (
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d = mediatrice(M, N)
-  d.isVisible = false
+  const d = mediatrice(M, N) as Droite
   const e = droite(N, M)
-  e.isVisible = false
   const f = rotation(e, N, anglerot)
   f.isVisible = false
   const determinant = d.a * f.b - f.a * d.b
@@ -699,13 +731,13 @@ export function arcPointPointAngle (
  *@author Jean-Claude Lhote
  */
 export function traceCompas (
-  O,
-  A,
+  O: Point,
+  A: Point,
   angle = 20,
   color = 'gray',
   opacite = 1.1,
   epaisseur = 1,
-  pointilles = ''
+  pointilles = 0
 ) {
   const B = rotation(A, O, -angle / 2)
   const a = arc(B, O, angle, false)
