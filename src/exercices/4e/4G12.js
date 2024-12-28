@@ -38,7 +38,7 @@ export const refs = {
   'fr-fr': ['4G12'],
   'fr-ch': ['9ES6-23', '10ES2-5']
 }
-this.nbQuestions = 1
+
 const A = point(0, 0)
 let typeDeTransfos
 
@@ -183,6 +183,7 @@ function definitElements (type, depart, arrivee, leSens = true, num = 0) {
 export default class SerieDeTransformations extends Exercice {
   constructor () {
     super()
+    this.nbQuestions = 1
     this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
     this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 6, '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16']
     this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]

@@ -132,7 +132,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           const autoCorr = this.autoCorrection[indiceInteractif]
           autoCorr.propositions = []
           for (let ee = 0; ee < 7; ee++) {
-            autoCorr.propositions[i] =
+            autoCorr.propositions[ee] =
               {
                 texte: table[ee],
                 statut: (jour + reste) % diviseur === ee
