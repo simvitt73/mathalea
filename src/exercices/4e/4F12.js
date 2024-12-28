@@ -16,11 +16,13 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '28/12/2024'
 
 /**
  * Problème avec lecture de représentation graphique d'une fonction
@@ -76,7 +78,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
         t1 = Math.round(Math.sqrt(2) * V0 / 10)
         xscale = 9 / t1
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
-        repeRe = repere({ yLegende: 'hauteur (en m)', xLegende: 'temps (en s)', xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 20, xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
+        repeRe = repere({ yLegende: 'Hauteur (en m)', xLegende: 'Temps (en s)', xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 20, xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
         graphique = courbe(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
         zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
         this.introduction =
@@ -181,8 +183,8 @@ export default class ExploiterRepresentationGraphique extends Exercice {
         v2 = randint(1, 3, v1)
         v3 = v1 + v2
         r = repere({
-          yLegende: 'distance (en km)',
-          xLegende: 'temps (en min)',
+          yLegende: 'Distance (en km)',
+          xLegende: 'Temps (en min)',
           xMin: 0,
           yMin: 0,
           xMax: 60,

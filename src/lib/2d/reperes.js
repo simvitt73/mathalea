@@ -1528,9 +1528,6 @@ export function Repere ({
   const objets = []
   // LES AXES
   const ordonneeAxe = Math.max(0, yMin)
-  if (xLegendePosition.length === 0) {
-    xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
-  }
   const axeX = segment(
     xMin * xUnite,
     ordonneeAxe * yUnite,
@@ -1541,9 +1538,6 @@ export function Repere ({
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
   const abscisseAxe = Math.max(0, xMin)
-  if (yLegendePosition.length === 0) {
-    yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
-  }
   const axeY = segment(
     abscisseAxe * xUnite,
     yMin * yUnite,
@@ -1575,7 +1569,7 @@ export function Repere ({
       }
       // On créé la liste avec ces valeurs
       grilleYListe = rangeMinMax(
-        0,
+        yThickMin,
         grilleYMax,
         [0],
         grilleYDistance / yUnite
@@ -1770,7 +1764,7 @@ export function Repere ({
       (typeof yThickListe === 'boolean' && yThickListe) ||
       (Array.isArray(yThickListe) && yThickListe.length === 0)
     ) {
-      yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
+      yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance).concat(
         rangeMinMax(0, -yThickMin, [0], yThickDistance).map((el) => -el)
       )
     } else if (typeof yThickListe === 'boolean') yThickListe = []
@@ -1807,7 +1801,6 @@ export function Repere ({
             ordonneeAxe * yUnite - xLabelEcart + 0.1,
             { letterSize: 'scriptsize', opacity: 0.8, color: 'black' }
           )
-          //   l.isVisible = false
           objets.push(l)
         }
       } else {
@@ -1861,6 +1854,9 @@ export function Repere ({
     }
   }
   // LES LÉGENDES
+  if (xLegendePosition.length === 0) {
+    xLegendePosition = [xMax * xUnite + 0.5, ordonneeAxe]
+  }
   if (xLegende.length > 0) {
     objets.push(
       texteParPosition(
@@ -1870,9 +1866,13 @@ export function Repere ({
         0,
         'black',
         1,
-        'droite'
+        'gauche'
       )
     )
+  }
+
+  if (yLegendePosition.length === 0) {
+    yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
   }
   if (yLegende.length > 0) {
     objets.push(
@@ -1975,9 +1975,9 @@ export function repere ({
   xLabelEcart = 0.5,
   yLabelEcart = 0.5,
   xLegende = '',
-  xLegendePosition = [xMax * xUnite + 0.5, 0.5],
+  xLegendePosition = [],
   yLegende = '',
-  yLegendePosition = [0.5, yMax * yUnite + 0.5],
+  yLegendePosition = [],
   grille = true,
   grilleDistance = 1,
   grilleCouleur = 'black',
