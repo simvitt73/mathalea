@@ -580,7 +580,7 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
           cptBoucleInfinie++
         }
         if (cptBoucleInfinie === 7) {
-          console.log('Boucle infinie')
+          // console.info('Boucle infinie')
         } else {
         // s étant secant avec s1, on mène plusieurs actions :
           d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
@@ -610,7 +610,7 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
           cptBoucleInfinie++
         }
         if (cptBoucleInfinie === 7) {
-          console.log('Boucle infinie')
+          // console.info('Boucle infinie')
         } else {
         // s étant secant avec s1, on mène plusieurs actions :
           d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
