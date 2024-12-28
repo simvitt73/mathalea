@@ -687,7 +687,7 @@
         id="settings-formAlea-{exerciceIndex}"
         type="text"
         bind:value={alea}
-        on:change={dispatchNewSettings}
+        on:input={dispatchNewSettings}
       />
     </form>
     {#if exercice.comment !== undefined}
