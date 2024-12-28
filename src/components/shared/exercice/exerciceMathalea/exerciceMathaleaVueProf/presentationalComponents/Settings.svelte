@@ -31,6 +31,14 @@
   let formNum4: FormNumerique
   let formNum5: FormNumerique
 
+  let previousSeed: string | undefined
+  $: { // Pour que la série dans le formulaire se mette à jour lorsqu'on clique sur "Nouvel énoncé"
+    if (previousSeed !== exercice.seed) { // Sans ça, on ne peut pas modifier la série dans le formulaire
+      previousSeed = exercice.seed
+      alea = exercice.seed ?? ''
+    }
+  }
+
   onMount(() => {
     nbQuestions = exercice.nbQuestions
     duration = exercice.duration || 10
@@ -39,7 +47,6 @@
     sup3 = exercice.sup3 === 'false' ? false : exercice.sup3
     sup4 = exercice.sup4 === 'false' ? false : exercice.sup4
     sup5 = exercice.sup5 === 'false' ? false : exercice.sup5
-    alea = exercice.seed ?? ''
     correctionDetaillee = exercice.correctionDetaillee
 
     if (Array.isArray(exercice.besoinFormulaireNumerique) && exercice.besoinFormulaireNumerique.length > 0) {
@@ -680,7 +687,7 @@
         id="settings-formAlea-{exerciceIndex}"
         type="text"
         bind:value={alea}
-        on:change={dispatchNewSettings}
+        on:input={dispatchNewSettings}
       />
     </form>
     {#if exercice.comment !== undefined}
