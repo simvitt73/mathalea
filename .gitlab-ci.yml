@@ -100,6 +100,8 @@ default:
   rules:
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
+  - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+    when: manual
   - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "PDF"
     when: always
   - when: never
@@ -130,6 +132,8 @@ default:
     when: always
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
+  - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+    when: always
   - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
     when: always
   - when: never
@@ -300,6 +304,8 @@ playwright-testCanEleve:
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
       when: always
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+      when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
     - when: never
@@ -316,6 +322,8 @@ playwright-testConsistency:
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
       when: always
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+      when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
     - when: never
@@ -331,6 +339,8 @@ playwright-testInteractivity:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always

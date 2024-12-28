@@ -162,19 +162,15 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   log(filter)
   testRunAllLots(filter)
 } else {
-  // testRunAllLots('can')
-  // testRunAllLots('6e')
-  // testRunAllLots('5e')
-  // testRunAllLots('4e')
-  // testRunAllLots('3e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
-  // prefs.headless = true
-  // testRunAllLots('3e/3G22')
-  // testRunAllLots('TEx')
-  // testRunAllLots('TSpe')
-  // testRunAllLots('Techno1')
-  // testRunAllLots('HP')
-
-  testRunAllLots('4e/4C32.js')
+  testRunAllLots('can')
+  testRunAllLots('6e')
+  testRunAllLots('5e')
+  testRunAllLots('4e')
+  testRunAllLots('3e')
+  testRunAllLots('2e')
+  testRunAllLots('1e')
+  testRunAllLots('QCM')
+  
+  // pour faire un test sur un exercice particulier:
+  // testRunAllLots('4e/4C32.js')
 }
