@@ -9,7 +9,7 @@ import { angleOriente, codageAngle, CodageAngleDroit } from '../../lib/2d/angles
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-import { range } from '../../lib/outils/nombres'
+import { arrondi, range } from '../../lib/outils/nombres'
 import { choice } from '../../lib/outils/arrayOutils'
 import { bleuMathalea, vertMathalea } from '../../lib/colors'
 import { number } from 'mathjs'
@@ -230,26 +230,35 @@ export default class VocabulaireAngles extends Exercice {
           // Angles complémentaires
           texteCorr = `Ce sont des angles  ${texteEnCouleurEtGras('complémentaires')} car la somme de leurs mesures est égale à 90° (angle droit).`
           // tabAngles contient deux angles complémentaires puis un angle droit qui chevauche ou pas ces angles selon si c'est un distracteur ou pas
-          if (Math.abs(angleOriente(IRot, CRot, ARot)) + Math.abs(angleOriente(G, CRot, ARot)) === 90) {
+          if (arrondi(Math.abs(angleOriente(IRot, CRot, ARot)) + Math.abs(angleOriente(G, CRot, ARot)), 0) === 90) {
             tabAngles.push([
               codageAngle(IRot, CRot, ARot, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
               codageAngle(G, CRot, ARot, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
               codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
             ])
-          } else if (Math.abs(angleOriente(IRot, CRot, ARot)) + Math.abs(angleOriente(DRot, CRot, ARot)) === 90) {
+          } else if (arrondi(Math.abs(angleOriente(IRot, CRot, ARot)) + Math.abs(angleOriente(DRot, CRot, ARot)), 0) === 90) {
             tabAngles.push([
               codageAngle(DRot, CRot, ARot, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
               codageAngle(IRot, CRot, ARot, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
               codageAngle(DRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
             ])
-          } /* else if (Math.abs(angleOriente(DRot, CRot, E)) < 90) {
-            tabAngles.push([
-              codageAngle(DRot, CRot, E, 3, '', 'black', 2, 1, this.sup3 ? 'white' : 'red'),
-              // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-              codageAngle(JRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-              codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
-            ])
-          } */
+          } else // if (Math.abs(angleOriente(DRot, CRot, E)) < 90) {
+            if (Math.abs(angleOriente(JRot, CRot, E)) < Math.abs(angleOriente(IRot, CRot, E))) {
+              tabAngles.push([
+                codageAngle(DRot, CRot, E, 3, '', 'black', 2, 1, this.sup3 ? 'white' : 'red'),
+                // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+                codageAngle(JRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+                codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              ])
+            } else {
+              tabAngles.push([
+                codageAngle(DRot, CRot, E, 3, '', 'black', 2, 1, this.sup3 ? 'white' : 'red'),
+                // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+                codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+                codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              ])
+              // }
+            }
           if (distracteur) {
             if (Math.abs(angleOriente(G, CRot, ARot)) > 90) {
               tabAngles.push([
