@@ -1,8 +1,8 @@
-import { context } from '../../modules/context.js'
-import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation.js'
-import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { point } from './points.js'
-import { segment, vecteur } from './segmentsVecteurs.js'
+import { context } from '../../modules/context'
+import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation'
+import { ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { point } from './points'
+import { segment, vecteur } from './segmentsVecteurs'
 import { texteParPosition } from './textes.ts'
 
 export function GlisseNombre (nombre = '', decalage = 0) {

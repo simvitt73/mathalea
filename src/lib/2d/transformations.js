@@ -1,11 +1,11 @@
-import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { egal } from '../../modules/outils.js'
-import { radians } from '../mathFonctions/trigo.js'
-import { arc } from './cercle.js'
-import { Droite, droite } from './droites.js'
-import { Point, point } from './points.js'
-import { Polygone, polygone } from './polygones.js'
-import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { egal } from '../../modules/outils'
+import { radians } from '../mathFonctions/trigo'
+import { arc } from './cercle'
+import { Droite, droite } from './droites'
+import { Point, point } from './points'
+import { Polygone, polygone } from './polygones'
+import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs'
 
 /**
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v

@@ -1,11 +1,11 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { inferieurouegal } from '../../modules/outils.js'
-import { point, tracePoint } from './points.js'
-import { motifs, polygone, polyline } from './polygones.js'
-import { segment } from './segmentsVecteurs.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { inferieurouegal } from '../../modules/outils'
+import { point, tracePoint } from './points'
+import { motifs, polygone, polyline } from './polygones'
+import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes.ts'
-import { arc } from './cercle.js'
+import { arc } from './cercle'
 
 export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
   ObjetMathalea2D.call(this, {})

@@ -1,10 +1,10 @@
 import { floor } from 'mathjs'
-import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { randint } from '../../modules/outils.js'
-import { codageAngleDroit } from './angles.js'
-import { cercle } from './cercle.js'
-import { CodageMilieu } from './codages.js'
-import { Droite, droite, mediatrice } from './droites.js'
+import { ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { randint } from '../../modules/outils'
+import { codageAngleDroit } from './angles'
+import { cercle } from './cercle'
+import { CodageMilieu } from './codages'
+import { Droite, droite, mediatrice } from './droites'
 import {
   milieu, Point,
   point,
@@ -12,10 +12,10 @@ import {
   pointIntersectionDD,
   pointIntersectionLC,
   pointSurSegment
-} from './points.js'
-import { polygone } from './polygones.js'
-import { longueur } from './segmentsVecteurs.js'
-import { projectionOrtho, rotation, similitude } from './transformations.js'
+} from './points'
+import { polygone } from './polygones'
+import { longueur } from './segmentsVecteurs'
+import { projectionOrtho, rotation, similitude } from './transformations'
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H

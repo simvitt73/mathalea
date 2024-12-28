@@ -1,14 +1,14 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { egal } from '../../modules/outils.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { egal } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
-import { angleOriente } from './angles.js'
-import { traceCompas } from './cercle.js'
-import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
-import { milieu, point, pointSurDroite, pointSurSegment } from './points.js'
-import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs.js'
+import { angleOriente } from './angles'
+import { traceCompas } from './cercle'
+import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
+import { milieu, point, pointSurDroite, pointSurSegment } from './points'
+import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from './textes.ts'
-import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations.js'
+import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations'
 
 /**
  * Afin de régler le problème des noms de droites en latex qui ne peuvent se fondre dans le svg, cette fonction retourne un Array de deux objets :

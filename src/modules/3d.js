@@ -1,14 +1,14 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
-import { distancePointDroite, droite } from '../lib/2d/droites.js'
-import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points.js'
-import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones.js'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
+import { distancePointDroite, droite } from '../lib/2d/droites'
+import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
+import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
+import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../lib/2d/textes.ts'
-import { translation } from '../lib/2d/transformations.js'
+import { translation } from '../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
 import { arrondi } from '../lib/outils/nombres'
-import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, vide2d } from './2dGeneralites.js'
-import { context } from './context.js'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, vide2d } from './2dGeneralites'
+import { context } from './context'
 
 const math = { matrix, multiply, norm, cross, dot }
 
@@ -114,7 +114,7 @@ class Vecteur3d {
         this.z = args[0]._data[2]
       }
     }
-    this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math.js
+    this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
     this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
     const W = math.multiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
     this.c2d = vecteur(W._data[0], W._data[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this

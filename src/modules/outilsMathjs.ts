@@ -1,9 +1,9 @@
 import { obtenirListeFacteursPremiers } from '../lib/outils/primalite'
 import { texNombre2 } from '../lib/outils/texNombre'
-import { context } from './context.js'
+import { context } from './context'
 import { all, create, type Fraction, type MathNode } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
-import { getNewChangeNodes } from './Change.js'
+import { getNewChangeNodes } from './Change'
 import Decimal from 'decimal.js'
 
 type ListeVariable = 'a'| 'b'| 'c'| 'd'| 'e'| 'f'| 'g'| 'h'| 'i'| 'j'| 'k'| 'l'| 'm'| 'n'| 'o'| 'p'| 'q'| 'r'| 's'| 't'| 'u'| 'v'| 'w'| 'x'| 'y'| 'z' | 'test'
@@ -227,7 +227,7 @@ function transformNode (node: Node, parent: Node, oldNode:Node, params = { suppr
       }
     }
     // Peut-être faut-il mettre à jour le mathjs de mathsteps car il semble que le code suivant ne fonctionne pas
-    // dans mathsteps lorsqu'il est placé dans print.js de mathsteps
+    // dans mathsteps lorsqu'il est placé dans print de mathsteps
     // alors qu'il fonctionne avec la version mathjs de mathalea
     if (node.isOperatorNode && node.op === '*') { // Multiplication implicite 2*x devient 2x et 2*(x+3) devient 2(x+3)
       if ((node.args[1].isParenthesisNode || node.args[1].isSymbolNode) && !(searchLastNode(node.args[0]).node.isSymbolNode)) node.implicit = true

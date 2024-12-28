@@ -1,7 +1,7 @@
-import { point } from '../../lib/2d/points.js'
-import { colorToLatexOrHTML } from '../2dGeneralites.js'
+import { point } from '../../lib/2d/points'
+import { colorToLatexOrHTML } from '../2dGeneralites'
 import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.ts'
-import { polygone } from '../../lib/2d/polygones.js'
+import { polygone } from '../../lib/2d/polygones'
 
 /**
  * Objet composé d'un rectangle horizontal et d'un texte optionnel à l'intérieur

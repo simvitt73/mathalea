@@ -5,8 +5,8 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, rotation, symetrieAxiale, translation } from '../lib/2d/transformations.js'
-import { fixeBordures, ObjetMathalea2D } from './2dGeneralites.js'
+import { affiniteOrtho, homothetie, rotation, symetrieAxiale, translation } from '../lib/2d/transformations'
+import { fixeBordures, ObjetMathalea2D } from './2dGeneralites'
 
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id) {

@@ -1,4 +1,4 @@
-import { addElement, addText, get } from '../lib/html/dom.js'
+import { addElement, addText, get } from '../lib/html/dom'
 /**
  * Fonctions pour gérer les messages utilisateur (feedback erreur|warning ou messages positifs)
  * @module

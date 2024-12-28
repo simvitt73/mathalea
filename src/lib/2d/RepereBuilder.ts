@@ -1,4 +1,4 @@
-import { Repere } from './reperes.js'
+import { Repere } from './reperes'
 import { round } from 'mathjs'
 type LAbel = {
     valeur: number,

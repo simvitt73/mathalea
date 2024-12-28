@@ -1,9 +1,9 @@
-import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
+import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
-import { plot, point, tracePoint } from './points.js'
-import { segment } from './segmentsVecteurs.js'
+import { plot, point, tracePoint } from './points'
+import { segment } from './segmentsVecteurs'
 import {
   latex2d,
   latexParCoordonnees,

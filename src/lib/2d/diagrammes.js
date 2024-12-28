@@ -1,15 +1,15 @@
 import { fraction, max } from 'mathjs'
-import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
-import { arc, cercle } from './cercle.js'
-import { point, tracePoint } from './points.js'
-import { carre, motifs, polygone, polyline } from './polygones.js'
-import { axeY, labelY, pointDansRepere } from './reperes.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites'
+import { arc, cercle } from './cercle'
+import { point, tracePoint } from './points'
+import { carre, motifs, polygone, polyline } from './polygones'
+import { axeY, labelY, pointDansRepere } from './reperes'
 import { texcolors } from '../format/style'
 import { combinaisonListes } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
-import { segment, vecteur } from './segmentsVecteurs.js'
+import { segment, vecteur } from './segmentsVecteurs'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes.ts'
-import { rotation, similitude, translation } from './transformations.js'
+import { rotation, similitude, translation } from './transformations'
 
 /**
  * Trace un graphique cartésien dans un repère

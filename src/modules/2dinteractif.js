@@ -1,7 +1,7 @@
-import { point, tracePoint } from '../lib/2d/points.js'
-import { polygone } from '../lib/2d/polygones.js'
-import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
-import { context } from './context.js'
+import { point, tracePoint } from '../lib/2d/points'
+import { polygone } from '../lib/2d/polygones'
+import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites'
+import { context } from './context'
 
 /**
  * @author Rémi ANGOT

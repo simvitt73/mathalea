@@ -1,11 +1,11 @@
 import { abs, random, round } from 'mathjs'
-import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { Cercle } from './cercle.js'
-import { afficheCoteSegment } from './codages.js'
-import { point, pointAdistance } from './points.js'
-import { pattern, polygone } from './polygones.js'
-import { longueur, segment, vecteur } from './segmentsVecteurs.js'
-import { homothetie, rotation, translation } from './transformations.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { Cercle } from './cercle'
+import { afficheCoteSegment } from './codages'
+import { point, pointAdistance } from './points'
+import { pattern, polygone } from './polygones'
+import { longueur, segment, vecteur } from './segmentsVecteurs'
+import { homothetie, rotation, translation } from './transformations'
 
 /**
  *

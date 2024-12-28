@@ -1,9 +1,9 @@
-import { arc, cercle } from '../lib/2d/cercle.js'
-import { Point, point } from '../lib/2d/points.js'
-import { carre } from '../lib/2d/polygones.js'
-import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
+import { arc, cercle } from '../lib/2d/cercle'
+import { Point, point } from '../lib/2d/points'
+import { carre } from '../lib/2d/polygones'
+import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../lib/2d/textes'
-import { rotation, translation } from '../lib/2d/transformations.js'
+import { rotation, translation } from '../lib/2d/transformations'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import { extraireRacineCarree } from '../lib/outils/calculs'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures'
@@ -18,9 +18,9 @@ import { stringNombre, texNombre } from '../lib/outils/texNombre'
 import {
   quotientier,
   egal, ppcm
-} from './outils.js'
+} from './outils'
 import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
-import { colorToLatexOrHTML } from './2dGeneralites.js'
+import { colorToLatexOrHTML } from './2dGeneralites'
 import Decimal from 'decimal.js'
 
 type FractionRepresentationType = 'gateau'|'barre'|'segment'
@@ -161,7 +161,7 @@ function normalizeFraction (n: number|Decimal, d:number): [number, number] {
  * La classe FractionEtendue est une extension de la classe  FractionMathjs  de mathjs
  * @author Jean-Claude Lhote
  * Merci à Daniel Caillibaud pour son aide.
- * Pour créer une instance de la classe FractionEtendue on peut utiliser la fonction fraction() qui se trouve dans le fichier modules/fractions.js
+ * Pour créer une instance de la classe FractionEtendue on peut utiliser la fonction fraction() qui se trouve dans le fichier modules/fractions
  * Ou utiliser la syntaxe f = new FractionEtendue () qui crée une  FractionMathjs  nulle.
  * On peut utiliser tous les arguments utilisables par  FractionMathjs  :
  * @example
@@ -248,7 +248,7 @@ class FractionEtendue {
   texFSP!: string
   /**
    * le code LaTeX de l'écriture algébrique de la fraction
-   * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
+   * Pour compatibilité avec les anciens exos... la fonction de outils ecritureAlgebrique() est compatible avec les fractions
    */
   ecritureAlgebrique!: string
   /**
@@ -455,7 +455,7 @@ class FractionEtendue {
 
     /**
      * le code LaTeX de l'écriture algébrique de la fraction
-     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
+     * Pour compatibilité avec les anciens exos... la fonction de outils ecritureAlgebrique() est compatible avec les fractions
      * @property ecritureAlgebrique
      * @type {string}
      */

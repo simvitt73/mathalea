@@ -1,5 +1,5 @@
-import { ObjetMathalea2D } from './2dGeneralites.js'
-import { context } from './context.js'
+import { ObjetMathalea2D } from './2dGeneralites'
+import { context } from './context'
 
 /**
  * Traducteur scratch3 (Latex) -> scratchblocks

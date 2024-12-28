@@ -1,16 +1,16 @@
 import {
   colorToLatexOrHTML,
   ObjetMathalea2D
-} from '../../modules/2dGeneralites.js'
-import { arrondi } from '../outils/nombres.js'
-import { angleModulo, angleOriente } from './angles.js'
-import { Droite, droite, mediatrice } from './droites.js'
-import { Point, point } from './points.js'
-import { pattern } from './polygones.js'
-import { longueur } from './segmentsVecteurs.js'
-import { rotation } from './transformations.js'
-import MainLevee from './MainLevee.js'
-import { radians } from '../mathFonctions/trigo.js'
+} from '../../modules/2dGeneralites'
+import { arrondi } from '../outils/nombres'
+import { angleModulo, angleOriente } from './angles'
+import { Droite, droite, mediatrice } from './droites'
+import { Point, point } from './points'
+import { pattern } from './polygones'
+import { longueur } from './segmentsVecteurs'
+import { rotation } from './transformations'
+import MainLevee from './MainLevee'
+import { radians } from '../mathFonctions/trigo'
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r

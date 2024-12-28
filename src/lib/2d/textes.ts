@@ -1,8 +1,8 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, type ObjetDivLatex } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, type ObjetDivLatex } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { point, Point } from './points.js'
+import { point, Point } from './points'
 import { Point3d } from '../../modules/3d'
 import { Polygone } from './polygones'
 

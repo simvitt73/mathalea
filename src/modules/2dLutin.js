@@ -4,11 +4,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { angleModulo } from '../lib/2d/angles.js'
-import { point } from '../lib/2d/points.js'
-import { radians } from '../lib/mathFonctions/trigo.js'
-import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
-import { context } from './context.js'
+import { angleModulo } from '../lib/2d/angles'
+import { point } from '../lib/2d/points'
+import { radians } from '../lib/mathFonctions/trigo'
+import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites'
+import { context } from './context'
 
 /**
  * Renvoie la mesure d'angle (entre -180° et 180°) dans le cercle trigonométrique à partir d'une mesure d'angle donnée en degrés, qu'utilise Scratch.

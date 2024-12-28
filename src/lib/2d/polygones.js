@@ -1,13 +1,13 @@
 import earcut from 'earcut'
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { randint } from '../../modules/outils.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { randint } from '../../modules/outils'
 import { arrondi, rangeMinMax } from '../outils/nombres'
-import { Point, point, pointAdistance, pointSurSegment } from './points.js'
-import { longueur, segment, vecteur } from './segmentsVecteurs.js'
+import { Point, point, pointAdistance, pointSurSegment } from './points'
+import { longueur, segment, vecteur } from './segmentsVecteurs'
 import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
-import { homothetie, rotation, translation } from './transformations.js'
-import { aireTriangle } from './triangle.js'
+import { homothetie, rotation, translation } from './transformations'
+import { aireTriangle } from './triangle'
 
 /**
  * Crée le barycentre d'un polygone

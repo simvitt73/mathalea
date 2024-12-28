@@ -1,7 +1,7 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { point } from './points.js'
-import { segment } from './segmentsVecteurs.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { point } from './points'
+import { segment } from './segmentsVecteurs'
 
 export function CrochetD (A, color = 'blue') {
   ObjetMathalea2D.call(this, {})

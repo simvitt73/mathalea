@@ -1,14 +1,14 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
 
-import { context } from '../../modules/context.js'
-import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils.js'
-import { radians } from '../mathFonctions/trigo.js'
+import { context } from '../../modules/context'
+import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils'
+import { radians } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
-import { Cercle, cercle } from './cercle.js'
-import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites.js'
-import { carre, polygone } from './polygones.js'
-import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
-import { homothetie, rotation, similitude } from './transformations.js'
+import { Cercle, cercle } from './cercle'
+import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites'
+import { carre, polygone } from './polygones'
+import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs'
+import { homothetie, rotation, similitude } from './transformations'
 
 /**
  * A = point('A') //son nom

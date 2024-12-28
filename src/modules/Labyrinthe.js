@@ -1,9 +1,9 @@
-import { point } from '../lib/2d/points.js'
-import { segment } from '../lib/2d/segmentsVecteurs.js'
+import { point } from '../lib/2d/points'
+import { segment } from '../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.ts'
 import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
-import { randint } from './outils.js'
+import { randint } from './outils'
 
 /**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
  * @param {Object} parametres À saisir entre accolades
