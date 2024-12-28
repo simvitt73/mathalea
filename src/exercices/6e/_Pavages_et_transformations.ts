@@ -702,8 +702,8 @@ export default class PavagesEtTransformations extends Exercice {
             punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3])
           }
         }
-        if (centre1 == null || centre2 == null || centre3 == null || num1 == null || num2 == null || num3 == null || vector1 == null || vector2 == null || vector3 == null) {
-          throw Error('centre1, centre2 ou centre3 ou num1, num2 ou num3 est null')
+        if (num1 == null || num2 == null || num3 == null || vector1 == null || vector2 == null || vector3 == null) {
+          throw Error('num1, num2 ou num3 est null')
         }
         texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]}, quel est le numéro de l'image de la figure ${numC} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, '') + '<br>'
         texte += '<br>' + texteAMC3

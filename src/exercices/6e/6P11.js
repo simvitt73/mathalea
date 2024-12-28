@@ -940,7 +940,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
           }
           break
       }
-      if (this.questionJamaisPosee(i, indexN, ...listeIndexSituations)) { // Si la question n'a jamais été posée, on la garde.
+      if (this.questionJamaisPosee(i, indexN, question.qtexteCorr)) { // Si la question n'a jamais été posée, on la garde.
         this.listeQuestions[i] = question.qtexte
         this.listeCorrections[i] = question.qtexteCorr
         i++

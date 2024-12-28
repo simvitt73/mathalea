@@ -22,6 +22,8 @@ import MainLevee from './MainLevee'
 export function Vecteur (arg1, arg2, nom = '') {
   ObjetMathalea2D.call(this, {})
   if (arguments.length === 1) {
+    this.x = 0
+    this.y = 0
     this.nom = arg1
   } else {
     if (typeof arg1 === 'number' || arg1 instanceof FractionEtendue) {

@@ -604,7 +604,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
  * @param tailleCaracteres
  */
 export function latexParCoordonnees (texte: string, x:number, y:number, color:string = 'black', largeur: number = 50, hauteurLigne:number = 20, colorBackground:string = '', tailleCaracteres:number = 8) {
-  if (texte === '') texte = '\\phatom{ }'
+  if (texte === '') texte = '\\phantom{ }'
   return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
