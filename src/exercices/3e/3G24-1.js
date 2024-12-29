@@ -170,12 +170,6 @@ export default class TrianglesSemblables extends Exercice {
           code4 = angleOriente(D, E, F) > 0 ? afficheLongueurSegment(E, F) : afficheLongueurSegment(F, E)
           code5 = angleOriente(B, C, A) > 0 ? afficheLongueurSegment(C, A) : afficheLongueurSegment(A, C)
           code6 = angleOriente(E, F, D) > 0 ? afficheLongueurSegment(F, D) : afficheLongueurSegment(D, F)
-          codeA1 = codageAngle(A, B, C, 0.8, '|')
-          codeA2 = codageAngle(D, E, F, 0.8, '|')
-          codeA3 = codageAngle(B, C, A, 0.8, 'X')
-          codeA4 = codageAngle(E, F, D, 0.8, 'X')
-          codeA5 = codageAngle(C, A, B, 0.8, '||')
-          codeA6 = codageAngle(F, D, E, 0.8, '||')
           nom1 = choisitLettresDifferentes(3)
           nom2 = choisitLettresDifferentes(3, nom1)
           Anom = nom1[0]
@@ -194,9 +188,9 @@ export default class TrianglesSemblables extends Exercice {
           }, fixeBordures(objets)), objets)
 
           texteCorr = 'On trie les longueurs des deux triangles afin de les comparer. <br>'
-          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B), longueur(D, E)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C), longueur(E, F)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A), longueur(F, D)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B, 1), longueur(D, E, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C, 1), longueur(E, F, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A, 1), longueur(F, D, 1)).texFractionSimplifiee}$.<br>`
           texteCorr += 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
           break
         }
@@ -307,9 +301,9 @@ export default class TrianglesSemblables extends Exercice {
             zoom
           }, fixeBordures(objets)), objets)
           texteCorr = 'On trie les longueurs des deux triangles afin de les comparer. <br>'
-          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B), longueur(D, E)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C), longueur(E, F)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A), longueur(F, D)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B, 1), longueur(D, E, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C, 1), longueur(E, F, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A, 1), longueur(F, D, 1)).texFractionSimplifiee}$.<br>`
           texteCorr += 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
           break
         }
