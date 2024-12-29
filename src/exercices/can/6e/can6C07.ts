@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
@@ -20,16 +21,11 @@ export const refs = {
 }
 
 export default class ResteDivisionPar3 extends Exercice {
-  typeExercice: string
-  nbQuestions: number
-   formatChampTexte: string
-
   constructor () {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    this.formatChampTexte = 'clavierNumbers'
+    this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
   nouvelleVersion () {

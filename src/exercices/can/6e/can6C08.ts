@@ -1,4 +1,5 @@
 import { bleuMathalea } from '../../../lib/colors'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
@@ -22,18 +23,12 @@ export const refs = {
 }
 
 export default class QuartOuTiers extends Exercice {
-  typeExercice: string
-  nbQuestions: number
-   optionsDeComparaison: { nombreDecimalSeulement: boolean }
-  formatChampTexte: string
-
   constructor () {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
-    this.formatChampTexte = 'clavierNumbers'
+    this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
   nouvelleVersion () {

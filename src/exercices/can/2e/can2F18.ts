@@ -6,6 +6,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '16/11/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,8 +14,6 @@ export const titre = 'Déterminer un extremum graphiquement'
 
 /**
  * @author Gilles MORA
-  *
-
 */
 export const uuid = '5a908'
 
@@ -25,11 +24,9 @@ export const refs = {
 export default class MaxMinG extends Exercice {
   constructor () {
     super()
-
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    this.formatChampTexte = ' lycee  '
+    this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
   nouvelleVersion () {

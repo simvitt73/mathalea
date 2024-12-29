@@ -4,6 +4,7 @@ import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInte
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
+import { KeyboardType, type KeyboardCategory, type PartialKbType } from '../lib/interactif/claviers/keyboard'
 
 /**
  *
@@ -41,7 +42,7 @@ export default class Exercice {
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple
   canReponseACompleter: string = '' // Seulement pour les exercices de type simple
-  formatChampTexte: string = '' // Seulement pour les exercices de type simple
+  formatChampTexte: string | undefined | PartialKbType = KeyboardType.clavierDeBase // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple

@@ -21,16 +21,11 @@ export const refs = {
 }
 
 export default class AdditionATrou extends Exercice {
-  typeExercice: string
-  nbQuestions: number
-   formatChampTexte: string
-
   constructor () {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    this.formatChampTexte = KeyboardType.clavierNumbers as string
+    this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
   nouvelleVersion () {

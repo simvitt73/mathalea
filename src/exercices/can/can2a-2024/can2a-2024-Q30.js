@@ -25,8 +25,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = '  blocCenter ' + KeyboardType.clavierEnsemble
-
+    this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
   nouvelleVersion () {
@@ -180,8 +179,9 @@ export default class NomExercice extends Exercice {
                 options: { intervalle: true }
               }
             }
-        this.question = `Sur quel intervalle,  $f$ est-elle ${choix ? 'négative' : 'positive'} ou nulle ?<br>` +
-             mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+        this.question = 'On donne le graphique d’une fonction $f$ : <br>'
+        this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+        this.question += `Sur quel intervalle,  $f$ est-elle ${choix ? 'négative' : 'positive'} ou nulle ? `
         this.correction = `La fonction est ${choix ? 'négative' : 'positive'} ou nulle lorsque les images sont ${choix ? 'négatives' : 'positives'} ou nulles.<br>
         Graphiquement, les images sont ${choix ? 'négatives' : 'positives'} ou nulles  lorsque la courbe se situe sur ou ${choix ? 'en dessous' : 'au-dessus'}  de l'axe des abscisses, soit sur l'intervalle  
         ${choix ? `$${miseEnEvidence(`[${theSpline.x[0]}\\,;\\,${theSpline.x[3]}`)}]$` : `$${miseEnEvidence(`[${theSpline.x[3]}\\,;\\,${theSpline.x[6]}]`)}$`}

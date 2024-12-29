@@ -688,18 +688,18 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
-            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
+            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte, exercice.optionsChampTexte || {})
           )
         } else {
           exercice.listeQuestions.push(exercice.question || '')
         }
       } else {
         // La question doit contenir une unique variable %{champ1} On est en fillInTheBlank
-        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte || '', '\\ldots'))
+        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte, '\\ldots'))
         if (typeof exercice.reponse === 'object' && 'champ1' in exercice.reponse) {
           handleAnswers(exercice, i, exercice.reponse, { formatInteractif: 'fillInTheBlank' })
         } else {
-          handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(exercice, i, { champ1: { value: exercice.reponse } }, { formatInteractif: 'fillInTheBlank' })
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
