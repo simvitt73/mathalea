@@ -29,8 +29,8 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     this.consigne = 'Compléter l\'égalité.<br>'
     switch (randint(1, 5)) {
       case 1 :

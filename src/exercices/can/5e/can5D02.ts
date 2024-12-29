@@ -31,8 +31,8 @@ export default class HeuresDecimalesHeuresMinutes2 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     let a, b, d, texte, texteCorr
     for (let i = 0, index = 0, nbChamps = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2])) { //, 'b'

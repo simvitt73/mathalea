@@ -32,8 +32,8 @@ export default class longueurDansTriangle extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const objets = []
     const a = randint(11, 15) * 100
     const b = 2025

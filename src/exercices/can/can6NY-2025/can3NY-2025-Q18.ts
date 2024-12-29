@@ -28,8 +28,8 @@ export default class developper extends Exercice {
     }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = choice([1, 2, 3])
     const a = randint(-2, 2, 0)
     const b = randint(-5, 5, 0)

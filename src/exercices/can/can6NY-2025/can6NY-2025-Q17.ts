@@ -28,8 +28,8 @@ export default class SuiteACompleterHeures extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const h = 20
     const k = randint(14, 16)
     const minutes1Aff = minToHoraire(20 * 60 + 25, true)

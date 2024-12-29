@@ -32,8 +32,8 @@ export default class coordMilieu extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const nom = creerNomDePolygone(2, ['PQDO'])
     const b = randint(-5, 5) * 2 + 1
     const c = randint(-5, 5) * 2 + 1

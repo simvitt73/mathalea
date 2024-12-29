@@ -27,8 +27,8 @@ export default class Convertir extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     let a, b
     switch (choice(['b', 'b'])) {

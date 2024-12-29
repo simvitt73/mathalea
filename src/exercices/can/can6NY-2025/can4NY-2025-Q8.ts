@@ -27,8 +27,8 @@ export default class CalculParentheses extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     const a = randint(1, 12) * 2 + 1
 

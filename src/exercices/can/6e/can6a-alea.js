@@ -64,8 +64,8 @@ export default class can6eAll extends Exercice {
       return
     }
     this.lastCallback = this.listeArguments[0]
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     if (this.sup === null || this.sup === '') {
       this.sup = 'All'

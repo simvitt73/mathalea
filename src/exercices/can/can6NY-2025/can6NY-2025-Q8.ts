@@ -32,8 +32,8 @@ export default class CompleterUneSuite extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = choice([true, false])
     const abs0 = choix ? 2000 : 2005
     const abs1 = choix ? abs0 + 25 : abs0 + 20

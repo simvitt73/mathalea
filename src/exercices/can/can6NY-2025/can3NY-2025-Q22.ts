@@ -26,8 +26,8 @@ export default class programmeCalcul extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const b = randint(2, 10) * 100 + 25
     this.reponse = (2025 - b) / 100
     this.question = `Je pense à un nombre. <br>

@@ -35,8 +35,8 @@ export default class TripletsPythagoriciensOuPas extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeTripletsPythagoriciens = [
         [3, 4, 5],

@@ -28,8 +28,8 @@ export default class calcAvecChiffres extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = choice([1, 2, 3])
 
     if (choix === 1) {

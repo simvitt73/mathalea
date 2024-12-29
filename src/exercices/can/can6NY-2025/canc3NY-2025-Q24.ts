@@ -29,8 +29,8 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9\\times 9 \\times 5\\times 5$, compléter :`
     switch (randint(1, 4)) {
       case 1 :

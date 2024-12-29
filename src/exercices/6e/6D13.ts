@@ -43,8 +43,7 @@ export default class ConversionHeuresMinutesOuMinutesEtSecondes extends Exercice
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
     let typeQuestionsDisponibles = ['min vers h et min', 's vers min et s']
     if (this.sup === 1) typeQuestionsDisponibles = ['min vers h et min']
     else if (this.sup === 2) typeQuestionsDisponibles = ['s vers min et s']

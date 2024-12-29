@@ -29,8 +29,8 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const d = randint(3, 6)
     const u = randint(1, 9)
     const a = d * 10 + u

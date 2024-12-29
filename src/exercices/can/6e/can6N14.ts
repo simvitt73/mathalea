@@ -30,8 +30,8 @@ export default class DeterminerLeNombre extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     let texte, texteCorr, a, monQcm
 

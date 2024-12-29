@@ -62,8 +62,8 @@ export default class SujetCAN2023Seconde extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     let typeQuestionsDisponibles = []
     if (this.nbQuestions === 30) {
       typeQuestionsDisponibles = range1(30)

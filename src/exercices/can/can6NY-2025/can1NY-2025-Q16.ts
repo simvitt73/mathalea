@@ -28,8 +28,8 @@ export default class intersectionIntervalles extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = -2024
     const b = randint(-10, 5)
     const c = a + randint(1, 9)

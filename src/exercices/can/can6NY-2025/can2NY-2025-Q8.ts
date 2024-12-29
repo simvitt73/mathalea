@@ -30,8 +30,8 @@ export default class EgaliteCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     switch (randint(1, 4)) {
       case 1 :

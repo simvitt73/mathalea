@@ -28,8 +28,8 @@ export default class inequationAResoudre extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     let solution1
     const a = choice([-2025, 2025])
     const b = choice([-2025, 2025])

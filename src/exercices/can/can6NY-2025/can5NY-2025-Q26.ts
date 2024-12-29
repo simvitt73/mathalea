@@ -30,8 +30,8 @@ export default class nbreMinutes extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     this.consigne = 'Compléter l\'égalité.<br>'
     switch (randint(1, 4)) {
       case 1 :

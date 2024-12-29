@@ -33,8 +33,8 @@ export default class ComparerFractions extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = 2025
     const b = choice([2024, 2026])
     const choix = choice([true, false])

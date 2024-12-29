@@ -28,8 +28,8 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     let a
     let b
     switch (randint(1, 2)) {

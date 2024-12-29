@@ -26,8 +26,8 @@ export default class diffDeDeuxCarres extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = randint(1, 3)
     if (choix === 1) {
       this.question = `Calculer $${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2$.`

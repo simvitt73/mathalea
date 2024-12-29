@@ -29,8 +29,8 @@ export default class simplifierFractionSimple extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const n = choice([2025, -2025])
     const d = choice([-1, 2025, -2025])
     const signe = n * d < 0 ? '-' : ''

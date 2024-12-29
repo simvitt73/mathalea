@@ -28,8 +28,8 @@ export default class calcAvecChiffresPrio extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = choice([true, false])
     const a = randint(1, 4)
     const val = new Decimal(2025).div(choice([10, 100, 1000]))

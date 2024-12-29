@@ -32,8 +32,8 @@ export default class EgaliteACompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = 2025
     const b = randint(2, 5)
     const c = randint(1, 5)

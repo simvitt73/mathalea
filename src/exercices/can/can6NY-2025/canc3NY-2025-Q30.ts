@@ -29,8 +29,8 @@ export default class resoudreUnProbleme extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const prenoms = prenomM(2)
     this.reponse = randint(8, 12, 10)
     const a = this.reponse * 2

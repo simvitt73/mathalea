@@ -28,8 +28,8 @@ export default class nombreEntreDeuxValeurs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const valInf = new Decimal(2025).div(choice([100, 1000]))
     const valSup = choice([valInf.add(0.01), valInf.add(0.001)])
     this.reponse = {

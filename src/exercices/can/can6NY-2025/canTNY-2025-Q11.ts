@@ -28,8 +28,8 @@ export default class calcAntecedent extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(-5, 5, 0)
     const ant = randint(2020, 2030)
     this.question = `Déterminer l'antécédent de $${texNombre(ant)}$ par la fonction $f$ définie par : $f(x)=${rienSi1(a)}x+${texNombre(2025, 0)}$.`

@@ -36,8 +36,8 @@ export default class LectureGraphiqueParaboleA extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     let texte = ''
     let texteCorr = ''
     let a: number

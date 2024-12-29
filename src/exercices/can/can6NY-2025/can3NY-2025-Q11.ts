@@ -28,8 +28,8 @@ export default class ecrireDecimale extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = 2025
     const b = randint(11, 59, [20, 30, 40, 50])
     const c = new Decimal(a).div(10)

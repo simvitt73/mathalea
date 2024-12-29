@@ -31,8 +31,8 @@ export default class HeuresFractionHeuresMinutes2 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     let a, b, d, texte, texteCorr, mafraction
     const listeFractions1 = [[1, 3], [1, 4], [1, 2], [1, 5], [1, 6], [1, 10], [1, 12], [1, 15],
       [2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [7, 12], [5, 12], [11, 12]]

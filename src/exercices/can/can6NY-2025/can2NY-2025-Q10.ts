@@ -33,8 +33,8 @@ export default class calcPuissanceDe10 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = choice([new Decimal(2025), new Decimal(2025).div(10), new Decimal(2025).div(100)])
     const exp = randint(-3, 3, 0)
     const expABS = abs(exp)

@@ -29,8 +29,8 @@ export default class calcAvecChiffresRel extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(-2, 2, 0)
     this.reponse = `${reduireAxPlusB(a, 0)}`
     this.question = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2025, 0)})=${texNombre(a * 2025, 0)}$.<br>

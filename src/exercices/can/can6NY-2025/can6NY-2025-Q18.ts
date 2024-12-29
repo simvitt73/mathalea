@@ -27,8 +27,8 @@ export default class ChiffreADeterminer extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const u = randint(4, 9)
     const d = randint(1, 9)
     const nbre = d * 10 + u

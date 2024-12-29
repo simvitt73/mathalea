@@ -27,8 +27,8 @@ export default class reduireExpression extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(7, 29) * 10 + randint(1, 9, 5)
     const exposant2025 = randint(1, 3)
     const exposantA = a < 100 ? randint(1, 2) : randint(1, 3)

@@ -28,8 +28,8 @@ export default class coeffDirecteur extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = choice([-1, 1])
     const c = choice([-1, 1])
     const b = randint(1, 4) * c

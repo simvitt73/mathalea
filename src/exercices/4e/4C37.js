@@ -33,8 +33,6 @@ export default class SignePuissance extends Exercice {
     this.consigne = 'Déterminer le signe '
     this.consigne += this.nbQuestions > 1 ? 'des expressions suivantes.' : 'de l\'expression suivante.'
 
-    this.listeCanReponsesACompleter = []
-    this.listeCanEnonces = []
     let listeTypeDeQuestions = ['a^n', '-a^n', '(-a)^n', '-(-a)^n']
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     let a = 0

@@ -27,8 +27,8 @@ export default class rechercherUnNombre extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(5, 20)
     this.reponse = texNombre(a, 0)
 

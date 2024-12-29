@@ -28,8 +28,8 @@ export default class CalculsPourcentages extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     const a = new Decimal(2025).div(choice([10, 100, 1000]))
     this.reponse = texNombre(new Decimal(a).div(10), 5)

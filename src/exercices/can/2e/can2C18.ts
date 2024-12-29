@@ -29,8 +29,8 @@ export default class entiersConsecutifs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       const n1 = randint(-20, 20, [0, 1, 2, 3, 4, 5, 6, 7])

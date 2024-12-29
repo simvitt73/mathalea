@@ -32,8 +32,8 @@ export default class ProduitACompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = 2025
     const b = choice([10, 100, 1000])
     const resultat = new Decimal(2025).mul(b)

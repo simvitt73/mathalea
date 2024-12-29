@@ -28,8 +28,8 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(1, 9)
     const d = new Decimal(a).div(10)
     const c = new Decimal(a).div(100)

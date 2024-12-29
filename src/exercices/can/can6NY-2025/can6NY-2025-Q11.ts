@@ -29,8 +29,8 @@ export default class ChangerUnites extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = choice([true, false])
     if (choix) {
       this.reponse = 20.25

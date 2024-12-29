@@ -26,8 +26,8 @@ export default class entierDansIntervalle extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const crochet1 = choice([']', '['])
     const crochet2 = choice([']', '['])
     if (choice([true, false])) {

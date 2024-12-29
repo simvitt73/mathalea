@@ -30,8 +30,8 @@ export default class calcRenduMonnaie extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     let prix
     switch (randint(1, 5)) {

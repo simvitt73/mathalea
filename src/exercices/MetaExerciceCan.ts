@@ -1,4 +1,4 @@
-import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'

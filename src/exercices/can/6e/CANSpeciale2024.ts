@@ -46,8 +46,8 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     let niveauAttendu = this.sup === 0 ? 0 : !this.sup ? 8 : parseInt(this.sup) // Ce parseInt est nécessaire car le formulaire est un texte
     if (isNaN(niveauAttendu) || (niveauAttendu > 7)) {

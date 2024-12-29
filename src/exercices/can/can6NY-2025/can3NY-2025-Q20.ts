@@ -29,8 +29,8 @@ export default class additionFraction extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(1, 10)
 
     if (choice([true, false])) {

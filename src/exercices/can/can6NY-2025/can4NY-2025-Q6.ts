@@ -28,8 +28,8 @@ export default class InverseOppose extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
 
     const c = choice([2, 4, 5])
     const b = randint(1, c - 1)

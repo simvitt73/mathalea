@@ -26,8 +26,8 @@ export default class nombreATrouver extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const choix = choice([1, 2, 3])
     const nbre = choice([-2025, 2025])
     if (choix === 1) {

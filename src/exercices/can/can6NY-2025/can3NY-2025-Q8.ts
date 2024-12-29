@@ -32,8 +32,8 @@ export default class calcAvecDecimaux extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = new Decimal(randint(1, 29, [10, 20])).div(choice([10, 100]))
     this.reponse = texNombre(new Decimal(2025).sub(a), 2)
     this.question = `$${texNombre(2025)}-${texNombre(a, 2)}$`

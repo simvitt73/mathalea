@@ -28,8 +28,8 @@ export default class ComparerFractions extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const a = randint(2026, 2027)
     const f1 = new FractionEtendue(a, 2025)
     const f2 = new FractionEtendue(2025, a)

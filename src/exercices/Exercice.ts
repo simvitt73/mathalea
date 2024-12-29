@@ -40,8 +40,8 @@ export default class Exercice {
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple
-  canReponseACompleter?: string // Seulement pour les exercices de type simple
-  formatChampTexte?: string // Seulement pour les exercices de type simple
+  canReponseACompleter: string = '' // Seulement pour les exercices de type simple
+  formatChampTexte: string = '' // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple

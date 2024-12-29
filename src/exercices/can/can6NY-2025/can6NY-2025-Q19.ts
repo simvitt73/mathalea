@@ -31,8 +31,8 @@ export default class NombreAajouter extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const abs0 = 2025
     const abs1 = abs0 + 1
     const abs2 = abs0 + 2

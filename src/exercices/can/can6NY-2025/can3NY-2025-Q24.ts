@@ -25,8 +25,8 @@ export default class reduireExpression extends Exercice {
     }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     switch (randint(1, 3)) {
       case 1 :
         this.question = `Exprimer la somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$.`

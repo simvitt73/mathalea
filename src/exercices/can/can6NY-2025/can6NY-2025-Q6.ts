@@ -29,8 +29,8 @@ export default class soustraireDecimal extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const annee = new Decimal(2025)
     const a = new Decimal(randint(0, 4) * 2 + 1).div(2)
     this.reponse = annee.sub(a).toFixed(1)

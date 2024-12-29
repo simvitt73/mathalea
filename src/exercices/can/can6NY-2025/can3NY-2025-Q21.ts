@@ -33,8 +33,8 @@ export default class calculerPythagore extends Exercice {
 
   nouvelleVersion () {
     const choix = choice([true, false])
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const nom = creerNomDePolygone(3, ['QD'])
     const a = randint(1, 6)
     const A = point(0, 0, nom[0], 'below')

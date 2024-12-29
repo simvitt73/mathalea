@@ -27,8 +27,8 @@ export default class calculImage extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const c = randint(-5, -1)
     this.question = `$f(x)=x^2+${texNombre(2025, 0)}$<br>`
     this.reponse = c * c + 2025

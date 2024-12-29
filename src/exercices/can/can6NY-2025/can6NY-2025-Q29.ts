@@ -28,8 +28,8 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+    
+    
     const date = randint(27, 30)
     const nbre = randint(1, 23)
     this.question = `Nous sommes le $${date}$ décembre $2024$. Il est $${nbre}$ h${nbre < 12 ? ' du matin' : ''}.<br>

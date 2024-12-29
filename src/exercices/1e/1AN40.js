@@ -141,8 +141,7 @@ export default class CosEtsin extends Exercice {
       this.canEnonce = 'Donner la valeur exacte de ' + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
       this.canReponseACompleter = ''
-      this.listeCanEnonces = []
-      this.listeCanReponsesACompleter = []
+
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push('Donner la valeur exacte de ' + enonce + '.')
         this.listeCanReponsesACompleter.push('')
