@@ -62,17 +62,14 @@ export function dansLaCibleCarree (x:number, y:number, rang:number, taille:numbe
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export class CibleCarree {
+export class CibleCarree extends ObjetMathalea2D {
   x: number
   y: number
   rang: number
   taille: number
-  color: string
-  opacite: number
   colorNum: string
   opaciteNum: number
-  bordures: number[]
-  objets: any[]
+  stringColor: string
   constructor ({
     x = 0,
     y = 0,
@@ -85,12 +82,13 @@ export class CibleCarree {
     opaciteNum = 1
   }:
   { x?: number, y?: number, rang?: number, num?: number, taille?: number, color?: string, opacite?: number, colorNum?: string, opaciteNum?: number } = {}) {
-    ObjetMathalea2D.call(this, {})
+    super()
+    this.stringColor = color
     this.x = x
     this.y = y
     this.rang = rang
     this.taille = taille
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.colorNum = colorNum
     this.opacite = opacite
     this.opaciteNum = opaciteNum
@@ -106,7 +104,7 @@ export class CibleCarree {
     }
     let lettre, chiffre
     // la grille de la cible
-    objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.color, this.opacite, this.taille, 0))
+    objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.stringColor, this.opacite, this.taille, 0))
     for (let i = 0; i < rang; i++) {
       lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 0, 'blue', 0.5, 'milieu', false, 0.2) as TexteParPoint
       chiffre = texteParPosition(String(i + 1), this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 0, 'blue', 0.5, 'milieu', false, 0.2) as TexteParPoint
@@ -134,6 +132,7 @@ export class CibleCarree {
 
   svg (coeff: number) {
     let code = ''
+    if (this.objets == null) return code
     for (const objet of this.objets) {
       code += '\n\t' + objet.svg(coeff)
     }
@@ -142,6 +141,7 @@ export class CibleCarree {
 
   tikz () {
     let code = ''
+    if (this.objets == null) return code
     for (const objet of this.objets) {
       code += '\n\t' + objet.tikz()
     }
@@ -231,24 +231,22 @@ export function dansLaCibleRonde (x: number, y:number, rang:number, taille:numbe
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export class CibleRonde {
+export class CibleRonde extends ObjetMathalea2D {
+  stringColor: string
   x: number
   y: number
   rang: number
   taille: number
-  color: string
-  opacite: number
-  bordures: number[]
-  objets: any[]
   constructor ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }: { x?: number, y?: number, rang?: number, num?: number, taille?: number, color?: string, opacite?: number }) {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.objets = []
+    this.stringColor = color
     this.x = x
     this.y = y
     this.taille = taille
     this.rang = rang
     this.opacite = opacite
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     let c
     let rayon
     const centre = point(this.x, this.y)
@@ -257,17 +255,17 @@ export class CibleRonde {
     const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
     this.bordures = [this.x - this.rang * this.taille - 1, this.y - this.rang * this.taille - 1, this.x + this.rang * this.taille + 1, this.y + this.rang * this.taille + 1]
     for (let i = 0; i < 8; i++) {
-      rayon = segment(centre, rotation(azimut, centre, 45 * i), this.color)
+      rayon = segment(centre, rotation(azimut, centre, 45 * i), this.stringColor)
       rayon.opacite = this.opacite
       this.objets.push(rayon)
       this.objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 0))
     }
     for (let i = 0; i < this.rang; i++) {
-      c = cercle(centre, arrondi(this.taille * (1 + i)), this.color)
+      c = cercle(centre, arrondi(this.taille * (1 + i)), this.stringColor)
       c.opacite = this.opacite
       this.objets.push(c)
     }
-    const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, this.color) as TexteParPoint
+    const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, this.stringColor) as TexteParPoint
     numero.opacite = 0.5
     numero.taille = 30
     numero.contour = true
@@ -276,6 +274,7 @@ export class CibleRonde {
 
   svg (coeff: number) {
     let code = ''
+    if (this.objets == null) return code
     for (const objet of this.objets) {
       code += '\n\t' + objet.svg(coeff)
     }
@@ -284,6 +283,7 @@ export class CibleRonde {
 
   ttikz () {
     let code = ''
+    if (this.objets == null) return code
     for (const objet of this.objets) {
       code += '\n\t' + objet.tikz()
     }
@@ -339,16 +339,14 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, col
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export class CibleCouronne {
+export class CibleCouronne extends ObjetMathalea2D {
   x: number
   y: number
   taille: number
   taille2: number
   depart: number
   objets: any[] = []
-  color: string
-  opacite: number
-  bordures: number[]
+  stringColor: string
 
   constructor ({
     x = 0,
@@ -363,13 +361,14 @@ export class CibleCouronne {
     color = 'gray',
     opacite = 0.5
   }: { x?: number, y?: number, taille?: number, taille2?: number, depart?: number, nbDivisions?: number, nbSubDivisions?: number, semi?: boolean, label?: boolean, color?: string, opacite?: number } = {}) {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.x = x
+    this.stringColor = color
     this.y = y
     this.taille = taille
     this.taille2 = taille2
     this.opacite = opacite
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.depart = depart
     let numero
     let azimut
@@ -379,13 +378,13 @@ export class CibleCouronne {
     azimut = rotation(point(this.x + this.taille, this.y), centre, this.depart)
     let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + this.taille2)
     const rayons = []
-    const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.color)
-    const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.color)
+    const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.stringColor)
+    const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.stringColor)
     rayon = segment(azimut, azimut2)
     this.objets.push(arc1, arc2, rayon)
     for (let i = 0; i < nbDivisions; i++) {
       for (let j = 1; j < nbSubDivisions; j++) {
-        rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions, this.color)
+        rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions, this.stringColor)
         rayons[j - 1].pointilles = 5
         rayons[j - 1].opacite = this.opacite
         this.objets.push(rayons[j - 1])
@@ -395,12 +394,12 @@ export class CibleCouronne {
         numero.contour = true
         this.objets.push(numero)
       }
-      rayon.color = colorToLatexOrHTML(this.color)
+      rayon.color = colorToLatexOrHTML(this.stringColor)
       rayon.opacite = this.opacite
       this.objets.push(rayon)
       azimut = rotation(azimut, centre, arcPlein / nbDivisions)
       azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
-      rayon = segment(azimut, azimut2, this.color)
+      rayon = segment(azimut, azimut2, this.stringColor)
     }
     if (semi) {
       this.objets.push(rayon)
@@ -410,6 +409,7 @@ export class CibleCouronne {
 
   svg (coeff:number) {
     let code = ''
+    if (this.objets == null) return code
     for (const objet of this.objets) {
       code += '\n\t' + objet.svg(coeff)
     }
@@ -418,6 +418,7 @@ export class CibleCouronne {
 
   tikz () {
     let code = ''
+    if (this.objets == null) return code
     for (const objet of this.objets) {
       code += '\n\t' + objet.tikz()
     }

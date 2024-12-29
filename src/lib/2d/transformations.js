@@ -89,7 +89,7 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above', 
 }
 
 /**
- * @param {Point|Polygone|Droite|Vecteur} A Point, Polygone, Droite, Segment ou Vecteur
+ * @param {Point|Polygone|Droite|Vecteur|Segment} A Point, Polygone, Droite, Segment ou Vecteur
  * @param {Point} O Centre de rotation
  * @param {number} angle Angle de rotation
  * @param {string} [nom=''] Nom de l'image
@@ -390,7 +390,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
 
 /**
  *
- * @param {Point|Polygone|Droite|Vecteur} A // Le point dont on veut l'image
+ * @param {Point|Polygone|Droite|Vecteur|Segment} A // Le point dont on veut l'image
  * @param {Point} O // Le centre de la similitude
  * @param {number} a // L'angle de la rotation
  * @param {number} k // le rapport de l'homothétie

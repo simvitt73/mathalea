@@ -51,7 +51,7 @@ export class Cercle extends ObjetMathalea2D {
   rayon: number
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
-  hachures: boolean
+  hachures: string
   couleurDesHachures: string[]
   epaisseurDesHachures: number
   distanceDesHachures: number
@@ -75,7 +75,7 @@ export class Cercle extends ObjetMathalea2D {
     this.rayon = r
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
+    this.hachures = String(couleurDesHachures !== 'none' && couleurDesHachures !== '')
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
     this.epaisseurDesHachures = epaisseurDesHachures
     this.distanceDesHachures = distanceDesHachures
@@ -368,7 +368,7 @@ export class Arc extends ObjetMathalea2D {
   rayons: boolean
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
-  hachures: boolean
+  hachures: string
   couleurDesHachures: string[]
   epaisseurDesHachures: number
   distanceDesHachures: number
@@ -398,7 +398,7 @@ export class Arc extends ObjetMathalea2D {
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
     this.opacite = 1
-    this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
+    this.hachures = String(couleurDesHachures !== 'none' && couleurDesHachures !== '')
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
     this.epaisseurDesHachures = 1
     this.distanceDesHachures = 10

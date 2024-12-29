@@ -352,11 +352,11 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   svg (coeff: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
-    let o = {}
+    let o: Point
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
-      o = rotation(this.sommet, a, -90)
+      o = rotation(this.sommet, a, -90) as Point
     } else {
-      o = rotation(this.sommet, a, 90)
+      o = rotation(this.sommet, a, 90) as Point
     }
     const result = polygone([this.sommet, a, o, b], this.color[0])
     if (this.couleurDeRemplissage[0] !== 'none') {
@@ -372,7 +372,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   tikz () {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
-    let o = {}
+    let o : Point
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
@@ -391,7 +391,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   svgml (coeff: number, amp: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
-    let o = {}
+    let o :Point
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
@@ -403,7 +403,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   tikzml (amp: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
-    let o = {}
+    let o :Point
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
