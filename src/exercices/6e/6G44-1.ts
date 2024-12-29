@@ -21,9 +21,10 @@ import { context } from '../../modules/context'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import type { Latex2d } from '../../lib/2d/textes'
 
 export const titre = 'Reconnaître des solides'
 export const dateDePublication = '24/09/2022'
@@ -85,7 +86,7 @@ export default class ReconnaitreDesSolides extends Exercice {
     for (let j = 0, k = 0; j < this.nbQuestions && k < 50; k++) {
       const choix = typeDeQuestion[k]
       context.anglePerspective = 30
-      const objets = []
+      const objets: (ObjetMathalea2D | Latex2d)[] = []
       let reponseQcm
 
       let axe = choix === 1 ? randint(1, 2) : (choix > 1 && choix <= 5) ? randint(1, 3) : 0
@@ -168,7 +169,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             } */
             objets.push(...cone.c2d)
           } else {
-            cone = cone2d({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
+            cone = cone2d({ centre: point(0, 0), rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
             const t = tracePoint(cone.centre)
             const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5) as Segment
             g.pointilles = 2
@@ -300,7 +301,7 @@ export default class ReconnaitreDesSolides extends Exercice {
           break
         }
         case 'sphère': // sphère
-          sphere = sphere2d({ centre: point(0, 0), Rx: 2, color: 'black' })
+          sphere = sphere2d({ centre: point(0, 0), rx: 2, color: 'black' })
           objets.push(sphere)
           reponse = solide
           texteCorrection = premiereLettreEnMajuscule(solide) + '.'

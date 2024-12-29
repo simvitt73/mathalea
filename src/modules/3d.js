@@ -1510,7 +1510,7 @@ class Pyramide3d {
     if (this.centre !== undefined && this.centre.constructor === Point3d) {
       this.c2d.push(tracePoint(this.centre.c2d, this.colorAxe))
       if (this.centre.label === '') this.centre.label = choisitLettresDifferentes(1, 'OQWX')[0]
-      this.c2d.push(labelPoint(this.centre.c2d))
+      this.c2d.push(...labelPoint(this.centre.c2d))
 
       if (this.affichageAxe) { // Axe affiché que si centre précisé
         if (this.sommet.z > 0) {
