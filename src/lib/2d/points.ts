@@ -546,7 +546,7 @@ export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): 
  * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
-export function pointSurSegment (A: Point, B: Point, l: number, nom = '', positionLabel = 'above'): Point {
+export function pointSurSegment (A: Point, B: Point, l?: number, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
   if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {

@@ -4,8 +4,8 @@ import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
-import { longueur, segment, vecteur } from './segmentsVecteurs'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
+import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
+import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
 
@@ -20,7 +20,7 @@ import { aireTriangle } from './triangle'
  * @return {Point}
  */
 // JSDOC Validee par EE Juin 2022
-export function barycentre (p, nom = '', positionLabel = 'above') {
+export function barycentre (p: Polygone, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
   let nbsommets = 0
@@ -39,39 +39,47 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  *
  * @author Rémi Angot
  */
-export function Polyline (...points) {
-  ObjetMathalea2D.call(this, {})
-  this.epaisseur = 1
-  this.pointilles = 0
-  this.opacite = 1
-  if (Array.isArray(points[0])) {
+export class Polyline extends ObjetMathalea2D {
+  listePoints: Point[]
+  nom: string
+  stringColor: string
+  constructor (...points: (Point[] | string)[]) {
+    super()
+    this.epaisseur = 1
+    this.pointilles = 0
+    this.opacite = 1
+    if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
-    this.listePoints = points[0]
-    this.color = colorToLatexOrHTML(points[1])
-  } else {
-    this.listePoints = points
-    this.color = colorToLatexOrHTML('black')
-  }
-  let xmin = 1000
-  let xmax = -1000
-  let ymin = 1000
-  let ymax = -1000
-  for (const unPoint of this.listePoints) {
-    if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x)
-    xmax = Math.max(xmax, unPoint.x)
-    ymin = Math.min(ymin, unPoint.y)
-    ymax = Math.max(ymax, unPoint.y)
-  }
-  this.bordures = [xmin, ymin, xmax, ymax]
-  this.nom = ''
-  if (this.listePoints.length < 15) {
-    // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
-    for (const point of points) {
-      this.nom += point.nom
+      this.listePoints = points[0]
+      this.stringColor = points[1] as string
+      this.color = colorToLatexOrHTML(String(points[1]))
+    } else {
+      this.listePoints = points as unknown as Point[]
+      this.color = colorToLatexOrHTML('black')
+      this.stringColor = 'black'
     }
+    let xmin = 1000
+    let xmax = -1000
+    let ymin = 1000
+    let ymax = -1000
+    for (const unPoint of this.listePoints) {
+      if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
+      xmin = Math.min(xmin, unPoint.x)
+      xmax = Math.max(xmax, unPoint.x)
+      ymin = Math.min(ymin, unPoint.y)
+      ymax = Math.max(ymax, unPoint.y)
+    }
+    this.bordures = [xmin, ymin, xmax, ymax]
+    this.nom = ''
+    if (this.listePoints.length < 15) {
+    // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
+      for (const point of this.listePoints) {
+        this.nom += point.nom
+      }
+    };
   }
-  this.svg = function (coeff) {
+
+  svg (coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -102,7 +110,8 @@ export function Polyline (...points) {
     }
     return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
-  this.tikz = function () {
+
+  tikz () {
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -132,7 +141,7 @@ export function Polyline (...points) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
 
-    let optionsDraw = []
+    let optionsDraw = ''
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
@@ -143,18 +152,20 @@ export function Polyline (...points) {
     binomeXY = binomeXY.substr(0, binomeXY.length - 2)
     return `\\draw${optionsDraw} ${binomeXY};`
   }
-  this.svgml = function (coeff, amp) {
+
+  svgml (coeff: number, amp: number) {
     let code = ''
     let s
     for (let k = 1; k < this.listePoints.length; k++) {
-      s = segment(this.listePoints[k - 1], this.listePoints[k], this.color)
+      s = segment(this.listePoints[k - 1], this.listePoints[k], this.stringColor)
       s.epaisseur = this.epaisseur
       s.opacite = this.opacite
       code += s.svgml(coeff, amp)
     }
     return code
   }
-  this.tikzml = function (amp) {
+
+  tikzml (amp: number) {
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -167,7 +178,7 @@ export function Polyline (...points) {
     }
     tableauOptions.push(`decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`)
 
-    let optionsDraw = []
+    let optionsDraw = ''
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
@@ -185,9 +196,10 @@ export function Polyline (...points) {
  * @example polyline(A,B,C,D,E) // Trace la ligne brisée ABCDE en noir
  * @example polyline([A,B,C,D,E],'blue') // Trace la ligne brisée ABCDE en bleu
  * @example polyline([A,B,C,D,E],'#f15929') // Trace la ligne brisée ABCDE en orange (code couleur HTML : #f15929)
+ * @returns Polyline
  * @author Rémi Angot
  */
-export function polyline (...args) {
+export function polyline (...args: (Point[] | string)[]) {
   return new Polyline(...args)
 }
 
@@ -220,28 +232,46 @@ export function polyline (...args) {
  * @class
  */
 export class Polygone extends ObjetMathalea2D {
-  constructor (...points) {
+  couleurDeRemplissage: string[]
+  opaciteDeRemplissage: number
+  couleurDesHachures: string[]
+  distanceDesHachures: number
+  epaisseurDesHachures: number
+  hachures: boolean | string
+  listePoints: Point[]
+  nom: string
+  pointilles: number
+  _triangulation: [Point, Point, Point][]
+  _flat: number[]
+  _aire: number
+  stringColor: string
+  constructor (...points: (Point | Point[] | string)[]) {
     super()
     this.epaisseurDesHachures = 1
     this.distanceDesHachures = 10
-    this.couleurDeRemplissage = ''
+    this.couleurDeRemplissage = colorToLatexOrHTML('none')
     this.opaciteDeRemplissage = 0.5
     this.epaisseur = 1
     this.opacite = 1
     this.pointilles = 0
+    this._triangulation = []
+    this._flat = []
+    this._aire = 0
+    this.stringColor = 'black'
     if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
       this.listePoints = points[0]
       if (points[1]) {
-        this.color = colorToLatexOrHTML(points[1])
+        this.color = colorToLatexOrHTML(String(points[1]))
+        this.stringColor = String(points[1])
       }
       if (points[2]) {
-        this.couleurDeRemplissage = colorToLatexOrHTML(points[2])
+        this.couleurDeRemplissage = colorToLatexOrHTML(String(points[2]))
       } else {
         this.couleurDeRemplissage = colorToLatexOrHTML('none')
       }
       if (points[3]) {
-        this.couleurDesHachures = colorToLatexOrHTML(points[3])
+        this.couleurDesHachures = colorToLatexOrHTML(String(points[3]))
         this.hachures = true
       } else {
         this.couleurDesHachures = colorToLatexOrHTML('black')
@@ -250,10 +280,11 @@ export class Polygone extends ObjetMathalea2D {
       this.nom = this.listePoints.map(el => el.nom).join('')
     } else {
       if (typeof points[points.length - 1] === 'string') {
-        this.color = points[points.length - 1]
+        this.color = colorToLatexOrHTML(String(points[points.length - 1]))
+        this.stringColor = String(points[points.length - 1])
         points.splice(points.length - 1, 1)
       }
-      this.listePoints = points
+      this.listePoints = points as unknown as Point[]
       this.nom = this.listePoints.map(el => el.nom).join('')
       this.couleurDeRemplissage = colorToLatexOrHTML('none')
       this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
@@ -271,17 +302,14 @@ export class Polygone extends ObjetMathalea2D {
       ymax = Math.max(ymax, unPoint.y)
     }
     this.bordures = [xmin, ymin, xmax, ymax]
+  }
 
-    this.binomesXY = function (coeff) {
-      let liste = ''
-      for (const point of this.listePoints) {
-        liste += `${point.xSVG(coeff)},${point.ySVG(coeff)} `
-      }
-      return liste
+  binomesXY (coeff: number) {
+    let liste = ''
+    for (const point of this.listePoints) {
+      liste += `${point.xSVG(coeff)},${point.ySVG(coeff)} `
     }
-    this._triangulation = null
-    this._flat = null
-    this._aire = null
+    return liste
   }
 
   get flat () {
@@ -311,13 +339,13 @@ export class Polygone extends ObjetMathalea2D {
       const triangles = this.triangulation
       this._aire = 0
       for (let i = 0; i < triangles.length; i++) {
-        this._aire += aireTriangle(triangles[i])
+        this._aire += Number(aireTriangle(triangles[i]))
       }
     }
     return this._aire
   }
 
-  svg (coeff) {
+  svg (coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -344,7 +372,7 @@ export class Polygone extends ObjetMathalea2D {
         this.couleurDeRemplissage = colorToLatexOrHTML('none')
       }
       return pattern({
-        motif: this.hachures,
+        motif: String(this.hachures),
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         epaisseurDesHachures: this.epaisseurDesHachures,
@@ -401,7 +429,7 @@ export class Polygone extends ObjetMathalea2D {
 
     if (this.hachures) {
       tableauOptions.push(pattern({
-        motif: this.hachures,
+        motif: String(this.hachures),
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         couleurDesHachures: this.couleurDesHachures[1] ?? 'black',
@@ -409,7 +437,7 @@ export class Polygone extends ObjetMathalea2D {
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
-    let optionsDraw = []
+    let optionsDraw = ''
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
@@ -425,14 +453,14 @@ export class Polygone extends ObjetMathalea2D {
     // }
   }
 
-  svgml (coeff, amp) {
+  svgml (coeff: number, amp: number) {
     let code = ''
     let segmentCourant
     let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B, this.color)
+      segmentCourant = segment(A, B, this.stringColor)
       segmentCourant.epaisseur = this.epaisseur
       segmentCourant.opacite = this.opacite
       code += segmentCourant.svgml(coeff, amp)
@@ -440,15 +468,14 @@ export class Polygone extends ObjetMathalea2D {
     return code
   }
 
-  tikzml (amp) {
+  tikzml (amp: number) {
     let code = ''
     let segmentCourant
     let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B, this.color)
-      segmentCourant.isVisible = true
+      segmentCourant = segment(A, B, this.stringColor)
       segmentCourant.epaisseur = this.epaisseur
       segmentCourant.opacite = this.opacite
       code += '\t' + segmentCourant.tikzml(amp) + '\n'
@@ -481,7 +508,7 @@ export class Polygone extends ObjetMathalea2D {
  *
  * @author Rémi Angot
  */
-export function polygone (...args) {
+export function polygone (...args: (Point | Point[] | string)[]) {
   return new Polygone(...args)
 }
 
@@ -492,25 +519,25 @@ export function polygone (...args) {
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
  * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
-export function polygoneAvecNom (...args) {
+export function polygoneAvecNom (...args: (Point | number)[]) {
   let k = 0.5
   if (typeof args[args.length - 1] === 'number') {
-    k = args[args.length - 1]
+    k = Number(args[args.length - 1])
     args.splice(args.length - 1, 1)
   }
-  const p = polygone(...args)
+  const p = polygone(...args as unknown as Point[])
   let nom = ''
-  args.forEach(el => {
+  ;(args as Point[]).forEach((el: Point) => {
     nom += el.nom + ','
   })
   nom = nom.substring(0, nom.length - 1)
-  p.sommets = nommePolygone(p, nom, k)
-  p.sommets.bordures = []
-  p.sommets.bordures[0] = p.bordures[0] - 1 - k
-  p.sommets.bordures[1] = p.bordures[1] - 1 - k
-  p.sommets.bordures[2] = p.bordures[2] + 1 + k
-  p.sommets.bordures[3] = p.bordures[3] + 1 + k
-  return [p, p.sommets]
+  const sommets = nommePolygone(p, nom, k)
+  sommets.bordures = [0, 0, 0, 0]
+  sommets.bordures[0] = p.bordures[0] - 1 - k
+  sommets.bordures[1] = p.bordures[1] - 1 - k
+  sommets.bordures[2] = p.bordures[2] + 1 + k
+  sommets.bordures[3] = p.bordures[3] + 1 + k
+  return [p, sommets]
 }
 
 /**
@@ -519,7 +546,7 @@ export function polygoneAvecNom (...args) {
  * Si on veut des noms de points à plus de 1 caractère, il faut soit les passer en tableau soit les séparer par des virgules au sein du string
  * @example renommePolygone(p, "A',B',C',D'") ou renommePolygone(p, ["A'","B'","C'","D'"])
  */
-export function renommePolygone (p, noms) {
+export function renommePolygone (p: Polygone, noms: string | string[]) {
   noms = (typeof noms === 'string') ? noms.includes(',') ? noms.split(',') : noms : noms
   for (let i = 0; i < p.listePoints.length; i++) {
     if (noms[i] !== undefined) {
@@ -538,7 +565,7 @@ export function renommePolygone (p, noms) {
  * @return {Polygone}
  * @author Rémi Angot
  **/
-export function polygoneRegulier (A, B, n, color = 'black') {
+export function polygoneRegulier (A: Point, B: Point, n: number, color = 'black') {
   const listePoints = [A, B]
   for (let i = 1; i < n - 1; i++) {
     listePoints[i + 1] = rotation(
@@ -566,7 +593,7 @@ export function polygoneRegulier (A, B, n, color = 'black') {
  * JSDOC Validee par EE Juin 2022
  *
  */
-export function carre (A, B, color = 'black') {
+export function carre (A: Point, B: Point, color = 'black') {
   return polygoneRegulier(A, B, 4, color)
 }
 
@@ -575,7 +602,7 @@ export function carre (A, B, color = 'black') {
  * @returns {Polygone} Objet Mathalea2d
  * @author Rémi Angot
  */
-export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
+export function polygoneRegulierParCentreEtRayon (O: Point, r: number, n: number, color = 'black') {
   const p = []
   p[0] = point(O.x + r, O.y)
   for (let i = 1; i < n; i++) {
@@ -594,7 +621,13 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * Exemple : const maBoite = new BoiteBuilder({xMin:0, yMin:0, xMax:3, yMax: 2}).addTextIn({textIn: '\\dfrac{1}{2}'}).render()
  */
 export class BoiteBuilder {
-  constructor ({ xMin, xMax, yMin, yMax }) {
+  xMin: number
+  xMax: number
+  yMin: number
+  yMax: number
+  forme: Polygone
+  text!: LatexParCoordonnees | TexteParPoint | Latex2d
+  constructor ({ xMin, xMax, yMin, yMax }: { xMin: number, xMax: number, yMin: number, yMax: number }) {
     this.xMin = xMin
     this.xMax = xMax
     this.yMin = yMin
@@ -619,7 +652,7 @@ export class BoiteBuilder {
      * @param {number} [params.backgroudOpacity]
      * @return {BoiteBuilder}
      */
-  addColor ({ color, colorBackground, opacity, backgroudOpacity }) {
+  addColor ({ color, colorBackground, opacity, backgroudOpacity }: { color?: string, colorBackground?: string, opacity?: number, backgroudOpacity?: number }) {
     this.forme.color = colorToLatexOrHTML(color ?? 'black')
     this.forme.opacite = opacity ?? 1
     this.forme.couleurDeRemplissage = colorToLatexOrHTML(colorBackground ?? 'none')
@@ -635,7 +668,7 @@ export class BoiteBuilder {
      * @param {number} size (facteur d'agrandissement ou de réduction 1 par défaut)
      * @return {BoiteBuilder}
      */
-  addTextIn ({ textIn, color, opacity, size }) {
+  addTextIn ({ textIn, color, opacity, size }:{ textIn: string, color?: string, opacity?: number, size?: number }) {
     if (typeof textIn !== 'string') {
       window.notify('BoiteBuilder.addTextIn() requiert un texteIn de type string ', { textIn })
     }
@@ -650,14 +683,14 @@ export class BoiteBuilder {
 }
 
 /**
- * @param {Polygone} P
- * @return {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @param {Polygone} p
+ * @return {number[]} retourne la liste des coordonnées des sommets de p dans un seul tableau.
  * @author Jean-Claude Lhote
  */
-export function polygoneToFlatArray (P) {
+export function polygoneToFlatArray (p: Polygone) {
   const flatArray = []
-  for (let i = 0; i < P.listePoints.length; i++) {
-    flatArray.push(P.listePoints[i].x, P.listePoints[i].y)
+  for (let i = 0; i < p.listePoints.length; i++) {
+    flatArray.push(p.listePoints[i].x, p.listePoints[i].y)
   }
   return flatArray
 }
@@ -672,93 +705,108 @@ export function polygoneToFlatArray (P) {
  * @param {string} [couleurDeFond = 'white'] la couleur des trous
  * @class
  */
-export function PolygoneATrous ({
-  data = [],
-  holes = [],
-  noms = '',
-  color = 'black',
-  couleurDeRemplissage = 'blue',
-  couleurDeFond = 'white'
-}) {
-  ObjetMathalea2D.call(this, {})
-  const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
+export class PolygoneATrous extends ObjetMathalea2D {
+  _aire: number
+  _triangulation: Polygone[]
+  contour: Polygone
+  trous: Polygone[]
+  colorString: string
+  triangles: number[]
+  data: number[]
+  holes: number[]
+  stringColor: string
+  stringCouleurDeFond: string
+  stringCouleurDeRemplissage: string
+  constructor ({
+    data = [],
+    holes = [],
+    noms = '',
+    color = 'black',
+    couleurDeRemplissage = 'blue',
+    couleurDeFond = 'white'
+  }) {
+    super()
+    this.colorString = color
+    this.data = data
+    this.holes = holes
+    this.triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
 
-  this._triangulation = null
+    this._triangulation = []
+    this._aire = 0
+    this.stringColor = color
 
-  Object.defineProperty(this, 'triangulation', {
-    get: () => { // retourne la liste de triangles 2d.
-      if (this._triangulation === null) {
-        this._triangulation = []
-        for (let i = 0, triangle; i < triangles.length; i += 3) {
-          triangle = polygone([point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1])])
-          triangle.color = colorToLatexOrHTML(color)
-          triangle.couleurDeRemplissage = colorToLatexOrHTML('none')
-          this._triangulation.push(triangle)
+    const sommetsContour = [] // on crée le polygone extérieur
+    for (let i = 0; i < 2 * holes[0]; i += 2) {
+      sommetsContour.push(point(data[i], data[i + 1]))
+      if (noms.length >= data.length << 1) {
+        sommetsContour[i >> 1].nom = noms[i << 1]
+      }
+    }
+    // On cherche les bordures
+    for (let i = 0, xmin = 1000, xmax = -1000, ymin = 1000, ymax = -1000; i < data.length; i += 2) {
+      xmin = Math.min(xmin, data[i])
+      xmax = Math.max(xmax, data[i])
+      ymin = Math.min(ymin, data[i + 1])
+      ymax = Math.max(ymax, data[i + 1])
+      this.bordures = [xmin, ymin, xmax, ymax]
+    }
+    this.contour = polygone(...sommetsContour)
+    this.trous = []
+    this.stringCouleurDeRemplissage = couleurDeRemplissage
+    this.contour.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+    this.contour.color = colorToLatexOrHTML(this.stringColor)
+    this.stringCouleurDeFond = couleurDeFond
+    const trous: Point[][] = []
+    let trou: Point
+    let trouPol: Polygone
+    for (let i = 0; i < holes.length; i++) {
+      trous[i] = []
+      for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
+        trou = point(data[j], data[j + 1])
+        if (noms.length >= data.length >> 1) {
+          trou.nom = noms[j >> 1]
         }
+        trous[i].push(trou)
       }
-      return this._triangulation
+      trouPol = polygone(...trous[i])
+      trouPol.color = colorToLatexOrHTML(this.stringColor)
+      trouPol.couleurDeRemplissage = colorToLatexOrHTML(this.stringCouleurDeFond)
+      this.trous.push(trouPol)
     }
-  })
+  }
 
-  const sommetsContour = [] // on crée le polygone extérieur
-  for (let i = 0; i < 2 * holes[0]; i += 2) {
-    sommetsContour.push(point(data[i], data[i + 1]))
-    if (noms.length >= data.length << 1) {
-      sommetsContour[i >> 1].nom = noms[i << 1]
-    }
-  }
-  // On cherche les bordures
-  for (let i = 0, xmin = 1000, xmax = -1000, ymin = 1000, ymax = -1000; i < data.length; i += 2) {
-    xmin = Math.min(xmin, data[i])
-    xmax = Math.max(xmax, data[i])
-    ymin = Math.min(ymin, data[i + 1])
-    ymax = Math.max(ymax, data[i + 1])
-    this.bordures = [xmin, ymin, xmax, ymax]
-  }
-  this.contour = polygone(...sommetsContour)
-  this.trous = []
-  this.color = color
-  this.couleurDeRemplissage = couleurDeRemplissage
-  this.contour.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
-  this.contour.color = colorToLatexOrHTML(this.color)
-  this.couleurDeFond = couleurDeFond
-  const trous = []
-  let trou, trouPol
-  for (let i = 0; i < holes.length; i++) {
-    trous[i] = []
-    for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
-      trou = point(data[j], data[j + 1])
-      if (noms.length >= data.length >> 1) {
-        trou.nom = noms[j >> 1]
+  get triangulation (): Polygone[] {
+    if (this._triangulation === null) {
+      this._triangulation = []
+      for (let i = 0, triangle; i < this.triangles.length; i += 3) {
+        triangle = polygone([point(this.data[this.triangles[i] * 2], this.data[this.triangles[i] * 2 + 1]), point(this.data[this.triangles[i + 1] * 2], this.data[this.triangles[i + 1] * 2 + 1]), point(this.data[this.triangles[i + 2] * 2], this.data[this.triangles[i + 2] * 2 + 1])])
+        triangle.color = colorToLatexOrHTML(this.stringColor)
+        triangle.couleurDeRemplissage = colorToLatexOrHTML('none')
+        this._triangulation.push(triangle)
       }
-      trous[i].push(trou)
     }
-    trouPol = polygone(...trous[i])
-    trouPol.color = colorToLatexOrHTML(this.color)
-    trouPol.couleurDeRemplissage = colorToLatexOrHTML(this.couleurDeFond)
-    this.trous.push(trouPol)
+    return this._triangulation
   }
-  this._aire = null
-  Object.defineProperty(this, 'aire', {
-    get: () => {
-      if (this._aire === null) {
-        this._aire = this.contour.aire
-        for (let i = 0; i < this.trous.length; i++) {
-          this._aire -= this.trous[i].aire
-        }
-      }
-      return this._aire
-    }
-  })
 
-  this.svg = function (coeff) {
+  get aire (): number {
+    if (this._aire === null) {
+      this._aire = this.contour.aire
+      for (let i = 0; i < this.trous.length; i++) {
+        this._aire -= this.trous[i].aire
+      }
+    }
+    return this._aire
+  }
+
+  svg (coeff: number) {
     let code = this.contour.svg(coeff)
     for (let i = 0; i < this.trous.length; i++) {
       code += this.trous[i].svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+
+  tikz () {
     let code = this.contour.tikz()
     for (let i = 0; i < this.trous.length; i++) {
       code += '\n\t' + this.trous[i].tikz()
@@ -793,17 +841,17 @@ export function polygoneATrous ({
 /**
  * fonction qui retourne le parallélogramme ABCD dont on donne les 3 premiers points A, B et C
  *
- * @param {string} NOM
- * @param {objet} A
- * @param {objet} B
- * @param {objet} C
- * @return {polygoneAvecNom}
+ * @param {string} nom
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @return {PolygoneAvecNom}
  */
-export function parallelogramme3points (NOM, A, B, C) {
-  const D = translation(A, vecteur(B, C), NOM[3])
-  A.nom = NOM[0]
-  B.nom = NOM[1]
-  C.nom = NOM[2]
+export function parallelogramme3points (nom:string, A: Point, B: Point, C: Point) {
+  const D = translation(A, vecteur(B, C), nom[3])
+  A.nom = nom[0]
+  B.nom = nom[1]
+  C.nom = nom[2]
   return polygoneAvecNom(A, B, C, D)
 }
 
@@ -811,22 +859,22 @@ export function parallelogramme3points (NOM, A, B, C) {
  * parallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
  * parallelogramme2points1hauteur(A,7,5) renvoie un parallélogramme ABCD de base 7cm (le point B est choisi sur le cercle de centre A et de rayon 7cm) et de hauteur h
  *
- * @param {String} NOM
+ * @param {String} nom
  * @param {objet} A
  * @param {objet} B
  * @param {number} h
- * @return {polygoneAvecNom}
+ * @return {PolygoneAvecNom}
  */
-export function parallelogramme2points1hauteur (NOM, A, B, h) {
+export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, h: number) {
   if (typeof B === 'number') {
     B = pointAdistance(A, B, randint(-180, 180))
   }
-  A.nom = NOM[0]
-  B.nom = NOM[1]
+  A.nom = nom[0]
+  B.nom = nom[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10), NOM[3])
-  const C = translation(D, vecteur(A, B), NOM[2])
+  const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10) as Vecteur, nom[3])
+  const C = translation(D, vecteur(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
 }
 
@@ -837,48 +885,56 @@ export function parallelogramme2points1hauteur (NOM, A, B, h) {
  * @example nommePolygone (p,'ABCDE',0.5,'red') nomme les sommets du polygone A, B, C, D et E. Les labels sont placés à une distance de 0,5 cm des sommets
  * @author Jean-Claude Lhote
  */
-export function NommePolygone (p, nom = '', k = 0.5, color = 'black') {
-  ObjetMathalea2D.call(this, {})
-  this.poly = p
-  this.dist = k
-  const noms = nom.includes(',') ? nom.split(',') : nom
-  for (let i = 0; i < p.listePoints.length; i++) {
-    if (noms.length > 0) p.listePoints[i].nom = noms[i]
+export class NommePolygone extends ObjetMathalea2D {
+  poly: Polygone
+  dist: number
+  constructor (p: Polygone, nom = '', k = 0.5, color = 'black') {
+    super()
+    this.poly = p
+    this.dist = k
+    this.objets = []
+    const noms = nom.includes(',') ? nom.split(',') : nom
+    for (let i = 0; i < p.listePoints.length; i++) {
+      if (noms.length > 0) p.listePoints[i].nom = noms[i]
+    }
+    const G = barycentre(p)
+    let xMin = 1000
+    let xMax = -1000
+    let yMin = 1000
+    let yMax = -1000
+    for (const pt of p.listePoints) {
+      const P = pointSurSegment(G, pt, longueur(G, pt) + (context.isHtml ? k * 20 / context.pixelsParCm : k / context.scale))
+      P.positionLabel = 'center'
+      this.objets.push(texteParPoint(pt.nom, P, 0, color, 1, 'milieu', true))
+      xMin = Math.min(xMin, P.x - 0.5)
+      xMax = Math.max(xMax, P.x + 0.5)
+      yMin = Math.min(yMin, P.y - 0.5)
+      yMax = Math.max(yMax, P.y + 0.5)
+    }
+    this.bordures = [xMin, yMin, xMax, yMax]
   }
-  const G = barycentre(p)
-  const objets = []
-  let xMin = 1000
-  let xMax = -1000
-  let yMin = 1000
-  let yMax = -1000
-  for (const pt of p.listePoints) {
-    const P = pointSurSegment(G, pt, longueur(G, pt) + (context.isHtml ? k * 20 / context.pixelsParCm : k / context.scale))
-    P.positionLabel = 'center'
-    objets.push(texteParPoint(pt.nom, P, 0, color, 1, 'milieu', true))
-    xMin = Math.min(xMin, P.x - 0.5)
-    xMax = Math.max(xMax, P.x + 0.5)
-    yMin = Math.min(yMin, P.y - 0.5)
-    yMax = Math.max(yMax, P.y + 0.5)
-  }
-  this.bordures = [xMin, yMin, xMax, yMax]
-  this.svg = function (coeff) {
+
+  svg (coeff: number) {
     let code = ''
-    for (const objet of objets) {
+    if (this.objets == null) return code
+    for (const objet of this.objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+
+  tikz () {
     let code = ''
-    for (const objet of objets) {
+    if (this.objets == null) return code
+    for (const objet of this.objets) {
       code += '\n\t' + objet.tikz()
     }
     return code
   }
 }
 
-export function nommePolygone (...args) {
-  return new NommePolygone(...args)
+export function nommePolygone (p: Polygone, nom = '', k = 0.5, color = 'black') {
+  return new NommePolygone(p, nom, k, color)
 }
 
 /**
@@ -887,7 +943,7 @@ export function nommePolygone (...args) {
  * le nom du motif sert dans la fonction pattern
  * @author Jean-Claude Lhote
  */
-export function motifs (index) {
+export function motifs (index: number) {
   switch (index) {
     case 0:
       return 'north east lines'
@@ -924,7 +980,7 @@ export function motifs (index) {
  */
 export function pattern ({
   motif = 'north east lines',
-  id,
+  id = 0,
   distanceDesHachures = 10,
   epaisseurDesHachures = 1,
   couleurDesHachures = 'black',
