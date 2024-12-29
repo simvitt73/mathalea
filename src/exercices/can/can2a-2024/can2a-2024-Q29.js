@@ -24,7 +24,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = '  blocCenter ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
   nouvelleVersion () {
@@ -148,9 +148,11 @@ export default class NomExercice extends Exercice {
       })
       const objetsEnonce = [repere1, courbe2]
       const antecedent = randint(0, 6)
-      this.question = `
-        Quelle est l'image de $${theSpline.x[antecedent]}$ par  $f$ ?<br>` +
+      this.question = 'On donne le graphique d’une fonction $f$ : <br>'
+      this.question +=
         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+      this.question += `
+        Quelle est l'image de $${theSpline.x[antecedent]}$ par  $f$ ?`
       this.correction = `Pour lire l'image de $${theSpline.x[antecedent]}$, on place la valeur de $${theSpline.x[antecedent]}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit
            son image  sur l'axe des ordonnées (axe de lecture des images). <br>
            On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$.`
