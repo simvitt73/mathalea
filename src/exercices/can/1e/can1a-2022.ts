@@ -558,13 +558,19 @@ export default class SujetCAN2022Premiere extends Exercice {
         case 15:{
           let reponse: number
           a = randint(1, 9)
-          b = randint(1, 9) / 10
-          const c = randint(1, 9, b) / 100
-          const d = randint(1, 9, [b, c]) / 1000
-          const e = randint(0, 9, [b, c, d]) / 10000
-          const f = randint(0, 9, [b, c, d, e]) / 100000
-          const g = randint(1, 9, [b, c, d, e, f]) / 1000000
-          const nbre = a + b + c + d + e + f + g
+          b = randint(1, 9)
+          let c = randint(1, 9, b)
+          let d = randint(1, 9, [b, c])
+          let e = randint(0, 9, [b, c, d])
+          let f = randint(0, 9, [b, c, d, e])
+          let g = randint(1, 9, [b, c, d, e, f])
+          b/=10
+          c/=100
+          d/=1000
+          e/=10000
+          f/=100000
+          g/=1000000
+          let nbre = a + b + c + d + e + f + g
           if (choice([true, false])) {
             texte = `Donner l'arrondi au millième de $${texNombre(nbre, 6)}$.
              `
