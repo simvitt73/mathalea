@@ -5,6 +5,9 @@
  * @author Rémi Angot
  */
 
+import type { Droite } from '../lib/2d/droites'
+import type { Polygone } from '../lib/2d/polygones'
+import type { Segment, Vecteur } from '../lib/2d/segmentsVecteurs'
 import { affiniteOrtho, homothetie, rotation, symetrieAxiale, translation } from '../lib/2d/transformations'
 import { fixeBordures, ObjetMathalea2D } from './2dGeneralites'
 
@@ -150,30 +153,38 @@ export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 
  * @author Rémi Angot
  */
 // JSDOC Non Validee EE Juin 2022 (non testée)
-function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
+export class ApparitionAnimee extends ObjetMathalea2D {
+  constructor (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
+    super()
+    this.liste = liste
+    this.dur = dur
+    this.pourcentage = pourcentage
+    this.repeat = repeat
+  }
+
+  svg (coeff) {
     let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
+    if (Array.isArray(this.liste)) {
+      for (const objet of this.liste) {
         code += '\n' + objet.svg(coeff)
       }
     } else {
       // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
+      code += '\n' + this.liste.svg(coeff)
     }
     code += `<animate attributeType="CSS"
     attributeName="visibility"
     from="hidden"
     to="hidden"
     values="hidden;visible;hidden"
-    keyTimes="0; ${pourcentage}; 1"
-    dur="${dur}"
-    repeatCount="${repeat}"/>`
+    keyTimes="0; ${this.pourcentage}; 1"
+    dur="${this.dur}"
+    repeatCount="${this.repeat}"/>`
     code += '</g>'
     return code
   }
-  this.tikz = function () {
+
+  tikz () {
     return ''
   }
 }
@@ -197,34 +208,44 @@ export function apparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'i
  *
  * @author Rémi Angot
  */
-function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
-  ObjetMathalea2D.call(this, { })
-  if (!Array.isArray(liste)) liste = [liste]
-  const bordures = fixeBordures([liste, liste.map(el => translation(el, v))])
-  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
-  this.svg = function (coeff) {
+export class TranslationAnimee extends ObjetMathalea2D {
+  liste: ObjetMathalea2D[] | ObjetMathalea2D
+  v: Vecteur
+  animation: string
+  constructor (liste: ObjetMathalea2D[] | ObjetMathalea2D, v: Vecteur, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
+    super()
+    this.liste = liste
+    this.v = v
+    this.animation = animation
+    if (!Array.isArray(liste)) liste = [liste]
+    const bordures = fixeBordures(liste.concat(liste.map((el: Segment | Droite | Vecteur | Polygone) => translation(el, v))))
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
+  }
+
+  svg (coeff: number) {
     let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
+    if (Array.isArray(this.liste)) {
+      for (const objet of this.liste) {
         code += '\n' + objet.svg(coeff)
       }
     } else {
       // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
+      code += '\n' + this.liste.svg(coeff)
     }
-    if (Array.isArray(v)) {
+    if (Array.isArray(this.v)) {
       code += '<animateMotion path="M 0 0 l'
-      for (const vecteur of v) {
+      for (const vecteur of this.v) {
         code += ` ${vecteur.xSVG(coeff)} ${vecteur.ySVG(coeff)} `
       }
-      code += `${animation} />`
+      code += `${this.animation} />`
     } else {
-      code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)} " ${animation} />`
+      code += `<animateMotion path="M 0 0 l ${this.v.xSVG(coeff)} ${this.v.ySVG(coeff)} " ${this.animation} />`
     }
     code += '</g>'
     return code
   }
-  this.tikz = function () {
+
+  tikz () {
     return ''
   }
 }

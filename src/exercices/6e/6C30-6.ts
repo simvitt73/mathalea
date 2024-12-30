@@ -98,7 +98,7 @@ export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
         texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit multiplier le nombre par ${texteEnCouleurEtGras(texNombre(10 ** (choixAlea - 3), 3))}.`
 
         const aleaFaux = range(6, [3, choixAlea])
-        enleveElement(aleaFaux)
+        enleveElement(aleaFaux, choixAlea)
         const choixAleaFaux = []
         for (let kk = 0; kk < 5; kk++) {
           choixAleaFaux.push(texNombre(10 ** (aleaFaux[kk] - 3), 3))
