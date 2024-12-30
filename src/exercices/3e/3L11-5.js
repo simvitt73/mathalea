@@ -41,7 +41,6 @@ export default class IdentitesCalculs extends Exercice {
     // this.nbQuestionsModifiable = false;
     context.isHtml ? this.spacing = 1 : this.spacing = 1
     context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-
   }
 
   nouvelleVersion () {
@@ -270,6 +269,7 @@ export default class IdentitesCalculs extends Exercice {
                 this.reponse = `${enonces[0].resultatCan}`
                 break
               case 'v2' :
+              default:
                 this.question = `${enonces[0].enonceCanV2}`
                 this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
                 this.reponse = `${enonces[0].resultatCan}`
@@ -305,6 +305,7 @@ export default class IdentitesCalculs extends Exercice {
                 this.reponse = `${enonces[1].resultatCan}`
                 break
               case 'v2' :
+              default:
                 this.question = `${enonces[1].enonceCanV2}`
                 this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
                 this.reponse = `${enonces[1].resultatCan}`
@@ -315,6 +316,7 @@ export default class IdentitesCalculs extends Exercice {
           }
           break
         case 2: // Produit somme différence
+        default:
           if (!this.can) {
             texte = `${enonces[2].enonce}`
             if (context.isHtml) {
@@ -340,6 +342,7 @@ export default class IdentitesCalculs extends Exercice {
                 this.reponse = `${enonces[2].resultatCan}`
                 break
               case 'v2' :
+              default:
                 this.question = `${enonces[2].enonceCanV2}`
                 this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
                 this.reponse = `${enonces[2].resultatCan}`

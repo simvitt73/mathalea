@@ -10,6 +10,7 @@ export const refs = {
 export default class IdentitesCalculs2e extends identitesCalculs {
   constructor () {
     super()
+    this.typeExercice = 'simple'
     this.formatChampTexte = ''
     this.can = true
     this.canVersion = 'v1'
