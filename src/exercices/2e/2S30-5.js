@@ -7,10 +7,10 @@ import {
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { context } from '../../modules/context'
-import { createList } from '../../lib/format/lists.ts'
+import { createList } from '../../lib/format/lists'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts' // fonction qui va préparer l'analyse de la saisie
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'

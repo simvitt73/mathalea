@@ -5,7 +5,7 @@ import {
   mathalea2d
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { egal } from '../../modules/outils'
 import { point } from '../2d/points'

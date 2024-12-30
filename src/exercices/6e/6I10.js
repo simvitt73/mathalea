@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'

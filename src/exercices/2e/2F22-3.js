@@ -1,5 +1,5 @@
 import { repere } from '../../lib/2d/reperes'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { texteParPosition } from '../../lib/2d/textes'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'

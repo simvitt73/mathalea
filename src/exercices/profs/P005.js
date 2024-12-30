@@ -2,7 +2,7 @@ import { point } from '../../lib/2d/points'
 import { carre, polygone } from '../../lib/2d/polygones'
 import { grille, lignesHorizontales, lignesVerticales } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { texteParPosition } from '../../lib/2d/textes'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 

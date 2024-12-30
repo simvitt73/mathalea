@@ -1,7 +1,7 @@
 import { angleOriente } from '../../lib/2d/angles'
 import { point, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { texteParPoint } from '../../lib/2d/textes.ts'
+import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

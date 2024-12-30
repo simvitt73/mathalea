@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.ts'
+import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteExposant } from '../../lib/outils/ecritures'

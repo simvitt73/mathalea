@@ -7,7 +7,7 @@ import { milieu, point, pointIntersectionDD, pointSurSegment, tracePoint } from 
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { aireTriangle } from '../../lib/2d/triangle'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'

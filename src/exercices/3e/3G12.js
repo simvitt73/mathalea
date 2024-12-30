@@ -1,7 +1,7 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

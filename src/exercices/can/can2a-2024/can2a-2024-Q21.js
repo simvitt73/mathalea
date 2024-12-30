@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { milieu, point } from '../../../lib/2d/points'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { grille } from '../../../lib/2d/reperes'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
@@ -26,8 +26,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-
-    }
+  }
 
   nouvelleVersion () {
     let A, B, C, D, E, F, G, H, J, K, a, b, s1, s2, s3, s4, s5, s6, s7, s8, xmin, xmax, ymin, ymax, objets

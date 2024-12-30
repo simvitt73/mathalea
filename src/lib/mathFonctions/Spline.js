@@ -1,7 +1,7 @@
 import { fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { egal, randint } from '../../modules/outils'
 import { BezierPath } from '../2d/courbes'
 import { point, tracePoint } from '../2d/points'

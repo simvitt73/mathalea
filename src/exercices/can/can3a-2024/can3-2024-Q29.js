@@ -5,11 +5,10 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { point } from '../../../lib/2d/points'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-
 
 export const titre = 'Compléter un schéma avec un nombre '
 export const interactifReady = true

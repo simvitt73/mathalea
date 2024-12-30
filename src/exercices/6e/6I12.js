@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { grille } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { texteParPoint } from '../../lib/2d/textes.ts'
+import { texteParPoint } from '../../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'

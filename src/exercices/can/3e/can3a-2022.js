@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'

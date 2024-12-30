@@ -1,6 +1,6 @@
 import { point } from '../lib/2d/points'
 import { segment } from '../lib/2d/segmentsVecteurs'
-import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.ts'
+import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { randint } from './outils'

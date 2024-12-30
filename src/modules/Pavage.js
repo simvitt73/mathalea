@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../lib/2d/points'
 import { barycentre, polygone, polygoneRegulier } from '../lib/2d/polygones'
 import { vecteur } from '../lib/2d/segmentsVecteurs'
-import { texteParPosition } from '../lib/2d/textes.ts'
+import { texteParPosition } from '../lib/2d/textes'
 import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { egal } from './outils'

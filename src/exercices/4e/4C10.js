@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'

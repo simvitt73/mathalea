@@ -14,7 +14,7 @@ import {
 } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'

@@ -1,7 +1,7 @@
 import { droiteParPointEtPente, positionLabelDroite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { latexParPoint } from '../../lib/2d/textes.ts'
+import { latexParPoint } from '../../lib/2d/textes'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { katexPopup2 } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'

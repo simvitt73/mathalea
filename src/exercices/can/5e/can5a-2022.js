@@ -5,7 +5,7 @@ import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/poin
 import { polygone } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'

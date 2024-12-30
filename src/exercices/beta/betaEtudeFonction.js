@@ -5,9 +5,9 @@ import { brent, tableauSignesFonction, tableauVariationsFonction } from '../../l
 // import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 */
-import Exercice from '../Exercice.ts'
+import Exercice from '../Exercice'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true

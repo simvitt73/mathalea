@@ -1,7 +1,7 @@
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'

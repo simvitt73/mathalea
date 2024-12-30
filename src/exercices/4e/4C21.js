@@ -4,7 +4,7 @@ import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../..
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

@@ -1,6 +1,6 @@
 import { GVVector } from './elements'
 import { GVGraphicView } from './GraphicView'
-import { aleaName } from '../outilsMathjs.ts'
+import { aleaName } from '../outilsMathjs'
 import { cross } from 'mathjs'
 export class GVAleaThalesConfig extends GVGraphicView {
   classicConfig/** boolean */ = undefined

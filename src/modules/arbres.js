@@ -1,6 +1,6 @@
 import { point } from '../lib/2d/points'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
-import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes.ts'
+import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'
 import { fraction } from './fractions'
 import FractionEtendue from './FractionEtendue'

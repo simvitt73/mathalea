@@ -10,7 +10,7 @@ import {
   latex2d,
   latexParPoint,
   texteParPosition
-} from '../../lib/2d/textes.ts'
+} from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'

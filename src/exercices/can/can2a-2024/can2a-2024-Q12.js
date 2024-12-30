@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { droiteGraduee } from '../../../lib/2d/reperes'
@@ -25,8 +25,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-
-    }
+  }
 
   nouvelleVersion () {
     if (this.canOfficielle) {

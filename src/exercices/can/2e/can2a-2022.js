@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles'
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -16,7 +16,7 @@ import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 

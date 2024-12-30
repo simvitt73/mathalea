@@ -3,7 +3,7 @@ import { simpExp } from '../../lib/outils/puissance'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.ts'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'

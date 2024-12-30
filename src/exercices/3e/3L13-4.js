@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { toString, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.ts'
+import { toString, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs'
 import { GVGraphicView } from '../../modules/aleaFigure/GraphicView'
 import { name } from '../../modules/aleaFigure/outils'
 import { create, all } from 'mathjs'

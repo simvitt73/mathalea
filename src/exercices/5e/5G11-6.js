@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { papierPointe } from '../../lib/2d/reperes'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'

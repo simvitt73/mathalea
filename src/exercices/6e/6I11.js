@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { point } from '../../lib/2d/points'
-import { texteParPositionEchelle } from '../../lib/2d/textes.ts'
+import { texteParPositionEchelle } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { createLink } from '../../lib/outils/modales'

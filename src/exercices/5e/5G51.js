@@ -1,7 +1,7 @@
 import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { labelPoint } from '../../lib/2d/textes'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'

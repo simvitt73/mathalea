@@ -3,7 +3,7 @@ import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { point } from './points'
 import { segment, vecteur } from './segmentsVecteurs'
-import { texteParPosition } from './textes.ts'
+import { texteParPosition } from './textes'
 
 export function GlisseNombre (nombre = '', decalage = 0) {
   ObjetMathalea2D.call(this, {})

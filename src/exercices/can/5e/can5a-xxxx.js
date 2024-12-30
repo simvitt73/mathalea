@@ -8,7 +8,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import Grandeur from '../../../modules/Grandeur'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
@@ -67,7 +67,6 @@ export default class CourseAuxNombres5e extends Exercice {
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.sup = 1 // Niveau de difficulté
-
   }
 
   nouvelleVersion () {

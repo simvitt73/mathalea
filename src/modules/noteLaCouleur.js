@@ -12,7 +12,7 @@
  */
 
 import { segment } from '../lib/2d/segmentsVecteurs'
-import { texteParPositionEchelle } from '../lib/2d/textes.ts'
+import { texteParPositionEchelle } from '../lib/2d/textes'
 import { ObjetMathalea2D } from './2dGeneralites'
 import { avance, tournerD, tournerG } from './2dLutin'
 import { randint } from './outils'

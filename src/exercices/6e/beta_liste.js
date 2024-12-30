@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { randint } from '../../modules/outils'
-import { createList } from '../../lib/format/lists.ts'
+import { createList } from '../../lib/format/lists'
 import { context } from '../../modules/context'
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true

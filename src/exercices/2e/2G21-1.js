@@ -1,7 +1,7 @@
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { latexParPoint } from '../../lib/2d/textes.ts'
+import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'

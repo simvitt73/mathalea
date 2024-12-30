@@ -4,7 +4,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 import { tableau } from '../../lib/2d/tableau'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

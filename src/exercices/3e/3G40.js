@@ -1,5 +1,5 @@
 import { tracePoint } from '../../lib/2d/points'
-import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
+import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha } from '../../lib/outils/outilString'

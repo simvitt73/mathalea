@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { droiteGraduee } from '../../lib/2d/reperes'
-import { labelPoint, latex2d } from '../../lib/2d/textes.ts'
+import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'

@@ -1,6 +1,6 @@
 import { point } from '../../lib/2d/points'
 import { colorToLatexOrHTML } from '../2dGeneralites'
-import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.ts'
+import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes'
 import { polygone } from '../../lib/2d/polygones'
 
 /**
