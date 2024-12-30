@@ -309,8 +309,8 @@ export default class VocabulaireAngles extends Exercice {
             codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise la demi-droite (plus épaisse que les autres) pour l\'angle ? '
-            : 'Qu\'est-ce qui caractérise la demi-droite en couleur pour l\'angle ? '
+            ? 'Qu\'est-ce que caractérise la demi-droite (plus épaisse que les autres) pour l\'angle ? '
+            : 'Qu\'est-ce que caractérise la demi-droite en couleur pour l\'angle ? '
           break
         case 6:
           // Sommet de  l'angle
@@ -327,8 +327,8 @@ export default class VocabulaireAngles extends Exercice {
             codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise le point pour l\'angle ? '
-            : 'Qu\'est-ce qui caractérise le point en couleur pour l\'angle ? '
+            ? 'Qu\'est-ce que caractérise le point pour l\'angle ? '
+            : 'Qu\'est-ce que caractérise le point en couleur pour l\'angle ? '
           break
         case 7:
           // Angles adjacents (non complémentaires)
