@@ -558,22 +558,18 @@ export class Segment extends ObjetMathalea2D {
     }
     let I: Point | boolean
     if (objet instanceof Droite) {
-      I = pointIntersectionDD(ab, objet) as Point
-      return (I instanceof Point) && I.estSur(this)
-    } else if (objet instanceof Segment || objet instanceof DemiDroite) {
+      I = pointIntersectionDD(ab, objet)
+    } else {
       const cd = droite(objet.extremite1, objet.extremite2)
       I = pointIntersectionDD(ab, cd)
       if (typeof I === 'boolean') {
-        return I
-      }
-      return objet.extremite1.estSur(this) || objet.extremite2.estSur(this) ||
+        I = objet.extremite1.estSur(this) || objet.extremite2.estSur(this) ||
         this.extremite1.estSur(segment(objet.extremite1, objet.extremite2)) ||
         this.extremite2.estSur(segment(objet.extremite1, objet.extremite2))
+      }
     }
-    if (objet instanceof Point) {
-      return objet.estSur(this)
-    }
-    return false
+    if (typeof I === 'boolean') return (I)
+    return I.estSur(objet) && I.estSur(this)
   }
 }
 /**

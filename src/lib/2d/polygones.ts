@@ -313,14 +313,14 @@ export class Polygone extends ObjetMathalea2D {
   }
 
   get flat () {
-    if (this._flat === null) {
+    if (this._flat.length===0) {
       this._flat = polygoneToFlatArray(this)
     }
     return this._flat
   }
 
   get triangulation () {
-    if (this._triangulation === null) {
+    if (this._triangulation.length === 0) {
       const trianglesIndices = earcut(this.flat)
       this._triangulation = []
       for (let i = 0; i < trianglesIndices.length; i += 3) {
@@ -335,7 +335,7 @@ export class Polygone extends ObjetMathalea2D {
   }
 
   get aire () {
-    if (this._aire === null) {
+    if (this._aire === 0) {
       const triangles = this.triangulation
       this._aire = 0
       for (let i = 0; i < triangles.length; i++) {
