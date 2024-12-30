@@ -147,7 +147,8 @@ export default class ReconnaitreDesSolides extends Exercice {
               texteCorrection = `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.`
             } else {
               pyra = pyramide3d(base, p3)
-              objets.push(...pyra.c2d)
+              const objs = pyra.c2d
+              objets.push(...(objs as (ObjetMathalea2D | Latex2d)[]))
               texteCorrection = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
             }
           }
@@ -161,13 +162,13 @@ export default class ReconnaitreDesSolides extends Exercice {
             /* for (let kk = 15; kk < 25; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
-            objets.push(...cone.c2d)
+            objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
           } else if (axe === 2) {
             cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
             /* for (let kk = 3; kk < 3 + 17; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
-            objets.push(...cone.c2d)
+            objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
           } else {
             cone = cone2d({ centre: point(0, 0), rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
             const t = tracePoint(cone.centre)
@@ -315,7 +316,7 @@ export default class ReconnaitreDesSolides extends Exercice {
         this.question = mathalea2d(Object.assign({}, fixeBordures(objets), {
           scale: 0.5,
           style: 'margin: auto'
-        }), objets)
+        }), ...objets.flat())
 
         this.autoCorrection[j] = {}
         this.autoCorrection[j].options = {}

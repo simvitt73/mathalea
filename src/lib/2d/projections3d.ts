@@ -376,7 +376,7 @@ export class SemiEllipse extends ObjetMathalea2D {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
 
-        return `<path d="this.M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} A ${this.rx * coeff} ${this.ry * coeff} 0 ${this.large} ${this.sweep} ${this.N.xSVG(coeff)} ${this.N.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
+        return `<path d="M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} A ${this.rx * coeff} ${this.ry * coeff} 0 ${this.large} ${this.sweep} ${this.N.xSVG(coeff)} ${this.N.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
       }
     } else {
       this.style = ''
@@ -406,7 +406,7 @@ export class SemiEllipse extends ObjetMathalea2D {
       }
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
 
-      return `<path d="this.M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} A ${this.rx * coeff} ${this.ry * coeff} 0 ${this.large} ${this.sweep} ${this.N.xSVG(coeff)} ${this.N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
+      return `<path d="M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} A ${this.rx * coeff} ${this.ry * coeff} 0 ${this.large} ${this.sweep} ${this.N.xSVG(coeff)} ${this.N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
     }
   }
 
@@ -681,7 +681,7 @@ export class Sphere2d extends ObjetMathalea2D {
     this.color = colorToLatexOrHTML(color)
     this.couleurDeRemplissage = couleurDeRemplissage
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    const objets = [grandCercle,
+    this.objets = [grandCercle,
       semiEllipse({
         centre,
         rx,
@@ -709,7 +709,7 @@ export class Sphere2d extends ObjetMathalea2D {
     let yMin = 1000
     let yMax = -1000
     let xMax = -1000
-    for (const obj of objets) {
+    for (const obj of this.objets) {
       xMin = Math.min(xMin, obj.bordures[0])
       yMin = Math.min(yMin, obj.bordures[1])
       xMax = Math.max(xMax, obj.bordures[2])
