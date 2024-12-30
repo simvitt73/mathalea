@@ -275,6 +275,27 @@ bcommit:
   artifacts:
     when: on_failure
 
+deploy:
+  extends: .testCI
+  stage: build-projet
+  script:
+    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
+    - echo "$CI_COMMIT_AUTHOR"
+    - mv dist public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
+  artifacts:
+    when: always
+    paths:
+      - public
+
 build:
   extends: .testCI
   stage: build-projet
