@@ -3,6 +3,8 @@ export const context = {
   isInEditor: false,
   isHtml: true,
   isAmc: false,
+  isAlc: false,
+  isMoodle: false,
   issortieNB: false,
   isDiaporama: false,
   anglePerspective: 30,

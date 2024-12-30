@@ -267,7 +267,7 @@ export function noteLaCouleur ({
   return new NoteLaCouleur({ x, y, orientation, relatif, plateau, nx, ny, pas })
 }
 
-export class Plateau2dNLC {
+export class Plateau2dNLC extends ObjetMathalea2D {
   constructor ({
     type = 1, melange = false, scale = 0.5, relatif = true, pas = 30, nx = 16, ny = 12,
     plateau = [
@@ -286,7 +286,7 @@ export class Plateau2dNLC {
     ]
 
   } = {}) {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.relatif = relatif
     this.pas = pas
     this.type = 1
@@ -350,7 +350,7 @@ export class Plateau2dNLC {
       }
     }
 
-    const plateau2d = []
+    this.objets = []
     let b
     for (let X = 0; X < this.nx; X++) {
       for (let Y = 0; Y < this.ny; Y++) {
@@ -426,29 +426,28 @@ export class Plateau2dNLC {
             break
         }
 
-        plateau2d.push(b)
+        this.objets.push(b)
       }
     }
-    if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -1.6, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle(`${this.pas}`, 1.5, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('0', -0.3, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
-    if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -0.5, -1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle(`${this.pas}`, -0.5, 1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('x', this.nx * (this.relatif ? 0.75 : 1.5) + 0.7, -(this.relatif ? 0.6 : 0.6), 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('y', -0.4, this.ny * (this.relatif ? 0.75 : 1.5) + 0.7, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    if (this.relatif) this.objets.push(texteParPositionEchelle(`-${this.pas}`, -1.6, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
+    this.objets.push(texteParPositionEchelle(`${this.pas}`, 1.5, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
+    this.objets.push(texteParPositionEchelle('0', -0.3, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
+    if (this.relatif) this.objets.push(texteParPositionEchelle(`-${this.pas}`, -0.5, -1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
+    this.objets.push(texteParPositionEchelle(`${this.pas}`, -0.5, 1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
+    this.objets.push(texteParPositionEchelle('x', this.nx * (this.relatif ? 0.75 : 1.5) + 0.7, -(this.relatif ? 0.6 : 0.6), 'milieu', 'purple', 1.2, 'middle', true, scale))
+    this.objets.push(texteParPositionEchelle('y', -0.4, this.ny * (this.relatif ? 0.75 : 1.5) + 0.7, 'milieu', 'purple', 1.2, 'middle', true, scale))
     if (this.relatif) {
-      plateau2d.push(texteParPositionEchelle('+', (this.nx >> 1) * 1.5 + 0.8, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
-      plateau2d.push(texteParPositionEchelle('-', -(this.nx >> 1) * 1.5 - 0.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))
-      plateau2d.push(texteParPositionEchelle('+', 0, (this.ny >> 1) * 1.5 + 0.8, 'milieu', 'purple', 1.2, 'middle', true, scale))
-      plateau2d.push(texteParPositionEchelle('-', 0, -(this.ny >> 1) * 1.5 - 0.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      this.objets.push(texteParPositionEchelle('+', (this.nx >> 1) * 1.5 + 0.8, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      this.objets.push(texteParPositionEchelle('-', -(this.nx >> 1) * 1.5 - 0.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      this.objets.push(texteParPositionEchelle('+', 0, (this.ny >> 1) * 1.5 + 0.8, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      this.objets.push(texteParPositionEchelle('-', 0, -(this.ny >> 1) * 1.5 - 0.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
     }
     const flechey = segment(0, (this.ny >> 1) * (this.relatif ? -1.5 : 0), 0, (this.ny >> 1) * (this.relatif ? 1.5 : 3) + 0.5, 'purple')
     flechey.styleExtremites = '->'
     const flechex = segment((this.nx >> 1) * (this.relatif ? -1.5 : 0), 0, (this.nx >> 1) * (this.relatif ? 1.5 : 3) + 0.5, 0, 'purple')
     flechex.styleExtremites = '->'
-    plateau2d.push(flechey)
-    plateau2d.push(flechex)
-    this.plateau2d = plateau2d
+    this.objets.push(flechey)
+    this.objets.push(flechex)
   }
 }
 
