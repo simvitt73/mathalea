@@ -869,7 +869,8 @@ export default class ProportionnaliteParLinearite extends Exercice {
     } else {
       this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     }
-    let indiceQuestion = 0
+    let incrementInteractif = 0
+    let indiceChampTexte = 0
 
     const listeIndexSituations = gestionnaireFormulaireTexte({
       max: 6,
@@ -888,54 +889,54 @@ export default class ProportionnaliteParLinearite extends Exercice {
       }
       switch (parseInt(listeIndexSituations[i])) {
         case 1:
-          question = questionAchat(this, indiceQuestion)
+          question = questionAchat(this, indiceChampTexte)
           if (!context.isAmc) {
-            indiceQuestion = 2
+            incrementInteractif = 2
           } else {
-            indiceQuestion = 1
+            incrementInteractif = 1
           }
           break
         case 2:
-          question = questionRecette(this, indiceQuestion)
+          question = questionRecette(this, indiceChampTexte)
           if (!context.isAmc) {
-            indiceQuestion = 2
+            incrementInteractif = 2
           } else {
-            indiceQuestion = 1
+            incrementInteractif = 1
           }
           break
         case 3:
-          question = questionDillution(this, indiceQuestion)
-          indiceQuestion = 1
+          question = questionDillution(this, indiceChampTexte)
+          incrementInteractif = 1
           break
         case 4:
-          question = questionDistance(this, indiceQuestion)
+          question = questionDistance(this, indiceChampTexte)
           if (versionSimplifiee) {
-            indiceQuestion = 1
+            incrementInteractif = 1
           } else {
             if (!context.isAmc) {
-              indiceQuestion = 2
+              incrementInteractif = 2
             } else {
-              indiceQuestion = 1
+              incrementInteractif = 1
             }
           }
           break
         case 5:
-          question = questionEchelle(this, indiceQuestion)
+          question = questionEchelle(this, indiceChampTexte)
           if (!context.isAmc) {
-            indiceQuestion = 2
+            incrementInteractif = 2
           } else {
-            indiceQuestion = 1
+            incrementInteractif = 1
           }
           break
         case 6:
-          question = questionRecouvrirSurface(this, indiceQuestion)
+          question = questionRecouvrirSurface(this, indiceChampTexte)
           if (versionSimplifiee) {
-            indiceQuestion = 1
+            incrementInteractif = 1
           } else {
             if (!context.isAmc) {
-              indiceQuestion = 2
+              incrementInteractif = 2
             } else {
-              indiceQuestion = 1
+              incrementInteractif = 1
             }
           }
           break
@@ -943,7 +944,8 @@ export default class ProportionnaliteParLinearite extends Exercice {
       if (this.questionJamaisPosee(i, indexN, ...listeIndexSituations)) { // Si la question n'a jamais été posée, on la garde.
         this.listeQuestions[i] = question.qtexte
         this.listeCorrections[i] = question.qtexteCorr
-        i += indiceQuestion
+        i++
+        indiceChampTexte += incrementInteractif
       }
       cpt++
     }
