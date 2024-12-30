@@ -275,7 +275,7 @@ bcommit:
   artifacts:
     when: on_failure
 
-deploy:
+adeploy:
   extends: .testCI
   stage: build-projet
   script:
@@ -285,6 +285,7 @@ deploy:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
     - echo "$CI_COMMIT_AUTHOR"
     - mv dist public
+    - rm -rf public/assets
   pages: true  # specifies that this is a Pages job
   rules:
     - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
