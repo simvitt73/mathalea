@@ -303,7 +303,9 @@ export function mathalea2d (
     let codeSvg = ''
     // Dans le cas d'objets composites avec des objets Mathalea2d et des divLatex, il faut que ces objets exposent une propriété objets qui contient la liste des objets qui les composent.
     // Cette list est substituée à l'objet ici
-    if (objets instanceof ObjetMathalea2D) { objets = objets.objets as ObjetMathalea2D[] } // c'est un objet composé d'objets. Exemple : Repere
+    if (objets instanceof ObjetMathalea2D) {
+      if (objets.objets != null) { objets = objets.objets as ObjetMathalea2D[] }
+    } // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets) && objets != null) {
       try {
         const objet = objets as ObjetMathalea2D
@@ -362,6 +364,9 @@ export function mathalea2d (
   }
   const ajouteCodeTikz = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[]) => {
     let codeTikz = ''
+    if (objets instanceof ObjetMathalea2D) {
+      if (objets.objets != null) { objets = objets.objets as ObjetMathalea2D[] }
+    } // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets)) {
       try {
         if (!mainlevee || typeof objets.tikzml === 'undefined') {
