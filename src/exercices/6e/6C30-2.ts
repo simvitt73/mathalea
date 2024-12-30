@@ -126,7 +126,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
           exposantNbChiffres: 0
         }
       }
-      if (this.questionJamaisPosee(i, situations.join(''))) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, reponse)) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
