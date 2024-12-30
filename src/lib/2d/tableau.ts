@@ -1,8 +1,8 @@
-import { fixeBordures, Vide2d } from '../../modules/2dGeneralites'
+import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { milieu, point, Point } from './points'
-import { Polygone, polygone, Polyline, polyline } from './polygones'
+import { polygone, Polyline, polyline } from './polygones'
 import { Segment, segment } from './segmentsVecteurs'
-import { LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
+import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
 import { context } from '../../modules/context'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
@@ -87,13 +87,11 @@ type TableauParams = {
   flecheGauche?: StyledText | boolean
   flecheGaucheSens?: 'bas' | 'haut'
 }
-export class Tableau {
+export class Tableau extends ObjetMathalea2D {
   /**
    * Réalise un tableau typique des exercices de proportionnalité avec d'éventuelles flèches
    * @author Rémi Angot
    */
-  bordures: [number, number, number, number]
-  objets: (Polyline | Segment | TexteParPoint | Polygone | Vide2d | LatexParCoordonnees)[]
   constructor ({
     largeurTitre = 7,
     largeur = 3,
@@ -109,6 +107,7 @@ export class Tableau {
     flecheGauche = false,
     flecheGaucheSens = 'haut'
   }: TableauParams) {
+    super()
     // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
     // Jean-Claude Lhote 15/08/2023
     if (ligne1 && ligne2 && Array.isArray(ligne1) && Array.isArray(ligne2)) {
