@@ -584,6 +584,15 @@ export class Segment extends ObjetMathalea2D {
  */
 
 export function segment (...args: [number | Point, number | Point, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
+  if (args.length === 2) {
+    return new Segment(args[0], args[1])
+  }
+  if (args.length === 3) {
+    return new Segment(args[0], args[1], args[2])
+  }
+  if (args.length === 4) {
+    return new Segment(args[0], args[1], args[2], args[3])
+  }
   return new Segment(...args)
 }
 

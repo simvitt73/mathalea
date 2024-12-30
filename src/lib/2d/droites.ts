@@ -465,6 +465,9 @@ export class Droite extends ObjetMathalea2D {
  * @return {Droite}
  */
 export function droite (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, arg5?: string) {
+  if (arguments.length === 2) return new Droite(arg1, arg2)
+  if (arguments.length === 3) return new Droite(arg1, arg2, arg3)
+  if (arguments.length === 4) return new Droite(arg1, arg2, arg3, arg4)
   return new Droite(arg1, arg2, arg3, arg4, arg5)
 }
 
