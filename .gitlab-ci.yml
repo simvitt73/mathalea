@@ -285,6 +285,7 @@ deploy:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
     - echo "$CI_COMMIT_AUTHOR"
     - mv dist public
+  pages: true  # specifies that this is a Pages job
   rules:
     - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
       when: always
