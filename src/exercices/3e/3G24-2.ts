@@ -21,10 +21,10 @@ import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
-export const interactifType = 'mathlive'
+export const interactifType = 'mathLive'
 
 export const titre = 'Calculer des longueurs avec des triangles semblables'
-export const dateDePublication = '27/12/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '30/12/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const uuid = '58a64'
 export const refs = {
@@ -48,11 +48,6 @@ export default class nomExercice extends Exercice {
       const listeDeNomsDePolygones: string[] = []
       let texte = ''
       let texteCorr = ''
-      let scaleDessin1=0.5 // sert pour sortie PDF
-      let scaleDessin2=scaleDessin1 // sert pour sortie PDF
-      const tailleMaxFigure = 14 // en unite sert pour sortie PDF
-      const tailleMinFigure = 3 // en unite sert pour sortie PDF
-      const largeurCol=30 // en % sert pour sortie PDF et HTML ?
       // longueurAB, longueurAC, longueurBC, coeff : dimension triangle 1 et coefficient de proportionalité
       let coeff = randint(5, 25, [10, 11, 9])
       let longueurAB : number
@@ -61,14 +56,14 @@ export default class nomExercice extends Exercice {
       if (coeff % 5 === 0) {
         longueurAB = randint(20, 40)
         longueurAC = randint(25, 45, longueurAB)
-        longueurBC = randint(30, longueurAB + longueurAC - 15, [longueurAB, longueurAC])
+        longueurBC = randint(30, Math.min(longueurAB + longueurAC - 10,55), [longueurAB, longueurAC])
         longueurAB /= 5
         longueurAC /= 5
         longueurBC /= 5
       } else {
         longueurAB = randint(4, 8)
         longueurAC = randint(5, 9, longueurAB)
-        longueurBC = randint(6, longueurAB + longueurAC - 3, [longueurAB, longueurAC])
+        longueurBC = randint(6, Math.min(longueurAB + longueurAC - 2,11), [longueurAB, longueurAC])
       }
       coeff /= 10
       const motAgrandissementReduction = coeff > 1 ? 'd\'agrandissement' : 'de réduction'
@@ -87,7 +82,7 @@ export default class nomExercice extends Exercice {
       const E = p2.listePoints[1]
       const F = p2.listePoints[2]
       // shuffle... : afin d'avoir un codage qui ne suit pas d'ordre precis
-      const codeAnglesHomologues = shuffle(['|', '||', '|||'])
+      const codeAnglesHomologues = shuffle(['|', '||', 'X'])
       const codeAngleA = codageAngle(B, A, C, 0.8, codeAnglesHomologues[0])
       const codeAngleD = codageAngle(E, D, F, 0.8, codeAnglesHomologues[0])
       const codeAngleB = codageAngle(A, B, C, 0.8, codeAnglesHomologues[1])
@@ -108,24 +103,44 @@ export default class nomExercice extends Exercice {
       const nommeP2 = nommePolygone(p2, nom2)
       const objetsAAfficher1 = [p1, codeAngleA, codeAngleB, codeAngleC, codeAB, codeAC, codeBC, nommeP1]
       const objetsAAfficher2 = [p2, codeAngleD, codeAngleE, codeAngleF, codeDE, nommeP2]
-
+// preparer la sortie PDF et HTML des figures
+      let scaleDessin1=0.5 // sert pour sortie PDF
+      let scaleDessin2=scaleDessin1 
+      let pixelsParCmDessin2=20// sert pour sortie HTML
+      const tailleMaxLargeurFigure = 9 // en unite sert pour sortie PDF
+      const tailleMaxhauteurFigure = 7 // en unite sert pour sortie PDF
+      const tailleMinFigure = 3
+      const largeurCol=50 // en % sert pour sortie PDF et HTML ?
       // calculs ici pour assurer un affichage PDF des figures compris entre tailleMinFigure en tailleMaxFigure
       // l'idee est de garder scaleDessin1=scaleDessin2 si possible
-      const bord1=fixeBordures(objetsAAfficher1)
-      const bord2=fixeBordures(objetsAAfficher2)
-      const bord1EcartMax=Math.max(bord1.ymax-bord1.ymin,bord1.xmax-bord1.xmin)
-      const bord2EcartMax=Math.max(bord2.ymax-bord2.ymin,bord2.xmax-bord2.xmin)
-      if (bord2EcartMax>tailleMaxFigure) {
-        scaleDessin2=scaleDessin1*tailleMaxFigure/bord2EcartMax
-        scaleDessin1=scaleDessin1*tailleMaxFigure/bord2EcartMax
-        if (bord1EcartMax*scaleDessin1<tailleMinFigure){scaleDessin1=scaleDessin1*tailleMinFigure/bord1EcartMax}
+      const bord1=fixeBordures(objetsAAfficher1,{ rxmin: -0.1,  rymin: -0.1, rxmax: 0.1, rymax: 0.1 })
+      const bord2=fixeBordures(objetsAAfficher2,{ rxmin: -0.1,  rymin: -0.1, rxmax: 0.1, rymax: 0.1 })
+      const bord1Largeur=bord1.xmax-bord1.xmin
+      const bord1hauteur=bord1.ymax-bord1.ymin
+      const bord2Largeur=bord2.xmax-bord2.xmin
+      const bord2hauteur=bord2.ymax-bord2.ymin
+      if (bord2Largeur*scaleDessin2>tailleMaxLargeurFigure) {
+        scaleDessin2=tailleMaxLargeurFigure/bord2Largeur
+        scaleDessin1=scaleDessin2
       }
-
+      if (bord2hauteur*scaleDessin2>tailleMaxhauteurFigure) {
+        scaleDessin2=tailleMaxhauteurFigure/bord2hauteur
+        scaleDessin1=scaleDessin2
+      }
+      if (Math.min(bord2hauteur,bord2Largeur)*scaleDessin2<tailleMinFigure) {
+        scaleDessin2=tailleMinFigure/Math.min(bord2hauteur,bord2Largeur)
+        scaleDessin1=scaleDessin2
+      }
+      if (bord1Largeur*scaleDessin1>tailleMaxLargeurFigure) { scaleDessin1=tailleMaxLargeurFigure/bord1Largeur  }
+      if (bord1hauteur*scaleDessin1>tailleMaxhauteurFigure) { scaleDessin1=tailleMaxhauteurFigure/bord1hauteur  }
+      if (Math.min(bord1hauteur,bord1Largeur)*scaleDessin1<tailleMinFigure) {scaleDessin1=tailleMinFigure/Math.min(bord1hauteur,bord1Largeur) }
+      if (Math.max(bord2hauteur,bord2Largeur)>15) {   pixelsParCmDessin2=20-(Math.max(bord2hauteur,bord2Largeur)*7/26 ) } // decroissant à partir de 20 à 13
+// fin de  preparer la sortie PDF et HTML des figures
       const colonne1 = mathalea2d(
-        Object.assign({ scale: scaleDessin1, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
+        Object.assign({ pixelsParCm: 20,scale: scaleDessin1, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
           bord1), objetsAAfficher1)
       const colonne2 = mathalea2d(
-        Object.assign({ scale: scaleDessin2, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
+        Object.assign({ pixelsParCm: pixelsParCmDessin2,scale: scaleDessin2, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
           bord2), objetsAAfficher2)
       if (this.interactif && context.isHtml) {
         texte += `Donner les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$.<br>`
