@@ -21,7 +21,7 @@ import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
-export const interactifType = 'mathLive'
+export const interactifType = 'mathlive'
 
 export const titre = 'Calculer des longueurs avec des triangles semblables'
 export const dateDePublication = '27/12/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -48,6 +48,11 @@ export default class nomExercice extends Exercice {
       const listeDeNomsDePolygones: string[] = []
       let texte = ''
       let texteCorr = ''
+      let scaleDessin1=0.5 // sert pour sortie PDF
+      let scaleDessin2=scaleDessin1 // sert pour sortie PDF
+      const tailleMaxFigure = 14 // en unite sert pour sortie PDF
+      const tailleMinFigure = 3 // en unite sert pour sortie PDF
+      const largeurCol=30 // en % sert pour sortie PDF et HTML ?
       // longueurAB, longueurAC, longueurBC, coeff : dimension triangle 1 et coefficient de proportionalité
       let coeff = randint(5, 25, [10, 11, 9])
       let longueurAB : number
@@ -103,42 +108,53 @@ export default class nomExercice extends Exercice {
       const nommeP2 = nommePolygone(p2, nom2)
       const objetsAAfficher1 = [p1, codeAngleA, codeAngleB, codeAngleC, codeAB, codeAC, codeBC, nommeP1]
       const objetsAAfficher2 = [p2, codeAngleD, codeAngleE, codeAngleF, codeDE, nommeP2]
+
+      // calculs ici pour assurer un affichage PDF des figures compris entre tailleMinFigure en tailleMaxFigure
+      // l'idee est de garder scaleDessin1=scaleDessin2 si possible
+      const bord1=fixeBordures(objetsAAfficher1)
+      const bord2=fixeBordures(objetsAAfficher2)
+      const bord1EcartMax=Math.max(bord1.ymax-bord1.ymin,bord1.xmax-bord1.xmin)
+      const bord2EcartMax=Math.max(bord2.ymax-bord2.ymin,bord2.xmax-bord2.xmin)
+      if (bord2EcartMax>tailleMaxFigure) {
+        scaleDessin2=scaleDessin1*tailleMaxFigure/bord2EcartMax
+        scaleDessin1=scaleDessin1*tailleMaxFigure/bord2EcartMax
+        if (bord1EcartMax*scaleDessin1<tailleMinFigure){scaleDessin1=scaleDessin1*tailleMinFigure/bord1EcartMax}
+      }
+
       const colonne1 = mathalea2d(
-        Object.assign({ scale: 0.5, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
-          fixeBordures(objetsAAfficher1)), objetsAAfficher1)
+        Object.assign({ scale: scaleDessin1, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
+          bord1), objetsAAfficher1)
       const colonne2 = mathalea2d(
-        Object.assign({ scale: 0.5, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
-          fixeBordures(objetsAAfficher2)), objetsAAfficher2)
-      if (this.interactif) {
-        texte = `Donner les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$.<br>`
+        Object.assign({ scale: scaleDessin2, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
+          bord2), objetsAAfficher2)
+      if (this.interactif && context.isHtml) {
+        texte += `Donner les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$.<br>`
         texte += deuxColonnesResp(colonne1, colonne2, {
-          largeur1: 40,
+          largeur1: largeurCol,
           eleId: '',
-          widthmincol1: 0,
-          widthmincol2: 0
+          widthmincol1: '0',
+          widthmincol2: '0'
+        })
+        texte += '<br><br><em>Il ne faut pas saisir d\'unité.</em> <br>'
+        texte += remplisLesBlancs(this, i, `${D.nom}${F.nom} =  %{champ1}` + ' cm ' + `${E.nom}${F.nom} =  %{champ2}` + ' cm', KeyboardType.clavierNumbers, '\\ldots\\ldots')
+        handleAnswers(this, i, {
+          bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
+          champ1: { value: texNombre(longueurAC * coeff, 1) },
+          champ2: { value: texNombre(longueurBC * coeff, 1) }
         })
       } else {
-        texte = `Calculer les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$. Justifier.<br>`
+        texte += `Calculer les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$. Justifier.<br>`
         texte += deuxColonnesResp(colonne1, colonne2, {
-          largeur1: 40,
+          largeur1: largeurCol,
           eleId: '',
-          widthmincol1: 0,
-          widthmincol2: 0
+          widthmincol1: '0',
+          widthmincol2: '0'
         })
       }
       texteCorr = rediger(A, B, C, D, E, F)
       texteCorr += `Le coefficient ${motAgrandissementReduction} est égal à $${texNombre(longueur(D, E), 1)} \\div  ${texNombre(longueurAB, 1)} = ${texNombre(coeff, 1)}$.<br>`
       texteCorr += `donc $${D.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${A.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurAC, 1)} = ${texNombre(longueurAC * coeff, 1)}$ cm.<br>`
       texteCorr += `donc $${E.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${B.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurBC, 1)} = ${texNombre(longueurBC * coeff, 1)}$ cm.`
-      if (this.interactif && context.isHtml) {
-        texte += '<br><br><em>Il ne faut pas saisir d\'unité.</em> <br>'
-        texte += remplisLesBlancs(this, i, `${D.nom}${F.nom} =  %{champ1}` + ' cm ' + `${E.nom}${F.nom} =  %{champ2}` + ' cm', KeyboardType.clavierDeBase, '\\ldots\\ldots')
-        handleAnswers(this, i, {
-          bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: texNombre(longueurAC * coeff, 1) },
-          champ2: { value: texNombre(longueurBC * coeff, 1) }
-        })
-      }
 
       if (this.questionJamaisPosee(i, texte, longueurAB, longueurAC, longueurBC, coeff)) {
         this.listeQuestions[i] = texte
