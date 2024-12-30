@@ -24,53 +24,64 @@ export const interactifType = 'qcm'
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
  * @author Eric Elter
  */
-function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    afficherTempo(figure2, t1, t1 + t2, 1)
+class TranslationPuisRotationAnimee extends ObjetMathalea2D {
+  constructor (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
+    super()
+    this.figure1 = figure1
+    this.v = v
+    this.figure2 = figure2
+    this.O = O
+    this.angle = angle
+    this.t1 = t1
+    this.t2 = t2
+    this.numId = numId
+  }
+
+  svg (coeff) {
+    afficherTempo(this.figure2, this.t1, this.t1 + this.t2, 1)
     let code = '<g> '
     // Translation de figure1 de vecteur v
-    if (Array.isArray(figure1)) { // Si la figure1 est constituée d'une liste d'éléments
-      for (const objet of figure1) {
+    if (Array.isArray(this.figure1)) { // Si la figure1 est constituée d'une liste d'éléments
+      for (const objet of this.figure1) {
         code += '\n' + objet.svg(coeff)
       }
     } else { // Si la figure1 n'est constituée que d'un élément
-      code += '\n' + figure1.svg(coeff)
+      code += '\n' + this.figure1.svg(coeff)
     }
     code += `<animateTransform
-    attributeName="transform"
+    attributeNamethis."transform"
     attributeType="XML"
     type="translate"
     from="0 0"
-    to="${arrondi(v.xSVG(coeff), 0)} ${arrondi(v.ySVG(coeff), 0)}"
-    begin="0s" dur="${t1}s" fill="freeze"  repeatCount="1" id="translat${numId}"
+    to="${arrondi(this.v.xSVG(coeff), 0)} ${arrondi(this.v.ySVG(coeff), 0)}"
+    begin="0s" dur="${this.t1}s" fill="freeze"  repeatCount="1" id="translat${this.numId}"
     /></path></g>`
 
-    cacherTempo(figure1, t1, 0, 1)
+    cacherTempo(this.figure1, this.t1, 0, 1)
 
     // Rotation de figure2 de centre O et de angle angle
     code += '<g>'
-    if (Array.isArray(figure2)) { // Si la figure2 est constituée d'une liste d'éléments
-      for (const objet of figure2) {
+    if (Array.isArray(this.figure2)) { // Si la figure2 est constituée d'une liste d'éléments
+      for (const objet of this.figure2) {
         code += '\n' + objet.svg(coeff)
       }
     } else { // Si la figure2 n'est constituée que d'un élément
-      code += '\n' + figure2.svg(coeff)
+      code += '\n' + this.figure2.svg(coeff)
     }
     code += `<animateTransform
   attributeName="transform"
   type="rotate"
-  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  begin="translat${numId}.end" dur="${t2}s" fill="freeze" repeatCount="1" id="rotat-${numId}"
+  from="0 ${this.O.xSVG(coeff)} ${this.O.ySVG(coeff)}"
+  to="${-this.angle} ${this.O.xSVG(coeff)} ${this.O.ySVG(coeff)}"
+  begin="translat${this.numId}.end" dur="${this.t2}s" fill="freeze" repeatCount="1" id="rotat-${this.numId}"
   /></path>`
 
     code += '</g>'
     return code
   }
 }
-function translationPuisRotationAnimees (...args) {
-  return new TranslationPuisRotationAnimee(...args)
+function translationPuisRotationAnimees (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
+  return new TranslationPuisRotationAnimee(numId, figure1, v, figure2, O, angle, t1, t2)
 }
 
 export const uuid = '95313'
