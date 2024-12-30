@@ -10,7 +10,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice.js'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '27/03/2024'
 export const titre = 'Résoudre des problèmes de calcul de pourcentage par complément à 100%'

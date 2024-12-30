@@ -1,4 +1,4 @@
-import { egal, epsilon } from '../../modules/outils.js'
+import { egal, epsilon } from '../../modules/outils'
 declare global {
   interface Window {
     notify: (message: string, object: unknown) => void;

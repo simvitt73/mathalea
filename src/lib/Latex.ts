@@ -1,11 +1,11 @@
 import genericPreamble from '../lib/latex/preambule.tex?raw'
 import { loadFonts, loadPackagesFromContent, loadPreambule, loadProfCollegeIfNeed, logPDF } from '../lib/latex/preambuleTex'
 import TypeExercice from '../exercices/Exercice'
-import { mathaleaHandleExerciceSimple } from './mathalea.js'
+import { mathaleaHandleExerciceSimple } from './mathalea'
 import seedrandom from 'seedrandom'
 import { getLang } from './stores/languagesStore'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
-// import { printPrettier } from 'prettier-plugin-latex/standalone.js'
+// import { printPrettier } from 'prettier-plugin-latex/standalone'
 
 export interface Exo {
   content?: string

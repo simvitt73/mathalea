@@ -1,5 +1,5 @@
-import { context } from '../../modules/context.js'
-import { quotientier, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { quotientier, randint } from '../../modules/outils'
 
 /**
  * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument

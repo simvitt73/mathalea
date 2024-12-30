@@ -1,7 +1,7 @@
-import { texteParPosition } from '../../../lib/2d/textes.js'
-import Pyramide from '../../../modules/pyramide.js'
-import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { texteParPosition } from '../../../lib/2d/textes'
+import Pyramide from '../../../modules/pyramide'
+import Exercice from '../../Exercice'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Calculer dans une pyramide additive de fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

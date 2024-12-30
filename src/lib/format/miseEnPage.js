@@ -1,4 +1,4 @@
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 
 /**
  * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes

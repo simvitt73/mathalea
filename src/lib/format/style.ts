@@ -4,7 +4,7 @@
  * @author Rémi Angot
  */
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { choice } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
 

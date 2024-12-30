@@ -1,7 +1,7 @@
 import { gcd, isPrime } from 'mathjs'
 import { egal } from '../../modules/outils.js'
 import { ecritureParentheseSiNegatif } from './ecritures'
-import { abs } from './nombres.js'
+import { abs } from './nombres'
 
 /**
  * Renvoie le PGCD de deux nombres

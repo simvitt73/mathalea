@@ -1,7 +1,7 @@
 import { pgcd } from '../../../lib/outils/primalite'
-import { context } from '../../../modules/context.js'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'

@@ -1,7 +1,7 @@
 import { fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { egal, randint } from '../../modules/outils'
 import { BezierPath } from '../2d/courbes'
 import { point, tracePoint } from '../2d/points'
@@ -684,7 +684,7 @@ export class Trace extends ObjetMathalea2D {
      * @param {boolean} ajouteNoeuds si true, des points sont ajoutés aux endroits des noeuds
      * @param {Object} optionsNoeud
      */
-  constructor (spline, {
+  constructor (spline: Spline, {
     color = 'black',
     epaisseur = 2,
     opacite = 1,
@@ -692,7 +692,7 @@ export class Trace extends ObjetMathalea2D {
     optionsNoeuds = {}
   } = {}) {
     super()
-    const objets = []
+    this.objets = []
     const { xMin, xMax, yMin, yMax } = spline.trouveMaxes()
     this.bordures = [xMin, yMin, xMax, yMax]
     const listeOfTriplets = []
@@ -708,7 +708,7 @@ export class Trace extends ObjetMathalea2D {
       const y3 = deltaY
       listeOfTriplets.push([[x1, y1], [x2, y2], [x3, y3]])
     }
-    objets.push(new BezierPath({
+    this.objets.push(new BezierPath({
       xStart: spline.x[0],
       yStart: spline.y[0],
       listeOfTriplets,
@@ -736,20 +736,22 @@ export class Trace extends ObjetMathalea2D {
               traceNoeud.taille = optionsNoeuds.taille
             }
           }
-          objets.push(traceNoeud)
+          this.objets.push(traceNoeud)
         }
       }
     }
     this.svg = function (coeff) {
       let code = ''
-      for (const objet of objets) {
+      if (this.objets == null) return code
+      for (const objet of this.objets) {
         code += '\n\t' + objet.svg(coeff)
       }
       return code
     }
     this.tikz = function () {
       let code = ''
-      for (const objet of objets) {
+      if (this.objets == null) return code
+      for (const objet of this.objets) {
         code += objet.tikz()
       }
       return code

@@ -1,4 +1,4 @@
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { addElement, get, setStyles } from '../html/dom.js'
 import { afficheScore } from './afficheScore'
 
@@ -31,30 +31,30 @@ export function mouseSvgClick () {
  * Retrouve les numéros des figures cliquées dans une question de type "cliqueFigure"
  */
 export function indexQuestionCliqueFigure (exercice, i) {
-  let elementArray = []
-  for (let j = 0; j< exercice.figures[i].length; j++) {
+  const elementArray = []
+  for (let j = 0; j < exercice.figures[i].length; j++) {
     const eltFigure = document.getElementById(exercice.figures[i][j].id)
     elementArray.push(eltFigure)
   }
-  
+
   function documentPositionComparator (a, b) {
     if (a === b) {
       return 0
     }
-    var position = a.compareDocumentPosition(b)
+    const position = a.compareDocumentPosition(b)
 
     if (position & Node.DOCUMENT_POSITION_FOLLOWING || position & Node.DOCUMENT_POSITION_CONTAINED_BY) {
-      return -1;
+      return -1
     } else if (position & Node.DOCUMENT_POSITION_PRECEDING || position & Node.DOCUMENT_POSITION_CONTAINS) {
-      return 1;
+      return 1
     } else {
-      return 0;
+      return 0
     }
   }
   const figs = elementArray.sort(documentPositionComparator)
-  let numbs = []
-  for (let j = 0; j< figs.length; j++) {
-    if (figs[j].etat) numbs.push((j + 1).toString()) 
+  const numbs = []
+  for (let j = 0; j < figs.length; j++) {
+    if (figs[j].etat) numbs.push((j + 1).toString())
   }
   return numbs.join(';')
 }

@@ -1,4 +1,4 @@
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 
 /**
  * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu

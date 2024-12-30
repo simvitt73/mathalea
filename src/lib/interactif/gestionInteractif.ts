@@ -1,5 +1,5 @@
 import { addElement, get, setStyles } from '../html/dom'
-import { verifQuestionMathLive } from './mathLive.js'
+import { verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -24,7 +24,7 @@ import {
   type OptionsComparaisonType
 } from './comparisonFunctions'
 // import Hms from '../../modules/Hms'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import type Exercice from '../../exercices/Exercice'
 import { verifDragAndDrop } from './DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
@@ -61,8 +61,6 @@ export type AnswerType = {
   compare?: CompareFunction
   options?: OptionsComparaisonType
 }
-
-
 
 export interface Valeur {
   bareme?: (listePoints: number[]) => [number, number]

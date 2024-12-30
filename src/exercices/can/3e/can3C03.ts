@@ -1,9 +1,9 @@
-import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { choice } from '../../../lib/outils/arrayOutils'
 import {
   obtenirListeFractionsIrreductibles
-} from '../../../lib/outils/deprecatedFractions.js'
-import Exercice from '../../Exercice.js'
+} from '../../../lib/outils/deprecatedFractions'
+import Exercice from '../../Exercice'
 
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true

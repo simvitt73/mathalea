@@ -1,5 +1,5 @@
 import { isArray, isInteger } from 'mathjs'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { choice } from './arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 

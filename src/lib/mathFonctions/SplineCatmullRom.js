@@ -24,8 +24,8 @@
 }
 */
 import { abs, acos, polynomialRoot, round } from 'mathjs'
-import { Polynome } from './Polynome.js'
-import { Trace } from './Spline.js'
+import { Polynome } from './Polynome'
+import { Trace } from './Spline'
 
 /**
  * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3

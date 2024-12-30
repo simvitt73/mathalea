@@ -1,10 +1,10 @@
 import Bugsnag, { type NotifiableError } from '@bugsnag/js'
 import bigInt from 'big-integer'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import { tropDeChiffres } from './modules/outils.js'
-import { showDialogForLimitedTime } from './lib/components/dialogs.js'
+import { tropDeChiffres } from './modules/outils'
+import { showDialogForLimitedTime } from './lib/components/dialogs'
 import { get } from 'svelte/store'
-import { exercicesParams } from './lib/stores/generalStore.js'
+import { exercicesParams } from './lib/stores/generalStore'
 
 type Metadatas = Record<string, unknown>
 
@@ -15,7 +15,7 @@ if (typeof (BigInt) === 'undefined') {
   window.BigInt = bigInt
 }
 async function handleBugsnag () {
-  const fileName = '../_private/bugsnagApiKey.js'
+  const fileName = '../_private/bugsnagApiKey'
   const getBugsnagApiKey = await import(/* @vite-ignore */fileName)
   const key = getBugsnagApiKey.default() || ''
   Bugsnag.start(key)

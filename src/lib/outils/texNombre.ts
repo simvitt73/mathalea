@@ -1,14 +1,14 @@
 import Decimal from 'decimal.js'
 import { evaluate, format, round } from 'mathjs'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import {
   tropDeChiffres
-} from '../../modules/outils.js'
-import { miseEnEvidence } from './embellissements.js'
-import { extraireRacineCarree } from './calculs.js'
+} from '../../modules/outils'
+import { miseEnEvidence } from './embellissements'
+import { extraireRacineCarree } from './calculs'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
-import { sp } from './outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import { sp } from './outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 const math = { format, evaluate }
 /**
  *
