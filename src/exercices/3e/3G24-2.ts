@@ -38,9 +38,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
-    this.interactif = true
   }
 
   nouvelleVersion () {
@@ -71,13 +69,10 @@ export default class nomExercice extends Exercice {
       const B = pointAdistance(A, longueurAB)
       const p1 = triangle2points2longueurs(A, B, longueurAC, longueurBC)
       const C = p1.listePoints[2]
-      // deuxieme triangle par similitude
+      // deuxieme triangle par similitude on peut effectuer dessus car les figures sont séparée à l'affichage
       const O = barycentre(p1)
-      // eloigner la figure mais pas trop en fonction de l'aggrandissement ?
-      const v = vecteur(Math.max(longueurAB, longueurAC, longueurBC) - coeff, 0)
-      const O2 = translation(O, v)
-      const angle = randint(70, 220 - coeff * 20) // serrer l'angle en fonction de l'aggrandissement ?
-      const p2 = similitude(p1, O2, angle, coeff)
+      const angle = randint(70, 220 - coeff * 20) 
+      const p2 = similitude(p1, O, angle, coeff)
       const D = p2.listePoints[0]
       const E = p2.listePoints[1]
       const F = p2.listePoints[2]
