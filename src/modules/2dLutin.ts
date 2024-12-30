@@ -328,26 +328,21 @@ export function attendre (tempo:number, lutin:ObjetLutin) {
 }
 
 /**
- * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
- * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
+ * Pour faire une copie du lutin (ça crée un nouveau lutin retorné par la fonction)
  * @param {ObjetMathalea2D} originalObject
  * @returns {object} copie de cet objet.
  */
-export function clone (obj: object): object {
-  if (obj === null || typeof obj !== 'object') return obj
-  if (obj instanceof Array) {
-    const copy = []
-    for (let i = 0, len = obj.length; i < len; i++) {
-      copy[i] = clone(obj[i])
-    }
-    return copy
-  }
-  if (obj instanceof Object) {
-    const copy = {}
-    for (const attr in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = clone(obj[attr])
-    }
-    return copy
-  }
-  throw new Error('Unable to copy obj this object.')
+export function clone (lutin: ObjetLutin): ObjetLutin {
+  const clone = new ObjetLutin()
+  clone.x = lutin.x
+  clone.y = lutin.y
+  clone.xMin = lutin.xMin
+  clone.xMax = lutin.xMax
+  clone.yMin = lutin.yMin
+  clone.yMax = lutin.yMax
+  clone.xSVG = lutin.xSVG
+  clone.ySVG = lutin.ySVG
+  clone.orientation = lutin.orientation
+  clone.historiquePositions = lutin.historiquePositions
+  return clone
 }
