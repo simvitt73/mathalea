@@ -1,7 +1,7 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
-import { matrice } from '../../lib/mathFonctions/Matrice'
+import { Matrice, matrice } from '../../lib/mathFonctions/Matrice'
 import { choice } from '../../lib/outils/arrayOutils'
 import { index, range } from 'mathjs'
 
@@ -98,7 +98,10 @@ export default class nomExercice extends Exercice {
         const c1 = matrices[1].subset(index(range(0, nblignes[1]), nbcolonnes[1] - 1))
         let detail = `c_{${nblignes[0]}, ${nbcolonnes[1]}}  = `
         for (let i = 0; i < nbcolonnes[0]; i++) {
-          detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
+          if (typeof l1 === 'number'){
+            window.notify('l1 n\'est pas une matrice !, on ne peut pas faire subset dessus, il manque donc le détail des calculs',{l1})
+          }
+          if (typeof l1 !== 'number') detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
           if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
         }
         detail += `${produit.subset(index(nblignes[0] - 1, nbcolonnes[1] - 1))}`
