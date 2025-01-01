@@ -316,6 +316,17 @@ export const isCrpeType = (obj: any): obj is crpeItemInreferentiel =>
   obj.typeExercice !== undefined &&
   obj.typeExercice === 'crpe'
 
+export const isStaticWithoutPngUrl = (obj: any): obj is ExamItemInReferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  !Object.keys(obj).includes('png') &&
+  Object.keys(obj).includes('annee') &&
+  Object.keys(obj).includes('lieu') &&
+  Object.keys(obj).includes('typeExercice') &&
+  obj.annee !== undefined &&
+  obj.lieu !== undefined &&
+  obj.typeExercice === 'sti2d'
+
 /**
  * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.
  * On teste la présence de la chaine `geodyn` en début d'url (si elle existe)

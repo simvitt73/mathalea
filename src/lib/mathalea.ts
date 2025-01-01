@@ -230,9 +230,8 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
-      let sujet = param.uuid.substring(0, 4)
-      if (sujet === 'dnb_' || sujet === 'bac_') {
-        sujet = sujet.substring(0, 3)
+      let sujet = param.uuid.split('_')[0]
+      if (sujet === 'dnb' || sujet === 'bac' || sujet === 'sti2d') {
         let response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()

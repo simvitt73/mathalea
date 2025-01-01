@@ -15,8 +15,8 @@ const referentielFR = {}
 const referentielCH = {}
 
 // Gestion du DNB
-referentielFR.DNB = {}
-referentielFR.DNBTags = {}
+referentielFR.Brevet = {}
+referentielFR.BrevetTags = {}
 const setTagsDNB = new Set()
 
 for (const ex in dictionnaireDNB) {
@@ -27,19 +27,19 @@ for (const ex in dictionnaireDNB) {
 
 const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
 for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
-  referentielFR.DNB[annee] = {}
+  referentielFR.Brevet[annee] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].annee === annee) {
-      referentielFR.DNB[annee][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
+      referentielFR.Brevet[annee][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
     }
   }
 }
 
 for (const tag of tagsDNB) {
-  referentielFR.DNBTags[tag] = {}
+  referentielFR.BrevetTags[tag] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].tags.includes(tag)) {
-      referentielFR.DNBTags[tag][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
+      referentielFR.BrevetTags[tag][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
     }
   }
 }
@@ -168,17 +168,29 @@ for (const tag of tagsEVACOM) {
 }
 
 // On renomme les clés à la racine du référentiel
-delete Object.assign(referentielFR, { 'Brevet des collèges par thème - APMEP': referentielFR.DNBTags }).DNBTags
-delete Object.assign(referentielFR, { 'Brevet des collèges par année - APMEP': referentielFR.DNB }).DNB
-delete Object.assign(referentielFR, { 'BAC par thème - APMEP': referentielFR.BACTags }).BACTags
-delete Object.assign(referentielFR, { 'BAC par année - APMEP': referentielFR.BAC }).BAC
-delete Object.assign(referentielFR, { 'CRPE par thème': referentielFR.crpeTags }).crpeTags
-delete Object.assign(referentielFR, { 'CRPE par année': referentielFR.crpe }).crpe
-delete Object.assign(referentielFR, { 'E3C par thème': referentielFR.E3CTags }).E3CTags
-delete Object.assign(referentielFR, { 'E3C par année': referentielFR.E3C }).E3C
+// delete Object.assign(referentielFR, { 'Brevet des collèges par thème - APMEP': referentielFR.BrevetTags }).DNBTags
+// delete Object.assign(referentielFR, { 'Brevet des collèges par année - APMEP': referentielFR.Brevet }).DNB
+// delete Object.assign(referentielFR, { 'BAC par thème - APMEP': referentielFR.BACTags }).BACTags
+// delete Object.assign(referentielFR, { 'BAC par année - APMEP': referentielFR.BAC }).BAC
+// delete Object.assign(referentielFR, { 'CRPE par thème': referentielFR.crpeTags }).crpeTags
+// delete Object.assign(referentielFR, { 'CRPE par année': referentielFR.crpe }).crpe
+// delete Object.assign(referentielFR, { 'E3C par thème': referentielFR.E3CTags }).E3CTags
+// delete Object.assign(referentielFR, { 'E3C par année': referentielFR.E3C }).E3C
 
-delete Object.assign(referentielCH, { 'EVACOM par thème': referentielCH.EVACOMTags }).EVACOMTags
-delete Object.assign(referentielCH, { 'EVACOM par année': referentielCH.EVACOM }).EVACOM
+// delete Object.assign(referentielCH, { 'EVACOM par thème': referentielCH.EVACOMTags }).EVACOMTags
+// delete Object.assign(referentielCH, { 'EVACOM par année': referentielCH.EVACOM }).EVACOM
+
+// Move referentielFR.BAC to referentielFR.Bac.BacTerminaleSpecialite
+referentielFR.Bac = {}
+referentielFR.Bac.Bac01TerminaleSpecialite = referentielFR.BAC
+delete referentielFR.BAC
+referentielFR.Bac.Bac02TerminaleSpecialiteTags = referentielFR.BACTags
+delete referentielFR.BACTags
+referentielFR.Bac.Bac10STI2D = referentielFR.STI2D
+delete referentielFR.STI2D
+referentielFR.Bac.Bac11STI2DTags = referentielFR.STI2DTags
+delete referentielFR.STI2DTags
+
 
 const dataFR = JSON.stringify(referentielFR, null, 2)
 fs.writeFileSync('src/json/referentielStaticFR.json', dataFR)
