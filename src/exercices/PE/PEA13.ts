@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export function base10VersBaseN (nombre, b) {
+export function base10VersBaseN (nombre: number | Decimal, b: number) {
   if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
   else return nombre.toString(b).toUpperCase()
 }
@@ -32,7 +32,7 @@ export function base10VersBaseN (nombre, b) {
  * @param {} nombre
  * @param {number} b la base de départ
  */
-export function baseNVersBase10 (stringNombre, b) {
+export function baseNVersBase10 (stringNombre: number | Decimal | string, b: number) {
   let result = 0
   if (typeof stringNombre === 'number') {
     stringNombre = stringNombre.toString()
@@ -88,14 +88,14 @@ export default class MultiplicationsBaseN extends Exercice {
         for (let colonne = 0; colonne < mb.length; colonne++) {
           const a = nb[ligne]
           const b = mb[mb.length - 1 - colonne]
-          let abEnBaseN = base10VersBaseN(a * b, base)
+          let abEnBaseN = base10VersBaseN(Number(a) * Number(b), base)
           if (retenue[colonne - 1]) {
             abEnBaseN = base10VersBaseN(parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1]), base)
             texteCorr += `$\\qquad ${a} \\times ${b} + ${retenue[colonne - 1]} = ${parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1])} = (${abEnBaseN})_{${base}}  $`
           } else {
-            texteCorr += `$\\qquad ${a} \\times ${b} = ${a * b} = (${abEnBaseN})_{${base}}  $`
+            texteCorr += `$\\qquad ${a} \\times ${b} = ${Number(a) * Number(b)} = (${abEnBaseN})_{${base}}  $`
           }
-          if (a * b >= base) {
+          if (Number(a) * Number(b) >= base) {
             texteCorr += `$\\quad$ On écrit ${abEnBaseN[abEnBaseN.length - 1]} et on retient ${abEnBaseN.slice(0, -1)}.<br>`
             retenue[colonne] = abEnBaseN.slice(0, -1).toString()
           } else {
@@ -115,7 +115,7 @@ export default class MultiplicationsBaseN extends Exercice {
   }
 }
 
-const tableDePythagore = (n) => {
+const tableDePythagore = (n: number) => {
   switch (n) {
     case 3:
       return `$\\begin{array}{|c|c|c|}
