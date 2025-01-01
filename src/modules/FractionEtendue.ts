@@ -23,7 +23,7 @@ import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites'
 import Decimal from 'decimal.js'
 
-type FractionRepresentationType = 'gateau'|'barre'|'segment'
+type FractionRepresentationType = 'gateau' | 'barre' | 'segment'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
 const definePropRo = (obj: FractionEtendue, prop: string, get: (args?: unknown)=>unknown) => {
@@ -39,7 +39,7 @@ const definePropRo = (obj: FractionEtendue, prop: string, get: (args?: unknown)=
  * @param x
  * @return {FractionEtendue}
  */
-export function rationnalise (x:number|FractionEtendue|Decimal|null) {
+export function rationnalise (x:number | FractionEtendue | Decimal | null) {
   if (x == null) {
     window.notify('rationnalise est appelé avec une valeur undefined ou nulle', { x })
     return new FractionEtendue(0, 1)
@@ -65,7 +65,7 @@ export function rationnalise (x:number|FractionEtendue|Decimal|null) {
  * @param n
  * @param d
  */
-function normalizeFraction (n: number|Decimal, d:number): [number, number] {
+function normalizeFraction (n: number | Decimal, d:number): [number, number] {
   let num: number
   let den: number
   if (d == null) { // un seul argument qui peut être un nombre (décimal ou pas)
@@ -187,11 +187,11 @@ class FractionEtendue {
   denIrred: number
   n: number
   d: number
-  s: -1|1|0
+  s: -1 | 1 | 0
   type: 'FractionEtendue'
-  signe!: -1|1|0
-  sign!: -1|1|0
-  signeString!: '+'|'-'|''
+  signe!: -1 | 1 | 0
+  sign!: -1 | 1 | 0
+  signeString!: '+' | '-' | ''
   /**
    * Valeur de la  FractionMathjs  × 100 arrondi au centième
    */
@@ -601,7 +601,7 @@ class FractionEtendue {
  * @param {FractionEtendue  | number} f
  * @return {FractionEtendue} la FractionEtendue - f résultat non simplifié
  */
-  differenceFraction (f: FractionEtendue|number) {
+  differenceFraction (f: FractionEtendue | number) {
     if (!(f instanceof FractionEtendue)) {
       f = new FractionEtendue(f, 1)
     }
@@ -662,7 +662,7 @@ class FractionEtendue {
   * @param {FractionEtendue   | nombre} f2
   * @return {boolean} true si FractionEtendue >= f
   */
-  superieurLarge (f2: FractionEtendue|number) {
+  superieurLarge (f2: FractionEtendue | number) {
     if (!(f2 instanceof FractionEtendue)) {
       f2 = new FractionEtendue(f2, 1)
     }
@@ -674,7 +674,7 @@ class FractionEtendue {
     * @param {FractionEtendue   | nombre} f2
     * @return {boolean} true si
     */
-  superieurstrict (f2: FractionEtendue|number):boolean {
+  superieurstrict (f2: FractionEtendue | number):boolean {
     if (!(f2 instanceof FractionEtendue)) {
       f2 = new FractionEtendue(f2, 1)
     }
@@ -686,7 +686,7 @@ class FractionEtendue {
     * @param {FractionEtendue   | nombre} f2
     * @return {boolean}
     */
-  inferieurstrict (f2: FractionEtendue|number): boolean {
+  inferieurstrict (f2: FractionEtendue | number): boolean {
     if (!(f2 instanceof FractionEtendue)) {
       f2 = new FractionEtendue(f2, 1)
     }
@@ -698,7 +698,7 @@ class FractionEtendue {
     * @param {FractionEtendue   | nombre} f2
     * @return {boolean}
     */
-  inferieurlarge (f2:FractionEtendue|number) {
+  inferieurlarge (f2:FractionEtendue | number) {
     if (!(f2 instanceof FractionEtendue)) {
       f2 = new FractionEtendue(f2, 1)
     }
@@ -797,7 +797,7 @@ class FractionEtendue {
   * @param {FractionEtendue   | nombre} f2
   * @return {FractionEtendue} f * FractionEtendue  // retourne un non résultat simplifié
   */
-  produitFraction (f2: FractionEtendue|number) {
+  produitFraction (f2: FractionEtendue | number) {
     if (!(f2 instanceof FractionEtendue)) {
       f2 = new FractionEtendue(f2, 1)
     }
@@ -825,7 +825,7 @@ class FractionEtendue {
     *  @param {'none'|true|false} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
-  texProduitFraction (f2: FractionEtendue, simplification: boolean|'none' = 'none'):string {
+  texProduitFraction (f2: FractionEtendue, simplification: boolean | 'none' = 'none'):string {
     if (this.estEntiere) {
       return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.simplifie().num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${ecritureParentheseSiNegatif(f2.den)}}
       ${simplification === 'none' || this.produitFraction(f2).estIrreductible
@@ -852,7 +852,7 @@ class FractionEtendue {
   *  @param {string} symbole '/' pour la forme fractionnaire de la division, ':' ou autre chose pour l'obèle
   * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
   */
-  texDiviseFraction (f2: FractionEtendue, simplification: boolean|'none' = 'none', symbole = '/') {
+  texDiviseFraction (f2: FractionEtendue, simplification: boolean | 'none' = 'none', symbole = '/') {
     const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une  FractionMathjs  de fraction
     const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une  FractionMathjs  de  FractionMathjs  lorsque le numérateur ou le dénominateur est entier
     if (this.estEntiere) {
@@ -931,7 +931,7 @@ class FractionEtendue {
     * @param {FractionEtendue} f2
     * @return {FractionEtendue} f/f2
     */
-  diviseFraction (f2: FractionEtendue|number):FractionEtendue {
+  diviseFraction (f2: FractionEtendue | number):FractionEtendue {
     if (!(f2 instanceof FractionEtendue)) {
       window.notify('FractionEtendue.diviseFraction() : l\'argument n\'est pas une fraction', { f2 })
       if (typeof f2 === 'number') return this.multiplieEntier(1 / f2)
@@ -977,7 +977,7 @@ class FractionEtendue {
    * @param {string} couleurFinale
    * @return {string}
  */
-  texSimplificationAvecEtapes (factorisation: boolean|'none' = false, couleurFinale: string = ''):string {
+  texSimplificationAvecEtapes (factorisation: boolean | 'none' = false, couleurFinale: string = ''):string {
     if (this.isEqual(0)) return ''
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
@@ -1174,7 +1174,7 @@ class FractionEtendue {
     * Retourne la racine carrée de la  FractionMathjs  si c'est une  FractionMathjs  et false sinon
     * @return {FractionEtendue|boolean}
     */
-  racineCarree (): FractionEtendue|false {
+  racineCarree (): FractionEtendue | false {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = new FractionEtendue(factoNum[0], factoDen[0]).simplifie()
@@ -1313,11 +1313,7 @@ class FractionEtendue {
             const O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
             const C: Point = translation(O, vecteur(tailleCarres, 0))
             const dep = carre(O, C, 'black')
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -1337,11 +1333,7 @@ class FractionEtendue {
           const O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
           const C = translation(O, vecteur(tailleCarres, 0))
           const dep = carre(O, C, 'black')
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
@@ -1480,11 +1472,7 @@ class FractionEtendue {
             const O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
             const C = translation(O, vecteur(tailleCarres, 0))
             const dep = carre(O, C, 'black')
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -1504,11 +1492,7 @@ class FractionEtendue {
           const O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
           const C = translation(O, vecteur(tailleCarres, 0))
           const dep = carre(O, C, 'black')
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
