@@ -379,9 +379,9 @@ export class Droite extends ObjetMathalea2D {
     } else {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
           coeff
-      )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />` + this.leNom != null
+      )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />` + (this.leNom != null
         ? this.leNom?.svg(coeff) ?? ''
-        : ''
+        : '')
     }
   }
 
@@ -425,7 +425,7 @@ export class Droite extends ObjetMathalea2D {
     const B1 = pointSurSegment(B, A, -50)
 
     if (this.nom !== '') {
-      return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` + this.leNom != null ? this.leNom?.tikz() ?? '' : ''
+      return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` + (this.leNom != null ? this.leNom?.tikz() ?? '' : '')
     } else {
       return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`
     }
