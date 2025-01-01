@@ -23,9 +23,8 @@
       `question-content-${index}`
     ) as HTMLDivElement
     if (questionContent) {
-      mathaleaRenderDiv(questionContent).then(() => {
-        setSizeWithinSvgContainer(questionContent)
-      })
+      mathaleaRenderDiv(questionContent)
+      setSizeWithinSvgContainer(questionContent)
     }
     loadMathLive()
   })
