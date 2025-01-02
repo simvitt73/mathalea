@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
+import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive'
