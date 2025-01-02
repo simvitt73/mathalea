@@ -296,10 +296,23 @@ export function mathalea2d (
     amplitude = 1,
     style = 'display: block',
     id = '' // L'id peut-être utile pour des animations, c'est celui du svg. Le div englobant aura un id en M2D + id
+  }:{
+    xmin?: number,
+    ymin?: number,
+    xmax?: number,
+    ymax?: number,
+    pixelsParCm?: number,
+    scale?: number,
+    zoom?: number,
+    optionsTikz?: string[],
+    mainlevee?: boolean,
+    amplitude?: number,
+    style?: string,
+    id?: string
   } = {},
-  ...objets: ObjetMathalea2D[]
+  ...objets: (ObjetMathalea2D|ObjetMathalea2D[])[]
 ) {
-  const ajouteCodeHtml = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[], divsLatex: string[], xmin:number, ymax:number) => {
+  const ajouteCodeHtml = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[]|(ObjetMathalea2D | ObjetMathalea2D[])[], divsLatex: string[], xmin:number, ymax:number) => {
     let codeSvg = ''
     // Dans le cas d'objets composites avec des objets Mathalea2d et des divLatex, il faut que ces objets exposent une propriété objets qui contient la liste des objets qui les composent.
     // Cette list est substituée à l'objet ici
@@ -362,7 +375,7 @@ export function mathalea2d (
     }
     return codeSvg
   }
-  const ajouteCodeTikz = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[]) => {
+  const ajouteCodeTikz = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[]|(ObjetMathalea2D | ObjetMathalea2D[])[]) => {
     let codeTikz = ''
     if (objets instanceof ObjetMathalea2D) {
       if (objets.objets != null) { objets = objets.objets as ObjetMathalea2D[] }
