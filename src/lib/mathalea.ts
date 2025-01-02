@@ -112,11 +112,12 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+    /*  if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
         animationLoading(true)
         await loadGiac()
         animationLoading(false)
       }
+        */
       return exercice
     } catch (error) {
       attempts++
@@ -188,11 +189,14 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+     /* Plus de xcas 
+     
+     if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
         animationLoading(true)
         await loadGiac()
         animationLoading(false)
       }
+        */
       return exercice
     } catch (error) {
       attempts++
@@ -909,12 +913,12 @@ async function load (name: 'giac' | 'mathgraph') {
 
 /**
  * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
- * @return {Promise<undefined,Error>} rejette en cas de timeout
+ * @return {Promise<undefined,Error>} rejette en cas de timeout // On n'utilise plus xcas (giacsimple)
  */
-function waitForGiac () {
+// function waitForGiac () {
   /* global Module */
   // @ts-expect-error : Module est défini par giacsimple
-  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
+/*  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
   const timeout = 60 // en s
   const tsStart = Date.now()
   return new Promise((resolve, reject) => {
@@ -932,18 +936,19 @@ function waitForGiac () {
     }, 500)
   })
 }
+  */
 
 /**
  * Charge giac
- * @return {Promise} qui peut échouer…
  */
+/* Plus de xcas
 export async function loadGiac () {
   await load('giac')
   // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
   // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
   await waitForGiac()
 }
-
+*/
 function animationLoading (state: boolean) {
   if (state) {
     document.getElementById('loading')?.classList.remove('hidden')

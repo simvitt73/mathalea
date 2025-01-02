@@ -1175,6 +1175,7 @@ class FractionEtendue {
     * @return {FractionEtendue|boolean}
     */
   racineCarree (): FractionEtendue | false {
+    if (this.isEqual(0)) { return new FractionEtendue(0, 1) } // sqrt(0)=0
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = new FractionEtendue(factoNum[0], factoDen[0]).simplifie()

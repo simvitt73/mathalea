@@ -1,7 +1,7 @@
 import { texMasse } from '../../../lib/format/style'
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction'
 import { context } from '../../../modules/context'
-import { listeQuestionsToContenu, randint, xcas } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 export const titre = 'Résoudre une équation avec une valeur absolue'
