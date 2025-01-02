@@ -32,7 +32,7 @@ export default class nomExercice extends Exercice {
     let question1 = 'Le nombre $A$ est-il un nombre entier naturel ? un nombre décimal ? un nombre rationnel ?'
     question1 += '<br>Justifier chacune des réponses'
     let correction1 = `${num} n'est pas divisible par ${den}, donc $A$ n'est pas un nombre entier naturel.`
-    correction1 += `<br>$A$ est un fraction irréductible qui a pour dénominateur ${den} qui est un nombre premier différent de 2 et 5 donc $A$ n'est pas un nombre décimal.`
+    correction1 += '<br>$A$ est un fraction irréductible qui a pour dénominateur un nombre premier différent de 2 et 5 donc $A$ n\'est pas un nombre décimal.'
     correction1 += '<br>$A$ s\'écrit sous la forme d\'une fraction $\\dfrac{a}{b}$ avec $a$ et $b$ des nombres entiers donc c\'est un nombre rationnel.'
 
     const question2 = 'Que peut-on dire de l\'écriture décimale de $A$ ?'
