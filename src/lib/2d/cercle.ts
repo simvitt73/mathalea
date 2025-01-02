@@ -51,7 +51,7 @@ export class Cercle extends ObjetMathalea2D {
   rayon: number
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
-  hachures: string
+  hachures?: string
   couleurDesHachures: string[]
   epaisseurDesHachures: number
   distanceDesHachures: number
@@ -75,7 +75,6 @@ export class Cercle extends ObjetMathalea2D {
     this.rayon = r
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    this.hachures = String(couleurDesHachures !== 'none' && couleurDesHachures !== '')
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
     this.epaisseurDesHachures = epaisseurDesHachures
     this.distanceDesHachures = distanceDesHachures
@@ -575,7 +574,8 @@ export class Arc extends ObjetMathalea2D {
       )
     }
 
-    if (this.hachures) {
+    if (this.hachures != null && typeof this.hachures === 'string') {
+      console.log(this.hachures)
       tableauOptions.push(
         pattern({
           motif: this.hachures,
