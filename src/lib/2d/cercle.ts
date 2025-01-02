@@ -368,10 +368,10 @@ export class Arc extends ObjetMathalea2D {
   rayons: boolean
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
-  hachures: string
+  hachures?: string
   couleurDesHachures: string[]
-  epaisseurDesHachures: number
-  distanceDesHachures: number
+  epaisseurDesHachures?: number
+  distanceDesHachures?: number
   angle: number
   rayon: number
   angleFin: number
@@ -387,7 +387,10 @@ export class Arc extends ObjetMathalea2D {
     couleurDeRemplissage = 'none',
     color = 'black',
     opaciteDeRemplissage = 0.2,
-    couleurDesHachures = 'none'
+    couleurDesHachures = 'none',
+    opacite = 1,
+    epaisseurDesHachures = 1,
+    distanceDesHachures = 10
   ) {
     super()
     this.pointDepart = M
@@ -397,13 +400,12 @@ export class Arc extends ObjetMathalea2D {
     this.color = colorToLatexOrHTML(color)
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    this.opacite = 1
-    this.hachures = String(couleurDesHachures !== 'none' && couleurDesHachures !== '')
-    this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
-    this.epaisseurDesHachures = 1
-    this.distanceDesHachures = 10
+    this.opacite = opacite ?? 1
+    this.epaisseurDesHachures = epaisseurDesHachures ?? 1
+    this.distanceDesHachures = distanceDesHachures ?? 10
     this.pointilles = 0
     this.epaisseur = 1
+    this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
     this.angle = angle instanceof Point ? angleOriente(M, omega, angle) : angle
     const medX: number[] = []
     const medY: number[] = []
@@ -461,7 +463,7 @@ export class Arc extends ObjetMathalea2D {
           this.style += ' stroke-dasharray="5 5" '
           break
       }
-      if (this.hachures) {
+      if (this.hachures != null && typeof this.hachures === 'string') {
         if (this.couleurDeRemplissage.length < 1) {
           this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
@@ -472,7 +474,7 @@ export class Arc extends ObjetMathalea2D {
             id: this.id,
             distanceDesHachures: this.distanceDesHachures,
             epaisseurDesHachures: this.epaisseurDesHachures,
-            couleurDesHachures: this.couleurDesHachures[0],
+            couleurDesHachures: this.couleurDesHachures[0] ?? 'black',
             couleurDeRemplissage: this.couleurDeRemplissage[0],
             opaciteDeRemplissage: this.opaciteDeRemplissage
           }) +
@@ -709,7 +711,6 @@ export function arcPointPointAngle (
   const d = mediatrice(M, N) as Droite
   const e = droite(N, M)
   const f = rotation(e, N, anglerot)
-  f.isVisible = false
   const determinant = d.a * f.b - f.a * d.b
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
