@@ -180,7 +180,7 @@ ${figure1}`, { largeur1: 50, widthmincol1: 100, widthmincol2: 100, eleId: '' })}
     const listeFigs = figs.map((el, k) => `${centrage(`figure ${k + 1}`)}${el}`) as [string, string, string]
     enonce += createList({
       items: [
-        `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer $a$ et $b$ poour obtenir le ${figure} ci-dessus ?`,
+        `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer $a$ et $b$ pour obtenir le ${figure} ci-dessus ?`,
     `On définit ensuite un nouveau bloc nommé  «Motif A» :<br>
     ${scratchblock(texteScratch2)}<br>
     Parmi les figures ci-dessous, laquelle est obtenue en utilisant le bloc «Motif A» ?<br>
