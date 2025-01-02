@@ -57,7 +57,7 @@ export default class IsDecimal extends Exercice {
           texte = `Le nombre $${f.texFraction}$ est-il décimal ?`
           texteCorr = 'Décomposons en produit de facteurs premiers le numérateur et le dénominateur de la fraction.'
           texteCorr += `<br><br>$${f.texFraction} = \\dfrac{${texFactorisation(num)}}{2^{${n}}\\times5^{${m}}}$`
-          texteCorr += '<br><br>Ce nombre peut s\'écrire sous la forme $\\dfrac{k}{2^n \\times 5^m}$, il est donc décimal.'
+          texteCorr += '<br><br>Ce nombre peut s\'écrire sous la forme $\\dfrac{k}{2^n \\times 5^m}$, avec $k$ un entier naturel, il est donc décimal.'
           break
         }
         case 'num/2^m5^nX': {
