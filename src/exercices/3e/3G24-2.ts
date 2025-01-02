@@ -66,7 +66,7 @@ export default class nomExercice extends Exercice {
       coeff /= 10
       const motAgrandissementReduction = coeff > 1 ? 'd\'agrandissement' : 'de réduction'
       const A = point(0, 0)
-      const B = pointAdistance(A, longueurAB)
+      const B = pointAdistance(A, longueurAB, randint(-30, 60))
       const p1 = triangle2points2longueurs(A, B, longueurAC, longueurBC)
       const C = p1.listePoints[2]
       // deuxieme triangle par similitude on peut effectuer dessus car les figures sont séparée à l'affichage
@@ -132,11 +132,11 @@ export default class nomExercice extends Exercice {
       if (Math.max(bord2hauteur,bord2Largeur)>15) {   pixelsParCmDessin2=20-(Math.max(bord2hauteur,bord2Largeur)*7/26 ) } // decroissant à partir de 20 à 13
 // fin de  preparer la sortie PDF et HTML des figures
       const colonne1 = mathalea2d(
-        Object.assign({ pixelsParCm: 20,scale: scaleDessin1, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
-          bord1), objetsAAfficher1)
+        Object.assign({ pixelsParCm: 20,scale: scaleDessin1, mainlevee: false },
+          bord1), Object.assign(objetsAAfficher1))
       const colonne2 = mathalea2d(
-        Object.assign({ pixelsParCm: pixelsParCmDessin2,scale: scaleDessin2, optionsTikz: ['baseline=(current bounding box.north)'], mainlevee: false },
-          bord2), objetsAAfficher2)
+        Object.assign({ pixelsParCm: pixelsParCmDessin2,scale: scaleDessin2,  mainlevee: false },
+          bord2), Object.assign(objetsAAfficher2))
       if (this.interactif && context.isHtml) {
         texte += `Donner les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$.<br>`
         texte += deuxColonnesResp(colonne1, colonne2, {
