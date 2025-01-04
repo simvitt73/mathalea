@@ -97,7 +97,7 @@ export default class FonctionsProbabilite1 extends Exercice {
           ?` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et ${n[p]} ${objets} ${qualites[index1][p]}, soit ${n[p]+n[m]} ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
           :` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[m], somme)}+${texFractionFromString(n[p], somme)}=${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
         )
-        handleAnswers(this,4*i+3,{reponse:{value:new FractionEtendue(n[m]+n[q], somme).texFSD}})          
+        handleAnswers(this,4*i+3,{reponse:{value:new FractionEtendue(n[m]+n[p], somme).texFSD}})          
       } else {
         texte+=` ${personne.Pronom} regarde ${natureDeLIssue[index1]}.<br>`
 
