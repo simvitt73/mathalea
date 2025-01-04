@@ -7,15 +7,16 @@ import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { expressionDeveloppeeEtNonReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtNonReduiteCompare, functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
+export const dateDeModifImportante = '04/01/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
-* Développer des expressions de double distributivité à l'aide d'un tableau de multiplication
+* Développer des expressions de double distributivité à l'aide d'un tableau de  multiplication
 * @author Sébastien LOZANO
 */
 
@@ -181,8 +182,8 @@ export default class TableDoubleDistributivite extends Exercice {
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
 
-      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L1C2: { value: L1C2, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C1: { value: L2C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C2: { value: L2C2, compare: expressionDeveloppeeEtNonReduiteCompare } })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: expressionDeveloppeeEtNonReduiteCompare } })
+      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: functionCompare }, L1C2: { value: L1C2, compare: functionCompare }, L2C1: { value: L2C1, compare: functionCompare }, L2C2: { value: L2C2, compare: functionCompare } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: functionCompare } })
       const reponse = developpements.reduit
       handleAnswers(this, 3 * i + 2, { reponse: { value: reponse } })
 
