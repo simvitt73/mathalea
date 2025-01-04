@@ -212,13 +212,13 @@ for (const tag of tagsEVACOM) {
 
 // Move referentielFR.BAC to referentielFR.Bac.BacTerminaleSpecialite
 referentielFR.Bac = {}
-referentielFR.Bac.Bac01TerminaleSpecialite = referentielFR.BAC
+referentielFR.Bac.Bac99TerminaleSpecialite = referentielFR.BAC
 delete referentielFR.BAC
-referentielFR.Bac.Bac02TerminaleSpecialiteTags = referentielFR.BACTags
+referentielFR.Bac.Bac98TerminaleSpecialiteTags = referentielFR.BACTags
 delete referentielFR.BACTags
-referentielFR.Bac.Bac10STI2D = referentielFR.STI2D
+referentielFR.Bac.Bac89STI2D = referentielFR.STI2D
 delete referentielFR.STI2D
-referentielFR.Bac.Bac11STI2DTags = referentielFR.STI2DTags
+referentielFR.Bac.Bac88STI2DTags = referentielFR.STI2DTags
 delete referentielFR.STI2DTags
 
 
