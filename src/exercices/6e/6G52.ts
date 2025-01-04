@@ -54,11 +54,11 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const objetsEnonce = []
       const noms = shuffle(['(d_1)', '(d_2)', '(d_3)', '(d_4)', '(d_5)', '(d_6)', '(d_7)'])
       const couleurs = shuffle(['black', 'blue', 'green', '#2471A3', 'purple', 'red', 'brown'])
-      const couleur = (indice) => { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
+      const couleur = (indice: number) => { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
         return couleurs[indice]
       }
-      const x = []
-      const y = []
+      const x: number[] = []
+      const y: number[] = []
       for (let i = 0; i < 6; i++) {
         x.push(randint(-3, 3, x))
         y.push(randint(-3, 3, y))
@@ -105,7 +105,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
-      const texDroiteEnonce = (indice) => {
+      const texDroiteEnonce = (indice: number) => {
         return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
       }
       texte = `Les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles.<br>`
@@ -122,6 +122,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
           texteCorr += `<br>Remarque :<br>La droite ${texDroiteEnonce(4)} semble elle aussi être parallèle aux autres mais rien ne nous permet de l'affirmer.<br>Il aurait fallu que l'énoncé dise qu'elle est parallèle à une autre ou qu'un angle droit soit marqué par exemple.`
           break
         case 'Perpendiculaires':
+        default:
           texte += 'Donner tous les couples de droites perpendiculaires en justifiant'
           texteCorr = `Les codages permettent d'affirmer que les droites ${texDroiteEnonce(1)} et ${texDroiteEnonce(2)} sont toutes les deux perpendiculaires à ${texDroiteEnonce(3)}<br><br>`
           texteCorr += `Les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles (c'est l'énoncé qui le dit) et ${texDroiteEnonce(3)} est perpendiculaire à ${texDroiteEnonce(1)}`
@@ -132,7 +133,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       }
       texte += '<br>' + (context.vue === 'diap' ? '<center>' : '') + mathalea2d(params, objetsEnonce) + (context.vue === 'diap' ? '</center>' : '')
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, x, y)) {
+      if (this.questionJamaisPosee(i, String(x), String(y))) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
