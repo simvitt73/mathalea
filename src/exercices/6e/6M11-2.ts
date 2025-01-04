@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { arc, cercle } from '../../lib/2d/cercle'
 import { codageSegment, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { point, pointIntersectionCC, pointIntersectionDD, pointSurCercle, tracePoint } from '../../lib/2d/points'
+import { Point, point, pointIntersectionCC, pointIntersectionDD, pointSurCercle, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -10,14 +10,15 @@ import { arrondi, troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texTexte } from '../../lib/format/texTexte'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer périmètre et aire de figures composées'
 export const interactifReady = true
@@ -40,7 +41,9 @@ export const refs = {
   'fr-ch': ['9GM1-8', '10GM1-6']
 }
 export default class PerimetreOuAireDeFiguresComposees extends Exercice {
-  constructor () {
+  besoinFormulaire3Numerique: boolean | [string, number, string]
+  besoinFormulaire4Numerique: boolean | [string, number, string]
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Types de figures',
@@ -59,7 +62,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     this.sup4 = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (this.sup4) {
       case 4:
         this.consigne = 'Décomposer les figures suivantes en plusieurs figures simples.'
@@ -96,9 +99,9 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
       nbQuestions: this.nbQuestions,
       shuffle: this.sup2,
       saisie: this.sup
-    })
+    }).map(Number)
 
-    const texteSurSeg = function (A, B, texte, d = 0.7) {
+    const texteSurSeg = function (A: Point, B: Point, texte: string, d = 0.7) {
       const segT = texteSurSegment(texte, A, B, 'black', d)
       segT.mathOn = false
       segT.scale = 1.1
@@ -113,14 +116,14 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
       }
       const contourFigure = []
       const decoupages = []
-      const codagesSansDecoupage = []
+      const codagesSansDecoupage: ObjetMathalea2D[] = []
       const codagesDecoupage = []
-      const labelsSansDecoupage = []
+      const labelsSansDecoupage: ObjetMathalea2D[] = []
       const labelsAvecDecoupage = []
       const objetsEnonce = []
       const objetsCorrection = []
       switch (typesDeQuestions[i]) {
-        case 1 : { // 'rectangle_triangle': {
+        case 1: { // 'rectangle_triangle': {
           const triplet = choice(tripletsPythagoriciens)
           const adjust = (triplet[2] > 50 ? 0.1 : randint(2, 3) / 10)
           const partieDecimale1 = adjust - 1
@@ -177,7 +180,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           aire = arrondi(L1 * l1 + (L2 * l1) / 2, 2)
           break
         }
-        case 2 : { // 'rectangle_moins_triangle': {
+        case 2: { // 'rectangle_moins_triangle': {
           const triplet = choice(tripletsPythagoriciens)
           const adjust = (triplet[2] > 50 ? 0.1 : randint(2, 3) / 10)
           const c1 = triplet[0] * (adjust)
@@ -189,7 +192,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const N = point(0, c * zoom, 'N')
           const O = point(c * zoom, c * zoom, 'O')
           const P = point(c * zoom, 0, 'P')
-          const S = pointIntersectionCC(cercle(N, c1 * zoom), cercle(O, c2 * zoom), 'S', 2)
+          const S = pointIntersectionCC(cercle(N, c1 * zoom), cercle(O, c2 * zoom), 'S', 2) as Point
           // const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O)))
           const p2 = polygoneAvecNom(M, N, S, O, P)
           contourFigure.push(p2[0])
@@ -211,7 +214,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             pixelsParCm: 20,
             zoom: 1,
             optionsTikz: 'baseline=(current bounding box.north)'
-          }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
+          }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1.2 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -219,7 +222,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               pixelsParCm: 20,
               zoom: 1,
               optionsTikz: 'baseline=(current bounding box.north)'
-            }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
+            }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1.2 })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1, 1)} cm et ${stringNombre(c2, 1)} cm.<br>`
           } else {
@@ -231,7 +234,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           aire = arrondi(c ** 2 - (c1 * c2) / 2, 2)
           break
         }
-        case 3 : { // 'rectangle_moins_deux_triangles': {
+        case 3: { // 'rectangle_moins_deux_triangles': {
           const deuxtripletsPythagoriciens = [
             [[8, 6, 10], [8, 15, 17]],
             [[20, 48, 52], [20, 21, 29]],
@@ -257,10 +260,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const N = point(0, c * zoom, 'N')
           const O = point(c * zoom, c * zoom, 'O')
           const P = point(c * zoom, 0, 'P')
-          const S = pointIntersectionCC(cercle(N, h1 * zoom), cercle(O, h2 * zoom), 'S', 2)
-          const T = pointIntersectionDD(droite(M, N), droiteParPointEtPerpendiculaire(S, droite(M, N)))
-          const U = pointIntersectionDD(droite(O, P), droiteParPointEtPerpendiculaire(S, droite(M, N)))
-          const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O)))
+          const S = pointIntersectionCC(cercle(N, h1 * zoom), cercle(O, h2 * zoom), 'S', 2) as Point
+          const T = pointIntersectionDD(droite(M, N), droiteParPointEtPerpendiculaire(S, droite(M, N))) as Point
+          const U = pointIntersectionDD(droite(O, P), droiteParPointEtPerpendiculaire(S, droite(M, N))) as Point
+          const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O))) as Point
           const p2 = polygoneAvecNom(M, N, S, O, P)
           contourFigure.push(p2[0])
           const HS = segment(H, S)
@@ -274,7 +277,6 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           codagesSansDecoupage.push(codageAngleDroit(O, P, M), codageAngleDroit(P, M, N))
           codagesDecoupage.push(codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(S, H, O, 'blue'), codageSegment(M, N, '//', 'black'), codageSegment(M, P, '//', 'black'), codageSegment(O, P, '//', 'black'))
           const codagesDecoupages2 = [codageAngleDroit(M, T, S), codageAngleDroit(N, T, S), codageAngleDroit(P, U, S), codageAngleDroit(O, U, S), codageSegment(M, T, '//', 'black'), codageSegment(P, U, '//', 'black'), codageSegment(T, N, '/', 'black'), codageSegment(U, O, '/', 'black'), codageSegment(M, P, '///', 'black'), codageSegment(T, U, '///', 'black')]
-          labelsSansDecoupage.push()
           labelsAvecDecoupage.push(texteSurSeg(P, M, stringNombre(c, 1) + ' cm'), texteSurSeg(S, N, stringNombre(h1, 1) + ' cm'), texteSurSeg(O, S, stringNombre(h2, 1) + ' cm'), texteSurSeg(H, S, stringNombre(com1, 1) + ' cm', (H.x - N.x > O.x - H.x ? -0.7 : 0.7)))
           objetsCorrection.push(...contourFigure, ...decoupages2, ...codagesSansDecoupage, ...codagesDecoupages2)
           if (this.sup4 === 4) {
@@ -307,7 +309,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           aire = arrondi(c ** 2 - (c * h) / 2, 2)
           break
         }
-        case 4 : { // 'rectangle_demi_cercle': {
+        case 4: { // 'rectangle_demi_cercle': {
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
           L1 = L1 + (randint(1, 9) / 10)
@@ -345,7 +347,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
             rxmin: -1.2,
-            rymin: -1
+            rymin: -1.2
           })), ...objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -355,7 +357,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
               rxmin: -1,
-              rymin: -1
+              rymin: -1.2
             })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(L2, 1)} cm
@@ -372,7 +374,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           aire = arrondi(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1)
           break
         }
-        case 5 : { // 'rectangle_cercle': {
+        case 5: { // 'rectangle_cercle': {
           let L1 = randint(5, 8)
           let L2 = randint(L1 - 2, L1 - 1)
           L1 = L1 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
@@ -413,7 +415,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
             rxmin: -1,
-            rymin: -1
+            rymin: -1.2
           })), ...objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -423,7 +425,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
               rxmin: -1,
-              rymin: -1
+              rymin: -1.2
             })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle
@@ -440,7 +442,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           aire = arrondi(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1)
           break
         }
-        case 6 : { // 'rectangle_triangle_demi_disque': {
+        case 6:
+        default: { // 'rectangle_triangle_demi_disque': {
           const triplet = choice(tripletsPythagoriciens)
           const adjust = (triplet[2] > 50 ? randint(2, 4, [3]) / 10 : triplet[2] > 10 ? randint(6, 8, [7]) / 10 : randint(10, 12, [11]) / 10)
           const l1 = triplet[0] * (adjust)
@@ -479,7 +482,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.6)], {
             rxmin: -1,
-            rymin: -1
+            rymin: -1.2
           })), ...objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -489,7 +492,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], {
               rxmin: -1,
-              rymin: -1
+              rymin: -1.2
             })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle, d'un triangle rectangle et d'un demi-disque.<br>`
@@ -507,10 +510,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           break
         }
       }
-      if (this.sup4 === 1 || this.sup4 === 3) {
+      if (this.sup4 === 1 || this.sup4 === 3 || this.sup4 === 4) {
         texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), '  unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ' })
       }
-      if (this.sup4 === 2 || this.sup4 === 3) {
+      if (this.sup4 === 2 || this.sup4 === 3 || this.sup4 === 4) {
         texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), '  unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ' })
       }
       if (context.isAmc) {
@@ -520,6 +523,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
+              // @ts-expect-error
               propositions: [{
                 enonce: 'Indiquer ci-dessous les calculs : <br>',
                 numQuestionVisible: false,
@@ -531,9 +535,11 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           ]
         }
         if (this.sup4 === 1 || this.sup4 === 3) {
+          // @ts-expect-error
           this.autoCorrection[i].propositions.push(
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [
                 {
                   texte: '',
@@ -554,9 +560,11 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           )
         }
         if (this.sup4 === 2 || this.sup4 === 3) {
+          // @ts-expect-error
           this.autoCorrection[i].propositions.push(
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [
                 {
                   texte: '',
@@ -577,8 +585,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           )
         }
       } else {
-        if (this.sup4 === 1 || this.sup4 === 3) setReponse(this, i * (this.sup4 === 3 ? 2 : 1), new Grandeur(perimetre, 'cm'), { formatInteractif: 'unites', precision: this.sup3 - 1 })
-        if (this.sup4 === 2 || this.sup4 === 3) setReponse(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), new Grandeur(aire, 'cm^2'), { formatInteractif: 'unites', precision: this.sup3 - 1 })
+        if (this.sup4 === 1 || this.sup4 === 3) handleAnswers(this, i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: new Grandeur(perimetre, 'cm'), compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } })
+        if (this.sup4 === 2 || this.sup4 === 3) handleAnswers(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: new Grandeur(aire, 'cm^2'), compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } })
       }
       if (this.questionJamaisPosee(i, perimetre, aire)) {
         this.listeQuestions[i] = texte

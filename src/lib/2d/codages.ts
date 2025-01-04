@@ -761,7 +761,7 @@ export class CodageSegments extends ObjetMathalea2D {
   mark: string
   isEchelle: boolean
   args: (Point | Segment | number)[]
-  constructor(mark = '||', color = 'black', ...args: (Point | Segment | number)[]) {
+  constructor(mark = '||', color = 'black', ...args: any[]) {
     super()
     this.args = args
     this.mark = mark
@@ -873,7 +873,7 @@ export class CodageSegments extends ObjetMathalea2D {
  * @return {CodageSegments}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageSegments(mark = '||', color = 'black', ...args: (Point | Segment | number)[]) {
+export function codageSegments(mark = '||', color = 'black', ...args: any[]) {
   return new CodageSegments(mark, color, ...args)
 }
 

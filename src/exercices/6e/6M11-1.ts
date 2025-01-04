@@ -10,10 +10,11 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
@@ -33,7 +34,7 @@ export const refs = {
   'fr-ch': ['9GM1-4']
 }
 export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Type de figures',
@@ -49,7 +50,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
     this.sup3 = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
@@ -85,15 +86,15 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       const K = similitude(I, J, -90, b / a, nom[10])
       const triangle = polygoneAvecNom(I, J, K)
       const objetsEnonce = [...carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-        ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-        ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
+      ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
+      ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
       texte = this.sup3
         ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
           pixelsParCm: 20,
           scale: 0.75,
           mainlevee: false
         }), objetsEnonce) + '<br>'
-      //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
+        //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
         : ''
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -107,18 +108,20 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       nbPuces = 0
       for (let ee = 0; ee < QuestionsDisponibles.length; ee++) {
         switch (QuestionsDisponibles[ee]) {
-          case 1 : // Carré
+          case 1: // Carré
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
               texteAMC += this.sup3 ? 'du carré ci-dessus.' : `d'un carré de côté${sp()}$${texNombre(c)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}=${4 * c
-                            }${sp()}\\text{cm}$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur(c * 4, 'cm'), { formatInteractif: 'unites' })
+                }${sp()}\\text{cm}$<br>`
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(c * 4, 'cm'), compare: fonctionComparaison, options: { unite: true } } })
               if (context.isAmc) {
+                // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -144,10 +147,12 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}\\times${c}${sp()}\\text{cm}=${c * c}${sp()}\\text{cm}^2$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(c * c, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } })
               if (context.isAmc) {
+                // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -168,18 +173,20 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               nbPuces++
             }
             break
-          case 2 : // Rectangle
+          case 2: // Rectangle
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
               texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${2 * L + 2 * l
-                            }${sp()}\\text{cm}$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'unites' })
+                }${sp()}\\text{cm}$<br>`
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur((L + l) * 2, 'cm'), compare: fonctionComparaison, options: { unite: true } } })
               if (context.isAmc) {
+                // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -205,11 +212,13 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${L * l
-                            }${sp()}\\text{cm}^2$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
+                }${sp()}\\text{cm}^2$<br>`
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(L * l, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } })
               if (context.isAmc) {
+                // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -230,17 +239,19 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               nbPuces++
             }
             break
-          case 3 : // Triangle rectangle
+          case 3: // Triangle rectangle
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
               texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2, 1)}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur(pIJK, 'cm'), { formatInteractif: 'unites' })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(pIJK, 'cm'), compare: fonctionComparaison, options: { unite: true } } })
               if (context.isAmc) {
+                // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -265,23 +276,25 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
-              texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre(calculANePlusJamaisUtiliser((a * b) / 2))}${sp()}\\text{cm}^2$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur(calculANePlusJamaisUtiliser((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
+              texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre((a * b / 2))}${sp()}\\text{cm}^2$<br>`
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(a * b / 2, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } })
               if (context.isAmc) {
+                // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
                     multicolsEnd: nbPuces === incrementation - 1,
                     reponse: {
                       texte: texteAMC,
-                      valeur: calculANePlusJamaisUtiliser((a * b) / 2),
+                      valeur: (a * b) / 2,
                       alignement: 'center',
                       param: {
                         signe: false,
                         decimals: 0,
-                        digits: nombreDeChiffresDe(calculANePlusJamaisUtiliser((a * b) / 2))
+                        digits: nombreDeChiffresDe((a * b) / 2)
                       }
                     }
                   }]
