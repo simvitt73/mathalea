@@ -23,6 +23,7 @@ import {
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
 import { afficheScore } from '../../lib/interactif/afficheScore'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
@@ -38,7 +39,8 @@ export const refs = {
   'fr-ch': []
 }
 export default class AlgoTortue extends Exercice { // ça c'est la classe qui permet de créer cet exercice
-  constructor () {
+  indiceBonneFigure!: number
+  constructor() {
     super()
     this.exoCustomResultat = false
     this.besoinFormulaireNumerique = ["Nombre d'instructions (limité à 20)", 20] // gestion des paramètres supplémentaires
@@ -50,13 +52,13 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion(numeroExercice: number) {
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
     // const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     // const yDepart = 0
     const objetsCorrection = []
-    const paramsEnonces = {}
-    const paramsCorrection = {}
+    let paramsCorrection
+    let paramsEnonces
     const sequences = [ // séquences d'intruction pré-établies, on en choisit une parmi celles-ci
       ['tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer'],
       ['tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer'],
@@ -110,7 +112,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
           avance(val[i], lutins[3])
           avance(val[i] + 5 * erreursDeDeplacement[i], lutins[4]) // avance trop
           break
-        case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°...
+        case 'tournerD': // On peut difficilement choisir autre chose que de tourner de 90°...
           lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
           tournerD(90, lutins[0])
           tournerD(90, lutins[2])
@@ -118,7 +120,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
           tournerG(90, lutins[1]) // tournent dans le mauvais sens
           tournerG(90, lutins[3])
           break
-        case 'tournerG' :
+        case 'tournerG':
           lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
           tournerG(90, lutins[0])
           tournerG(90, lutins[1])
@@ -181,23 +183,12 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     echelle.styleExtremites = '|-|'
     objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
     objetsCorrection.push(lutins[0])
-    paramsEnonces.xmin = -0.5
-    paramsEnonces.ymin = -1.5
-    paramsEnonces.xmax = largeur
-    paramsEnonces.ymax = hauteur + 1
-    paramsEnonces.pixelsParCm = Math.round(200 / largeur)
-    paramsEnonces.scale = 2 / largeur
-    paramsEnonces.style = ''
-    paramsCorrection.xmin = -0.5
-    paramsCorrection.ymin = -0.5
-    paramsCorrection.xmax = largeur
-    paramsCorrection.ymax = hauteur + 1
-    paramsCorrection.pixelsParCm = Math.round(200 / largeur)
-    paramsCorrection.scale = 2 / largeur
+
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 5; i++) {
-      paramsEnonces.id = `figure${i}exo${numeroExercice}`
+      paramsEnonces = { xmin: -0.5, ymin: -1.5, xmax: largeur, ymax: hauteur + 1, pixelsParCm: Math.round(200 / largeur), scale: 2 / largeur, style: '', id: `figure${i}exo${numeroExercice}` }
+      paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: largeur, ymax: hauteur + 1, pixelsParCm: Math.round(200 / largeur), scale: 2 / largeur }
       texte += mathalea2d(paramsEnonces,
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
@@ -211,6 +202,9 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       texte += `<div id="resultatCheckEx${this.numeroExercice}Q${0}"></div>`
     } else {
       texte += '\\end{minipage} '
+    }
+    if (this.interactif) {
+      texte += ajouteFeedback(this, 0)
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
@@ -239,6 +233,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
         ],
         options: { ordered: true }
       }
+      //@ts-expect-error
       this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
     }
     this.indiceBonneFigure = ordreLutins.indexOf(0)
@@ -279,40 +274,54 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
   // Pour distinguer les deux types de codage de recuperation des résultats
 
   // Gestion de la correction
-  correctionInteractive = (i) => {
+  correctionInteractive = (i: number) => {
     let nbBonnesReponses = 0
     let nbMauvaisesReponses = 0
     let nbFiguresCliquees = 0
-    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`) as HTMLSpanElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
+
     const figures = []
     for (let i = 0; i < 5; i++) {
       const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
-      figures.push(figure)
-      figure.removeEventListener('mouseover', mouseOverSvgEffect)
-      figure.removeEventListener('mouseout', mouseOutSvgEffect)
-      figure.removeEventListener('click', mouseSvgClick)
-      if (figure.etat) nbFiguresCliquees++
+      if (figure != null) {
+        figures.push(figure)
+        figure.removeEventListener('mouseover', mouseOverSvgEffect)
+        figure.removeEventListener('mouseout', mouseOutSvgEffect)
+        figure.removeEventListener('click', mouseSvgClick)
+        if (figure.etat) nbFiguresCliquees++
+      }
+    }
+    if (nbFiguresCliquees > 1) {
+      divFeedback.innerHTML = 'Vous ne pouvez choisir qu\'une seule figure.'
+      divFeedback.style.display = 'block'
+    }
+    if (nbFiguresCliquees < 1) {
+      divFeedback.innerHTML = 'Vous devez choisir une figure.'
+      divFeedback.style.display = 'block'
     }
     if (nbFiguresCliquees === 1 && figures[this.indiceBonneFigure].etat) {
       spanResultat.innerHTML = '😎'
-      nbBonnesReponses++
+      // nbBonnesReponses++
+      return 'OK'
     } else {
       spanResultat.innerHTML = '☹️'
-      nbMauvaisesReponses++
+      // nbMauvaisesReponses++
+      return 'KO'
     }
-    afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+    //    afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
   }
 }
 
-function mouseOverSvgEffect () {
+function mouseOverSvgEffect(this: any) {
   this.style.border = 'inset'
 }
 
-function mouseOutSvgEffect () {
+function mouseOutSvgEffect(this: any) {
   this.style.border = 'none'
 }
 
-function mouseSvgClick () {
+function mouseSvgClick(this: any) {
   if (this.etat) {
     // Déja choisi, donc on le réinitialise
     this.style.border = 'none'

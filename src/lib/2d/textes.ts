@@ -421,19 +421,18 @@ export function texteParPositionEchelle(texte: string, x: number, y: number, ori
 /**
  * texteParPosition('mon texte',x,y) // Écrit 'mon texte' avec (x,y) au centre du texte
  * texteParPoint('mon texte',x,y,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
- * orientation est très mal choisi ! ça peut être un nombre ou un string
- * Si oriention est un nombre, alors c'est l'angle de rotation, et il faut positionner le centre de rotation ancrageDeRotation
- * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite'] les valeurs 'gauche' et 'droite' sont absolument sans effet !
+ * orientation est l'angle de rotation du texte
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
  * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
- * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
+ * Si le texte commence et finit par des $ la chaine est traitée par latex2d en retirant les $ en 1ère et dernière position
  * @author Rémi Angot
  * @param {string} texte // Le texte qu'on veut afficher
  * @param {number} x // L'abscisse de la position initiale du texte
  * @param {number} y // L'ordonnée de la position initiale du texte
- * @param {number} [orientation=0] // Angle d'orientation du texte ou bien 'milieu', gauche' ou 'droite'. Voir exemple
+ * @param {number} [orientation=0]
  * @param {string} [color='black'] // Couleur du texte
  * @param {number} [scale=1] // Echelle du texte.
- * @param {AncrageDeRotationType} [ancrageDeRotation='milieu'] // Choix parmi 'middle', 'start' ou 'end'. En cas d'orientation avec un angle, permet de savoir où est le centre de la rotation par rapport au texte.
+ * @param {AncrageDeRotationType} [ancrageDeRotation='milieu']
  * @param {string} [mathOn=false] // Ecriture dans le style de Latex.
  *
  * @author Rémi Angot
