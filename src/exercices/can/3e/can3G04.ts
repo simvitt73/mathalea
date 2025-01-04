@@ -8,6 +8,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +30,7 @@ export default class RechercheValeurPythagore extends Exercice {
     super()
 
     this.typeExercice = 'simple'
-    
+    this.formatChampTexte=KeyboardType.clavierFullOperations
     this.nbQuestions = 1
   }
 
@@ -47,9 +48,9 @@ export default class RechercheValeurPythagore extends Exercice {
         objets = []
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(pol[0], pol[1])
-        objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
+        objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y,0, 'black', 1, 'milieu', true),
+          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 0, 'black', 1, 'milieu', true),
+          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true))
         if (this.interactif) {
           this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
       (donner le résultat sous la forme $\\sqrt{a}$)<br>`
@@ -75,8 +76,8 @@ export default class RechercheValeurPythagore extends Exercice {
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(texteParPosition(`$\\sqrt{${a}}$`, milieu(B, C).x + 1, milieu(B, C).y),
-          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
+          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 0, 'black', 1, 'milieu', true),
+          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true))
 
         this.question = `Déterminer $x$ pour que le triangle soit rectangle.
         
