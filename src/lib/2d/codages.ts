@@ -7,7 +7,7 @@ import { arc } from './cercle'
 import { Droite, droite, mediatrice } from './droites'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
-import { Latex2d, latex2d, latexParCoordonnees, TexteParPoint, texteParPoint } from './textes'
+import { Latex2d, latex2d, latexParCoordonnees, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import type { Polygone } from './polygones'
 
@@ -994,8 +994,21 @@ function placeLatex2d(A: Point, B: Point, distance: number = 0.5): Point {
   const P = pointSurSegment(M, N, distance)
   return P
 }
-
-export function PlaceLatexSurSegment(t: string, A: Point, B: Point, distance: number = 0.5): Latex2d {
-  const Q = latex2d(t, placeLatex2d(A, B, distance).x, placeLatex2d(A, B, distance).y, { orientation: directionLatex2d(A, B) })
+/**
+ * 
+ * @param t Place du latex sur un segment orienté une belle alternative à texteSurSegment
+ * @param A 
+ * @param B 
+ * @param options
+ * @returns {Latex2d}
+ */
+export function placeLatexSurSegment(t: string, A: Point, B: Point, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize' }: {
+  distance?: number,
+  color?: string,
+  backgroundColor?: string,
+  letterSize?: LetterSizeType
+} = {
+  }): Latex2d {
+  const Q = latex2d(t, placeLatex2d(A, B, distance).x, placeLatex2d(A, B, distance).y, { orientation: directionLatex2d(A, B), color, backgroundColor, letterSize })
   return Q
 }

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { arc } from '../../lib/2d/cercle'
-import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
+import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -72,7 +72,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
       const C = point(0, 0)
       const r = randint(2, 10)
 
-      const A = pointAdistance(C, r, 0)
+      const A = pointAdistance(C, listeTypeQuestions[i] === 3 ? 3 : 6, 0)
       const B1 = rotation(A, C, 90)
       const B2 = rotation(A, C, 180)
       const B3 = rotation(A, C, 270)
@@ -104,7 +104,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
           }
           objetsEnonce.push(quartDeDisque,
             codageSegments('//', context.isHtml ? 'blue' : 'black', A, C, C, B1),
-            afficheLongueurSegment(A, C))
+            placeLatexSurSegment(`${r}\\text{ cm}`, A, C))
           break
         case 2:
           if (this.sup !== 2) {
@@ -130,7 +130,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
             reponseA1 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r / 2 * Math.PI * 10) / 10)
             reponseA1bis = this.sup === 1 ? 0 : arrondi(reponseA1 + 0.1)
           }
-          objetsEnonce.push(demiDisque, afficheLongueurSegment(A, B2))
+          objetsEnonce.push(demiDisque, placeLatexSurSegment(`${r}\\text{ cm}`, A, B2))
           break
         case 3:
         default:
@@ -153,19 +153,19 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
             reponseA1 = this.sup === 1 ? 0 : arrondi(Math.trunc(3 * r * r / 4 * Math.PI * 10) / 10)
             reponseA1bis = this.sup === 1 ? 0 : arrondi(reponseA1 + 0.1)
           }
-          objetsEnonce.push(troisQuartDeDisque, codageSegments('O', context.isHtml ? 'green' : 'black', A, C, C, B3), afficheLongueurSegment(A, C))
+          objetsEnonce.push(troisQuartDeDisque, codageSegments('O', context.isHtml ? 'green' : 'black', A, C, C, B3), placeLatexSurSegment(`${r}\\text{ cm}`, A, C))
           break
       }
       if (this.sup !== 2) {
         setReponse(this, this.sup === 3 ? 2 * i : i, [reponseL1!, reponseL1bis!])
-        texte = (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, '   ', { texteApres: ' $\\text{cm}$' })
+        texte = 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, '   ', { texteApres: ' $\\text{cm}$' }) + '<br>'
       }
       if (this.sup !== 1) {
         setReponse(this, this.sup === 3 ? 2 * i + 1 : i, [reponseA1!, reponseA1bis!])
-        texte += (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, '   ', { texteApres: ' $\\text{cm}^2$' })
+        texte += 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, '   ', { texteApres: ' $\\text{cm}^2$' })
       }
       if (this.questionJamaisPosee(i, r)) { // Si la question n'a jamais été posée, on en créé une autre
-        const figure = mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objetsEnonce)), objetsEnonce)
+        const figure = mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objetsEnonce, { rymax: 0, rymin: -0.5 })), objetsEnonce)
         this.listeQuestions[i] = figure + texte
         this.listeCorrections[i] = texteCorr
 

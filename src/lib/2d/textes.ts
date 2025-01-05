@@ -713,7 +713,7 @@ export function latexParCoordonneesBox(texte: string, x: number, y: number, colo
   return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }
 
-type LetterSizeType = 'tiny' | 'small' | 'scriptsize' | 'footnotesize' | 'large' | 'Large' | 'LARGE' | 'huge' | 'normalsize'
+export type LetterSizeType = 'tiny' | 'small' | 'scriptsize' | 'footnotesize' | 'large' | 'Large' | 'LARGE' | 'huge' | 'normalsize'
 
 /**
  * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal

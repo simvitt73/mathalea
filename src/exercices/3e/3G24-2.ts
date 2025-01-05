@@ -3,8 +3,8 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 // import { angle, angleOriente, MarqueAngle, MarqueAngleDroit } from '../../lib/2d/angles'
 import { angleOriente, MarqueAngle, markTypeArray } from '../../lib/2d/angles'
-// import { afficheLongueurSegment, texteSurSegment, PlaceLatexSurSegment } from '../../lib/2d/codages'
-import { PlaceLatexSurSegment } from '../../lib/2d/codages'
+// import { afficheLongueurSegment, texteSurSegment, placeLatexSurSegment } from '../../lib/2d/codages'
+import { placeLatexSurSegment } from '../../lib/2d/codages'
 
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -155,10 +155,10 @@ export default class nomExercice extends Exercice {
       longueurAB = arrondi(longueurAB, 1)
       longueurAB = arrondi(longueurAB, 1)
 
-      const codeAB = angleOriente(C, A, B) > 0 ? PlaceLatexSurSegment(`${texNombre(longueurAB, 1)}\\text{ cm}`, A, B) : PlaceLatexSurSegment(`${texNombre(longueurAB, 1)}\\text{ cm}`, B, A) //
-      const codeAC = angleOriente(B, C, A) > 0 ? PlaceLatexSurSegment(`${texNombre(longueurAC, 1)}\\text{ cm}`, C, A) : PlaceLatexSurSegment(`${texNombre(longueurAC, 1)}\\text{ cm}`, A, C) //afficheLongueurSegment(C, A) : afficheLongueurSegment(A, C)
-      const codeBC = angleOriente(A, B, C) > 0 ? PlaceLatexSurSegment(`${texNombre(longueurBC, 1)}\\text{ cm}`, B, C) : PlaceLatexSurSegment(`${texNombre(longueurBC, 1)}\\text{ cm}`, C, B) //afficheLongueurSegment(B, C) : afficheLongueurSegment(C, B)
-      const codeDE = angleOriente(F, D, E) > 0 ? PlaceLatexSurSegment(`${texNombre(longueurDE, 1)}\\text{ cm}`, D, E) : PlaceLatexSurSegment(`${texNombre(longueurDE, 1)}\\text{ cm}`, E, D) //afficheLongueurSegment(D, E) : afficheLongueurSegment(E, D)
+      const codeAB = angleOriente(C, A, B) > 0 ? placeLatexSurSegment(`${texNombre(longueurAB, 1)}\\text{ cm}`, A, B) : placeLatexSurSegment(`${texNombre(longueurAB, 1)}\\text{ cm}`, B, A)
+      const codeAC = angleOriente(B, C, A) > 0 ? placeLatexSurSegment(`${texNombre(longueurAC, 1)}\\text{ cm}`, C, A) : placeLatexSurSegment(`${texNombre(longueurAC, 1)}\\text{ cm}`, A, C)
+      const codeBC = angleOriente(A, B, C) > 0 ? placeLatexSurSegment(`${texNombre(longueurBC, 1)}\\text{ cm}`, B, C) : placeLatexSurSegment(`${texNombre(longueurBC, 1)}\\text{ cm}`, C, B)
+      const codeDE = angleOriente(F, D, E) > 0 ? placeLatexSurSegment(`${texNombre(longueurDE, 1)}\\text{ cm}`, D, E) : placeLatexSurSegment(`${texNombre(longueurDE, 1)}\\text{ cm}`, E, D)
       // shuffleLettres : afin d'avoir l'ordre alphabetique mais pas pour les points homologues
       const nom1 = shuffleLettres(creerNomDePolygone(3, listeDeNomsDePolygones))
       listeDeNomsDePolygones.push(nom1)
