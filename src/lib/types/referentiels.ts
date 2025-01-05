@@ -325,7 +325,7 @@ export const isStaticWithoutPngUrl = (obj: any): obj is ExamItemInReferentiel =>
   Object.keys(obj).includes('typeExercice') &&
   obj.annee !== undefined &&
   obj.lieu !== undefined &&
-  obj.typeExercice === 'sti2d'
+  ( obj.typeExercice === 'sti2d' || obj.typeExercice === 'dnb'|| obj.typeExercice === 'bac')
 
 /**
  * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.
