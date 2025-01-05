@@ -15,7 +15,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -135,7 +135,7 @@ export default class AireDeTriangles extends Exercice {
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${miseEnEvidence(texNombre(
         (cotes[i] * hauteurs[i]) / 2
       ) + '~\\text{cm}^2')}$`
-      handleAnswers(this, i, { reponse: { value: new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), options: { unite: true, precisionUnite: 3 } } })
+      handleAnswers(this, i, { reponse: { value: new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), options: { unite: true, precisionUnite: 3 } } }, { formatInteractif: 'mathlive' })
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire, { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :`, texteApres: sp(6) + 'Il faut penser à indiquer l\'unité à la réponse.' })
       if (context.isAmc) {
         this.autoCorrection[i] = {

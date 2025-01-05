@@ -12,6 +12,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import Grandeur from '../../modules/Grandeur'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
@@ -367,7 +368,7 @@ export default class CalculDeVolumes extends Exercice {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += props.texte
       } else {
-        handleAnswers(this, i, { reponse: { value: new Grandeur(resultat, listeUnites[j][2]), options: { unite: true, precisionUnite: 0 } } })
+        handleAnswers(this, i, { reponse: { value: new Grandeur(resultat, listeUnites[j][2]).toString(), compare: fonctionComparaison, options: { unite: true, precisionUnite: 0 } } }, { formatInteractif: 'mathlive' })
         texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à indiquer l\'unité au volume-réponse : ' })
       }
       if (context.isAmc) {

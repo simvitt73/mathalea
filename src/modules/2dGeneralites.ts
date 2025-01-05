@@ -312,7 +312,7 @@ export function mathalea2d(
     style?: string,
     id?: string
   } = {},
-  objets: (ObjetMathalea2D | ObjetMathalea2D[])[]
+  ...objets: NestedObjetMathalea2dArray
 ) {
   const ajouteCodeHtml = (mainlevee: boolean, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, divsLatex: string[], xmin: number, ymax: number) => {
     let codeSvg = ''
@@ -377,7 +377,7 @@ export function mathalea2d(
     }
     return codeSvg
   }
-  const ajouteCodeTikz = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[] | (ObjetMathalea2D | ObjetMathalea2D[])[]) => {
+  const ajouteCodeTikz = (mainlevee: boolean, objets: ObjetMathalea2D | NestedObjetMathalea2dArray) => {
     let codeTikz = ''
     if (objets instanceof ObjetMathalea2D) {
       if (objets.objets != null) { objets = objets.objets as ObjetMathalea2D[] }

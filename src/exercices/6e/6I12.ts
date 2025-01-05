@@ -25,6 +25,11 @@ import { scratchblock } from '../../modules/scratchblock'
 import { afficheScore } from '../../lib/interactif/afficheScore'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
+
+interface Fig extends HTMLOrSVGElement {
+  etat: boolean
+}
+
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
 export const interactifType = 'custom'
@@ -254,16 +259,17 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       for (let i = 0; i < 5; i++) {
         const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
         if (figSvg) {
+          const fig = figSvg as unknown as Fig
           if (this.interactif) {
             figSvg.addEventListener('mouseover', mouseOverSvgEffect)
             figSvg.addEventListener('mouseout', mouseOutSvgEffect)
             figSvg.addEventListener('click', mouseSvgClick)
-            figSvg.etat = false
+            fig.etat = false
           } else {
             figSvg.removeEventListener('mouseover', mouseOverSvgEffect)
             figSvg.removeEventListener('mouseout', mouseOutSvgEffect)
             figSvg.removeEventListener('click', mouseSvgClick)
-            figSvg.etat = true
+            fig.etat = true
           }
         }
       }
@@ -285,11 +291,12 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     for (let i = 0; i < 5; i++) {
       const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
       if (figure != null) {
+        const fig = figure as unknown as Fig
         figures.push(figure)
         figure.removeEventListener('mouseover', mouseOverSvgEffect)
         figure.removeEventListener('mouseout', mouseOutSvgEffect)
         figure.removeEventListener('click', mouseSvgClick)
-        if (figure.etat) nbFiguresCliquees++
+        if (fig.etat) nbFiguresCliquees++
       }
     }
     if (nbFiguresCliquees > 1) {
@@ -300,7 +307,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       divFeedback.innerHTML = 'Vous devez choisir une figure.'
       divFeedback.style.display = 'block'
     }
-    if (nbFiguresCliquees === 1 && figures[this.indiceBonneFigure].etat) {
+    if (nbFiguresCliquees === 1 && (figures[this.indiceBonneFigure] as unknown as Fig).etat) {
       spanResultat.innerHTML = '😎'
       // nbBonnesReponses++
       return 'OK'
