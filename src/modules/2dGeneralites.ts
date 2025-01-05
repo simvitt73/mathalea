@@ -211,7 +211,7 @@ export class ObjetMathalea2D { // à typer quand on passera à TypeScript
   opacite: number
   id: number
   pointilles: number
-  bordures: [number, number, number, number]
+  bordures?: [number, number, number, number] // Doit rester undefined pour identifier les objets qui ne définissent pas leurs bordures (un notify sera envoyé)
   objets?: (ObjetMathalea2D | Latex2d)[]
   typeObjet?: string
 
@@ -223,7 +223,6 @@ export class ObjetMathalea2D { // à typer quand on passera à TypeScript
     this.opacite = 1
     this.pointilles = 0
     this.id = numId
-    this.bordures = new Array(4).fill(0) as [number, number, number, number]
     numId++
   }
 
@@ -726,7 +725,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  * @return {{xmin: number, ymin:number, xmax:number, ymax:number}}
  */
 export function fixeBordures(
-  objets: (ObjetMathalea2D | ObjetMathalea2D[])[],
+  objets: NestedObjetMathalea2dArray,
   {
     rxmin = -0.5,
     rymin = -0.5,
@@ -763,10 +762,10 @@ export function fixeBordures(
             `Les bordures de ${objets.constructor.name} sont bien un array mais contiennent autre chose que des nombres : ${bordures}`
             , { ...objets })
         } else {
-          xmin = Math.min(xmin, objets.bordures[0])
-          xmax = Math.max(xmax, objets.bordures[2])
-          ymin = Math.min(ymin, objets.bordures[1])
-          ymax = Math.max(ymax, objets.bordures[3])
+          xmin = Math.min(xmin, bordures[0])
+          xmax = Math.max(xmax, bordures[2])
+          ymin = Math.min(ymin, bordures[1])
+          ymax = Math.max(ymax, bordures[3])
           borduresTrouvees = true
         }
       } else {
