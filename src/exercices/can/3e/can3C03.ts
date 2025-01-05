@@ -4,6 +4,7 @@ import {
   obtenirListeFractionsIrreductibles
 } from '../../../lib/outils/deprecatedFractions'
 import Exercice from '../../Exercice'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true
@@ -27,7 +28,7 @@ export default class FractionIrreductibleCan extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
+  this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
@@ -43,5 +44,6 @@ export default class FractionIrreductibleCan extends Exercice {
     this.correction = `$\\dfrac{${a}}{${b}} ${frac.texSimplificationAvecEtapes(false, '#f15929')}$`
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
+    if (this.interactif) {this.question += '<br>'}
   }
 }

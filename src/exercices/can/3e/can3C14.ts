@@ -6,6 +6,7 @@ import Decimal from 'decimal.js'
 import Exercice from '../../Exercice'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { pgcd } from '../../../lib/outils/primalite'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Passer d\'un décimal à une fraction irréductible'
 export const interactifReady = true
@@ -26,11 +27,9 @@ export const refs = {
 export default class DecimalVersFractionIr extends Exercice {
   constructor () {
     super()
-
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 
@@ -75,6 +74,7 @@ export default class DecimalVersFractionIr extends Exercice {
         this.reponse = maFraction.simplifie()
         break
     }
+    if (this.interactif) {this.question += '<br>'}
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }
