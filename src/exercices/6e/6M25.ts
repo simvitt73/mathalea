@@ -15,13 +15,13 @@ export const refs = {
   'fr-ch': ['10GM1-4']
 }
 export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = combinaisonListes(
       [
         'pi',
@@ -90,6 +90,7 @@ export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
           texteCorr += 'Avec $D$ le diamètre et $R$ le rayon de ce cercle.'
           break
         case 'acercle':
+        default:
           texte = "Donner une formule de l'aire d'un disque."
           texteCorr =
             '$\\mathcal{A}_{\\text{disque}}=R\\times R\\times\\pi=\\pi R^2$<br><br>'
@@ -97,7 +98,7 @@ export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

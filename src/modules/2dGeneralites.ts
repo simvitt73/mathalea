@@ -12,6 +12,8 @@ export type ObjetDivLatex = {
   latex: string
   letterSize: string
 }
+export type NestedObjetMathalea2dArray = (ObjetMathalea2D | Latex2d | NestedObjetMathalea2dArray)[];
+
 export const colours = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
@@ -310,9 +312,9 @@ export function mathalea2d(
     style?: string,
     id?: string
   } = {},
-  ...objets: (ObjetMathalea2D | ObjetMathalea2D[])[]
+  objets: (ObjetMathalea2D | ObjetMathalea2D[])[]
 ) {
-  const ajouteCodeHtml = (mainlevee: boolean, objets: ObjetMathalea2D | ObjetMathalea2D[] | (ObjetMathalea2D | ObjetMathalea2D[])[], divsLatex: string[], xmin: number, ymax: number) => {
+  const ajouteCodeHtml = (mainlevee: boolean, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, divsLatex: string[], xmin: number, ymax: number) => {
     let codeSvg = ''
     // Dans le cas d'objets composites avec des objets Mathalea2d et des divLatex, il faut que ces objets exposent une propriété objets qui contient la liste des objets qui les composent.
     // Cette list est substituée à l'objet ici
@@ -724,7 +726,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  * @return {{xmin: number, ymin:number, xmax:number, ymax:number}}
  */
 export function fixeBordures(
-  objets: ObjetMathalea2D | ObjetMathalea2D[],
+  objets: (ObjetMathalea2D | ObjetMathalea2D[])[],
   {
     rxmin = -0.5,
     rymin = -0.5,
@@ -743,15 +745,15 @@ export function fixeBordures(
    * @param bordures
    * @returns {[number,number,number,number,boolean]}
    */
-  const majBordures: (xmin: number, ymin: number, xmax: number, ymax: number, objets: ObjetMathalea2D | ObjetMathalea2D[], borduresTrouvees: boolean) => [number, number, number, number, boolean] =
-    (xmin: number, ymin: number, xmax: number, ymax: number, objets: ObjetMathalea2D | ObjetMathalea2D[], borduresTrouvees: boolean) => {
+  const majBordures: (xmin: number, ymin: number, xmax: number, ymax: number, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, borduresTrouvees: boolean) => [number, number, number, number, boolean] =
+    (xmin: number, ymin: number, xmax: number, ymax: number, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, borduresTrouvees: boolean) => {
       if (objets == null) return [xmin, ymin, xmax, ymax, borduresTrouvees]
       if (!Array.isArray(objets)) {
         const bordures = objets.bordures ?? null
         if (bordures == null) {
           window.notify(
             `Ìl y a un problème avec les bordures de ${objets.constructor.name}... elles ne sont pas définies !`
-            , { ...objets })
+            , { objets })
         } else if (!Array.isArray(bordures)) {
           window.notify(
             `Les bordures de ${objets.constructor.name} ne sont pas un array : ${JSON.stringify(bordures)}`

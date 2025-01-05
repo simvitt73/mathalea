@@ -9,13 +9,13 @@ import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '.
 import { abs, arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -42,7 +42,7 @@ export const refs = {
   'fr-ch': ['9GM1-3']
 }
 export default class AireDeTriangles extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Type de triangles', 4, '1 : Que des triangles sans angle obtus\n2 : Que des triangles avec un angle obtus\n3 : Mélange']
 
@@ -57,7 +57,7 @@ export default class AireDeTriangles extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)
@@ -93,13 +93,13 @@ export default class AireDeTriangles extends Exercice {
         if (listeTypeQuestions[i] === 'extérieur') {
           d = longueur(A, B) + randint(6, 9) / 3
         } else {
-          d = calculANePlusJamaisUtiliser(randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10)
+          d = randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10
         }
         triH = triangle2points1hauteur(A, B, hauteurs[i], d, 2)
         H = triH.pied
         triangle = triH.triangle
         C = triangle.listePoints[2]
-      } while (abs(longueur(H, C) - longueur(B, C)) < 0.2 || abs(longueur(H, C) - longueur(A, C)) < 0.2) // EE : Pour éviter que la hauteur ait la même longueur arrondie que les segments issus du même sommet que celui de la hauteur.
+      } while (Math.abs(longueur(H, C) - longueur(B, C)) < 0.2 || Math.abs(longueur(H, C) - longueur(A, C)) < 0.2) // EE : Pour éviter que la hauteur ait la même longueur arrondie que les segments issus du même sommet que celui de la hauteur.
       H.nom = nom[(i * 4 + 3) % NB_LETTRES]
       C.nom = nom[(i * 4 + 2) % NB_LETTRES]
       polynom = polygoneAvecNom(A, H, B, C)
@@ -133,9 +133,9 @@ export default class AireDeTriangles extends Exercice {
         }, objetsCorrection) + '<br>'
       } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${miseEnEvidence(texNombre(
-                calculANePlusJamaisUtiliser((cotes[i] * hauteurs[i]) / 2)
-            ) + '~\\text{cm}^2')}$`
-      setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
+        (cotes[i] * hauteurs[i]) / 2
+      ) + '~\\text{cm}^2')}$`
+      handleAnswers(this, i, { reponse: { value: new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), options: { unite: true, precisionUnite: 3 } } })
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire, { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :`, texteApres: sp(6) + 'Il faut penser à indiquer l\'unité à la réponse.' })
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -146,6 +146,7 @@ export default class AireDeTriangles extends Exercice {
             }
           ],
           reponse: {
+            //@ts-expect-error
             valeur: [arrondi(cotes[i] * hauteurs[i] / 2)], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
             param: {
               signe: false,

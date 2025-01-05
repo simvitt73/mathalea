@@ -10,7 +10,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer le volume de solides donnés'
@@ -31,7 +31,8 @@ export const refs = {
   'fr-ch': ['9GM3-2']
 }
 export default class CalculDeVolumes extends Exercice {
-  constructor () {
+  classe: number
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -51,7 +52,7 @@ export default class CalculDeVolumes extends Exercice {
     this.sup4 = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let thissup4Max
 
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
@@ -62,16 +63,17 @@ export default class CalculDeVolumes extends Exercice {
     }
 
     switch (this.classe) {
-      case 6 :
+      case 6:
         thissup4Max = 2
         break
-      case 5 :
+      case 5:
         thissup4Max = 4
         break
-      case 4 :
+      case 4:
         thissup4Max = 6
         break
-      case 3 :
+      case 3:
+      default:
         thissup4Max = 7
         break
     }
@@ -128,8 +130,8 @@ export default class CalculDeVolumes extends Exercice {
             j = randint(0, 3) // pour le choix de l'unité
 
             l = partieDecimale1.plus(randint(2, 8))
-            h = partieDecimale2.plus(randint(3, 10, parseInt(l.toNumber())))
-            L = partieDecimale3.plus(randint(4, 10, parseInt(l.toNumber())))
+            h = partieDecimale2.plus(randint(3, 10, Math.round(l.toNumber())))
+            L = partieDecimale3.plus(randint(4, 10, Math.round(l.toNumber())))
             volume = l.mul(L).mul(h)
 
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
@@ -151,7 +153,7 @@ export default class CalculDeVolumes extends Exercice {
             volume = l.mul(L).mul(h)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de profondeur, de $${texNombre(L, 1)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j - 1][0]}\\times${texNombre(h, 0)}${listeUnites[j + 1][0]}=${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L * 10)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
+            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j - 1][0]}\\times${texNombre(h, 0)}${listeUnites[j + 1][0]}=${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L.toNumber() * 10)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
             texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
             resultat = volume
             resultat2 = l.plus(L).plus(h).mul(6)
@@ -178,17 +180,17 @@ export default class CalculDeVolumes extends Exercice {
 
             diametre = true
             if (diametre) {
-              texte += `d'un cylindre de $${2 * r}${listeUnites[j][0]}$ de diamètre et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
+              texte += `d'un cylindre de $${2 * r.toNumber()}${listeUnites[j][0]}$ de diamètre et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
             } else {
               texte += `d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
             }
             if (piApprox) {
-              texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
+              texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r.toNumber()}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
               texteCorr += `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(
                 r.pow(2).mul(h), 0)}\\pi${listeUnites[j][1]}\\approx ${texNombre(
                   r.pow(2).mul(h), 0)}\\times 3${listeUnites[j][1]} \\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
             } else {
-              texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
+              texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r.toNumber()}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
               texteCorr += `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(
                 r.pow(2).mul(h), 0)}\\pi${listeUnites[j][1]}\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
             }
@@ -232,7 +234,7 @@ export default class CalculDeVolumes extends Exercice {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += ` d'un prisme droit de hauteur $${texNombre(l, 1)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombre(l, 1)}${listeUnites[j - 1][0]}=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)
-                        }${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
+              }${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
           }
           texteCorr += `${miseEnEvidence(`${texNombre(volume, 2)}${listeUnites[j][1]}`)}$`
           resultat = volume
@@ -269,7 +271,7 @@ export default class CalculDeVolumes extends Exercice {
             } else {
               texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
               texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texFractionFromString(
-                            r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+                r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
             }
           } else {
             j = randint(2, 3) // pour le choix de l'unité
@@ -325,6 +327,7 @@ export default class CalculDeVolumes extends Exercice {
           resultat4 = volume.div(2).round()
           break
         case 7: // boule
+        default:
           j = randint(0, 3) // pour le choix de l'unité
           r = randint(2, 10)
           volume = new Decimal(r).pow(3).mul(4).mul(Decimal.acos(-1)).div(3)
@@ -340,19 +343,19 @@ export default class CalculDeVolumes extends Exercice {
       }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
-        texte: `$${texNombre(resultat)} ${listeUnites[j][1]}$`,
+        texte: `$${texNombre(Number(resultat))} ${listeUnites[j][1]}$`,
         statut: true
       },
       {
-        texte: `$${texNombre(resultat2)} ${listeUnites[j][1]}$`,
+        texte: `$${texNombre(Number(resultat2))} ${listeUnites[j][1]}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat3)} ${listeUnites[j][1]}$`,
+        texte: `$${texNombre(Number(resultat3))} ${listeUnites[j][1]}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat4)} ${listeUnites[j][1]}$`,
+        texte: `$${texNombre(Number(resultat4))} ${listeUnites[j][1]}$`,
         statut: false
       }
       ]
@@ -364,7 +367,7 @@ export default class CalculDeVolumes extends Exercice {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += props.texte
       } else {
-        setReponse(this, i, new Grandeur(resultat, listeUnites[j][2]), { formatInteractif: 'unites', precision: 0 })
+        handleAnswers(this, i, { reponse: { value: new Grandeur(resultat, listeUnites[j][2]), options: { unite: true, precisionUnite: 0 } } })
         texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à indiquer l\'unité au volume-réponse : ' })
       }
       if (context.isAmc) {
@@ -375,6 +378,7 @@ export default class CalculDeVolumes extends Exercice {
             propositions: [
               {
                 type: 'qcmMono',
+                //@ts-expect-error
                 enonce: texte,
                 propositions: [
                   {
@@ -407,12 +411,14 @@ export default class CalculDeVolumes extends Exercice {
             options: {
               multicols: true,
               barreseparation: false,
+              //@ts-expect-error
               multicolsAll: false,
               numerotationEnonce: true
             },
             propositions: [
               {
                 type: 'AMCOpen',
+                //@ts-expect-error
                 propositions: [{
                   texte: texteCorr,
                   numQuestionVisible: false,
@@ -423,6 +429,7 @@ export default class CalculDeVolumes extends Exercice {
               },
               {
                 type: 'AMCNum',
+                //@ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

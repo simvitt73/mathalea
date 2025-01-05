@@ -1,9 +1,9 @@
 import { arc } from '../../lib/2d/cercle'
 import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
-import { milieu, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
+import { milieu, Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { longueur, segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, projectionOrtho, rotation, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -14,7 +14,8 @@ import { listeQuestionsToContenu, randint, entreDeux, gestionnaireFormulaireText
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
-import { afficherTempo, cacherTempo } from '../../modules/2dAnimation'
+import { afficherTempo, cacherTempo, translationPuisRotationAnimees } from '../../modules/2dAnimation'
+import { A } from '@svgdotjs/svg.js'
 export const dateDePublication = '08/06/2022'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
@@ -24,65 +25,6 @@ export const interactifType = 'qcm'
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
  * @author Eric Elter
  */
-class TranslationPuisRotationAnimee extends ObjetMathalea2D {
-  constructor (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-    super()
-    this.figure1 = figure1
-    this.v = v
-    this.figure2 = figure2
-    this.O = O
-    this.angle = angle
-    this.t1 = t1
-    this.t2 = t2
-    this.numId = numId
-  }
-
-  svg (coeff) {
-    afficherTempo(this.figure2, this.t1, this.t1 + this.t2, 1)
-    let code = '<g> '
-    // Translation de figure1 de vecteur v
-    if (Array.isArray(this.figure1)) { // Si la figure1 est constituée d'une liste d'éléments
-      for (const objet of this.figure1) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else { // Si la figure1 n'est constituée que d'un élément
-      code += '\n' + this.figure1.svg(coeff)
-    }
-    code += `<animateTransform
-    attributeNamethis."transform"
-    attributeType="XML"
-    type="translate"
-    from="0 0"
-    to="${arrondi(this.v.xSVG(coeff), 0)} ${arrondi(this.v.ySVG(coeff), 0)}"
-    begin="0s" dur="${this.t1}s" fill="freeze"  repeatCount="1" id="translat${this.numId}"
-    /></path></g>`
-
-    cacherTempo(this.figure1, this.t1, 0, 1)
-
-    // Rotation de figure2 de centre O et de angle angle
-    code += '<g>'
-    if (Array.isArray(this.figure2)) { // Si la figure2 est constituée d'une liste d'éléments
-      for (const objet of this.figure2) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else { // Si la figure2 n'est constituée que d'un élément
-      code += '\n' + this.figure2.svg(coeff)
-    }
-    code += `<animateTransform
-  attributeName="transform"
-  type="rotate"
-  from="0 ${this.O.xSVG(coeff)} ${this.O.ySVG(coeff)}"
-  to="${-this.angle} ${this.O.xSVG(coeff)} ${this.O.ySVG(coeff)}"
-  begin="translat${this.numId}.end" dur="${this.t2}s" fill="freeze" repeatCount="1" id="rotat-${this.numId}"
-  /></path>`
-
-    code += '</g>'
-    return code
-  }
-}
-function translationPuisRotationAnimees (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-  return new TranslationPuisRotationAnimee(numId, figure1, v, figure2, O, angle, t1, t2)
-}
 
 export const uuid = '95313'
 
@@ -91,10 +33,10 @@ export const refs = {
   'fr-ch': ['9GM1-10']
 }
 export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = ['Type de figures',
-  `Nombres séparés par des tirets :
+      `Nombres séparés par des tirets :
   1 : Polygone inscrit dans un rectangle
   2 : Rectangle inscrit dans un polygone
   3 : Rectangle avec deux demi-disques alternés qui s'emboitent
@@ -116,7 +58,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13
@@ -149,11 +91,12 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
 
     let compteurInteractif = 0
     for (let q = 0, cpt = 0, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T,
-      rayonOuCote, pt1, pt2, figAire1, figAire2, figAireCorr, figAireCorr2, figAire2Corr, choixFig, choixFig2, choixFigAire2, angleCorr,
+      rayonOuCote, pt1, pt2, figAire1, figAire2, figAireCorr, figAireCorr2, figAire2Corr, choixFig, choixFig2, angleCorr,
       aleaAngle, aleaLongueur, aleaRayon, aleaDemiDisque, aleaPente, aleaRapportHomothetie, d1, d2, d3, d4, poly, rect,
       objets, texte, texteCorr, paramsEnonce, monQcmPerimetre, monQcmAire, hauteur,
       reponsePerimetre1, reponsePerimetre2, reponsePerimetre3, reponseAire1, reponseAire2, reponseAire3;
       q < this.nbQuestions && cpt < 50;) {
+      let choixFigAire2: [Point, Point][] | [Point, Point, number][] = []
       objets = []
       A = point(0, 0)
       B = point(randint(5, 10), 0)
@@ -172,7 +115,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       if (this.sup2 === 4) aireOuPerimetre = choice(['Aire', 'Perimetre'])
 
       switch (typesDeProblemes[q]) {
-        case 1 : // Polygone inscrit dans rectangle
+        case 1: // Polygone inscrit dans rectangle
           E = A
           G = point(entreDeux((A.x + B.x) / 2, B.x), A.y)
           F = point(entreDeux(E.x, G.x), entreDeux(A.y, A.y + (D.y + A.y) / 2))
@@ -252,7 +195,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -278,6 +221,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote
@@ -317,7 +261,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
             objets.push(poly, figAire1, figAire2, N, codageSegment(M, pt1, '|||'), P, codageSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
-            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(String(q), figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -345,7 +289,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           aleaDemiDisque = choice([true, false])
           aleaRayon = randint(2, 3)
@@ -374,6 +318,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote
@@ -407,7 +352,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
             objets.push(poly, figAire1, figAire2, rect)
-            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(String(q), figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -436,7 +381,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -462,6 +407,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote
@@ -512,7 +458,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -538,6 +484,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote
@@ -604,10 +551,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           d2 = droiteParPointEtPente(B, -(aleaPente - randint(50, 90) / 100))
           d3 = droiteParPointEtPente(C, -(aleaPente + randint(10, 50) / 100))
           d4 = droiteParPointEtPente(D, -(aleaPente - randint(50, 90) / 100))
-          E = pointIntersectionDD(d1, d2)
-          F = pointIntersectionDD(d2, d3)
-          G = pointIntersectionDD(d3, d4)
-          H = pointIntersectionDD(d4, d1)
+          E = pointIntersectionDD(d1, d2) as Point
+          F = pointIntersectionDD(d2, d3) as Point
+          G = pointIntersectionDD(d3, d4) as Point
+          H = pointIntersectionDD(d4, d1) as Point
           poly = polygone(E, F, G, H)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
@@ -637,7 +584,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -664,6 +611,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
@@ -673,7 +621,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
           R = rotation(Q, pt2, -aleaAngle)
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = 'none'
+          figAire1.color = colorToLatexOrHTML('none')
           figAire1.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
@@ -688,7 +636,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           S = pointSurSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], rayonOuCote + aleaLongueur)
           T = rotation(S, choixFigAire2[choixFig2][1], -aleaAngle)
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
-          figAire2.color = 'none'
+          figAire2.color = colorToLatexOrHTML('none')
           figAire2.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire2.opaciteDeRemplissage = 1.1
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
@@ -702,7 +650,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           objets = []
           if ((this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre')) {
             figAire1 = polygone(pt2, pt1, R)
-            figAire1.color = 'none'
+            figAire1.color = colorToLatexOrHTML('none')
             figAire1.couleurDeRemplissage = colorToLatexOrHTML('white')
             figAire1.opaciteDeRemplissage = 1.1
             figAireCorr = polygone(pt2, pt1, R)
@@ -715,7 +663,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
             objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codageSegment(choixFigAire2[choixFig2][1], T, '|||'), codageSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codageSegment(choixFigAire2[choixFig2][0], T, 'XX'))
-            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(String(q), figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -743,7 +691,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -770,6 +718,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
@@ -779,7 +728,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
           R = rotation(Q, pt2, -aleaAngle)
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = 'none'
+          figAire1.color = colorToLatexOrHTML('none')
           figAire1.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
@@ -797,7 +746,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
           aleaRapportHomothetie = choice([0.7, 0.8, arrondi(min(1.2, choixFigAire2[choixFig2][2] - 0.01)), min(1.3, arrondi(choixFigAire2[choixFig2][2] - 0.01))])
           figAire2 = homothetie(figAire2, choixFigAire2[choixFig2][0], aleaRapportHomothetie)
-          figAire2.color = 'none'
+          figAire2.color = colorToLatexOrHTML('none')
           figAire2.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire2.opaciteDeRemplissage = 1.1
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), rect)
@@ -813,7 +762,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           if ((this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre')) {
             objets = []
             figAire1 = polygone(pt2, pt1, R)
-            figAire1.color = 'none'
+            figAire1.color = colorToLatexOrHTML('none')
             figAire1.couleurDeRemplissage = colorToLatexOrHTML('white')
             figAire1.opaciteDeRemplissage = 1.1
             figAireCorr = polygone(pt2, pt1, R)
@@ -827,7 +776,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), rect)
             objets.push(homothetie(segment(choixFigAire2[choixFig2][0], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie), homothetie(segment(choixFigAire2[choixFig2][1], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie))
-            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(String(q), figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -856,7 +805,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -883,6 +832,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
@@ -897,14 +847,14 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               paramsEnonce.xmin = -0.5 + min(A.x, R.x)
               paramsEnonce.xmax = 0.5 + max(B.x, R.x)
               break
-            case 1 :
-            case 3 :
+            case 1:
+            case 3:
               paramsEnonce.ymin = -0.5 + min(A.y, R.y)
               paramsEnonce.ymax = 0.5 + max(D.y, R.y)
               break
           }
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = 'none'
+          figAire1.color = colorToLatexOrHTML('none')
           figAire1.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
@@ -917,29 +867,29 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           S = pointSurSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], rayonOuCote + aleaLongueur)
           T = rotation(S, choixFigAire2[choixFig2][1], aleaAngle)
           switch (choixFig2) {
-            case 0 :
+            case 0:
               paramsEnonce.xmin = -0.5 + min(A.x, T.x, R.x)
               paramsEnonce.xmax = 0.5 + max(B.x, T.x, R.x)
               paramsEnonce.ymin = -0.5 - rayonOuCote - aleaLongueur
               break
-            case 1 :
+            case 1:
               paramsEnonce.ymin = -0.5 + min(A.y, T.y, R.y)
               paramsEnonce.ymax = 0.5 + max(D.y, T.y, R.y)
               paramsEnonce.xmax = rayonOuCote + aleaLongueur + B.x + 0.5
               break
-            case 2 :
+            case 2:
               paramsEnonce.xmin = -0.5 + min(A.x, T.x, R.x)
               paramsEnonce.xmax = 0.5 + max(B.x, T.x, R.x)
               paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
               break
-            case 3 :
+            case 3:
               paramsEnonce.ymin = -0.5 + min(A.y, T.y, R.y)
               paramsEnonce.ymax = 0.5 + max(D.y, T.y, R.y)
               paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
               break
           }
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
-          figAire2.color = 'none'
+          figAire2.color = colorToLatexOrHTML('none')
           figAire2.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire2.opaciteDeRemplissage = 0.5
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
@@ -968,7 +918,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly = polygone(A, B, C, D)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 1.1
-          poly.color = 'none'
+          poly.color = colorToLatexOrHTML('none')
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -992,6 +942,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               pt2 = I
               break
             case 3:
+            default:
               pt1 = P
               pt2 = K
               break
@@ -1004,7 +955,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             R = rotation(Q, pt2, aleaAngle)
           }
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = 'none'
+          figAire1.color = colorToLatexOrHTML('none')
           figAire1.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire1.opaciteDeRemplissage = 1.1
           choixFig2 = randint(0, 3, [choixFig])
@@ -1024,7 +975,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             T = homothetie(R, S, -1)
           }
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
-          figAire2.color = 'none'
+          figAire2.color = colorToLatexOrHTML('none')
           figAire2.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire2.opaciteDeRemplissage = 1.1
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
@@ -1099,19 +1050,19 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       if (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') {
         texte += 'Entre le rectangle hachuré et la figure coloriée, lequel a le plus grand périmètre ?'
         if (this.interactif) {
-          texte += monQcmPerimetre.texte
+          texte += monQcmPerimetre!.texte
         }
       }
       if (this.sup2 === 3) texte += '<br>' + numAlpha(1)
       if (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') {
         texte += 'Entre le rectangle hachuré et la figure coloriée, lequel a la plus grande aire ?'
         if (this.interactif) {
-          texte += monQcmAire.texte
+          texte += monQcmAire!.texte
         }
       }
       if (this.questionJamaisPosee(q, A.x, A.y, B.x, B.y, C.x, C.y, D.x, D.y)) {
-        this.listeQuestions[q] = texte
-        this.listeCorrections[q] = texteCorr
+        this.listeQuestions[q] = texte ?? ''
+        this.listeCorrections[q] = texteCorr ?? ''
 
         q++
       }

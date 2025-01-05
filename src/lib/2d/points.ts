@@ -619,20 +619,22 @@ export function pointIntersectionDD(d: Droite, f: Droite, nom = '', positionLabe
  * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
-export function pointAdistance(A: Point, d: number = 1, angle?: number, nom = '', positionLabel = 'above'): Point {
-  // const angle = randint(1, 360)
-  const B = point(A.x + 1, A.y)
-  if (angle === undefined) {
-    angle = randint(1, 360)
-    return similitude(B, A, angle, d, nom, positionLabel)
+export function pointAdistance(A: Point, d: number = 1, angle = 0, nom = '', positionLabel = 'above'): Point {
+  let leNom = ''
+  let lAngle = 0
+  let lePositionLabel = 'above'
+  if (typeof angle === 'string') {
+    lAngle = randint(0, 360)
+    leNom = angle
+    if (nom != null) lePositionLabel = nom
   } else {
-    if (typeof angle === 'number') {
-      return similitude(B, A, angle, d, nom, positionLabel)
-    } else {
-      angle = randint(1, 360)
-      return similitude(B, A, angle, d, nom, positionLabel)
-    }
+    lAngle = angle ?? randint(0, 360)
+    if (nom != null) leNom = nom
+    if (positionLabel != null) lePositionLabel = positionLabel
   }
+
+  const B = point(A.x + 1, A.y)
+  return similitude(B, A, lAngle, d, leNom, lePositionLabel)
 }
 
 /**

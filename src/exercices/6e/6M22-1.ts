@@ -42,7 +42,7 @@ export const refs = {
  * @module
  */
 export default class PerimetreAireDisques extends Exercice {
-  constructor (pa = 3) {
+  constructor(pa = 3) {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
     this.besoinFormulaire2CaseACocher = ['Rayon et diamètre entiers', true]
@@ -58,7 +58,7 @@ export default class PerimetreAireDisques extends Exercice {
     this.nbQuestions = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2, reponseL2bis, reponseA2bis; i < this.nbQuestions && cpt < 50;) {
       const choixValeurApprochee = (this.sup3 === 1 || this.sup3 === 4) ? true : this.sup3 === 2 ? false : choice([true, false])
       const choixValeurExacte = (this.sup3 === 2 || this.sup3 === 4) ? true : this.sup3 === 1 ? false : !choixValeurApprochee
@@ -97,7 +97,7 @@ export default class PerimetreAireDisques extends Exercice {
       reponseA2bis = this.sup === 1 ? 0 : arrondi(reponseA2 + 0.1)
 
       switch (this.sup3) {
-        case 1 :
+        case 1:
           this.consigne += '<br> On donnera une valeur approchée au dixième près '
           if (this.sup === 1) {
             this.consigne += 'de $\\text{cm}$.'
@@ -107,10 +107,10 @@ export default class PerimetreAireDisques extends Exercice {
             this.consigne += 'des unités respectives ci-dessus.'
           }
           break
-        case 2 :
+        case 2:
           this.consigne += '<br> On donnera la valeur exacte.'
           break
-        case 3 :
+        case 3:
           this.consigne += '<br> On donnera la valeur exacte ou une valeur approchée au dixième près '
           if (this.sup === 1) {
             this.consigne += 'de $\\text{cm}$.'
@@ -120,7 +120,8 @@ export default class PerimetreAireDisques extends Exercice {
             this.consigne += 'des unités respectives ci-dessus.'
           }
           break
-        case 4 :
+        case 4:
+        default:
           this.consigne += '<br> On donnera la valeur exacte puis une valeur approchée au dixième près '
           if (this.sup === 1) {
             this.consigne += 'de $\\text{cm}$.'
@@ -135,9 +136,9 @@ export default class PerimetreAireDisques extends Exercice {
       texteCorr = this.sup === 2
         ? ''
         : `$\\mathcal{P}_1=${i % 2 === 0 ? '2\\times' + texNombre(r) : texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
-                }\\pi\\approx${texNombre(
-                    arrondi(2 * r * Math.PI, 2)
-                )}${sp()}\\text{cm}$<br>`
+        }\\pi\\approx${texNombre(
+          arrondi(2 * r * Math.PI, 2)
+        )}${sp()}\\text{cm}$<br>`
       texteCorr += this.sup === 2
         ? ''
         : (this.sup3 !== 1 ? `La valeur exacte du périmètre de ce disque est $${miseEnEvidence(`${texNombre(2 * r)}\\pi`)}${sp()}\\text{cm}$.<br>` : '') +
@@ -145,15 +146,15 @@ export default class PerimetreAireDisques extends Exercice {
       texteCorr += this.sup === 1
         ? ''
         : ((this.sup === 3 ? '<br>' : '') + `$\\mathcal{A}_1=${i % 2 === 0 ? texNombre(r) + '\\times' + texNombre(r) : '\\dfrac{' + texNombre(2 * r) + '}{2}\\times \\dfrac{' + texNombre(2 * r) + '}{2}'}\\times \\pi=${texNombre(r * r)
-                }\\pi\\approx${texNombre(
-                    arrondi(r * r * Math.PI, 2)
-                )}${sp()}\\text{cm}^2$<br>`)
+          }\\pi\\approx${texNombre(
+            arrondi(r * r * Math.PI, 2)
+          )}${sp()}\\text{cm}^2$<br>`)
       texteCorr += this.sup === 1
         ? ''
         : (this.sup3 !== 1 ? `La valeur exacte de l'aire de ce disque est $${miseEnEvidence(`${texNombre(r * r)}\\pi`)}${sp()}\\text{cm}^2$.<br>` : '') +
         (this.sup3 !== 2 ? `Les valeurs approchées au dixième de $\\text{cm}^2$ de l'aire de ce disque sont $${miseEnEvidence(texNombre(reponseA2))}${sp()}\\text{cm}^2$ et $${miseEnEvidence(texNombre(reponseA2bis))}${sp()}\\text{cm}^2$.<br>` : '')
 
-      if (this.questionJamaisPosee(i, r, type)) {
+      if (this.questionJamaisPosee(i, r, this.sup, this.sup2, this.sup3, this.sup4)) {
         if (this.sup === 1) {
           if (context.isHtml && this.interactif) {
             if (choixValeurExacte) {
@@ -167,10 +168,12 @@ export default class PerimetreAireDisques extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: '',
+              // @ts-expect-error
               options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -188,6 +191,7 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -220,10 +224,12 @@ export default class PerimetreAireDisques extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: '',
+              // @ts-expect-error
               options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -241,6 +247,7 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -281,10 +288,12 @@ export default class PerimetreAireDisques extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: '',
+              // @ts-expect-error
               options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -302,6 +311,7 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -320,6 +330,7 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -337,6 +348,7 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
 
                   propositions: [
                     {

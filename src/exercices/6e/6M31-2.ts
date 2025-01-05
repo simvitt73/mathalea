@@ -38,7 +38,7 @@ export const refs = {
   'fr-ch': ['10GM3-6']
 }
 export default class UnitesDeVolumesEtDeCapacite extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -56,7 +56,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
     this.nbQuestions = 8
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
 
     Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
@@ -69,14 +69,12 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
         ['dam3toL', 'm3toL', 'dm3toL', 'cm3toL'],
         this.nbQuestions
       )
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       listeTypeDeQuestions = combinaisonListes(
         ['Ltodm3', 'Ltocm3', 'Ltom3'],
         this.nbQuestions
       )
-    }
-    if (this.sup === 3) {
+    } else {
       listeTypeDeQuestions = combinaisonListes(
         [
           'dam3toL',
@@ -114,6 +112,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             n = new Decimal(randint(1, 9)).div(10).add(randint(1, 9) * 10)
             break
           case 4:
+          default:
             n = new Decimal(randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90])).div(100)
             break
         }
@@ -135,6 +134,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             n = new Decimal(randint(11, 99) * 100)
             break
           case 6:
+          default:
             n = new Decimal(randint(1, 9) * 1000)
             break
         }
@@ -142,15 +142,15 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 'dam3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=\\dotfill${sp()}\\text{L}$`
-          bonusDecimalesAMC = n < 1000 ? randint(0, 1) : 0 // Sinon, cela fait trop de digits
+          bonusDecimalesAMC = n.toNumber() < 1000 ? randint(0, 1) : 0 // Sinon, cela fait trop de digits
           resultat = n.mul(1000000)
           setReponse(this, i, resultat, {
-            digits: min(nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, 10),
-            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            digits: min(nombreDeChiffresDe(resultat.toNumber()) + randint(0, 1) + bonusDecimalesAMC, 10),
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat.toNumber()) + bonusDecimalesAMC,
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=${texNombre(n, 3)}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dam', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'dam', resultat.toNumber(), 'dm', 2, true)
 
           break
         case 'm3toL':
@@ -163,7 +163,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{m}^3=${texNombre(n, 3)}\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'm', resultat.toNumber(), 'dm', 2, true)
           break
         case 'dm3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=\\dotfill${sp()}\\text{L}$`
@@ -175,7 +175,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(resultat, 3)}${sp()}\\text{L}$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'dm', resultat.toNumber(), 'dm', 2, true)
           break
         case 'cm3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=\\dotfill${sp()}\\text{L}$`
@@ -187,7 +187,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=${texNombre(n, 3)}\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 6)}${sp()}\\text{L}$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'cm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'cm', resultat.toNumber(), 'dm', 2, true)
           break
         case 'mm3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=\\dotfill${sp()}\\text{L}$`
@@ -199,7 +199,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=${texNombre(n, 3)}\\div1${sp()}000\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 9)}${sp()}\\text{L}$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'mm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'mm', resultat.toNumber(), 'dm', 2, true)
           break
         case 'Ltodm3':
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{dm}^3$`
@@ -211,7 +211,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(resultat, 3)}${sp()}\\text{dm}^3$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'dm', resultat.toNumber(), 'dm', 2, true)
           break
         case 'Ltocm3':
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{cm}^3$`
@@ -222,10 +222,11 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
             signe: false
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombre(n * 1000)}${sp()}\\text{cm}^3$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'cm', 2, true, true)
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombre(n.mul(1000))}${sp()}\\text{cm}^3$`
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'dm', resultat.toNumber(), 'cm', 2, true)
           break
         case 'Ltom3':
+        default:
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{m}^3$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000)
@@ -235,7 +236,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
             signe: false
           })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(n, 3)}\\div1${sp()}000${sp()}\\text{m}^3=${texNombre(resultat, 6)}${sp()}\\text{m}^3$`
-          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n.toNumber(), 'dm', resultat.toNumber(), 'm', 2, true)
           break
       }
 
@@ -272,16 +273,16 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
         // texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, '', {
         texte = texte.split('\\dotfill')[0] + `$${ajouteChampTexteMathLive(this, i, '', {
 
-                    texteApres: uniteFinale
-                })}`
+          texteApres: uniteFinale
+        })}`
         setReponse(this, i, resultat)
       }
 
       if ((this.sup3 === 1 || this.sup3 === 3) && i === this.nbQuestions - 1) {
-        texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(8, this.nbQuestions), true, false)
+        texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(8, this.nbQuestions), true)
       }
 
-      if (this.questionJamaisPosee(i, uniteFinale, resultat)) {
+      if (this.questionJamaisPosee(i, uniteFinale ?? 'm', resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
@@ -302,8 +303,8 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
   }
 }
 
-function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
-  const tabRep = function (nbre, uniteNbre) {
+function buildTab(a: number, uniteA: string, r: number, uniteR: string, ligne = 2, correction = false) {
+  const tabRep = function (nbre: number, uniteNbre: string): string[] {
     const res = []
     let caseARemplir
     // for (let ee = 0; ee < 21; ee++) res.push('\\hspace*{0.4cm}')
@@ -311,31 +312,31 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
     switch (uniteNbre.replaceAll(' ', '')) {
       case 'dam':
         for (let i = 0; i < 21; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 5 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 5 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 5 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 5 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(String(nbre), 10 ** (5 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(String(nbre), 10 ** (5 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(String(nbre), 10 ** (5 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(String(nbre), 10 ** (5 - i)))
           res[i] = (5 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (5 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'm':
         for (let i = 0; i < 21; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(String(nbre), 10 ** (8 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(String(nbre), 10 ** (8 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(String(nbre), 10 ** (8 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(String(nbre), 10 ** (8 - i)))
           res[i] = (8 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (8 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'dm':
         for (let i = 0; i < 21; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(String(nbre), 10 ** (11 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(String(nbre), 10 ** (11 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(String(nbre), 10 ** (11 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(String(nbre), 10 ** (11 - i)))
           res[i] = (11 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (11 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'cm':
         for (let i = 0; i < 21; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(String(nbre), 10 ** (14 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(String(nbre), 10 ** (14 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(String(nbre), 10 ** (14 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(String(nbre), 10 ** (14 - i)))
           res[i] = (14 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (14 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'mm':
         for (let i = 0; i < 21; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(String(nbre), 10 ** (17 - i)) !== '' ? '\\hspace*{0.2cm}' + getDigitFromNumber(String(nbre), 10 ** (17 - i)) + '\\hspace*{0.2cm}' : '\\hspace*{0.6cm}') : (getDigitFromNumber(String(nbre), 10 ** (17 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(String(nbre), 10 ** (17 - i)))
           res[i] = (17 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (17 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
@@ -343,7 +344,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
     return res
   }
 
-  const createTab = function (aT, rT, first, end, ligne, correction = false) {
+  const createTab = function (aT: string[], rT: string[], first: number, end: number, ligne: number, correction = false) {
     let texte = '$\\def\\arraystretch{1.5}\\begin{array}{|'
     for (let i = first; i <= end; i++) {
       texte += 'c|'

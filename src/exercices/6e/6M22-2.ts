@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': ['10GM1-3']
 }
 export default class Perimetre_aire_et_portions_de_disques extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
     this.besoinFormulaire2Texte = ['Type de figures', '1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
@@ -47,21 +47,21 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       max: 3,
       melange: 4,
       defaut: 4,
       nbQuestions: this.nbQuestions
-    })
+    }).map(Number)
     if (this.sup === 1) {
       this.consigne = 'Calculer le périmètre de'
     } else if (this.sup === 2) {
       this.consigne = "Calculer l'aire de"
     } else {
       this.consigne =
-      "Calculer le périmètre et l'aire de"
+        "Calculer le périmètre et l'aire de"
     }
     this.consigne += this.nbQuestions === 1 ? ' la figure suivante.' : ' chacune des figures suivantes.'
 
@@ -81,7 +81,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
       const troisQuartDeDisque = arc(A, C, 270, true, 'white', 'black', 0.2)
       let reponseL1, reponseA1, reponseL1bis, reponseA1bis
       switch (listeTypeQuestions[i]) {
-        case 1 :
+        case 1:
           if (this.sup !== 2) {
             // si on ne demande pas les aires
             texteCorr = `La figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
@@ -106,13 +106,13 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
             codageSegments('//', context.isHtml ? 'blue' : 'black', A, C, C, B1),
             afficheLongueurSegment(A, C))
           break
-        case 2 :
+        case 2:
           if (this.sup !== 2) {
             // si on ne demande pas les aires
             texteCorr = `La figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r
-                } cm et d'un diamètre qui ferme la figure.<br>`
+              } cm et d'un diamètre qui ferme la figure.<br>`
             texteCorr += `$\\mathcal{P}_2=\\dfrac{1}{2}\\times${2 * r
-                }\\times\\pi+${2 * r}=
+              }\\times\\pi+${2 * r}=
                 ${miseEnEvidence(`${r}\\pi+${2 * r}`)}\\text{ cm}
                 \\approx
                 ${miseEnEvidence(`${texNombre(r * Math.PI + 2 * r, 1)}`)}\\text{ cm}$<br>`
@@ -122,7 +122,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
 
           if (this.sup !== 1) {
             texteCorr += `La figure est la moitié d'un disque de diamètre ${2 * r
-                  } cm donc de ${r} cm de rayon.<br>`
+              } cm donc de ${r} cm de rayon.<br>`
             texteCorr += `$\\mathcal{A}_2=\\dfrac{1}{2}\\times${r}\\times${r}\\times\\pi=
                 ${miseEnEvidence(`${texNombre(r * r / 2, 2)}\\pi`)}\\text{ cm}^2
                 \\approx
@@ -132,7 +132,8 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
           }
           objetsEnonce.push(demiDisque, afficheLongueurSegment(A, B2))
           break
-        case 3 :
+        case 3:
+        default:
           if (this.sup !== 2) {
             texteCorr = `La figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r} cm et 2 rayons qui ferment la figure.<br>`
             texteCorr += `$\\mathcal{P}_3=\\dfrac{3}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=
@@ -156,11 +157,11 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
           break
       }
       if (this.sup !== 2) {
-        setReponse(this, this.sup === 3 ? 2 * i : i, [reponseL1, reponseL1bis])
+        setReponse(this, this.sup === 3 ? 2 * i : i, [reponseL1!, reponseL1bis!])
         texte = (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, '   ', { texteApres: ' $\\text{cm}$' })
       }
       if (this.sup !== 1) {
-        setReponse(this, this.sup === 3 ? 2 * i + 1 : i, [reponseA1, reponseA1bis])
+        setReponse(this, this.sup === 3 ? 2 * i + 1 : i, [reponseA1!, reponseA1bis!])
         texte += (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, '   ', { texteApres: ' $\\text{cm}^2$' })
       }
       if (this.questionJamaisPosee(i, r)) { // Si la question n'a jamais été posée, on en créé une autre
@@ -175,6 +176,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -200,6 +202,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -228,6 +231,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -248,6 +252,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,

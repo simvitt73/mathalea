@@ -39,7 +39,7 @@ export const refs = {
   'fr-ch': ['9GM2-3']
 }
 
-function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
+function nombreAleatoire(nbChiffres: number) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
   let a = new Decimal(0)
   for (let i = 0; i < nbChiffres; i++) {
     a = a.add(randint(1, 9) * 10 ** i)
@@ -47,7 +47,7 @@ function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n ch
   return a
 }
 export default class ExerciceConversionsVolumes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -63,7 +63,7 @@ export default class ExerciceConversionsVolumes extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (context.isHtml && !(context.vue === 'diap')) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
@@ -84,15 +84,15 @@ export default class ExerciceConversionsVolumes extends Exercice {
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
     for (
       let i = 0,
-        a,
-        k,
-        div,
-        resultat,
-        resultatFaux,
-        typesDeQuestions,
-        texte,
-        texteCorr,
-        cpt = 0;
+      a,
+      k,
+      div,
+      resultat,
+      resultatFaux,
+      typesDeQuestions,
+      texte,
+      texteCorr,
+      cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
       this.autoCorrection[i] = {}
@@ -107,7 +107,7 @@ export default class ExerciceConversionsVolumes extends Exercice {
         div = true // Avec des divisions
       } else if (typesDeQuestions === 3) {
         div = choice([true, false]) // Avec des multiplications ou des divisions
-      } else if (typesDeQuestions === 4) {
+      } else {
         div = choice([true, false]) // Avec des multiplications ou des divisions sans toujours revenir au m^3
       }
 
@@ -135,60 +135,60 @@ export default class ExerciceConversionsVolumes extends Exercice {
 
         resultat = a.mul(prefixeMulti[k][2])
         texte =
-                    '$ ' +
-                    texNombre(a, 3) +
-                    texTexte(prefixeMulti[k][0] + unite) +
-                    '^3' +
-                    ' = \\dotfill ' +
-                    texTexte(unite) +
-                    '^3' +
-                    '$'
+          '$ ' +
+          texNombre(a, 3) +
+          texTexte(prefixeMulti[k][0] + unite) +
+          '^3' +
+          ' = \\dotfill ' +
+          texTexte(unite) +
+          '^3' +
+          '$'
         texteCorr =
-                    '$ ' +
-                    texNombre(a, 3) +
-                    texTexte(prefixeMulti[k][0] + unite) +
-                    '^3' +
-                    ' =  ' +
-                    texNombre(a, 3) +
-                    prefixeMulti[k][1] +
-                    texTexte(unite) +
-                    '^3' +
-                    ' = ' +
-                    texNombre(resultat, 20) +
-                    texTexte(unite) +
-                    '^3' +
-                    '$'
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, 2, true)
+          '$ ' +
+          texNombre(a, 3) +
+          texTexte(prefixeMulti[k][0] + unite) +
+          '^3' +
+          ' =  ' +
+          texNombre(a, 3) +
+          prefixeMulti[k][1] +
+          texTexte(unite) +
+          '^3' +
+          ' = ' +
+          texNombre(resultat, 20) +
+          texTexte(unite) +
+          '^3' +
+          '$'
+        texteCorr += '<br>' + buildTab(a.toNumber(), prefixeMulti[k][0] + 'm', resultat.toNumber(), unite, 2, true)
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
         // Le commentaire précédent est sans objet avec Decimal, on peut afficher ici 20 chiffres après la virgule sans passer en notation scientifique !
         resultat = a.div(prefixeMulti[k][2])
         texte =
-                    '$ ' +
-                    texNombre(a, 3) +
-                    texTexte(prefixeDiv[k][0] + unite) +
-                    '^3' +
-                    ' = \\dotfill ' +
-                    texTexte(unite) +
-                    '^3' +
-                    '$'
+          '$ ' +
+          texNombre(a, 3) +
+          texTexte(prefixeDiv[k][0] + unite) +
+          '^3' +
+          ' = \\dotfill ' +
+          texTexte(unite) +
+          '^3' +
+          '$'
         texteCorr =
-                    '$ ' +
-                    texNombre(a, 3) +
-                    texTexte(prefixeDiv[k][0] + unite) +
-                    '^3' +
-                    ' =  ' +
-                    texNombre(a, 3) +
-                    prefixeDiv[k][1] +
-                    texTexte(unite) +
-                    '^3' +
-                    ' = ' +
-                    texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
-                    texTexte(unite) +
-                    '^3' +
-                    '$'
-        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, 2, true)
-      } else if (typesDeQuestions === 4) {
+          '$ ' +
+          texNombre(a, 3) +
+          texTexte(prefixeDiv[k][0] + unite) +
+          '^3' +
+          ' =  ' +
+          texNombre(a, 3) +
+          prefixeDiv[k][1] +
+          texTexte(unite) +
+          '^3' +
+          ' = ' +
+          texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
+          texTexte(unite) +
+          '^3' +
+          '$'
+        texteCorr += '<br>' + buildTab(a.toNumber(), prefixeDiv[k][0] + 'm', resultat.toNumber(), unite, 2, true)
+      } else {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l`un à l`autre
         if (ecart > 4 - unite1) {
@@ -207,35 +207,35 @@ export default class ExerciceConversionsVolumes extends Exercice {
               break
             case 3:
               multiplicationsPar1000 =
-                                `\\times 1${sp()}000 \\times 1${sp()}000 \\times 1${sp()}000`
+                `\\times 1${sp()}000 \\times 1${sp()}000 \\times 1${sp()}000`
               break
           }
           resultat = a.mul(10 ** (3 * ecart))
           texte =
-                        '$ ' +
-                        texNombre(a, 3) +
-                        texTexte(listeUnite[unite2]) +
-                        '^3' +
-                        ' = \\dotfill ' +
-                        texTexte(listeUnite[unite1]) +
-                        '^3' +
-                        '$'
+            '$ ' +
+            texNombre(a, 3) +
+            texTexte(listeUnite[unite2]) +
+            '^3' +
+            ' = \\dotfill ' +
+            texTexte(listeUnite[unite1]) +
+            '^3' +
+            '$'
           texteCorr =
-                        '$ ' +
-                        texNombre(a, 3) +
-                        texTexte(listeUnite[unite2]) +
-                        '^3' +
-                        ' =  ' +
-                        texNombre(a, 3) +
-                        multiplicationsPar1000 +
-                        texTexte(listeUnite[unite1]) +
-                        '^3' +
-                        ' = ' +
-                        texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
-                        texTexte(listeUnite[unite1]) +
-                        '^3' +
-                        '$'
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], 2, true)
+            '$ ' +
+            texNombre(a, 3) +
+            texTexte(listeUnite[unite2]) +
+            '^3' +
+            ' =  ' +
+            texNombre(a, 3) +
+            multiplicationsPar1000 +
+            texTexte(listeUnite[unite1]) +
+            '^3' +
+            ' = ' +
+            texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
+            texTexte(listeUnite[unite1]) +
+            '^3' +
+            '$'
+          texteCorr += '<br>' + buildTab(a.toNumber(), listeUnite[unite2], resultat.toNumber(), listeUnite[unite1], 2, true)
         } else {
           switch (ecart) {
             case 1:
@@ -245,35 +245,36 @@ export default class ExerciceConversionsVolumes extends Exercice {
               multiplicationsPar1000 = `\\div 1${sp()}000 \\div 1${sp()}000`
               break
             case 3:
+            default:
               multiplicationsPar1000 = `\\div 1${sp()}000 \\div 1${sp()}000 \\div 1${sp()}000`
               break
           }
           resultat = a.div(10 ** (3 * ecart))
           texte =
-                        '$ ' +
-                        texNombre(a, 3) +
-                        texTexte(listeUnite[unite1]) +
-                        '^3' +
-                        ' = \\dotfill ' +
-                        texTexte(listeUnite[unite2]) +
-                        '^3' +
-                        '$'
+            '$ ' +
+            texNombre(a, 3) +
+            texTexte(listeUnite[unite1]) +
+            '^3' +
+            ' = \\dotfill ' +
+            texTexte(listeUnite[unite2]) +
+            '^3' +
+            '$'
           texteCorr =
-                        '$ ' +
-                        texNombre(a, 3) +
-                        texTexte(listeUnite[unite1]) +
-                        '^3' +
-                        ' =  ' +
-                        texNombre(a, 3) +
-                        multiplicationsPar1000 +
-                        texTexte(listeUnite[unite2]) +
-                        '^3' +
-                        ' = ' +
-                        texNombre(resultat, 20) +
-                        texTexte(listeUnite[unite2]) +
-                        '^3' +
-                        '$'
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], 2, true)
+            '$ ' +
+            texNombre(a, 3) +
+            texTexte(listeUnite[unite1]) +
+            '^3' +
+            ' =  ' +
+            texNombre(a, 3) +
+            multiplicationsPar1000 +
+            texTexte(listeUnite[unite2]) +
+            '^3' +
+            ' = ' +
+            texNombre(resultat, 20) +
+            texTexte(listeUnite[unite2]) +
+            '^3' +
+            '$'
+          texteCorr += '<br>' + buildTab(a.toNumber(), listeUnite[unite1], resultat.toNumber(), listeUnite[unite2], 2, true)
         }
       }
 
@@ -331,51 +332,51 @@ export default class ExerciceConversionsVolumes extends Exercice {
   }
 }
 
-function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
-  const tabRep = function (nbre, uniteNbre) {
+function buildTab(a: number, uniteA: string, r: number, uniteR: string, ligne = 2, force = false, correction = false) {
+  const tabRep = function (nbre: number, uniteNbre: string) {
     const res = []
     let caseARemplir
     for (let ee = 0; ee < 33; ee++) res.push('')
     switch (uniteNbre.replaceAll(' ', '')) {
       case 'km':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (8 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (8 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (8 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (8 - i)))
           res[i] = (8 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (8 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'hm':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (11 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (11 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (11 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (11 - i)))
           res[i] = (11 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (11 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'dam':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (14 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (14 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (14 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (14 - i)))
           res[i] = (14 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (14 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'm':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (17 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (17 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (17 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (17 - i)))
           res[i] = (17 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (17 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'dm':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (20 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (20 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (20 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (20 - i)))
           res[i] = (20 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (20 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'cm':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (23 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (23 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (23 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (23 - i)))
           res[i] = (23 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (23 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'mm':
         for (let i = 0; i < 33; i++) {
-          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)))
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, 10 ** (26 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, 10 ** (26 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, 10 ** (26 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, 10 ** (26 - i)))
           res[i] = (26 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (26 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
@@ -383,7 +384,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     return res
   }
 
-  const createTab = function (aT, rT, first, end, ligne, correction = false) {
+  const createTab = function (aT: string[], rT: string[], first: number, end: number, ligne: number, correction = false) {
     let texte = '$\\def\\arraystretch{1.5}\\begin{array}{|'
     for (let i = first; i <= end; i++) {
       texte += 'c|'
