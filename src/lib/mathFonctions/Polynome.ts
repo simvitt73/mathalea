@@ -6,6 +6,8 @@ import Decimal from 'decimal.js'
 import { texNombre } from '../outils/texNombre'
 import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
 import { generateCleaner } from '../interactif/comparisonFunctions'
+
+type NombreType = number | Decimal | FractionEtendue
 /**
  *
  * @param {Polynome} poly degré maximum = 3
@@ -13,7 +15,11 @@ import { generateCleaner } from '../interactif/comparisonFunctions'
  * @param {number} xD
  * @return {{minLocal: number, maxLocal:number}}
  */
-export function chercheMinMaxLocal ({ poly, xG, xD }) {
+export function chercheMinMaxLocal({ poly, xG, xD }: {
+  poly: Polynome,
+  xG: number,
+  xD: number
+}) {
   const derivee = poly.derivee()
   const yG = poly.fonction(xG)
   const yD = poly.fonction(xD)
@@ -64,7 +70,7 @@ export function chercheMinMaxLocal ({ poly, xG, xD }) {
             minLocal = Math.min(yG, yD)
           } else { // minimum en r1, max en x[i] ou x[i+1]
             minLocal = poly.fonction(r1)
-            maxLocal = Math.max(Number(yG, yD))
+            maxLocal = Math.max(Number(yG), Number(yD))
           }
         }
       } else { // r1 n'est pas dans l'intervalle mais peut-être r2 y est
@@ -99,7 +105,7 @@ export function chercheMinMaxLocal ({ poly, xG, xD }) {
     }
   } else if (derivee.deg === 1) { // derivée affine, monotone croissante ou décroissante selon le signe de derivee[i].monomes[1]
     const a = derivee.monomes[1]
-    if (a > 0) {
+    if (Number(a) > 0) {
       maxLocal = yD
       minLocal = yG
     } else {
@@ -116,46 +122,47 @@ export function chercheMinMaxLocal ({ poly, xG, xD }) {
 // un cleaner pour la méthode toMathExpr
 const clean = generateCleaner(['virgules', 'fractions', 'espaces'])
 // une fonction pour ajouter deux nombres dont on ne connait pas le type
-const somme = function (a, b) {
-  if (typeof a === 'number' && typeof b === 'number') return a + b
+const somme = function (a: unknown, b: unknown) {
   if (a instanceof Decimal) {
     if (b instanceof Decimal) return a.add(b)
     else if (b instanceof FractionEtendue) return a.add(new Decimal(b.valeurDecimale))
-    else return a.add(new Decimal(b))
+    else return a.add(new Decimal(String(b)))
   }
   if (a instanceof FractionEtendue) {
     if (b instanceof FractionEtendue) return a.sommeFraction(b).simplifie()
-    else return a.sommeFraction(rationnalise(b)).simplifie()
+    else return a.sommeFraction(rationnalise(Number(b))).simplifie()
   }
+  return Number(a) + Number(b)
 }
 // une fonction pour multiplier deux nombres dont on ne connait pas le type
-const produit = function (a, b) {
+const produit = function (a: unknown, b: unknown) {
   if (typeof a === 'number' && typeof b === 'number') return a * b
   if (a instanceof Decimal) {
     if (b instanceof Decimal) return a.mul(b)
     else if (b instanceof FractionEtendue) return a.mul(new Decimal(b.valeurDecimale))
-    else return a.mul(new Decimal(b))
+    else return a.mul(new Decimal(String(b)))
   }
   if (a instanceof FractionEtendue) {
     if (b instanceof FractionEtendue) return a.produitFraction(b).simplifie()
-    else return a.produitFraction(rationnalise(b)).simplifie()
+    else return a.produitFraction(rationnalise(Number(b))).simplifie()
   }
 }
 
-const quotient = function (a, b) {
-  if (egal(b, 0)) window.notify('quotient de Polynome.js a reçu un diviseur nul', { dividende: a, diviseur: b })
+const quotient = function (a: unknown, b: unknown) {
+  if (egal(Number(b), 0)) window.notify('quotient de Polynome.js a reçu un diviseur nul', { dividende: a, diviseur: b })
   if (typeof a === 'number' && typeof b === 'number') return a / b
   if (a instanceof Decimal) {
     if (b instanceof Decimal) return a.div(b)
     else if (b instanceof FractionEtendue) return a.div(new Decimal(b.valeurDecimale))
-    else return a.div(new Decimal(b))
+    else return a.div(new Decimal(String(b)))
   }
   if (a instanceof FractionEtendue) {
     if (b instanceof FractionEtendue) return a.diviseFraction(b).simplifie()
-    else return a.diviseFraction(rationnalise(b)).simplifie()
+    else return a.diviseFraction(rationnalise(Number(b))).simplifie()
   }
 }
 
+type CoeffType = NombreType | [number, boolean]
 /**
  * Avertissement ! pour l'instant la classe ne gère pas les coefficients fractionnaires !
  * @param {boolean} useFraction laissé à false pour l'instant (les coefficients fractionnaires ne sont pas encore utilisé et
@@ -171,22 +178,35 @@ const quotient = function (a, b) {
  * @example Polynome({ rand:true, coeffs:[[10, true], 0, [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
  */
 export class Polynome {
-  constructor ({ rand = false, deg = -1, coeffs, useFraction = false, useDecimal = false }) {
+  monomes: (number | FractionEtendue | Decimal)[]
+  fonction: (x: number) => number
+  deg: number
+  useFraction: boolean
+  useDecimal: boolean
+
+  constructor({ rand = false, deg = -1, coeffs, useFraction = false, useDecimal = false }: {
+    rand?: boolean,
+    deg?: number,
+    coeffs: CoeffType[],
+    useFraction?: boolean,
+    useDecimal?: boolean
+  }) {
     if (rand) {
       if (largerEq(deg, 0)) {
         // on construit coeffs indépendamment de la valeur fournie
         coeffs = new Array(deg + 1)
         coeffs.fill([10, true])
+
       }
       // Création de this.monomes
-      this.monomes = coeffs.map(function (el) {
+      this.monomes = coeffs.map(function (el: unknown) {
         if (typeof el === 'number') {
           return el
         } else if (Array.isArray(el)) {
           if (el[0] === 0) return 0
           if (useFraction) {
             const den = choice([2, 4, 5])
-            const aFrac = new FractionEtendue(...(new Decimal(randint(1, den * Number(el[0]))).div(den).toFraction(100)))
+            const aFrac = new FractionEtendue(...(new Decimal(randint(1, den * Number(el[0]))).div(den).toFraction(100).map(Number) as [number, number]))
             return el[1] ? aFrac.multiplieEntier(choice([-1, 1])) : aFrac
           } else if (useDecimal) {
             const dec = new Decimal(randint(1, 10 * Number(el[0]))).div(10)
@@ -232,26 +252,28 @@ export class Polynome {
      * @returns {function(number): number}
      */
     const monomes = this.monomes
-    this.fonction = function (x) {
+    this.fonction = function (x: number) {
       let val = 0
       for (let i = 0; i < monomes.length; i++) {
         if (monomes[i] instanceof FractionEtendue) {
-          val = val + monomes[i].valeurDecimale * x ** i
+          const m = monomes[i] as FractionEtendue
+          val = val + m.valeurDecimale * x ** i
         } else if (monomes[i] instanceof Decimal) {
-          val = val + monomes[i].toNumber() * x ** i
+          const m = monomes[i] as Decimal
+          val = val + m.toNumber() * x ** i
         } else {
-          val = val + monomes[i] * x ** i
+          val = val + Number(monomes[i]) * x ** i
         }
       }
       return val
     }
   }
 
-  isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
+  isMon() { return this.monomes.filter(el => el !== 0).length === 1 }
 
-  isEqual (p) {
+  isEqual(p: number | Polynome) {
     if (typeof p === 'number') {
-      if (this.monome[0] !== p) return false
+      if (this.monomes[0] !== p) return false
       for (let i = 1; i <= this.deg; i++) {
         if (this.monomes[i] !== 0) {
           return false
@@ -266,7 +288,7 @@ export class Polynome {
       }
       const degMin = Math.min(this.deg, p.deg)
       for (let i = 0; i <= degMin; i++) {
-        if (!egal(p.monomes[i], this.monomes[i], 1e-15)) return false
+        if (!egal(Number(p.monomes[i]), Number(this.monomes[i]), 1e-15)) return false
       }
       for (let i = degMin + 1; i <= Math.max(p.deg, this.deg); i++) {
         if (i <= this.deg) {
@@ -278,7 +300,7 @@ export class Polynome {
       }
       return true
     }
-    window.notify(`Polynome.isEqual a reçu comme argument autre chose qu'un number ou un Polynome : ${p}`)
+    window.notify(`Polynome.isEqual a reçu comme argument autre chose qu'un number ou un Polynome : ${p}`, { p })
     return false
   }
 
@@ -286,7 +308,7 @@ export class Polynome {
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
    * @returns {string} expression mathématique compatible avec Algebrite
    */
-  toMathExpr (alg = false) {
+  toMathExpr(alg = false) {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
@@ -296,43 +318,43 @@ export class Polynome {
           if (c instanceof FractionEtendue) {
             coeffD = alg
               ? `${c.valeurDecimale < 0 ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : '-{' + String(c.n) + '/' + String(c.d) + '}' : c.valeurDecimale === 1 ? '+' : '+{' + String(c.n) + '/' + String(c.d)}+'}'`
-              : this.deg === 0 ? c.ecritureAlgebrique : rienSi1(c)
+              : this.deg === 0 ? c.ecritureAlgebrique : rienSi1(Number(c))
           } else {
-            coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? ecritureAlgebrique(c) : rienSi1(c)
+            coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? ecritureAlgebrique(c) : rienSi1(Number(c))
           }
           switch (this.deg) {
             case 1:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
+              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
+              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
+              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = egal(c, 0, 1e-15) ? '' : `${c instanceof FractionEtendue ? (c.valeurDecimale < 0 ? '-' : '+') + String(c.n) + '/' + String(c.d) : ecritureAlgebrique(c)}`
+          maj = egal(Number(c), 0, 1e-15) ? '' : `${c instanceof FractionEtendue ? (c.valeurDecimale < 0 ? '-' : '+') + String(c.n) + '/' + String(c.d) : ecritureAlgebrique(c)}`
           break
         case 1:
-          maj = egal(c, 0, 1e-15)
+          maj = egal(Number(c), 0, 1e-15)
             ? ''
             : c instanceof FractionEtendue
               ? (`${c.valeurDecimale < 0
-                  ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : '-{' + String(c.n) + '/' + String(c.d)
-                  : c.valeurDecimale === 1 ? '+' : '+{' + String(c.n) + '/' + String(c.d)}`) +
-                  '}x'
+                ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : '-{' + String(c.n) + '/' + String(c.d)
+                : c.valeurDecimale === 1 ? '+' : '+{' + String(c.n) + '/' + String(c.d)}`) +
+              '}x'
               : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-15)
+          maj = egal(Number(c), 0, 1e-15)
             ? ''
             : c instanceof FractionEtendue
               ? (`${c.valeurDecimale < 0
-                      ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : '-{' + String(c.n) + '/' + String(c.d)
-                      : c.valeurDecimale === 1 ? '+' : '+{' + String(c.n) + '/' + String(c.d)}`) +
-                  `}x^${i}`
+                ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : '-{' + String(c.n) + '/' + String(c.d)
+                : c.valeurDecimale === 1 ? '+' : '+{' + String(c.n) + '/' + String(c.d)}`) +
+              `}x^${i}`
               : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
@@ -346,7 +368,7 @@ export class Polynome {
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
    * @returns {string} expression mathématique
    */
-  toLatex (alg = false) {
+  toLatex(alg = false) {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
@@ -356,32 +378,32 @@ export class Polynome {
           case this.deg: {
             const coeffD = alg
               ? `${c.valeurDecimale < 0 ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : c.texFSD : c.valeurDecimale === 1 ? '+' : c.ecritureAlgebrique}`
-              : this.deg === 0 ? c.texFSD : rienSi1(c)
+              : this.deg === 0 ? c.texFSD : rienSi1(Number(c))
             if (this.deg === 0) return c.texFSD
             switch (this.deg) {
               case 1:
-                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x`
                 break
               case 0:
-                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
                 break
               default:
-                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
             }
             break
           }
           case 0:
-            maj = egal(c, 0, 1e-15) ? '' : c.ecritureAlgebrique
+            maj = egal(Number(c), 0, 1e-15) ? '' : c.ecritureAlgebrique
             break
           case 1:
-            maj = egal(c, 0, 1e-15)
+            maj = egal(Number(c), 0, 1e-15)
               ? ''
               : `${c.valeurDecimale < 0
                 ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : c.texFSD
                 : c.valeurDecimale === 1 ? '+' : c.ecritureAlgebrique}x`
             break
           default:
-            maj = egal(c, 0, 1e-15)
+            maj = egal(Number(c), 0, 1e-15)
 
               ? ''
               : `${c.valeurDecimale < 0
@@ -393,28 +415,28 @@ export class Polynome {
       } else {
         switch (i) {
           case this.deg: {
-            const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
+            const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(Number(c))
             if (this.deg === 0) return texNombre(c, 2)
             switch (this.deg) {
               case 1:
-                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x`
                 break
               case 0:
-                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
                 break
               default:
-                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
             }
             break
           }
           case 0:
-            maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
+            maj = egal(Number(c), 0, 1e-15) ? '' : ecritureAlgebrique(c)
             break
           case 1:
-            maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+            maj = egal(Number(c), 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
             break
           default:
-            maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
+            maj = egal(Number(c), 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
             break
         }
         res = maj + res
@@ -427,7 +449,7 @@ export class Polynome {
    * Polynome type conversion to String
    * @returns le résultat de toMathExpr()
    */
-  toString () {
+  toString() {
     return this.toLatex()
   }
 
@@ -437,7 +459,7 @@ export class Polynome {
    * @example p.add(3) pour ajouter la constante 3 à p
    * @returns {Polynome} this+p
    */
-  add (p) {
+  add(p: NombreType | Polynome) {
     if (typeof p === 'number') {
       const useFrac = this.monomes.filter(el => el instanceof FractionEtendue).length > 0
       const coeffs = [...this.monomes]
@@ -465,6 +487,7 @@ export class Polynome {
       return new Polynome({ coeffs: coeffSomme, useFraction: useFrac })
     } else {
       window.notify('Polynome.add(arg) : l\'argument n\'est ni un nombre, ni un polynome', { p })
+      return this
     }
   }
 
@@ -474,14 +497,14 @@ export class Polynome {
    * @example poly = poly.multiply(fraction(1,3)) divise tous les coefficients de poly par 3.
    * @returns q fois this
    */
-  multiply (q) {
-    let coeffs
+  multiply(q: NombreType | Polynome): Polynome {
+    let coeffs: NombreType[]
     const useFrac = q instanceof Polynome
       ? q.monomes.filter(el => el instanceof FractionEtendue).length > 0 || this.monomes.filter(el => el instanceof FractionEtendue).length > 0
       : q instanceof FractionEtendue
 
     if (typeof q === 'number' || q instanceof FractionEtendue) {
-      coeffs = this.monomes.map(function (el) { return produit(el, q) })
+      coeffs = this.monomes.map(function (el) { return produit(el, q) }).map(el => el ?? 0)
     } else if (q instanceof Polynome) {
       coeffs = new Array(this.deg + q.deg + 1)
       coeffs.fill(0)
@@ -492,6 +515,7 @@ export class Polynome {
       }
     } else {
       window.notify('Polynome.multiply(arg) : l\'argument n\'est ni un nombre, ni un polynome', { q })
+      return this
     }
     return new Polynome({ coeffs, useFraction: useFrac })
   }
@@ -500,8 +524,8 @@ export class Polynome {
    * Retourne la dérivée
    * @returns {Polynome} dérivée de this
    */
-  derivee () {
-    const coeffDerivee = this.monomes.map(function (el, i) { return produit(el, i) })
+  derivee() {
+    const coeffDerivee = this.monomes.map(function (el, i) { return produit(el, i) }).map(el => el ?? 0)
     coeffDerivee.shift()
     for (let i = coeffDerivee.length - 1; i > 0; i--) {
       if (coeffDerivee[i] === 0) {
@@ -514,11 +538,11 @@ export class Polynome {
     return new Polynome({ coeffs: coeffDerivee, useFraction: this.useFraction, useDecimal: this.useDecimal })
   }
 
-  detailleCalculDerivee () {
+  detailleCalculDerivee() {
     let formeDerivee = ''
     for (let index = this.monomes.length - 1; index > 0; index--) {
       const el = this.monomes[index]
-      if (!egal(el, 0)) {
+      if (!egal(Number(el), 0)) {
         formeDerivee += formeDerivee === ''
           ? `${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `x^{${index - 1}}` : index === 2 ? 'x' : ''}`
           : `+${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `x^{${index - 1}}` : index === 2 ? 'x' : ''}`
@@ -531,16 +555,16 @@ export class Polynome {
    * Retourne la primitive de constante 0 de this
    * @returns {Polynome}
    */
-  primitive0 () {
-    let coeffPrimitive = this.monomes.map((el, i) => quotient(el, i + 1))
+  primitive0() {
+    let coeffPrimitive = this.monomes.map((el, i) => quotient(el, i + 1)) as (number | FractionEtendue | Decimal)[]
     coeffPrimitive = [0, ...coeffPrimitive]
     const useFrac = coeffPrimitive.filter(el => el instanceof FractionEtendue).length > 0
     const useDecim = coeffPrimitive.filter(el => el instanceof Decimal).length > 0 && !useFrac
     return new Polynome({ coeffs: coeffPrimitive, useFraction: useFrac, useDecimal: useDecim })
   }
 
-  racines () {
-    const antecedents = []
+  racines() {
+    const antecedents: number[] = []
     if (this.monomes.slice(1).filter(el => el !== 0).length === 0) {
       return null
     }
@@ -554,8 +578,8 @@ export class Polynome {
         if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
           arr = 0
         } else {
-          const argument = valeur.arg()
-          if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
+          const argument: number = valeur.arg() as number
+          if (abs(argument) < 0.01 || abs((abs(argument) - Number(acos(-1)))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
             arr = round(valeur.re, 3) // on prend la partie réelle
           } else {
             arr = null // c'est une vraie racine complexe, du coup, on prend null
@@ -577,7 +601,7 @@ export class Polynome {
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
    * @returns {string} expression du polynome
    */
-  static print (coeffs, alg = false) {
+  static print(coeffs: number[], alg = false) {
     const p = new Polynome({ coeffs })
     return p.toLatex(alg)
   }
@@ -587,7 +611,7 @@ export class Polynome {
    * @param x
    * @returns {math.Fraction | number | int} // à mon avis ça ne retourne que des number...
    */
-  image (x) {
+  image(x: number) {
     // const fonction = x => this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex, 0)
     return this.fonction(x)
   }

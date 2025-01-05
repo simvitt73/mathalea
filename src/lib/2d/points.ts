@@ -267,6 +267,7 @@ export class TracePoint extends ObjetMathalea2D {
   taille: number
   tailleTikz: number
   points: (Point | Point3d)[]
+  couleurDeRemplissage?: string[]
   constructor(...points: (Point | Point3d | string)[]) {
     super()
     this.taille = 3
