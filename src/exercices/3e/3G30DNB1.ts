@@ -118,7 +118,7 @@ On dispose des informations suivantes :<br><br>
 `$AB = ${texNombre(hypo, 2)}$ m.`
       ],
       style: 'fleches'
-    })}`, { eleId: 'figure1', largeur1: 60, widthmincol1: 360, widthmincol2: 240, stylecol2: 'vertical-align: center;' })}`
+    })}`, { eleId: 'figure1', largeur1: 60, widthmincol1: '360px', widthmincol2: '240px', stylecol2: 'vertical-align: center;' })}`
     enonce += createList({
       items: [
   `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}$ m.`,

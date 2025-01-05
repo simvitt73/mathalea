@@ -175,7 +175,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
 À l’aide d’un logiciel de programmation, on définit un bloc ${premiereLettreEnMajuscule(figure)} pour construire un ${figure}.<br>
 ${deuxColonnesResp(`${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}
 ${scratchblock(texteScratch1)}`, `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}
-${figure1}`, { largeur1: 50, widthmincol1: 100, widthmincol2: 100, eleId: '' })}
+${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId: '' })}
 `
     const listeFigs = figs.map((el, k) => `${centrage(`figure ${k + 1}`)}${el}`) as [string, string, string]
     enonce += createList({
