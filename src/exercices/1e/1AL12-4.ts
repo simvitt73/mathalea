@@ -8,10 +8,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { createList } from '../../lib/format/lists'
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre plusieurs questions sur une même suite (bilan type E3C)'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-
-export const dateDePublication = '23/12/2024'
+export const dateDePublication = '05/01/2025'
 
 /**
  * Description didactique de l'exercice
@@ -19,7 +16,7 @@ export const dateDePublication = '23/12/2024'
 */
 export const uuid = '33e54'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['1AL12-4'],
   'fr-ch': []
 }
 export default class ProblemesAvecSuitesE3C extends Exercice {
