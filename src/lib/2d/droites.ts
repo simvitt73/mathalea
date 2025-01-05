@@ -901,7 +901,7 @@ export function droiteParPointEtPente(A: Point, k: number, nom = '', color = 'bl
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export class Mediatrice extends Droite {
+export class Mediatrice extends ObjetMathalea2D {
   couleurMediatrice?: string
   epaisseurMediatrice?: number
   opaciteMediatrice?: number
@@ -923,57 +923,57 @@ export class Mediatrice extends Droite {
     opaciteMediatrice = 1,
     pointillesMediatrice = 0
   ) {
+    super()
     const O = milieu(A, B)
     const m = rotation(A, O, 90)
     const n = rotation(A, O, -90)
     const M = pointSurSegment(O, m, longueur(A, B) * 0.785)
     const N = pointSurSegment(O, n, longueur(A, B) * 0.785)
-    super(M, N, nom, couleurMediatrice)
+    const d = new Droite(M, N, nom, couleurMediatrice)
     if (arguments.length < 5) { // Si on n'a que 2 arguments, on retourne juste une Droite
       this.color = colorToLatexOrHTML(couleurMediatrice)
       this.pointilles = pointillesMediatrice
       this.opacite = opaciteMediatrice
       this.epaisseur = epaisseurMediatrice
-      return
-    }
-    if (longueur(A, B) < 0.1) {
-      window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', {
-        A,
-        B
-      })
-    }
-    this.color = colorToLatexOrHTML(color)
-    this.couleurMediatrice = couleurMediatrice
-    this.epaisseurMediatrice = epaisseurMediatrice
-    this.opaciteMediatrice = opaciteMediatrice
-    this.pointillesMediatrice = pointillesMediatrice
-    this.couleurConstruction = couleurConstruction
-    this.epaisseur = 1
-
-    const d = droite(M, N, nom, this.couleurMediatrice)
-    d.epaisseur = this.epaisseurMediatrice
-    d.opacite = this.opaciteMediatrice
-    d.pointilles = this.pointillesMediatrice
-    this.objets = [d]
-    if (construction) {
-      const arcm1 = traceCompas(A, M, 20, this.couleurConstruction)
-      const arcm2 = traceCompas(B, M, 20, this.couleurConstruction)
-      const arcn1 = traceCompas(A, N, 20, this.couleurConstruction)
-      const arcn2 = traceCompas(B, N, 20, this.couleurConstruction)
-      const codage = codageMediatrice(A, B, this.couleurMediatrice, markmilieu)
-      this.objets.push(arcm1, arcm2, arcn1, arcn2, d, codage)
-    }
-    if (detail) {
-      const sAM = segment(A, M, this.couleurConstruction)
-      sAM.pointilles = 5
-      const sBM = segment(B, M, this.couleurConstruction)
-      sBM.pointilles = 5
-      const sAN = segment(A, N, this.couleurConstruction)
-      sAN.pointilles = 5
-      const sBN = segment(B, N, this.couleurConstruction)
-      sBN.pointilles = 5
-      const codes = codageSegments(markrayons, this.couleurConstruction, A, M, B, M, A, N, B, N)
-      this.objets.push(sAM, sBM, sAN, sBN, codes)
+      this.objets = [d]
+    } else {
+      if (longueur(A, B) < 0.1) {
+        window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', {
+          A,
+          B
+        })
+      }
+      this.color = colorToLatexOrHTML(color)
+      this.couleurMediatrice = couleurMediatrice
+      this.epaisseurMediatrice = epaisseurMediatrice
+      this.opaciteMediatrice = opaciteMediatrice
+      this.pointillesMediatrice = pointillesMediatrice
+      this.couleurConstruction = couleurConstruction
+      this.epaisseur = 1
+      d.epaisseur = this.epaisseurMediatrice
+      d.opacite = this.opaciteMediatrice
+      d.pointilles = this.pointillesMediatrice
+      this.objets = [d]
+      if (construction) {
+        const arcm1 = traceCompas(A, M, 20, this.couleurConstruction)
+        const arcm2 = traceCompas(B, M, 20, this.couleurConstruction)
+        const arcn1 = traceCompas(A, N, 20, this.couleurConstruction)
+        const arcn2 = traceCompas(B, N, 20, this.couleurConstruction)
+        const codage = codageMediatrice(A, B, this.couleurMediatrice, markmilieu)
+        this.objets.push(arcm1, arcm2, arcn1, arcn2, d, codage)
+      }
+      if (detail) {
+        const sAM = segment(A, M, this.couleurConstruction)
+        sAM.pointilles = 5
+        const sBM = segment(B, M, this.couleurConstruction)
+        sBM.pointilles = 5
+        const sAN = segment(A, N, this.couleurConstruction)
+        sAN.pointilles = 5
+        const sBN = segment(B, N, this.couleurConstruction)
+        sBN.pointilles = 5
+        const codes = codageSegments(markrayons, this.couleurConstruction, A, M, B, M, A, N, B, N)
+        this.objets.push(sAM, sBM, sAN, sBN, codes)
+      }
     }
   }
 
