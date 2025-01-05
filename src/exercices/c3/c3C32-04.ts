@@ -84,7 +84,7 @@ export default class ExerciceProbleme004 extends Exercice {
        La mairie accorde une aide de $${aideMairie}$ euros.`
       // dépense Totale
       const correction1 = `${this.correctionDetaillee ? 'La dépense totale est la somme des cachets des artistes et des frais de déplacement :<br>' : ''}
-${this.sup3 ? `${deuxColonnesResp(Operation({ operande1: payeArtiste, operande2: nbArtistes, type: 'multiplication' }) ?? '', Operation({ operande2: fraisDeplacement, operande1: cachets, type: 'addition' }) ?? '', { eleId: '', largeur1: 50, widthmincol1: 100, widthmincol2: 100 })}` : ''}
+${this.sup3 ? `${deuxColonnesResp(Operation({ operande1: payeArtiste, operande2: nbArtistes, type: 'multiplication' }) ?? '', Operation({ operande2: fraisDeplacement, operande1: cachets, type: 'addition' }) ?? '', { eleId: '', largeur1: 50, widthmincol1: '100px', widthmincol2: '100px' })}` : ''}
  $\\begin{aligned}${nbArtistes}\\times ${payeArtiste}+${fraisDeplacement}&=${cachets}+${fraisDeplacement}\\\\&=${sommeTotale}\\end{aligned}$<br>
  La dépense totale est de $${this.sup !== 3 ? miseEnEvidence(texNombre(sommeTotale, 0)) : texNombre(sommeTotale, 0)}$ euros.<br>`
       // aides

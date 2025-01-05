@@ -181,8 +181,8 @@ export default class nomExercice extends Exercice {
         texte += deuxColonnesResp(colonne1, colonne2, {
           largeur1: largeurCol,
           eleId: '',
-          widthmincol1: '0',
-          widthmincol2: '0'
+          widthmincol1: '0px',
+          widthmincol2: '0px'
         })
         texte += '<br><br><em>Il ne faut pas saisir d\'unité.</em> <br>'
         texte += remplisLesBlancs(this, i, `${D.nom}${F.nom} =  %{champ1}` + ' cm ' + `${E.nom}${F.nom} =  %{champ2}` + ' cm', KeyboardType.clavierNumbers, '\\ldots\\ldots')
@@ -196,8 +196,8 @@ export default class nomExercice extends Exercice {
         texte += deuxColonnesResp(colonne1, colonne2, {
           largeur1: largeurCol,
           eleId: '',
-          widthmincol1: '0',
-          widthmincol2: '0'
+          widthmincol1: '0px',
+          widthmincol2: '0px'
         })
       }
       texteCorr = rediger(A, B, C, D, E, F)

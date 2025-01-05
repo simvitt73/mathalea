@@ -85,8 +85,8 @@ ${deuxColonnesResp(
   mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets),
   {
     largeur1: 50,
-    widthmincol1: 150,
-    widthmincol2: 150,
+    widthmincol1: '150px',
+    widthmincol2: '150px',
     eleId: ''
   }
 )}`
