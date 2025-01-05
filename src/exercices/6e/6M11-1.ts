@@ -13,7 +13,7 @@ import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
@@ -116,7 +116,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}=${4 * c
                 }${sp()}\\text{cm}$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(c * 4, 'cm'), compare: fonctionComparaison, options: { unite: true } } })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(c * 4, 'cm'), compare: fonctionComparaison, options: { unite: true } } }, { formatInteractif: 'mathlive' })
               if (context.isAmc) {
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
@@ -147,7 +147,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}\\times${c}${sp()}\\text{cm}=${c * c}${sp()}\\text{cm}^2$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(c * c, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(c * c, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } }, { formatInteractif: 'mathlive' })
               if (context.isAmc) {
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
@@ -181,7 +181,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${2 * L + 2 * l
                 }${sp()}\\text{cm}$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur((L + l) * 2, 'cm'), compare: fonctionComparaison, options: { unite: true } } })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur((L + l) * 2, 'cm'), compare: fonctionComparaison, options: { unite: true } } }, { formatInteractif: 'mathlive' })
               if (context.isAmc) {
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
@@ -213,7 +213,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${L * l
                 }${sp()}\\text{cm}^2$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(L * l, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(L * l, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } }, { formatInteractif: 'mathlive' })
               if (context.isAmc) {
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
@@ -246,7 +246,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2, 1)}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(pIJK, 'cm'), compare: fonctionComparaison, options: { unite: true } } })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(pIJK, 'cm'), compare: fonctionComparaison, options: { unite: true } } }, { formatInteractif: 'mathlive' })
               if (context.isAmc) {
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
@@ -277,7 +277,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre((a * b / 2))}${sp()}\\text{cm}^2$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(a * b / 2, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } })
+              handleAnswers(this, incrementation * i + nbPuces, { reponse: { value: new Grandeur(a * b / 2, 'cm^2'), compare: fonctionComparaison, options: { unite: true } } }, { formatInteractif: 'mathlive' })
               if (context.isAmc) {
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({

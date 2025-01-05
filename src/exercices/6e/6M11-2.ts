@@ -16,7 +16,7 @@ import { texTexte } from '../../lib/format/texTexte'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
@@ -157,7 +157,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             pixelsParCm: 20,
             zoom: 1,
             optionsTikz: 'baseline=(current bounding box.north)'
-          }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.5)], { rxmin: -1.2, rymin: -1.2 })), ...objetsEnonce)
+          }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.5)], { rxmin: -1.2, rymin: -1.2 })), objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -165,7 +165,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               pixelsParCm: 20,
               zoom: 1,
               optionsTikz: 'baseline=(current bounding box.north)'
-            }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
+            }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), objetsCorrection)
             texteCorr += `<br>
             On peut découper cette figure en un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm
             et un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm
@@ -214,7 +214,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             pixelsParCm: 20,
             zoom: 1,
             optionsTikz: 'baseline=(current bounding box.north)'
-          }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1.2 })), ...objetsEnonce)
+          }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1.2 })), objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -222,7 +222,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               pixelsParCm: 20,
               zoom: 1,
               optionsTikz: 'baseline=(current bounding box.north)'
-            }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1.2 })), ...objetsCorrection)
+            }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1.2 })), objetsCorrection)
             texteCorr += `<br>
             La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1, 1)} cm et ${stringNombre(c2, 1)} cm.<br>`
           } else {
@@ -289,7 +289,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             pixelsParCm: 20,
             zoom: 1,
             optionsTikz: 'baseline=(current bounding box.north)'
-          }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
+          }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
@@ -297,7 +297,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               pixelsParCm: 20,
               zoom: 1,
               optionsTikz: 'baseline=(current bounding box.north)'
-            }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
+            }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle et deux triangles rectangles.<br>`
           } else {
@@ -348,7 +348,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
             rxmin: -1.2,
             rymin: -1.2
-          })), ...objetsEnonce)
+          })), objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
@@ -358,7 +358,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1.2
-            })), ...objetsCorrection)
+            })), objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(L2, 1)} cm
             et d'un demi disque de rayon ${stringNombre(L2 / 2, 1)} cm.<br>`
@@ -416,7 +416,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
             rxmin: -1,
             rymin: -1.2
-          })), ...objetsEnonce)
+          })), objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
@@ -426,7 +426,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1.2
-            })), ...objetsCorrection)
+            })), objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle
             et de deux demi-disques.<br>`
@@ -483,7 +483,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.6)], {
             rxmin: -1,
             rymin: -1.2
-          })), ...objetsEnonce)
+          })), objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
@@ -493,7 +493,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1.2
-            })), ...objetsCorrection)
+            })), objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle, d'un triangle rectangle et d'un demi-disque.<br>`
           } else {
@@ -585,8 +585,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           )
         }
       } else {
-        if (this.sup4 === 1 || this.sup4 === 3) handleAnswers(this, i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: new Grandeur(perimetre, 'cm'), compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } })
-        if (this.sup4 === 2 || this.sup4 === 3) handleAnswers(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: new Grandeur(aire, 'cm^2'), compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } })
+        if (this.sup4 === 1 || this.sup4 === 3) handleAnswers(this, i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: new Grandeur(perimetre, 'cm'), compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } }, { formatInteractif: 'mathlive' })
+        if (this.sup4 === 2 || this.sup4 === 3) handleAnswers(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: new Grandeur(aire, 'cm^2'), compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } }, { formatInteractif: 'mathlive' })
       }
       if (this.questionJamaisPosee(i, perimetre, aire)) {
         this.listeQuestions[i] = texte
