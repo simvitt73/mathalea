@@ -214,6 +214,8 @@ export class ObjetMathalea2D { // à typer quand on passera à TypeScript
   bordures?: [number, number, number, number] // Doit rester undefined pour identifier les objets qui ne définissent pas leurs bordures (un notify sera envoyé)
   objets?: (ObjetMathalea2D | Latex2d)[]
   typeObjet?: string
+  svgml?: (coeff: number, amplitude: number) => string | ObjetDivLatex
+  tikzml?: (amplitude: number) => string | ObjetDivLatex
 
   constructor() {
     this.positionLabel = 'above'
@@ -234,13 +236,6 @@ export class ObjetMathalea2D { // à typer quand on passera à TypeScript
     return ''
   }
 
-  svgml?(coeff: number, amplitude: number): string | ObjetDivLatex {
-    return ''
-  }
-
-  tikzml?(amplitude: number): string | ObjetDivLatex {
-    return ''
-  }
 }
 
 /**
