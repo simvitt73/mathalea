@@ -661,7 +661,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
-      if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
+      if (compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
         if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
           if (exercice.reponse instanceof FractionEtendue) {
