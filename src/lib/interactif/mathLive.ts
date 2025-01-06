@@ -1,12 +1,14 @@
+import type { MathfieldElement } from 'mathlive'
+import type Exercice from '../../exercices/Exercice'
 import { fonctionComparaison } from './comparisonFunctions'
 
 // Un barème qui ne met qu'un point si tout est juste
-export function toutPourUnPoint (listePoints) {
+export function toutPourUnPoint (listePoints: number[]): [number, number] {
   return [Math.min(...listePoints), 1]
 }
 // le barème par défaut un point pour chaque réponse
-export function toutAUnPoint (listePoints) {
-  return [listePoints.reduce((prev, current) => prev + current), listePoints.length]
+export function toutAUnPoint (listePoints: number[]) {
+  return [listePoints.reduce((prev, current) => prev + current), listePoints.length] as [number, number]
 }
 
 /**
@@ -16,7 +18,7 @@ export function toutAUnPoint (listePoints) {
  * @param {boolean} writeResult // inutilisé ! toujours true ! @fixme à quoi sert cette variable ??? JCL le 5/03/2024
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
-export function verifQuestionMathLive (exercice, i, writeResult = true) {
+export function verifQuestionMathLive (exercice: Exercice, i: number, writeResult = true) {
   if (exercice.autoCorrection[i].reponse == null) {
     throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
             exercice,
@@ -32,18 +34,22 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         })}`)
   }
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif ?? 'mathlive'
-  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`) as HTMLSpanElement
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let champTexte
-  let reponses = exercice.autoCorrection[i].reponse.valeur
-  const bareme = reponses.bareme ?? toutPourUnPoint
+  const reponses = exercice.autoCorrection[i].reponse.valeur
+  if (reponses == null) {
+    window.notify(`verifQuestionMathlive: reponses est null pour la question ${i} de l'exercice ${exercice.id}`, { exercice, i })
+    return { isOk: false, feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+  }
+  const bareme: (arg: number[])=>[number, number] = reponses.bareme ?? toutPourUnPoint
   const callback = reponses.callback
   try {
     const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
     if (callback != null && typeof callback === 'function') { // Là c'est une correction custom ! Celui qui passe une callback doit savoir ce qu'il fait !
       // La fonction de callback gère le score et le feedback
       // Ici, on sauvegarde les réponses dans l'objet exercice.answers
-      const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${i}`)
+      const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${i}`) as MathfieldElement
       if (mfe != null) {
         if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
           exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
@@ -52,7 +58,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.value
         }
       }
-      return callback(exercice, i, variables, reponses.bareme)
+      return callback(exercice, i, variables, bareme)
     }
     if (variables.length > 1 || variables[0][0] !== 'reponse') {
       if (variables[0][0].match(/L\dC\d/)) {
@@ -70,10 +76,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           const options = reponse.options
           const compareFunction = reponse.compare ?? fonctionComparaison
           const inputs = Array.from(table.querySelectorAll('math-field'))
-          const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
+          const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`) as MathfieldElement
           let result
           const spanFedback = table.querySelector(`span#resultatCheckEx${exercice.numeroExercice}Q${i}${key}`)
-          if (input == null || input === '') {
+          if (input == null || input.value === '') {
             result = { isOk: false, feedback: `Vous devez saisir une réponse dans la cellule ${key}.<br>` }
           } else {
             if (Array.isArray(reponse.value)) {
@@ -89,11 +95,11 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (result.isOk) {
             points.push(1)
-            spanFedback.innerHTML = '😎'
+            if (spanFedback != null) spanFedback.innerHTML = '😎'
           } else {
             points.push(0)
             resultat = 'KO'
-            spanFedback.innerHTML = '☹️'
+            if (spanFedback != null) spanFedback.innerHTML = '☹️'
           }
           if (input.value.length > 0 && typeof exercice.answers === 'object') {
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
@@ -109,12 +115,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         // La reponse pourrait contenir aussi une propriété callback facultative (non implémenté pour l'instant car pas de besoin)
         // c'est une fonction qui serait utilisée à la place de la procédure normale de traitement ci-dessous
         // en fait ce serait la fonction de correctionInteractive 'custom' qui se trouverait avant dans l'exo et qui permet, par exemple, de réaliser des traitements spéciaux
-        const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${i}`)
+        const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${i}`) as MathfieldElement
         if (mfe == null) {
           throw Error(`verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ${JSON.stringify({ selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` })}`)
         }
         const points = []
-        const saisies = {}
+        const saisies: Record<string, string> = {}
         let feedback = ''
         for (let k = 0; k < variables.length; k++) {
           const [key, reponse] = variables[k]
@@ -175,7 +181,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       }
     }
     // ici, il n'y a qu'un seul input une seule saisie (même si la réponse peut contenir des variantes qui seront toutes comparées à la saisie
-    champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+    champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`) as MathfieldElement | HTMLInputElement
     if (champTexte == null) {
       throw Error(`verifQuestionMathlive: type ${formatInteractif} ne trouve pas le champ de saisie dans le dom ${JSON.stringify({ selecteur: `champTexteEx${String(exercice.numeroExercice)}Q${String(i)}` })}`)
     }
@@ -186,13 +192,18 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     if (saisie == null || saisie === '') return { isOk: false, feedback: 'Vous devez saisir une réponse.', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     let isOk = false
     let ii = 0
-    let reponse; let feedback = ''
-    reponses = reponses.reponse
-    const compareFunction = reponses.compare ?? fonctionComparaison
-    const options = reponses.options
-    if (Array.isArray(reponses.value)) {
-      while ((!isOk) && (ii < reponses.value.length)) {
-        reponse = reponses.value[ii]
+    let reponse
+    let feedback = ''
+    const objetReponse = reponses.reponse
+    if (objetReponse == null) {
+      window.notify(`verifQuestionMathlive: objetReponse est null pour la question ${i} de l'exercice ${exercice.id}`, { exercice, i })
+      return { isOk: false, feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+    }
+    const compareFunction = objetReponse.compare ?? fonctionComparaison
+    const options = objetReponse.options
+    if (Array.isArray(objetReponse.value)) {
+      while ((!isOk) && (ii < objetReponse.value.length)) {
+        reponse = objetReponse.value[ii]
         const check = compareFunction(saisie, reponse, options)
         if (check.isOk) {
           isOk = true
@@ -205,7 +216,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         ii++
       }
     } else {
-      reponse = reponses.value
+      reponse = objetReponse.value
       const check = compareFunction(saisie, reponse, options)
       if (check.isOk) {
         isOk = true
@@ -214,38 +225,25 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         feedback = check.feedback ?? ''
       }
     }
-    spanReponseLigne.innerHTML = ''
-    if (isOk) {
-      spanReponseLigne.innerHTML = '😎'
-      spanReponseLigne.style.fontSize = 'large'
-      champTexte.readOnly = true
-      return { isOk, feedback, score: { nbBonnesReponses: 1, nbReponses: 1 } }
-    }
-    /** // ce code n'a jamais été utilisé. Peut-être un jour si le moteur permet un deuxième essai
-    if (feedback.includes('essaieEncore')) {
-      if (feedback === 'essaieEncoreAvecUneSeuleUnite') {
-        feedback = '<em>Il faut saisir une valeur numérique et une seule unité (' +
-                    (reponse.uniteDeReference.indexOf('^') > 0
-                      ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
-                      : reponse.uniteDeReference) +
-                    ' par exemple).</em>'
+    if (spanReponseLigne != null) {
+      spanReponseLigne.innerHTML = ''
+      if (isOk) {
+        spanReponseLigne.innerHTML = '😎'
+        spanReponseLigne.style.fontSize = 'large'
+        champTexte.readOnly = true
+        return { isOk, feedback, score: { nbBonnesReponses: 1, nbReponses: 1 } }
       }
-      if (feedback === 'essaieEncorePuissance') {
-        feedback = '<em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
+      if (writeResult) {
+        spanReponseLigne.innerHTML = '☹️'
+        spanReponseLigne.style.fontSize = 'large'
+        champTexte.readOnly = true
+        return { isOk, feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
       }
-      return { isOk, feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
+      return { isOk, feedback, score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 } } // ce code n'est jamais exécuté vu que writeResult est toujours true
     }
-      */
-    if (writeResult) {
-      spanReponseLigne.innerHTML = '☹️'
-      spanReponseLigne.style.fontSize = 'large'
-      champTexte.readOnly = true
-      return { isOk, feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
-    }
-    return { isOk, feedback, score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 } } // ce code n'est jamais exécuté vu que writeResult est toujours true
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {
-      champTexteValue: champTexte?._slotValue ?? null,
+      champTexteValue: champTexte?.value ?? null,
       exercice: exercice.id,
       i,
       autoCorrection: exercice.autoCorrection[i],
