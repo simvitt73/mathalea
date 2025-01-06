@@ -203,7 +203,8 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  *
  * @author Rémi Angot
  */
-export class ObjetMathalea2D { // à typer quand on passera à TypeScript
+export class ObjetMathalea2D {
+  [x: string]: any // à typer quand on passera à TypeScript
   positionLabel: string
   color: string[]
   style: string
@@ -214,8 +215,6 @@ export class ObjetMathalea2D { // à typer quand on passera à TypeScript
   bordures?: [number, number, number, number] // Doit rester undefined pour identifier les objets qui ne définissent pas leurs bordures (un notify sera envoyé)
   objets?: (ObjetMathalea2D | Latex2d)[]
   typeObjet?: string
-  svgml?: (coeff: number, amplitude: number) => string | ObjetDivLatex
-  tikzml?: (amplitude: number) => string | ObjetDivLatex
 
   constructor() {
     this.positionLabel = 'above'
