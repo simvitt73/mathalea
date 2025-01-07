@@ -41,7 +41,7 @@ type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
  * @param poly1
  * @param poly2
  */
-function trouveMaxMin(poly1: Polynome, poly2: Polynome, np1: {
+function trouveMaxMin (poly1: Polynome, poly2: Polynome, np1: {
   x: number,
   y: number
 }[], np2: {
@@ -101,7 +101,7 @@ function trouveMaxMin(poly1: Polynome, poly2: Polynome, np1: {
   return Math.min(yMin1, yMin2, ...np1.map(el => el.y), ...np2.map(el => el.y))
 }
 
-function renseigneFonction(poly: Polynome) {
+function renseigneFonction (poly: Polynome) {
   const func = poly.fonction
   const monomesNormalized = poly.monomes.slice()
   while (monomesNormalized.length < 4) {
@@ -117,7 +117,7 @@ function renseigneFonction(poly: Polynome) {
  * @param fonc
  * @param inferieur
  */
-export function chercheIntervalles(fonc: Polynome, soluces: number[], inferieur: boolean, xMin: number, xMax: number): string {
+export function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean, xMin: number, xMax: number): string {
   const liste = [xMin, ...soluces, xMax]
   const values = liste.filter((el, i) => el !== liste[i + 1])
   const solutions: string[] = []
@@ -135,7 +135,7 @@ class resolutionEquationInequationGraphique extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figureApiGeom!: SuperFigure
 
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 1
     this.listePackages = ['tkz-base']
@@ -150,7 +150,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       'Constante-affine\nConstante-degré2\nConstante-degré3\nAffine-affine\nAffine-degré2\nAffine-degré3\nDegré2-degré2\nDegré2-degré3\nDegré3-degré3\nMélange']
   }
 
-  nouvelleVersion(): void {
+  nouvelleVersion (): void {
     // on va chercher une spline aléatoire
 
     this.listeCorrections = ['']
@@ -241,13 +241,13 @@ class resolutionEquationInequationGraphique extends Exercice {
       // on initialise noeudsPassants1 et noeudsPassants2. Les 4 noeuds sont identiques, mais on va les changer selon le type de fonction
 
       const noeudsPassants1 = [{ x: x0, y: y0 },
-      { x: x1, y: y1 },
-      { x: x2, y: y2 },
-      { x: x3, y: y3 }].sort((el1, el2) => el1.x - el2.x)
+        { x: x1, y: y1 },
+        { x: x2, y: y2 },
+        { x: x3, y: y3 }].sort((el1, el2) => el1.x - el2.x)
       const noeudsPassants2 = [{ x: x0, y: y0 },
-      { x: x1, y: y1 },
-      { x: x2, y: y2 },
-      { x: x3, y: y3 }].sort((el1, el2) => el1.x - el2.x)
+        { x: x1, y: y1 },
+        { x: x2, y: y2 },
+        { x: x3, y: y3 }].sort((el1, el2) => el1.x - el2.x)
 
       switch (choixFonctions) { // On choisit les fonctions demandées
         case 1: // constante et affine
