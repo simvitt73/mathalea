@@ -963,6 +963,9 @@ export class CodageAngle extends ObjetMathalea2D {
         this.objets.push(label)
       } else this.objets.push(texteParPoint(texteACote, M, 0, color, this.tailleTexte))
     }
+    const bordures = fixeBordures(this.objets)
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
+
   }
 }
 
