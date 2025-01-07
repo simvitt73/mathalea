@@ -28,8 +28,8 @@ export class Rose {
   values: ValueType[]
   rayonBoite?: number
 
-  constructor({ values = [], nombreDeValeurs = 3, rayon = 2, operation = 'addition', type = 'résultats', typeDonnees = 'entiers', cellulesPreremplies = Array.from('abcdefghi'), valeurMax = 10, indexInconnue = 999 }:
-    { values?: ValueType[], nombreDeValeurs?: number, rayon?: number, operation?: string, type?: string, typeDonnees?: string, cellulesPreremplies?: string[], valeurMax?: number, indexInconnue?: number }) {
+  constructor ({ values = [], nombreDeValeurs = 3, rayon = 2, operation = 'addition', type = 'résultats', typeDonnees = 'entiers', cellulesPreremplies = Array.from('abcdefghi'), valeurMax = 10, indexInconnue = 999 }:
+  { values?: ValueType[], nombreDeValeurs?: number, rayon?: number, operation?: string, type?: string, typeDonnees?: string, cellulesPreremplies?: string[], valeurMax?: number, indexInconnue?: number }) {
     this.type = type
     this.operation = operation
     this.typeDonnees = typeDonnees
@@ -115,7 +115,7 @@ export class Rose {
   }
 
   // méthode qui calcule les résultats si on le veut (sinon on peut les renseigner dans this.resultats manuellement)
-  calculeResultats() {
+  calculeResultats () {
     for (let i = 0; i < this.nombreDeValeurs; i++) {
       const valeur = this.values[i] instanceof FractionEtendue
         ? (this.values[i] as FractionEtendue).texFraction.replace('dfrac', 'frac')
@@ -133,7 +133,7 @@ export class Rose {
   }
 
   // fonction utilisée par calculeResultats On lui passe des strings pour unifier, elle retourne un string
-  operate(a: string, b: string): string {
+  operate (a: string, b: string): string {
     switch (this.operation) {
       case 'addition':
         if (this.typeDonnees !== 'litteraux') {
@@ -207,7 +207,7 @@ export class Rose {
     }
   }
 
-  representation() {
+  representation () {
     if (this.type === 'résultats') {
       this.rayonBoite = 1
     } else {
