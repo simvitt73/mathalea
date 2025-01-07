@@ -16,9 +16,6 @@ export const dateDeModifImportante = '10/12/2023'
 
 /**
  * Constructibilité des triangles
- * 5G2 exercice parent il faudra supprimmer la version beta5G2 de la liste des choix du fichier mathalea_exercices.js
- * 5G21-1
- * 5G31-1
  * @author Sébastien Lozano
  */
 export default class ConstructibiliteDesTriangles extends Exercice {

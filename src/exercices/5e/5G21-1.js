@@ -6,11 +6,10 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 export const titre = 'Justifier la construction des triangles via les longueurs'
-export const dateDeModifImportante = '10/12/2023'
+export const dateDeModifImportante = '07/01/2024'
 
 /**
- * Justifier la construction des triangles via les longueurs'
- * Mise à jour le 2021-01-25
+ * Justifier la construction des triangles via les longueurs
  * @author Sébastien Lozano
  */
 export const uuid = 'f789c'
@@ -23,5 +22,6 @@ export default class ConstructibiliteDesTrianglesLongueurs extends Constructibil
   constructor () {
     super()
     this.exo = '5G21-1'
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 longueurs\n2 : Une longueur et le périmètre\n3 : Mélange']
   }
 }
