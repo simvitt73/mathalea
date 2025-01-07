@@ -428,7 +428,7 @@ export default class factorisationDifferenceCarres extends Exercice {
           handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, options: { factorisation: true } } })
         } break
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: ' $=$' })
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
