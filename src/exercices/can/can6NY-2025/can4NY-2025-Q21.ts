@@ -34,8 +34,6 @@ export default class perimetreCalcul extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const objets = []
     const diviseur = choice([1, 10, 100, 1000])
     const a = new Decimal(2025).div(diviseur)

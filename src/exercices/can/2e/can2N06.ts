@@ -24,12 +24,9 @@ export default class DecimalForme extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-
     const puissance = randint(1, 5)
     const puissance10 = 10 ** puissance
     const a1 = randint(1, 9) * choice([1, -1])

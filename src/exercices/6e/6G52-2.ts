@@ -41,7 +41,7 @@ export const refs = {
   'fr-ch': ['9ES3-7']
 }
 export default class ProprietesParallelesPerpendiculaires extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
@@ -55,7 +55,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles: number[] = []
     let questionsParNiveau = []
     if (!this.sup2) {

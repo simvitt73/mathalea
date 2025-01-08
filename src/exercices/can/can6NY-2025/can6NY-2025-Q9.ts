@@ -32,8 +32,6 @@ export default class ProduitACompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = 2025
     const b = choice([new Decimal(1).div(choice([10, 100, 1000])), choice([10, 100, 1000])])
     const resultat = new Decimal(2025).mul(b)

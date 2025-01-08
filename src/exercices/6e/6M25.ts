@@ -15,13 +15,13 @@ export const refs = {
   'fr-ch': ['10GM1-4']
 }
 export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
-  constructor() {
+  constructor () {
     super()
 
     this.nbQuestions = 4
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const listeTypeDeQuestions = combinaisonListes(
       [
         'pi',

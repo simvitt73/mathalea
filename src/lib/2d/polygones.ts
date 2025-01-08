@@ -313,7 +313,7 @@ export class Polygone extends ObjetMathalea2D {
   }
 
   get flat () {
-    if (this._flat.length===0) {
+    if (this._flat.length === 0) {
       this._flat = polygoneToFlatArray(this)
     }
     return this._flat

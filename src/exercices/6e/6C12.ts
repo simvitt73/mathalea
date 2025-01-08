@@ -50,7 +50,6 @@ export default class QuestionsPrix extends Exercice {
     this.sup3 = false
     this.sup4 = 3
 
-
     this.interactifType = 'mathLive'
 
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n']

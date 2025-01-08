@@ -29,7 +29,6 @@ export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
 
     this.nbCols = 2
     this.nbColsCorr = 2
-
   }
 
   nouvelleVersion () {

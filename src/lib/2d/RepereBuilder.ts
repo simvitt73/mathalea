@@ -61,7 +61,7 @@ export default class RepereBuilder {
      * @param {number} yMin
      * @param {number} yMax
      */
-  constructor({ xMin, xMax, yMin, yMax }: { xMin: number, xMax: number, yMin: number, yMax: number } = {
+  constructor ({ xMin, xMax, yMin, yMax }: { xMin: number, xMax: number, yMin: number, yMax: number } = {
     xMin: -10,
     xMax: 10,
     yMin: -10,
@@ -83,7 +83,7 @@ export default class RepereBuilder {
      * méthode qui retourne l'objet Repere construit est invoquée par les méthodes buildCustom() et buildStandard() qui elles sont exposées.
      * @private
      */
-  private build() {
+  private build () {
     return new Repere({
       xMin: this.xMin,
       xMax: this.xMax,
@@ -169,7 +169,7 @@ export default class RepereBuilder {
   /**
      * Un build avec des axes à coordonnées entières
      */
-  buildStandard() {
+  buildStandard () {
     this.xUnite = 1
     this.yUnite = 1
     this.xThickDistance = 1
@@ -180,7 +180,7 @@ export default class RepereBuilder {
   /**
      * Un build libre pour faire ce qu'on veut
      */
-  buildCustom() {
+  buildCustom () {
     return this.build()
   }
 
@@ -188,7 +188,7 @@ export default class RepereBuilder {
      * Un build pour la trigo
      * @param {number} n diviseur de Pi pour graduer l'axe des abscisses.
      */
-  buildTrigo(n: number) {
+  buildTrigo (n: number) {
     const labels = []
     let i = 0
     for (let x = 0; x < this.xLabelMax; x += Math.PI / n) {
@@ -215,7 +215,7 @@ export default class RepereBuilder {
      * méthode pour fixer l'échelle en x
      * @param {number} u l'échelle (1 par défaut)
      */
-  setUniteX(u: number) {
+  setUniteX (u: number) {
     this.xUnite = u
     return this
   }
@@ -224,7 +224,7 @@ export default class RepereBuilder {
      * méthode pour fixer l'échelle en y
      * @param {number} u l'échelle (1 par défaut)
      */
-  setUniteY(u: number) {
+  setUniteY (u: number) {
     this.yUnite = u
     return this
   }
@@ -235,7 +235,7 @@ export default class RepereBuilder {
      * @param {number} xMin la dernière
      * @param {number} dx la distance entre deux graduations
      */
-  setThickX({ xMax, xMin, dx }: { xMax: number, xMin: number, dx: number }) {
+  setThickX ({ xMax, xMin, dx }: { xMax: number, xMin: number, dx: number }) {
     this.xThickDistance = dx
     this.xThickMin = xMin
     this.xThickMax = xMax
@@ -248,7 +248,7 @@ export default class RepereBuilder {
      * @param {number} yMin la dernière
      * @param {number} dy la distance entre deux graduations
      */
-  setThickY({ yMax, yMin, dy }: { yMax: number, yMin: number, dy: number }) {
+  setThickY ({ yMax, yMin, dy }: { yMax: number, yMin: number, dy: number }) {
     this.yThickDistance = dy
     this.yThickMin = yMin
     this.yThickMax = yMax
@@ -260,7 +260,7 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number, style: string}} grilleX
      * @param {{dy: number, yMin: number, yMax: number, style: string}} grilleY
      */
-  setGrille({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: 'pointilles' }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: 'pointilles' } }) {
+  setGrille ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: 'pointilles' }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: 'pointilles' } }) {
     if (grilleX) {
       this.grilleX = grilleX.style ? grilleX.style : true
       this.grilleXDistance = grilleX.dx ?? 1
@@ -281,7 +281,7 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number}} grilleX
      * @param {{dy: number, yMin: number, yMax: number}} grilleY
      */
-  setGrilleSecondaire({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: 'pointilles' }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: 'pointilles' } }) {
+  setGrilleSecondaire ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: 'pointilles' }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: 'pointilles' } }) {
     if (grilleX) {
       this.grilleSecondaireX = grilleX.style ? grilleX.style : true
       this.grilleSecondaireXDistance = grilleX.dx ?? 1
@@ -303,7 +303,7 @@ export default class RepereBuilder {
      * @param {number} xMin le premier
      * @param {number} xMax le dernier
      */
-  setLabelX({ dx, xMin, xMax }: { xMax?: number, xMin?: number, dx: number }) {
+  setLabelX ({ dx, xMin, xMax }: { xMax?: number, xMin?: number, dx: number }) {
     this.xLabelMin = xMin ?? this.xMin
     this.xLabelMax = xMax ?? this.xMax
     this.xLabelDistance = dx
@@ -316,7 +316,7 @@ export default class RepereBuilder {
      * @param {number} yMin le premier
      * @param {number} yMax le dernier
      */
-  setLabelY({ dy, yMin, yMax }: { yMax?: number, yMin?: number, dy: number }) {
+  setLabelY ({ dy, yMin, yMax }: { yMax?: number, yMin?: number, dy: number }) {
     this.yLabelMin = yMin ?? this.yMin
     this.yLabelMax = yMax ?? this.yMax
     this.yLabelDistance = dy
@@ -327,7 +327,7 @@ export default class RepereBuilder {
      * Une méthode pour renseigner des labels non standards
      * @param {{valeur: number, texte: string}[]} labels un array de valeurs et leurs traduction en latex
      */
-  setLabelsX(labels: LAbel[]) {
+  setLabelsX (labels: LAbel[]) {
     this.xLabelListe = labels
     return this
   }
@@ -336,7 +336,7 @@ export default class RepereBuilder {
      * Une méthode pour renseigner des labels non standards
      * @param {{valeur: number, texte: string}[]} labels un array de valeurs et leurs traduction en latex
      */
-  setLabelsY(labels: LAbel[]) {
+  setLabelsY (labels: LAbel[]) {
     this.yLabelListe = labels
     return this
   }

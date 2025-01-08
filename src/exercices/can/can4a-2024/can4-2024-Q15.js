@@ -6,7 +6,6 @@ import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { pgcd } from '../../../lib/outils/primalite'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-
 export const titre = 'Additionner deux fractions de dénominateurs comptatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

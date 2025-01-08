@@ -24,8 +24,6 @@ export default class FormeCanonique extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

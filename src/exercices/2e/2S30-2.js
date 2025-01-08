@@ -14,7 +14,6 @@ export const refs = {
 export default class FonctionsProbabilite12nde extends FonctionsProbabilite1 {
   constructor () {
     super()
-  this.styleCorrection='lycee'
+    this.styleCorrection = 'lycee'
   }
 }
-

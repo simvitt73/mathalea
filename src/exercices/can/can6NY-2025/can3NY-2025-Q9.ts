@@ -27,8 +27,6 @@ export default class calcAvecChiffresPrio extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const b = choice([2, 5, 10, 20, 100, 1000])
     if (choice([true, false])) {
       this.question = `Quel est le plus grand entier multiple de $${texNombre(b)}$ strictement inférieur à $${texNombre(2025, 0)}$ ?`

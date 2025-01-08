@@ -22,7 +22,7 @@ export default class puissances1 extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
 
     this.optionsChampTexte = { texteAvant: '$?=$' }
-    }
+  }
 
   nouvelleVersion () {
     if (this.canOfficielle) {

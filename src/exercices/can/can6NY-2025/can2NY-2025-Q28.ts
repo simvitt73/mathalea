@@ -26,8 +26,6 @@ export default class calculPuissances extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = randint(1, 5)
     if (choix === 1) {
       this.reponse = -1

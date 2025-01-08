@@ -33,10 +33,10 @@ export const dateDePublication = '05/01/2025'
  */
 
 export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
-  private appliquerLesValeurs(nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
+  private appliquerLesValeurs (nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
     const angleRot = 360 / nbSecteurs
     const rosa = rose(nbSecteurs)
-    const d = rotation(droite(point(0, 0), point(-5, 0)), point(0, 0,), sens ? angleRot * nbSecteursRot : -angleRot * nbSecteursRot)
+    const d = rotation(droite(point(0, 0), point(-5, 0)), point(0, 0), sens ? angleRot * nbSecteursRot : -angleRot * nbSecteursRot)
     d.color = colorToLatexOrHTML('black')
     d.epaisseur = 2
 
@@ -65,10 +65,9 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
       this.enonce = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, lab])), rosa, lab)
     } else this.enonce = ''
     this.enonce += `La droite (d) a été tournée ${nbSecteursRot} fois de ${angleRot}° dans le sens ${sens ? 'trigonométrique' : 'horaire'}.<br>`
-    this.enonce += `Quel est l'image du motif gris par la symétrie d'axe (d) ?`
+    this.enonce += 'Quel est l\'image du motif gris par la symétrie d\'axe (d) ?'
     this.correction = `L'image du motif gris par la symétrie d'axe (d) est le motif ${good}.<br>`
     this.correction += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, polyAnim])), rosa, polyAnim)
-
   }
 
   versionOriginale: () => void = () => {
@@ -97,7 +96,7 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaire3CaseACocher = ['Figure masquée', false]
     this.sup = false

@@ -28,8 +28,6 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = randint(1, 5)
     if (choix === 1) {
       this.question = `À quel nombre décimal est égal $${texNombre(2025)}$ dixièmes ? `

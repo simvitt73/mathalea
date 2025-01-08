@@ -38,7 +38,7 @@ export const amcType = 'AMCHybride'
  */
 export default class Transformations extends Exercice {
   can: boolean
-  constructor() {
+  constructor () {
     super()
     this.can = false
     this.nbQuestions = 1
@@ -49,7 +49,7 @@ export default class Transformations extends Exercice {
     this.sup = 1
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let nbImages
 
     const choixTransformation = gestionnaireFormulaireTexte({

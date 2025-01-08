@@ -21,7 +21,6 @@ export default class SoustractionPasFacile extends Exercice {
 
     this.canOfficielle = false
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    
   }
 
   nouvelleVersion () {

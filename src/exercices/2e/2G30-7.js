@@ -41,8 +41,6 @@ export default class Lecturegraphiquedeaetb extends Exercice {
 
     this.nbQuestions = 1// On complète le nb de questions
 
-
-
     this.sup = 1
   }
 

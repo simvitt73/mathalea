@@ -30,7 +30,6 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
-
     this.setReponse = function (i, listeBonnesReponses) {
       this.autoCorrection[i] = {}
       this.autoCorrection[i].listeReponses = listeBonnesReponses

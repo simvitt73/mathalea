@@ -55,7 +55,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
     this.sup = 3
     this.sup2 = 3
     this.sup3 = 4
-
   }
 
   nouvelleVersion () {

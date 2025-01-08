@@ -32,7 +32,7 @@ export default class ImageSpline extends Exercice {
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.nbQuestions = 1
-    
+
     this.formatChampTexte = KeyboardType.vFON
     this.lineaire = false
   }

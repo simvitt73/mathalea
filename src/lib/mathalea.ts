@@ -112,7 +112,7 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-    /*  if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+      /*  if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
         animationLoading(true)
         await loadGiac()
         animationLoading(false)
@@ -189,8 +189,8 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-     /* Plus de xcas 
-     
+      /* Plus de xcas
+
      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
         animationLoading(true)
         await loadGiac()
@@ -235,7 +235,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
-      let sujet = param.uuid.split('_')[0]
+      const sujet = param.uuid.split('_')[0]
       if (sujet === 'dnb' || sujet === 'bac' || sujet === 'sti2d') {
         let response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`)
         if (response.status === 200) {
@@ -916,8 +916,8 @@ async function load (name: 'giac' | 'mathgraph') {
  * @return {Promise<undefined,Error>} rejette en cas de timeout // On n'utilise plus xcas (giacsimple)
  */
 // function waitForGiac () {
-  /* global Module */
-  // @ts-expect-error : Module est défini par giacsimple
+/* global Module */
+// @ts-expect-error : Module est défini par giacsimple
 /*  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
   const timeout = 60 // en s
   const tsStart = Date.now()

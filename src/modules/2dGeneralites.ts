@@ -12,7 +12,7 @@ export type ObjetDivLatex = {
   latex: string
   letterSize: string
 }
-export type NestedObjetMathalea2dArray = (ObjetMathalea2D | Latex2d | NestedObjetMathalea2dArray)[];
+export type NestedObjetMathalea2dArray = (ObjetMathalea2D | Latex2d | NestedObjetMathalea2dArray)[]
 
 export const colours = {
   aliceblue: '#f0f8ff',
@@ -216,7 +216,7 @@ export class ObjetMathalea2D {
   objets?: (ObjetMathalea2D | Latex2d)[]
   typeObjet?: string
 
-  constructor() {
+  constructor () {
     this.positionLabel = 'above'
     this.color = colorToLatexOrHTML('black')
     this.style = ''
@@ -227,14 +227,13 @@ export class ObjetMathalea2D {
     numId++
   }
 
-  svg(coeff: number): string | ObjetDivLatex {
+  svg (coeff: number): string | ObjetDivLatex {
     return ''
   }
 
-  tikz(): string | ObjetDivLatex {
+  tikz (): string | ObjetDivLatex {
     return ''
   }
-
 }
 
 /**
@@ -277,7 +276,7 @@ export const ySVG = (y: number, coeff: number) => arrondi(-y * coeff, 1) as numb
  *  @param {string?} [options.id = '']
  * @param {(ObjetMathalea2D|ObjetMathalea2D[])[]} objets
  */
-export function mathalea2d(
+export function mathalea2d (
   {
     xmin = 0,
     ymin = 0,
@@ -459,7 +458,7 @@ export function mathalea2d(
 export class Vide2d extends ObjetMathalea2D {
   x: number
   y: number
-  constructor(x: number, y: number) {
+  constructor (x: number, y: number) {
     super()
     this.x = x
     this.y = y
@@ -475,7 +474,7 @@ export class Vide2d extends ObjetMathalea2D {
  * @param y
  * @returns {Vide2d}
  */
-export function vide2d(x = 0, y = 0) {
+export function vide2d (x = 0, y = 0) {
   return new Vide2d(x, y)
 }
 
@@ -487,7 +486,7 @@ export function vide2d(x = 0, y = 0) {
  * @return {number[]}
  */
 // JSDOC Validee par EE Juin 2022
-function convertHexToRGB(couleur = '000000') {
+function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   if (hexDecoupe !== null && hexDecoupe.length === 3) {
     return [
@@ -517,7 +516,7 @@ function convertHexToRGB(couleur = '000000') {
  * @return {[string,string]}
  */
 // JSDOC Validee par EE Juin 2022
-export function colorToLatexOrHTML(couleur: string): [string, string] {
+export function colorToLatexOrHTML (couleur: string): [string, string] {
   let rgb = []
   if (Array.isArray(couleur) && couleur.length === 2) {
     if (couleur[1] === 'none') couleur[1] = '' // pas de 'none' comme couleur en latex !
@@ -562,7 +561,7 @@ export function colorToLatexOrHTML(couleur: string): [string, string] {
  * @return {boolean||string} Retourne false si le code couleur ne peut pas être converti car non trouvé dans la liste
  */
 // JSDOC Validee par EE Novembre 2022
-export function convertCodeCouleurToHex(color: ColourNames) {
+export function convertCodeCouleurToHex (color: ColourNames) {
   if (typeof colours[color] !== 'undefined') {
     return colours[color]
   }
@@ -580,7 +579,7 @@ export function convertCodeCouleurToHex(color: ColourNames) {
  * @return {string} Retourne le code hexadecimal de la nouvelle couleur
  */
 // JSDOC Validee par EE Novembre 2022
-export function assombrirOuEclaircir(couleur: ColourNames, coefficient: number) {
+export function assombrirOuEclaircir (couleur: ColourNames, coefficient: number) {
   let convertCodeCouleur = convertCodeCouleurToHex(couleur) ?? couleur
   convertCodeCouleur = convertCodeCouleur.replace('#', '')
   if (convertCodeCouleur.length === 6) {
@@ -718,7 +717,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
  * @return {{xmin: number, ymin:number, xmax:number, ymax:number}}
  */
-export function fixeBordures(
+export function fixeBordures (
   objets: NestedObjetMathalea2dArray,
   {
     rxmin = -0.5,
@@ -782,13 +781,13 @@ export function fixeBordures(
   let ymax = -1000
   let borduresTrouvees = false
     ;[xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
-      xmin,
-      ymin,
-      xmax,
-      ymax,
-      objets,
-      borduresTrouvees
-    )
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    objets,
+    borduresTrouvees
+  )
   if (!borduresTrouvees) {
     window.notify('fixeBordures : aucun objet ne définit de bordures valides', {
       ...objets

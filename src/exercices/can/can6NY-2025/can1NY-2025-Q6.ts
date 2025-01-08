@@ -30,8 +30,6 @@ export default class aSimplifier extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2])
     const a = choice([-5, 3, 5, -3, 9, -9])
     const b = randint(-10, 10, 0)

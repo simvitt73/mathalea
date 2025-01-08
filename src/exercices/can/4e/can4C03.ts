@@ -26,7 +26,6 @@ export default class QuotientEntierQuiVaBienParFraction extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.formatInteractif = 'fractionEgale'
   }
 

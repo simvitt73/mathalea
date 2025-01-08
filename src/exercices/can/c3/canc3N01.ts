@@ -27,13 +27,9 @@ export default class EcritureDeNombreEntier extends Exercice {
     super()
 
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 9)
       const b = randint(1, 9, a)

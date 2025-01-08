@@ -24,12 +24,9 @@ export default class QuestionDePerimetres extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(3, 25)
       const b = randint(0, 1)

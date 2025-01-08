@@ -28,8 +28,6 @@ export default class SommeDeProduitsCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const den = choice([10, 100, 1000])
     const a = new Decimal(2025).div(den)
     this.reponse = texNombre(a, 3)

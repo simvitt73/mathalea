@@ -26,10 +26,8 @@ export default class CalculImageQuotient extends Exercice {
     super()
 
     this.typeExercice = 'simple'
-    
-    this.nbQuestions = 1
-    
 
+    this.nbQuestions = 1
 
     this.formatInteractif = 'fractionEgale'
   }

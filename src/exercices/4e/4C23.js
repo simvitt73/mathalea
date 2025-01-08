@@ -43,7 +43,6 @@ export default class SommeOuProduitFractions extends Exercice {
     this.nbCols = 4 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
 
-
     this.sup = '1-3'
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false

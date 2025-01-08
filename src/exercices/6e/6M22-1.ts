@@ -42,7 +42,7 @@ export const refs = {
  * @module
  */
 export default class PerimetreAireDisques extends Exercice {
-  constructor(pa = 3) {
+  constructor (pa = 3) {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
     this.besoinFormulaire2CaseACocher = ['Rayon et diamètre entiers', true]
@@ -58,7 +58,7 @@ export default class PerimetreAireDisques extends Exercice {
     this.nbQuestions = 4
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2, reponseL2bis, reponseA2bis; i < this.nbQuestions && cpt < 50;) {
       const choixValeurApprochee = (this.sup3 === 1 || this.sup3 === 4) ? true : this.sup3 === 2 ? false : choice([true, false])
       const choixValeurExacte = (this.sup3 === 2 || this.sup3 === 4) ? true : this.sup3 === 1 ? false : !choixValeurApprochee

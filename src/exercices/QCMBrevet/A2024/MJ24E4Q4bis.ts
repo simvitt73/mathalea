@@ -30,7 +30,7 @@ export const dateDePublication = '05/01/2025'
  * @author Jean-Claude LHOTE
  * jean-claude.lhote@ac-nancy-metz.fr
  */
-export function rose(nbSecteurs: number): NestedObjetMathalea2dArray {
+export function rose (nbSecteurs: number): NestedObjetMathalea2dArray {
   const rose: NestedObjetMathalea2dArray = []
   const angleRot = 360 / nbSecteurs
   const O = point(0, 0, 'O', 'above right')
@@ -53,7 +53,7 @@ export function rose(nbSecteurs: number): NestedObjetMathalea2dArray {
   return rose
 }
 export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
-  private appliquerLesValeurs(nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
+  private appliquerLesValeurs (nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
     const rosa = rose(nbSecteurs)
     const angleRot = 360 / nbSecteurs
     const good = sens ? nbSecteurs - nbSecteursRot : nbSecteursRot
@@ -85,7 +85,6 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
       : 'horaire'
       } est le motif ${good}.<br>`
     this.correction += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, polyAnim])), rosa, polyAnim)
-
   }
 
   versionOriginale: () => void = () => {
@@ -114,7 +113,7 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaire3CaseACocher = ['Figure masquée', false]
     this.sup = false

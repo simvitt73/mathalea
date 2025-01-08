@@ -31,8 +31,6 @@ export default class LectureGraphiqueNombreDerivee extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {
@@ -86,7 +84,7 @@ export default class LectureGraphiqueNombreDerivee extends Exercice {
 
         this.reponse = f(nbre)
         this.formatInteractif = 'mathLive'
-       
+
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         break

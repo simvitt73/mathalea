@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': ['9NO3-15']
 }
 export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exercice {
-   constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super()
     // Multiplier deux nombres
     this.sup = tablesParDefaut

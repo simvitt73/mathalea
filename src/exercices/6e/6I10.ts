@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class ColorierDeplacement extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Nombre d\'instructions de déplacements', 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions']
     this.besoinFormulaire2CaseACocher = ['Avec une boucle']
@@ -44,8 +44,8 @@ export default class ColorierDeplacement extends Exercice {
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   }
 
-  nouvelleVersion() {
-    function scratchblocksTikz(codeSvg: string, codeTikz: string) {
+  nouvelleVersion () {
+    function scratchblocksTikz (codeSvg: string, codeTikz: string) {
       // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {
         return codeSvg

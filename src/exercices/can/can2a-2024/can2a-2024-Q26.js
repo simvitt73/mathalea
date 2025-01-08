@@ -20,8 +20,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-
-    }
+  }
 
   nouvelleVersion () {
     if (this.canOfficielle) {

@@ -8,7 +8,7 @@ import { quotientier, randint } from '../../modules/outils'
  * @author Rémi Angot
  * Ajout des while pour s'assurer de bien avoir des lettres majuscules le 08/05/2022 par Guillaume Valmont
  **/
-export function creerNomDePolygone(nbsommets: number, listeAEviter: string | string[] = []) {
+export function creerNomDePolygone (nbsommets: number, listeAEviter: string | string[] = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
   if (typeof listeAEviter === 'string') listeAEviter = Array.from(listeAEviter)
@@ -39,7 +39,7 @@ export function creerNomDePolygone(nbsommets: number, listeAEviter: string | str
  * Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
  * @author Rémi Angot
  */
-export function possedeUnCaractereInterdit(texte: string, listeAEviter: string[]) {
+export function possedeUnCaractereInterdit (texte: string, listeAEviter: string[]) {
   let result = false
   for (const motAeviter of listeAEviter) {
     for (let i = 0; i < motAeviter.length; i++) {
@@ -59,7 +59,7 @@ export function possedeUnCaractereInterdit(texte: string, listeAEviter: string[]
  * // 0 -> @ 1->A ; 2->B...
  * // 27->AA ; 28 ->AB ...
  */
-export function lettreDepuisChiffre(i: number, saufD = false) {
+export function lettreDepuisChiffre (i: number, saufD = false) {
   let result = ''
   if (i <= 26) {
     result = String.fromCharCode(64 + i)
@@ -83,7 +83,7 @@ export function lettreDepuisChiffre(i: number, saufD = false) {
  * // 0 -> @ 1->a ; 2->b...
  * // 27->aa ; 28 ->ab ...
  */
-export function lettreMinusculeDepuisChiffre(i: number) {
+export function lettreMinusculeDepuisChiffre (i: number) {
   return lettreDepuisChiffre(i).toLowerCase()
 }
 
@@ -94,7 +94,7 @@ export function lettreMinusculeDepuisChiffre(i: number) {
  * // 0 -> @ 1->A ; 2->B...
  * // 27->A_1 ; 28 ->A_2 ...
  */
-export function lettreIndiceeDepuisChiffre(i: number) {
+export function lettreIndiceeDepuisChiffre (i: number) {
   const indiceLettre = quotientier(i - 1, 26) === 0 ? '' : quotientier(i - 1, 26)
   return String.fromCharCode(64 + (i - 1) % 26 + 1) + (i > 26 ? `_{${indiceLettre}}` : '')
 }
@@ -106,7 +106,7 @@ export function lettreIndiceeDepuisChiffre(i: number) {
  * // 0 -> @ 1->a ; 2->b...
  * // 27->a_1 ; 28 ->a_2 ...
  */
-export function lettreIndiceeMinusculeDepuisChiffre(i: number) {
+export function lettreIndiceeMinusculeDepuisChiffre (i: number) {
   return lettreIndiceeDepuisChiffre(i).toLowerCase()
 }
 
@@ -114,7 +114,7 @@ export function lettreIndiceeMinusculeDepuisChiffre(i: number) {
  * Renvoie un espace insécable pour le mode texte suivant la sortie html ou Latex.
  * @author Jean-Claude Lhote
  */
-export function sp(nb = 1) {
+export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
     if (context.isHtml) s += '&nbsp;'
@@ -123,7 +123,7 @@ export function sp(nb = 1) {
   return s
 }
 
-export function insertCharInString(str: string, index: number, char: string) {
+export function insertCharInString (str: string, index: number, char: string) {
   return str.substring(0, index) + char + str.substring(index, str.length)
 }
 
@@ -131,7 +131,7 @@ export function insertCharInString(str: string, index: number, char: string) {
  * Convertit en majuscule la première lettre
  * @author Rémi Angot
  */
-export function premiereLettreEnMajuscule(text: string) {
+export function premiereLettreEnMajuscule (text: string) {
   if (typeof text === 'string' && text.length > 0) return (text + '').charAt(0).toUpperCase() + text.substring(1)
   else return ''
 }
@@ -141,7 +141,7 @@ export function premiereLettreEnMajuscule(text: string) {
  * @param {number} k valeur numérique
  * @author Sébastien Lozano (Rajout par EE, l'opportunité d'enlever l'espace final qui est par défaut)
  */
-export function numAlpha(k: number, nospace = false) {
+export function numAlpha (k: number, nospace = false) {
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + String.fromCharCode(97 + k) + '.}' + (nospace ? '' : ' ')
 }
@@ -151,13 +151,13 @@ export function numAlpha(k: number, nospace = false) {
  * @param {number} k valeur numérique
  * @author Eric Elter
  */
-export function numAlphaNum(k: number, nospace = false) {
+export function numAlphaNum (k: number, nospace = false) {
   k = k + 1
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
 }
 
-export function reverseString(s: string) {
+export function reverseString (s: string) {
   let str = ''
   for (let i = 0; i < s.length; i++) {
     str += s[s.length - 1 - i]

@@ -53,8 +53,8 @@ async function load (name) {
  * Plus de xcas
  */
 // function waitForGiac () {
-  /* global Module */
- /* 
+/* global Module */
+/*
   if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') {
     return Promise.reject(
       Error('Le loader giac n’a pas été correctement appelé')

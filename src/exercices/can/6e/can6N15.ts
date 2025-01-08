@@ -23,7 +23,6 @@ export default class EcrirePetitsNombresEntiersCan extends EcrirePetitsNombresEn
   constructor () {
     super()
 
-    
     this.nbQuestions = 1 // on en fait un exo qui n'aura qu'une question
     this.nbQuestionsModifiable = false // on fait disparaitre le paramètre nombre de questions
     this.sup = choice([4, 5, 6]) // on calibre l'exo comme on veut.

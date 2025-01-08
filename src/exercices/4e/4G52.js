@@ -33,7 +33,6 @@ export default class ReperagePaveDroit extends Exercice {
     this.consigne = 'Dans le repère $(A;I;J;K)$ :'
     this.nbQuestions = 3
 
-
     this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
     this.sup = 1
 

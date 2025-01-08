@@ -20,7 +20,6 @@ export default class solutionInequation extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-
   }
 
   nouvelleVersion () {

@@ -25,7 +25,7 @@ export default class ExoRose extends Exercice {
   clavier?: string
   indexInconnue: number[]
 
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
     this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)', 9]
@@ -48,7 +48,7 @@ export default class ExoRose extends Exercice {
     this.indexInconnue = []
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     this.valeurMax = contraindreValeur(10, 30, this.sup, 10)
     this.nombreDeValeurs = contraindreValeur(3, 9, this.sup2, 5)
     switch (this.sup3) {
@@ -203,7 +203,7 @@ export default class ExoRose extends Exercice {
     return resultat
   }
 
-  saisieCoherente(saisies: string[], taille: number, question: number) {
+  saisieCoherente (saisies: string[], taille: number, question: number) {
     let resultatOK = true
     let stringSaisie = saisies[0]
     let stringResultat

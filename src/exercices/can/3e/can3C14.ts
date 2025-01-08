@@ -74,7 +74,7 @@ export default class DecimalVersFractionIr extends Exercice {
         this.reponse = maFraction.simplifie()
         break
     }
-    if (this.interactif) {this.question += '<br>'}
+    if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

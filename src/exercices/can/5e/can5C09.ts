@@ -25,7 +25,6 @@ export default class MutliplierParN0N extends Exercice {
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
-    
   }
 
   nouvelleVersion () {

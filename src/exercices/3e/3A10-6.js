@@ -38,8 +38,6 @@ export default class TrouverChiffre extends Exercice {
     this.sup = 7
     this.sup2 = 9
     this.sup3 = 1
-
-
   }
 
   nouvelleVersion () {

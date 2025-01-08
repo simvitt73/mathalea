@@ -21,7 +21,7 @@ export const refs = {
 
 */
 export default class ProblemeFractions extends Exercice {
-  constructor() {
+  constructor () {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -33,10 +33,10 @@ export default class ProblemeFractions extends Exercice {
     this.optionsDeComparaison = { fractionEgale: true }
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const listeFractions = [[1, 3, 1, 4], [1, 3, 3, 4], [2, 3, 1, 4], [1, 5, 1, 4], [1, 5, 1, 3], [1, 5, 2, 3], [2, 5, 1, 3], [2, 5, 3, 4],
-    [5, 6, 1, 4], [1, 6, 3, 4], [5, 6, 1, 3], [2, 7, 2, 3], [3, 4, 3, 4], [1, 7, 1, 3], [5, 7, 1, 6],
-    [3, 10, 1, 3], [7, 10, 1, 4], [5, 6, 1, 10], [9, 10, 1, 4], [2, 3, 2, 3], [1, 9, 1, 3], [1, 9, 3, 7], [3, 7, 4, 7]]
+      [5, 6, 1, 4], [1, 6, 3, 4], [5, 6, 1, 3], [2, 7, 2, 3], [3, 4, 3, 4], [1, 7, 1, 3], [5, 7, 1, 6],
+      [3, 10, 1, 3], [7, 10, 1, 4], [5, 6, 1, 10], [9, 10, 1, 4], [2, 3, 2, 3], [1, 9, 1, 3], [1, 9, 3, 7], [3, 7, 4, 7]]
     const fractions = choice(listeFractions)
     const frac1 = new FractionEtendue(fractions[0], fractions[1])
     const frac2 = new FractionEtendue(fractions[2], fractions[3])

@@ -28,8 +28,6 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     let a
     let b
     switch (randint(1, 2)) {

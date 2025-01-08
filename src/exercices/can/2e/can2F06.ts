@@ -29,7 +29,6 @@ export default class TableauSignes extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

@@ -38,7 +38,7 @@ export const refs = {
   'fr-ch': ['10GM3-6']
 }
 export default class UnitesDeVolumesEtDeCapacite extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -56,7 +56,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
     this.nbQuestions = 8
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
 
     Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
@@ -303,7 +303,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
   }
 }
 
-function buildTab(a: number, uniteA: string, r: number, uniteR: string, ligne = 2, correction = false) {
+function buildTab (a: number, uniteA: string, r: number, uniteR: string, ligne = 2, correction = false) {
   const tabRep = function (nbre: number, uniteNbre: string): string[] {
     const res = []
     let caseARemplir

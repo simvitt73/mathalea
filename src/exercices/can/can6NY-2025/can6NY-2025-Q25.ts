@@ -28,8 +28,6 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choixF = prenomF()
     const choixM = prenomM()
     const pm = randint(1, 9) * 100 + 25

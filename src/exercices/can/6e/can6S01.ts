@@ -25,7 +25,7 @@ export default class LectureDiagrammeBarre extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    
+
     this.nbQuestions = 1
   }
 

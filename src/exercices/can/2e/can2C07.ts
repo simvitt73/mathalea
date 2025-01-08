@@ -24,8 +24,6 @@ export default class CalculAvecRacineCarree2 extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

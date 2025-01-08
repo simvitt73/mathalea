@@ -29,8 +29,6 @@ export default class calculsAvecPuissance10 extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const typesDeQuestionsDisponibles = combinaisonListes([1, 2, 3], this.nbQuestions) // EE : tu mets ici toutes les possibiiltés et tu les mélanges jusqu'à obtenir au moins nbQuestions
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''

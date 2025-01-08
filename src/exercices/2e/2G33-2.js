@@ -25,7 +25,6 @@ export default class PositionsDeDroites extends Exercice {
     // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
     this.sup = 1 // Niveau de difficulté
-
   }
 
   nouvelleVersion () {

@@ -27,8 +27,6 @@ export default class ecritureScien extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const exposant = randint(0, 2)
     const a = new Decimal(2025).div(new Decimal(10).pow(exposant))
     this.question = `Quelle est l'écriture scientifique de $${texNombre(a)}$ ?`

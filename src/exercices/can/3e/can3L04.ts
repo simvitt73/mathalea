@@ -26,12 +26,9 @@ export default class SolutionInequation extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     let a, b, c, d
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice(['a', 'b', 'c'])) { //

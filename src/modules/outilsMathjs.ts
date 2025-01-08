@@ -6,8 +6,8 @@ import { Node, Negative, solveEquation, simplifyExpression, factor } from 'maths
 import { getNewChangeNodes } from './Change'
 import Decimal from 'decimal.js'
 
-type ListeVariable = 'a'| 'b'| 'c'| 'd'| 'e'| 'f'| 'g'| 'h'| 'i'| 'j'| 'k'| 'l'| 'm'| 'n'| 'o'| 'p'| 'q'| 'r'| 's'| 't'| 'u'| 'v'| 'w'| 'x'| 'y'| 'z' | 'test'
-export type Variables =Partial<Record<ListeVariable, string|number|boolean|Fraction|object>>
+type ListeVariable = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'test'
+export type Variables = Partial<Record<ListeVariable, string | number | boolean | Fraction | object>>
 
 const math = create(all)
 
@@ -294,7 +294,7 @@ function correctifNodeMathsteps (node: Node) {
  * toTex('-3/4') -> -\dfrac{3}{4}
  * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
  */
-export function toTex (node: MathNode|string, params:{suppr1?: boolean, suppr0?: boolean, supprPlusMoins?: boolean, variables?: Variables, removeImplicit?: boolean} = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined, removeImplicit: true }): string {
+export function toTex (node: MathNode | string, params:{ suppr1?: boolean, suppr0?: boolean, supprPlusMoins?: boolean, variables?: Variables, removeImplicit?: boolean } = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined, removeImplicit: true }): string {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -366,7 +366,7 @@ export function toTex (node: MathNode|string, params:{suppr1?: boolean, suppr0?:
   }
 }
 
-export function toString (node: MathNode|string, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
+export function toString (node: MathNode | string, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -429,7 +429,7 @@ export function toString (node: MathNode|string, params = { suppr1: true, suppr0
   }
 }
 
-export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }, rules?:{l:string, r:string}[]) {
+export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }, rules?:{ l: string, r: string }[]) {
   // Ne pas oublier le signe de la multiplication
   return math.simplify(expression, rules ?? [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
 }
@@ -666,7 +666,7 @@ export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, 
   for (const v of Object.keys(assignations)) {
     assignations[v as keyof Variables] = math.number(String(assignations[v as keyof Variables]))
   }
-  let comparator: string|undefined
+  let comparator: string | undefined
   let sides
   for (let i = 0; i < comparators.length; i++) {
     const comparatorSearch = comparators[i]

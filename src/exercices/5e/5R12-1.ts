@@ -38,7 +38,6 @@ class ReperagePointDuPlan extends Exercice {
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.reponse = ''
-    
   }
 
   nouvelleVersion (): void {

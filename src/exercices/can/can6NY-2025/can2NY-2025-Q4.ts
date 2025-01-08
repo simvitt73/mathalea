@@ -26,11 +26,9 @@ export default class NombreAajouter extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    }
+  }
 
   nouvelleVersion () {
-    
-    
     const abs0 = 2025
     const abs1 = abs0 + 1
     const abs2 = abs0 + 2

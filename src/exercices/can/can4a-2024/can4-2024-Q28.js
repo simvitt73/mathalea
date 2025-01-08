@@ -7,7 +7,6 @@ import Hms from '../../../modules/Hms'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-
 export const titre = 'Transformer une heure décimale en heures/minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'

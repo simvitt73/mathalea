@@ -27,9 +27,6 @@ export default class CalculParentheses extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
-
     const a = randint(1, 12) * 2 + 1
 
     this.reponse = texNombre(new Decimal(2025).sub(a).div(2), 0)

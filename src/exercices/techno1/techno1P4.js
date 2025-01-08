@@ -26,7 +26,7 @@ export default class ProportiondeProportion extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    
+
     this.optionsChampTexte = { texteApres: ' %' }
   }
 

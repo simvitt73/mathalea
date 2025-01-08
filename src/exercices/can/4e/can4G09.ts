@@ -28,7 +28,7 @@ export default class TripletsPythagoriciens extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    
+
     this.nbQuestions = 1
 
     this.sup = 1
@@ -88,7 +88,6 @@ export default class TripletsPythagoriciens extends Exercice {
       this.optionsChampTexte = { texte: `$${nom[2 - index2]}${nom[1]}=$`, texteApres: `${sp(1)}cm` }
     }
 
-    
     const figure = mathalea2d(Object.assign({ scale: 0.6, style: 'display: inline;' }, fixeBordures(objets)), objets)
     this.question += figure
   }

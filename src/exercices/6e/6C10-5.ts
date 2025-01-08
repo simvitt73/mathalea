@@ -31,7 +31,7 @@ export const refs = {
 }
 export default class ExerciceLabyrintheMultiples extends Exercice {
   niveau: string
-   constructor () {
+  constructor () {
     super()
     this.niveau = '6e'
     this.nbQuestions = 3

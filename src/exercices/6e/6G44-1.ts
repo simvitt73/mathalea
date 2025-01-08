@@ -49,7 +49,7 @@ export default class ReconnaitreDesSolides extends Exercice {
     super()
     this.nbQuestions = 5
     this.nbCols = 4
-    
+
     this.sup = '8' // Type de question
     this.sup2 = false // qcm
     this.besoinFormulaireTexte = [

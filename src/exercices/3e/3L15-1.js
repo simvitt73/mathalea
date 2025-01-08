@@ -30,8 +30,6 @@ export default class ResoudreEquatioeX2EgalA extends Exercice {
     this.sup = 1
 
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
-
-
   }
 
   nouvelleVersion () {

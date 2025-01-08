@@ -7,7 +7,6 @@ import { polygone, Polygone } from '../../../lib/2d/polygones'
 import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 
-
 export const titre = 'Déterminer une fraction d\'aire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,9 +24,8 @@ export default class FractionDeRectangle extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
 
-    
     this.canOfficielle = false
-    }
+  }
 
   nouvelleVersion () {
     const hauteur = 3

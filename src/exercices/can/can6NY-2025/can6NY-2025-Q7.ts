@@ -28,8 +28,6 @@ export default class CompleterUneSuite extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const k = randint(3, 9)
     const nbre2 = 2025 + k
     const nbre3 = nbre2 + k

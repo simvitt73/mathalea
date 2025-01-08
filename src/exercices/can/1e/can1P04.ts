@@ -36,7 +36,6 @@ export default class CalculProbaArbre2e extends Exercice {
     this.nbQuestions = 1
 
     // this.sup = 1; // Niveau de difficulté
-
   }
 
   nouvelleVersion () {

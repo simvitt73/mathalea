@@ -27,8 +27,6 @@ export default class calcDerivee extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     let a, b, c, pol
     if (choice([true, false])) {
       this.question = 'Soit $f$ la fonction définie sur $\\mathbb{R}$ par : '

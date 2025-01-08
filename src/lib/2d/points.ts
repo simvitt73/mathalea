@@ -24,7 +24,7 @@ export class Point extends ObjetMathalea2D {
   x: number
   y: number
 
-  constructor(arg1: string | number, arg2: number, arg3?: number | string, positionLabel = 'above') {
+  constructor (arg1: string | number, arg2: number, arg3?: number | string, positionLabel = 'above') {
     super()
     this.typeObjet = 'point'
     this.x = 0
@@ -54,11 +54,11 @@ export class Point extends ObjetMathalea2D {
     this.bordures = [this.x, this.y, this.x, this.y]
   }
 
-  xSVG(coeff: number) {
+  xSVG (coeff: number) {
     return arrondi(this.x * coeff, 1)
   }
 
-  ySVG(coeff: number) {
+  ySVG (coeff: number) {
     return arrondi(-this.y * coeff, 1)
   }
 
@@ -71,7 +71,7 @@ export class Point extends ObjetMathalea2D {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansPolygone(p: Polygone): boolean {
+  estDansPolygone (p: Polygone): boolean {
     for (const triangle of p.triangulation) {
       if (this.estDansTriangle(...triangle as [Point, Point, Point])) return true
     }
@@ -89,7 +89,7 @@ export class Point extends ObjetMathalea2D {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansTriangle(A: Point, B: Point, C: Point): boolean {
+  estDansTriangle (A: Point, B: Point, C: Point): boolean {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
     const vMC = vecteur(this, C)
@@ -108,7 +108,7 @@ export class Point extends ObjetMathalea2D {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansPolygoneConvexe(p: Polygone): boolean {
+  estDansPolygoneConvexe (p: Polygone): boolean {
     const l = p.listePoints.length
     if (l === 3) {
       return this.estDansTriangle(...p.listePoints as [Point, Point, Point])
@@ -134,7 +134,7 @@ export class Point extends ObjetMathalea2D {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansQuadrilatere(A: Point, B: Point, C: Point, D: Point) {
+  estDansQuadrilatere (A: Point, B: Point, C: Point, D: Point) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
 
@@ -146,7 +146,7 @@ export class Point extends ObjetMathalea2D {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estSur(objet: Droite | Segment | DemiDroite | Cercle) {
+  estSur (objet: Droite | Segment | DemiDroite | Cercle) {
     if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.01))
     if (objet instanceof Segment) {
       const prodvect = (objet.extremite2.x - objet.extremite1.x) * (this.y - objet.extremite1.y) - (this.x - objet.extremite1.x) * (objet.extremite2.y - objet.extremite1.y)
@@ -173,7 +173,7 @@ export class Point extends ObjetMathalea2D {
  * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
-export function point(x: number, y: number, A = '', positionLabel = 'above') {
+export function point (x: number, y: number, A = '', positionLabel = 'above') {
   return new Point(x, y, A, positionLabel)
 }
 
@@ -189,7 +189,7 @@ export class Plot extends ObjetMathalea2D {
   x: number
   y: number
   opaciteDeRemplissage: number
-  constructor(x: number, y: number, {
+  constructor (x: number, y: number, {
     rayon = 0.05,
     couleur = 'black',
     couleurDeRemplissage = 'black',
@@ -208,7 +208,7 @@ export class Plot extends ObjetMathalea2D {
     this.opaciteDeRemplissage = opaciteDeRemplissage
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     if (this.couleurDeRemplissage[0] === '') {
       return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color[0]}" stroke-opacity="${this.opacite || 1}"/>`
     } else {
@@ -216,7 +216,7 @@ export class Plot extends ObjetMathalea2D {
     }
   }
 
-  tikz() {
+  tikz () {
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -241,7 +241,7 @@ export class Plot extends ObjetMathalea2D {
   }
 }
 
-export function plot(x: number, y: number, {
+export function plot (x: number, y: number, {
   rayon = 0.05,
   couleur = 'black',
   couleurDeRemplissage = 'black',
@@ -268,7 +268,7 @@ export class TracePoint extends ObjetMathalea2D {
   tailleTikz: number
   points: (Point | Point3d)[]
   couleurDeRemplissage?: string[]
-  constructor(...points: (Point | Point3d | string)[]) {
+  constructor (...points: (Point | Point3d | string)[]) {
     super()
     this.taille = 3
     this.tailleTikz = this.taille / 15
@@ -297,7 +297,7 @@ export class TracePoint extends ObjetMathalea2D {
     this.bordures = [xmin, ymin, xmax, ymax]
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const objetssvg = []
     let s1
     let s2
@@ -372,7 +372,7 @@ export class TracePoint extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     const objetstikz = []
     let s1
     let s2
@@ -456,7 +456,7 @@ export class TracePoint extends ObjetMathalea2D {
  * @example tracePoint(A).epaisseur = 5 // L'épaisseur du style du point sera 5 et non 1 par défaut.
  * @example tracePoint(A).opacite = 0.4 // L'opacité du style du point sera 40% et non 80%(0.8) par défaut.
  */
-export function tracePoint(...args: (Point | Point3d | string)[]) {
+export function tracePoint (...args: (Point | Point3d | string)[]) {
   return new TracePoint(...args)
 }
 
@@ -474,7 +474,7 @@ export class TracePointSurDroite extends ObjetMathalea2D {
   direction: Point
   stringColor: string
 
-  constructor(A: Point, O: Point | Droite, color = 'black') {
+  constructor (A: Point, O: Point | Droite, color = 'black') {
     super()
     this.stringColor = color
     this.lieu = A
@@ -499,7 +499,7 @@ export class TracePointSurDroite extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const A1 = pointSurSegment(this.lieu, this.direction, this.taille * 20 / coeff)
     const A2 = pointSurSegment(this.lieu, this.direction, -this.taille * 20 / coeff)
     const s = segment(A1, A2, this.stringColor)
@@ -507,7 +507,7 @@ export class TracePointSurDroite extends ObjetMathalea2D {
     return s.svg(coeff)
   }
 
-  tikz() {
+  tikz () {
     const A1 = pointSurSegment(this.lieu, this.direction, this.taille / context.scale)
     const A2 = pointSurSegment(this.lieu, this.direction, -this.taille / context.scale)
     const s = segment(A1, A2, this.stringColor)
@@ -515,11 +515,11 @@ export class TracePointSurDroite extends ObjetMathalea2D {
   }
 }
 
-export function tracePointSurDroite(A: Point, O: Point | Droite, color = 'black') {
+export function tracePointSurDroite (A: Point, O: Point | Droite, color = 'black') {
   return new TracePointSurDroite(A, O, color)
 }
 
-export function traceMilieuSegment(A: Point, B: Point) {
+export function traceMilieuSegment (A: Point, B: Point) {
   return new TracePointSurDroite(milieu(A, B), droite(A, B))
 }
 
@@ -530,7 +530,7 @@ export function traceMilieuSegment(A: Point, B: Point) {
  * @returns {Point} Milieu du segment [AB]
  * @author Rémi Angot
  */
-export function milieu(A: Point, B: Point, nom = '', positionLabel = 'above'): Point {
+export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
@@ -547,7 +547,7 @@ export function milieu(A: Point, B: Point, nom = '', positionLabel = 'above'): P
  * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
-export function pointSurSegment(A: Point, B: Point, l?: number, nom = '', positionLabel = 'above'): Point {
+export function pointSurSegment (A: Point, B: Point, l?: number, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
   if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {
@@ -567,7 +567,7 @@ export function pointSurSegment(A: Point, B: Point, l?: number, nom = '', positi
  * P = pointSurCercle(c,-90) // P est le point du cercle c situé à l'opposé du point N précédent.
  * @author Jean-Claude Lhote
  */
-export function pointSurCercle(c: Cercle, angle: number, nom: string, positionLabel = 'above'): Point {
+export function pointSurCercle (c: Cercle, angle: number, nom: string, positionLabel = 'above'): Point {
   if (typeof angle !== 'number') angle = randint(-180, 180)
   const x = c.centre.x + c.rayon * Math.cos(radians(angle))
   const y = c.centre.y + c.rayon * Math.sin(radians(angle))
@@ -583,7 +583,7 @@ export function pointSurCercle(c: Cercle, angle: number, nom: string, positionLa
  * @return {Point} Point de la droite d dont l'abscisse est x
  * @author Jean-Claude Lhote
  */
-export function pointSurDroite(d: Droite, x: number, nom = '', positionLabel = 'above'): Point {
+export function pointSurDroite (d: Droite, x: number, nom = '', positionLabel = 'above'): Point {
   // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
   if (d.b === 0) return point(-d.c / d.a, x, nom, positionLabel)
   else if (d.a === 0) return point(x, -d.c / d.b, nom, positionLabel)
@@ -599,7 +599,7 @@ export function pointSurDroite(d: Droite, x: number, nom = '', positionLabel = '
  * @return {Point|boolean} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionDD(d: Droite, f: Droite, nom = '', positionLabel = 'above'): Point | boolean {
+export function pointIntersectionDD (d: Droite, f: Droite, nom = '', positionLabel = 'above'): Point | boolean {
   let x, y
   if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
     // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
@@ -620,7 +620,7 @@ export function pointIntersectionDD(d: Droite, f: Droite, nom = '', positionLabe
  * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
-export function pointAdistance(A: Point, d: number = 1, angle = 0, nom = '', positionLabel = 'above'): Point {
+export function pointAdistance (A: Point, d: number = 1, angle = 0, nom = '', positionLabel = 'above'): Point {
   let leNom = ''
   let lAngle = 0
   let lePositionLabel = 'above'
@@ -646,7 +646,7 @@ export function pointAdistance(A: Point, d: number = 1, angle = 0, nom = '', pos
  * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionLC(d: Droite, C: Cercle, nom = '', n = 1): Point | boolean {
+export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point | boolean {
   const O = C.centre
   const r = C.rayon
   const a = d.a
@@ -727,7 +727,7 @@ export function pointIntersectionLC(d: Droite, C: Cercle, nom = '', n = 1): Poin
  * @author Rémi Angot
  * @see https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
  */
-export function pointIntersectionCC(c1: Cercle, c2: Cercle, nom = '', n = 1): Point | boolean {
+export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point | boolean {
   const O1 = c1.centre
   const O2 = c2.centre
   const r0 = c1.rayon

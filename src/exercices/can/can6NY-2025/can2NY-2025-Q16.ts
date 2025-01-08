@@ -26,8 +26,6 @@ export default class entierDansIntervalle extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const crochet1 = choice([']', '['])
     const crochet2 = choice([']', '['])
     if (choice([true, false])) {

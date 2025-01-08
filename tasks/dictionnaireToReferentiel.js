@@ -221,7 +221,6 @@ delete referentielFR.STI2D
 referentielFR.Bac.Bac88STI2DTags = referentielFR.STI2DTags
 delete referentielFR.STI2DTags
 
-
 const dataFR = JSON.stringify(referentielFR, null, 2)
 fs.writeFileSync('src/json/referentielStaticFR.json', dataFR)
 

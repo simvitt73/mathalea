@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': ['9GM1-10']
 }
 export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = ['Type de figures',
       `Nombres séparés par des tirets :
@@ -58,7 +58,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13

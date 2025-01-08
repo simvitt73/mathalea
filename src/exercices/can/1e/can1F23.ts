@@ -23,7 +23,6 @@ export default class SignesTabGSpline extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

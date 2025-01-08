@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': ['9NO13-1']
 }
 class CalculsFractionsSimples extends Exercice {
-   version: string
+  version: string
   constructor () {
     super()
     this.formatInteractif = 'fractionEgale'

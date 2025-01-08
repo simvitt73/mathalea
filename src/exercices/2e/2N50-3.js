@@ -31,7 +31,6 @@ export default class ModeliserEquations extends Exercice {
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.sup = 3
-
   }
 
   nouvelleVersion () {

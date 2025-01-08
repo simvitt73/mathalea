@@ -40,7 +40,6 @@ export default class ExerciceEquations extends Exercice {
     this.sup2 = true
     this.spacingCorr = 3
 
-
     this.comment = 'Dans le niveau plus facile, l\'énoncé contient un maximum d\'entiers positifs. <br>'
     this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
   }

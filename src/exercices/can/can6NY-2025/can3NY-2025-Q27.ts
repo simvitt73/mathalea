@@ -27,8 +27,6 @@ export default class ComparerFractions extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const b = -a * this.reponse + 2025

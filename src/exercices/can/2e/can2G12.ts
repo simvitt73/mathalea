@@ -27,7 +27,6 @@ export default class VecteursColineairesVF extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

@@ -35,7 +35,6 @@ export default class ComparerAvecFctRef extends Exercice {
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.sup = 1
     this.spacingCorr = 2
-
   }
 
   nouvelleVersion () {

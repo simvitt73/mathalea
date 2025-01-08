@@ -24,10 +24,9 @@ export default class AireTrapezeRectangle extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
 
-    
     this.optionsChampTexte = { texteApres: ' ua' }
     this.canOfficielle = false
-    }
+  }
 
   nouvelleVersion () {
     let hauteur: number

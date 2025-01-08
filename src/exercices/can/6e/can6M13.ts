@@ -24,8 +24,6 @@ export default class CombienDeFois extends Exercice {
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
-
-    
   }
 
   nouvelleVersion () {

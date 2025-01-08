@@ -22,11 +22,9 @@ export default class reduireExpression extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    }
+  }
 
   nouvelleVersion () {
-    
-    
     switch (randint(1, 3)) {
       case 1 :
         this.question = `Exprimer la somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$.`

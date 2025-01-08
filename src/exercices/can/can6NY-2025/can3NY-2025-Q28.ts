@@ -26,8 +26,6 @@ export default class InverseOppose extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const nbre = choice([-2025, 2025])
     if (choice([true, false])) {
       this.question = `Quel est l'opposé de  $${texNombre(nbre)}$ ? `

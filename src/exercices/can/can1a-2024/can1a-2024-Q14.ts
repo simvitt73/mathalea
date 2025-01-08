@@ -10,7 +10,6 @@ import { repere } from '../../../lib/2d/reperes'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 
-
 export const titre = 'Déterminer une équation réduite de droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +24,7 @@ export default class EquationReduite extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    
+
     this.canOfficielle = false
   }
 

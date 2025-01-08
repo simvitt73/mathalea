@@ -144,7 +144,6 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
 
     this.sup = 1 // Niveau de difficulté
     this.sup2 = 2
-
   }
 
   nouvelleVersion () {
@@ -304,7 +303,7 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
           texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${prixIntial}${sp()}€ \\times ${texNombre(pourcent, 1)} \\div 100${egalOuApprox(montantAugmentation, 2)}`
           texteCorr += miseEnEvidence(`${texPrix(montantAugmentation)}${sp()}`) + '€$.<br>'
           texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera ${situation.quoiReponse} : $${prixIntial}${sp()}€+${texPrix(montantAugmentation)}${sp()}€ =`
-          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}${sp()}`)+'€$.'
+          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}${sp()}`) + '€$.'
         }
           break
       }

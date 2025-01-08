@@ -25,7 +25,7 @@ export default class Trinome {
     else this.b = b
     if (typeof c === 'number') this.c = new FractionEtendue(c, 1)
     else this.c = c
-   this._discriminant = undefined
+    this._discriminant = undefined
   }
 
   /** Modifie le polynome pour qu'il soit égal à a(x-x1)(x-x2) */
@@ -135,10 +135,10 @@ export default class Trinome {
   /** Discriminant du trinome */
   get discriminant () {
     if (this._discriminant === undefined) {
-    const b2 = this.b.produitFraction(this.b)
-    let ac = this.a.produitFraction(this.c)
-    ac = ac.multiplieEntier(-4)
-    this._discriminant = b2.sommeFraction(ac).simplifie()
+      const b2 = this.b.produitFraction(this.b)
+      let ac = this.a.produitFraction(this.c)
+      ac = ac.multiplieEntier(-4)
+      this._discriminant = b2.sommeFraction(ac).simplifie()
     }
     return this._discriminant
   }
@@ -435,8 +435,8 @@ export default class Trinome {
     if (this.a.valeurDecimale > 0) {
       result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     } else {
-    result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
-  }
+      result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    }
     return result
   }
 

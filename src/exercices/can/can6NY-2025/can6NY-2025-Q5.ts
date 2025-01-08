@@ -27,8 +27,6 @@ export default class calcAvecChiffres extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2, 3])
     if (choix === 1) {
       this.question = `Quel est le chiffre des unités dans $${texNombre(2025, 0)}$ ?`

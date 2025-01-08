@@ -28,8 +28,6 @@ export default class calcAvecChiffresPrio extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([true, false])
     const a = randint(1, 4)
     const val = new Decimal(2025).div(choice([10, 100, 1000]))

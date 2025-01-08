@@ -33,9 +33,8 @@ export const refs = {
 export default class QuestionsAiresEtPerimetres extends Exercice {
   constructor () {
     super()
-    
-    this.nbQuestions = 1
 
+    this.nbQuestions = 1
   }
 
   nouvelleVersion () {

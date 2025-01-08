@@ -28,8 +28,6 @@ export default class reduireExpression extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const b = randint(4, 30)
     const r1 = 2025 - b
     const r2 = -2025 + b

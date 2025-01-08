@@ -24,20 +24,16 @@ export const refs = {
   'fr-ch': []
 }
 export default class TauxGlobal extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
 
-  
-  this.optionsChampTexte = { texteApres: ' $\\%$' }
+    this.optionsChampTexte = { texteApres: ' $\\%$' }
+  }
 
-    
-
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     let a, b, coeffG
     let listeCalculs = []
 

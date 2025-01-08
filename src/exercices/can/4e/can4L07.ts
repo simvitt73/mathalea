@@ -35,11 +35,9 @@ export default class ReduireExp extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
     let a, b, c, choix, d, e
     let reponse
     switch (randint(1, 3)) {

@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': ['10GM1-3']
 }
 export default class Perimetre_aire_et_portions_de_disques extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
     this.besoinFormulaire2Texte = ['Type de figures', '1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
@@ -47,7 +47,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
     this.nbQuestions = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       max: 3,

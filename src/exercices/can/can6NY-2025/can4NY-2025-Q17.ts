@@ -26,8 +26,6 @@ export default class AjouterMinutes extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const h = 20
     const k = randint(8, 11) * 5
     this.question = `Ajouter $${k}$ minutes à $20$ h $25$ minutes.`

@@ -28,8 +28,6 @@ export default class calculsFractions extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = randint(2023, 2026)
     if (choice([true, false])) {
       this.question = `Calculer  $\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\div \\dfrac{1}{${texNombre(2025, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$.`

@@ -24,15 +24,12 @@ export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exer
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
     const a = randint(-10, 10, 0)
     const n = randint(-5, 5, 0)
     const b = n * a
-
-    
 
     this.formatInteractif = 'texte'
     this.reponse = `${-b / a};0`

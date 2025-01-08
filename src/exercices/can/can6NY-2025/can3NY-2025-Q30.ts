@@ -28,8 +28,6 @@ export default class ComparerFractions extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const oliveK = choice([100, 200])
     const nbreBouteilles = choice([20, 25, 10])
     const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)

@@ -32,8 +32,6 @@ export default class CalculTermeSuiteRec extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {

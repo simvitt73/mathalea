@@ -184,7 +184,7 @@ export default class ScratchMultiScript extends Exercice {
 }\n`
           for (let k = 0; k < 2; k++) {
             for (let l = 0; l < 2; l++) {
-              const test = testInstruction(`AV${x[i % 3 + 1]}`, lutins[i],pion)
+              const test = testInstruction(`AV${x[i % 3 + 1]}`, lutins[i], pion)
               if (test[0]) {
                 pion.currentPos.x = test[1]
                 pion.currentPos.y = test[2]
@@ -194,7 +194,7 @@ export default class ScratchMultiScript extends Exercice {
                 //   throw Error('Le mouvement n\'est pas valide : sortie de plateau')
               }
               if (rotations[i % 2] === '\\turnright{}') {
-                const test = testInstruction('TD90', lutins[i],pion)
+                const test = testInstruction('TD90', lutins[i], pion)
                 if (test[0]) {
                   pion.currentPos.x = test[1]
                   pion.currentPos.y = test[2]
@@ -204,7 +204,7 @@ export default class ScratchMultiScript extends Exercice {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               } else {
-                const test = testInstruction('TG90', lutins[i],pion)
+                const test = testInstruction('TG90', lutins[i], pion)
                 if (test[0]) {
                   pion.currentPos.x = test[1]
                   pion.currentPos.y = test[2]
@@ -214,7 +214,7 @@ export default class ScratchMultiScript extends Exercice {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               }
-              const test2 = testInstruction(`AV${y[i % 3 + 1]}`, lutins[i],pion)
+              const test2 = testInstruction(`AV${y[i % 3 + 1]}`, lutins[i], pion)
               if (test2[0]) {
                 pion.currentPos.x = test2[1]
                 pion.currentPos.y = test2[2]
@@ -224,13 +224,13 @@ export default class ScratchMultiScript extends Exercice {
                 //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
               }
               if (rotations[(i + 1) % 2] === '\\turnright{}') {
-                const test3 = testInstruction('TD90', lutins[i],pion)
+                const test3 = testInstruction('TD90', lutins[i], pion)
                 pion.currentPos.x = test3[1]
                 pion.currentPos.y = test3[2]
                 pion.currentOrientation = test3[3]
                 lutins[i] = test3[5]
               } else {
-                const test3 = testInstruction('TG90', lutins[i],pion)
+                const test3 = testInstruction('TG90', lutins[i], pion)
                 if (test3[0]) {
                   pion.currentPos.x = test3[1]
                   pion.currentPos.y = test3[2]
@@ -245,9 +245,9 @@ export default class ScratchMultiScript extends Exercice {
             }
             let test4
             if (rotations[(i % 3 === 2 ? 1 : 0)] === '\\turnright{}') {
-              test4 = testInstruction('TD90', lutins[i],pion)
+              test4 = testInstruction('TD90', lutins[i], pion)
             } else {
-              test4 = testInstruction('TG90', lutins[i],pion)
+              test4 = testInstruction('TG90', lutins[i], pion)
             }
             pion.currentPos.x = test4[1]
             pion.currentPos.y = test4[2]

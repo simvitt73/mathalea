@@ -28,7 +28,6 @@ export default class ComplementA100 extends Exercice {
 
     this.nbCols = 2
     this.nbColsCorr = 2
-
   }
 
   nouvelleVersion () {

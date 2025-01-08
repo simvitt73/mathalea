@@ -21,7 +21,7 @@ export default class FractionAvecPi extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'mathlive'
-    }
+  }
 
   nouvelleVersion () {
     const listeValeurs = this.canOfficielle ? [[2, 5, 6]] : [[2, 2, 5], [3, 5, 6], [5, 2, 3], [2, 3, 5], [4, 2, 3], [2, 6, 7], [2, 5, 7], [2, 4, 7], [2, 3, 7]]//

@@ -25,7 +25,6 @@ export default class SommeDecimale5e extends Exercice {
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
-    
   }
 
   nouvelleVersion () {

@@ -22,15 +22,12 @@ export default class CoordonneesPointDroite extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
     const a = randint(-10, 10, 0)
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)
-
-    
 
     this.formatInteractif = 'texte'
     this.reponse = `${c};${a * c + b}`

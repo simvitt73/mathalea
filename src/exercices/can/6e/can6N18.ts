@@ -29,13 +29,9 @@ export default class EncadrerDizaine extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {
-    
-    
     let question1, correction1, N
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2])) { // 1,1,2,3,4,5,6,7,8

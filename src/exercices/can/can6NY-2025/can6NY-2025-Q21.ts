@@ -27,8 +27,6 @@ export default class rechercherUnNombre extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = randint(5, 20)
     this.reponse = texNombre(a, 0)
 

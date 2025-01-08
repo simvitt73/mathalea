@@ -27,8 +27,6 @@ export default class ValeurRemarquable extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2, 3, 4, 5])
     if (choix === 1) {
       this.question = `$\\cos(${texNombre(2025, 0)}\\pi)$ `

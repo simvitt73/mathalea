@@ -33,7 +33,6 @@ export default class NombresPremiers extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

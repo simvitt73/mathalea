@@ -29,9 +29,6 @@ export default class DeriveePoly2 extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-
-    
   }
 
   nouvelleVersion () {

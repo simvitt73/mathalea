@@ -30,9 +30,6 @@ export default class EgaliteCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
-
     switch (randint(1, 4)) {
       case 1 :
         this.reponse = texNombre(45, 0)
