@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { randomInt } from 'mathjs'
 import { GVCartesian } from './coordinates'
 import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVCircle, barycentre } from './elements'

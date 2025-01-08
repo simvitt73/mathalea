@@ -22,9 +22,9 @@ export const markTypeArray: MarkType[] = [
   'double-pointilles',
   'mixte-simple-pointilles',
   'mixte-gras-pointilles'
-];
+]
 export class MarqueAngle extends ObjetMathalea2D {
-  constructor(start: Point, sommet: Point, end: Point, {
+  constructor (start: Point, sommet: Point, end: Point, {
     mark = 'simple',
     color = 'black',
     rayon = 1
@@ -83,43 +83,43 @@ export class MarqueAngle extends ObjetMathalea2D {
         this.objets.push(marque)
       }
         break
-        case 'double-pointilles': {
-          const aPrime = homothetie(a, sommet, 0.95)
-          const aSeconde = homothetie(a, sommet, 1.05)
-          const marque1 = arc(aPrime, sommet, angle, false, 'none', color)
-          const marque2 = arc(aSeconde, sommet, angle, false, 'none', color)
-          marque1.pointilles = 4
-          marque2.pointilles = 4
-          this.objets.push(
-            marque1,
-            marque2
-          )
-        }
+      case 'double-pointilles': {
+        const aPrime = homothetie(a, sommet, 0.95)
+        const aSeconde = homothetie(a, sommet, 1.05)
+        const marque1 = arc(aPrime, sommet, angle, false, 'none', color)
+        const marque2 = arc(aSeconde, sommet, angle, false, 'none', color)
+        marque1.pointilles = 4
+        marque2.pointilles = 4
+        this.objets.push(
+          marque1,
+          marque2
+        )
+      }
         break
-        case 'mixte-simple-pointilles': {
-          const aPrime = homothetie(a, sommet, 0.9)
-          const aSeconde = homothetie(a, sommet, 1.1)
-          const marque = arc(aSeconde, sommet, angle, false, 'none', color)
-          const marque1 = arc(aPrime, sommet, angle, false, 'none', color)
-          marque1.pointilles = 4
-          this.objets.push(
-            marque,
-            marque1
-          )
-        }
+      case 'mixte-simple-pointilles': {
+        const aPrime = homothetie(a, sommet, 0.9)
+        const aSeconde = homothetie(a, sommet, 1.1)
+        const marque = arc(aSeconde, sommet, angle, false, 'none', color)
+        const marque1 = arc(aPrime, sommet, angle, false, 'none', color)
+        marque1.pointilles = 4
+        this.objets.push(
+          marque,
+          marque1
+        )
+      }
         break
-        case 'mixte-gras-pointilles': {
-          const aPrime = homothetie(a, sommet, 0.9)
-          const aSeconde = homothetie(a, sommet, 1.1)
-          const marque1 = arc(aSeconde, sommet, angle, false, 'none', color)
-          const marque = arc(aPrime, sommet, angle, false, 'none', color)
-          marque1.pointilles = 4
-          marque.epaisseur = 2
-          this.objets.push(
-            marque,
-            marque1,
-          )
-        }
+      case 'mixte-gras-pointilles': {
+        const aPrime = homothetie(a, sommet, 0.9)
+        const aSeconde = homothetie(a, sommet, 1.1)
+        const marque1 = arc(aSeconde, sommet, angle, false, 'none', color)
+        const marque = arc(aPrime, sommet, angle, false, 'none', color)
+        marque1.pointilles = 4
+        marque.epaisseur = 2
+        this.objets.push(
+          marque,
+          marque1
+        )
+      }
         break
       case 'simple':
       default:
@@ -130,7 +130,7 @@ export class MarqueAngle extends ObjetMathalea2D {
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -139,7 +139,7 @@ export class MarqueAngle extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -149,7 +149,7 @@ export class MarqueAngle extends ObjetMathalea2D {
   }
 }
 
-export function marqueAngle(start: Point, sommet: Point, end: Point, {
+export function marqueAngle (start: Point, sommet: Point, end: Point, {
   mark = 'simple',
   color = 'black',
   rayon = 1
@@ -166,7 +166,7 @@ export class Rapporteur extends ObjetMathalea2D {
   y: number
   taille: number
 
-  constructor({
+  constructor ({
     x = 0,
     y = 0,
     taille = 7,
@@ -271,7 +271,7 @@ export class Rapporteur extends ObjetMathalea2D {
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -280,7 +280,7 @@ export class Rapporteur extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -306,7 +306,7 @@ export class Rapporteur extends ObjetMathalea2D {
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
  * @return {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
-export function rapporteur({
+export function rapporteur ({
   x = 0,
   y = 0,
   taille = 7,
@@ -346,7 +346,7 @@ export function rapporteur({
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function angle(A: Point, O: Point, B: Point, precision = 2) {
+export function angle (A: Point, O: Point, B: Point, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
@@ -387,7 +387,7 @@ export function angle(A: Point, O: Point, B: Point, precision = 2) {
  * @return {number}
  */
 // JSDOC Validee par EE Juin 2022
-export function angleModulo(a: number) {
+export function angleModulo (a: number) {
   while (a <= -180) a = a + 360
   while (a > 180) a = a - 360
   return a
@@ -407,7 +407,7 @@ export function angleModulo(a: number) {
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function angleOriente(A: Point, O: Point, B: Point, precision = 2) {
+export function angleOriente (A: Point, O: Point, B: Point, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   if (OA < 1e-12 || OB < 1e-12) { // On considère qu'un côté de l'angle a une longueur nulle, et ce n'est pas normal !
@@ -435,7 +435,7 @@ export function angleOriente(A: Point, O: Point, B: Point, precision = 2) {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function angleradian(A: Point, O: Point, B: Point, precision = 2) {
+export function angleradian (A: Point, O: Point, B: Point, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
@@ -476,7 +476,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
 
-  constructor(A: Point, O: Point, B: Point, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
+  constructor (A: Point, O: Point, B: Point, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
     super()
     this.sommet = O
     this.depart = A
@@ -499,7 +499,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     this.opacite = opacite
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o: Point
@@ -519,7 +519,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     return result.svg(coeff)
   }
 
-  tikz() {
+  tikz () {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o: Point
@@ -538,7 +538,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     return result.tikz()
   }
 
-  svgml(coeff: number, amp: number) {
+  svgml (coeff: number, amp: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o: Point
@@ -550,7 +550,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     return polyline([a, o, b], this.color[0]).svgml(coeff, amp)
   }
 
-  tikzml(amp: number) {
+  tikzml (amp: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o: Point
@@ -582,7 +582,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function codageAngleDroit(A: Point, O: Point, B: Point, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
+export function codageAngleDroit (A: Point, O: Point, B: Point, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
   return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
 }
 
@@ -620,7 +620,7 @@ export function codageAngleDroit(A: Point, O: Point, B: Point, color = 'black', 
  * @return {CodageAngle|CodageAngleDroit}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageAngle(A: Point, O: Point, angle: Point | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
+export function codageAngle (A: Point, O: Point, angle: Point | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
   let angleNumerique: number
   if (typeof (angle) !== 'number') {
     angleNumerique = angleOriente(A, O, angle)
@@ -633,7 +633,7 @@ export function codageAngle(A: Point, O: Point, angle: Point | number, taille = 
 }
 
 export class NomAngleParPosition extends ObjetMathalea2D {
-  constructor(nom: string, x: number, y: number, color: string, s: number) {
+  constructor (nom: string, x: number, y: number, color: string, s: number) {
     super()
     this.objets = []
     this.objets.push(texteParPosition(nom, x, y, 0, color, 1, 'milieu', true))
@@ -642,7 +642,7 @@ export class NomAngleParPosition extends ObjetMathalea2D {
     this.objets.push(s1, s2)
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets != null) {
       for (const objet of this.objets) {
@@ -652,7 +652,7 @@ export class NomAngleParPosition extends ObjetMathalea2D {
     } else return ''
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets != null) {
       for (const objet of this.objets) {
@@ -663,11 +663,11 @@ export class NomAngleParPosition extends ObjetMathalea2D {
   }
 }
 
-export function nomAngleSaillantParPosition(nom: string, x: number, y: number, color: string) {
+export function nomAngleSaillantParPosition (nom: string, x: number, y: number, color: string) {
   return new NomAngleParPosition(nom, x, y, color, 1)
 }
 
-export function nomAngleRentrantParPosition(nom: string, x: number, y: number, color: string) {
+export function nomAngleRentrantParPosition (nom: string, x: number, y: number, color: string) {
   return new NomAngleParPosition(nom, x, y, color, -1)
 }
 
@@ -677,7 +677,7 @@ export function nomAngleRentrantParPosition(nom: string, x: number, y: number, c
  * @param {string} cosOrSin
  * @returns string
  */
-export function cercleTrigo(angle: Angle, cosOrSin = 'cos') {
+export function cercleTrigo (angle: Angle, cosOrSin = 'cos') {
   const monAngle = parseInt(angle.degres ?? '0')
   const r = 5
   const tAngle = angle.radians

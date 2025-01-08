@@ -39,7 +39,7 @@ export const svgAncrages = {
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function labelLatexPoint({
+export function labelLatexPoint ({
   points,
   color,
   taille,
@@ -54,13 +54,13 @@ export function labelLatexPoint({
   hauteur?: number,
   couleurDeRemplissage: string
 } = {
-    points: [],
-    color: 'black',
-    taille: 8,
-    largeur: 10,
-    hauteur: 10,
-    couleurDeRemplissage: ''
-  }): ObjetMathalea2D[] {
+  points: [],
+  color: 'black',
+  taille: 8,
+  largeur: 10,
+  hauteur: 10,
+  couleurDeRemplissage: ''
+}): ObjetMathalea2D[] {
   // Jean-Claude Lhote 15/08/2023
   const offset = 0.25 * Math.log10(taille) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
@@ -122,7 +122,7 @@ export function labelLatexPoint({
  * @return object[]
  */
 // JSDOC Validee par EE Septembre 2022
-export function labelPoint(...args: (Point | string)[]) {
+export function labelPoint (...args: (Point | string)[]) {
   const taille = 1
   const points = [...args]
   let color
@@ -189,7 +189,7 @@ export function labelPoint(...args: (Point | string)[]) {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Aout 2022
-export function deplaceLabel(p: Polygone, nom: string, positionLabel: string) {
+export function deplaceLabel (p: Polygone, nom: string, positionLabel: string) {
   for (let i = 0; i < p.listePoints.length; i++) {
     for (const lettre of nom) {
       if (p.listePoints[i].nom === lettre) {
@@ -227,7 +227,7 @@ export class TexteParPoint extends ObjetMathalea2D {
   contour: boolean
   taille: number
 
-  constructor(texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, opacite: number = 1) {
+  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, opacite: number = 1) {
     super()
     if (typeof orientation !== 'number') {
       if (orientation === 'milieu' || typeof orientation === 'string') {
@@ -263,21 +263,21 @@ export class TexteParPoint extends ObjetMathalea2D {
     // définition des bordures suivant le point d'ancrage
     if (ancrageDeRotation === 'milieu') {
       this.bordures = [A.x - longueurTexte * cx,
-      A.y - longueurTexte * sx - epaisseurTexte,
-      A.x + longueurTexte * cx,
-      A.y + longueurTexte * sx + epaisseurTexte
+        A.y - longueurTexte * sx - epaisseurTexte,
+        A.x + longueurTexte * cx,
+        A.y + longueurTexte * sx + epaisseurTexte
       ]
     } else if (ancrageDeRotation === 'gauche') {
       this.bordures = [A.x,
-      A.y - 2 * (longueurTexte * sx) - epaisseurTexte,
-      A.x + 2 * (longueurTexte * cx),
-      A.y + epaisseurTexte
+        A.y - 2 * (longueurTexte * sx) - epaisseurTexte,
+        A.x + 2 * (longueurTexte * cx),
+        A.y + epaisseurTexte
       ]
     } else {
       this.bordures = [A.x - 2 * longueurTexte * cx,
-      A.y - epaisseurTexte,
-      A.x,
-      A.y + 2 * (longueurTexte * sx) + epaisseurTexte
+        A.y - epaisseurTexte,
+        A.x,
+        A.y + 2 * (longueurTexte * sx) + epaisseurTexte
       ]
     }
 
@@ -288,7 +288,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     this.texte = texte
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     if (this.texte.charAt(0) === '$') {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
@@ -311,7 +311,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     }
   }
 
-  tikz() {
+  tikz () {
     if (this.texte.charAt(0) === '$') {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
@@ -341,7 +341,7 @@ export class TexteParPoint extends ObjetMathalea2D {
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
  * @author Rémi Angot rectifié par Jean-Claude Lhote
  */
-export function texteParPoint(texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, opacite: number = 1) {
+export function texteParPoint (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, opacite: number = 1) {
   return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
@@ -360,7 +360,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   opaciteDeRemplissage!: number
   bordures: [number, number, number, number]
   taille: number
-  constructor(texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, scaleFigure: number) {
+  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, scaleFigure: number) {
     super()
     if (typeof orientation !== 'number') {
       if (orientation === 'milieu' || typeof orientation === 'string') {
@@ -386,7 +386,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
     this.ancrageDeRotation = ancrageDeRotation
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     if (this.texte.charAt(0) === '$') {
       return latexParPoint(this.texte.substring(1, this.texte.length - 2), this.point, this.color[0], this.texte.length * 8, 10, '', this.taille * 0.8).svg(coeff)
     } else {
@@ -403,18 +403,18 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
     }
   }
 
-  tikz() {
+  tikz () {
     let copyThistexte = this.texte
     if (this.mathOn && copyThistexte[0] !== '$') copyThistexte = '$' + this.texte + '$'
     return `\\draw [color=${this.color[1]}] (${String(arrondi(this.point.x))},${String(arrondi(this.point.y))
       }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${copyThistexte}};`
   }
 }
-export function texteParPointEchelle(texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number = 1): TexteParPointEchelle {
+export function texteParPointEchelle (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number = 1): TexteParPointEchelle {
   return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 
-export function texteParPositionEchelle(texte: string, x: number, y: number, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number = 1) {
+export function texteParPositionEchelle (texte: string, x: number, y: number, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number = 1) {
   return texteParPointEchelle(texte, point(arrondi(x, 2), arrondi(y, 2), '', 'center'), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 
@@ -437,7 +437,7 @@ export function texteParPositionEchelle(texte: string, x: number, y: number, ori
  *
  * @author Rémi Angot
  */
-export function texteParPosition(texte: string | number, x: number, y: number, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'gauche' | 'droite' = 'milieu', mathOn: boolean = false, opacite?: number) {
+export function texteParPosition (texte: string | number, x: number, y: number, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'gauche' | 'droite' = 'milieu', mathOn: boolean = false, opacite?: number) {
   if (typeof texte === 'number') texte = String(texte)
   if (typeof orientation !== 'number') {
     ancrageDeRotation = orientation
@@ -460,7 +460,7 @@ export function texteParPosition(texte: string | number, x: number, y: number, o
  * tailleCaracteres est à 8 par défaut et correspond à \footnotesize. tailleCaracteres va de 5 = \small à 20 = \huge
  * @author Rémi Angot
  */
-export function latexParPoint(texte: string, A: Point, color: string = 'black', largeur: number = 20, hauteur: number = 12, colorBackground: string = 'white', tailleCaracteres: number = 8): LatexParCoordonnees | Vide2d {
+export function latexParPoint (texte: string, A: Point, color: string = 'black', largeur: number = 20, hauteur: number = 12, colorBackground: string = 'white', tailleCaracteres: number = 8): LatexParCoordonnees | Vide2d {
   let x
   let y
   const coeff = context.pixelsParCm
@@ -533,7 +533,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   bordures: [number, number, number, number]
   taille: string
   orientation: number
-  constructor(texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string = '', tailleCaracteres: number = 8) {
+  constructor (texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string = '', tailleCaracteres: number = 8) {
     super()
     this.x = x
     this.y = y
@@ -565,7 +565,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   }
 
   // Eh oui ! le svg() de latexParCoordonnees est un objet. En fait, cela va produire un div mais plus tard : dans la fonction mathalea2d().
-  svg() {
+  svg () {
     return {
       latex: this.texte,
       x: this.x,
@@ -578,7 +578,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     }
   }
 
-  tikz() {
+  tikz () {
     let code
     if (this.colorBackground !== '' && this.colorBackground !== 'none') {
       code = `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${colorToLatexOrHTML(this.colorBackground)[1]}{${this.taille}  \\color${this.color[1]}{$${this.texte}$}}};`
@@ -600,7 +600,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
  * @param colorBackground
  * @param tailleCaracteres
  */
-export function latexParCoordonnees(texte: string, x: number, y: number, color: string = 'black', largeur: number = 50, hauteurLigne: number = 20, colorBackground: string = '', tailleCaracteres: number = 8) {
+export function latexParCoordonnees (texte: string, x: number, y: number, color: string = 'black', largeur: number = 50, hauteurLigne: number = 20, colorBackground: string = '', tailleCaracteres: number = 8) {
   if (texte === '') texte = '\\phantom{ }'
   return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
@@ -628,7 +628,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
   options?: { anchor: string, dx?: string, dy?: string }
   bordures: [number, number, number, number]
   style: string
-  constructor(texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string, tailleCaracteres: number = 8, options: { anchor: string, dx?: string, dy?: string }) {
+  constructor (texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string, tailleCaracteres: number = 8, options: { anchor: string, dx?: string, dy?: string }) {
     super()
     this.x = x
     this.y = y
@@ -686,7 +686,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const demiLargeur = this.largeur / 2
     const centrage = 0 // 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
@@ -697,7 +697,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
     // <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="1" fill="red" stroke="blue" stroke-width="2"  />`
   }
 
-  tikz() {
+  tikz () {
     let code
     if (this.colorBackground[1] !== '') {
       code = `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]}{${this.taille}  \\color${this.color[1]}{$${this.texte}$}}};`
@@ -708,7 +708,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
   }
 }
 
-export function latexParCoordonneesBox(texte: string, x: number, y: number, color: string = 'black', largeur: number = 50, hauteurLigne: number = 20, colorBackground: string = 'white', tailleCaracteres: number = 8, options: { anchor: string, dx?: string, dy?: string }) {
+export function latexParCoordonneesBox (texte: string, x: number, y: number, color: string = 'black', largeur: number = 50, hauteurLigne: number = 20, colorBackground: string = 'white', tailleCaracteres: number = 8, options: { anchor: string, dx?: string, dy?: string }) {
   if (texte === '') texte = '\\phantom{ }' // pour éviter les latex vides
   return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }
@@ -742,7 +742,7 @@ export class Latex2d extends ObjetMathalea2D {
    * @param options.opacity l'opacité du texte // @fixme non encore implémenté
    *
    */
-  constructor(
+  constructor (
     latex: string,
     x: number,
     y: number,
@@ -753,13 +753,13 @@ export class Latex2d extends ObjetMathalea2D {
       orientation = 0,
       opacity = 1
     }:
-      {
-        color: string
-        backgroundColor: string
-        letterSize: LetterSizeType
-        orientation: number
-        opacity: number
-      }) {
+    {
+      color: string
+      backgroundColor: string
+      letterSize: LetterSizeType
+      orientation: number
+      opacity: number
+    }) {
     super()
     this.col = color
     this.backgroundCol = backgroundColor
@@ -776,19 +776,19 @@ export class Latex2d extends ObjetMathalea2D {
     const longueurTexte = latex.length * ratioLettreCm
 
     this.bordures = [x - longueurTexte * cx,
-    y - longueurTexte * sx - epaisseurTexte,
-    x + longueurTexte * cx,
-    y + longueurTexte * sx + epaisseurTexte
+      y - longueurTexte * sx - epaisseurTexte,
+      x + longueurTexte * cx,
+      y + longueurTexte * sx + epaisseurTexte
     ]
   }
 
-  svg(): ObjetDivLatex {
+  svg (): ObjetDivLatex {
     // On prend la couleur Latex, parce que c'est pour Katex !
     return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.col.replace('#', ''), backgroundColor: this.backgroundCol.replace('#', '') }
   }
 
   // @todo ajouter opacity, orientation au tikz.
-  tikz() {
+  tikz () {
     if (this.backgroundCol.startsWith('#')) {
       this.backgroundCol = `[HTML]{${this.backgroundCol.substring(1)}}`
     } else {
@@ -821,7 +821,7 @@ export class Latex2d extends ObjetMathalea2D {
  * @param options.opacity l'opacité du texte // @fixme non encore implémenté
  *
  */
-export function latex2d(latex: string, x: number, y: number, { color, backgroundColor, letterSize, orientation, opacity }: { color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number }) {
+export function latex2d (latex: string, x: number, y: number, { color, backgroundColor, letterSize, orientation, opacity }: { color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number }) {
   color = color ?? 'black'
   backgroundColor = backgroundColor == null || backgroundColor === '' || backgroundColor === 'none' ? '' : backgroundColor
   letterSize = letterSize ?? 'normalsize'

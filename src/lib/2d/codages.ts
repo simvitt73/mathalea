@@ -26,7 +26,7 @@ import type { Polygone } from './polygones'
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageMilieu extends ObjetMathalea2D {
-  constructor(A: Point, B: Point, color = 'black', mark = '×', mil = true) {
+  constructor (A: Point, B: Point, color = 'black', mark = '×', mil = true) {
     super()
     if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
     this.color = colorToLatexOrHTML(color)
@@ -62,7 +62,7 @@ export class CodageMilieu extends ObjetMathalea2D {
  * @return {CodageMilieu}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageMilieu(A: Point, B: Point, color = 'black', mark = '×', mil = true) {
+export function codageMilieu (A: Point, B: Point, color = 'black', mark = '×', mil = true) {
   return new CodageMilieu(A, B, color, mark, mil)
 }
 
@@ -82,7 +82,7 @@ export function codageMilieu(A: Point, B: Point, color = 'black', mark = '×', m
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageMediatrice extends ObjetMathalea2D {
-  constructor(A: Point, B: Point, color = 'black', mark = '×') {
+  constructor (A: Point, B: Point, color = 'black', mark = '×') {
     super()
     if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
     this.color = colorToLatexOrHTML(color)
@@ -118,7 +118,7 @@ export class CodageMediatrice extends ObjetMathalea2D {
  * @return {CodageMediatrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageMediatrice(A: Point, B: Point, color = 'black', mark = '×') {
+export function codageMediatrice (A: Point, B: Point, color = 'black', mark = '×') {
   return new CodageMediatrice(A, B, color, mark)
 }
 
@@ -141,7 +141,7 @@ export class CodageBissectrice extends ObjetMathalea2D {
   mark: string
   centre: Point
   depart: Point
-  constructor(A: Point, O: Point, B: Point, color = 'black', mark = 'X') {
+  constructor (A: Point, O: Point, B: Point, color = 'black', mark = 'X') {
     super()
     this.color = colorToLatexOrHTML(color)
     this.mark = mark
@@ -184,7 +184,7 @@ export class CodageBissectrice extends ObjetMathalea2D {
  * @return {CodageBissectrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageBissectrice(A: Point, O: Point, B: Point, color = 'black', mark = 'X') {
+export function codageBissectrice (A: Point, O: Point, B: Point, color = 'black', mark = 'X') {
   return new CodageBissectrice(A, O, B, color, mark)
 }
 
@@ -199,7 +199,7 @@ export function codageBissectrice(A: Point, O: Point, B: Point, color = 'black',
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageCarre extends ObjetMathalea2D {
-  constructor(c: Polygone, color = 'black', mark = '×') {
+  constructor (c: Polygone, color = 'black', mark = '×') {
     super()
     this.objets = []
     this.objets.push(codageSegments(mark, color, ...(c.listePoints as Point[])))
@@ -237,7 +237,7 @@ export class CodageCarre extends ObjetMathalea2D {
     )
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -246,7 +246,7 @@ export class CodageCarre extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -268,7 +268,7 @@ export class CodageCarre extends ObjetMathalea2D {
  * @return {CodageCarre}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageCarre(c: Polygone, color = 'black', mark = '×') {
+export function codageCarre (c: Polygone, color = 'black', mark = '×') {
   return new CodageCarre(c, color, mark)
 }
 
@@ -296,7 +296,7 @@ export class AfficheLongueurSegment extends ObjetMathalea2D {
   distance: number
   text: string
 
-  constructor(A: Point, B: Point, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
+  constructor (A: Point, B: Point, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
     super()
     this.stringColor = color
     this.O = milieu(A, B)
@@ -315,12 +315,12 @@ export class AfficheLongueurSegment extends ObjetMathalea2D {
     this.bordures = [this.O.x - 0.5, this.O.y - 0.5, this.O.x + 0.5, this.O.y + 0.5] // C'est n'importe quoi, mais de toute façon, le segment a ses bordures, lui !
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const N = pointSurSegment(this.O, this.M, (this.distance * 20) / coeff)
     return texteParPoint(this.text, N, this.angle, this.stringColor, 1, 'milieu', false).svg(coeff)
   }
 
-  tikz() {
+  tikz () {
     const N = pointSurSegment(this.O, this.M, this.distance / context.scale)
     return texteParPoint(this.text, N, this.angle, this.stringColor, 1, 'milieu', false).tikz()
   }
@@ -343,7 +343,7 @@ export class AfficheLongueurSegment extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheLongueurSegment(A: Point, B: Point, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
+export function afficheLongueurSegment (A: Point, B: Point, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
   return new AfficheLongueurSegment(A, B, color, d, unite, horizontal, precision)
 }
 
@@ -364,7 +364,7 @@ export class TexteSurSegment extends ObjetMathalea2D {
   O: Point
   M: Point
 
-  constructor(texte: string, A: Point, B: Point, color = 'black', d = 0.5, horizontal = false) {
+  constructor (texte: string, A: Point, B: Point, color = 'black', d = 0.5, horizontal = false) {
     super()
     if (typeof texte === 'number') texte = String(texte)
     if (longueur(A, B) < 0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction', { A, B })
@@ -393,12 +393,12 @@ export class TexteSurSegment extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const N = pointSurSegment(this.O, this.M, this.distance * 20 / coeff)
     return texteParPoint(this.texte, N, this.angle, this.stringColor, this.scale, 'milieu', this.mathOn).svg(coeff)
   }
 
-  tikz() {
+  tikz () {
     const N = pointSurSegment(this.O, this.M, this.distance / context.scale)
     return texteParPoint(this.texte, N, this.angle, this.stringColor, this.scale, 'milieu', this.mathOn).tikz()
   }
@@ -415,7 +415,7 @@ export class TexteSurSegment extends ObjetMathalea2D {
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
  */
-export function texteSurSegment(texte = '', A: Point, B: Point, color = 'black', d = 0.5, horizontal = false) {
+export function texteSurSegment (texte = '', A: Point, B: Point, color = 'black', d = 0.5, horizontal = false) {
   return new TexteSurSegment(texte, A, B, color, d, horizontal)
 }
 
@@ -435,7 +435,7 @@ export class TexteSurArc extends ObjetMathalea2D {
   normale: number
   stringColor: string
   horizontal: boolean
-  constructor(texte: string, A: Point, B: Point, angle: number, color = 'black', d = 0.5, horizontal = false) {
+  constructor (texte: string, A: Point, B: Point, angle: number, color = 'black', d = 0.5, horizontal = false) {
     super()
     this.color = colorToLatexOrHTML(color)
     this.horizontal = horizontal
@@ -463,7 +463,7 @@ export class TexteSurArc extends ObjetMathalea2D {
     this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     const N = pointSurSegment(this.milieu, this.centre, this.distance * 20 / coeff)
     let angle
     if (this.extremite2.x > this.extremite1.x) {
@@ -474,7 +474,7 @@ export class TexteSurArc extends ObjetMathalea2D {
     return texteParPoint(this.texte, N, this.horizontal ? 0 : angle, this.stringColor).svg(coeff)
   }
 
-  tikz() {
+  tikz () {
     const N = pointSurSegment(this.milieu, this.centre, this.distance / context.scale)
     let angle
     if (this.extremite2.x > this.extremite1.x) {
@@ -498,7 +498,7 @@ export class TexteSurArc extends ObjetMathalea2D {
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot et Frédéric Piou
  */
-export function texteSurArc(texte: string, A: Point, B: Point, angle: number, color = 'black', d = 0.5, horizontal = false) {
+export function texteSurArc (texte: string, A: Point, B: Point, angle: number, color = 'black', d = 0.5, horizontal = false) {
   return new TexteSurArc(texte, A, B, angle, color, d, horizontal)
 }
 
@@ -539,7 +539,7 @@ export class AfficheMesureAngle extends ObjetMathalea2D {
   ecart: number
   saillant: boolean
 
-  constructor(A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
+  constructor (A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
     ecart = 0.5,
     mesureEnGras = false,
     saillant = true,
@@ -598,7 +598,7 @@ export class AfficheMesureAngle extends ObjetMathalea2D {
  * @return {AfficheMesureAngle}
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheMesureAngle(A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
+export function afficheMesureAngle (A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
   ecart = 0.5,
   mesureEnGras = false,
   saillant = true,
@@ -637,7 +637,7 @@ export function afficheMesureAngle(A: Point, B: Point, C: Point, color = 'black'
  */
 // JSDOC Validee par EE Juin 2022
 export class AfficheCoteSegment extends ObjetMathalea2D {
-  constructor(
+  constructor (
     s: Segment,
     Cote = '',
     positionCote = 0.5,
@@ -680,14 +680,14 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
     this.objets = [cote, valeur]
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) code += '\n\t' + objet.svg(coeff)
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) code += '\n\t' + objet.tikz()
@@ -714,7 +714,7 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 
-export function afficheCoteSegment(s: Segment, Cote = '', positionCote = 0.5, couleurCote = 'black', epaisseurCote = 1, positionValeur = 0.5, couleurValeur = 'black', horizontal = false) {
+export function afficheCoteSegment (s: Segment, Cote = '', positionCote = 0.5, couleurCote = 'black', epaisseurCote = 1, positionValeur = 0.5, couleurValeur = 'black', horizontal = false) {
   return new AfficheCoteSegment(s, Cote, positionCote, couleurCote, epaisseurCote, positionValeur, couleurValeur, horizontal)
 }
 
@@ -732,7 +732,7 @@ export function afficheCoteSegment(s: Segment, Cote = '', positionCote = 0.5, co
  * @return {TexteParPoint}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageSegment(A: Point, B: Point, mark = '||', color = 'black', echelle = 1) {
+export function codageSegment (A: Point, B: Point, mark = '||', color = 'black', echelle = 1) {
   const O = milieu(A, B)
   const s = segment(A, B)
   let angle
@@ -761,7 +761,7 @@ export class CodageSegments extends ObjetMathalea2D {
   mark: string
   isEchelle: boolean
   args: (Point | Segment | number)[]
-  constructor(mark = '||', color = 'black', ...args: any[]) {
+  constructor (mark = '||', color = 'black', ...args: any[]) {
     super()
     this.args = args
     this.mark = mark
@@ -792,7 +792,7 @@ export class CodageSegments extends ObjetMathalea2D {
     this.bordures = trouveExtrem(1000, 1000, -1000, -1000, ...args as (Point | Segment)[]) as unknown as [number, number, number, number]
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (Array.isArray(this.args[0])) {
       // Si on donne un tableau de points
@@ -821,7 +821,7 @@ export class CodageSegments extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (Array.isArray(this.args[0])) {
       // Si on donne une liste de points
@@ -873,7 +873,7 @@ export class CodageSegments extends ObjetMathalea2D {
  * @return {CodageSegments}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageSegments(mark = '||', color = 'black', ...args: any[]) {
+export function codageSegments (mark = '||', color = 'black', ...args: any[]) {
   return new CodageSegments(mark, color, ...args)
 }
 
@@ -922,7 +922,7 @@ export class CodageAngle extends ObjetMathalea2D {
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
 
-  constructor(debut: Point, centre: Point, angle: Point | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
+  constructor (debut: Point, centre: Point, angle: Point | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
     super()
     this.color = colorToLatexOrHTML(color)
     this.debut = debut
@@ -965,10 +965,8 @@ export class CodageAngle extends ObjetMathalea2D {
     }
     const bordures = fixeBordures(this.objets)
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
-
   }
 }
-
 
 /**
  * affiche du Latex 'sur' un segment orienté
@@ -979,8 +977,8 @@ export class CodageAngle extends ObjetMathalea2D {
  * @return {Latex2d}
  */
 
-function directionLatex2d(A: Point, B: Point): number {
-  // pour du texte dans le bon sens de lecture 
+function directionLatex2d (A: Point, B: Point): number {
+  // pour du texte dans le bon sens de lecture
   const sAB = segment(A, B)
   let directionAB = sAB.angleAvecHorizontale
   directionAB = directionAB > 90
@@ -990,7 +988,7 @@ function directionLatex2d(A: Point, B: Point): number {
       : directionAB
   return directionAB
 }
-function placeLatex2d(A: Point, B: Point, distance: number = 0.5): Point {
+function placeLatex2d (A: Point, B: Point, distance: number = 0.5): Point {
   // le point d'affichage du texte à 0.5 sous le milieu du segment orienté
   const M = milieu(A, B)
   const N = rotation(A, M, -90)
@@ -998,20 +996,20 @@ function placeLatex2d(A: Point, B: Point, distance: number = 0.5): Point {
   return P
 }
 /**
- * 
+ *
  * @param t Place du latex sur un segment orienté une belle alternative à texteSurSegment
- * @param A 
- * @param B 
+ * @param A
+ * @param B
  * @param options
  * @returns {Latex2d}
  */
-export function placeLatexSurSegment(t: string, A: Point, B: Point, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize' }: {
+export function placeLatexSurSegment (t: string, A: Point, B: Point, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize' }: {
   distance?: number,
   color?: string,
   backgroundColor?: string,
   letterSize?: LetterSizeType
 } = {
-  }): Latex2d {
+}): Latex2d {
   const Q = latex2d(t, placeLatex2d(A, B, distance).x, placeLatex2d(A, B, distance).y, { orientation: directionLatex2d(A, B), color, backgroundColor, letterSize })
   return Q
 }
