@@ -39,7 +39,7 @@ export default class NombreDeFacesEtDAretes extends Exercice {
     super()
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Sur le nombre d\'arêtes\n 2 : Sur le nombre de faces\n 3 : Mélange']
     this.nbQuestions = 4
-    
+
     this.sup = 3
     this.listeAvecNumerotation = false
     this.version = 6

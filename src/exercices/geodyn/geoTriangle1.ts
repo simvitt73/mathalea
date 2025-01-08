@@ -103,7 +103,7 @@ class ConstructionTriangle extends Exercice {
     if (!context.isHtml) {
       texteCorr = figureCorrection.tikz()
     }
-    this.question = this.interactif? enonce + emplacementPourFigure : enonce
+    this.question = this.interactif ? enonce + emplacementPourFigure : enonce
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 

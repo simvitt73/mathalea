@@ -33,7 +33,6 @@ export default class ProprietesDesParallelogrammes extends Exercice {
     this.nbQuestions = 3
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-
   }
 
   nouvelleVersion () {

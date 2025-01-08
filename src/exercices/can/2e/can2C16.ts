@@ -20,18 +20,16 @@ export const refs = {
   'fr-ch': []
 }
 export default class ProgrammeCalcul2 extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
 
-  
+    // ${texNombre(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombre((a / 5 - e) * (a / 5 - e))}$
+  }
 
-  // ${texNombre(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombre((a / 5 - e) * (a / 5 - e))}$
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     let a, b, reponse, f1, f2
 
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //, 2, 3, 4, 5, 6, 7, 8

@@ -43,7 +43,7 @@ export const refs = {
 export default class PerimetreOuAireDeFiguresComposees extends Exercice {
   besoinFormulaire3Numerique: boolean | [string, number, string]
   besoinFormulaire4Numerique: boolean | [string, number, string]
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = [
       'Types de figures',
@@ -62,7 +62,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     this.sup4 = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     switch (this.sup4) {
       case 4:
         this.consigne = 'Décomposer les figures suivantes en plusieurs figures simples.'

@@ -26,7 +26,6 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-
       this.reponse = 45
       this.question = '$\\dfrac{3}{4}$ d\'heure $=$ '
       this.correction = `$\\dfrac{1}{4}$ d'heure $=60\\text{ min }\\div4=15$ min.<br><br>
@@ -42,7 +41,6 @@ export default class NomExercice extends Exercice {
       const a = choice(listeHeures)
       const fracHeures = new FractionEtendue(a[0], a[1])
       if (choice([true, false])) {
-
         this.reponse = a[2]
         this.question = `$${fracHeures.texFraction}$ d'heure $=$ `
         this.correction = `$\\dfrac{1}{${a[1]}}$ h $=60\\text{ min }\\div ${a[1]}= ${texNombre(a[2] / a[0], 0)}$ min.<br>

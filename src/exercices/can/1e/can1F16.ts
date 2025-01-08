@@ -33,12 +33,9 @@ export default class LectureGraphiqueTangente extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {
-
     let f, F, nbre, alpha:number, beta:number
     switch (choice([1, 2])) { //, 2
       case 1:// second degré (x-alpha)^2+beta
@@ -190,8 +187,8 @@ export default class LectureGraphiqueTangente extends Exercice {
         const courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 4, 'blue', 1, 20, '', 8)
         const courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 4, 'red', 1, 20, '', 8)
 
-        f =(x: number): number  => -2 * x + 2 * alpha
-        F = (x: number): number  => (-1) * (x - alpha) ** 2 + beta
+        f = (x: number): number => -2 * x + 2 * alpha
+        F = (x: number): number => (-1) * (x - alpha) ** 2 + beta
         const objets1 = [r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })]
         const objets2 = [r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })]
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>

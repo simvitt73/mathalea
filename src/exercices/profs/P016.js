@@ -23,7 +23,6 @@ export default class SimulateurDes extends Exercice {
     this.nbQuestions = 1
 
     this.sup = '6' // liste de dés
-
   }
 
   nouvelleVersion () {

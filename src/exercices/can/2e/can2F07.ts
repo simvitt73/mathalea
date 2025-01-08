@@ -34,8 +34,6 @@ export default class ExtremumsTableau extends Exercice {
     super()
 
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {

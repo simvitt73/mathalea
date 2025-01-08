@@ -26,8 +26,6 @@ export default class resteDivEuclido extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = choice([2, 5, 10, 20, 100, 1000, 2000])
 
     this.reponse = 2025 % a

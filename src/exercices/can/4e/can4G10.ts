@@ -31,12 +31,9 @@ export default class TripletsPythagoriciensOuPas extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeTripletsPythagoriciens = [
         [3, 4, 5],

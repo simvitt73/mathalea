@@ -28,17 +28,14 @@ export const refs = {
   'fr-ch': []
 }
 export default class NombreSolutionsSecondDegre extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+  }
 
-    
-  
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     let a, b, c, d, maFraction
     switch (choice([1, 2])) {
       case 1 :

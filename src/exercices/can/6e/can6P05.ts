@@ -19,6 +19,5 @@ export default class AppliquerUnPourcentageBis extends AppliquerUnPourcentage {
   constructor () {
     super()
     this.bis = true
-
   }
 }

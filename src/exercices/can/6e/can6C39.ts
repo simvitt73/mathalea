@@ -24,7 +24,6 @@ export default class YohakuCan6b extends Exercice {
     super()
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-
   }
 
   nouvelleVersion () {

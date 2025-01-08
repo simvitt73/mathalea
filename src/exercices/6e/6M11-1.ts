@@ -34,7 +34,7 @@ export const refs = {
   'fr-ch': ['9GM1-4']
 }
 export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = [
       'Type de figures',
@@ -50,7 +50,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
     this.sup3 = true
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
@@ -86,8 +86,8 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       const K = similitude(I, J, -90, b / a, nom[10])
       const triangle = polygoneAvecNom(I, J, K)
       const objetsEnonce = [...carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-      ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-      ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
+        ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
+        ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
       texte = this.sup3
         ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
           pixelsParCm: 20,

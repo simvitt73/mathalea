@@ -26,7 +26,6 @@ export default class VecteurDirEqCart extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.listeAvecNumerotation = false
   }
 

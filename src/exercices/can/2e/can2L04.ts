@@ -19,21 +19,18 @@ export const refs = {
   'fr-ch': []
 }
 export default class CoordonneesPointIntersectionAxeOrdonneesDroite extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+  }
 
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     const a = randint(-10, 10, 0)
     const b = randint(1, 10)
     const n = randint(-5, 5, 0)
     const c = n * b
-
-    
 
     this.formatInteractif = 'texte'
     this.reponse = `0;${-c / b}`

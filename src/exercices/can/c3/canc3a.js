@@ -70,7 +70,6 @@ export default class CourseAuxNombresCM extends Exercice {
     this.nbQuestions = 30
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-
   }
 
   nouvelleVersion () {

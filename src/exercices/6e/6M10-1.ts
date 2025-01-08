@@ -40,7 +40,7 @@ interface Rectangle extends Polygone {
   numero: number
 }
 
-function rangeLesLongeurs(longueursHorizontales: number[], longueursVerticales: number[], typeDeGrille: number[]): ItemType[] {
+function rangeLesLongeurs (longueursHorizontales: number[], longueursVerticales: number[], typeDeGrille: number[]): ItemType[] {
   const longueursPossibles = [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5]
   let tableau = longueursHorizontales.concat(longueursVerticales)
   tableau = tableau.sort((a, b) => a - b)
@@ -57,7 +57,7 @@ function rangeLesLongeurs(longueursHorizontales: number[], longueursVerticales: 
   return liste
 }
 
-function choisitFormatGrille(nombreEtapes: number): [number, number] {
+function choisitFormatGrille (nombreEtapes: number): [number, number] {
   switch (nombreEtapes) {
     case 1:
       return [1, 1]
@@ -77,7 +77,7 @@ function choisitFormatGrille(nombreEtapes: number): [number, number] {
   }
 }
 
-function choisitLongueurs(tables: number[], typeDeGrille: number[]) {
+function choisitLongueurs (tables: number[], typeDeGrille: number[]) {
   const longueursHorizontales = [choice(tables)]
   for (let i = 1; i < typeDeGrille[0]; i++) longueursHorizontales.push(choice(tables, longueursHorizontales))
   const longueursVerticales = [choice(tables)]
@@ -85,7 +85,7 @@ function choisitLongueurs(tables: number[], typeDeGrille: number[]) {
   return [longueursHorizontales, longueursVerticales]
 }
 
-function fixeBordures(listeDeTailles: ItemType[], typeDeGrille: number[]) {
+function fixeBordures (listeDeTailles: ItemType[], typeDeGrille: number[]) {
   const listeEcartsHorizontaux = []
   const listeEcartsVerticaux = []
   for (const item of listeDeTailles) { // on récupère les dimensions affichées des rectangles
@@ -103,7 +103,7 @@ function fixeBordures(listeDeTailles: ItemType[], typeDeGrille: number[]) {
   return [xBordures, yBordures]
 }
 
-function creeRectangles(typeDeGrille: number[], xBordures: number[], yBordures: number[]): Rectangle[][] {
+function creeRectangles (typeDeGrille: number[], xBordures: number[], yBordures: number[]): Rectangle[][] {
   const rectangles: Rectangle[][] = []
   for (let i = 0; i < typeDeGrille[0]; i++) {
     rectangles[i] = []
@@ -114,7 +114,7 @@ function creeRectangles(typeDeGrille: number[], xBordures: number[], yBordures: 
   return rectangles
 }
 
-function calculAires(typeDeGrille: number[], longueursHorizontales: number[], longueursVerticales: number[]) {
+function calculAires (typeDeGrille: number[], longueursHorizontales: number[], longueursVerticales: number[]) {
   const aires: number[][] = []
   for (let x = 0; x < typeDeGrille[0]; x++) {
     aires[x] = []
@@ -125,7 +125,7 @@ function calculAires(typeDeGrille: number[], longueursHorizontales: number[], lo
   return aires
 }
 
-function dessineGrille(typeDeGrille: number[], xBordures: number[], yBordures: number[]) {
+function dessineGrille (typeDeGrille: number[], xBordures: number[], yBordures: number[]) {
   let segTemp
   const objets = []
   for (let i = 0; i < typeDeGrille[0] + 1; i++) {
@@ -141,7 +141,7 @@ function dessineGrille(typeDeGrille: number[], xBordures: number[], yBordures: n
   return objets
 }
 
-function dessineCheminAires(objetsEnonce: ObjetMathalea2D[], rectangles: Rectangle[][], typeDeGrille: number[], longueursHorizontales: number[], longueursVerticales: number[], aires: number[][], xBordures: number[], yBordures: number[], nombreTotalEtapes: number, etapeAireInconnue: number | boolean): [string, 'colonne' | 'ligne', number, number[][]] {
+function dessineCheminAires (objetsEnonce: ObjetMathalea2D[], rectangles: Rectangle[][], typeDeGrille: number[], longueursHorizontales: number[], longueursVerticales: number[], aires: number[][], xBordures: number[], yBordures: number[], nombreTotalEtapes: number, etapeAireInconnue: number | boolean): [string, 'colonne' | 'ligne', number, number[][]] {
   const colonneDisponible = Array(typeDeGrille[0]).fill(true)
   const ligneDisponible = Array(typeDeGrille[1]).fill(true)
   let alternance: 'colonne' | 'ligne'
@@ -232,7 +232,7 @@ function dessineCheminAires(objetsEnonce: ObjetMathalea2D[], rectangles: Rectang
   return [texte, alternance, numeroteur, listeCellules]
 }
 
-function redigeCorrection(rectangles: Rectangle[][], longueursHorizontales: number[], longueursVerticales: number[], aires: number[][], nombreTotalEtapes: number, etapeAireInconnue: number | boolean, alternance: 'colonne' | 'ligne', numeroteur: number, listeCellules: number[][]) {
+function redigeCorrection (rectangles: Rectangle[][], longueursHorizontales: number[], longueursVerticales: number[], aires: number[][], nombreTotalEtapes: number, etapeAireInconnue: number | boolean, alternance: 'colonne' | 'ligne', numeroteur: number, listeCellules: number[][]) {
   let texteCorr = ''
   let reponse
   let colonneOuLigne
@@ -241,9 +241,9 @@ function redigeCorrection(rectangles: Rectangle[][], longueursHorizontales: numb
   if (etapeAireInconnue) {
     etapeAireInconnue = etapeAireInconnue as number
     texteCorr = 'D\'une part :<br>'
-      ;[texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue - 1, colonneOuLigne)
+    ;[texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue - 1, colonneOuLigne)
     texteCorr += 'D\'autre part :<br>'
-      ;[texteCorr, colonneOuLigne] = etapesDeLaFinAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, alternance === 'colonne') as [string, boolean]
+    ;[texteCorr, colonneOuLigne] = etapesDeLaFinAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, alternance === 'colonne') as [string, boolean]
     texteCorr += `Nous venons de calculer la largeur et la longueur du rectangle numéro $${miseEnEvidence(rectangles[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]].numero)}$.<br>`
     texteCorr += `On en déduit que son aire est $${texNombre(longueursHorizontales[listeCellules[etapeAireInconnue - 1][0]], 1)}\\times ${texNombre(longueursVerticales[listeCellules[etapeAireInconnue - 1][1]], 1)} = ${miseEnEvidence(texNombre(aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 2))}\\text{ cm}^2$.<br>`
     reponse = [aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 'cm^2']
@@ -274,7 +274,7 @@ $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.leng
   return [texteCorr, reponse]
 }
 
-function etapesDeLaFinAEtapeInconnue(texteCorr: string, longueursHorizontales: number[], longueursVerticales: number[], listeCellules: number[][], rectangles: Rectangle[][], aires: number[][], etapeAireInconnue: number, colonneOuLigne: boolean) {
+function etapesDeLaFinAEtapeInconnue (texteCorr: string, longueursHorizontales: number[], longueursVerticales: number[], listeCellules: number[][], rectangles: Rectangle[][], aires: number[][], etapeAireInconnue: number, colonneOuLigne: boolean) {
   for (let i = listeCellules.length - 1; i >= etapeAireInconnue; i--) {
     if (!colonneOuLigne) {
       texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] >= longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'}
@@ -307,7 +307,7 @@ function etapesDeLaFinAEtapeInconnue(texteCorr: string, longueursHorizontales: n
   return [texteCorr, colonneOuLigne]
 }
 
-function etapesDeUnAEtapeInconnue(texteCorr: string, longueursHorizontales: number[], longueursVerticales: number[], listeCellules: number[][], rectangles: Rectangle[][], aires: number[][], etapeInconnue: number, colonneOuLigne: boolean): [string, boolean] {
+function etapesDeUnAEtapeInconnue (texteCorr: string, longueursHorizontales: number[], longueursVerticales: number[], listeCellules: number[][], rectangles: Rectangle[][], aires: number[][], etapeInconnue: number, colonneOuLigne: boolean): [string, boolean] {
   for (let i = 0; i < etapeInconnue; i++) {
     if (colonneOuLigne) {
       texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] <= longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'}
@@ -340,7 +340,7 @@ function etapesDeUnAEtapeInconnue(texteCorr: string, longueursHorizontales: numb
   return [texteCorr, colonneOuLigne]
 }
 
-function prepareProblemeAire(objetsEnonce: ObjetMathalea2D[], rectangles: Rectangle[][], typeDeGrille: number[], longueursHorizontales: number[], longueursVerticales: number[], aires: number[][], xBordures: number[], yBordures: number[], nombreTotalEtapes: number, etapeAireInconnue: number | boolean) {
+function prepareProblemeAire (objetsEnonce: ObjetMathalea2D[], rectangles: Rectangle[][], typeDeGrille: number[], longueursHorizontales: number[], longueursVerticales: number[], aires: number[][], xBordures: number[], yBordures: number[], nombreTotalEtapes: number, etapeAireInconnue: number | boolean) {
   const [texte, alternance, numeroteur, listeCellules] = dessineCheminAires(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes, etapeAireInconnue)
   const [texteCorr, rep] = redigeCorrection(rectangles, longueursHorizontales, longueursVerticales, aires, nombreTotalEtapes, etapeAireInconnue, alternance, numeroteur, listeCellules)
   // const reponse = new Grandeur(rep[0], rep[1])
@@ -349,7 +349,7 @@ function prepareProblemeAire(objetsEnonce: ObjetMathalea2D[], rectangles: Rectan
 }
 
 export default class ProblemesAiresRectangles extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7)', 'Nombres séparés par des tirets']
     this.besoinFormulaire2Numerique = ['Difficulté', 2, '1 : Facile\n2 : Moins facile']
@@ -365,7 +365,7 @@ export default class ProblemesAiresRectangles extends Exercice {
     this.spacingCorr = context.isHtml ? 3 : 2
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let choixDesTables
 
     const nombreTotalEtapes = gestionnaireFormulaireTexte({

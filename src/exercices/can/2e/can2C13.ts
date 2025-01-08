@@ -23,16 +23,14 @@ export const refs = {
   'fr-ch': []
 }
 export default class CalculPuissancesOperation extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+  }
 
-  
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     let a, b, n, p, s
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //, 'b', 'c', 'd', 'e', 'f'
       case 'a':

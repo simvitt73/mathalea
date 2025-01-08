@@ -27,9 +27,6 @@ export default class Intervalles extends Exercice {
     this.typeExercice = 'simple'
     this.date = 1635094684684
     this.nbQuestions = 1
-
-
-    
   }
 
   nouvelleVersion () {

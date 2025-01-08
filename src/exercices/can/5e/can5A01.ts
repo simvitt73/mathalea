@@ -29,7 +29,7 @@ export default class RepetitionScratch extends Exercice {
     super()
     this.typeExercice = 'Scratch'
     this.nbQuestions = 1
-    
+
     this.listeAvecNumerotation = false
   }
 

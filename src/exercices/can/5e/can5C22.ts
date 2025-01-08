@@ -24,12 +24,11 @@ export default class DecimalVersFraction extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
     let a, d, maFraction
-    
+
     this.formatInteractif = 'fractionEgale'
     a = randint(1, 39, [10, 20, 30])
     switch (choice([1, 2, 3])) {

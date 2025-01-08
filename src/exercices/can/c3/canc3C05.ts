@@ -32,9 +32,6 @@ export default class PariteDunNombre extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
-
     for (let i = 0, a, b, c, d, e, f, g, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5])) {
         case 1:

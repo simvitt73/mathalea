@@ -25,8 +25,6 @@ export default class PoucentageP1 extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

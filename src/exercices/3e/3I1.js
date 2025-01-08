@@ -8,8 +8,8 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Trouver la position d\'un lutin grâce à des instructions conditionnelles (scratch)'
-export const dateDePublication='24/11/2020'
-export const dateDeModifImportante='02/01/2025'
+export const dateDePublication = '24/11/2020'
+export const dateDeModifImportante = '02/01/2025'
 
 /**
  * * Instructions conditionnelles
@@ -57,10 +57,10 @@ export default class InstructionConditionnelle extends Exercice {
     const n2 = randint(1, 10)
     const n3 = randint(1, 10)
     const n4 = randint(1, 10)
-    const xLutin1=randint(1,10)*10
-    const xLutin2=randint(1,10)*10
-    const yLutin1=randint(1,10)*10
-    const yLutin2=randint(1,10)*10
+    const xLutin1 = randint(1, 10) * 10
+    const xLutin2 = randint(1, 10) * 10
+    const yLutin1 = randint(1, 10) * 10
+    const yLutin2 = randint(1, 10) * 10
 
     codeTikz += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}'
     codeSvg += 'quand le drapeau vert pressé <br>'
@@ -71,7 +71,7 @@ export default class InstructionConditionnelle extends Exercice {
     if (this.sup > 1) {
       codeSvg += ` si <(var) > [${n3}]> alors <br>`
       codeSvg += ` ajouter (${xLutin2}) à x <br>`
-    codeSvg += ' fin <br>'
+      codeSvg += ' fin <br>'
     }
     codeSvg += ' sinon <br>'
     codeSvg += ` ajouter (${yLutin1}) à y <br>`
@@ -110,17 +110,17 @@ export default class InstructionConditionnelle extends Exercice {
       }
     }
     texteCorr += ` La position finale est donc : (${texteEnCouleurEtGras(xLutin)} ; ${texteEnCouleurEtGras(yLutin)}).`
-if (this.interactif) {
-            texte += '<br>La position finale du lutin est : ' + remplisLesBlancs(this, 0, ' (~%{champ1}~;~%{champ2}~).', KeyboardType.clavierDeBase)
-          }
-          handleAnswers(this, 0, {
-            //bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: xLutin },
-            champ2: { value: yLutin }
-          },
-          { formatInteractif: 'fillInTheBlank' }
-          )
-          
+    if (this.interactif) {
+      texte += '<br>La position finale du lutin est : ' + remplisLesBlancs(this, 0, ' (~%{champ1}~;~%{champ2}~).', KeyboardType.clavierDeBase)
+    }
+    handleAnswers(this, 0, {
+      // bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+      champ1: { value: xLutin },
+      champ2: { value: yLutin }
+    },
+    { formatInteractif: 'fillInTheBlank' }
+    )
+
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

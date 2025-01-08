@@ -37,7 +37,6 @@ export default class CalculProbaTableau extends Exercice {
     this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

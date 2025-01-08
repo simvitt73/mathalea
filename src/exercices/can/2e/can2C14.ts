@@ -21,20 +21,14 @@ export const refs = {
   'fr-ch': []
 }
 export default class CalculAvecRacineDef extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+  }
 
-  
-
-
-    
-
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     let a, choix
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
       case 1 :

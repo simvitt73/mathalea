@@ -31,7 +31,6 @@ class ExerciceTablesSoustractions extends Exercice {
     this.sup2 = '1'
     this.spacing = 2
 
-
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Texte = ['Type de question', 'Nombres séparés par des tirets\n1 : Calculer la différence\n2 : Calculer le premier terme\n3 : Calculer le deuxième terme\n4 : Calculer un des termes\n5 : Mélange']
   }

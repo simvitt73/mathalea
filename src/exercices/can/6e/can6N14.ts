@@ -30,9 +30,6 @@ export default class DeterminerLeNombre extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
-
     let texte, texteCorr, a, monQcm
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

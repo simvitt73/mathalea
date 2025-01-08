@@ -26,9 +26,6 @@ export default class CalculFractionDecimal extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-
-    
   }
 
   nouvelleVersion () {

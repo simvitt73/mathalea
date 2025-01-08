@@ -10,7 +10,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Grandeur from '../../modules/Grandeur'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
@@ -33,7 +33,7 @@ export const refs = {
 }
 export default class CalculDeVolumes extends Exercice {
   classe: number
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -53,7 +53,7 @@ export default class CalculDeVolumes extends Exercice {
     this.sup4 = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let thissup4Max
 
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
@@ -379,7 +379,7 @@ export default class CalculDeVolumes extends Exercice {
             propositions: [
               {
                 type: 'qcmMono',
-                //@ts-expect-error
+                // @ts-expect-error
                 enonce: texte,
                 propositions: [
                   {
@@ -412,14 +412,14 @@ export default class CalculDeVolumes extends Exercice {
             options: {
               multicols: true,
               barreseparation: false,
-              //@ts-expect-error
+              // @ts-expect-error
               multicolsAll: false,
               numerotationEnonce: true
             },
             propositions: [
               {
                 type: 'AMCOpen',
-                //@ts-expect-error
+                // @ts-expect-error
                 propositions: [{
                   texte: texteCorr,
                   numQuestionVisible: false,
@@ -430,7 +430,7 @@ export default class CalculDeVolumes extends Exercice {
               },
               {
                 type: 'AMCNum',
-                //@ts-expect-error
+                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

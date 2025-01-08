@@ -34,7 +34,6 @@ export default class SecondDegreVariations extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

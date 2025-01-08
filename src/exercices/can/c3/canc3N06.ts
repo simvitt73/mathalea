@@ -28,8 +28,6 @@ export default class ComparerDroiteGrad extends Exercice {
     super()
 
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

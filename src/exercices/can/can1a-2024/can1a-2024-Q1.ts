@@ -24,7 +24,7 @@ export default class MultiplierDecimaux1 extends Exercice {
 
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = false
-    }
+  }
 
   nouvelleVersion () {
     let b: number

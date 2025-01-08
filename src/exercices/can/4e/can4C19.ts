@@ -23,12 +23,9 @@ export default class MultiplicationRelatifCAN extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 10
-
   }
 
   nouvelleVersion () {
-    
-
     let a = randint(1, this.sup)
     let b = randint(1, this.sup)
     const k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs

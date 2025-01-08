@@ -24,9 +24,6 @@ export default class Factoriser extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-
-    
   }
 
   nouvelleVersion () {

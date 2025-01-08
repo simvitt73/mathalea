@@ -28,8 +28,6 @@ export default class calcAvecChiffresRel extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = randint(1, 9)
 
     this.reponse = a - 2025

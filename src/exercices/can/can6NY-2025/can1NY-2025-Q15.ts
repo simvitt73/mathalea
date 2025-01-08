@@ -27,8 +27,6 @@ export default class nbreSolutions extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = 2025
     const b = randint(2020, 2030)
     this.question = ` Combien de solutions réelles possède l'équation  ${choice([true, false]) ? `$-x^2+${texNombre(a)}=${texNombre(b)}$` : `$${texNombre(a)}-x^2=${texNombre(b)}$`} ?`

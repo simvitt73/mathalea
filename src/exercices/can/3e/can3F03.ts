@@ -24,9 +24,8 @@ export default class CalculImageParFonctionAffine extends Exercice {
     super()
 
     this.nbQuestions = 1
-    
-    this.typeExercice = 'simple'
 
+    this.typeExercice = 'simple'
   }
 
   nouvelleVersion () {

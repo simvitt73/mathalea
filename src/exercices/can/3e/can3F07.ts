@@ -32,8 +32,6 @@ export default class LectureGraphiqueFonctionAffine1 extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

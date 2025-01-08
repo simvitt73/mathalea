@@ -31,7 +31,6 @@ export default class RelationRec extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

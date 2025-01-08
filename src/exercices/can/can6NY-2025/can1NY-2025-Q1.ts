@@ -27,8 +27,6 @@ export default class calcAvecChiffres extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2, 3, 4, 5])
 
     if (choix === 1) {

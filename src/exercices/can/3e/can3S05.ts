@@ -27,8 +27,6 @@ export default class MoyenneStat extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

@@ -51,7 +51,6 @@ export default class QuestionsMasses extends Exercice {
     this.sup2 = false
     this.sup3 = false
     this.sup4 = 3
-
   }
 
   nouvelleVersion () {

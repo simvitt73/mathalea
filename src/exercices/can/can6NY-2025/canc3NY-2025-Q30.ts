@@ -29,8 +29,6 @@ export default class resoudreUnProbleme extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const prenoms = prenomM(2)
     this.reponse = randint(8, 12, 10)
     const a = this.reponse * 2

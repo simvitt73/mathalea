@@ -30,9 +30,6 @@ export default class calcRenduMonnaie extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
-
     let prix
     switch (randint(1, 5)) {
       case 1 :

@@ -23,7 +23,6 @@ export default class ConversionHeuresEtMinutesVersMinutes extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.optionsChampTexte = { texteApres: ' minutes' }
   }
 

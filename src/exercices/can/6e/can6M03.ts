@@ -24,7 +24,6 @@ export default class ConvertirEnM extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
@@ -34,14 +33,14 @@ export default class ConvertirEnM extends Exercice {
       this.reponse = a * 1000
       this.question = `$${a}$ km font combien de mètres ?`
       this.correction = `Comme $1$ km $=1000$ m, $${a}$ km = $${texNombre(this.reponse)}$ m.`
-      
+
       this.optionsChampTexte = { texteApres: ' m' }
     } else {
       a = randint(11, 24) * 10 + randint(0, 9)
       this.reponse = a / 100
       this.question = `$${a}$ cm font combien de mètres ?`
       this.correction = `Comme $1$ cm $=0,01$ m, $${a}$ cm = $${texNombre(this.reponse)}$ m.`
-      
+
       this.optionsChampTexte = { texteApres: ' m' }
     }
     this.canEnonce = this.question

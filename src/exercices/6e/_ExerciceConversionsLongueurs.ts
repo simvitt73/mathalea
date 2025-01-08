@@ -27,7 +27,7 @@ export const titre = 'Convertir des longueurs ou des masses'
  * @author Rémi Angot
  */
 export default class ExerciceConversionsLongueurs extends Exercice {
-  constructor(niveau = 1) {
+  constructor (niveau = 1) {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -44,7 +44,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     this.consigne = context.isDiaporama ? 'Convertir' : 'Compléter : '
     const reponses = []
     const typeDeGrandeur = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 1, melange: 3, nbQuestions: this.nbQuestions })
@@ -257,7 +257,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
  * getDigitFromNumber(1302.56,0.1) retourne '5'
  * getDigitFromNumber(1302.56,0.001) retourne ''
  */
-export function getDigitFromNumber(nb: string | number, pos: number) {
+export function getDigitFromNumber (nb: string | number, pos: number) {
   if (typeof nb === 'number') nb = nb.toString()
   const n = new Decimal(nb)
   const po = new Decimal(pos)
@@ -285,7 +285,7 @@ export function getDigitFromNumber(nb: string | number, pos: number) {
  * @param {*} force Ajoute deux colonnes avant km et deuux après mm (par défaut : false)
  * @returns Un tableau de conversion de longueur en latex.
  */
-function buildTab(a: string, uniteA: string, r: string, uniteR: string, ligne = 2, force = false) {
+function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne = 2, force = false) {
   const tabRep: (nbre: string, uniteNbre: string) => string[] = (nbre: string, uniteNbre: string) => {
     const res = ['', '', '', '', '', '', '', '', '', '', '']
     switch (uniteNbre.replaceAll(' ', '')) {

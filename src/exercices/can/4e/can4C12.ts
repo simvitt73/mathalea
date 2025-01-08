@@ -26,7 +26,6 @@ export default class CalculMoitieFraction extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.optionsDeComparaison = { fractionIrreductible: true }
     this.spacingCorr = 2.5
   }

@@ -5,7 +5,6 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-
 export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,9 +21,8 @@ export default class AbscisseEnDemis extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
 
-    
     this.canOfficielle = false
-    }
+  }
 
   nouvelleVersion () {
     let a1: number

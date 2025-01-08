@@ -29,8 +29,6 @@ export default class ChangerUnites extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([true, false])
     if (choix) {
       this.reponse = 20.25

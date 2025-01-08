@@ -50,8 +50,6 @@ export default class SommeFractionsDecimales extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     // this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
     this.consigne = 'Donner le résultat de '
     this.consigne += this.nbQuestions === 1 ? 'ce' : 'chaque'

@@ -22,17 +22,16 @@ export const refs = {
   'fr-ch': []
 }
 export default class NombreInverse extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
 
-  
-  this.formatInteractif = 'fractionEgale'
-  
-}
- nouvelleVersion () {
+    this.formatInteractif = 'fractionEgale'
+  }
+
+  nouvelleVersion () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
     const a = randint(1, 4)
     const b = maFraction[0]

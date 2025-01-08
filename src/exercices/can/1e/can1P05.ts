@@ -36,7 +36,6 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
     this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

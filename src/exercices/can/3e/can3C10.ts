@@ -24,9 +24,6 @@ export default class EncadrementAvecPuissancesDe10 extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-
-    
   }
 
   nouvelleVersion () {

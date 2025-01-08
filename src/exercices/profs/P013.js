@@ -29,7 +29,6 @@ export default class TraceCourbeInterpolee1 extends Exercice {
     this.sup = '(-5;0)/(0;5)/(5;0)' // liste de points
     this.sup2 = true
     this.sup3 = 1
-
   }
 
   nouvelleVersion () {

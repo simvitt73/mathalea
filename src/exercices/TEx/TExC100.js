@@ -28,7 +28,6 @@ export default class EquationDuPremierDegreDansC extends Exercice {
 
     this.sup = 1 // Niveau de difficulté
 
-
     this.spacingCorr = 2
   }
 

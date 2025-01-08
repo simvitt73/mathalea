@@ -26,12 +26,9 @@ export default class ComparerFraction extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     this.consigne = 'Compléter avec $>$ ou $<$.'
     const listeFractions1 = [[7, 8, 11, 8], [5, 8, 7, 8], [4, 11, 7, 11], [2, 11, 10, 11],
       [8, 15, 13, 15], [14, 33, 17, 33], [34, 45, 37, 45], [18, 35, 19, 35], [14, 47, 37, 47], [11, 35, 31, 35],

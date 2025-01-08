@@ -25,11 +25,9 @@ export default class developper extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    }
+  }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2, 3])
     const a = randint(-2, 2, 0)
     const b = randint(-5, 5, 0)

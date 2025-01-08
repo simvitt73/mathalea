@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': ['9GM1-7', '10GM1-5']
 }
 export default class DecomposerFigureComplexe extends PerimetreOuAireDeFiguresComposees {
-  constructor() {
+  constructor () {
     super()
     this.sup3 = 1
     this.sup4 = 4

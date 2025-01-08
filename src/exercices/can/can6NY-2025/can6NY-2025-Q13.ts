@@ -34,8 +34,6 @@ export default class SommeDeProduitsCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const objets = []
     const a = randint(11, 15) * 100
     const b = 2025

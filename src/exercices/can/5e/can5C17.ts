@@ -23,13 +23,11 @@ export default class EntierPlusFractionVersDecimal extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
     let a, b, c, maFraction, maFraction2
     let resultat
-    
 
     switch (choice([1, 2, 3, 4])) {
       case 1:// fraction addition avec un entier

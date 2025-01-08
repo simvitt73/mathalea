@@ -24,7 +24,6 @@ export default class FractionDecimaleEcritureDecimale1 extends Exercice {
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
-    
   }
 
   nouvelleVersion () {

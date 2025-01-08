@@ -28,8 +28,6 @@ export default class anneeATrouver extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const a = randint(30, 50)
     const prenom = prenomF(1)
     this.question = 'Si ' + prenom + ` a $${a}$ ans en $2025$, en quelle année est-elle naît  ?`

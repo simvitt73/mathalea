@@ -26,8 +26,6 @@ export default class CalculDivers extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     switch (randint(1, 7)) {
       case 1 :
         this.question = `Combien vaut $${texNombre(2025)} + 20 + 5$ ?`

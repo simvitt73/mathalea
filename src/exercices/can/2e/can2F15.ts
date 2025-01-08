@@ -28,7 +28,6 @@ export default class VariationFA extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

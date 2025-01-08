@@ -5,7 +5,6 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-
 export const titre = 'Simplifier une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

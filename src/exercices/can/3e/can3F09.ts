@@ -31,10 +31,7 @@ export default class ReconnaitreFonctionAffine extends Exercice {
   constructor () {
     super()
 
-    
-
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

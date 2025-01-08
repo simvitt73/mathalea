@@ -25,12 +25,9 @@ export default class ReconnaitreExp extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     let texte, texteCorr, a, b, c, d, choix, listeFractions1, fractionR, monQcm
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4])) { // 1

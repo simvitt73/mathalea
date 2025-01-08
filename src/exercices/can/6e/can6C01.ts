@@ -29,12 +29,9 @@ export default class OrdreDeGrandeur extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(3, 7)
       const b = randint(2, 9)

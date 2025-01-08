@@ -28,8 +28,6 @@ export default class LaBonneUnite extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const hauteurs = [
       ['chaise', 75, 115, ' cm'],
       ['grue', 120, 250, ' dm'],

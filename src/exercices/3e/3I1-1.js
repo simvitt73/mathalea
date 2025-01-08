@@ -163,7 +163,7 @@ export default class ConjectureDeSyracuse extends Exercice {
       })
 
       // Le graphique cartésien
-      const g = traceGraphiqueCartesien(coordSyracuse, r2,{})
+      const g = traceGraphiqueCartesien(coordSyracuse, r2, {})
 
       // On pousse tout ça dans les objets, le repère aussi coño !!!
       objetsCorrection.push(r2, g)

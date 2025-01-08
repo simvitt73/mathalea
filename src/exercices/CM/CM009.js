@@ -32,7 +32,6 @@ export default class Moitie extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = 1 // niveau de difficulté
-
   }
 
   nouvelleVersion () {

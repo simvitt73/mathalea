@@ -27,9 +27,6 @@ export default class CoefficientFonctionAffine extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-
-    
   }
 
   nouvelleVersion () {

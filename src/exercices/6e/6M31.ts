@@ -39,7 +39,7 @@ export const refs = {
   'fr-ch': ['9GM2-3']
 }
 
-function nombreAleatoire(nbChiffres: number) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
+function nombreAleatoire (nbChiffres: number) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
   let a = new Decimal(0)
   for (let i = 0; i < nbChiffres; i++) {
     a = a.add(randint(1, 9) * 10 ** i)
@@ -47,7 +47,7 @@ function nombreAleatoire(nbChiffres: number) { // retourne un entier aléatoire 
   return a
 }
 export default class ExerciceConversionsVolumes extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
@@ -63,7 +63,7 @@ export default class ExerciceConversionsVolumes extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     if (context.isHtml && !(context.vue === 'diap')) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
@@ -84,15 +84,15 @@ export default class ExerciceConversionsVolumes extends Exercice {
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
     for (
       let i = 0,
-      a,
-      k,
-      div,
-      resultat,
-      resultatFaux,
-      typesDeQuestions,
-      texte,
-      texteCorr,
-      cpt = 0;
+        a,
+        k,
+        div,
+        resultat,
+        resultatFaux,
+        typesDeQuestions,
+        texte,
+        texteCorr,
+        cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
       this.autoCorrection[i] = {}
@@ -332,7 +332,7 @@ export default class ExerciceConversionsVolumes extends Exercice {
   }
 }
 
-function buildTab(a: number, uniteA: string, r: number, uniteR: string, ligne = 2, force = false, correction = false) {
+function buildTab (a: number, uniteA: string, r: number, uniteR: string, ligne = 2, force = false, correction = false) {
   const tabRep = function (nbre: number, uniteNbre: string) {
     const res = []
     let caseARemplir

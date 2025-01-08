@@ -28,8 +28,6 @@ export default class CalculsNombres extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2, 3, 4])
     if (choix === 1) {
       this.question = '$20+25$'

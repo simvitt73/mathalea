@@ -29,12 +29,11 @@ export default class calculerPythagore extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    }
+  }
 
   nouvelleVersion () {
     const choix = choice([true, false])
-    
-    
+
     const nom = creerNomDePolygone(3, ['QD'])
     const a = randint(1, 6)
     const A = point(0, 0, nom[0], 'below')

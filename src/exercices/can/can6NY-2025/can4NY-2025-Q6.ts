@@ -28,9 +28,6 @@ export default class InverseOppose extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
-
     const c = choice([2, 4, 5])
     const b = randint(1, c - 1)
     const maFraction = new FractionEtendue(b, c)

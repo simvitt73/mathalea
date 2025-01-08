@@ -240,27 +240,27 @@ class MettreDesParentheses extends Exercice {
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses
         ? calculer(
-            assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
-            {
-              removeImplicit: false,
-              suppr1: false,
-              suppr0: false,
-              supprPlusMoins: false,
-              comment: true,
-              commentStep: true
-            }
-          )
+          assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
+          {
+            removeImplicit: false,
+            suppr1: false,
+            suppr0: false,
+            supprPlusMoins: false,
+            comment: true,
+            commentStep: true
+          }
+        )
         : calculer(
-            assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
-            {
-              removeImplicit: false,
-              suppr1: false,
-              suppr0: false,
-              supprPlusMoins: false,
-              comment: true,
-              commentStep: true
-            }
-          )
+          assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
+          {
+            removeImplicit: false,
+            suppr1: false,
+            suppr0: false,
+            supprPlusMoins: false,
+            comment: true,
+            commentStep: true
+          }
+        )
       const texteCorr: string = `${answer.texteCorr}`
       // La callback de correction intéractive
       const callback = (

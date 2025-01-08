@@ -23,8 +23,6 @@ export default class ProduitEntiers5e extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

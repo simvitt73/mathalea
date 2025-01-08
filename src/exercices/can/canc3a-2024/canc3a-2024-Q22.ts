@@ -22,9 +22,8 @@ export default class AbscisseEnDemiBisCM2 extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
 
-    
     this.canOfficielle = false
-    }
+  }
 
   nouvelleVersion () {
     let a1: number

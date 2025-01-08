@@ -26,8 +26,6 @@ export default class AntecedentFonctionRacine extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

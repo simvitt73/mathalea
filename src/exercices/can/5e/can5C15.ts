@@ -24,8 +24,6 @@ export default class NombreATrouver extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

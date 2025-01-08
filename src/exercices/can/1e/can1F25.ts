@@ -31,8 +31,7 @@ export default class ResolEquationDerivee extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'solution(s)' }
-
-    }
+  }
 
   nouvelleVersion () {
     const noeuds2 = [{ x: -2, y: -1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
@@ -62,7 +61,7 @@ export default class ResolEquationDerivee extends Exercice {
       { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
     ]
     const mesFonctions = [noeuds0, noeuds1, noeuds2, noeuds3, noeuds4]// noeuds0, noeuds1, noeuds2, noeuds3, noeuds4
-    function aleatoiriseCourbe (listeFonctions : Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>[]) {
+    function aleatoiriseCourbe (listeFonctions : Array<{ x: number, y: number, deriveeGauche: number, deriveeDroit: number, isVisible: boolean }>[]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, 2) // translations

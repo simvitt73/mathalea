@@ -27,8 +27,6 @@ export default class calculsRacinesCarresPafaits extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''

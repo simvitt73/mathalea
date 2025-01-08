@@ -36,7 +36,7 @@ export const refs = {
 }
 export default class NoteLaCouleur6e extends Exercice {
   relatif: boolean
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
     this.besoinFormulaire2Numerique = ['Type de programme', 3, '1 : Avancer et tourner\n2 : Boucles\n3 : Mélange']
@@ -53,7 +53,7 @@ export default class NoteLaCouleur6e extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const damier = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],

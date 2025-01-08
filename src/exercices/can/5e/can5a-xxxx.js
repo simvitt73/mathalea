@@ -70,8 +70,6 @@ export default class CourseAuxNombres5e extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     let a, b, c, d, resultat, propositions
     const fruits = [
       ['pêches', 4, 10, 30],

@@ -27,7 +27,6 @@ export default class CalculsDeProbabilites extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.formatInteractif = 'fractionEgale'
   }
 

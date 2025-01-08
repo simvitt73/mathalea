@@ -28,7 +28,7 @@ export default class ProblemesDeLongueursInverse extends Exercice {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
-    
+
     this.optionsChampTexte = { texteApres: ' cm' }
   }
 

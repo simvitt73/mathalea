@@ -30,7 +30,6 @@ export default class MultiplierDeuxDecimaux extends Exercice {
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.typeExercice = 'simple'
-
   }
 
   nouvelleVersion () {

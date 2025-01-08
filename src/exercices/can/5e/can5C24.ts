@@ -24,13 +24,11 @@ export default class FractionVersDecimal extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
     let a, b, c, maFraction
     let resultat
-    
 
     switch (choice([1, 2, 3])) {
       case 1:// conversion fraction <->décimale cinquième

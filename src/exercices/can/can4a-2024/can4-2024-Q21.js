@@ -69,7 +69,6 @@ export default class NomExercice extends Exercice {
     prog4 += '}\n'
     prog4 += '\\end{scratch}<br>'
     if (this.canOfficielle) {
-
       this.reponse = 150
       this.question = `${scratchblock(prog0)}`
 
@@ -82,7 +81,6 @@ export default class NomExercice extends Exercice {
     } else {
       const choix = choice(['a', 'b', 'c', 'd'])//
       if (choix === 'a') {
-
         this.reponse = 90
         this.question = `${scratchblock(prog2)}`
 
@@ -93,7 +91,6 @@ export default class NomExercice extends Exercice {
         this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'b') {
-
         this.reponse = 120
         this.question = `${scratchblock(prog3)}`
 
@@ -106,7 +103,6 @@ export default class NomExercice extends Exercice {
         this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'c') {
-
         this.reponse = 2
         this.question = `${scratchblock(prog4)}`
 
@@ -119,7 +115,6 @@ export default class NomExercice extends Exercice {
         this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'd') {
-
         this.reponse = a * n
         this.question = `${scratchblock(prog0)}`
 

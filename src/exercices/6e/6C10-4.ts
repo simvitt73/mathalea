@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': ['9NO3-16']
 }
 export default class ExerciceTablesAdditions extends Exercice {
-   constructor (max = 20) {
+  constructor (max = 20) {
     super()
     this.consigne = 'Calculer.'
     this.sup2 = '1'

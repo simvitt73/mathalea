@@ -30,7 +30,6 @@ export default class Tauxvariation extends Exercice {
 
     this.nbQuestions = 1 // Nombre de questions par défaut
 
-
     this.sup = 1
   }
 

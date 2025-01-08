@@ -23,11 +23,9 @@ export default class DeveloppementNiveau1 extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
     let a, b, k, inconnue
     switch (randint(1, 2)) {
       case 1:// developpement k*(a+b)

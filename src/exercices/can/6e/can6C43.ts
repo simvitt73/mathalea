@@ -34,8 +34,6 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const listeFractions = obtenirListeFractionsIrreductibles()
     for (let i = 0, cpt = 0, texte, texteCorr, signe, signe2; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}

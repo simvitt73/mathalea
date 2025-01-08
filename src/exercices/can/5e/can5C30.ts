@@ -28,12 +28,9 @@ export default class fractionsDecimaux extends Exercice {
     super()
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-
-    }
+  }
 
   nouvelleVersion () {
-    
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''

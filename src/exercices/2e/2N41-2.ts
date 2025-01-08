@@ -24,7 +24,7 @@ export default class factorisationDifferenceCarres extends Exercice {
     // this.consigne = 'Calculer '
     this.sup = 11
     this.nbQuestions = 1
-    this.spacingCorr=2
+    this.spacingCorr = 2
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
     this.besoinFormulaireTexte = [
@@ -287,7 +287,7 @@ export default class factorisationDifferenceCarres extends Exercice {
           const facteur1 = reduireAxPlusB(a, b)
           const facteur2 = reduireAxPlusB(a, b.mul(-1))
           texte = `${choix ? `$${texNombre(new Decimal(a.mul(a)), 2)}x^2-${texNombre(new Decimal(b.mul(b)), 2)}$` : `$${texNombre(new Decimal(b.mul(b)), 2)}-${texNombre(new Decimal(a.mul(a)), 2)}x^2$`}`
-         // texte += `<br>$(${facteur1})(${facteur2})$`
+          // texte += `<br>$(${facteur1})(${facteur2})$`
           if (this.correctionDetaillee) {
             texteCorr = texteEgaliteR + `${choix ? `$a=${miseEnCouleur(`${texNombre(a, 2)}x`, 'red')}$  et $b=${miseEnCouleur(`${texNombre(b, 2)}`, 'blue')}$` : `$a=${miseEnCouleur(`${texNombre(b, 2)}`, 'red')}$  et $b=${miseEnCouleur(`${texNombre(a, 2)}x`, 'blue')}$`}.<br>`
             if (choix === true) {
@@ -317,7 +317,7 @@ export default class factorisationDifferenceCarres extends Exercice {
             const b = randint(-15, 15, 0)
             const c = randint(1, 12)
             texte = `${choix ? `$(${reduireAxPlusB(a, b)})^2-${c * c}$` : `$${c * c}-(${reduireAxPlusB(a, b)})^2$`}`
-           // texte += choix ? `(${reduireAxPlusB(a, b + c)})(${reduireAxPlusB(a, b - c)})` : `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(-a, c + b)})`
+            // texte += choix ? `(${reduireAxPlusB(a, b + c)})(${reduireAxPlusB(a, b - c)})` : `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(-a, c + b)})`
             if (this.correctionDetaillee) {
               texteCorr = texteEgaliteR + `${choix ? `$a=${miseEnCouleur(`${reduireAxPlusB(a, b)}`, 'red')}$  et $b=${miseEnCouleur(`${c}`, 'blue')}$` : `$a=${miseEnCouleur(`${c}`, 'red')}$  et $b=${miseEnCouleur(`${reduireAxPlusB(a, b)}`, 'blue')}$`}.<br>`
               if (choix === true) {
@@ -356,7 +356,7 @@ export default class factorisationDifferenceCarres extends Exercice {
             const facteurConstant = [facteur1, facteur2].filter(el => !el.includes('x'))
 
             texte = `$(${reduireAxPlusB(a, b)})^2-(${reduireAxPlusB(c, d)})^2$`
-           // texte += `<br>$(${facteur1})(${facteur2})$`
+            // texte += `<br>$(${facteur1})(${facteur2})$`
             // texte += choix ? `(${reduireAxPlusB(a, b + c)})(${reduireAxPlusB(a, b - c)})` : `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(-a, c + b)})`
             if (this.correctionDetaillee) {
               texteCorr = texteEgaliteR + `$a=${miseEnCouleur(`${reduireAxPlusB(a, b)}`, 'red')}$  et $b=${miseEnCouleur(`${reduireAxPlusB(c, d)}`, 'blue')}$.<br>`
@@ -366,27 +366,28 @@ export default class factorisationDifferenceCarres extends Exercice {
        &=\\underbrace{((${miseEnCouleur(`${reduireAxPlusB(a, b)}`, 'red')})-(${miseEnCouleur(`${reduireAxPlusB(c, d)}`, 'blue')}))((${miseEnCouleur(`${reduireAxPlusB(a, b)}`, 'red')})+(${miseEnCouleur(`${reduireAxPlusB(c, d)}`, 'blue')}))}_{(a-b)(a+b)}\\\\
        &=(${reduireAxPlusB(a, b)}${ecritureAlgebriqueSauf1(-c)}x${ecritureAlgebrique(-d)})(${reduireAxPlusB(a, b)}${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebrique(d)})\\\\
        \\end{aligned}$ `
-       texteCorr += `<br>$\\phantom{(${reduireAxPlusB(a, b)})^2-(${reduireAxPlusB(c, d)})^2}=`
-       if (facteurConstant.length === 0) {
-         texteCorr += `(${facteur1})(${facteur2})$`
-       } else {
-         if (facteur1.includes('x')) {
-           texteCorr += `${facteur2}(${facteur1})$`
-         } else {
-           texteCorr += `${facteur1}(${facteur2})$`
-         }
-       }
-            }
-            else{ texteCorr += `$(${reduireAxPlusB(a, b)})^2-(${reduireAxPlusB(c, d)})^2=`
-            if (facteurConstant.length === 0) {
-              texteCorr += `${miseEnEvidence(`(${facteur1})(${facteur2})`)}$`
-            } else {
-              if (facteur1.includes('x')) {
-                texteCorr += `${miseEnEvidence(`${facteur2}(${facteur1})`)}$`
+              texteCorr += `<br>$\\phantom{(${reduireAxPlusB(a, b)})^2-(${reduireAxPlusB(c, d)})^2}=`
+              if (facteurConstant.length === 0) {
+                texteCorr += `(${facteur1})(${facteur2})$`
               } else {
-                texteCorr += `${miseEnEvidence(`${facteur1}(${facteur2})`)}$`
+                if (facteur1.includes('x')) {
+                  texteCorr += `${facteur2}(${facteur1})$`
+                } else {
+                  texteCorr += `${facteur1}(${facteur2})$`
+                }
               }
-            }}
+            } else {
+              texteCorr += `$(${reduireAxPlusB(a, b)})^2-(${reduireAxPlusB(c, d)})^2=`
+              if (facteurConstant.length === 0) {
+                texteCorr += `${miseEnEvidence(`(${facteur1})(${facteur2})`)}$`
+              } else {
+                if (facteur1.includes('x')) {
+                  texteCorr += `${miseEnEvidence(`${facteur2}(${facteur1})`)}$`
+                } else {
+                  texteCorr += `${miseEnEvidence(`${facteur1}(${facteur2})`)}$`
+                }
+              }
+            }
             handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, options: { factorisation: true } } })
           }
           break
@@ -402,15 +403,15 @@ export default class factorisationDifferenceCarres extends Exercice {
           const facteur2 = reduireAxPlusB(a * e + c * f, b * e + d * f)
           const facteurConstant = [facteur1, facteur2].filter(el => !el.includes('x'))
           texte = `$${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2$` // (ax+b)²-(cx+d)²
-         // texte += ` $(${facteur1})(${facteur2})$<br>`
+          // texte += ` $(${facteur1})(${facteur2})$<br>`
           if (this.correctionDetaillee) {
             texteCorr = texteEgaliteR + `$a=${miseEnCouleur(`${e}(${a}x${ecritureAlgebrique(b)})`, 'red')}$ et $b=${miseEnCouleur(`${f}(${c}x${ecritureAlgebrique(d)}))`, 'blue')}$.<br>`
             texteCorr += `
   $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2
   &=\\underbrace{(${miseEnCouleur(`${e}(${a}x${ecritureAlgebrique(b)})`, 'red')})^2-(${miseEnCouleur(`${f}(${c}x${ecritureAlgebrique(d)})`, 'blue')})^2}_{a^2-b^2}\\\\
   &=\\underbrace{[(${miseEnCouleur(`${e}(${a}x${ecritureAlgebrique(b)})`, 'red')})-(${miseEnCouleur(`${f}(${c}x${ecritureAlgebrique(d)})`, 'blue')})][(${miseEnCouleur(`${e}(${a}x${ecritureAlgebrique(b)})`, 'red')})+(${miseEnCouleur(`${f}(${c}x${ecritureAlgebrique(d)})`, 'blue')})]}_{(a-b)(a+b)}\\\\
-   &= \\left[(${e}\\times ${a <0 ? `(${a}x)`: `${a}x`}${ecritureAlgebrique(e)}\\times ${ecritureParentheseSiNegatif(b)})-(${f}\\times ${c <0 ? `(${c}x)`: `${c}x`}${ecritureAlgebrique(f)}\\times ${ecritureParentheseSiNegatif(d)})\\right]
- \\left[(${e}\\times ${a <0 ? `(${a}x)`: `${a}x`}${ecritureAlgebrique(e)}\\times ${ecritureParentheseSiNegatif(b)})+(${f}\\times ${c <0 ? `(${c}x)`: `${c}x`}${ecritureAlgebrique(f)}\\times ${ecritureParentheseSiNegatif(d)})\\right]
+   &= \\left[(${e}\\times ${a < 0 ? `(${a}x)` : `${a}x`}${ecritureAlgebrique(e)}\\times ${ecritureParentheseSiNegatif(b)})-(${f}\\times ${c < 0 ? `(${c}x)` : `${c}x`}${ecritureAlgebrique(f)}\\times ${ecritureParentheseSiNegatif(d)})\\right]
+ \\left[(${e}\\times ${a < 0 ? `(${a}x)` : `${a}x`}${ecritureAlgebrique(e)}\\times ${ecritureParentheseSiNegatif(b)})+(${f}\\times ${c < 0 ? `(${c}x)` : `${c}x`}${ecritureAlgebrique(f)}\\times ${ecritureParentheseSiNegatif(d)})\\right]
    \\\\&= (${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(-c * f)}x${ecritureAlgebrique(-d * f)})(${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(c * f)}x${ecritureAlgebrique(d * f)})\\\\`
             if (facteurConstant.length === 0 || !(facteur1.includes('x'))) {
               texteCorr += ` &=(${facteur1})(${facteur2})\\end{aligned}$`

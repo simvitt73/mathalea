@@ -8,7 +8,7 @@ export const titre = 'Division de polynômes'
 /**
  *
  * @author Jean-Claude Lhote à partir d'un exercice de Eric Schrafstetter
- * abandon de l'usage de xcas au profit de Polynome. 
+ * abandon de l'usage de xcas au profit de Polynome.
 */
 export const uuid = 'ad6a2'
 
@@ -32,20 +32,20 @@ export default class DivisionDePolynomes extends Exercice {
     for (let i = 0, texte, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)
-      const diviseur = new Polynome({coeffs: [a, 1]})
-      const quotient  = new Polynome({rand: true, deg: 2})
+      const diviseur = new Polynome({ coeffs: [a, 1] })
+      const quotient = new Polynome({ rand: true, deg: 2 })
       const dividende = diviseur.multiply(quotient)
 
-      const mon2 = new Polynome({coeffs: [0,0,quotient.monomes[2]]})
+      const mon2 = new Polynome({ coeffs: [0, 0, quotient.monomes[2]] })
       const prod2 = diviseur.multiply(mon2)
 
       const dividende2 = dividende.add(prod2.multiply(-1))
-      const mon3 = new Polynome({coeffs: [0,quotient.monomes[1]]})
+      const mon3 = new Polynome({ coeffs: [0, quotient.monomes[1]] })
 
       const prod3 = diviseur.multiply(mon3)
       const dividende3 = dividende2.add(prod3.multiply(-1))
 
-      const mon4 = new Polynome({coeffs: [quotient.monomes[0]]})
+      const mon4 = new Polynome({ coeffs: [quotient.monomes[0]] })
       const prod4 = diviseur.multiply(mon4)
 
       texte = `$P(x)=${dividende.toLatex()}$ par $D(x)=${diviseur.toLatex()}$`

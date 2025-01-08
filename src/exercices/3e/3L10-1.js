@@ -36,7 +36,6 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
     this.spacingCorr = context.isHtml ? 3 : 2
     this.nbQuestions = 5
 
-
     this.listeAvecNumerotation = false
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Sanctionner les formes non simplifiées', false]

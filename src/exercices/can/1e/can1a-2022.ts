@@ -59,8 +59,6 @@ export default class SujetCAN2022Premiere extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 23, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
@@ -564,13 +562,13 @@ export default class SujetCAN2022Premiere extends Exercice {
           let e = randint(0, 9, [b, c, d])
           let f = randint(0, 9, [b, c, d, e])
           let g = randint(1, 9, [b, c, d, e, f])
-          b/=10
-          c/=100
-          d/=1000
-          e/=10000
-          f/=100000
-          g/=1000000
-          let nbre = a + b + c + d + e + f + g
+          b /= 10
+          c /= 100
+          d /= 1000
+          e /= 10000
+          f /= 100000
+          g /= 1000000
+          const nbre = a + b + c + d + e + f + g
           if (choice([true, false])) {
             texte = `Donner l'arrondi au millième de $${texNombre(nbre, 6)}$.
              `

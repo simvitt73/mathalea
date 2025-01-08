@@ -25,7 +25,6 @@ export default class EquationPlusMoinsX2PlusAEgalB extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {

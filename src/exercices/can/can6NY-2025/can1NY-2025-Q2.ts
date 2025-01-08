@@ -29,8 +29,6 @@ export default class decimalPuisance extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const puissance = randint(1, 5)
     const puissance10 = 10 ** puissance
     const a = choice([2025, -2025])

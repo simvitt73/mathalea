@@ -14,16 +14,13 @@ import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { combinaisonListes, shuffleLettres } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { arrondi } from '../../lib/outils/nombres'
-
-
-
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'mathLive'
@@ -41,12 +38,12 @@ export const refs = {
  * @author Olivier Mimeau
 */
 export default class nomExercice extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygones: string[] = []
       let texte = ''
@@ -75,7 +72,6 @@ export default class nomExercice extends Exercice {
           longueurAB = randint(4, 8)
           longueurAC = randint(5, 9, longueurAB)
           longueurBC = randint(6, Math.min(longueurAB + longueurAC - 2, 11), [longueurAB, longueurAC])
-
         }
       }
       coeff /= 10
@@ -84,7 +80,7 @@ export default class nomExercice extends Exercice {
       let A = point(0, 0)
       let B = pointAdistance(A, longueurAB)
       let p1 = triangle2points2longueurs(A, B, longueurAC, longueurBC)
-      const d0 = droite(A, B)
+      // const d0 = droite(A, B)
       // deuxieme triangle par similitude on peut effectuer dessus car les figures sont séparée à l'affichage
       const O = barycentre(p1)
       const angle = randint(70, 220 - coeff * 20)
@@ -109,8 +105,7 @@ export default class nomExercice extends Exercice {
           coeffModif2 = tailleMaxFigure / longueurMaxp2
           coeffModif1 = coeffModif2
         }
-      }
-      else {
+      } else {
         if (longueurMaxp1 > tailleMaxFigure) {
           coeffModif1 = tailleMaxFigure / longueurMaxp1
           coeffModif2 = coeffModif1
@@ -121,8 +116,7 @@ export default class nomExercice extends Exercice {
         if (longueurMaxp1 * coeffModif1 < tailleMinFigure) {
           coeffModif1 = tailleMinFigure / longueurMaxp1
         }
-      }
-      else {
+      } else {
         if (longueurMaxp2 * coeffModif2 < tailleMinFigure) {
           coeffModif2 = tailleMinFigure / longueurMaxp2
         }
@@ -140,7 +134,7 @@ export default class nomExercice extends Exercice {
       const F = p2.listePoints[2]
 
       // shuffle... : afin d'avoir un codage qui ne suit pas d'ordre precis
-      // const codeAnglesHomologues = combinaisonListes(markTypeArray, 3) // shuffle(['|', '||', 'X']) 
+      // const codeAnglesHomologues = combinaisonListes(markTypeArray, 3) // shuffle(['|', '||', 'X'])
       const codeAnglesHomologues = combinaisonListes(markTypeArray.slice(0, 4), 3)
       const RayonAngle = 1
       const codeAngleA = new MarqueAngle(B, A, C, { mark: codeAnglesHomologues[0], rayon: RayonAngle })
@@ -166,8 +160,8 @@ export default class nomExercice extends Exercice {
       listeDeNomsDePolygones.push(nom2)
       const nommeP1 = nommePolygone(p1, nom1) // TEXTURSEGMENTS
       const nommeP2 = nommePolygone(p2, nom2)
-      let objetsAAfficher1 = [p1, codeAngleA, codeAngleB, codeAngleC, codeAB, codeAC, codeBC, nommeP1]
-      let objetsAAfficher2 = [p2, codeAngleD, codeAngleE, codeAngleF, codeDE, nommeP2]
+      const objetsAAfficher1 = [p1, codeAngleA, codeAngleB, codeAngleC, codeAB, codeAC, codeBC, nommeP1]
+      const objetsAAfficher2 = [p2, codeAngleD, codeAngleE, codeAngleF, codeDE, nommeP2]
       const bord1 = fixeBordures(objetsAAfficher1, { rxmin: -0.1, rymin: -0.1, rxmax: 0.1, rymax: 0.1 })
       const bord2 = fixeBordures(objetsAAfficher2, { rxmin: -0.1, rymin: -0.1, rxmax: 0.1, rymax: 0.1 })
       const colonne1 = mathalea2d(
@@ -216,8 +210,7 @@ export default class nomExercice extends Exercice {
   }
 }
 
-
-function rediger(A: Point, B: Point, C: Point, D: Point, E: Point, F: Point): string {
+function rediger (A: Point, B: Point, C: Point, D: Point, E: Point, F: Point): string {
   let redaction = `$\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$.<br>`
   redaction += `$\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
   redaction += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.<br>`

@@ -27,7 +27,6 @@ export default class ProportionnaliteCompliquee extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.optionsChampTexte = { texteApres: ' €' }
   }
 

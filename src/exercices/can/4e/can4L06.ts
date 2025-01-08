@@ -21,11 +21,9 @@ export default class CalculSubstitution extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
     let a, b, d
     switch (randint(1, 4)) {
       case 1:

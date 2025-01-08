@@ -29,9 +29,8 @@ export default class CalculHypotenusePythagore extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    
-    this.nbQuestions = 1
 
+    this.nbQuestions = 1
   }
 
   nouvelleVersion () {

@@ -29,8 +29,6 @@ export default class resoudreUnProblemeArgent extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const prenoms = prenomF(2)
 
     const a = randint(5, 15) * 100

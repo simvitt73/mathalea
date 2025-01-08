@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class ColorierDeplacement extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Nombre d\'instructions de déplacements', 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions']
     this.besoinFormulaire2CaseACocher = ['Avec une boucle']
@@ -45,10 +45,10 @@ export default class ColorierDeplacement extends Exercice {
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const lstObjet = [] // liste de tous les objets Mathalea2d
     let direction: 0 | 90 | 180 | 270 = 0 // Orientation du lutin en degrés
-    function scratchblocksTikz(codeSvg: string, codeTikz: string) {
+    function scratchblocksTikz (codeSvg: string, codeTikz: string) {
       // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {
         return codeSvg
@@ -57,7 +57,7 @@ export default class ColorierDeplacement extends Exercice {
       }
     }
 
-    function calculerDeplacementsLutin(rotation: 0 | 1, deplacement: 2 | 3): [number, number] {
+    function calculerDeplacementsLutin (rotation: 0 | 1, deplacement: 2 | 3): [number, number] {
       let ajoutX = 0
       let ajoutY = 0
       switch (rotation) {
@@ -81,7 +81,7 @@ export default class ColorierDeplacement extends Exercice {
       return [ajoutX, ajoutY]
     }
 
-    function fleche(x: number, y: number, direction: 0 | 90 | 180 | 270) {
+    function fleche (x: number, y: number, direction: 0 | 90 | 180 | 270) {
       let depart, arrivee
       switch (direction) {
         case 0: // est

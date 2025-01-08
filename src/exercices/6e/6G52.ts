@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': ['9ES3-6']
 }
 export default class TracerCarresRectangleslongueurDonnees extends Exercice {
-  constructor() {
+  constructor () {
     super()
 
     this.nbQuestions = 2
@@ -44,7 +44,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = ['Parallèles', 'Perpendiculaires']
     if (this.sup === 1) typesDeQuestionsDisponibles = ['Parallèles']
     if (this.sup === 2) typesDeQuestionsDisponibles = ['Perpendiculaires']

@@ -30,12 +30,9 @@ export default class DecompositionNombre extends Exercice {
     super()
 
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
     let texte, texteCorr, c, d, u, n, um
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2])) { // 2

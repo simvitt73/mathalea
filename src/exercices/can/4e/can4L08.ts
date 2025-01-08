@@ -26,13 +26,9 @@ export default class ReconnaitreExpL extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-
   }
 
   nouvelleVersion () {
-    
-    
-
     let texte, texteCorr, a, b, c, d, e, monQcm
     const nomVar = ['a', 'b', 'x', 'y']
     const inc = choice(nomVar)

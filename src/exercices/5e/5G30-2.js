@@ -97,7 +97,6 @@ export default class ExercicesAnglesAIC extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
 
-
     context.isHtml ? (this.spacing = 1.75) : (this.spacing = 0)
     context.isHtml ? (this.spacingCorr = 1.75) : (this.spacingCorr = 0)
     this.sup = 8 // Type d'exercice

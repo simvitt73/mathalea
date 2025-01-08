@@ -29,8 +29,6 @@ export default class CalculsEntiersRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2])
     const a = randint(-30, -5)
     if (choix === 1) {

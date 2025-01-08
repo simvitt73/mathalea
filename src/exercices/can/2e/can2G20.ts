@@ -33,10 +33,8 @@ export default class EquationDroite extends Exercice {
     super()
 
     this.typeExercice = 'simple'
-    
+
     this.nbQuestions = 1
-
-
   }
 
   nouvelleVersion () {

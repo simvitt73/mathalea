@@ -28,8 +28,6 @@ export default class calcAvecSommes extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choix = choice([1, 2, 3, 4])
     if (choix === 1) {
       this.question = `$${texNombre(2025, 0)}+${texNombre(2025, 0)}$`

@@ -19,18 +19,14 @@ export const refs = {
   'fr-ch': []
 }
 export default class DevelopperEgalitesRemarquablesRC extends Exercice {
-constructor (){
-super()
+  constructor () {
+    super()
 
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+  }
 
-
-    
-  
-  
-}
- nouvelleVersion () {
+  nouvelleVersion () {
     switch (choice([1, 2, 3, 4, 5, 6])) { //, 2, 3, 4, 5, 6
       case 1 :
         { const inconnue = choice([2, 3, 5, 7])

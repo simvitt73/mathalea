@@ -27,8 +27,6 @@ export default class SommeDeProduitsCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const choixPG = [[0, 2030], [1, 2031], [2, 2032], [3, 2033], [4, 2034], [5, 2035], [6, 2026], [7, 2027], [8, 2028], [9, 2029]]
     const choixPP = [[0, 2020], [1, 2021], [2, 2022], [3, 2023], [4, 2024], [5, 2015], [6, 2016], [7, 2017], [8, 2018], [9, 2019]]
     const PlusGrand = choice(choixPG)

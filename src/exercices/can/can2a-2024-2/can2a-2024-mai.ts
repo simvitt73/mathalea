@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'can2a-2024-2'
 
 /**
- * 
+ *
  * @author
 */
 
@@ -33,11 +33,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-
-    
-    
-
-
     let i = 0
     this.listeQuestions[i] = '$8 \\times 1,25 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$8 \\times 1,25 = ${miseEnEvidence('10')}$`

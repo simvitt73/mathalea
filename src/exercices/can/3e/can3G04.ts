@@ -30,7 +30,7 @@ export default class RechercheValeurPythagore extends Exercice {
     super()
 
     this.typeExercice = 'simple'
-    this.formatChampTexte=KeyboardType.clavierFullOperations
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.nbQuestions = 1
   }
 
@@ -48,7 +48,7 @@ export default class RechercheValeurPythagore extends Exercice {
         objets = []
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(pol[0], pol[1])
-        objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y,0, 'black', 1, 'milieu', true),
+        objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 0, 'black', 1, 'milieu', true),
           texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 0, 'black', 1, 'milieu', true),
           texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true))
         if (this.interactif) {

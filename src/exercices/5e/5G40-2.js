@@ -35,8 +35,6 @@ export default class ParallelogrammeAPartirDUneFigure extends Exercice {
 
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
-
-
     this.nbQuestions = 4
   }
 

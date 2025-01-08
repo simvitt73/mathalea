@@ -31,13 +31,9 @@ export default class LectureGraphiqueParaboleA extends Exercice {
     super()
 
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {
-    
-    
     let texte = ''
     let texteCorr = ''
     let a: number

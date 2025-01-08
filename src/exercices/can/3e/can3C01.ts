@@ -29,8 +29,6 @@ export default class CalculPuissanceSimple extends Exercice {
     super()
 
     this.nbQuestions = 1
-
-    
   }
 
   nouvelleVersion () {

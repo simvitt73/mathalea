@@ -21,7 +21,7 @@ export default class CoutBDEtRomansCM2 extends Exercice {
     this.nbQuestions = 1
 
     this.optionsChampTexte = { texteApres: '€' }
-    
+
     this.canOfficielle = false
   }
 

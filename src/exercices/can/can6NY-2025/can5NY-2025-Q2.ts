@@ -26,14 +26,12 @@ export default class calcAvecDecimaux extends Exercice {
     this.nbQuestions = 1
 
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    
+
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    
-    
     const a = new Decimal(2025).div(choice([10, 100, 1000, 10000]))
     this.reponse = texNombre(new Decimal(2025).add(a), 5)
     this.question = `$${texNombre(2025)}+${texNombre(a, 4)}$`

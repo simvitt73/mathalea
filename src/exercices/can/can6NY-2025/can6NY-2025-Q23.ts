@@ -29,8 +29,6 @@ export default class TrouverUnPrix extends Exercice {
   }
 
   nouvelleVersion () {
-    
-    
     const P = prenomF()
     const a = randint(11, 19) * 100 + 25
     this.question = `${P} a acheté un scooter électrique coûtant $${texNombre(2025, 0)}$ €.<br> 

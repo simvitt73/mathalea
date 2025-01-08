@@ -25,7 +25,6 @@ export default class MultiplierFraction extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 

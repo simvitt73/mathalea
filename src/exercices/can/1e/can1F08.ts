@@ -30,8 +30,6 @@ export default class CalculFonctionDeriveeAffine extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    
-
   }
 
   nouvelleVersion () {

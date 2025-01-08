@@ -23,7 +23,7 @@ export default class Proportion extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 3
-    
+
   // this.optionsChampTexte = { texteApres: ' €' }
   }
 

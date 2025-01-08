@@ -36,7 +36,6 @@ export default class resoudreProblemeRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-
     this.spacing = 2 // Interligne des questions
     this.spacingCorr = 2// Interligne des réponses
     function solutionsScoreNul (nombQuestions:number, nombPoints:number[]) {
