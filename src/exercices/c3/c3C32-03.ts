@@ -104,9 +104,9 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
       }
       enonce += listeEnonce.length > 1
         ? createList({
-          items: listeEnonce,
-          style: 'alpha'
-        })
+            items: listeEnonce,
+            style: 'alpha'
+          })
         : listeEnonce[0]
       const correction = createList({
         items: listeCorrection,
