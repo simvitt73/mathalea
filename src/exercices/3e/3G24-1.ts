@@ -1,4 +1,4 @@
-import { angle, angleOriente, codageAngle, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
+import { angleOriente, codageAngle, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
@@ -57,8 +57,8 @@ export default class TrianglesSemblables extends Exercice {
       let l1 = randint(6, 8)
       let l2 = randint(6, 9, l1)
       let l3 = randint(6, l1 + l2 - 1, [l1, l2])
-      const ang1 = randint(45, 80)
-      const ang2 = randint(45, 80)
+      const angleA = randint(45, 80)
+      const angleB = randint(45, 80, [90 - angleA])
       const coeff = k / 10
       l1 *= k / 10
       l2 *= k / 10
@@ -67,7 +67,7 @@ export default class TrianglesSemblables extends Exercice {
       const B = pointAdistance(A, l1, randint(-60, 60))
       let p1 = triangle2points2longueurs(A, B, l2, l3)
       if (typeQuestionsDisponibles[i] === 2) {
-        p1 = triangle2points2angles(A, B, ang1, ang2)
+        p1 = triangle2points2angles(A, B, angleA, angleB)
       }
       const C = p1.listePoints[2]
       const longueurAB = longueur(A, B) // l1
@@ -127,36 +127,36 @@ export default class TrianglesSemblables extends Exercice {
           D = p2.listePoints[0]
           E = p2.listePoints[1]
           F = p2.listePoints[2]
+          // const sontSemblables = randint(0, 1) === 1
+          const angleC = 180 - angleA - angleB
+          // if (!sontSemblables) { angleC += choice([1, -1]) * randint(1, 5) * 2 }
           const hiddenAngle1 = randint(1, 3)
           const hiddenAngle2 = randint(4, 6, [hiddenAngle1 + 3])
-          codeA1 = hiddenAngle1 === 1 ? vide2d() : codageAngle(A, B, C, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
+          codeA1 = /* hiddenAngle1 === 1 ? vide2d() : */ codageAngle(A, B, C, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
           codeA3 = hiddenAngle1 === 2 ? vide2d() : codageAngle(B, C, A, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
           codeA5 = hiddenAngle1 === 3 ? vide2d() : codageAngle(C, A, B, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
           codeA2 = hiddenAngle2 === 4 ? vide2d() : codageAngle(D, E, F, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
           codeA4 = hiddenAngle2 === 5 ? vide2d() : codageAngle(E, F, D, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
           codeA6 = hiddenAngle2 === 6 ? vide2d() : codageAngle(F, D, E, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
-          // texteSurArc(texte: string, A: Point, B: Point, angle: number,
           nom1 = shuffleLettres(creerNomDePolygone(3, listeDeNomsDePolygonesDejaPris))
           listeDeNomsDePolygonesDejaPris.push(nom1)
           const nom2 = shuffleLettres(creerNomDePolygone(3, listeDeNomsDePolygonesDejaPris))
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
-          const bordure1 = fixeBordures([p1, p2, nommeP1, nommeP2])
-          // je ne garde que l'extérieur : codageangle a retravailler pour que fixebordure prenne en compte
           const objets = [p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2]
-          // fixeBordures(objets)
-          texte = `Démontrer que les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont semblables.<br>`
+          const bordure1 = fixeBordures(objets)
+          texte = `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont-ils semblables.<br>`
           texte += mathalea2d(Object.assign({
             scale: 0.5,
             zoom
           }, bordure1), objets)
           texteCorr = 'D\'après la règle des 180° dans un triangle, la somme des angles est égale à 180°. <br>'
-          texteCorr += hiddenAngle1 === 1 ? `$\\widehat{${A.nom + B.nom + C.nom}} = 180^{\\circ} - ${texNombre(angle(B, C, A), 0)}^{\\circ} - ${texNombre(angle(C, A, B), 0)}^{\\circ}=${texNombre(angle(A, B, C), 0)}^{\\circ}$. <br>` : ''
-          texteCorr += hiddenAngle1 === 2 ? `$\\widehat{${B.nom + C.nom + A.nom}} = 180^{\\circ} - ${texNombre(angle(A, B, C), 0)}^{\\circ} - ${texNombre(angle(C, A, B), 0)}^{\\circ}=${texNombre(angle(B, C, A), 0)}^{\\circ}$. <br>` : ''
-          texteCorr += hiddenAngle1 === 3 ? `$\\widehat{${C.nom + A.nom + B.nom}} = 180^{\\circ} - ${texNombre(angle(B, C, A), 0)}^{\\circ} - ${texNombre(angle(A, B, C), 0)}^{\\circ}=${texNombre(angle(C, A, B), 0)}^{\\circ}$. <br>` : ''
-          texteCorr += hiddenAngle2 === 4 ? `$\\widehat{${D.nom + E.nom + F.nom}} = 180^{\\circ} - ${texNombre(angle(E, F, D), 0)}^{\\circ} - ${texNombre(angle(F, D, E), 0)}^{\\circ}=${texNombre(angle(D, E, F), 0)}^{\\circ}$. <br>` : ''
-          texteCorr += hiddenAngle2 === 5 ? `$\\widehat{${E.nom + F.nom + D.nom}} = 180^{\\circ} - ${texNombre(angle(D, E, F), 0)}^{\\circ} - ${texNombre(angle(F, D, E), 0)}^{\\circ}=${texNombre(angle(E, F, D), 0)}^{\\circ}$. <br>` : ''
-          texteCorr += hiddenAngle2 === 6 ? `$\\widehat{${F.nom + D.nom + E.nom}} = 180^{\\circ} - ${texNombre(angle(D, E, F), 0)}^{\\circ} - ${texNombre(angle(E, F, D), 0)}^{\\circ}=${texNombre(angle(F, D, E), 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle1 === 1 ? `$\\widehat{${A.nom + B.nom + C.nom}} = 180^{\\circ} - ${texNombre(angleC, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleB, 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle1 === 2 ? `$\\widehat{${B.nom + C.nom + A.nom}} = 180^{\\circ} - ${texNombre(angleB, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleC, 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle1 === 3 ? `$\\widehat{${C.nom + A.nom + B.nom}} = 180^{\\circ} - ${texNombre(angleC, 0)}^{\\circ} - ${texNombre(angleB, 0)}^{\\circ}=${texNombre(angleA, 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle2 === 4 ? `$\\widehat{${D.nom + E.nom + F.nom}} = 180^{\\circ} - ${texNombre(angleC, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleB, 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle2 === 5 ? `$\\widehat{${E.nom + F.nom + D.nom}} = 180^{\\circ} - ${texNombre(angleB, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleC, 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle2 === 6 ? `$\\widehat{${F.nom + D.nom + E.nom}} = 180^{\\circ} - ${texNombre(angleB, 0)}^{\\circ} - ${texNombre(angleC, 0)}^{\\circ}=${texNombre(angleA, 0)}^{\\circ}$. <br>` : ''
           texteCorr += `$\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$.<br>`
           texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
           texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.<br>`
@@ -193,9 +193,9 @@ export default class TrianglesSemblables extends Exercice {
           }, fixeBordures(objets)), objets)
 
           texteCorr = 'On trie les longueurs des deux triangles afin de les comparer. <br>'
-          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B, 1), longueur(D, E, 1)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C, 1), longueur(E, F, 1)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A, 1), longueur(F, D, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueurAB, 1)} \\div  ${texNombre(longueurDE, 1)} = ${new FractionEtendue(arrondi(longueurAB, 1), arrondi(longueurDE, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueurBC, 1)} \\div  ${texNombre(longueurEF, 1)} = ${new FractionEtendue(arrondi(longueurBC, 1), arrondi(longueurEF, 1)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueurAC, 1)} \\div  ${texNombre(longueurDF, 1)} = ${new FractionEtendue(arrondi(longueurAC, 1), arrondi(longueurDF, 1)).texFractionSimplifiee}$.<br>`
           texteCorr += 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
           break
         }
@@ -277,13 +277,13 @@ export default class TrianglesSemblables extends Exercice {
           if (k < 10 && sign > 0) {
             // agrandissement
             // codeDF = afficheCoteSegment(segment(F, A), `${longueurAF}`, -2, 'blue')
-            coteDF = angleOriente(E, A, F) > 0 ? afficheCoteSegmentTruc(segment(A, F), 1, 'blue') : afficheCoteSegmentTruc(segment(A, F), -1, 'blue')
-            coteDE = angleOriente(E, A, F) > 0 ? afficheCoteSegmentTruc(segment(A, E), -1, 'blue') : afficheCoteSegmentTruc(segment(A, E), 1, 'blue')
+            coteDF = angleOriente(E, A, F) > 0 ? afficheCoteSegmentSansTexte(segment(A, F), 1, 'blue') : afficheCoteSegmentSansTexte(segment(A, F), -1, 'blue')
+            coteDE = angleOriente(E, A, F) > 0 ? afficheCoteSegmentSansTexte(segment(A, E), -1, 'blue') : afficheCoteSegmentSansTexte(segment(A, E), 1, 'blue')
             codeDF = angleOriente(E, A, F) > 0 ? placeLatexSurSegment(`${texNombre(longueurAF, 1)}\\text{ cm}`, coteDF.extremite1, coteDF.extremite2) : placeLatexSurSegment(`${texNombre(longueurAF, 1)}\\text{ cm}`, coteDF.extremite2, coteDF.extremite1)
             codeDE = angleOriente(E, A, F) > 0 ? placeLatexSurSegment(`${texNombre(longueurAE, 1)}\\text{ cm}`, coteDE.extremite2, coteDE.extremite1) : placeLatexSurSegment(`${texNombre(longueurAE, 1)}\\text{ cm}`, coteDE.extremite1, coteDE.extremite2)
           } else if (k > 10 && sign > 0) {
-            coteDF = angleOriente(C, A, B) > 0 ? afficheCoteSegmentTruc(segment(A, B), 1, 'blue') : afficheCoteSegmentTruc(segment(A, B), -1, 'blue')
-            coteDE = angleOriente(C, A, B) > 0 ? afficheCoteSegmentTruc(segment(A, C), -1, 'blue') : afficheCoteSegmentTruc(segment(A, C), 1, 'blue')
+            coteDF = angleOriente(C, A, B) > 0 ? afficheCoteSegmentSansTexte(segment(A, B), 1, 'blue') : afficheCoteSegmentSansTexte(segment(A, B), -1, 'blue')
+            coteDE = angleOriente(C, A, B) > 0 ? afficheCoteSegmentSansTexte(segment(A, C), -1, 'blue') : afficheCoteSegmentSansTexte(segment(A, C), 1, 'blue')
             codeAB = angleOriente(C, A, B) > 0 ? placeLatexSurSegment(`${texNombre(longueurAB, 1)}\\text{ cm}`, coteDF.extremite1, coteDF.extremite2) : placeLatexSurSegment(`${texNombre(longueurAB, 1)}\\text{ cm}`, coteDF.extremite2, coteDF.extremite1)
             codeAC = angleOriente(C, A, B) > 0 ? placeLatexSurSegment(`${texNombre(longueurAC, 1)}\\text{ cm}`, coteDE.extremite2, coteDE.extremite1) : placeLatexSurSegment(`${texNombre(longueurAC, 1)}\\text{ cm}`, coteDE.extremite1, coteDE.extremite2)
           }
@@ -320,7 +320,7 @@ export default class TrianglesSemblables extends Exercice {
   }
 }
 
-function afficheCoteSegmentTruc (s: Segment, positionCote = 0.5, couleurCote = 'black'): Segment {
+function afficheCoteSegmentSansTexte (s: Segment, positionCote = 0.5, couleurCote = 'black'): Segment {
   const A = s.extremite1
   const B = s.extremite2
   const v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur)
