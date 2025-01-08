@@ -114,7 +114,7 @@ export default class MultiplierDecimaux extends Exercice {
         exposantSigne: false,
         approx: 0
       }
-      texte += '<br>' + reponse
+
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
