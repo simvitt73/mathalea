@@ -7,7 +7,7 @@ import {
   Droite
 } from '../../lib/2d/droites'
 import { point, TracePoint, Point, pointSurDroite } from '../../lib/2d/points'
-import { colorToLatexOrHTML, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, mathalea2d, Vide2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { grille } from '../../lib/2d/reperes'
 import { egal, randint } from '../../modules/outils'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -129,8 +129,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       let antecedents: Array<Point> = []
       const middle: Point[] = []
       const symetriques: Point[] = []
-      const objets = []
-      let objetsCorrection: object[] = []
+      const objets: NestedObjetMathalea2dArray = []
+      let objetsCorrection: NestedObjetMathalea2dArray = []
       const d: Droite[] = []
       let labelD!: LatexParCoordonnees | Vide2d
 
