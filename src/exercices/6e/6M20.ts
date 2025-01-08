@@ -6,7 +6,7 @@ import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points1hauteur } from '../../lib/2d/triangle'
 import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { abs, arrondi } from '../../lib/outils/nombres'
+import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -42,7 +42,7 @@ export const refs = {
   'fr-ch': ['9GM1-3']
 }
 export default class AireDeTriangles extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de triangles', 4, '1 : Que des triangles sans angle obtus\n2 : Que des triangles avec un angle obtus\n3 : Mélange']
 
@@ -57,7 +57,7 @@ export default class AireDeTriangles extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)
@@ -146,7 +146,7 @@ export default class AireDeTriangles extends Exercice {
             }
           ],
           reponse: {
-            //@ts-expect-error
+            // @ts-expect-error
             valeur: [arrondi(cotes[i] * hauteurs[i] / 2)], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
             param: {
               signe: false,

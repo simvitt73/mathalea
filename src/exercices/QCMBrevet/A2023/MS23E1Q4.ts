@@ -1,8 +1,5 @@
 import ExerciceQcmA from '../../ExerciceQcmA'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import FractionEtendue from '../../../modules/FractionEtendue'
 
@@ -24,7 +21,7 @@ export const dateDePublication = '05/01/2025'
  */
 
 export default class MetropoleSep23Ex1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs(nbBoules: number, facteur: number, negation: boolean): void {
+  private appliquerLesValeurs (nbBoules: number, facteur: number, negation: boolean): void {
     const boules = Array.from({ length: nbBoules }, (_, i) => i + 1)
     const boulesFav = negation
       ? boules.filter(b => b % facteur !== 0)
@@ -62,7 +59,7 @@ export default class MetropoleSep23Ex1Q4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor() {
+  constructor () {
     super()
     this.versionAleatoire()
   }

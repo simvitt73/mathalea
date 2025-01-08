@@ -7,7 +7,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import type { ObjetLutin } from '../../modules/2dLutin'
 
 export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
@@ -22,7 +21,7 @@ export const refs = {
   'fr-ch': ['9GM3-1']
 }
 export default class VolumesPavesParDenombrement extends Exercice {
-  constructor() {
+  constructor () {
     super()
 
     this.nbQuestions = 1 // Ici le nombre de questions
@@ -30,13 +29,13 @@ export default class VolumesPavesParDenombrement extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const dimensions = []
     const objetsAtracer: ObjetMathalea2D[] = []
     for (let q = 0, cpt = 0, l, p, h, monPave, cubes, plaques, barres, texte, texteCorr; q < this.nbQuestions && cpt < 50;) {
-      let pavesCorr: ObjetMathalea2D[][] = []
+      const pavesCorr: ObjetMathalea2D[][] = []
       l = randint(5, 10)
       p = randint(2, 5)
       h = randint(3, 6)

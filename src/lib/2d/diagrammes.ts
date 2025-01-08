@@ -1,4 +1,4 @@
-import { fraction, max } from 'mathjs'
+import { max } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites'
 import { arc, cercle } from './cercle'
 import { Point, point, tracePoint } from './points'
@@ -443,133 +443,134 @@ export function diagrammeBarres (hauteursBarres: number[], etiquettes:string[], 
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @class
  */
-export class DiagrammeCirculaire extends ObjetMathalea2D{
+export class DiagrammeCirculaire extends ObjetMathalea2D {
   x: number
   y: number
 
-  constructor({
-  effectifs=[],
-  x = 0,
-  y = 0,
-  rayon = 4,
-  labels = [],
-  semi = false,
-  legendeAffichage = true,
-  legendePosition = 'droite',
-  mesures = [],
-  visibles = [],
-  pourcents = [],
-  valeurs = [],
-  hachures = [],
-  remplissage = []
-}:{
-  effectifs?: number[],
-  x?: number,
-  y?: number,
-  rayon?: number,
-  labels?: string[],
-  semi?: boolean,
-  legendeAffichage?: boolean,
-  legendePosition?: string,
-  mesures?: boolean[],
-  visibles?: boolean[],
-  pourcents?: boolean[],
-  valeurs?: boolean[],
-  hachures?: boolean[],
-  remplissage?: boolean[]
-} = {}) {
-super() 
- this.objets = []
-  const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
-  const listeMotifs = combinaisonListes(listeHachuresDisponibles, effectifs.length)
-  this.bordures = [1000, 1000, -1000, -1000]
-  this.x = x
-  this.y = y
-  const centre = point(this.x + rayon, this.y + (semi ? 0 : rayon))
-  const depart = point(this.x + 2 * rayon, (semi ? this.y : this.y + rayon))
-  const contour = semi ? arc(translation(centre, vecteur(rayon, 0)), centre, 180, true, 'white', 'black') : cercle(centre, rayon, 'black')
-  let positionLegende // On prévoit l'emplacement de la légende si celle-ci est demandée
-  switch (legendePosition) {
-    case 'droite':
-      positionLegende = { x: this.x + 2 * rayon + 1, y: this.y }
-      break
-    case 'dessus':
-      positionLegende = { x: this.x, y: this.y + (semi ? rayon + 1 : 2 * rayon + 1) }
-      break
-    case 'dessous':
-      default:
-      positionLegende = { x: this.x, y: this.y - 1.5 }
-      break
-  }
-  let T = point(positionLegende.x, positionLegende.y)
-  const angleTotal = semi ? 180 : 360
-  const effectifTotal = effectifs.reduce((somme: number, valeur: number) => somme + valeur, 0)
-  const secteurs = []
-  const legendes = []
-  const etiquettes = []
-  const etiquettes2 = []
-  const etiquettes3 = []
-  let alpha = 0 // alpha est l'angle à partir duquel démarre le secteur
-  let legendeMax = 0
-  for (let i = 0, a, angle, legende, textelegende, hachure; i < effectifs.length; i++) {
-    // on crée les secteurs
-    angle = angleTotal * effectifs[i] / effectifTotal
-    a = arc(rotation(depart, centre, alpha), centre, angle, true)
-    if (hachures[i]) {
-      hachure = motifs(listeMotifs[i])
-      a.hachures = hachure
-      a.couleurDesHachures = colorToLatexOrHTML(texcolors(i + 1))
-      a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 2))
-    } else {
-      hachure = ''
-      a.hachures = ''
-    }
-    a.opaciteDeRemplissage = 0.7
-    if (remplissage[i]) a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
-    if (visibles[i]) secteurs.push(a)
-    if (valeurs[i]) {
-      etiquettes.push(latexParPoint(texNombre(effectifs[i]), similitude(depart, centre, alpha + angle * 3 / 4, 0.8), 'black', 20, 12, 'yellow', 8))
-    }
-    if (pourcents[i]) {
-      etiquettes2.push(latexParPoint(texNombre(100 * effectifs[i] / effectifTotal, 0) + '\\%', similitude(depart, centre, alpha + angle / 4, 0.8), 'black', 20, 12, 'yellow', 8))
-    }
-    if (mesures[i]) {
-      etiquettes3.push(latexParPoint(texNombre(angle, 0) + '^\\circ', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
-    }
-    alpha += angle
-
-    // on crée les légendes
+  constructor ({
+    effectifs = [],
+    x = 0,
+    y = 0,
+    rayon = 4,
+    labels = [],
+    semi = false,
+    legendeAffichage = true,
+    legendePosition = 'droite',
+    mesures = [],
+    visibles = [],
+    pourcents = [],
+    valeurs = [],
+    hachures = [],
+    remplissage = []
+  }:{
+    effectifs?: number[],
+    x?: number,
+    y?: number,
+    rayon?: number,
+    labels?: string[],
+    semi?: boolean,
+    legendeAffichage?: boolean,
+    legendePosition?: string,
+    mesures?: boolean[],
+    visibles?: boolean[],
+    pourcents?: boolean[],
+    valeurs?: boolean[],
+    hachures?: boolean[],
+    remplissage?: boolean[]
+  } = {}) {
+    super()
+    this.objets = []
+    const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
+    const listeMotifs = combinaisonListes(listeHachuresDisponibles, effectifs.length)
+    this.bordures = [1000, 1000, -1000, -1000]
+    this.x = x
+    this.y = y
+    const centre = point(this.x + rayon, this.y + (semi ? 0 : rayon))
+    const depart = point(this.x + 2 * rayon, (semi ? this.y : this.y + rayon))
+    const contour = semi ? arc(translation(centre, vecteur(rayon, 0)), centre, 180, true, 'white', 'black') : cercle(centre, rayon, 'black')
+    let positionLegende // On prévoit l'emplacement de la légende si celle-ci est demandée
     switch (legendePosition) {
       case 'droite':
-        legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
-        legendeMax = Math.max(legendeMax, labels[i].length * 0.6)
+        positionLegende = { x: this.x + 2 * rayon + 1, y: this.y }
         break
+      case 'dessus':
+        positionLegende = { x: this.x, y: this.y + (semi ? rayon + 1 : 2 * rayon + 1) }
+        break
+      case 'dessous':
       default:
-        legende = carre(T, translation(T, vecteur(1, 0)), 'black')
-        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
-        T = translation(T, vecteur(labels[i].length * 0.6 + 1, 0))
-        legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
+        positionLegende = { x: this.x, y: this.y - 1.5 }
         break
     }
+    let T = point(positionLegende.x, positionLegende.y)
+    const angleTotal = semi ? 180 : 360
+    const effectifTotal = effectifs.reduce((somme: number, valeur: number) => somme + valeur, 0)
+    const secteurs = []
+    const legendes = []
+    const etiquettes = []
+    const etiquettes2 = []
+    const etiquettes3 = []
+    let alpha = 0 // alpha est l'angle à partir duquel démarre le secteur
+    let legendeMax = 0
+    for (let i = 0, a, angle, legende, textelegende, hachure; i < effectifs.length; i++) {
+    // on crée les secteurs
+      angle = angleTotal * effectifs[i] / effectifTotal
+      a = arc(rotation(depart, centre, alpha), centre, angle, true)
+      if (hachures[i]) {
+        hachure = motifs(listeMotifs[i])
+        a.hachures = hachure
+        a.couleurDesHachures = colorToLatexOrHTML(texcolors(i + 1))
+        a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 2))
+      } else {
+        hachure = ''
+        a.hachures = ''
+      }
+      a.opaciteDeRemplissage = 0.7
+      if (remplissage[i]) a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
+      if (visibles[i]) secteurs.push(a)
+      if (valeurs[i]) {
+        etiquettes.push(latexParPoint(texNombre(effectifs[i]), similitude(depart, centre, alpha + angle * 3 / 4, 0.8), 'black', 20, 12, 'yellow', 8))
+      }
+      if (pourcents[i]) {
+        etiquettes2.push(latexParPoint(texNombre(100 * effectifs[i] / effectifTotal, 0) + '\\%', similitude(depart, centre, alpha + angle / 4, 0.8), 'black', 20, 12, 'yellow', 8))
+      }
+      if (mesures[i]) {
+        etiquettes3.push(latexParPoint(texNombre(angle, 0) + '^\\circ', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
+      }
+      alpha += angle
 
-    legende.couleurDeRemplissage = a.couleurDeRemplissage
-    legende.couleurDesHachures = a.couleurDesHachures
-    legende.hachures = hachure
-    legende.opaciteDeRemplissage = 0.7
-    legendes.push(legende, textelegende)
+      // on crée les légendes
+      switch (legendePosition) {
+        case 'droite':
+          legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
+          textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+          legendeMax = Math.max(legendeMax, labels[i].length * 0.6)
+          break
+        default:
+          legende = carre(T, translation(T, vecteur(1, 0)), 'black')
+          textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+          T = translation(T, vecteur(labels[i].length * 0.6 + 1, 0))
+          legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
+          break
+      }
+
+      legende.couleurDeRemplissage = a.couleurDeRemplissage
+      legende.couleurDesHachures = a.couleurDesHachures
+      legende.hachures = hachure
+      legende.opaciteDeRemplissage = 0.7
+      legendes.push(legende, textelegende)
+    }
+    this.objets.push(contour)
+    this.objets.push(...secteurs)
+    if (legendeAffichage) this.objets.push(...legendes)
+    this.objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
+    // calcul des bordures
+    this.bordures[0] = this.x - 0.5
+    this.bordures[1] = this.y - 0.5 - (legendeAffichage ? (legendePosition === 'dessous' ? 2 : 0) : 0)
+    this.bordures[2] = this.x + rayon * 2 + 1 + (legendeAffichage ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
+    this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legendeAffichage ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
   }
-  this.objets.push(contour)
-  this.objets.push(...secteurs)
-  if (legendeAffichage) this.objets.push(...legendes)
-  this.objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
-  // calcul des bordures
-  this.bordures[0] = this.x - 0.5
-  this.bordures[1] = this.y - 0.5 - (legendeAffichage ? (legendePosition === 'dessous' ? 2 : 0) : 0)
-  this.bordures[2] = this.x + rayon * 2 + 1 + (legendeAffichage ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
-  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legendeAffichage ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
-}
-svg (coeff: number) {
+
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -577,6 +578,7 @@ svg (coeff: number) {
     }
     return code
   }
+
   ttikz () {
     let code = ''
     if (this.objets == null) return code

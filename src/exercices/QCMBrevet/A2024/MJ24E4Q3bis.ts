@@ -1,16 +1,11 @@
-import { cercle } from '../../../lib/2d/cercle'
 import { droite, labelOnLine } from '../../../lib/2d/droites'
 import { point } from '../../../lib/2d/points'
-import { Polygone, polygone, polyline } from '../../../lib/2d/polygones'
-import RepereBuilder from '../../../lib/2d/RepereBuilder'
-import { latex2d } from '../../../lib/2d/textes'
+import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { symetrieAnimee } from '../../../modules/2dAnimation'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
-import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 import { rose } from './MJ24E4Q4bis'
@@ -33,10 +28,10 @@ export const dateDePublication = '05/01/2025'
  */
 
 export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
-  private appliquerLesValeurs(nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
+  private appliquerLesValeurs (nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
     const angleRot = 360 / nbSecteurs
     const rosa = rose(nbSecteurs)
-    const d = rotation(droite(point(0, 0), point(-5, 0)), point(0, 0,), sens ? angleRot * nbSecteursRot : -angleRot * nbSecteursRot)
+    const d = rotation(droite(point(0, 0), point(-5, 0)), point(0, 0), sens ? angleRot * nbSecteursRot : -angleRot * nbSecteursRot)
     d.color = colorToLatexOrHTML('black')
     d.epaisseur = 2
 
@@ -57,18 +52,13 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
       `Motif ${distracteur1}`,
       `Motif ${distracteur2}`
     ]
-    const xMin = -1
-    const xMax = 6.5
-    const yMin = -6.5
-    const yMax = 6.5
     if (!this.sup3) {
       this.enonce = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, lab])), rosa, lab)
     } else this.enonce = ''
     this.enonce += `La droite (d) a été tournée ${nbSecteursRot} fois de ${angleRot}° dans le sens ${sens ? 'trigonométrique' : 'horaire'}.<br>`
-    this.enonce += `Quel est l'image du motif gris par la symétrie d'axe (d) ?`
+    this.enonce += 'Quel est l\'image du motif gris par la symétrie d\'axe (d) ?'
     this.correction = `L'image du motif gris par la symétrie d'axe (d) est le motif ${good}.<br>`
     this.correction += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, polyAnim])), rosa, polyAnim)
-
   }
 
   versionOriginale: () => void = () => {
@@ -97,7 +87,7 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaire3CaseACocher = ['Figure masquée', false]
     this.sup = false

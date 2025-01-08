@@ -1,15 +1,10 @@
-import { e } from 'mathjs'
 import { cercle } from '../../../lib/2d/cercle'
-import { droite } from '../../../lib/2d/droites'
 import { point } from '../../../lib/2d/points'
 import { Polygone, polygone, polyline } from '../../../lib/2d/polygones'
-import RepereBuilder from '../../../lib/2d/RepereBuilder'
-import { labelPoint, latex2d } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 import { rotationAnimee } from '../../../modules/2dAnimation'
@@ -30,7 +25,7 @@ export const dateDePublication = '05/01/2025'
  * @author Jean-Claude LHOTE
  * jean-claude.lhote@ac-nancy-metz.fr
  */
-export function rose(nbSecteurs: number): NestedObjetMathalea2dArray {
+export function rose (nbSecteurs: number): NestedObjetMathalea2dArray {
   const rose: NestedObjetMathalea2dArray = []
   const angleRot = 360 / nbSecteurs
   const O = point(0, 0, 'O', 'above right')
@@ -53,7 +48,7 @@ export function rose(nbSecteurs: number): NestedObjetMathalea2dArray {
   return rose
 }
 export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
-  private appliquerLesValeurs(nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
+  private appliquerLesValeurs (nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
     const rosa = rose(nbSecteurs)
     const angleRot = 360 / nbSecteurs
     const good = sens ? nbSecteurs - nbSecteursRot : nbSecteursRot
@@ -64,10 +59,6 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
       `Motif ${distracteur1}`,
       `Motif ${distracteur2}`
     ]
-    const xMin = -1
-    const xMax = 6.5
-    const yMin = -6.5
-    const yMax = 6.5
     const poly = polygone((rosa[0] as Polygone).listePoints)
     poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
     const polyAnim = rotationAnimee([poly], point(0, 0), angleRot * nbSecteursRot * (sens ? 1 : -1))
@@ -85,7 +76,6 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
       : 'horaire'
       } est le motif ${good}.<br>`
     this.correction += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, polyAnim])), rosa, polyAnim)
-
   }
 
   versionOriginale: () => void = () => {
@@ -114,7 +104,7 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaire3CaseACocher = ['Figure masquée', false]
     this.sup = false

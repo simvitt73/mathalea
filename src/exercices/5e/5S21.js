@@ -9,7 +9,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à une épreuve'
 export const interactifReady = true
@@ -32,10 +31,10 @@ export default class FonctionsProbabilite1 extends Exercice {
     super()
     this.nbQuestions = 4
 
-    this.spacing = context.isHtml ?2 :  1
-    this.spacingCorr = context.isHtml ?2 :  1
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.niveau = 1
-    this.styleCorrection='college'
+    this.styleCorrection = 'college'
   }
 
   nouvelleVersion () {
@@ -79,30 +78,28 @@ export default class FonctionsProbabilite1 extends Exercice {
       texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.`
       if (this.niveau === 1) {
         texte += `<br> ${numAlpha(0)} Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ? `
-        texte+=ajouteChampTexteMathLive(this,4*i)+'<br>'
+        texte += ajouteChampTexteMathLive(this, 4 * i) + '<br>'
         texte += numAlpha(1) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} ?`
-        texte+=ajouteChampTexteMathLive(this,4*i+1)+'<br>'
+        texte += ajouteChampTexteMathLive(this, 4 * i + 1) + '<br>'
         texte += numAlpha(2) + ` Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} ?`
-        texte+=ajouteChampTexteMathLive(this,4*i+2)+'<br>'
+        texte += ajouteChampTexteMathLive(this, 4 * i + 2) + '<br>'
         texte += numAlpha(3) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} ?`
-        texte+=ajouteChampTexteMathLive(this,4*i+3)+'<br>'
+        texte += ajouteChampTexteMathLive(this, 4 * i + 3) + '<br>'
         texteCorr = 'On est dans une situation d\'équiprobabilité donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.<br>'
-        texteCorr += numAlpha(0) + ` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} est :<br> $${texFractionFromString(n[m], somme)}${simplificationDeFractionAvecEtapes(n[m], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
-        handleAnswers(this,4*i,{reponse:{value:new FractionEtendue(n[m], somme).texFSD}})
-        texteCorr += numAlpha(1) + ` Il y a ${n[p]} ${objets} ${qualites[index1][p]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} est :<br> $${texFractionFromString(n[p], somme)}${simplificationDeFractionAvecEtapes(n[p], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
-        handleAnswers(this,4*i+1,{reponse:{value:new FractionEtendue(n[p], somme).texFSD}})
-        texteCorr += numAlpha(2) + ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles. La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est :<br> $${texFractionFromString(somme - n[q], somme)}${simplificationDeFractionAvecEtapes(somme - n[q], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
-        handleAnswers(this,4*i+2,{reponse:{value:new FractionEtendue(somme - n[q], somme).texFSD}})
-        texteCorr += numAlpha(3) + (this.styleCorrection==='college' 
-          ?` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et ${n[p]} ${objets} ${qualites[index1][p]}, soit ${n[p]+n[m]} ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
-          :` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[m], somme)}+${texFractionFromString(n[p], somme)}=${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme,{couleur1:'blue',couleur2:'#f15929'})}$.<br>`
+        texteCorr += numAlpha(0) + ` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} est :<br> $${texFractionFromString(n[m], somme)}${simplificationDeFractionAvecEtapes(n[m], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`
+        handleAnswers(this, 4 * i, { reponse: { value: new FractionEtendue(n[m], somme).texFSD } })
+        texteCorr += numAlpha(1) + ` Il y a ${n[p]} ${objets} ${qualites[index1][p]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} est :<br> $${texFractionFromString(n[p], somme)}${simplificationDeFractionAvecEtapes(n[p], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`
+        handleAnswers(this, 4 * i + 1, { reponse: { value: new FractionEtendue(n[p], somme).texFSD } })
+        texteCorr += numAlpha(2) + ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles. La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est :<br> $${texFractionFromString(somme - n[q], somme)}${simplificationDeFractionAvecEtapes(somme - n[q], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`
+        handleAnswers(this, 4 * i + 2, { reponse: { value: new FractionEtendue(somme - n[q], somme).texFSD } })
+        texteCorr += numAlpha(3) + (this.styleCorrection === 'college'
+          ? ` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et ${n[p]} ${objets} ${qualites[index1][p]}, soit ${n[p] + n[m]} ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} et il y a ${somme} ${objets} possibles. La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`
+          : ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[m], somme)}+${texFractionFromString(n[p], somme)}=${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`
         )
-        handleAnswers(this,4*i+3,{reponse:{value:new FractionEtendue(n[m]+n[p], somme).texFSD}})          
+        handleAnswers(this, 4 * i + 3, { reponse: { value: new FractionEtendue(n[m] + n[p], somme).texFSD } })
       } else {
-        texte+=` ${personne.Pronom} regarde ${natureDeLIssue[index1]}.<br>`
+        texte += ` ${personne.Pronom} regarde ${natureDeLIssue[index1]}.<br>`
 
-
-        
         texte += numAlpha(0) + 'Est-ce que c\'est une expérience aléatoire ? Pourquoi ?<br>'
         texteCorr = numAlpha(0) + ` On sait qu'on tombera sur ${article} ${objet} mais on ne sait pas ${defini} sera ${singulier(qualites[index1][0], index1)}, ${singulier(qualites[index1][1], index1)}, ${singulier(qualites[index1][2], index1)}, ${singulier(qualites[index1][3], index1)} ou ${singulier(qualites[index1][4], index1)}.<br>On ne peut pas prévoir à l'avance le résultat, c'est donc une expérience aléatoire.<br>`
         texte += numAlpha(1) + ' Quelles sont les issues ?<br>'

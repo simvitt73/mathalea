@@ -7,7 +7,6 @@ import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import type { N } from 'vitest/dist/reporters-yx5ZTtEV.js'
 
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
@@ -26,7 +25,7 @@ export const refs = {
 export default class EquationsGSpline extends Exercice {
   compteur = 0
   spline?: Spline
-  constructor() {
+  constructor () {
     super()
 
     this.typeExercice = 'simple'
@@ -35,39 +34,39 @@ export default class EquationsGSpline extends Exercice {
     this.optionsDeComparaison = { ensembleDeNombres: true }
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-    { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: -1, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 0, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 2, y: -2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 3, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 4, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-    { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: -1, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 0, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 2, y: -2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 3, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: 4, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
     const noeuds2 = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: -3, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-    { x: -2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: -1, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 0, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 2, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 3, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
-    { x: 4, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 6, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: -3, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: -2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: -1, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 0, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 2, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: 3, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+      { x: 4, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: 5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 6, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
     const noeuds3 = [{ x: -4, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: -3, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-    { x: -2, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
-    { x: -1, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-    { x: 0, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 2, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-    { x: 4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 5, y: 2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true }
+      { x: -3, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: -2, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+      { x: -1, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: 0, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: 2, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: 5, y: 2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true }
     ]
     const mesFonctions = [noeuds3, noeuds1, noeuds2]//
-    function aleatoiriseCourbe(listeFonctions: NoeudSpline[][]) {
+    function aleatoiriseCourbe (listeFonctions: NoeudSpline[][]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, +2) // translations
@@ -81,12 +80,11 @@ export default class EquationsGSpline extends Exercice {
         isVisible: noeud.isVisible
       }))
     }
-    let bornes
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
-    bornes = theSpline.trouveMaxes()
+    const bornes = theSpline.trouveMaxes()
     const repere1 = repere({
       xMin: bornes.xMin - 1,
       xMax: bornes.xMax + 1,

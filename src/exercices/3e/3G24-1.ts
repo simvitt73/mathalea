@@ -1,9 +1,9 @@
 import { angle, angleOriente, codageAngle, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
-import { afficheCoteSegment, afficheLongueurSegment, placeLatexSurSegment } from '../../lib/2d/codages'
+import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 import { longueur, segment, vecteur, Segment, } from '../../lib/2d/segmentsVecteurs'
-import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { similitude, translation } from '../../lib/2d/transformations'
 import { triangle2points2angles, triangle2points2longueurs } from '../../lib/2d/triangle'
 import { choice, combinaisonListes, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -11,7 +11,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-import { labelPoint, Latex2d } from '../../lib/2d/textes'
+import { labelPoint } from '../../lib/2d/textes'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -21,7 +21,7 @@ export const dateDePublication = '16/05/2024' // La date de publication initiale
 
 /**
  * Deux triangles semblables sont codés, il faut reconnaître les côtés homologues
- * Mais aussi deux triangles sont ils semblables ? dans des cas variés : 2 angles donnés sur 3, 3 Longueurs données, 
+ * Mais aussi deux triangles sont ils semblables ? dans des cas variés : 2 angles donnés sur 3, 3 Longueurs données,
  * triangles rectangles imbriqués, triangles en configurations de thalès
  * @author Mickael Guironnet; Olivier Mimeau : passage TS
 
@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class TrianglesSemblables extends Exercice {
-  constructor() {
+  constructor () {
     super()
 
     this.nbQuestions = 3
@@ -44,11 +44,11 @@ export default class TrianglesSemblables extends Exercice {
   }
 
   // c'est ici que commence le code de l'exercice cette méthode crée une copie de l'exercice
-  nouvelleVersion() {
+  nouvelleVersion () {
     const zoom = context.vue === 'diap' ? 0.5 : 1
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       const listeDeNomsDePolygonesDejaPris: string[] = []
       let texte = ''
@@ -59,7 +59,7 @@ export default class TrianglesSemblables extends Exercice {
       let l3 = randint(6, l1 + l2 - 1, [l1, l2])
       const ang1 = randint(45, 80)
       const ang2 = randint(45, 80)
-      let coeff = k / 10
+      const coeff = k / 10
       l1 *= k / 10
       l2 *= k / 10
       l3 *= k / 10
@@ -70,9 +70,9 @@ export default class TrianglesSemblables extends Exercice {
         p1 = triangle2points2angles(A, B, ang1, ang2)
       }
       const C = p1.listePoints[2]
-      let longueurAB = longueur(A, B) //l1
-      let longueurAC = longueur(A, C)
-      let longueurBC = longueur(B, C)
+      const longueurAB = longueur(A, B) // l1
+      const longueurAC = longueur(A, C)
+      const longueurBC = longueur(B, C)
       const O = barycentre(p1)
       const v = vecteur(longueur(A, B) + 0.5, 0)
       const O2 = translation(O, v)
@@ -100,7 +100,7 @@ export default class TrianglesSemblables extends Exercice {
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
           const objets = [p1, p2, codeAngleA, codeAngleB, codeAngleD, codeAngleE, nommeP1, nommeP2]
-          texte = `Compléter les phrases suivantes.<br>`
+          texte = 'Compléter les phrases suivantes.<br>'
           texte += `Ci-dessous les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont semblables.<br>`
           texte += `$[${A.nom + B.nom}]$ et ............ sont homologues.<br>`
           texte += `$[${B.nom + C.nom}]$ et ............ sont homologues.<br>`
@@ -292,7 +292,7 @@ export default class TrianglesSemblables extends Exercice {
           nom2 = String(nom1[0] + choisitLettresDifferentes(2, listeDeNomsDePolygonesDejaPris.toString())).replace(',', '')
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
-          let objets = [p1, p2, codeAB, codeDE, codeBC, codeEF, codeAC, codeDF, coteDF, coteDE, nommeP1, labelPoint(p2.listePoints[2]), labelPoint(p2.listePoints[1])]
+          const objets = [p1, p2, codeAB, codeDE, codeBC, codeEF, codeAC, codeDF, coteDF, coteDE, nommeP1, labelPoint(p2.listePoints[2]), labelPoint(p2.listePoints[1])]
 
           texte = `Est-ce que les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(A.nom + E.nom + F.nom)}$ sont semblables? Justifier<br>`
           texte += mathalea2d(Object.assign({
@@ -320,7 +320,7 @@ export default class TrianglesSemblables extends Exercice {
   }
 }
 
-function afficheCoteSegmentTruc(s: Segment, positionCote = 0.5, couleurCote = 'black'): Segment {
+function afficheCoteSegmentTruc (s: Segment, positionCote = 0.5, couleurCote = 'black'): Segment {
   const A = s.extremite1
   const B = s.extremite2
   const v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur)

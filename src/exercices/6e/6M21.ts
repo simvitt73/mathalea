@@ -3,19 +3,18 @@ import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import { milieu, Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, projectionOrtho, rotation, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
-import { afficherTempo, cacherTempo, translationPuisRotationAnimees } from '../../modules/2dAnimation'
-import { A } from '@svgdotjs/svg.js'
+import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
 export const dateDePublication = '08/06/2022'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
@@ -33,7 +32,7 @@ export const refs = {
   'fr-ch': ['9GM1-10']
 }
 export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = ['Type de figures',
       `Nombres séparés par des tirets :
@@ -58,7 +57,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13

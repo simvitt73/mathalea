@@ -1,25 +1,22 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import {
-  Droite,
+
   droite,
   droiteParPointEtParallele,
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
   labelOnLine
 } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { LatexParCoordonneesBox, latexParCoordonneesBox } from '../../lib/2d/textes'
+import { Point, point, pointIntersectionDD } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
   listeQuestionsToContenu,
   randint,
-  egal,
   contraindreValeur,
   gestionnaireFormulaireTexte
 } from '../../modules/outils'
@@ -41,7 +38,7 @@ export const refs = {
   'fr-ch': ['9ES3-7']
 }
 export default class ProprietesParallelesPerpendiculaires extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
@@ -55,7 +52,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles: number[] = []
     let questionsParNiveau = []
     if (!this.sup2) {

@@ -48,7 +48,7 @@ Vous pouvez donc supprimer l'import de la fonction randint,
 et comme aucune fonction n'a besoin d'être importé de '../../modules/outils', vous pouvez supprimer toute cette ligne.
 Allez-y, faites-le.
 */
-import { randint } from '../../modules/outils'
+// import { randint } from '../../modules/outils'
 
 /*
 La ligne suivante (obligatoire) permet de préciser le titre de l'exercice qui sera affiché sur le site MathALÉA.

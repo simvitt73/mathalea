@@ -61,7 +61,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
   Unite: number
   Min: number
   Max: number
-  constructor({
+  constructor ({
     Unite = 10,
     Min = 0,
     Max = 2,
@@ -380,7 +380,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
  * @return {DroiteGraduee}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteGraduee({
+export function droiteGraduee ({
   Unite = 10,
   Min = 0,
   Max = 2,
@@ -516,7 +516,7 @@ export function droiteGraduee({
  */
 // JSDOC Validee par EE Juin 2022
 export class Axes extends ObjetMathalea2D {
-  constructor(
+  constructor (
     xmin = -30,
     ymin = -30,
     xmax = 30,
@@ -555,7 +555,7 @@ export class Axes extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -564,7 +564,7 @@ export class Axes extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -595,7 +595,7 @@ export class Axes extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function axes(
+export function axes (
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -627,7 +627,7 @@ export function axes(
  */
 // JSDOC Validee par EE Juin 2022
 export class AxeY extends ObjetMathalea2D {
-  constructor(
+  constructor (
     ymin = -2,
     ymax = 5,
     thick = 0.2,
@@ -680,7 +680,7 @@ export class AxeY extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -689,7 +689,7 @@ export class AxeY extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -717,7 +717,7 @@ export class AxeY extends ObjetMathalea2D {
  * @return {AxeY}
  */
 // JSDOC Validee par EE Juin 2022
-export function axeY(
+export function axeY (
   ymin = -2,
   ymax = 5,
   thick = 0.2,
@@ -744,7 +744,7 @@ export function axeY(
  */
 // JSDOC Validee par EE Septembre 2022
 export class LabelY extends ObjetMathalea2D {
-  constructor(
+  constructor (
     ymin = 1,
     ymax = 20,
     step = 1,
@@ -769,7 +769,7 @@ export class LabelY extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -778,7 +778,7 @@ export class LabelY extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -803,7 +803,7 @@ export class LabelY extends ObjetMathalea2D {
  * @return {LabelY}
  */
 // JSDOC Validee par EE Septembre 2022
-export function labelY(
+export function labelY (
   ymin = 1,
   ymax = 20,
   step = 1,
@@ -834,7 +834,7 @@ export function labelY(
  */
 // JSDOC Validee par EE Aout 2022
 export class Grille extends ObjetMathalea2D {
-  constructor(
+  constructor (
     xmin = -30,
     ymin = -30,
     xmax = 30,
@@ -859,7 +859,6 @@ export class Grille extends ObjetMathalea2D {
       }
       this.objets.push(s)
     }
-    const nbStepY = Math.round((ymax - ymin) / step)
     let y = ymin
     for (let i = 0; i <= nbStep; i++) {
       const s = segment(xmin, y, xmax, y, color)
@@ -874,7 +873,7 @@ export class Grille extends ObjetMathalea2D {
   }
 
   // this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -883,7 +882,7 @@ export class Grille extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -892,7 +891,7 @@ export class Grille extends ObjetMathalea2D {
     return code
   }
 
-  svgml(coeff: number, amp: number) {
+  svgml (coeff: number, amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -905,7 +904,7 @@ export class Grille extends ObjetMathalea2D {
     return code
   }
 
-  tikzml(amp: number) {
+  tikzml (amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -934,7 +933,7 @@ export class Grille extends ObjetMathalea2D {
  * @return {Grille}
  */
 // JSDOC Validee par EE Aout 2022
-export function grille(
+export function grille (
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -967,7 +966,7 @@ export function grille(
  */
 // JSDOC Validee par EE Aout 2022
 export class LignesHorizontales extends ObjetMathalea2D {
-  constructor(
+  constructor (
     xmin = -30,
     ymin = -30,
     xmax = 30,
@@ -991,7 +990,7 @@ export class LignesHorizontales extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1000,7 +999,7 @@ export class LignesHorizontales extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1025,7 +1024,7 @@ export class LignesHorizontales extends ObjetMathalea2D {
  * @return {LignesHorizontales}
  */
 // JSDOC Validee par EE Aout 2022
-export function lignesHorizontales(
+export function lignesHorizontales (
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -1067,7 +1066,7 @@ export function lignesHorizontales(
  */
 // JSDOC Validee par EE Aout 2022
 export class LignesVerticales extends ObjetMathalea2D {
-  constructor(
+  constructor (
     xmin = -30,
     ymin = -30,
     xmax = 30,
@@ -1091,7 +1090,7 @@ export class LignesVerticales extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1100,7 +1099,7 @@ export class LignesVerticales extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1130,7 +1129,7 @@ export class LignesVerticales extends ObjetMathalea2D {
  * @return {LignesVerticales}
  */
 // JSDOC Validee par EE Aout 2022
-export function lignesVerticales(
+export function lignesVerticales (
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -1153,7 +1152,7 @@ export function lignesVerticales(
 }
 
 export class Seyes extends ObjetMathalea2D {
-  constructor(
+  constructor (
     xmin = 0,
     ymin = 0,
     xmax = 15,
@@ -1173,7 +1172,7 @@ export class Seyes extends ObjetMathalea2D {
     this.objets.push(grille(xmin, ymin, xmax, ymax, 'blue', opacite1, 1))
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1182,7 +1181,7 @@ export class Seyes extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1205,7 +1204,7 @@ export class Seyes extends ObjetMathalea2D {
  * @param {number?} opacite2=0.2
  * @author Rémi Angot
  */
-export function seyes(xmin: number, ymin: number, xmax: number, ymax: number, opacite1 = 0.5, opacite2 = 0.2) {
+export function seyes (xmin: number, ymin: number, xmax: number, ymax: number, opacite1 = 0.5, opacite2 = 0.2) {
   return new Seyes(xmin, ymin, xmax, ymax, opacite1, opacite2)
 }
 
@@ -1227,7 +1226,7 @@ export function seyes(xmin: number, ymin: number, xmax: number, ymax: number, op
 export class PapierPointe extends ObjetMathalea2D {
   plots: Plot[]
   listeCoords: [number, number][]
-  constructor({
+  constructor ({
     xmin = -10,
     xmax = 10,
     ymin = -10,
@@ -1397,7 +1396,7 @@ export class PapierPointe extends ObjetMathalea2D {
     }
   }
 
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.plots) {
@@ -1416,7 +1415,7 @@ export class PapierPointe extends ObjetMathalea2D {
   }
 }
 
-export function papierPointe({
+export function papierPointe ({
   xmin = -10,
   xmax = 10,
   ymin = -10,
@@ -1550,7 +1549,7 @@ export class Repere extends ObjetMathalea2D {
   grilleYMin: number
   grilleYMax: number
 
-  constructor({
+  constructor ({
     xUnite = 1,
     yUnite = 1,
     xMin = -10,
@@ -2092,18 +2091,18 @@ export class Repere extends ObjetMathalea2D {
     // pour pouvoir ajouter des objets à ce Repere après l'avoir créé.
   }
 
-  addObjet(objet: ObjetMathalea2D) {
+  addObjet (objet: ObjetMathalea2D) {
     if (!(objet instanceof ObjetMathalea2D)) return
     this.objets?.concat(objet)
   }
 
   // Une méthode pour passer ce qu'il fait à mathalea2d()
-  trace() {
+  trace () {
     return this.objets
   }
 
   // LES SORTIES TiKZ et SVG
-  svg(coeff: number) {
+  svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -2112,7 +2111,7 @@ export class Repere extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
+  tikz () {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -2121,7 +2120,7 @@ export class Repere extends ObjetMathalea2D {
     return code
   }
 
-  svgml(coeff: number, amp: number) {
+  svgml (coeff: number, amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -2131,7 +2130,7 @@ export class Repere extends ObjetMathalea2D {
     return code
   }
 
-  tikzml(amp: number) {
+  tikzml (amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -2148,7 +2147,7 @@ export class Repere extends ObjetMathalea2D {
  * @return {Repere}
  * @author Rémi Angot
  */
-export function repere({
+export function repere ({
   xUnite = 1,
   yUnite = 1,
   xMin = -10,
@@ -2395,6 +2394,6 @@ export function repere({
  * @param {object} repere
  * @author Rémi Angot
  */
-export function pointDansRepere(x: number, y: number, repere = { xUnite: 1, yUnite: 1 }) {
+export function pointDansRepere (x: number, y: number, repere = { xUnite: 1, yUnite: 1 }) {
   return point(x * repere.xUnite, y * repere.yUnite)
 }

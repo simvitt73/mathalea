@@ -8,7 +8,6 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/
 import { fraction } from '../../modules/fractions'
 import Trinome from '../../modules/Trinome'
 import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Nombre de solutions d\'une équation du second degré à paramètre'
 export const dateDePublication = '30/10/2021'
 
@@ -27,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
     this.nbQuestions = 2
@@ -35,18 +34,18 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      let a = randint(-5, 5, 0)
+      const a = randint(-5, 5, 0)
       const coefBm = randint(-2, 2)
       const coefBc = randint(-3, 3)
       const coefCm = randint(-2, 2)
       const coefCc = randint(-3, 3)
-  
+
       // Enoncé
       const expr0 = engine.parse(`${coefBm}mx${ecritureAlgebrique(a)}x^2${rienSi1(coefCm)}m${ecritureAlgebriqueSauf1(coefBc)}x${ecritureAlgebrique(coefCc)}`).simplify().latex
-      let texte = `$${expr0}=0$`
+      const texte = `$${expr0}=0$`
       // Corrigé
       let texteCorr = 'Écrivons l\'équation sous la forme $ax^2+bx+c=0$ :'
       const expr1 = engine.parse(`${a}x^2+(${rienSi1(coefBm)}m${ecritureAlgebrique(coefBc)})x${ecritureAlgebriqueSauf1(coefCm)}m${ecritureAlgebrique(coefCc)}`).simplify().latex
@@ -119,7 +118,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
           const x2 = trinom.x2
           texteCorr += '<br>Celui-ci étant strictement positif, l\'équation $\\Delta = 0$ a 2 solutions :'
           if (m1.includes('sqrt')) {
-            texteCorr += `<br>$m_1=${m1}\\simeq${texNombre( x1, 4)}$ et $m_2=${m2}\\simeq${texNombre(x2, 4)}$`
+            texteCorr += `<br>$m_1=${m1}\\simeq${texNombre(x1, 4)}$ et $m_2=${m2}\\simeq${texNombre(x2, 4)}$`
           } else {
             texteCorr += `<br>$m_1=${m1}$ et $m_2=${m2}$`
           }

@@ -22,9 +22,7 @@ import {
   tournerG
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
-import { afficheScore } from '../../lib/interactif/afficheScore'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
-
 
 interface Fig extends HTMLOrSVGElement {
   etat: boolean
@@ -45,7 +43,7 @@ export const refs = {
 }
 export default class AlgoTortue extends Exercice { // ça c'est la classe qui permet de créer cet exercice
   indiceBonneFigure!: number
-  constructor() {
+  constructor () {
     super()
     this.exoCustomResultat = false
     this.besoinFormulaireNumerique = ["Nombre d'instructions (limité à 20)", 20] // gestion des paramètres supplémentaires
@@ -57,7 +55,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion(numeroExercice: number) {
+  nouvelleVersion (numeroExercice: number) {
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
     // const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     // const yDepart = 0
@@ -189,7 +187,6 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
     objetsCorrection.push(lutins[0])
 
-
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 5; i++) {
       paramsEnonces = { xmin: -0.5, ymin: -1.5, xmax: largeur, ymax: hauteur + 1, pixelsParCm: Math.round(200 / largeur), scale: 2 / largeur, style: '', id: `figure${i}exo${numeroExercice}` }
@@ -238,7 +235,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
         ],
         options: { ordered: true }
       }
-      //@ts-expect-error
+      // @ts-expect-error
       this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
     }
     this.indiceBonneFigure = ordreLutins.indexOf(0)
@@ -281,8 +278,6 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
 
   // Gestion de la correction
   correctionInteractive = (i: number) => {
-    let nbBonnesReponses = 0
-    let nbMauvaisesReponses = 0
     let nbFiguresCliquees = 0
     const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`) as HTMLSpanElement
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
@@ -320,15 +315,15 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
   }
 }
 
-function mouseOverSvgEffect(this: any) {
+function mouseOverSvgEffect (this: any) {
   this.style.border = 'inset'
 }
 
-function mouseOutSvgEffect(this: any) {
+function mouseOutSvgEffect (this: any) {
   this.style.border = 'none'
 }
 
-function mouseSvgClick(this: any) {
+function mouseSvgClick (this: any) {
   if (this.etat) {
     // Déja choisi, donc on le réinitialise
     this.style.border = 'none'

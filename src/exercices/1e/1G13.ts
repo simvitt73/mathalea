@@ -1,5 +1,5 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusByPlusC } from '../../lib/outils/ecritures'
-import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -129,7 +129,6 @@ class EqCartDroite extends Exercice {
           if (lang === 'fr-CH') {
             const pente = new FractionEtendue(yB - yA, xB - xA)
             const oo = new FractionEtendue(yA, 1).sommeFraction(pente.produitFraction(new FractionEtendue(xA, 1).oppose())).simplifie()
-            const ppcmDen = new FractionEtendue(ppcm(pente.den, oo.den), 1)
             texteCorr += `<br>On sait que la pente de la droite $(AB)$ est donnée par : $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}$. On réduit cette fraction pour obtenir $m=${pente.texFractionSimplifiee}$.`
             texteCorr += `<br>On en déduit que l'équation réduite de la droite $(AB)$ est de la forme : \\[y=${pente.texFractionSimplifiee}x+p.\\]
             <br>On détermine la valeur de $p$ en utilisant que $A\\in (AB)$. Ainsi, 

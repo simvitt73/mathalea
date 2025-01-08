@@ -1,4 +1,3 @@
-import { context } from '../../modules/context'
 import { addElement, get, setStyles } from '../html/dom.js'
 import { afficheScore } from './afficheScore'
 

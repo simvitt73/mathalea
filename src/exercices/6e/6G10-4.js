@@ -66,38 +66,40 @@ function segmentAlternatif (reponses) {
 }
 
 export default class VocabulaireDuCercle extends Exercice {
- constructor() {
- super()
- 
-  this.nbQuestions = 1
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['QCM']
-  this.sup2 = true
-  this.correctionDetailleeDisponible = true
-  const typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
-  this.sup3 = typesDeQuestionsParDefaut
-  this.besoinFormulaire3Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Le rayon',
-      '2 : Un rayon',
-      '3 : Le diamètre',
-      '4 : Un diamètre',
-      '5 : Une corde',
-      '6 : Le centre',
-      '7 : Le centre, qui est aussi le milieu'
-    ].join('\n')
-  ]
+    this.nbQuestions = 1
 
-  this.spacingCorr = 1.5 // Interligne des réponses
+    this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['QCM']
+    this.sup2 = true
+    this.correctionDetailleeDisponible = true
+    // this.typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
+    // this.sup3 = this.typesDeQuestionsParDefaut
+    this.sup3 = '1-2-3-4-5-6-7'
+    this.besoinFormulaire3Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Le rayon',
+        '2 : Un rayon',
+        '3 : Le diamètre',
+        '4 : Un diamètre',
+        '5 : Une corde',
+        '6 : Le centre',
+        '7 : Le centre, qui est aussi le milieu'
+      ].join('\n')
+    ]
 
-  this.avecLeCentreQuiEstAussiLeMilieu = false
+    this.spacingCorr = 1.5 // Interligne des réponses
 
-   }
- nouvelleVersion() {
-    const typesDeQuestions = String(this.sup3 ?? typesDeQuestionsParDefaut)
+    this.avecLeCentreQuiEstAussiLeMilieu = false
+  }
+
+  nouvelleVersion () {
+    // const typesDeQuestions = String(this.sup3 ?? this.typesDeQuestionsParDefaut)
+    const typesDeQuestions = this.sup3
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     if (context.isHtml) this.consigne += '<br><br>'
 
