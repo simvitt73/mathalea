@@ -202,7 +202,8 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
           let feedback = ''
           const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
           if (mfe == null) return { isOk: false, score: { nbBonnesReponses: 0, nbReponses: 0 } }
-          const expression = mfe.getValue()
+          let expression = mfe.getValue()
+          expression = expression.replaceAll('²', '^2').replaceAll('³', '^3').replaceAll('^{}', '').replaceAll('^{^', '^{')
           if (expression == null || expression === '') {
             isOk = false
           } else {
