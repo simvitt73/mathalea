@@ -51,7 +51,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
     this.besoinFormulaire3Numerique = ['Choix de la précision (pour les valeurs approchées)', 2, '1 : À l\'unité\n 2 : Au dixième']
-    this.besoinFormulaire4Numerique = ['Choix de la demande ', 3, '1 : Que le périmètre\n 2 : Que l\'aire\n3 : Périmètre et aire\n4 : Découpage']
+    // this.besoinFormulaire4Numerique = ['Choix de la demande ', 3, '1 : Que le périmètre\n 2 : Que l\'aire\n3 : Périmètre et aire\n4 : Découpage']
+    this.besoinFormulaire4Numerique = ['Choix de la demande ', 3, '1 : Que le périmètre\n 2 : Que l\'aire\n3 : Périmètre et aire']
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 2
@@ -165,7 +166,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               pixelsParCm: 20,
               zoom: 1,
               optionsTikz: 'baseline=(current bounding box.north)'
-            }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), objetsCorrection)
+            }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2), labelsAvecDecoupage], { rxmin: -1, rymin: -1 })), objetsCorrection)
             texteCorr += `<br>
             On peut découper cette figure en un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm
             et un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm
