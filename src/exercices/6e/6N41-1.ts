@@ -10,7 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import FractionEtendue from '../../modules/FractionEtendue'
-import { abs, rangeMinMax } from '../../lib/outils/nombres'
+import { rangeMinMax } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,6 +32,7 @@ export const refs = {
   'fr-ch': ['9NO12-2']
 }
 export default class ExerciceLabyrintheFractionsEgales extends Exercice {
+  niveau: string
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Facteur maximum', 20]
@@ -88,7 +89,7 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
           case 1: mesfractions.push(new FractionEtendue(table, num).multiplieEntier(listeMultiples[i]))
             break
           case 2:
-          case 3 : mesfractions.push(new FractionEtendue(num * listeMultiples[i], table * abs(listeMultiples[i] - table)))
+          case 3 : mesfractions.push(new FractionEtendue(num * listeMultiples[i], table * Math.abs(listeMultiples[i] - table)))
             break
         }
       }
@@ -119,6 +120,7 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
           propositions: [
             {
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+              // @ts-expect-error
               propositions: [
                 {
                   texte: texteCorr,

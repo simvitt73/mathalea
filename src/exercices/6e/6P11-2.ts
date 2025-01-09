@@ -32,6 +32,8 @@ export const refs = {
   'fr-fr': ['6P11-2'],
   'fr-ch': ['9FA3-11']
 }
+
+type Item = [string, Decimal]
 export default class ProportionnaliteParLineariteTableau extends Exercice {
   constructor () {
     super()
@@ -61,14 +63,14 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
       typeDeQuestionsDisponibles = this.sup3 ? [2, 2, 2, 2, 4] : [2]
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = this.sup3 ? [3, 3, 3, 3, 4] : [3]
-    } else if (this.sup === 4) {
+    } else {
       typeDeQuestionsDisponibles = this.sup3 ? [1, 2, 3, 2, 4] : [1, 2, 3]
     }
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     let np, cm, ng, o, pp, pg, pu, tp, index, a
-    const fruits = [
+    const fruits: Item[] = [
       ['pêches', new Decimal('0.24')],
       ['noix', new Decimal('0.29')],
       ['cerises', new Decimal('0.31')],
@@ -79,7 +81,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
       ['bananes', new Decimal('0.09')]
     ]
 
-    const objets = [
+    const objets: Item[] = [
       ['billes', new Decimal('0.1')],
       ['bonbons', new Decimal('0.1')],
       ['bougies', new Decimal('1.2')],
@@ -93,7 +95,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
     for (let i = 0, texte, texteCorr, texteApres, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = choice([1, 2, 3])
       // Boucle principale où i+1 correspond au numéro de la question
-
+      texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
           if (a === 1) {
@@ -432,6 +434,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
           break
 
         case 4: // Non proportionnalité
+        default:
           if (a === 1) {
             tp = new Decimal(randint(120, 165)).div(100)
             np = randint(10, 14)
@@ -448,7 +451,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
             texte = `${prenom()} pèse $${texMasse(tp)}$ kg à $${np}$ ans. Quelle sera son poids à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
             texteApres = 'kg'
-          } else if (a === 3) {
+          } else {
             tp = randint(35, 39)
             np = randint(10, 13)
             cm = randint(2, 5)
@@ -460,7 +463,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
           setReponse(this, i, ['\\text{N}', 'n', 'N'])
           break
       }
-      if (listeTypeQuestions[i] !== 4) {
+      if (listeTypeQuestions[i] !== 4 && monTableau != null) {
         const { xmin, xmax, ymin, ymax } = fixeBordures([monTableau])
         texteCorr = mathalea2d(Object.assign({ xmin, xmax, ymin, ymax }, {
           scale: 0.7,
@@ -468,7 +471,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
         }), monTableau)
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON, { texteApres: sp(2) + texteApres })
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, np, ng)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -73,9 +73,9 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       "à l'épicerie",
       'dans la boutique du musée'
     ]
-    const listeDeChoses = [[]]
-    const listeDePrixUnit = [[]]
-    const tirages = [[]]
+    const listeDeChoses: string[][] = [[]]
+    const listeDePrixUnit: number[][] = [[]]
+    const tirages: [number, Decimal][] = []
     let index3 = []
     const villes = ['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade']
     const verbes = [
@@ -161,6 +161,11 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      x = 0
+      y = 0
+      p = 0
+      z = 0
+      pu = 0
       switch (listeChoix[i]) {
         case 1: // Achat
           if (listeProportionnelOuPas[compteurProportionnelsOuPas]) {
@@ -168,9 +173,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
             prenoms = [prenomF(), prenomM()]
             index2 = randint(0, listeDeChoses[index1].length - 1)
             objet = listeDeChoses[index1][index2]
-            pu =
-            new Decimal(listeDePrixUnit[index1][index2] *
-            (1 + randint(1, 2) * 0.2 * randint(-1, 1))).toDP(2)
+            pu = new Decimal(listeDePrixUnit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1))).toDP(2)
             y = randint(2, 5)
             somme = pu.mul(y)
             p = y * randint(2, 5)
@@ -256,6 +259,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           bonneReponse = 'non'
           break
         case 5: // Achat (tableau de proportionnalité)
+        default:
           prenoms = [prenomF(), prenomM()]
           index1 = randint(0, 5)
           objet = listeDeChoses[4][index1]
@@ -315,6 +319,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
             }
           ]
           if (this.sup2) {
+            // @ts-expect-error
             this.autoCorrection[i].propositions.push({
               texte: 'je ne sais pas',
               statut: false

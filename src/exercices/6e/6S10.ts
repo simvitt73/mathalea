@@ -89,8 +89,8 @@ export default class LectureDiagrammeBaton extends Exercice {
     const propa = []
     const propb = []
     const propc = []
-    const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
-    const lstNombresAnimaux = [] // liste des effectifs de chaque animal
+    const lstAnimauxExo:string[] = [] // liste des animaux uniquement cités dans l'exercice
+    const lstNombresAnimaux: number[] = [] // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100] // liste des valeurs à éviter pour les effectifs
     let N = 0
     let nom
@@ -158,6 +158,7 @@ export default class LectureDiagrammeBaton extends Exercice {
         propositions: [
           {
             type: 'qcmMono',
+            // @ts-expect-error
             propositions: propa,
             options: {
               ordered: false
@@ -166,12 +167,14 @@ export default class LectureDiagrammeBaton extends Exercice {
           },
           {
             type: 'qcmMono',
+            // @ts-expect-error
             options: { ordered: false },
             enonce: numAlpha(1) + this.listeQuestions[1],
             propositions: propb
           },
           {
             type: 'qcmMono',
+            // @ts-expect-error
             options: { ordered: false },
             enonce: numAlpha(2) + this.listeQuestions[2],
             propositions: propc
@@ -180,16 +183,19 @@ export default class LectureDiagrammeBaton extends Exercice {
       }
     } else {
       this.autoCorrection[0] = {
+        // @ts-expect-error
         type: 'qcmMono',
         propositions: propa,
         options: { ordered: false, vertical: nbAnimaux > 5 }
       }
       this.autoCorrection[1] = {
+        // @ts-expect-error
         type: 'qcmMono',
         propositions: propb,
         options: { ordered: false, vertical: nbAnimaux > 5 }
       }
       this.autoCorrection[2] = {
+        // @ts-expect-error
         type: 'qcmMono',
         propositions: propc,
         options: { ordered: false, vertical: true }

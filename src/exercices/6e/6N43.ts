@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sommeDesChiffres } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -43,16 +43,15 @@ export default class CriteresDeDivisibilite extends Exercice {
     let listeExercicesDisponibles
     if (this.sup === 1) {
       listeExercicesDisponibles = [2, 5, 10]
-    }
-    if (this.sup === 2) {
-      listeExercicesDisponibles = [3, 9]
-    }
-    if (this.sup === 3) {
-      listeExercicesDisponibles = [2, 3, 5, 9, 10]
-    }
-    if (this.sup > 3) {
-      listeExercicesDisponibles = [2, 3, 5, 9, 10, 'autre']
-    }
+    } else
+      if (this.sup === 2) {
+        listeExercicesDisponibles = [3, 9]
+      } else
+        if (this.sup === 3) {
+          listeExercicesDisponibles = [2, 3, 5, 9, 10]
+        } else {
+          listeExercicesDisponibles = [2, 3, 5, 9, 10, 'autre']
+        }
     const listeTypeDeQuestions = combinaisonListes(
       listeExercicesDisponibles,
       this.nbQuestions
@@ -83,6 +82,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $2$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
@@ -90,6 +90,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             )}$ est $${u}$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $2$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
           break
@@ -99,17 +100,19 @@ export default class CriteresDeDivisibilite extends Exercice {
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $3$ ?`
           if (n % 3 === 0) {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calculANePlusJamaisUtiliser(sommeString[0] / 3)}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${sommeString[0] / 3}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ est divisible par $3$ donc $${texNombre(n)}$ est divisible par $3$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calculANePlusJamaisUtiliser((sommeString[0] - sommeString[0] % 3) / 3)
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${(sommeString[0] - sommeString[0] % 3) / 3
               }+${sommeString[0] % 3}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(
               n
             )}$ n'est pas divisible par $3$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $3$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
           break
@@ -119,12 +122,14 @@ export default class CriteresDeDivisibilite extends Exercice {
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $9$ ?`
           if (sommeString[0] % 9 === 0) {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calculANePlusJamaisUtiliser(sommeString[0] / 9)}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${sommeString[0] / 9}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ est divisible par $9$ donc $${texNombre(n)}$ est divisible par $9$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calculANePlusJamaisUtiliser((sommeString[0] - sommeString[0] % 9) / 9)}+${sommeString[0] % 9}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${(sommeString[0] - sommeString[0] % 9) / 9}+${sommeString[0] % 9}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ n'est pas divisible par $9$ donc $${texNombre(n)}$ n'est pas divisible par $9$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
           break
@@ -137,6 +142,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $5$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
@@ -144,6 +150,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             )}$ est $${u}$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $5$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
           break
@@ -156,6 +163,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $10$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
@@ -163,24 +171,26 @@ export default class CriteresDeDivisibilite extends Exercice {
             )}$ est $${u}$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $10$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
           break
 
         case 'autre':
+        default:
           n = randint(100, 999)
           u = choice([7, 7, 7, 7, 13, 17, 19])
           if (u === 7) {
             n = choice(
-              [randint(10, 99) * 10 + 7],
-              7 * randint(11, 99),
-              randint(100, 999)
+              [randint(10, 99) * 10 + 7,
+                7 * randint(11, 99),
+                randint(100, 999)]
             ) // un nombre qui se termine par 7, un divisible par 7, un au hasard
           } else {
             n = choice(
-              [randint(10, 99) * 100 + u],
-              u * randint(11, 99),
-              randint(100, 999)
+              [randint(10, 99) * 100 + u,
+                u * randint(11, 99),
+                randint(100, 999)]
             ) // un nombre qui se termine par u, un divisible par u, un au hasard
           }
           texte = `$${texNombre(n)}$ est-il divisible par $${u}$ ?`
@@ -194,6 +204,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             texteCorr += `Le reste de la division euclidienne est nul donc $${texNombre(
               n
             )}$ est divisible par $${u}$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr += `$${texNombre(n)}=${u}\\times${(n - (n % u)) / u}+${n % u
@@ -201,6 +212,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             texteCorr += `Le reste de la division euclidienne n'est pas nul donc $${texNombre(
               n
             )}$ n'est pas divisible par $${u}$.`
+            // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
 

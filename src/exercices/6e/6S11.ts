@@ -57,16 +57,16 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     let m
     let S
     const nbFruits = contraindreValeur(2, 4, this.sup2, 4) // min = 2
-    const lstPrenomExo = []
+    const lstPrenomExo:string[] = []
     while (lstPrenomExo.length < nbAmis) {
-      const p = prenom()
+      const p = prenom() as string
       if (!lstPrenomExo.includes(p)) {
         lstPrenomExo.push(p)
       }
     }
 
     const lstFruit = ['pomme', 'poire', 'kiwi', 'pêche', 'coing', 'melon', 'citron', 'banane', 'mangue']
-    const lstFruitExo = []
+    const lstFruitExo: string[] = []
     // Choisir les fruits :
     for (let i = 0; i < nbFruits; i++) {
       lstFruitExo.push(choice(lstFruit, lstFruitExo))
@@ -99,7 +99,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     // boucle sur les phrases. 1 phrase par personne.
     for (let i = 0; i < nbAmis; i++) {
       texte += `${lstPrenomExo[i]} rapporte `
-      L = [] // ne contient que les fruits d'effectifs strictement positifs
+      let L: [number, string][] = [] // ne contient que les fruits d'effectifs strictement positifs
       for (let j = 0; j < nbFruits; j++) {
         N = lstTabVal[i][j]
         if (N > 0) {
@@ -154,7 +154,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       objetReponse = Object.assign(objetReponse, cellule)
     }
     objetReponse = Object.assign(objetReponse, {
-      bareme: (listePoints) => {
+      bareme: (listePoints:number[]) => {
         return [listePoints.reduce((a, b) => a + b, 0), listePoints.length]
       }
     })
@@ -163,11 +163,11 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     texteCorr += '<br>'
 
     // Question 2 :
-    texteCorr += `${numAlpha(1)} ${this.sip ? 'La masse totale' : 'Le nombre total'} de fruits est : $${texNombre(sommeTotale, 2)}$${this.sup ? ' kg' : ''}.<br>`
+    texteCorr += `${numAlpha(1)} ${this.sup ? 'La masse totale' : 'Le nombre total'} de fruits est : $${texNombre(sommeTotale, 2)}$${this.sup ? ' kg' : ''}.<br>`
 
     // Question 3 :
     texteCorr += `${numAlpha(2)} On regarde la dernière colonne du tableau. `
-    let lstmax = [] // liste des prénoms solutions
+    let lstmax: string[] = [] // liste des prénoms solutions
     let nmax = 0 // nombre max de fruit pour une personne
     for (let i = 0; i < nbAmis; i++) {
       S = 0
@@ -182,7 +182,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
         lstmax = [lstPrenomExo[i]]
       }
     }
-    nmax = texNombre(nmax, 1)
+    const nmaxTex = texNombre(nmax, 1)
     if (lstmax.length > 1) {
       texteCorr += 'Les personnes qui ont rapporté le plus de fruits sont : '
       texteCorr += lstmax[0]
@@ -190,21 +190,21 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
         texteCorr += ` et ${lstmax[k]}`
       }
       if (this.sup) {
-        texteCorr += `. La masse maximale rapportée est de $${nmax}$ kg.<br>`
+        texteCorr += `. La masse maximale rapportée est de $${nmaxTex}$ kg.<br>`
       } else {
-        texteCorr += `. Le nombre maximal de fruits rapporté par une personne est de $${nmax}$.<br>`
+        texteCorr += `. Le nombre maximal de fruits rapporté par une personne est de $${nmaxTex}$.<br>`
       }
     } else {
       if (this.sup) {
-        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de $${nmax}$ kg.<br>`
+        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de $${nmaxTex}$ kg.<br>`
       } else {
-        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de $${nmax}$.<br>`
+        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de $${nmaxTex}$.<br>`
       }
     }
 
     // Question 4 :
     texteCorr += `${numAlpha(3)} On regarde la dernière ligne du tableau. `
-    let fmax = [] // liste des fruits apporté en quantité max
+    let fmax: string[] = [] // liste des fruits apporté en quantité max
     nmax = 0 // nombre max par type de fruit
     for (let j = 0; j < nbFruits; j++) {
       S = 0
@@ -219,7 +219,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
         fmax = [lstFruitExo[j]]
       }
     }
-    nmax = texNombre(nmax, 1)
+    const nmaxTex2 = texNombre(nmax, 1)
     if (fmax.length > 1) {
       if (this.sup) {
         texteCorr += 'Les fruits présents en la plus grosse quantité sont : '
@@ -234,9 +234,9 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       texteCorr += `. Il y en a $${nmax}$ de chaque sorte.<br>`
     } else {
       if (this.sup) {
-        texteCorr += `Il y a plus de ${fmax[0]}s que d'autres fruits. Il y en a $${nmax}$ kg.`
+        texteCorr += `Il y a plus de ${fmax[0]}s que d'autres fruits. Il y en a $${nmaxTex2}$ kg.`
       } else {
-        texteCorr += `Il y a plus de ${fmax[0]}s que d'autres fruits. Il y en a $${nmax}$.`
+        texteCorr += `Il y a plus de ${fmax[0]}s que d'autres fruits. Il y en a $${nmaxTex2}$.`
       }
     }
     // fin correction
@@ -253,6 +253,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       ]
     }
     for (const p of lstPrenomExo) {
+      // @ts-expect-error
       this.autoCorrection[2].propositions.push({ texte: p, statut: lstmax.includes(p) })
     }
     const qcm1 = propositionsQcm(this, 2)
@@ -266,6 +267,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       ]
     }
     for (const f of lstFruitExo) {
+      // @ts-expect-error
       this.autoCorrection[3].propositions.push({ texte: f, statut: fmax.includes(f) })
     }
     const qcm2 = propositionsQcm(this, 3)
@@ -275,7 +277,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     // qcm pour cette quesstion
     if (this.interactif) {
       const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLines)
-      const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice, 0, tableau, 'tableauMathlive', true)
+      const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice ?? 0, 0, tableau, 'tableauMathlive', true, {})
       texte += leTableau.output
     } else {
       texte += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLines, 1, true, 0, 0, false)

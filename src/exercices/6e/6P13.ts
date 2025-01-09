@@ -41,7 +41,7 @@ export const refs = {
   'fr-ch': ['9FA3-13']
 }
 
-function nombreDecimales (prMin, prMax, n) {
+function nombreDecimales (prMin:number, prMax:number, n:number) {
   let pourcent
   if (n === 0) {
     do {
@@ -149,20 +149,20 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
   nouvelleVersion () {
     this.introduction = (this.sup2 && this.interactif && context.isHtml)
       ? lampeMessage({
-          titre: 'Calculatrice autorisée.',
-          texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
-          couleur: 'nombres'
-        })
+        titre: 'Calculatrice autorisée.',
+        texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+        couleur: 'nombres'
+      })
       : ''
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, enonceInit, enonceAMC, propositionsAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, enonceInit, enonceAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       const prenom1 = prenomM()
       const prenom2 = prenomF()
       let prixIntial, prixFinal
-
+      let propositionsAMC: unknown[] = []
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'réduction': {
           const situation = choice(situationsReductions)
@@ -235,7 +235,8 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
           texteCorr += miseEnEvidence(`${texPrix(prixFinal)}${sp()}`) + '€$.'
         }
           break
-        case 'augmentation': {
+        case 'augmentation':
+        default:{
           const situation = choice(situationsAugmentations)
           const pourcent = nombreDecimales(situation.prMin, situation.prMax, this.sup - 1)
           prixIntial = 2 * randint(situation.moitieMin, situation.moitieMax)
@@ -314,6 +315,7 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
           this.autoCorrection[i] = {
             enonce: '',
             options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            // @ts-expect-error
             propositions: propositionsAMC
           }
         }

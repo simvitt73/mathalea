@@ -1,5 +1,5 @@
 import { max } from 'mathjs'
-import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites'
 import { arc, cercle } from './cercle'
 import { Point, point, tracePoint } from './points'
 import { carre, motifs, Polygone, polygone, polyline } from './polygones'
@@ -150,7 +150,7 @@ export class TraceBarre extends ObjetMathalea2D {
     opaciteDeRemplissage?: number,
     angle?: number,
     unite?: number,
-    hachures?: boolean
+    hachures?: boolean | string
   }) {
     super()
     this.p = hauteur === 0 ? vide2d(x, 0) : polygone([point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0)])
@@ -162,8 +162,14 @@ export class TraceBarre extends ObjetMathalea2D {
         this.p.hachures = hachures
       }
     }
+    let bordures:{ xmin: number, ymin: number, xmax: number, ymax: number }
+    if (this.p instanceof Polygone) {
+      bordures = fixeBordures([this.p, this.text])
+    } else {
+      bordures = fixeBordures([this.text])
+    }
     this.texte = texteParPosition(legende, x, -0.2, angle, 'black', 1, 'gauche') as TexteParPoint
-    this.bordures = [Math.min(this.p.bordures[0], this.texte.bordures[0]), Math.min(this.p.bordures[1], this.texte.bordures[1]), Math.max(this.p.bordures[2], this.texte.bordures[2]), Math.max(this.p.bordures[3], this.texte.bordures[3])]
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
   tikz () {
@@ -190,7 +196,7 @@ export function traceBarre (x:number, hauteur: number, legende = '', {
   opaciteDeRemplissage?: number,
   angle?: number,
   unite?: number,
-  hachures?: boolean
+  hachures?: boolean | string
 }) {
   return new TraceBarre(x, hauteur, legende, { epaisseur, couleurDeRemplissage, color, opaciteDeRemplissage, angle, unite, hachures })
 }

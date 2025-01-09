@@ -35,7 +35,7 @@ export const refs = {
 export default class Questions2023 extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\nDe 1 à 4 : Niveau CM2\nDe 5 à 9 : Niveau 6ème\nDe 10 à 13 : Niveau 5ème\nDe 14 à 16 : Niveau 4ème\nDe 17 à 19 : Niveau 3ème\nDe 20 à 22 : Niveau 1ère\nDe 23 à 27 : Niveau Terminale\n28 : Niveau Post-Bac', '1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\nDe 1 à 4 : Niveau CM2\nDe 5 à 9 : Niveau 6ème\nDe 10 à 13 : Niveau 5ème\nDe 14 à 16 : Niveau 4ème\nDe 17 à 19 : Niveau 3ème\nDe 20 à 22 : Niveau 1ère\nDe 23 à 27 : Niveau Terminale\n28 : Niveau Post-Bac']
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
@@ -66,7 +66,8 @@ export default class Questions2023 extends Exercice {
       defaut: randint(1, 28),
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
-      shuffle: false
+      shuffle: false,
+      melange: 0
     })
 
     let texte = ''
@@ -227,7 +228,7 @@ export default class Questions2023 extends Exercice {
           break
         case 22 : // 1ère
           rep = repere({ xMin: -3, xMax: 3, yMin: -1, yMax: 10, axeXisVisible: false, axeYisVisible: false, grille: false })
-          f = x => (x ** 2) / 0.5
+          f = (x:number) => (x ** 2) / 0.5
           c = courbe(f, { repere: rep, xMin: -3, xMax: 3, step: 0.1, epaisseur: 1 })
           centre1 = point(0, 3.75, 'C', 'above right')
           centre2 = point(0, 6.95, 'C\'', 'above left')
@@ -241,21 +242,21 @@ export default class Questions2023 extends Exercice {
           x2 = 1.825
           rayon1 = segment(centre1, rotation(point(x1, f(x1)), centre1, 160), 'red')
           rayon2 = segment(centre2, rotation(point(x2, f(x2)), centre2, 40), 'red')
-          texte1 = texteParPosition('2022', -0.4, 4.3, 'milieu', 'red', 0.7, 'middle', true)
-          texte2 = texteParPosition('r = ?', 0.4, 7.7, 'milieu', 'red', 0.8, 'middle', true)
+          texte1 = texteParPosition('2022', -0.4, 4.3, 0, 'red', 0.7, 'milieu', true)
+          texte2 = texteParPosition('r = ?', 0.4, 7.7, 0, 'red', 0.8, 'milieu', true)
           texte3 = latexParCoordonnees('y=x^2', 1, 1, 'black', 0, 20, '', 6)
           h1 = segment(0, f(x1), x1, f(x1))
           h2 = segment(0, f(x2), x2, f(x2))
           h1.pointilles = 2
           h2.pointilles = 2
 
-          H1 = texteParPosition('H', -0.2, f(x1), 'milieu', 'black', 0.6, 'middle', true)
-          H2 = texteParPosition('H\'', -0.2, f(x2), 'milieu', 'black', 0.6, 'middle', true)
+          H1 = texteParPosition('H', -0.2, f(x1), 0, 'black', 0.6, 'milieu', true)
+          H2 = texteParPosition('H\'', -0.2, f(x2), 0, 'black', 0.6, 'milieu', true)
 
-          M1 = texteParPosition('M', x1 + 0.2, f(x1), 'milieu', 'black', 0.6, 'middle', true)
-          M2 = texteParPosition('M\'', x2 + 0.2, f(x2) - 0.2, 'milieu', 'black', 0.6, 'middle', true)
+          M1 = texteParPosition('M', x1 + 0.2, f(x1), 0, 'black', 0.6, 'milieu', true)
+          M2 = texteParPosition('M\'', x2 + 0.2, f(x2) - 0.2, 0, 'black', 0.6, 'milieu', true)
           d = droite(centre2, point(x2, f(x2)))
-          normale = texteParPosition('normale', -2.5, 7.7, 'milieu', 'black', 0.8, 'middle', false)
+          normale = texteParPosition('normale', -2.5, 7.7, 0, 'black', 0.8, 'milieu', false)
           texteCorr += 'La figure ci-dessous n\'est pas réaliste.<br>'
           texteCorr += mathalea2d({ xmin: -3, xmax: 3, ymin: -1, ymax: 10, pixelsParCm: 30, scale: 1 }, rep, c, axeX, axeY, c1, c2, rayon1, rayon2, texte1, texte2, texte3, h1, H1, M1, H2, M2, h2, d, normale, labelPoint(centre1, centre2))
           texteCorr += '<br>Préambule : Soit $y = ax+b$, l\'équation de la normale à la parabole en $( x_0 ; x_0^2 )$.<br>'

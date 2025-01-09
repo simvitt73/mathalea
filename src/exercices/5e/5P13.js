@@ -43,7 +43,7 @@ export default class EchellesProblemes extends Exercice {
     super()
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec un tableau dans la correction']
-    this.sup = 4
+    this.sup = '4'
     this.sup2 = false
     this.spacing = 2
     this.spacingCorr = 2
