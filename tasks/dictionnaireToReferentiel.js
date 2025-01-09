@@ -146,7 +146,7 @@ for (const ex in dictionnaireCrpeCoop) {
   })
 }
 
-for (const annee of ['2019', '2018', '2017', '2016', '2015', '2022', '2023', '2024', '2025']) {
+for (const annee of ['2019', '2018', '2017', '2016', '2015', '2022', '2023']) {
   referentielFR.crpe[annee] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].annee === annee) {
