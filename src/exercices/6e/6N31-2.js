@@ -21,7 +21,7 @@ export const dateDeModifImportante = '27/06/2024' // suppression de coquilles, n
 export const uuid = '843e5'
 
 export const refs = {
-  'fr-fr': ['6N31-2'],
+  'fr-fr': [],
   'fr-ch': ['9NO8-12']
 }
 // une fonction pour ordre de grandeur en fonction de ... opération 1
