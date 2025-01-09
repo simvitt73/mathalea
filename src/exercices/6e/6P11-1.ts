@@ -33,6 +33,13 @@ export const refs = {
   'fr-fr': ['6P11-1'],
   'fr-ch': ['9FA3-10']
 }
+
+type Situation = {
+  lieu: string,
+  achat_sing: string,
+  achat_plur: string,
+  pu: number
+}
 export default class ProportionnaliteParLineariteBis extends Exercice {
   constructor () {
     super()
@@ -48,7 +55,7 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
     const tabHash = []
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
     const prenomliste = prenom(6)
-    const situations = [
+    const situations: Situation[] = [
       {
         lieu: 'À la boulangerie',
         achat_sing: 'pain au chocolat',
@@ -83,7 +90,7 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer le pluriel
-      const pluriel = function (n, obj) {
+      const pluriel = function (n:number, obj: Situation) {
         if (n > 1) {
           return obj.achat_plur
         } else {
@@ -255,7 +262,9 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
           this.autoCorrection[i] = {
             enonce: '',
             enonceAvant: false,
+            // @ts-expect-error
             options: { barreseparation: true, multicolsAll: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            // @ts-expect-error
             propositions: propositionsAMC
           }
         }

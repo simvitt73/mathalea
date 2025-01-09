@@ -30,6 +30,7 @@ export const refs = {
  * @author jean-claude Lhote
  */
 
+type Cell = { nombre: number, visible: boolean }
 export default class CalculerCoeffPropo extends Exercice {
   constructor () {
     super()
@@ -44,7 +45,7 @@ export default class CalculerCoeffPropo extends Exercice {
   }
 
   nouvelleVersion () {
-    const isBetterWithLinearity = function (nombres) {
+    const isBetterWithLinearity = function (nombres: [number, number, number]) {
       const [a, b, c] = nombres
       if (a % b === 0 || a % c === 0 || b % c === 0 || b % a === 0 || c % a === 0 || c % b === 0) return true
       if (a + b === c || a + c === b || b + c === a) return true
@@ -63,16 +64,16 @@ export default class CalculerCoeffPropo extends Exercice {
     if (this.sup === 4) listeTypesDeCoefficient = combinaisonListes(typeDeCoefficient, this.nbQuestions)
     else listeTypesDeCoefficient = combinaisonListes([typeDeCoefficient[this.sup - 1]], this.nbQuestions)
 
-    const listCoefficientUsed = []
+    const listCoefficientUsed: (number | FractionEtendue)[] = []
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
       if (context.isAmc) this.autoCorrection[i] = {}
       // Je suis en js, je fais du typage inline JsDoc pratique pour récupérer l'autocomplétion
       /** @type number | Decimal | FractionEtendue */
       let coefficient
       /** @type Array<{ nombre: number, visible: boolean }> */
-      const premiereLigne = []
+      const premiereLigne:Cell[] = []
       /** @type Array<{ nombre: number, visible: boolean }> */
-      const deuxiemeLigne = []
+      const deuxiemeLigne: Cell[] = []
       const colonneReference = randint(0, 2) // La colonne qui contiendra deux valeurs visibles pour faire le calcul
       if (listCoefficientUsed.length >= 9) listCoefficientUsed.splice(0, listCoefficientUsed.length)
       do {
@@ -86,13 +87,13 @@ export default class CalculerCoeffPropo extends Exercice {
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
-                nombre: premiereLigne[colonne].nombre * coefficient,
+                nombre: premiereLigne[colonne].nombre * Number(coefficient),
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
             break
           case 'Decimal': // On construit un coefficient... on pourrait le choisir dans une liste
-            coefficient = new Decimal(randint(1, 9) + randint(0, 2) * 10).div(10)
+            coefficient = (randint(1, 9) + randint(0, 2) * 10) / 10
             for (let colonne = 0; colonne < 3; colonne++) {
               const contenuVisible = choice([true, false])
               premiereLigne[colonne] = {
@@ -100,12 +101,13 @@ export default class CalculerCoeffPropo extends Exercice {
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
-                nombre: coefficient.mul(premiereLigne[colonne].nombre),
+                nombre: coefficient * premiereLigne[colonne].nombre,
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
             break
-          case 'Fraction': { // construction de la fraction => prévoir une liste simplifiera le code
+          case 'Fraction':
+          default: { // construction de la fraction => prévoir une liste simplifiera le code
             let allNumberAreGood
             do {
               allNumberAreGood = true
@@ -125,7 +127,7 @@ export default class CalculerCoeffPropo extends Exercice {
                   visible: colonne === colonneReference ? true : contenuVisible
                 }
                 deuxiemeLigne[colonne] = {
-                  nombre: premiereLigne[colonne].nombre * coefficient,
+                  nombre: premiereLigne[colonne].nombre * coefficient.valeurDecimale,
                   visible: colonne === colonneReference ? true : !contenuVisible
                 }
               }
@@ -133,17 +135,17 @@ export default class CalculerCoeffPropo extends Exercice {
             break
           }
         }
-      } while (isBetterWithLinearity(premiereLigne.map(elt => elt.nombre)))
+      } while (isBetterWithLinearity(premiereLigne.map(elt => elt.nombre) as [number, number, number]))
       listCoefficientUsed[i] = coefficient
       const coefficientRationnel = coefficient instanceof FractionEtendue
       const coefficientDecimal = coefficient instanceof Decimal
-      const coefficientTex = coefficientRationnel ? coefficient.texFraction : stringNombre(coefficient)
+      const coefficientTex = coefficientRationnel ? (coefficient as FractionEtendue).texFraction : texNombre(coefficient)
       // remplissage du tableau énoncé et correction.
       const ligne1 = [{ texte: 'Grandeur A' }].concat(premiereLigne.map(elt => {
-        return elt.visible ? { texte: stringNombre(elt.nombre), math: true } : { texte: '...' }
+        return elt.visible ? { texte: texNombre(elt.nombre), math: true } : { texte: '...' }
       }))
       const ligne2 = [{ texte: 'Grandeur B' }].concat(deuxiemeLigne.map(elt => {
-        return elt.visible ? { texte: stringNombre(elt.nombre), math: true } : { texte: '...' }
+        return elt.visible ? { texte: texNombre(elt.nombre), math: true } : { texte: '...' }
       }))
       const monTableau = context.isAmc // EE : En AMC, les flèches ne passent pas. Je les supprime en attendant de trouver une solution.
         ? (listeTypesDeCoefficient[i] === 'Fraction'
@@ -202,7 +204,7 @@ export default class CalculerCoeffPropo extends Exercice {
           ligne2: ligne2Corr,
           flecheDroite: { texte: `\\times ${coefficientTex}`, latex: true },
           flecheDroiteSens: 'bas',
-          flecheGauche: { texte: `\\times ${coefficient.inverse().texFraction}`, latex: true },
+          flecheGauche: { texte: `\\times ${(coefficient as FractionEtendue).inverse().texFraction}`, latex: true },
           flecheGaucheSens: 'haut'
         })
         : new Tableau({
@@ -220,10 +222,13 @@ export default class CalculerCoeffPropo extends Exercice {
       texte += numAlpha(1) + 'Compléter le tableau de proportionnalité.<br>'
       // dessin du tableau selon le contexte
       // définition d'un objet pour les réponses attendues
-      const reponsesAttendue = { reponse1: {}, reponse2: {} }
+      const reponsesAttendue: { reponse1: { lettre: 'A' | 'B', colonne: number, reponse: { valeur: number, digits: number } }, reponse2: { lettre: 'A' | 'B', colonne: number, reponse: { valeur: number, digits: number } } } = {
+        reponse1: { lettre: 'A', colonne: 0, reponse: { valeur: 0, digits: 0 } },
+        reponse2: { lettre: 'B', colonne: 0, reponse: { valeur: 0, digits: 0 } }
+      }
       for (let colonne = 1, rep = 1; colonne < 4; colonne++) {
         if (colonne !== colonneReference + 1) {
-          reponsesAttendue[`reponse${rep.toString()}`] = {
+          reponsesAttendue[rep === 1 ? 'reponse1' : 'reponse2'] = {
             lettre: premiereLigne[colonne - 1].visible ? 'B' : 'A',
             colonne,
             reponse: premiereLigne[colonne - 1].visible
@@ -264,6 +269,7 @@ export default class CalculerCoeffPropo extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
+                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -296,6 +302,7 @@ export default class CalculerCoeffPropo extends Exercice {
               },
               {
                 type: 'AMCNum',
+                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -313,6 +320,7 @@ export default class CalculerCoeffPropo extends Exercice {
               },
               {
                 type: 'AMCNum',
+                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -339,7 +347,7 @@ export default class CalculerCoeffPropo extends Exercice {
         const quotient = new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
         if (!quotient.estIrreductible) {
           texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, 'blue')}`
-          texteCorr += `= ${miseEnEvidence(coefficient.texFraction)}$.<br>`
+          texteCorr += `= ${miseEnEvidence((coefficient as FractionEtendue).texFraction)}$.<br>`
         } else {
           texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`)}`
           texteCorr += '$.<br>'
@@ -353,14 +361,14 @@ export default class CalculerCoeffPropo extends Exercice {
         if (premiereLigne[colonne - 1].visible && colonne !== colonneReference + 1) { // on a la première valeur, on calcule donc la deuxième
           texteCorr += `Pour la colonne ${colonne}, on calcule : $${ligne1Corr[colonne].texte}\\times ${coefficientTex}=`
           if (coefficientRationnel) {
-            texteCorr += `\\dfrac{${ligne1Corr[colonne].texte}\\times ${coefficient.num}}{${coefficient.den}}=`
+            texteCorr += `\\dfrac{${ligne1Corr[colonne].texte}\\times ${(coefficient as FractionEtendue).num}}{${(coefficient as FractionEtendue).den}}=`
           }
           texteCorr += `${miseEnEvidence(ligne2Corr[colonne].texte)}$.`
         } else {
           if (colonne !== colonneReference + 1) {
-            texteCorr += `Pour la colonne ${colonne}, on calcule : $${ligne2Corr[colonne].texte}${coefficientRationnel ? '\\times' + coefficient.inverse().texFraction : '\\div' + coefficientTex}=`
+            texteCorr += `Pour la colonne ${colonne}, on calcule : $${ligne2Corr[colonne].texte}${coefficientRationnel ? '\\times' + (coefficient as FractionEtendue).inverse().texFraction : '\\div' + coefficientTex}=`
             if (coefficientRationnel) {
-              texteCorr += `\\dfrac{${ligne2Corr[colonne].texte}\\times ${coefficient.den}}{${coefficient.num}}=`
+              texteCorr += `\\dfrac{${ligne2Corr[colonne].texte}\\times ${(coefficient as FractionEtendue).den}}{${(coefficient as FractionEtendue).num}}=`
             }
             texteCorr += `${miseEnEvidence(ligne1Corr[colonne].texte)}$.`
           }
@@ -379,10 +387,11 @@ export default class CalculerCoeffPropo extends Exercice {
           else texteCorr += '}\n'
         }
         if (coefficientRationnel) {
-          texteCorr += `\\FlechesPG{2}{1}{$\\times ${coefficient.inverse().texFraction}$}\n`
+          texteCorr += `\\FlechesPG{2}{1}{$\\times ${(coefficient as FractionEtendue).inverse().texFraction}$}\n`
         }
         texteCorr += `\\FlechesPD{1}{2}{$\\times ${coefficientTex}$}`
         if (context.isAmc) {
+          // @ts-expect-error
           this.autoCorrection[i].propositions[0].propositions[0].texte = texteCorr
         }
       }

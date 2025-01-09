@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Remplir une facture'
 
 /**
@@ -31,14 +31,14 @@ export default class CompleterUneFacture extends Exercice {
   }
 
   nouvelleVersion () {
-    for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const listeArticles = [['Feuilletés au fromage', calculANePlusJamaisUtiliser(randint(50, 80) / 10)],
-        ['Feuilletés à la viande', calculANePlusJamaisUtiliser(randint(50, 80) / 10)],
-        ['Pizzas', calculANePlusJamaisUtiliser(randint(80, 140) / 10)],
-        ['Glaces à la vanille', calculANePlusJamaisUtiliser(randint(20, 60) / 10)],
-        ['Glaces au chocolat', calculANePlusJamaisUtiliser(randint(20, 60) / 10)],
-        ['Filets de saumon', calculANePlusJamaisUtiliser(randint(150, 200) / 10)],
-        ['Aiguillettes de poulet', calculANePlusJamaisUtiliser(randint(400, 700) / 10)]
+    for (let i = 0, article1, q1, p1: number, article2, q2, p2: number, article3, q3, p3:number, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const listeArticles:[string, number][] = [['Feuilletés au fromage', (randint(50, 80) / 10)],
+        ['Feuilletés à la viande', (randint(50, 80) / 10)],
+        ['Pizzas', (randint(80, 140) / 10)],
+        ['Glaces à la vanille', (randint(20, 60) / 10)],
+        ['Glaces au chocolat', (randint(20, 60) / 10)],
+        ['Filets de saumon', (randint(150, 200) / 10)],
+        ['Aiguillettes de poulet', (randint(400, 700) / 10)]
       ]
       article1 = choice(listeArticles)
       article2 = choice(listeArticles, [article1])
@@ -82,23 +82,21 @@ export default class CompleterUneFacture extends Exercice {
         texteCorr += '\\hline\n'
         texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calculANePlusJamaisUtiliser(p1 * q1))} \\\\ \n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(p1 * q1)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(calculANePlusJamaisUtiliser(p2 * q2))} \\\\ \n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(p2 * q2)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calculANePlusJamaisUtiliser(p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(p3 * q3)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Prix total (H.T.)} & & & ${texPrix(calculANePlusJamaisUtiliser(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{Prix total (H.T.)} & & & ${texPrix(p1 * q1 + p2 * q2 + p3 * q3)} \\\\ \n`
         texteCorr += '\\hline\\hline\n'
-        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calculANePlusJamaisUtiliser((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * 0.2)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calculANePlusJamaisUtiliser((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * 1.2)} \\\\ \n `
         texteCorr += '\\hline\n'
 
         texteCorr += '\\end{array}$'
-      }
-
-      if (this.sup === 2) {
+      } else {
         if (context.isHtml) {
           texte = '$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n'
         } else {
@@ -133,27 +131,27 @@ export default class CompleterUneFacture extends Exercice {
         texteCorr += '\\hline\n'
         texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calculANePlusJamaisUtiliser(p1 * q1))} \\\\ \n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(p1 * q1)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(calculANePlusJamaisUtiliser(p2 * q2))} \\\\ \n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(p2 * q2)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calculANePlusJamaisUtiliser(p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(p3 * q3)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${texPrix(calculANePlusJamaisUtiliser(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${texPrix(p1 * q1 + p2 * q2 + p3 * q3)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix(calculANePlusJamaisUtiliser((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
+        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * r / 100)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Prix total net (H.T.)} & & & ${texPrix(calculANePlusJamaisUtiliser((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
+        texteCorr += `\\text{Prix total net (H.T.)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100))} \\\\ \n`
         texteCorr += '\\hline\\hline\n'
-        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calculANePlusJamaisUtiliser((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calculANePlusJamaisUtiliser((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2)} \\\\ \n `
         texteCorr += '\\hline\n'
 
         texteCorr += '\\end{array}$'
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, p1, p2, p3)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -6,6 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine from '../../lib/interactif/comparisonFunctions'
+import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
@@ -77,7 +78,7 @@ export default class EgalitesEntreFractions extends Exercice {
       this.nbQuestions
     )
     for (
-      let i = 0, cpt = 0, fraction, a, b, c, d, k, choix, texte, texteCorr;
+      let i = 0, cpt = 0, fraction, a:number, b:number, c:number, d:number, k:number, choix, texte, texteCorr;
       i < this.nbQuestions && cpt < 50;
     ) {
       if (this.sup2 === 3) {
@@ -91,11 +92,8 @@ export default class EgalitesEntreFractions extends Exercice {
         fraction = listeFractions[i % listeFractions.length] //
         a = fraction[0]
         b = fraction[1]
-        if (this.modeQcm) {
-          k = randint(3, Math.max(this.sup, 4))
-        } else {
-          k = randint(2, Math.max(3, this.sup))
-        }
+
+        k = randint(2, Math.max(3, this.sup))
         c = k * a
         d = k * b
 
@@ -142,6 +140,7 @@ export default class EgalitesEntreFractions extends Exercice {
             }
             break
           case 1 :
+          default:
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
               const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
@@ -186,53 +185,65 @@ export default class EgalitesEntreFractions extends Exercice {
       } else {
         // écrire un entier sous la forme d'une fraction
         a = randint(1, 9)
-        if (this.interactif && !context.isAmc && this.interactif === 'qcm') {
+        b = 0 // Pour éviter un warning
+        if (this.interactif && !context.isAmc) {
           d = randint(3, 9, [a, 2 * a])
         } else {
           d = randint(2, 9)
         }
         c = a * d
 
-        const callback = (exercice, question) => {
+        const callback = (exercice: Exercice, question: number) => {
           let feedback
-          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
+          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
           const prompts = mfe.getPrompts()
-          const [num1, den1, champ3] = prompts.map(el => engine.parse(mfe.getPromptValue(el)).evaluate().numericValue)
+          const [num1, den1, champ3] = prompts.map(el => engine.parse(mfe.getPromptValue(el)).evaluate().numericValue) as number[]
           const num2 = choix === 0 ? champ3 : c
           const den2 = choix === 1 ? champ3 : d
+          if (num1 != null && den1 != null && num2 != null && den2 != null) {
+            const isOk1 = num1 * den2 === num2 * den1 && num1 * den1 * num2 * den2 !== 0
+            if (isOk1) {
+              mfe.setPromptState('champ1', 'correct', true)
+              mfe.setPromptState('champ2', 'correct', true)
+            } else {
+              mfe.setPromptState('champ1', 'incorrect', true)
+              mfe.setPromptState('champ2', 'incorrect', true)
+            }
+            const isOk2 = num2 === a * d
+            if (isOk2) {
+              mfe.setPromptState('champ3', 'correct', true)
+            } else {
+              mfe.setPromptState('champ3', 'incorrect', true)
+            }
+            feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
+            feedback += isOk2 ? '' : 'Le résultat final est faux.'
+            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+            if (spanReponseLigne != null) {
+              spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
+            }
 
-          const isOk1 = num1 * den2 === num2 * den1 && num1 * den1 * num2 * den2 !== 0
-          if (isOk1) {
-            mfe.setPromptState('champ1', 'correct', true)
-            mfe.setPromptState('champ2', 'correct', true)
+            const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
+            if (feedback != null && spanFeedback != null && feedback.length > 0) {
+              spanFeedback.innerHTML = '💡 ' + feedback
+              spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+            }
+            return {
+              isOk: isOk1 && isOk2,
+              feedback,
+              score: {
+                nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0),
+                nbReponses: 2
+              }
+            }
           } else {
-            mfe.setPromptState('champ1', 'incorrect', true)
-            mfe.setPromptState('champ2', 'incorrect', true)
-          }
-          const isOk2 = num2 === a * d
-          if (isOk2) {
-            mfe.setPromptState('champ3', 'correct', true)
-          } else {
-            mfe.setPromptState('champ3', 'incorrect', true)
-          }
-          feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
-          feedback += isOk2 ? '' : 'Le résultat final est faux.'
-          const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
-          if (spanReponseLigne != null) {
-            spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
-          }
-
-          const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
-          if (feedback != null && spanFeedback != null && feedback.length > 0) {
-            spanFeedback.innerHTML = '💡 ' + feedback
-            spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
-          }
-          return {
-            isOk: isOk1 && isOk2,
-            feedback,
-            score: {
-              nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0),
-              nbReponses: 2
+            window.notify('Un problème avec la récupération des saisies', { num1, den1, num2, den2, champ3 })
+            return {
+              isOk: false,
+              feedback: 'problème dans le programme',
+              score: {
+                nbBonnesReponses: 0,
+                nbReponses: 2
+              }
             }
           }
         }
@@ -283,6 +294,7 @@ export default class EgalitesEntreFractions extends Exercice {
             }
             break
           case 1 :
+          default:
             texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
               const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
@@ -343,6 +355,6 @@ export default class EgalitesEntreFractions extends Exercice {
   }
 }
 
-function stringTexFraction (a, b) {
+function stringTexFraction (a: number | string, b: number | string) {
   return `\\dfrac{${a}}{${b}}`
 }

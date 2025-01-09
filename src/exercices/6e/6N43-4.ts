@@ -22,17 +22,22 @@ export const refs = {
   'fr-fr': ['6N43-4'],
   'fr-ch': ['9NO4-3']
 }
+type ReponseType = [string, string]
+type ReponseTypeArray = ReponseType[]
 export default class DivisibleDiviseurMultiple extends Exercice {
+  setReponse: (i: number, listeBonnesReponses: ReponseTypeArray) => void
+  listeReponses: ReponseTypeArray[]
   constructor () {
     super()
 
     this.nbQuestions = 6 // 6 questions au maximum
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.listeReponses = []
 
-    this.setReponse = function (i, listeBonnesReponses) {
+    this.setReponse = function (i: number, listeBonnesReponses: ReponseTypeArray) {
       this.autoCorrection[i] = {}
-      this.autoCorrection[i].listeReponses = listeBonnesReponses
+      this.listeReponses[i] = listeBonnesReponses
     }
   }
 
@@ -131,23 +136,23 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  correctionInteractive = function (i) {
-    const select1 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i}`)
-    const select2 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i + 1}`)
+  correctionInteractive (i: number) {
+    const select1 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i}`) as HTMLSelectElement
+    const select2 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i + 1}`) as HTMLSelectElement
     let isOk = false
     let feedback = ''
     if (select1?.value != null && select2.value != null) {
       const choix1 = select1.value
       const choix2 = select2.value
       for (let possibilites = 0; possibilites < 2; possibilites++) {
-        if (choix1 === this.autoCorrection[i].listeReponses[possibilites][0] && choix2 === this.autoCorrection[i].listeReponses[possibilites][1]) {
+        if (choix1 === this.listeReponses[i][possibilites][0] && choix2 === this.listeReponses[i][possibilites][1]) {
           isOk = true
           break
         }
       }
-      if (!isOk && this.autoCorrection[i].listeReponses.length > 2) {
-        for (let possibilites = 2; possibilites < this.autoCorrection[i].listeReponses.length; possibilites++) {
-          if (choix1 === this.autoCorrection[i].listeReponses[possibilites][0] && choix2 === this.autoCorrection[i].listeReponses[possibilites][1]) {
+      if (!isOk && this.listeReponses[i].length > 2) {
+        for (let possibilites = 2; possibilites < this.listeReponses[i].length; possibilites++) {
+          if (choix1 === this.listeReponses[i][possibilites][0] && choix2 === this.listeReponses[i][possibilites][1]) {
             isOk = false
             feedback = 'C\'est vrai, mais c\'est sans rapport avec une des divisions posées.'
             break
@@ -159,13 +164,16 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     }
     const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
     if (spanReponseLigne == null) window.notify('Pas trouvé le spanReponseLigne dans 6N43-4', {})
-    if (isOk) {
-      spanReponseLigne.innerHTML = '😎'
-    } else {
-      spanReponseLigne.innerHTML = '☹️'
+    if (spanReponseLigne) {
+      if (isOk) {
+        spanReponseLigne.innerHTML = '😎'
+      } else {
+        spanReponseLigne.innerHTML = '☹️'
+      }
     }
+
     if (feedback !== '') {
-      const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${2 * i + 1}`)
+      const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${2 * i + 1}`) as HTMLDivElement
       divFeedback.innerHTML = feedback
       divFeedback.style.display = 'block'
     }

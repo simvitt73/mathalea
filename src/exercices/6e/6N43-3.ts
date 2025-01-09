@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sommeDesChiffres } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': ['9NO4-2']
 }
 
-function justification (N, a, booleen) {
+function justification (N:number, a:number, booleen: boolean) {
   let result
   if (booleen === true) {
     if (N === 2) {
@@ -37,7 +37,7 @@ function justification (N, a, booleen) {
     } else if (N === 10) {
       result = ', car son chiffre des unités est $0$.'
     } else {
-      result = `, car $${texNombre(a)} = ${N}\\times ${calculANePlusJamaisUtiliser(a / N)}$.`
+      result = `, car $${texNombre(a)} = ${N}\\times ${a / N}$.`
     }
   }
   if (booleen === false) {
@@ -78,14 +78,11 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
     let listeDeNDisponibles
     if (this.sup === 1) {
       listeDeNDisponibles = [2, 5]
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       listeDeNDisponibles = [2, 3, 5, 9]
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       listeDeNDisponibles = [7, 11, 13, 20, 30, 25]
-    }
-    if (this.sup === 4) {
+    } else {
       listeDeNDisponibles = [10]
     }
     const listeDeN = combinaisonListes(listeDeNDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -115,18 +112,21 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'
           texteCorr += justification(N, a, true)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[0].statut = true
           break
         case 'divisibleParN':
           texte = `$${texNombre(a)}$ est divisible par $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'
           texteCorr += justification(N, a, true)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[0].statut = true
           break
         case 'multipleDeN':
           texte = `$${texNombre(a)}$ est un multiple de $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'
           texteCorr += justification(N, a, true)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[0].statut = true
           break
         case 'NdiviseurF':
@@ -134,6 +134,7 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += justification(N, a, false)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[1].statut = true
           break
         case 'divisibleParNF':
@@ -141,6 +142,7 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           texte = `$${texNombre(a)}$ est divisible par $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += justification(N, a, false)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[1].statut = true
           break
         case 'multipleDeNF':
@@ -148,6 +150,7 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           texte = `$${texNombre(a)}$ est un multiple de $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += justification(N, a, false)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[1].statut = true
           break
         case 'NdiviseurEnvers':
@@ -155,6 +158,7 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += `, il faudrait plutôt dire $${N}$ est un diviseur de $${texNombre(a)}$`
           texteCorr += justification(N, a, true)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[1].statut = true
           break
         case 'divisibleParNEnvers':
@@ -162,13 +166,16 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += `, il faudrait plutôt dire $${texNombre(a)}$ est divisible par $${N}$`
           texteCorr += justification(N, a, true)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[1].statut = true
           break
         case 'multipleDeNEnvers':
+        default:
           texte = `$${N}$ est un multiple de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += `, il faudrait plutôt dire $${a}$ est un multiple de $${N}$`
           texteCorr += justification(N, a, true)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[1].statut = true
           break
       }

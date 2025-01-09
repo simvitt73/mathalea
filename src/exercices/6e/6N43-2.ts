@@ -36,9 +36,7 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
   }
 
   nouvelleVersion () {
-    this.modeQcm = this.interactif
-
-    if (!this.modeQcm) {
+    if (!this.interactif) {
       this.consigne =
         'Compléter le tableau en mettant oui ou non dans chaque case.'
     } else {
@@ -467,7 +465,7 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
       }
       const props = propositionsQcm(this, i)
 
-      if (!context.isAmc && this.modeQcm) {
+      if (!context.isAmc && this.interactif) {
         texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible par : `
         texte += props.texte
         texte += '<br>'
@@ -475,13 +473,13 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
     } // fin de boucle de préparation des question
     // mise en forme selon les cas de figures
     // l'enoncé
-    if (context.isHtml && !this.modeQcm) {
+    if (context.isHtml && !this.interactif) {
       texte = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
     }
-    if (!context.isHtml && !this.modeQcm) {
+    if (!context.isHtml && !this.interactif) {
       texte = '\n\n$\\begin{array}{|l|c|c|c|c|}\n'
     }
-    if (!context.isAmc && !this.modeQcm) {
+    if (!context.isAmc && !this.interactif) {
       texte += '\\hline\n'
       texte += '\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n'
       texte += '\\hline\n'

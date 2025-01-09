@@ -55,9 +55,9 @@ export default class LireUnDiagramme extends Exercice {
     let N = 0
     let nom
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
-    let lstAnimauxExo // liste des animaux uniquement cités dans l'exercice
+    let lstAnimauxExo: string[] // liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux // liste des effectifs de chaque animal
-    let lstVal = [] // liste des valeurs à éviter pour les effectifs
+    let lstVal:number[] = [] // liste des valeurs à éviter pour les effectifs
 
     let paramsEnonce, coef, r, lstElementGraph, g
     let reponse1, reponse2, nbMin, nbMax, monQcm1, monQcm2, monQcm3
@@ -211,7 +211,7 @@ export default class LireUnDiagramme extends Exercice {
           for (let i = 0; i < nbAnimaux; i++) {
             objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
           }
-          objets.push(...r.objets)
+          if (r.objets != null) objets.push(r.objets)
           paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
 
           break
@@ -257,7 +257,8 @@ export default class LireUnDiagramme extends Exercice {
             tailleDesPoints: 3
           })
 
-          objets.push(...r.objets, g)
+          if (r.objets != null) objets.push(r.objets)
+          objets.push(g)
 
           paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
 
@@ -322,16 +323,19 @@ export default class LireUnDiagramme extends Exercice {
          [
            {
              type: 'qcmMono',
+             // @ts-expect-error
              propositions: propositionsQcm1,
              enonce: texteAMC + `${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?`
            },
            {
              type: 'qcmMono',
+             // @ts-expect-error
              propositions: propositionsQcm2,
              enonce: `${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?`
            },
            {
              type: 'qcmMono',
+             // @ts-expect-error
              propositions: propositionsQcm3,
              enonce: `${numAlpha(2)} L'espèce la plus nombreuse représente ?`,
              options: { lastChoice: 2 }
