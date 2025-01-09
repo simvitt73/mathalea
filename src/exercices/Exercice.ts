@@ -109,6 +109,7 @@ export default class Exercice {
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number
+
   constructor () {
   // ////////////////////////////////////////////////
   // Autour de l'exercice
@@ -214,6 +215,8 @@ export default class Exercice {
   }
 
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
+
+  correctionInteractive? (i: number): string | string[]
 
   nouvelleVersion (numeroExercice?: number): void {
     console.info(numeroExercice)

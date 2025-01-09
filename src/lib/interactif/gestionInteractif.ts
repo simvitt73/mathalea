@@ -71,7 +71,7 @@ export type AnswerNormalizedType = {
 
 export interface Valeur {
   bareme?: (listePoints: number[]) => [number, number]
-  feedback?: (saisies: object) => string
+  feedback?: (saisies: Record<string, string>) => string
   reponse?: AnswerType
   champ1?: AnswerType
   champ2?: AnswerType

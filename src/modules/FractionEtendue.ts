@@ -1201,7 +1201,7 @@ class FractionEtendue {
   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
   * @return {object[]} objets mathalea2d
   */
-  representationIrred (x:number, y:number, rayon:number, depart:number = 0, type:FractionRepresentationType = 'gateau', couleur:string = 'gray', unite0:number = 0, unite1:number = 1, scale:number = 1, label:string = '') {
+  representationIrred (x:number, y:number, rayon:number, depart:number = 0, type:FractionRepresentationType = 'gateau', couleur:string = 'gray', unite0:number | string = 0, unite1:number | string = 1, scale:number = 1, label:string = '') {
     let num:number
     let k:number
     const objets = []
@@ -1357,7 +1357,7 @@ class FractionEtendue {
   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
   * @return {object[]}objets mathalea2d
   */
-  representation (x: number, y:number, rayon:number, depart: number = 0, type: FractionRepresentationType = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
+  representation (x: number, y:number, rayon:number, depart: number = 0, type: FractionRepresentationType = 'gateau', couleur = 'gray', unite0: String | number = 0, unite1:string | number = 1, scale = 1, label = '') {
     const objets = []
     let num: number
     let k: number

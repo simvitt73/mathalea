@@ -101,7 +101,9 @@ export default class FractionVersPourcentage extends Exercice {
       const num2 = mf.getPromptValue('champ3')
       const champ4 = mf.getPromptValue('champ4')
       // const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
-      const test1 = ce.parse(`\\frac{${num1.split('\\times')[0] * (num1.split('\\times')[1] ?? 1)}}{${den1.split('\\times')[0] * (den1.split('\\times')[1] ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
+      const test1 = num1.includes('\\times')
+        ? ce.parse(`\\frac{${num1.split('\\times')[0] * (num1.split('\\times')[1] ?? 1)}}{${den1.split('\\times')[0] * (den1.split('\\times')[1] ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
+        : ce.parse(`\\frac{${num1.split('\\div')[0] * (num1.split('\\div')[1] ?? 1)}}{${den1.split('\\div')[0] * (den1.split('\\div')[1] ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
       const test1Bis = ce.parse(den1).isEqual(ce.parse('100'))
       const test1Ter = den1 === '' || num1 === ''
       const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
