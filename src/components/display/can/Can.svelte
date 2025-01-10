@@ -39,6 +39,7 @@
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
   let resultsByQuestion: boolean[] = []
+  let answeredByQuestion: boolean[] = []
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
@@ -72,14 +73,14 @@
     }
   })
 
-  function checkAnswers () {
+  function checkResults () {
     for (let i = 0; i < questions.length; i++) {
       const exercice = exercises[indiceExercice[i]]
       const type = exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param?.formatInteractif
       if (type === 'mathlive' || type === 'fillInTheBlank') {
-        resultsByQuestion[i] =
-          verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
-            ?.isOk
+        const result = verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
+        resultsByQuestion[i] = !!result?.isOk
+        answeredByQuestion[i] = result?.feedback !== 'Vous devez saisir une réponse.'
         // Pour Capytale, on a besoin du score de l'exercice et non de la question
         // donc on sauvegarde le score dans l'exercice
         if (resultsByQuestion[i] && exercice.score !== undefined) { exercice.score++ }
@@ -123,6 +124,10 @@
         resultsByQuestion[i] = exercice.correctionInteractive!(i) === 'OK'
       }
     }
+  }
+
+  function checkAnswers () {
+    checkResults()
     // Désactiver l'interactivité avant l'affichage des solutions
     for (const param of exercises) {
       param.interactif = false
@@ -236,6 +241,8 @@
       {questions}
       {consignes}
       {checkAnswers}
+      {checkResults}
+      {answeredByQuestion}
     />
   {/if}
   {#if state === 'end'}

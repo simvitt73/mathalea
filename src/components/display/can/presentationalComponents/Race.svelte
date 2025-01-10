@@ -15,6 +15,8 @@
   export let state: CanState
   export let numberOfSeconds: number = 20
   export let checkAnswers: () => void
+  export let checkResults: () => void
+  export let answeredByQuestion: boolean[]
   let current: number = 0
   export let questions: string[]
   export let consignes: string[]
@@ -109,7 +111,8 @@
         timerComponent.terminateTimer()
       }}
       {state}
-      resultsByQuestion={[]}
+      {answeredByQuestion}
+      {checkResults}
     />
   </div>
   <Keyboard />

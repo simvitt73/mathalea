@@ -4,12 +4,16 @@
   import type { CanState } from '../../../../lib/types/can'
   import { Modal, initTE } from 'tw-elements'
   import ShortPagination from './ShortPagination.svelte'
+  import { lister } from '../../../../lib/outils/ecritures'
 
   export let current: number
   export let numberOfQuestions: number
   export let handleEndOfRace: () => void
+  export let checkResults: () => void
   export let state: CanState
-  export let resultsByQuestion: boolean[]
+  export let answeredByQuestion: boolean[]
+
+  let notAnwseredQuestionNumbers: number[] = []
 
   onMount(() => {
     initTE({ Modal })
@@ -20,6 +24,16 @@
       }
     }, 5 * 1000)
   })
+
+  function getNotAnwseredQuestionNumbers () {
+    const notAnwseredQuestionNumbers = []
+    for (let i = 0; i < numberOfQuestions; i++) {
+      if (!answeredByQuestion[i]) {
+        notAnwseredQuestionNumbers.push(i + 1)
+      }
+    }
+    return notAnwseredQuestionNumbers
+  }
 
   let direction
 
@@ -72,7 +86,7 @@
               : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
-    <ShortPagination {current} {state} {resultsByQuestion} />
+    <ShortPagination {current} {state} resultsByQuestion={[]} />
     <button
       type="button"
       on:click={() => {
@@ -114,6 +128,10 @@
         data-te-toggle="modal"
         data-te-target="#staticBackdrop"
         disabled
+        on:click={() => {
+          checkResults()
+          notAnwseredQuestionNumbers = getNotAnwseredQuestionNumbers()
+        }}
       >
         Rendre la copie
       </button>
@@ -181,6 +199,9 @@
             <i
               class="bx bxs-error text-coopmaths-warn-900 dark:text-coopmathsdark-warn-dark text-[70px]"
             ></i>
+          </div>
+          <div class="font-bold text-center">
+            Vous n'avez pas répondu aux questions {lister(notAnwseredQuestionNumbers)}.
           </div>
           <div>
             Si vous cliquez sur le bouton
