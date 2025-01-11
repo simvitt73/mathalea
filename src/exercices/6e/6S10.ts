@@ -4,7 +4,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
@@ -209,5 +209,6 @@ export default class LectureDiagrammeBaton extends Exercice {
       this.listeQuestions[1] += `<br>${qcm1.texte}`
       this.listeQuestions[2] += `<br>${qcm2.texte}`
     }
+    listeQuestionsToContenu(this)
   }
 }
