@@ -254,7 +254,7 @@ export default class Representerfonctionaffine extends Exercice {
     if (i === undefined) return 'KO'
     let result: 'OK' | 'KO' = 'KO'
     if (this.figures?.[i] == null) throw new Error('La figure n\'a pas été créée')
-    const figure = this.figures[i]
+    const figure = this.figures[i] as Figure
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[figure.id] = figure.json
