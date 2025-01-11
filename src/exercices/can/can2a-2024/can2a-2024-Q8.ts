@@ -54,7 +54,7 @@ export default class NomExercice extends Exercice {
         this.reponse = e / 4
       }
     }
-    this.canEnonce = this.questionn
+    this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
 }

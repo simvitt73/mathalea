@@ -2,7 +2,6 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer un coefficient multiplicateur ou un taux d\'évolution'
@@ -35,12 +34,12 @@ export default class NomExercice extends Exercice {
       this.canEnonce = 'Multiplier par $1,12$ revient à augmenter de : '
       this.canReponseACompleter = '$\\ldots\\,\\%$'
     } else {
-      const taux = new Decimal(randint(1, 29, [10, 20])).div(100)
-      const coeff = taux.add(1)
+      const taux = randint(1, 29, [10, 20]) / 100
+      const coeff = taux + 1
       if (choice([true, false])) {
         this.question = `Multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de : `
         this.correction = `Comme $${texNombre(coeff, 2)}=1+${texNombre(taux, 2)}$, multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de $${miseEnEvidence(texNombre(taux * 100, 0))}\\,\\%$. `
-        this.reponse = new Decimal(taux).mul(100)
+        this.reponse = Math.round(taux * 100)
         this.optionsChampTexte = { texteApres: '$\\%$' }
         if (!this.interactif) {
           this.question += '$\\ldots\\,\\%$'

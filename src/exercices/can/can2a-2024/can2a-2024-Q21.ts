@@ -67,7 +67,7 @@ export default class NomExercice extends Exercice {
       ymax = 5
       const objets = []
       objets.push(
-        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3, s4, s5, s6, s7, s8)
       this.reponse = new FractionEtendue(10, 4).texFraction
       this.question += mathalea2d({
@@ -128,7 +128,7 @@ export default class NomExercice extends Exercice {
         ymax = 5
         const objets = []
         objets.push(
-          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
           a, s1, s2, s3, s4, s5, s6)
         this.reponse = new FractionEtendue(7, b).texFraction
         this.question += mathalea2d({
@@ -171,7 +171,7 @@ export default class NomExercice extends Exercice {
         ymax = 5
         objets = []
         objets.push(
-          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
           a, s1, s2, s3, s4, s5)
         this.reponse = new FractionEtendue(7, b).texFraction
         this.question += mathalea2d({
@@ -214,7 +214,7 @@ export default class NomExercice extends Exercice {
         ymax = 5
         objets = []
         objets.push(
-          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
           a, s1, s2, s3, s4, s5)
         this.reponse = new FractionEtendue(7, b).texFraction
         this.question += mathalea2d({
@@ -257,7 +257,7 @@ export default class NomExercice extends Exercice {
         ymax = 5
         objets = []
         objets.push(
-          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
           a, s1, s2, s3, s4, s5)
         this.reponse = new FractionEtendue(5, b).texFraction
         this.question += mathalea2d({
@@ -300,7 +300,7 @@ export default class NomExercice extends Exercice {
         ymax = 5
         objets = []
         objets.push(
-          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
           a, s1, s2, s3, s4, s5)
         this.reponse = new FractionEtendue(5, b).texFraction
         this.question += mathalea2d({

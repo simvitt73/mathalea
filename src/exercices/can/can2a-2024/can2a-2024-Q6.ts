@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import Decimal from 'decimal.js'
 export const titre = 'Multiplier deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,14 +33,14 @@ export default class NomExercice extends Exercice {
       this.correction += `\n&= ${miseEnEvidence('0,06')}`
       this.correction += '\n\\end{aligned}$'
     } else {
-      const a = new Decimal(randint(1, 9)).div(10)
-      const b = new Decimal(randint(1, 9)).div(10)
-      this.reponse = a.mul(b)
+      const a = randint(1, 9) / 10
+      const b = randint(1, 9) / 10
+      this.reponse = (a * b).toFixed(2)
       this.question = `$${texNombre(a, 1)}\\times${texNombre(b, 1)}$`
       this.correction = 'On décompose le calcul pour le rendre plus simple mentalement :<br>'
       this.correction += `  $\\begin{aligned} ${texNombre(a, 1)}\\times${texNombre(b, 1)} &=${texNombre(a * 10, 0)}\\times 0,1\\times ${texNombre(b * 10, 0)}\\times 0,1\\\\`
       this.correction += ` &= ${texNombre(a * b * 100, 0)}\\times 0,01\\\\`
-      this.correction += `'\n&= ${miseEnEvidence(texNombre(this.reponse, 2))}`
+      this.correction += `'\n&= ${miseEnEvidence(texNombre(a * b, 2))}`
       this.correction += '\n\\end{aligned}$'
     }
     this.canEnonce = this.question

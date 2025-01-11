@@ -31,7 +31,7 @@ export default class NomExercice extends Exercice {
         this.question = `Compléter : <br>
       `
       }
-      this.correction = `Le nombre qui multiplié par $3$ donne $17$ est $${miseEnEvidence(this.reponse.texFraction)}$.
+      this.correction = `Le nombre qui multiplié par $3$ donne $17$ est $${miseEnEvidence(this.reponse)}$.
     `
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = '$3\\times \\ldots =17$'
@@ -45,7 +45,7 @@ export default class NomExercice extends Exercice {
         this.question = `Compléter : <br>
       `
       }
-      this.correction = `Le nombre qui multiplié par $${b}$ donne $${a}$ est $${miseEnEvidence(this.reponse.texFraction)}$.
+      this.correction = `Le nombre qui multiplié par $${b}$ donne $${a}$ est $${miseEnEvidence(this.reponse)}$.
       `
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = `$${b}\\times \\ldots =${a}$`
