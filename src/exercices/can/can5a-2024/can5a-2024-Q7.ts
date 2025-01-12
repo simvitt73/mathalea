@@ -1,14 +1,14 @@
 import Exercice from '../../Exercice'
-import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer une somme de deux décimaux'
+export const titre = 'Multiplier par $10$ ou $100$ ou ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '967e9'
+export const uuid = '93b90'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -26,23 +26,24 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    let reponse: number
     if (this.canOfficielle) {
-      this.reponse = '0,56'
-      this.question = '$0,4+0,16$ '
-      this.correction = `$0,4+0,16=${miseEnEvidence('0,56')}$`
+      reponse = 3087.2
+      this.question = `$308,72\\times 10 ${this.interactif ? '=' : ''}$ `
+      this.correction = `$308,72\\times 10=${miseEnEvidence(texNombre(reponse, 1))}$`
     } else {
-      const a = new Decimal(randint(12, 49, [20, 30, 40])).div(100)
-      const b = new Decimal(randint(31, 69, [40, 50, 60])).div(10)
-      this.reponse = new Decimal(a).add(b)
-      this.question = `$${texNombre(a, 2)}+${texNombre(b, 2)}$`
-      this.correction = ` $${texNombre(a, 2)}+${texNombre(b, 2)}=${miseEnEvidence(texNombre(this.reponse, 2))}$`
+      const d = randint(1, 9) / 10
+      const c = randint(1, 9) / 100
+      const a = randint(1, 9) + d + c
+      const k = choice([10, 100, 1000])
+      reponse = a * k
+      this.question = `$${texNombre(a, 3)}\\times ${texNombre(k, 0)} ${this.interactif ? '=' : ''}$`
+      this.correction = `$${texNombre(a, 3)}\\times ${k}=${miseEnEvidence(texNombre(a * k, 2))}$ `
       this.canEnonce = this.question
-      this.canReponseACompleter = '$\\ldots$'
+      this.canReponseACompleter = ''
     }
+    this.reponse = reponse.toFixed(2)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    if (this.interactif) {
-      this.question += ' $=$'
-    }
   }
 }

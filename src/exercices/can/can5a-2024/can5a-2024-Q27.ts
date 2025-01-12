@@ -9,7 +9,6 @@ import { afficheLongueurSegment } from '../../../lib/2d/codages'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import Decimal from 'decimal.js'
 export const titre = 'Déterminer la longueur d\'un segment'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,8 +30,9 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    let reponse: number
     const a = this.canOfficielle ? 8 : randint(7, 11) // longueur AC
-    const b = this.canOfficielle ? 5.1 : new Decimal(randint(19, 31, [20, 30])).div(10) // longueur AB
+    const b = this.canOfficielle ? 5.1 : randint(19, 31, [20, 30]) / 10 // longueur AB
     const A = point(0, 0, 'A', 'above')
     const B = point(2.5, 0, 'B', 'above')
     const C = point(a, 0, 'C', 'above')
@@ -52,9 +52,9 @@ export default class NomExercice extends Exercice {
     const objets = []
 
     objets.push(segAC, segDE, tracePoint(A, B, C), labelPoint(A, B, C),
-      texteParPosition(`$${texNombre(b, 1)}$`, milieu(A, B).x, 0.8, 'milieu', 'black', 1), afficheLongueurSegment(D, E, 'black', -0.5, ''))
+      texteParPosition(`$${texNombre(b, 1)}$`, milieu(A, B).x, 0.8, 0, 'black', 1), afficheLongueurSegment(D, E, 'black', -0.5, ''))
     if (this.canOfficielle) {
-      this.reponse = 2.9
+      reponse = 2.9
       this.question = mathalea2d({
         xmin,
         ymin,
@@ -68,7 +68,7 @@ export default class NomExercice extends Exercice {
       }, objets)
       this.correction = `$BC=8-5,1=${miseEnEvidence(texNombre(2.9))}$`
     } else {
-      this.reponse = new Decimal(a).sub(b)
+      reponse = a - b
       this.question = mathalea2d({
         xmin,
         ymin,
@@ -83,6 +83,7 @@ export default class NomExercice extends Exercice {
       this.correction = `$BC=${texNombre(a, 0)}-${texNombre(b, 1)}=${miseEnEvidence(texNombre(a - b, 1))}$`
     }
     this.canEnonce = this.question
+    this.reponse = reponse.toFixed(1)
     this.canReponseACompleter = 'BC $=\\ldots$'
     if (!this.interactif) {
       this.question += '<br> $BC =\\ldots$'

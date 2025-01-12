@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(3, 35)
+      this.reponse = new FractionEtendue(3, 35).texFraction
       this.question = '$\\dfrac{13}{35}-\\dfrac{2}{7}$    '
       this.correction = `Pour soustraire des fractions, on les met au même dénominateur.<br>
       Ainsi, <br><br>
@@ -40,7 +40,8 @@ export default class NomExercice extends Exercice {
       const a = choice(obtenirListeFractionsIrreductibles())
       const c = choice([2, 4])
       const b = new FractionEtendue(1, a.d * c)
-      this.reponse = new FractionEtendue(a.n * c - b.n, b.d)
+      const reponse = new FractionEtendue(a.n * c - b.n, b.d)
+      this.reponse = reponse.texFraction
       if (choice([true, false])) {
         this.question = `$${a.texFraction} - ${b.texFraction}$
        `
@@ -51,11 +52,12 @@ export default class NomExercice extends Exercice {
        &=\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}- ${b.texFraction}\\\\
       &=${a.reduire(c).texFraction} - ${b.texFraction}\\\\
       &=\\dfrac{${a.n * c}-${b.n}}{${b.d}}\\\\
-      &=${miseEnEvidence(this.reponse)}${this.reponse.texSimplificationAvecEtapes()}
+      &=${miseEnEvidence(reponse.texFraction)}${reponse.texSimplificationAvecEtapes()}
       \\end{aligned}$<br>
-      Par conséquent, $ ${a.texFraction}-${b.texFraction}= ${miseEnEvidence(new FractionEtendue(a.n * c - b.n, b.d).simplifie().texFraction)}$.`
+      Par conséquent, $ ${a.texFraction}-${b.texFraction}= ${miseEnEvidence(reponse.simplifie().texFraction)}$.`
       } else {
-        this.reponse = new FractionEtendue(b.n - a.n * c, b.d)
+        const reponse = new FractionEtendue(b.n - a.n * c, b.d)
+        this.reponse = reponse.texFraction
         this.question = `$ ${b.texFraction}-${a.texFraction}$`
         this.correction = `Pour soustraire des fractions, on les met au même dénominateur.
        <br>
@@ -63,12 +65,11 @@ export default class NomExercice extends Exercice {
        &= ${b.texFraction}-\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}\\\\
       &=${b.texFraction}-${a.reduire(c).texFraction}\\\\
       &=\\dfrac{${b.n}-${a.n * c}}{${b.d}}\\\\
-      &=${miseEnEvidence((this.reponse).texFraction)}${this.reponse.texSimplificationAvecEtapes()}
+      &=${miseEnEvidence(reponse.texFraction)}${reponse.texSimplificationAvecEtapes()}
       \\end{aligned}$<br>
-      Par conséquent, $ ${b.texFraction}-${a.texFraction}= ${miseEnEvidence(new FractionEtendue(b.n - a.n * c, b.d).simplifie().texFraction)}$.`
+      Par conséquent, $ ${b.texFraction}-${a.texFraction}= ${miseEnEvidence(reponse.simplifie().texFraction)}$.`
       }
     }
-    this.reponse = this.reponse.texFraction
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

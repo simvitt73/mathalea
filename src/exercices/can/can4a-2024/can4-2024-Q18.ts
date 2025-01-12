@@ -26,28 +26,29 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    let reponse: FractionEtendue
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(2, 3).oppose()
+      reponse = new FractionEtendue(2, 3).oppose()
       this.question = 'L\'opposé de $\\dfrac{2}{3}$ '
       this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
-      L'opposé de $\\dfrac{2}{3}$ est : $${miseEnEvidence(this.reponse.texFSD)}$.`
+      L'opposé de $\\dfrac{2}{3}$ est : $${miseEnEvidence(reponse.texFSD)}$.`
     } else {
       const listeFractions = [[1, 3], [1, 7], [5, 7], [3, 7],
         [5, 3], [7, 9], [7, 3], [4, 7], [7, 13], [1, 9]]
       const a = choice(listeFractions)
       if (choice([true, false])) {
-        this.reponse = new FractionEtendue(a[0], a[1]).oppose()
+        reponse = new FractionEtendue(a[0], a[1]).oppose()
         this.question = `L'opposé de $\\dfrac{${a[0]}}{${a[1]}}$ `
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
-        L'opposé de $\\dfrac{${a[0]}}{${a[1]}}$ est : $${miseEnEvidence(this.reponse.texFSD)}$.`
+        L'opposé de $\\dfrac{${a[0]}}{${a[1]}}$ est : $${miseEnEvidence(reponse.texFSD)}$.`
       } else {
-        this.reponse = new FractionEtendue(a[0], a[1]).inverse()
+        reponse = new FractionEtendue(a[0], a[1]).inverse()
         this.question = `L'inverse de $\\dfrac{${a[0]}}{${a[1]}}$ `
         this.correction = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
-        L'inverse de $\\dfrac{${a[0]}}{${a[1]}}$ est  $${miseEnEvidence(this.reponse.texFSD)}$ car $\\dfrac{${a[0]}}{${a[1]}}\\times ${this.reponse.texFSD}=1$.`
+        L'inverse de $\\dfrac{${a[0]}}{${a[1]}}$ est  $${miseEnEvidence(reponse.texFSD)}$ car $\\dfrac{${a[0]}}{${a[1]}}\\times ${reponse.texFSD}=1$.`
       }
     }
-    this.reponse = this.reponse.texFSD
+    this.reponse = reponse.texFSD
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

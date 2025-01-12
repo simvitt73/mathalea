@@ -4,7 +4,6 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -61,8 +60,8 @@ export default class NomExercice extends Exercice {
       Ainsi, l'abscisse du point $A$ est : $${miseEnEvidence(texNombre(1.25))}$.`
     } else {
       const choix = choice([true, false])
-      const a = new Decimal(choice(['0.25', '0.75', '1.25', '1.5', '1.75', '2.25', '2.75']))
-      const b = new Decimal(randint(1, 14, [5, 10])).mul(2).div(10)
+      const a = choice(['0.25', '0.75', '1.25', '1.5', '1.75', '2.25', '2.75'].map(Number))
+      const b = randint(1, 14, [5, 10]) / 5
       const d = droiteGraduee({
         Unite: 3,
         Min: 0,
@@ -71,7 +70,7 @@ export default class NomExercice extends Exercice {
         y: 0,
         thickDistance: 1,
         thickSec: true,
-        thickSecDist: choix ? '0.25' : '0.2',
+        thickSecDist: choix ? 0.25 : 0.2,
         thickOffset: 0,
         axeStyle: '->',
         pointListe: choix ? [[a, 'A']] : [[b, 'A']],
@@ -79,7 +78,7 @@ export default class NomExercice extends Exercice {
         pointStyle: 'x',
         labelsPrincipaux: true
       })
-      this.reponse = choix ? a : b
+      this.reponse = choix ? a.toFixed(2) : b.toFixed(2)
       this.question = mathalea2d({
         xmin: -1,
         ymin: -1.3,

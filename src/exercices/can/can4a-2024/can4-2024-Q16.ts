@@ -26,9 +26,9 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    const a = this.canOfficielle ? '-1' : randint(-10, -1)
-    const b = this.canOfficielle ? '2' : randint(2, 4)
-    const c = this.canOfficielle ? '3' : randint(2, 5)
+    const a = this.canOfficielle ? -1 : randint(-10, -1)
+    const b = this.canOfficielle ? 2 : randint(2, 4)
+    const c = this.canOfficielle ? 3 : randint(2, 5)
     this.reponse = (a * b) - c
     if (context.isHtml) {
       this.question = 'Nombre de départ <br>'

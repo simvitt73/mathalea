@@ -5,7 +5,6 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { point } from '../../../lib/2d/points'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -37,9 +36,9 @@ export default class NomExercice extends Exercice {
     const segAB = segment(A, B)
     segAB.styleExtremites = '->'
     const a = this.canOfficielle ? 2 : randint(1, 5) * 2
-    const k = this.canOfficielle ? new FractionEtendue(3, 2) : new FractionEtendue(choice([3, 5, 7, 9, 11]), 2)
+    const k = this.canOfficielle ? 3 / 2 : choice([3, 5, 7, 9, 11]) / 2
 
-    this.reponse = k.texFraction
+    this.reponse = k.toFixed(1)
     this.question = ' Complète. <br>'
     this.question += mathalea2d({ xmin: -1.6, ymin: -1, xmax: 5, ymax: 1, pixelsParCm: 30, scale: 0.7 }, labelPoint(A, B),
       latexParCoordonnees(this.interactif ? '\\times\\text{ ?}' : '\\times \\ldots', 1.5, 0.5, 'black', 1, 20, '', 8),
