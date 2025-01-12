@@ -25,10 +25,11 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    let reponse: FractionEtendue
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(5, 3)
+      reponse = new FractionEtendue(5, 3)
       this.question = 'Simplifie $\\dfrac{25}{15}$. '
-      this.correction = `$\\dfrac{25}{15}=\\dfrac{\\cancel{5}\\times 5}{\\cancel{5}\\times 3}=${miseEnEvidence(this.reponse)}$`
+      this.correction = `$\\dfrac{25}{15}=\\dfrac{\\cancel{5}\\times 5}{\\cancel{5}\\times 3}=${miseEnEvidence(reponse.texFraction)}$`
     } else {
       const k = randint(2, 5)
       const listeFractions = [[4, 15], [3, 11], [2, 9], [5, 11], [3, 13],
@@ -37,12 +38,13 @@ export default class NomExercice extends Exercice {
       const fraction = choice(listeFractions)
       const a = new FractionEtendue(fraction[0] * k, fraction[1] * k)
       const b = new FractionEtendue(fraction[0], fraction[1])
-      this.reponse = b
+      reponse = b
       this.question = `Simplifie au maximum $${a.texFraction}$.<br>
       `
-      this.correction = `$${a.texFraction}=\\dfrac{${fraction[0]}\\times \\cancel{${k}}}{${fraction[1]}\\times \\cancel{${k}}}=${miseEnEvidence(this.reponse.texFraction)}$
+      this.correction = `$${a.texFraction}=\\dfrac{${fraction[0]}\\times \\cancel{${k}}}{${fraction[1]}\\times \\cancel{${k}}}=${miseEnEvidence(reponse.texFraction)}$
       `
     }
+    this.reponse = reponse.texFraction
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dfrac{\\ldots}{\\ldots}$'
   }

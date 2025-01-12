@@ -26,12 +26,13 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    let reponse: FractionEtendue
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(4, 45)
+      reponse = new FractionEtendue(4, 45)
       this.question = '$\\dfrac{2}{5}\\div\\dfrac{9}{2}$'
       this.correction = `Diviser par un nombre revient à multiplier par  son inverse. L'inverse de $\\dfrac{9}{2}$ est 
       $\\dfrac{2}{9}$. <br>Ainsi, 
-      $\\dfrac{2}{5}\\div\\dfrac{9}{2}=\\dfrac{2}{5}\\times\\dfrac{2}{9}=${miseEnEvidence(this.reponse)}$.`
+      $\\dfrac{2}{5}\\div\\dfrac{9}{2}=\\dfrac{2}{5}\\times\\dfrac{2}{9}=${miseEnEvidence(reponse.texFraction)}$.`
     } else {
       const listeFractions = [[2, 3, 4, 5], [2, 3, 5, 7], [2, 9, 3, 8], [4, 5, 3, 2], [4, 3, 5, 7], [3, 5, 2, 9],
         [4, 7, 2, 3], [1, 5, 3, 7], [4, 5, 1, 3], [3, 4, 9, 7], [8, 7, 2, 3]]
@@ -40,7 +41,7 @@ export default class NomExercice extends Exercice {
       const b = frac[1]
       const c = frac[2]
       const d = frac[3]
-      this.reponse = new FractionEtendue(a * d, b * c)
+      reponse = new FractionEtendue(a * d, b * c)
 
       this.question = `$\\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}$`
       this.correction = `Diviser par un nombre revient à multiplier par  son inverse. L'inverse de $\\dfrac{${c}}{${d}}$ est 
@@ -48,12 +49,12 @@ export default class NomExercice extends Exercice {
        $\\begin{aligned}
        \\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}&=\\dfrac{${a}}{${b}}\\times \\dfrac{${d}}{${c}}\\\\
       &=\\dfrac{${a}\\times ${d}}{${b}\\times${c}}\\\\
-      &=${miseEnEvidence((this.reponse).texFraction)}
+      &=${miseEnEvidence(reponse.texFraction)}
       \\end{aligned}$<br>
-      Ainsi, $\\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}=${miseEnEvidence(new FractionEtendue(a * d, b * c).simplifie().texFraction)}$
+      Ainsi, $\\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}=${miseEnEvidence(reponse.simplifie().texFraction)}$
       `
     }
-    this.reponse = this.reponse.texFraction
+    this.reponse = reponse.texFraction
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
