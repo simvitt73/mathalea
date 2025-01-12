@@ -24,7 +24,7 @@ export default class Can2025N5Q8 extends ExerciceCan {
       b = choice([100, 1000])
     }
     this.reponse = (a * b).toFixed(1)
-    this.question = `$${texNombre(a, 2)}\\times ${b}$`
+    this.question = `$${texNombre(a, 3)}\\times ${b}$`
     this.correction = `Le nombre d'unité est rendu ${b === 100 ? 'cent fois' : 'mille fois'} plus grand, donc :<br>
     $${texNombre(a, 4)}\\times ${b} = ${miseEnEvidence(texNombre(a * b, 0))}$`
     this.canEnonce = this.question
