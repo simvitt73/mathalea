@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { spline } from '../../../lib/mathFonctions/Spline'
+import { Spline, spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
@@ -19,6 +19,7 @@ export const uuid = '325b5'
 
 */
 export default class NomExercice extends Exercice {
+  spline?: Spline
   constructor () {
     super()
     this.canOfficielle = false
@@ -28,7 +29,7 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    function aleatoiriseCourbe1 (listeFonctions) {
+    function aleatoiriseCourbe1 (listeFonctions: NoeudSpline[][]) {
       const choix = choice(listeFonctions)
       return choix.map((noeud) => Object({
         x: (noeud.x),
@@ -38,7 +39,7 @@ export default class NomExercice extends Exercice {
         isVisible: noeud.isVisible
       }))
     }
-    function aleatoiriseCourbe2 (listeFonctions) {
+    function aleatoiriseCourbe2 (listeFonctions: NoeudSpline[][]) {
       const coeffX = choice([-1, 1])// choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])// choice([-1, 1])
       const deltaX = randint(-2, +2)// randint(-2, +2) // translations
@@ -65,13 +66,12 @@ export default class NomExercice extends Exercice {
 
       ]
 
-      let bornes = {}
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const maFonction = [noeuds2]
       const nuage = aleatoiriseCourbe1(maFonction)
       const theSpline = spline(nuage)
       this.spline = theSpline
-      bornes = theSpline.trouveMaxes()
+      const bornes = theSpline.trouveMaxes()
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
@@ -118,12 +118,11 @@ export default class NomExercice extends Exercice {
 
       const mesFonctions = [noeuds1]// noeuds3,, noeuds2
 
-      let bornes = {}
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const nuage = aleatoiriseCourbe2(mesFonctions)
       const theSpline = spline(nuage)
       this.spline = theSpline
-      bornes = theSpline.trouveMaxes()
+      const bornes = theSpline.trouveMaxes()
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,

@@ -31,7 +31,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(13, 5).texFraction
       this.question = 'Abscisse du point $A$<br>'
-      this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, texteParPosition('A', 5.5, 0.9, 'milieu', 'blue', 1.5), droiteGraduee({
+      this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, texteParPosition('A', 5.5, 0.9, 0, 'blue', 1.5), droiteGraduee({
         Unite: 7,
         Min: 1.8,
         Max: 3.2,
@@ -39,7 +39,7 @@ export default class NomExercice extends Exercice {
         y: 0,
         thickSecDist: 1 / 5,
         thickSec: true,
-        thickoffset: 0,
+        thickOffset: 0,
         axeStyle: '->',
         pointListe: [[13 / 5, '']],
         pointCouleur: 'blue',
@@ -55,7 +55,7 @@ export default class NomExercice extends Exercice {
         const fracResultat = new FractionEtendue(a, 4)
         this.reponse = fracResultat.texFraction
         this.question = 'Determiner l\'abscisse du point $A$.<br>'
-        this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 4, 0.9, 'milieu', 'blue', 2), droiteGraduee({
+        this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 4, 0.9, 0, 'blue', 2), droiteGraduee({
           Unite: 3,
           Min: 0,
           Max: 3.2,
@@ -63,7 +63,7 @@ export default class NomExercice extends Exercice {
           y: 0,
           thickSecDist: 1 / 4,
           thickSec: true,
-          thickoffset: 0,
+          thickOffset: 0,
           axeStyle: '->',
           pointListe: [[a / 4, '']],
           pointCouleur: 'blue',
@@ -78,7 +78,7 @@ export default class NomExercice extends Exercice {
         const fracResultat = new FractionEtendue(a, 5)
         this.reponse = fracResultat.texFraction
         this.question = 'Determiner l\'abscisse du point $A$.<br>'
-        this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 5, 0.9, 'milieu', 'blue', 2), droiteGraduee({
+        this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 5, 0.9, 0, 'blue', 2), droiteGraduee({
           Unite: 3,
           Min: 0,
           Max: 3.2,
@@ -86,7 +86,7 @@ export default class NomExercice extends Exercice {
           y: 0,
           thickSecDist: 1 / 5,
           thickSec: true,
-          thickoffset: 0,
+          thickOffset: 0,
           axeStyle: '|->',
           pointListe: [[a / 5, '']],
           pointCouleur: 'blue',

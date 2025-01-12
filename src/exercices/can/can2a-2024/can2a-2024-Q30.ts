@@ -1,35 +1,36 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { spline } from '../../../lib/mathFonctions/Spline'
+import { Spline, spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes'
-import { texteGras } from '../../../lib/format/style'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Déterminer le nombre de solution d\'une équation graphiquement '
+
+export const titre = 'Déterminer le signe d\'une fonction graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '27a60'
+export const uuid = 'eb73a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 
 */
 export default class NomExercice extends Exercice {
+  spline?: Spline
   constructor () {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
   nouvelleVersion () {
-    function aleatoiriseCourbe1 (listeFonctions) {
+    function aleatoiriseCourbe1 (listeFonctions: NoeudSpline[][]) {
       const choix = choice(listeFonctions)
       return choix.map((noeud) => Object({
         x: (noeud.x),
@@ -39,7 +40,7 @@ export default class NomExercice extends Exercice {
         isVisible: noeud.isVisible
       }))
     }
-    function aleatoiriseCourbe2 (listeFonctions) {
+    function aleatoiriseCourbe2 (listeFonctions: NoeudSpline[][]) {
       const coeffX = choice([-1, 1])// choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])// choice([-1, 1])
       const deltaX = randint(-2, +2)// randint(-2, +2) // translations
@@ -53,7 +54,6 @@ export default class NomExercice extends Exercice {
         isVisible: noeud.isVisible
       }))
     }
-
     if (this.canOfficielle) {
       const noeuds2 = [{ x: -6, y: -0.5, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
         { x: -5, y: 0, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false },
@@ -67,13 +67,12 @@ export default class NomExercice extends Exercice {
 
       ]
 
-      let bornes = {}
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const maFonction = [noeuds2]
       const nuage = aleatoiriseCourbe1(maFonction)
       const theSpline = spline(nuage)
       this.spline = theSpline
-      bornes = theSpline.trouveMaxes()
+      const bornes = theSpline.trouveMaxes()
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
@@ -97,22 +96,22 @@ export default class NomExercice extends Exercice {
         color: 'blue'
       })
       const objetsEnonce = [repere1, courbe1]
-
-      const a = randint(-3, 4)
-      if (!context.isHtml) {
-        this.question = `Les questions ${texteGras(28)} à ${texteGras(30)} utilisent le  graphique d’une fonction $f$ tracée ci-dessous : <br>
-     `
-      } else { this.question = 'On donne le  graphique d’une fonction $f$ : <br>' }
-
-      this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
-      this.question += '<br>Nombre de solutions de l\'équation  $f(x)=2$<br>'
-      this.correction = 'Le nombre de solution de l\'équation $f(x)=2$ est le nombre de points d\'intersection entre la droite horizontale d\'équation $y=2$ et la courbe de $f$. <br>'
-
-      this.reponse = 2
-      this.correction += `La droite d'équation $y=${a}$ a un deux points d'intersection avec la courbe de $f$. <br>
-      Ainsi l'équation $f(x)=2$ a $${miseEnEvidence('2')}$ solutions.`
-
-      this.canEnonce = this.question// 'Compléter'
+      this.question = ''
+      if (context.isHtml) {
+        this.question = 'On donne le graphique d’une fonction $f$ : <br>'
+        this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)
+      }
+      this.question += 'Sur quel intervalle, $f$ est-elle positive ou nulle ?'
+      this.reponse = {
+        reponse: {
+          value: '[-5;2]',
+          options: { intervalle: true }
+        }
+      }
+      this.correction = `La fonction est positive ou nulle lorsque les images sont positives ou nulles.<br>
+    Graphiquement, les images sont positives ou nulles  lorsque la courbe se situe sur ou au-dessus  de l'axe des abscisses, soit sur l'intervalle  
+    $${miseEnEvidence('[-5\\,;\\,2]')}$.`
+      this.canEnonce = this.question
       this.canReponseACompleter = ''
     } else {
       const noeuds1 = [{ x: -3, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -127,12 +126,11 @@ export default class NomExercice extends Exercice {
 
       const mesFonctions = [noeuds1]// noeuds3,, noeuds2
 
-      let bornes = {}
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const nuage = aleatoiriseCourbe2(mesFonctions)
       const theSpline = spline(nuage)
       this.spline = theSpline
-      bornes = theSpline.trouveMaxes()
+      const bornes = theSpline.trouveMaxes()
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
@@ -148,41 +146,48 @@ export default class NomExercice extends Exercice {
         grilleSecondaireXMin: bornes.xMin - 1,
         grilleSecondaireXMax: bornes.xMax + 1
       })
-      const courbe2 = theSpline.courbe({
+      const courbe1 = theSpline.courbe({
         repere: repere1,
         epaisseur: 1.5,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
         color: 'blue'
       })
-      const objetsEnonce = [repere1, courbe2]
-
-      const a = randint(-3, 4)
-
-      this.question = `On donne le graphique d’une fonction $f$ : <br>
-      ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
-      this.question += `<br>Donner le nombre de solutions de l'équation  $f(x)=${a}$.<br>`
-      this.correction = `Le nombre de solution de l'équation $f(x)=${a}$ est le nombre de points d'intersection entre la droite d'équation $y=${a}$ et la courbe de $f$. <br>`
-
-      this.correction = `Le nombre de solution de l'équation $f(x)=${a}$ est le nombre de points d'intersection entre la droite d'équation $y=${a}$ et la courbe de $f$. <br>`
-      if (a === -3 || a === 3 || a === 0) {
-        this.reponse = 1
-        this.correction += `La droite horizontale d'équation $y=${a}$ a un seul point d'intersection avec la courbe de $f$. <br>
-        Ainsi l'équation $f(x)=${a}$ a $${miseEnEvidence(1)}$ solution.`
+      const objetsEnonce = [repere1, courbe1]
+      const choix = choice([true, false])
+      if (theSpline.y[0] > 0) { // le premier point a une ordonnée positive ---> courbe + puis -
+        this.reponse = choix ? `[${theSpline.x[0]};${theSpline.x[3]}]` : `[${theSpline.x[3]};${theSpline.x[6]}]`
+        this.question = `Sur quel intervalle, $f$ est-elle ${choix ? 'positive' : 'négative'} ou nulle ?<br>` +
+         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+        this.correction = `La fonction est ${choix ? 'positive' : 'négative'} ou nulle lorsque les images sont ${choix ? 'positives' : 'négatives'} ou nulles.<br>
+    Graphiquement, les images sont ${choix ? 'positives' : 'négatives'} ou nulles  lorsque la courbe se situe sur ou ${choix ? 'au-dessus' : 'en dessous'}  de l'axe des abscisses, soit sur l'intervalle  
+    ${choix ? `$${miseEnEvidence(`[${theSpline.x[0]}\\,;\\,${theSpline.x[3]}]`)}$` : `$${miseEnEvidence(`[${theSpline.x[3]}\\,;\\,${theSpline.x[6]}]`)}$`}
+    `
       }
-      if (a === -2 || a === -1 || a === 1 || a === 2) {
-        this.reponse = 2
-        this.correction += `La droite horizontale d'équation $y=${a}$ a deux points d'intersection avec la courbe de $f$. <br>
-          Ainsi l'équation $f(x)=${a}$ a $${miseEnEvidence(2)}$ solutions.`
+      if (theSpline.y[0] < 0) { // le premier point a une ordonnée négative ---> courbe - puis +
+        this.reponse = choix
+          ? {
+              reponse: {
+                value: `[${theSpline.x[0]};${theSpline.x[3]}]`,
+                options: { intervalle: true }
+              }
+            }
+          : {
+              reponse: {
+                value: `[${theSpline.x[3]};${theSpline.x[6]}]`,
+                options: { intervalle: true }
+              }
+            }
+        this.question = 'On donne le graphique d’une fonction $f$ : <br>'
+        this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+        this.question += `Sur quel intervalle,  $f$ est-elle ${choix ? 'négative' : 'positive'} ou nulle ? `
+        this.correction = `La fonction est ${choix ? 'négative' : 'positive'} ou nulle lorsque les images sont ${choix ? 'négatives' : 'positives'} ou nulles.<br>
+        Graphiquement, les images sont ${choix ? 'négatives' : 'positives'} ou nulles  lorsque la courbe se situe sur ou ${choix ? 'en dessous' : 'au-dessus'}  de l'axe des abscisses, soit sur l'intervalle  
+        ${choix ? `$${miseEnEvidence(`[${theSpline.x[0]}\\,;\\,${theSpline.x[3]}`)}]$` : `$${miseEnEvidence(`[${theSpline.x[3]}\\,;\\,${theSpline.x[6]}]`)}$`}
+        `
       }
-      if (a === 4) {
-        this.reponse = 0
-        this.correction += `La droite horizontale d'équation $y=${a}$ n'a aucun point d'intersection avec la courbe de $f$. <br>
-          Ainsi l'équation $f(x)=${a}$ a $${miseEnEvidence(0)}$ solution.`
-      }
-      this.optionsChampTexte = { texteApres: ' solution(s)' }
       this.canEnonce = this.question// 'Compléter'
-      this.canReponseACompleter = '$\\ldots$ solution(s)'
+      this.canReponseACompleter = ''
     }
   }
 }

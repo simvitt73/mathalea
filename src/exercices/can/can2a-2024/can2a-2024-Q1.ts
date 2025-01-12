@@ -38,7 +38,7 @@ export default class NomExercice extends Exercice {
       const b = couple[1] / 10
       this.reponse = new Decimal(a).mul(b)
       this.question = `$${a} \\times ${texNombre(b, 1)}$ `
-      this.correction = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(this.reponse, 1))}$`
+      this.correction = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(a * b, 1))}$`
       this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
       this.canReponseACompleter = ''
     }
