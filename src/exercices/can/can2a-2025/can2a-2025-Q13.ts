@@ -10,6 +10,10 @@ export const titre = 'Déterminer une image graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '1fa2d'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

@@ -10,6 +10,10 @@ export const titre = 'Calculer les coordonnées d\'un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '50ee5'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

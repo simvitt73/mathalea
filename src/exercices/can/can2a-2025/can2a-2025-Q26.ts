@@ -15,6 +15,10 @@ export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'b18a9'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
