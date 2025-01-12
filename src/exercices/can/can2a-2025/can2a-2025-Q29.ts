@@ -9,6 +9,10 @@ export const titre = 'Calculer les coordonnées d\'un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'e6edd'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

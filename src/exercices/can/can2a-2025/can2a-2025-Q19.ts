@@ -8,6 +8,10 @@ export const titre = 'Déterminer un taux global'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '3acb0'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
