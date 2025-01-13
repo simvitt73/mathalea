@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 export const titre = 'Ratios'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '3422z'
+export const uuid = '3422o'
 export const refs = {
   'fr-fr': [],
   'fr-ch': []

@@ -10,7 +10,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Calculer une longueur dans un triangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '97290'
+export const uuid = '97291'
 export const refs = {
   'fr-fr': [],
   'fr-ch': []
