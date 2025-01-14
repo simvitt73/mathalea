@@ -849,7 +849,7 @@ export class Grille extends ObjetMathalea2D {
     this.opacite = opacite
     this.objets = []
     let x = xmin
-    const nbStep = Math.round((xmax - xmin) / step)
+    let nbStep = Math.round((xmax - xmin) / step)
     for (let i = 0; i <= nbStep; i++) {
       const s = segment(x, ymin, x, ymax, color)
       x += step
@@ -860,6 +860,7 @@ export class Grille extends ObjetMathalea2D {
       this.objets.push(s)
     }
     let y = ymin
+    nbStep = Math.round((ymax - ymin) / step)
     for (let i = 0; i <= nbStep; i++) {
       const s = segment(xmin, y, xmax, y, color)
       y += step
