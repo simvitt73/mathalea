@@ -15,7 +15,7 @@ export const uuid = 'be5d4'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['TSG4-01'],
   'fr-ch': []
 }
 
@@ -27,7 +27,7 @@ export const refs = {
 export default class EquationsLog extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 5
+    this.nbQuestions = 2
     this.spacingCorr = 3
     this.comment = 'Déterminer une équation cartésienne d\'un plan'
     this.correctionDetailleeDisponible = false
