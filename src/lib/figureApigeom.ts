@@ -69,7 +69,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     if (oldZoom !== zoom) {
       oldZoom = zoom
       // console.log('zoom:' + idApigeom + ':' + zoom)
-      figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+      if (figure != null) figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
     }
   }
   document.addEventListener('zoomChanged', updateZoom)
