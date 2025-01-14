@@ -47,7 +47,7 @@ export default class CoefficientDeColinearite extends Exercice {
     const ymax = 5.3
     const objets = []
     objets.push(a, PositionPt, LabelsPt)
-    this.reponse = '-2'
+    this.reponse = { champ1: { value: '-2' } }
     this.consigne = mathalea2d({
       xmin,
       ymin,

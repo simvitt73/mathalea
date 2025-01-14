@@ -47,7 +47,7 @@ export default class VecteurEgal extends Exercice {
     const ymax = 5.3
     const objets = []
     objets.push(a, PositionPt, LabelsPt)
-    this.reponse = 'G'
+    this.reponse = { champ1: { value: 'G' } }
     this.consigne = mathalea2d({
       xmin,
       ymin,
