@@ -32,7 +32,7 @@ export default class DistributiviteNumerique extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     // Quelques fonctions pour factoriser le code
-    function avecLesPriorites (i, k, b, c, formeInitiale, operation) {
+    function avecLesPriorites (i:number, k:number, b:number, c:number, formeInitiale:'factorisee' | 'developpee', operation:number) {
       let sortie = 'bug'
       if (formeInitiale === 'factorisee') {
         sortie = `

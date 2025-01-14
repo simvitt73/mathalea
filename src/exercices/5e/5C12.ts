@@ -23,6 +23,7 @@ export const refs = {
   'fr-ch': ['9NO6-2']
 }
 export default class CalculerUneExpressionNumerique extends Exercice {
+  version: number
   constructor () {
     super()
     this.nbQuestions = 4
@@ -35,6 +36,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
     this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
     this.besoinFormulaire4CaseACocher = ['Calculs nommés avec des lettres', false]
+    this.version = 5
   }
 
   nouvelleVersion () {
@@ -45,8 +47,9 @@ export default class CalculerUneExpressionNumerique extends Exercice {
       max: 5,
       defaut: randint(2, 5),
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
-    })
+      saisie: this.sup,
+      melange: 0
+    }).map(Number)
 
     let expf
     let expn
@@ -60,14 +63,14 @@ export default class CalculerUneExpressionNumerique extends Exercice {
       decimal = 1
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte:string, texteCorr:string, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       nbOperations = listeTypeDeQuestions[i]
       if (this.version > 2 && nbOperations === 1) nbOperations++
-      resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2)
+      resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2, null)
       expf = resultats[0]
-      expn = resultats[1]
-      expc = resultats[2]
+      expn = resultats[1] as string
+      expc = resultats[2] as string
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
       this.consigne = 'Calculer en respectant les priorités opératoires'
       this.consigne += this.interactif ? '.' : ' et en détaillant.'
@@ -110,6 +113,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
+                // @ts-expect-error
                 propositions: [{
                   enonce: texte,
                   texte: texteCorr,
@@ -119,6 +123,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
               },
               {
                 type: 'AMCNum',
+                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -147,7 +152,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
   }
 }
 
-function addLetterInExpression (expression, i) {
+function addLetterInExpression (expression: string, i: number) {
   const letter = lettreDepuisChiffre(i) + ' = '
   const index = expression.indexOf('$') + 1
   return expression.slice(0, index) + letter + expression.slice(index)

@@ -40,7 +40,7 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
 
   nouvelleVersion () {
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
-    const celluleAlea = function (rang) {
+    const celluleAlea = function (rang: number) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
       const chiffre = Number(randint(1, rang)).toString()
       return lettre + chiffre
@@ -84,7 +84,7 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
 
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
-      result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
+      result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i]) as [number, number]
       const cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
       cible.taille = 0.6
       cible.opacite = 0.7

@@ -104,8 +104,8 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
 
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
-      let ensembleDeFacteurs = new Set(facteurs)
-      ensembleDeFacteurs = [...ensembleDeFacteurs] // tableau des facteurs sans répétition
+      const ensembleDeFacteursSet = new Set(facteurs)
+      const ensembleDeFacteurs = [...ensembleDeFacteursSet] // tableau des facteurs sans répétition
       let produitAvecPuissances = ''
       for (let k = 0; k < ensembleDeFacteurs.length; k++) {
         const facteur = ensembleDeFacteurs[k]
@@ -159,6 +159,7 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\n',
+          // @ts-expect-error
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }

@@ -14,6 +14,6 @@ export const refs = {
 export default class TransformationsDuPlanEtCoordonnees5e extends TransformationsDuPlanEtCoordonnees {
   constructor () {
     super()
-    this.sup = 2
+    this.sup = '2'
   }
 }

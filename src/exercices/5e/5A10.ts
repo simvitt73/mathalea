@@ -63,8 +63,9 @@ export default class ListeDesDiviseurs5e extends Exercice {
       defaut: 2,
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
-      shuffle: false
-    })
+      shuffle: false,
+      melange: 0
+    }).map(Number)
 
     const nombresDeDiviseursMax = gestionnaireFormulaireTexte({
       min: 2,
@@ -72,8 +73,9 @@ export default class ListeDesDiviseurs5e extends Exercice {
       defaut: 6,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
-      shuffle: false
-    })
+      shuffle: false,
+      melange: 0
+    }).map(Number)
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -82,7 +84,7 @@ export default class ListeDesDiviseurs5e extends Exercice {
       shuffle: false,
       melange: 3,
       defaut: 2
-    })
+    }).map(Number)
 
     // const typesDeQuestionsDisponibles = [1, 1, 2]
     const nbChiffresMax = combinaisonListesSansChangerOrdre(nombresDeChiffresMax, this.nbQuestions)
@@ -90,14 +92,14 @@ export default class ListeDesDiviseurs5e extends Exercice {
 
     // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     const listeDesMDejaTrouves = []
-    for (let i = 0, listeDiviseursM = [], nbDiviseursM, M, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, nbDiviseursM, M, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       if (nbDiviseursMax[i] > 10) {
         nbChiffresMax[i] = Math.min(nbChiffresMax[i], 3)
       }
       do {
         M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
-        listeDiviseursM = listeDesDiviseurs(M)
+        const listeDiviseursM = listeDesDiviseurs(M)
         nbDiviseursM = listeDiviseursM.length
       } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i] || listeDesMDejaTrouves.indexOf(M) !== -1)
       listeDesMDejaTrouves.push(M)
@@ -125,14 +127,14 @@ export default class ListeDesDiviseurs5e extends Exercice {
 
           if (nbDiviseursM % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
-              texte += texteOuPas(listeDesDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
+              texte += texteOuPas(String(listeDesDiviseurs(M)[m])) + ' & ' + texteOuPas(String(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)])) + `& ${texteOuPas(M.toString())} \\\\\n`
               texte += '\\hline\n'
             }
           } else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
             for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
-              texte += texteOuPas(listeDesDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
+              texte += texteOuPas(String(listeDesDiviseurs(M)[m])) + ' & ' + texteOuPas(String(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)])) + `& ${texteOuPas(M.toString())} \\\\\n`
             }
-            texte += texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2]) + `& ${texteOuPas(M)} \\\\\n`
+            texte += texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2].toString()) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2].toString()) + `& ${texteOuPas(M.toString())} \\\\\n`
             texte += '\\hline\n'
           }
           texte += '\\end{array}\n$'
@@ -172,6 +174,7 @@ export default class ListeDesDiviseurs5e extends Exercice {
           texteCorr += `${M} a donc ${nbDiviseursM} diviseurs qui sont : `
           break
         case 2: // liste des diviseurs
+        default:
           texte = ''
           if (this.interactif) {
             texte += `Écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>séparés par un point-virgule.</b>`
@@ -208,12 +211,13 @@ export default class ListeDesDiviseurs5e extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\n',
+          // @ts-expect-error
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
-      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texteCorr)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -231,7 +235,7 @@ export default class ListeDesDiviseurs5e extends Exercice {
  * @author Sébastien Lozano
  */
 
-function texteOuPas (texte) {
+function texteOuPas (texte: string) {
   const bool = randint(0, 1)
   if (bool === 0) {
     return '\\ldots'

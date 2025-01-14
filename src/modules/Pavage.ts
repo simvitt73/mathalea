@@ -1,7 +1,7 @@
-import { point, tracePoint } from '../lib/2d/points'
-import { barycentre, polygone, polygoneRegulier } from '../lib/2d/polygones'
+import { Point, point, TracePoint, tracePoint } from '../lib/2d/points'
+import { barycentre, Polygone, polygone, polygoneRegulier } from '../lib/2d/polygones'
 import { vecteur } from '../lib/2d/segmentsVecteurs'
-import { texteParPosition } from '../lib/2d/textes'
+import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
 import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { egal } from './outils'
@@ -11,21 +11,42 @@ import { egal } from './outils'
  * @author Jean-Claude Lhote
  * publié le 10/12/2020
  */
-export function Pavage () {
-  this.type = 1
-  this.polygones = []
-  this.barycentres = []
-  this.tracesCentres = []
-  this.numeros = []
-  this.coordonnees = []
-  this.Nx = 1
-  this.Ny = 1
-  this.echelle = 20
-  this.fenetre = {}
-  this.nb_polygones = 0
+export class Pavage {
+  type: number
+  polygones: Polygone[]
+  barycentres: Point[]
+  tracesCentres: TracePoint[]
+  numeros: TexteParPoint[]
+  coordonnees: number[][]
+  Nx: number
+  Ny: number
+  echelle: number
+  fenetre!: {
+    xmin: number,
+    xmax: number,
+    ymin: number,
+    ymax: number,
+    pixelsParCm: number,
+    scale: number
+  }
 
-  this.construit = function (type = 1, Nx = 1, Ny = 1, taille = 3) {
-    const nettoieObjets = function (objets) {
+  nb_polygones: number
+
+  constructor () {
+    this.type = 1
+    this.polygones = []
+    this.barycentres = []
+    this.tracesCentres = []
+    this.numeros = []
+    this.coordonnees = []
+    this.Nx = 1
+    this.Ny = 1
+    this.echelle = 20
+    this.nb_polygones = 0
+  }
+
+  construit (type = 1, Nx = 1, Ny = 1, taille = 3) {
+    const nettoieObjets = function (objets:Polygone[]) {
       let barywhite, baryblack // c'est drôle non ?
       for (let i = 0; i < objets.length; i++) {
         barywhite = barycentre(objets[i])
@@ -542,11 +563,11 @@ export function Pavage () {
       this.tracesCentres[i].opacite = 0.5
       this.tracesCentres[i].taille = 2
       this.coordonnees.push([this.barycentres[i].x, this.barycentres[i].y])
-      this.numeros.push(texteParPosition(nombreAvecEspace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50 / this.echelle, 0, true))
+      this.numeros.push(texteParPosition(nombreAvecEspace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 0, 'black', 50 / this.echelle, 'milieu', true) as TexteParPoint)
     }
   }
 }
 
-export function pavage () {
+export function pavage (): Pavage {
   return new Pavage()
 }

@@ -14,6 +14,6 @@ export default class TrouverLaTransformation5e extends TrouverLaTransformation {
     super()
     this.sup = 1
     this.nbQuestions = 1
-    this.besoinFormulaireNumerique = false
+    this.besoinFormulaireNumerique = []
   }
 }

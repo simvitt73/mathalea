@@ -143,7 +143,9 @@ export default class PremierOuPas5e extends Exercice {
           bonneReponse = 'non'
           break
         }
-        case 7: { // nombre premier inférieur à 29
+        case 7:
+        default:
+        { // nombre premier inférieur à 29
           // rang du nombre premier choisi
           const r = randint(0, cribleEratostheneN(29).length - 1)
           N = cribleEratostheneN(29)[r] // on choisit un nombre premier inférieur à 29
@@ -210,7 +212,7 @@ export default class PremierOuPas5e extends Exercice {
         texte += props.texte
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texteCorr)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -1,5 +1,5 @@
 import { codageMilieu } from '../../lib/2d/codages'
-import { tracePoint } from '../../lib/2d/points'
+import { Point, TracePoint, tracePoint } from '../../lib/2d/points'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
@@ -7,14 +7,15 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { rotationAnimee } from '../../modules/2dAnimation'
-import { pavage } from '../../modules/Pavage'
+import { Pavage, pavage } from '../../modules/Pavage'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import type { Polygone } from '../../lib/2d/polygones'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 export const interactifReady = true
@@ -55,7 +56,7 @@ export default class PavageEtDemiTour2D extends Exercice {
   nouvelleVersion () {
     this.sup = Number(this.sup)
     this.sup3 = Number(this.sup3)
-    const videcouples = function (tableau) {
+    const videcouples = function (tableau:[number, number][]):[number, number][] {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {
           if (tableau[k][1] === tableau[j][0]) {
@@ -65,7 +66,7 @@ export default class PavageEtDemiTour2D extends Exercice {
       }
       return tableau
     }
-    const videIdentite = function (tableau) {
+    const videIdentite = function (tableau:number[][]) {
       for (let k = 0; k < tableau.length; k++) {
         if (tableau[k][1] === tableau[k][0]) {
           tableau.splice(k, 1)
@@ -73,7 +74,7 @@ export default class PavageEtDemiTour2D extends Exercice {
       }
       return tableau
     }
-    const compare2polys = function (poly1, poly2) {
+    const compare2polys = function (poly1:Polygone, poly2:Polygone) {
       if (comparenbsommets(poly1, poly2)) {
         if (comparesommets(poly1, poly2)) {
           return true
@@ -84,18 +85,18 @@ export default class PavageEtDemiTour2D extends Exercice {
         return false
       }
     }
-    const comparenbsommets = function (poly1, poly2) {
+    const comparenbsommets = function (poly1:Polygone, poly2:Polygone) {
       if (poly1.listePoints.length === poly2.listePoints.length) {
         return true
       } else return false
     }
 
-    const compare2sommets = function (sommet1, sommet2) {
+    const compare2sommets = function (sommet1:Point, sommet2:Point) {
       if (egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)) {
         return true
       } else return false
     }
-    const comparesommets = function (poly1, poly2) {
+    const comparesommets = function (poly1:Polygone, poly2:Polygone) {
       let trouve = false
       let trouves = 0
       if (comparenbsommets(poly1, poly2)) {
@@ -122,7 +123,7 @@ export default class PavageEtDemiTour2D extends Exercice {
       } else return false
     }
 
-    const demitour = function (pavage, A, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
+    const demitour = function (pavage: Pavage, A:Point, numero: number) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       const poly = pavage.polygones[numero - 1]
       let pol
       const result = -1
@@ -136,7 +137,7 @@ export default class PavageEtDemiTour2D extends Exercice {
       return result
     }
 
-    const objets = []
+    const objets: ObjetMathalea2D[] = []
     const objetsCorrection = []
     let P1
     let P2
@@ -156,11 +157,11 @@ export default class PavageEtDemiTour2D extends Exercice {
     let Nx
     let Ny
     let index1
-    let A
-    let B
-    let d
+    let A!: Point
+    let B!: ObjetMathalea2D[]
+    let d!: TracePoint
     let image
-    let couples = []
+    let couples: [number, number][] = []
     let tailles = []
     let monpavage
     let fenetre
@@ -174,6 +175,7 @@ export default class PavageEtDemiTour2D extends Exercice {
     } else {
       typeDePavage = this.sup3
     }
+    monpavage = pavage()
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
@@ -212,8 +214,8 @@ export default class PavageEtDemiTour2D extends Exercice {
             couples.push([i, image])
           }
         }
-        couples = videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
-        couples = videIdentite(couples) // supprime tous les couples (x,x)
+        videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
+        videIdentite(couples) // supprime tous les couples (x,x)
         nombreTentatives++
       }
       if (couples.length < this.nbQuestions) {
@@ -229,10 +231,10 @@ export default class PavageEtDemiTour2D extends Exercice {
     }
 
     objets.push(d) // le centre est OK on pousse sa trace
-    objets.push(B) // et son label
+    objets.push(...B) // et son label
     couples = shuffle(couples) // on mélange les couples
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+      objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 0, 'gray', 1, 'milieu', true))
     }
     if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -253,7 +255,7 @@ export default class PavageEtDemiTour2D extends Exercice {
         t = this.nbQuestions * 3
         G1 = monpavage.barycentres[couples[i][0] - 1]
         G2 = monpavage.barycentres[couples[i][1] - 1]
-        P1 = translation(monpavage.polygones[couples[i][0] - 1], vecteur(0, 0)) // il faut créer un nouvel objet sinon on pointe vers le polygone du pavage qui est transparent !
+        P1 = translation(monpavage.polygones[couples[i][0] - 1], vecteur(0, 0)) as Polygone// il faut créer un nouvel objet sinon on pointe vers le polygone du pavage qui est transparent !
         P1.color = colorToLatexOrHTML(texcolors(i))
         P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P1.opaciteDeRemplissage = 0.5
@@ -264,7 +266,7 @@ export default class PavageEtDemiTour2D extends Exercice {
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         if (context.isHtml) {
-          P3 = rotationAnimee(P1, A, 180, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
+          P3 = rotationAnimee([P1], A, 180, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
           P3.color = colorToLatexOrHTML(texcolors(i))
           P3.epaisseur = 2
           objetsCorrection.push(P3)
