@@ -575,7 +575,6 @@ export class Arc extends ObjetMathalea2D {
     }
 
     if (this.hachures != null && typeof this.hachures === 'string') {
-      console.log(this.hachures)
       tableauOptions.push(
         pattern({
           motif: this.hachures,

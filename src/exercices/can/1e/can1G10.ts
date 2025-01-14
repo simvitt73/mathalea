@@ -39,7 +39,7 @@ export default class PointSurCercleTrigo extends Exercice {
     let choix
     const r = 5
     const O = point(0, 0, 'O', 'below left')
-    const o = texteParPosition('O', -0.4, -0.4, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.4, -0.4, 0, 'black', 1)
     const I = point(r, 0, 'I', 'right')
     const J = point(0, r, 'J', 'above')
     const K = point(-r, 0, 'K', 'left')
