@@ -59,7 +59,7 @@ export default class ProblemesAdditifsRelatifs5e extends Exercice {
       const currentPrenom = choice(prenoms)
 
       // une fonction pour écrire les chaine correctives
-      const myGainPerteString = function (nb, type, valeur) {
+      const myGainPerteString = function (nb:number, type: 'gain' | 'perte', valeur: number) {
         let sortie = ''
         switch (type) {
           case 'gain':
@@ -79,7 +79,7 @@ export default class ProblemesAdditifsRelatifs5e extends Exercice {
       }
 
       // une fonction pour dire si le bilan est positif ou négatif
-      const isBilanPositif = function (tot) {
+      const isBilanPositif = function (tot:number) {
         if (tot >= 0) {
           return true
         } else {

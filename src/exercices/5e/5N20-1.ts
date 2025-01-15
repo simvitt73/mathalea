@@ -99,7 +99,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
 
               texteCorr += `${new FractionEtendue(a * k, d).texFSD}+ ${new FractionEtendue(n * c, d).texFSD}=`
 
-              texteCorr += `${texFraction(a * k + '+' + n * c, d)}=${new FractionEtendue(a * k + n * c, d).texFSD}$`
+              texteCorr += `${texFraction(`${a * k}+${n * c}`, d.toString())}=${new FractionEtendue(a * k + n * c, d).texFSD}$`
             } else {
               texteCorr = `$${new FractionEtendue(c, d).texFSD}+ ${n} \\times ${new FractionEtendue(a, b).texFSD}=`
 
@@ -107,7 +107,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
 
               texteCorr += `${new FractionEtendue(c, d).texFSD}+ ${new FractionEtendue(n * a * k, d).texFSD}=`
 
-              texteCorr += `${texFraction(c + '+' + n * a * k, d)}=${new FractionEtendue(n * a * k + c, d).texFSD}$`
+              texteCorr += `${texFraction(c + '+' + n * a * k, d.toString())}=${new FractionEtendue(n * a * k + c, d).texFSD}$`
             }
             // Est-ce que le résultat est simplifiable ?
             if (this.sup3) {
@@ -145,7 +145,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
 
               texteCorr += `${new FractionEtendue(a * k, d).texFSD}- ${new FractionEtendue(n * c, d).texFSD}=`
 
-              texteCorr += `${texFraction(a * k + '-' + n * c, d)}=${new FractionEtendue(a * k - n * c, d).texFSD}$`
+              texteCorr += `${texFraction(`${a * k}-${n * c}`, d.toString())}=${new FractionEtendue(a * k - n * c, d).texFSD}$`
             } else {
               texteCorr = `$${new FractionEtendue(c, d).texFSD}- ${n} \\times ${new FractionEtendue(a, b).texFSD}=`
 
@@ -153,7 +153,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
 
               texteCorr += `${new FractionEtendue(c, d).texFSD}- ${new FractionEtendue(n * a * k, d).texFSD}=`
 
-              texteCorr += `${texFraction(c + '-' + n * a * k, d)}=`
+              texteCorr += `${texFraction(`${c}-${n * a * k}`, d.toString())}=`
 
               texteCorr += `${new FractionEtendue(c - n * a * k, d).texFSD}$`
             }
@@ -286,6 +286,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           }
           break
         case 'type4': // Calculs du type a/b - c/bk + e/b
+        default:
           if (this.sup4) {
             let max = 9
             while (a * k - c + e * k < 0) {
@@ -299,7 +300,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
 
           texteCorr = `$${new FractionEtendue(a, b).texFSD}-${new FractionEtendue(c, d).texFSD}+${new FractionEtendue(e, b).texFSD}=`
           texteCorr += `${new FractionEtendue(a * k, b * k).texFSD}-${new FractionEtendue(c, d).texFSD}+${new FractionEtendue(e * k, b * k).texFSD}=`
-          texteCorr += `${texFraction(a * k + '-' + c + '+' + e * k, d)}=`
+          texteCorr += `${texFraction(`${a * k}-${c}+${e * k}`, d.toString())}=`
           texteCorr += `${new FractionEtendue(a * k - c + e * k, d).texFSD}$`
           // Est-ce que le résultat est simplifiable ?
           if (this.sup3) {
@@ -315,8 +316,8 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           break
       }
       texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
-      if (!context.isAMC) {
-        handleAnswers(this, i, { reponse: { value: new FractionEtendue(reponse.num, reponse.den).simplifie().texFSD, compare: reponse.compare } })
+      if (!context.isAmc) {
+        handleAnswers(this, i, { reponse: { value: new FractionEtendue(reponse.num, reponse.den).simplifie().texFSD } })
       } else {
         // Ici mettre le code pour AMC
       }
@@ -343,11 +344,11 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
   }
 }
 
-function texFraction (n, d) {
+function texFraction (n:string, d:string) {
   return `\\dfrac{${n}}{${d}}`
 }
 
-function texFractionReduite (n, d) {
+function texFractionReduite (n:number, d:number) {
   const fraction = new FractionEtendue(n, d)
   return fraction.simplifie().texFSD
 }

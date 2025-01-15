@@ -29,7 +29,7 @@ export const refs = {
   'fr-fr': ['5R11'],
   'fr-ch': ['9NO9-1']
 }
-const changeCoord = function (x, abs0, pas1) {
+const changeCoord = function (x: number, abs0: number, pas1: number) {
   return (abs0 + (x - abs0) * 3 * pas1)
 }
 export default class LireAbscisseRelative extends Exercice {
@@ -76,6 +76,7 @@ export default class LireAbscisseRelative extends Exercice {
           break
 
         case 3: // Placer des décimaux relatifs sur un axe (3 décimales)
+        default:
           abs0 = randint(-6, -2) / 100
           pas1 = 100
           pas2 = 10
@@ -125,6 +126,7 @@ export default class LireAbscisseRelative extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [{
                 texte: '',
                 statut: '',
@@ -142,6 +144,7 @@ export default class LireAbscisseRelative extends Exercice {
             },
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [{
                 texte: '',
                 statut: '',
@@ -160,6 +163,7 @@ export default class LireAbscisseRelative extends Exercice {
             },
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [{
                 texte: '',
                 statut: '',

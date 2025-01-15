@@ -62,8 +62,8 @@ export default class ConstruireUnDiagramme extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let nom; let texte; let texteCorr
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
-    const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
-    const lstNombresAnimaux = [] // liste des effectifs de chaque animal
+    const lstAnimauxExo:string[] = [] // liste des animaux uniquement cités dans l'exercice
+    const lstNombresAnimaux: string[] = [] // liste des effectifs de chaque animal
 
     let paramsEnonce, paramsCorrection, coef, r, lstElementGraph, g
     const objetsEnonce = []
@@ -87,7 +87,7 @@ export default class ConstruireUnDiagramme extends Exercice {
     lstCoeffAnimaux.push(baseNombreAnimaux)
     const max = Math.floor(baseNombreAnimaux / nbAnimaux)
     for (let i = 0; i < nbAnimaux - 1; i++) {
-      let k1 = choice(rangeMinMax(2, max, lstCoeffAnimaux))
+      let k1:number = choice(rangeMinMax(2, max, lstCoeffAnimaux))
       if (k1 === undefined || k1 === null) {
         k1 = choice(rangeMinMax(2, max))
       }
@@ -101,18 +101,18 @@ export default class ConstruireUnDiagramme extends Exercice {
     switch (parseInt(this.sup2)) {
       case 1:
         for (let i = 0; i < nbAnimaux; i++) {
-          lstNombresAnimaux.push(lstCoeffAnimaux[i] * factor)
+          lstNombresAnimaux.push(String(lstCoeffAnimaux[i] * factor))
         }
         break
       case 2:
         for (let i = 0; i < nbAnimaux; i++) {
-          lstNombresAnimaux.push(lstCoeffAnimaux[i] * factor * 10)
+          lstNombresAnimaux.push(String(lstCoeffAnimaux[i] * factor * 10))
         }
         break
     }
     let effectiftotal = 0
     for (let i = 0; i < nbAnimaux; i++) {
-      effectiftotal += lstNombresAnimaux[i]
+      effectiftotal += Number(lstNombresAnimaux[i])
     }
     for (let i = 0; i < nbAnimaux; i++) {
       nom = choice(lstAnimaux, lstAnimauxExo) // choisit un animal au hasard sauf parmi ceux déjà utilisés
@@ -123,7 +123,7 @@ export default class ConstruireUnDiagramme extends Exercice {
     let emptyValues = []
     switch (listeTypeDeQuestions[0]) {
       case 1:
-        emptyValues = Array.apply(null, Array(2 * nbAnimaux)).map(function () { return ' ' })
+        emptyValues = Array(2 * nbAnimaux).map(function () { return ' ' })
         texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], lstNombresAnimaux.concat(emptyValues))}<br><br>`
         texte += 'Représenter ces données par un diagramme circulaire.<br><br>'
         entete.push('\\text{Totaux}')
@@ -133,11 +133,11 @@ export default class ConstruireUnDiagramme extends Exercice {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFractionFromString(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFractionFromString(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(Number(lstNombresAnimaux[i]) / effectiftotal, 2) + texNombre(Number(lstNombresAnimaux[i]) / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${texFractionFromString(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}^\\circ`)
+          contenutableau.push(`${texFractionFromString(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(Number(lstNombresAnimaux[i]) * 360 / effectiftotal, 0)} ${Math.round(Number(lstNombresAnimaux[i]) * 360 / effectiftotal)}^\\circ`)
         }
         contenutableau.push('360^\\circ')
 
@@ -157,7 +157,7 @@ export default class ConstruireUnDiagramme extends Exercice {
         objetsCorrection.push(t)
 
         for (let i = 0; i < nbAnimaux; i++) {
-          angle = 360 * lstNombresAnimaux[i] / effectiftotal
+          angle = 360 * Number(lstNombresAnimaux[i]) / effectiftotal
           a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
           hachures = motifs(listeMotifs[i])
           a.hachures = hachures
@@ -187,11 +187,11 @@ export default class ConstruireUnDiagramme extends Exercice {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFractionFromString(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFractionFromString(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(Number(lstNombresAnimaux[i]) / effectiftotal, 2) + texNombre(Number(lstNombresAnimaux[i]) / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${texFractionFromString(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}^\\circ`)
+          contenutableau.push(`${texFractionFromString(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(Number(lstNombresAnimaux[i]) * 180 / effectiftotal, 0)} ${Math.round(Number(lstNombresAnimaux[i]) * 180 / effectiftotal)}^\\circ`)
         }
         contenutableau.push('180^\\circ')
 
@@ -210,7 +210,7 @@ export default class ConstruireUnDiagramme extends Exercice {
         objetsCorrection.push(t)
 
         for (let i = 0; i < nbAnimaux; i++) {
-          angle = 180 * lstNombresAnimaux[i] / effectiftotal
+          angle = 180 * Number(lstNombresAnimaux[i]) / effectiftotal
           a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
           hachures = motifs(listeMotifs[i])
           a.hachures = hachures
@@ -248,7 +248,7 @@ export default class ConstruireUnDiagramme extends Exercice {
           xLabelListe: false,
           yUnite: 0.1 / coef,
           yThickDistance: 10 * coef,
-          yMax: Math.max.apply(null, lstNombresAnimaux) + 20 * coef,
+          yMax: Math.max.apply(null, lstNombresAnimaux.map(Number)) + 20 * coef,
           xMin: 0,
           xMax: 10,
           yMin: 0,
@@ -258,7 +258,7 @@ export default class ConstruireUnDiagramme extends Exercice {
 
         lstElementGraph = []
         for (let i = 0; i < nbAnimaux; i++) {
-          objetsCorrection.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
+          objetsCorrection.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), Number(lstNombresAnimaux[i]), premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
         }
         objetsCorrection.push(r)
         paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
@@ -285,7 +285,7 @@ export default class ConstruireUnDiagramme extends Exercice {
           xLabelListe: false,
           yUnite: 0.1 / coef,
           yThickDistance: 10 * coef,
-          yMax: Math.max.apply(null, lstNombresAnimaux) + 20 * coef,
+          yMax: Math.max.apply(null, lstNombresAnimaux.map(Number)) + 20 * coef,
           xMin: 0,
           xMax: 10,
           yMin: 0,
@@ -295,7 +295,7 @@ export default class ConstruireUnDiagramme extends Exercice {
 
         lstElementGraph = []
         for (let i = 0; i < nbAnimaux; i++) {
-          lstElementGraph.push([(i + 1) * 2, lstNombresAnimaux[i]])
+          lstElementGraph.push([(i + 1) * 2, Number(lstNombresAnimaux[i])])
           objetsCorrection.push(texteParPosition(lstAnimauxExo[i], (i + 1) * 2, -0.2, 66, 'black', 1, 'gauche'))
           objetsCorrection.push(segment((i + 1) * 2, -0.1, (i + 1) * 2, 0.1))
         }

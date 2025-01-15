@@ -87,6 +87,7 @@ export default class TermeInconnuDeSomme extends Exercice {
           break
 
         case 4:
+        default:
           if (this.interactif && !context.isAmc) {
             texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, '')}`
           } else {

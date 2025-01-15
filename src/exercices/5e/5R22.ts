@@ -58,7 +58,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
       sommesSignees = []
       a = -1
       b = choice([-1, 1])
-      if (a === -1 & b === -1) {
+      if (a === -1 && b === -1) {
         c = 1
       } else { // On s'assure que les 3 premières termes n'ont pas le même signe
         c = choice([-1, 1])
@@ -72,9 +72,9 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
       const s2 = choice([-1, 1])
       const s4 = choice([-1, 1])
       let s3
-      if (s1 === 1 & s2 === 1) { // On s'assure que les 3 premières opérations ne sont pas identiques
+      if (s1 === 1 && s2 === 1) { // On s'assure que les 3 premières opérations ne sont pas identiques
         s3 = -1
-      } else if (s1 === -1 & s2 === -1) {
+      } else if (s1 === -1 && s2 === -1) {
         s3 = 1
       } else {
         s3 = choice([-1, 1])
@@ -88,18 +88,18 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         relatifs = triePositifsNegatifs([a, b, c, d, e])
-        texteCorr = `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(a, 'blue', '#f15929')}${ecritureAlgebriquec(b)}${ecritureAlgebriquec(c)}${ecritureAlgebriquec(d)}${ecritureAlgebriquec(e)}$<br>`
+        texteCorr = `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(a, 'blue', '#f15929', 'black', 0)}${ecritureAlgebriquec(b)}${ecritureAlgebriquec(c)}${ecritureAlgebriquec(d)}${ecritureAlgebriquec(e)}$<br>`
         texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
         if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0 && sommeDesTermesParSigne([a, b, c, d, e])[1] !== 0) {
-          texteCorr += `${texNombreCoul(relatifs[0], 'blue', '#f15929')}${ecritureAlgebriquec(relatifs[1])}${ecritureAlgebriquec(relatifs[2])}${ecritureAlgebriquec(relatifs[3])}${ecritureAlgebriquec(relatifs[4])}$<br>`
+          texteCorr += `${texNombreCoul(relatifs[0], 'blue', '#f15929', 'black', 0)}${ecritureAlgebriquec(relatifs[1])}${ecritureAlgebriquec(relatifs[2])}${ecritureAlgebriquec(relatifs[3])}${ecritureAlgebriquec(relatifs[4])}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
-          texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929')}${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$<br>`
+          texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 0)}${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
-          texteCorr += `${texNombreCoul(a + b + c + d + e, 'blue', '#f15929')} $`
+          texteCorr += `${texNombreCoul(a + b + c + d + e, 'blue', '#f15929', 'black', 0)} $`
         } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) {
-          texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929')}$`
+          texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 0)}$`
         } else {
-          texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], 'blue', '#f15929')}$`
+          texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], 'blue')}$`
         }
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
@@ -114,7 +114,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
 
         relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
 
-        if (relatifs[0] > 0 & relatifs[4] < 0) {
+        if (relatifs[0] > 0 && relatifs[4] < 0) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(relatifs[2])}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
         }
         sommesSignees = sommeDesTermesParSigne([relatifs[0], relatifs[1], relatifs[2], relatifs[3], relatifs[4]])
@@ -142,6 +142,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
+                  // @ts-expect-error
                   propositions: [{
                     enonce: this.consigne + '<br>' + texte,
                     texte: texteCorr,
@@ -151,6 +152,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -181,6 +183,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
+                  // @ts-expect-error
                   propositions: [{
                     enonce: this.consigne + '<br>' + texte,
                     texte: texteCorr,
@@ -190,6 +193,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
                 },
                 {
                   type: 'AMCNum',
+                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     statut: '',

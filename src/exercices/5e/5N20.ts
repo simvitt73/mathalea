@@ -1,6 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
@@ -38,6 +37,7 @@ export const refs = {
   'fr-ch': ['9NO13-6']
 }
 export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercice {
+  level: number
   constructor () {
     super()
     this.sup = 11 // Correspond au facteur commun
@@ -49,6 +49,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
     this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
     this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Mélange']
     this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+    this.level = 5
   }
 
   nouvelleVersion () {
@@ -91,7 +92,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
       const f1 = new FractionEtendue(a, b)
       const f2 = new FractionEtendue(c, d)
       if (listeTypeDeQuestions[i] === '+') { // une addition
-        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+        if (!context.isAmc || (this.interactif && this.interactifType === 'qcm')) {
           /** ***************** Choix des réponses du QCM ***********************************/
           this.autoCorrection[i].propositions = [
             {
@@ -118,6 +119,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
+          // @ts-expect-error
             this.autoCorrection[i].propositions[0].texte = `$${fraction(a + c, b).texFraction}$`
           }
           /*************************************************************************/
@@ -156,7 +158,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
             texteCorr += `$=\\dfrac{${(a * k + c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((a * k + c) / s, d / s).texFractionSimplifiee}$`
           }
         }
-        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+        if (!context.isAmc || (this.interactif && this.interactifType === 'qcm')) {
           const props = propositionsQcm(this, i)
           texte += '<br>' + props.texte
         }
@@ -165,7 +167,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
-        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+        if (!context.isAmc || (this.interactif && this.interactifType === 'qcm')) {
           this.autoCorrection[i].propositions = [
             {
               texte: this.sup3 ? `$${fraction(Math.abs(a * k - c), Math.abs(d)).texFractionSimplifiee}$` : `$${fraction(Math.abs(a * k - c), Math.abs(d)).texFraction}$`,
@@ -191,6 +193,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
+          // @ts-expect-error
             this.autoCorrection[i].propositions[0].texte = `$${fraction(Math.abs(a - c), b).texFraction}$`
           }
 
@@ -224,13 +227,13 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
           s = pgcd(Math.abs(a * k - c), d)
-          if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
-            texteCorr += `$=${texNombre(abs(a * k - c) / d, 0)}$`
+          if (Math.abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
+            texteCorr += `$=${texNombre(Math.abs(a * k - c) / d, 0)}$`
           } else if (s !== 1) {
-            texteCorr += `$=\\dfrac{${abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
+            texteCorr += `$=\\dfrac{${Math.abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((Math.abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
           }
         }
-        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+        if (!context.isAmc || (this.interactif && this.interactifType === 'qcm')) {
           const props = propositionsQcm(this, i)
           texte += '<br>' + props.texte
         }

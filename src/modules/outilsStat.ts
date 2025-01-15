@@ -10,7 +10,7 @@ import { texNombre } from '../lib/outils/texNombre'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import FractionEtendue from './FractionEtendue'
 
-function underbraceMediane (nbVal) {
+function underbraceMediane (nbVal:number) {
   let sortie
   if (nbVal % 2 === 0) { // nb pair de valeurs
     sortie = `$\\underbrace{1^e\\hspace{0.25cm}2^e ... ${nbVal / 2 - 1}^e}_{${nbVal / 2 - 1}\\; valeurs} \\hspace{0.25cm} ${nbVal / 2}^e \\hspace{0.25cm} ${nbVal / 2 + 1}^e \\hspace{0.25cm} \\underbrace{${nbVal / 2 + 2}^e ... ${nbVal}^e}_{${nbVal / 2 - 1}\\; valeurs}$`
@@ -20,7 +20,7 @@ function underbraceMediane (nbVal) {
   return sortie
 }
 
-function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Catégories', 'Scores', 'Nombre d\'apparitions', 'Nombre d\'apparitions cumulées']) {
+function desTabEffCumul (tirages: number[][], effCumulBool: boolean, categories:string[] = [], lignes = ['Catégories', 'Scores', 'Nombre d\'apparitions', 'Nombre d\'apparitions cumulées']) {
   let sortie
   if (!effCumulBool) {
     sortie = ''
@@ -189,7 +189,7 @@ function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Cat�
   return sortie
 }
 
-function computeMoyenne (notes) {
+function computeMoyenne (notes: number[]):[string, number] {
   let somme = 0
   for (let j = 0; j < notes.length; j++) {
     somme += notes[j]
@@ -198,7 +198,7 @@ function computeMoyenne (notes) {
   return [texFractionFromString(somme, notes.length), somme]
 }
 
-function computeMediane (notes) {
+function computeMediane (notes:number[]):[number | number[], number] {
   const notesRangees = notes.sort((a, b) => a - b)
   let mediane
   if (notes.length % 2 === 0) { // attention les indices commencent à 0 !
@@ -211,7 +211,7 @@ function computeMediane (notes) {
   return [mediane, medianeCorr]
 }
 
-function computeEtendue (notes) {
+function computeEtendue (notes:number[]):[number, number] {
   let min = notes[0]
   let max = notes[0]
   for (let j = 1; j < notes.length; j++) { // On cherche la note minimum et la note maximum
@@ -221,7 +221,7 @@ function computeEtendue (notes) {
   return [min, max]
 }
 
-function computeMoyenneTirages2D (tirages) {
+function computeMoyenneTirages2D (tirages: number[][]):[string, number, number] {
   let somme = 0
   let effectif = 0
   for (let k = 0; k < tirages.length; k++) {
@@ -231,7 +231,7 @@ function computeMoyenneTirages2D (tirages) {
   return [texFractionFromString(somme, effectif), somme, effectif]
 }
 
-function computeMedianeTirages2D (nombreTirages, tirages) {
+function computeMedianeTirages2D (nombreTirages:number, tirages: number[][]):[number[], number] {
   const scoresMedians = []
   let medianeCorr // pour la correction statique
   if (nombreTirages % 2 === 0) {
@@ -275,7 +275,7 @@ function computeMedianeTirages2D (nombreTirages, tirages) {
   return [scoresMedians, medianeCorr]
 }
 
-function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes') {
+function texteCorrMoyenneNotes (notesSeries: number[] | number[][], somme: number, nombreNotes: number, notes = 'notes') {
   const data = [
     ['notes', 'la moyenne des notes', ''],
     ['lancers', 'la moyenne des lancers', ''],
@@ -289,20 +289,21 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
   let texteCorr = ''
   if (notesSeries !== undefined && notesSeries instanceof Array && notesSeries.length > 0 && notesSeries[0] instanceof Array && notesSeries[0].length > 0) {
     // tableau à deux entrées
+    const noteSeries = notesSeries as number[][]
     texteCorr += '$\\text{Moyenne} = '
     texteCorr += `\\dfrac{${notesSeries[0][0]} \\times ${notesSeries[0][1]}`
     let eff = `${notesSeries[0][1]}`
     for (let j = 1; j < notesSeries.length; j++) {
       if (notesSeries.length < 10) {
-        texteCorr += `+ ${notesSeries[j][0]} \\times ${notesSeries[j][1]}`
-        eff += `+ ${notesSeries[j][1]}`
+        texteCorr += `+ ${noteSeries[j][0]} \\times ${noteSeries[j][1]}`
+        eff += `+ ${noteSeries[j][1]}`
       } else {
-        if (j < 3) texteCorr += `+ ${notesSeries[j][0]} \\times ${notesSeries[j][1]}`
-        if (j < 3) eff += `+ ${notesSeries[j][1]}`
+        if (j < 3) texteCorr += `+ ${noteSeries[j][0]} \\times ${noteSeries[j][1]}`
+        if (j < 3) eff += `+ ${noteSeries[j][1]}`
         if (j === 3) texteCorr += '+ \\ldots '
         if (j === 3) eff += '+ \\ldots '
-        if (j + 3 >= notesSeries.length) texteCorr += `+ ${notesSeries[j][0]} \\times ${notesSeries[j][1]}`
-        if (j + 3 >= notesSeries.length) eff += `+ ${notesSeries[j][1]}`
+        if (j + 3 >= noteSeries.length) texteCorr += `+ ${noteSeries[j][0]} \\times ${noteSeries[j][1]}`
+        if (j + 3 >= noteSeries.length) eff += `+ ${noteSeries[j][1]}`
       }
     }
     texteCorr += `}{${eff}}=\\dfrac{${texNombre(somme, 0)}}{${texNombre(nombreNotes, 0)}}$. <br>`
@@ -331,7 +332,7 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
   return texteCorr
 }
 
-function texteCorrEtendueNotes (min, max, note = 'note') {
+function texteCorrEtendueNotes (min: number, max: number, note = 'note') {
   const data = [
     ['note', 'La note la plus basse', 'La note la plus haute', ''],
     ['lancer', 'Le résultat du lancer le plus faible', 'Le résultat du lancer le plus élevé', ''],
@@ -345,16 +346,16 @@ function texteCorrEtendueNotes (min, max, note = 'note') {
   return texteCorr + '<br>'
 }
 
-function texteCorrMedianeTemperatures (temperatures, medianeCorr, scoresMedians) {
+function texteCorrMedianeTemperatures (temperatures: number[], medianeCorr:number, scoresMedians:[number, number]) {
   return texteCorrMedianeNotes(temperatures, medianeCorr, scoresMedians, 'température')
 }
 
-function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note') {
+function texteCorrMedianeNotes (notes:number[], medianeCorr: number, scoresMedians:[number, number], note = 'note') {
   const data = [
     ['note', '', '', ''],
     ['température', ' $\\mathbf{^\\circ\\text{C}}$', '', '']
   ]
-  const noteStr = data.find(el => el[0] === note) || ['', '', '', '']
+  const noteStr = data.find(el => el[0] === 'note') || ['', '', '', '']
   let texteCorr = `Au total, il y a $${notes.length}$ ${noteStr[0]}s. `
   if (notes.length % 2 === 0) {
     texteCorr += `Le nombre de ${noteStr[0]}s est pair.<br>`
@@ -411,13 +412,13 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
   return texteCorr
 }
 
-function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMedians, salaires, categories, salaire = 'salaire') {
+function texteCorrMedianeTirages2DSalaires (nombreTirages: number, medianeCorr: number, scoresMedians:[number, number], salaires: number[][], categories: string[], salaire = 'salaire') {
   const data = [
     ['note', 'F', 'la médiane des notes', '', `Le nombre de notes est $${nombreTirages}$.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectif cumulé']],
     ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégorie', 'Salaire en €', 'Effectif', 'Effectif cumulé']],
     ['pointure', 'M', 'la pointure médiane', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectif cumulé']]
   ]
-  const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '', '', '']
+  const salairesStr = data.find(el => el[0] === 'salaire') ?? ['', '', '', '', '', '']
 
   let texteCorr = salairesStr[4] + '<br>'
   if (nombreTirages % 2 === 0) {
@@ -426,7 +427,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
               En effet, ${underbraceMediane(nombreTirages)} <br>
               Une médiane peut être la demi-somme des deux valeurs centrales. <br>
               On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
-              ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>
+              ${desTabEffCumul(salaires, true, categories, salairesStr[5] as string[])}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où ${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
@@ -440,7 +441,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
                   En effet, ${underbraceMediane(nombreTirages)} <br>
                   La médiane est donc la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
-                  ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>`
+                  ${desTabEffCumul(salaires, true, categories, salairesStr[5] as string[])}<br><br>`
     texteCorr += `D'où ${salairesStr[2]} est $${miseEnEvidence(texNombre(medianeCorr))}$ ${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
@@ -451,7 +452,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
   return texteCorr
 }
 
-function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, tirages) {
+function texteCorrMedianeTirages2D (nombreTirages: number, medianeCorr: number, scoresMedians:[number, number], tirages: number[][]) {
   let texteCorr = `Au total, $${nombreTirages}$ lancers ont été réalisés.<br>`
   if (nombreTirages % 2 === 0) {
     texteCorr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
@@ -484,7 +485,7 @@ function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, t
   return texteCorr
 }
 
-function texteNotes (notes) {
+function texteNotes (notes: number[]) {
   let texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`
   texte += `$${notes[0]}$`
   for (let j = 1; j < notes.length - 1; j++) {
@@ -494,7 +495,7 @@ function texteNotes (notes) {
   return texte
 }
 
-function texteTemperatures (annee, mois, temperatures) {
+function texteTemperatures (annee: number, mois: number, temperatures: number[]) {
   let texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes : <br>`
   texte += '<br>$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
   texte += '|c'
@@ -528,7 +529,7 @@ function texteTemperatures (annee, mois, temperatures) {
   return texte
 }
 
-function texteSalaires (salaires, categoriesCol, salaire = 'salaires') {
+function texteSalaires (salaires: number[][], categoriesCol:string[], salaire = 'salaires') {
   const data = [
     ['salaires', 'La grille des salaires des employés d\'une PME est donnée par le tableau ci-dessous', ['Catégories', 'Salaires en €', 'Effectif']],
     ['notes', `Voici les notes obtenues par ${prenom()} en mathématiques cette année`, ['', 'Note', 'Effectif']],
@@ -536,11 +537,11 @@ function texteSalaires (salaires, categoriesCol, salaire = 'salaires') {
   ]
   const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '']
   let texte = salairesStr[1] + ' :<br> '
-  texte += '<br>' + desTabEffCumul(salaires, false, categoriesCol, salairesStr[2]) + '<br>'
+  texte += '<br>' + desTabEffCumul(salaires, false, categoriesCol, salairesStr[2] as string[]) + '<br>'
   return texte
 }
 
-function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages, aveclampeMessage = true) {
+function texteTirages2D (nombreDes: number, nombreTirages: number, nombreFaces: 4 | 6 | 8 | 10, tirages: number[][], aveclampeMessage = true) {
   let texte = ''
   if (nombreDes > 1) {
     texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>
@@ -550,17 +551,17 @@ function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages, aveclam
   }
   texte += aveclampeMessage
     ? lampeMessage({
-        titre: 'Vocabulaire',
-        texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
-        couleur: 'nombres'
-      })
+      titre: 'Vocabulaire',
+      texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
+      couleur: 'nombres'
+    })
     : ''
   texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
   texte += desTabEffCumul(tirages, false) + '<br>'
   return texte
 }
 
-function solidName (nbCot) {
+function solidName (nbCot: 4 | 6 | 8 | 10) {
   switch (nbCot) {
     case 4:
       return 'tétraèdre'
@@ -569,9 +570,8 @@ function solidName (nbCot) {
     case 8:
       return 'octaèdre'
     case 10:
-      return 'décaèdre'
     default:
-      return 'cas non prévu'
+      return 'décaèdre'
   }
 }
 

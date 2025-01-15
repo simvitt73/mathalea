@@ -119,7 +119,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
                 )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} $`
         relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
 
-        if ((relatifs[0] > 0) & (relatifs[4] < 0)) {
+        if ((relatifs[0] > 0) && (relatifs[4] < 0)) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(
                         relatifs[2]
                     )}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`

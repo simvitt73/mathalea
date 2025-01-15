@@ -37,10 +37,10 @@ export default class DevinerNombreRelatif extends Exercice {
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 3]
+    const typesDeQuestionsDisponibles: (1 | 2 | 3)[] = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let dixieme; let signe; let centieme; let unite; let somme; let produit; let facteurs; const type = ['négatif', 'nul', 'positif']
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions & cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       signe = choice([-1, 1])
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -67,6 +67,7 @@ export default class DevinerNombreRelatif extends Exercice {
           break
 
         case 3:
+        default:
           produit = choice([6, 10, 15])
           facteurs = obtenirListeFacteursPremiers(produit)
           facteurs.push(1)
@@ -82,9 +83,6 @@ export default class DevinerNombreRelatif extends Exercice {
             texte += 'Mon chiffre des centièmes est inférieur à mon chiffre des dixièmes.'
           }
           texte += ' Qui suis-je ?'
-          break
-
-        case 4:
           break
       }
       texteCorr = `Je suis $${texNombre(signe * (unite + dixieme / 10 + centieme / 100))}$.`

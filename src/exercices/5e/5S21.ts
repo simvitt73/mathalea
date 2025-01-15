@@ -27,6 +27,8 @@ export const refs = {
   'fr-ch': ['11NO2-6']
 }
 export default class FonctionsProbabilite1 extends Exercice {
+  niveau: number
+  styleCorrection: string
   constructor () {
     super()
     this.nbQuestions = 4
@@ -41,7 +43,7 @@ export default class FonctionsProbabilite1 extends Exercice {
     const listeIndexDisponibles = [0, 1, 2, 3, 4, 5, 6]
     const listeIndex = combinaisonListes(listeIndexDisponibles, this.nbQuestions)
     const listeDeLieuxChoses = [['le frigo', 'yaourt', 'yaourts'], ['le frigo', 'dessert lacté', 'desserts lactés'], ['une urne', 'boule', 'boules'], ['une urne', 'jeton', 'jetons'], ['un paquet de bonbons', 'nounours', 'nounours'], ['un tiroir de la commode', 't-shirt', 't-shirts'], ['un tas de jetons de poker', 'jeton', 'jetons']]
-    const qualites = [[]]
+    const qualites:string[][] = [[]]
     qualites[0] = ['à la fraise', 'à la vanille', 'à l\'abricot', 'à l\'ananas', 'à la cerise']
     qualites[1] = ['au chocolat', 'à la vanille', 'au café', 'à la pistache', 'au caramel']
     qualites[2] = ['rouges', 'vertes', 'bleues', 'noires', 'blanches']
@@ -135,7 +137,7 @@ export default class FonctionsProbabilite1 extends Exercice {
   }
 }
 
-function singulier (qualite, index1) {
+function singulier (qualite:string, index1:number) {
   if (index1 > 1) {
     return qualite.slice(0, -1)
   } else {
