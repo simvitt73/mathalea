@@ -123,7 +123,7 @@ export default class ConstruireUnDiagramme extends Exercice {
     let emptyValues = []
     switch (listeTypeDeQuestions[0]) {
       case 1:
-        emptyValues = Array(2 * nbAnimaux).map(function () { return ' ' })
+        emptyValues = new Array(2 * nbAnimaux).fill('', 0, 2 * nbAnimaux)
         texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], lstNombresAnimaux.concat(emptyValues))}<br><br>`
         texte += 'Représenter ces données par un diagramme circulaire.<br><br>'
         entete.push('\\text{Totaux}')
@@ -177,7 +177,7 @@ export default class ConstruireUnDiagramme extends Exercice {
         }
         break
       case 2:
-        emptyValues = Array.apply(null, Array(2 * nbAnimaux)).map(function () { return ' ' })
+        emptyValues = new Array(2 * nbAnimaux).fill('', 0, 2 * nbAnimaux)
         texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], lstNombresAnimaux.concat(emptyValues))}<br><br>`
         texte += 'Représenter ces données par un diagramme semi-circulaire.<br><br>'
         entete.push('\\text{Totaux}')
