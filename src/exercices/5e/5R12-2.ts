@@ -31,6 +31,7 @@ export const refs = {
   'fr-ch': ['9FA1-7']
 }
 export default class ReperagePointDuPlan extends Exercice {
+  quartDePlan: boolean
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
@@ -85,6 +86,7 @@ export default class ReperagePointDuPlan extends Exercice {
       this.autoCorrection[0] = {
         enonce: '',
         enonceAvant: false,
+        // @ts-expect-error
         enonceApresNumQuestion: true,
         options: { barreseparation: true },
         propositions: []
@@ -97,9 +99,11 @@ export default class ReperagePointDuPlan extends Exercice {
       texte += ` $${nom[i]}$, `
       texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
       if (context.isAmc) {
+        // @ts-expect-error
         this.autoCorrection[0].propositions.push(
           {
             type: 'AMCNum',
+            // @ts-expect-error
             propositions: [{
               texte: '',
               statut: '',

@@ -20,6 +20,17 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
+type Serie = {
+  lieu: string,
+  individus: string,
+  caractere: string,
+  caracterePourTableau: string,
+  effectifTotal: number,
+  modalites: string[],
+  effectifs: number[],
+  rangEffectifCache: number,
+  entreeCachee: string
+}
 /**
  |*  888    888          888
  |*  888    888          888
@@ -44,7 +55,7 @@ export const amcType = 'AMCHybride'
  * @example > listeEntiersDepuisSomme(100,3)
  * < [34,29,37]
  */
-function listeEntiersDepuisSomme (total, nbElements) {
+function listeEntiersDepuisSomme (total: number, nbElements: number) {
   const valeurs = new Array(nbElements)
   // Répartition équitable du total dans les éléments du tableau
   const quotient = Math.floor(total / nbElements)
@@ -75,7 +86,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
   return valeurs
 }
 
-function graphique (hauteursBarres, etiquettes, {
+function graphique (hauteursBarres: number[], etiquettes:string[], {
   reperageTraitPointille = false,
   couleurDeRemplissage = 'blue',
   titreAxeVertical = '',
@@ -118,7 +129,17 @@ function graphique (hauteursBarres, etiquettes, {
  * La classe Population sert à construire la série basée sur le theme choisi en paramètre
  */
 class Population {
-  constructor (theme) {
+  lieu: string
+  individus: string
+  caractere: string
+  caracterePourTableau: string
+  effectifTotal: number
+  modalites: string[]
+  effectifs: number[]
+  rangEffectifCache: number
+  entreeCachee: string
+
+  constructor (theme:string) {
     // dictionnaires des séries
     const listeThemes = ['etablissement', 'salon', 'parking', 'collection'] // chaque theme est une clé du dictionnaire
     const series = new Map()
@@ -151,7 +172,7 @@ class Population {
       modalites: ['Pop', 'Jazz', 'Rap', 'RnB', 'Folk', 'Rock', 'Électro', 'Reggae', 'Soul']
     })
     // construction de la série
-    let serie = {}
+    let serie
     if (theme === 'hasard') {
       serie = series.get(choice(listeThemes))
     } else {
@@ -168,17 +189,16 @@ class Population {
     this.entreeCachee = this.modalites[this.rangEffectifCache]
   }
 
-  getPreambule (styleExo) {
+  getPreambule (styleExo: 'tableau' | 'diagramme') {
     let preambule = `Dans ${this.lieu} comptant ${this.effectifTotal} ${this.individus}, on a noté ${this.caractere}.<br>`
     switch (styleExo) {
       case 'tableau' :
         preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
         break
       case 'diagramme' :
+      default:
         preambule += 'On a représenté ces données à l\'aide du diagramme ci-dessous.<br><br>'
         break
-      default :
-        throw Error("Error : styleExo n'est ni tableau, ni diagramme")
     }
     return preambule
   }
@@ -208,7 +228,7 @@ export const refs = {
      * version 0 :
      * La consigne avec un tableau d'effectifs
      * */
-function exerciceAvecTableau (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
+function exerciceAvecTableau (theme: string, exercice:Exercice, numero: number): { questions: string, corrections: string, effectifs: number[] } { // On a besoin de l'exercice et du numéro de question pour l'interactif
   // paramètres du problème
   const serie = new Population(theme)
   let preambule = serie.getPreambule('tableau')
@@ -243,7 +263,7 @@ function exerciceAvecTableau (theme, exercice, numero) { // On a besoin de l'exe
    * version 1 :
    * La consigne avec un diagramme bâton
    * */
-function exerciceAvecDiagramme (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
+function exerciceAvecDiagramme (theme: string, exercice: Exercice, numero: number): { questions: string, corrections: string, effectifs: number[] } { // On a besoin de l'exercice et du numéro de question pour l'interactif
   // paramètres du problème
   const serie = new Population(theme)
   let preambule = serie.getPreambule('diagramme')
@@ -267,8 +287,8 @@ function exerciceAvecDiagramme (theme, exercice, numero) { // On a besoin de l'e
      * @param {String} cachee le sport dont on a caché l'effectif
      * @returns liste des questions, liste des corrections
      */
-function questionsEtCorrections (preambule, serie, exercice, numero) {
-  let questions = []
+function questionsEtCorrections (preambule: string, serie: Serie, exercice: Exercice, numero: number): { questions: string, corrections: string } {
+  let questions: string[] = []
   const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
   const frequenceDemandee = arrondi(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)
   // correction question 1
@@ -297,8 +317,8 @@ function questionsEtCorrections (preambule, serie, exercice, numero) {
     correction2 += 'On en déduit donc les calculs suivants :<br><br>'
     const enteteTableau = ['']
     const premiereColonne = []
-    const premiereLigneTableau = []
-    const deuxiemeLigneTableau = []
+    const premiereLigneTableau: string[] = []
+    const deuxiemeLigneTableau: string[] = []
     serie.effectifs.forEach((eff, index) => {
       enteteTableau.push(`\\text{${serie.modalites[index]}}`)
       const f = fraction(eff, serie.effectifTotal)
@@ -336,6 +356,7 @@ function questionsEtCorrections (preambule, serie, exercice, numero) {
         propositions: [
           {
             type: 'AMCNum',
+            // @ts-expect-error
             propositions: [
               {
                 texte: correction1 + correction2,
@@ -353,6 +374,7 @@ function questionsEtCorrections (preambule, serie, exercice, numero) {
           },
           {
             type: 'AMCNum',
+            // @ts-expect-error
             propositions: [
               {
                 texte: '',
@@ -408,8 +430,8 @@ export default class CalculerDesFrequences extends Exercice {
 
   nouvelleVersion () {
     const theme = listeDesThemes[this.sup2 - 1]
-    const exercice = { questions: [], corrections: [] }
-    let transit = {}
+    const exercice: { questions: string[], corrections: string[] } = { questions: [], corrections: [] }
+    let transit
     const de = combinaisonListes([0, 1], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (this.sup) {
@@ -419,6 +441,7 @@ export default class CalculerDesFrequences extends Exercice {
               transit = exerciceAvecDiagramme(theme, this, i)
               break
             case 1:
+            default:
               transit = exerciceAvecTableau(theme, this, i)
               break
           }
@@ -436,6 +459,7 @@ export default class CalculerDesFrequences extends Exercice {
           exercice.corrections = [transit.corrections]
           break
         case 4: // les deux
+        default:
           transit = exerciceAvecTableau(theme, this, i)
           exercice.questions = [transit.questions]
           exercice.corrections = [transit.corrections]

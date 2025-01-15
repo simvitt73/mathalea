@@ -9,7 +9,6 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
-import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const amcReady = true
@@ -119,11 +118,11 @@ export default class Exercice_fractions_simplifier extends Exercice {
         texteCorr += '$ ' +
                 fractionInitale +
                 ' = ' +
-                texFractionFromString(new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(b).mul(tabDiviseursDek[ee])) +
+                texFractionFromString(String(k / tabDiviseursDek[ee]) + ' \\times ' + String(a * tabDiviseursDek[ee]), String(k / tabDiviseursDek[ee]) + ' \\times ' + String(b * tabDiviseursDek[ee])) +
                 ' = ' +
                 (!this.sup2 || ee === 0 // On met tout en couleur qd on veut toutes les simplifications ou seulement la dernière si simplification maximale
-                  ? miseEnEvidence(new FractionEtendue(new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(b).mul(tabDiviseursDek[ee])).texFraction)
-                  : new FractionEtendue(new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(b).mul(tabDiviseursDek[ee])).texFraction
+                  ? miseEnEvidence(new FractionEtendue(a * tabDiviseursDek[ee], b * tabDiviseursDek[ee]).texFraction)
+                  : new FractionEtendue(a * tabDiviseursDek[ee], b * tabDiviseursDek[ee]).texFraction
                 ) +
                 ' $<br>'
       }
@@ -178,21 +177,24 @@ export default class Exercice_fractions_simplifier extends Exercice {
         }
         if (tabDiviseursDek.length > 2) {
           const choixDiviseurDek = choice(tabDiviseursDek, [1, k])
-          const denSimplifie = new Decimal(a).mul(k).div(choixDiviseurDek)
-          const numSimplifie = new Decimal(b).mul(k).div(choixDiviseurDek)
+          const denSimplifie = a * k / choixDiviseurDek
+          const numSimplifie = b * k / choixDiviseurDek
+          // @ts-expect-error
           this.autoCorrection[i].propositions[3] = {
             texte: '$' + new FractionEtendue(denSimplifie, numSimplifie).toLatex() + '$',
             statut: !this.sup2,
             feedback: ''
           }
-          let fractionsFaussesSimplifiees = [[new Decimal(denSimplifie).add(1), numSimplifie], [new Decimal(denSimplifie).add(-1), numSimplifie]]
-          fractionsFaussesSimplifiees.push([denSimplifie, new Decimal(numSimplifie).add(1)], [denSimplifie, new Decimal(numSimplifie).add(-1)])
+          let fractionsFaussesSimplifiees = [[denSimplifie + 1, numSimplifie], [denSimplifie - 1, numSimplifie]]
+          fractionsFaussesSimplifiees.push([denSimplifie, numSimplifie + 1], [denSimplifie, numSimplifie - 1])
           fractionsFaussesSimplifiees = shuffle(fractionsFaussesSimplifiees)
+          // @ts-expect-error
           this.autoCorrection[i].propositions[4] = {
             texte: '$' + new FractionEtendue(fractionsFaussesSimplifiees[0][0], fractionsFaussesSimplifiees[0][1]).toLatex() + '$',
             statut: false,
             feedback: ''
           }
+          // @ts-expect-error
           this.autoCorrection[i].propositions[5] = {
             texte: '$' + new FractionEtendue(fractionsFaussesSimplifiees[1][0], fractionsFaussesSimplifiees[1][1]).toLatex() + '$',
             statut: false,
@@ -223,6 +225,7 @@ export default class Exercice_fractions_simplifier extends Exercice {
                 }
               ],
               reponse: {
+                // @ts-expect-error
                 valeur: [reponse.simplifie().toLatex()], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
                 param: {
                   digits: 4,

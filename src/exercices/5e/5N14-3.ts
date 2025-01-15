@@ -4,8 +4,9 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import type FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Manipuler fractions égales et égalité des produits en croix'
 
@@ -34,7 +35,7 @@ export const refs = {
  * @param num le numerateur de type number
  * @param den le dénominateur de type number
  */
-function showFracNumDenDec (num, den) {
+function showFracNumDenDec (num: number, den: number) {
   const f = fraction(num, den)
   return `\\dfrac{${texNombre(f.num / 10, 1)}}{${texNombre(f.den / 10, 1)}}`
 }
@@ -43,14 +44,14 @@ function showFracNumDenDec (num, den) {
  * @param {boolean} bool
  * @returns deux fractions egales ou non
  */
-const fracEqualOrNot = function (bool, n, d, k) {
+const fracEqualOrNot = function (bool: boolean, n: number, d: number, k: number) {
   // On a besoin de deux fractions
   let f2
   const f1 = fraction(n, d)
   if (bool) {
-    f2 = fraction(calculANePlusJamaisUtiliser(n * k), calculANePlusJamaisUtiliser(d * k))
+    f2 = fraction(n * k, d * k)
   } else {
-    f2 = fraction(calculANePlusJamaisUtiliser(n + k), calculANePlusJamaisUtiliser(d + k))
+    f2 = fraction(n + k, d + k)
   }
   return { frac: f1, fracEqualOrNot: f2 }
 }
@@ -61,7 +62,7 @@ const fracEqualOrNot = function (bool, n, d, k) {
  * @param f une fraction
  * @param fEqOrNot l'autre fraction égale ou pas
  */
-function justifyEq (bool, deuxFractions, decimal = false) {
+function justifyEq (bool: boolean, deuxFractions: { frac: FractionEtendue, fracEqualOrNot: FractionEtendue }, decimal = false) {
   const f = deuxFractions.frac
   const fEqOrNot = deuxFractions.fracEqualOrNot
   let strOut
@@ -99,6 +100,7 @@ function justifyEq (bool, deuxFractions, decimal = false) {
 }
 
 export default class EqResolvantesThales extends Exercice {
+  niveau: string
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Petits entiers\n2 : Grands entiers\n3 : Décimaux\n4 : Mélange']

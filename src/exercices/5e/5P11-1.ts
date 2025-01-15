@@ -136,6 +136,7 @@ export default class VitesseDistanceTemps extends Exercice {
           setReponse(this, i, t)
           break
         case 'distance':
+        default:
           texte = `${prenom} roule à ${v} km/h de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue`
           texte += this.interactif ? ' : ' : '.'
           if (this.sup2 === 1) {

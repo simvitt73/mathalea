@@ -35,14 +35,14 @@ export default class PlacerProbabilites extends Exercice {
   }
 
   nouvelleVersion () {
-    const lstEvenenementA = [] // liste des évènements disponibles : p === 0 ou p === 1
-    const lstEvenenementB = [] // liste des évènements disponibles : p < 0.5
-    const lstEvenenementC = [] // liste des évènements disponibles : p = 0.5
-    const lstEvenenementD = [] // liste des évènements disponibles : p > 0.5
+    const lstEvenenementA: [string, number][] = [] // liste des évènements disponibles : p === 0 ou p === 1
+    const lstEvenenementB: [string, number][] = [] // liste des évènements disponibles : p < 0.5
+    const lstEvenenementC: [string, number][] = [] // liste des évènements disponibles : p = 0.5
+    const lstEvenenementD: [string, number][] = [] // liste des évènements disponibles : p > 0.5
     const nbEvenement = 4 // nombre d'évènements dans l'énoncé
     let texte = ''
     // liste de vocabulaire. Le nombre donne la position sur l'axe.
-    const lstEchelle = [['Impossible', 0],
+    const lstEchelle:[string, number][] = [['Impossible', 0],
       ['Improbable', 1 / 6],
       ['Peu probable', 2 / 6],
       ['Une chance sur deux', 3 / 6],
@@ -92,7 +92,7 @@ export default class PlacerProbabilites extends Exercice {
     }
 
     // choix des évènements :
-    let lstEvenenementExo = []
+    let lstEvenenementExo: [string, number][] = []
     lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)) // p === 0 ou p === 1
     lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)) // p < 0.5
     lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)) // p = 0.5
@@ -153,7 +153,7 @@ export default class PlacerProbabilites extends Exercice {
       parrondi = Math.round(6 * p) // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
       ylst[parrondi] += 0.5 // on augmente l'ordonnée si elle est déjà utilisée
       const txtSolution = String.fromCharCode(65 + i) // code 65 correspond à 'A'
-      lstObjet.push(texteParPosition(txtSolution, L * p, ylst[parrondi], 0, 'black', 1, 'middle'))
+      lstObjet.push(texteParPosition(txtSolution, L * p, ylst[parrondi], 0, 'black', 1, 'milieu'))
       lstObjet.push(tracePoint(point(L * p, 0), 'blue'))
     }
     for (let i = 0; i < nbEvenement; i++) {

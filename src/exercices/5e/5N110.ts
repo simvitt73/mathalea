@@ -5,8 +5,7 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Decimal from 'decimal.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Variation en pourcentages'
@@ -41,14 +40,14 @@ export default class VariationEnPourcentages extends Exercice {
   nouvelleVersion () {
     let reponse
     for (let i = 0, prix, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      prix = choice([new Decimal(randint(2, 9)),
-        new Decimal(randint(1, 9)).mul(10),
-        new Decimal(randint(1, 9)).mul(100),
-        new Decimal(randint(11, 99)).div(10)])
+      prix = choice([randint(2, 9),
+        randint(1, 9) * 10,
+        randint(1, 9) * 100,
+        randint(11, 99) / 10])
       // X | X0 | X00 | X,X0
       taux = choice([20, 30, 40, 60])
       if (choice([true, false])) {
-        reponse = prix.mul(100 - taux).div(100)
+        reponse = prix * (100 - taux) / 100
         if (context.isHtml) { // partie html
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
           if (this.interactif) {
@@ -63,7 +62,7 @@ export default class VariationEnPourcentages extends Exercice {
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}-${texPrix(prix * taux / 100)}=${texPrix(prix - prix * taux / 100)}$`
       } else {
-        reponse = prix.mul(100 + taux).div(100)
+        reponse = prix * (100 + taux) / 100
         if (context.isHtml) { // partie html
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\ \\%$.<br><br>`
           if (this.interactif) {
@@ -77,7 +76,7 @@ export default class VariationEnPourcentages extends Exercice {
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}+${texPrix(prix * taux / 100)}=${texPrix(prix * (1 + taux / 100))}$`
       }
-      setReponse(this, i, reponse)
+      handleAnswers(this, i, { reponse: { value: reponse.toFixed(2) } })
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')
       let aRemplacer = textCorrSplit[textCorrSplit.length - 1]

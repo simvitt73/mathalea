@@ -109,7 +109,7 @@ export default class ExerciceComparerDeuxFractions extends Exercice {
       if (!context.isHtml) {
         this.canEnonce = 'Compléter avec $>$ ou $<$.<br>'
         this.correction = this.listeCorrections[0]
-        if (ordreDesFractions === 1) {
+        if (ordreDesFractions) {
           this.canReponseACompleter = `$${fraction.texFSD}\\ldots${autreFraction.texFSD}$`
         } else {
           this.canReponseACompleter = `$${autreFraction.texFSD} \\ldots${fraction.texFSD}$`

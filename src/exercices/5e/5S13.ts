@@ -214,6 +214,7 @@ export default class CalculerDesFrequences extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
+              // @ts-expect-error
               propositions: [{
                 texte: texteCorr,
                 statut: 3
@@ -221,6 +222,7 @@ export default class CalculerDesFrequences extends Exercice {
             },
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [{
                 texte: '',
                 statut: '',

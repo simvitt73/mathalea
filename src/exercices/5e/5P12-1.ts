@@ -4,9 +4,9 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
 import { personne, personnes } from '../../lib/outils/Personne'
-import { texNombre2 } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils'
 
 export const titre = 'Problèmes de ratio'
 
@@ -46,7 +46,7 @@ export default class ProblemeDeRatio extends Exercice {
       index2 = randint(0, 10)
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
-      switch (parseInt(this.sup)) {
+      switch (this.sup) {
         case 1:
           x = randint(1, 5)
           y = randint(1, 5, x)
@@ -60,6 +60,7 @@ export default class ProblemeDeRatio extends Exercice {
           n = 3
           break
         case 3:
+        default:
           x = randint(1, 5)
           y = randint(1, 5, x)
           if (choice([true, false])) {
@@ -108,7 +109,7 @@ export default class ProblemeDeRatio extends Exercice {
             z = 0
           }
           total = ppcm(x + y + z, 20)
-          k = calculANePlusJamaisUtiliser(total / (x + y + z))
+          k = total / (x + y + z)
           quidam = personne({})
           article = quidam.pronom
 
@@ -163,7 +164,7 @@ export default class ProblemeDeRatio extends Exercice {
               texte += `Montrer que le ratio correspond bien à la présence de $${p1}\\%$ de produit concentré dans le mélange final.`
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$.`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$.`
             } else {
               total = k * (x + y)
               texte += `Si on veut préparer $${total}\\text{ cL} $ de produit dilué, quel volume d\`eau et de ${produits[index % 5]} faut-il mélanger ?`
@@ -176,9 +177,9 @@ export default class ProblemeDeRatio extends Exercice {
               texte += 'Montrer que les ratios proposés correspondent bien aux pourcentages de produit concentré dans le mélange final.'
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x}+${y}=${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 4)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$<br>`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre(arrondi(x / (x + y)), 4)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$<br>`
               texteCorr += `De la même façon, selon le ratio $~${x}~:~${z}$, on obtient la proportion suivante :<br>`
-              texteCorr += `$${texFractionFromString(x + '\\text{ unités de volume}', `(${x}+${z})\\text{ unités de volume}`)}=${texFractionFromString(x, x + z)}\\approx ${texNombre2(arrondi(x / (x + z)), 4)}$ soit environ $${Math.round(100 * x / (x + z))}\\%$.<br>`
+              texteCorr += `$${texFractionFromString(x + '\\text{ unités de volume}', `(${x}+${z})\\text{ unités de volume}`)}=${texFractionFromString(x, x + z)}\\approx ${texNombre(arrondi(x / (x + z)), 4)}$ soit environ $${Math.round(100 * x / (x + z))}\\%$.<br>`
               texteCorr += 'Conclusion : les pourcentages et les ratios annoncés correspondent bien.'
             } else {
               total = k * (x + y)
@@ -233,36 +234,36 @@ export default class ProblemeDeRatio extends Exercice {
           a = resolutions[index2 % 8][0]
           b = resolutions[index2 % 8][1]
           texte += `Un écran au format $${x}~:~${y}$ est-il adapté à une résolution de $${a}\\times ${b}$ ?<br>`
-          if (calculANePlusJamaisUtiliser(a / x) === calculANePlusJamaisUtiliser(b / y)) {
+          if (a / x === b / y) {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ respecte effectivement le format $${x}~:~${y}$.<br>`
-            texteCorr += `En effet, $${texFractionFromString(a, x)}=${texFractionFromString(b, y)}=${texNombre2(calculANePlusJamaisUtiliser(a / x))}$`
+            texteCorr += `En effet, $${texFractionFromString(a, x)}=${texFractionFromString(b, y)}=${texNombre(a / x)}$`
           } else {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ ne respecte pas le format $${x}~:~${y}$.<br>`
             if (Number.isInteger(a / x)) {
-              texteCorr += `En effet, $${texFractionFromString(a, x)}=${texNombre2(calculANePlusJamaisUtiliser(a / x))}$ et $${texFractionFromString(b, y)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(b / y))}$.<br>`
+              texteCorr += `En effet, $${texFractionFromString(a, x)}=${texNombre(a / x)}$ et $${texFractionFromString(b, y)}\\approx ${texNombre(b / y)}$.<br>`
 
-              k = calculANePlusJamaisUtiliser(a / x)
+              k = a / x
               texte += 'Sinon, proposer une résolution qui conviendrait en gardant la largeur d\'image.'
               texteCorr += `On doit avoir : $${texFractionFromString(a, x)}=${texFractionFromString('h', y)}$<br>`
               texteCorr += `Donc $h=${texFractionFromString(y + '\\times' + a, x)}=${k * y}$. La résolution $${a}\\times ${k * y}$ respecte le format $${x}~:~${y}$.`
             } else if (Number.isInteger(b / y)) {
-              texteCorr += `En effet, $${texFractionFromString(a, x)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(a / x))}$ et $${texFractionFromString(b, y)}=${texNombre2(calculANePlusJamaisUtiliser(b / y))}$.<br>`
-              k = calculANePlusJamaisUtiliser(b / y)
+              texteCorr += `En effet, $${texFractionFromString(a, x)}\\approx ${texNombre(a / x)}$ et $${texFractionFromString(b, y)}=${texNombre(b / y)}$.<br>`
+              k = b / y
               texte += 'Sinon, proposer une résolution qui conviendrait en gardant la hauteur d\'image.'
               texteCorr += `On doit avoir : $${texFractionFromString(b, y)}=${texFractionFromString('L', x)}$<br>`
               texteCorr += `Donc $L=${texFractionFromString(x + '\\times' + b, y)}=${k * x}$. La résolution $${k * x}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             } else {
-              texteCorr += `En effet, $${texFractionFromString(a, x)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(a / x))}$ et $${texFractionFromString(b, y)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(b / y))}$.<br>`
+              texteCorr += `En effet, $${texFractionFromString(a, x)}\\approx ${texNombre(a / x)}$ et $${texFractionFromString(b, y)}\\approx ${texNombre(b / y)}$.<br>`
               texte += 'Sinon proposer une résolution adaptée à ce ratio.'
               k = ppcm(x, y)
               if (k % 10 !== 0) {
                 if (k % 2 === 0) {
-                  c = calculANePlusJamaisUtiliser(k * 5)
+                  c = k * 5
                 } else {
                   if (k % 5 === 0) {
-                    c = calculANePlusJamaisUtiliser(k * 2)
+                    c = k * 2
                   } else {
-                    c = calculANePlusJamaisUtiliser(k * 10)
+                    c = k * 10
                   }
                 }
               } else {
@@ -271,11 +272,11 @@ export default class ProblemeDeRatio extends Exercice {
               while (c < 1024) {
                 c += k
               }
-              b = calculANePlusJamaisUtiliser(c * y / x)
+              b = c * y / x
               a = c
               texteCorr += `Le nombre $${c}$ est un multiple de $${x}$ et de $${y}$.<br>`
               texteCorr += `Je choisis comme résolution $${c} \\times ${texFractionFromString(c + '\\times ' + y, x)}$ soit $${c}\\times ${b}$.<br>`
-              texteCorr += `En effet $${texFractionFromString(a, x)}=${texFractionFromString(b, y)}=${calculANePlusJamaisUtiliser(b / y)}$ donc la résolution $${a}\\times ${b}$ respecte le format $${x}~:~${y}$.`
+              texteCorr += `En effet $${texFractionFromString(a, x)}=${texFractionFromString(b, y)}=${b / y}$ donc la résolution $${a}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             }
           }
 

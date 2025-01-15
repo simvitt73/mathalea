@@ -41,7 +41,7 @@ export default class TrouverOppose extends Exercice {
 
     for (let i = 0, texte, texteCorr, indice = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour générer un relatif et son opposé
-      const nbRelatifEtSonOppose = function (signe) {
+      const nbRelatifEtSonOppose = function (signe: boolean) {
         const signePositif = signe ? listeSignesPositifs[indice] : ''
         const nbNum = randint(0, 9) + randint(0, 9) / 10
         if (listeSignes[indice] === '+') {
@@ -149,7 +149,7 @@ export default class TrouverOppose extends Exercice {
       }
 
       objetReponse = Object.assign(objetReponse, {
-        bareme: (listePoints) => {
+        bareme: (listePoints: number[]) => {
           return [Math.floor(listePoints.reduce((a, b) => a + b / 2, 0)), listePoints.length / 2]
         }
       })
@@ -157,14 +157,14 @@ export default class TrouverOppose extends Exercice {
 
       if (this.interactif) {
         const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(enonces[0].tabEntetesColonnes, enonces[0].tabEntetesLignes, enonces[0].tabLines)
-        const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice, i, tableau, 'tableauMathlive', true)
+        const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice ?? 0, i, tableau, 'tableauMathlive', true, {})
         texte = leTableau.output
       } else {
         texte = `${enonces[0].enonce}`
       }
       texteCorr = `${enonces[0].correction}`
 
-      if (this.listeQuestions.indexOf(i, nbLigneNombresCorrNu) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, JSON.stringify(objetReponse))) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
