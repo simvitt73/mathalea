@@ -193,6 +193,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
               e = randint(1, 9)
               max++
             }
+            d = b * k
           }
           if (ordreDesFractions === 2) {
             texte = `$${new FractionEtendue(a, b).texFSD}- \\Big(${new FractionEtendue(c, b).texFSD} + ${new FractionEtendue(e, d).texFSD}\\Big)$`
