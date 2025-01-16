@@ -16,7 +16,8 @@ import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
 import engine from '../interactif/comparisonFunctions'
-import { round } from 'mathjs'
+import { round, type MathScalarType } from 'mathjs'
+import SubstituerDansUneExpressionLitterale from '../../exercices/2e/2N40-7'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
@@ -1942,31 +1943,31 @@ export function tableauDeVariation ({
  * @return {{borneG: {x: number, included: boolean, y: number}, borneD: {x: number, included: boolean, y: number}}[]} le ou les intervalles dans une liste
  */
 export function inferieurSuperieur (
-  fonction,
-  y,
-  xMin,
-  xMax,
+  fonction: (x:FractionEtendue | number)=>number,
+  y: number,
+  xMin: number | FractionEtendue,
+  xMax: number | FractionEtendue,
   inferieur = true,
   strict = false,
   { step = new FractionEtendue(1, 100) } = {}
 ) {
-  const satisfy = (image, y, inferieur, strict) => {
+  const satisfy = (image: number, y:number, inferieur: boolean, strict: boolean) => {
     if (inferieur) {
       return strict ? y - image > 0 : y - image >= 0
     }
     return strict ? y - image < 0 : y - image <= 0
   }
-  if (!(step instanceof FractionEtendue)) step = new FractionEtendue(step)
+  if (!(step instanceof FractionEtendue)) step = new FractionEtendue(step, 1)
   const solutions = []
-  let borneG = {}
-  let borneD = {}
-  const xmin = xMin instanceof FractionEtendue ? xMin : new FractionEtendue(xMin)
+  let borneG:{ x: FractionEtendue | number, y: number, included: boolean } | null = null
+  let borneD:{ x: FractionEtendue | number, y: number, included: boolean } | null = null
+  const xmin = xMin instanceof FractionEtendue ? xMin : new FractionEtendue(xMin, 1)
   let x
   let image
   try {
-    for (x = xmin; x.inferieurLarge(xMax);) {
+    for (x = xmin; x.inferieurlarge(xMax);) {
       image = fonction(x)
-      if (borneG.x === undefined && satisfy(image, y, inferieur, strict)) {
+      if (borneG?.x == null && satisfy(image, y, inferieur, strict)) {
         // c'est le premier x qui matche
         borneG = { x, y: image, included: !strict }
       } else if (satisfy(image, y, inferieur, strict)) {
@@ -1974,22 +1975,22 @@ export function inferieurSuperieur (
         borneD = { x, y: image, included: !strict }
       } else {
         // ça ne matche plus ou pas
-        if (borneD.x !== undefined) {
+        if (borneD?.x != null) {
           // il y a eu un intervalle, ça a matché et c'est terminé
           solutions.push({
-            borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+            borneG: { x: borneG!.x, y: borneG!.y, included: borneG!.included },
             borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
           })
-          borneG = {}
-          borneD = {} // on réinitialise pour le prochain intervalle
-        } else if (borneG.x !== undefined) {
+          borneG = null
+          borneD = null // on réinitialise pour le prochain intervalle
+        } else if (borneG?.x != null) {
           // On n'a pas de borneD, mais on a une borneG, cas particulier du singleton
           solutions.push({
             borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
             borneD: { x: borneG.x, y: borneG.y, included: borneG.included }
           })
-          borneG = {}
-          borneD = {} // on réinitialise pour le prochain intervalle
+          borneG = null
+          borneD = null // on réinitialise pour le prochain intervalle
         }
       }
       x = x.sommeFraction(step) // dans tous les cas, on avance
@@ -1997,10 +1998,10 @@ export function inferieurSuperieur (
   } catch (e) {
     console.error(`e.message avec x = ${x} et image = ${image}`)
   }
-  if (borneD.x !== undefined) {
+  if (borneD?.x != null) {
     // le dernier intervalle n'a pas été mis dans les solutions car on est encore dedans
     solutions.push({
-      borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+      borneG: { x: borneG!.x, y: borneG!.y, included: borneG!.included },
       borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
     })
   }
@@ -2014,6 +2015,13 @@ export function racines ({
   tol = 1e-13,
   maxIter = 100,
   precision = 3
+}:{
+  fonction: (x: number)=>number,
+  xMin: number,
+  xMax: number,
+  tol?: number,
+  maxIter?: number,
+  precision?: number
 }) {
   const racines = []
   for (let x = xMin; x <= xMax - 0.2; x += 0.2) {
@@ -2034,8 +2042,14 @@ export function racines ({
  * @param {number|FractionEtendue} xMax
  * @returns {{xG: number, xD: number, signe: string}[]}
  */
-export function signesFonction (fonction, xMin, xMax) {
+export function signesFonction (fonction: (x:FractionEtendue | number)=>number, xMin: number | FractionEtendue, xMax: number | FractionEtendue) {
   const signes = []
+  if (xMin instanceof FractionEtendue) {
+    xMin = xMin.toNumber()
+  }
+  if (xMax instanceof FractionEtendue) {
+    xMax = xMax.toNumber()
+  }
   const zeros = racines({ fonction, xMin, xMax })
   let x
   if (zeros.length === 0) {
@@ -2083,19 +2097,17 @@ export function signesFonction (fonction, xMin, xMax) {
  * @returns {null|*[]}
  */
 export function variationsFonction (
-  derivee,
-  xMin,
-  xMax,
-  step,
+  derivee: (x:FractionEtendue | number)=>number,
+  xMin: number | FractionEtendue,
+  xMax: number | FractionEtendue,
+  step: number | FractionEtendue,
   tolerance = 0.005
 ) {
   if (derivee !== null && typeof derivee === 'function') {
     const signesDerivee = signesFonction(
       derivee,
       xMin,
-      xMax,
-      step ?? new FractionEtendue(1, 100),
-      tolerance
+      xMax
     )
     const variations = []
     for (const signe of signesDerivee) {
@@ -2115,7 +2127,7 @@ export function variationsFonction (
       "variationsFonction() appelée avec autre chose qu'une fonction",
       { derivee }
     )
-    return null
+    return []
   }
 }
 
@@ -2128,11 +2140,19 @@ export function variationsFonction (
  * @returns {[number,number]}
  */
 export function trouveFonctionAffine (x1, x2, y1, y2) {
+  if (x1 === x2) {
+    window.notify('trouveFonctionAffine() appelée avec x1=x2', { x1, x2 })
+    return [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
+  }
   const maMatrice = matrice([
     [x1, 1],
     [x2, 1]
   ])
-  return maMatrice.inverse().multiply([y1, y2]).toArray()
+  if (typeof maMatrice!.inverse()!.multiply([y1, y2]) === 'number') {
+    window.notify('trouveFonctionAffine() retourne un nombre', { matrice: maMatrice, y1, y2 })
+    return [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
+  }
+  return maMatrice!.inverse()!.multiply([y1, y2]).toArray()
 }
 
 /**
@@ -2156,6 +2176,7 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   ]
 }
 
+type Substitut = { antVal: number, antTex: string, imgVal: number, imgTex: string }
 /**
  * renvoie le tableau de signes d'une fonction
  * @param fonction
@@ -2170,9 +2191,9 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
  * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
  */
 export function tableauSignesFonction (
-  fonction,
-  xMin,
-  xMax,
+  fonction: (x:FractionEtendue | number)=>number,
+  xMin: number | FractionEtendue,
+  xMax: number | FractionEtendue,
   {
     substituts = [],
     step = fraction(1, 1000),
@@ -2180,36 +2201,43 @@ export function tableauSignesFonction (
     nomVariable = 'x',
     nomFonction = 'f(x)',
     fractionTex = false
-  } = {}
+  }:{
+    substituts?: Substitut[],
+    step?: number | FractionEtendue,
+    tolerance?: number | FractionEtendue,
+    nomVariable?: string,
+    nomFonction?: string,
+    fractionTex?: boolean
+  }
 ) {
-  const signes = signesFonction(fonction, xMin, xMax, step, tolerance)
-  const premiereLigne = []
+  const signes = signesFonction(fonction, xMin, xMax)
+  const premiereLigne: (string | number)[] = []
   for (let i = 0; i < signes.length; i++) {
     if (i === 0) {
       if (fractionTex === false) {
         premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
       } else {
-        premiereLigne.push(new FractionEtendue(signes[0].xG).texFractionSimplifiee, 10)
+        premiereLigne.push(new FractionEtendue(signes[0].xG, 1).texFractionSimplifiee, 10)
       }
     }
     if (i > 0 && signes[i].xG !== signes[i - 1].xG) {
       if (fractionTex === false) {
         premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
       } else {
-        premiereLigne.push(new FractionEtendue(signes[i].xG).texFractionSimplifiee, 10)
+        premiereLigne.push(new FractionEtendue(signes[i].xG, 1).texFractionSimplifiee, 10)
       }
     }
   }
   if (fractionTex === false) {
     premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
   } else {
-    premiereLigne.push(new FractionEtendue(signes[signes.length - 1].xD).texFractionSimplifiee, 10)
+    premiereLigne.push(new FractionEtendue(signes[signes.length - 1].xD, 1).texFractionSimplifiee, 10)
   }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
-      const strNb = premiereLigne[i].replaceAll(/\s/g, '')
-      const substitut = substituts.find(
-        (el) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb
+      const strNb: string = String(premiereLigne[i]).replaceAll(/\s/g, '')
+      const substitut: Substitut | undefined = substituts.find(
+        (el: Substitut) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb
       )
       if (substitut) {
         premiereLigne[i] = substitut.antTex
@@ -2259,10 +2287,10 @@ export function tableauSignesFonction (
  * @returns {string}
  */
 export function tableauVariationsFonction (
-  fonction,
-  derivee,
-  xMin,
-  xMax,
+  fonction: (x:FractionEtendue | number)=>number,
+  derivee: (x:FractionEtendue | number)=>number,
+  xMin: number | FractionEtendue,
+  xMax: number | FractionEtendue,
   {
     substituts = [],
     step = fraction(1, 1000),
@@ -2272,13 +2300,22 @@ export function tableauVariationsFonction (
     nomFonction = 'f(x)',
     nomDerivee = 'f^{\\prime}(x)',
     precisionImage = 2
-  } = {}
+  }:{
+    substituts?: Substitut[],
+    step?: number | FractionEtendue,
+    tolerance?: number | FractionEtendue,
+    ligneDerivee?: boolean,
+    nomVariable?: string,
+    nomFonction?: string,
+    nomDerivee?: string,
+    precisionImage?: number
+  }
 ) {
-  const signes = signesFonction(derivee, xMin, xMax, step, tolerance).filter(
+  const signes = signesFonction(derivee, xMin, xMax).filter(
     (signe) => signe.xG !== signe.xD
   )
   const premiereLigne = []
-  const initalValue = []
+  const initalValue: (string | number)[] = []
   const imgSubstituts = []
   premiereLigne.push(
     ...signes.reduce(
@@ -2289,7 +2326,7 @@ export function tableauVariationsFonction (
   premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
-      const strNb = premiereLigne[i].replaceAll(/\s/g, '')
+      const strNb: string = String(premiereLigne[i]).replaceAll(/\s/g, '')
       const substitut = substituts.find(
         (el) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb
       )
@@ -2298,7 +2335,7 @@ export function tableauVariationsFonction (
         premiereLigne[i] =
           typeof substitut.antTex === 'string'
             ? substitut.antTex
-            : substitut.antTex.toString()
+            : String(substitut.antTex)
       }
     }
   }
@@ -2316,7 +2353,7 @@ export function tableauVariationsFonction (
     tabLineDerivee.splice(-2, 2)
   }
 
-  const variations = variationsFonction(derivee, xMin, xMax, step, tolerance)
+  const variations = variationsFonction(derivee, xMin, xMax, step, Number(tolerance))
 
   const tabLineVariations = ['Var', 10]
   const tabLinesImage = []
@@ -2372,7 +2409,7 @@ export function tableauVariationsFonction (
   }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 2; i < tabLineVariations.length; i += 2) {
-      const strChunks = tabLineVariations[i].split('/')
+      const strChunks = String(tabLineVariations[i]).split('/')
       const substitut = imgSubstituts.find((el) => el.index === i)
       if (substitut) {
         if (substitut.imgTex) tabLineVariations[i] = `${strChunks[0]}/${substitut.imgTex}`
@@ -2387,7 +2424,7 @@ export function tableauVariationsFonction (
   }
   return tableauDeVariation({
     tabInit: [
-      ligneDerivee
+      (ligneDerivee
         ? [
             [nomVariable, 1.5, 10],
             [nomDerivee, 2, 10],
@@ -2396,7 +2433,7 @@ export function tableauVariationsFonction (
         : [
             [nomVariable, 1.5, 10],
             [nomFonction, 3, 10]
-          ],
+          ]),
       premiereLigne
     ],
     tabLines,
@@ -2412,12 +2449,12 @@ export function tableauVariationsFonction (
  * @param {string} fonction
  * @param {string} variable
  */
-export function derivee (fonction, variable) {
+export function derivee (fonction: string, variable: string) {
   const laFonction = engine.parse(fonction.replaceAll('dfrac', 'frac'))
   return engine.box(['D', laFonction, variable]).evaluate().latex
 }
 
-export function brent (f, a, b, tol = 1e-5, maxIter = 100) {
+export function brent (f:(x:number)=>number, a: number, b: number, tol = 1e-5, maxIter = 100) {
   if (f(a) * f(b) >= 0) {
     throw new Error("La fonction doit changer de signe sur l'intervalle [a, b]")
   }

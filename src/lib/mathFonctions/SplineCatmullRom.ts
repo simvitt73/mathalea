@@ -23,9 +23,9 @@
   return true
 }
 */
-import { abs, acos, polynomialRoot, round } from 'mathjs'
+import { abs, acos, polynomialRoot, round, arg } from 'mathjs'
 import { Polynome } from './Polynome'
-import { Trace } from './Spline'
+import type { Repere } from '../2d/reperes'
 
 /**
  * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3
@@ -49,7 +49,18 @@ class SplineCatmullRom {
    * @param {number} x0 l'abscisse du début de l'intervalle de définition
    * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
    */
-  constructor ({ tabY = [], x0 = -5, step = 1 }) {
+  x: number[]
+  y: number[]
+  n: number
+  step: number
+  polys: Polynome[]
+  fonctions: Function[]
+
+  constructor ({ tabY = [], x0 = -5, step = 1 }:{
+    tabY?: number[],
+    x0?: number,
+    step?: number
+  }) {
     this.x = []
     this.y = []
     this.n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
@@ -116,8 +127,8 @@ class SplineCatmullRom {
     return f
   }
 
-  solve (y) {
-    const antecedents = []
+  solve (y: number) {
+    const antecedents: number[] = []
     for (let i = 0; i < this.polys.length; i++) {
       const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
@@ -132,7 +143,7 @@ class SplineCatmullRom {
             if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
               arr = 0
             } else {
-              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+              if (abs(arg(valeur)) < 0.01 || (abs(arg(valeur) - Number(acos(-1))) < 0.01)) { // si l'argument est proche de 0 ou de Pi
                 arr = round(valeur.re, 3) // on prend la partie réelle
               } else {
                 arr = null // c'est une vraie racine complexe, du coup, on prend null
@@ -153,10 +164,10 @@ class SplineCatmullRom {
   }
 
   get fonction () {
-    return x => this.image(x)
+    return (x:number) => this.image(x)
   }
 
-  image (x) {
+  image (x: number) {
     let trouveK = false
     let k = 0
     for (let i = 0; i < this.n - 1; i++) {
@@ -186,7 +197,7 @@ class SplineCatmullRom {
     for (let i = 0; i < this.n; i++) {
       derivees.push(this.polys[Math.min(i, this.n - 2)].derivee().fonction(this.x[i]))
     }
-    const maSpline = new SplineCatmullRom({ tabY: derivees, x0: this.x[0], step: this.step, repere: this.repere })
+    const maSpline = new SplineCatmullRom({ tabY: derivees, x0: this.x[0], step: this.step })
     for (let i = 0; i < this.n - 1; i++) { // on redéfinit les polynomes
       maSpline.polys[i] = this.polys[i].derivee()
     }
@@ -211,7 +222,14 @@ class SplineCatmullRom {
     epaisseur = 1,
     ajouteNoeuds = false,
     optionsNoeuds = {}
-  } = {}) {
+  }:{
+    repere: Repere,
+    step?: number,
+    color?: string,
+    epaisseur?: number,
+    ajouteNoeuds?: boolean,
+    optionsNoeuds?: { isVisible?: boolean, rayon?: number, couleur?: string }
+  }) {
     return new Trace(this, {
       repere,
       step,
@@ -242,6 +260,10 @@ class SplineCatmullRom {
  * @param {number} [parametres.step] le pas entre chaque valeur de x pour les différents noeuds successifs
  * @deprecated préférer la classe Spline de Spline.js beaucoup mieux faite (J'ai beaucoup appris de mes erreurs) J-C Lhote
  */
-export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 } = {}) {
+export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }:{
+  tabY?: number[],
+  x0?: number,
+  step?: number
+} = {}) {
   return new SplineCatmullRom({ tabY, x0, step })
 }

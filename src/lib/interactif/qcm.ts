@@ -5,46 +5,52 @@ import { afficheScore } from './afficheScore'
 import { lettreDepuisChiffre } from '../outils/outilString'
 import { barreTexte, miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../outils/embellissements'
 import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
+import type Exercice from '../../exercices/Exercice'
+import type { ButtonWithMathaleaListener } from './gestionCan'
 
-export function verifQuestionQcm (exercice, i) {
+export function verifQuestionQcm (exercice: Exercice, i: number) {
   let resultat
   // i est l'indice de la question
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
   let nbBonnesReponsesAttendues = 0
+  if (exercice.answers == null) {
+    exercice.answers = {}
+  }
   // Compte le nombre de réponses justes attendues
-  for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
-    if (exercice.autoCorrection[i].propositions[k].statut) {
+  const nbReps = exercice.autoCorrection[i].propositions?.length ?? 0
+  for (let k = 0; k < nbReps; k++) {
+    if (exercice.autoCorrection[i]!.propositions![k].statut) {
       nbBonnesReponsesAttendues++
     }
   }
   const divReponseLigne = document.querySelector(
     `#resultatCheckEx${exercice.numeroExercice}Q${i}`
-  )
-  exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
+  ) as HTMLDivElement
+  exercice.autoCorrection[i]!.propositions!.forEach((proposition, indice) => {
     // La liste de question peut être plus courte que autoCorrection si on n'a pas réussi à générer suffisamment de questions différentes
     // if (exercice.listeQuestions[i] !== undefined) {
     // On a des exercices comme 6S10-1 où il y a 2 questions... mais 6 qcm !
     const label = document.querySelector(
       `#labelEx${exercice.numeroExercice}Q${i}R${indice}`
-    )
+    ) as HTMLLabelElement
     const check = document.querySelector(
       `#checkEx${exercice.numeroExercice}Q${i}R${indice}`
-    )
+    ) as HTMLInputElement
     if (check != null) {
       if (check.checked) {
         // Sauvegarde pour les exports Moodle, Capytale...
-        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
+        exercice.answers![`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
         // Gestion du feedback de toutes les cases cochées
-        if (exercice.autoCorrection[i].propositions[indice].feedback) {
+        if (exercice.autoCorrection[i].propositions![indice].feedback) {
           messageFeedback({
             id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
-            message: exercice.autoCorrection[i].propositions[indice].feedback,
+            message: exercice.autoCorrection[i].propositions![indice].feedback,
             type: proposition.statut ? 'positive' : 'error'
           })
         }
       } else {
-        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '0'
+        exercice.answers![`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '0'
       }
       if (proposition.statut) {
         if (check.checked === true) {
@@ -117,7 +123,7 @@ export function verifQuestionQcm (exercice, i) {
  * @param {{style: string, format: string}} [options]
  * @returns {{texte: string, texteCorr: string}} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
-export function propositionsQcm (exercice, i, options) {
+export function propositionsQcm (exercice: Exercice, i: number, options: { style: string, format: string }) {
 /**
  * Mélange les éléments d'un tableau jusqu'à un certain index et laisse les suivants inchangés.
  * @param {Array} array - Le tableau à mélanger.
@@ -134,6 +140,7 @@ export function propositionsQcm (exercice, i, options) {
   const classCss = options?.style != null && options.style !== ''
     ? `class="ml-2" style="${options.style};" `
     : 'class="ml-2"'
+  if (context.isAmc) return { texte: '', texteCorr: '' }
   if (exercice?.autoCorrection[i]?.propositions === undefined) {
     window.notify(
       'propositionsQcm a reçu une liste de propositions undefined',
@@ -143,8 +150,25 @@ export function propositionsQcm (exercice, i, options) {
       }
     )
     return { texte: '', texteCorr: '' }
+  } else if (exercice.autoCorrection[i].propositions.length === 0) {
+    window.notify(
+      'propositionsQcm a reçu une liste de propositions vide',
+      {
+        autoCrorrection: exercice.autoCorrection[i],
+        propositions: exercice.autoCorrection[i].propositions
+      }
+    )
+    return { texte: '', texteCorr: '' }
+  } else if (exercice.autoCorrection[i].propositions.length === 1) {
+    window.notify(
+      'propositionsQcm a reçu une liste de propositions de taille 1',
+      {
+        autoCrorrection: exercice.autoCorrection[i],
+        propositions: exercice.autoCorrection[i].propositions
+      }
+    )
+    return { texte: '', texteCorr: '' }
   }
-  if (context.isAmc) return { texte: '', texteCorr: '' }
 
   // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
   elimineDoublons(exercice.autoCorrection[i].propositions)
@@ -159,10 +183,10 @@ export function propositionsQcm (exercice, i, options) {
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice?.autoCorrection[i]?.options !== undefined) {
     const lastChoice = Math.min(exercice.autoCorrection[i].options.lastChoice ?? exercice.autoCorrection[i].propositions.length, exercice.autoCorrection[i].propositions.length - 1)
-    vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
+    vertical = exercice.autoCorrection[i].options.vertical ?? false// est-ce qu'on veut une présentation en colonnes ?
     nbCols =
-      exercice.autoCorrection[i].options.nbCols > 1
-        ? exercice.autoCorrection[i].options.nbCols
+      (exercice.autoCorrection[i].options.nbCols ?? 1) > 1
+        ? Number(exercice.autoCorrection[i].options.nbCols)
         : 1 // Nombre de colonnes avant de passer à la ligne
     if (!exercice.autoCorrection[i].options.ordered) {
       const melange = shuffleJusquaWithIndexes(
@@ -182,21 +206,21 @@ export function propositionsQcm (exercice, i, options) {
     indexes.push(...melange.indexes)
   }
   if (!context.isHtml) {
-    const formateQ = (format, rep) => {
+    const formateQ = (format: string, rep: number) => {
       if (format == null || format === 'case') return '$\\square\\;$'
       if (format === 'lettre') {
         return `${texteGras(lettreDepuisChiffre(rep + 1))}.`
       }
       return `${texteGras(lettreDepuisChiffre(rep + 1))}$\\square\\;$`
     }
-    const formateRV = (format, rep) => {
+    const formateRV = (format:string, rep:number) => {
       if (format == null || format === 'case') return '$\\blacksquare\\;$'
       if (format === 'lettre') {
         return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.`
       }
       return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}$\\blacksquare\\;$`
     }
-    const formateRF = (format, rep) => {
+    const formateRF = (format:string, rep:number) => {
       if (format == null || format === 'case') return '$\\square\\;$'
       if (format === 'lettre') {
         return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')}$.`
@@ -228,21 +252,21 @@ export function propositionsQcm (exercice, i, options) {
     texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
   }
   if (context.isHtml) {
-    const formateQ = (format, rep) => {
+    const formateQ = (format: string, rep:number) => {
       if (format == null || format === 'case') return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">`
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
     }
-    const formateRV = (format, rep) => {
+    const formateRV = (format: string, rep:number) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>'
       if (format === 'lettre') {
         return `<label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
     }
-    const formateRF = (format, rep) => {
+    const formateRF = (format: string, rep:number) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">'
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(`${barreTexte(lettreDepuisChiffre(rep + 1))}`)}.</label>`
@@ -282,13 +306,13 @@ export function propositionsQcm (exercice, i, options) {
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function exerciceQcm (exercice) {
+export function exerciceQcm (exercice: Exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
     if (exercice.interactifType === 'qcm') {
       const button = document.querySelector(
         `#btnValidationEx${exercice.numeroExercice}-${exercice.id}`
-      )
+      ) as ButtonWithMathaleaListener
       if (button) {
         if (!button.hasMathaleaListener) {
           button.addEventListener('click', () => {
@@ -321,7 +345,12 @@ export function exerciceQcm (exercice) {
  * élimine en cas de doublon la proposition fausse ou la deuxième proposition si elle sont toutes les deux fausses.
  * @author Jean-Claude Lhote
  */
-export function elimineDoublons (propositions) {
+type PropositionQcm = {
+  texte: string
+  statut?: boolean | number | undefined
+  feedback?: string
+}
+export function elimineDoublons (propositions: PropositionQcm[]) {
   // fonction qui va éliminer les doublons si il y en a
   let doublonsTrouves = false
   for (let i = 0; i < propositions.length - 1; i++) {
