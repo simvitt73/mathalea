@@ -65,7 +65,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
         // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
         // on pourra faire d'autres formats interactifs sur le même modèle
         const points = []
-        let resultat = true
+        let resultat = 'OK'
         const table = document.querySelector(`table#tabMathliveEx${exercice.numeroExercice}Q${i}`)
         if (table == null) {
           throw Error(`verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom${JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` })}`)
@@ -98,7 +98,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
             if (spanFedback != null) spanFedback.innerHTML = '😎'
           } else {
             points.push(0)
-            resultat = false
+            resultat = 'KO'
             if (spanFedback != null) spanFedback.innerHTML = '☹️'
           }
           if (input.value.length > 0 && typeof exercice.answers === 'object') {
@@ -244,9 +244,9 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {
       champTexteValue: champTexte?.value ?? null,
-      exercice: exercice.id,
+      exercice: exercice?.id,
       i,
-      autoCorrection: exercice.autoCorrection[i],
+      autoCorrection: exercice?.autoCorrection[i],
       formatInteractif,
       spanReponseLigne
     })
