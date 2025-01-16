@@ -1,12 +1,14 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { gestionnaireFormulaireTexte } from '../../../modules/outils'
 import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../lib/outils/arrayOutils'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
-import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
+import { mathaleaGenerateSeed, mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
 import Exercice from '../../Exercice'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import Decimal from 'decimal.js'
 export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +26,15 @@ export const refs = {
   'fr-fr': ['can6a-Aléa'],
   'fr-ch': []
 }
+
+const debug = false
+
+const log = function (str: string) {
+  if (debug) console.info(str)
+}
+
 export default class can6eAll extends Exercice {
+  seed: string
   constructor () {
     super()
     this.besoinFormulaireTexte = [
@@ -44,11 +54,7 @@ export default class can6eAll extends Exercice {
     this.nbQuestions = 4
     this.sup = 'All'
     this.lastCallback = ''
-    this.debug = false
-
-    this.log = function (str) {
-      if (this.debug) console.info(str)
-    }
+    this.seed = mathaleaGenerateSeed()
 
     this.nouvelleVersionWrapper = function () {
       this.nouvelleVersion()
@@ -56,11 +62,11 @@ export default class can6eAll extends Exercice {
   }
 
   nouvelleVersion () {
-    this.questionJamaisPosee(0, this.seed, this.sup, this.sup2, this.sup3, this.interactif, this.nbQuestions)
+    this.questionJamaisPosee(0, this.seed, this.sup, this.sup2, this.sup3, String(this.interactif), this.nbQuestions)
     if (this.lastCallback === this.listeArguments[0]) {
       // identique
       // pas de recalcul à faire
-      this.log('pas de recalcul')
+      log('pas de recalcul')
       return
     }
     this.lastCallback = this.listeArguments[0]
@@ -71,7 +77,7 @@ export default class can6eAll extends Exercice {
       this.sup = this.sup.toString()
     }
 
-    this.log(this.sup)
+    log(this.sup)
     const qCal = this.sup.replaceAll('C', '')
     let questionsDisponiblesCalc = enleveElementBis(gestionnaireFormulaireTexte({
       saisie: qCal,
@@ -83,7 +89,7 @@ export default class can6eAll extends Exercice {
       shuffle: false,
       exclus: [37, 0]
     }), 0)
-    this.log('pass1:' + questionsDisponiblesCalc)
+    log('pass1:' + questionsDisponiblesCalc)
 
     if (questionsDisponiblesCalc.length === 0 && (this.sup.includes('C') || this.sup.includes('All'))) {
       // pas de question du type C1
@@ -97,7 +103,7 @@ export default class can6eAll extends Exercice {
         shuffle: true,
         exclus: [37]
       })
-      this.log('pass2:' + questionsDisponiblesCalc)
+      log('pass2:' + questionsDisponiblesCalc)
     }
 
     const qGeo = this.sup.replaceAll('G', '')
@@ -110,7 +116,7 @@ export default class can6eAll extends Exercice {
       nbQuestions: 999,
       shuffle: false
     }), 0)
-    this.log('pass1:' + questionsDisponiblesGeo)
+    log('pass1:' + questionsDisponiblesGeo)
     if (questionsDisponiblesGeo.length === 0 && (this.sup.includes('G') || this.sup.includes('All'))) {
       // pas de question du type G2
       questionsDisponiblesGeo = gestionnaireFormulaireTexte({
@@ -122,7 +128,7 @@ export default class can6eAll extends Exercice {
         nbQuestions: this.nbQuestions,
         shuffle: true
       })
-      this.log('pass2:' + questionsDisponiblesGeo)
+      log('pass2:' + questionsDisponiblesGeo)
     }
 
     const qNum = this.sup.replaceAll('N', '')
@@ -135,7 +141,7 @@ export default class can6eAll extends Exercice {
       nbQuestions: 999,
       shuffle: false
     }), 0)
-    this.log('pass1:' + questionsDisponiblesNum)
+    log('pass1:' + questionsDisponiblesNum)
     if (questionsDisponiblesNum.length === 0 && (this.sup.includes('N') || this.sup.includes('All'))) {
       // pas de question du type N2
       questionsDisponiblesNum = gestionnaireFormulaireTexte({
@@ -147,7 +153,7 @@ export default class can6eAll extends Exercice {
         nbQuestions: this.nbQuestions,
         shuffle: true
       })
-      this.log('pass2:' + questionsDisponiblesNum)
+      log('pass2:' + questionsDisponiblesNum)
     }
 
     const qMes = this.sup.replaceAll('M', '')
@@ -160,7 +166,7 @@ export default class can6eAll extends Exercice {
       nbQuestions: 999,
       shuffle: false
     }), 0)
-    this.log('pass1:' + questionsDisponiblesMes)
+    log('pass1:' + questionsDisponiblesMes)
     if (questionsDisponiblesMes.length === 0 && (this.sup.includes('M') || this.sup.includes('All'))) {
       // pas de question du type N2
       questionsDisponiblesMes = gestionnaireFormulaireTexte({
@@ -172,18 +178,18 @@ export default class can6eAll extends Exercice {
         nbQuestions: this.nbQuestions,
         shuffle: true
       })
-      this.log('pass2:' + questionsDisponiblesMes)
+      log('pass2:' + questionsDisponiblesMes)
     }
 
-    function combineTheme () {
+    function combineTheme (...args: string[][]) {
       const output = []
       let countA = 0
-      for (let k = 0; k < arguments.length; k++) {
-        countA = Math.max(arguments[k].length, countA)
+      for (let k = 0; k < args.length; k++) {
+        countA = Math.max(args[k].length, countA)
       }
       for (let p = 0; p < countA; p++) {
-        for (let h = 0; h < arguments.length; h++) {
-          const a = arguments[h].shift()
+        for (let h = 0; h < args.length; h++) {
+          const a = args[h].shift()
           if (a) output.push(a)
         }
       }
@@ -197,12 +203,12 @@ export default class can6eAll extends Exercice {
       questionsDisponiblesNum[0] = '1'
       questionsDisponiblesMes[0] = '1'
     }
-    const comQuestions = combineTheme(Array.from(questionsDisponiblesCalc, (x) => 'C' + String(x).padStart(2, 0)), Array.from(questionsDisponiblesGeo, (x) => 'G' + String(x).padStart(2, 0)), Array.from(questionsDisponiblesNum, (x) => 'N' + String(x).padStart(2, 0)), Array.from(questionsDisponiblesMes, (x) => 'M' + String(x).padStart(2, 0)))
+    const comQuestions = combineTheme(Array.from(questionsDisponiblesCalc, (x) => 'C' + String(x).padStart(2, '0')), Array.from(questionsDisponiblesGeo, (x) => 'G' + String(x).padStart(2, '0')), Array.from(questionsDisponiblesNum, (x) => 'N' + String(x).padStart(2, '0')), Array.from(questionsDisponiblesMes, (x) => 'M' + String(x).padStart(2, '0')))
 
     const questionsDisponibles = combinaisonListesSansChangerOrdre(comQuestions, this.nbQuestions).slice(0, this.nbQuestions)
-    this.log(questionsDisponibles)
+    log(questionsDisponibles.join('\n'))
 
-    async function loadAllQuests (exercice, numeros) {
+    async function loadAllQuests (exercice: can6eAll, numeros: string[]) {
       const promises = []
       for (let q = 0; q < numeros.length; q++) {
         if (q === 0) {
@@ -221,10 +227,10 @@ export default class can6eAll extends Exercice {
         bubbles: true
       })
       document.dispatchEvent(updateAsyncEx)
-      exercice.log('dispatched all Questions chargées')
+      log('dispatched all Questions chargées')
     }
 
-    function findUuid (fileScript) {
+    function findUuid (fileScript: string) {
       const uuids = Object.entries(uuidToUrl)
       const found = uuids.find((element) => {
         const [filename, ,] = element[1].replaceAll('\\', '/').split('/').reverse()
@@ -232,13 +238,13 @@ export default class can6eAll extends Exercice {
           return true
         }
         return false
-      })
+      }) ?? []
       return found[0]
     }
 
-    async function loadQuest (exercice, fileScript, i) {
+    async function loadQuest (exercice: Exercice, fileScript: string, i: number) {
       // const uuid = refToUuid[fileScript]
-      const uuid = findUuid(fileScript)
+      const uuid = findUuid(fileScript) ?? ''
       const quest = mathaleaLoadExerciceFromUuid(uuid).then(exports => {
       // const quest =  import(fileScript).then(exports => {
         const q2 = exports // new exports.default()
@@ -250,7 +256,13 @@ export default class can6eAll extends Exercice {
           exercice.listeCorrections[k] = (q2.correction)
           exercice.listeCanEnonces[k] = (q2.canEnonce)
           exercice.listeCanReponsesACompleter[k] = (q2.canReponseACompleter)
-          setReponse(exercice, k, q2.reponse, { formatInteractif: q2.formatInteractif } || {})
+          let reponse
+          if (!(q2.reponse instanceof FractionEtendue) && !(q2.reponse instanceof Decimal) && typeof q2.reponse === 'object') {
+            reponse = q2.reponse
+          } else {
+            reponse = { reponse: { value: q2.reponse, options: q2.optionsDeComparaison ?? {} } }
+          }
+          handleAnswers(exercice, k, reponse, { formatInteractif: q2.formatInteractif ?? 'mathlive' })
           exercice.listeQuestions[k] = (q2.question + ajouteChampTexteMathLive(exercice, k, q2.formatChampTexte || '', q2.optionsChampTexte || {}))
         } else {
           exercice.listeQuestions[k] = (q2.listeQuestions[0])
@@ -270,13 +282,17 @@ export default class can6eAll extends Exercice {
             exercice.listeQuestions[k] = exercice.autoCorrection[k].enonce + monQcm.texte
           }
         }
-        exercice.log('Question chargée' + i)
+        log('Question chargée' + i)
       }).catch(function (err) {
-        exercice.log(err)
-        exercice.listeQuestions[i] = 'Erreur de chargement:' + fileScript
+        if (exercice instanceof Exercice) {
+          log(err)
+          exercice.listeQuestions[i] = 'Erreur de chargement:' + fileScript
+        } else {
+          window.notify('Erreur de chargement:' + fileScript, { error: err })
+        }
       })
 
-      exercice.log('Calling Question chargée' + i)
+      log('Calling Question chargée' + i)
       return quest
     }
 
@@ -288,6 +304,6 @@ export default class can6eAll extends Exercice {
       this.listeQuestions[i] = 'chargement...'
       i++
     }
-    this.log('fin nouvelleVersion')
+    log('fin nouvelleVersion')
   }
 }
