@@ -1180,8 +1180,9 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   if (puissance === 0) saisieCleanFormattee = engine.parse(saisieClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
 
   // Ce code ci-dessous sera à supprimer après correction de l'issue 223 de computeEngine 0.27.0
-  const regex = /(?:\{(-?\d+)\}|(-?\d+))\\cdot(.+)/ // Expression régulière pour capturer le nombre avant et ce qui suit \cdot
+  const regex = /(?:\{(-?\d+(?:\.\d+)?)\}|(-?\d+(?:\.\d+)?))\\cdot(.+)/ // Expression régulière pour capturer le nombre avant et ce qui suit \cdot
   const decoupageSaisie = saisieCleanFormattee.match(regex)
+
   let mantisseSaisie: string | null = null
   if (decoupageSaisie) {
     mantisseSaisie = (decoupageSaisie[1] || decoupageSaisie[2]) || null
@@ -1190,8 +1191,10 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   // Ce code ci-dessus sera à supprimer après correction de l'issue 223 de computeEngine 0.27.0
 
   const reponseCleanFormattee = engine.parse(reponseClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
-  if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
 
+  saisieCleanFormattee = saisieCleanFormattee.replace(/(\d+\.?\d*?)0*(?=\\cdot)/, '$1') // Pour corriger 9.040\\cdot10^{4} en 9.04\\cdot10^{4}
+
+  if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
   if (engine.parse(saisieClean).isEqual(engine.parse(reponseClean))) return { isOk: false, feedback: 'La réponse fournie est bien égale à celle attendue mais la réponse fournie n\'est pas en notation scientifique.' }
   return { isOk: false, feedback: 'La réponse fournie n\'est pas égale à celle attendue.' }
 }
