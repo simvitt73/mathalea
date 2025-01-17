@@ -5,11 +5,12 @@ import { homothetie, translation } from '../lib/2d/transformations'
 import { fraction } from './fractions'
 import FractionEtendue from './FractionEtendue'
 import { texNombre } from '../lib/outils/texNombre'
+import type { NestedObjetMathalea2dArray } from './2dGeneralites'
 
-function isFraction (obj) {
+function isFraction (obj: any): obj is FractionEtendue {
   return (typeof obj === 'object' && obj instanceof FractionEtendue)
 }
-export function texProba (proba) {
+export function texProba (proba: number | FractionEtendue): string {
   return isFraction(proba) ? proba.simplifie().toLatex() : fraction(proba, 1).toLatex()
 }
 
@@ -30,6 +31,16 @@ export function texProba (proba) {
  * pins.setFils('sain', 0.7, true)
  */
 export class Arbre {
+  nom: string
+  proba: FractionEtendue
+  enfants: Arbre[]
+  rationnel: boolean
+  visible: boolean
+  alter: string
+  racine: boolean
+  taille: number
+  pos: number
+
   /**
      * @param {object} parametres
      * @param {string} [parametres.nom]
@@ -40,7 +51,15 @@ export class Arbre {
      * @param {string} [parametres.alter]
      * @param {boolean} [parametres.racine]
      */
-  constructor ({ nom, proba, enfants, rationnel, visible, alter, racine } = {}) {
+  constructor ({ nom, proba, enfants, rationnel, visible, alter, racine }: {
+    nom?: string,
+    proba?: number | FractionEtendue,
+    enfants?: Arbre[],
+    rationnel?: boolean,
+    visible?: boolean,
+    alter?: string,
+    racine?: boolean
+  }) {
     this.racine = racine !== undefined ? Boolean(racine) : false
     this.enfants = enfants !== undefined ? [...enfants] : []
     this.nom = nom !== undefined ? String(nom) : ''
@@ -59,8 +78,8 @@ export class Arbre {
      * @returns l'Arbre-fils créé
      * Exemple : const sylvestre = pin.setFils('sylvestre', 0.8) un 'pin' a une probabilité de 0.8 d'être 'sylvestre'.
      */
-  setFils (nom, proba, rationnel) {
-    const arbre = new Arbre(this, nom, proba, (rationnel || this.rationnel))
+  setFils (nom: string, proba: number | FractionEtendue, rationnel: boolean): Arbre {
+    const arbre = new Arbre({ nom, proba, rationnel: (rationnel || this.rationnel) })
     this.enfants.push(arbre)
     return arbre
   }
@@ -71,15 +90,14 @@ export class Arbre {
      * @returns l'Arbre descendant portant ce nom.
      * Exemple : const unArbre = pin.getFils('sylvestre')
      */
-  getFils (nom) {
-    const monArbre = []
+  getFils (nom: string): Arbre | null {
+    if (this.nom === nom) return this
     for (const arbre of this.enfants) {
-      if (arbre.nom === nom) return [arbre]
-      else {
-        monArbre.push(...arbre.getFils(nom))
-      }
+      if (arbre.nom === nom) return arbre
+      const fils = arbre.getFils(nom)
+      if (fils) return fils
     }
-    return monArbre
+    return null
   }
 
   // est-ce qu'on vérifie si la somme des probabilités ne dépasse pas 1 ?
@@ -90,12 +108,12 @@ export class Arbre {
      * @param {boolean} rationnel true si la proba doit être mise sous la forme d'une fraction
      * @returns l'Arbre-fils.
      */
-  setFilsProba (nom, proba, rationnel) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
+  setFilsProba (nom: string, proba:number | FractionEtendue, rationnel:boolean) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
     let arbre = this.getFils(nom)
     if (arbre) {
       arbre.proba = isFraction(proba) ? proba : fraction(proba, 1)
     } else { // sinon on ajoute ce fils.
-      arbre = new Arbre(this, nom, proba, (rationnel || this.rationnel))
+      arbre = new Arbre({ nom, proba, rationnel: (rationnel || this.rationnel) })
       this.enfants.push(arbre)
     }
     return arbre
@@ -111,7 +129,7 @@ export class Arbre {
      * alors pin.getProba('malade')===0.4 et sylvestre.getProba('malade')===0.4 aussi ! par contre
      * sylvestre.getProba('malade', 1)= 0.5
      */
-  getProba (nom) {
+  getProba (nom: string) {
     let p = fraction(0, 1)
     let probaArbre = fraction(0, 1)
     let getPro
@@ -174,7 +192,7 @@ export class Arbre {
      * vertical est un booléen. Si true, alors l'arbre sera construit de bas en haut ou de haut en bas, sinon, il sera construit de gauche à droite ou de droite à gauche.
      * sens indique la direction de pousse : 1 positif, -1 négatif.
      */
-  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1, tailleCaracteres) {
+  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1, tailleCaracteres: number): NestedObjetMathalea2dArray {
     tailleCaracteres = tailleCaracteres || 5
     const objets = []
     const A = point(vertical

@@ -68,7 +68,7 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
   ]
 }
 
-export function listeFractions (...fractions) {
+export function listeFractions (...fractions: FractionEtendue[]): ListeFraction {
   return new ListeFraction(...fractions)
 }
 
@@ -78,11 +78,11 @@ export function listeFractions (...fractions) {
  * @param {number|undefined} b
  * @return {FractionEtendue}
  */
-export function fraction (a, b) {
+export function fraction (a: number, b: number | undefined): FractionEtendue {
   if (b === undefined) { // pas d'argument b
     if (a === undefined) {
       window.notify('fraction de fractions : aucun argument n\'est défini ', { a, b })
-      return NaN
+      throw new Error('fraction de fractions : aucun argument n\'est défini ')
     } else {
       if (typeof a === 'number') {
         const frac = rationnalise(a)
@@ -92,12 +92,12 @@ export function fraction (a, b) {
         return frac
       }
       window.notify('fraction de fractions : l\'argument est de type inconvenant ', { a })
-      return NaN
+      throw new Error('fraction de fractions : l\'argument est de type inconvenant ')
     }
   } else { // on a un argument b
     if (a === undefined) {
       window.notify('fraction de fractions : le premier argument n\'est pas défini ', { a, b })
-      return NaN
+      throw new Error('fraction de fractions : le premier argument n\'est pas défini ')
     } else {
       if (typeof a === 'number' && typeof b === 'number') {
         return new FractionEtendue(a, b)
@@ -105,12 +105,12 @@ export function fraction (a, b) {
         return new FractionEtendue(Number(a), Number(b))
       }
       window.notify('fraction de fractions : les arguments sont de type inconvenant ', { a, b })
-      return NaN
+      throw new Error('fraction de fractions : les arguments sont de type inconvenant ')
     }
   }
 }
 
-export function denominateurEnLettre (den, pluriel) {
+export function denominateurEnLettre (den: number, pluriel: string): string {
   let denEnLettre
   switch (den) {
     case 2:
