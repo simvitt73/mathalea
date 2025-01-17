@@ -5,6 +5,7 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import type { MathfieldElement } from 'mathlive'
 export const titre = 'Additionner un entier et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,14 +45,33 @@ export default class SommeEntierFraction extends Exercice {
     const d = new FractionEtendue(a * c + b, c)
     const e = new FractionEtendue(a * c - b, c)
     const choix = this.canOfficielle ? true : choice([true, false])
+    const numD = choix ? d.num : e.num
+    const denD = choix ? d.den : e.den
+
+    const callback = (exercice: Exercice, question: number) => {
+      const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+      if (mfe == null) return { isOk: false, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 0 } }
+      const num = Number(mfe.getPromptValue('champ1') || 0)
+      const den = Number(mfe.getPromptValue('champ2') || 0)
+      const isOk = (num * denD === numD * den)
+      if (isOk) {
+        mfe.setPromptState('champ1', 'correct', true)
+        mfe.setPromptState('champ2', 'correct', true)
+      }
+      const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+      if (spanReponseLigne != null) {
+        spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
+      }
+      return { isOk, feedback: '', score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
+    }
     if (choix === true) {
       this.question = `${a}+${f.texFraction}=\\dfrac{%{champ1}}{%{champ2}}`
       this.correction = `$${a}+${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${miseEnEvidence(d.texFraction)}$`
-      this.reponse = { bareme: toutPourUnPoint, champ1: { value: d.n }, champ2: { value: d.d } }
+      this.reponse = { bareme: toutPourUnPoint, callback }
     } else {
       this.question = `${a}-${f.texFraction}=\\dfrac{%{champ1}}{%{champ2}}`
       this.correction = `$${a}-${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${miseEnEvidence(e.texFraction)}$`
-      this.reponse = { bareme: toutPourUnPoint, champ1: { value: e.n }, champ2: { value: e.d } }
+      this.reponse = { bareme: toutPourUnPoint, callback }
     }
 
     this.canEnonce = `${choix ? `$${a}+${f.texFraction}$` : `$${a}-${f.texFraction}$`}`
