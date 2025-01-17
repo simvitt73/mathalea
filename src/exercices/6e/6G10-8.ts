@@ -38,11 +38,13 @@ export default class nomExercice extends Exercice {
     super()
     this.nbQuestions = 1
     this.besoinFormulaireNumerique = ['Type de Questions', 3, '1 : Que des cercles\n2 : Que des disques\n3 : Mélange']
-    this.besoinFormulaire2Numerique = ['Nombre de cas par question (4 maximum)', 4]
+    this.besoinFormulaire2Numerique = ['Nombre de points par question (4 maximum)', 4]
     this.sup = 3
     this.sup2 = 2
     this.exoCustomResultat = true
     this.interactif = true
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
   }
 
   nouvelleVersion () {
@@ -73,9 +75,12 @@ export default class nomExercice extends Exercice {
       this.estUnCercle[i] = combinaisonListes(typeDeQuestions, this.sup2)
       const nomDesCentres = choisitLettresDifferentes(4, 'OQW')
       let texte = ''
-      let texteCorr = texteGras('Rappel : ') + '<br>'
-      texteCorr += sp(5) + 'L\'ensemble des points à une distance fixée d\'un autre point est un cercle (dont le centre est cet autre point et le rayon est cette distance fixée).<br>'
-      texteCorr += sp(5) + 'L\'ensemble des points à une distance inférieure ou égale à une distance fixée d\'un autre point est un disque (dont le centre est cet autre point et le rayon est cette distance fixée).<br><br>'
+      let texteCorr = ''
+      if (this.correctionDetaillee) {
+        texteCorr += texteGras('Rappel : ') + '<br>'
+        texteCorr += sp(5) + 'L\'ensemble des points à une distance fixée d\'un autre point est un cercle (dont le centre est cet autre point et le rayon est cette distance fixée).<br>'
+        texteCorr += sp(5) + 'L\'ensemble des points à une distance inférieure ou égale à une distance fixée d\'un autre point est un disque (dont le centre est cet autre point et le rayon est cette distance fixée).<br><br>'
+      }
       const coordonnes : number[][] = []
 
       this.figuresApiGeom[i] = new Figure({ xMin: -5.5, yMin: -5.5, width: 330, height: 330, border: true })
@@ -93,9 +98,10 @@ export default class nomExercice extends Exercice {
         } while (isDuplicate)
         coordonnes[ee] = newElement
         this.lesPoints[i][ee] = this.figuresApiGeom[i].create('Point', { x: newElement[0], y: newElement[1], shape: 'x', label: nomDesCentres[ee], labelDxInPixels: 10, labelDyInPixels: 20 })
+        this.lesPoints[i][ee].isDeletable = false
         this.lesPointsCorr[i][ee] = this.figuresApiGeomCorr[i].create('Point', { x: newElement[0], y: newElement[1], shape: 'x', label: nomDesCentres[ee], labelDxInPixels: 10, labelDyInPixels: 20 })
         this.choixRayon[i][ee] = randint(20, 50, this.choixRayon[i])
-        texte += numAlpha(ee) + `Tracer, en ${this.choixCouleur[i][ee][0]}, l`
+        texte += numAlpha(ee) + `Construire, en ${this.choixCouleur[i][ee][0]}, l`
         let texteCommun = '\'ensemble des points, du cadre ci-dessous, à une distance'
         texteCommun += this.estUnCercle[i][ee] ? ' de ' : ' inférieure ou égale à '
         texteCommun += `$${texNombre(new Decimal(this.choixRayon[i][ee]).div(10).toNumber())}$ unités du point ${nomDesCentres[ee]}`
