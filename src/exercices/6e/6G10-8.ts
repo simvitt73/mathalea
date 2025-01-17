@@ -119,6 +119,7 @@ export default class nomExercice extends Exercice {
       }
       this.figuresApiGeom[i].setToolbar({ tools: ['CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'DISC_CENTER_POINT', 'DISC_RADIUS', 'POINT', 'LINE', 'DRAG', 'REMOVE', 'FILL', 'SET_OPTIONS'] })
       this.figuresApiGeom[i].options.fillColorAndBorderColorAreSame = true
+      this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions = true
 
       texte += figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], idAddendum: '6GXX' + i, defaultAction: 'DRAG' })
       texteCorr += figureApigeom({ exercice: this, i, figure: this.figuresApiGeomCorr[i], idAddendum: '6GXXCor' + i })

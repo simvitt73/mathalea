@@ -20,8 +20,8 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   animation?: boolean,
   i: number,
   /** identifiant supplémentaire pour identifier l'
-     * si c'est la figure de la correction ou une 2e figure dans la question
-    */
+  * si c'est la figure de la correction ou une 2e figure dans la question
+  */
   idAddendum?: string,
   /** Action en cours au lancement de l'exercice qui doit obligatoirement être un bouton de la toolbar */
   defaultAction?: string
@@ -41,6 +41,8 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   }
   const idApigeom = `apigeomEx${exercice.numeroExercice}F${i}${idAddendum}`
   figure.id = idApigeom
+
+  console.log('ok')
 
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
