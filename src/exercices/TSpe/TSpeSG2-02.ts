@@ -15,14 +15,14 @@ export const uuid = 'be5d4'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TSG4-01'],
+  'fr-fr': ['TSG2-02'],
   'fr-ch': []
 }
 
 /**
  * Description didactique de l'exercice : Déterminer une équation cartésienne d'un plan
  * @author Claire Rousset
- * Référence TSpeSG4-01
+ * Référence TSpeSG2-02
  */
 export default class EquationsLog extends Exercice {
   constructor () {
