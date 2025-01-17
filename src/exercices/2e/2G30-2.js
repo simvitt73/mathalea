@@ -67,7 +67,7 @@ export default class EquationReduiteDeDroites extends Exercice {
           d = xB - xA
         }
 
-        texte = `$A(${xA}\\,;\\,${yA})$ et $B(${xB}\\,;\\,${yB})$ `
+        texte = `$A(${xA}\\,;\\,${yA})$ et $B(${xB}\\,;\\,${yB})$`
         texteCorr = 'On observe que $ x_B\\neq x_A$.'
         texteCorr += '<br>La droite $(AB)$ a donc une équation du type $y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
@@ -105,7 +105,7 @@ export default class EquationReduiteDeDroites extends Exercice {
         reponse = reduireAxPlusB(new FractionEtendue(n, d).simplifie(), new FractionEtendue(d * yA - n * xA, d).simplifie())
       }
       handleAnswers(this, i, { reponse: { value: reponse } })
-      if (lang !== 'fr-CH' && this.sup !== 1) {
+      if (lang !== 'fr-CH') {
       // Correction commune aux deux this.sup
         texteCorr += `=${new FractionEtendue(n, d).texFraction}`
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0 || n < 0) && n !== 0) {
