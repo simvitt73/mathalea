@@ -19,16 +19,20 @@ export const refs = {
 export default class Can2025N4Q11 extends ExerciceCan {
   private enonce (a?: number, b?: number) {
     if (a == null || b == null) {
-      b = choice([4, 2])
-      a = b === 4 ? choice([1, 2, 3]) : choice([1, 3])
+      const listeFractions = [[1, 3], [3, 4], [1, 5], [2, 3], [2, 5], [3, 5], [4, 5], [1, 6], [1, 4]]
+      const fraction = choice(listeFractions)
+      a = fraction[0]
+      b = fraction[1]
     }
-    this.reponse = Math.round(60 * a / b)
+
+    this.reponse = texNombre(a * 60 / b, 0)
     this.question = `$\\dfrac{${a}}{${b}}$ d'heure`
-    this.correction = `$\\dfrac{1}{${b}}\\text{ h}=${Math.round(60 / b)}\\text{ min}$ donc $\\dfrac{${a}}{${b}}$ d'heure, c'est : $${a}\\times ${Math.round(60 / b)}=${miseEnEvidence(texNombre(60 * a / b, 0))}\\text{ min}$.`
+    this.correction = `$\\dfrac{${a}}{${b}} \\text{ d'heure }=\\dfrac{${a}}{${b}}\\times 60 \\text{ min }=${miseEnEvidence(this.reponse)}$ min`
     this.canEnonce = this.question
-    this.question += this.interactif ? '<br>' : ' $=\\ldots\\ldots$ min'
-    this.canReponseACompleter = '$\\ldots\\ldots$ min'
-    this.optionsChampTexte = { texteApres: ' min' }
+    if (this.interactif) { this.question += ' $=$' } else { this.question += '$=\\ldots$ min' }
+    this.canEnonce = `$\\dfrac{${a}}{${b}}$ d'heure`
+    this.canReponseACompleter = '$\\ldots$ min'
+    this.optionsChampTexte = { texteApres: 'min' }
   }
 
   nouvelleVersion () {

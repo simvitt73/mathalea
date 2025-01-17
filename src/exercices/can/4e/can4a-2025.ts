@@ -40,7 +40,7 @@ export const refs = {
   'fr-fr': [],
   'fr-ch': []
 }
-export const dateDePublication = '07/04/2024'
+export const dateDePublication = '17/01/2025'
 
 /**
  * Annales CAN 2024
