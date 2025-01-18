@@ -98,7 +98,7 @@ export default class ReciproquePythagore extends Exercice {
       [60, 80, 100],
       [65, 72, 97]
     ]
-    let nomsTriangles// on mémorise les noms des triangles pour ne pas les redonner
+    let nomsTriangles: string[] = [] // on mémorise les noms des triangles pour ne pas les redonner
     for (
       let i = 0,
         texte,
@@ -165,6 +165,7 @@ export default class ReciproquePythagore extends Exercice {
             }=${texNombre(c)}$ cm.`
           break
         case 3:
+        default:
           texte = `Le triangle $${nomTriangle}$ est tel que $${A + C
             }=${texNombre(b)}$ cm, $${A + B}=${texNombre(c)}$ cm,  et $${B + C
             }=${texNombre(a)}$ cm.`
@@ -180,11 +181,11 @@ export default class ReciproquePythagore extends Exercice {
         a
       )}^2=${texNombre(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
-        if (!context.isAmc) this.autoCorrection[i].propositions[0].statut = true
+        if (!context.isAmc) this.autoCorrection[i].propositions![0].statut = true
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore est vérifiée.<br> D'après la réciproque du théorème de Pythagore, le triangle $${nomTriangle}$ est rectangle en $${C}$.`
       } else {
-        if (!context.isAmc) this.autoCorrection[i].propositions[1].statut = true
+        if (!context.isAmc) this.autoCorrection[i].propositions![1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après le théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
       }
@@ -196,19 +197,20 @@ export default class ReciproquePythagore extends Exercice {
           [
             {
               type: 'AMCOpen',
+              // @ts-expect-error
               propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: ' ' }]
             }
           ]
         }
       } else {
         this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions[0].feedback = texteCorr
+        this.autoCorrection[i].propositions![0].feedback = texteCorr
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += props.texte
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

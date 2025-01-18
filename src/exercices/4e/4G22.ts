@@ -5,7 +5,6 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { RedactionPythagore } from './_pythagore'
-import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -178,9 +177,9 @@ export default class ProblemesPythagore extends Exercice {
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
-        a = new Decimal(a).div(10)
-        b = new Decimal(b).div(10)
-        c = new Decimal(c).div(10)
+        a = a / 10
+        b = b / 10
+        c = c / 10
       }
 
       switch (listeTypeDeQuestions[i]) {
@@ -230,7 +229,7 @@ export default class ProblemesPythagore extends Exercice {
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un losange ?`
           this.autoCorrection[i] = {
-            texte,
+            enonce: texte,
             propositions: [
               {
                 texte: `$${nomQuadrilatere}$ est un losange.`,
@@ -267,7 +266,7 @@ export default class ProblemesPythagore extends Exercice {
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un losange ?`
           this.autoCorrection[i] = {
-            texte,
+            enonce: texte,
             propositions: [
               {
                 texte: `$${nomQuadrilatere}$ est un losange.`,
@@ -307,7 +306,7 @@ export default class ProblemesPythagore extends Exercice {
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un rectangle ?`
           this.autoCorrection[i] = {
-            texte,
+            enonce: texte,
             propositions: [
               {
                 texte: `$${nomQuadrilatere}$ est un rectangle.`,
@@ -339,12 +338,13 @@ export default class ProblemesPythagore extends Exercice {
           break
 
         case 'parallelogramme_n_est_pas_rectangle':
+        default:
           texte = `$${nomQuadrilatere}$ est un parallélogramme de centre $O$ tel que $${A + B
             }=${texNombre(a)}$ cm, $${A + C}=${texNombre(c)}$ cm et $${B + C
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un rectangle ?`
           this.autoCorrection[i] = {
-            texte,
+            enonce: texte,
             propositions: [
               {
                 texte: `$${nomQuadrilatere}$ est un rectangle.`,
@@ -388,7 +388,7 @@ export default class ProblemesPythagore extends Exercice {
   }
 }
 
-function drawParallelogramm (labelA, labelB, labelC, labelD, labelO = 'O', x = 6, y = 3, dx = 1) {
+function drawParallelogramm (labelA: string, labelB: string, labelC: string, labelD: string, labelO = 'O', x = 6, y = 3, dx = 1) {
   const figureCorr = new Figure({ xMin: -1, yMin: -4, height: 160 })
   const A = figureCorr.create('Point', { label: labelA, shape: '', x: 0, y: 0, labelDxInPixels: -10 })
   const B = figureCorr.create('Point', { label: labelB, shape: '', x, y: 0 })
