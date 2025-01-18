@@ -1,5 +1,5 @@
 import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { milieu, point, pointIntersectionDD } from '../../lib/2d/points'
+import { milieu, Point, point, pointIntersectionDD } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
@@ -9,7 +9,7 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -50,11 +50,11 @@ export const refs = {
    * @param {*} pixelsParCm nombre de pixels par unité de mesure
    * @returns retourne les points d'intersection (les quatre premiers sont les points d'intersection, les quatre suivants sont des booleans si 'intersection ou pas)
    */
-function intersectionSegmentRectangle (A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration = 4) {
-  const pgauche = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
-  const pdroite = pointIntersectionDD(droite(A, B), droite(point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
-  const phaut = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
-  const pbas = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
+function intersectionSegmentRectangle (A: Point, B: Point, centre: Point, demirectWitdh: number, demirectHeight: number, pixelsParCm: number, iteration = 4) {
+  const pgauche = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm))) as Point
+  const pdroite = pointIntersectionDD(droite(A, B), droite(point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm))) as Point
+  const phaut = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm))) as Point
+  const pbas = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm))) as Point
   const bgauche = pgauche.y >= centre.y - demirectHeight / pixelsParCm && pgauche.y <= centre.y + demirectHeight / pixelsParCm
   const bdroite = pdroite.y >= centre.y - demirectHeight / pixelsParCm && pdroite.y <= centre.y + demirectHeight / pixelsParCm
   const bhaut = phaut.x >= centre.x - demirectWitdh / pixelsParCm && phaut.x <= centre.x + demirectWitdh / pixelsParCm
@@ -76,6 +76,8 @@ function intersectionSegmentRectangle (A, B, centre, demirectWitdh, demirectHeig
   return { pgauche, pdroite, phaut, pbas, bgauche, bdroite, bhaut, bbas }
 }
 export default class CalculDAngle extends Exercice {
+  level: number
+
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
@@ -84,16 +86,17 @@ export default class CalculDAngle extends Exercice {
     this.correctionDetaillee = false
     this.spacing = 2
     this.spacingCorr = context.isHtml ? 3 : 2
+    this.level = 3
   }
 
   nouvelleVersion () {
-    let listChoixRapportTrigo = []
+    let listChoixRapportTrigo: string[] = []
     for (let i = 0; i < this.nbQuestions; i++) {
       const nom = creerNomDePolygone(3, 'QD')
       let texte = ''
       let texteCorr = ''
-      const objetsEnonce = []
-      const objetsCorrection = []
+      const objetsEnonce: NestedObjetMathalea2dArray = []
+      const objetsCorrection: NestedObjetMathalea2dArray = []
       let choixRapportTrigo
       let ab, bc, ac, angleABC
       if (this.level === 4) {
@@ -101,7 +104,7 @@ export default class CalculDAngle extends Exercice {
       } else {
         if (listChoixRapportTrigo.length === 0) listChoixRapportTrigo = ['Acos', 'Asin', 'Atan']
         listChoixRapportTrigo = shuffle(listChoixRapportTrigo)
-        choixRapportTrigo = listChoixRapportTrigo.pop()
+        choixRapportTrigo = listChoixRapportTrigo.pop() ?? 'Acos'
       }
 
       switch (choixRapportTrigo) {
@@ -120,6 +123,7 @@ export default class CalculDAngle extends Exercice {
           texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
         case 'Atan':
+        default:
           ab = randint(40, 100) / 10
           ac = randint(40, 100) / 10
           angleABC = Math.round(Math.atan(ac / ab) * 180 / Math.PI)
@@ -221,6 +225,7 @@ export default class CalculDAngle extends Exercice {
           t1b = latexParPoint('?', m4b, 'black', 100, 12, '')
           break
         case 'Atan':
+        default:
           texteAngle = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, pLabelAB, 'black', 120, 12, '')
           texteAB = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, pLabelAC, 'black', 120, 12, '')
           pLabelAngle = similitude(A, B, angleOriente(A, B, C) / 2, 2.7 / longueur(B, A))
@@ -306,6 +311,7 @@ export default class CalculDAngle extends Exercice {
 
           break
         case 'Atan':
+        default:
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'

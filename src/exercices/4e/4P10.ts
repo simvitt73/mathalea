@@ -29,14 +29,14 @@ export const refs = {
   'fr-fr': ['4P10'],
   'fr-ch': ['10FA4-2']
 }
-const solutes = [
+const solutes: [string, string, number][] = [
   ['sel', 'd\'eau', 300],
   ['sucre', 'd\'eau', 2000],
   ['dioxyde de carbone', 'd\'eau', 3],
   ['bicarbonate de sodium', 'd\'eau', 9],
   ['carbonate de sodium', 'd\'eau', 300]
 ] // soluté, masse maximale en gramme pour saturer 1 L de solvant
-const materiaux = [
+const materiaux: [string, number, string, string][] = [
   ['palladium', 12000, 'du ', 'de '],
   ['acier', 7800, 'de l\'', 'd\''],
   ['fonte', 7100, 'de la', 'de '],
@@ -53,7 +53,7 @@ const materiaux = [
   ['titane', 4500, 'du ', 'de '],
   ['zinc', 7150, 'du ', 'de ']
 ]
-const villes = [
+const villes: [string, number, number][] = [
   ['Nice', 342637, 71.9],
   ['Montpellier', 281613, 56.9],
   ['Rennes', 216268, 50.4],
@@ -70,20 +70,20 @@ const villes = [
   ['Lille', 232440, 34.8],
   ['Strasbourg', 279284, 78.3]
 ] // [Ville, population, superfice en ha, année du recensement]
-const locations = [
+const locations: [string, number, number, number][] = [
   ['un vélo', 1.5, 2, 8],
   ['un canoé', 10, 2, 4],
   ['des rollers', 7, 2, 5],
   ['un char à voile', 12, 2, 4]
 ]
-const cours = [
+const cours : [string, number][] = [
   ['de piano', 20],
   ['de maths', 25],
   ['de yoga', 5],
   ['de dessin', 12],
   ['de voile', 15]
 ]
-const fruits = [
+const fruits: [string, number, number, number][] = [
   ['pêches', 4, 10, 30],
   ['noix', 5.4, 4, 13],
   ['cerises', 5.6, 11, 20],
@@ -93,13 +93,13 @@ const fruits = [
   ['citrons', 1.5, 15, 30],
   ['bananes', 1.5, 15, 25]
 ]
-const appareils = [
+const appareils: [string, number, number][] = [
   ['radiateur', 2300, 20],
   ['téléviseur', 46, 12],
   ['four électrique', 2960, 4],
   ['ordinateur', 460, 8]
 ] // [appareil,puissance,durée maxi de fonctionnement]
-const liquides = [
+const liquides: [string, number][] = [
   ['de lait entier', 1.032],
   ['d\'essence', 0.755],
   ['de diesel', 0.83],
@@ -107,7 +107,7 @@ const liquides = [
   ['de bière', 0.9],
   ['de sable', 1.6]
 ] // [nom,densité]
-const rivieres = [
+const rivieres: [string, string, number, number, string, string, string][] = [
   ['Marne', 'Gournay-sur-Marne', 110, 550, 'avril 1983', 'la ', 'de la '],
   ['Seine', 'Alfortville', 218, 2100, 'janvier 1982', 'la ', 'de la '],
   ['Oise', 'Pont-Sainte-Maxence', 109, 665, 'février 1995', 'l\'', 'de l\''],
@@ -117,7 +117,7 @@ const rivieres = [
   ['Meuse', 'Chooz', 144, 1610, 'janvier 1995', 'la ', 'de la ']
 ]
 // [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
-const vitesses = [
+const vitesses: [string, number, number, number][] = [
   ['sur un vélo', 4, 12, 8],
   ['dans un train', 50, 100, 5],
   ['dans une voiture', 15, 30, 5],
@@ -139,7 +139,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
     this.sup = ''
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion (numeroExercice: number) {
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
@@ -196,7 +196,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
           if (nbQuartsDHeures !== 0) { texte += `et $${nbQuartsDHeures * 15}$ minutes` }
           texte += `.<br>Le prix d'un kWh est de $${texPrix(
             prixkWh
-          , 2)}$ €.<br>`
+          )}$ €.<br>`
           if (context.isHtml) {
             // les boutons d'aide uniquement pour la version html
           }
@@ -325,6 +325,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               )}\\text{ kWh}$<br>`
               break
             case 1: // Volume d'un tonneau cylindrique
+            default:
               index2 = randint(0, 5)
               r = randint(10, 15) * 2
               h = randint(0, 10) + r * 4
@@ -707,6 +708,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               )}$ secondes après avoir vu l'éclair tomber sur le clocher.`
               break
             case 2: // Le coureur
+            default:
               vitesseMoy = randint(vitesses[4][1] * 5, vitesses[4][2] * 5) / 5 // vitesseMoy aura un chiffre après la virgule 4 fois sur 5
               distance = randint(5, 12)
               quidam = prenomF()
@@ -1143,6 +1145,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
 
           break
         case 14: // problème de vitesse de téléchargement
+        default:
           unites = ['ko', 'Mo', 'Go']
           index = randint(0, 1)
           if (index === 0) vitesseMoy = randint(200, 999)
@@ -1212,7 +1215,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
 
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

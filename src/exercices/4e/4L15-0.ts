@@ -20,6 +20,55 @@ export const refs = {
   'fr-fr': ['4L15-0'],
   'fr-ch': ['10FA3-8']
 }
+
+// une fonction pour gérer le signe
+const signeDansEq = function (nb: number) {
+  if (nb > 0) {
+    return { signe: '+', operation: '\\bf{soustraire}', operationTexte: 'soustraire', chgt_signe: nb }
+  } else {
+    return { signe: '', operation: '\\bf{ajouter}', operationTexte: 'ajouter', chgt_signe: nb * (-1) }
+  }
+}
+
+// une fonction pour gérer le genre du prénom et le pronom associé
+const genreEtPrenom = function () {
+  const n = randint(0, 1)
+  if (n === 0) {
+    return { prenom: prenomM(), pronom: 'il' }
+  } else {
+    return { prenom: prenomF(), pronom: 'elle' }
+  }
+}
+
+// deux fonctionx pour conditionner la simplification d'une fraction
+const isSimp = function (n: number, d: number) {
+  if (fractionSimplifiee(n, d)[0] !== n) {
+    return true
+  } else {
+    return false
+  }
+}
+
+const simpFrac = function (n: number, d: number) {
+  if (isSimp(n, d)) {
+    if (fractionSimplifiee(n, d)[1] === 1) {
+      return `$= ${fractionSimplifiee(n, d)[0]}$`
+    } else if (fractionSimplifiee(n, d)[0] === 0) {
+      return '$ = 0'
+    } else {
+      return `$= \\dfrac{${fractionSimplifiee(n, d)[0]}}{${fractionSimplifiee(n, d)[1]}}$`
+    }
+  } else {
+    if (fractionSimplifiee(n, d)[1] === 1) {
+      return `$= ${fractionSimplifiee(n, d)[0]}$`
+    } else if (fractionSimplifiee(n, d)[0] === 0) {
+      return '$ = 0$'
+    } else {
+      return ' '
+    }
+  }
+}
+
 export default class TrouverErreurResolEqDeg1 extends Exercice {
   constructor () {
     super()
@@ -50,54 +99,6 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
       const b = randint(-9, 9, [-1, 0, 1])
       const c = randint(-9, 9, [-1, 0, 1, a, -a])
       const d = randint(-9, 9, [-1, 0, 1])
-
-      // une fonction pour gérer le signe
-      const signeDansEq = function (nb) {
-        if (nb > 0) {
-          return { signe: '+', operation: '\\bf{soustraire}', operationTexte: 'soustraire', chgt_signe: nb }
-        } else {
-          return { signe: '', operation: '\\bf{ajouter}', operationTexte: 'ajouter', chgt_signe: nb * (-1) }
-        }
-      }
-
-      // une fonction pour gérer le genre du prénom et le pronom associé
-      const genreEtPrenom = function () {
-        const n = randint(0, 1)
-        if (n === 0) {
-          return { prenom: prenomM(), pronom: 'il' }
-        } else {
-          return { prenom: prenomF(), pronom: 'elle' }
-        }
-      }
-
-      // deux fonctionx pour conditionner la simplification d'une fraction
-      const isSimp = function (n, d) {
-        if (fractionSimplifiee(n, d)[0] !== n) {
-          return true
-        } else {
-          return false
-        }
-      }
-
-      const simpFrac = function (n, d) {
-        if (isSimp(n, d)) {
-          if (fractionSimplifiee(n, d)[1] === 1) {
-            return `$= ${fractionSimplifiee(n, d)[0]}$`
-          } else if (fractionSimplifiee(n, d)[0] === 0) {
-            return '$ = 0'
-          } else {
-            return `$= \\dfrac{${fractionSimplifiee(n, d)[0]}}{${fractionSimplifiee(n, d)[1]}}$`
-          }
-        } else {
-          if (fractionSimplifiee(n, d)[1] === 1) {
-            return `$= ${fractionSimplifiee(n, d)[0]}$`
-          } else if (fractionSimplifiee(n, d)[0] === 0) {
-            return '$ = 0$'
-          } else {
-            return ' '
-          }
-        }
-      }
 
       const currentGenreEtPrenom = genreEtPrenom()
 

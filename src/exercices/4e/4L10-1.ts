@@ -144,6 +144,7 @@ export default class ReductionsPiegesClassiques extends Exercice {
           reponse = `${a + 'x^2'}-${a}`
           break
         case 'ax^2-ax^2':
+        default:
           a = Math.abs(a)
           texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a}x^2-${a}x^2$`
           texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a}x^2-${a}x^2=0$`

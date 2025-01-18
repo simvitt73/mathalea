@@ -14,6 +14,23 @@ export const refs = {
   'fr-fr': ['4L13-1'],
   'fr-ch': ['9FA2-9', '10FA3-10']
 }
+
+const pluriel = function (n: number, obj:{ lettre: string, article: string, sing: string, plur: string }) {
+  if (n > 1) {
+    return obj.plur
+  } else {
+    return obj.sing
+  }
+}
+
+// une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
+const sliceUn = function (n: number) {
+  if (n === 1) {
+    return ''
+  } else {
+    return `${n}`
+  }
+}
 export default class FormeLitteraleIntroduireUneLettre extends Exercice {
   constructor () {
     super()
@@ -25,22 +42,6 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
   nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer le pluriel
-      const pluriel = function (n, obj) {
-        if (n > 1) {
-          return obj.plur
-        } else {
-          return obj.sing
-        }
-      }
-
-      // une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
-      const sliceUn = function (n) {
-        if (n === 1) {
-          return ''
-        } else {
-          return `${n}`
-        }
-      }
 
       // on definit un tableau de couples possibles
       const situations = [

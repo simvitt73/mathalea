@@ -1,22 +1,24 @@
-import { droite } from '../../lib/2d/droites'
-import { milieu, point, tracePoint } from '../../lib/2d/points'
-import { polygone } from '../../lib/2d/polygones'
-import { grille } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { texteParPointEchelle } from '../../lib/2d/textes'
-import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations'
+import { Droite, droite } from '../../lib/2d/droites'
+import { milieu, Point, point, TracePoint, tracePoint } from '../../lib/2d/points'
+import { Polygone, polygone } from '../../lib/2d/polygones'
+import { Grille, grille } from '../../lib/2d/reperes'
+import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { TexteParPointEchelle, texteParPointEchelle } from '../../lib/2d/textes'
+import { homothetie, translation } from '../../lib/2d/transformations'
 import { choice, compteOccurences, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
 import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, mathalea2d, Vide2d, vide2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mod } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import type { RotationAnimee, SymetrieAnimee, TranslationAnimee } from '../../modules/2dAnimation'
+import { transfoPoly } from './4G12-1'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true
@@ -67,8 +69,8 @@ const motifs = [
   polygone([point(2, 1), point(2, 2), point(1, 2), point(1, 4), point(2, 4), point(2, 3), point(3, 3), point(3, 2), point(4, 2), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1)]),
   polygone([point(3, 1), point(3, 2), point(1, 2), point(1, 3), point(2, 3), point(2, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 4), point(6, 4), point(6, 3), point(5, 3), point(5, 2), point(4, 2), point(4, 1)])
 ]
-const noeuds = []
-const maGrille = []
+const noeuds:Point[] = []
+const maGrille:(TracePoint | Grille | TexteParPointEchelle)[] = []
 const labels = []
 maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
 for (let i = 0; i < 6; i++) {
@@ -81,22 +83,7 @@ for (let i = 0; i < 6; i++) {
   }
 }
 
-function transfoPoly (pol, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }) {
-  switch (type) { // type est l'une des chaines suivantes 'symax', 'trans', 'rot90', 'rot180'
-    case 'symax':
-      return symetrieAxiale(pol, axe)
-    case 'trans':
-      return translation(pol, vecteur)
-    case 'rot90':
-      return rotation(pol, centre, sens ? angle : -angle)
-    case 'rot180':
-      return rotation(pol, centre, 180)
-    default:
-      return pol
-  }
-}
-
-function definitElements (type, depart, arrivee, leSens = true, num = 0) {
+function definitElements (type: 'symax' | 'trans' | 'rot90' | 'rot180', depart: number, arrivee: number, leSens = true, num = 0, poly1: Polygone) {
   let texte, texteCorr, texteInteractif, axeSymetrie, nomDroite, nomCentreRotation, centreRotation,
     centreSymetrie, nomSegment
   const sensProgression = (arrivee - depart === 6) ? 'Est' : (arrivee - depart === -6) ? 'Ouest' : (arrivee - depart === 1) ? 'Nord' : 'Sud'
@@ -123,12 +110,12 @@ function definitElements (type, depart, arrivee, leSens = true, num = 0) {
       texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie d'axe $${nomDroite}$.`
       texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie d'axe (${sp(1)}\\ldots${sp(1)})`
       texteInteractif = "Une symétrie axiale dont l'axe passe par deux points du quadrillage."
-      return { texte, texteCorr, texteInteractif, type, axe: axeSymetrie }
+      return { texte, texteCorr, texteInteractif, type, axe: axeSymetrie, depart, arrivee }
     case 'trans': // facile pour la translation : depart->arrivee
       texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
       texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la translation transformant${sp(1)}\\ldots${sp(1)}en${sp(1)}\\ldots${sp(1)}`
       texteInteractif = 'Une translation définie par deux points du quadrillage.'
-      return { texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+      return { texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]), depart, arrivee }
     case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
       switch (sensProgression) {
         case 'Est' :
@@ -151,7 +138,7 @@ function definitElements (type, depart, arrivee, leSens = true, num = 0) {
       texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90^\\circ$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
       texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90^\\circ$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
       texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
-      return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens }
+      return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens, depart, arrivee }
     case 'rot180': // pas besoin du sens, mais le milieu choisi dépend de depart et arrivee
       switch (sensProgression) {
         case 'Est' :
@@ -174,10 +161,11 @@ function definitElements (type, depart, arrivee, leSens = true, num = 0) {
       texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie dont le centre est le milieu de $${nomSegment}$.`
       texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie dont le centre est le milieu de $[$${sp(1)}\\ldots${sp(1)}$]$`
       texteInteractif = "Une symétrie centrale dont le centre est un milieu d'un côté de case."
-      return { texte, texteCorr, texteInteractif, type, centre: centreSymetrie }
+      return { texte, texteCorr, texteInteractif, type, centre: centreSymetrie, depart, arrivee }
   }
 }
 export default class SerieDeTransformations extends Exercice {
+  version: number
   constructor () {
     super()
     this.nbQuestions = 1
@@ -193,7 +181,7 @@ export default class SerieDeTransformations extends Exercice {
 
   nouvelleVersion () {
     const A = point(0, 0)
-    let typeDeTransfos
+    let typeDeTransfos: ('symax' | 'trans' | 'rot90' | 'rot180')[]
     if (this.version === 1) { // On bride this.sup à 1 pour les 6èmes
       this.sup = 1
     } else if (this.version === 2) {
@@ -206,23 +194,37 @@ export default class SerieDeTransformations extends Exercice {
     else if (this.sup === 3) typeDeTransfos = ['symax', 'trans', 'rot180']
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
 
-    for (let i = 0, texte, texteCorr, paramsCorrection, paramsEnonce, nbTransfMin, nbTransfMax, nbVoisins, futursVoisinsPossibles, parcoursPossible, numeroFigure, chemin, objetsEnonce, objetsCorrection, polys, transfos, leurre0; i < this.nbQuestions; i++) {
+    for (let i = 0, texte, texteCorr, paramsCorrection, paramsEnonce, nbTransfMin, nbTransfMax, nbVoisins, futursVoisinsPossibles, parcoursPossible, numeroFigure, leurre0; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
-      polys = []
-      transfos = []
+      let chemin: number[]
+
+      const polys: (Polygone | Vide2d)[] = []
+      const transfos:{
+        texte: string,
+        axe?: Droite,
+        centre?: Point,
+        sens?: boolean,
+        texteCorr: string,
+        texteInteractif: string,
+        animation?: TranslationAnimee | RotationAnimee | SymetrieAnimee | Vide2d,
+        vecteur?: Vecteur,
+        depart: number,
+        arrivee: number,
+        type: 'symax' | 'trans' | 'rot90' | 'rot180'
+      }[] = []
       polys[0] = homothetie(choice(motifs), A, 0.4)
-      leurre0 = translation(polys[0], vecteur(...choice([[0.4, 0], [0, 0.4], [0.4, 0.4]]))) // on translate aléatoirement le motif de départ pour faire le leurre
+      leurre0 = translation(polys[0], vecteur(...choice([[0.4, 0], [0, 0.4], [0.4, 0.4]]) as [number, number])) // on translate aléatoirement le motif de départ pour faire le leurre
       for (let x = 0; x < 5; x++) {
         for (let y = 0, dalle, transfoAlea, elements; y < 5; y++) {
           if (x + y > 0) {
             dalle = x * 6 + y
             transfoAlea = choice(typeDeTransfos)
             if (y > 0) {
-              elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]))
+              elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]), 0, polys[dalle - 1] as Polygone)
               polys[dalle] = transfoPoly(dalle === 1 ? leurre0 : polys[dalle - 1], elements)
               if (y === 4) polys[dalle + 1] = vide2d()
             } else {
-              elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]))
+              elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]), 0, polys[dalle - 6] as Polygone)
               polys[dalle] = transfoPoly(dalle === 6 ? leurre0 : polys[dalle - 6], elements)
             }
           }
@@ -302,11 +304,11 @@ export default class SerieDeTransformations extends Exercice {
         }
       }
       for (let k = 0; k < chemin.length - 1; k++) {
-        transfos[k] = definitElements(choice(typeDeTransfos), chemin[k], chemin[k + 1], choice([true, false]), k)
+        transfos[k] = definitElements(choice(typeDeTransfos), chemin[k], chemin[k + 1], choice([true, false]), k, polys[chemin[k]] as Polygone)
         polys[chemin[k + 1]] = transfoPoly(polys[chemin[k]], transfos[k])
       }
-      objetsEnonce = []
-      objetsCorrection = []
+      const objetsEnonce: NestedObjetMathalea2dArray = []
+      const objetsCorrection: NestedObjetMathalea2dArray = []
       texte = this.interactif
         ? this.sup === 1
           ? 'Compléter la liste des figures successives obtenues avec une suite de symétries axiales.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br><br>'
@@ -380,7 +382,7 @@ export default class SerieDeTransformations extends Exercice {
         }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
-        figure = translation(polys[chemin[k]], vecteur(0, 0))
+        figure = translation(polys[chemin[k]] as Polygone, vecteur(0, 0)) as Polygone
         figure.color = colorToLatexOrHTML(texcolors(k + 11))
         figure.couleurDeRemplissage = colorToLatexOrHTML(texcolors(k + 11))
         figure.opaciteDeRemplissage = 0.6

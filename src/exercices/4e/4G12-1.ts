@@ -72,7 +72,7 @@ for (let i = 0; i < 6; i++) {
   }
 }
 
-function transfoPoly (pol: Polygone | Vide2d, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }:{
+export function transfoPoly (pol: Polygone | Vide2d, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }:{
   type: 'symax' | 'trans' | 'rot90' | 'rot180',
   centre?: Point,
   axe?: Droite,
@@ -213,8 +213,20 @@ export default class TrouverLaTransformation extends Exercice {
     for (let i = 0, texte, texteCorr, trans; i < this.nbQuestions; i++) {
       const objetsEnonce: NestedObjetMathalea2dArray = []
       const objetsCorrection: NestedObjetMathalea2dArray = []
-      const polys = []
-      const transfos = []
+      const polys: (Polygone | Vide2d)[] = []
+      const transfos:{
+        texte: string,
+        axe?: Droite,
+        centre?: Point,
+        sens?: boolean,
+        texteCorr: string,
+        texteInteractif: string,
+        animation?: TranslationAnimee | RotationAnimee | SymetrieAnimee | Vide2d,
+        vecteur?: Vecteur,
+        depart: number,
+        arrivee: number,
+        type: 'symax' | 'trans' | 'rot90' | 'rot180'
+      }[] = []
       polys[0] = homothetie(choice(motifs), A, 0.4)
       for (let x = 0; x < 5; x++) {
         for (let y = 0, dalle, transfoAlea; y < 5; y++) {

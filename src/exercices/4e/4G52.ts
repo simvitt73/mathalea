@@ -4,7 +4,7 @@ import { degSin, radians } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { arete3d, point3d } from '../../modules/3d'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -64,7 +64,7 @@ export default class ReperagePaveDroit extends Exercice {
     const G = point3d(largeur, profondeur, hauteur, true, 'G', 'above right')
     const H = point3d(0, profondeur, hauteur, true, 'H', 'above left')
     */
-    const objetsAtracer = []
+    const objetsAtracer: NestedObjetMathalea2dArray = []
     let nbgraduationx = randint(2, 4)
     let nbgraduationy = randint(2, 3)
     let nbgraduationz = randint(2, 4)
@@ -81,7 +81,7 @@ export default class ReperagePaveDroit extends Exercice {
     const K = point3d(0, 0, deltaz, true, 'K', 'left')
 
     // objetsAtracer.push(labelPoint(A, B, C, D, E, F, G, H, I, J, K))
-    objetsAtracer.push(labelPoint(A, I, J, K))
+    objetsAtracer.push(labelPoint(A.c2d, I.c2d, J.c2d, K.c2d))
 
     for (let i = 0; i <= nbgraduationy; i++) {
       for (let j = 0, M, N, s; j <= nbgraduationz; j++) {
@@ -139,8 +139,9 @@ export default class ReperagePaveDroit extends Exercice {
     if (this.sup2 === 2) typesDeQuestionsDisponibles = ['lire']
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const coordExistantes = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer; i < this.nbQuestions && cpt < 50;) {
       let exists
+      const objetsAtracerCorr: NestedObjetMathalea2dArray = []
       do { // Pour éviter d'avoir deux points avec les mêmes coordonnées que des points déjà présents
         x = randint(0, nbgraduationx)
         y = randint(0, nbgraduationy)
@@ -152,7 +153,7 @@ export default class ReperagePaveDroit extends Exercice {
       } while (exists)
       pointCoord = [x, y, z]
       coordExistantes[i + 4] = pointCoord
-      pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
+      pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, true, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`)
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
       s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'green', true)
       s3 = arete3d(point3d(pointAplacer.x, pointAplacer.y, 0), pointAplacer, 'red', true)
@@ -162,7 +163,8 @@ export default class ReperagePaveDroit extends Exercice {
       t = tracePoint(pointAplacer, 'red')
       t.epaisseur = 2
       t.taille = 6
-      objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
+      pointAplacer.c2d.positionLabel = 'above right'
+      objetsAtracerCorr.push(s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer.c2d), ...objetsAtracer)
       let propositionsAMC
       if (listeTypesDeQuestions[i] === 'placer') {
         texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
@@ -190,7 +192,7 @@ export default class ReperagePaveDroit extends Exercice {
         ]
       } else {
         texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$.`
-        objetsAtracer.push(tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer))
+        objetsAtracer.push(tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer.c2d))
         texteCorr = mathalea2d({
           xmin: -1,
           xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)),

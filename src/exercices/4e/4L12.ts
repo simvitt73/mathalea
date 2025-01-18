@@ -31,16 +31,6 @@ export default class EquivalenceProgrammesCalcul extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
     this.video = 'https://www.youtube.com/watch?v=-iw4OkMhgCA'
-
-    this.testeProgrammesDeCalcul = function (nombreATester, A1, A2, B1, B2, B3, signeA2, signeB1, signeB3) {
-      return `${texteGras('Programme A :')}<br>
-    $${nombreATester} \\times ${A1} = ${nombreATester * A1}$ <br>
-    $${nombreATester * A1} ${signeA2} ${A2} = ${miseEnEvidence(nombreATester * A1 + A2)}$ <br><br>
-    ${texteGras('Programme B :')}<br>
-    $${nombreATester} ${signeB1} ${B1} = ${nombreATester + B1}$ <br>
-    $${nombreATester + B1} \\times ${B2} = ${(nombreATester + B1) * B2}$ <br>
-    $${(nombreATester + B1) * B2} ${signeB3} ${B3} = ${miseEnEvidence((nombreATester + B1) * B2 + B3)}$ <br><br>`
-    }
   }
 
   nouvelleVersion () {
@@ -129,5 +119,15 @@ export default class EquivalenceProgrammesCalcul extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+
+  testeProgrammesDeCalcul (nombreATester:number, A1:number, A2:number, B1:number, B2:number, B3:number, signeA2: string, signeB1: string, signeB3: string) {
+    return `${texteGras('Programme A :')}<br>
+  $${nombreATester} \\times ${A1} = ${nombreATester * A1}$ <br>
+  $${nombreATester * A1} ${signeA2} ${A2} = ${miseEnEvidence(nombreATester * A1 + A2)}$ <br><br>
+  ${texteGras('Programme B :')}<br>
+  $${nombreATester} ${signeB1} ${B1} = ${nombreATester + B1}$ <br>
+  $${nombreATester + B1} \\times ${B2} = ${(nombreATester + B1) * B2}$ <br>
+  $${(nombreATester + B1) * B2} ${signeB3} ${B3} = ${miseEnEvidence((nombreATester + B1) * B2 + B3)}$ <br><br>`
   }
 }

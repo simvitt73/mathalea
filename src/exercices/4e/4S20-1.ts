@@ -57,6 +57,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Une expérience liée au hasard est une expérience aléatoire.'
           break
         case 'certain':
+        default:
           texte = 'Un événement qui se réalise quelle que soit l’issue est un événement …'
           rep = 'certain'
           texteCorr = 'Un événement qui se réalise quelle que soit l’issue est un événement certain.'

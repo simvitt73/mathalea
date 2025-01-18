@@ -131,7 +131,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: this.listeCorrections[0],
                     statut: '',
@@ -149,7 +148,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: this.listeCorrections[1],
                     statut: '',
@@ -230,7 +228,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.listeCorrections[0],
                   statut: '',
@@ -248,7 +245,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.listeCorrections[1],
                   statut: '',
@@ -347,7 +343,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.listeCorrections[0],
                   statut: '',
@@ -365,7 +360,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.listeCorrections[1],
                   statut: '',
@@ -383,7 +377,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               },
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.listeCorrections[2],
                   statut: 2
@@ -391,7 +384,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               },
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.listeCorrections[3],
                   statut: 2
@@ -492,7 +484,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: this.listeCorrections[0],
                     statut: '',
@@ -510,7 +501,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: this.listeCorrections[1],
                     statut: '',
@@ -528,7 +518,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: this.listeCorrections[2],
                     statut: '',
@@ -546,7 +535,6 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: this.listeCorrections[3],
                     statut: '',

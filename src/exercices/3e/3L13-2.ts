@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -10,7 +9,7 @@ import { tableau } from '../../lib/2d/tableau'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'
@@ -32,6 +31,9 @@ export const refs = {
   'fr-ch': ['11GM3-7', '11FA5-5']
 }
 export default class EqResolvantesThales extends Exercice {
+  consignePluriel: string
+  consigneSingulier: string
+  exo: string
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange']
@@ -40,6 +42,7 @@ export default class EqResolvantesThales extends Exercice {
     this.sup = 1
     this.consignePluriel = 'Résoudre les équations suivantes.'
     this.consigneSingulier = 'Résoudre l\'équation suivante.'
+    this.exo = '3L13-2'
   }
 
   nouvelleVersion () {
@@ -53,39 +56,41 @@ export default class EqResolvantesThales extends Exercice {
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on a besoin d'un coeff pour le type de nombres
-      let coeff, masterChoix
-      let nbAlea = [1, 1, 1]
+      let coeff: [number, number, number]
+      let masterChoix: { c: [number, number, number], na: [number, number, number] }
+      let nbAlea: [number, number, number] = [1, 1, 1]
       // On génère un c pour s'assurer que le résultat soit décimal.
       // Au min 10, au max 100
       const exposantDeDeux = randint(1, 2)
       const exposantDeCinq = randint(1, 2)
-      const cTempCase3 = new Decimal(2 ** exposantDeDeux * 5 ** exposantDeCinq)
-      const dixieme = new Decimal(1).div(10)
-      const one = new Decimal(1)
-      const moinsUn = one.mul(-1)
+      const cTempCase3 = 2 ** exposantDeDeux * 5 ** exposantDeCinq
+      const dixieme = 1 / 10
+      const one = 1
+      const moinsUn = -1
       switch (this.sup) {
         case 1: // entiers
           coeff = [one, one, one]
-          nbAlea[0] = new Decimal(randint(2, 9))
-          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
-          nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
           break
         case 2: // relatifs
           coeff = [choice([one, moinsUn]), choice([one, moinsUn]), choice([one, moinsUn])]
-          nbAlea[0] = new Decimal(randint(2, 9))
-          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
-          nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
           break
         case 3: // décimaux
           coeff = [dixieme, dixieme, dixieme]
-          nbAlea[0] = new Decimal(randint(2, 9))
-          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
           nbAlea[2] = cTempCase3
           break
         case 4: // mélange
-          nbAlea[0] = new Decimal(randint(2, 9))
-          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
-          nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
+        default:
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
 
           masterChoix = choice([
             { c: [one, one, one], na: [nbAlea[0], nbAlea[1], nbAlea[2]] },
@@ -95,7 +100,7 @@ export default class EqResolvantesThales extends Exercice {
             },
             {
               c: [dixieme, dixieme, dixieme],
-              na: [new Decimal(randint(11, 99)), new Decimal(randint(11, 99)), cTempCase3]
+              na: [randint(11, 99), randint(11, 99), cTempCase3]
             }
           ])
           coeff = masterChoix.c
@@ -111,9 +116,9 @@ export default class EqResolvantesThales extends Exercice {
         inc = choice(['x', 'y', 'GO', 'AB', 'z', 'GA', 'BU', 'ZO', 'ME'])
       }
 
-      const a = nbAlea[0].mul(coeff[0])
-      const b = nbAlea[1].mul(coeff[1])
-      const c = nbAlea[2].mul(coeff[2])
+      const a = nbAlea[0] * coeff[0]
+      const b = nbAlea[1] * coeff[1]
+      const c = nbAlea[2] * coeff[2]
       // const fraction = new FractionEtendue(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
 
       // pour les situations, autant de situations que de cas dans le switch !
@@ -169,8 +174,8 @@ $${texNombre(c, 4)}\\times ${inc} = ${texNombre(a, 2)}\\times ${ecritureParenthe
 ${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(c, 2)}`, 'blue')}.<br>
 $\\dfrac{${texNombre(c, 4)}\\times ${inc}}{${texNombre(c, 4)}}= \\dfrac{${texNombre(a, 4)}\\times ${ecritureParentheseSiNegatif(b)}}{${texNombre(c, 4)}}$<br>
 ${texteEnCouleurEtGras('On simplifie et on calcule.', 'blue')}<br>
-$${inc}=${miseEnEvidence(texNombre(b.mul(a).div(c), 4))}$`,
-          correctionInteractif: [b.mul(a).div(c).toFixed(4)]
+$${inc}=${miseEnEvidence(texNombre(b * a / c, 4))}$`,
+          correctionInteractif: [(b * a / c).toFixed(4)]
         })
       }
 
@@ -180,11 +185,11 @@ $${inc}=${miseEnEvidence(texNombre(b.mul(a).div(c), 4))}$`,
       const correctionInteractif = enonces[listeTypeDeQuestions[i]].correctionInteractif[0].replace('{', '').replace('}', '')
 
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br> $${inc} =$ ` })
-      reponse = new FractionEtendue(Number(correctionInteractif))
+      reponse = new FractionEtendue(Number(correctionInteractif) * 10000, 10000).simplifie()
       if (context.isAmc) setReponse(this, i, reponse)
-      else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      else handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true } } })
 
-      if (this.questionJamaisPosee(i, nbAlea)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, nbAlea.join(';'))) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
