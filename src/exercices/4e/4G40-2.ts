@@ -1,4 +1,4 @@
-import ArrondirUneValeur4e from '../4e/4G20-4'
+import ArrondirUneValeur4e from './4G20-4'
 export const titre = 'Arrondir une valeur comprenant un cosinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'

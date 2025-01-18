@@ -8,7 +8,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -33,7 +33,7 @@ export const interactifType = 'mathLive'
  * @param {string} goodAnswer // L'expression commencera par la somme des carrés et comportera (ou pas) l'égalité avec le carré de l'hypoténuse
  * @return {{isOk: boolean, feedback: string}}
  */
-export function pythagoreCompare (input, goodAnswer) {
+export function pythagoreCompare (input: string, goodAnswer: string) {
   input = input.replaceAll(/([A-Z]{2})/g, '\\mathrm{$1}')
   let parsedInput = engine.parse(input)
   let parsedAnswer = engine.parse(goodAnswer)
@@ -50,10 +50,10 @@ export function pythagoreCompare (input, goodAnswer) {
       if (inputM1 && inputM2) {
         const inputHypo = ['Power', 'Square'].includes(inputM1.operator) ? inputM1 : inputM2
         const inputSum = ['Power', 'Square'].includes(inputM1.operator) ? inputM2 : inputM1
-        const inputT1 = inputSum.ops[0] // un ['Square','BC'] par exemple
-        const inputT2 = inputSum.ops[1]
-        const answerT1 = answerSum.ops[0]
-        const answerT2 = answerSum.ops[1]
+        const inputT1 = inputSum.ops![0] // un ['Square','BC'] par exemple
+        const inputT2 = inputSum.ops![1]
+        const answerT1 = answerSum.ops![0]
+        const answerT2 = answerSum.ops![1]
         for (const term of [inputT1, inputT2]) { // On ne vérifie pas la réponse, c'est nous qui l'avons écrite
           if (!['Square', 'Power'].includes(term.operator)) {
             return { isOk: false, feedback: 'Il manque au moins un carré.' }
@@ -61,18 +61,18 @@ export function pythagoreCompare (input, goodAnswer) {
         }
 
         // c'est la même longueur pour l'hypoténuse ?
-        if (ordreAlphabetique(inputHypo.ops[0].toString()) !== ordreAlphabetique(answerHypo.ops[0].toString())) return { isOk: false, feedback: 'Tu as mal identifié l\'hypoténuse.' }
+        if (ordreAlphabetique(inputHypo.ops![0].toString()) !== ordreAlphabetique(answerHypo.ops![0].toString())) return { isOk: false, feedback: 'Tu as mal identifié l\'hypoténuse.' }
         // l'élève a-t-il bien mis l'hypoténuse au carré ?
-        if (inputHypo.ops[1].toString() !== '2') return { isOk: false, feedback: 'Tu as oublié de mettre l\'hypoténuse au carré.' }
+        if (inputHypo.ops![1].toString() !== '2') return { isOk: false, feedback: 'Tu as oublié de mettre l\'hypoténuse au carré.' }
         if (inputSum.operator !== 'Add') return { isOk: false, feedback: 'Le carré de l\'hypoténuse est égal à la $somme$ des carrés des deux autres côtés.' }
         // le premier terme de la saisie est-il un carré ?
         if (!['Square', 'Power'].includes(inputT1.operator)) return { isOk: false, feedback: 'Il manque au moins un carré.' }
-        const L1 = ordreAlphabetique(inputT1.ops[0].toString()) // on met la longeur saisie dans l'ordre alphabétique
+        const L1 = ordreAlphabetique(inputT1.ops![0].toString()) // on met la longeur saisie dans l'ordre alphabétique
         // le deuxième terme de la saisie est-il un carré ?
         if (!['Square', 'Power'].includes(inputT2.operator)) return { isOk: false, feedback: 'Il manque au moins un carré.' }
-        const L2 = ordreAlphabetique(inputT2.ops[0].toString())// on met la longeur saisie dans l'ordre alphabétique
-        const LL1 = ordreAlphabetique(answerT1.ops[0].toString()) // Ces longueurs sont déjà dans l'ordre alphabétique
-        const LL2 = ordreAlphabetique(answerT2.ops[0].toString())
+        const L2 = ordreAlphabetique(inputT2.ops![0].toString())// on met la longeur saisie dans l'ordre alphabétique
+        const LL1 = ordreAlphabetique(answerT1.ops![0].toString()) // Ces longueurs sont déjà dans l'ordre alphabétique
+        const LL2 = ordreAlphabetique(answerT2.ops![0].toString())
         // on teste les deux possibilités identiques ou croisées
         if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1)) return { isOk: true }
         // else return { isOk: false, feedback: 'Regarde bien la correction.' }
@@ -88,16 +88,16 @@ export function pythagoreCompare (input, goodAnswer) {
     parsedAnswer = engine.parse(goodAnswer)
 
     if (parsedInput.operator !== 'Add') return { isOk: false, feedback: 'Il faut saisir une somme ou une différence de deux carrés.' }
-    const isSub = parsedAnswer.ops[0].operator === 'Negate'
-    const inputOp = parsedInput.ops[0].operator
+    const isSub = parsedAnswer.ops![0].operator === 'Negate'
+    const inputOp = parsedInput.ops![0].operator
     if (isSub && inputOp !== 'Negate') return { isOk: false, feedback: 'Il fallait saisir une différence de deux carrés.' }
     if (!isSub && inputOp === 'Negate') return { isOk: false, feedback: 'Il fallait saisir une somme de deux carrés.' }
     if (parsedAnswer.operator !== parsedInput.operator) return { isOk: false, feedback: 'L\'opération n\'est pas une somme ou une différence.' }
 
-    const inputT1 = parsedInput.ops[1] // un ['Square','BC'] par exemple
-    const inputT2 = isSub ? parsedInput.ops[0].ops[0] : parsedInput.ops[0]
-    const answerT1 = parsedAnswer.ops[1]
-    const answerT2 = isSub ? parsedAnswer.ops[0].ops[0] : parsedAnswer.ops[0]
+    const inputT1 = parsedInput.ops![1] // un ['Square','BC'] par exemple
+    const inputT2 = isSub ? parsedInput.ops![0].ops![0] : parsedInput.ops![0]
+    const answerT1 = parsedAnswer.ops![1]
+    const answerT2 = isSub ? parsedAnswer.ops![0].ops![0] : parsedAnswer.ops![0]
     for (const term of [inputT1, inputT2]) {
       // On vérifie qu'il y a bien des carrés (on ne vérifie pas la réponse, c'est nous qui l'avons écrite)
       if (!['Square', 'Power'].includes(term.operator)) {
@@ -105,12 +105,12 @@ export function pythagoreCompare (input, goodAnswer) {
       }
     }
 
-    //  const L1 = ordreAlphabetique(inputT1.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    // const L2 = ordreAlphabetique(inputT2.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L1 = inputT1.ops[0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L2 = inputT2.ops[0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const LL1 = answerT1.ops[0].toString().replaceAll('"', '') // Ces longueurs sont déjà dans l'ordre alphabétique
-    const LL2 = answerT2.ops[0].toString().replaceAll('"', '')
+    //  const L1 = ordreAlphabetique(inputT1.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    // const L2 = ordreAlphabetique(inputT2.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L1 = inputT1.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L2 = inputT2.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const LL1 = answerT1.ops![0].toString().replaceAll('"', '') // Ces longueurs sont déjà dans l'ordre alphabétique
+    const LL2 = answerT2.ops![0].toString().replaceAll('"', '')
     if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1 && !isSub)) return { isOk: true }
     // else return { isOk: false, feedback: 'Regarde bien la correction.' }
   }
@@ -130,6 +130,7 @@ export const refs = {
 }
 
 export default class Pythagore2D extends Exercice {
+  typeDeQuestion: string
   constructor () {
     super()
     this.nbQuestions = 3
@@ -152,7 +153,7 @@ export default class Pythagore2D extends Exercice {
     } else {
       listeTypeDeQuestions = ['AB', 'BC', 'AC']
     }
-    let listeDeNomsDePolygones = []
+    let listeDeNomsDePolygones:string[] = []
     if (this.sup === 1) {
       this.consigne = ((context.vue !== 'diap' && this.nbQuestions > 1) ? 'Dans chaque cas, donner' : 'Donner') + " l'égalité de Pythagore."
     } else if (this.sup === 2) {
@@ -191,7 +192,7 @@ export default class Pythagore2D extends Exercice {
       const longueurAB = longueur(A, B, 1)
       const longueurAC = longueur(A, C, 1)
       const longueurBC = longueur(B, C, 1)
-      const mesObjetsATracer = [codage, p2, nomme]
+      const mesObjetsATracer: NestedObjetMathalea2dArray = [codage, p2, nomme]
 
       if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AB') {
         mesObjetsATracer.push(affAC, affBC)
@@ -226,9 +227,9 @@ export default class Pythagore2D extends Exercice {
           reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1)
           redaction = RedactionPythagore(A.nom, C.nom, B.nom, 2, reponse, longueurAB, longueurBC)
         }
-        texteCorr = redaction[0]
+        texteCorr = redaction[0] ?? ''
         texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, '  unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
-        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse.toFixed(1), 'cm'), options: { precisionUnite: 0.1, unite: true } } })
+        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse, 'cm'), options: { precisionUnite: 0.1, unite: true } } })
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
@@ -237,6 +238,7 @@ export default class Pythagore2D extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
+                // @ts-expect-error
                 propositions: [{
                   enonce: 'Calculer la longueur manquante.\\\\',
                   statut: 3,
@@ -246,6 +248,7 @@ export default class Pythagore2D extends Exercice {
               },
               {
                 type: 'AMCNum',
+                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -269,8 +272,8 @@ export default class Pythagore2D extends Exercice {
         const cote1 = [`\\mathrm{${ordreAlphabetique(B.nom + A.nom)}}^2`, `\\mathrm{${ordreAlphabetique(A.nom + B.nom)}}^2`]
         const cote2 = [`\\mathrm{${ordreAlphabetique(C.nom + A.nom)}}^2`, `\\mathrm{${ordreAlphabetique(A.nom + C.nom)}}^2`]
 
-        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, null, null, this.sup === 1 || listeTypeDeQuestions[i] === 'BC' ? orangeMathalea : bleuMathalea)
-        texteCorr = redaction[0]
+        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, undefined, undefined, this.sup === 1 || listeTypeDeQuestions[i] === 'BC' ? orangeMathalea : bleuMathalea)
+        texteCorr = redaction[0] ?? ''
         let expr
         if (this.sup === 1) {
           expr = cote1[0] + '+' + cote2[0] + '=' + hypotenuse[0]

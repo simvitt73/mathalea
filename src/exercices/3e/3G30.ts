@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js'
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { milieu, point } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
@@ -11,13 +10,14 @@ import { quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -42,6 +42,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class CalculDeLongueur extends Exercice {
+  level: number
   constructor () {
     super()
     this.nbQuestions = 3
@@ -62,11 +63,12 @@ export default class CalculDeLongueur extends Exercice {
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
     this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
     this.besoinFormulaire3Numerique = ['Types de correction', 2, '1 : Avec produit en croix\n2 : Sans produit en croix']
+    this.level = 3
   }
 
   nouvelleVersion () {
     let reponse
-    let listeDeNomsDePolygones
+    let listeDeNomsDePolygones: string[] = []
     const typeQuestionsDisponibles = (this.level === 4)
       ? gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3, listeOfCase: ['cosinus', 'invCosinus'] })
       : gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 6, melange: 7, defaut: 7, listeOfCase: ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'] })
@@ -82,60 +84,61 @@ export default class CalculDeLongueur extends Exercice {
       let q2AMC = ''
       let nom1, nom2
       let texteCorr = ''
-      const objetsEnonce = []
-      const objetsCorrection = []
+      const objetsEnonce:NestedObjetMathalea2dArray = []
+      const objetsCorrection:NestedObjetMathalea2dArray = []
       let ab, bc, ac
 
       const angleABC = randint(35, 55)
-      const angleABCr = Decimal.acos(-1).div(180).mul(angleABC)
+      const angleABCr = angleABC * Math.PI / 180
       if (!context.isHtml && this.sup) {
         // texte += '\\begin{minipage}{.7\\linewidth}\n'
       }
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
-          bc = new Decimal(randint(10, 15))
-          ab = Decimal.cos(angleABCr).mul(bc)
-          ac = Decimal.sin(angleABCr).mul(bc)
+          bc = randint(10, 15)
+          ab = bc * Math.cos(angleABCr)
+          ac = bc * Math.sin(angleABCr)
           texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[1]
           break
         case 'sinus':
-          bc = new Decimal(randint(10, 15))
-          ab = Decimal.cos(angleABCr).mul(bc)
-          ac = Decimal.sin(angleABCr).mul(bc)
+          bc = randint(10, 15)
+          ab = bc * Math.cos(angleABCr)
+          ac = bc * Math.sin(angleABCr)
           texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[2]
           break
         case 'tangente':
-          ab = new Decimal(randint(7, 10))
-          ac = Decimal.tan(angleABCr).mul(ab)
-          bc = new Decimal(ab).div(Decimal.cos(angleABCr))
+          ab = randint(7, 10)
+          ac = ab * Math.tan(angleABCr)
+          bc = ab / Math.cos(angleABCr)
           texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[2]
           break
         case 'invCosinus':
-          ab = new Decimal(randint(7, 10))
-          bc = new Decimal(ab).div(Decimal.cos(angleABCr))
-          ac = Decimal.sin(angleABCr).mul(bc)
+          ab = randint(7, 10)
+          bc = ab / Math.cos(angleABCr)
+          ac = bc * Math.sin(angleABCr)
           texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[1]
           nom2 = nom[2]
           break
         case 'invSinus':
-          ac = new Decimal(randint(7, 10))
-          bc = new Decimal(ac).div(Decimal.sin(angleABCr))
-          ab = Decimal.cos(angleABCr).mul(bc)
+          ac = randint(7, 10)
+          bc = ac / Math.sin(angleABCr)
+          ab = bc * Math.cos(angleABCr)
           texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[1]
           nom2 = nom[2]
           break
         case 'invTangente':
-          ac = new Decimal(randint(7, 10))
-          bc = new Decimal(ac).div(Decimal.sin(angleABCr))
-          ab = Decimal.cos(angleABCr).mul(bc)
+        default:
+          ac = randint(7, 10)
+          bc = ac / Math.sin(angleABCr)
+          ab = Math.cos(angleABCr) * bc
           texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[1]
@@ -208,6 +211,7 @@ export default class CalculDeLongueur extends Exercice {
           t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invTangente':
+        default:
           t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t1 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
@@ -268,7 +272,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[1]}=${bc} \\times \\cos\\left(${angleABC}^\\circ\\right)$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
-          reponse = ab.toDP(1)
+          reponse = ab.toFixed(1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -291,7 +295,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[2]}=${bc} \\times \\sin\\left(${angleABC}^\\circ\\right)$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
-          reponse = ac.toDP(1)
+          reponse = ac.toFixed(1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -308,13 +312,13 @@ export default class CalculDeLongueur extends Exercice {
           if (this.sup3 === 1) {
             texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
             texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-            texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}^\\circ\\right)`)}$`
+            texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}^\\circ\\right)`, 0)}$`
           } else {
             texteCorr += `$\\tan\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
             texteCorr += `$${nom[0] + nom[2]}=${ab} \\times \\tan\\left(${angleABC}^\\circ\\right)$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
-          reponse = ac.toDP(1)
+          reponse = ac.toFixed(1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -337,7 +341,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[1] + nom[2]}= \\dfrac{${ab}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
           }
           texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
-          reponse = bc.toDP(1)
+          reponse = bc.toFixed(1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -360,7 +364,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[1] + nom[2]}=\\dfrac{${ac}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
           }
           texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
-          reponse = bc.toDP(1)
+          reponse = bc.toFixed(1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -383,7 +387,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[1]}=\\dfrac{${ac}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
-          reponse = ab.toDP(1)
+          reponse = ab.toFixed(1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -407,12 +411,14 @@ export default class CalculDeLongueur extends Exercice {
           options: {
             multicols: false,
             barreseparation: true,
+            // @ts-expect-error
             multicolsAll: true,
             numerotationEnonce: true
           },
           propositions: [
             {
               type: 'qcmMono',
+              // @ts-expect-error
               enonce: numAlpha(0) + `Quel calcul effectuer pour calculer ${nomLongueur} ?`, // \\\\\n`,
               options: {
                 ordered: true
@@ -452,6 +458,7 @@ export default class CalculDeLongueur extends Exercice {
             },
             {
               type: 'AMCNum',
+              // @ts-expect-error
               propositions: [
                 {
                   reponse: {
@@ -473,7 +480,7 @@ export default class CalculDeLongueur extends Exercice {
       }
       if (context.isHtml && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, ' unites[Longueur]')
-        setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
+        handleAnswers(this, i, { reponse: { value: new Grandeur(arrondi(Number(reponse), 1), unite), options: { unite: true } } })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
