@@ -16,7 +16,7 @@ export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'
 
 /**
  * fork de 4P10-1 par Jean-Claude Lhote
- * @author Sébastien LOZANO // je reprécise car j'avais disparu :D
+ * @author Sébastien LOZANO
  */
 
 export const uuid = 'c668a'
@@ -152,7 +152,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
         enonce: `
           À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
           <br>${situation.fig}
-          <br>${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          ${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
           <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles} ?
           <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles} ?
           `,
@@ -162,7 +162,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
         <br> ${texteEnCouleur('C\'est donc bien le graphique d\'une situation de proportionnalité.')}
         <br> ${numAlpha(kCorr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`${situation.qte_max} ${situation.unite}  ${situation.articles} coûtent ${texPrix(calculANePlusJamaisUtiliser(situation.qte_max * situation.prix_unitaire))} €.`)}
         <br> ${situation.figureCorr}
-        <br> ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
+        ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texteGras('Première méthode par lecture graphique :')}
         <br> Il faut prendre en compte que chaque petit carreau représente $${texPrix(stepAxeSecondaire * yscale)}$ € et utiliser les pointillés bleus.
         <br><br> ${texteGras('Seconde méthode en calculant une quatrième proportionnelle :')}
@@ -174,7 +174,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
       texte = `${enonces[0].enonce}`
       texteCorr = `${enonces[0].correction}`
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, prixUnitaireBaguettes, prixUnitaireOranges)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
