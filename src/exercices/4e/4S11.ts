@@ -54,11 +54,11 @@ export default class DeterminerDesMedianes extends Exercice {
       nbQuestions: this.nbQuestions
     })
 
-    for (let i = 0, temperatures, nombreNotes, notes, nombreDes, nombreFaces, nombreTirages, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, temperatures, nombreNotes, notes, nombreDes, nombreTirages, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let repInteractive
       if (typeDeQuestions[i] === 1) { // ici on lance des dés
         nombreDes = randint(1, 2)
-        nombreFaces = choice([4, 6, 8, 10])
+        const nombreFaces: 4 | 6 | 8 | 10 = choice([4, 6, 8, 10])
         if (listePairOuImpair[i] === 'pair') {
           nombreTirages = choice([50, 100, 200, 500, 1000, 2000])
         } else {
@@ -66,7 +66,7 @@ export default class DeterminerDesMedianes extends Exercice {
         }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
         texte = OutilsStats.texteTirages2D(nombreDes, nombreTirages, nombreFaces, tirages, false)
-        const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
+        const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages) as unknown as [[number, number], number]
         texteCorr = OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
         repInteractive = medianeCorr
       } else if (typeDeQuestions[i] === 2) { // ici on trie des notes

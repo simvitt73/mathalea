@@ -21,6 +21,49 @@ export const refs = {
   'fr-fr': ['4L13-0'],
   'fr-ch': ['10FA3-9']
 }
+
+const myPolyName = function (n: number) {
+  const sortie = {
+    article: '',
+    name: '',
+    nameParSommets: ''
+  }
+  switch (n) {
+    case 3:
+      sortie.article = 'du '
+      sortie.name = 'triangle équilatéral'
+      sortie.nameParSommets = 'ABC'
+      break
+    case 4:
+      sortie.article = 'du '
+      sortie.name = 'carré'
+      sortie.nameParSommets = 'ABCD'
+      break
+    case 5:
+      sortie.article = 'du '
+      sortie.name = 'pentagone régulier'
+      sortie.nameParSommets = 'ABCDE'
+      break
+    case 6:
+      sortie.article = 'de l\''
+      sortie.name = 'hexagone régulier'
+      sortie.nameParSommets = 'ABCDEF'
+      break
+    case 7:
+      sortie.article = 'de l\''
+      sortie.name = 'heptagone régulier'
+      sortie.nameParSommets = 'ABCDEFG'
+      break
+    case 8:
+    default:
+      sortie.article = 'de l\''
+      sortie.name = 'octogone régulier'
+      sortie.nameParSommets = 'ABCDEFGH'
+      break
+  }
+  return sortie
+}
+
 export default class MettreEnEquationSansResoudre extends Exercice {
   constructor () {
     super()
@@ -41,46 +84,6 @@ export default class MettreEnEquationSansResoudre extends Exercice {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour dire le nom du polygone
-      const myPolyName = function (n) {
-        const sortie = {
-          article: '',
-          name: '',
-          nameParSommets: ''
-        }
-        switch (n) {
-          case 3:
-            sortie.article = 'du '
-            sortie.name = 'triangle équilatéral'
-            sortie.nameParSommets = 'ABC'
-            break
-          case 4:
-            sortie.article = 'du '
-            sortie.name = 'carré'
-            sortie.nameParSommets = 'ABCD'
-            break
-          case 5:
-            sortie.article = 'du '
-            sortie.name = 'pentagone régulier'
-            sortie.nameParSommets = 'ABCDE'
-            break
-          case 6:
-            sortie.article = 'de l\''
-            sortie.name = 'hexagone régulier'
-            sortie.nameParSommets = 'ABCDEF'
-            break
-          case 7:
-            sortie.article = 'de l\''
-            sortie.name = 'heptagone régulier'
-            sortie.nameParSommets = 'ABCDEFG'
-            break
-          case 8:
-            sortie.article = 'de l\''
-            sortie.name = 'octogone régulier'
-            sortie.nameParSommets = 'ABCDEFGH'
-            break
-        }
-        return sortie
-      }
 
       // on choisit le nombre de côtés su polygone
       const n = randint(3, 8)
@@ -160,12 +163,13 @@ export default class MettreEnEquationSansResoudre extends Exercice {
           texteCorr = `${enonces[0].correction}`
           break
         case 2:
+        default:
           texte = `${enonces[1].enonce}`
           texteCorr = `${enonces[1].correction}`
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, n, inc)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

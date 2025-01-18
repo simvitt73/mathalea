@@ -6,7 +6,7 @@ import { abs, signe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -126,6 +126,7 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
           } while (b === 0)
           break
         case 'x+b=c':
+          a = 1 // c'est pour éviter un warning
           b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
           c = randint(-16, 15, 0)
           if (!this.sup) {
@@ -148,6 +149,7 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
           texteCorr += `<br> La solution est $${reponse}$.`
           break
         case 'ax=b':
+          c = 1 // c'est pour éviter un warning
           if (this.sup) {
             a = randint(-9, 9, [0, -1, 1]) // b peut être négatif, ça sera une équation du type x-b=c
             reponse = randint(-9, 9, [-1, 0, 1])
@@ -168,15 +170,16 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
           texteCorr += `<br> La solution est $${reponse}$.`
           break
         case 'ax+b=cx+d':
+        default:
           d = randint(-15, 15, 0)
           c = randint(-5, 5, [-1, 0, 1])
           if (!this.sup) {
             c = Math.abs(c)
             a = randint(2, 5) + c
-            reponse = Math.abs(randint(-9, 9, [0, -1, 1], calculANePlusJamaisUtiliser(-d / (c - a))))
+            reponse = Math.abs(randint(-9, 9, [0, -1, 1, -d / (c - a)]))
           } else {
             a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
-            reponse = randint(-9, 9, [0, -1, 1], calculANePlusJamaisUtiliser(-d / (c - a)))
+            reponse = randint(-9, 9, [0, -1, 1, -d / (c - a)])
           }
           b = (c - a) * reponse + d
           texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(

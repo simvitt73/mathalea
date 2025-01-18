@@ -198,13 +198,13 @@ function computeMoyenne (notes: number[]):[string, number] {
   return [texFractionFromString(somme, notes.length), somme]
 }
 
-function computeMediane (notes:number[]):[number | number[], number] {
+function computeMediane (notes:number[]):[number | [number, number], number] {
   const notesRangees = notes.sort((a, b) => a - b)
   let mediane
   if (notes.length % 2 === 0) { // attention les indices commencent à 0 !
-    mediane = [notesRangees[notes.length / 2 - 1], notesRangees[notes.length / 2]]
+    mediane = [notesRangees[notes.length / 2 - 1], notesRangees[notes.length / 2]] as [number, number]
   } else {
-    mediane = notesRangees[(notes.length - 1) / 2]
+    mediane = notesRangees[(notes.length - 1) / 2] as number
   }
   let medianeCorr // pour la correction statique
   Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
@@ -231,8 +231,8 @@ function computeMoyenneTirages2D (tirages: number[][]):[string, number, number] 
   return [texFractionFromString(somme, effectif), somme, effectif]
 }
 
-function computeMedianeTirages2D (nombreTirages:number, tirages: number[][]):[number[], number] {
-  const scoresMedians = []
+function computeMedianeTirages2D (nombreTirages:number, tirages: number[][]):[[number, number], number] {
+  const scoresMedians: number[] = []
   let medianeCorr // pour la correction statique
   if (nombreTirages % 2 === 0) {
     // on récupère le score des deux lancers médians
@@ -272,7 +272,8 @@ function computeMedianeTirages2D (nombreTirages:number, tirages: number[][]):[nu
     scoresMedians.push(tirages[cpt][0])
     medianeCorr = scoresMedians[0]
   }
-  return [scoresMedians, medianeCorr]
+  const scoreMed = scoresMedians.slice(0, 2) as [number, number]
+  return [scoreMed, medianeCorr]
 }
 
 function texteCorrMoyenneNotes (notesSeries: number[] | number[][], somme: number, nombreNotes: number, notes = 'notes') {
@@ -346,11 +347,15 @@ function texteCorrEtendueNotes (min: number, max: number, note = 'note') {
   return texteCorr + '<br>'
 }
 
-function texteCorrMedianeTemperatures (temperatures: number[], medianeCorr:number, scoresMedians:[number, number]) {
+function texteCorrMedianeTemperatures (temperatures: number[], medianeCorr:number, scoresMedians:[number, number] | number) {
+  if (typeof scoresMedians === 'number') scoresMedians = [scoresMedians, scoresMedians]
   return texteCorrMedianeNotes(temperatures, medianeCorr, scoresMedians, 'température')
 }
 
-function texteCorrMedianeNotes (notes:number[], medianeCorr: number, scoresMedians:[number, number], note = 'note') {
+function texteCorrMedianeNotes (notes:number[], medianeCorr: number, scoresMedians:[number, number] | number, note = 'note') {
+  if (typeof scoresMedians === 'number') {
+    scoresMedians = [scoresMedians, scoresMedians]
+  }
   const data = [
     ['note', '', '', ''],
     ['température', ' $\\mathbf{^\\circ\\text{C}}$', '', '']

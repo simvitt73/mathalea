@@ -2,7 +2,7 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { rienSi1, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre = 'Tester si un nombre est solution d\'une équation'
 
@@ -33,6 +33,7 @@ export const refs = {
 */
 
 export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
+  exo: string
   constructor () {
     super()
     this.besoinFormulaireNumerique = [
@@ -44,6 +45,10 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
     this.besoinFormulaire3CaseACocher = ['Forme simplifiée', false]
 
     this.sup = 1
+    this.exo = '4L14-0'
+  }
+
+  nouvelleVersion () {
     if (this.exo === '4L14-1') {
       this.nbQuestions = 4
       this.sup2 = '1-3-5-2-4'
@@ -54,9 +59,6 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
       this.nbQuestions = 9
       this.sup2 = '1-2-3-4-5-6-7-8-9'
     }
-  }
-
-  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -374,12 +376,12 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
           if (this.sup === 1) {
             a = randint(1, 3)
             b = randint(1, 3)
-            x2 = parseInt(calculANePlusJamaisUtiliser((4 * a + 4 * b) / 4))
+            x2 = (4 * a + 4 * b) / 4
             x1 = randint(9, x2)
           } else {
             a = randint(-3, 3, [0])
             b = randint(-3, 3, [0])
-            x2 = parseInt(calculANePlusJamaisUtiliser((4 * a + 4 * b) / 4))
+            x2 = (4 * a + 4 * b) / 4
             x1 = randint(-9, 9, [0, x2])
           }
 
@@ -418,6 +420,7 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
           )}<br><br>`
           break
         case 9: // x²-bx-ax+ab=0 => (a-x)(x-b)=0 solutions a et b.
+        default:
           if (this.sup === 1) {
             b = randint(2, 9)
             a = randint(2, 9)
@@ -445,7 +448,7 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
@@ -457,7 +460,7 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
   }
 }
 
-function testOneValueForCase6 (sup3, x1, a, b) {
+function testOneValueForCase6 (sup3: boolean, x1: number, a: number, b: number) {
   let texteCorr = `Pour $x=${x1}$ : <br>`
   if (sup3) {
     texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(-1 * a * b)}=
@@ -493,7 +496,7 @@ function testOneValueForCase6 (sup3, x1, a, b) {
   return texteCorr
 }
 
-function testOneValueForCase7 (sup3, x1, a, d, b, c) {
+function testOneValueForCase7 (sup3:boolean, x1: number, a: number, d: number, b: number, c: number) {
   let texteCorr = `Pour $x=${x1}$ : <br>`
   if (sup3) {
     texteCorr += `$${a * d}x${ecritureAlgebrique(-1 * b * d)}=
@@ -534,7 +537,7 @@ function testOneValueForCase7 (sup3, x1, a, d, b, c) {
   return texteCorr
 }
 
-function testOneValueForCase9 (sup3, x1, b, a) {
+function testOneValueForCase9 (sup3:boolean, x1: number, b: number, a: number) {
   let texteCorr = `Pour $x=${x1}$ : <br>`
   if (sup3) {
     texteCorr += `$x^2${ecritureAlgebrique(-1 * (b + a))}\\times  x${ecritureAlgebrique(a * b)}=

@@ -60,8 +60,7 @@ export default class AirePerimetrePolygone extends Exercice {
           quad = polygone(A, B, C, D)
           quad.epaisseur = 2
           params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 2, 4.7)])
-          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-          texte += mathalea2d(params,
+          texte += mathalea2d(Object.assign(params, { optionsTikz: 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}' }),
             quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`$${inc1}$`, 2, 4.7)
           )
           texteCorr += 'Périmètre :'
@@ -83,13 +82,12 @@ export default class AirePerimetrePolygone extends Exercice {
           o = choice([1, 2])
           const inc = o === 1 ? inc1 : L
           params = fixeBordures([quad, texteParPosition(`$${inc}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)])
-          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-          texte += mathalea2d(params,
+          texte += mathalea2d(Object.assign(params, { optionsTikz: 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}' }),
             quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(`$${inc}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)
           )
           texteCorr += 'Périmètre :'
           texteCorr += `<br>$\\mathcal{P} =${inc}+${inc2}+${inc}+${inc2}$`
-          texteCorr += `<br>$\\mathcal{P} =${miseEnEvidence(o === 1 ? `2${inc}+2${inc2}` : `${2 * inc}+2${inc2}`)}$`
+          texteCorr += `<br>$\\mathcal{P} =${miseEnEvidence(o === 1 ? `2${inc}+2${inc2}` : `${2 * Number(inc)}+2${inc2}`)}$`
           texteCorr += '<br>Aire :'
           texteCorr += `<br>$\\mathcal{A} =${inc}\\times ${inc2}$`
           texteCorr += `<br>$\\mathcal{A} =${miseEnEvidence(`${inc}${inc2}`)}$`
@@ -111,10 +109,9 @@ export default class AirePerimetrePolygone extends Exercice {
           o = choice([1, 2])
           const inc = o === 1 ? inc1 : inc2
           params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc}$`, -0.7, 1)])
-          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
           const objets = [quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), texteParPosition(`$${inc}$`, -0.7, 1), texteParPosition(`$${inc1}$`, 1, 2.7)]
           objets.push(o === 1 ? codageSegments('/', 'red', F, G, H, E) : codageSegments('||', 'blue', F, G, H, E))
-          texte += mathalea2d(params, objets)
+          texte += mathalea2d(Object.assign(params, { optionsTikz: 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}' }), objets)
           texteCorr += 'Périmètre :'
           texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc}+${inc1}+${inc1}+${inc1}+${inc}$`
           texteCorr += o === 1 ? `<br>$\\mathcal{P} =${miseEnEvidence(`8${inc1}`)}$` : `<br>$\\mathcal{P} =${miseEnEvidence(`6${inc1}+2${inc2}`)}$`
@@ -133,8 +130,7 @@ export default class AirePerimetrePolygone extends Exercice {
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           params = fixeBordures([quad, texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)])
-          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-          texte += mathalea2d(params,
+          texte += mathalea2d(Object.assign(params, { optionsTikz: 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}' }),
             quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
           )
           texteCorr += 'Périmètre :'
@@ -147,6 +143,8 @@ export default class AirePerimetrePolygone extends Exercice {
           texteCorr += `<br>$\\mathcal{A} =${miseEnEvidence(`${l}${inc1}+${l}${inc2}`)}$`
           break
       }
+      //  params.
+
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte

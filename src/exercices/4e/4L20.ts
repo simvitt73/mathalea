@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': ['10FA3-7']
 }
 
-function gestionEspaceMiseEnEvidence (texte) { // EE : Pour améliorer la gestion des espaces annulée par la fonction miseEnEvidence()
+function gestionEspaceMiseEnEvidence (texte: string) { // EE : Pour améliorer la gestion des espaces annulée par la fonction miseEnEvidence()
   const texteSepare = texte.split(texte[0])
   return (sp(2) + texte[0] + sp(2) + texteSepare[1])
 }
@@ -128,16 +128,17 @@ export default class ExerciceEquation1 extends Exercice {
                 )}=${c - b + miseEnEvidence(sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$<br>`
           texteCorr += `$${inconnue}=${new FractionEtendue(c - b, a).texFSD}$`
           reponse = new FractionEtendue(c - b, a).simplifie()
-          if (pgcd(abs(a), abs(c - b)) > 1) {
+          if (pgcd(Math.abs(a), Math.abs(c - b)) > 1) {
             texteCorr += `<br>$${inconnue}=${reponse.texFSD}$`
           }
           break
         case 'x+b=c':
+          a = 1 // c'est pour éviter un warning
           b = randint(1, 13)
           c = randint(1, 13)
           if (!this.sup && c < b) {
             b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type ${inconnue}-b=c
-            c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
+            c = Math.abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
           }
           texte = `$${inconnue}${ecritureAlgebrique(b)}=${c}$`
           texteCorr = texte + '<br>'
@@ -156,6 +157,7 @@ export default class ExerciceEquation1 extends Exercice {
           reponse = new FractionEtendue(c - b, 1)
           break
         case 'ax=b' :
+          c = 1 // c'est pour éviter un warning
           do {
             a = randint(2, 13)
             b = randint(1, 13)
@@ -176,7 +178,7 @@ export default class ExerciceEquation1 extends Exercice {
           texteCorr += `$${inconnue}=${new FractionEtendue(b, a).texFSD}$`
           reponse = new FractionEtendue(b, a).simplifie()
           // if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
-          if (pgcd(abs(a), abs(b)) > 1) {
+          if (pgcd(Math.abs(a), Math.abs(b)) > 1) {
             texteCorr += `<br>$${inconnue}=${reponse.texFSD}$`
           }
           break
@@ -255,11 +257,12 @@ export default class ExerciceEquation1 extends Exercice {
           texteCorr += `$${inconnue}=${new FractionEtendue(d - b, a - c).texFSD}$`
           // if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
           reponse = new FractionEtendue(d - b, a - c).simplifie()
-          if (pgcd(abs(d - b), abs(a - c)) > 1) {
+          if (pgcd(Math.abs(d - b), Math.abs(a - c)) > 1) {
             texteCorr += `<br>$${inconnue}=${reponse.texFSD}$`
           }
           break
         case 'x/a=b' :
+          c = 1 // c'est pour éviter un warning
           do {
             a = randint(2, 13)
             b = randint(1, 13)
@@ -281,6 +284,7 @@ export default class ExerciceEquation1 extends Exercice {
           reponse = new FractionEtendue(a * b, 1)
           break
         case 'ax/b=c':
+        default:
           do {
             a = randint(2, 5)
             b = randint(5, 9)

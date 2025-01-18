@@ -1,5 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { milieu, point, tracePoint } from '../../lib/2d/points'
+import { milieu, Point, point, tracePoint } from '../../lib/2d/points'
 import { cone, semiEllipse } from '../../lib/2d/projections3d'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
@@ -31,6 +31,7 @@ export const refs = {
   'fr-ch': ['9ES7-3']
 }
 export default class RepresenterUnSolide4e extends Exercice {
+  classe: number
   constructor () {
     super()
     // Héritage de la classe Exercice ()
@@ -86,7 +87,7 @@ export default class RepresenterUnSolide4e extends Exercice {
     let carreaux; let g
     let objetsEnonce = []
     let objetsCorrection = []
-    let listeDeNomsDePolygones
+    let listeDeNomsDePolygones: string[] = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 2 === 0) listeDeNomsDePolygones = ['QD'] // lettres à éviter
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
@@ -141,11 +142,12 @@ export default class RepresenterUnSolide4e extends Exercice {
           break
 
         case 0:
+        default:
           A = point(5, 0, nom[0], 'left')
           B = point(9 + randint(1, 3), 0, nom[1], 'right')
           C = point(B.x, randint(3, 7), nom[2], 'right')
           D = point(A.x, C.y, nom[3], 'left')
-          E = similitude(B, A, anglepersp, coeffpersp * randint(5, 12) / 10, nom[4], 'left')
+          E = similitude(B, A, anglepersp, coeffpersp * randint(5, 12) / 10, nom[4], 'left') as Point
           E.x = Math.round(E.x)
           E.y = Math.round(E.y)
           break
@@ -413,7 +415,7 @@ export default class RepresenterUnSolide4e extends Exercice {
           ]
         }
       }
-      if (this.questionJamaisPosee(I, A, B, C, D, E, F, G, H)) {
+      if (this.questionJamaisPosee(i, [A, B, C, D, E, F, G, H].map(p => p.nom).join(''))) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = enonce + '<br>'
         this.listeCorrections[i] = correction + '<br>'

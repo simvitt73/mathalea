@@ -9,7 +9,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
@@ -53,7 +53,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
       if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
       else stepAxeSecondaire = choice([0.5, 0.2, 0.25])
       // on finit les appels
-      const mesAppels = [
+      const mesAppels: NestedObjetMathalea2dArray = [
         r = repere({
           xMin: 0,
           yMin: 0,
@@ -81,7 +81,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
           xLegendePosition: [situation.qte_max + 1 + 0.2, -1]
         })
       ]
-      const f = x => situation.prix_unitaire * x
+      const f = (x:number) => situation.prix_unitaire * x
       mesAppels.push(r, courbe(f, { repere: r, xMin: 0, xMax: situation.qte_max + 1, color: 'black', epaisseur: 1.5 }))
       // on prépare l'objet figure
       const fig = mathalea2d(

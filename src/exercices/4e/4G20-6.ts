@@ -125,7 +125,6 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error
                   propositions: [{
                     texte: texteCorr,
                     enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
@@ -134,7 +133,6 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -159,7 +157,6 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error
                   propositions: [{
                     texte: texteCorr,
                     enonce: `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.\\\\`,
@@ -168,13 +165,12 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     statut: '',
                     reponse: {
                       texte: 'Entier inférieur',
-                      valeur: [reponseG],
+                      valeur: [Number(reponseG)],
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(Number(reponseG)),
                         decimals: 0,
@@ -186,13 +182,12 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     statut: '',
                     reponse: {
                       texte: 'Entier supérieur',
-                      valeur: [reponseD],
+                      valeur: [Number(reponseD)],
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(Number(reponseD)),
                         decimals: 0,

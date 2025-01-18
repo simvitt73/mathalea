@@ -238,7 +238,6 @@ export default class Pythagore2D extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [{
                   enonce: 'Calculer la longueur manquante.\\\\',
                   statut: 3,
@@ -248,7 +247,6 @@ export default class Pythagore2D extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
