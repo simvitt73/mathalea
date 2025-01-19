@@ -30,6 +30,7 @@ export const refs = {
 const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
 export default class PremierOuPas extends Exercice {
+  level: number
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans calculatrice\n2 : Avec calculatrice']
@@ -61,6 +62,11 @@ export default class PremierOuPas extends Exercice {
     let typesDeQuestions
 
     let typesDeQuestionsDisponibles // = [1, 2, 3, 6, 7];
+    /* 1: // nombre pair, 2: // Multiple de 3, 3: // Multiple de 5, 4: // Multiple de 7, 5: // multiple de 11
+     6: // produit de deux nombres premiers inférieurs à 100,
+     7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
+     8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
+    */
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3, 8]
     } else {
@@ -76,10 +82,11 @@ export default class PremierOuPas extends Exercice {
     }
     stringRappel += '.'
 
-    for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-
-      let N // le nombre de la question
+      let texte = ''
+      let texteCorr = ''
+      let N = 0 // le nombre de la question
       let r
       let tabPremiersATester
       let sum
@@ -100,7 +107,7 @@ export default class PremierOuPas extends Exercice {
         case 1: // nombre pair
           N = this.level === 2 ? 2 * randint(51, 499) : 2 * randint(12, 49)
           texte = nombreAvecEspace(N)
-          texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `
+          texteCorr = 'Comme ' + nombreAvecEspace(N) + 'est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, '
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
@@ -118,7 +125,7 @@ export default class PremierOuPas extends Exercice {
             sum += Number(N.toString().charAt(k))
           }
           texteCorr += ` = ${sum} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
+          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 3: // Multiple de 5
@@ -159,6 +166,7 @@ export default class PremierOuPas extends Exercice {
           while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0) || (N % 7 === 0)) {
             N = 11 * randint(10, 91)
           }
+
           texte = nombreAvecEspace(N)
           texteCorr = `D'une part, la somme des chiffres de rang impair de ${nombreAvecEspace(N)} vaut `
           if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
@@ -217,21 +225,21 @@ export default class PremierOuPas extends Exercice {
           break
         case 6: // produit de deux nombres premiers inférieurs à 100
           // rang du premier facteur premier
-          r1 = randint(0, 24)
+          { const r1 = randint(0, 24)
           // rang du second facteur premier
-          r2 = randint(0, 24)
-          prime1 = prems[r1] // on tire un nombre premier inférieur à 100, il n'y en a que 25!
-          prime2 = prems[r2] // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
-          N = prime1 + '$\\times$' + prime2
-          texte = N
-          texteCorr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `
-          if (prime1 === prime2) {
-            texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
-          } else {
-            texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
-          }
-          texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier') + '.'
-          bonneReponse = 'non'
+            const r2 = randint(0, 24)
+            const prime1 = prems[r1] // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+            const prime2 = prems[r2] // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+            N = prime1 * prime2
+            texte = `$${prime1} \\times ${prime2}$ `
+            texteCorr = `${texte} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `
+            if (prime1 === prime2) {
+              texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${texte}=${nombreAvecEspace(N)}, `
+            } else {
+              texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${texte}=${nombreAvecEspace(N)}, `
+            }
+            texteCorr += texteEnCouleurEtGras(`${texte} = ` + nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
+            bonneReponse = 'non' }
           break
         case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
           // rang du nombre premier choisi
@@ -243,7 +251,7 @@ export default class PremierOuPas extends Exercice {
           } else {
             this.sup2 = false
           }
-          texte = N + ''
+          texte = nombreAvecEspace(N) + ''
           r = 0
           tabPremiersATester = []
           while (prems[r] ** 2 < N) {
@@ -270,7 +278,7 @@ export default class PremierOuPas extends Exercice {
           // rang du nombre premier choisi
           r = randint(6, 24)
           N = prems[r] // on choisit un nombre premier inférieur à 100
-          texte = N + ''
+          texte = nombreAvecEspace(N) + ''
           r = 0
           tabPremiersATester = []
           while (prems[r] ** 2 < N) {
