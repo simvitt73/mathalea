@@ -79,9 +79,12 @@ export default class DecompositionFacteursPremiers extends Exercice {
     })
     // Fin du rajout EE
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeDesProblemes[i]
-      let nombre, reponse
+      let nombre = 0
+      let reponse = ''
+      let texte = ''
+      let texteCorr = ''
 
       switch (typesDeQuestions) {
         case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
@@ -93,11 +96,11 @@ export default class DecompositionFacteursPremiers extends Exercice {
             // on fixe le rang max pour le choix des premiers
             const rgMax = cribleEratostheneN(maxPremier).length - 1
             // on choisit les rangs pour les nombres premiers
-            const tabRangs = []
+            const tabRangs: string | any[] = []
             const tabRangsExclus = []
             for (let k = 0; k < (nbDePremiers); k++) {
               for (let m = 0; m < k; m++) {
-                tabRangsExclus.push(tabRangs[m])
+                if (tabRangs.length > 0) { tabRangsExclus.push(tabRangs[m]) }
               }
               tabRangs[k] = randint(0, rgMax, tabRangsExclus)
             }

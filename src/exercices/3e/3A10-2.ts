@@ -89,9 +89,10 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
       this.introduction = ''
     }
 
-    for (let i = 0, texte, texteCorr, N, sum, bonneReponse, evenSum, oddSum, r, r1, r2, tabPremiersATester, prime1, prime2, NLongueur, N1Longueur, N1, sum1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, N, sum, bonneReponse, evenSum, oddSum, r, r1, r2, tabPremiersATester, prime1, prime2, NLongueur, N1Longueur, N1, sum1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-
+      let texte = ''
+      let texteCorr = ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
           N = 2 * randint(51, 499)
@@ -275,7 +276,7 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
         texte += props.texte
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
