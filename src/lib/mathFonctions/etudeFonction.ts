@@ -2242,9 +2242,9 @@ export function tableauSignesFonction (
   }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
-      const strNb: string = String(premiereLigne[i]).replaceAll(/\s/g, '')
+      const nb: number = Number(String(premiereLigne[i]).replaceAll(/\s/g, '').replace(',', '.'))
       const substitut: Substitut | undefined = substituts.find(
-        (el: Substitut) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb
+        (el: Substitut) => egal(el.antVal, nb, 0.01)
       )
       if (substitut) {
         premiereLigne[i] = substitut.antTex
@@ -2326,16 +2326,16 @@ export function tableauVariationsFonction (
   const imgSubstituts = []
   premiereLigne.push(
     ...signes.reduce(
-      (previous, current) => previous.concat([stringNombre(current.xG, 2), 10]),
+      (previous, current) => previous.concat([stringNombre(current.xG, 3), 10]),
       initalValue
     )
   )
-  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 3), 10)
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
-      const strNb: string = String(premiereLigne[i]).replaceAll(/\s/g, '')
+      const nb: number = Number(String(premiereLigne[i]).replaceAll(/\s/g, '').replace(',', '.'))
       const substitut = substituts.find(
-        (el) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb
+        (el) => egal(el.antVal, nb, Number(tolerance))
       )
       if (substitut) {
         imgSubstituts.push({ index: i + 2, antVal: substitut.antVal, imgTex: substitut.imgTex })
