@@ -5,6 +5,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import Trinome from '../../modules/Trinome'
+import type FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
 export const interactifReady = false
 
@@ -44,7 +45,7 @@ export default class EtudeTrinome extends Exercice {
       x1 = randint(-8, 8, 0)
       x2 = x1 + 2 * randint(1, 6)
     }
-    const p = new Trinome()
+    const p = new Trinome(0, 0, 0) // Le constructeur réclame des arguments
     p.defFormeFactorisee(a, x1, x2)
     this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$.<br>
     On note $\\mathscr{C}_f$ sa courbe représentative dans un repère.`
@@ -60,17 +61,17 @@ export default class EtudeTrinome extends Exercice {
     let question2, correction2
     if (this.sup === 3) {
       question2 = 'Factoriser $f(x)$.'
-      correction2 = `$f(x)$ est de la forme $a^2-b^2$ avec $a= x ${p.alpha.oppose().simplifie().texFractionSignee}$ et $b=${Math.sqrt(p.beta.simplifie().oppose().texFraction)}$, c'est une identité remarquable, d'où : `
+      correction2 = `$f(x)$ est de la forme $a^2-b^2$ avec $a= x ${p.alpha.oppose().simplifie().texFractionSignee}$ et $b=${Math.sqrt(p.beta.simplifie().oppose().valeurDecimale)}$, c'est une identité remarquable, d'où : `
 
-      correction2 += `<br> $f(x) = \\underbrace{\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2}_{a^2}-\\underbrace{${Math.sqrt(p.beta.simplifie().oppose().texFraction)}^2}_{b^2}$`
-      correction2 += `<br> $\\phantom{f(x)} =\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee} )+${Math.sqrt(p.beta.simplifie().oppose().texFraction)}\\right)}_{(a+b)}\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee})-${Math.sqrt(p.beta.simplifie().oppose().texFraction)}\\right)}_{(a-b)}$`
+      correction2 += `<br> $f(x) = \\underbrace{\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2}_{a^2}-\\underbrace{${Math.sqrt(p.beta.simplifie().oppose().valeurDecimale)}^2}_{b^2}$`
+      correction2 += `<br> $\\phantom{f(x)} =\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee} )+${Math.sqrt(p.beta.simplifie().oppose().valeurDecimale)}\\right)}_{(a+b)}\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee})-${Math.sqrt(p.beta.simplifie().oppose().valeurDecimale)}\\right)}_{(a-b)}$`
       correction2 += `<br> $\\phantom{f(x)} =${p.texFormeFactorisee}$`
       correction2 += `<br> Une forme factorisée de $f(x)$ est donc :  $f(x)=${p.texFormeFactorisee}$.`
     } else {
       question2 = `Montrer que $f(x)$ se factorise sous la forme $f(x)=${p.texFormeFactorisee}$.`
       correction2 = 'On développe l\'expression : '
       const etapesDeveloppement2 = p.arrayTexDevelopperFormeFactorisee
-      if (p.a === 1) {
+      if (p.a.isEqual(1)) {
         correction2 += `<br> $${p.texFormeFactorisee} = ${etapesDeveloppement2[0]}$`
         correction2 += `<br> $\\phantom{${p.texFormeFactorisee}} = ${etapesDeveloppement2[1]}$`
         correction2 += `<br> $\\phantom{${p.texFormeFactorisee}} = ${etapesDeveloppement2[2]}$`
@@ -98,11 +99,11 @@ export default class EtudeTrinome extends Exercice {
     de la forme $(x\\,;\\,0)$. Pour trouver les abscisses, il faut donc résoudre l'équation $f(x)=0$.<br>
     En utilisant la forme factorisée, cela revient à résoudre  une équation produit-nul.`
     corr3b += `<br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0$`
-    corr3b += `<br>$\\phantom{f(x)=0} \\iff x${p.x1.simplifie().oppose().texFractionSignee} = 0 \\text{\\quad ou \\quad} x${p.x2.simplifie().oppose().texFractionSignee} = 0$`
-    corr3b += `<br>$\\phantom{f(x)=0} \\iff x=${p.x1.simplifie().texFraction} \\text{\\quad ou \\quad} x=${p.x2.simplifie().texFraction}$`
-    corr3b += `<br>L'équation a deux solutions : $${p.x1.simplifie().texFraction}$ et $${p.x2.simplifie().texFraction}$.`
+    corr3b += `<br>$\\phantom{f(x)=0} \\iff x${(p.x1 as FractionEtendue).simplifie().oppose().texFractionSignee} = 0 \\text{\\quad ou \\quad} x${(p.x2 as FractionEtendue).simplifie().oppose().texFractionSignee} = 0$`
+    corr3b += `<br>$\\phantom{f(x)=0} \\iff x=${(p.x1 as FractionEtendue).simplifie().texFraction} \\text{\\quad ou \\quad} x=${(p.x2 as FractionEtendue).simplifie().texFraction}$`
+    corr3b += `<br>L'équation a deux solutions : $${(p.x1 as FractionEtendue).simplifie().texFraction}$ et $${(p.x2 as FractionEtendue).simplifie().texFraction}$.`
     corr3b += `<br>On en déduit que les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont
-    $(${p.x1.simplifie().texFraction}\\, ;\\,0)$ et $(${p.x2.simplifie().texFraction}\\,;\\,0)$`
+    $(${(p.x1 as FractionEtendue).simplifie().texFraction}\\, ;\\,0)$ et $(${(p.x2 as FractionEtendue).simplifie().texFraction}\\,;\\,0)$`
 
     let q3c
     if (p.a.s > 0) {

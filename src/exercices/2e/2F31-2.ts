@@ -1,8 +1,9 @@
-import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { tableauVariationsFonction, type Substitut } from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
+import type FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -57,7 +58,7 @@ export default class EncadrerAvecFctRef extends Exercice {
       let derivee // Sa dérivée
       let xMin // La borne gauche de l'intervalle d'étude (prévoir une valeur de remplacement pour les infinis + et -)
       let xMax // La borne droite de l'intervalle d'étude
-      let substituts = [] // les valeur de substitution pour xMin ou xMax...
+      let substituts: Substitut[] = [] // les valeur de substitution pour xMin ou xMax...
       let tolerance // la tolérance doit être réglée au cas par cas, car pour la dérivée de 1/x entre 17 et 19 par exemple, il y a trop peu de différence avec zéro !
       let texteCorrAvantTableau // la partie de la correction avant le tableau
       let texteCorrApresTableau // la partie de la correction après le tableau
@@ -71,8 +72,8 @@ export default class EncadrerAvecFctRef extends Exercice {
         case 'carré':
           {
             const N = choice([1, 2, 3, 4, 5])
-            fonction = (x) => x ** 2
-            derivee = (x) => 2 * x
+            fonction = (x: number) => x ** 2
+            derivee = (x: number) => 2 * x
             tolerance = 0.005
             switch (N) {
               case 1: // cas x<a avec a<0 ou a>0
@@ -165,6 +166,7 @@ export default class EncadrerAvecFctRef extends Exercice {
 
                 break
               case 5: // cas a<x<b avec a<0 et b>0
+              default:
                 a = randint(-10, -1)
                 b = randint(1, 10)
                 xMin = a
@@ -183,8 +185,8 @@ export default class EncadrerAvecFctRef extends Exercice {
           break
         case 'inverse': {
           const N = choice([1, 2, 3])
-          fonction = (x) => 1 / x
-          derivee = (x) => -1 / x / x
+          fonction = (x: number) => 1 / x
+          derivee = (x: number) => -1 / x / x
           tolerance = 0.000001
           switch (N) {
             case 1: // cas a<x<b avec a>0
@@ -243,6 +245,7 @@ export default class EncadrerAvecFctRef extends Exercice {
             Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(2)}$-\\dfrac{1}{${-a}} ${large1 ? '\\geqslant' : ' > '} \\dfrac{1}{x} ${large2 ? '\\geqslant' : ' > '}-\\dfrac{1}{${-b}}$. `
               break
             case 3: // cas x<a avec a<0 ou x>a avec a>0
+            default:
               a = -200
               b = randint(-12, -2) // -\infty et b négatifs
               if (choice([true, false])) {
@@ -305,10 +308,10 @@ export default class EncadrerAvecFctRef extends Exercice {
           break
         }
         case 'racine carrée': {
-          const estParfait = (a) => Number.isInteger(Math.sqrt(a))
+          const estParfait = (a: number) => Number.isInteger(Math.sqrt(a))
           const N = choice([1, 2, 3])
-          fonction = (x) => Math.sqrt(x)
-          derivee = (x) => 1 / 2 / Math.sqrt(x)
+          fonction = (x: number) => Math.sqrt(x)
+          derivee = (x: number) => 1 / 2 / Math.sqrt(x)
           tolerance = 0.005
           switch (N) {
             case 1:
@@ -376,6 +379,7 @@ Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $\\sqrt{x}${large1 ? '\\geqsl
               }
               break
             case 3:
+            default:
               {
                 // cas a<x<b
                 a = randint(0, 98)
@@ -418,10 +422,11 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
           }
           break
         }
-        case 'cube': {
+        case 'cube':
+        default: {
           const N = choice([1, 2])
-          fonction = (x) => x ** 3
-          derivee = (x) => 3 * x ** 2
+          fonction = (x: number) => x ** 3
+          derivee = (x: number) => 3 * x ** 2
           tolerance = 0.005
           if (N === 1) {
             // cas x<a ou x>a
@@ -479,10 +484,10 @@ Si $x${symbole}${a}$ alors,  $x^3${symbole} ${Math.pow(a, 3)}$.`
           } else {
             // cas a<x<b
             let a, b
-            while (a === b) {
+            do {
               a = choice([randint(-10, 10), randint(11, 20) * choice([-1, 1])])
               b = choice([randint(-10, 10), randint(11, 20) * choice([-1, 1])])
-            }
+            } while (a === b)
             if (a > b) {
               [a, b] = [b, a]
             }
@@ -518,7 +523,7 @@ Si $${inégalité}$ alors, $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '}
           break
         }
       }
-      const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
+      const tableau = tableauVariationsFonction(fonction as (x: number | FractionEtendue)=>number, derivee as (x: number | FractionEtendue)=>number, xMin, xMax, {
         substituts,
         step: 1,
         tolerance

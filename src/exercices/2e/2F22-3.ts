@@ -1,15 +1,16 @@
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
-import { spline } from '../../lib/mathFonctions/Spline'
+import { Spline, spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
+import type FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -78,7 +79,7 @@ let deltaY
  * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
  */
 
-function aleatoiriseCourbe (choix) {
+function aleatoiriseCourbe (choix: number) {
   coeffX = choice([-1, 1]) // symétries ou pas
   coeffY = choice([-1, 1])
   deltaX = randint(-2, +2) // translations
@@ -102,6 +103,7 @@ function aleatoiriseCourbe (choix) {
 
  */
 export default class BetaModeleSpline extends Exercice {
+  spline?: Spline
   constructor () {
     super()
     this.nbQuestions = 1 // Nombre de questions par défaut
@@ -132,7 +134,7 @@ export default class BetaModeleSpline extends Exercice {
       }))
       const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const maSpline = spline(nuage)
-      const fonctionD = x => maSpline.derivee(x)
+      const fonctionD = (x:number) => maSpline.derivee(x)
       const choixInteractif = randint(0, 1)
       const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
       this.spline = maSpline
@@ -149,19 +151,17 @@ export default class BetaModeleSpline extends Exercice {
         grilleSecondaireXDistance: 1
       })
       const courbe1 = maSpline.courbe({
-        repere: repere1,
         epaisseur: 1.5,
-        step: 0.25,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
 
-      const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
+      const objetsEnonce = [...(repere1.objets as NestedObjetMathalea2dArray), /* courbe2, */ courbe1]
       let texteEnonce
 
       const tableau = maSpline.tableauSignes()
-      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
+      const tableauB = tableauSignesFonction(fonctionD as (x: number | FractionEtendue)=>number, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
       handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], options: { texteSansCasse: true } } })

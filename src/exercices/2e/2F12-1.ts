@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -66,15 +66,13 @@ export default class EquationsFonctionsRef extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
-      const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits }).format(a).replace(',', '{,}')
-      return a < 0 ? `(${result})` : result
-    }
+
     let sousChoix
-    if (parseInt(this.sup2) === 1) {
-      sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
-    } else if (parseInt(this.sup2) === 2) {
-      sousChoix = combinaisonListes([1, 2, 3], this.nbQuestions)
+    // ça c'est casse-gueule ! Il faut que chaque type de question ait le même nombre de sous-choix !!!
+    if (this.sup2 === 1) {
+      sousChoix = combinaisonListes([0], this.nbQuestions) // On ne prend que la première question de chaque catégorie
+    } else if (this.sup2 === 2) {
+      sousChoix = combinaisonListes([1, 2, 3], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
     } else {
       sousChoix = combinaisonListes([0, 1, 2, 3], this.nbQuestions)
     }
@@ -86,6 +84,7 @@ export default class EquationsFonctionsRef extends Exercice {
           switch (sousChoix[i]) { //
             case 0:
               a = randint(0, 15) ** 2
+              b = 0
               k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $x^2=${k}$`
@@ -164,13 +163,11 @@ export default class EquationsFonctionsRef extends Exercice {
                     reponse = `\\{-\\sqrt{${c - b}};\\sqrt{${c - b}}\\}`
                   }
                 }
-              }
-              if (k === 0) {
+              } else if (k === 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$, alors l'équation a une solution : $0$.<br>
               Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
                 reponse = '\\{0\\}'
-              }
-              if (k < 0) {
+              } else {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(c - b, 0)}$. Comme $${texNombre(c - b, 0)}<0$, l'équation n'a pas de solution.
                 <br>Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
                 reponse = '\\emptyset'
@@ -219,13 +216,11 @@ export default class EquationsFonctionsRef extends Exercice {
                     reponse = `\\{-\\sqrt{${k}};\\sqrt{${k}}\\}`
                   }
                 }
-              }
-              if (k === 0) {
+              } else if (k === 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$, donc l'équation a une solution : $0$.<br>
               Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
                 reponse = '\\{0\\}'
-              }
-              if (k < 0) {
+              } else {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(b - c)}$. Comme $${texNombre(b - c)}<0$, l'équation n'a pas de solution.
                 <br> Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
                 reponse = '\\emptyset'
@@ -233,6 +228,7 @@ export default class EquationsFonctionsRef extends Exercice {
               break
 
             case 3:// ax^2+b=c
+            default:
               a = randint(-10, 10, [-1, 0, 1])
               b = randint(-10, 10, 0)
               c = randint(-10, 10, 0)
@@ -277,17 +273,16 @@ export default class EquationsFonctionsRef extends Exercice {
                     reponse = `\\{-\\sqrt{${f1.texFractionSimplifiee}};\\sqrt{${f1.texFractionSimplifiee}}\\}`
                   }
                 }
-              }
-
-              if (c - b === 0) {
-                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=0$. Alorsl'équation a une solution : $0$.<br>
-              Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
-                reponse = '\\{0\\}'
-              }
-              if ((c - b) / a < 0) {
-                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${f1.texFractionSimplifiee}<0$, alors l'équation n'a pas de solution. <br>
-              Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
-                reponse = '\\emptyset'
+              } else {
+                if (c - b === 0) {
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=0$. Alorsl'équation a une solution : $0$.<br>
+                Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
+                  reponse = '\\{0\\}'
+                } else {
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${f1.texFractionSimplifiee}<0$, alors l'équation n'a pas de solution. <br>
+                Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
+                  reponse = '\\emptyset'
+                }
               }
 
               break
@@ -296,6 +291,8 @@ export default class EquationsFonctionsRef extends Exercice {
         case 2:// 'sqrt(x)=k'
           switch (sousChoix[i]) {
             case 0:// sqrt(x)=k
+              a = 0
+              b = 0
               k = randint(-25, 25, 0)
               enonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ :<br>
                             ${sp(50)} $\\sqrt{x}=${k}$`
@@ -311,8 +308,7 @@ export default class EquationsFonctionsRef extends Exercice {
               Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
               `
                 reponse = '\\emptyset'
-              }
-              if (k > 0 || k === 0) {
+              } else {
                 correction += `$k=${k}$ et $${k}>0$ donc l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
                Ainsi $S=${miseEnEvidence(`\\{${k ** 2}\\}`)}$.
               `
@@ -321,6 +317,7 @@ export default class EquationsFonctionsRef extends Exercice {
               break
 
             case 1:// sqrt(x)+b=c
+              a = 0
               b = randint(-10, 10, 0)
               c = randint(-10, 10)
               k = c - b
@@ -347,8 +344,7 @@ export default class EquationsFonctionsRef extends Exercice {
 Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 `
                 reponse = '\\emptyset'
-              }
-              if (c - b > 0 || c - b === 0) {
+              } else {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${c - b}$. Comme $${c - b}\\geqslant 0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
    Ainsi $S=${miseEnEvidence(`\\{${k ** 2}\\}`)}$.
   `
@@ -357,6 +353,7 @@ Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 
               break
             case 2:// -sqrt(x)+b=c
+              a = 0 // ça ne sert à rien sauf pour différentier les questions
               b = randint(-10, 10, 0)
               c = randint(-10, 10)
               k = b - c
@@ -384,8 +381,7 @@ Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 `
                 reponse = '\\emptyset'
-              }
-              if (k > 0 || k === 0) {
+              } else {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${b - c}$. Comme $${b - c}\\geqslant0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
    Ainsi $S=${miseEnEvidence(`\\{${k ** 2}\\}`)}$.
   `
@@ -394,6 +390,7 @@ Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 
               break
             case 3:// a*sqrt(x)+b=c
+            default:
               a = randint(-10, 10, [0, -1, 1])
               b = randint(-10, 10, 0)
               c = randint(-10, 10)
@@ -422,8 +419,7 @@ Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
 `
                 reponse = '\\emptyset'
-              }
-              if (k > 0 || k === 0) {
+              } else {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}\\geqslant0$ alors l'équation admet une solution : $\\left(${texFractionReduite(c - b, a)}\\right)^2=${texFractionReduite((c - b) ** 2, a ** 2)}$.<br>
    Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite((c - b) ** 2, a ** 2)}\\right\\}`)}$.
   `
@@ -437,6 +433,8 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
+              b = 0
+              a = 0
               k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
 
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
@@ -453,8 +451,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
               `
                 reponse = '\\emptyset'
-              }
-              if (k !== 0) {
+              } else {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Comme $${k}\\neq 0$ alors l'équation admet une solution :
                 $${texFractionReduite(1, k)}$.<br>
                Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(1, k)}\\right\\}`)}$.
@@ -465,7 +462,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               break
 
             case 1:
-
+              a = 0
               k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
               b = randint(-10, 10, 0)
               c = k + b
@@ -493,8 +490,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
                  Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
                  `
                 reponse = '\\emptyset'
-              }
-              if (k !== 0) {
+              } else {
                 correction += `$k=${k}$ et $${k}\\neq 0$, donc l'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation admet une solution :
                    $${texFractionReduite(1, k)}$.<br>
                   Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(1, k)}\\right\\}`)}$.
@@ -521,8 +517,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
                  Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
                  `
                 reponse = '\\emptyset'
-              }
-              if (k !== 0) {
+              } else {
                 if (k % 1 === 0) {
                   correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution :
                    $\\dfrac{1}{${texFractionReduite(b, a)}}$.<br>
@@ -539,6 +534,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               }
               break
             case 3:
+            default:
               a = randint(-10, 10, 0)
               b = randint(-10, 10, 0)
               // c = randint(-10, 10, 0)
@@ -570,8 +566,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
                  Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
                  `
                 reponse = '\\emptyset'
-              }
-              if (k !== 0) {
+              } else {
                 if (k % 1 === 0) {
                   correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution :
                    $\\dfrac{1}{${texFractionReduite(c - b, a)}}$.<br>
@@ -591,9 +586,12 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           break
 
         case 4:// 'x^3=k'
+        default:
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
+              a = 0
+              b = 0
               k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = k1 ** 3
 
@@ -613,6 +611,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               break
 
             case 1:
+              a = 0
               b = randint(-10, 10, 0)
               k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = k1 ** 3
@@ -644,6 +643,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               break
             case 2:
               a = randint(-10, 10, [0, -1, 1])
+              b = 0
               k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = k1 ** 3
               c = k * a
@@ -664,6 +664,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               reponse = `\\{${k1}\\}`
               break
             case 3:
+            default:
               a = randint(-10, 10, [0, -1, 1])
               b = randint(-10, 10, [0, -1, 1])
               k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])

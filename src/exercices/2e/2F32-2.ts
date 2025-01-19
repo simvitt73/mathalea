@@ -1,7 +1,7 @@
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { spline } from '../../lib/mathFonctions/Spline'
+import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -53,7 +53,7 @@ const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]//, noeuds1, noeuds2, n
  * @param {{x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[]} nuage les noeuds
  * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
  */
-function trouveMaxes (nuage) {
+function trouveMaxes (nuage: NoeudSpline[]) {
   const xMin = Math.floor(Math.min(...nuage.map(el => el.x)) - 1)
   const yMin = Math.floor(Math.min(...nuage.map(el => el.y)) - 1)
   const xMax = Math.ceil(Math.max(...nuage.map(el => el.x)) + 1)
@@ -99,7 +99,7 @@ export default class BetaModeleSpline extends Exercice {
       }))
       const maSpline = spline(nuage)
       const { xMin, xMax, yMin, yMax } = trouveMaxes(nuage)
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       // le repère dans lequel sera tracé la courbe (il est important que xMin et yMin soient entiers d'où les arrondis lors de leur définition plus haut
       const repere1 = repere({
         xMin: xMin - 1,
@@ -117,7 +117,6 @@ export default class BetaModeleSpline extends Exercice {
         grilleSecondaireXMax: xMax + 1
       })
       const courbe1 = maSpline.courbe({
-        repere: repere1,
         epaisseur: 1.5,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 2 },
@@ -137,8 +136,8 @@ export default class BetaModeleSpline extends Exercice {
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
       const solsMax = maSpline.solve(Math.max(...nuage.map(el => el.y)), 0)
       const solsMin = maSpline.solve(Math.min(...nuage.map(el => el.y)), 0)
-      const solutionMax = solsMax.length === 1 ? solsMax[0] : 'On a un problème'
-      const solutionMin = solsMin.length === 1 ? solsMin[0] : 'On a un problème'
+      const solutionMax = solsMax!.length === 1 ? solsMax![0] : 'On a un problème'
+      const solutionMin = solsMin!.length === 1 ? solsMin![0] : 'On a un problème'
       setReponse(this, 4 * i, Math.max(...nuage.map(el => el.y)))
       setReponse(this, 4 * i + 1, solutionMax)
       setReponse(this, 4 * i + 2, Math.min(...nuage.map(el => el.y)))

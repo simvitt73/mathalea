@@ -4,7 +4,7 @@ import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { spline } from '../../lib/mathFonctions/Spline'
+import { Spline, spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -74,7 +74,7 @@ const mesFonctions1 = [noeuds1, noeuds2, noeuds3]//, noeuds2
  * choisit les caractèristique de la transformation de la courbe
  * @returns {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>}
  */
-function aleatoiriseCourbe (listeFonctions) {
+function aleatoiriseCourbe (listeFonctions: NoeudSpline[][]): NoeudSpline[] {
   const coeffX = choice([-1, 1]) // symétries ou pas
   const coeffY = choice([-1, 1])
   const deltaX = randint(-2, +2) // translations
@@ -94,6 +94,7 @@ function aleatoiriseCourbe (listeFonctions) {
  * @author Jean-Claude Lhote (Gilles Mora)
  */
 export default class LecturesGraphiquesSurSplines extends Exercice {
+  spline: Spline | undefined
   constructor () {
     super()
 
@@ -103,8 +104,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
   }
 
   nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let bornes = {}
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       const objetsEnonce = []
       const objetsCorrection1 = []
       const objetsCorrection2 = []
@@ -113,7 +115,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const theSpline = spline(nuage)
       // On a besoin de la spline pour la correction interactive
       this.spline = theSpline
-      bornes = theSpline.trouveMaxes()
+      const bornes = theSpline.trouveMaxes()
       const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
       const nbAntecedentsMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin - 1, bornes.yMax + 1, false, false)
       let nombreAntecedentCherches0, y0, nombreAntecedentCherches1, y1, nombreAntecedentsCherches2, y2
@@ -123,8 +125,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
         y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
         nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0, 0])
-        y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, true, false), 1)
-      } while (isNaN(y0) || isNaN(y1) || isNaN(y2) || y0 === 0 || y2 === 0)
+        const candidatY2 = theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, true, false)
+        y2 = candidatY2 ? arrondi(candidatY2, 1) : NaN
+      } while (Number.isNaN(y0) || Number.isNaN(y1) || isNaN(y2) || y0 === 0 || y2 === 0)
 
       const reponseQ3 = []
       for (let ee = bornes.yMin; ee <= bornes.yMax; ee++) {
@@ -132,12 +135,12 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       }
       y2 = choice(reponseQ3)
 
-      const solutions0 = theSpline.solve(y0, 2)
-      const solutions1 = theSpline.solve(y1, 2)
-      const reponse1 = solutions1.length === 0 ? '\\emptyset' : `${solutions1.join(';')}`
-      const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
+      const solutions0 = theSpline.solve(Number(y0), 2) ?? []
+      const solutions1 = theSpline.solve(Number(y1), 2) ?? []
+      const reponse1 = (!solutions1 || solutions1.length === 0) ? '\\emptyset' : `${solutions1.join(';')}`
+      const horizontale1 = droiteParPointEtPente(point(0, Number(y1)), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
-      const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 0, 'green', 1.5)
+      const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, Number(y1) + 0.3, 0, 'green', 1.5)
       const nomD2 = texteParPosition(`$y=${texNombre(y2, 1)}$`, bornes.xMax + 1.5, y2 + 0.3, 0, 'green', 1.5)
       horizontale1.epaisseur = 2
       horizontale1.pointilles = 2
@@ -147,9 +150,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       objetsCorrection2.push(horizontale2, nomD2)
 
       for (let j = 0; j < nombreAntecedentCherches0; j++) {
-        objetsCorrection1.push(lectureAntecedent(solutions0[j], y0, 1, 1, 'red', '', ''))
+        objetsCorrection1.push(lectureAntecedent(solutions0![j], Number(y0), 1, 1, 'red', '', ''))
       }
-      const listeAntecedents = theSpline.solve(y2, 0)
+      const listeAntecedents = theSpline.solve(y2, 0) ?? []
       for (const antecedentY2 of listeAntecedents) {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
@@ -191,7 +194,6 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         grilleSecondaireXMax: bornes.xMax + 1
       })
       const courbeATracer = theSpline.courbe({
-        repere: repere1,
         epaisseur: 1.2,
         color: 'blue',
         ajouteNoeuds: true,
@@ -204,7 +206,6 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         }
       }
       const courbeCorrection = theSpline.courbe({
-        repere: repere1,
         epaisseur: 1.2,
         color: 'blue',
         ajouteNoeuds: true,

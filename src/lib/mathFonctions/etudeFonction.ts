@@ -2183,7 +2183,7 @@ export function chercheMinMaxFonction ([a, b, c, d]: [number, number, number, nu
   ]
 }
 
-type Substitut = { antVal: number, antTex: string, imgVal: number, imgTex: string }
+export type Substitut = { antVal: number, antTex: string, imgVal?: number, imgTex?: string }
 /**
  * renvoie le tableau de signes d'une fonction
  * @param fonction
