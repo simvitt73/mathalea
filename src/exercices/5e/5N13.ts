@@ -97,7 +97,7 @@ export default class Exercice_fractions_simplifier extends Exercice {
       enleveElement(liste_fractions, fraction) // Il n'y aura pas 2 fois la même réponse
       const tabDiviseursDek = listeDesDiviseurs(k)
       const fractionInitale = new FractionEtendue(k * a, k * b).texFraction
-      if (this.interactifType === 'qcm') {
+      if (this.sup3) {
         texte = 'Parmi les fractions proposées ci-dessous, '
         texte += (tabDiviseursDek.length > 2 && !this.sup2) ? 'lesquelles sont ' : 'laquelle est '
         if (this.sup2) texte += 'la fraction la plus simplifiée de '
@@ -202,7 +202,8 @@ export default class Exercice_fractions_simplifier extends Exercice {
           }
         }
         const monQcm = propositionsQcm(this, i) // Les deux paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice.
-        if (this.interactif) texte += monQcm.texte
+        if (this.interactif && this.interactifType === 'qcm') texte += monQcm.texte
+        if (!this.interactif && this.sup3 && !context.isAmc) texte += monQcm.texte
       } else {
         texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction')
         if (this.amcType === 'AMCOpen') this.autoCorrection[i] = { enonce: `Simplfier $${fractionInitale}$ en détaillant la simplification.`, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
