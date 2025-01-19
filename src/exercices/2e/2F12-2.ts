@@ -11,7 +11,6 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { sqrt } from 'mathjs'
 import { context } from '../../modules/context'
 
 export const titre = 'Résoudre graphiquement une inéquation avec une fonction de référence'
@@ -47,7 +46,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
       typeDeQuestionsDisponibles = ['typeE3', 'typeE4']
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['typeE5', 'typeE6']
-    } else if (this.sup === 4) {
+    } else {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']
     }
     //
@@ -98,7 +97,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = x => x ** 2
+            const f = (x:number) => Number(x) ** 2
             const Cg = droite(point(-3, 3), point(3, 3), '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -185,7 +184,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xLabelListe: [-6],
               yLabelListe: [-6]
             })
-            const f = x => x ** 2
+            const f = (x:number) => Number(x) ** 2
             const Cg = droite(point(-6, 3), point(6, 3), '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -285,7 +284,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = x => 1 / x
+            const f = (x:number) => 1 / Number(x)
             const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
             const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
@@ -409,7 +408,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = x => 1 / x
+            const f = (x:number) => 1 / Number(x)
             const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
             const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
@@ -504,7 +503,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = x => sqrt(x)
+            const f = (x:number) => Math.sqrt(Number(x))
             const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -544,6 +543,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
           }
           break
         case 'typeE6':// sqrt(x)>k
+        default:
           {
             const a = randint(1, 12)
             const A = point(2.25, 1.5)
@@ -580,7 +580,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = x => sqrt(x)
+            const f = (x:number) => Math.sqrt(x)
             const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -620,7 +620,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -12,7 +12,7 @@ import Exercice from '../Exercice'
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
 export const dateDePublication = '14/02/2023'
 /**
- *
+ * Lintage et typage incomplet à cause de tableauDeVariation qui est mal typé
  * @author Gilles Mora
 
  */
@@ -38,33 +38,36 @@ export default class VariationsCourbe extends Exercice {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']// 'typeE1', 'typeE2',
     } else if (this.sup === 2) {
       typeDeQuestionsDisponibles = ['typeE7']
-    } else if (this.sup === 3) {
+    } else {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, A0, A1, A2, A3, A4, Tk, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, o, r1, gr, graphique, nom, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nomF = [
         ['f'], ['g'], ['h'], ['u'],
         ['v'], ['w']
       ]
-
-      switch (listeTypeQuestions[i]) {
-        case 'typeE1':// croissante, décroissante
-          x0 = randint(-6, -3)
-          y0 = randint(-4, -2)
-          x1 = randint(-2, 2)
-          y1 = randint(-1, 5)// max de y
-          x2 = randint(4, 5)
-          y2 = y1 - randint(1, 4)
-          A0 = point(x0, y0)
-          A1 = point(x1, y1)
-          A2 = point(x2, y2)
-          Tk = tracePoint(A0, A1, A2)
+      let texte = ''
+      let texteCorr = ''
+      const variables: number[] = []
+      const typeDeQuestions = listeTypeQuestions[i]
+      switch (typeDeQuestions) {
+        case 'typeE1':{ // croissante, décroissante
+          const x0 = randint(-6, -3)
+          const y0 = randint(-4, -2)
+          const x1 = randint(-2, 2)
+          const y1 = randint(-1, 5)// max de y
+          const x2 = randint(4, 5)
+          const y2 = y1 - randint(1, 4)
+          const A0 = point(x0, y0)
+          const A1 = point(x1, y1)
+          const A2 = point(x2, y2)
+          const Tk = tracePoint(A0, A1, A2)
           Tk.epaisseur = 2
-          nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          r1 = repere({
+          const nom = choice(nomF)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+          const r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y2 - 1, y0 - 1),
             yMax: y1 + 2,
@@ -84,7 +87,7 @@ export default class VariationsCourbe extends Exercice {
             grilleYMax: y1 + 2
           })
 
-          gr = courbeInterpolee(
+          const gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2]
             ],
@@ -95,7 +98,7 @@ export default class VariationsCourbe extends Exercice {
               xMin: x0 - 1,
               xMax: 6
             })
-          graphique = mathalea2d({
+          const graphique = mathalea2d({
             xmin: x0 - 1,
             xmax: 6,
             ymin: Math.min(y0 - 1, y2 - 1),
@@ -128,23 +131,25 @@ export default class VariationsCourbe extends Exercice {
             hauteurLignes: [15, 15]
           }) + '<br>'
 
+          variables.push(x0, x1, x2, y0, y1, y2)
+        }
           break
 
-        case 'typeE2':// décroissante, croissante
-          x0 = randint(-6, -3)
-          y0 = randint(2, 4)
-          x1 = randint(-2, 2)
-          y1 = randint(-5, 1)// min de y
-          x2 = randint(4, 5)
-          y2 = y1 + randint(1, 4)
-          A0 = point(x0, y0)
-          A1 = point(x1, y1)
-          A2 = point(x2, y2)
-          Tk = tracePoint(A0, A1, A2)
+        case 'typeE2':{ // décroissante, croissante
+          const x0 = randint(-6, -3)
+          const y0 = randint(2, 4)
+          const x1 = randint(-2, 2)
+          const y1 = randint(-5, 1)// min de y
+          const x2 = randint(4, 5)
+          const y2 = y1 + randint(1, 4)
+          const A0 = point(x0, y0)
+          const A1 = point(x1, y1)
+          const A2 = point(x2, y2)
+          const Tk = tracePoint(A0, A1, A2)
           Tk.epaisseur = 2
-          nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          r1 = repere({
+          const nom = choice(nomF)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+          const r1 = repere({
             xMin: x0 - 1,
             yMin: y1 - 2,
             yMax: Math.max(y2 + 1, y0 + 1),
@@ -163,7 +168,7 @@ export default class VariationsCourbe extends Exercice {
             grilleXMax: 6,
             grilleYMax: Math.max(y2 + 1, y0 + 1)
           })
-          gr = courbeInterpolee(
+          const gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2]
             ],
@@ -174,7 +179,7 @@ export default class VariationsCourbe extends Exercice {
               xMin: x0 - 1,
               xMax: 6
             })
-          graphique = mathalea2d({
+          const graphique = mathalea2d({
             xmin: x0 - 1,
             xmax: 6,
             ymin: y1 - 2,
@@ -206,26 +211,28 @@ export default class VariationsCourbe extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           }) + '<br>'
+          variables.push(x0, x1, x2, y0, y1, y2)
+        }
           break
 
-        case 'typeE3':// décroissante, croissante, décroissante
-          x0 = randint(-6, -4)
-          y0 = randint(3, 5)
-          x1 = randint(-2, 1)
-          y1 = y0 - randint(5, 8)
-          x2 = randint(3, 4)
-          y2 = y1 + randint(2, 7)
-          x3 = randint(5, 6)
-          y3 = y2 - randint(1, 4)
-          A0 = point(x0, y0)
-          A1 = point(x1, y1)
-          A2 = point(x2, y2)
-          A3 = point(x3, y3)
-          Tk = tracePoint(A0, A1, A2, A3)
+        case 'typeE3':{ // décroissante, croissante, décroissante
+          const x0 = randint(-6, -4)
+          const y0 = randint(3, 5)
+          const x1 = randint(-2, 1)
+          const y1 = y0 - randint(5, 8)
+          const x2 = randint(3, 4)
+          const y2 = y1 + randint(2, 7)
+          const x3 = randint(5, 6)
+          const y3 = y2 - randint(1, 4)
+          const A0 = point(x0, y0)
+          const A1 = point(x1, y1)
+          const A2 = point(x2, y2)
+          const A3 = point(x3, y3)
+          const Tk = tracePoint(A0, A1, A2, A3)
           Tk.epaisseur = 2
-          nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          r1 = repere({
+          const nom = choice(nomF)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+          const r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y1 - 1, y3 - 1),
             yMax: Math.max(y2 + 1, y0 + 1),
@@ -244,7 +251,7 @@ export default class VariationsCourbe extends Exercice {
             grilleXMax: 7,
             grilleYMax: Math.max(y2 + 1, y0 + 1)
           })
-          gr = courbeInterpolee(
+          const gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2], [x3, y3]
             ],
@@ -255,7 +262,7 @@ export default class VariationsCourbe extends Exercice {
               xMin: x0 - 1,
               xMax: 6
             })
-          graphique = mathalea2d({
+          const graphique = mathalea2d({
             xmin: x0 - 1,
             xmax: 7,
             ymin: Math.min(y1 - 1, y3 - 1),
@@ -287,26 +294,28 @@ export default class VariationsCourbe extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           }) + '<br>'
+          variables.push(x0, x1, x2, x3, y0, y1, y2, y3)
+        }
           break
 
-        case 'typeE4':// croissante, décroissante, croissante
-          x0 = randint(-6, -5)
-          y0 = randint(-5, -3)
-          x1 = randint(-3, 2)
-          y1 = y0 + randint(5, 8)
-          x2 = randint(4, 5)
-          y2 = y1 - randint(2, 7)
-          x3 = randint(7, 9)
-          y3 = y2 + randint(1, 4)
-          A0 = point(x0, y0)
-          A1 = point(x1, y1)
-          A2 = point(x2, y2)
-          A3 = point(x3, y3)
-          Tk = tracePoint(A0, A1, A2, A3)
+        case 'typeE4':{ // croissante, décroissante, croissante
+          const x0 = randint(-6, -5)
+          const y0 = randint(-5, -3)
+          const x1 = randint(-3, 2)
+          const y1 = y0 + randint(5, 8)
+          const x2 = randint(4, 5)
+          const y2 = y1 - randint(2, 7)
+          const x3 = randint(7, 9)
+          const y3 = y2 + randint(1, 4)
+          const A0 = point(x0, y0)
+          const A1 = point(x1, y1)
+          const A2 = point(x2, y2)
+          const A3 = point(x3, y3)
+          const Tk = tracePoint(A0, A1, A2, A3)
           Tk.epaisseur = 2
-          nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          r1 = repere({
+          const nom = choice(nomF)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+          const r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y2 - 1, y0 - 1),
             yMax: Math.max(y1 + 1, y3 + 1),
@@ -325,7 +334,7 @@ export default class VariationsCourbe extends Exercice {
             grilleXMax: x3 + 1,
             grilleYMax: Math.max(y1 + 1, y3 + 1)
           })
-          gr = courbeInterpolee(
+          const gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2], [x3, y3]
             ],
@@ -336,7 +345,7 @@ export default class VariationsCourbe extends Exercice {
               xMin: x0 - 1,
               xMax: x3 + 1
             })
-          graphique = mathalea2d({
+          const graphique = mathalea2d({
             xmin: x0 - 1,
             xmax: x3 + 1,
             ymin: Math.min(y2 - 1, y0 - 1),
@@ -368,29 +377,31 @@ export default class VariationsCourbe extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           }) + '<br>'
+          variables.push(x0, x1, x2, x3, y0, y1, y2, y3)
+        }
           break
 
-        case 'typeE5':// croissante, décroissante, croissante, décroissante
-          x0 = randint(-6, -5)
-          y0 = randint(-5, -3)
-          x1 = randint(-3, -1)
-          y1 = y0 + randint(5, 8)
-          x2 = randint(1, 3)
-          y2 = y1 - randint(2, 7)
-          x3 = randint(4, 6)
-          y3 = y2 + randint(1, 4)
-          x4 = randint(7, 9)
-          y4 = y3 - randint(1, 4)
-          A0 = point(x0, y0)
-          A1 = point(x1, y1)
-          A2 = point(x2, y2)
-          A3 = point(x3, y3)
-          A4 = point(x4, y4)
-          Tk = tracePoint(A0, A1, A2, A3, A4)
+        case 'typeE5':{ // croissante, décroissante, croissante, décroissante
+          const x0 = randint(-6, -5)
+          const y0 = randint(-5, -3)
+          const x1 = randint(-3, -1)
+          const y1 = y0 + randint(5, 8)
+          const x2 = randint(1, 3)
+          const y2 = y1 - randint(2, 7)
+          const x3 = randint(4, 6)
+          const y3 = y2 + randint(1, 4)
+          const x4 = randint(7, 9)
+          const y4 = y3 - randint(1, 4)
+          const A0 = point(x0, y0)
+          const A1 = point(x1, y1)
+          const A2 = point(x2, y2)
+          const A3 = point(x3, y3)
+          const A4 = point(x4, y4)
+          const Tk = tracePoint(A0, A1, A2, A3, A4)
           Tk.epaisseur = 2
-          nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          r1 = repere({
+          const nom = choice(nomF)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+          const r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y2 - 1, y0 - 1, y4 - 1),
             yMax: Math.max(y1 + 1, y3 + 1),
@@ -409,7 +420,7 @@ export default class VariationsCourbe extends Exercice {
             grilleXMax: x4 + 1,
             grilleYMax: Math.max(y1 + 1, y3 + 1)
           })
-          gr = courbeInterpolee(
+          const gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2], [x3, y3], [x4, y4]
             ],
@@ -420,7 +431,7 @@ export default class VariationsCourbe extends Exercice {
               xMin: x0 - 1,
               xMax: x4 + 1
             })
-          graphique = mathalea2d({
+          const graphique = mathalea2d({
             xmin: x0 - 1,
             xmax: x4 + 1,
             ymin: Math.min(y2 - 1, y0 - 1, y4 - 1),
@@ -452,29 +463,31 @@ export default class VariationsCourbe extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           }) + '<br>'
+          variables.push(x0, x1, x2, x3, y0, y1, y2, y3)
+        }
           break
 
-        case 'typeE6':// décroissante, croissante, décroissante, croissante
-          x0 = randint(-6, -4)
-          y0 = randint(3, 5)
-          x1 = randint(-2, 1)
-          y1 = y0 - randint(5, 8)
-          x2 = randint(2, 3)
-          y2 = y1 + randint(2, 7)
-          x3 = randint(4, 5)
-          y3 = y2 - randint(1, 4)
-          x4 = randint(7, 8)
-          y4 = y3 + randint(1, 5)
-          A0 = point(x0, y0)
-          A1 = point(x1, y1)
-          A2 = point(x2, y2)
-          A3 = point(x3, y3)
-          A4 = point(x4, y4)
-          Tk = tracePoint(A0, A1, A2, A3, A4)
+        case 'typeE6':{ // décroissante, croissante, décroissante, croissante
+          const x0 = randint(-6, -4)
+          const y0 = randint(3, 5)
+          const x1 = randint(-2, 1)
+          const y1 = y0 - randint(5, 8)
+          const x2 = randint(2, 3)
+          const y2 = y1 + randint(2, 7)
+          const x3 = randint(4, 5)
+          const y3 = y2 - randint(1, 4)
+          const x4 = randint(7, 8)
+          const y4 = y3 + randint(1, 5)
+          const A0 = point(x0, y0)
+          const A1 = point(x1, y1)
+          const A2 = point(x2, y2)
+          const A3 = point(x3, y3)
+          const A4 = point(x4, y4)
+          const Tk = tracePoint(A0, A1, A2, A3, A4)
           Tk.epaisseur = 2
-          nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          r1 = repere({
+          const nom = choice(nomF)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+          const r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y1 - 2, y3 - 2),
             yMax: Math.max(y2 + 1, y0 + 1, y4 + 1),
@@ -493,7 +506,7 @@ export default class VariationsCourbe extends Exercice {
             grilleXMax: x4 + 1,
             grilleYMax: Math.max(y2 + 1, y0 + 1, y4 + 1)
           })
-          gr = courbeInterpolee(
+          const gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2], [x3, y3], [x4, y4]
             ],
@@ -504,7 +517,7 @@ export default class VariationsCourbe extends Exercice {
               xMin: x0 - 1,
               xMax: x4 + 1
             })
-          graphique = mathalea2d({
+          const graphique = mathalea2d({
             xmin: x0 - 1,
             xmax: x4 + 1,
             ymin: Math.min(y1 - 2, y3 - 2),
@@ -536,29 +549,32 @@ export default class VariationsCourbe extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           })
+          variables.push(x0, x1, x2, x3, y0, y1, y2, y3)
+        }
           break
 
-        case 'typeE7':// avec des grandes valeurs
+        case 'typeE7':
+        default: // avec des grandes valeurs
           if (choice([true, false])) { // croissante, décroissante, croissante
-            nom = choice(nomF)
-            x0 = randint(0, 10) * 10
-            y0 = randint(0, 15) * 2
-            x1 = randint(20, 40) * 10
-            y1 = randint(20, 50) * 2
-            x2 = randint(50, 60) * 10
-            y2 = randint(0, 10) * 2
-            x3 = randint(70, 80) * 10
-            y3 = randint(20, 40) * 2
-            A0 = point(x0 * 0.03, y0 * 0.15)
-            A1 = point(x1 * 0.03, y1 * 0.15)
-            A2 = point(x2 * 0.03, y2 * 0.15)
-            A3 = point(x3 * 0.03, y3 * 0.15)
+            const nom = choice(nomF)
+            const x0 = randint(0, 10) * 10
+            const y0 = randint(0, 15) * 2
+            const x1 = randint(20, 40) * 10
+            const y1 = randint(20, 50) * 2
+            const x2 = randint(50, 60) * 10
+            const y2 = randint(0, 10) * 2
+            const x3 = randint(70, 80) * 10
+            const y3 = randint(20, 40) * 2
+            const A0 = point(x0 * 0.03, y0 * 0.15)
+            const A1 = point(x1 * 0.03, y1 * 0.15)
+            const A2 = point(x2 * 0.03, y2 * 0.15)
+            const A3 = point(x3 * 0.03, y3 * 0.15)
 
-            Tk = tracePoint(A0, A1, A2, A3)
+            const Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 2
-            o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+            const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
-            r1 = repere({
+            const r1 = repere({
               xMin: 0,
               yMin: 0,
               yMax: 100,
@@ -588,7 +604,7 @@ export default class VariationsCourbe extends Exercice {
               grilleSecondaireYOpacite: 0.1
             })
 
-            gr = courbeInterpolee(
+            const gr = courbeInterpolee(
               [
                 [x0, y0], [x1, y1], [x2, y2], [x3, y3]
               ],
@@ -600,7 +616,7 @@ export default class VariationsCourbe extends Exercice {
                 xMax: 800
               })
 
-            graphique = mathalea2d({
+            const graphique = mathalea2d({
               xmin: -2,
               xmax: 24,
               ymin: -2,
@@ -633,26 +649,27 @@ export default class VariationsCourbe extends Exercice {
               lgt: 3, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
             })
+            variables.push(x0, x1, x2, x3, y0, y1, y2, y3)
           } else { // décroissante, croissante, décroissante
-            nom = choice(nomF)
-            x0 = randint(0, 10) * 10
-            y0 = randint(20, 40) * 2
-            x1 = randint(20, 40) * 10
-            y1 = randint(0, 10) * 2
-            x2 = randint(50, 60) * 10
-            y2 = randint(20, 50) * 2
-            x3 = randint(70, 80) * 10
-            y3 = randint(0, 15) * 2
-            A0 = point(x0 * 0.03, y0 * 0.15)
-            A1 = point(x1 * 0.03, y1 * 0.15)
-            A2 = point(x2 * 0.03, y2 * 0.15)
-            A3 = point(x3 * 0.03, y3 * 0.15)
+            const nom = choice(nomF)
+            const x0 = randint(0, 10) * 10
+            const y0 = randint(20, 40) * 2
+            const x1 = randint(20, 40) * 10
+            const y1 = randint(0, 10) * 2
+            const x2 = randint(50, 60) * 10
+            const y2 = randint(20, 50) * 2
+            const x3 = randint(70, 80) * 10
+            const y3 = randint(0, 15) * 2
+            const A0 = point(x0 * 0.03, y0 * 0.15)
+            const A1 = point(x1 * 0.03, y1 * 0.15)
+            const A2 = point(x2 * 0.03, y2 * 0.15)
+            const A3 = point(x3 * 0.03, y3 * 0.15)
 
-            Tk = tracePoint(A0, A1, A2, A3)
+            const Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 2
-            o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+            const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
-            r1 = repere({
+            const r1 = repere({
               xMin: 0,
               yMin: 0,
               yMax: 100,
@@ -682,7 +699,7 @@ export default class VariationsCourbe extends Exercice {
               grilleSecondaireYOpacite: 0.1
             })
 
-            gr = courbeInterpolee(
+            const gr = courbeInterpolee(
               [
                 [x0, y0], [x1, y1], [x2, y2], [x3, y3]
               ],
@@ -694,7 +711,7 @@ export default class VariationsCourbe extends Exercice {
                 xMax: 800
               })
 
-            graphique = mathalea2d({
+            const graphique = mathalea2d({
               xmin: -2,
               xmax: 24,
               ymin: -2,
@@ -727,10 +744,12 @@ export default class VariationsCourbe extends Exercice {
               lgt: 3, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
             })
+            variables.push(x0, x1, x2, x3, y0, y1, y2, y3)
           }
+
           break
       }
-      if (this.questionJamaisPosee(i, x0, x1, y0)) {
+      if (this.questionJamaisPosee(i, variables.map(String).join(''))) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

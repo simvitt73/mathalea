@@ -63,6 +63,7 @@ export default class CalculPointSurCourbe extends Exercice {
         typesDeQuestionsDisponibles = ['a/x+b']
         break
       case 4:
+      default:
         typesDeQuestionsDisponibles = ['affine', 'polynôme', 'a/x+b']
         break
 
@@ -144,6 +145,7 @@ export default class CalculPointSurCourbe extends Exercice {
 
               break
             case 1:
+            default:
               a = randint(-10, 10, [0, 1])
               b = randint(-10, 10, 0)
               f = choice(obtenirListeFractionsIrreductibles())
@@ -300,6 +302,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
               break
 
             case 1:// ax^2+bx+c
+            default:
               a = randint(-2, 2, 0)
               b = randint(-3, 3)
               c = randint(-2, 2, 0)
@@ -352,6 +355,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
           break
 
         case 'a/x+b':
+        default:
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
@@ -412,6 +416,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
               break
 
             case 1:
+            default:
               if (choice([true, false])) {
                 a = randint(-9, 9, 0)
                 b = randint(-9, 9, 0)

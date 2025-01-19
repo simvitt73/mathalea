@@ -58,6 +58,7 @@ export default class PointSurCourbe extends Exercice {
         typesDeQuestionsDisponibles = ['a/x+b']
         break
       case 4:
+      default:
         typesDeQuestionsDisponibles = ['affine', 'polynôme', 'a/x+b']
         break
 
@@ -109,6 +110,7 @@ export default class PointSurCourbe extends Exercice {
 
               break
             case 1:
+            default:
               a = randint(-9, 9, [0, 1])
               b = randint(-9, 9, 0)
               f = choice(obtenirListeFractionsIrreductibles())
@@ -211,6 +213,7 @@ export default class PointSurCourbe extends Exercice {
               break
 
             case 1:// ax^2+bx+c
+            default:
               a = randint(-2, 2, 0)
               b = randint(-4, 4)
               c = randint(-4, 4, 0)
@@ -283,6 +286,7 @@ export default class PointSurCourbe extends Exercice {
           }
           break
         case 'a/x+b':
+        default:
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
@@ -323,6 +327,7 @@ export default class PointSurCourbe extends Exercice {
               break
 
             case 1:
+            default:
               a = randint(-9, 9, 0)
               b = randint(-9, 9, 0)
               abs = choice(obtenirListeFractionsIrreductiblesFaciles())

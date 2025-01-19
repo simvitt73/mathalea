@@ -114,7 +114,12 @@ export default class LecturesGraphiques extends Exercice {
       scale: 0.5
     }, r, graph, origine) + '<br>'
 
-    for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let x0 = 0
+      let y0 = 0
+      let k = 0
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'minimum':
           texte = 'Lire graphiquement le minimum de la fonction $f$ sur l\'intervalle $[-4;4]$.<br>'
@@ -187,18 +192,19 @@ export default class LecturesGraphiques extends Exercice {
             }, r, graph, s, origine)
           }
           break
-        case 'plusPetitAntécédent':
+        case 'plusPetitAntécédent':{
           s = []
           antecedentTrouve = false
-          while (!antecedentTrouve) {
+          do {
             y0 = randint(mini * 10 + 2, maxi * 10 - 2) / 10
             k = 0
             while (k < noeuds.length && (y0 > Math.max(noeuds[k][1], noeuds[k + 1][1]) || y0 < Math.min(noeuds[k][1], noeuds[k + 1][1]))) {
               k++
             }
             if (k < noeuds.length) antecedentTrouve = true
-          }
-          x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
+          } while (!antecedentTrouve)
+          const candidatX0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
+          if (candidatX0) x0 = candidatX0
           texte = `Lire graphiquement le plus petit antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
@@ -217,8 +223,9 @@ export default class LecturesGraphiques extends Exercice {
               scale: 0.5
             }, r, graph, s, origine)
           }
+        }
           break
-        case 'plusGrandAntécédent':
+        case 'plusGrandAntécédent':{
           s = []
           antecedentTrouve = false
           while (!antecedentTrouve) {
@@ -229,7 +236,8 @@ export default class LecturesGraphiques extends Exercice {
             }
             if (k > 0) antecedentTrouve = true
           }
-          x0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
+          const candidatX0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
+          if (candidatX0) x0 = candidatX0
           texte = `Lire graphiquement le plus grand antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
@@ -248,8 +256,10 @@ export default class LecturesGraphiques extends Exercice {
               scale: 0.5
             }, r, graph, s, origine)
           }
+        }
           break
         case 'nombreAntécédents':
+        default:
           antecedents = []
           s = []
           antecedentTrouve = 0
@@ -258,7 +268,8 @@ export default class LecturesGraphiques extends Exercice {
           while (k < noeuds.length - 1) {
             if (inferieurouegal(y0, Math.max(noeuds[k][1], noeuds[k + 1][1])) && superieurouegal(y0, Math.min(noeuds[k][1], noeuds[k + 1][1]))) {
               // il y a un antécédent sur l'intervalle [ymini,ymaxi]
-              x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
+              const candidatX0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
+              if (candidatX0) x0 = candidatX0
               antecedents.push(x0)
             }
             k++
@@ -326,7 +337,7 @@ export default class LecturesGraphiques extends Exercice {
       }
       for (let i = 0; i < this.nbQuestions; i++) {
         if (listeTypeQuestions[i] === 'nombreAntécédents') {
-          this.autoCorrection[0].propositions[i] =
+          this.autoCorrection[0].propositions![i] =
                         {
                           type: 'AMCNum',
                           propositions: [{
@@ -345,7 +356,7 @@ export default class LecturesGraphiques extends Exercice {
                           }]
                         }
         } else {
-          this.autoCorrection[0].propositions[i] =
+          this.autoCorrection[0].propositions![i] =
                         {
                           type: 'AMCNum',
                           propositions: [{

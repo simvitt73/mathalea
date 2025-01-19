@@ -8,6 +8,7 @@ export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tabl
 export const dateDePublication = '20/12/2021'
 /**
  * @author Gilles Mora
+ * Lintage et typage typescript incomplet à cause de tableauDeVariation qui n'est pas typé correctement
  */
 export const uuid = 'acee0'
 
@@ -34,8 +35,12 @@ export default class LireUnTableauDevariations extends Exercice {
       } else { typeDeQuestionsDisponibles = ['typeE1', 'typeE2'] }
     }
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, x1, x2, x3, x4, y1, y2, y3, y4, ligne1, M, m, M1, M2, m1, choix, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       // Boucle principale où i+1 correspond au numéro de la question
+      let x1: number, x2: number, x3: number, x4: number, y1: number, y2: number, y3: number, y4: number, M: number, m: number, M1: number, M2: number, m1: number, choix: number
+      let ligne1: any[]
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'typeE1':
           x1 = randint(-20, 10)
@@ -116,6 +121,7 @@ export default class LireUnTableauDevariations extends Exercice {
           }
           break
         case 'typeE2':
+        default:
           x1 = randint(-20, 10)
           x2 = randint(x1 + 1, 15)
           x3 = randint(x2 + 1, 20)
@@ -198,7 +204,7 @@ export default class LireUnTableauDevariations extends Exercice {
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, x1, x2, x3, x4, y1, y2, y3, y4)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

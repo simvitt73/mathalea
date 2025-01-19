@@ -35,20 +35,21 @@ export default class EtudierPariteFonction extends Exercice {
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     let bonneReponse
-    typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]//
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, k, i1, i2 = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
 
       // i3 = math.max(i1, i2)
-
+      let texte = ''
+      let texteCorr = ''
+      const variables:number[] = []
       switch (typesDeQuestions) {
-        case 1:// Cas f(x)=ax+b
-          a = randint(-5, 5, 0) // Pour définir fonctions
-          b = randint(-3, 3, 0) // Pour définir fonctions
+        case 1:{ // Cas f(x)=ax+b
+          const a = randint(-5, 5, 0) // Pour définir fonctions
+          const b = randint(-3, 3, 0) // Pour définir fonctions
           texte = `Soit $f$ la fonction définie sur  $D=\\mathbb{R}$, par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
           if (this.interactif) {
             texte += ''
@@ -78,9 +79,11 @@ export default class EtudierPariteFonction extends Exercice {
             texteCorr += '<br>$\\textbf{b. }$  La fonction n\'étant ni paire, ni impaire, on ne peut pas déduire de symétrie sur sa courbe représentative.'
           }
           bonneReponse = '$f$ n\'est ni paire ni impaire'
+          variables.push(a, b) }
           break
 
-        case 2:// Cas f(x)=ax ou f(x)=b
+        case 2:{ // Cas f(x)=ax ou f(x)=b
+          let a:number, b: number
           if (choice([true, false])) {
             a = randint(-10, 10, 0) // Pour définir fonctions
             b = 0
@@ -117,12 +120,13 @@ export default class EtudierPariteFonction extends Exercice {
           }
 
           if (a === 0) { bonneReponse = '$f$ est paire' } else { bonneReponse = '$f$ est impaire' }
+          variables.push(a, b) }
           break
 
-        case 3:// Cas f(x)=ax^2+bx+c
-          a = randint(-5, 5, 0) // Pour définir fonctions
-          b = randint(-3, 3, 0) // Pour définir fonctions
-          c = randint(-8, 8, [0]) // Pour définir fonctions
+        case 3:{ // Cas f(x)=ax^2+bx+c
+          const a = randint(-5, 5, 0) // Pour définir fonctions
+          const b = randint(-3, 3, 0) // Pour définir fonctions
+          const c = randint(-8, 8, [0]) // Pour définir fonctions
           texte = `Soit $f$ la fonction définie sur  $D=\\mathbb{R}$, par $f(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}.$`
           if (this.interactif) {
             texte += ''
@@ -153,13 +157,12 @@ export default class EtudierPariteFonction extends Exercice {
             texteCorr += '$\\textbf{b. }$  La fonction n\'étant ni paire, ni impaire, on ne peut pas déduire de symétrie sur sa courbe représentative.'
           }
           bonneReponse = '$f$ n\'est ni paire ni impaire'
+          variables.push(a, b, c) }
           break
-        case 4:// Cas f(x)=ax^2+c sur R
-          a = randint(-5, 5, 0) // Pour définir fonctions
-          b = randint(-3, 3) // Pour définir fonctions
-          c = randint(-8, 8, [0]) // Pour définir fonctions
-          i1 = randint(1, 10) // pour définir un intervalle symétrique
-          i2 = randint(1, 10, [i1])// pour définir un intervalle non-symétrique
+        case 4:{ // Cas f(x)=ax^2+c sur R
+          const a = randint(-5, 5, 0) // Pour définir fonctions
+          const c = randint(-8, 8, [0]) // Pour définir fonctions
+          const i1 = randint(1, 10) // pour définir un intervalle symétrique
 
           texte = `Soit $f$ la fonction définie sur  $D=[${-i1};${i1}]$ , par $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(c)}.$`
           if (this.interactif) {
@@ -181,13 +184,13 @@ export default class EtudierPariteFonction extends Exercice {
           texteCorr += `On observe que pour tout $x\\in D$, $f(-x)= f(x)$ , la fonction $f$ est donc ${texteEnCouleurEtGras('paire')}.<br>`
           if (!this.interactif) { texteCorr += '<br>$\\textbf{b. }$ La fonction étant paire, sa courbe représentative admet une symétrie par rapport à l\'axe des ordonnées.' }
           bonneReponse = '$f$ est paire'
+          variables.push(a, c, i1) }
           break
-        case 5:// Cas f(x)=ax^2+c sur I non-symétrique
-          a = randint(-5, 5, 0) // Pour définir fonctions
-          b = randint(-3, 3) // Pour définir fonctions
-          c = randint(-8, 8, [0]) // Pour définir fonctions
-          i1 = randint(1, 10) // pour définir un intervalle symétrique
-          i2 = randint(1, 10, [i1])// pour définir un intervalle non-symétrique
+        case 5:{ // Cas f(x)=ax^2+c sur I non-symétrique
+          const a = randint(-5, 5, 0) // Pour définir fonctions
+          const c = randint(-8, 8, [0]) // Pour définir fonctions
+          const i1 = randint(1, 10) // pour définir un intervalle symétrique
+          const i2 = randint(1, 10, [i1])// pour définir un intervalle non-symétrique
 
           texte = `Soit $f$ la fonction définie sur  $D=[${-i2};${i1}]$ par $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(c)}.$`
           if (this.interactif) {
@@ -206,14 +209,12 @@ export default class EtudierPariteFonction extends Exercice {
           texteCorr += `On peut conclure que $f$ ${texteEnCouleurEtGras('n\'est ni paire, ni impaire')}.<br>`
           if (!this.interactif) { texteCorr += '<br>$\\textbf{b. }$ La représentation graphique ne peut pas admettre de symétrie centrale par rapport à l\'origine, ni symétrie axiale par rapport à l\'axe des ordonnées.' }
           bonneReponse = '$f$ n\'est ni paire ni impaire'
+          variables.push(a, c, i1, i2) }
           break
 
-        case 6:// Cas f(x)=1/ax
-          a = randint(-5, 5, 0) // Pour définir fonctions
-          b = randint(-3, 3) // Pour définir fonctions
-          c = randint(-8, 8, [0]) // Pour définir fonctions
-          i1 = randint(1, 10) // pour définir un intervalle symétrique
-          i2 = randint(1, 10, [i1])// pour définir un intervalle non-symétrique
+        case 6:
+        default:{ // Cas f(x)=1/ax
+          const a = randint(-5, 5, 0) // Pour définir fonctions
 
           texte = `Soit $f$ la fonction définie sur  $D=\\mathbb{R^{*}}$, par $f(x)=\\dfrac{${a}}{x}$.`
           if (this.interactif) {
@@ -238,6 +239,7 @@ export default class EtudierPariteFonction extends Exercice {
           if (!this.interactif) { texteCorr += '<br>$\\textbf{b. }$ La fonction $f$ étant impaire, on peut déduire que sa courbe représentative admet une symétrie centrale autour de l\'origine du repère.' }
 
           bonneReponse = '$f$ est impaire'
+          variables.push(a) }
           break
       }
 
@@ -262,7 +264,7 @@ export default class EtudierPariteFonction extends Exercice {
       if (this.interactif) {
         texte += props.texte
       }
-      if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
+      if (this.questionJamaisPosee(i, variables.map(String).join(''))) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
