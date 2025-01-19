@@ -71,9 +71,18 @@ export default class nomExercice extends Exercice {
             \\lambda_2&= ${lambda3}\\\\  
             \\end{cases}$<br>`
           finCorrection += 'Il n\'existe pas un unique couple $(\\lambda_1;\\lambda_2)$ vérifiant $(1)$.<br>'
-          finCorrection += 'Le système n\'admet donc pas de solution. : $S=\\emptyset$.<br>'
-          finCorrection += 'On vient donc de montrer que $\\overrightarrow{AD}$ n\'est pas une combinaison linéaire des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.'
-          finCorrection += '<br>Les points A, B, C et D ne sont pas coplanaires.'
+          finCorrection += 'Le système n\'admet donc pas de solution,  $~~S=\\emptyset$.<br>'
+          finCorrection += 'Il reste à vérifier que les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment une base d\'un plan, c\'est-à-dire qu\'ils ne sont pas colinéaires.<br>'
+          finCorrection += 'En effet, s\'ils l\'étaient,  $\\overrightarrow{AD}$ serait nécessairement coplanaires avec $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.<br>'
+          finCorrection += 'On sait que $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ sont colinéaires si et seulement s\'il existe un réel $\\lambda$ vérifiant $\\overrightarrow{AB}=\\lambda\\overrightarrow{AC}$.<br>'
+          finCorrection += `Ce qui est équivalent à résoudre : $\\begin{cases}
+           ${xB - xA}&= ${rienSi1(xD - xA)}\\lambda\\\\  
+           ${yB - yA}&= ${rienSi1(yD - yA)}\\lambda\\\\  
+           ${zB - zA}&= ${rienSi1(zD - zA)}\\lambda\\\\  
+            \\end{cases}$<br>`
+          finCorrection += 'On observe trivialement que ce système n\'admet pas de solution. Les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ ne sont donc pas colinéaires.'
+          finCorrection += '<br>On vient donc de montrer que les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment une base d\'un plan et que le vecteur $\\overrightarrow{AD}$ n\'est pas une combinaison linéaire de ces vecteurs.'
+          finCorrection += '<br>Les trois vecteurs ne sont donc pas coplanaires.<br> Les points A, B, C et D ne sont pas coplanaires.'
           break
         }
       }
