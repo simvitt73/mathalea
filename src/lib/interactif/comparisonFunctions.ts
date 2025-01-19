@@ -166,6 +166,9 @@ function cleanParenthses (str: string): string {
     .replaceAll('\\right]', ']')
     .replaceAll('\\right[', '[')
     .replaceAll('\\left]', ']')
+    .replace(/^(?!\{\}$)(?<!\^)\{\}/g, '') // Cela permet de supprimer les doubles accolades vierges sauf :
+    // quand elles sont précédées de ^ (cette gestion est propre aux puissances)
+    // et que la chaine ne contient que {} (qui serait le cas d'un ensemble vide)
 }
 
 function cleanMathRm (str: string): string {
@@ -1730,9 +1733,9 @@ export function consecutiveCompare (
   const [entierInf, valeurInter, entierSup] = input.includes('<')
     ? input.split('<').map((el) => Number(engine.parse(el).numericValue))
     : input
-      .split('>')
-      .map((el) => Number(engine.parse(el).numericValue))
-      .sort((a: number, b: number) => a - b)
+        .split('>')
+        .map((el) => Number(engine.parse(el).numericValue))
+        .sort((a: number, b: number) => a - b)
   if (
     !(
       Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf))
@@ -1744,9 +1747,9 @@ export function consecutiveCompare (
   const [goodAnswerEntierInf, , goodAnswerEntierSup] = goodAnswer.includes('<')
     ? goodAnswer.split('<').map((el) => Number(engine.parse(el).numericValue))
     : goodAnswer
-      .split('>')
-      .map((el) => Number(engine.parse(el).numericValue))
-      .sort((a: number, b: number) => a - b)
+        .split('>')
+        .map((el) => Number(engine.parse(el).numericValue))
+        .sort((a: number, b: number) => a - b)
   const diff = Number(
     engine.box(['Subtract', String(entierSup), String(entierInf)]).N()
       .numericValue
