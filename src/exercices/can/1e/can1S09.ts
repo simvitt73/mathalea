@@ -40,9 +40,8 @@ export default class RelationRec extends Exercice {
       switch (choice([1, 1, 2, 3, 4])) { //
         case 1 :// magazine arithmetico-geo
           a = randint(1, 30)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
           texte = `Chaque année, un magazine perd $${a}${sp(1)}\\%$  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
 
@@ -70,9 +69,8 @@ export default class RelationRec extends Exercice {
 
         case 2 :// magazine geo
           a = randint(1, 15)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
 
           texte = `Chaque année, un magazine perd $${a}${sp()} \\%$  de ses abonnés.<br>
           En $2020$, ce magazine compte $${c}$ abonnés.
@@ -100,10 +98,9 @@ export default class RelationRec extends Exercice {
           break
 
         case 3 :// magazine arith
-          a = calculANePlusJamaisUtiliser(randint(1, 15) * 100)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          a = randint(1, 15) * 100
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
           texte = `Chaque année, un magazine perd $${a}$ abonnés.<br>
           En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
           On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
@@ -130,10 +127,10 @@ export default class RelationRec extends Exercice {
 
         case 4 :// magazine arith/geo avec tiers....
           proportion = ['le quart', 'le tiers', 'le dixième', 'le cinquième', 'la moitié']//
-          a = calculANePlusJamaisUtiliser(randint(1, 15) * 100)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          a = randint(1, 15) * 100
+
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
           T = choice(proportion)
           texte = `Chaque année, un magazine perd ${T}  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
