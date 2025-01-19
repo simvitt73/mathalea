@@ -406,7 +406,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   tikz () {
     let copyThistexte = this.texte
     if (this.mathOn && copyThistexte[0] !== '$') copyThistexte = '$' + this.texte + '$'
-    return `\\draw [color=${this.color[1]}] (${String(arrondi(this.point.x))},${String(arrondi(this.point.y))
+    return `\\draw ${this.color[0] === 'black' ? '' : `[color=${this.color[1]}]`} (${String(arrondi(this.point.x))},${String(arrondi(this.point.y))
       }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${copyThistexte}};`
   }
 }

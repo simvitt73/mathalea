@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -50,7 +49,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
       typeDeQuestionsDisponibles = ['typeE6']
     } else if (this.sup === 5) {
       typeDeQuestionsDisponibles = ['typeE7']
-    } else if (this.sup === 6) {
+    } else {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7']//
     }
     //
@@ -61,19 +60,21 @@ export default class ComparerAvecFonctionRef extends Exercice {
         ['f'], ['g'], ['h'], ['u'],
         ['v'], ['w']
       ]
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      const typeQuestion = listeTypeQuestions[i]
+      const variables: number[] = []
+      switch (typeQuestion) { // Suivant le type de question, le contenu sera différent
         case 'typeE1':// fct affine
           {
-            const a = new Decimal(randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90])).div(100) * choice([1, -1])
+            const a = randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90]) / 100 * choice([1, -1])
             const a1 = Math.round(a * 100) / 100
-            const b = new Decimal(randint(1, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90])).div(10)
-            let x1 = new Decimal(randint(2, 29, [10, 20]) / 10) * choice([1, -1])
-            const x2 = new Decimal(randint(2, 29, [10, 20]) / 10) * choice([1, -1])
+            const b = randint(1, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 10
+            let x1 = randint(2, 29, [10, 20]) / 10 * choice([1, -1])
+            const x2 = randint(2, 29, [10, 20]) / 10 * choice([1, -1])
 
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
             if (x1B === x2B) {
-              x1 = new Decimal(x1).add(1)
+              x1 = x1 + 1
             }
             const nom = choice(nomF)
             texte = ` Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par : $${nom}(x)=${texNombre(a, 2)}x+${texNombre(b, 1)}$.<br>
@@ -103,17 +104,18 @@ export default class ComparerAvecFonctionRef extends Exercice {
                 texteCorr += `Or $${texNombre(x2, 1)}${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)} ${texNombre(x1, 1)}$, donc $${nom}(${texNombre(x2, 2)})${sp(1)} ${miseEnEvidence('\\boldsymbol{>}')}${sp(1)} ${nom}(${texNombre(x1, 1)})$.`
               }
             }
+            variables.push(x1, x2)
           }
           break
 
         case 'typeE2':// fct carré avec des nombres positifs
           {
-            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
-            const partiedec2x1 = new Decimal(randint(5, 9)).div(100)
-            const partiedec3x1 = new Decimal(randint(0, 2)).div(1000)
-            const x1 = new Decimal(randint(0, 5)).add(partiedec1x1).add(partiedec2x1).add(partiedec3x1)
-            const x2b = new Decimal(2 * randint(1, 9)).div(1000) * choice([1, -1])
-            const x2 = new Decimal(x1).add(x2b)
+            const partiedec1x1 = randint(5, 9) / 10
+            const partiedec2x1 = randint(5, 9) / 100
+            const partiedec3x1 = randint(0, 2) / 1000
+            const x1 = randint(0, 5) + partiedec1x1 + partiedec2x1 + partiedec3x1
+            const x2b = 2 * randint(1, 9) / 1000 * choice([1, -1])
+            const x2 = x1 + x2b
             const x1B = Math.round(x1 * 1000) / 1000
             const x2B = Math.round(x2 * 1000) / 1000
             const nom = choice(nomF)
@@ -144,18 +146,19 @@ export default class ComparerAvecFonctionRef extends Exercice {
                 texteCorr += '.'
               }
             }
+            variables.push(x1, x2)
           }
           break
 
         case 'typeE3':// fct carré avec des nombres négatifs
           {
-            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
-            const partiedec2x1 = new Decimal(randint(5, 9)).div(100)
-            const partiedec3x1 = new Decimal(randint(0, 2)).div(1000)
-            const x1 = new Decimal(randint(0, 5)).add(partiedec1x1).add(partiedec2x1).add(partiedec3x1).mul(-1)
+            const partiedec1x1 = randint(5, 9) / 10
+            const partiedec2x1 = randint(5, 9) / 100
+            const partiedec3x1 = randint(0, 2) / 1000
+            const x1 = -(randint(0, 5) + partiedec1x1 + partiedec2x1 + partiedec3x1)
 
-            const x2b = new Decimal(2 * randint(1, 9)).div(1000) * choice([1, -1])
-            const x2 = new Decimal(x1).add(x2b)
+            const x2b = 2 * randint(1, 9) / 1000 * choice([1, -1])
+            const x2 = x1 + x2b
 
             const x1B = Math.round(x1 * 1000) / 1000
             const x2B = Math.round(x2 * 1000) / 1000
@@ -187,15 +190,16 @@ export default class ComparerAvecFonctionRef extends Exercice {
                 texteCorr += '.'
               }
             }
+            variables.push(x1, x2)
           }
           break
 
         case 'typeE4':// fct inverse avec des nombres positifs
           {
-            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
-            const partiedec1x2 = new Decimal(randint(1, 9)).div(10).mul(choice([1, -1]))
-            const x1 = new Decimal(randint(1, 9)).add(partiedec1x1)
-            const x2 = new Decimal(x1).add(partiedec1x2)
+            const partiedec1x1 = randint(5, 9) / 10
+            const partiedec1x2 = randint(1, 9) / 10 * choice([1, -1])
+            const x1 = randint(1, 9) + partiedec1x1
+            const x2 = x1 + partiedec1x2
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
 
@@ -227,15 +231,16 @@ export default class ComparerAvecFonctionRef extends Exercice {
                 texteCorr += '.'
               }
             }
+            variables.push(x1, x2)
           }
           break
 
         case 'typeE5':// fct inverse avec des nombres négatifs
           {
-            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
-            const partiedec1x2 = new Decimal(randint(1, 9)).div(10).mul(choice([1, -1]))
-            const x1 = new Decimal(randint(1, 9)).add(partiedec1x1).mul(-1)
-            const x2 = new Decimal(x1).add(partiedec1x2)
+            const partiedec1x1 = randint(5, 9) / 10
+            const partiedec1x2 = randint(1, 9) / 10 * choice([1, -1])
+            const x1 = -(randint(1, 9) + partiedec1x1)
+            const x2 = x1 + partiedec1x2
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
 
@@ -267,19 +272,20 @@ export default class ComparerAvecFonctionRef extends Exercice {
                 texteCorr += '.'
               }
             }
+            variables.push(x1, x2)
           }
           break
 
         case 'typeE6':// fct racine carrée
           {
-            const partiedec1x1 = new Decimal(randint(6, 9)).div(10)
-            const partiedec1x2 = new Decimal(randint(1, 5)).div(10).mul(choice([1, -1]))
-            let x1 = new Decimal(randint(0, 10)).add(partiedec1x1)
-            const x2 = new Decimal(x1).add(partiedec1x2)
+            const partiedec1x1 = randint(6, 9) / 10
+            const partiedec1x2 = randint(1, 5) / 10 * choice([1, -1])
+            let x1 = randint(0, 10) + partiedec1x1
+            const x2 = x1 + partiedec1x2
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
             if (x1B === 1) {
-              x1 = new Decimal(randint(0, 10) + (randint(6, 9) / 10))
+              x1 = randint(0, 10) + (randint(6, 9) / 10)
             }
             const nom = choice(nomF)
             if (this.sup2 === 1) {
@@ -309,14 +315,16 @@ export default class ComparerAvecFonctionRef extends Exercice {
                 texteCorr += '.'
               }
             }
+            variables.push(x1, x2)
           }
           break
         case 'typeE7':// fct cube
+        default:
           {
-            const partiedec1x1 = new Decimal(randint(-9, 9, 0)).div(10).mul(choice([1, -1]))
-            const partiedec1x2 = new Decimal(randint(1, 9)).div(10).mul(choice([1, -1]))
-            const x1 = new Decimal(randint(-10, 10)).add(partiedec1x1)
-            const x2 = new Decimal(x1).add(partiedec1x2)
+            const partiedec1x1 = randint(-9, 9, 0) / 10 * choice([1, -1])
+            const partiedec1x2 = randint(1, 9) / 10 * choice([1, -1])
+            const x1 = randint(-10, 10) + partiedec1x1
+            const x2 = x1 + partiedec1x2
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
             const nom = choice(nomF)
@@ -324,7 +332,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
               texte = ` Soit $${nom}$ la fonction cube.<br>
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$. `
             } else {
-              texte = `Sans effectuer de calcul, comparer $${ecritureParentheseSiNegatif(x1, 1)}^3$ et $${ecritureParentheseSiNegatif(x2, 1)}^3$.`
+              texte = `Sans effectuer de calcul, comparer $${ecritureParentheseSiNegatif(x1)}^3$ et $${ecritureParentheseSiNegatif(x2)}^3$.`
             }
 
             texteCorr = `            La fonction cube étant strictement croissante sur $\\mathbb{R}$, les antécédents et les images sont rangés dans le même ordre.   <br>
@@ -332,7 +340,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
 
             if (x1B < x2B) {
               texteCorr += `<br>Or $${texNombre(x1, 1)}${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${texNombre(x2, 1)}$,
-          donc  $${ecritureParentheseSiNegatif(x1, 1)}^3${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${ecritureParentheseSiNegatif(x2, 1)}^3$`
+          donc  $${ecritureParentheseSiNegatif(x1)}^3${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${ecritureParentheseSiNegatif(x2)}^3$`
               if (this.sup2 === 1) {
                 texteCorr += `, soit $${nom}(${texNombre(x1, 3)})${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${nom}(${texNombre(x2, 3)})$.`
               } else {
@@ -340,17 +348,18 @@ export default class ComparerAvecFonctionRef extends Exercice {
               }
             } else {
               texteCorr += `<br>Or $${texNombre(x2, 1)}${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${texNombre(x1, 1)}$,
-          donc $${ecritureParentheseSiNegatif(x2, 1)}^3${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${ecritureParentheseSiNegatif(x1, 1)}^3$`
+          donc $${ecritureParentheseSiNegatif(x2)}^3${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${ecritureParentheseSiNegatif(x1)}^3$`
               if (this.sup2 === 1) {
                 texteCorr += `, soit $${nom}(${texNombre(x2, 3)})${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${nom}(${texNombre(x1, 3)})$.`
               } else {
                 texteCorr += '.'
               }
             }
+            variables.push(x1, x2)
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, variables.map(String).join(''))) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

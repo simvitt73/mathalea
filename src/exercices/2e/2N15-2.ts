@@ -30,20 +30,25 @@ export default class ValeurAbsolueEtEquation extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = 1 //
-    this.correction_detaille_disponible = true
+    this.correctionDetailleeDisponible = true
     context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]; let typesDeQuestions
+    const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let a: number
+      let b: number
+      let c: number
+      let texte = ''
+      let texteCorr = ''
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-
+          c = 0 // c'est pour éviter les warnings
           a = randint(1, 15) * choice([-1, 1])
           b = randint(1, 15) * (-1)
 
@@ -52,6 +57,7 @@ export default class ValeurAbsolueEtEquation extends Exercice {
 
           break
         case 2:
+        default:
 
           a = randint(1, 15) * choice([-1, 1])
           b = randint(1, 15)
@@ -67,13 +73,11 @@ export default class ValeurAbsolueEtEquation extends Exercice {
             const s = segment(point(0, 0), point(12, 0))
             s.styleExtremites = '->'
             const x0 = point(3, 0)
-            x0.nom = c - b
+            x0.nom = String(c - b)
             x0.positionLabel = 'below'
-            const A = point(6, 0, c)
-            A.nom = c
+            const A = point(6, 0, String(c))
             A.positionLabel = 'below'
-            const x1 = point(9, 0, c + b, 'below')
-            x1.nom = c + b
+            const x1 = point(9, 0, String(c + b), 'below')
             x1.positionLabel = 'below'
             const s1 = segmentAvecExtremites(x0, x1, 'blue')
             s1.epaisseur = 2
@@ -91,7 +95,7 @@ export default class ValeurAbsolueEtEquation extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

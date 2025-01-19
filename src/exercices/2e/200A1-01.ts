@@ -49,6 +49,7 @@ export default class ModeleAutomatisme2nde extends Exercice {
         } while (entierChoisi % 10 === 0)
         break
       case 3:
+      default:
         do {
           const [a, b, c] = combinaisonListes(premiersEntreBornes(2, 13), 3)
           entierChoisi = 10 * a * b * c

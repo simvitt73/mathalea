@@ -2,6 +2,7 @@ import { droite } from '../../lib/2d/droites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import type FractionEtendue from '../../modules/FractionEtendue'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -38,7 +39,7 @@ export default class LectureSigneAffine extends Exercice {
     // Selon le niveau choisi, on augmente la difficulté de l'entier choisi.
     // Le reste est identique pour les trois niveaux
     // Le bloc décidant de l'aléatoire
-    let a, b
+    let a: number, b:number
 
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, min: 1, max: 3, defaut: 4, melange: 4, shuffle: true })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -50,7 +51,7 @@ export default class LectureSigneAffine extends Exercice {
         case 2: { // coefficient entier relatif
           const y = randint(-3, 3, 0)
           const x = randint(-3, 3, 0)
-                ;[a, b] = trouveFonctionAffine(0, y, x, 0)
+                ;[a, b] = trouveFonctionAffine(0, y, x, 0) as [number, number]
         }
           break
         default: // coefficient rationnel
@@ -60,7 +61,7 @@ export default class LectureSigneAffine extends Exercice {
       }
       // a = rationnalise(a)
       // b = rationnalise(b)
-      const fonction = x => a * x + b
+      const fonction = (x:number | FractionEtendue) => a * Number(x) + b
       const tableau = tableauSignesFonction(fonction,
         -6,
         6,

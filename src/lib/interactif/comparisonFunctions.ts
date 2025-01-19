@@ -33,6 +33,7 @@ export type OptionsComparaisonType = {
   divisionSeulementEtNonResultat?: boolean
   resultatSeulementEtNonOperation?: boolean
   ensembleDeNombres ?: boolean
+  fonction ?: boolean
   kUplet ?: boolean
   seulementCertainesPuissances?: boolean
   sansExposantUn?: boolean
@@ -58,7 +59,8 @@ export type OptionsComparaisonType = {
   pluriels?: boolean,
   multi?: boolean, // options pour le drag and drop
   ordered?: boolean // options pour le drag and drop
-  tolerance?: number
+  tolerance?: number,
+  variable?: string
 }
 export type CompareFunction = (
   input: string,
@@ -567,6 +569,7 @@ export function fonctionComparaison (
     divisionSeulementEtNonResultat, // Documenté
     resultatSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
+    fonction,
     kUplet, // Documenté
     suiteDeNombres, // Documenté
     suiteRangeeDeNombres, // Documenté
@@ -587,7 +590,8 @@ export function fonctionComparaison (
     texteSansCasse,
     nombreAvecEspace,
     egaliteExpression,
-    nonReponseAcceptee
+    nonReponseAcceptee,
+    variable
   }: OptionsComparaisonType = {
     expressionsForcementReduites: true,
     avecSigneMultiplier: true,
@@ -607,6 +611,7 @@ export function fonctionComparaison (
     divisionSeulementEtNonResultat: false,
     resultatSeulementEtNonOperation: false,
     ensembleDeNombres: false,
+    fonction: false,
     kUplet: false,
     seulementCertainesPuissances: false,
     sansExposantUn: false,
@@ -627,7 +632,8 @@ export function fonctionComparaison (
     texteSansCasse: false,
     nombreAvecEspace: false,
     egaliteExpression: false,
-    nonReponseAcceptee: false
+    nonReponseAcceptee: false,
+    variable: 'x'
   }
 ): ResultType {
   // nonReponseAcceptee = true permet d'avoir des champs vides (on pense aux fillInTheBlank qui peuvent être facultatifs, comme par exemple un facteur 1)
@@ -640,6 +646,7 @@ export function fonctionComparaison (
   // ici, on met tous les tests particuliers (HMS, intervalle)
   // if (HMS) return comparaisonExpressions(input, goodAnswer)
   if (HMS) return hmsCompare(input, goodAnswer)
+  if (fonction) return functionCompare(input, goodAnswer, { variable: variable ?? 'x' })
   if (intervalle) return intervalsCompare(input, goodAnswer)
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
   if (ecritureScientifique) return scientifiqueCompare(input, goodAnswer)
@@ -1723,9 +1730,9 @@ export function consecutiveCompare (
   const [entierInf, valeurInter, entierSup] = input.includes('<')
     ? input.split('<').map((el) => Number(engine.parse(el).numericValue))
     : input
-        .split('>')
-        .map((el) => Number(engine.parse(el).numericValue))
-        .sort((a: number, b: number) => a - b)
+      .split('>')
+      .map((el) => Number(engine.parse(el).numericValue))
+      .sort((a: number, b: number) => a - b)
   if (
     !(
       Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf))
@@ -1737,9 +1744,9 @@ export function consecutiveCompare (
   const [goodAnswerEntierInf, , goodAnswerEntierSup] = goodAnswer.includes('<')
     ? goodAnswer.split('<').map((el) => Number(engine.parse(el).numericValue))
     : goodAnswer
-        .split('>')
-        .map((el) => Number(engine.parse(el).numericValue))
-        .sort((a: number, b: number) => a - b)
+      .split('>')
+      .map((el) => Number(engine.parse(el).numericValue))
+      .sort((a: number, b: number) => a - b)
   const diff = Number(
     engine.box(['Subtract', String(entierSup), String(entierInf)]).N()
       .numericValue

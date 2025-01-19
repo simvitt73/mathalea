@@ -1,8 +1,8 @@
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
+import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Latex2d, latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -16,7 +16,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison, functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
 export const interactifReady = true
@@ -33,6 +33,9 @@ export const refs = {
   'fr-fr': ['2F10-2'],
   'fr-ch': ['11FA8-13']
 }
+/**
+ * @author = ???
+ */
 export default class Lecturefonctionaffine extends Exercice {
   constructor () {
     super()
@@ -56,14 +59,16 @@ export default class Lecturefonctionaffine extends Exercice {
       }
     }
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
     const listeFractions = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [3, 5], [4, 7], [1, 5], [4, 5], [3, 4], [1, 4], [2, 5], [5, 3], [6, 5], [1, 6], [5, 6], [1, 7]]
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, A, a, b, d, r, c, t, l, s1, s2, aFrac, labs, lord, texte, texteCorr, cpt = 0;
+    for (let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'typeE1':// coeff entier
-          r = repere({
+        case 'typeE1':{ // coeff entier
+          const r = repere({
             xMin: -4,
             xMax: 4,
             xUnite: 2,
@@ -88,12 +93,12 @@ export default class Lecturefonctionaffine extends Exercice {
             grilleSecondaireXMin: -8,
             grilleSecondaireXMax: 8
           })
-          a = randint(-4, 4)// coeff dir
-          b = randint(-4, 3)// ord origine
+          let a = randint(-4, 4)// coeff dir
+          const b = randint(-4, 3)// ord origine
           if (a === 0 && b === 0) {
             a = 1
           }// On évite la fonction nulle
-          c = droite(a / 2, -1, b)
+          const c = droite(a / 2, -1, b)
           c.color = colorToLatexOrHTML('red')
           c.epaisseur = 2
           texte = 'Déterminer graphiquement l\'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>'
@@ -167,24 +172,28 @@ export default class Lecturefonctionaffine extends Exercice {
             }
             texteCorr += ' On peut en déduire que l\'expression de la fonction $f$ est '
             texteCorr += `$f(x)=${reduireAxPlusB(a, b)}$.<br>`
+            let s1: Segment
+            let s2: Segment
+            let labs: Latex2d
+            let lord: Latex2d
             if (b > -2 || a > 0) {
               s1 = segment(0, b, 2, b, 'blue')
               s2 = segment(2, b, 2, b + a, 'green')
-              labs = texteParPosition('$1$', 1, a < 0 ? b + 0.4 : b - 0.8, 'milieu', 'blue', 1)
-              lord = texteParPosition(`$${a}$`, 2.8, (a + 2 * b) / 2, 'milieu', 'green', 1)
+              labs = texteParPosition('$1$', 1, a < 0 ? b + 0.4 : b - 0.8, 0, 'blue', 1) as Latex2d
+              lord = texteParPosition(`$${a}$`, 2.8, (a + 2 * b) / 2, 0, 'green', 1) as Latex2d
             } else {
               s1 = segment(-4, -2 * a + b, -2, -2 * a + b, 'blue')
               s2 = segment(-2, -2 * a + b, -2, -1 * a + b, 'green')
-              labs = texteParPosition('$1$', -3, -2 * a + b + 0.5, 'milieu', 'blue', 1)
-              lord = texteParPosition(`$${a}$`, -1.5, (-3 * a + 2 * b) / 2, 'milieu', 'green', 1)
+              labs = texteParPosition('$1$', -3, -2 * a + b + 0.5, 0, 'blue', 1) as Latex2d
+              lord = texteParPosition(`$${a}$`, -1.5, (-3 * a + 2 * b) / 2, 0, 'green', 1) as Latex2d
             }
             s2.epaisseur = 2
             s1.epaisseur = 2
             s2.styleExtremites = '->'
             s1.styleExtremites = '->'
-            A = point(0, b)
-            l = texteParPosition('A', -0.5, b + 0.5, 'milieu', 'red', 1)
-            t = tracePoint(A, 'red')// Variable qui trace les nom s A et B
+            const A = point(0, b)
+            const l = texteParPosition('A', -0.5, b + 0.5, 0, 'red', 1)
+            const t = tracePoint(A, 'red')// Variable qui trace les nom s A et B
             t.taille = 3
             t.epaisseur = 2
 
@@ -200,14 +209,14 @@ export default class Lecturefonctionaffine extends Exercice {
               }
             }
           }
+        }
           break
-        case 'typeE2': // cas du coeff directeur fractionnaire
-          a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
-          b = randint(-3, 3) // ordonnée à l'origine
-          aFrac = choice(listeFractions)
-          a = aFrac[0] * choice([-1, 1])//
-          d = aFrac[1] //
-          r = repere({
+        case 'typeE2':{ // cas du coeff directeur fractionnaire
+          const b = randint(-3, 3) // ordonnée à l'origine
+          const aFrac = choice(listeFractions)
+          const a = aFrac[0] * choice([-1, 1])//
+          const d = aFrac[1] //
+          const r = repere({
             xMin: -8,
             xMax: 8,
             xUnite: 1,
@@ -231,7 +240,7 @@ export default class Lecturefonctionaffine extends Exercice {
             grilleSecondaireXMin: -8,
             grilleSecondaireXMax: 8
           })
-          c = droite(a / d, -1, b)
+          const c = droite(a / d, -1, b)
           c.color = colorToLatexOrHTML('red')
           c.epaisseur = 2
           texte = 'Déterminer graphiquement l\'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>'
@@ -327,43 +336,48 @@ export default class Lecturefonctionaffine extends Exercice {
               ]
             }
           } else if (this.interactif && !context.isAmc) {
-            handleAnswers(this, i, { champ1: { value: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, options: { variable: 'x' }, compare: functionCompare } })
+            handleAnswers(this, i, { champ1: { value: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, options: { fonction: true, variable: 'x' }, compare: fonctionComparaison } })
             texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
           }
+
+          let s1: Segment
+          let s2: Segment
+          let labs: Latex2d
+          let lord: Latex2d
+
           if (a > 0) {
             if (b > 2) {
               s1 = segment(-d, b - a, 0, b - a, 'blue')
               s2 = segment(0, b - a, 0, b, 'green')
-              labs = texteParPosition(`$${d}$`, -d / 2, b - a - 0.8, 'milieu', 'blue', 1)
-              lord = texteParPosition(`$${a}$`, 0.5, (2 * b - a) / 2 - 0.3, 'milieu', 'green', 1)
+              labs = texteParPosition(`$${d}$`, -d / 2, b - a - 0.8, 0, 'blue', 1) as Latex2d
+              lord = texteParPosition(`$${a}$`, 0.5, (2 * b - a) / 2 - 0.3, 0, 'green', 1) as Latex2d
             } else {
               s1 = segment(0, b, d, b, 'blue')
               s2 = segment(d, b, d, a + b, 'green')
-              labs = texteParPosition(`$${d}$`, d / 2, b - 1, 'milieu', 'blue', 1)
-              lord = texteParPosition(`$${a}$`, d + 0.5, (2 * b + a) / 2 - 0.3, 'milieu', 'green', 1)
+              labs = texteParPosition(`$${d}$`, d / 2, b - 1, 0, 'blue', 1) as Latex2d
+              lord = texteParPosition(`$${a}$`, d + 0.5, (2 * b + a) / 2 - 0.3, 0, 'green', 1) as Latex2d
             }
-          }
-          if (a < 0) {
+          } else {
             if (b < 1) {
               s1 = segment(-d, -a + b, 0, -a + b, 'blue')
               s2 = segment(0, -a + b, 0, b, 'green')
-              labs = texteParPosition(`$${d}$`, -d / 2, -a + b + 0.5, 'milieu', 'blue', 1)
-              lord = texteParPosition(`$${a}$`, 0.5, (2 * b - a) / 2, 'milieu', 'green', 1)
+              labs = texteParPosition(`$${d}$`, -d / 2, -a + b + 0.5, 0, 'blue', 1) as Latex2d
+              lord = texteParPosition(`$${a}$`, 0.5, (2 * b - a) / 2, 0, 'green', 1) as Latex2d
             } else {
               s1 = segment(0, b, d, b, 'blue')
               s2 = segment(d, b, d, b + a, 'green')
-              labs = texteParPosition(`$${d}$`, d / 2, b + 0.5, 'milieu', 'blue', 1)
-              lord = texteParPosition(`$${a}$`, d + 0.5, (2 * b + a) / 2, 'milieu', 'green', 1)
+              labs = texteParPosition(`$${d}$`, d / 2, b + 0.5, 0, 'blue', 1) as Latex2d
+              lord = texteParPosition(`$${a}$`, d + 0.5, (2 * b + a) / 2, 0, 'green', 1) as Latex2d
             }
           }
           s2.epaisseur = 2
           s1.epaisseur = 2
           s2.styleExtremites = '->'
           s1.styleExtremites = '->'
-          A = point(0, b)
+          const A = point(0, b)
 
-          l = latexParPoint('A', translation(A, homothetie(vecteur(-a, d), A, 0.5 / Math.sqrt(a ** 2 + d ** 2)), 'A', 'center'), 'red', 10, 10, '') // Variable qui trace les points avec une croix
-          t = tracePoint(A, 'red')// Variable qui trace les nom s A et B
+          const l = latexParPoint('A', translation(A, homothetie(vecteur(-a, d), A, 0.5 / Math.sqrt(a ** 2 + d ** 2)), 'A', 'center'), 'red', 10, 10, '') // Variable qui trace les points avec une croix
+          const t = tracePoint(A, 'red')// Variable qui trace les nom s A et B
           t.taille = 3
           t.epaisseur = 2
 
@@ -380,9 +394,10 @@ export default class Lecturefonctionaffine extends Exercice {
               }, r, s1, s2, t, l, c, o, labs, lord)
             }
           }// On trace le graphique
+        }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

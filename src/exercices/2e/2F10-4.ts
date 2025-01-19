@@ -40,70 +40,71 @@ export default class Determinerfonctionaffine extends Exercice {
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // on donne f(a)=b et f(c)=d cas entier
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2] // on donne f(a)=b et f(c)=d cas fraction
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [3] // On donne 2 points A(a;b) et B(c;d)
-    }
-    if (this.sup === 4) {
+    } else {
       typesDeQuestionsDisponibles = [1, 2, 3] // Mélange des cas précédents
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, p, c, m, k1, k2, a, b, d, e, k, reponse, pfraction, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let texte = ''
+      let texteCorr = ''
+      let reponse: string = ''
+      const variables: number[] = []
       switch (typesDeQuestions) {
-        case 1:
-          k = randint(-6, 6, 0)// [-1,0,1]
-          a = randint(1, 9)
-          c = randint(1, 9, [a])
-          p = randint(-9, 9)
-          b = k * a + p
-          d = k * c + p
-          m = new FractionEtendue(b - d, a - c).simplifie()
+        case 1:{
+          const k = randint(-6, 6, 0)// [-1,0,1]
+          const a = randint(1, 9)
+          const c = randint(1, 9, [a])
+          const p = randint(-9, 9)
+          const b = k * a + p
+          const d = k * c + p
           texte = ` Déterminer l'expression algébrique de la fonction affine $f$ définie sur $\\mathbb R$, sachant que
                         $f(${a})=${b}$ et que $f(${c})=${d}$.<br>`
           if (context.isDiaporama) {
-            texteCorr = `$f(x)=${rienSi1(m.toNumber())}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$`
+            texteCorr = `$f(x)=${rienSi1(k)}x${k * a - b === 0 ? '' : `${ecritureAlgebrique(b - k * a)}`}$`
           } else {
             texteCorr = `$f$ est une fonction affine, elle a donc une expression de la forme  $f(x)=ax+b$ avec $a$ et $b$ des nombres réels.
                         <br>`
             texteCorr += 'D\'après le cours, on sait que pour $u\\neq v$, $a=\\dfrac{f(u)-f(v)}{u-v}$ <br>'
-            texteCorr += `Avec $u=${a}$ et  $v=${c}$, on obtient  :  $a=\\dfrac{f(${a})-f(${c})}{${a}-${ecritureParentheseSiNegatif(c)}}=\\dfrac{${b}-${ecritureParentheseSiNegatif(d)}}{${a}-${ecritureParentheseSiNegatif(c)}}=\\dfrac{${b - d}}{${a - c}}=${m.texFraction}$.<br>`
+            texteCorr += `Avec $u=${a}$ et  $v=${c}$, on obtient  :  $a=\\dfrac{f(${a})-f(${c})}{${a}-${ecritureParentheseSiNegatif(c)}}=\\dfrac{${b}-${ecritureParentheseSiNegatif(d)}}{${a}-${ecritureParentheseSiNegatif(c)}}=\\dfrac{${b - d}}{${a - c}}=${k}$.<br>`
             if (b === d) { // m=0 ; cas f constante
               texteCorr += '$f$ est une fonction constante, cas particulier des fonctions affines.<br>'
               texteCorr += `On a donc : $f(x)=${b}$`
             } else {
               texteCorr += 'On en déduit que la fonction $f$ s\'écrit sous la forme : '
-              texteCorr += `   $f(x)=${rienSi1(m.toNumber())} x +b.$<br>`
+              texteCorr += `   $f(x)=${rienSi1(k)} x +b.$<br>`
               texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix) une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
-              texteCorr += `Comme $f(x)=${rienSi1(m.toNumber())}x +b$, alors $f(${a})=
-              ${abs((b - d) / (a - c)) === 1 ? `${m.texFraction * a}+b` : `${m.texFraction}\\times${a}+b=${m.texFraction * a}+b`}$ . On en déduit :<br>`
-              texteCorr += `$\\begin{aligned}f(${a})=${b}&\\iff ${m.texFraction * a}+b=${b}\\\\`
-              texteCorr += `&\\iff b=${b - m.texFraction * a}\\\\`
+              texteCorr += `Comme $f(x)=${rienSi1(k)}x +b$, alors $f(${a})=
+              ${abs((b - d) / (a - c)) === 1 ? `${k * a}+b` : `${k}\\times${a}+b=${k * a}+b`}$ . On en déduit :<br>`
+              texteCorr += `$\\begin{aligned}f(${a})=${b}&\\iff ${k * a}+b=${b}\\\\`
+              texteCorr += `&\\iff b=${b - k * a}\\\\`
               texteCorr += '\\end{aligned}$<br>'
 
-              texteCorr += `On en déduit $f(x)=${rienSi1(m.toNumber())}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$.`
+              texteCorr += `On en déduit $f(x)=${rienSi1(k)}x${k * a - b === 0 ? '' : `${ecritureAlgebrique(b - k * a)}`}$.`
             }
-            reponse = `${m.texFraction}x+${p}`
+            reponse = `${k}x+${p}`
           }
+          variables.push(a, b, c, d, p)
+        }
           break
-        case 2:
-          k1 = randint(-6, 6, 0)
-          k2 = randint(-6, 6, k1)
-          a = randint(1, 10)
-          c = randint(1, 5, [a])
-          p = randint(-9, 9)
-          b = k1 * a + p
-          d = k2 * c + p
-          m = new FractionEtendue(b - d, a - c).simplifie()
-          pfraction = new FractionEtendue(b * (a - c) - (b - d) * a, a - c).simplifie()
+        case 2:{
+          let k1 = randint(-6, 6, 0)
+          let k2 = randint(-6, 6, k1)
+          let a = randint(1, 10)
+          let c = randint(1, 5, [a])
+          let p = randint(-9, 9)
+          let b = k1 * a + p
+          let d = k2 * c + p
+          const m = new FractionEtendue(b - d, a - c).simplifie()
+          const pfraction = new FractionEtendue(b * (a - c) - (b - d) * a, a - c).simplifie()
           while (Number.isInteger((b - d) / (a - c))) {
             k1 = randint(-6, 6, 0)
             k2 = k1 + 1
@@ -154,17 +155,20 @@ export default class Determinerfonctionaffine extends Exercice {
             }
             reponse = `${m.texFraction}x+${pfraction.texFraction}`
           }
+          variables.push(a, b, c, d, p)
+        }
           break
         case 3:
-          k1 = randint(-6, 6, 0)
-          k2 = randint(-6, 6, k1)
-          a = randint(1, 10)
-          c = randint(1, 5, [a])
-          p = randint(-9, 9)
-          b = k1 * a + p
-          d = k2 * c + p
-          m = new FractionEtendue(b - d, a - c).simplifie()
-          pfraction = new FractionEtendue(b * (a - c) - (b - d) * a, a - c).simplifie()
+        default:{
+          const k1 = randint(-6, 6, 0)
+          const k2 = randint(-6, 6, k1)
+          const a = randint(1, 10)
+          const c = randint(1, 5, [a])
+          const p = randint(-9, 9)
+          const b = k1 * a + p
+          const d = k2 * c + p
+          const m = new FractionEtendue(b - d, a - c).simplifie()
+          const pfraction = new FractionEtendue(b * (a - c) - (b - d) * a, a - c).simplifie()
           texte = `Déterminer, en détaillant les calculs, l'expression algébrique de la fonction affine $f$ dont la représentation  graphique $\\mathscr{C_f}$ passe par les points $A(${a};${b})$ et $B(${c};${d})$.<br>`
           if (context.isDiaporama) {
             if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
@@ -207,13 +211,16 @@ export default class Determinerfonctionaffine extends Exercice {
             }
             reponse = `${m.texFraction}x+${pfraction.texFraction}`
           }
+          variables.push(a, b, c, d, p)
+        }
           break
       }
       handleAnswers(this, i, { champ1: { value: reponse, options: { variable: 'x' }, compare: functionCompare } })
       if (this.interactif) {
         texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
       }
-      if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
+      variables.push(typesDeQuestions)
+      if (this.questionJamaisPosee(i, variables.map(String).join(';'))) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

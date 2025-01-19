@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
@@ -12,6 +11,7 @@ export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction a
 
 /**
  * @author Gilles Mora
+ * Lintage typescript incomplet à cause de tableauDeVariation pas typé correctement
  * 2F10-7
  */
 
@@ -34,12 +34,12 @@ export default class SignefonctionaffineVariation extends Exercice {
   }
 
   nouvelleVersion () {
-    let typeDeQuestionsDisponibles
+    let typeDeQuestionsDisponibles: string[]
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['Signes1']
     } else if (this.sup === 2) {
       typeDeQuestionsDisponibles = ['Signes2']
-    } else if (this.sup === 3) {
+    } else {
       typeDeQuestionsDisponibles = ['Signes1', 'Signes2']
     }
     const nomF = [
@@ -47,16 +47,19 @@ export default class SignefonctionaffineVariation extends Exercice {
       ['v'], ['w']
     ]
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, nom, sol, ligne1, choix, x, y, x1, x2, texte, texteCorr, cpt = 0;
+    for (let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
+      let texte = ''
+      let texteCorr = ''
+      const variables:number[] = []
       switch (listeTypeQuestions[i]) {
-        case 'Signes1':
-          choix = choice([0, 1])
+        case 'Signes1':{
+          const choix = choice([0, 1])
           if (choix === 0) {
-            nom = choice(nomF)
-            a = choice([1, 2, 5, 10]) * choice([-1, 1])// coefficient a de la fonction affine
-            b = randint(1, 15) * choice([-1, 1])// coefficient b de la fonction affine
-            sol = new Decimal(-b).div(a)
+            const nom = choice(nomF)
+            const a = choice([1, 2, 5, 10]) * choice([-1, 1])// coefficient a de la fonction affine
+            const b = randint(1, 15) * choice([-1, 1])// coefficient b de la fonction affine
+            const sol = -b / a
 
             texte = `Une fonction affine $${nom}$  définie sur $\\mathbb R$ est strictement ${a > 0 ? 'croissante' : 'décroissante'}. De plus $${nom}(${texNombre(sol, 1)})=0$.<br>
         ${numAlpha(0)} Dresser son tableau de signes sur $\\mathbb R$.<br>
@@ -66,6 +69,7 @@ export default class SignefonctionaffineVariation extends Exercice {
         Sachant que $${nom}$ s'annule en $${texNombre(sol, 1)}$, le changement de signe intervient donc en $x=${texNombre(sol, 1)}$. <br>
         On obtient ainsi le tableau de signes suivant : <br>
          `
+            let ligne1
             if (a > 0) {
               ligne1 = ['Line', 10, '', 0, '-', 20, 'z', 20, '+']
             } else {
@@ -102,20 +106,20 @@ export default class SignefonctionaffineVariation extends Exercice {
        Comme on sait que : $${nom}(${texNombre(sol, 1)})=0$, on en déduit :
         $${nom}(${texNombre(sol, 1)})=${a > 0 ? `${texNombre(sol, 1)}` : `${texNombre(-sol, 1)}`}   + b=0$.<br>
        d'où $b=${a > 0 ? `${texNombre(-sol, 1)}` : `${texNombre(sol, 1)}`}$.<br>
-       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol, 1)}` : `${ecritureAlgebrique(sol, 1)}`}$.<br>
+       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol)}` : `${ecritureAlgebrique(sol)}`}$.<br>
        En partant d'une autre valeur pour $a$, on aurait obtenu une autre expression pour $${nom}$.<br>
        Il existe une infinité de fonctions qui possèdent ces trois propriétés. <br>
-       Toutes les fonctions de la forme $${nom}(x)= k\\times\\left( ${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol, 1)}` : `${ecritureAlgebrique(sol, 1)}`}\\right)$ avec $k$ un réel non-nul est solution de l'exercice.
+       Toutes les fonctions de la forme $${nom}(x)= k\\times\\left( ${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol)}` : `${ecritureAlgebrique(sol)}`}\\right)$ avec $k$ un réel non-nul est solution de l'exercice.
        
        `
-          }
-          if (choix === 1) {
-            nom = choice(nomF)
-            a = randint(-5, 5, 0)// coefficient b de la fonction affine
-            b = a * randint(-9, 9, 0)// coefficient a de la fonction affine
-            sol = -b / a
-            x = randint(-10, 10, sol)
-            y = a * x + b
+            variables.push(a, b, sol)
+          } else {
+            const nom = choice(nomF)
+            const a = randint(-5, 5, 0)// coefficient b de la fonction affine
+            const b = a * randint(-9, 9, 0)// coefficient a de la fonction affine
+            const sol = -b / a
+            const x = randint(-10, 10, sol)
+            const y = a * x + b
 
             texte = `Une fonction affine $${nom}$  définie sur $\\mathbb R$ vérifie $${nom}(${texNombre(sol, 1)})=0$ et $${nom}(${x})=${y}$.<br>
            Dresser son tableau de signes sur $\\mathbb R$. Justifier.
@@ -142,6 +146,7 @@ export default class SignefonctionaffineVariation extends Exercice {
            On obtient ainsi le tableau de signes suivant : <br>
             `
             }
+            let ligne1
             if (a > 0) {
               ligne1 = ['Line', 10, '', 0, '-', 20, 'z', 20, '+']
             } else {
@@ -165,14 +170,18 @@ export default class SignefonctionaffineVariation extends Exercice {
               lgt: 5, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
             })
+            variables.push(a, b, sol)
           }
+        }
           break
         case 'Signes2':
-
-          a = randint(-5, 5, 0)// coefficient b de la fonction affine
-          b = a * randint(-6, 6, 0)// coefficient a de la fonction affine
-          sol = -b / a
-          nom = choice(nomF)
+        default:{
+          const a = randint(-5, 5, 0)// coefficient b de la fonction affine
+          const b = a * randint(-6, 6, 0)// coefficient a de la fonction affine
+          const sol = -b / a
+          const nom = choice(nomF)
+          let x1: number
+          let x2: number
           if (choice([true, false])) {
             x1 = randint(sol + 1, 10)
             x2 = randint(sol + 1, 10, x1)
@@ -181,6 +190,7 @@ export default class SignefonctionaffineVariation extends Exercice {
             x2 = randint(-10, sol - 1, x1)
           }
           texte = `On donne le tableau de signes d'une fonction affine  $${nom}$  définie sur $\\mathbb R$ :<br>`
+          let ligne1
           if (a > 0) {
             ligne1 = ['Line', 10, '', 0, '-', 20, 'z', 20, '+']
           } else {
@@ -218,9 +228,11 @@ export default class SignefonctionaffineVariation extends Exercice {
             texteCorr += ` Comme $${x2} < ${x1}$, alors  ${a > 0 ? `$${nom}(${x2}) < ${nom}(${x1})$` : `$${nom}(${x2}) > ${nom}(${x1})$`}
           `
           }
+          variables.push(a, b, sol, x1, x2)
+        }
           break
       }
-      if (this.questionJamaisPosee(i, this.sup, a, b)) {
+      if (this.questionJamaisPosee(i, variables.map(String).join(';') + listeTypeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

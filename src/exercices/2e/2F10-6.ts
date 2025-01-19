@@ -16,6 +16,7 @@ export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 export const dateDeModifImportante = '18/05/2023'
 /**
  * @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
+ * typage typescript incomplet à cause de tableauDeVariation Jean-Claude Lhote
  */
 export const uuid = 'b72b0'
 
@@ -34,33 +35,33 @@ export default class Variationsfonctionaffine extends Exercice {
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2]
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [3]
-    }
-    if (this.sup === 4) {
+    } else {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, a, b, c, d, fc, fd, ligne1, typesDeQuestions, texte, texteCorr, cpt = 0;
+    for (let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       const nom = [
         ['f'], ['g'], ['h'], ['u'],
         ['v'], ['w']
       ]
       const nomF = choice(nom)
-      typesDeQuestions = listeTypeDeQuestions[i]
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      const variables: number[] = []
+      let texte = ''
+      let texteCorr = ''
       switch (typesDeQuestions) {
-        case 1:
-          a = randint(-10, 10, 0) // coefficient a de la fonction affine
-          b = randint(-10, 10) // coefficient b de la fonction affine
+        case 1:{
+          const a = randint(-10, 10, 0) // coefficient a de la fonction affine
+          const b = randint(-10, 10) // coefficient b de la fonction affine
           texte = `Déterminer le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par : `
           if (choice([true, false])) {
             texte += `$${nomF}(x)=${reduireAxPlusB(a, b)}$.`
@@ -71,6 +72,7 @@ export default class Variationsfonctionaffine extends Exercice {
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
         On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
           Son sens de variation dépend du signe de $a$.<br>`
+          let ligne1
           if (a > 0) {
             texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
             ligne1 = ['Var', 10, '-/', 30, '+/', 30]
@@ -97,12 +99,14 @@ export default class Variationsfonctionaffine extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 20]
           })
+          variables.push(a, b)
+        }
           break
 
-        case 2:
-          a = randint(-10, 10, 0) // coefficient a de la fonction affine
-          b = randint(-10, 10) // coefficient b de la fonction affine
-          d = choice([abs(a) + 1, abs(b) + 1]) // dénominateur
+        case 2:{
+          let a = randint(-10, 10, 0) // coefficient a de la fonction affine
+          let b = randint(-10, 10) // coefficient b de la fonction affine
+          let d = choice([abs(a) + 1, abs(b) + 1]) // dénominateur
           while (d === 1) {
             a = randint(-10, 10, 0) // coefficient a de la fonction affine
             b = randint(-10, 10) // coefficient b de la fonction affine
@@ -118,6 +122,7 @@ export default class Variationsfonctionaffine extends Exercice {
           texteCorr += `avec $a=\\dfrac{${a}}{${d}}${simplificationDeFractionAvecEtapes(a, d)}$ et $b=\\dfrac{${b}}{${d}}${simplificationDeFractionAvecEtapes(b, d)}$. <br>
         On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
           Son sens de variation dépend du signe de $a$.<br>`
+          let ligne1
           if (a > 0) {
             texteCorr += `Comme $a=${texFractionReduite(a, d)}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
             ligne1 = ['Var', 10, '-/', 30, '+/', 30]
@@ -144,15 +149,17 @@ export default class Variationsfonctionaffine extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 20]
           })
+          variables.push(a, b)
+        }
           break
 
-        case 3:
-          a = randint(-10, 10, 0) // coefficient a de la fonction affine
-          b = randint(-10, 10) // coefficient b de la fonction affine
-          c = randint(-10, 5)
-          d = randint(c + 1, 10)
-          fc = a * c + b
-          fd = a * d + b
+        case 3:{
+          const a = randint(-10, 10, 0) // coefficient a de la fonction affine
+          const b = randint(-10, 10) // coefficient b de la fonction affine
+          const c = randint(-10, 5)
+          const d = randint(c + 1, 10)
+          const fc = a * c + b
+          const fd = a * d + b
           texte = `Dresser le tableau de variations de la fonction $${nomF}$ définie sur $[${c}\\,;\\,${d}]$ par : `
           if (choice([true, false])) {
             texte += `$${nomF}(x)=${reduireAxPlusB(a, b)}$.`
@@ -163,6 +170,7 @@ export default class Variationsfonctionaffine extends Exercice {
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
           On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
             Son sens de variation dépend du signe de $a$.<br>`
+          let ligne1
           if (a > 0) {
             texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>
             `
@@ -191,10 +199,12 @@ export default class Variationsfonctionaffine extends Exercice {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 20]
           })
+          variables.push(a, b)
+        }
           break
       }
-
-      if (this.questionJamaisPosee(i, a, b)) {
+      variables.push(typesDeQuestions)
+      if (this.questionJamaisPosee(i, variables.map(String).join(';'))) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

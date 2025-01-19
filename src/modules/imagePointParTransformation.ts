@@ -1,7 +1,6 @@
-import type { Point } from '../lib/2d/points'
 import { Matrice, matrice } from '../lib/mathFonctions/Matrice'
 import { Matrix } from 'mathjs'
-type TransformationsIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 11 | 12 | 13 | 14 | 8 | 9 | 10 | 11 | 12 | 13 | 14
+export type TransformationsIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 11 | 12 | 13 | 14 | 8 | 9 | 10 | 11 | 12 | 13 | 14
 /**
  * Description
  * @param {any} transformation Entier déterminant la transformation voulue
@@ -26,7 +25,7 @@ type TransformationsIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 11 | 12 | 13 | 14 | 8 | 
  * @author Jean-Claude Lhote
  * @returns {number[]} Le point résultat
  */
-export function imagePointParTransformation (transformation: TransformationsIndex, pointA: Point, pointO: Point, vecteur = [0, 0], rapport = 1) {
+export function imagePointParTransformation (transformation: TransformationsIndex, pointA: [number, number], pointO: [number, number], vecteur = [0, 0], rapport = 1): [number, number] {
   // pointA,centre et pointO sont des tableaux de deux coordonnées
   // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
   // nécessite d'être en repère orthonormal...
@@ -117,5 +116,5 @@ export function imagePointParTransformation (transformation: TransformationsInde
   }
   const pointA1 = (maMatrice! as Matrice).multiply(pointA)
   const pointA2 = matriceChangementDeRepere!.multiply(pointA1) as unknown as Matrix
-  return pointA2.toArray().slice(0, 2)
+  return pointA2.toArray().slice(0, 2) as [number, number]
 }

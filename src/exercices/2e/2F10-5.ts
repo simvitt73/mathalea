@@ -18,6 +18,7 @@ export const titre = 'Déterminer le signe d\'une fonction affine'
 
 /**
  * @author Stéphane Guyon+Gilles Mora
+ * Lintage typescript incomplet car tableauDeVariation n'est pas typé Jean-Claude Lhote
  * 2F10-3
  */
 export const uuid = '03b71'
@@ -74,23 +75,25 @@ export default class Signefonctionaffine extends Exercice {
       [7, 6],
       [10, 3]
     ]
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // coef de x = 1
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2] // coef de x > 1
-    } else if (this.sup === 3) {
+    } else {
       typesDeQuestionsDisponibles = [1, 2] // coef de x positif, difference au carrée.
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, ligne1, texte, texteCorr, cpt = 0, fraction = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      const variables: number[] = []
       switch (typesDeQuestions) {
         case 1: {
-          const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           const a = randint(1, 5) * choice([-1, 1])
           const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
-          fraction = choice(listeFractions)
           const zero = new FractionEtendue(-b, a).simplifie()
           texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
           if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
@@ -117,6 +120,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               texteCorr += `De plus, $${reduireAxPlusB(a, b)}=0\\iff x=${zero.texFSD}$.<br><br>`
             }
           }
+          let ligne1
           if (a > 0) {
             ligne1 = ['Line', 25, '', 0, '-', 20, 'z', 20, '+']
           } else {
@@ -140,7 +144,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             lgt: 8, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           })
-          const f = x => a * x + b
+          const f = (x: number) => a * x + b
           const monRepere = repere({
             xMin: -8,
             xMax: 8,
@@ -170,13 +174,14 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
           objets.push(maCourbe, lA, monRepere, o, tA)
           texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
             ` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+          variables.push(a, b)
         }
           break
 
         case 2: {
-          const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
-          fraction = choice(listeFractions)
+          const fraction = choice(listeFractions)
           const ns = fraction[0] * choice([-1, 1])
           const ds = fraction[1]
           const a = new FractionEtendue(ns, ds).simplifie()
@@ -185,9 +190,9 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
           texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par ${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}. <br>`
           if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
           if (this.sup2 === 1) {
-            texteCorr += `$f(x)$ est de la forme $ax+b$, $f$ est donc une fonction affine avec pour coefficient directeur  $a=${a.texFSD}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
-             D'où, $f$ est une fonction ${ns < 0 ? ' décroissante,' : ' croissante,'} c'est-à-dire que lorsque $x$ augmente, $f(x)$ ${a < 0 ? ' diminue.' : ' augmente.'} <br>
-             Par conséquent, les valeurs de $f(x)$ sont d'abord ${a < 0 ? 'positives' : 'négatives'} puis ${ns < 0 ? 'négatives' : 'positives'}.<br><br>
+            texteCorr += `$f(x)$ est de la forme $ax+b$, $f$ est donc une fonction affine avec pour coefficient directeur  $a=${a.texFSD}$ ${a.valeurDecimale < 0 ? ' (négatif).' : ' (positif).'}<br>
+             D'où, $f$ est une fonction ${ns < 0 ? ' décroissante,' : ' croissante,'} c'est-à-dire que lorsque $x$ augmente, $f(x)$ ${a.valeurDecimale < 0 ? ' diminue.' : ' augmente.'} <br>
+             Par conséquent, les valeurs de $f(x)$ sont d'abord ${a.valeurDecimale < 0 ? 'positives' : 'négatives'} puis ${ns < 0 ? 'négatives' : 'positives'}.<br><br>
              De plus,  $${b === 0 ? `${a.texFSD}x=0` : `${a.texFSD}x${ecritureAlgebrique(b)}=0`} \\iff x=${zero.texFSD}$.<br><br>`
           }
           if (this.sup2 === 2) {
@@ -208,7 +213,8 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             }
             texteCorr += ` De plus,  $${b === 0 ? `${a.texFSD}x=0` : `${a.texFSD}x${ecritureAlgebrique(b)}=0`} \\iff x=${zero.texFSD}$.<br><br>`
           }
-          if (a > 0) {
+          let ligne1
+          if (a.valeurDecimale > 0) {
             ligne1 = ['Line', 25, '', 0, '-', 20, 'z', 20, '+']
           } else {
             ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
@@ -231,7 +237,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             lgt: 8, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           })
-          const f = x => a * x + b
+          const f = (x: number) => a.valeurDecimale * x + b
           const monRepere = repere({
             xMin: -8,
             xMax: 8,
@@ -251,7 +257,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             grilleSecondaireXMax: 8
           })
           const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
-          const A = point(-b / a, 0, '')
+          const A = point(-b / a.valeurDecimale, 0, '')
 
           const lA = labelPoint(A, 'red')
           const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
@@ -261,11 +267,12 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
           objets.push(maCourbe, lA, monRepere, o, tA)
           texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
             ` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+          variables.push(a.valeurDecimale, b)
         }
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, typesDeQuestions, variables.map(String).join(';'))) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -33,6 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class ImageFonctionsRefs extends Exercice {
+  can: boolean
   constructor () {
     super()
 
@@ -65,30 +66,36 @@ export default class ImageFonctionsRefs extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const listePhrases = combinaisonListes([0, 1], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, nombre, solution, nom, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       // choix du nom de la fonction : f, g, h, p, q, r si trois questions ou moins, sinon f_1, g_1, h_1, p_1, q_1, r_1, s_1, f_2, g_2, h_2, ...
-      nom = ['f', 'g', 'h', 'p', 'q', 'r', 's', 't'][i % 8]
-      this.nbQuestions > 3 && (nom += '_' + parseInt(1 + i / 8))
+      let nom = ['f', 'g', 'h', 'p', 'q', 'r', 's', 't'][i % 8]
+      this.nbQuestions > 3 && (nom += '_' + String(Math.floor(1 + i / 8)))
+      let nombre: number
+      let solution: FractionEtendue
+      let calcul: number
       switch (listeTypeQuestions[i]) {
         case 'carré':
           nombre = randint(-10, 10, [0, 1])
-          solution = nombre * nombre
-          solution = new FractionEtendue(solution, 1)
+          calcul = nombre * nombre
+          solution = new FractionEtendue(calcul, 1)
           texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(texNombre(nombre * nombre, 0))}$`
           break
         case 'cube':
           nombre = randint(-5, 5, [0, 1])
-          solution = nombre * nombre * nombre
-          solution = new FractionEtendue(solution, 1)
+          calcul = nombre * nombre * nombre
+          solution = new FractionEtendue(calcul, 1)
           texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(texNombre(nombre ** 3, 0))}$`
           break
         case 'racine carrée':
-          solution = randint(1, 10)
-          solution = new FractionEtendue(solution, 1)
-          nombre = solution * solution
+          calcul = randint(1, 10)
+          solution = new FractionEtendue(calcul, 1)
+          nombre = calcul * calcul
           texteCorr = `$${nom}(${nombre}) = ${miseEnEvidence(`\\sqrt{${nombre}}`)} = ${miseEnEvidence(solution.texFraction)} $ car $ ${ecritureParentheseSiNegatif(solution.valeurDecimale)}^2 = ${texNombre(nombre, 0)} $`
           break
         case 'inverse':
+        default:
           if (this.can) {
             nombre = choice([2, 4, 5, 10])
           } else {

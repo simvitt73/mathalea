@@ -35,16 +35,16 @@ export default class Reconnaitrefonctionaffine extends Exercice {
     let bonneReponse
 
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      k = choice([-1, 1])
-      a = randint(2, 9)
-      a = a * k
-      b = randint(1, 9)
-      c = choice([2, 3, 5, 7, 10, 11, 13, 15, 17])
-      b = b * k
-      d = choice([2, 3, 5, 7, 10, 11, 13, 15, 17])
-      e = randint(2, 9)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      const k = choice([-1, 1])
+      const a = randint(2, 9) * k
+      const b = randint(1, 9) * k
+      const c = choice([2, 3, 5, 7, 10, 11, 13, 15, 17])
+      const d = choice([2, 3, 5, 7, 10, 11, 13, 15, 17])
+      const e = randint(2, 9)
+      let texte = ''
+      let texteCorr = ''
 
       switch (typesDeQuestions) {
         case 1:// Cas f(x)=ax+b
@@ -66,7 +66,7 @@ export default class Reconnaitrefonctionaffine extends Exercice {
             texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$.<br>`
             texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${ecritureAlgebrique(b)}$.<br>`
           }
-          if (a !== 0 & a !== 1) {
+          if (a !== 0 && a !== 1) {
             texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b} ${ecritureAlgebrique(a)}  x$.<br>` // f(x)=b-x}
             texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b} ${ecritureAlgebrique(a)}  x$.<br>` // f(x)=b-x}
             texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)= ${reduireAxPlusB(a, b)}$.<br>`
@@ -134,6 +134,7 @@ export default class Reconnaitrefonctionaffine extends Exercice {
 
           break
         case 9:// f(x)= x/a+1/b
+        default:
           texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{x}{${a}}+${texFractionSigne(1, e)} $.`
           texteCorr = `On a : $f(x)=\\dfrac{x}{${a}}+${texFractionSigne(1, e)} $.`
           texteCorr += `<br>Ce qui revient à écrire que : $f(x)=${texFractionSigne(1, a)}x+${texFractionSigne(1, e)}$.<br>`
