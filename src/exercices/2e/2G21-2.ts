@@ -7,6 +7,7 @@ import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import type Point from 'apigeom/src/elements/points/Point'
 
 export const titre = 'Construire un point à partir d\'une égalité vectorielle sur une grille'
 export const interactifReady = true
@@ -24,16 +25,12 @@ export const refs = {
 }
 
 export default class SommeDeVecteurs extends Exercice {
-  /**
-     * @type {Figure[]}
-  */
-  figureApig = []
-  /**
-     * @type {Figure[]}
-   */
-  figureApigCorr = []
-  pointExtremite = []
-  nomExtremite = []
+  longueur?: number
+  largeur?: number
+  figureApig: Figure[] = []
+  figureApigCorr: Figure[] = []
+  pointExtremite: Point[] = []
+  nomExtremite: string[] = []
 
   constructor () {
     super()
@@ -44,24 +41,19 @@ export default class SommeDeVecteurs extends Exercice {
     this.besoinFormulaireTexte = ['Situations différentes ', '1 : 2 vecteurs depuis l\'origine\n2 : 1 seul vecteur depuis l\'origine\n3 : Aucun vecteur depuis l\'origine\n4 : Mélange']
   }
 
-  nouvelleVersion = function () {
+  nouvelleVersion () {
     this.longueur = 10
     this.largeur = 10
-    this.figureApig.forEach((fig) => {
-      fig.clearHtml()
-      fig.svg = null
-      fig.container = null
+    this.figureApig.forEach((fig: Figure) => {
+      fig.container.remove()
     })
     this.figureApigCorr.forEach((fig) => {
-      fig.clearHtml()
-      fig.svg = null
-      fig.container = null
+      fig.container.remove()
     })
     this.figureApig = []
     this.figureApigCorr = []
     this.pointExtremite = []
     this.nomExtremite = []
-    let choix = 1
     let choixU
     let choixV
     const xSomme = []
@@ -73,10 +65,12 @@ export default class SommeDeVecteurs extends Exercice {
       melange: 4,
       defaut: 1,
       nbQuestions: this.nbQuestions
-    })
+    }).map(Number)
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      choix = listeDeQuestions[i] === 4 ? randint(1, 3) : listeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      const choix = listeDeQuestions[i] === 4 ? randint(1, 3) : listeDeQuestions[i]
       switch (choix) {
         case 1 :
           choixU = 'origine'
@@ -92,6 +86,7 @@ export default class SommeDeVecteurs extends Exercice {
           }
           break
         case 3 :
+        default:
           choixU = 'pas0rigine'
           choixV = 'pas0rigine'
           break
@@ -158,8 +153,8 @@ export default class SommeDeVecteurs extends Exercice {
       On s'arrange pour que les vecteurs soient sur la grille et qu'ils soient assez séparés pour être distinguables
       */
 
-      let xOrigin
-      let yOrigin
+      let xOrigin: number
+      let yOrigin: number
       xSomme[i] = randint(0, 14) * choice([-1, 1])
       // il faut que le vecteur somme ait une longueur supérieure au moins à 5 unités par exemple
       const val = 25 - xSomme[i] * xSomme[i]
@@ -195,7 +190,7 @@ export default class SommeDeVecteurs extends Exercice {
       let xPointIntermediaire, xPointSecondIntermediaire
       let yPointIntermediaire, yPointSecondIntermediaire
       let indice = 0
-      const vecteur2 = {}
+      const vecteur2:{ x: number, y: number } = { x: 0, y: 0 }
       const limitxgauche = pointOrigine.x + 9
       const limitxdroite = 9 - pointOrigine.x
       const limitygauche = pointOrigine.y + 9
@@ -267,13 +262,11 @@ export default class SommeDeVecteurs extends Exercice {
       if (indice >= 50) {
         window.notify('On a un problème houston!', { exercice: JSON.stringify(this) })
       }
-      const vecteur1 = {}
-      vecteur1.x = xPointIntermediaire - pointOrigine.x
-      vecteur1.y = yPointIntermediaire - pointOrigine.y
+      const vecteur1 = { x: xPointIntermediaire - pointOrigine.x, y: yPointIntermediaire - pointOrigine.y }
 
-      let pointOrigineChoix2X
-      let pointOrigineChoix2Y
-      let pointOrigineChoix2
+      let pointOrigineChoix2X = 0
+      let pointOrigineChoix2Y = 0
+      let pointOrigineChoix2: Point
       if (choixU === 'origine') {
         this.figureApig[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
         this.figureApigCorr[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
@@ -285,9 +278,9 @@ export default class SommeDeVecteurs extends Exercice {
         this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
       }
 
-      let pointOrigineChoix3X
-      let pointOrigineChoix3Y
-      let pointOrigineChoix3
+      let pointOrigineChoix3X = 0
+      let pointOrigineChoix3Y = 0
+      let pointOrigineChoix3: Point
       if (choixV === 'origine') {
         this.figureApig[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
         this.figureApigCorr[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
@@ -309,8 +302,8 @@ export default class SommeDeVecteurs extends Exercice {
       })
 
       this.figureApigCorr[i].options.animationStepInterval = 250
-      this.figureApigCorr[i].grid.color = 'gray'
-      this.figureApigCorr[i].grid.colorLabel = 'gray'
+      this.figureApigCorr[i].grid!.color = 'gray'
+      this.figureApigCorr[i].grid!.colorLabel = 'gray'
 
       /* const vectorsBlue = [...figureCorrection.elements.values()].filter(e => e.color === 'blue')
       for (let ee = 0; ee < vectorsBlue.length; ee++) {
@@ -389,20 +382,20 @@ export default class SommeDeVecteurs extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  correctionInteractive = (i) => {
+  correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figureApig[i].json] = this.figureApig[i].json
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`
-    )
+    ) as HTMLDivElement
     const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
 
     this.figureApig[i].isDynamic = false
     this.figureApig[i].divButtons.style.display = 'none'
     this.figureApig[i].divUserMessage.style.display = 'none'
     const nbPoints = [...this.figureApig[i].elements.values()].filter(
-      (e) => e.type === 'Point' && e.isVisible && !e.isChild
+      (e) => e.type === 'Point' && (e as Point).isVisible && !e.isChild
     ).length
     const onePointWasAdded = nbPoints >= 3
 

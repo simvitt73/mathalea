@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { grille } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -30,7 +30,7 @@ export const refs = {
 }
 
 // Une fonction pour créer la liste des noms possibles pour un triangle
-function allTrianglesNames (nomA, nomB, nomC) {
+function allTrianglesNames (nomA: string, nomB: string, nomC: string): string[] {
   const nomsSommets = [nomA, nomB, nomC]
   const noms = []
   do {
@@ -44,7 +44,7 @@ function allTrianglesNames (nomA, nomB, nomC) {
   return noms
 }
 
-function coefDirVecteurEgaleA1 (seg1, seg2, seg3) { // recherche si un des segments a pour coef directeur 1 ou -1 et possède un point sur la ligne d'en bas
+function coefDirVecteurEgaleA1 (seg1: Segment, seg2: Segment, seg3: Segment) { // recherche si un des segments a pour coef directeur 1 ou -1 et possède un point sur la ligne d'en bas
   return ((seg1.extremite2.y - seg1.extremite1.y === seg1.extremite2.x - seg1.extremite1.x) ||
   (seg2.extremite2.y - seg2.extremite1.y === seg2.extremite2.x - seg2.extremite1.x) ||
   (seg3.extremite2.y - seg3.extremite1.y === seg3.extremite2.x - seg3.extremite1.x)) &&
@@ -52,11 +52,11 @@ function coefDirVecteurEgaleA1 (seg1, seg2, seg3) { // recherche si un des segme
   (seg1.extremite2.y === 0) || (seg2.extremite2.y === 0) || (seg3.extremite2.y === 0))
 }
 
-function coefDirVecteurSegEgaleA1 (seg1) { // recherche si un des segments a pour coef directeur 1 ou -1 et possède un point sur la ligne d'en bas
+function coefDirVecteurSegEgaleA1 (seg1: Segment) { // recherche si un des segments a pour coef directeur 1 ou -1 et possède un point sur la ligne d'en bas
   return (seg1.extremite2.y - seg1.extremite1.y === seg1.extremite2.x - seg1.extremite1.x)
 }
 
-function estEgalAUnAutreSegment (s, s1, s2, s3) { // recherche si le segment s est égal au segment s1, s2, ou s3
+function estEgalAUnAutreSegment (s: Segment, s1: Segment, s2: Segment, s3: Segment) { // recherche si le segment s est égal au segment s1, s2, ou s3
   return ((((s.extremite1.x === s1.extremite1.x && s.extremite1.y === s1.extremite1.y) ||
   (s.extremite1.x === s1.extremite2.x && s.extremite1.y === s1.extremite2.y)) &&
   ((s.extremite2.x === s1.extremite1.x && s.extremite2.y === s1.extremite1.y) ||
@@ -72,6 +72,7 @@ function estEgalAUnAutreSegment (s, s1, s2, s3) { // recherche si le segment s e
 }
 
 export default class ImagePtParTranslation extends Exercice {
+  classe: number
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Situations différentes ', 'Nombres séparés par des tirets \n1 : À partir d\'une point\n2 : À partir d\'une segment\n3 : À partir d\'un triangle\n4 : Mélange']
@@ -152,9 +153,9 @@ export default class ImagePtParTranslation extends Exercice {
           }
 
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
-          const VecDeplRep = VecDepl.representant(PtDepart, 'green') // Trace le vecteur déplacement
-          VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
-          VecDepl.styleExtremites = '->' // Donne l'extrémité du vecteur
+          const VecDeplRep = VecDepl.representant(PtDepart, 'green') as Segment // Trace le vecteur déplacement
+          VecDeplRep.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          VecDeplRep.styleExtremites = '->' // Donne l'extrémité du vecteur
           const nomVecDepl = VecDepl.representantNomme(PtDepart, nomOR + nomEXT, 1, 'green') // Affiche le nom du vecteur déplacement
           const PositionPtCorr = tracePoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 'lightgray')
           const LabelsPtCorr = labelPoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 'lightgray')
@@ -212,8 +213,8 @@ export default class ImagePtParTranslation extends Exercice {
 
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
           const VecDeplRep = VecDepl.representant(PtDepartSeg, 'green') // Trace le vecteur déplacement
-          VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
-          VecDepl.styleExtremites = '->' // Donne l'extrémité du vecteur
+          VecDeplRep.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          VecDeplRep.styleExtremites = '->' // Donne l'extrémité du vecteur
 
           // Recherche du meilleur placement des points H à K pour éviter chevauchement
           let placementPoints
@@ -276,11 +277,13 @@ export default class ImagePtParTranslation extends Exercice {
         }
           break
 
-        case 'triangle': { // À partir d'un triangle
+        case 'triangle':
+        default: { // À partir d'un triangle
           const Pt1Triangle = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
           xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
           let yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
-          let xPt3Triangle, yPt3Triangle
+          let xPt3Triangle: number = -1 // j'initialise avec une valeur bidon, c'est assigné dans le while.
+          let yPt3Triangle: number = -1
           while (xPt2Triangle < 0 || xPt2Triangle > 10 || yPt2Triangle < 0 || yPt2Triangle > 4 || (xPt2Triangle === Pt1Triangle.x && yPt2Triangle === Pt1Triangle.y)) {
             xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
             yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
@@ -301,7 +304,7 @@ export default class ImagePtParTranslation extends Exercice {
               yPt3Triangle = Pt1Triangle.y
             }
           }
-          while (xPt3Triangle < 0 || xPt3Triangle > 10 || yPt3Triangle < 0 || yPt3Triangle > 4) {
+          do {
             if (xPt2Triangle === Pt1Triangle.x) {
               xPt3Triangle = xPt2Triangle + choice([-2, 2])
               yPt3Triangle = yPt2Triangle
@@ -318,7 +321,7 @@ export default class ImagePtParTranslation extends Exercice {
                 yPt3Triangle = Pt1Triangle.y
               }
             }
-          }
+          } while (xPt3Triangle < 0 || xPt3Triangle > 10 || yPt3Triangle < 0 || yPt3Triangle > 4)
           const nomPD1Tri = Pt1Triangle.nom
           const nomPD2Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xPt2Triangle && couple[1] === yPt2Triangle)]
           const Pt2Triangle = Pt[CoorPt.findIndex(couple => couple[0] === xPt2Triangle && couple[1] === yPt2Triangle)]
@@ -399,8 +402,8 @@ export default class ImagePtParTranslation extends Exercice {
             ee++
             VecDeplRep = VecDepl.representant(sommetsTriangle[ee], 'green')
           }
-          VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
-          VecDepl.styleExtremites = '->' // Donne l'extrémité du vecteur
+          VecDeplRep.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          VecDeplRep.styleExtremites = '->' // Donne l'extrémité du vecteur
           const nomVecDepl = VecDepl.representantNomme(sommetsTriangle[ee], nomOR + nomEXT, 1, 'green') // Affiche le nom du vecteur déplacement
 
           // Les points de la grille correction

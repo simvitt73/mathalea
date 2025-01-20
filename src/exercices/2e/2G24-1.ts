@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points'
-import { repere } from '../../lib/2d/reperes'
-import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Repere, repere } from '../../lib/2d/reperes'
+import { nomVecteurParPosition, Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -42,8 +42,16 @@ export default class Calculercoordonneesvecteurs extends Exercice {
   }
 
   nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let xA, yA, xB, yB, xABFraction, yABFraction, r
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let xA: number | FractionEtendue
+      let yA: number | FractionEtendue
+      let xB: number | FractionEtendue
+      let yB: number
+      let xABFraction:number | FractionEtendue
+      let yABFraction:number | FractionEtendue
+      let r: Repere
       const nomsPoints = creerNomDePolygone(2, ['Q', 'I', 'J', 'O', 'X', 'Y', 'Z'])
       const objets = []
       if (this.sup === 1) {
@@ -120,7 +128,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
       const xDeA = xA instanceof FractionEtendue ? xA.valeurDecimale : xA // On récupère la valeur décimale de xA
       const yDeA = yA instanceof FractionEtendue ? yA.valeurDecimale : yA // On récupère la valeur décimale de yA
       const xDeB = xB instanceof FractionEtendue ? xB.valeurDecimale : xB // On récupère la valeur décimale de xB
-      const yDeB = yB instanceof FractionEtendue ? yB.valeurDecimale : yB // On récupère la valeur décimale de yB
+      const yDeB = yB
 
       const A = point(xDeA, yDeA, nomsPoints[0]) // On définit et on trace le point A
       const B = point(xDeB, yDeB, nomsPoints[1]) // On définit et on trace le point B
@@ -128,22 +136,22 @@ export default class Calculercoordonneesvecteurs extends Exercice {
       traceAetB.taille = 1.5
       const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       const vecteurAB = vecteur(A, B, 'red') // On créé le vecteur AB
-      const vecteurABRep = vecteurAB.representant(A, 'red') // On trace le vecteur AB
+      const vecteurABRep = vecteurAB.representant(A, 'red') as Segment// On trace le vecteur AB
       const O = point(0, 0, 'O') // On définit et on trace le point O
-      const nomO = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const nomO = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const I = point(1, 0) // On définit sans tracer le point I
       const J = point(0, 1) // On définit sans tracer le point J
       const vecteurOI = segment(O, I) // Variable qui trace [OI] en rouge
       const vecteurOJ = segment(O, J) // Variable qui trace [OJ] en rouge
-      vecteurAB.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
+      vecteurABRep.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
       vecteurOI.styleExtremites = '->' // Variable qui transforme [OI] en vecteur
       vecteurOJ.styleExtremites = '->' // Variable qui transforme [OJ] en vecteur
-      vecteurAB.epaisseur = 1.75 // Variable qui grossit le tracé du vecteur AB
+      vecteurABRep.epaisseur = 1.75 // Variable qui grossit le tracé du vecteur AB
       vecteurOI.epaisseur = 1.75 // Variable qui grossit le tracé du vecteur OI
       vecteurOJ.epaisseur = 1.75 // Variable qui grossit le tracé du vecteur OJ
       vecteurOI.tailleExtremites = 2.5
       vecteurOJ.tailleExtremites = 2.5
-      vecteurAB.tailleExtremites = 2.5
+      vecteurABRep.tailleExtremites = 2.5
       // vi = vecteur(O, I) // Variable qui définit vecteur OI
       // vj = vecteur(O, J) // Variable qui définit vecteur OJ
       // nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
