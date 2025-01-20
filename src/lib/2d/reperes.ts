@@ -2089,7 +2089,7 @@ export class Repere extends ObjetMathalea2D {
         )
       )
     }
-    const bords = fixeBordures(this.objets)
+    const bords = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bords.xmin, bords.ymin, bords.xmax, bords.ymax]
     // pour pouvoir ajouter des objets à ce Repere après l'avoir créé.
   }
