@@ -74,9 +74,8 @@ export default class CalculLongueurGrille extends Exercice {
     $\\begin{aligned}
          AB^2&=AC^2+BC^2\\\\
          AB^2&= ${C.x - A.x}^2+${A.y - B.y}^2\\\\
-         AB&=\\sqrt{${(C.x - A.x) ** 2 + (A.y - B.y) ** 2}}\\\\
-         ${this.canOfficielle ? 'AB&=5' : ''}
-         \\end{aligned}$` +
+         AB&=\\sqrt{${(C.x - A.x) ** 2 + (A.y - B.y) ** 2}}${this.canOfficielle ? '\\\\\nAB&=5' : ''}\\\\
+         \\end{aligned}$\n` +
     mathalea2d({
       xmin,
       ymin,

@@ -90,14 +90,14 @@ export default class CoeffDirecteurGraphique extends Exercice {
     const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
     this.question = 'Coefficient directeur de la droite $(AB)$.<br>'
-    this.question += `${objet}<br>`
+    this.question += `${objet}`
     this.optionsChampTexte = { texteAvant: '$m =$' }
     if (yB === yA) {
       this.correction = `La droite est horizontale. <br>On en déduit que $m=${miseEnEvidence('0')}$.`
     } else {
       this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
             $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${2 * yB}-${ecritureParentheseSiNegatif(2 * yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(2 * (yB - yA), 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
-      this.correction += `${objetC}<br>`
+      this.correction += `${objetC}`
     }
 
     this.canEnonce = `${objet}`
