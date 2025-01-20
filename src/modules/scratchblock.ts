@@ -11,11 +11,11 @@ import { context } from './context'
  * @author Jean-Claude Lhote.
  */
 
-export function scratchblock (stringLatex) {
+export function scratchblock (stringLatex: string) {
   const regex1 = /[\\{}]/
   const regex3 = /[[]<>]/
   const regex4 = /[{ ]/
-  const litcommande = function (souschaine) {
+  const litcommande = function (souschaine: string) {
     let extrait
     if (souschaine[0] === '}') {
       return '}'
@@ -28,7 +28,7 @@ export function scratchblock (stringLatex) {
   /*****************************************************/
   /** ********* La fonction d'analyse récursive *********/
   /*****************************************************/
-  const translatex = function (chaine, index, compteAccolades) {
+  const translatex = function (chaine: string, index: number, compteAccolades: number): [string, number, number] {
     let resultat = []; let texte = []; let texte2 = []; let texte3 = []; let taille; let string; let fleche
     let compteur, debut // pour les boucles et les if
     const souschaine = chaine.substring(index)
@@ -77,7 +77,7 @@ export function scratchblock (stringLatex) {
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             texte2 = translatex(chaine, texte[1], texte[2])
             texte3 = translatex(chaine, texte2[1], texte2[2])
-            resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1]
+            resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1] as [string, number, number]
             compteAccolades = resultat[2]
             compteur = compteAccolades + 1
             debut = chaine.substring(resultat[1]).indexOf('{') + resultat[1]
@@ -96,7 +96,7 @@ export function scratchblock (stringLatex) {
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             texte2 = translatex(chaine, texte[1], texte[2])
             texte3 = translatex(chaine, texte2[1], texte2[2])
-            resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1]
+            resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1] as [string, number, number]
             compteAccolades = resultat[2]
             compteur = compteAccolades + 1
             debut = chaine.substring(resultat[1]).indexOf('{') + resultat[1]
@@ -127,15 +127,15 @@ export function scratchblock (stringLatex) {
               if (texte[0].split(' ')[1] !== "jusqu'à") {
                 texte2 = translatex(chaine, texte[1], texte[2])
                 texte3 = translatex(chaine, texte2[1], texte2[2])
-                resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1]
+                resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1] as [string, number, number]
                 compteAccolades = resultat[2]
               } else {
                 texte2 = translatex(chaine, texte[1], texte[2])
-                resultat = [`${texte[0]} ${texte2[0]} `, texte2[1] + 1, texte2[2] - 1]
+                resultat = [`${texte[0]} ${texte2[0]} `, texte2[1] + 1, texte2[2] - 1] as [string, number, number]
                 compteAccolades = resultat[2]
               }
             } else {
-              resultat = [`${texte[0]} `, texte[1] + 1, texte[2] - 1]
+              resultat = [`${texte[0]} `, texte[1] + 1, texte[2] - 1] as [string, number, number]
               compteAccolades = resultat[2]
             }
             compteur = compteAccolades + 1
@@ -169,7 +169,7 @@ export function scratchblock (stringLatex) {
         switch (string) {
           case 'num':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
-            if (isNaN(texte[0]) && texte[0].indexOf(regex3)) {
+            if (Number.isNaN(texte[0]) && texte[0].indexOf(regex3.source)) {
               resultat = [`[${texte[0]}]`, texte[1] + 1, texte[2] - 1]
             } else {
               resultat = [`(${texte[0]})`, texte[1] + 1, texte[2] - 1]
@@ -352,7 +352,7 @@ export function scratchblock (stringLatex) {
         }
         break
     }
-    return resultat
+    return resultat as [string, number, number]
   }
   /*********************************************/
   /** *********** Fin de translatex *************/
@@ -388,7 +388,7 @@ export function scratchblock (stringLatex) {
       if (compteur === 0) fin = true
       k++ // MGu pour éviter la boucle infinie
     }
-    if (!fin) window.notify('Il y a un problème avec le scratchblock, une commande certainement non gérée : ' + JSON.stringify(stringLatex))
+    if (!fin) window.notify('Il y a un problème avec le scratchblock, une commande certainement non gérée : ', { stringLatex })
     codeScratch += '</pre>\n'
   }
   return codeScratch
@@ -408,7 +408,7 @@ export class RoseDesVents extends ObjetMathalea2D {
     this.bordures = [-6, -6, 6, 6]
   }
 
-  svg (coeff) {
+  svg (coeff: number) {
     function cadran () {
       let group = '<g>\n'
       for (let alpha = 0; alpha < 360; alpha += 15) {
@@ -417,7 +417,7 @@ export class RoseDesVents extends ObjetMathalea2D {
       return group + '</g>\n'
     }
 
-    function sorientera (angle) {
+    function sorientera (angle: number) {
       return `<g id="sorientera${angle}" style="transform: scale(0.675)">
 <g transform="translate(0 0)">
 <g transform="translate(2 1)">
