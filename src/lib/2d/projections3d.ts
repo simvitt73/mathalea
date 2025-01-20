@@ -45,7 +45,7 @@ export class Pave extends ObjetMathalea2D {
       this.objets.push(afficheCoteSegment(segment(A, D), '', 1))
       this.objets.push(afficheCoteSegment(segment(F, B), h + ' cm', 1))
     }
-    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets)
+    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { xmin: 0, xmax: 0, ymin: 0, ymax: 0 })
     this.bordures = [xmin, ymin, xmax, ymax]
   }
 
