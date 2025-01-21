@@ -48,8 +48,8 @@ export default class RepereBuilder {
   private yLabelListe: number[] | { valeur: number, texte: string }[] = []
   private thickHauteur: number = 0.13
   private axesCouleur: string = 'black'
-  private axeXStyle: string = '->'
-  private axeYStyle: string = '->'
+  xLabelEcart: number = 0.5
+  yLabelEcart: number = 0.5
   xThickListe?: boolean | number[]
   yThickListe?: boolean | number[]
   grilleCouleur?: string
@@ -141,8 +141,8 @@ export default class RepereBuilder {
       yThickListe: this.yThickListe ?? false,
       precisionLabelX: 1,
       precisionLabelY: 1,
-      xLabelEcart: 0.5,
-      yLabelEcart: 0.5,
+      xLabelEcart: this.xLabelEcart,
+      yLabelEcart: this.yLabelEcart,
       xLegende: '',
       xLegendePosition: [],
       yLegende: '',
