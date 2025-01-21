@@ -769,16 +769,8 @@ export class Latex2d extends ObjetMathalea2D {
     this.latex = latex
     this.x = x
     this.y = y
-    const cx = Math.cos(this.orientation)
-    const sx = Math.sin(this.orientation)
-    const ratioLettreCm = 0.25
-    const epaisseurTexte = 0.3
-    const longueurTexte = latex.length * ratioLettreCm
-
-    this.bordures = [x - longueurTexte * cx,
-      y - longueurTexte * sx - epaisseurTexte,
-      x + longueurTexte * cx,
-      y + longueurTexte * sx + epaisseurTexte
+    const marge = 0.25
+    this.bordures = [x - marge, y - marge, x + marge, y + marge
     ]
   }
 
