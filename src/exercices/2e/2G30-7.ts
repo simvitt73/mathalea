@@ -1,6 +1,6 @@
 import { droite } from '../../lib/2d/droites'
 import { repere } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
@@ -45,25 +45,27 @@ export default class Lecturegraphiquedeaetb extends Exercice {
   }
 
   nouvelleVersion () {
-    for (let i = 0, a, b, r, c, d, A, B, droiteAB, choix, s1, s2, o, texte, texteCorr, cpt = 0;
+    for (let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
-      b = randint(-5, 5) // ordonnée à l'origine
+      let texte = ''
+      let texteCorr = ''
+      const b = randint(-5, 5) // ordonnée à l'origine
 
-      choix = context.isAmc ? 1 : choice([1, 1, 1, 1, 2])
+      const choix = context.isAmc ? 1 : choice([1, 1, 1, 1, 2])
 
-      d = this.sup === 1 ? 1 : choice([4, 5, 3]) * choice([-1, 1]) // dénominateur coefficient directeur
-      a = this.sup === 1 ? randint(-5, 5) : choice([d + 1, d - 1]) * choice([-1, 1])// coefficient directeur
+      let d = this.sup === 1 ? 1 : choice([4, 5, 3]) * choice([-1, 1]) // dénominateur coefficient directeur
+      let a = this.sup === 1 ? randint(-5, 5) : choice([d + 1, d - 1]) * choice([-1, 1])// coefficient directeur
       if (a === 0 && b === 0) {
         d = this.sup === 1 ? 1 : choice([4, 5, 3]) * choice([-1, 1])// dénominateur coefficient directeur
         a = this.sup === 1 ? randint(-5, 5) : choice([d + 1, d - 1]) * choice([-1, 1])// coefficient directeur
       } // On évite la situation de double nullité
       const coeffDir = new FractionEtendue(a, d)
-      A = point(a, 5, 'A')// droite horizontale
-      B = point(a, -5, 'B')// droite horizontale
-      droiteAB = droite(A, B)// droite horizontale
+      const A = point(a, 5, 'A')// droite horizontale
+      const B = point(a, -5, 'B')// droite horizontale
+      const droiteAB = droite(A, B)// droite horizontale
       droiteAB.color = colorToLatexOrHTML('red')// droite horizontale
       droiteAB.epaisseur = 2// droite horizontale
-      r = repere({
+      const r = repere({
         xMin: -8,
         xMax: 8,
         yMin: -8,
@@ -81,10 +83,10 @@ export default class Lecturegraphiquedeaetb extends Exercice {
         grilleSecondaireXMin: -8,
         grilleSecondaireXMax: 8
       })
-      c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
+      const c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
       c.color = colorToLatexOrHTML('red')
       c.epaisseur = 2
-      o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.5, -0.5, 0, 'black', 1)
       texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
       texte += mathalea2d({
         xmin: -8,
@@ -120,7 +122,8 @@ export default class Lecturegraphiquedeaetb extends Exercice {
           texteCorr += '$'
 
           texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $y=${miseEnEvidence(reduireAxPlusB(coeffDir, b))}$.<br>`
-
+          let s1: Segment
+          let s2: Segment
           if (b + a < -8 || b + a > 8) { // Si cela sort du cadre
             s1 = segment(-d, b - a, 0, b - a, 'blue')
             s1.epaisseur = 4
@@ -156,8 +159,8 @@ export default class Lecturegraphiquedeaetb extends Exercice {
                     texte: 'coefficient directeur',
                     valeur: coeffDir.toNumber(),
                     param: {
-                      digits: this.sup1 === 1 ? 1 : 3,
-                      decimals: this.sup1 === 1 ? 0 : 2,
+                      digits: this.sup === 1 ? 1 : 3,
+                      decimals: this.sup === 1 ? 0 : 2,
                       signe: true,
                       approx: 0
                     }

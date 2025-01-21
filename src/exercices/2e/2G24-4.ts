@@ -49,8 +49,12 @@ export default class Calculercoordonneesproduitvecteurs extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
       listeOfCase: ['t1', 't2', 't3']
-    })
-    for (let i = 0, wx, wy, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    }).map(String)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let wx: FractionEtendue
+      let wy: FractionEtendue
       switch (listeTypeDeQuestions[i]) {
         case 't1': { // On donne 2 vecteurs à coordonnées entières & k entier
           let uy, vy
@@ -97,14 +101,16 @@ export default class Calculercoordonneesproduitvecteurs extends Exercice {
           const a = choice([-1, 1])
           const frac2 = choice(listeFractions1)
           const vx = new FractionEtendue(frac2[0], frac2[1])
-          const vy = new FractionEtendue(randint(-9, 9, [0]), 1)
+          // const vy = new FractionEtendue(randint(-9, 9, [0]), 1)
+          const vy = randint(-9, 9, [0])
           wx = vx.produitFraction(k.multiplieEntier(a)).ajouteEntier(ux).simplifie()
-          wy = vy.produitFraction(k.multiplieEntier(a)).ajouteEntier(uy).simplifie()
-
-          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy.texFraction}\\end{pmatrix}$.<br>`
+          // vy est un entier... pourquoi ne pas utiliser un number (JC Lhote le 21/01/2025 lors du passage à typescript)
+          //   wy = vy.produitFraction(k.multiplieEntier(a)).ajouteEntier(uy).simplifie()
+          wy = k.multiplieEntier(a * vy).ajouteEntier(ux).simplifie()
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}$.`
 
-          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFraction}\\times ${vx.texFraction}\\\\[0.7em]${uy}${signe(a)}${k.texFSD}\\times${vy.texFraction}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.`
+          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFraction}\\times ${vx.texFraction}\\\\[0.7em]${uy}${signe(a)}${k.texFSD}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
@@ -118,7 +124,8 @@ export default class Calculercoordonneesproduitvecteurs extends Exercice {
         }
           break
 
-        case 't3': { // On donne 4 points à coordonnées entières & k entier
+        case 't3':
+        default:{ // On donne 4 points à coordonnées entières & k entier
           const xA = randint(-9, 9)
           const yA = randint(-9, 9, xA)
           const xB = randint(-9, 9, xA)

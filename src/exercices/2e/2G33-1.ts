@@ -30,8 +30,20 @@ export default class Alignementdetroispoints extends Exercice {
   nouvelleVersion () {
     const typeQuestionsDisponibles = ['oui', 'non'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, xA, yA, xB, yB, xC, yC, k, n1, d1, n2, d2, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
+      let xA: number
+      let xB: number
+      let xC: number
+      let yA: number
+      let yB: number
+      let yC: number
+      let n1: number
+      let d1: number
+      let n2: number
+      let d2: number
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'non':
           xA = randint(-5, 5)
@@ -69,11 +81,12 @@ export default class Alignementdetroispoints extends Exercice {
 
           break
         case 'oui':
+        default:{
           xA = randint(-4, 4)
           yA = randint(-4, 4)
           xB = randint(-4, 4, xA)
           yB = randint(-4, 4)
-          k = randint(-3, 3, [0, 1])
+          const k = randint(-3, 3, [0, 1])
           xC = xA + (xB - xA) * k
           yC = yA + (yB - yA) * k
           n1 = yB - yA
@@ -102,10 +115,11 @@ export default class Alignementdetroispoints extends Exercice {
           texteCorr += '<br>Les droites $(AB)$ et $(AC)$ ont le même coefficient directeur, elles sont donc parallèles. '
           texteCorr += '<br>Le point $A$ appartenant aux deux droites parallèles, $(AB)$ et $(AC)$ sont des droites confondues.'
           texteCorr += '<br>On en déduit que les points $A$, $B$ et $C$ sont alignés. '
+        }
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB, xC, yC)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -57,16 +57,22 @@ export default class CoefficientDirecteurDeDroite extends Exercice {
       }
     }
 
-    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let xA: number
+      let xB: number
+      let yA: number
+      let yB: number
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'Droite oblique':
+        case 'Droite oblique':{
           xA = randint(-5, 5)
           yA = randint(-5, 5)
           xB = randint(-5, 5, xA)
           yB = randint(-5, 5)
-          n = yB - yA
-          d = xB - xA
+          let n = yB - yA
+          let d = xB - xA
 
           texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B\\neq x_A$.'
@@ -141,14 +147,14 @@ export default class CoefficientDirecteurDeDroite extends Exercice {
               ]
             }
           }
+        }
           break
         case 'Droite verticale':
+        default:
           xA = randint(-5, 5)
           yA = randint(-5, 5)
           xB = xA
           yB = randint(-5, 5)
-          n = yB - yA
-          d = xB - xA
 
           texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B = x_A$.'
@@ -211,7 +217,6 @@ export default class CoefficientDirecteurDeDroite extends Exercice {
               ]
             }
           }
-
           break
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: '<br>Coefficient directeur de la droite $(AB)$ :' })

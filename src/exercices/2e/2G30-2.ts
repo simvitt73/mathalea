@@ -47,7 +47,18 @@ export default class EquationReduiteDeDroites extends Exercice {
       else this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
     }
 
-    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let xA: number
+      let xB: number
+      let yA: number
+      let yB: number
+      let xu: number
+      let yu: number
+      let n: number
+      let d: number
+      let texte = ''
+      let texteCorr = ''
+      let reponse: string[] | string
       if (this.sup === 1) { // case 'A et B':
         xA = randint(-7, 7)
         yA = randint(-7, 7)
@@ -97,7 +108,7 @@ export default class EquationReduiteDeDroites extends Exercice {
         }
       }
       const nomDroite = this.sup === 1 ? 'AB' : 'd'
-      if (this.sup === 1 && xA === xB) {
+      if (this.sup === 1 && xA === xB!) {
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$(${nomDroite}) :$` })
         reponse = [`x=${xA}`, `${xA}=x`]
       } else {
@@ -121,12 +132,12 @@ export default class EquationReduiteDeDroites extends Exercice {
       texteCorr += `<br>$${yA}=${new FractionEtendue(n, d).texFractionSimplifiee} \\times ${ecritureParentheseSiNegatif(xA)} +p$`
       texteCorr += `<br>$\\iff p=${yA}${new FractionEtendue(-n, d).simplifie().texFractionSignee} \\times ${ecritureParentheseSiNegatif(xA)}$`
       texteCorr += `<br>$\\iff p=${new FractionEtendue(d * yA - n * xA, d).texFractionSimplifiee}$`
-      texteCorr += `<br>Au final, $(${nomDroite}) : y = ${miseEnEvidence(reponse)}$.`
+      texteCorr += `<br>Au final, $(${nomDroite}) : y = ${miseEnEvidence(Array.isArray(reponse) ? reponse[0] : reponse)}$.`
       // if (d * yA - n * xA !== 0) { // cas ou p!=0 :
-      if (this.sup === 1 && yA === yB) {
+      if (this.sup === 1 && yA === yB!) {
         texteCorr = `On constate que $y_A=y_B=${yA}$, c'est donc une droite horizontale d'équation $y = ${miseEnEvidence(yA)}$.`
       }
-      if (this.sup === 1 && xA === xB) {
+      if (this.sup === 1 && xA === xB!) {
         texteCorr = `On constate que $x_A=x_B=${xA}$, c'est donc une droite verticale d'équation $ ${miseEnEvidence(`x =${xA}`)}$.`
       }
       // }
