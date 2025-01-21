@@ -195,7 +195,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           }
           texte = `${triangleEquilateral.getNom()} est un triangle tel que ${triangleEquilateral.getLongueurs()[0]} $= ${texNombre(triangleEquilateral.l1)}$ cm ; `
           texte += `${triangleEquilateral.getLongueurs()[1]} $= ${texNombre(triangleEquilateral.l2)}$ cm et ${triangleEquilateral.getLongueurs()[2]} $= ${texNombre(triangleEquilateral.l3)}$ cm.`
-          texteCorr = `Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
+          texteCorr = `Les longueurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
           break
         case 6: // triangle équilatéral avec conversion
           while (!triangleEquilateral.isTrueTriangleLongueurs()) {
@@ -211,7 +211,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           texteCorr = `${triangleEquilateral.getLongueurs()[1]} $= ${texNombre(triangleEquilateral.l2 * 10)}$ mm $= ${triangleEquilateral.l2}$ cm.`
           texteCorr += `<br> ${triangleEquilateral.getLongueurs()[2]} $= ${texNombre(triangleEquilateral.l3 / 10)}$ dm $= ${texNombre(triangleEquilateral.l3)}$ cm.`
           texteCorr += `<br> ${triangleEquilateral.getLongueurs()[0]} $= ${texNombre(triangleEquilateral.l1)}$ cm.`
-          texteCorr += `<br> Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
+          texteCorr += `<br> Les longueurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
           break
         case 7: // triangle rectangle pas de conversion nécessaire
           l1 = randint(longueurMin, longueurMax)

@@ -1254,7 +1254,7 @@ Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm
         sortie.reponse = texNombre(l / 2, 1)
         sortie.texte = `Le rectangle B est une réduction du rectangle A.${context.isHtml ? '' : '\\\\'} Quelle est la largeur du rectangle B ?<br>`
         sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
-        sortie.texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longeur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
+        sortie.texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longueur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
 Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
                         `
         break

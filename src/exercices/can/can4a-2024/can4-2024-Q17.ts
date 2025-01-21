@@ -105,7 +105,7 @@ export default class NomExercice extends Exercice {
           style: 'margin: auto'
         }, objets2)
 
-        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}$ cm, la longeur du rectangle est donc égale à  $${L + l}-${l}=${miseEnEvidence(this.reponse)}$ cm.`
+        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}$ cm, la longueur du rectangle est donc égale à  $${L + l}-${l}=${miseEnEvidence(this.reponse)}$ cm.`
       }
     }
     this.canEnonce = this.question

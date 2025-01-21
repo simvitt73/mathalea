@@ -67,10 +67,10 @@ export function pythagoreCompare (input: string, goodAnswer: string) {
         if (inputSum.operator !== 'Add') return { isOk: false, feedback: 'Le carré de l\'hypoténuse est égal à la $somme$ des carrés des deux autres côtés.' }
         // le premier terme de la saisie est-il un carré ?
         if (!['Square', 'Power'].includes(inputT1.operator)) return { isOk: false, feedback: 'Il manque au moins un carré.' }
-        const L1 = ordreAlphabetique(inputT1.ops![0].toString()) // on met la longeur saisie dans l'ordre alphabétique
+        const L1 = ordreAlphabetique(inputT1.ops![0].toString()) // on met la longueur saisie dans l'ordre alphabétique
         // le deuxième terme de la saisie est-il un carré ?
         if (!['Square', 'Power'].includes(inputT2.operator)) return { isOk: false, feedback: 'Il manque au moins un carré.' }
-        const L2 = ordreAlphabetique(inputT2.ops![0].toString())// on met la longeur saisie dans l'ordre alphabétique
+        const L2 = ordreAlphabetique(inputT2.ops![0].toString())// on met la longueur saisie dans l'ordre alphabétique
         const LL1 = ordreAlphabetique(answerT1.ops![0].toString()) // Ces longueurs sont déjà dans l'ordre alphabétique
         const LL2 = ordreAlphabetique(answerT2.ops![0].toString())
         // on teste les deux possibilités identiques ou croisées
