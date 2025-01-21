@@ -45,7 +45,11 @@ export default class Calculercoordonneesegalitevecteurs extends Exercice {
       nbQuestions: this.nbQuestions,
       listeOfCase: ['t1', 't2', 't3']
     })
-    for (let i = 0, xB, yB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let xB: FractionEtendue
+      let yB: FractionEtendue
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         case 't1': { // On donne 2 points et 1 vecteur
           const ux = randint(-9, 9, [0])
@@ -165,7 +169,8 @@ export default class Calculercoordonneesegalitevecteurs extends Exercice {
         }
           break
 
-        case 't3': { // On donne 3 points & k entier
+        case 't3':
+        default: { // On donne 3 points & k entier
           const xA = randint(-9, 9, [0])
           const yA = randint(-9, 9, [0])
           const xC = randint(-9, 9, [0])

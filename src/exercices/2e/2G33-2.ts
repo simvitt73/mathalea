@@ -31,13 +31,20 @@ export default class PositionsDeDroites extends Exercice {
     const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] //, 'type1', 'type2' On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, a1, b1, c1, k, a2, b2, c2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      a1 = randint(-9, 9, 0)
-      texte = 'On donne : $(d) : '
+      const a1 = randint(-9, 9, 0)
+      let texte = 'On donne : $(d) : '
       if (a1 !== 0) {
         texte += `${reduireAxPlusB(a1, 0)}`
       }
+      let texteCorr = ''
+      let b1: number
+      let c1: number
+      let a2: number
+      let b2: number
+      let c2: number
+      let k: number = 0
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           b1 = randint(-9, 9, 0)
@@ -47,6 +54,7 @@ export default class PositionsDeDroites extends Exercice {
           c2 = randint(-9, 9)
           break
         case 'type2':
+        default:
           b1 = randint(-9, 5, 0)
           c1 = randint(-5, 5)
           k = randint(-9, 9, [0, 1])
@@ -61,7 +69,7 @@ export default class PositionsDeDroites extends Exercice {
       if (b1 === -1) { // cas où b=1
         texte += '- y '
       }
-      if (b1 !== 1 & b1 !== 0 & b1 !== -1) { // cas général
+      if (b1 !== 1 && b1 !== 0 && b1 !== -1) { // cas général
         texte += `${ecritureAlgebrique(b1)} y `
       }
       if (c1 !== 0) {
@@ -78,7 +86,7 @@ export default class PositionsDeDroites extends Exercice {
       if (b2 === -1) { // cas où b=1
         texte += '- y '
       }
-      if (b2 !== 1 & b2 !== 0 & b2 !== -1) { // cas général
+      if (b2 !== 1 && b2 !== 0 && b2 !== -1) { // cas général
         texte += `${ecritureAlgebrique(b2)} y `
       }
       if (c2 !== 0) {
@@ -108,11 +116,11 @@ export default class PositionsDeDroites extends Exercice {
         texteCorr += '<br>On observe que le déterminant est nul. <br>Les vecteurs directeurs des deux droites sont donc colinéaires.'
         texteCorr += '<br>Les droites $(d)$ et $(d\')$ sont alors parallèles.'
       }
-      if (a1 * b2 === a2 * b1 & a1 * c1 === a2 * c2 & b1 * c2 === b2 * c1) {
+      if (a1 * b2 === a2 * b1 && a1 * c1 === a2 * c2 && b1 * c2 === b2 * c1) {
         texteCorr += 'On observe même que dans cette situation, les équations étant multiples l\'une de l\'autre, les deux droites sont confondues.'
       }
 
-      if (this.questionJamaisPosee(i, a1, b1, c1, b2, c2, a2)) {
+      if (this.questionJamaisPosee(i, a1, b1, c1, b2, c2, a2, k)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
