@@ -34,8 +34,24 @@ export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'
-    for (let i = 0, texte, texteCorr, reponse, a1, a2, a, b1, b2, aa1, bb, aa2, aaa, bb1, bb2, bb3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      let a1 = 0
+      let a2 = 0
+      let a = 0
+      let b1 = 0
+      let b2 = 0
+      let aaa = 0
+      let aa1 = 0
+      let aa2 = 0
+      let bb = 0
+      let bb1 = 0
+      let bb2 = 0
+      let bb3 = 0
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
+
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -64,6 +80,7 @@ export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
                     $\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
           break
         case 2:
+        default:
           a1 = randint(2, 9) * choice([-1, 1])
           a = randint(2, 11, [4, 8, 9])
           b1 = randint(2, 9) * choice([-1, 1])

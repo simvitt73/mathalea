@@ -32,8 +32,16 @@ export default class Proprietesracinecarree extends Exercice {
     this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]; let typesDeQuestions//,
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, d, e, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      let a = 0
+      let b = 0
+      let c = 0
+      let d = 0
+      let e = 0
+      let texte = ''
+      let texteCorr = ''
+      let monQcm: { texte: string, texteCorr: string }
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -49,7 +57,6 @@ export default class Proprietesracinecarree extends Exercice {
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${c}$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$${c}$`,
@@ -86,7 +93,6 @@ export default class Proprietesracinecarree extends Exercice {
                         $\\phantom{${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}}=${e * b}$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$${e * b}$`,
@@ -123,7 +129,6 @@ export default class Proprietesracinecarree extends Exercice {
                         $\\phantom{${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)}=${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
@@ -159,7 +164,6 @@ export default class Proprietesracinecarree extends Exercice {
           texteCorr = `$  \\sqrt{${b}}+\\sqrt{${c}}$ n'est pas simplifiable`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\sqrt{${b + c}}$`,
@@ -192,7 +196,6 @@ export default class Proprietesracinecarree extends Exercice {
           texteCorr = `$  \\sqrt{${b * b}}+\\sqrt{${c * c}}=${b}+${c}=${b + c}$ `
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\sqrt{${b + c}}$`,
@@ -227,7 +230,6 @@ export default class Proprietesracinecarree extends Exercice {
                         $\\phantom{\\sqrt{\\dfrac{${d}}{${c}}}}=${b}$ `
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\sqrt{${b}}$`,
@@ -266,7 +268,6 @@ export default class Proprietesracinecarree extends Exercice {
                         $\\phantom{\\sqrt{${d}}\\times \\sqrt{${c}}}=${c}\\sqrt{${b}}$ `
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: `$${c * b}$`,

@@ -63,12 +63,18 @@ export default class EnsembleDeNombres extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, d, texte, texteCorr, signeAjoute, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let a = 0
+      let b = 0
+      let c = 0
+      let d = 0
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-
+          b = 0
           a = randint(0, 150)
 
           texte = `$${a} \\in $`
@@ -140,15 +146,16 @@ export default class EnsembleDeNombres extends Exercice {
           texteCorr = `$\\dfrac{${a}}{${b}}=${texNombre(a / b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{D}$.`
           setReponse(this, i, '\\mathbb{D}')
           break
-        case 8:
-
+        case 8:{
           a = randint(2, 99, [4, 9, 16, 25, 36, 49, 64, 81])
-          signeAjoute = choice(['', '-'])
+          const signeAjoute = choice(['', '-'])
           texte = `$${signeAjoute}\\sqrt{${a}} \\in $`
           texteCorr = `$${signeAjoute}\\sqrt{${a}}$ est un nombre irrationnel car ${a} n'est pas le carré d'un nombre entier, décimal ou fractionnaire. On a donc $${signeAjoute}\\sqrt{${a}}\\in \\mathbb{R}$.`
           setReponse(this, i, '\\mathbb{R}')
+        }
           break
         case 9:
+        default:
           a = randint(2, 20)
           a = choice([a, -a])
           texte = `$${a}\\pi \\in $`

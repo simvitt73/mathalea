@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Effectuer des calculs littéraux avec des puissances et leurs règles de calculs'
@@ -49,14 +49,18 @@ export default class PuissancesDUnRelatif2 extends Exercice {
     )
 
     for (
-      let i = 0, base, exp, texte, texteCorr, reponseInteractive, exposantInteractif, cpt = 0;
+      let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
 
       const variables = ['x', 'y', 'a', 'b']
-      base = variables[randint(0, variables.length - 1)]
-      texte = ''
+      const base = variables[randint(0, variables.length - 1)]
+      let texte = ''
+      let texteCorr = ''
+      let exp: number[]
+      let reponseInteractive = ''
+      // let exposantInteractif = 0 // AMC désactivé le 22/01/2025 par JCL)
       switch (typesDeQuestions) {
         case 1: // (x^a·x²)/(x^b·x^c)
           exp = [randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1])] // on a besoin de 3 exposants distincts
@@ -76,7 +80,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
-          exposantInteractif = exp[0] + 2 - exp[1] - exp[2]
+          // exposantInteractif = exp[0] + 2 - exp[1] - exp[2]
           break
         case 2: // (x^a·x³)/(x^b)
           exp = [randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1])] // on a besoin de 2 exposants distincts
@@ -92,7 +96,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${exp[0] + 3 - exp[1]}}`
-          exposantInteractif = exp[0] + 3 - exp[1]
+          // exposantInteractif = exp[0] + 3 - exp[1]
           break
         case 3: // (x·x^a)/(x²)^b
           exp = [randint(-7, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
@@ -117,7 +121,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${1 + exp[0] - 2 * exp[1]}}`
-          exposantInteractif = 1 + exp[0] - 2 * exp[1]
+          // exposantInteractif = 1 + exp[0] - 2 * exp[1]
           break
         case 4: // (x·x^a)/(x²·x²)
           exp = [randint(-7, 7, [0, 1])] // on a besoin de 1 exposant
@@ -134,7 +138,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${1 + exp[0] - 4}}`
-          exposantInteractif = 1 + exp[0] - 4
+          // exposantInteractif = 1 + exp[0] - 4
           break
         case 5: // (x²)^a/x
           exp = [randint(-7, 7, [0, 1])] // on a besoin de 1 exposant
@@ -147,7 +151,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += `=${base}^{${2 * exp[0] - 1}}$`
           // Inutile de tester l'exposant final car il vaut au minimum 3
           reponseInteractive = `${base}^{${2 * exp[0] - 1}}`
-          exposantInteractif = 2 * exp[0] - 1
+          // exposantInteractif = 2 * exp[0] - 1
           break
         case 6: // (x³)^a/x
           exp = [randint(-3, 3, [0, 1])] // on a besoin de 1 exposant
@@ -159,7 +163,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += `=${base}^{${3 * exp[0] - 1}}$`
           // inutile de tester l'exposant final car il vaut au minimum 5
           reponseInteractive = `${base}^{${3 * exp[0] - 1}}`
-          exposantInteractif = 3 * exp[0] - 1
+          // exposantInteractif = 3 * exp[0] - 1
           break
         case 7: // (x^a·x^b)/(x²)^c·x
           exp = [randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1]), randint(-4, 4, [0, 1])] // on a besoin de 3 exposants distincts
@@ -182,9 +186,10 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
-          exposantInteractif = exp[0] + exp[1] + 1 - 2 * exp[2]
+          // exposantInteractif = exp[0] + exp[1] + 1 - 2 * exp[2]
           break
         case 8: // (x³·x)/(x²)^c
+        default:
           exp = [randint(-7, 7, [0, 1])] // on a besoin de 1 exposant
           texte += `$\\dfrac{${base}^3\\times ${base}}{(${base}^2)^{${exp[0]}}}$`
           texteCorr = `$\\dfrac{${base}^3\\times ${base}}{(${base}^2)^{${exp[0]}}}`
@@ -199,20 +204,21 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${3 + 1 - 2 * exp[0]}}`
-          exposantInteractif = 3 + 1 - 2 * exp[0]
+          // exposantInteractif = 3 + 1 - 2 * exp[0]
           break
       }
       if (this.interactif && !context.isAmc) {
         handleAnswers(this, i, { reponse: { value: reponseInteractive, options: { puissance: true } } })
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
       }
-      if (context.isAmc) {
+      // Pour moi, cela ne peut pas fonctionner : base est une chaine de caractère alors qu'AMC va attendre un nombre ! (JCL le 22/01/2025 lors du typage en typescript)
+      /* if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {
           formatInteractif: 'puissance',
           basePuissance: base,
-          exposantPuissance: exposantInteractif
+          exposantPuissance: // exposantInteractif
         })
-      }
+      } */
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')
       let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -225,7 +231,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      if (this.questionJamaisPosee(i, exp, base)) {
+      if (this.questionJamaisPosee(i, exp.map(String).join(), base)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

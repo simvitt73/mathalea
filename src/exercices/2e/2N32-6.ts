@@ -36,7 +36,15 @@ export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'
-    for (let i = 0, a, b, c, d = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let a = 0
+      let b = 0
+      let c = 0
+      let d = 0
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
+
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
@@ -89,6 +97,7 @@ export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
                     $\\phantom{${texte}}=${a * a * b} ${ecritureAlgebrique(2 * a * c)}\\sqrt{${b}\\times${d}} ${ecritureAlgebrique(c * c * d)}$<br>`
           break
         case 5:
+        default:
           a = randint(2, 6) * choice([-1, 1])
           b = randint(2, 11, [4, 8, 9])
           c = randint(2, 6)

@@ -41,12 +41,15 @@ export default class ConversionsPuissancesDe10 extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque `cycle`
     const listeDeSens = combinaisonListes(['div', 'fois'], this.nbQuestions)
     let exposantReponse
-    let uniteOrdre = []
+
     let correctionDetail
-    for (let i = 0, a, n, unite, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = choice([calculANePlusJamaisUtiliser(randint(1, 9) + randint(1, 9) / 10), calculANePlusJamaisUtiliser(randint(11, 99) + randint(1, 9) / 10 + randint(1, 9) / 100), calculANePlusJamaisUtiliser(randint(11, 999) + randint(1, 9) / 10)], calculANePlusJamaisUtiliser(randint(10000, 99999) / 100))
-      texte = ''
-      texteCorr = ''
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = choice([calculANePlusJamaisUtiliser(randint(1, 9) + randint(1, 9) / 10), calculANePlusJamaisUtiliser(randint(11, 99) + randint(1, 9) / 10 + randint(1, 9) / 100), calculANePlusJamaisUtiliser(randint(11, 999) + randint(1, 9) / 10)], calculANePlusJamaisUtiliser(randint(10000, 99999) / 100))
+      let texte = ''
+      let texteCorr = ''
+      let n = 0
+      let unite: string[]
+      let uniteOrdre: string[] = []
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'm>km':
           n = randint(6, 12)
@@ -126,6 +129,7 @@ export default class ConversionsPuissancesDe10 extends Exercice {
           ]
           break
         case 'm>nm':
+        default:
           n = listeDeSens[i] === 'div' ? randint(3, 8) : (randint(3, 12, [9, 11]) * (-1))
           uniteOrdre = listeDeSens[i] === 'div' ? ['\\text{nm}', '\\text{m}'] : ['\\text{m}', '\\text{nm}']
           exposantReponse = listeDeSens[i] === 'div' ? n - 9 : n + 9
