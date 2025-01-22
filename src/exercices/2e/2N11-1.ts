@@ -1,6 +1,6 @@
-import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles'
-import { point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+import { CrochetD, crochetD, CrochetG, crochetG, intervalle } from '../../lib/2d/intervalles'
+import { Point, point } from '../../lib/2d/points'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
@@ -35,23 +35,25 @@ export default class IntervallesDeR extends Exercice {
   nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       typeDeQuestion = listeTypeDeQuestions[i]
 
-      s = segment(0, 0, 12, 0)
+      const s = segment(0, 0, 12, 0)
       s.styleExtremites = '->'
-      X1 = point(0, 0)
-      X2 = point(12, 0)
-
-      int = intervalle(X1, X2, 'black', 0)
+      const X1 = point(0, 0)
+      let X2 = point(12, 0)
+      let a: number, b: number, c: number, A: Point, B: Point, c1: CrochetG, c2: CrochetD, int1: Segment
+      const int = intervalle(X1, X2, 'black', 0)
       switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
           a = randint(1, 15)
           b = randint(a, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
@@ -70,8 +72,8 @@ export default class IntervallesDeR extends Exercice {
         case 2:
           a = randint(1, 15)
           b = randint(a, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           X2 = point(12, 0)
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
@@ -91,8 +93,8 @@ export default class IntervallesDeR extends Exercice {
         case 3:
           a = randint(1, 15)
           b = randint(a, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
@@ -111,8 +113,8 @@ export default class IntervallesDeR extends Exercice {
         case 4:
           a = randint(1, 15)
           b = randint(a, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
@@ -132,8 +134,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetD(B, 'red')
@@ -155,8 +157,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetD(B, 'red')
@@ -178,8 +180,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
@@ -201,8 +203,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
@@ -224,8 +226,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
@@ -246,8 +248,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
@@ -268,8 +270,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(6, 0, b)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetD(B, 'red')
@@ -290,8 +292,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(2, 0, a)
-          B = point(12, 0, b)
+          A = point(2, 0, String(a))
+          B = point(12, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
 
@@ -310,8 +312,8 @@ export default class IntervallesDeR extends Exercice {
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(7, 0, a)
-          B = point(12, 0, b)
+          A = point(7, 0, String(a))
+          B = point(12, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
 
@@ -328,11 +330,12 @@ export default class IntervallesDeR extends Exercice {
           texteCorr += `$x < ${a}$`
           break
         case 14:
+        default:
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
-          A = point(7, 0, a)
-          B = point(12, 0, b)
+          A = point(7, 0, String(a))
+          B = point(12, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
 
@@ -357,7 +360,12 @@ export default class IntervallesDeR extends Exercice {
             reponse = reponse.substring(0, reponse.length - 1)// et on vire le $ de la fin.
             handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } })
           } else {
-            reponse = texteCorr.match(/\$(.*)\$/g)[0] // On prend ce qui est entre les $ $.
+            const rep = texteCorr.match(/\$(.*)\$/g)
+            if (rep != null && rep.length > 0) reponse = rep[0] as string// On prend ce qui est entre les $ $.
+            else {
+              window.notify('Il y a un problème de réponse', { rep })
+              reponse = ''
+            }
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
