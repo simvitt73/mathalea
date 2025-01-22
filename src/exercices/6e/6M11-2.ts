@@ -84,18 +84,21 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
   }
 
   nouvelleVersion () {
+    const singulierPluriel = this.nbQuestions === 1 ? 'la figure suivante' : 'les figures suivantes'
+    const singulierPluriel2 = this.nbQuestions === 1 ? 'de la figure suivante' : 'des figures suivantes'
+
     switch (this.sup4) {
       case 4:
-        this.consigne = 'Décomposer les figures suivantes en plusieurs figures simples.'
+        this.consigne = `Décomposer ${singulierPluriel} en plusieurs figures simples.`
         break
       case 3:
-        this.consigne = 'Calculer le périmètre et l\'aire des figures suivantes.'
+        this.consigne = `Calculer le périmètre et l'aire ${singulierPluriel2}.`
         break
       case 2:
-        this.consigne = 'Calculer l\'aire des figures suivantes.'
+        this.consigne = `Calculer l'aire ${singulierPluriel2}.`
         break
       default:
-        this.consigne = 'Calculer le périmètre des figures suivantes.'
+        this.consigne = `Calculer le périmètre ${singulierPluriel2}.`
         break
     }
 
@@ -540,10 +543,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
         }
       }
       if (this.sup4 === 1 || this.sup4 === 3 || this.sup4 === 4) {
-        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), '  unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ' })
+        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), '  unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
       }
       if (this.sup4 === 2 || this.sup4 === 3 || this.sup4 === 4) {
-        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), '  unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ' })
+        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), '  unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
