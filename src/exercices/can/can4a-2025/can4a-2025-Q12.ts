@@ -24,7 +24,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q12 extends ExerciceCan {
-  private enonce (a?: number, b?: number) {
+  enonce (a?: number, b?: number) {
     if (a == null || b == null) {
       b = randint(11, 25)
       a = choice([true, false]) ? randint(4, Math.round(b / 2) - 1) : randint(Math.round(b / 2) - 1, b - 4)

@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q11 extends ExerciceCan {
-  private enonce (a?: number, b?: number) {
+  enonce (a?: number, b?: number) {
     if (a == null || b == null) {
       const listeFractions = [[1, 3], [3, 4], [1, 5], [2, 3], [2, 5], [3, 5], [4, 5], [1, 6], [1, 4]]
       const fraction = choice(listeFractions)

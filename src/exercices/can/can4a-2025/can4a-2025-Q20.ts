@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q20 extends ExerciceCan {
-  private enonce (a?: string) {
+  enonce (a?: string) {
     const listeSolides = ['pavé droit',
       'cube',
       'tétraèdre',

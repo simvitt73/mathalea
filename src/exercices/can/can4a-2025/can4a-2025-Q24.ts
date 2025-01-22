@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q24 extends ExerciceCan {
-  private enonce (a?: string, b?:string, c?:number) {
+  enonce (a?: string, b?:string, c?:number) {
     let parts = 3
     if (a == null || b == null || c == null) {
       a = prenomF() as string

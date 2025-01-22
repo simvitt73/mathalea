@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q14 extends ExerciceCan {
-  private enonce (a?: number, b?: number, couleur1?: string, couleur2?: string) {
+  enonce (a?: number, b?: number, couleur1?: string, couleur2?: string) {
     const listeCouleurs = ['noires', 'rouges', 'vertes', 'bleues', 'jaunes', 'blanches']
     if (a == null || b == null || couleur1 == null || couleur2 == null) {
       a = randint(5, 15)
