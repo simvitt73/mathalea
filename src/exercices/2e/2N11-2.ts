@@ -1,9 +1,9 @@
-import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles'
-import { point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+import { CrochetD, crochetD, CrochetG, crochetG, intervalle } from '../../lib/2d/intervalles'
+import { Point, point } from '../../lib/2d/points'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { mathalea2d, Vide2d, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
@@ -34,13 +34,34 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typeDeQuestion
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const X1 = point(0, 0)
     const X2 = point(12, 0)
-    for (let i = 0, a, b, c, d, s, e, f, test, A, B, C, D, c1, c2, c3, c4, int, int1, int2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typeDeQuestion = listeTypeDeQuestions[i]
-      test = randint(1, 6)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a: number
+      let b: number
+      let c: number
+      let d: number
+      let e: number
+      let f: number
+      let s: Segment
+      let A: Point
+      let B: Point
+      let C: Point
+      let D: Point
+      let c1: CrochetG | Vide2d
+      let c2: CrochetD | Vide2d
+      let c3: CrochetG | Vide2d
+      let c4: CrochetD | Vide2d
+      let int: Segment
+      let int1: Segment
+      let int2: Segment
+
+      const typeDeQuestion = listeTypeDeQuestions[i]
+      const test = randint(1, 6)
       texte = 'Donner une écriture simplifiée, si possible, de '
       // variables qui alternent les ouvertures de crochets
       switch (typeDeQuestion) {
@@ -57,10 +78,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(5, 0, b)
-          C = point(6, 0, c)
-          D = point(9, 0, d)
+          A = point(2, 0, String(a))
+          B = point(5, 0, String(b))
+          C = point(6, 0, String(c))
+          D = point(9, 0, String(d))
           if (test === 1) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -130,10 +151,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(5, 0, b)
-          C = point(6, 0, c)
-          D = point(9, 0, d)
+          A = point(2, 0, String(a))
+          B = point(5, 0, String(b))
+          C = point(6, 0, String(c))
+          D = point(9, 0, String(d))
           if (test === 1) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -216,10 +237,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(6, 0, b)
-          C = point(5, 0, c)
-          D = point(9, 0, d)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
+          C = point(5, 0, String(c))
+          D = point(9, 0, String(d))
           if (test === 1) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -299,10 +320,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(6, 0, b)
-          C = point(5, 0, c)
-          D = point(9, 0, d)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
+          C = point(5, 0, String(c))
+          D = point(9, 0, String(d))
           if (test === 1) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -389,10 +410,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(9, 0, b)
-          C = point(5, 0, c)
-          D = point(7, 0, d)
+          A = point(2, 0, String(a))
+          B = point(9, 0, String(b))
+          C = point(5, 0, String(c))
+          D = point(7, 0, String(d))
           if (test === 1) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -473,10 +494,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(9, 0, b)
-          C = point(5, 0, c)
-          D = point(7, 0, d)
+          A = point(2, 0, String(a))
+          B = point(9, 0, String(b))
+          C = point(5, 0, String(c))
+          D = point(7, 0, String(d))
           if (test === 1) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -562,46 +583,46 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          B = point(5, 0, b)
-          C = point(6, 0, c)
-          D = point(10, 0, d)
+          B = point(5, 0, String(b))
+          C = point(6, 0, String(c))
+          D = point(10, 0, String(d))
           if (test === 1) {
             A = point(0, 0)
-            D = point(10, 0, d)
+            D = point(10, 0, String(d))
             c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 2) {
             A = point(0, 0)
-            D = point(10, 0, d)
+            D = point(10, 0, String(d))
             c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 3) {
             A = point(0, 0)
-            D = point(10, 0, d)
+            D = point(10, 0, String(d))
             c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 4) {
-            A = point(0, 0, a)
+            A = point(0, 0, String(a))
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = vide2d()
           } else if (test === 5) {
-            A = point(0, 0, a)
+            A = point(0, 0, String(a))
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = vide2d()
           } else {
-            A = point(0, 0, a)
+            A = point(0, 0, String(a))
             D = point(15, 0)
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
@@ -658,46 +679,46 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          B = point(5, 0, b)
-          C = point(6, 0, c)
+          B = point(5, 0, String(b))
+          C = point(6, 0, String(c))
 
           if (test === 1) {
             A = point(0, 0)
-            D = point(10, 0, d)
+            D = point(10, 0, String(d))
             c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 2) {
             A = point(0, 0)
-            D = point(10, 0, d)
+            D = point(10, 0, String(d))
             c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 3) {
             A = point(0, 0)
-            D = point(10, 0, d)
+            D = point(10, 0, String(d))
             c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 4) {
-            A = point(0, 0, a)
+            A = point(0, 0, String(a))
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = vide2d()
           } else if (test === 5) {
-            A = point(0, 0, a)
+            A = point(0, 0, String(a))
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = vide2d()
           } else {
-            A = point(0, 0, a)
+            A = point(0, 0, String(a))
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
@@ -755,10 +776,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(6, 0, b)
-          C = point(5, 0, c)
-          D = point(9, 0, d)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
+          C = point(5, 0, String(c))
+          D = point(9, 0, String(d))
           c1 = crochetG(A, 'red')
           c2 = crochetD(B, 'red')
           c3 = crochetD(C, 'blue')
@@ -773,6 +794,7 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           texteCorr += `$I=[${c};${b}[$`
           break
         case 10:
+        default:
           a = randint(1, 15)
           e = a + 4
           b = randint(29, 45)
@@ -783,10 +805,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           s = segment(0, 0, 10, 0)
           s.styleExtremites = '->'
 
-          A = point(2, 0, a)
-          B = point(6, 0, b)
-          C = point(5, 0, c)
-          D = point(9, 0, d)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
+          C = point(5, 0, String(c))
+          D = point(9, 0, String(d))
           c1 = crochetG(A, 'red')
           c2 = crochetD(B, 'red')
           c3 = crochetG(C, 'blue')
@@ -813,7 +835,7 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
         xmax: 15,
         ymax: 2
       }, listeObjets)
-      if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, String(c))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`, { texteAvant: '<br>$I=$' })
           handleAnswers(this, i, { reponse: { value: aRemplacer, options: { intervalle: true } } })

@@ -42,12 +42,18 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
       typeDeQuestionsDisponibles = ['Encadrer2']
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['Encadrer3']
-    } else if (this.sup === 4) {
+    } else {
       typeDeQuestionsDisponibles = ['Encadrer1', 'Encadrer2', 'Encadrer3']
     }
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, texte, texteCorr, reponse, reponse1, reponse2, r1, r2, r1b, r1c, r2b, r2c, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a: number = 0
+      let b: number = 0
+      let c: number = 0
+      let reponse: number
       switch (listeTypeQuestions[i]) {
         case 'Encadrer1':
 
@@ -66,12 +72,12 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
           setReponse(this, 2 * i, reponse)
           setReponse(this, 2 * i + 1, reponse + 1)
           break
-        case 'Encadrer2':
+        case 'Encadrer2':{
           a = randint(3, 143, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121])
           b = randint(-9, 9, 0)
           c = randint(-9, 9, [0, 1])
-          reponse1 = b + c * Math.floor(Math.sqrt(a))
-          reponse2 = b + c * Math.floor(Math.sqrt(a) + 1)
+          const reponse1 = b + c * Math.floor(Math.sqrt(a))
+          const reponse2 = b + c * Math.floor(Math.sqrt(a) + 1)
           texte = `En utilisant un encadrement  de $\\sqrt{${a}}$ par  deux entiers consécutifs, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
@@ -105,21 +111,20 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
             setReponse(this, 2 * i, reponse2)
             setReponse(this, 2 * i + 1, reponse1)
           }
-
+        }
           break
 
         case 'Encadrer3':
+        default:{
           a = randint(3, 143, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121])
           b = randint(-9, 9, 0)
           c = randint(-9, 9, [0, 1])
-          r1 = new Decimal(arrondi(Math.sqrt(a) - 0.05, 1))
-          r1c = new Decimal(r1).mul(c)
-          r1b = new Decimal(arrondi(r1c)).add(b)
-          r2 = new Decimal(arrondi(Math.sqrt(a) + 0.05, 1))
-          r2c = new Decimal(r2).mul(c)
-          r2b = new Decimal(arrondi(r2c)).add(b)
-          reponse1 = a
-          reponse2 = a
+          const r1 = new Decimal(arrondi(Math.sqrt(a) - 0.05, 1))
+          const r1c = new Decimal(r1).mul(c)
+          const r1b = new Decimal(arrondi(r1c.toNumber())).add(b)
+          const r2 = new Decimal(arrondi(Math.sqrt(a) + 0.05, 1))
+          const r2c = new Decimal(r2).mul(c)
+          const r2b = new Decimal(arrondi(r2c.toNumber())).add(b)
           texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
@@ -148,11 +153,11 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
             setReponse(this, 2 * i, r2b)
             setReponse(this, 2 * i + 1, r1b)
           }
-
+        }
           break
       }
 
-      if (this.questionJamaisPosee(i, a, b, c)) {
+      if (this.questionJamaisPosee(i, a, b, c, listeTypeQuestions[i])) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
