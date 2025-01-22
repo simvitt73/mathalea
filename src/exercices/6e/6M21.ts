@@ -81,6 +81,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       objets, texte, texteCorr, paramsEnonce, monQcmPerimetre, monQcmAire, hauteur,
       reponseAire1, reponseAire2, reponseAire3;
       q < this.nbQuestions && cpt < 50;) {
+      compteurInteractif = this.sup2 === 3 ? 2 * q : q
       let choixFigAire2: [Point, Point][] | [Point, Point, number][] = []
       objets = []
       A = point(0, 0)
