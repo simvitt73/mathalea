@@ -13,27 +13,26 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- test
-- build-projet
-- playwright-testCanEleve
-- playwright-test
-- playwright-testLycee
-- playwright-pdf
-- playwright-pdfDNB
-- playwright-pdfBAC
+  - test
+  - build-projet
+  - playwright-testCanEleve
+  - playwright-test
+  - playwright-testLycee
+  - playwright-pdf
+  - playwright-pdfDNB
+  - playwright-pdfBAC
 
 sast:
   stage: test
 include:
-- template: Security/SAST.gitlab-ci.yml
-
+  - template: Security/SAST.gitlab-ci.yml
 
 default:
   image: node:18.16.0
   cache:
     key:
       files:
-      - pnpm-lock.yaml
+        - pnpm-lock.yaml
     paths:
       - .pnpm-store
 
@@ -61,7 +60,7 @@ default:
     - sleep 10
     - until $(curl --output /dev/null --head --fail http://localhost:80/alea/); do printf '.'; sleep 10; done
     - sleep 30
-  
+
 .install_dependenciesPDFDNB:
   before_script:
     - pnpm config set store-dir .pnpm-store
@@ -98,19 +97,19 @@ default:
   stage: playwright-pdf
   allow_failure: true
   rules:
-  - if: $CI_COMMIT_BRANCH == "guironne-jobs"
-    when: manual
-  - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
-    when: manual
-  - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "PDF"
-    when: always
-  - when: never
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+      when: manual
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "PDF"
+      when: always
+    - when: never
   retry:
     max: 2
-    when: 
-    - runner_system_failure
-    - script_failure
-    - unknown_failure
+    when:
+      - runner_system_failure
+      - script_failure
+      - unknown_failure
   artifacts:
     when: always
     paths:
@@ -126,23 +125,23 @@ default:
   stage: playwright-test
   allow_failure: true
   rules:
-  - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
-    when: never
-  - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
-    when: always
-  - if: $CI_COMMIT_BRANCH == "guironne-jobs"
-    when: manual
-  - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
-    when: always
-  - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
-    when: always
-  - when: never
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+      when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
+      when: always
+    - when: never
   retry:
     max: 2
-    when: 
-    - runner_system_failure
-    - script_failure
-    - unknown_failure
+    when:
+      - runner_system_failure
+      - script_failure
+      - unknown_failure
   artifacts:
     when: always
     paths:
@@ -207,16 +206,24 @@ testCan6e5e4e3ePDF:
     - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:pdfexports
     - pnpm -v
 
-testBAC20202024PDF:
-  extends: 
+testE3C20202024PDF:
+  extends:
     - .testCIPDF
     - .install_dependenciesPDFBAC
   stage: playwright-pdfBAC
   script:
-    - NIV=bac_2023^bac_2022^bac_2021 pnpm test:e2e:pdfexports
+    - NIV=e3c_2024^e3c_2023^e3c_2022^e3c_2021 pnpm test:e2e:pdfexports
+
+testBAC20202024PDF:
+  extends:
+    - .testCIPDF
+    - .install_dependenciesPDFBAC
+  stage: playwright-pdfBAC
+  script:
+    - NIV=bac_2024^bac_2023^bac_2022^bac_2021 pnpm test:e2e:pdfexports
 
 testDNB20132015PDF:
-  extends: 
+  extends:
     - .testCIPDF
     - .install_dependenciesPDFDNB
   stage: playwright-pdfDNB
@@ -224,7 +231,7 @@ testDNB20132015PDF:
     - NIV=dnb_2013^dnb_2014^dnb_2015 pnpm test:e2e:pdfexports
 
 testDNB20162019PDF:
-  extends: 
+  extends:
     - .testCIPDF
     - .install_dependenciesPDFDNB
   stage: playwright-pdfDNB
@@ -232,12 +239,12 @@ testDNB20162019PDF:
     - NIV=dnb_2016^dnb_2017^dnb_2018^dnb_2019 pnpm test:e2e:pdfexports
 
 testDNB20202024PDF:
-  extends: 
+  extends:
     - .testCIPDF
     - .install_dependenciesPDFDNB
   stage: playwright-pdfDNB
   script:
-    - NIV=dnb_2020^dnb_2021^dnb_2022^dnb_2023 pnpm test:e2e:pdfexports
+    - NIV=dnb_2020^dnb_2021^dnb_2022^dnb_2023^dnb_2024 pnpm test:e2e:pdfexports
 
 test6ePDF:
   extends: .testCIPDF
@@ -286,7 +293,7 @@ build:
     - echo "$CI_COMMIT_AUTHOR"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+    - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
       when: never
     - when: always
   artifacts:
@@ -298,8 +305,8 @@ playwright-testCanEleve:
   script:
     - pnpm test:e2e:views
   rules:
-#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-#       when: always
+    #     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    #       when: always
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
