@@ -63,7 +63,7 @@ export interface ReponseParams {
 export type clickFigures = { id: string; solution: boolean }[]
 
 export type AnswerType = {
-  value: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms
+  value: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
   compare?: CompareFunction
   options?: OptionsComparaisonType
 }
