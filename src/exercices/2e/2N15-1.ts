@@ -28,8 +28,13 @@ export default class ValeurAbsolue extends Exercice {
   nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      let a = 0
+      let b = 0
+      let c = 0
+      let texte = ''
+      let texteCorr = ''
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -50,6 +55,7 @@ export default class ValeurAbsolue extends Exercice {
 
           break
         case 3:
+        default:
 
           a = randint(2, 5)
           b = randint(2, 7, 4)

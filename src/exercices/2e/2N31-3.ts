@@ -49,11 +49,16 @@ export default class PuissancesDUnRelatif2 extends Exercice {
     )
 
     for (
-      let i = 0, base, exp, texte, texteCorr, reponseInteractive, exposantInteractif, cpt = 0;
+      let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
-
+      let base = 0
+      let exp:number[] = []
+      let texte = ''
+      let texteCorr = ''
+      let reponseInteractive = ''
+      let exposantInteractif = 0
       switch (typesDeQuestions) {
         case 1:
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire

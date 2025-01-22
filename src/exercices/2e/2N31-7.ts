@@ -39,8 +39,12 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
       this.consigne = this.nbQuestions === 1 ? 'Trouver l\'exposant manquant dans l\'égalité suivante.' : 'Trouver l\'exposant manquant dans les égalités suivantes.'
     }
 
-    for (let i = 0, texte, texteCorr, mantisse1, exp1, decalage, mantisse, exp, scientifiquestring, cpt = 0;
+    for (let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
+      let decalage = 0
+      let mantisse = 0
+      let exp = 0
+
       switch (this.sup - 1) {
         case 0:
           decalage = randint(-1, 1, 0)
@@ -72,14 +76,14 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
           break */
       }
       // nombre = calcul(mantisse * 10 ** exp)
-      mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
-      exp1 = exp - decalage
+      const mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
+      const exp1 = exp - decalage
 
       // decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`
-      scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
+      const scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
 
-      texteCorr = `$${scientifiquestring}=${miseEnEvidence(texNombre(mantisse1) + `\\times 10^{${-decalage}}`, 'blue')}\\times  10^{${exp}}=${texNombre(mantisse1)} \\times 10^{${miseEnEvidence(-decalage + '+' + ecritureParentheseSiNegatif(exp), 'blue')}}= ${mantisse1} \\times 10^{${miseEnEvidence(exp1)}}$`
-      texte = `$${scientifiquestring}=${texNombre(mantisse1)}\\times 10^{${miseEnEvidence('....', 'black')}}$`
+      const texteCorr = `$${scientifiquestring}=${miseEnEvidence(texNombre(mantisse1) + `\\times 10^{${-decalage}}`, 'blue')}\\times  10^{${exp}}=${texNombre(mantisse1)} \\times 10^{${miseEnEvidence(-decalage + '+' + ecritureParentheseSiNegatif(exp), 'blue')}}= ${mantisse1} \\times 10^{${miseEnEvidence(exp1)}}$`
+      let texte = `$${scientifiquestring}=${texNombre(mantisse1)}\\times 10^{${miseEnEvidence('....', 'black')}}$`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
@@ -107,7 +111,7 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
 
       const props = propositionsQcm(this, i)
       if (this.interactif) texte += props.texte
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, decalage, mantisse, exp)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
