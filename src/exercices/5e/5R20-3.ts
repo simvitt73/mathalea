@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { sommeDesTermesParSigne } from '../../lib/outils/calculs'
 import {
   ecritureAlgebrique,
@@ -7,7 +7,7 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
-import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
@@ -15,6 +15,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
@@ -45,6 +46,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
     super()
     this.nbQuestions = 4
     this.sup = 20
+    this.sup3 = false
     this.sup2 = 1
     this.consigne = 'Calculer.'
     this.spacing = 2
@@ -56,6 +58,8 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
     this.amcReady = amcReady
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Numerique = ['Type de questions', 3, 'Tous les nombres entre parenthèses \n2 : Seul les termes négatifs sont entre parenthèses \n3 : Écriture simplifiée']
+    this.besoinFormulaire3CaseACocher = ['Avec des nombres décimaux']
+    // this.comment = "Si l'option « Avec des nombres décimaux » est activée, 2 fois sur 3 les nombres auront un chiffre après la virgule et une fois sur 3 un seul terme aura deux chiffres après la virgule."
   }
 
   nouvelleVersion () {
@@ -69,46 +73,53 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
     if (this.interactif) {
       this.spacing = 3
     }
+    const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let c, relatifs
       let texte = ''
       let texteCorr = ''
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      const a = randint(1, this.sup) * choice([-1, 1])
-      const b = randint(1, this.sup) * choice([-1, 1])
+      let CoefDecimales = this.sup3 ? 10 : 1
+      let a = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
+      let b = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
       if (a * b > 0) {
         // On s'assure que les 3 premières termes n'ont pas le même signe
-        c = randint(1, this.sup) * (a > 0 ? -1 : 1)
+        c = randint(1, this.sup * CoefDecimales) / CoefDecimales * (a > 0 ? -1 : 1)
       } else {
-        c = randint(1, this.sup) * choice([-1, 1])
+        c = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
       }
-      const d = randint(1, this.sup) * choice([-1, 1])
-      const e = randint(1, this.sup) * choice([-1, 1])
+      CoefDecimales = this.sup3 ? partieDecimaleAUnChiffre[i] ? 10 : 100 : 1
+      let d = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
+      let e = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
+      if (choice([true, false])) {
+        [a, b, c, d, e] = shuffle([a, b, c, d, e])
+      }
+
       const s1 = 1 // Que des additions
       const s2 = 1
       const s3 = 1
       const s4 = 1
       const reponse = a + b + c + d + e
       if (this.sup2 === 3) {
-        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
+        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(a, 2)}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
                     e
                 )}$`
 
-        texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
+        texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${texNombre(a, 2)}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
                     e
                 )}$`
-        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} $`
-        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${a + b + c + d + e} $`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(sommeDesTermesParSigne([a, b, c, d, e])[0], 2)}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} $`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(a + b + c + d + e, 2)}$`
       } else if (this.sup2 === 2) {
-        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a} + ${ecritureParentheseSiNegatif(b)} + ${ecritureParentheseSiNegatif(c)} + ${ecritureParentheseSiNegatif(d)} + ${ecritureParentheseSiNegatif(
+        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(a, 2)} + ${ecritureParentheseSiNegatif(b)} + ${ecritureParentheseSiNegatif(c)} + ${ecritureParentheseSiNegatif(d)} + ${ecritureParentheseSiNegatif(
                     e
                 )}$`
 
-        texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a} + ${ecritureParentheseSiNegatif(b)} + ${ecritureParentheseSiNegatif(c)} + ${ecritureParentheseSiNegatif(d)} + ${ecritureParentheseSiNegatif(
+        texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${texNombre(a, 2)} + ${ecritureParentheseSiNegatif(b)} + ${ecritureParentheseSiNegatif(c)} + ${ecritureParentheseSiNegatif(d)} + ${ecritureParentheseSiNegatif(
                     e
                 )}$`
-        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]} + ${ecritureParentheseSiNegatif(sommeDesTermesParSigne([a, b, c, d, e])[1])}$`
-        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${a + b + c + d + e} $`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(sommeDesTermesParSigne([a, b, c, d, e])[0], 2)} + ${ecritureParentheseSiNegatif(sommeDesTermesParSigne([a, b, c, d, e])[1])}$`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(a + b + c + d + e, 2)} $`
       } else if (this.sup2 === 1) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
                     c
@@ -126,8 +137,10 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
         }
         const sommesSignees = sommeDesTermesParSigne([relatifs[0], relatifs[1], relatifs[2], relatifs[3], relatifs[4]])
         if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
+          sommesSignees[0] = arrondi(sommesSignees[0], 2)
+          sommesSignees[1] = arrondi(sommesSignees[1], 2)
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e)}$<br>`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(arrondi(a + s1 * b + s2 * c + s3 * d + s4 * e, 2))}$<br>`
         } else if (sommesSignees[0] !== 0) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0])}$`
         } else {
