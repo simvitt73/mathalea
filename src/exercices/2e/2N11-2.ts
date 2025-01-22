@@ -39,14 +39,16 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
     const X1 = point(0, 0)
     const X2 = point(12, 0)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let texte = ''
+      const typeDeQuestion = listeTypeDeQuestions[i]
+      const test = randint(1, 6)
+      let texte = 'Donner une écriture simplifiée, si possible, de '
       let texteCorr = ''
-      let a: number
-      let b: number
-      let c: number
-      let d: number
-      let e: number
-      let f: number
+      let a = 0
+      let b = 0
+      let c = 0
+      let d = 0
+      let e = 0
+      let f = 0
       let s: Segment
       let A: Point
       let B: Point
@@ -60,9 +62,6 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
       let int1: Segment
       let int2: Segment
 
-      const typeDeQuestion = listeTypeDeQuestions[i]
-      const test = randint(1, 6)
-      texte = 'Donner une écriture simplifiée, si possible, de '
       // variables qui alternent les ouvertures de crochets
       switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite

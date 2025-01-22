@@ -33,19 +33,26 @@ export default class IntervallesDeR extends Exercice {
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typeDeQuestion
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typeDeQuestion = listeTypeDeQuestions[i]
       let texte = ''
       let texteCorr = ''
-      typeDeQuestion = listeTypeDeQuestions[i]
-
       const s = segment(0, 0, 12, 0)
       s.styleExtremites = '->'
       const X1 = point(0, 0)
-      let X2 = point(12, 0)
-      let a: number, b: number, c: number, A: Point, B: Point, c1: CrochetG, c2: CrochetD, int1: Segment
+      const X2 = point(12, 0)
+
       const int = intervalle(X1, X2, 'black', 0)
+      let a: number
+      let b: number
+      let A: Point
+      let B: Point
+      let c1: CrochetG
+      let c2: CrochetD
+      let int1: Segment
+      let c = 0
       switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -74,7 +81,6 @@ export default class IntervallesDeR extends Exercice {
           b = randint(a, 25)
           A = point(2, 0, String(a))
           B = point(6, 0, String(b))
-          X2 = point(12, 0)
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
@@ -360,13 +366,11 @@ export default class IntervallesDeR extends Exercice {
             reponse = reponse.substring(0, reponse.length - 1)// et on vire le $ de la fin.
             handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } })
           } else {
-            const rep = texteCorr.match(/\$(.*)\$/g)
-            if (rep != null && rep.length > 0) reponse = rep[0] as string// On prend ce qui est entre les $ $.
-            else {
-              window.notify('Il y a un problème de réponse', { rep })
-              reponse = ''
+            const rep = texteCorr.match(/\$(.*)\$/g) // On prend ce qui est entre les $ $.
+            if (rep !== null) {
+              reponse = rep[0] as string
+              handleAnswers(this, i, { reponse: { value: reponse } })
             }
-            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
         }

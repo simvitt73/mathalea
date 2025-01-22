@@ -55,14 +55,17 @@ export default class Rendreentier extends Exercice {
       melange: 4,
       defaut: 4,
       nbQuestions: this.nbQuestions
-    })
+    }).map(Number)
 
-    for (let i = 0, a, b, c, d, n, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(2, 11)
-      b = randint(2, 11, [4, 8, 9])
-      c = randint(2, 9)
-      d = randint(-7, 7, [-1, 0, 1])
-
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = randint(2, 11)
+      const b = randint(2, 11, [4, 8, 9])
+      const c = randint(2, 9)
+      const d = randint(-7, 7, [-1, 0, 1])
+      let n = 0
+      let reponse = ''
+      let texte = ''
+      let texteCorr = ''
       switch (listeQuestions[i]) {
         case 1 :
           n = pgcd(a, b)
@@ -108,8 +111,9 @@ export default class Rendreentier extends Exercice {
           }
           break
         case 3:
+        default:
         {
-          d = randint(2, 9)
+          const d = randint(2, 9)
 
           texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{x}} $ définie sur $D=\\left]${new FractionEtendue(c ** 2, d ** 2).texFSD};+\\infty\\right[$`
           texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$ au dénominateur.'

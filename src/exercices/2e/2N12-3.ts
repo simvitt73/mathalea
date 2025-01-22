@@ -1,10 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
-import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -53,7 +51,9 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
       let a: number = 0
       let b: number = 0
       let c: number = 0
-      let reponse: number
+      let reponse = 0
+      let reponse1 = 0
+      let reponse2 = 0
       switch (listeTypeQuestions[i]) {
         case 'Encadrer1':
 
@@ -114,17 +114,16 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
         }
           break
 
-        case 'Encadrer3':
-        default:{
+        case 'Encadrer3':{
           a = randint(3, 143, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121])
           b = randint(-9, 9, 0)
           c = randint(-9, 9, [0, 1])
-          const r1 = new Decimal(arrondi(Math.sqrt(a) - 0.05, 1))
-          const r1c = new Decimal(r1).mul(c)
-          const r1b = new Decimal(arrondi(r1c.toNumber())).add(b)
-          const r2 = new Decimal(arrondi(Math.sqrt(a) + 0.05, 1))
-          const r2c = new Decimal(r2).mul(c)
-          const r2b = new Decimal(arrondi(r2c.toNumber())).add(b)
+          const r1 = Math.sqrt(a) - 0.05
+          const r1c = r1 * c
+          const r1b = r1c + b
+          const r2 = Math.sqrt(a) + 0.05
+          const r2c = r2 * c
+          const r2b = r2c + b
           texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
