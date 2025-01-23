@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '95adb'
 // déréférencé car inutile
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 
 export default class CalculHauteurMontagne extends problemesTrigoLongueur {
   constructor () {
