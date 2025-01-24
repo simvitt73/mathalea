@@ -10,7 +10,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
@@ -33,6 +33,18 @@ export const refs = {
   'fr-fr': ['6M21'],
   'fr-ch': ['9GM1-10']
 }
+
+/** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
+ * @param {number} a borne inférieure
+ * @param {number} b borne supérieure
+ * @author Eric Elter
+ * @returns {number}
+ */
+function entreDeux (a: number, b: number) {
+  if (a < b) return arrondi(a + (b - a) * randint(10, 90) / 100, 2)
+  else return arrondi(b + (a - b) * randint(10, 90) / 100, 2)
+}
+
 export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
   constructor () {
     super()
@@ -75,25 +87,20 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     else if (this.sup2 === 2) aireOuPerimetre = 'Aire'
 
     let compteurInteractif = 0
-    for (let q = 0, cpt = 0, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T,
-      rayonOuCote, pt1, pt2, figAire1, figAire2, figAireCorr, figAireCorr2, figAire2Corr, choixFig, choixFig2, angleCorr,
-      aleaAngle, aleaLongueur, aleaRayon, aleaDemiDisque, aleaPente, aleaRapportHomothetie, d1, d2, d3, d4, poly, rect,
-      objets, texte, texteCorr, paramsEnonce, monQcmPerimetre, monQcmAire, hauteur,
-      reponseAire1, reponseAire2, reponseAire3;
-      q < this.nbQuestions && cpt < 50;) {
+    for (let q = 0, cpt = 0; q < this.nbQuestions && cpt < 50;) {
       compteurInteractif = this.sup2 === 3 ? 2 * q : q
       let choixFigAire2: [Point, Point][] | [Point, Point, number][] = []
-      objets = []
-      A = point(0, 0)
-      B = point(randint(5, 10), 0)
-      C = point(B.x, randint(5, 10, B.x))
-      D = point(0, C.y)
-      rect = polygone([A, B, C, D])
+      const objets = []
+      const A = point(0, 0)
+      const B = point(randint(5, 10), 0)
+      const C = point(B.x, randint(5, 10, B.x))
+      const D = point(0, C.y)
+      const rect = polygone([A, B, C, D])
       rect.hachures = true
       rect.pointilles = 2
-      reponseAire1 = false
-      reponseAire2 = false
-      reponseAire3 = false
+      const reponseAire1 = false
+      const reponseAire2 = false
+      const reponseAire3 = false
       const comparePerimetre = choice(['grand', 'petit']) // ToDo : Appliquer la même chose pour les aires
       if (this.sup2 === 4) aireOuPerimetre = choice(['Aire', 'Perimetre'])
 
