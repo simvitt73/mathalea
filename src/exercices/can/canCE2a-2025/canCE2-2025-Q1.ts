@@ -46,11 +46,10 @@ export default class Can2025CE2Q1 extends ExerciceCan {
       this.correction += ` $${a}+${complementADix}=${a + complementADix}$`
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = `$${a} + \\ldots\\ldots = ${b}$`
+    this.canReponseACompleter = `$${a} + \\ldots = ${b}$`
     if (this.interactif) {
-      this.question = `${a} + %{champ1} = ${b}`
+      this.question = `${a} ~+~ %{champ1} = ${b}`
     }
-    this.formatInteractif = 'fillInTheBlank'
   }
 
   nouvelleVersion () {
