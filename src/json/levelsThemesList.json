@@ -996,7 +996,39 @@
         "titre":"Géométrie dans l'espace"
       },
   "TExC1": {
-    "titre": "Calculs avec nombres complexes",
+    "titre": "Point de vue algébrique",
+    "sousThemes": {}
+  },
+  "TExC2": {
+    "titre": "Point de vue géométrique",
+    "sousThemes": {}
+  },
+  "TExC3": {
+    "titre": "Nombres Complexes et trigonométrie",
+    "sousThemes": {}
+  },
+  "TExC4": {
+    "titre": "Equations polynomiales dans $\\mathbb C$",
+    "sousThemes": {}
+  },
+  "TExM1": {
+    "titre": "Les Matrices",
+    "sousThemes": {}
+  },
+  "TExM2": {
+    "titre": "Les graphes",
+    "sousThemes": {}
+  },
+  "TExA1": {
+    "titre": "Divisibilité dans $\\mathbb Z$",
+    "sousThemes": {}
+  },
+  "TExA2": {
+    "titre": "Théorèmes de Bezout et Gauss",
+    "sousThemes": {}
+  },
+  "TExA3": {
+    "titre": "Nombres premiers",
     "sousThemes": {}
   },
   "TQCM": {
