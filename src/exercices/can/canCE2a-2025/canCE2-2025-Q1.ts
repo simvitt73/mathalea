@@ -24,7 +24,27 @@ export default class Can2025CE2Q1 extends ExerciceCan {
     }
     this.reponse = { champ1: { value: b - a } }
     this.question = `$${a} + \\ldots = ${b}$`
-    this.correction = `Pour trouver le nombre manquant, on peut calculer $${b}-${a}=${miseEnEvidence(texNombre(b - a, 0))}$.`
+    this.correction = `Pour trouver le nombre manquant, on peut calculer $${b}-${a}=${miseEnEvidence(texNombre(b - a, 0))}$.<br>
+    On peut aussi procéder par compléments :<br>`
+    if (b - a > 10) {
+      const complementADix = a % 0 > 0 ? 10 - a % 10 : 0
+      const dizaine = a + complementADix
+      const centaineSup = Math.ceil(dizaine / 100) * 100
+      const complementACent = centaineSup - dizaine
+      if (complementADix > 0) {
+        this.correction += `$${a}+${complementADix}=${dizaine}$.<br>`
+      }
+      this.correction += `$${dizaine}+ ${complementACent} = ${centaineSup}$.<br>`
+      let complementACent2 = 0
+      if (centaineSup !== b) {
+        complementACent2 = b - centaineSup
+        this.correction += `$${centaineSup}+${complementACent2}=${b}$.<br>`
+      }
+      this.correction += `Donc au final, il a fallu ajouter : $${complementADix > 0 ? `${complementADix}+` : ''}${complementACent}${complementACent2 > 0 ? `+${complementACent2}` : ''}=${miseEnEvidence(b - a)}$.`
+    } else {
+      const complementADix = 10 - a % 10
+      this.correction += ` $${a}+${complementADix}=${a + complementADix}$`
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = `$${a} + \\ldots\\ldots = ${b}$`
     if (this.interactif) {
