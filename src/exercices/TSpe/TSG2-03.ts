@@ -50,8 +50,9 @@ export default class nomExercice extends Exercice {
           texteCorr += `<br>$\\iff \\begin{cases}${rienSi1(a)} t=${xM}${ecritureAlgebriqueSauf1(-xA)}\\\\${rienSi1(b)} t=${yM}${ecritureAlgebriqueSauf1(-yA)}\\\\${rienSi1(c)} t=${zM}${ecritureAlgebriqueSauf1(-zA)}\\end{cases}$<br>`
           texteCorr += `<br>$\\iff \\begin{cases}${rienSi1(a)} t=${xM - xA}\\\\${rienSi1(b)} t=${yM - yA}\\\\${rienSi1(c)} t=${zM - zA}\\end{cases}$<br>`
           texteCorr += `<br>$\\iff \\begin{cases} t=${t}\\\\ t=${t}\\\\t=${t}\\end{cases}$`
-          texteCorr += `<br>Le système a pour solution $t=${t}$ donc le point M appartient à la droite  $(\\Delta)$.`
+          texteCorr += '<br>Le système admet donc une solution, ce qui prouve que le point M appartient à la droite  $(\\Delta)$.'
           break
+
         case 'type2':// défavorable
         default :
           xM = xA + t * a
@@ -73,8 +74,9 @@ export default class nomExercice extends Exercice {
 
           break
       }
-      texte = `Déterminer si le point $M(${xM};${yM};${zM})$ appartient à la droite $(\\Delta)$ dont on donne la représentation paramétrique ci-dessous :<br>`
+      texte = 'Soit $(\\Delta)$ la droite dont on donne une représentation paramétrique ci-dessous :<br>'
       texte += `$(\\Delta) \\begin{cases}x=${xA}${ecritureAlgebriqueSauf1(a)} t\\\\y=${yA}${ecritureAlgebriqueSauf1(b)} t\\quad (t\\in\\mathbb{R})\\\\z=${zA}${ecritureAlgebriqueSauf1(c)} t\\end{cases}$`
+      texte += `<br>Déterminer si le point $M(${xM};${yM};${zM})$ appartient à la droite $(\\Delta)$.`
 
       if (this.questionJamaisPosee(i, a, b, c, xA, yA, zA, t, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
