@@ -10,7 +10,6 @@ import { droite } from '../../../lib/2d/droites'
 import { labelPoint } from '../../../lib/2d/textes'
 import { translation } from '../../../lib/2d/transformations'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { rienSi1 } from '../../../lib/outils/ecritures'
 
 export const titre = 'Partage d\'un segment'
 export const interactifReady = true
@@ -31,6 +30,11 @@ export default class Can2025N5Q18 extends ExerciceCan {
       b = randint(3, 6, 5)
       a = randint(1, b - 1)
       c = randint(4, 9) * b / 10
+      do {
+        b = randint(3, 6, 5)
+        a = randint(1, b - 1)
+        c = randint(4, 9) * b / 10
+      } while (b === 2 * a)
     }
     const A = point(0, 0, 'A', 'above')
     const B = point(7 * a / b, 0, 'B', 'above')
@@ -58,18 +62,30 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const codages = codageSegments('//', 'black', ...pts)
     codages.echelle = 0.6
     const labels = labelPoint(A, B)
-
-    this.reponse = 90 - a
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.reponse = texNombre(a * c / b, 2)
     this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30, style: 'display: inline-block' }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: -0.2 })), [s, s2, codages, ps, labels, l])}`
-    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>
-    Il mesure donc : $\\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}=${rienSi1(a)}${a === 1 ? '' : '\\times'}\\dfrac{${texNombre(c, 1)}}{${b}}=${miseEnEvidence(texNombre(a * c / b, 1))}$ cm.`
+    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>`
+    if (a === 1) {
+      this.correction += `$\\begin{aligned}
+    \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}&=\\dfrac{${texNombre(c, 1)}}{${b}}\\\\
+    &=${texNombre(c, 1)}\\div ${b}\\\\
+    &=${miseEnEvidence(texNombre(a * c / b, 1))} \\text{ cm}
+    \\end{aligned}$`
+    } else {
+      this.correction += `$\\begin{aligned}
+      \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}&=${a}\\times\\dfrac{${texNombre(c, 1)}}{${b}}\\\\
+      &=${a}\\times ${texNombre(c / b, 1)}\\\\
+      &=${miseEnEvidence(texNombre(a * c / b, 1))} \\text{ cm}
+      \\end{aligned}$`
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$AB=\\ldots$ cm'
     this.optionsChampTexte = { texteApres: ' cm' }
     if (this.interactif) {
-      this.question += '$AB=$'
+      this.question += '<br>$AB=$'
     } else if (context.isHtml) {
-      this.question += '$AB=\\ldots$'
+      this.question += '<br>$AB=\\ldots$ cm'
     }
   }
 

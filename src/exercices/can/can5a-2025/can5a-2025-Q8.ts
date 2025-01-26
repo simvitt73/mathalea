@@ -23,9 +23,10 @@ export default class Can2025N5Q8 extends ExerciceCan {
       a = randint(2, 9) + randint(1, 9) / 10 + choice([0, 0, randint(1, 9)]) / 1000
       b = choice([100, 1000])
     }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = (a * b).toFixed(1)
     this.question = `$${texNombre(a, 3)}\\times ${b}$`
-    this.correction = `Le nombre d'unité est rendu ${b === 100 ? 'cent fois' : 'mille fois'} plus grand, donc :<br>
+    this.correction = `Le nombre d'unités est rendu ${b === 100 ? 'cent fois' : 'mille fois'} plus grand, donc :<br>
     $${texNombre(a, 4)}\\times ${b} = ${miseEnEvidence(texNombre(a * b, 0))}$`
     this.canEnonce = this.question
     if (this.interactif) {
