@@ -30,7 +30,7 @@ export default class Can2025N5Q7 extends ExerciceCan {
     this.correction = `$${b}$ s $=${new FractionEtendue(b, 60).simplifie().texFraction}$ min $=${texNombre(b / 60, 2)}$ min.<br>
     
     
-    Ainsi, $${a}$ min $${b}$ s $=$ $${a}$ min $+ ${texNombre(b / 60, 2)}$ min $=${miseEnEvidence(texNombre(a + b / 60, 2))}$ min.`
+    Ainsi, $${a}$ min $${b}$ s $=$ $${a}$ min $ + $ $${texNombre(b / 60, 2)}$ min $=${miseEnEvidence(texNombre(a + b / 60, 2))}$ min.`
     this.canEnonce = this.question
     this.optionsChampTexte = { texteApres: ' min' }
     this.canReponseACompleter = '$\\ldots\\ldots$ min'

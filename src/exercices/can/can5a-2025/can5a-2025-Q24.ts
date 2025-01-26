@@ -55,7 +55,7 @@ export default class Can2025N5Q18 extends ExerciceCan {
       pts.push(p)
       const pSurS = tracePointSurDroite(p, d)
       pSurS.epaisseur = 2
-      pSurS.taille = 0.25
+      pSurS.taille = 0.15
       ps.push(pSurS)
     }
     pts.push(C)
@@ -64,7 +64,7 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const labels = labelPoint(A, B)
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = texNombre(a * c / b, 2)
-    this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30, style: 'display: inline-block' }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: -0.2 })), [s, s2, codages, ps, labels, l])}`
+    this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: -0.2 })), [s, s2, codages, ps, labels, l])}`
     this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>`
     if (a === 1) {
       this.correction += `$\\begin{aligned}

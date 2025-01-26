@@ -28,7 +28,7 @@ export default class Can2025N5Q3 extends ExerciceCan {
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = b / c
     this.question = `${a} de $${b}$ `
-    this.correction = `${a} de $${b}$, c'est : $${b}\\div ${c} = ${miseEnEvidence(texNombre(b / c, 0))}$`
+    this.correction = `${a} de $${b}$ est égal à : $${b}\\div ${c} = ${miseEnEvidence(texNombre(b / c, 0))}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (this.interactif) {

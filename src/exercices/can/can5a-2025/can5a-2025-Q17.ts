@@ -29,7 +29,7 @@ export default class Can2025N5Q17 extends ExerciceCan {
     this.reponse = a * b
     this.question = `$${texNombre(a, 1)}$ ${prefixe}m $=$`
     this.correction = `$1\\text{ ${prefixe}m} = ${texNombre(b, 0)}\\text{ m}$, 
-    donc $${texNombre(a, 1)}\\text{ ${prefixe}m} =${texNombre(a, 1)} \\times ${texNombre(b, 0)}\\text{ m}=${miseEnEvidence(`${texNombre(a * b, 0)}`)}$ m.`
+    donc $${texNombre(a, 1)}\\text{ ${prefixe}m} =${texNombre(a, 1)} \\times ${texNombre(b, 0)}\\text{ m}=${miseEnEvidence(`${texNombre(a * b, 0)}`)} \\text{ m}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ m'
     this.optionsChampTexte = { texteApres: ' m' }

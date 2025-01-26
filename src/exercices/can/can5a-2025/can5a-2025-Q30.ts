@@ -38,8 +38,8 @@ export default class Can2025N5Q30 extends ExerciceCan {
     const C = point3d(0, 3, 0)
     const D = point3d(0, 0, -3)
     const pav = pave3d(A, B, C, D)
-    const la = latex2d(`${texNombre(a, 0)}\\text{m}`, -0.5, -1.5, { })
-    const lb = latex2d(`${texNombre(b, 0)}\\text{m}`, 7.3, -2.7, { })
+    const la = latex2d(`${texNombre(a, 0)}\\text{ m}`, -0.5, -1.5, { })
+    const lb = latex2d(`${texNombre(b, 0)}\\text{ m}`, 7.3, -2.7, { })
     const lc = latex2d('?\\text{ m}', 3, -3.4, { })
 
     const v = a * b * c
@@ -48,10 +48,10 @@ export default class Can2025N5Q30 extends ExerciceCan {
     Le volume de ce pavé droit est de $${v}\\text{ m}^3$.<br>`
     this.correction = `On a : $${a}\\times${b}\\times ?=${v}$<br>
     soit $${a * b} \\times ? = ${v}$<br>
-    donc $?=${v}\\div${a * b}=${c}$ soit $${miseEnEvidence(c)}\\text{ m}$`
+    donc $?=${v}\\div${a * b}=${c}$ soit $${miseEnEvidence(c)}\\text{ m}$.`
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.canEnonce = this.question
     this.canReponseACompleter = '$?=\\ldots\\text{ m}$'
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
     this.compare = fonctionComparaison
     this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
     if (this.interactif) {
