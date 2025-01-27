@@ -115,9 +115,11 @@ default:
     paths:
       - tests/e2e/logs
       - updatefile
+    reports:
+      junit: tests/e2e/logs/junit-report.xml
     exclude:
       - updatefile/output/*.*
-    expire_in: 20 day
+    expire_in: 10 day
 
 .testCI:
   extends: .install_dependencies
@@ -146,6 +148,8 @@ default:
     when: always
     paths:
       - tests/e2e/logs
+    reports:
+      junit: tests/e2e/logs/junit-report.xml
     expire_in: 10 day
 
 test6e:
@@ -180,6 +184,12 @@ test1e:
   script:
     - NIV=1e/1 pnpm test:e2e:console_errors
 
+testTExOuTSpeOutechno:
+  extends: .testCI
+  stage: playwright-testLycee
+  script:
+    - NIV=TEx^TSpe^techno pnpm test:e2e:console_errors
+
 testQCM:
   extends: .testCI
   script:
@@ -192,8 +202,15 @@ testCan6e5e4e3e:
 
 testCan2e1e:
   extends: .testCI
+  stage: playwright-testLycee
   script:
     - NIV=can/2e^can/1e pnpm test:e2e:console_errors
+
+testCanExTSpe:
+  extends: .testCI
+  stage: playwright-testLycee
+  script:
+    - NIV=can/Ex^can/TSpe pnpm test:e2e:console_errors
 
 testCan2e1ePDF:
   extends: .testCIPDF
@@ -289,7 +306,7 @@ build:
     - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'

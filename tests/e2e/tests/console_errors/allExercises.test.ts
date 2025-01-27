@@ -35,8 +35,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
 
   try {
     page.on('pageerror', msg => {
-      if (!msg.stack?.includes('mtgLoad') // mtgLoad : 3G22
-      ) {
+      if (msg.message !== 'Erreur de chargement de Mathgraph') { // mtgLoad : 3G22
         messages.push(page.url() + ' ' + msg.stack)
         logError(msg)
       }
@@ -54,6 +53,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
           !msg.text().includes('LaTeX-incompatible input') && // katex
           !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
           !msg.text().includes('MG32div0') && // MG32div0 : 3G22
+          !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
           !msg.location().url.includes('mathgraph32')
       ) {
         if (!msg.text().includes('<HeaderExercice>')) {
@@ -107,6 +107,9 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       await page.waitForSelector('article + div')
       const buttonResult = await page.locator('article + div').innerText()
       log(buttonResult)
+    } else {
+      // MGu : obligé car parfois on rate l'exception car trop rapide
+      await new Promise((resolve) => setTimeout(resolve, 1000))
     }
     if (messages.length > 0) {
       logError(messages)
@@ -148,7 +151,7 @@ async function testRunAllLots (filter: string) {
       Object.defineProperty(f, 'name', { value: myName, writable: false })
       ff.push(f)
     }
-    runSeveralTests(ff, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+    runSeveralTests(ff, import.meta.url, { pauseOnError: false, silent: false, debug: true })
   }
 }
 
@@ -164,21 +167,22 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
 } else {
   prefs.headless = true
 
-  // testRunAllLots('can')
-  // testRunAllLots('6e')
-  // testRunAllLots('5e')
-  // testRunAllLots('4e')
-  // testRunAllLots('3e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
-  // testRunAllLots('QCM')
-  // testRunAllLots('TEx')
-  // testRunAllLots('TSpe')
-  // testRunAllLots('techno1')
-  // testRunAllLots('QCMBac')
-  // testRunAllLots('QCMBrevet')
-  // testRunAllLots('QCMStatiques')
+  testRunAllLots('can')
+  testRunAllLots('6e')
+  testRunAllLots('5e')
+  testRunAllLots('4e')
+  testRunAllLots('3e')
+  testRunAllLots('2e')
+  testRunAllLots('1e')
+  testRunAllLots('QCM')
+  testRunAllLots('TEx')
+  testRunAllLots('TSpe')
+  testRunAllLots('techno1')
+  testRunAllLots('QCMBac')
+  testRunAllLots('QCMBrevet')
+  testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
   // testRunAllLots('4e/4C32.js')
+  // testRunAllLots('3e/3G22')
 }
