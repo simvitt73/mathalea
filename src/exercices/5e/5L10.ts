@@ -262,7 +262,7 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           break
         case 6: // x-1
           texte = `$${x}$ étant un nombre entier, exprimer l'entier précédent en fonction de $${x}$.`
-          texteCorr = `Le prédecesseur de $${x}$  peut se noter :  $${miseEnEvidence(`${x}-1`)}$.`
+          texteCorr = `Le prédécesseur de $${x}$  peut se noter :  $${miseEnEvidence(`${x}-1`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}-1$`,
