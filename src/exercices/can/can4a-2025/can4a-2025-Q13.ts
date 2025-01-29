@@ -32,6 +32,7 @@ export default class Can2025N4Q13 extends ExerciceCan {
     if (context.isHtml && !this.interactif) {
       this.question += ` $${texNombre(a, 3)}\\text{ m}=\\ldots\\text{ cm}$`
     }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
