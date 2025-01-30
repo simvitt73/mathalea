@@ -172,7 +172,7 @@ class Latex {
         continue
       }
       if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
-      const seed = indiceVersion > 1 ? exercice.seed?.slice(0, 4) + indiceVersion.toString() : exercice.seed
+      const seed = indiceVersion > 1 ? exercice.seed?.slice(0, 4) + indiceVersion.toString() : exercice.seed?.slice(0, 4)
       exercice.seed = seed
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
