@@ -324,7 +324,7 @@ export function flatten (expr: BoxedExpression): BoxedExpression {
  * Cette fonction est un outil de vérification pour s’assurer que chaque facteur dans ops1 est bien dans ops2, avec prise en compte du bon signe.
  * Cette fonction sert pour la fonction de comparaison d'expressions factorisées.
  * @param {BoxedExpression[]} ops1
- * @param {BoxedExpression[]} ops2
+ * @param {BoxedExpression[]} ops2 // ops2 doit être la goodAnswer !!!
  * @param {boolean} signe // Si true, alors les expresssions sont équivalentes mathématiquement. Si false, alors les expressions sont opposées.
  * @param {boolean} exclusifFactorisation // Si true, seuls les facteurs identiques (modulo l'ordre) sont considérés égaux.
  * @return ResultType
@@ -459,10 +459,16 @@ function factorisationCompare (
       if (isOk1) return { isOk: false, feedback: 'L\'expression saisie peut être davantage factorisée.' }
       return { isOk: false, feedback: 'Il manque des facteurs à l\'expression saisie.' }
     }
-    return allFactorsMatch(reponseFactors, saisieFactors, signe, exclusifFactorisation)
+    const result = allFactorsMatch(saisieFactors, reponseFactors, signe, exclusifFactorisation)
+    const result2 = allFactorsMatch(reponseFactors, saisieFactors, signe, exclusifFactorisation)
+    return { isOk: result.isOk && result2.isOk, feedback: `${result.feedback ?? ''}<br>${result2.feedback ?? ''}` }
   }
 
-  if (!isOk1 || exclusifFactorisation) return allFactorsMatch(reponseFactors, saisieFactors, signe, exclusifFactorisation)
+  if (!isOk1 || exclusifFactorisation) {
+    const result = allFactorsMatch(saisieFactors, reponseFactors, signe, exclusifFactorisation)
+    const result2 = allFactorsMatch(reponseFactors, saisieFactors, signe, exclusifFactorisation)
+    return { isOk: result.isOk && result2.isOk, feedback: `${result.feedback ?? ''}<br>${result2.feedback ?? ''}` }
+  }
   if (isOk1 && unSeulFacteurLitteral) {
     let nbNumber = 0
     for (const op of saisieFactors) {
@@ -1750,9 +1756,9 @@ export function consecutiveCompare (
   const [entierInf, valeurInter, entierSup] = input.includes('<')
     ? input.split('<').map((el) => Number(engine.parse(el).numericValue))
     : input
-        .split('>')
-        .map((el) => Number(engine.parse(el).numericValue))
-        .sort((a: number, b: number) => a - b)
+      .split('>')
+      .map((el) => Number(engine.parse(el).numericValue))
+      .sort((a: number, b: number) => a - b)
   if (
     !(
       Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf))
@@ -1764,9 +1770,9 @@ export function consecutiveCompare (
   const [goodAnswerEntierInf, , goodAnswerEntierSup] = goodAnswer.includes('<')
     ? goodAnswer.split('<').map((el) => Number(engine.parse(el).numericValue))
     : goodAnswer
-        .split('>')
-        .map((el) => Number(engine.parse(el).numericValue))
-        .sort((a: number, b: number) => a - b)
+      .split('>')
+      .map((el) => Number(engine.parse(el).numericValue))
+      .sort((a: number, b: number) => a - b)
   const diff = Number(
     engine.box(['Subtract', String(entierSup), String(entierInf)]).N()
       .numericValue

@@ -16,6 +16,7 @@ import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 
 import { lectureImage } from '../../lib/2d/courbes'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -59,7 +60,7 @@ class LireImageParApiGeom extends Exercice {
 
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
-
+    if (context.isHtml) this.consigne = texteEnCouleurEtGras('N\'utilisez pas le zoom de l\'application sur cet exercice (bouton +), il entraîne une erreur du programme !<br>Nous travaillons à corriger ce bug.')
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
