@@ -27,6 +27,7 @@ export default class MilieuSegment extends Exercice {
     super()
 
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
   nouvelleVersion () {
