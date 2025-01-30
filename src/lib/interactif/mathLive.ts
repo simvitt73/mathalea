@@ -19,7 +19,7 @@ export function toutAUnPoint (listePoints: number[]) {
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
 export function verifQuestionMathLive (exercice: Exercice, i: number, writeResult = true) {
-  if (exercice.autoCorrection[i].reponse == null) {
+  if (exercice.autoCorrection[i]?.reponse == null) {
     throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
             exercice,
             question: i,

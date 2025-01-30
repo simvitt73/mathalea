@@ -41,7 +41,6 @@ export default class VocabulaireNotationsFonctions extends Exercice {
     this.correctionDetaillee = false
     this.spacing = 2
     this.nbQuestions = 3
-
     this.consigne = 'Cocher toutes les réponses correctes.'
   }
 
@@ -56,6 +55,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
         typesDeQuestionsDisponibles = ['notations']
         break
       case 3: // mélange vocabulaire et notations
+      default:
         typesDeQuestionsDisponibles = ['vocabulaire', 'notations']
         break
     }
