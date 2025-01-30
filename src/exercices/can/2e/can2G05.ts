@@ -4,6 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer une distance avec les coordonnées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,6 +27,7 @@ export default class DistanceRepere extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
   nouvelleVersion () {
