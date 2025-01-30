@@ -24,6 +24,7 @@ export default class nomExercice extends Exercice {
     this.consigne = ''
   }
 
+
   nouvelleVersion () {
     const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
 
@@ -45,9 +46,9 @@ export default class nomExercice extends Exercice {
       const alea = randint(1, 3)// aléatoirisation pour non appartenance, déterminer quelle cooronnée est modifiée pour planter
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// orthogonal
-          xB = xA + t * x
-          yB = yA + t * y
-          zB = zA + t * z
+          xB = xA + t * a
+          yB = yA + t * b
+          zB = zA + t * c
           texteCorr = 'Il suffit de vérifier s\'il existe un réel $t$ qui valide le système pour les coordonnées du point $M$.<br>'
 
           break
