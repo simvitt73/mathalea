@@ -5,6 +5,7 @@ import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import Exercice from '../../Exercice'
 import { ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
 import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Déterminer un vecteur normal à un plan.'
 export const dateDePublication = '28/01/2025'

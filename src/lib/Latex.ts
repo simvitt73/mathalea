@@ -230,7 +230,7 @@ Correction
         content += '\n\\end{Solution}\n'
       }
     }
-    return content
+    return content.replaceAll('\n\\\\', '\\\\')
   }
 
   async getContents (latexFileInfos : LatexFileInfos): Promise<contentsType> {
@@ -397,7 +397,7 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
       latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
       latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     }
-    const latexWithPreamble = preamble + latexWithoutPreamble
+    const latexWithPreamble = (preamble + latexWithoutPreamble).replaceAll('\n\\\\', '\\\\')
     return { contents, latexWithoutPreamble, latexWithPreamble }
   }
 
@@ -426,7 +426,7 @@ function writeIntroduction (introduction = ''): string {
   if (introduction.length > 0) {
     content += '\n' + format(introduction)
   }
-  return content
+  return content.replaceAll('\n\\\\', '\\\\')
 }
 
 function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolean, nbCols: number = 1): string {
@@ -613,6 +613,7 @@ export function format (text: string): string {
     .replace(/\\\\\s*\n\n/gm, '\\\\')
     .replace('«', '\\og{}')
     .replace('»', '\\fg{}')
+    .replaceAll('\n\\\\', '\\\\')
 
   // Check if the language is 'fr-CH' and replace \times with \cdot if true
   if (lang === 'fr-CH') {
