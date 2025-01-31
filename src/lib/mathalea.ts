@@ -668,17 +668,17 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.reponse != null) {
         if (compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
           let reponse = {}
-          if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
+          if ((typeof exercice.reponse !== 'string') && (typeof exercice.reponse !== 'number')) {
             if (exercice.reponse instanceof FractionEtendue) {
               reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
             } else if (exercice.reponse instanceof Decimal) {
               reponse = { reponse: { value: exercice.reponse.toString(), compare, options } }
             } else if (exercice.reponse instanceof Grandeur) {
               reponse = { reponse: { value: exercice.reponse, compare, options } }
-            } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
+            } else if (typeof exercice.reponse === 'object' && !Array.isArray(exercice.reponse)) { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
               reponse = exercice.reponse
             } else if (Array.isArray(exercice.reponse)) {
-              reponse = { reponse: { value: exercice.reponse[0] } }
+              reponse = { reponse: { value: exercice.reponse, compare, options } }
             } else {
               window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
               reponse = { reponse: { value: String(exercice.reponse), compare, options } }
