@@ -808,18 +808,6 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    // La réponse correspond à un champs texte ?
-    const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
-    if (field !== null) {
-      if ('setValue' in field) {
-        // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-        field.setValue(answers[answer])
-      } else {
-        // C'est un champ texte classique
-        field.value = answers[answer]
-      }
-      continue
-    }
     // La réponse correspond à une case à cocher qui doit être cochée ?
     const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
     if (checkBox !== null && answers[answer] === '1') {
@@ -877,6 +865,20 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
       } catch (error) {
         console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
       }
+    }
+    // La réponse correspond à un champs texte ?
+    const field = document.querySelector(`#champTexte${answer}`)
+    if (field !== null) {
+      if ('setValue' in field && typeof field.setValue === 'function') {
+        // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
+        field.setValue(answers[answer])
+      } else {
+        // C'est un champ texte classique
+        if (field instanceof HTMLInputElement) {
+          field.value = answers[answer]
+        }
+      }
+      continue
     }
   }
 }

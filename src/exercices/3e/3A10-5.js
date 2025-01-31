@@ -33,11 +33,16 @@ export const refs = {
 export function extraitLaDecomposition (expression) {
   const listeFacteurs = expression.split('\\times')
   const decompo = []
+
   for (const facteur of listeFacteurs) {
     if (facteur.includes('^')) { // c'est une puissance
       const puissance = facteur.split('^')
       const mantisse = Number(puissance[0])
       const exposant = Number(puissance[1].replace('{', '').replace('}', ''))
+      // Validation des nombres
+      if (isNaN(mantisse) || isNaN(exposant) || !Number.isInteger(mantisse) || !Number.isInteger(exposant)) {
+        return []
+      }
       const element = decompo.find(el => el[0] === mantisse)
       if (element == null) { // il n'y a pas eu encore ce facteur, on crée son élément dans decompo
         decompo.push([mantisse, exposant])
@@ -47,6 +52,10 @@ export function extraitLaDecomposition (expression) {
     } else { // c'est un facteur simple
       const mantisse = Number(facteur)
       const exposant = 1
+      // Validation des nombres
+      if (isNaN(mantisse) || isNaN(exposant) || !Number.isInteger(mantisse) || !Number.isInteger(exposant)) {
+        return []
+      }
       const element = decompo.find(el => el[0] === mantisse)
       if (element == null) { // il n'y a pas eu encore ce facteur, on crée son élément dans decompo
         decompo.push([mantisse, exposant])
@@ -208,9 +217,14 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
             isOk = false
           } else {
             const decompoSaisie = extraitLaDecomposition(expression)
-            const result = compareLesDecomposition(decompoSaisie, bonneDecomposition)
-            isOk = result.isOk
-            feedback = result.feedback
+            if (decompoSaisie.length === 0) {
+              isOk = false
+              feedback = 'La réponse n\'a pas la forme attendue'
+            } else {
+              const result = compareLesDecomposition(decompoSaisie, bonneDecomposition)
+              isOk = result.isOk
+              feedback = result.feedback
+            }
           }
 
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
