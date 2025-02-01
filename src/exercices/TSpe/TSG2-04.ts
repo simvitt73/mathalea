@@ -41,9 +41,8 @@ export default class nomExercice extends Exercice {
       const yAB = yB - yA
       const zAB = zB - zA
       // on doit trouver a, b et c tels que a*xAB+b*yAB+c*zAB=0
-      // on choisit arbitrairement a=- 1 ou a = 1
       // on prend b=0
-      // on trouve c=-x/z
+      // on trouve c=-a*x/z=-a*k
       let a = randint(-3, 3, [0])
       let b = 0
       let c = -a * k // il faut que ce nombre soit entier... On définit xAB et zAB de manière à ce que ce soit le cas
@@ -52,7 +51,7 @@ export default class nomExercice extends Exercice {
       const x = randint(-10, 10, [0, xA, xB])
       const y = randint(-10, 10, [0, yA, yB])
       const z = randint(-10, 10, [0, zA])
-
+      // On va mélanger les tableaux afin que ce ne soit pas toujours b qui soit nul
       const tab1 = [a, b, c].slice()
       const tab2 = [xA, yA, zA].slice()
       const tab3 = [xB, yB, zB].slice()
@@ -67,6 +66,10 @@ export default class nomExercice extends Exercice {
       yB = tab3[1]
       zB = tab3[2]
 
+      // Modifier a, b ou c pour que le produit scalaire soit non nul (et donc que les droites ne soient pas orthogonales)
+      // On doit trouver un vecteur directeur de la droite (AB) qui soit non orthogonal à (Delta)
+
+      // Il n'y a pas besoin de switch... on peut directement écrire le texte
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// orthogonal
           break
