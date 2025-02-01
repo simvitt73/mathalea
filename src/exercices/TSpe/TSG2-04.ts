@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { combinaisonListes, shuffle2tableaux, shuffle3tableaux } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes, shuffle2tableaux, shuffle3tableaux } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Déterminer deux droites sont orthogonales.'
@@ -12,6 +12,54 @@ export const refs = {
   'fr-ch': []
 }
 
+// La fonction qui aléatoirise la situation en fonction de ortho true or false. Elle retourne toutes les variables dont a besoin l'exo.
+// elle est récursive et ne retourne une valeur que si elle est en accord avec ortho (pour éviter un cas particulier qu'on n'aurait pas prévu.)
+const situationAleatoire = function (ortho: boolean) {
+  let xA = randint(-10, 10, 0)
+  let yA = randint(-10, 10, 0)
+  let zA = randint(-10, 10, 0)
+  let yB = randint(-10, 10, [0, yA])
+  const deltaZ = randint(-3, 3, [0])
+  let zB = zA + deltaZ // On s'arrange pour que zB-zA = -2, -1, 1 ou 2.
+  const k = randint(-2, 2, [0]) // ce qui donne (xAB/zAB = k)
+  let xB = xA + k * (zB - zA)
+  const xAB = xB - xA
+  const yAB = yB - yA
+  const zAB = zB - zA
+  // on doit trouver a, b et c tels que a*xAB+b*yAB+c*zAB=0
+  // on prend b=0
+  // on trouve c=-a*x/z=-a*k
+  let a = randint(-3, 3, [0])
+  let b = 0
+  let c = -a * k // il faut que ce nombre soit entier... On définit xAB et zAB de manière à ce que ce soit le cas
+  const t = randint(-4, 4, [0, 1])
+
+  const x = randint(-10, 10, [0, xA, xB])
+  const y = randint(-10, 10, [0, yA, yB])
+  const z = randint(-10, 10, [0, zA])
+  // On va mélanger les tableaux afin que ce ne soit pas toujours b qui soit nul
+  const tab1 = [a, b, c].slice()
+  const tab2 = [xA, yA, zA].slice()
+  const tab3 = [xB, yB, zB].slice()
+  shuffle3tableaux(tab1, tab2, tab3)
+  a = tab1[0]
+  b = tab1[1]
+  c = tab1[2]
+  xA = tab2[0]
+  yA = tab2[1]
+  zA = tab2[2]
+  xB = tab3[0]
+  yB = tab3[1]
+  zB = tab3[2]
+  if (!ortho) {
+    const choix = randint(1, 3) as 1 | 2 | 3
+    if (choix === 1) a++
+    else if (choix === 2) b++
+    else c++
+  }
+  if ((xAB * a + yAB * b + zAB * c === 0) !== ortho) return situationAleatoire(ortho) // Si le produit scalaire n'est pas en accord avec ortho, on recommence.
+  return { xA, yA, xB, yB, zA, zB, xAB, yAB, zAB, a, b, c, x, y, z, t }
+}
 /**
  *
  * @author Stéphane Guyon
@@ -29,46 +77,10 @@ export default class nomExercice extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      let xA = randint(-10, 10, 0)
-      let yA = randint(-10, 10, 0)
-      let zA = randint(-10, 10, 0)
-      let yB = randint(-10, 10, [0, yA])
-      const deltaZ = randint(-3, 3, [0])
-      let zB = zA + deltaZ // On s'arrange pour que zB-zA = -2, -1, 1 ou 2.
-      const k = randint(-2, 2, [0]) // ce qui donne (xAB/zAB = k)
-      let xB = xA + k * (zB - zA)
-      const xAB = xB - xA
-      const yAB = yB - yA
-      const zAB = zB - zA
-      // on doit trouver a, b et c tels que a*xAB+b*yAB+c*zAB=0
-      // on prend b=0
-      // on trouve c=-a*x/z=-a*k
-      let a = randint(-3, 3, [0])
-      let b = 0
-      let c = -a * k // il faut que ce nombre soit entier... On définit xAB et zAB de manière à ce que ce soit le cas
-      const t = randint(-4, 4, [0, 1])
-
-      const x = randint(-10, 10, [0, xA, xB])
-      const y = randint(-10, 10, [0, yA, yB])
-      const z = randint(-10, 10, [0, zA])
-      // On va mélanger les tableaux afin que ce ne soit pas toujours b qui soit nul
-      const tab1 = [a, b, c].slice()
-      const tab2 = [xA, yA, zA].slice()
-      const tab3 = [xB, yB, zB].slice()
-      shuffle3tableaux(tab1, tab2, tab3)
-      a = tab1[0]
-      b = tab1[1]
-      c = tab1[2]
-      xA = tab2[0]
-      yA = tab2[1]
-      zA = tab2[2]
-      xB = tab3[0]
-      yB = tab3[1]
-      zB = tab3[2]
-
       // Modifier a, b ou c pour que le produit scalaire soit non nul (et donc que les droites ne soient pas orthogonales)
       // On doit trouver un vecteur directeur de la droite (AB) qui soit non orthogonal à (Delta)
-
+      const ortho = choice([true, false])
+      const { xA, yA, xB, yB, zA, zB, xAB, yAB, zAB, a, b, c, x, y, z, t } = situationAleatoire(ortho)
       // Il n'y a pas besoin de switch... on peut directement écrire le texte
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// orthogonal
@@ -91,7 +103,9 @@ export default class nomExercice extends Exercice {
       texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix} ${xB}${ecritureAlgebrique(xA)}\\\\${yB}${ecritureAlgebrique(yA)}\\\\${zB}${ecritureAlgebrique(zA)}\\end{pmatrix}$<br>`
       texteCorr += `$\\iff\\overrightarrow{AB}\\begin{pmatrix} ${xAB}\\\\${yAB}\\\\${zAB}\\end{pmatrix}$<br>`
       texteCorr += 'On calcule le produit scalaire de ces deux vecteurs : <br>'
-      texteCorr += `$\\overrightarrow{u}\\cdot\\overrightarrow{AB} = ${a}\\times ${ecritureParentheseSiNegatif(xB - xA)}+${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(yB - yA)}+${ecritureParentheseSiNegatif(c)}\\times ${ecritureParentheseSiNegatif(zB - zA)}=${a * (xB - xA) + b * (yB - yA) + c * (zB - zA)}$<br>`
+      //    texteCorr += `$\\overrightarrow{u}\\cdot\\overrightarrow{AB} = ${a}\\times ${ecritureParentheseSiNegatif(xB - xA)}+${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(yB - yA)}+${ecritureParentheseSiNegatif(c)}\\times ${ecritureParentheseSiNegatif(zB - zA)}=${a * (xB - xA) + b * (yB - yA) + c * (zB - zA)}$<br>`
+      // Ci-dessous, j'ai viré la multiplication par 0, il ne reste que deux produits. Si tu veux la remettre, il faut décommenter la ligne précédente et commenter la suivante.
+      texteCorr += `$\\overrightarrow{u}\\cdot\\overrightarrow{AB} = ${a !== 0 ? `${a}\\times ${ecritureParentheseSiNegatif(xAB)}+` : ''}${b !== 0 ? `${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(yAB)}${c !== 0 ? '+' : ''}` : ''}${c !== 0 ? `${ecritureParentheseSiNegatif(c)}\\times ${ecritureParentheseSiNegatif(zAB)}` : ''}=${a * xAB + b * yAB + c * zAB}$<br>`
       if (this.questionJamaisPosee(i, a, b, c, xA, yA, zA, xB, yB, zB, x, y, z, t, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
