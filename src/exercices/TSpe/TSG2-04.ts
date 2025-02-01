@@ -32,6 +32,13 @@ const situationAleatoire = function (ortho: boolean) {
   let a = randint(-3, 3, [0])
   let b = 0
   let c = -a * k // il faut que ce nombre soit entier... On définit xAB et zAB de manière à ce que ce soit le cas
+  // Si on ne veut pas d'orthogonalité on modifie l'une des composante de u avant le mélange.
+  if (!ortho) {
+    const choix = randint(1, 3) as 1 | 2 | 3
+    if (choix === 1) a++
+    else if (choix === 2) b++
+    else c++
+  }
   const t = randint(-4, 4, [0, 1])
 
   const x = randint(-10, 10, [0, xA, xB])
@@ -51,12 +58,7 @@ const situationAleatoire = function (ortho: boolean) {
   xB = tab3[0]
   yB = tab3[1]
   zB = tab3[2]
-  if (!ortho) {
-    const choix = randint(1, 3) as 1 | 2 | 3
-    if (choix === 1) a++
-    else if (choix === 2) b++
-    else c++
-  }
+
   if ((xAB * a + yAB * b + zAB * c === 0) !== ortho) return situationAleatoire(ortho) // Si le produit scalaire n'est pas en accord avec ortho, on recommence.
   return { xA, yA, xB, yB, zA, zB, xAB, yAB, zAB, a, b, c, x, y, z, t }
 }
