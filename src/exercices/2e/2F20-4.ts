@@ -1,7 +1,4 @@
 import Exercice from '../Exercice'
-
-import { context } from '../../modules/context'
-import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -13,7 +10,6 @@ import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import Figure from 'apigeom'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { segment } from '../../lib/2d/segmentsVecteurs'
