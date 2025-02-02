@@ -21,7 +21,6 @@ export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
 const result = fonctionComparaison('(2a-5)(-2-2a)', '(2a-2)(2a-5)', { factorisation: true })
-console.log(result.feedback)
 
 const expr1 = engine.parse('\\frac{-3+\\sqrt{41}}{4}', { canonical: true })
 const expr2 = engine.parse('-\\frac34+\\frac{\\sqrt{41}}{4}', { canonical: true })
