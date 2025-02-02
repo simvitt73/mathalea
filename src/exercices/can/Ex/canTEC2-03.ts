@@ -1,15 +1,13 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { complex, add } from 'mathjs'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
-import { texNombre } from '../../../lib/outils/texNombre'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
 export const titre = 'Résoudre |z-z_A|=r'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/5/2024'
 
-export const uuid = '88e43' // Quand on exécute pnpm start la première fois, le terminal renvoie une référence d'uuid, à copier-coller ici
+export const uuid = '16c5e' // Quand on exécute pnpm start la première fois, le terminal renvoie une référence d'uuid, à copier-coller ici
 export const refs = {
   'fr-fr': ['canTEC2-03'],
   'fr-ch': []
@@ -38,8 +36,8 @@ export default class NomExercice extends Exercice {
     this.correction += `<br>On sait que $AM=\\vert z-z_A\\vert=\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\text{i}\\vert$.<br>`
     this.correction += `<br>On montre donc que  $(1) \\iff AM=${r}$`
     this.correction += `<br>Les points $M$ solutions correspondent donc à l'ensemble des points du plan complexe, situés à une distance de ${r} unités du point $A$.<br>`
-     this.correction += `C'est donc le cercle de centre $A$ et de rayon ${r}.`
-      this.correction += `<br>$S=\\mathcal C(A;${r})$.`
+    this.correction += `C'est donc le cercle de centre $A$ et de rayon ${r}.`
+    this.correction += `<br>$S=\\mathcal C(A;${r})$.`
     this.reponse = a + b
   }
 }
