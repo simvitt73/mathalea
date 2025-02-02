@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { complex, multiply } from 'mathjs'
-export const titre = 'produit de nombres complexes'
+import { complex, add } from 'mathjs'
+export const titre = 'Somme de nombres complexes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -13,10 +13,10 @@ export const dateDePublication = '26/10/2021'
  * @author Jean-Claude Lhote
 
 */
-export const uuid = '30cc1'
+export const uuid = '71292'
 
 export const refs = {
-  'fr-fr': ['canTExC02'],
+  'fr-fr': ['canTEC1-01'],
   'fr-ch': []
 }
 export default class SommeDeComplexes extends Exercice {
@@ -28,11 +28,11 @@ export default class SommeDeComplexes extends Exercice {
   }
 
   nouvelleVersion () {
-    const z1 = complex(randint(-5, 5, 0), randint(-5, 5, 0))
-    const z2 = complex(0, randint(-5, 5, 0))
-    this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a \\times b$.`
-    this.correction = `$${z1.toString()} \\times ${z2.toString()} = ${multiply(z1, z2).toString()}$`
-    this.reponse = multiply(z1, z2)
+    const z1 = complex(randint(-5, 5), randint(-5, 5))
+    const z2 = complex(randint(-5, 5), randint(-5, 5))
+    this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a + b$.`
+    this.correction = `$${z1.toString()} + ${z2.toString()} = ${add(z1, z2).toString()}$`
+    this.reponse = add(z1, z2)
     this.autoCorrection[0] = {
       enonce: this.question,
       propositions: [
@@ -42,7 +42,7 @@ export default class SommeDeComplexes extends Exercice {
             texte: this.correction
           },
           reponse: {
-            valeur: multiply(z1, z2).re,
+            valeur: add(z1, z2).re,
             digits: 2,
             deciams: 0,
             signe: true,
@@ -55,7 +55,7 @@ export default class SommeDeComplexes extends Exercice {
             texte: ''
           },
           reponse: {
-            valeur: multiply(z1, z2).im,
+            valeur: add(z1, z2).im,
             digits: 2,
             deciams: 0,
             signe: true,
