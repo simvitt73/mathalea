@@ -2,11 +2,11 @@ import Exercice from '../../Exercice'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { milieu, point } from '../../../lib/2d/points'
 import { ellipse } from '../../../lib/2d/projections3d'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 export const titre = 'Vocabulaire dans un solide (QCM)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'qcm'
 export const uuid = '3e8e3'
 export const refs = {
   'fr-fr': [],
@@ -39,14 +39,19 @@ export default class VocabulaireSolide extends Exercice {
     c2.opaciteDeRemplissage = 0.3
     const s2 = segment(milieu(E, D), H3)// seg pour l'aire base
     s2.styleExtremites = '<-'
-    const xmin = -5.5
-    const ymin = -2.5
-    const xmax = 6
-    const ymax = 1
     const objets = []
     objets.push(
       segment(B, D), segment(E, C), c, c2, s2)
+    this.question = mathalea2d(Object.assign({
+      pixelsParCm: 30,
+      scale: 0.6,
+      style: 'margin: auto; display: block'
+    }, fixeBordures(objets, { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0 })), objets)
+
+    this.question += `Que montre la flèche ?<br>
+       Coche la bonne réponse.`
     this.autoCorrection[0] = {
+      enonce: this.question,
       propositions: [
         {
           texte: 'Une face ',
@@ -64,22 +69,17 @@ export default class VocabulaireSolide extends Exercice {
     }
     const qcm = propositionsQcm(this, 0)
 
-    this.question = mathalea2d({
-      xmin,
-      ymin,
-      xmax,
-      ymax,
+    this.question += qcm.texte
+    this.correction = '  '
+    this.canEnonce = mathalea2d(Object.assign({
+
       pixelsParCm: 30,
       mainlevee: false,
       amplitude: 0.5,
       scale: 0.6,
-      style: 'margin: auto'
-    }, objets)
-
-    this.question += `Que montre la flèche ?<br>
-     Coche la bonne réponse.` + qcm.texte
-    this.correction = '  '
-    this.canEnonce = this.question
+      style: 'margin: auto; display: block'
+    }, fixeBordures(objets, { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0 })), objets) + `Que montre la flèche ?<br>
+       Coche la bonne réponse.`
     this.correction = qcm.texteCorr
     this.canReponseACompleter = qcm.texte
   }

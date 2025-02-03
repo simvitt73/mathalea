@@ -5,7 +5,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Trouver un nombre (QCM)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'qcm'
 export const uuid = 'e6d64'
 export const refs = {
   'fr-fr': [],
@@ -24,7 +24,9 @@ export default class Can2025CE2Q6 extends ExerciceCan {
       b = a + 10
       nbre = a + randint(3, 9)
     }
+    this.question = `Coche le nombre qui est entre $${a}$ et $${b}$.`
     this.autoCorrection[0] = {
+      enonce: this.question,
       propositions: [
         {
           texte: `$${nbre}$`,
@@ -41,11 +43,11 @@ export default class Can2025CE2Q6 extends ExerciceCan {
       options: { vertical: true }
     }
     this.formatInteractif = 'qcm'
-    this.question = `Coche le nombre qui est entre $${a}$ et $${b}$.`
-    this.reponse = nbre // C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
     const monQcm = propositionsQcm(this, 0)
-    this.canEnonce = this.question
-    this.question += `<br>\n${monQcm.texte}`
+    this.reponse = nbre // C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
+    this.question += `${monQcm.texte}`
+    this.canEnonce = `Coche le nombre qui est entre $${a}$ et $${b}$.`
+
     this.correction = monQcm.texteCorr + `$${nbre}$ est plus petit que $${b}$ et plus grand que $${a}$, donc le nombre qui est entre $${a}$ et $${b}$ est : $${miseEnEvidence(nbre)}$.`
     this.canReponseACompleter = monQcm.texte
   }

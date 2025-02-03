@@ -5,10 +5,9 @@ import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'qcm'
 export const uuid = '89710'
 export const refs = {
   'fr-fr': [],
@@ -55,7 +54,24 @@ export default class Can2025CE1Q15 extends ExerciceCan {
     objets.push(latex2d('2', 4.5, 2.5, { letterSize: 'scriptsize' }))
     objets.push(latex2d('3', 5.5, -0.5, { letterSize: 'scriptsize' }))
     objets.push(latex2d('4', 2.8, -0.5, { letterSize: 'scriptsize' }))
+
+    this.formatInteractif = 'qcm'
+
+    this.question = mathalea2d({
+      xmin,
+      ymin,
+      xmax,
+      ymax,
+      pixelsParCm: 30,
+      mainlevee: false,
+      amplitude: 0.5,
+      scale: 0.6,
+      style: 'margin: auto'
+    }, objets) + '<br>'
+
+    this.question += `Quelle est la figure ${a === 0 ? 'n\'' : ''}ayant ${a === 1 ? 'qu\'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `$${a}$ axes de symétrie`} ?`
     this.autoCorrection[0] = {
+      enonce: this.question,
       propositions: [
         {
           texte: 'Figure 1 ',
@@ -74,22 +90,7 @@ export default class Can2025CE1Q15 extends ExerciceCan {
       ],
       options: { vertical: true }
     }
-    this.formatInteractif = 'qcm'
     const qcm = propositionsQcm(this, 0)
-
-    this.question = mathalea2d({
-      xmin,
-      ymin,
-      xmax,
-      ymax,
-      pixelsParCm: 30,
-      mainlevee: false,
-      amplitude: 0.5,
-      scale: 0.6,
-      style: 'margin: auto'
-    }, objets) + '<br>'
-
-    this.question += `Quelle est la figure ${a === 0 ? 'n\'' : ''}ayant ${a === 1 ? 'qu\'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `$${a}$ axes de symétrie`} ?` + qcm.texte
     this.canEnonce = mathalea2d({
       xmin,
       ymin,
@@ -108,6 +109,7 @@ export default class Can2025CE1Q15 extends ExerciceCan {
   }
 
   nouvelleVersion () {
+    this.formatInteractif = 'qcm'
     this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(1) : this.enonce()
   }

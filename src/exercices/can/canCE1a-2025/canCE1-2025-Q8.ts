@@ -5,7 +5,7 @@ import { propositionsQcm } from '../../../lib/interactif/qcm'
 
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'qcm'
 export const uuid = '8f99d'
 export const refs = {
   'fr-fr': [],
@@ -30,7 +30,9 @@ export default class Can2025CE1Q8 extends ExerciceCan {
     if (a == null || b == null || c == null) {
       [a, b, c] = choice(duree)
     }
+    this.question = `Coche la durée ${c}.`
     this.autoCorrection[0] = {
+      enonce: this.question,
       propositions: [
         {
           texte: `$${texNombre(a, 1)}$ s`,
@@ -48,10 +50,10 @@ export default class Can2025CE1Q8 extends ExerciceCan {
       options: { vertical: true }
     }
     this.formatInteractif = 'qcm'
-    this.question = `Coche la durée ${c}.`
+
     const monQcm = propositionsQcm(this, 0)
     this.canEnonce = this.question
-    this.question += `<br>\n${monQcm.texte}`
+    this.question += `${monQcm.texte}`
     this.correction = monQcm.texteCorr + `${c.replace('de la', 'La')
       .replace('d\'une', 'Une')
       .replace('d\'un', 'Un')

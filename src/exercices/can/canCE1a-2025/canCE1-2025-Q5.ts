@@ -31,7 +31,7 @@ export default class Can2025CE1Q5 extends ExerciceCan {
       }
     }
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
-    this.question = `$${valInf}$ et $${valSup}$ Un nombre a $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines.<br>
+    this.question = ` Un nombre a $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines.<br>
 Écris un nombre vérifiant cela.`
     this.correction = `Les nombres qui ont $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines sont :<br>`
     for (let i = 0; i <= 9; i++) {

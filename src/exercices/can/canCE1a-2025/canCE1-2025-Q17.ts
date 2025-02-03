@@ -25,7 +25,7 @@ export default class Can2025CE1Q17 extends ExerciceCan {
     this.question = `Dans un champ, il y a $${a}$ vaches.<br>
     Combien comptes-tu de pattes ?`
     this.correction = `Une vache a $4$ pattes.<br>
-    $${a}\\times ${a}=${4 * a}$<br>
+    $${a}\\times 4=${4 * a}$<br>
     Il y a donc $${miseEnEvidence(4 * a)}$ pattes.`
 
     this.canEnonce = this.question
