@@ -468,7 +468,7 @@ export function lister (array: unknown[]): string {
 }
 
 /**
- * Retourne le double développement de (ax+b)(cx+d) sous forme d'un tableau
+ * Retourne le double développement de (ax+b)(cx+d) sous forme d'un tableau.
  * La premier élément est le développement terme par terme.
  * Le second élément est ce développement réduit terme par terme.
  * @author Eric Elter
@@ -482,4 +482,40 @@ export function doubleDeveloppement (a: number, b: number, c: number, d: number,
   ${ecritureParentheseSiMoins(rienSi1(a * d) + x)} +
   ${ecritureParentheseSiMoins(rienSi1(b * c) + x)} +
   ${ecritureParentheseSiNegatif(b * d)}`]
+}
+
+/**
+ * Retourne le simple développement de (ax+b)c ou c(ax+b) sous forme d'un tableau.
+ * La premier élément est le développement terme par terme.
+ * Le second élément est ce développement réduit terme par terme.
+ * @author Eric Elter
+ */
+export function simpleDeveloppement (a: number, b: number, c: number, x = 'x', sommeAGauche = true) {
+  return sommeAGauche
+    ? [`${rienSi1(a)}${x}\\times ${ecritureParentheseSiNegatif(c)} +
+    ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}`,
+     `${rienSi1(a * c)}${x} + 
+    ${ecritureParentheseSiMoins(rienSi1(b * c) ?? '')}`]
+    : [`${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      ${ecritureParentheseSiNegatif(c)} \\times ${ecritureParentheseSiNegatif(b)}`,
+       `${rienSi1(a * c)}${x} + 
+      ${ecritureParentheseSiMoins(rienSi1(b * c) ?? '')}`]
+}
+
+/**
+ * Retourne le simple développement de (ax+b)cx ou cx(ax+b) sous forme d'un tableau.
+ * La premier élément est le développement terme par terme.
+ * Le second élément est ce développement réduit terme par terme.
+ * @author Eric Elter
+ */
+export function simpleDeveloppementAvecDoubleX (a: number, b: number, c: number, x = 'x', sommeAGauche = true) {
+  return sommeAGauche
+    ? [`${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} +
+    ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`,
+     `${rienSi1(a * c)}${x}^2 + 
+    ${ecritureParentheseSiMoins(rienSi1(b * c) + x)}`]
+    : [`${rienSi1(c)}${x} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      ${ecritureParentheseSiMoins(rienSi1(c) + x)} \\times ${ecritureParentheseSiNegatif(b)}`,
+       `${rienSi1(a * c)}${x}^2 + 
+      ${ecritureParentheseSiMoins(rienSi1(b * c) + x)}`]
 }
