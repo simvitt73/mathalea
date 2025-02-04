@@ -117,7 +117,9 @@
               `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}R${indice}`
             ] === "1"
           ) {
-            qcmAnswers.push(proposition.texte);
+            if (proposition.texte !== undefined) {
+              qcmAnswers.push(proposition.texte)
+            }
           }
         });
         answers.push(qcmAnswers.join(" ; "));
@@ -175,6 +177,9 @@
       return l;
     });
     if ($globalOptions.recorder === "capytale") {
+      if (getRecordedScore() > getScoreTotal()) {
+        return
+      }
       sendToCapytaleSaveStudentAssignment({
         indiceExercice: "all",
         assignmentData: {
@@ -192,14 +197,31 @@
    * Construit la chaîne qui sera affichée pour le score
    * nombre de points obtenu / nombre de questions
    */
-  function buildScore(): string {
+  function buildStringScore(): string {
+    const score = getScoreTotal();
+    return score + "/" + resultsByQuestion.length;
+  }
+
+  function getScoreTotal(): number {
     let score = 0;
     for (const result of resultsByQuestion) {
       if (result === true) {
         score++;
       }
     }
-    return score + "/" + resultsByQuestion.length;
+    return score;
+  }
+
+  function getRecordedScore(): number {
+    let score = 0;
+    if (assignmentDataFromCapytale?.resultsByQuestion !== undefined) {
+      for (const result of assignmentDataFromCapytale.resultsByQuestion) {
+        if (result === true) {
+          score++;
+        }
+      }
+    }
+    return score;
   }
 
   /**
@@ -269,7 +291,7 @@
     />
   {/if}
   {#if state === "end"}
-    <End bind:state score={buildScore()} time={buildTime()} />
+    <End bind:state score={buildStringScore()} time={buildTime()} />
   {/if}
   {#if state === "solutions"}
     <Solutions
@@ -279,7 +301,7 @@
       {consignesCorrections}
       {answers}
       {resultsByQuestion}
-      score={buildScore()}
+      score={buildStringScore()}
       time={buildTime()}
     />
   {/if}
