@@ -89,12 +89,12 @@ export default class SimpleDistributivite extends Exercice {
       reponse1 = a * c
       reponse2 = b * c
       if (typeDeQuestions < 3) {
-        texteCorr += `= ${simpleDeveloppement(a, b, c, variable, typeDeQuestions === 2)[0]}`
-        texteCorr += `=${simpleDeveloppement(a, b, c, variable, typeDeQuestions === 2)[1]}`
+        texteCorr += `= ${simpleDeveloppement({ a, b, c, x: variable, sommeAGauche: typeDeQuestions === 2 })[0]}`
+        texteCorr += `= ${simpleDeveloppement({ a, b, c, x: variable, sommeAGauche: typeDeQuestions === 2 })[1]}`
         reponse = reduirePolynomeDegre3(0, 0, reponse1, reponse2, variable)
       } else {
-        texteCorr += `= ${simpleDeveloppementAvecDoubleX(a, b, c, variable, typeDeQuestions === 4)[0]}`
-        texteCorr += `=${simpleDeveloppementAvecDoubleX(a, b, c, variable, typeDeQuestions === 4)[1]}`
+        texteCorr += `= ${simpleDeveloppementAvecDoubleX({ a, b, c, x: variable, sommeAGauche: typeDeQuestions === 4 })[0]}`
+        texteCorr += `= ${simpleDeveloppementAvecDoubleX({ a, b, c, x: variable, sommeAGauche: typeDeQuestions === 4 })[1]}`
         reponse = reduirePolynomeDegre3(0, reponse1, reponse2, 0, variable)
       }
       texteCorr += reponse2 > 0 ? '$' : `=${reponse}$`

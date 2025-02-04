@@ -66,8 +66,8 @@ export default class MultipleDistributivite extends Exercice {
       const variable = this.sup5 ? 'x' : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
       texte = `$${lettreDepuisChiffre(i + 1)} = (${reduirePolynomeDegre3(0, 0, a, b, variable)})(${reduirePolynomeDegre3(0, 0, c, d, variable)})$`
       texteCorr = texte.slice(0, -1)
-      texteCorr += `= ${doubleDeveloppement(a, b, c, d, variable)[0]}`
-      texteCorr += `=${doubleDeveloppement(a, b, c, d, variable)[1]}`
+      texteCorr += `= ${doubleDeveloppement({ a, b, c, d, x: variable })[0]}`
+      texteCorr += `=${doubleDeveloppement({ a, b, c, d, x: variable })[1]}`
       reponse1 = a * c
       reponse2 = a * d + b * c
       reponse3 = b * d
