@@ -185,19 +185,19 @@ export default class ReductionSiPossible extends Exercice {
           constb = b
           break
       }
+      // EE : Permet en deux lignes de mettre toutes les réponses attendues en couleur
+      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
+      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
+
       if (this.sup2) {
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''
         etapes.forEach(function (etape) {
           etape = etape.replace('$', '')
-          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$<br>`
         })
       }
-
-      // EE : Permet en deux lignes de mettre toutes les réponses attendues en couleur
-      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
-      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
 
       if (!context.isAmc) {
         setReponse(this, i, reponse)
