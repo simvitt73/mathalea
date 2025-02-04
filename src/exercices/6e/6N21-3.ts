@@ -30,15 +30,15 @@ export const refs = {
 export default class LireAbscissesFractionnairesComplexes extends Exercice {
   constructor () {
     super()
-    this.sup = 3
+    this.sup = 1 // 3
     this.sup2 = false
     this.sup3 = true // avec des fractions simplifiées
     this.sup4 = false // valeurs positives si false sinon valeurs positives et négatives
-    this.besoinFormulaireTexte = ['Types de questions (nombre séparés par des tirets)', '2 : demi\n3 : tiers\n4 : quart\n5 : cinquièmes\n6 : sixièmes\n7 : septièmes\n8 : huitièmes\n9 : neuvièmes\n10: dixièmes\n11: onzièmes\n12 : douzièmes']
+    this.besoinFormulaireTexte = ['Types de questions (nombre séparés par des tirets)', '1 : mélange\n2 : demi\n3 : tiers\n4 : quart\n5 : cinquièmes\n6 : sixièmes\n7 : septièmes\n8 : huitièmes\n9 : neuvièmes\n10: dixièmes\n11: onzièmes\n12 : douzièmes']
     //   this.besoinFormulaire2CaseACocher = ['Eviter les nombres décimaux (si possible)', false]
     this.besoinFormulaire3CaseACocher = ['Avec des fractions simplifiées (le cas écéhant)', true]
     this.besoinFormulaire4CaseACocher = ['Avec des valeurs négatives', false]
-    this.nbQuestions = 5
+    this.nbQuestions = 3
   }
 
   nouvelleVersion () {
@@ -109,16 +109,13 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       })
 
       const texteCorr = mathalea2d({ xmin: -0.2, xmax: (data[tab].max - origine) * tailleUnite + 1, ymin: -2.5, ymax: 1, style: 'margin-top:10px ', scale: 0.6 }, dCorr)
-
-      if (this.questionJamaisPosee(i, num1, num2, num3)) {
+      if (this.questionJamaisPosee(i, den1, num1, num2, num3)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte + '\n',
-            // @ts-expect-error
             propositions: [{ texte: texteCorr, statut: 5, sanscadre: true, pointilles: true, feedback: '' }]
           }
         }
