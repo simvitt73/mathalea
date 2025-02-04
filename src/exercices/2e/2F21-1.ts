@@ -791,11 +791,11 @@ Sa vitesse de rotation est alors égale à $0$.<br>
 Pour calculer la vitesse de rotation du  hand-spinner  en fonction du temps $t$, notée $V(t)$, on utilise la fonction suivante :
 $V(t) = ${texNombre(a, 3)} \\times t + V_{\\text{initiale}}.$<br>
 $\\bullet$ $t$ est le temps (exprimé en s) qui s'est écoulé depuis le début de rotation du hand-spinner  ;<br>
-$\\bullet$ $V_{\\text{initiale}}$ est la vitesse de rotation à laquelle on a lancé le  hand-spinner  au départ.`
-
+$\\bullet$ $V_{\\text{initiale}}$ est la vitesse de rotation à laquelle on a lancé le  hand-spinner  au départ.<br><br>
+On lance le  hand-spinner  à une vitesse initiale de $${v}$ tours par seconde.`
             texte += createList(
               {
-                items: [`On lance le  hand-spinner  à une vitesse initiale de $${v}$ tours par seconde.<br>
+                items: [`
 Calculer sa vitesse de rotation au bout de $1$ minute.`,
                 'Le temps et la vitesse de rotation du  hand-spinner sont-ils proportionnels ? Justifier.',
                 'Au bout de combien de temps le hand-spinner va-t-il s\'arrêter ? Arrondir le résultat à la seconde.',
@@ -817,7 +817,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
                   \\end{aligned}$
             <br>
             Au bout d'une minute, le hand-spinner a une vitesse de  $${texNombre(new Decimal(a.mul(60).add(v)), 3)}$ tours par seconde.`,
-                'Le temps et la vitesse de rotation du  hand-spinnerne sont pas proportionnels car la fonction $V$ n\'est pas une fonction linéaire (elle n\'est pas de la forme $V(t)=a\\times t$).',
+                'Le temps et la vitesse de rotation du  hand-spinner ne sont pas proportionnels car la fonction $V$ n\'est pas une fonction linéaire (elle n\'est pas de la forme $V(t)=a\\times t$).',
             `Le hand-spinner s'arrête lorsque la vitesse de rotation est nulle. <br>
             On cherche donc la valeur de $t$ telle que : <br>
             $\\begin{aligned}
