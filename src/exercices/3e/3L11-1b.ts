@@ -22,7 +22,7 @@ export const amcReady = true
  * Développer des expressions de la forme (ax+b)(cx+d) avec a, b, c et d relatifs et paramétrables ainsi que x
  * @author Eric Elter (Fork 3L11-1 de Jean-Claude Lhote)
  */
-export const uuid = 'aaaaa'
+export const uuid = '67396'
 
 export const refs = {
   'fr-fr': ['3L11-1b'],
