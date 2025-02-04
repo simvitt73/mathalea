@@ -42,7 +42,7 @@ export default class DefinitionProprietesTriangles extends Exercice {
       max: 7,
       melange: 8,
       defaut: 8,
-      nbQuestions: this.nbQuestions
+      nbQuestions: 7
     })
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
