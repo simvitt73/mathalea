@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { complex, multiply } from 'mathjs'
+import { complex, multiply, type Complex } from 'mathjs'
 export const titre = 'produit de nombres complexes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,9 +30,10 @@ export default class SommeDeComplexes extends Exercice {
   nouvelleVersion () {
     const z1 = complex(randint(-5, 5, 0), randint(-5, 5, 0))
     const z2 = complex(0, randint(-5, 5, 0))
+    const z = multiply(z1, z2) as Complex
     this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a \\times b$.`
-    this.correction = `$${z1.toString()} \\times ${z2.toString()} = ${multiply(z1, z2).toString()}$`
-    this.reponse = multiply(z1, z2)
+    this.correction = `$(${z1.toString()}) \\times (${z2.toString()}) = ${z.toString()}$`
+    this.reponse = multiply(z1, z2).toString()
     this.autoCorrection[0] = {
       enonce: this.question,
       propositions: [
@@ -42,9 +43,9 @@ export default class SommeDeComplexes extends Exercice {
             texte: this.correction
           },
           reponse: {
-            valeur: multiply(z1, z2).re,
+            valeur: z.re,
             digits: 2,
-            deciams: 0,
+            decimals: 0,
             signe: true,
             approx: 0
           }
@@ -55,9 +56,9 @@ export default class SommeDeComplexes extends Exercice {
             texte: ''
           },
           reponse: {
-            valeur: multiply(z1, z2).im,
+            valeur: z.im,
             digits: 2,
-            deciams: 0,
+            decimals: 0,
             signe: true,
             approx: 0
           }

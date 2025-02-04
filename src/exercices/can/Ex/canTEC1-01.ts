@@ -32,7 +32,7 @@ export default class SommeDeComplexes extends Exercice {
     const z2 = complex(randint(-5, 5), randint(-5, 5))
     this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a + b$.`
     this.correction = `$${z1.toString()} + ${z2.toString()} = ${add(z1, z2).toString()}$`
-    this.reponse = add(z1, z2)
+    this.reponse = add(z1, z2).toString()
     this.autoCorrection[0] = {
       enonce: this.question,
       propositions: [
