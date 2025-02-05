@@ -557,7 +557,9 @@ export function simpleDeveloppement ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauch
  * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[0] renvoie 3y*5y+3y*(-2)
  * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[1] renvoie 15y^2+(-6y)
  */
-export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauche = true } = {}) {
+export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauche = true, doubleX = true } = {}) {
+  const xCarre = doubleX ? (x + '^2') : x
+  const xSeul = doubleX ? x : ''
   if (a === 0) {
     return [sommeAGauche
       ? `${rienSi1(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
@@ -572,10 +574,10 @@ export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', 
     return [0, 0]
   }
   return [sommeAGauche
-    ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} +
-    ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
-    : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
-      ${ecritureParentheseSiMoins(rienSi1(c) + x)} \\times ${ecritureParentheseSiNegatif(b)}`,
-       `${rienSi1(a * c)}${x}^2 + 
-      ${ecritureParentheseSiMoins(rienSi1(b * c) + x)}`]
+    ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} +
+    ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)}`
+    : `${rienSi1(c)}${xSeul} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} \\times ${ecritureParentheseSiNegatif(b)}`,
+       `${rienSi1(a * c)}${xCarre} + 
+      ${ecritureParentheseSiMoins(rienSi1(b * c) + xSeul)}`]
 }
