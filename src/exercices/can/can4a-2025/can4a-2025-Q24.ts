@@ -31,9 +31,9 @@ export default class Can2025N4Q24 extends ExerciceCan {
     this.question = `${a} utilise le ${b} d'un seau de $${c}$ litres de peinture.<br>
      Quelle est la quantité de peinture restante ?`
     this.correction = `${a} utilise le ${b} de la quantité.<br>
-    $\\dfrac{1}{${parts}}\\times ${c}=${texNombre(c / parts, 0)}$.<br>
+    $\\dfrac{1}{${parts}}\\times ${c}=${texNombre(c / parts, 0)}$<br>
     Elle utilise donc $${texNombre(c / parts, 0)}$ L.<br>
-$${c}-${texNombre(c / parts, 0)}=${texNombre(c - c / parts, 0)}$.<br>
+$${c}-${texNombre(c / parts, 0)}=${texNombre(c - c / parts, 0)}$<br>
     Il reste $${miseEnEvidence(reste * c / parts)}$ L.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ L}$'

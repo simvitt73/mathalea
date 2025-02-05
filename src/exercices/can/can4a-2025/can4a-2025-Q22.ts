@@ -23,7 +23,7 @@ export default class Can2025N4Q22 extends ExerciceCan {
       a = randint(11, 15) * 3 - 2 * b
     }
     this.question = `$${a}$${sp(3)}$${b}$${sp(3)}$${b}$<br>La moyenne de ces trois nombres est : `
-    this.correction = `On calcule la moyenne en divisant la somme des $3$ par $3$ :<br>$\\dfrac{${a}+${b}+${b}}{3}=${miseEnEvidence((a + b * 2) / 3)}$`
+    this.correction = `On calcule la moyenne en divisant la somme des $3$ nombres par $3$ :<br>$\\dfrac{${a}+${b}+${b}}{3}=${miseEnEvidence((a + b * 2) / 3)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = Math.round((a + b * 2) / 3)

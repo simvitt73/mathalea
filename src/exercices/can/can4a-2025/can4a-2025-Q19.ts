@@ -34,7 +34,7 @@ export default class Can2025N4Q19 extends ExerciceCan {
     })
     this.question += `${liste}Quel nombre obtient-on si le nombre choisi est $${c}$ ?`
     this.correction = `
-    On multiplie le nombre choisi par $${a}$, on obteint : $${a} \\times (${c}) = ${a * c}$<br>
+    On multiplie le nombre choisi par $${a}$, on obtient : $${a} \\times (${c}) = ${a * c}$.<br>
     On ajoute $${b}$ au résultat précédent : $${a * c}+ ${b} = ${miseEnEvidence(a * c + b)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''

@@ -28,7 +28,7 @@ export default class Can2025N4Q14 extends ExerciceCan {
     couleur2 = choice(listeCouleurs.filter(c => c !== couleur1))
     const reponse = new FractionEtendue(b, a + b)
     this.reponse = reponse.texFraction
-    this.question = `Dans un sac opaque il y a $${a}$ billes ${couleur1}s et $${b}$ billes ${couleur2}s. <br>
+    this.question = `Dans un sac opaque, il y a $${a}$ billes ${couleur1}s et $${b}$ billes ${couleur2}s. <br>
     Quelle est la probabilité de tirer une bille ${couleur2} ?`
     this.correction = `Il y a $${b}$ billes ${couleur2}s sur un total de $${a + b}$ billes, donc la probabilité de tirer une bille ${couleur2} est de $${miseEnEvidence(reponse.texFraction)}$.`
     this.canEnonce = this.question
