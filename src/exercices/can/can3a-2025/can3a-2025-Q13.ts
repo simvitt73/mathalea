@@ -24,6 +24,7 @@ export default class DevelopperEtReduire extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
+    this.optionsDeComparaison = { expressionsForcementReduites: true }
   }
 
   nouvelleVersion () {
