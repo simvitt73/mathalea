@@ -134,7 +134,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                     sanscadre: true,
@@ -144,7 +143,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -196,7 +194,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -206,7 +203,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -244,7 +240,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -254,7 +249,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -320,7 +314,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                     sanscadre: true,
@@ -330,7 +323,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -382,7 +374,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -392,7 +383,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -430,7 +420,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -440,7 +429,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -507,7 +495,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -517,7 +504,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -536,7 +522,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -579,7 +564,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -589,7 +573,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -608,7 +591,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -666,7 +648,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -676,7 +657,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -714,7 +694,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -724,7 +703,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -779,7 +757,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -789,7 +766,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -827,7 +803,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -837,7 +812,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -892,7 +866,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -902,7 +875,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -945,7 +917,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -955,7 +926,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -974,7 +944,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -1042,7 +1011,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                     sanscadre: true,
@@ -1052,7 +1020,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -1107,7 +1074,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -1117,7 +1083,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
@@ -1156,7 +1121,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
                         sanscadre: true,
@@ -1166,7 +1130,6 @@ export default class ExerciceInformationsProblemes extends Exercice {
                     },
                     {
                       type: 'AMCNum',
-                      // @ts-expect-error Trop compliqué à typer
                       propositions: [{
                         texte: '',
                         statut: '',
