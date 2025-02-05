@@ -6,6 +6,7 @@ import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFor
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Réduire une expression'
 export const interactifReady = true
@@ -201,7 +202,7 @@ export default class ReductionSiPossible extends Exercice {
 
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)) : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',
