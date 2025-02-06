@@ -79,21 +79,20 @@ export default class SujetCAN2023Seconde extends Exercice {
         }
       }
     }
-
+    const xA26 = randint(2, 6)
+    const yA26 = randint(2, 4)
+    const yB26 = randint(0, 1)
+    const A26 = point(xA26, yA26)
+    const B26 = point(0, yB26)
+    const x0 = randint(-6, -4)
+    const y0 = randint(3, 5)
+    const x1 = randint(-2, 1)
+    const y1 = y0 - randint(5, 8)
+    const x2 = randint(3, 4)
+    const y2 = y1 + randint(2, 7)
+    const x3 = randint(5, 6)
+    const y3 = y2 - randint(1, 4)
     for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const xA26 = randint(2, 6)
-      const yA26 = randint(2, 4)
-      const yB26 = randint(0, 1)
-      const A26 = point(xA26, yA26)
-      const B26 = point(0, yB26)
-      const x0 = randint(-6, -4)
-      const y0 = randint(3, 5)
-      const x1 = randint(-2, 1)
-      const y1 = y0 - randint(5, 8)
-      const x2 = randint(3, 4)
-      const y2 = y1 + randint(2, 7)
-      const x3 = randint(5, 6)
-      const y3 = y2 - randint(1, 4)
       let a = 0
       let b = 0
       let c = 0
