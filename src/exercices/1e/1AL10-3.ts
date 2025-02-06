@@ -96,6 +96,7 @@ u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k}^2 ${b === 1 ? '
           break
 
         case 3: // fonction homographique
+        default:
           a = randint(1, 5) * choice([-1, 1])
           b = randint(1, 5) * choice([-1, 1])
           c = randint(2, 4)
@@ -119,17 +120,13 @@ u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecrit
       }
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$u_{${k}}=$` })
 
-      if (this.questionJamaisPosee(i, a, b, k)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, k)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-        i++ // On passe à la question suivante
+        i++
       }
-      cpt++ // Sinon on incrémente le compteur d'essai pour avoir une question nouvelle
+      cpt++
     }
-    listeQuestionsToContenu(this) // La liste de question et la liste de la correction
-
-    // sont transformés en chaine de caractère (avec une liste HTML ou LaTeX suivant le contexte)
+    listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
-  // On aurait pu ajouter un formulaire pour régler le niveau de difficulté à l'aide de l'attribut this.sup
 }

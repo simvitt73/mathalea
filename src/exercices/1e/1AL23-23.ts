@@ -8,6 +8,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/
 import { fraction } from '../../modules/fractions'
 import Trinome from '../../modules/Trinome'
 import { texNombre } from '../../lib/outils/texNombre'
+import type FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Nombre de solutions d\'une équation du second degré à paramètre'
 export const dateDePublication = '30/10/2021'
 
@@ -90,7 +91,8 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
         const trinom = new Trinome(coeffAA, coeffBB, coeffCC)
         const f = trinom.discriminant
         if (f.superieurLarge(0) && f.estParfaite) {
-          texteCorr += ` (Remarquons que $\\sqrt{\\Delta^\\prime} =${f.racineCarree().texFractionSimplifiee}$)`
+          const racine = f.racineCarree() as FractionEtendue
+          texteCorr += ` (Remarquons que $\\sqrt{\\Delta^\\prime} =${racine.texFractionSimplifiee}$)`
         }
         if (deltaPrime < 0) {
           texteCorr += '<br>Celui-ci étant strictement négatif, l\'équation n\'a pas de solution et $\\Delta$ ne change pas de signe.'
@@ -102,7 +104,8 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
             texteCorr += '<br>$\\underline{\\text{Conclusion}}$ : L\'équation du départ n\'a pas de solution réelle.'
           }
         } else if (deltaPrime === 0) {
-          const m1 = trinom.x1.texFractionSimplifiee
+          const racine = trinom.x1 as FractionEtendue // lorsque deltaPrime est nul, x1 et x2 sont égaux et sont des FractionEtendue
+          const m1 = racine.texFractionSimplifiee
           texteCorr += `<br>Celui-ci étant nul, l'équation $\\Delta = 0$ a une unique solution $m=\\dfrac{-b}{2a}=${m1}$.`
           if (coeffAA > 0) {
             texteCorr += `<br>De plus le coefficient $${coeffAA}$ devant $m^2$ étant positif, $\\Delta > 0$ si $m\\neq${m1}$.`
@@ -118,9 +121,9 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
           const x2 = trinom.x2
           texteCorr += '<br>Celui-ci étant strictement positif, l\'équation $\\Delta = 0$ a 2 solutions :'
           if (m1.includes('sqrt')) {
-            texteCorr += `<br>$m_1=${m1}\\simeq${texNombre(x1, 4)}$ et $m_2=${m2}\\simeq${texNombre(x2, 4)}$`
+            texteCorr += `<br>$m_1=${m1}\\simeq${texNombre(Number(x1), 4)}$ et $m_2=${m2}\\simeq${texNombre(Number(x2), 4)}$` // deltaPrime > 0 donc il y a bien 2 racines ici, ce sont des valeurs approchées donc des number
           } else {
-            texteCorr += `<br>$m_1=${m1}$ et $m_2=${m2}$`
+            texteCorr += `<br>$m_1=${m1}$ et $m_2=${m2}$` // ici il n'y a plus de racine carrée, ce sont des rationnels
           }
           if (coeffAA > 0) {
             texteCorr += '<br>De plus le coefficient devant $m^2$ est positif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le haut.'

@@ -70,13 +70,16 @@ export default class EquationsEtInequations extends Exercice {
         texteCorr += '<br><br>On en déduit le signe du polynôme dans un tableau de signes :'
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error tableau de variation n'est pas typé
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 3, 30], [`$${b}${ecritureAlgebriqueSauf1(a)}x$`, 2, 50], [`$${rienSi1(c)}x${ecritureAlgebrique(d)}$`, 2, 50], [`$(${b}${ecritureAlgebriqueSauf1(a)}x)(${rienSi1(c)}x${ecritureAlgebrique(d)})$`, 2, 100]],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            // @ts-expect-error tableau de variation n'est pas typé
             ['$-\\infty$', 30, `$${x1.simplifie().texFraction}$`, 20, `$${x2.simplifie().texFraction}$`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
+          // @ts-expect-error tableau de variation n'est pas typé
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
@@ -97,7 +100,7 @@ export default class EquationsEtInequations extends Exercice {
           texteCorr += `$S=\\left[${x1.simplifie().texFraction};${x2.simplifie().texFraction}\\right]$.`
         }
       } else if (listeTypeQuestions[i] === 'inequationFormeDevelopeeSansRacine' || listeTypeQuestions[i] === 'inequationFormeDevelopeeSansRacineBis') {
-        const p = new Trinome()
+        const p = new Trinome(0, 0, 0)
         const a = randint(-3, 3, 0)
         const alpha = randint(-5, 5, 0)
         const beta = a > 0 ? randint(1, 3) : randint(-3, -1)
@@ -120,7 +123,7 @@ export default class EquationsEtInequations extends Exercice {
         else texteCorr += '\\empty'
         texteCorr += '$.'
       } else if (listeTypeQuestions[i] === 'inequationFormeDevelopeeAvecRacines' || listeTypeQuestions[i] === 'inequationFormeDevelopeeAvecRacinesBis') {
-        const p = new Trinome()
+        const p = new Trinome(0, 0, 0)
         const a = randint(-3, 3, 0)
         const alpha = randint(-5, 5, 0)
         let beta = randint(1, 3)

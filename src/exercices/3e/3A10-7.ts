@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { labyrinthe } from '../../modules/Labyrinthe'
+import { Labyrinthe, labyrinthe } from '../../modules/Labyrinthe'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -41,13 +41,9 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
 
   nouvelleVersion () {
     const tailleChiffre = 1.5
-    let nbPremiers = []
+    let nbPremiers:number[] = []
     let nbMax
     switch (this.sup) {
-      case 3 :
-        nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199]
-        nbMax = 199
-        break
       case 2 :
         nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
         nbMax = 99
@@ -56,10 +52,15 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
         nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
         nbMax = 29
         break
+      case 3 :
+      default:
+        nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199]
+        nbMax = 199
+        break
     }
 
     let texte, texteCorr
-    let laby = []
+    let laby: Labyrinthe
     let monChemin
 
     for (let q = 0; q < this.nbQuestions;) {

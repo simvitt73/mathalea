@@ -138,6 +138,7 @@ export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
           break
 
         case 5: // suite u(n+1)=au(n)+bn
+        default:
           a = randint(1, 4) * choice([-1, 1])
           b = randint(1, 10) * choice([-1, 1])
           u = randint(0, 10) * choice([-1, 1])

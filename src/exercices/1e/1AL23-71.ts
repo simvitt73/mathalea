@@ -3,6 +3,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
 export const interactifReady = false
 
@@ -31,7 +32,7 @@ export default class EtudeTrinome extends Exercice {
     // x1 + x2 doit êter pair pour n'avoir que des nombres entiers dans les différentes formes
     const x1 = randint(-5, 5, 0)
     const x2 = x1 + 2 * randint(1, 4)
-    const p = new Trinome()
+    const p = new Trinome(0, 0, 0)
     p.defFormeFactorisee(a, x1, x2)
     this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$.`
     const question1 = 'Développer $f(x)$.'
@@ -56,9 +57,9 @@ export default class EtudeTrinome extends Exercice {
 
     let corr3a = 'Ici, on va utiliser la forme factorisée pour se ramener à une équation produit nul. Il est aussi possible de calculer le discriminant mais cela serait plus long.'
     corr3a += `<br><br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0$`
-    corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x${p.x1.simplifie().oppose().texFractionSignee} = 0 \\text{\\quad ou \\quad} x${p.x2.simplifie().oppose().texFractionSignee} = 0$`
-    corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x=${p.x1.simplifie().texFraction} \\text{\\quad ou \\quad} x=${p.x2.simplifie().texFraction}$`
-    corr3a += `<br><br>$S=\\{${p.x1.simplifie().texFraction}\\, ;\\, ${p.x2.simplifie().texFraction}\\}$`
+    corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x${ecritureAlgebrique(-x1)} = 0 \\text{\\quad ou \\quad} x${ecritureAlgebrique(-x2)} = 0$`
+    corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x=${x1} \\text{\\quad ou \\quad} x=${x2}$`
+    corr3a += `<br><br>$S=\\{${x1}\\, ;\\, ${x2}\\}$`
 
     const q3b = `Résoudre l'équation $f(x) = ${p.c.simplifie().texFraction}$.`
     let corr3b = 'Ici, on va utiliser la forme développée.'
@@ -74,11 +75,11 @@ export default class EtudeTrinome extends Exercice {
     corr3c += `<br><br>$f(x) < ${p.beta.simplifie().texFraction} \\iff ${p.texFormeCanonique}  < ${p.beta.simplifie().texFraction}$`
     corr3c += `<br><br>$\\phantom{f(x) < ${p.beta.simplifie().texFraction}} \\iff ${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2  < 0$`
     if (p.a.s === 1) {
-      corr3c += ` donc $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2 ${p.a.s === 1 ? '>0' : '<0'}$.`
+      corr3c += ` donc $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2 >0$.`
       corr3c += '<br><br>$S=\\emptyset$'
     } else {
       const nonSolution = p.alpha.simplifie().texFractionSignee
-      corr3c += ` or $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2$ est toujours ${p.a.s === 1 ? 'positif' : 'négatif'} et ne s'annule que pour $x=${nonSolution}$.`
+      corr3c += ` or $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2$ est toujours négatif et ne s'annule que pour $x=${nonSolution}$.`
       corr3c += `<br><br>$S=\\R \\smallsetminus \\{${nonSolution}\\}$`
     }
     const [sousQuestions, sousCorrections] = [[q3a, q3b, q3c], [corr3a, corr3b, corr3c]]

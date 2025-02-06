@@ -22,6 +22,8 @@ export const refs = {
   'fr-fr': ['1AN14-7'],
   'fr-ch': []
 }
+type TypeDeFonction = 'monome' | 'racine' | 'inv' | 'exp'
+
 export default class DeriveeComposee extends Exercice {
   constructor () {
     super()
@@ -39,15 +41,19 @@ export default class DeriveeComposee extends Exercice {
 
   nouvelleVersion () {
     this.sup = Number(this.sup)
-    this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
+    const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['monome', 'racine', 'inv']
+    const listeTypeDeQuestionsDisponibles: TypeDeFonction[] = ['monome', 'racine', 'inv']
     if (this.sup) {
       listeTypeDeQuestionsDisponibles.push('exp')
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, expression, exprF, nameF, deriveeF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let exprF = ''
+      let expression = ''
       // On génère des fonctions qui pourrait servir
       const coeffs = new Array(randint(2, 9))
       coeffs.fill(0)
@@ -59,29 +65,30 @@ export default class DeriveeComposee extends Exercice {
         monome: new Polynome({ coeffs })
       }
       const polAff = new Polynome({ rand: true, deg: 1 })
-      const a = polAff.monomes[1]
-      const b = polAff.monomes[0]
-      const typeF = listeTypeDeQuestions[i]
+      const a: number = Number(polAff.monomes[1])
+      const b: number = Number(polAff.monomes[0])
+      const typeF: TypeDeFonction = listeTypeDeQuestions[i]
       const f = dictFonctions[typeF]
       // Expression finale de la fonction
       exprF = typeF === 'monome'
-        ? f.toMathExpr()
+        ? (f as Polynome).toMathExpr()
         : typeF === 'inv'
           ? '\\frac{1}{x}'
-          : f + '{x}'
+          : (f as string) + '{x}'
       expression = typeF === 'monome'
-        ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}`
+        ? `${rienSi1((f as Polynome).monomes[(f as Polynome).deg])}(${polAff})^${(f as Polynome).deg}`
         : typeF === 'inv'
           ? `\\frac{1}{${polAff}}`
           : `${f}{${polAff}}`
       let value = ''
 
       // Enoncé
-      nameF = lettreMinusculeDepuisChiffre(i + 6)
+      const nameF = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${nameF}(x)=${expression}$`
       // Correction
       texteCorr = 'On rappelle le cours. Si $x$ est un nombre réel tel que $u$ soit dérivable en $ax+b$, alors $v:x\\mapsto u(ax+b)$ est dérivable en $x$ et on a :'
       texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
+      let deriveeF = ''
       // Déterminons la dérivée de u
       switch (typeF) {
         case 'exp':
@@ -94,7 +101,7 @@ export default class DeriveeComposee extends Exercice {
           deriveeF = '\\frac{1}{2\\sqrt{x}}'
           break
         case 'monome':
-          deriveeF = f.derivee().toLatex()
+          deriveeF = (f as Polynome).derivee().toLatex()
           break
       }
       texteCorr += `Ici : \\[\\begin{aligned}u(x)&=${exprF}\\\\ u^\\prime(x)&=${deriveeF}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
@@ -119,12 +126,12 @@ export default class DeriveeComposee extends Exercice {
           break
         }
         case 'monome':
-          texteCorr += `\\[${nameF}'(x)=${a}\\times ${`${f.deg}(${polAff})${f.deg === 2 ? '' : `^{${f.deg - 1}}`}`}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${a}\\times ${`${(f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`}.\\]`
           texteCorr += 'D\'où, en simplifiant : '
-          texteCorr += `\\[${nameF}'(x)=${a * f.deg}(${polAff})${f.deg === 2 ? '' : `^{${f.deg - 1}}`}.\\]`
-          value = `${a * f.deg}(${polAff})${f.deg === 2 ? '' : `^{${f.deg - 1}}`}`
+          texteCorr += `\\[${nameF}'(x)=${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}.\\]`
+          value = `${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`
 
-          if (f.deg === 2) {
+          if ((f as Polynome).deg === 2) {
             texteCorr += 'On développe et on réduit pour obtenir  :'
             texteCorr += `\\[${nameF}'(x)=${polAff.multiply(2 * a)}\\]`
             value = `${polAff.multiply(2 * a)}`
@@ -137,8 +144,8 @@ export default class DeriveeComposee extends Exercice {
       texte = texte.replaceAll('\\frac', '\\dfrac') + ajouteChampTexteMathLive(this, i, '')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
 
-      if (this.liste_valeurs.indexOf(expression) === -1) {
-        this.liste_valeurs.push(expression)
+      if (listeValeurs.indexOf(expression) === -1) {
+        listeValeurs.push(expression)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 

@@ -42,10 +42,13 @@ export default class CalculDiscriminant extends Exercice {
     }
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion (numeroExercice: number) {
     const listeTypesEquations = combinaisonListes(['0solution', '1solution', '2solutions'], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, c, x1, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let aNbPointsIntersection
+      let a: number, b: number, c: number, k: number, x1: number, y1: number
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypesEquations[i]) {
         case '0solution':
           aNbPointsIntersection = "n'a aucun point d'intersection"
@@ -87,6 +90,7 @@ export default class CalculDiscriminant extends Exercice {
           texteCorr += `<br>$\\Delta=0$ donc l'équation admet ${texteEnCouleurEtGras('une unique solution')}.`
           break
         case '2solutions': // k(x-x1)^2
+        default:
           aNbPointsIntersection = "a deux points d'intersection"
           k = randint(1, 5)
           x1 = randint(-3, 3)
@@ -111,14 +115,12 @@ export default class CalculDiscriminant extends Exercice {
           texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
           texteCorr += `<br>$\\Delta>0$ donc l'équation admet ${texteEnCouleurEtGras('deux solutions')}.`
           break
-        default:
-          break
       }
       if (context.isHtml) {
-        const f = x => a * x ** 2 + b * x + c
+        const f = (x:number) => a * x ** 2 + b * x + c
         const s = segment(point(-10, 0), point(10, 0), 'red')
         s.epaisseur = 3
-        const r = repere({ afficheLabels: false, xLabelListe: [], yLabelListe: [] })
+        const r = repere({ xLabelListe: [], yLabelListe: [] })
         const graphique = courbe(f, { repere: r, color: 'blue' })
         let correctionComplementaire = `Notons $f : x \\mapsto ${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         correctionComplementaire += `<br>On observe que la courbe représentative de $f$ ${aNbPointsIntersection} avec l'axe des abscisses.`

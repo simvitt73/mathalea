@@ -25,14 +25,9 @@ export const refs = {
   'fr-fr': ['1AN14-5'],
   'fr-ch': []
 }
-/**
- * @param {string} expression expression parsée
- * @returns expression en LaTeX avec multication implicite
- * @author Jean-Léon Henry()
- */
-export function prettyTex (expression) {
-  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '').replaceAll('~', '')
-}
+
+type TypeDeProduit = 'monome2/poly1' | 'inv/poly1' | 'racine/poly' | 'racine/poly2centre' | 'monome2/racine' | 'exp/poly' | 'exp/poly2centre'
+type TypeDeFonction = 'monome2' | 'inv' | 'racine' | 'poly1' | 'poly2centre' | 'poly' | 'exp'
 
 export default class DeriveeProduit extends Exercice {
   constructor () {
@@ -54,7 +49,7 @@ export default class DeriveeProduit extends Exercice {
   }
 
   nouvelleVersion () {
-    this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
+    const listeValeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
     // const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
@@ -77,7 +72,7 @@ export default class DeriveeProduit extends Exercice {
       max: 5,
       melange: 6,
       defaut: 1
-    })
+    }).map(String) as TypeDeProduit[]
     for (let i = 0, texte, texteCorr, terme1, terme2, expression, askFacto, askFormule, askQuotient, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On commence par générer des fonctions qui pourrait servir
       const dictFonctions = {
@@ -89,7 +84,7 @@ export default class DeriveeProduit extends Exercice {
         monome2: new Polynome({ rand: true, coeffs: [0, 0, [10, true]] }),
         poly: new Polynome({ rand: true, deg: randint(1, 2) })
       }
-      const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
+      const listeTypeFonctions = listeTypeDeQuestions[i].split('/') as TypeDeFonction[]
       // On précise les énoncés
       askFacto = listeTypeFonctions.includes('exp')
       askFormule = listeTypeFonctions.includes('poly1')
@@ -101,14 +96,14 @@ export default class DeriveeProduit extends Exercice {
         f1 = randint(0, 1)
         f2 = 1 - f1
       }
-      const typef1 = listeTypeFonctions[f1]
-      const typef2 = listeTypeFonctions[f2]
+      const typef1: TypeDeFonction = listeTypeFonctions[f1]
+      const typef2: TypeDeFonction = listeTypeFonctions[f2]
       // On gère les parenthèses autour des fonctions spéciales
-      const noPar = type => ['monome2', 'racine', 'exp', 'inv'].includes(type)
-      const parenth = (expr, type) => (noPar(type) ? expr : `(${expr})`)
+      const noPar = (type:string) => ['monome2', 'racine', 'exp', 'inv'].includes(type)
+      const parenth = (expr: string, type:string) => (noPar(type) ? expr : `(${expr})`)
       // On crée les expressions des fonctions : les polynômes dans dictFonctions ne sont pas des chaînes
-      const exprf1 = ['poly', 'mono'].includes(typef1.substring(0, 4)) ? dictFonctions[typef1].toMathExpr() : dictFonctions[typef1]
-      const exprf2 = ['poly', 'mono'].includes(typef2.substring(0, 4)) ? dictFonctions[typef2].toMathExpr() : dictFonctions[typef2]
+      const exprf1 = ['poly', 'mono'].includes(typef1.substring(0, 4)) ? (dictFonctions[typef1] as Polynome).toMathExpr() : dictFonctions[typef1] as string
+      const exprf2 = ['poly', 'mono'].includes(typef2.substring(0, 4)) ? (dictFonctions[typef2] as Polynome).toMathExpr() : dictFonctions[typef2] as string
       terme1 = parenth(exprf1, typef1)
       terme2 = parenth(exprf2, typef2)
       // Expression finale de la fonction
@@ -134,15 +129,15 @@ export default class DeriveeProduit extends Exercice {
       texteCorr += `\\[\\begin{aligned}u(x)&=${engine.parse(exprf1).latex}\\\\ v(x)&=${engine.parse(exprf2).latex}.\\end{aligned}\\]`
       switch (listeTypeDeQuestions[i]) {
         case 'inv/poly1': {
-          const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
-          const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
-          const f2 = dictFonctions[typef2]
+          const b = (dictFonctions[typef2] as Polynome).monomes[0] // coeffs du poly1
+          const a = (dictFonctions[typef2] as Polynome).monomes[1] // coeffs du poly1
+          const f2 = dictFonctions[typef2] as Polynome
           // Début correction
           texteCorr += 'On utilise la formule rappelée plus haut et on a : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${engine.parse(terme2).latex}+\\frac{1}{x}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${engine.parse(terme2).latex}+\\frac{1}{x}\\times\\underbrace{${Number(a) > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
-          texteCorr += `\\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${Polynome.print([0, a])}}{x^2}=\\frac{${f2.multiply(-1)}${Polynome.print([0, a], true)}}{x^2}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${Polynome.print([0, Number(a)])}}{x^2}=\\frac{${f2.multiply(-1)}${Polynome.print([0, Number(a)], true)}}{x^2}.\\]`
           texteCorr += 'Des termes se simplifient au numérateur et on a : '
           texteCorr += `\\[${namef}'(x)=\\frac{${Polynome.print([-b])}}{x^2}.\\]`
           // Remarque sur la méthode alternative
@@ -155,12 +150,12 @@ export default class DeriveeProduit extends Exercice {
           break
         }
         case 'monome2/poly1': {
-          const mon2 = dictFonctions[typef1]
-          const poly1 = dictFonctions[typef2]
+          const mon2 = dictFonctions[typef1] as Polynome
+          const poly1 = dictFonctions[typef2] as Polynome
           const a = poly1.monomes[1]
           const polExpand = mon2.multiply(poly1)
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${Number(a) > 0 ? a.toString() : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
           // Remarque sur la méthode alternative
@@ -170,8 +165,8 @@ export default class DeriveeProduit extends Exercice {
           break
         }
         case 'monome2/racine': {
-          const mon2 = dictFonctions[typef1]
-          const m = mon2.monomes[2] // coeff du monome2
+          const mon2 = dictFonctions[typef1] as Polynome
+          const m = Number(mon2.monomes[2]) // coeff du monome2
           texteCorr += 'On applique la  formule rappellée plus haut : '
           texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times\\sqrt{x}+(${mon2.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
@@ -251,8 +246,8 @@ export default class DeriveeProduit extends Exercice {
         texte += '<br><br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: `$${namef}'(x)=$` })
       }
 
-      if (this.liste_valeurs.indexOf(expression) === -1) {
-        this.liste_valeurs.push(expression)
+      if (listeValeurs.indexOf(expression) === -1) {
+        listeValeurs.push(expression)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

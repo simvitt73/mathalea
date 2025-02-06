@@ -45,10 +45,17 @@ export default class LireElementsCarac extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let Ymin; let Yscale; let Ymax
     let Xmin; let Xmax
-    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, alpha, beta, f, r, svgYmin, svgYmax, F, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
-      texteCorr = ''
-      a = randint(-2, 2, 0) // On prend a au hasard quoi qu'il arrive
+      let texteCorr = ''
+      let texte = ''
+      const a = randint(-2, 2, 0) // On prend a au hasard quoi qu'il arrive
+      let b: number, c: number
+      let x1: number = 0
+      let x2: number = 0
+      let alpha: number = 0
+      let beta: number = 0
+
       // Générons les coefficients du trinôme, la consigne, la correction
       switch (listeTypeDeQuestions[i]) {
         case 1: // Signe du coefficient dominant
@@ -78,6 +85,7 @@ export default class LireElementsCarac extends Exercice {
           texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${Math.min(x1, x2)};0)$ et $(${Math.max(x1, x2)};0)$. Les deux racines sont donc $${Math.min(x1, x2)}$ et $${Math.max(x1, x2)}$.`
           break
         case 3: // Coordonnées du sommet
+        default:
           texte = 'Quelles sont les coordonnées du sommet'
           // On choisit le sommet au hasard
           alpha = randint(-5, 5)
@@ -90,7 +98,7 @@ export default class LireElementsCarac extends Exercice {
           break
       }
       // Les coeffs sont générés, on peut donc créer la fonction
-      f = function (x) {
+      const f = function (x: number) {
         return a * x ** 2 + b * x + c
       }
       texte += ` de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
@@ -125,7 +133,7 @@ export default class LireElementsCarac extends Exercice {
         // Nécessaire pour permettre la lecture graphique
         Yscale = 1
       }
-      r = repere({
+      const r = repere({
         xMin: Xmin,
         yMin: premierMultipleInferieur(Yscale, Ymin),
         yMax: premierMultipleSuperieur(Yscale, Ymax),
@@ -136,10 +144,10 @@ export default class LireElementsCarac extends Exercice {
         yLabelEcart: 0.8
       })
 
-      svgYmin = Math.min(Ymin / Yscale, -1)
-      svgYmax = Math.max(Ymax / Yscale, 1)
+      const svgYmin = Math.min(Ymin / Yscale, -1)
+      const svgYmax = Math.max(Ymax / Yscale, 1)
 
-      F = x => a * x ** 2 + b * x + c
+      const F = (x:number) => a * x ** 2 + b * x + c
       const objets = [
         r,
         courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 })

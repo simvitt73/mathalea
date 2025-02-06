@@ -30,7 +30,7 @@ export default class MesurePrincipale extends Exercice {
     super()
 
     this.nbQuestions = 3 // Nombre de questions par défaut
-    this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   }
 
@@ -77,6 +77,7 @@ export default class MesurePrincipale extends Exercice {
           n = 11
           break
         case 'type9':// k* 2\pi + p*\pi/n
+        default:
           p = randint(-12, 12, [0])
           n = 13
           break

@@ -4,6 +4,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
+import type FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { egal, listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -92,8 +93,9 @@ export default class Resolutionavecformecanonique extends Exercice {
           p = 1
         }
         if (b2.estParfaite) { // pas de radical, calcul rationnel
-          x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
-          x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
+          const racine = (b2.racineCarree() as FractionEtendue).simplifie()
+          x1 = alpha.simplifie().sommeFraction(racine.oppose()).simplifie()
+          x2 = alpha.simplifie().sommeFraction(racine).simplifie()
           if (a < 0) {
             x1String = x1.ecritureAlgebrique
             stringX1 = x1.oppose().texFractionSimplifiee
