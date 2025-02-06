@@ -1,6 +1,6 @@
 import { cercleTrigo } from '../../lib/2d/angles'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { valeursTrigo } from '../../lib/mathFonctions/trigo'
+import { Angle, valeursTrigo } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
@@ -26,6 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class CosEtsin extends Exercice {
+  can: boolean
   constructor () {
     super()
     this.can = false
@@ -54,7 +55,7 @@ export default class CosEtsin extends Exercice {
   }
 
   nouvelleVersion () {
-    const mesAnglesAleatoiresBis = [[0]]
+    const mesAnglesAleatoiresBis: Angle[][] = []
     let typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -62,7 +63,7 @@ export default class CosEtsin extends Exercice {
       melange: 4,
       defaut: 4,
       nbQuestions: 1
-    })
+    }).map(Number)
 
     if (typeDeQuestions.includes(1)) this.nbQuestions = Math.min(this.nbQuestions, 10 * typeDeQuestions.length) // on bride car il n'y a que 10 questions différentes au niveau 1
     else if (typeDeQuestions.includes(2)) this.nbQuestions = Math.min(this.nbQuestions, 26 * typeDeQuestions.length) // Le bridage est un peu plus large pour le niveau 2
@@ -78,14 +79,14 @@ export default class CosEtsin extends Exercice {
     listeK = valeursDek.includes(',') ? valeursDek.split(',') : [this.sup2]
 
     for (let k = 0; k < listeK.length; k++) {
-      const n = parseInt(listeK[k])
+      const n = listeK[k]
       if (n !== 0 && listeK.indexOf(n) === -1) {
         listeK[k] = n
       }
     }
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste3))
 
-    const typeQuestionsDisponibles = [[], [], [], []]
+    const typeQuestionsDisponibles: ['cos' | 'sin', Angle][][] = []
     for (let i = 0; i < mesAnglesAleatoiresBis[1].length; i++) {
       typeQuestionsDisponibles[1].push(['cos', mesAnglesAleatoiresBis[1][i]])
       typeQuestionsDisponibles[1].push(['sin', mesAnglesAleatoiresBis[1][i]])
@@ -122,7 +123,7 @@ export default class CosEtsin extends Exercice {
 
       setReponse(this, i, monAngle[listeTypeQuestions[i][0]])
       // dans quelques cas, les valeurs de cos et sin sont multiples et contenues dans une liste avec en premier '1/2', en deuxième la valeur décimale '0.5'
-      valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]]) ? monAngle[listeTypeQuestions[i][0]][0] : monAngle[listeTypeQuestions[i][0]]
+      valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]]) ? monAngle[listeTypeQuestions[i][0]][0] : monAngle[listeTypeQuestions[i][0]] as string
       texteCorr += `=${valeurFonction}$`
 
       texteCorr += '<br><br>'

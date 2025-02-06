@@ -58,9 +58,7 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1} ; ${x2}\\right\\}$.`
         answer = `\\{${x1};${x2}\\}`
-      }
-
-      if (listeTypeDeQuestions[i] === 'solutionUnique') {
+      } else if (listeTypeDeQuestions[i] === 'solutionUnique') {
         // k(x-x1)(x-x1)
         x1 = randint(-5, 5, [0])
         k = randint(-4, 4, [0])
@@ -74,9 +72,7 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         texteCorr += `<br>$x_1 =\\dfrac{${-b}}{${2 * a}}=${x1}$`
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1}\\right\\}$.`
         answer = `\\{${x1}\\}`
-      }
-
-      if (listeTypeDeQuestions[i] === 'pasDeSolution') {
+      } else {
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
         y1 = randint(1, 5)

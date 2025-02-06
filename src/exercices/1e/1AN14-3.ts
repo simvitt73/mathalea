@@ -7,6 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
+import type { BoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre = 'Dérivée d\'un polynôme'
 export const dateDePublication = '06/05/2024'
@@ -53,7 +54,7 @@ export default class DeriveePoly extends Exercice {
   }
 
   nouvelleVersion () {
-    this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
+    const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
@@ -70,7 +71,7 @@ export default class DeriveePoly extends Exercice {
       max: 5,
       melange: 6,
       defaut: 1
-    })
+    }).map(String)
     for (let i = 0, texte, texteCorr, nameF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On commence par générer des fonctions qui pourrait servir
       const listeFracs = obtenirListeFractionsIrreductibles()
@@ -93,11 +94,14 @@ export default class DeriveePoly extends Exercice {
         coeffs = [[10, true], [10, true], [10, true], [10, true]]
       }
       let deg = randint(1, 2)
+      const deuxCoeffs = coeffs.slice(0, 2)
+      const troisCoeffs = coeffs.slice(0, 3)
+      const unCoeff = coeffs.slice(0, 1)
       const dictFonctions = {
-        poly1: new Polynome({ rand: true, coeffs: coeffs.slice(0, 2), useFraction, useDecimal }),
-        poly2: new Polynome({ rand: true, coeffs: coeffs.slice(0, 3), useFraction, useDecimal }),
+        poly1: new Polynome({ rand: true, coeffs: deuxCoeffs, useFraction, useDecimal }),
+        poly2: new Polynome({ rand: true, coeffs: troisCoeffs, useFraction, useDecimal }),
         poly3: new Polynome({ rand: true, coeffs, useFraction, useDecimal }),
-        const: new Polynome({ rand: true, coeffs: coeffs.slice(0, 1), useFraction, useDecimal }),
+        const: new Polynome({ rand: true, coeffs: unCoeff, useFraction, useDecimal }),
         monbis: new Polynome(
           choice([
             { rand: true, coeffs: [coeffs[0], 0, coeffs[2], 0], useFraction, useDecimal },
@@ -112,7 +116,8 @@ export default class DeriveePoly extends Exercice {
       if (expression.startsWith('+')) expression = expression.substring(1)
       // Enoncé
       nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
-      texte = `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$<br>`
+      const fExpr = engine.parse(expression) as unknown as BoxedExpression
+      texte = `$${nameF}(x)=${fExpr != null ? fExpr.latex.replaceAll('.', '{,}') : 'Erreur dans la fonction'}$<br>`
       // Correction
       texteCorr = `$${nameF}$ est dérivable sur $\\R$.<br>`
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur somme est dérivable sur $I$ et on a la formule : '
@@ -136,17 +141,23 @@ export default class DeriveePoly extends Exercice {
         termes = termes.map(el => el.startsWith('+') ? el.substring(1) : el)
         termesD = termesD.map(el => el.startsWith('+') ? el.substring(1) : el)
         if (termes.length > 1) {
-          texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br>${useFraction ? '<br>' : ''}`
+          const fExpr = engine.parse(expression) as unknown as BoxedExpression
+          texteCorr = `La fonction $${nameF}(x)=${fExpr.latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br>${useFraction ? '<br>' : ''}`
           texteCorr += 'On rappelle que $(u+v)^\\prime=u^\\prime+v^\\prime$.<br>'
           for (let n = 0; n < termes.length; n++) {
             texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br>${useFraction ? '<br>' : ''}`
           }
         } else {
-          texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
+          const fExpr = engine.parse(expression) as unknown as BoxedExpression
+          texteCorr = `La fonction $${nameF}(x)=${fExpr.latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
         }
       } else {
-        texteCorr = `$${nameF}^\\prime(x)=${poly.detailleCalculDerivee()}$.<br>`
-        texteCorr += 'On effectue les produits.<br>'
+        if (poly.monomes.length > 1) {
+          texteCorr = `$${nameF}^\\prime(x)=${poly.detailleCalculDerivee()}$.<br>`
+          texteCorr += 'On effectue les produits.<br>'
+        } else {
+          texteCorr = `La fonction $${nameF}(x)=${fExpr.latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
+        }
       }
       texteCorr += `On obtient alors : $${nameF}^\\prime(x)=${poly.derivee().toLatex().replaceAll('.', '{,}')}$.`
 
@@ -157,8 +168,8 @@ export default class DeriveePoly extends Exercice {
       }
       handleAnswers(this, i, { reponse: { value: poly.derivee().toLatex(), compare: functionCompare } })
 
-      if (this.liste_valeurs.indexOf(expression) === -1) {
-        this.liste_valeurs.push(expression)
+      if (listeValeurs.indexOf(expression) === -1) {
+        listeValeurs.push(expression)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

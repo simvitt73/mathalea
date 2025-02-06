@@ -53,6 +53,7 @@ export default class CalculerDiscriminant extends Exercice {
           c = randint(-5, 5)
           break
         case 3 :
+        default:
           a = new FractionEtendue(randint(-9, 9), choice([2, 3, 5]))
           b = new FractionEtendue(randint(-9, 9), choice([2, 3, 5]))
           c = new FractionEtendue(randint(-9, 9), choice([2, 3, 5]))

@@ -8,13 +8,19 @@ import {
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Déterminer une équation de tangente'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const dateDePublication = '16/12/2021'
-export const dateDeModifImportante = '07/03/2024'
+export const dateDeModifImportante = '06/02/2025'
 
 /**
  * Déterminer une équation de tangente en utilisant un nombre dérivé
+ * Ajout de l'interactivité par Jean-Claude Lhote et passage en typescript
 */
 export const uuid = '4c8c7'
 
@@ -37,7 +43,10 @@ export default class Equationdetangente extends Exercice {
     const typesDeQuestionsDisponibles = [this.sup]
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      let texte = ''
+      let texteCorr = ''
+      let a: number, b: number, c: number
       switch (listeTypeQuestions[i]) {
         case 2 :// Sans formule
           a = randint(-5, 5)
@@ -46,7 +55,7 @@ export default class Equationdetangente extends Exercice {
           texte = 'Soit $f$ une fonction dérivable sur $[-5;5]$ et $\\mathcal{C}_f$ sa courbe représentative.<br>'
           texte += `On sait que  $f(${a})=${b}~~$ et que $~~f'(${a})=${c}$.`
           texte += `<br>Déterminer une équation de la tangente $(T)$ à la courbe $\\mathcal{C}_f$ au point d'abscisse $${a}$,`
-          texte += '<br>sans utiliser la formule de cours de l\'équation de tangente.'
+          texte += '<br>sans utiliser la formule de cours de l\'équation de tangente.<br>'
 
           texteCorr = 'On sait que la tangente n\'est pas une droite verticale, puisque la fonction est dérivable sur l\'intervalle.'
           texteCorr += `<br>On en déduit que la tangente $(T)$ au point d'abscisse $${a}$, admet une équation réduite de la forme :  `
@@ -66,13 +75,14 @@ export default class Equationdetangente extends Exercice {
           texteCorr += ` \\iff& p=${b - c * a}\\\\`
           break
         case 1 :// 'formule':
+        default:
           a = randint(-5, 5)
           b = randint(-5, 5)// f(a)
           c = randint(-5, 5, [1])// f'(a)
           texte = 'Soit $f$ une fonction dérivable sur $[-5;5]$ et $\\mathcal{C}_f$ sa courbe représentative.<br>'
           texte += `On sait que  $f(${a})=${b}~~$ et que $~~f'(${a})=${c}$.`
           texte += `<br>Déterminer une équation de la tangente $(T)$ à la courbe $\\mathcal{C}_f$ au point d'abscisse $${a}$,`
-          texte += '<br>en utilisant la formule de cours de l\'équation de tangente.'
+          texte += '<br>en utilisant la formule de cours de l\'équation de tangente.<br>'
           texteCorr = ` $${a}\\in[-5;5]$ donc la fonction est dérivable en $${a}$.`
           texteCorr += ` <br> On peut donc appliquer la formule de cours qui donne une équation de la tangente $(T)$ au point d'abscisse $${a}$ : `
           texteCorr += '<br> $\\begin{aligned} '
@@ -85,7 +95,8 @@ export default class Equationdetangente extends Exercice {
       }
       texteCorr += '\\end{aligned}$'
       texteCorr += `<br>On peut conclure que : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(c, b - c * a)}`)}$.`
-
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lycee, { texteAvant: '$y=$' })
+      handleAnswers(this, i, { reponse: { value: `${reduireAxPlusB(c, b - c * a)}` } })
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte

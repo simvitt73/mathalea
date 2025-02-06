@@ -7,13 +7,20 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Taux de variation des fonctions de référence'
+export const interactifType = 'mathLive'
+export const interactifReady = true
 
 export const dateDePublication = '16/12/2021'
-export const dateDeModifImportante = '24/10/2021'
+export const dateDeModifImportante = '06/02/2025'
 
 /*
  * Calculer un taux de variation
+* Passage en typescript le 06/02°2025 + ajout des miseEnEvidence + interactivité Jean-Claude Lhote
 */
 
 export const uuid = '29202'
@@ -40,8 +47,13 @@ export default class Tauxvariation extends Exercice {
     else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, a, p, m, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      let a: number, m: number, p: number
+      let texte = ''
+      let texteCorr = ''
+      let reponse : string
+      const typeDeQuestion = listeTypeQuestions[i]
+      switch (typeDeQuestion) { // Suivant le type de question, le contenu sera différent
         case 1:// affine
           a = randint(-5, 5, [0])
           m = randint(-5, 5, [0])// coeff dir de ax+b
@@ -63,7 +75,8 @@ export default class Tauxvariation extends Exercice {
           texteCorr += '<br>On en déduit facilement la limite du taux de variations quand $h$ tend vers $0$.'
           texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} ${m}=${m} $`
           texteCorr += `<br>On peut en conclure que $f$ est dérivable en $${a}$ et`
-          texteCorr += ` donc $f'(${a})=${m} $`
+          texteCorr += ` donc $f'(${a})=${miseEnEvidence(m)} $`
+          reponse = m.toString()
           break
         case 2 :// 'carre':
           a = randint(-5, 5, [0])
@@ -84,8 +97,8 @@ export default class Tauxvariation extends Exercice {
           texteCorr += '<br>On cherche maintenant la limite du taux de variations quand $h$ tend vers $0$.'
           texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} ${2 * a} +h=${2 * a} $`
           texteCorr += `<br>Comme la limite existe, on peut en déduire que $f$ est dérivable en $${a}$ <br>et`
-          texteCorr += ` on peut conclure que $f'(${a})=${2 * a} $`
-
+          texteCorr += ` on peut conclure que $f'(${a})=${miseEnEvidence(2 * a)} $`
+          reponse = String(2 * a)
           break
         case 3 :// 'inverse':
           a = randint(-5, 5, [0])
@@ -103,9 +116,17 @@ export default class Tauxvariation extends Exercice {
           texteCorr += '\\end{aligned}$'
           texteCorr += '<br>On cherche maintenant la limite du taux de variations quand $h$ tend vers $0$.'
           texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} \\dfrac{-1}{(${a}+h)\\times ${ecritureParentheseSiNegatif(a)}}= \\dfrac{-1}{${a * a}} $`
-          if (a !== 1 && a !== -1) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{-1}{${a * a}} $` } else { texteCorr += `<br>On peut donc conclure que $f'(${a})=-1 $` }
+          if (a !== 1 && a !== -1) {
+            texteCorr += `<br>On peut donc conclure que $f'(${a})=${miseEnEvidence(`\\dfrac{-1}{${a * a}}`)}$`
+            reponse = `\\frac{-1}{${a * a}}`
+          } else {
+            texteCorr += `<br>On peut donc conclure que $f'(${a})=${miseEnEvidence(-1)}$`
+            reponse = '-1'
+          }
+
           break
         case 4 :// 'racine_carree':
+        default:
           a = randint(1, 8)
           texte = 'Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}_{+}$ par $f(x)=\\sqrt{x}$.<br>'
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
@@ -123,20 +144,27 @@ export default class Tauxvariation extends Exercice {
           texteCorr += '\\end{aligned}$'
           texteCorr += '<br>On cherche maintenant la limite du taux de variations quand $h$ tend vers $0$.'
           texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} \\dfrac{1}{\\sqrt{${a}+h}+\\sqrt{${a}}}=\\dfrac{1}{2 \\sqrt{${a}}}$`
-          if (a !== 1 && a !== 4) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{1}{2 \\sqrt{${a}}}$` }
-          if (a === 1) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{1}{2} $` }
-          if (a === 4) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{1}{4} $` }
+          if (a === 1) {
+            texteCorr += `<br>On peut donc conclure que $f'(${a})=${miseEnEvidence('\\dfrac{1}{2}')}$`
+            reponse = '\\frac{1}{2}'
+          } else if (a === 4) {
+            texteCorr += `<br>On peut donc conclure que $f'(${a})=${miseEnEvidence('\\dfrac{1}{4}')}$`
+            reponse = '\\frac{1}{4}'
+          } else {
+            texteCorr += `<br>On peut donc conclure que $f'(${a})=${miseEnEvidence(`\\dfrac{1}{2 \\sqrt{${a}}}`)}$`
+            reponse = `\\frac{1}{2 \\sqrt{${a}}}`
+          }
           break
       }
-
-      // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lycee, { texteAvant: `$f'(${a})=$` })
+      handleAnswers(this, i, { reponse: { value: reponse } })
+      if (this.questionJamaisPosee(i, typeDeQuestion, a)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this)
   }
 }

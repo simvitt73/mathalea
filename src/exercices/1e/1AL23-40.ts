@@ -76,13 +76,16 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += '<br>on en déduit le signe du polynôme dans un tableau de signes :'
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error tableau de variation n'est pas typé
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30], [`$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`, 2, 50]],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            // @ts-expect-error tableau de variation n'est pas typé
             ['$-\\infty$', 30, `${x1}`, 20, `${x2}`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
+          // @ts-expect-error tableau de variation n'est pas typé
           tabLines: [ligne1],
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
@@ -125,13 +128,16 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error tableau de variation n'est pas typé
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30], [`$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`, 2, 50]],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            // @ts-expect-error tableau de variation n'est pas typé
             ['$-\\infty$', 30, `${x1}`, 20, `${x2}`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
+          // @ts-expect-error tableau de variation n'est pas typé
           tabLines: [ligne1],
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
@@ -174,13 +180,16 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error tableau de variation n'est pas typé
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30], [`$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`, 2, 50]],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            // @ts-expect-error tableau de variation n'est pas typé
             ['$-\\infty$', 30, `${x1}`, 20, `${x2}`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
+          // @ts-expect-error tableau de variation n'est pas typé
           tabLines: [ligne1],
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
@@ -223,13 +232,16 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error tableau de variation n'est pas typé
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30], [`$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`, 2, 50]],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            // @ts-expect-error tableau de variation n'est pas typé
             ['$-\\infty$', 30, `${x1}`, 20, `${x2}`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
+          // @ts-expect-error tableau de variation n'est pas typé
           tabLines: [ligne1],
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
@@ -337,7 +349,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
           texteCorr += '>0$, donc $P(x)>0$ pour tout $x$ de $\\mathbb{R}$.'
           texteCorr += '<br> On en déduit $S=\\mathbb{R}$.'
         }
-      } else if (listeTypeDeQuestions[i] === 'pasDeSolution4') {
+      } else { // if (listeTypeDeQuestions[i] === 'pasDeSolution4') // condition inutile il n'y a plus d'autres possibilités
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
         y1 = randint(1, 5)

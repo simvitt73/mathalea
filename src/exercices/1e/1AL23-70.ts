@@ -52,7 +52,12 @@ export default class TrouverEquationParabole extends Exercice {
     else typesDeQuestionsDisponibles = [1, 2, 2, 3, 3]
     const fName = []; let Ymin; let Yscale; let Ymax
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, x3, f, r, svgYmin, svgYmax, F, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a: number, b: number, c: number
+      let x1: number, x2: number, x3: number
+      let f: (x: number) => number
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
       texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré `
       texteCorr = ''
@@ -87,7 +92,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
  \\end{cases}$<br>`
           }
           texteCorr += `La résolution de ce système donne $a=${miseEnEvidence(texNombre(a), 'blue')}$ et $b=${miseEnEvidence(texNombre(b), 'green')}$.<br>`
-          texteCorr += `D'où $\\mathscr{${fName[i]}}(x)=${miseEnEvidence(rienSi1(a), 'blue')}x^2 ${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x  ${miseEnEvidence(ecritureAlgebrique(c), 'red')}$<br>`
+          texteCorr += `D'où $\\mathscr{${fName[i]}}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2 ${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x  ${miseEnEvidence(ecritureAlgebrique(c), 'red')}$<br>`
 
           break
         case 2 : // Passant par le sommet (x1,y1) et par le point (x2,y2)
@@ -116,9 +121,10 @@ ${f(x1) - f(-x1)}=${2 * x1}b
   =${miseEnEvidence('a', 'blue')}x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1) + 'a', 'green')}x${miseEnEvidence(ecritureAlgebriqueSauf1(x1 ** 2) + 'a' + ecritureAlgebrique(f(x1)), 'red')}$.<br>`
           }
           texteCorr += `En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${miseEnEvidence('a', 'blue')}x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1) + 'a', 'green')}x${miseEnEvidence(ecritureAlgebriqueSauf1(x1 ** 2) + 'a' + ecritureAlgebrique(f(x1)), 'red')}$ on obtient :<br>`
-          texteCorr += `$\\mathscr{${fName[i]}}(x)=${miseEnEvidence(rienSi1(a), 'blue')}x^2${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x${miseEnEvidence(ecritureAlgebrique(c), 'red')}$`
+          texteCorr += `$\\mathscr{${fName[i]}}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x${miseEnEvidence(ecritureAlgebrique(c), 'red')}$`
           break
         case 3: // on a deux racines x1 et x2 et un troisième point (x3;f(x3))
+        default:
           x1 = randint(-6, -1)
           x2 = randint(1, 6, -x1)
           x3 = randint(-5, 5, [x1, x2])
@@ -149,7 +155,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
 
       if (Ymax - Ymin < 10) Yscale = 2
       else Yscale = Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
-      r = repere({
+      const r = repere({
         xMin: -10,
         yMin: premierMultipleInferieur(Yscale, Ymin) - Yscale,
         yMax: premierMultipleSuperieur(Yscale, Ymax) + Yscale,
@@ -160,9 +166,9 @@ ${f(x1) - f(-x1)}=${2 * x1}b
         yLabelEcart: 0.8
       })
 
-      svgYmin = Math.min(Ymin / Yscale, -1)
-      svgYmax = Math.max(Ymax / Yscale, 1)
-      F = x => a * x ** 2 + b * x + c
+      const svgYmin = Math.min(Ymin / Yscale, -1)
+      const svgYmax = Math.max(Ymax / Yscale, 1)
+      const F = (x:number) => a * x ** 2 + b * x + c
       texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

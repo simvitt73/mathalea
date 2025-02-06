@@ -37,7 +37,7 @@ export const refs = {
      * @returns la chaine latex pour écrire la proba.
      * version arrondie au millième
      */
-function texProba (proba, rationnel) {
+function texProba (proba: number, rationnel: boolean) {
   return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
 }
 export default class ProbabilitesConditionnelles extends Exercice {
@@ -142,6 +142,7 @@ export default class ProbabilitesConditionnelles extends Exercice {
           texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${texProba(k2, this.sup)} \\times ${texProba(k2, this.sup)}\\approx${texProba((k2) ** 2, false)}$.`
           break
         case 'sujetE3C2':
+        default:
           c = randint(30, 70)// p(C)
           ec = randint(20, 95 - c)// P_\bar C(E)
           // ce = randint(20, 95 - c)// P(E \cap C)
