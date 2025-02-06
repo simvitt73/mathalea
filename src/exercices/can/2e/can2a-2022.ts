@@ -15,13 +15,12 @@ import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN seconde sujet 2022'
@@ -36,7 +35,7 @@ export const dateDePublication = '13/07/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres (a: number, b: number) {
   return a - b
 }
 
@@ -71,18 +70,29 @@ export default class SujetCAN2022Seconde extends Exercice {
     const listeFractions2 = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [3, 5], [4, 7], [1, 5], [3, 5], [3, 4], [2, 9], [1, 9], [7, 9], [1, 8], [5, 8]
     ]
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, listeFacteurs24 = [], triplet, exp, pol, reponse, reponse1, prix, somme, n, q, x, k, f, m, choix, a, b, c, d, g, h, p, A, B, C, D, E, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let a = 0
+      let b = 0
+      let c = 0
+      let d = 0
+      let p = 0
+      let f: any = 0
+      let texte = ''
+      let texteCorr = ''
+      let reponse: any = 0
+      let nbChamps = 1
+      let choix = 'a'
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(2, 9)
-          b = new Decimal(randint(1, 9)).div(10)
+          b = randint(1, 9) / 10
           if (choice([true, false])) {
             texte = `$${a} \\times ${texNombre(b, 1)}=$ `
           } else {
             texte = `$${texNombre(b, 1)} \\times ${a}=$ `
           }
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${a}\\times ${texNombre(b * 10, 0)}\\times 0,1=${texNombre(a * b, 1)}$`
-          reponse = new Decimal(a).mul(b)
+          reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
@@ -93,10 +103,10 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           break
 
-        case 2:
+        case 2:{
           a = randint(1, 9)
-          b = choice(listeFractions2)
-          f = new FractionEtendue(b[0], b[1])
+          const b = choice(listeFractions2)
+          const f = new FractionEtendue(b[0], b[1])
           if (choice([true, false])) {
             reponse = new FractionEtendue(a * b[1] + b[0], b[1])
             texte = `$${a}+${f.texFraction}= $`
@@ -119,6 +129,8 @@ export default class SujetCAN2022Seconde extends Exercice {
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
 
           nbChamps = 1
+        }
+
           break
 
         case 3:
@@ -143,14 +155,14 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(2, 9)
             b = randint(2, 9)
             c = choice([-1, -2, -3])
-            reponse = new Decimal(a * 10 ** (-c) + b).div(10 ** (-c))
+            reponse = (a * 10 ** (-c) + b) / (10 ** (-c))
             texte = `Donner l'écriture décimale de :  $${b}\\times10^{${c}}+${a}$.`
             texteCorr = `$${b}\\times10^{${c}}+${a}=${a}+${texNombre(b * 10 ** c, 3)}=${texNombre(reponse, 3)}$`
           } else {
             a = randint(2, 9)
             b = randint(2, 9)
             c = choice([-1, -2, -3])
-            reponse = new Decimal(a * 10 ** (-c) + b).div(10 ** (-c))
+            reponse = (a * 10 ** (-c) + b) / (10 ** (-c))
             texte = `Donner l'écriture décimale de :  $${a}+${b}\\times10^{${c}}$`
             texteCorr = `$${a}+${b}\\times10^{${c}}=${a}+${texNombre(b * 10 ** c, 3)}=${texNombre(reponse, 3)}$`
           }
@@ -190,8 +202,8 @@ export default class SujetCAN2022Seconde extends Exercice {
           choix = choice(['a', 'b', 'c'])//
           if (choix === 'a') {
             a = randint(2, 5) * 2
-            prix = new Decimal(randint(7, 15)).div(10)
-            reponse = new Decimal(prix * a).div(2)
+            const prix = randint(7, 15) / 10
+            reponse = prix * a / 2
 
             if (a === 2) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûte $${texNombre(a / 2, 0)}$ croissant ?
@@ -208,8 +220,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             }
           } else if (choix === 'b') {
             a = randint(1, 3) * 3
-            prix = new Decimal(randint(7, 15)).div(10)
-            reponse = new Decimal(prix).mul(a).div(3)
+            const prix = randint(7, 15) / 10
+            reponse = prix * a / 3
 
             if (a === 3) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 3, 0)}$ croissant ?
@@ -226,8 +238,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             }
           } else {
             a = randint(1, 3) * 4
-            prix = new Decimal(randint(7, 15)).div(10)
-            reponse = new Decimal(prix).mul(a).div(4)
+            const prix = randint(7, 15) / 10
+            reponse = prix * a / 4
 
             if (a === 4) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 4, 0)}$ croissant ?
@@ -248,6 +260,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '') + ' €'
           }
           nbChamps = 1
+
           break
         case 7:
           a = randint(2, 10)
@@ -285,21 +298,23 @@ export default class SujetCAN2022Seconde extends Exercice {
         case 9:
           if (choice([true, false])) {
             a = randint(1, 9)
-            somme = choice([20, 40, 60])
+            const somme = choice([20, 40, 60])
             b = randint(1, 9)
             c = somme / 2 - a
             d = somme / 2 - b
+            reponse = somme / 4
           } else {
             a = randint(1, 29)
-            somme = choice([60, 80, 90, 100, 120])
+            const somme = choice([60, 80, 90, 100, 120])
             b = randint(1, 29)
             c = somme / 2 - a
             d = somme / 2 - b
+            reponse = somme / 4
           }
-          reponse = somme / 4
+
           texte = `Calculer la moyenne de :
             $${a}${sp(3)}; ${sp(3)}${b}${sp(3)}; ${sp(3)}${c}${sp(3)}; ${sp(3)}${d}$.`
-          texteCorr = `La moyenne est donnée par : $\\dfrac{${a}+${b}+${c}+${d}}{4}=\\dfrac{${somme}}{4}=${reponse}$.`
+          texteCorr = `La moyenne est donnée par : $\\dfrac{${a}+${b}+${c}+${d}}{4}=\\dfrac{${reponse * 4}}{4}=${reponse}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -311,7 +326,7 @@ export default class SujetCAN2022Seconde extends Exercice {
         case 10:
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
-          reponse = new Decimal(a * p).div(100)
+          reponse = a * p / 100
           texte = `$${p}$ $\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}$ $\\%$  de $${a}$ revient à prendre $${texNombre(p / 10, 0)}\\times 10\\%$  de $${a}$.<br>
@@ -332,8 +347,8 @@ export default class SujetCAN2022Seconde extends Exercice {
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             a = randint(101, 500)
-            b = new Decimal(a).div(100)
-            exp = randint(5, 30)
+            b = a / 100
+            const exp = randint(5, 30)
 
             reponse = `${b}\\times 10^{${exp + 2}}`
             texte = `Donner l'écriture  scientifique de $${a}\\times 10^{${exp}}$.`
@@ -343,8 +358,8 @@ export default class SujetCAN2022Seconde extends Exercice {
  `
           } else if (choix === 'b') {
             a = randint(11, 99)
-            b = new Decimal(a).div(10)
-            exp = randint(5, 30)
+            b = a / 10
+            const exp = randint(5, 30)
 
             reponse = `${b}\\times 10^{${exp + 1}}`
             texte = `Donner l'écriture  scientifique de $${a}\\times 10^{${exp}}$.`
@@ -354,9 +369,9 @@ export default class SujetCAN2022Seconde extends Exercice {
               
  `
           } else if (choix === 'c') {
-            a = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(100)
-            b = new Decimal(a).mul(10)
-            exp = randint(5, 30)
+            a = (randint(1, 9) * 10 + randint(1, 9)) / 100
+            b = a * 10
+            const exp = randint(5, 30)
 
             reponse = `${b}\\times 10^{${exp - 1}}`
             texte = `Donner l'écriture  scientifique de $${texNombre(a, 2)}\\times 10^{${exp}}$.`
@@ -365,9 +380,9 @@ export default class SujetCAN2022Seconde extends Exercice {
               Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-1}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 1}}$.
  `
           } else {
-            a = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(1000)
-            b = new Decimal(a).mul(100)
-            exp = randint(5, 30)
+            a = (randint(1, 9) * 10 + randint(1, 9)) / 1000
+            b = a * 100
+            const exp = randint(5, 30)
 
             reponse = `${b}\\times 10^{${exp - 2}}`
             texte = `Donner l'écriture  scientifique de $${texNombre(a, 3)}\\times 10^{${exp}}$.`
@@ -386,8 +401,8 @@ export default class SujetCAN2022Seconde extends Exercice {
         case 12:
           choix = choice(['a', 'b', 'c', 'd', 'e'])
           if (choix === 'a') {
-            b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
-            reponse = new Decimal(b).mul(10)
+            reponse = (randint(1, 9) * 10 + randint(1, 9))
+            b = reponse / 10
             if (choice([true, false])) {
               texte = ` $0,25\\times ${texNombre(b, 1)}\\times 4\\times 10=$`
               texteCorr = `$0,25\\times ${texNombre(b, 1)}\\times 4\\times 10=\\underbrace{0,25\\times 4}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
@@ -396,8 +411,8 @@ export default class SujetCAN2022Seconde extends Exercice {
               texteCorr = `$${texNombre(b, 1)}\\times 4\\times 10\\times 0,25=\\underbrace{0,25\\times 4}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
           } else if (choix === 'b') {
-            b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
-            reponse = new Decimal(b).mul(10)
+            reponse = randint(1, 9) * 10 + randint(1, 9)
+            b = reponse / 10
             if (choice([true, false])) {
               texte = ` $0,5\\times ${texNombre(b, 1)}\\times 2\\times 10=$`
               texteCorr = `$0,5\\times ${texNombre(b, 1)}\\times 2\\times 10=\\underbrace{0,5\\times 2}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
@@ -406,8 +421,8 @@ export default class SujetCAN2022Seconde extends Exercice {
               texteCorr = `$${texNombre(b, 1)}\\times 2\\times 10\\times 0,5=\\underbrace{0,5\\times 2}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
           } else if (choix === 'c') {
-            b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
-            reponse = new Decimal(b).mul(20)
+            reponse = (randint(1, 9) * 10 + randint(1, 9)) * 2
+            b = reponse / 20
             if (choice([true, false])) {
               texte = ` $0,5\\times ${texNombre(b, 1)}\\times 4\\times 10=$`
               texteCorr = `$0,5\\times ${texNombre(b, 1)}\\times 4\\times 10=\\underbrace{0,5\\times 4}_{=2}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
@@ -416,8 +431,8 @@ export default class SujetCAN2022Seconde extends Exercice {
               texteCorr = `$${texNombre(b, 1)}\\times 4\\times 10\\times 0,5=\\underbrace{0,5\\times 4}_{=2}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
           } else if (choix === 'd') {
-            b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
-            reponse = new Decimal(b).mul(20)
+            reponse = (randint(1, 9) * 10 + randint(1, 9)) * 2
+            b = reponse / 20
             if (choice([true, false])) {
               texte = ` $0,25\\times ${texNombre(b, 1)}\\times 8\\times 10=$`
               texteCorr = `$0,25\\times ${texNombre(b, 1)}\\times 8\\times 10=\\underbrace{0,25\\times 8}_{=2}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
@@ -426,8 +441,8 @@ export default class SujetCAN2022Seconde extends Exercice {
               texteCorr = `$${texNombre(b, 1)}\\times 8\\times 10\\times 0,25=\\underbrace{0,25\\times 8}_{=2}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
           } else {
-            b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
-            reponse = new Decimal(b).mul(100)
+            reponse = (randint(1, 9) * 10 + randint(1, 9)) * 10
+            b = reponse / 100
             if (choice([true, false])) {
               texte = ` $0,25\\times ${texNombre(b, 1)}\\times 4\\times 100=$`
               texteCorr = `$0,25\\times ${texNombre(b, 1)}\\times 4\\times 100=\\underbrace{0,25\\times 4}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 100}_{=${texNombre(b * 100, 0)}}=${texNombre(reponse, 0)}$`
@@ -500,7 +515,7 @@ export default class SujetCAN2022Seconde extends Exercice {
               Si on multiplie la longueur par $k$, l'aire du nouveau rectangle est alors : $l\\times k\\times L$. Elle est donc aussi multipliée par $k$. <br>
                         Ces deux grandeurs  sont donc proportionnelles. `
           } else if (choix === 'd') {
-            n = randint(13, 35)
+            const n = randint(13, 35)
             a = randint(4, 6)
             texte = `Vrai ou faux<br>
          Je suis allé $${n}$ fois à la piscine. Le prix de l'entrée est $${a}$ euros.<br>
@@ -514,7 +529,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k$).<br>
                         Ces deux grandeurs  sont donc proportionnelles. `
           } else if (choix === 'e') {
-            n = randint(13, 35)
+            const n = randint(13, 35)
             a = randint(4, 6)
             b = randint(25, 40)
             texte = `Vrai ou faux<br>
@@ -555,13 +570,13 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 15:
-          a = new Decimal(randint(11, 49, [20, 30, 40])).div(100)
-          f = new FractionEtendue(a * 100, 100)
-          reponse = new Decimal(a).mul(-1).add(1)
+          a = (randint(11, 49, [20, 30, 40]))
+          f = new FractionEtendue(a, 100)
+          reponse = 1 - a / 100
 
           texte = `Donner l'écriture décimale de $1-${f.texFraction}$.
              `
-          texteCorr = `$1-${f.texFraction}=1-${texNombre(a, 2)}=${texNombre(reponse, 2)}$`
+          texteCorr = `$1-${f.texFraction}=1-${texNombre(a / 100, 2)}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -591,16 +606,16 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'L'
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'L' })
           } else {
             texte += ' $\\ldots$ L'
           }
           nbChamps = 1
           break
 
-        case 17:
-          m = randint(-7, 7, 0)
-          x = randint(1, 7)
+        case 17:{
+          const m = randint(-7, 7, 0)
+          const x = randint(1, 7)
           p = randint(-7, 7, 0)
           reponse = x
           texte = `Déterminer l'antécédent de  $${m * x + p}$ par la fonction $f$ définie par $f(x)=${reduireAxPlusB(m, p)}$.`
@@ -616,13 +631,15 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
+        }
+
           break
 
         case 18:
           choix = choice(['a', 'b', 'c'])
           if (choix === 'a') {
             a = choice([40, 60, 80, 100, 120])
-            h = randint(1, 3)
+            const h = randint(1, 3)
             reponse = a * h + a / 4
             texte = `Quelle est la distance parcourue en $${h}$ h $15$ min  à $${a}$ km/h ?
         `
@@ -631,7 +648,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             `
           } else if (choix === 'b') {
             a = choice([60, 90, 120])
-            h = randint(1, 3)
+            const h = randint(1, 3)
             reponse = a * h + a / 6
             texte = `Quelle est la distance parcourue en $${h}$ h $10$ min  à $${a}$ km/h ?
                       `
@@ -639,7 +656,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             Donc en $${h}$ h $10$ min, la distance parcourue est $(${a * h}+${a / 6})$ km, soit $${a * h + a / 6}$ km.      `
           } else {
             a = choice([30, 60, 90, 120])
-            h = randint(1, 3)
+            const h = randint(1, 3)
             reponse = a * h + a / 3
             texte = `Quelle est la distance parcourue en $${h}$ h $20$ min  à $${a}$ km/h ?
             `
@@ -656,7 +673,7 @@ export default class SujetCAN2022Seconde extends Exercice {
         case 19:
           a = randint(3, 12) * 10
           b = choice([10, 20, 30, 40])
-          d = new Decimal(b).div(100)
+          d = b / 100
           reponse = a - a * d
 
           texte = `Le prix d'un manteau est $${a}$ €. Il baisse de $${b}$ $\\%$.<br>
@@ -673,39 +690,36 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 20:
-          a = randint(1, 9)
-          b = randint(1, 9)
-          k = randint(1, 4)
-          c = a + k
-          d = b + randint(2, 4) * k
-          texte = `Dans un repère du plan, on considère les points $C(${a};${b})$ et $D(${c};${d})$.<br>
-          Calculer le coefficient directeur de la droite $(CD)$.
-      `
-          texteCorr = ` Le coefficient directeur de la droite $(CD)$ est donné par :<br>
-           $\\dfrac{y_D-y_C}{x_D-x_C}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
-          `
-          reponse = new FractionEtendue(d - b, c - a)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+          {
+            a = randint(1, 9)
+            b = randint(1, 9)
+            const k = randint(1, 4)
+            c = a + k
+            d = b + randint(2, 4) * k
+            texte = `Dans un repère du plan, on considère les points $C(${a};${b})$ et $D(${c};${d})$.<br>
+            Calculer le coefficient directeur de la droite $(CD)$.
+        `
+            texteCorr = ` Le coefficient directeur de la droite $(CD)$ est donné par :<br>
+             $\\dfrac{y_D-y_C}{x_D-x_C}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
+            `
+            reponse = new FractionEtendue(d - b, c - a)
+            setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, '')
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
+
           break
 
-        case 21:
-          triplet = [[3, 4, 5], [6, 8, 10]]
-          a = choice(triplet)
-
-          C = point(0, 0, 'C', 'below')
-          A = point(2, 0, 'A', 'below')
-          B = point(2, 3, 'B', 'above')
-
-          xmin = -1
-          ymin = -0.5
-          xmax = 3.5
-          ymax = 3.5
-          pol = polygoneAvecNom(A, B, C)
-          objets = []
+        case 21:{
+          const triplet = [[3, 4, 5], [6, 8, 10]]
+          const a = choice(triplet)
+          const C = point(0, 0, 'C', 'below')
+          const A = point(2, 0, 'A', 'below')
+          const B = point(2, 3, 'B', 'above')
+          const pol = polygoneAvecNom(A, B, C)
+          const objets = []
           choix = choice(['a', 'b', 'c'])
           if (choix === 'a') {
             objets.push(pol[0])
@@ -755,13 +769,14 @@ export default class SujetCAN2022Seconde extends Exercice {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$BC=$'
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
           }
           nbChamps = 1
+        }
           break
 
-        case 22:
-          c = choice([true, false])
+        case 22:{
+          const c = choice([true, false])
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
@@ -789,14 +804,16 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
+        }
+
           break
 
         case 23:
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            g = choice([3, 5, 7])
-            k = choice([2, 3])
-            c = choice([true, false])
+            const g = choice([3, 5, 7])
+            const k = choice([2, 3])
+            const c = choice([true, false])
             reponse = c ? g * k : 4 * k
             texte = `Dans une classe de troisième, le ratio filles : garçons est de $4$ : $${g}$. <br>
             Il y a dans cette classe ${c ? `$${4 * k}$ filles` : `$${g * k}$ garçons`}. Calculer le nombre de ${c ? 'garçons ' : 'filles'}.`
@@ -807,9 +824,9 @@ export default class SujetCAN2022Seconde extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
           } else if (choix === 'b') {
-            g = choice([3, 5, 7])
-            k = choice([2, 3, 4])
-            c = choice([true, false])
+            const g = choice([3, 5, 7])
+            const k = choice([2, 3, 4])
+            const c = choice([true, false])
             reponse = c ? g * k : 2 * k
             texte = `Dans une classe de troisième, le ratio filles : garçons est de $2$ : $${g}$. <br>
             Il y a dans cette classe ${c ? `$${2 * k}$ filles` : `$${g * k}$ garçons`}. Calculer le nombre de ${c ? 'garçons ' : 'filles'}.`
@@ -820,10 +837,10 @@ export default class SujetCAN2022Seconde extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
           } else if (choix === 'c') {
-            g = choice([3, 5, 7])
-            k = choice([2, 3, 4])
-            c = choice([true, false])
-            reponse1 = c ? g * k : 2 * k
+            const g = choice([3, 5, 7])
+            const k = choice([2, 3, 4])
+            const c = choice([true, false])
+            const reponse1 = c ? g * k : 2 * k
             reponse = g * k + 2 * k
             texte = `Dans une classe de troisième, le ratio filles : garçons est de $2$ : $${g}$. <br>
             Il y a dans cette classe ${c ? `$${2 * k}$ filles` : `$${g * k}$ garçons`}. Calculer le nombre total d'élèves dans cette classe.`
@@ -835,10 +852,10 @@ export default class SujetCAN2022Seconde extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
           } else {
-            g = choice([3, 5, 7])
-            k = choice([2, 3])
-            c = choice([true, false])
-            reponse1 = c ? g * k : 4 * k
+            const g = choice([3, 5, 7])
+            const k = choice([2, 3])
+            const c = choice([true, false])
+            const reponse1 = c ? g * k : 4 * k
             reponse = g * k + 4 * k
             texte = `Dans une classe de troisième, le ratio filles : garçons est de $4$ : $${g}$. <br>
             Il y a dans cette classe ${c ? `$${4 * k}$ filles` : `$${g * k}$ garçons`}. Calculer le nombre total d'élèves dans cette classe.`
@@ -854,10 +871,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 24:
-
           choix = choice(['a', 'b'])
           if (choix === 'a') {
-            listeFacteurs24 = [2, 3, 5, 7]
+            let listeFacteurs24 = [2, 3, 5, 7]
             listeFacteurs24 = shuffle(listeFacteurs24)
 
             reponse = [`${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`]
@@ -865,7 +881,7 @@ export default class SujetCAN2022Seconde extends Exercice {
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}$`
           } else {
-            listeFacteurs24 = [2, 3, 5]
+            let listeFacteurs24 = [2, 3, 5]
             listeFacteurs24 = shuffle(listeFacteurs24)
             while (listeFacteurs24[0] ** 2 * listeFacteurs24[1] ** 2 > 190) {
               listeFacteurs24 = [2, 2, 3, 5]
@@ -883,6 +899,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
+
           break
 
         case 25:
@@ -915,9 +932,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 26:
-          a = new Decimal(choice([125, 225, 325, 425])).div(100)
+          a = choice([125, 225, 325, 425]) / 100
           b = randint(1, 5) * 4
-          reponse = new Decimal(a).mul(b)
+          reponse = a * b
           texte = `$${texNombre(a, 2)}\\times ${b}=$`
           texteCorr = `
           $${texNombre(a, 2)}\\times ${b}=(${texNombre(a - 0.25, 0)}+0,25)\\times 4\\times ${texNombre(b / 4, 0)}=(${texNombre(4 * a - 1, 0)}+1)\\times ${texNombre(b / 4, 0)}=${reponse}$ `
@@ -951,22 +968,22 @@ export default class SujetCAN2022Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 28:
+        case 28:{
           a = randint(1, 5) * 2 + 1// AE
-          k = new Decimal(choice([3, 5])).div(2)
+          const k = choice([3, 5]) / 2
           b = a + 1// BE
-          c = new Decimal(k).mul(b)// CE
-          d = new Decimal(k).mul(a)// DE
-          A = point(6, 0, 'A', 'right', 'above')
-          D = point(0.46, 2.92, 'D', 'above left')
-          E = point(4, 1, 'E', 'below')
-          B = point(6.22, 2, 'B', 'above right')
-          C = point(0, -1, 'C', 'left')
-          xmin = -1
-          ymin = -1.5
-          xmax = 7.5
-          ymax = 4
-          objets = []
+          c = k * b// CE
+          d = k * a// DE
+          const A = point(6, 0, 'A', 'above right')
+          const D = point(0.46, 2.92, 'D', 'above left')
+          const E = point(4, 1, 'E', 'below')
+          const B = point(6.22, 2, 'B', 'above right')
+          const C = point(0, -1, 'C', 'left')
+          const xmin = -1
+          const ymin = -1.5
+          const xmax = 7.5
+          const ymax = 4
+          const objets:NestedObjetMathalea2dArray = []
           objets.push(
             texteParPosition(`${stringNombre(a)}`, milieu(A, E).x, milieu(A, E).y - 0.3),
             texteParPosition('?', milieu(E, D).x, milieu(E, D).y + 0.5),
@@ -999,6 +1016,8 @@ export default class SujetCAN2022Seconde extends Exercice {
           }
 
           nbChamps = 1
+        }
+
           break
 
         case 29:
@@ -1045,10 +1064,10 @@ export default class SujetCAN2022Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 30:
+        case 30:{
           a = 0
           b = randint(50, 300)
-          q = randint(2, 5)
+          const q = randint(2, 5)
           texte = 'On considère le script python : <br>$\\begin{array}{|l|}\n'
           texte += '\\hline\n'
           texte += '\\\n \\texttt{def fin(b):}  \\\n '
@@ -1072,10 +1091,12 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
+        }
+
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c, reponse instanceof FractionEtendue ? reponse.texFraction : reponse)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
