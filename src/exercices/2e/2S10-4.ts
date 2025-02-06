@@ -50,16 +50,16 @@ export default class TableauProportion extends Exercice {
     let typesDeQuestionsDisponibles = [1]
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2]
-    } else if (this.sup === 3) {
+    } else {
       typesDeQuestionsDisponibles = [1, 2]
     }
-    const toutPourUn = (listePoints) => [Math.min(...listePoints), 1]
+    const toutPourUn:(l:number[])=>[number, number] = (listePoints: number[]) => [Math.min(...listePoints), 1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     let index = 0
     let increment = 1
-    for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
       const total = choice([100, 150, 200, 250, 300, 350])//
       const totalGA = randint(4, 6) * total / 10
       const totalG = randint(5, 6) * total / 10
@@ -75,6 +75,9 @@ export default class TableauProportion extends Exercice {
       const pourcF = totalF * 100 / total
       const pourcT = totalT * 100 / total
       const choix = choice([true, false])
+      let texte = ''
+      let texteCorr = ''
+
       const choixEnonce = choice([[`Dans un lycée, on compte $${total}$ élèves en classe de première dont $${texNombre(pourcGA, 0)} \\,\\%$ sont des garçons et $${texNombre(pourcG, 0)} \\,\\%$ sont dans une filière générale. <br>
       De plus, $${texNombre(pourcGAetG, 0)} \\,\\%$ des élèves sont des garçons en première générale.`,
       `$\\bullet$ $${texNombre(pourcGA, 0)} \\,\\%$ de $${total}=${texNombre(pourcGA / 100, 2)}\\times ${total}=${totalGA}$<br>
@@ -100,7 +103,7 @@ export default class TableauProportion extends Exercice {
           texte += '<br> Compléter le tableau suivant :<br><br>'
           if (this.interactif) {
             const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', '', '', '', '', '', ''])
-            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, ' ', this.interactif)
+            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice ?? 0, index, tableauVide, ' ', this.interactif, {})
             texte += tabMathlive.output
           } else {
             texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i)
@@ -171,7 +174,7 @@ export default class TableauProportion extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, total, typesDeQuestions[i])) {
+      if (this.questionJamaisPosee(i, total, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

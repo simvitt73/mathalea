@@ -2,7 +2,6 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
@@ -49,7 +48,7 @@ export default class Proportions extends Exercice {
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: ('sous-population' | 'proportion' | 'population-totale')[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['sous-population']
     }
@@ -67,7 +66,16 @@ export default class Proportions extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let prénom, espèces
-    for (let i = 0, texte, texteCorr, sous, sous2, totale, taux, p, reponse, paramAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let totale: number
+      let taux: number
+      let p: number
+      let sous: number
+      let sous2: number
+      let texte = ''
+      let texteCorr = ''
+      let reponse: number = 0
+      let paramAMC
       switch (typesDeSituations[i]) {
         case 'spectacle':
           // Le nombre de spectateurs doit être entier
@@ -84,13 +92,14 @@ export default class Proportions extends Exercice {
               taux = 5 * randint(1, 16)
               break
             case 3:
+            default:
               totale = 100 * randint(1, 30)
               taux = randint(10, 80)
               break
           }
-          p = new Decimal(taux).div(100)
-          sous = p.mul(totale)
-          sous2 = sous.mul(-1).plus(totale)
+          p = taux / 100
+          sous = p * totale
+          sous2 = totale - sous
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               switch (randint(1, 2)) {
@@ -106,7 +115,7 @@ export default class Proportions extends Exercice {
                   texteCorr = `${context.isHtml ? '<br>' : ''}On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
                   texteCorr += 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
-                  texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p.mul(-1).add(1))} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`
+                  texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(1 - p, 4)} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`
                   texteCorr += `<br>Il y a donc $${miseEnEvidence(texNombre(sous2, 2))}$ personnes majeures dans le public.`
                   reponse = sous2
                   break
@@ -127,6 +136,7 @@ export default class Proportions extends Exercice {
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
+            default:
               texte = `Parmi les $${texNombre(totale, 0)}$ spectateurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${miseEnEvidence(taux)}~\\%$ de personnes mineures dans le public.`
@@ -146,13 +156,14 @@ export default class Proportions extends Exercice {
               taux = 5 * randint(2, 7)
               break
             case 3:
+            default:
               totale = 10 * randint(1, 15)
               taux = 10 * randint(1, 3)
               break
           }
-          p = new Decimal(taux).div(100)
-          sous = p.mul(totale)
-          sous2 = sous.mul(-1).plus(totale)
+          p = taux / 100
+          sous = p * totale
+          sous2 = totale - sous
           prénom = choice(['Frédéric', 'Brice', 'Marion', 'Christelle', 'Léo', 'Gabriel', 'Maël', 'Louise', 'Lina', 'Mia', 'Rose', 'Mohamed', 'Mehdi', 'Rayan', 'Karim', 'Yasmine', 'Noûr', 'Kaïs', 'Louna', 'Nora', 'Fatima', 'Nora', 'Nadia', 'Sohan', 'Timothée', 'Jamal'])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
@@ -169,7 +180,7 @@ export default class Proportions extends Exercice {
               texteCorr += `<br>$\\begin{aligned}
               \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
               ${texNombre(p, 2)} \\times x &= ${sous} \\\\
-              x &= \\dfrac{${texPrix(sous, 2)}}{${texNombre(p, 2)}} \\\\
+              x &= \\dfrac{${texPrix(sous)}}{${texNombre(p, 2)}} \\\\
               x &= ${texPrix(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${miseEnEvidence(texPrix(totale))}$ €.`
@@ -177,6 +188,7 @@ export default class Proportions extends Exercice {
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
+            default:
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion en pourcentage de ma participation sur le prix total du cadeau.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. J'ai donc donné $${miseEnEvidence(taux)}~\\%$ du montant total du cadeau.`
@@ -196,13 +208,14 @@ export default class Proportions extends Exercice {
               taux = 5 * randint(1, 9)
               break
             case 3:
+            default:
               totale = 100 * randint(5, 30)
               taux = randint(8, 40)
               break
           }
-          p = new Decimal(taux).div(100)
-          sous = p.mul(totale)
-          sous2 = sous.mul(-1).plus(totale)
+          p = taux / 100
+          sous = p * totale
+          sous2 = totale - sous
           // espèce = choice(['pic noir', 'pipit farlouse', 'bruant des roseaux']) au singulier, inutile à priori
           espèces = choice(['pics noirs', 'pipits farlouse', 'bruants des roseaux'])
           switch (listeTypeDeQuestions[i]) {
@@ -230,6 +243,7 @@ export default class Proportions extends Exercice {
 
               break
             case 'proportion':
+            default:
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion en pourcentage de ${espèces} dans la réserve.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${miseEnEvidence(taux)}~\\%$.`
@@ -240,6 +254,7 @@ export default class Proportions extends Exercice {
           break
 
         case 'entreprise' :
+        default:
           switch (randint(1, 3)) {
             case 1:
               totale = 50 * randint(1, 9, 2)
@@ -250,13 +265,14 @@ export default class Proportions extends Exercice {
               taux = 2 * randint(3, 29)
               break
             case 3:
+            default:
               totale = 10 * randint(3, 25)
               taux = 10 * randint(1, 4)
               break
           }
-          p = new Decimal(taux).div(100)
-          sous = p.mul(totale)
-          sous2 = sous.mul(-1).plus(totale)
+          p = taux / 100
+          sous = p * totale
+          sous2 = totale - sous
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               texte = `Dans une entreprise de $${texNombre(totale, 0)}$ salariés, il y a  $${taux}\\,\\%$ de cadres. <br>Combien y a-t-il de cadres dans cette entreprise ?`
@@ -280,6 +296,7 @@ export default class Proportions extends Exercice {
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
+            default:
               texte = `Dans une entreprise, il y a $${texNombre(totale)}$ salariés au total. Parmi eux, on dénombre  $${texNombre(sous)}$ cadres. <br>Calculer la proportion en pourcentage de cadres dans cette entreprise.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${miseEnEvidence(taux)}\\,\\%$ de cadres dans cette entreprise.`
@@ -291,7 +308,9 @@ export default class Proportions extends Exercice {
       }
       setReponse(this, i, reponse, paramAMC)
       if (context.isAmc && listeTypeDeQuestions[i] === 'proportion') {
+        // @ts-expect-error
         this.autoCorrection[i].reponse.textePosition = 'left'
+        // @ts-expect-error
         this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
       }
       texte += ajouteChampTexteMathLive(this, i, '', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : '' })

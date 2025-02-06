@@ -2,7 +2,6 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -42,7 +41,7 @@ export default class EvolutionsSuccesives extends Exercice {
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
@@ -64,33 +63,30 @@ export default class EvolutionsSuccesives extends Exercice {
           if (taux1 > 0) {
             verbe1 = 'Augmenter'
             nom1 = 'hausse'
+          } else {
+            verbe1 = 'Diminuer'
+            nom1 = 'baisse'
           }
           if (taux2 > 0) {
             verbe2 = 'Augmenter'
             nom2 = 'hausse'
-          }
-          if (taux1 < 0) {
-            verbe1 = 'Diminuer'
-            nom1 = 'baisse'
-          }
-          if (taux2 < 0) {
+          } else {
             verbe2 = 'Diminuer'
             nom2 = 'baisse'
           }
-          p1 = new Decimal(taux1).div(100)
-          p2 = new Decimal(taux2).div(100)
+          p1 = taux1 / 100
+          p2 = taux2 / 100
           t1 = Math.abs(taux1)
           t2 = Math.abs(taux2)
-          CM1 = p1.plus(1)
-          CM2 = p2.plus(1)
-          CM = CM1.mul(CM2)
-          p = CM.sub(1)
-          taux = p.mul(100)
-          t = taux.abs()
-          if (taux.isPos()) {
+          CM1 = 1 + p1
+          CM2 = 1 + p2
+          CM = CM1 * CM2
+          p = CM - 1
+          taux = p * 100
+          t = Math.abs(taux)
+          if (taux > 0) {
             nom = 'hausse'
-          }
-          if (taux.isNeg()) {
+          } else {
             nom = 'baisse'
           }
           texte = `Le prix d'un article subit une ${nom1} de $${t1}~\\%$ puis une ${nom2} de $${t2}~\\%$.<br>Déterminer le taux d'évolution global du prix de cet article.`
@@ -101,15 +97,13 @@ export default class EvolutionsSuccesives extends Exercice {
           ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          }
-          if (taux1 < 0) {
+          } else {
             texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
           }
           texteCorr += `<br><br>${texteGras('Deuxième évolution :')}<br> ${verbe2} de $${t2}~\\%$ revient à multiplier par `
           if (taux2 > 0) {
             texteCorr += `$CM_2 = 1 + \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          }
-          if (taux2 < 0) {
+          } else {
             texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
           }
 
@@ -118,11 +112,10 @@ export default class EvolutionsSuccesives extends Exercice {
           if (CM > 1) {
             texteCorr += `
           Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=${texNombre(Math.abs(p), 4)}=${texNombre(t, 2)}~\\%$.`
-          }
-          if (CM < 1) {
+          } else {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${miseEnEvidence(texNombre(taux.abs(), 2))}~\\%$.`
+          texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$.`
           setReponse(this, i, taux)
           break
         case 2 :
@@ -131,33 +124,30 @@ export default class EvolutionsSuccesives extends Exercice {
           if (taux1 > 0) {
             verbe1 = 'Augmenter'
             nom1 = 'augmenté'
+          } else {
+            verbe1 = 'Diminuer'
+            nom1 = 'diminué'
           }
           if (taux2 > 0) {
             verbe2 = 'Augmenter'
             nom2 = 'augmenté'
-          }
-          if (taux1 < 0) {
-            verbe1 = 'Diminuer'
-            nom1 = 'diminué'
-          }
-          if (taux2 < 0) {
+          } else {
             verbe2 = 'Diminuer'
             nom2 = 'diminué'
           }
-          p1 = new Decimal(taux1).div(100)
-          p2 = new Decimal(taux2).div(100)
+          p1 = taux1 / 100
+          p2 = taux2 / 100
           t1 = Math.abs(taux1)
           t2 = Math.abs(taux2)
-          CM1 = p1.plus(1)
-          CM2 = p2.plus(1)
-          CM = CM1.mul(CM2)
-          p = CM.sub(1)
-          taux = p.mul(100)
-          t = taux.abs()
-          if (taux.isPos()) {
+          CM1 = 1 + p1
+          CM2 = 1 + p2
+          CM = CM1 * CM2
+          p = CM - 1
+          taux = p * 100
+          t = Math.abs(taux)
+          if (taux > 0) {
             nom = 'augmenté'
-          }
-          if (taux.isNeg()) {
+          } else {
             nom = 'diminué'
           }
           texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $${t2}~\\%$ en $2022$.<br>Quel est le taux d'évolution global ?`
@@ -168,16 +158,14 @@ export default class EvolutionsSuccesives extends Exercice {
            ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          }
-          if (taux1 < 0) {
+          } else {
             texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
           }
           texteCorr += `<br><br>${texteGras('Deuxième évolution :')} <br>
            ${verbe2} de $${t2}~\\%$ revient à multiplier par `
           if (taux2 > 0) {
             texteCorr += `$CM_2 = 1 + \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          }
-          if (taux2 < 0) {
+          } else {
             texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
@@ -185,11 +173,10 @@ export default class EvolutionsSuccesives extends Exercice {
           if (CM > 1) {
             texteCorr += `
           Le taux d'évolution global est égal à : $T=CM -1=${texNombre(CM, 4)} -1=  ${texNombre(Math.abs(p), 4)} = ${texNombre(t, 2)}~\\%$.`
-          }
-          if (CM < 1) {
+          } else {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${miseEnEvidence(texNombre(taux.abs(), 2))}~\\%$ entre $2021$ et $2022$.`
+          texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2021$ et $2022$.`
           setReponse(this, i, taux)
           break
         case 3 :
@@ -198,33 +185,30 @@ export default class EvolutionsSuccesives extends Exercice {
           if (taux1 > 0) {
             verbe1 = 'Augmenter'
             nom1 = 'augmenté'
+          } else {
+            verbe1 = 'Diminuer'
+            nom1 = 'diminué'
           }
           if (taux2 > 0) {
             verbe2 = 'Augmenter'
             nom2 = 'augmenté'
-          }
-          if (taux1 < 0) {
-            verbe1 = 'Diminuer'
-            nom1 = 'diminué'
-          }
-          if (taux2 < 0) {
+          } else {
             verbe2 = 'Diminuer'
             nom2 = 'diminué'
           }
-          p1 = new Decimal(taux1).div(100)
-          p2 = new Decimal(taux2).div(100)
+          p1 = taux1 / 100
+          p2 = taux2 / 100
           t1 = Math.abs(taux1)
           t2 = Math.abs(taux2)
-          CM1 = p1.plus(1)
-          CM2 = p2.plus(1)
-          CM = CM1.mul(CM2)
-          p = CM.sub(1)
-          taux = p.mul(100)
-          t = taux.abs()
-          if (taux.isPos()) {
+          CM1 = 1 + p1
+          CM2 = 1 + p2
+          CM = CM1 * CM2
+          p = CM - 1
+          taux = p * 100
+          t = Math.abs(taux)
+          if (taux > 0) {
             nom = 'augmenté'
-          }
-          if (taux.isNeg()) {
+          } else {
             nom = 'diminué'
           }
           texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}~\\%$ entre $2020$ et $2021$ puis a ${nom2} de $${t2}~\\%$ entre $2021$ et $2022$.<br>Quel est le taux d'évolution global du nombre d'adhérents ?`
@@ -234,16 +218,14 @@ export default class EvolutionsSuccesives extends Exercice {
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          }
-          if (taux1 < 0) {
+          } else {
             texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
           }
           texteCorr += `<br><br>${texteGras('Deuxième évolution :')}<br>
            ${verbe2} de $${t2}~\\%$ revient à multiplier par `
           if (taux2 > 0) {
             texteCorr += `$CM_2 = 1 + \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          }
-          if (taux2 < 0) {
+          } else {
             texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
@@ -251,11 +233,10 @@ export default class EvolutionsSuccesives extends Exercice {
           if (CM > 1) {
             texteCorr += `
           Le taux d'évolution global est égal à : $T=CM -1=${texNombre(CM, 4)} -1=  ${texNombre(Math.abs(p), 4)} = ${texNombre(t, 2)}~\\%$.`
-          }
-          if (CM < 1) {
+          } else {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${miseEnEvidence(texNombre(taux.abs(), 2))}~\\%$ entre $2020$ et $2022$.`
+          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2020$ et $2022$.`
           setReponse(this, i, taux)
           break
 
@@ -265,36 +246,33 @@ export default class EvolutionsSuccesives extends Exercice {
           if (taux1 > 0) {
             verbe1 = 'Augmenter'
             nom1 = 'hausse'
+          } else {
+            verbe1 = 'Diminuer'
+            nom1 = 'baisse'
           }
           if (taux2 > 0) {
             verbe2 = 'Augmenter'
             nom2 = 'hausse'
-          }
-          if (taux1 < 0) {
-            verbe1 = 'Diminuer'
-            nom1 = 'baisse'
-          }
-          if (taux2 < 0) {
+          } else {
             verbe2 = 'Diminuer'
             nom2 = 'baisse'
           }
-          p1 = new Decimal(taux1).div(100)
-          p2 = new Decimal(taux2).div(100)
+          p1 = taux1 / 100
+          p2 = taux2 / 100
           t1 = Math.abs(taux1)
           t2 = Math.abs(taux2)
-          CM1 = p1.plus(1)
-          CM2 = p2.plus(1)
-          CM = CM1.mul(CM2)
-          p = CM.sub(1)
-          p2 = CM2.sub(1)
-          taux = p.mul(100)
-          t = taux.abs()
-          if (taux.isPos()) {
+          CM1 = 1 + p1
+          CM2 = 1 + p2
+          CM = CM1 * CM2
+          p = CM - 1
+          p2 = CM2 - 1
+          taux = p * 100
+          t = Math.abs(taux)
+          if (taux > 0) {
             nom = 'hausse'
             nom3 = 'augmenté'
             verbe3 = 'Augmenter'
-          }
-          if (taux.isNeg()) {
+          } else {
             nom = 'baisse'
             nom3 = 'baissé'
             verbe3 = 'Diminuer'
@@ -308,16 +286,14 @@ export default class EvolutionsSuccesives extends Exercice {
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
-          }
-          if (taux1 < 0) {
+          } else {
             texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
           }
           texteCorr += `<br>${texteGras('Évolution globale :')} <br>
            ${verbe3} de $${texNombre(t, 2)}~\\%$ revient à multiplier par `
           if (taux > 0) {
             texteCorr += `$CM = 1 + \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          }
-          if (taux < 0) {
+          } else {
             texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
           }
           texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
@@ -339,36 +315,34 @@ export default class EvolutionsSuccesives extends Exercice {
           if (taux1 > 0) {
             verbe1 = 'Augmenter'
             nom1 = 'augmenté'
+          } else {
+            verbe1 = 'Diminuer'
+            nom1 = 'baissé'
           }
           if (taux2 > 0) {
             verbe2 = 'Augmenter'
             nom2 = 'augmenté'
-          }
-          if (taux1 < 0) {
-            verbe1 = 'Diminuer'
-            nom1 = 'baissé'
-          }
-          if (taux2 < 0) {
+          } else {
             verbe2 = 'Diminuer'
             nom2 = 'baissé'
           }
-          p1 = new Decimal(taux1).div(100)
-          p2 = new Decimal(taux2).div(100)
+          p1 = taux1 / 100
+          p2 = taux2 / 100
           t1 = Math.abs(taux1)
           t2 = Math.abs(taux2)
-          CM1 = p1.plus(1)
-          CM2 = p2.plus(1)
-          CM = CM1.mul(CM2)
-          p = CM.sub(1)
-          p2 = CM2.sub(1)
-          taux = p.mul(100)
-          t = taux.abs()
-          if (taux.isPos()) {
+          CM1 = 1 + p1
+          CM2 = 1 + p2
+          CM = CM1 * CM2
+          p = CM - 1
+          p2 = CM2 - 1
+          taux = p * 100
+          t = Math.abs(taux)
+          if (taux > 0) {
             nom = 'hausse'
             nom3 = 'augmenté'
             verbe3 = 'Augmenter'
           }
-          if (taux.isNeg()) {
+          if (taux < 0) {
             nom = 'baisse'
             nom3 = 'baissé'
             verbe3 = 'Diminuer'
@@ -408,6 +382,7 @@ export default class EvolutionsSuccesives extends Exercice {
           break
 
         case 6 :
+        default:
           taux1 = randint(-40, 40, 0)
           taux2 = randint(-40, 40, 0)
           if (taux1 > 0) {
@@ -426,23 +401,23 @@ export default class EvolutionsSuccesives extends Exercice {
             verbe2 = 'Diminuer'
             nom2 = 'baissé'
           }
-          p1 = new Decimal(taux1).div(100)
-          p2 = new Decimal(taux2).div(100)
+          p1 = taux1 / 100
+          p2 = taux2 / 100
           t1 = Math.abs(taux1)
           t2 = Math.abs(taux2)
-          CM1 = p1.plus(1)
-          CM2 = p2.plus(1)
-          CM = CM1.mul(CM2)
-          p = CM.sub(1)
-          p2 = CM2.sub(1)
-          taux = p.mul(100)
-          t = taux.abs()
-          if (taux.isPos()) {
+          CM1 = 1 + p1
+          CM2 = 1 + p2
+          CM = CM1 * CM2
+          p = CM - 1
+          p2 = CM2 - 1
+          taux = p * 100
+          t = Math.abs(taux)
+          if (taux > 0) {
             nom = 'hausse'
             nom3 = 'augmenté'
             verbe3 = 'Augmenter'
           }
-          if (taux.isNeg()) {
+          if (taux < 0) {
             nom = 'baisse'
             nom3 = 'baissé'
             verbe3 = 'Diminuer'

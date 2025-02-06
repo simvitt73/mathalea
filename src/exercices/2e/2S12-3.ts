@@ -3,11 +3,11 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Déterminer un taux d\'évolution réciproque'
 export const interactifReady = true
@@ -41,30 +41,41 @@ export default class EvolutionsSuccesives extends Exercice {
   nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let typesDeQuestions, CM, CMr, CMra, p, pr, nom, nomr, t, tr, metier
-    for (let i = 0, texte, texteCorr, taux, tauxr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let taux: number
+      let nom: string
+      let p: number
+      let CM: number
+      let CMr: number
+      let CMra: number
+      let pr: number
+      let tauxr: number
+      let tr: number
+      let nomr: string
+      let t: number
+      let texte = ''
+      let texteCorr = ''
+      let metier = ''
       switch (typesDeQuestions) {
         case 1 :
           taux = randint(-50, 50, 0)
           if (taux > 0) {
             nom = 'hausse'
-          }
-          if (taux < 0) {
+          } else {
             nom = 'baisse'
           }
-          p = new Decimal(taux).div(100)
+          p = taux / 100
           t = Math.abs(taux)
-          CM = p.plus(1)
-          CMr = CM.pow(-1)
-          CMra = CMr.toDP(4)
-          pr = CMra.sub(1)
-          tauxr = pr.mul(100)
-          tr = tauxr.abs()
-          if (tauxr.isPos()) {
+          CM = 1 + p
+          CMr = 1 / CM
+          CMra = arrondi(CMr, 4)
+          pr = CMra - 1
+          tauxr = pr * 100
+          tr = Math.abs(tauxr)
+          if (tauxr > 0) {
             nomr = 'hausse'
-          }
-          if (tauxr.isNeg()) {
+          } else {
             nomr = 'baisse'
           }
           texte = `Le prix d'un article subit une ${nom} de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
@@ -97,23 +108,21 @@ export default class EvolutionsSuccesives extends Exercice {
           taux = randint(-50, 50, 0)
           if (taux > 0) {
             nom = 'd\'augmenter'
-          }
-          if (taux < 0) {
+          } else {
             nom = 'de diminuer'
           }
-          p = new Decimal(taux).div(100)
+          p = taux / 100
           t = Math.abs(taux)
-          CM = p.plus(1)
-          CMr = CM.pow(-1)
-          CMra = CMr.toDP(4)
-          pr = CMra.sub(1)
-          tauxr = pr.mul(100)
-          tr = tauxr.abs()
+          CM = 1 + p
+          CMr = 1 / CM
+          CMra = arrondi(CMr, 4)
+          pr = CMra - 1
+          tauxr = pr * 100
+          tr = Math.abs(tauxr)
 
           if (tauxr > 0) {
             nomr = 'hausse'
-          }
-          if (tauxr < 0) {
+          } else {
             nomr = 'baisse'
           }
           metier = choice(['Un artisan', 'Un ouvrier', 'Un coiffeur', 'Une informaticienne', 'Une cordonnière', 'Une luthière'])
@@ -145,25 +154,24 @@ export default class EvolutionsSuccesives extends Exercice {
           }
           break
         case 3 :
+        default:
           taux = randint(-50, 50, 0)
           if (taux > 0) {
             nom = 'augmenté'
-          }
-          if (taux < 0) {
+          } else {
             nom = 'baissé'
           }
-          p = new Decimal(taux).div(100)
+          p = taux / 100
           t = Math.abs(taux)
-          CM = p.plus(1)
-          CMr = CM.pow(-1)
-          CMra = CMr.toDP(4)
-          pr = CMra.sub(1)
-          tauxr = pr.mul(100)
-          tr = tauxr.abs()
+          CM = 1 + p
+          CMr = 1 / CM
+          CMra = arrondi(CMr, 4)
+          pr = CMra - 1
+          tauxr = pr * 100
+          tr = Math.abs(tauxr)
           if (tauxr > 0) {
             nomr = 'hausse'
-          }
-          if (tauxr < 0) {
+          } else {
             nomr = 'baisse'
           }
           metier = choice(['d\'employés', 'de commerciaux', 'de stagiaires', 'de jeunes diplomés'])

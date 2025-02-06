@@ -63,6 +63,7 @@ export default class nomExercice extends Exercice {
          `
           break
         case 'type2':
+        default:
           texte += `Quelle est la proportion de personnes du club qui jouent au tarot ${texteGras('et')} à la belote ?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `On note :<br>
           $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot.<br>

@@ -1,7 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { randint } from '../../modules/outils'
 export const titre = 'Proportions de proportions'
 export const interactifReady = true
@@ -35,13 +34,13 @@ export default class ProportiondeProportion extends Exercice {
     switch (choice(['association', 'lycee', 'lyceeBis', 'election', 'associationBis', 'electionBis'])) { //
       case 'association':
         b = randint(3, 80)
-        tauxb = new Decimal(b).div(100)
+        tauxb = b / 100
         a = randint(20, 50)
         c = randint(20, 50)
-        tauxc = new Decimal(c).div(100)
+        tauxc = c / 100
         d = randint(2, 15)
-        g = new Decimal(b * c).div(100)
-        tauxG = new Decimal(b * c).div(10000)
+        g = b * c / 100
+        tauxG = b * c / 10000
 
         this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de $${a}$ ans. <br>
         Parmi eux,   $${c}\\,\\%$ ont plus de $${d}$ années d'ancienneté.<br>
@@ -53,17 +52,17 @@ export default class ProportiondeProportion extends Exercice {
         <br> D'après le cours, on calcule $p=p_1\\times p_2$, ce qui représente $${b}\\,\\%$ de $${c}\\,\\%$.<br>
       <br>Ainsi,  $p=${texNombre(tauxb)}\\times ${texNombre(tauxc)}=${texNombre(tauxG, 4)}$.<br>
       Il y a donc $${texNombre(g, 2)}\\,\\%$ d'adhérents de plus de $${a}$ ans ayant plus de $${a}$ années d'ancienneté.`
-        this.reponse = g
+        this.reponse = g.toFixed(2)
         break
       case 'associationBis':
         b = randint(3, 80)
-        tauxb = new Decimal(b).div(100)
+        tauxb = b / 100
         a = randint(35, 50)
         c = randint(20, 50)
-        tauxc = new Decimal(c).div(100)
+        tauxc = c / 100
         d = randint(3, 15)
-        g = new Decimal(b * c).div(100)
-        tauxG = new Decimal(b * c).div(10000)
+        g = b * c / 100
+        tauxG = b * c / 10000
 
         this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de  $${a}$ ans. <br>
        On dénombre également dans cette association  $${texNombre(g, 2)}\\,\\%$ d'adhérents de  plus $${a}$ ans ayant plus de $${d}$ années d'ancienneté.<br>
@@ -76,17 +75,17 @@ export default class ProportiondeProportion extends Exercice {
         <br> D'après le cours, on a $P=p_1\\times p_2$, ce qui donne  $${texNombre(tauxG, 4)}=${texNombre(tauxb, 2)}\\times p_2$<br>
         <br>Ainsi, $p_2=\\dfrac{${texNombre(tauxG, 4)}}{${texNombre(tauxb, 2)}}=${texNombre(tauxc, 4)}$.<br>
       Il y a donc $${texNombre(c, 2)}\\,\\%$ d'adhérents de plus de  $${d}$ ans d'ancienneté parmi les adhérents de plus de $${a}$ ans.`
-        this.reponse = c
+        this.reponse = c.toString()
         break
 
       case 'lycee':
         b = randint(20, 40)
-        tauxb = new Decimal(b).div(100)
+        tauxb = b / 100
         a = randint(20, 50)
         c = randint(10, 70)
-        tauxc = new Decimal(c).div(100)
-        g = new Decimal(b * c).div(100)
-        tauxG = new Decimal(b * c).div(10000)
+        tauxc = c / 100
+        g = b * c / 100
+        tauxG = b * c / 10000
         this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première. <br>
             Parmi eux,   $${c}\\,\\%$ sont en filière technologique.<br>
             Quel est le pourcentage d'élèves en première technologique de ce lycée ?<br>`
@@ -96,16 +95,16 @@ export default class ProportiondeProportion extends Exercice {
              <br>Pour connaître la proportion $p$ des élèves de première technologique par rapport à la population de référence (les élèves du lycée), on calcule $p=p_1\\times p_2$, ce qui revient à calculer $${b}\\,\\%$ de $${c}\\,\\%$.<br>
              <br>Ainsi, $p=${texNombre(b / 100)}\\times ${texNombre(tauxc, 2)}=${texNombre(tauxG, 4)}$.<br>
              Il y a $${texNombre(g, 2)}\\,\\%$ d'élèves de première technologique parmi les élèves du lycée.`
-        this.reponse = g
+        this.reponse = g.toFixed(2)
         break
       case 'lyceeBis':
         b = randint(20, 40)
-        tauxb = new Decimal(b).div(100)
+        tauxb = b / 100
         a = randint(20, 50)
         c = randint(10, 70)
-        tauxc = new Decimal(c).div(100)
-        g = new Decimal(b * c).div(100)
-        tauxG = new Decimal(b * c).div(10000)
+        tauxc = c / 100
+        g = b * c / 100
+        tauxG = b * c / 10000
         this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ des lycéens sont en première technologique.<br>
               Quel est le pourcentage d'élèves en première technologique parmi les élèves de première ?<br>`
         this.correction = `La population de référence est celle des élèves du lycée.<br>
@@ -116,17 +115,17 @@ export default class ProportiondeProportion extends Exercice {
               Ainsi, $p_2=\\dfrac{${texNombre(tauxG, 4)}}{${texNombre(tauxb, 2)}}=${texNombre(tauxc, 4)}$.<br>
               Il y a donc $${texNombre(c, 2)}\\,\\%$ des élèves de première en première technologique.`
 
-        this.reponse = c
+        this.reponse = c.toString()
         break
 
       case 'election':
         b = randint(40, 80)
-        tauxb = new Decimal(b).div(100)
+        tauxb = b / 100
         a = randint(20, 50)
         c = randint(10, 70)
-        tauxc = new Decimal(c).div(100)
-        g = new Decimal(b * c).div(100)
-        tauxG = new Decimal(b * c).div(10000)
+        tauxc = c / 100
+        g = b * c / 100
+        tauxG = b * c / 10000
 
         this.question = `Lors d'une élection,  la participation (suffrages exprimés) a été de $${b}\\,\\%$ des inscrits.<br>
                Un candidat a obtenu   $${c}\\,\\%$ des suffrages exprimés.<br>
@@ -137,17 +136,17 @@ export default class ProportiondeProportion extends Exercice {
                  <br>Pour connaître le pourcentage de voix obtenues  par ce candidat par rapport aux nombre d'inscrits, on calcule $p=p_1\\times p_2$, ce qui revient à calculer $${b}\\,\\%$ de $${c}\\,\\%$.<br>
                  <br>Ainsi, $p=${texNombre(tauxb, 2)}\\times ${texNombre(tauxc, 2)}=${texNombre(tauxG, 4)}$.<br>
                 Ce candidat a donc obtenu $${texNombre(g, 2)}\\,\\%$ des voix des inscrits.`
-        this.reponse = g
+        this.reponse = g.toFixed(2)
         break
 
       case 'electionBis':
         b = randint(40, 80)
-        tauxb = new Decimal(b).div(100)
+        tauxb = b / 100
         a = randint(20, 50)
         c = randint(10, 70)
-        tauxc = new Decimal(c).div(100)
-        g = new Decimal(b * c).div(100)
-        tauxG = new Decimal(b * c).div(10000)
+        tauxc = c / 100
+        g = b * c / 100
+        tauxG = b * c / 10000
 
         this.question = `Lors d'une élection,  la participation (suffrages exprimés) a été de $${b}\\,\\%$ des inscrits.<br>
         Un candidat a obtenu $${texNombre(g, 2)}\\,\\%$ de voix parmi les inscrits.<br>
@@ -159,7 +158,7 @@ La proportion $P$ des suffrages du candidat parmi les inscrits est $P=${texNombr
 <br>D'après le cours, on a $P=p_1\\times p_2$, ce qui donne  $${texNombre(tauxG, 4)}=${texNombre(tauxb, 2)}\\times p_2$<br>
 <br>Ainsi, $p_2=\\dfrac{${texNombre(tauxG, 4)}}{${texNombre(tauxb, 2)}}=${texNombre(tauxc, 4)}$.<br>
 $${texNombre(c, 2)}\\,\\%$ des suffrages exprimés ont voté pour le candidat.`
-        this.reponse = c
+        this.reponse = c.toString()
         break
     }
     if (this.interactif) this.question += '<br>'

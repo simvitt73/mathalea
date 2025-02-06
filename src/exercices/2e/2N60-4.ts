@@ -82,12 +82,17 @@ export default class ExerciceInequation1 extends Exercice {
       listeTypeDeQuestions,
       this.nbQuestions
     )
-    for (let i = 0, a, b, c, d, reponse, symboleInegalite, symboleInegaliteOppose, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      a = randint(2, 13)
-      b = randint(1, 13)
-      c = randint(1, 13)
-      d = randint(1, 13)
+      let a = randint(2, 13)
+      let b = randint(1, 13)
+      let c = randint(1, 13)
+      let d = randint(1, 13)
+      let symboleInegalite: '≤' | '≥' | '<' | '>' | '\\' = '>'
+      let symboleInegaliteOppose: '≤' | '≥' | '<' | '>' | '\\' = '<'
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
 
       switch (randint(1, 4)) {
         case 1:
@@ -237,7 +242,7 @@ export default class ExerciceInequation1 extends Exercice {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[ ${texFractionReduite(b, a)}\\,;\\,+\\infty \\right[`)}$.`
           reponse = `[${new FractionEtendue(b, a).texFraction};+\\infty[`
         }
-      } else if (listeTypeDeQuestions[i] === 'ax+b≤cx+d') {
+      } else { //  if (listeTypeDeQuestions[i] === 'ax+b≤cx+d') pas de condition pour le dernier if ! JCL le 5/02/2025
         if (c === a) {
           c = randint(1, 13, [a])
         } // sinon on arrive à une division par 0

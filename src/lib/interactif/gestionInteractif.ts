@@ -93,11 +93,18 @@ export interface Valeur {
   rectangle7?: AnswerType
   rectangle8?: AnswerType
 
-  // on va aller jusque 6 pour l'instant, si besoin on en ajoutera
+  // on va aller jusque 8 pour l'instant, si besoin on en ajoutera
   L1C1?: AnswerType
   L1C2?: AnswerType
+  L1C3?: AnswerType
   L2C1?: AnswerType
-  L2C2?: AnswerType // idem on en ajoutera si besoin
+  L2C2?: AnswerType
+  L2C3?: AnswerType
+  L3C1?: AnswerType
+  L3C2?: AnswerType
+  L3C3?: AnswerType
+
+  // idem on en ajoutera si besoin
   callback?: (
     exercice: Exercice,
     question: number,

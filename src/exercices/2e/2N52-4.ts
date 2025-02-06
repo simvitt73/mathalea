@@ -43,14 +43,14 @@ export default class Equationspresqueproduitnulle extends Exercice {
     let valeursSolution
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, f1, f2, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      a = randint(-9, 9, [-1, 0, 1]) // on évite a=1, -1 ou 0
-      b = randint(-9, 9, 0)
-      c = randint(-9, 9, 0)
-      d = randint(-9, 9, 0)
-      e = randint(-9, 9, [0, c, -c]) // on évite que c+e et c-e soit égal à 0 et on évite e=0
-      f = randint(-9, 9, [0, d, -d]) // on évite que d+f et d-f soit égal à 0 et on évite f=0
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      const a = randint(-9, 9, [-1, 0, 1]) // on évite a=1, -1 ou 0
+      const b = randint(-9, 9, 0)
+      const c = randint(-9, 9, 0)
+      const d = randint(-9, 9, 0)
+      const e = randint(-9, 9, [0, c, -c]) // on évite que c+e et c-e soit égal à 0 et on évite e=0
+      const f = randint(-9, 9, [0, d, -d]) // on évite que d+f et d-f soit égal à 0 et on évite f=0
 
       switch (typesDeQuestions) {
         case 1: // (ax+b)(cx+d)+(ax+b)(ex+f)=0
@@ -173,37 +173,40 @@ export default class Equationspresqueproduitnulle extends Exercice {
           break
 
         case 5: // (ax+b)(cx+d)=(ax+b)(ex+f)
-          texte = `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})$`
-          texteCorr = 'Deux nombres sont égaux si et seulement si leur différence est nulle.<br>'
-          texteCorr += `$\\phantom{\\iff}(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})$<br>`
-          texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})-(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})=0$<br>`
-          if (this.correctionDetaillee) {
-            texteCorr += ` On observe que $(${reduireAxPlusB(a, b)})$ est un facteur commun dans les deux termes :<br>`
-            texteCorr += `$\\phantom{\\iff}(\\underline{${reduireAxPlusB(a, b)}})(${reduireAxPlusB(c, d)})-(\\underline{${reduireAxPlusB(a, b)}})(${reduireAxPlusB(e, f)})=0$<br>`
-            texteCorr += `$\\iff (\\underline{${reduireAxPlusB(a, b)}})\\Big((${reduireAxPlusB(c, d)})-(${reduireAxPlusB(e, f)})\\Big)=0$<br>`
-          }
-          if (e < 0) {
-            texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)}+${reduireAxPlusB(-e, -f)})=0$<br>`
-          } else {
-            texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)}${reduireAxPlusB(-e, -f)})=0$<br>`
-          }
-          texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
-          texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
+        default:
+          {
+            texte = `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})$`
+            texteCorr = 'Deux nombres sont égaux si et seulement si leur différence est nulle.<br>'
+            texteCorr += `$\\phantom{\\iff}(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})$<br>`
+            texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})-(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})=0$<br>`
+            if (this.correctionDetaillee) {
+              texteCorr += ` On observe que $(${reduireAxPlusB(a, b)})$ est un facteur commun dans les deux termes :<br>`
+              texteCorr += `$\\phantom{\\iff}(\\underline{${reduireAxPlusB(a, b)}})(${reduireAxPlusB(c, d)})-(\\underline{${reduireAxPlusB(a, b)}})(${reduireAxPlusB(e, f)})=0$<br>`
+              texteCorr += `$\\iff (\\underline{${reduireAxPlusB(a, b)}})\\Big((${reduireAxPlusB(c, d)})-(${reduireAxPlusB(e, f)})\\Big)=0$<br>`
+            }
+            if (e < 0) {
+              texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)}+${reduireAxPlusB(-e, -f)})=0$<br>`
+            } else {
+              texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)}${reduireAxPlusB(-e, -f)})=0$<br>`
+            }
+            texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
+            texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
         ${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-          texteCorr += `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
-          texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$ ou $${reduireAxPlusB(c - e, d - f)}=0$<br>`
-          if (this.correctionDetaillee) { // on ajoute les étapes de résolution si la correction détaillée est cochée.
-            texteCorr += `$\\iff ${reduireAxPlusB(a, 0)}=${-b}$ ou $ ${reduireAxPlusB(c - e, 0)}=${-d + f}$<br>`
-          }
-          f1 = fraction(-b, a)
-          f2 = fraction(-d + f, c - e)
-          texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
-          if (-b / a > (-d + f) / (c - e)) {
-            valeursSolution = `${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}`
-          } else if (-b / a < (-d + f) / (c - e)) {
-            valeursSolution = `${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}`
-          } else {
-            valeursSolution = `${f1.texFractionSimplifiee}`
+            texteCorr += `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
+            texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$ ou $${reduireAxPlusB(c - e, d - f)}=0$<br>`
+            if (this.correctionDetaillee) { // on ajoute les étapes de résolution si la correction détaillée est cochée.
+              texteCorr += `$\\iff ${reduireAxPlusB(a, 0)}=${-b}$ ou $ ${reduireAxPlusB(c - e, 0)}=${-d + f}$<br>`
+            }
+            const f1 = fraction(-b, a)
+            const f2 = fraction(-d + f, c - e)
+            texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
+            if (-b / a > (-d + f) / (c - e)) {
+              valeursSolution = `${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}`
+            } else if (-b / a < (-d + f) / (c - e)) {
+              valeursSolution = `${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}`
+            } else {
+              valeursSolution = `${f1.texFractionSimplifiee}`
+            }
           }
           break
       }
@@ -217,7 +220,7 @@ export default class Equationspresqueproduitnulle extends Exercice {
           options: { ensembleDeNombres: true }
         }
       })
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(a, b, c, d, e, f)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

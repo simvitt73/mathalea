@@ -1,7 +1,7 @@
 import { courbe, croche } from '../../lib/2d/courbes'
 import { plot } from '../../lib/2d/points'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { spline } from '../../lib/mathFonctions/Spline'
+import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
@@ -43,7 +43,7 @@ export default class LectureEnsebleDef extends Exercice {
     // Selon le niveau choisi, on augmente la difficulté de l'entier choisi.
     // Le reste est identique pour les trois niveaux
     // Le bloc décidant de l'aléatoire
-    function aleatoiriseSpline (noeuds) {
+    function aleatoiriseSpline (noeuds: NoeudSpline[]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-1, +1) // translations
@@ -84,12 +84,11 @@ export default class LectureEnsebleDef extends Exercice {
           xMax: xMax + 2,
           yMin: yMin - 2,
           yMax: yMax + 2
-        }).setGrille({ grilleX: true, grilleY: true }).buildStandard()
+        }).setGrille({ grilleX: { dx: 1, xMax, xMin }, grilleY: { dy: 1, yMax, yMin } }).buildStandard()
         ouvertGauche = Math.random() < 0.5
         ouvertDroit = Math.random() < 0.5
 
         courbeAvecTrace = [spline.courbe({
-          repere,
           color: 'blue',
           ajouteNoeuds: false,
           optionsNoeuds: { style: '.', epaisseur: 2 }
@@ -114,13 +113,13 @@ export default class LectureEnsebleDef extends Exercice {
         const dx = randint(-2, 2)
         const dy = randint(-2, 2) / 2
         const signe = choice([-1, 1])
-        const parabole = x => signe * (x + dx) ** 2 + dy
+        const parabole = (x: number) => signe * (x + dx) ** 2 + dy
         repere = new RepereBuilder({
           xMin: -5,
           xMax: 5,
           yMin: -5,
           yMax: 5
-        }).setGrille({ grilleX: true, grilleY: true }).buildStandard()
+        }).setGrille({ grilleX: { dx, xMax: 5, xMin: -5 }, grilleY: { dy, yMax: 5, yMin: -5 } }).buildStandard()
         if (choice([true, false])) {
           xmin = -dx - 1
           xmax = '+\\infty'
@@ -140,17 +139,18 @@ export default class LectureEnsebleDef extends Exercice {
         }
       }
         break
-      case 3: { // cubique non bornée
+      case 3:
+      default:{ // cubique non bornée
         const dx = randint(-2, 2)
         const dy = randint(-2, 2) / 2
         const signe = choice([-1, 1])
-        const hyperbole = x => signe * (x + dx) * (x - dx) * x + dy
+        const hyperbole = (x:number) => signe * (x + dx) * (x - dx) * x + dy
         repere = new RepereBuilder({
           xMin: -5,
           xMax: 5,
           yMin: -5,
           yMax: 5
-        }).setGrille({ grilleX: true, grilleY: true }).buildStandard()
+        }).setGrille({ grilleX: { dx, xMax: 5, xMin: -5 }, grilleY: { dy, yMax: 5, yMin: -5 } }).buildStandard()
         xmin = '-\\infty'
         xmax = '+\\infty'
         ouvertGauche = true

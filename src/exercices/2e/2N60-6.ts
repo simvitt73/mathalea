@@ -61,14 +61,19 @@ export default class PositionRelative extends Exercice {
       min: 1,
       max: 2,
       defaut: 1,
-      listeOfCase: [true, false],
+      listeOfCase: ['true', 'false'],
       nbQuestions: this.nbQuestions,
-      shuffle: false
-    })
+      shuffle: false,
+      melange: 0
+    }).map(Boolean)
     shuffle2tableaux(listeTypeDeQuestions, sousChoix)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let a, b, c, d // les coefficients des fonctions
-      let ligne1, ligne2, ligne3 // les lignes du tableau de signes
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a: number = 0; let b: number; let c:number; let d:number // les coefficients des fonctions
+      let ligne1: (string | number)[]
+      let ligne2: (string | number)[]
+      let ligne3: (string | number)[] // les lignes du tableau de signes
       const typesDeQuestions = listeTypeDeQuestions[i]
       const remarque = `${texteGras('Remarque :')} vous pouvez vérifier ce résultat en représentant les courbes sur votre calculatrice graphique.`
       switch (typesDeQuestions) {
@@ -122,14 +127,17 @@ export default class PositionRelative extends Exercice {
             }
             texteCorr += tableauDeVariation({
               tabInit: [
+                // @ts-expect-error tableauDeVariation n'est pas typé
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                   ['$x$', 2.5, 10], ['$f(x)-g(x)$', 2, 50]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                // @ts-expect-error tableauDeVariation n'est pas typé
                 ['$-\\infty$', 20, `$${texFractionReduite(d - b, a - c)}$`, 20, '$+\\infty$', 30]
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
+              // @ts-expect-error tableauDeVariation n'est pas typé
               tabLines: [ligne1],
               colorBackground: '',
               espcl: 3.5, // taille en cm entre deux antécédents
@@ -143,7 +151,8 @@ export default class PositionRelative extends Exercice {
             texteCorr += `<br>${remarque}`
           }
           break
-        case 'polynômeEtAffine': {
+        case 'polynômeEtAffine':
+        default: {
           const alea = choice([1, 2, 3])
           if (alea === 1) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de x^2 +/- a)
             if (sousChoix[i]) { // avec question intermédiaire
@@ -186,14 +195,12 @@ export default class PositionRelative extends Exercice {
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)>0$, soit $f(x)>g(x)$. <br>
                 Graphiquement,  $\\mathscr{C}_f$ est toujours au dessus de $\\mathscr{C}_g$.`
                 texteCorr += `<br>${remarque}`
-              }
-              if (c - d === 0) {
+              } else if (c - d === 0) {
                 texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}\\geqslant 0$.<br>
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)\\geqslant0$, soit $f(x)\\geqslant g(x)$. <br>
                 Graphiquement, $\\mathscr{C}_f$ et $\\mathscr{C}_g$ ont un point d'intersection (de coordonnées $(0\\,;\\${d})) et $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$.  .`
                 texteCorr += `<br>${remarque}`
-              }
-              if (c - d < 0) {
+              } else {
                 texteCorr += `  $${reduirePolynomeDegre3(0, 1, 0, c - d)}$ est de la forme $a^2-b^2$ avec $a=x$ et $b=${extraireRacineCarree(d - c)[0]}$.<br>
                   Comme $a^2-b^2=(a-b)(a+b)$, on en déduit $${reduirePolynomeDegre3(0, 1, 0, c - d)}=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
                   Ainsi, pour tout $x$ de $\\mathbb R$,
@@ -205,11 +212,14 @@ export default class PositionRelative extends Exercice {
 
                 texteCorr += tableauDeVariation({
                   tabInit: [
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     [
                       ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
                     ],
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
@@ -246,14 +256,12 @@ export default class PositionRelative extends Exercice {
                  On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)>0$, soit $f(x)>g(x)$. <br>
                 Graphiquement,  $\\mathscr{C}_f$ est toujours au dessus de $\\mathscr{C}_g$.`
                 texteCorr += `<br>${remarque}`
-              }
-              if (c - d === 0) {
+              } else if (c - d === 0) {
                 texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}\\geqslant 0$.<br>
                 On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)\\geqslant0$, soit $f(x)\\geqslant g(x)$. <br>
                 Graphiquement, $\\mathscr{C}_f$ et $\\mathscr{C}_g$ ont un point d'intersection (de coordonnées $(0\\,;\\${d})) et $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$.  .`
                 texteCorr += `<br>${remarque}`
-              }
-              if (c - d < 0) {
+              } else {
                 texteCorr += `  $${reduirePolynomeDegre3(0, 1, 0, c - d)}$ est de la forme $a^2-b^2$ avec $a=x$ et $b=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$.<br>
                   Comme $a^2-b^2=(a-b)(a+b)$, on en déduit $${reduirePolynomeDegre3(0, 1, 0, c - d)}=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
                   Ainsi, pour tout $x$ de $\\mathbb R$,
@@ -265,11 +273,14 @@ export default class PositionRelative extends Exercice {
 
                 texteCorr += tableauDeVariation({
                   tabInit: [
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     [
                       ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
                     ],
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
@@ -342,11 +353,14 @@ export default class PositionRelative extends Exercice {
 
                 texteCorr += tableauDeVariation({
                   tabInit: [
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     [
                       ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
                     ],
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
@@ -401,11 +415,14 @@ export default class PositionRelative extends Exercice {
 
                 texteCorr += tableauDeVariation({
                   tabInit: [
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     [
                       ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
                     ],
+                    // @ts-expect-error tableauDeVariation n'est pas typé
                     ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
@@ -441,18 +458,15 @@ export default class PositionRelative extends Exercice {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
                 ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              }
-              if ((a > 0) && ((d - b) / a < 0)) {
+              } else if ((a > 0) && ((d - b) / a < 0)) {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
                 ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              }
-              if ((a < 0) && ((d - b) / a > 0)) {
+              } else if ((a < 0) && ((d - b) / a > 0)) {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
                 ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-              }
-              if ((a < 0) && ((d - b) / a < 0)) {
+              } else {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
                 ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
@@ -465,13 +479,16 @@ export default class PositionRelative extends Exercice {
 
               texteCorr += tableauDeVariation({
                 tabInit: [
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   [
                     ['$x$', 2.5, 30],
                     ['$x$', 2, 75],
                     [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
                   ],
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
                 ],
+                // @ts-expect-error tableauDeVariation n'est pas typé
                 tabLines: [ligne1, ligne2, ligne3],
                 colorBackground: '',
                 espcl: 3.5,
@@ -521,18 +538,15 @@ export default class PositionRelative extends Exercice {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
                 ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              }
-              if ((a > 0) && ((d - b) / a < 0)) {
+              } else if ((a > 0) && ((d - b) / a < 0)) {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
                 ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              }
-              if ((a < 0) && ((d - b) / a > 0)) {
+              } else if ((a < 0) && ((d - b) / a > 0)) {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
                 ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-              }
-              if ((a < 0) && ((d - b) / a < 0)) {
+              } else {
                 ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
                 ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
                 ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
@@ -545,13 +559,16 @@ export default class PositionRelative extends Exercice {
 
               texteCorr += tableauDeVariation({
                 tabInit: [
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   [
                     ['$x$', 2.5, 30],
                     ['$x$', 2, 75],
                     [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
                   ],
+                  // @ts-expect-error tableauDeVariation n'est pas typé
                   ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
                 ],
+                // @ts-expect-error tableauDeVariation n'est pas typé
                 tabLines: [ligne1, ligne2, ligne3],
                 colorBackground: '',
                 espcl: 3.5,

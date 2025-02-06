@@ -53,9 +53,17 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3]
     } // Mélange des cas précédents
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, somme, cpt = 0, a = [], b = [], c = [], prod = [], n, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      n = 0
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let n = 0
+      const a: number[] = []
+      const b: number[] = []
+      const c: number[] = []
+      const prod: number[][] = []
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
+      let somme: number = 0
       while (n < 4) {
         c[n] = randint(-30, 30, [-1, 0, 1]) // initialise les exposants entiers relatifs
         b[n] = randint(11, 99) / 10 // initialise les mantisses entières ou avec un chiffre des dixièmes non nul.
@@ -96,8 +104,10 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
             texteCorr += 'CorrTest2'
           }
           reponse = 'Test 2e5'
+          somme = 0
           break
         case 3:
+        default:
           texte = `Texte3 ${b[0]}` // b<-1
           if (this.correctionDetaillee) {
             texteCorr += 'Correction détaillée 3'
@@ -105,11 +115,12 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
             texteCorr = texte + 'CorrTest3'
           }
           reponse = 'test 3e6'
+          somme = 0
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
       handleAnswers(this, i, { reponse: { value: reponse, options: { ecritureScientifique: true } } })
-      if (this.questionJamaisPosee(i, reponse, somme, a, b, c, prod)) {
+      if (this.questionJamaisPosee(i, reponse, somme, a.join(';'), b.join(';'), c.join(';'), prod.join(';'))) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

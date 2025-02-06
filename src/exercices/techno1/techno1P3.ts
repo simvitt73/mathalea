@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 export const titre = 'Proportions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,18 +28,13 @@ export default class Proportion extends Exercice {
   }
 
   nouvelleVersion () {
-    let a, b, c, d
-    switch (choice(['simple'])) {
-      case 'simple':
-        b = choice([2, 3, 4, 6, 8, 9]) /* Numérateur fraction */
-        c = choice([5, 7, 11, 13])/* Dénominateur fraction */
-        d = randint(4, 11)/* Multiple */
-        a = c * d
-        this.question = `Calculer  $\\dfrac{${b}}{${c}}$ de $${a}$.  <br> `
-        this.correction = `Calculer la fraction d'un nombre, c'est multiplier la fraction par ce nombre.
+    const b = choice([2, 3, 4, 6, 8, 9]) /* Numérateur fraction */
+    const c = choice([5, 7, 11, 13])/* Dénominateur fraction */
+    const d = randint(4, 11)/* Multiple */
+    const a = c * d
+    this.question = `Calculer  $\\dfrac{${b}}{${c}}$ de $${a}$.  <br> `
+    this.correction = `Calculer la fraction d'un nombre, c'est multiplier la fraction par ce nombre.
 <br><br>    Ainsi, $\\dfrac{${b}}{${c}}$  de $${a}$ est égal à $\\dfrac{${b}}{${c}}\\times ${a}=\\dfrac{${b}\\times${a}}{${c}}=\\dfrac{${b}\\times${c}\\times${d}}{${c}}=${texNombre(b * d)}$.`
-        this.reponse = calculANePlusJamaisUtiliser(d * b)
-        break
-    }
+    this.reponse = d * b
   }
 }

@@ -39,17 +39,19 @@ export default class SolInequation extends Exercice {
 
   nouvelleVersion () {
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)//, 2, 3
-    for (let i = 0, texte, texteCorr, monQcm, cpt = 0, x0, a, b, c, d, e, m, p, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
 
-      x0 = randint(-6, 6)
-      a = randint(-3, 3, 0)
-      b = randint(-10, 10, 0)
-      c = randint(-10, 10, 0)
-      m = randint(-5, 5, [0, 1])
-      p = randint(-10, 10, 0)
-      d = choice([a * x0 * x0 + b * x0 + c, a * x0 * x0 + b * x0 + c + 1, a * x0 * x0 + b * x0 + c - 1, a * x0 * x0 + b * x0 + c + 2, a * x0 * x0 + b * x0 + c - 2])
-
+      const x0 = randint(-6, 6)
+      const a = randint(-3, 3, 0)
+      const b = randint(-10, 10, 0)
+      const c = randint(-10, 10, 0)
+      const m = randint(-5, 5, [0, 1])
+      const p = randint(-10, 10, 0)
+      const d = choice([a * x0 * x0 + b * x0 + c, a * x0 * x0 + b * x0 + c + 1, a * x0 * x0 + b * x0 + c - 1, a * x0 * x0 + b * x0 + c + 2, a * x0 * x0 + b * x0 + c - 2])
+      let texte = ''
+      let texteCorr = ''
+      let monQcm : { texte: string, texteCorr: string }
       switch (typesDeQuestions) {
         case 1://
           texte = ` $${x0}$ est-il solution de l'inéquation $${reduirePolynomeDegre3(0, a, b, c)} < ${d}$ ?`
@@ -80,7 +82,6 @@ export default class SolInequation extends Exercice {
           if (a * x0 * x0 + b * x0 + c < d) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'OUI',
@@ -95,7 +96,6 @@ export default class SolInequation extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'NON',
@@ -136,7 +136,6 @@ export default class SolInequation extends Exercice {
           if (a * x0 * x0 + b * x0 + c > d || a * x0 * x0 + b * x0 + c === d) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'OUI',
@@ -151,7 +150,6 @@ export default class SolInequation extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'NON',
@@ -196,7 +194,6 @@ export default class SolInequation extends Exercice {
           if (a * x0 * x0 + b * x0 + c < m * x0 + p || a * x0 * x0 + b * x0 + c === m * x0 + p) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'OUI',
@@ -211,7 +208,6 @@ export default class SolInequation extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'NON',
@@ -229,7 +225,7 @@ export default class SolInequation extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

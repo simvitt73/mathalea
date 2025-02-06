@@ -1,6 +1,5 @@
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { randint } from '../../modules/outils'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
@@ -31,8 +30,8 @@ export default class Proportion extends Exercice {
     const b = randint(3, 80)/* Pourcentage */
     const a = randint(10, 100)/* Valeur */
     this.question = `Calculer  $${b}\\,\\%$ de $${a}$. `
-    this.correction = `Calculer $p\\,\\%$ d'un nombre, c'est multiplier ce nombre par $\\dfrac{p}{100}$.
-<br>    Ainsi, $${b}\\,\\%$  de $${a}$ est égal à $${texNombre(b / 100)}\\times ${a}=${texNombre(b * a / 100)}$.`
-    this.reponse = new Decimal(a * b).div(100)
+    this.correction = `Calculer $p\\,\\%$ d'un nombre, c'est multiplier ce nombre par $\\dfrac{p}{100}$.<br>
+    Ainsi, $${b}\\,\\%$  de $${a}$ est égal à $${texNombre(b / 100)}\\times ${a}=${texNombre(b * a / 100)}$.`
+    this.reponse = (a * b / 100).toFixed(2)
   }
 }

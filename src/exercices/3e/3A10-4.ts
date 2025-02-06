@@ -52,7 +52,7 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
       const rgMaxb = cribleEratostheneN(maxPremierb).length - 1
       // on choisit les rangs pour les nombres premiers
       const tabRangsb = []
-      const tabRangsExclusb = []
+      const tabRangsExclusb: number[] = []
       for (let k = 0; k < (nbDePremiersb); k++) {
         for (let m = 0; m < k; m++) {
           tabRangsExclusb.push(tabRangsb[m])
@@ -78,7 +78,7 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
         }
       } else {
         // S'il y a 3 facteurs premiers, on fixe à 12, 16 ou 18 le nombre de diviseurs
-        tabMultiplicitesb = choice([[2, 1, 1], [3, 1, 1], [2, 2, 1]]).sort(() => Math.random < 0.5)
+        tabMultiplicitesb = choice([[2, 1, 1], [3, 1, 1], [2, 2, 1]]).sort(() => Math.random() - 0.5)
       }
 
       texte = ''

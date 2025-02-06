@@ -112,6 +112,7 @@ export default class EquationsProduitsNuls2 extends Exercice {
 
           break
         case 3: // (ax+f1)(bx+f2)=0
+        default:
           f3 = f1.entierDivise(-a)
           f4 = f2.entierDivise(-b)
           texte = `$(${reduireAxPlusB(a, 0)}${f1.texFractionSignee})(${reduireAxPlusB(b, 0)}${f2.texFractionSignee})=0$`

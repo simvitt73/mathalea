@@ -45,7 +45,6 @@ export default class ExerciceInequationProduit extends Exercice {
       6,
       '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
     ]
-    this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
     this.spacing = 2 // Espace entre deux lignes
     this.spacingCorr = 2 // Espace entre deux lignes pour la correction
     this.correctionDetailleeDisponible = true
@@ -56,7 +55,7 @@ export default class ExerciceInequationProduit extends Exercice {
 
   nouvelleVersion () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
-    let correctionInteractif // Pour récupérer l'intervalle solution à saisir
+    let correctionInteractif: string[] // Pour récupérer l'intervalle solution à saisir
     const separateur = ';'
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les inéquations suivantes' : 'l\'inéquation suivante') + '.'
     // Convertit le paramètre this.sup en type de question
@@ -92,17 +91,25 @@ export default class ExerciceInequationProduit extends Exercice {
       this.nbQuestions
     )
     // Crée une liste d'autant de signes que de questions
-    const signes = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
+    const signes: ('≤' | '≥' | '<' | '>' | '\\')[] = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
     // Boucle principale qui servira à créer toutes les questions // On limite le nombre d'essais à 50 pour chercher des valeurs nouvelles
-    for (let i = 0, a, b, c, d, e, f, pGauche, pDroite, texte, ligne1, ligne2, ligne3, ligne4, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
-      a = randint(-13, 13, [0, 1, -1])
-      b = randint(-13, 13, [0, a])
-      c = randint(-13, 13, [0, 1, -1, a, b])
-      d = randint(-13, 13, [0, a, b, c, (b * c) / a]) // Pour éviter que ax + b et cx + d n'aient la même racine
-      e = randint(-13, 13, [0, 1, -1, a, b, c, d])
-      f = randint(-13, 13, [0, a, b, c, d, e, (b * e) / a, (d * e) / c]) // Pour éviter que (ax + b et ex + f) ou (cx + d et ex + f) n'aient la même racine
+      const a = randint(-13, 13, [0, 1, -1])
+      const b = randint(-13, 13, [0, a])
+      const c = randint(-13, 13, [0, 1, -1, a, b])
+      const d = randint(-13, 13, [0, a, b, c, (b * c) / a]) // Pour éviter que ax + b et cx + d n'aient la même racine
+      const e = randint(-13, 13, [0, 1, -1, a, b, c, d])
+      const f = randint(-13, 13, [0, a, b, c, d, e, (b * e) / a, (d * e) / c]) // Pour éviter que (ax + b et ex + f) ou (cx + d et ex + f) n'aient la même racine
       // Pioche un signe d'inégalité parmi <, ≤, ≥, > et définit en fonction si les crochets seront ouverts ou fermés dans l'ensemble de solutions
+      let pGauche : ']' | '['
+      let pDroite: ']' | '['
+      let texte = ''
+      let texteCorr = ''
+      let ligne1: (number | string)[]
+      let ligne2: (number | string)[]
+      let ligne3: (number | string)[]
+      let ligne4: (number | string)[]
       switch (signes[i]) {
         case '<':
           pGauche = ']'
@@ -117,19 +124,20 @@ export default class ExerciceInequationProduit extends Exercice {
           pDroite = '['
           break
         case '≥':
+        default:
           pGauche = '['
           pDroite = ']'
           break
       }
       // Fonction détaillant la résolution d'une équation de type x + val
-      const resolutionDetailleeEquation = function (val) {
+      const resolutionDetailleeEquation = function (val: number) {
         texteCorr += `$x${ecritureAlgebrique(val)}${texSymbole('>')}0$ <br>`
         texteCorr += `$x${ecritureAlgebrique(val)}${miseEnEvidence(ecritureAlgebrique(-1 * val))}
         ${texSymbole('>')}${miseEnEvidence(ecritureAlgebrique(-1 * val))}$<br>`
         texteCorr += `$x${texSymbole('>')}${-val}$<br>`
       }
       // Fonction écrivant la correction détaillée d'une inéquation du type var1*x + var2 > 0
-      const ecrireCorrectionDetaillee = function (var1, var2, egal) {
+      const ecrireCorrectionDetaillee = function (var1: number, var2: number, egal = false) {
         let symbolePlusGrand = texSymbole('>')
         let symbolePlusPetit = texSymbole('<')
         if (egal) {
@@ -149,7 +157,7 @@ export default class ExerciceInequationProduit extends Exercice {
           } else {
             texteCorr += miseEnEvidence(symbolePlusPetit)
           }
-          texteCorr += `${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
+          texteCorr += `${String(-var2) + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
           texteCorr += `$x${symbolePlusPetit}${texFractionFromString(-var2, var1)}$`
           texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusPetit} ${texFractionReduite(-var2, var1)}$`
         } else { // sinon elle ne change pas de sens
@@ -206,14 +214,17 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})$`, 2, 100]
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             ['$-\\infty$', 30, `$${Math.min(-a, -b)}$`, 20, `$${Math.max(-a, -b)}$`, 20, '$+\\infty$', 30]
           ],
           // Les autres lignes du tableau dont le fonctionnement est expliqué plus haut
+          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
@@ -223,16 +234,16 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} ${separateur} ${Math.max(-a, -b)} \\right${pDroite} $.`
-          correctionInteractif = `${pGauche}${Math.min(-a, -b)}${separateur}${Math.max(-a, -b)}${pDroite}`
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          correctionInteractif = [`${pGauche}${Math.min(-a, -b)}${separateur}${Math.max(-a, -b)}${pDroite}`]
+        } else { //  if ((signes[i] === '>' || signes[i] === '≥')) // condition inutile JCL le 05/02/2025
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${Math.min(-a, -b)} \\right${pDroite} \\cup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
-          correctionInteractif = `]-\\infty${separateur}${Math.min(-a, -b)}${pDroite}\\cup${pGauche}${Math.max(-a, -b)}${separateur}+\\infty[`
+          correctionInteractif = [`]-\\infty${separateur}${Math.min(-a, -b)}${pDroite}\\cup${pGauche}${Math.max(-a, -b)}${separateur}+\\infty[`]
         }
-      }
-      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      } else if (listeTypeDeQuestions[i] === '(x+a)(x+b)(x+c)<0') {
+        // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)(x+c)<0'                                 Type 2        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(x+a)(x+b)(x+c)<0') {
+
         // Consigne
         texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})${texSymbole(signes[i])}0$`
         // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
@@ -256,11 +267,12 @@ export default class ExerciceInequationProduit extends Exercice {
         const racines = [-a, -b, -c].sort(function (a, b) {
           return a - b
         })
-        const lignes = [-a, -b, -c]
+        const lignesNombre = [-a, -b, -c]
+        const lignes: (number | string)[][] = []
         // Pour chaque ligne, on cherche la racine correspondante
         for (let j = 0; j < 3; j++) {
           for (let n = 0; n < 3; n++) {
-            if (racines[n] === lignes[j]) {
+            if (racines[n] === lignesNombre[j]) {
               if (n === 0) { // La racine d'indice 0 est la plus petite des trois, et donc celle la plus à gauche dans le tableau donc le 0 (, 'z', 20) est en première position et les autres sont des | (, 't', 5)
                 lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20, 't', 5, '+', 20]
               } else if (n === 1) { // La racine d'indice 1 est la deuxième racine, donc le 0 (, 'z', 20) en deuxième position et les autres sont des | (, 't', 5)
@@ -275,11 +287,14 @@ export default class ExerciceInequationProduit extends Exercice {
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
         texteCorr += tableauDeVariation({
           tabInit: [
+          // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
             ],
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             ['$-\\infty$', 30, `$${racines[0]}$`, 20, `$${racines[1]}$`, 20, `$${racines[2]}$`, 20, '$+\\infty$', 30]
           ],
+          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
           espcl: 3.5,
@@ -289,16 +304,16 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${racines[0]} \\right${pDroite} \\cup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
-          correctionInteractif = `]-\\infty,${racines[0]}${pDroite}\\cup${pGauche}${racines[1]},${racines[2]}${pDroite}`
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          correctionInteractif = [`]-\\infty,${racines[0]}${pDroite}\\cup${pGauche}${racines[1]},${racines[2]}${pDroite}`]
+        } else { // if ((signes[i] === '>' || signes[i] === '≥')) // condition inutile JCL le 05/02/2025
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} ${separateur} ${racines[1]} \\right${pDroite} \\cup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
-          correctionInteractif = `${pGauche}${racines[0]}${separateur}${racines[1]}${pDroite}\\cup${pGauche}${racines[2]}${separateur}+\\infty[`
+          correctionInteractif = [`${pGauche}${racines[0]}${separateur}${racines[1]}${pDroite}\\cup${pGauche}${racines[2]}${separateur}+\\infty[`]
         }
-      }
-      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      } else if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)<0') {
+        // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)<0'                                    Type 3        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)<0') {
+
         let valPetit, valGrand
         texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
         // Correction
@@ -358,11 +373,14 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche enfin le tableau
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
             ],
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
+          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
           espcl: 3.5,
@@ -375,26 +393,26 @@ export default class ExerciceInequationProduit extends Exercice {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
             texteCorr += interieur
-            correctionInteractif = `${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`
+            correctionInteractif = [`${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`]
           } else {
             texteCorr += exterieur
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`
+            correctionInteractif = [`]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`]
           }
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+        } else { //  if ((signes[i] === '>' || signes[i] === '≥'))  // condition inutile JCL le 05/02/2025
           if (a * c > 0) {
             texteCorr += exterieur
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`
+            correctionInteractif = [`]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`]
           } else {
             texteCorr += interieur
-            correctionInteractif = `${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`
+            correctionInteractif = [`${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`]
           }
         }
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
-      }
-      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        correctionInteractif[0] = correctionInteractif[0].replaceAll('dfrac', 'frac')
+      } else if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)(ex+f)<0') {
+        // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)(ex+f)<0'                                    Type 4  //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)(ex+f)<0') {
+
         let valPetit, valMoyen, valGrand
         texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})${texSymbole(signes[i])}0$`
         // Correction
@@ -536,11 +554,14 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche enfin le tableau
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})$`, 2, 200]
             ],
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valMoyen}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
+          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ligne3, ligne4],
           colorBackground: '',
           espcl: 3.5,
@@ -553,26 +574,26 @@ export default class ExerciceInequationProduit extends Exercice {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c * e > 0) {
             texteCorr += solutions1et3
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
+            correctionInteractif = [`]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`]
           } else {
             texteCorr += solutions2et4
-            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\cup${pGauche}${valGrand},+\\infty[`
+            correctionInteractif = [`${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\cup${pGauche}${valGrand},+\\infty[`]
           }
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+        } else { //  if ((signes[i] === '>' || signes[i] === '≥')) // pas de condition pour le dernier else ! JCL le 05/02/2025
           if (a * c * e > 0) {
             texteCorr += solutions2et4
-            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`
+            correctionInteractif = [`${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`]
           } else {
             texteCorr += solutions1et3
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
+            correctionInteractif = [`]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`]
           }
         }
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
-      }
-      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        correctionInteractif[0] = correctionInteractif[0].replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
+      } else { // if (listeTypeDeQuestions[i] === '(ax+b)²(cx+d)<0') Pas de if pour la dernière condition ! JCL le 5/02/2025
+        // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)²(cx+d)<0'                                   Type 5        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(ax+b)²(cx+d)<0') {
+
         let valPetit, valGrand
         texte = `$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
         // Correction
@@ -627,11 +648,14 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche le tableau
         texteCorr += tableauDeVariation({
           tabInit: [
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2.5, 30], [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
             ],
+            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
+          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
           espcl: 3.5,
@@ -657,7 +681,7 @@ export default class ExerciceInequationProduit extends Exercice {
                             `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\cup${singletonGauche.replaceAll(' ', '').replaceAll('\\cup', '')}`
             ]
           }
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+        } else { // if ((signes[i] === '>' || signes[i] === '≥')) // condition inutile JCL le 05/02/2025
           if (c > 0) {
             texteCorr += droite
             correctionInteractif = [
@@ -675,12 +699,8 @@ export default class ExerciceInequationProduit extends Exercice {
           }
         }
       }
-      if (Array.isArray(correctionInteractif)) {
-        for (let kk = 0; kk < correctionInteractif.length; kk++) {
-          correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
-        }
-      } else {
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+      for (let kk = 0; kk < correctionInteractif.length; kk++) {
+        correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
       }
       if (this.interactif && !context.isAmc) {
         texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`

@@ -32,7 +32,11 @@ export default class nomExercice extends Exercice {
     const typeQuestionsDisponibles = ['Basket', 'STMG'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, N, n, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      let N: number
+      let n: number
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'Basket':
           N = randint(200, 1500) * 2
@@ -48,6 +52,7 @@ export default class nomExercice extends Exercice {
           <br>La proportion de moins de $20$ ans parmi les spectateurs est environ de $p=${texNombre(n / N, 2)}$ ou encore $p=${texNombre(n * 100 / N, 0)}\\%$`
           break
         case 'STMG':
+        default:
           N = randint(12, 18) * 2
           n = randint(18, N / 2)
           texte = `L’an passé, parmi les $${N}$ élèves de terminale STMG, $${n}$ ont obtenu une place en BTS ou en IUT.<br>
@@ -61,13 +66,9 @@ export default class nomExercice extends Exercice {
             <br>$p=\\dfrac{\\text{Effectif de la sous population}}{\\text{Effectif de la population de référence}}=\\dfrac{n}{N}=\\dfrac{${n}}{${N}}\\approx${texNombre(n / N, 2)}$<br>
             <br>La proportion d'élèves qui ont obtenu une place en BTS ou en IUT dans cette classe est environ de $p=${texNombre(n / N, 2)}$ ou encore $p=${texNombre(n * 100 / N, 0)}\\%$`
           break
-        case 'type3':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
-          break
       }
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, N, n)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

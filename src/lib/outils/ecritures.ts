@@ -144,7 +144,10 @@ export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) 
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
   else if (typeof a === 'number' || a instanceof Decimal) return ecritureAlgebrique(a)
-  else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
+  else {
+    window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
+    return 'erreur type de valeur non prise en compte'
+  }
 }
 
 /**

@@ -17,7 +17,6 @@ import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils'
@@ -59,19 +58,22 @@ export default class ModeliseInequations extends Exercice {
       typeDeQuestionsDisponibles = ['typeE4', 'typeE5', 'typeE6']//
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['typeE7', 'typeE8']//
-    } else if (this.sup === 4) {
+    } else {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'typeE1'://
           { const a = randint(20, 30) //
             const b = randint(a + 5, 50) //
-            const c = new Decimal(randint(20, 35)).div(100)
-            const d = new Decimal(randint(14, 19)).div(100)
+            const c = randint(20, 35) / 100
+            const d = randint(14, 19) / 100
 
             texte = `  Une société de location de véhicules particulièrs propose deux tarifs :<br>
               $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
@@ -109,7 +111,7 @@ export default class ModeliseInequations extends Exercice {
           {
             const quidam = prenomF()
             const b = randint(90, 120) //
-            const a = new Decimal(randint(15, 25)).div(100)
+            const a = randint(15, 25) / 100
             const budget = randint(20, 35) * 10 //
 
             texte = ` Pour la location mensuelle d'un véhicule, une entreprise propose le tarif suivant :<br>
@@ -135,14 +137,14 @@ export default class ModeliseInequations extends Exercice {
             handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
         case 'typeE3':
-          { const PB = new Decimal(randint(7, 25, [10, 20])).div(2)// prix billet
+          { const PB = randint(7, 25, [10, 20]) / 2// prix billet
             const EM = randint(70, 150) // nombre entrée matin
             const RT = randint(200, 400) * 10 // recette totale
             texte = ` À la mi-journée la recette d'un musée s'élève à $${texNombre(PB * EM, 2)}$ € pour $${EM}$ entrées. Le prix de l'entrée est unique.<br>
                 Quel doit être le minimum d'entrées en deuxième partie de journée pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ € ?<br>
                 Résoudre ce problème en écrivant et résolvant une inéquation modélisant la situation.
                                        `
-            texteCorr = `Le montant du billet d'entrée est donné par $${texNombre(PB * EM, 2)}${sp(1)} € \\div ${EM}=${texPrix(PB, 2)}$ €.<br>
+            texteCorr = `Le montant du billet d'entrée est donné par $${texNombre(PB * EM, 2)}${sp(1)} € \\div ${EM}=${texPrix(PB)}$ €.<br>
 
                 En notant $x$ le nombre d'entrées en deuxième partie de journée, on obtient : $${texNombre(PB * EM, 2)} +${texNombre(PB, 2)}\\times x\\geqslant ${texNombre(RT)}$.<br>
 
@@ -168,7 +170,7 @@ export default class ModeliseInequations extends Exercice {
             const l = randint(3, 10)// largeur
             const L = l + randint(3, 10)// longueur
 
-            const P = choice([['au tiers', 3], ['au quart', 4], ['à la moitié', 2], ['au dixième', 10], ['au cinquième', 5]])
+            const P: [string, number] = choice([['au tiers', 3], ['au quart', 4], ['à la moitié', 2], ['au dixième', 10], ['au cinquième', 5]])
             const f = new FractionEtendue(L * l / 2, P[1] * l / 2 + l / 2).simplifie()
             const f2 = new FractionEtendue(l * L, l * P[1] + l).simplifie()
             const A = point(0, 0, 'A', 'below')
@@ -427,7 +429,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, reponse)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

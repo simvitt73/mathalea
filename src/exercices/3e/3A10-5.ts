@@ -9,6 +9,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { factorisation } from '../../lib/outils/primalite'
+import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
 export const interactifReady = true
@@ -30,9 +31,9 @@ export const refs = {
   'fr-ch': ['9NO4-28']
 }
 
-export function extraitLaDecomposition (expression) {
+export function extraitLaDecomposition (expression: string) {
   const listeFacteurs = expression.split('\\times')
-  const decompo = []
+  const decompo: [number, number][] = []
 
   for (const facteur of listeFacteurs) {
     if (facteur.includes('^')) { // c'est une puissance
@@ -66,7 +67,7 @@ export function extraitLaDecomposition (expression) {
   }
   return decompo
 }
-function ecrireReponse (alpha, a, beta, b, gamma, c) {
+function ecrireReponse (alpha: number, a: number, beta: number, b: number, gamma: number, c: number) {
   let reponse = ''
   let reponse2 = ''
   if (a !== 0) {
@@ -103,7 +104,7 @@ function ecrireReponse (alpha, a, beta, b, gamma, c) {
   }
   return ([reponse, reponse2])
 }
-function compareLesDecomposition (decompo1, decompo2) {
+function compareLesDecomposition (decompo1: [number, number][], decompo2: [number, number][]) {
   if (!(Array.isArray(decompo1) && Array.isArray(decompo2))) return { isOk: false, feedback: 'La réponse n\'a pas la forme attendue' }
   // On verifie que les deux décomposition sont bien le même nombre sinon on sort
   let nb1 = 1
@@ -188,6 +189,7 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
           texte += '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}=` })
           break
         case 5: // 11, 13, 17 ou 19 et deux autres facteurs parmi 2, 3 et 5
+        default:
           facteur1 = choice([2, 3, 5])
           facteur2 = choice([2, 3, 5], [facteur1])
           if (facteur1 > facteur2) {
@@ -205,16 +207,18 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
       }
       const bonneDecomposition = factorisation(nbADecomposer)
       handleAnswers(this, i, {
+        // @ts-expect-error
         reponse: { value: bonneDecomposition },
-        callback: (exercice, question) => {
+        callback: (exercice: Exercice, question: number) => {
           let isOk
           let feedback = ''
-          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
-          if (mfe == null) return { isOk: false, score: { nbBonnesReponses: 0, nbReponses: 0 } }
+          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+          if (mfe == null) return { isOk: false, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 0 } }
           let expression = mfe.getValue()
           expression = expression.replaceAll('²', '^2').replaceAll('³', '^3').replaceAll('^{}', '').replaceAll('^{^', '^{')
           if (expression == null || expression === '') {
             isOk = false
+            feedback = ''
           } else {
             const decompoSaisie = extraitLaDecomposition(expression)
             if (decompoSaisie.length === 0) {
@@ -223,7 +227,7 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
             } else {
               const result = compareLesDecomposition(decompoSaisie, bonneDecomposition)
               isOk = result.isOk
-              feedback = result.feedback
+              feedback = String(result.feedback)
             }
           }
 

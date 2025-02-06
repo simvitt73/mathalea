@@ -45,20 +45,25 @@ export default class ProprietesInegalites extends Exercice {
       typeDeQuestionsDisponibles = ['typeE2', 'typeE3']
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['typeE4']
-    } else if (this.sup === 4) {
+    } else {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a: number
+      let m: number
+      let p: number
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'typeE1'://
           {
-            const a = randint(2, 30, [4, 9, 16, 25])
+            a = randint(2, 30, [4, 9, 16, 25])
             const rac = Math.sqrt(a)
-            const m = randint(-10, 10, 0)
-            const p = randint(-10, 10, 0)
+            m = randint(-10, 10, 0)
+            p = randint(-10, 10, 0)
             const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             const choix2 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             texte = ` Sachant que $${texNombre(Math.floor(100 * rac) / 100, 2)} ${choix1[0]} \\sqrt{${a}} ${choix2[0]} ${texNombre(Math.ceil(100 * rac) / 100, 2)}$,
@@ -83,9 +88,9 @@ ${texNombre(Math.floor(100 * rac) / 100, 2)}${choix1[0]}&\\sqrt{${a}}${choix2[0]
 
         case 'typeE2':
           {
-            const a = randint(-10, 10, 0)
-            const m = randint(-10, 10, [0, 1])
-            const p = randint(-10, 10, 0)
+            a = randint(-10, 10, 0)
+            m = randint(-10, 10, [0, 1])
+            p = randint(-10, 10, 0)
             const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant'], ['>', '<'], ['\\geqslant', '\\leqslant']])
             texte = ` Si $x${choix1[0]} ${a}$, que peut-on dire de $${rienSi1(m)}x${ecritureAlgebrique(p)}$ ?
                 `
@@ -101,10 +106,10 @@ x &${choix1[0]} ${a}\\\\`
           break
         case 'typeE3':
           {
-            const a = randint(-10, 10, 0)
+            a = randint(-10, 10, 0)
             const b = a + randint(1, 10, 0)
-            const m = randint(-10, 10, [0, 1])
-            const p = randint(-10, 10, 0)
+            m = randint(-10, 10, [0, 1])
+            p = randint(-10, 10, 0)
             const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             const choix2 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             texte = ` Sachant que $${a} ${choix1[0]} x ${choix2[0]} ${b}$,
@@ -129,13 +134,14 @@ ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]
           break
 
         case 'typeE4':
+        default:
           {
-            const a = randint(-10, 10, 0)
+            a = randint(-10, 10, 0)
             const b = a + randint(1, 10, 0)
             const c = randint(-10, 10, 0)
             const d = c + randint(1, 10, 0)
-            const m = randint(-10, 10, [0, 1])
-            const p = randint(-10, 10, [0, 1])
+            m = randint(-10, 10, [0, 1])
+            p = randint(-10, 10, [0, 1])
             const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             texte = `Soit $x$ et $y$ deux réels tels que $${a} ${choix1[0]} x ${choix1[0]} ${b}$ et $${c} ${choix1[0]} y ${choix1[0]} ${d}$.<br>`
             if (m > 0 && p > 0) {
@@ -229,7 +235,7 @@ ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, m, p)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -1,7 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -52,44 +51,53 @@ export default class DiffentesEcrituresProportions extends Exercice {
       typesDeQuestionsDisponibles = ['Decimal', 'Pourcentage', 'Fraction']//,
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, listeFractions, fraction, dec, pourc, n, d, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let listeFractions: [number, number][]
+      let fraction : [number, number]
+      let n: number, d:number
+      let f: number
+      let dec: number
+      let pourc: number
       switch (randint(1, 4)) {
         case 1:
-          dec = new Decimal(randint(1, 99)).div(100)
-          pourc = new Decimal(dec).mul(100)
+          dec = randint(1, 99) / 100
+          pourc = dec * 100
           listeFractions = [
             [1, 2], [1, 4], [1, 5], [2, 5], [3, 5], [4, 5], [6, 5], [7, 5], [3, 4], [5, 8], [7, 8], [3, 8],
             [1, 8], [3, 10], [7, 10], [3, 20], [7, 20], [9, 20], [11, 20], [13, 20], [17, 20]] //
           fraction = choice(listeFractions)
           n = fraction[0]
           d = fraction[1]
-          f = new Decimal(n).div(d)
+          f = n / d
 
           break
         case 2:
-          dec = new Decimal(randint(1, 99)).div(1000)
-          pourc = new Decimal(dec).mul(100)
+          dec = randint(1, 99) / 1000
+          pourc = dec * 100
           n = randint(1, 49)
           d = choice([1000, 100, 50, 500])
-          f = new Decimal(n).div(d)
+          f = n / d
           break
         case 3:
-          dec = new Decimal(randint(1, 99)).div(10000)
-          pourc = new Decimal(dec).mul(100)
+          dec = randint(1, 99) / 10000
+          pourc = dec * 100
           n = randint(1, 24)
           d = choice([25, 100, 200])
-          f = new Decimal(n).div(d)
+          f = n / d
           break
         case 4:
-          dec = new Decimal(randint(11, 99)).div(10)
-          pourc = new Decimal(dec).mul(100)
+        default:
+          dec = randint(11, 99) / 10
+          pourc = dec * 100
           listeFractions = [
             [32, 125], [32, 125], [2, 125], [7, 125], [9, 125], [13, 125], [32, 125], [71, 125], [108, 125], [9, 250], [17, 250],
             [81, 1250], [91, 1250], [87, 1250], [91, 1250], [47, 1250], [59, 1250], [31, 1250], [63, 1250], [117, 2500], [91, 2500]] //
           fraction = choice(listeFractions)
           n = fraction[0]
           d = fraction[1]
-          f = new Decimal(n).div(d)
+          f = n / d
           break
       }
 

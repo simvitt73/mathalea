@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 
-function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif) {
+function unePieceDeuxUrnes (exercice: Exercice, i: number, sup: boolean, sup2: boolean, sup3: boolean, numQuestionInteractif: number) {
   i += numQuestionInteractif
   const p = []
   const choix = randint(0, 2)
@@ -57,7 +57,7 @@ function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif)
       racine: false,
       rationnel: true,
       nom: 'Pile',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: true,
       alter: '',
       enfants: []
@@ -66,7 +66,7 @@ function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif)
       racine: false,
       rationnel: true,
       nom: 'Face',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: true,
       alter: '',
       enfants: []
@@ -92,7 +92,7 @@ function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif)
       racine: false,
       rationnel: true,
       nom: 'Pile',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: false,
       alter: '',
       enfants: []
@@ -101,7 +101,7 @@ function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif)
       racine: false,
       rationnel: true,
       nom: 'Face',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: false,
       alter: '',
       enfants: []
@@ -145,7 +145,7 @@ function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif)
   omega.setTailles() // On calcule les tailles des arbres.
   const objets = omega.represente(0, 11, 0, sup2 ? 2.5 : 1.2, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
   for (let j = 0; j < 3; j++) {
-    p[j] = omega.getProba(B[j], true) // on calcule P(C) décimale.
+    p[j] = omega.getProba(B[j]) // on calcule P(C) décimale.
   }
   texte = 'On lance une pièce équilibrée.<br>'
   texte += "Si la pièce tombe sur 'Pile', on tire une boule dans une urne contenant "
@@ -163,18 +163,18 @@ function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif)
   texte += `<br>Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, '')
   setReponse(exercice, i, new FractionEtendue(p[choix].n, p[choix].d), { formatInteractif: 'fractionEgale' })
   texteCorr = "La probabilité que la pièce tombe sur 'Pile' est de $\\dfrac{1}{2}$ et "
-  texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix], true))}$.<br>`
-  texteCorr += `La probabilité de l'issue ('Pile','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne1.getProba(B[choix], true))}=${texProba(fraction(n1[choix], 2 * card1))}$.<br>`
+  texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix]))}$.<br>`
+  texteCorr += `La probabilité de l'issue ('Pile','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne1.getProba(B[choix]))}=${texProba(fraction(n1[choix], 2 * card1))}$.<br>`
   texteCorr += "La probabilité que la pièce tombe sur 'Face' est de $\\dfrac{1}{2}$ et "
-  texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la deuxième urne est de $${texProba(urne2.getProba(B[choix], true), true)}$.<br>`
-  texteCorr += `La probabilité de l'issue ('Face','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne2.getProba(B[choix], true))}=${texProba(fraction(n2[choix], 2 * card2))}$.<br>`
+  texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la deuxième urne est de $${texProba(urne2.getProba(B[choix]))}$.<br>`
+  texteCorr += `La probabilité de l'issue ('Face','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne2.getProba(B[choix]))}=${texProba(fraction(n2[choix], 2 * card2))}$.<br>`
   texteCorr += `L'événement 'obtenir une boule ${boules[choix]}' est réalisé par les issues ('Pile','${boules[choix]}') et ('Face','${boules[choix]}'), donc sa probabilité est la somme des probabilités calculées ci-dessus.<br>`
   texteCorr += `La probabilité d'obtenir une boule ${boules[choix]} est donc de $${texProba(fraction(n1[choix], 2 * card1))}+${texProba(fraction(n2[choix], 2 * card2))}=${texProba(p[choix])}$.`
 
   return { texte, texteCorr, alea: [...n1, ...n2] }
 }
 
-function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionInteractif) { // tirage dans une urne avec remise
+function urneDeuxTiragesAvecRemise (exercice: Exercice, i: number, sup: boolean, sup2: boolean, niveau: string, numQuestionInteractif: number) { // tirage dans une urne avec remise
   i += numQuestionInteractif
   const [b1Color, b2Color] = shuffle(['bleue', 'rouge', 'verte', 'orange', 'noire', 'jaune']).splice(0, 2)
 
@@ -194,7 +194,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
       proba: fraction(1, card),
       visible: false,
       alter: '',
-      enfant: [],
+      enfants: [],
       racine: false
     }))
     for (let j = 0; j < nbBoule1; j++) {
@@ -204,7 +204,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -215,7 +215,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -228,7 +228,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
       proba: fraction(1, card),
       visible: false,
       alter: '',
-      enfant: [],
+      enfants: [],
       racine: false
     }))
     for (let j = 0; j < nbBoule1; j++) {
@@ -238,7 +238,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -249,7 +249,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -282,7 +282,7 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
   omega.setTailles() // On calcule les tailles des arbres.
   const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.4, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
   const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]])
-  const probaChoix = fraction(choix[0] ** 2, card ** 2)
+  const probaChoix = fraction(Number(choix[0]) ** 2, card ** 2)
   const proba1 = fraction(nbBoule1 ** 2, card ** 2)
   const proba2 = fraction(nbBoule2 ** 2, card ** 2)
   const proba1et2 = proba1.sommeFraction(proba2)
@@ -305,8 +305,8 @@ function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionI
   texteCorr += `${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
   texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 1 / card }, ...objets)
-  texteCorr += `<br>${numAlpha(0)} L'événement "obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}" est réalisé par l'issue {${choix[2] + choix[2]}}.`
-  texteCorr += ` On comptabilise ${choix[0] ** 2} issues {${choix[2] + choix[2]}} sur ${card ** 2} issues en tout.<br>`
+  texteCorr += `<br>${numAlpha(0)} L'événement "obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}" est réalisé par l'issue {${choix[2]} ${choix[2]}}.`
+  texteCorr += ` On comptabilise ${Number(choix[0]) ** 2} issues {${choix[2]} ${choix[2]}} sur ${card ** 2} issues en tout.<br>`
   texteCorr += `La probabilité de cet événement est donc de $${probaChoix.texFraction}${!probaChoix.estIrreductible ? '=' + probaChoix.texFractionSimplifiee : ''}$.<br>`
   texteCorr += `${numAlpha(1)} L'événement "obtenir deux boules de la même couleur" est réalisé par les issues {${b1Char + b1Char}, ${b2Char + b2Char}}.`
   texteCorr += ` On comptabilise ${nbBoule1 ** 2} issues {${b1Char + b1Char}} et   ${nbBoule2 ** 2} issues {${b2Char + b2Char}} sur ${card ** 2} issues en tout.<br>`
@@ -343,6 +343,7 @@ export default class CalculProbaExperience2Epreuves2e extends Exercice {
           question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)
           break
         case 1:
+        default:
           question = urneDeuxTiragesAvecRemise(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)
           numQuestionInteractif = +2
           break

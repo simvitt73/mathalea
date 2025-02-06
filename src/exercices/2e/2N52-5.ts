@@ -37,9 +37,20 @@ export default class ResoudreEquationsQuotient extends Exercice {
     } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] } // 1, 2, 3, 4, 5, 6, 7
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions, choix, consigne1, a, b, c, d, e, f, k1, k2; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      consigne1 = 'Préciser les valeurs interdites éventuelles, puis résoudre l\'équation : '
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a: number
+      let b: number
+      let c: number
+      let d: number
+      let k1: number
+      let k2: number
+      let choix: boolean
+      let e: number
+      let f: number
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      const consigne1 = 'Préciser les valeurs interdites éventuelles, puis résoudre l\'équation : '
       switch (typesDeQuestions) {
         case 1:// (ax+b)/(cx+d)=0
           a = randint(-3, 9, 0)
@@ -201,6 +212,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
           break
 
         case 4:// e/(ax+b)=f/(cx+d)
+        default:
           a = randint(-3, 9, 0)
           b = randint(-9, 9)
           c = randint(-5, 9, 0)
@@ -240,7 +252,7 @@ x&=${texFractionReduite(-e * d + f * b, e * c - f * a)}
           texteCorr += ` $${texFractionReduite(-e * d + f * b, e * c - f * a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${texFractionReduite(-e * d + f * b, e * c - f * a)}\\right\\}$.`
           break
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
