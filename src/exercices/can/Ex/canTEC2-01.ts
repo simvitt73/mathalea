@@ -35,9 +35,9 @@ export default class NomExercice extends Exercice {
 
     this.question = `Soit $z=${a}${ecritureAlgebriqueSauf1(b)}\\text{i}\\in\\mathbb{C}$. <br>`
     this.correction = 'On sait que si $z=a+\\text{i}b$ alors $\\vert z\\vert=\\sqrt{a^2+b^2}$'
-    this.correction += `<br>Il vient ici : $\\vert z\\vert=\\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}$.`
-    this.correction += `<br>d'où $\\vert z\\vert=\\sqrt{${a * a}+${b * b}}=\\sqrt{${a * a + b * b}}$.`
-    this.correction += `<br>Le module de $z$ est donc $${miseEnEvidence(`\\vert z\\vert=\\sqrt{${a * a + b * b}}`)}$.`
+    this.correction += `<br>Il vient ici : $\\vert z\\vert=\\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}$,`
+    this.correction += ` d'où $\\vert z\\vert=\\sqrt{${a * a}+${b * b}}=\\sqrt{${a * a + b * b}}$.`
+    this.correction += `<br>Le module de $z$ est donc $\\vert z\\vert=${miseEnEvidence(`\\sqrt{${a * a + b * b}}`)}$.`
     this.reponse = Math.sqrt(a * a + b * b)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
