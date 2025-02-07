@@ -26,8 +26,10 @@ async function handleBugsnag () {
     }
   })
 }
+
 if (document.location.hostname === 'coopmaths.fr') {
-  handleBugsnag()
+  // Mgu supprime le await si pas de problème au chargement..
+  await handleBugsnag()
 }
 
 function isDevMode () {
@@ -69,6 +71,7 @@ export function notify (error: string | NotifiableError, metadatas: Metadatas) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
     Bugsnag.addMetadata('Paramètres des exercices', get(exercicesParams))
     Bugsnag.notify(error)
+    console.error(error)
   } else {
     const message = 'message qui aurait été envoyé à bugsnag s\'il avait été configuré'
     showDialogForLimitedTime('notifDialog', 5000, message + ' : <br>' + error.toString())
