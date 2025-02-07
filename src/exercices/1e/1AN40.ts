@@ -55,7 +55,7 @@ export default class CosEtsin extends Exercice {
   }
 
   nouvelleVersion () {
-    const mesAnglesAleatoiresBis: Angle[][] = []
+    const mesAnglesAleatoiresBis: Angle[][] = [[]]
     let typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -85,8 +85,8 @@ export default class CosEtsin extends Exercice {
       }
     }
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste3))
+    const typeQuestionsDisponibles: ['cos' | 'sin', Angle][][] = [[], [], [], []]
 
-    const typeQuestionsDisponibles: ['cos' | 'sin', Angle][][] = []
     for (let i = 0; i < mesAnglesAleatoiresBis[1].length; i++) {
       typeQuestionsDisponibles[1].push(['cos', mesAnglesAleatoiresBis[1][i]])
       typeQuestionsDisponibles[1].push(['sin', mesAnglesAleatoiresBis[1][i]])
