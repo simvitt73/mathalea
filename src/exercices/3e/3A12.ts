@@ -33,9 +33,9 @@ export default class PpcmEngrenages extends Exercice {
     this.sup = false
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     let typesDeQuestions
-
+    const numeroExercice = 0
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     /*
@@ -59,10 +59,12 @@ export default class PpcmEngrenages extends Exercice {
     */
 
     for (let i = 0, texte, texteCorr, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
       typesDeQuestions = listeTypeDeQuestions[i]
 
-      let nbDentsr1
-      let nbDentsr2
+      let nbDentsr1 = 0
+      let nbDentsr2 = 0
       let txtPopup = `Soient deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ${context.isHtml ? '' : '\\\\'}( $ppcm(a,b)=a\\times b$ ), on dit que `
       if (context.isHtml) {
         txtPopup += '<b>les nombres a et b sont premiers entre eux.</b>'
@@ -87,7 +89,7 @@ export default class PpcmEngrenages extends Exercice {
           { // avec de petits nombres on calcule les mutliples
             nbDentsr1 = randint(5, 30)
             nbDentsr2 = randint(5, 30, nbDentsr1)
-            texte = `La roue n$^\\circ$1 possède $${nbDentsr1}$ dents et la roue n$^\\circ$2 a $${nbDentsr2}$ dents.`
+            texte += `La roue n$^\\circ$1 possède $${nbDentsr1}$ dents et la roue n$^\\circ$2 a $${nbDentsr2}$ dents.`
             texte += '<br>' + numAlpha(0) + ` Écrire la liste des multiples de $${nbDentsr1}$ et de $${nbDentsr2}$ jusqu'à trouver un multiple commun.`
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
               texte += `<br>Justifier que ${nbDentsr1} et ${nbDentsr2} sont des `
@@ -184,7 +186,7 @@ export default class PpcmEngrenages extends Exercice {
             }
           }
 
-          texte = `La roue n$^\\circ$1 possède $${nbDentsr1}$ dents et la roue n$^\\circ$2 a $${nbDentsr2}$ dents.`
+          texte += `La roue n$^\\circ$1 possède $${nbDentsr1}$ dents et la roue n$^\\circ$2 a $${nbDentsr2}$ dents.`
           texte += '<br>' + numAlpha(0) + ` Décomposer $${nbDentsr1}$ et $${nbDentsr2}$ en produit de facteurs premiers.`
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
             texte += `<br>Justifier que ${nbDentsr1} et ${nbDentsr2} sont des `
@@ -273,7 +275,7 @@ export default class PpcmEngrenages extends Exercice {
           nbDentsr2 = randint(5, 80, nbDentsr1)
           nbDentsr1 *= k
           nbDentsr2 *= k
-          texte = `La roue n$^\\circ$2 a maintenant $${nbDentsr2}$ dents.`
+          texte += `La roue n$^\\circ$2 a maintenant $${nbDentsr2}$ dents.`
           texte += ` Déterminer le nombre de dents de la roue n$^\\circ$1 qui ferait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texte += ' tour '

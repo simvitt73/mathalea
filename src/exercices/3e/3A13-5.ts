@@ -38,7 +38,7 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
       '1 : Ajouter un nombre\n2 : Soustraire un nombre\n3 : Mélange'
     ]
 
-    this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets\nChoix entre 0 et 29']
+    this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets\nChoix entre 0 et 29\n30 : Mélange']
 
     this.nbQuestions = 5
     this.sup = true
@@ -51,6 +51,7 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
       saisie: this.sup3,
       min: 0,
       max: 29,
+      melange: 30,
       defaut: 20,
       nbQuestions: this.nbQuestions
     })
@@ -59,7 +60,7 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
       texte = ''
       texteCorr = ''
       const choixOperation = this.sup2 === 3 ? signe[i] : this.sup2 === 1 ? '+' : '-'
-      diviseur = dizaineDiviseur[i] === 0 ? randint(5, 9) : dizaineDiviseur[i] * 10 + randint(1, 9)
+      diviseur = dizaineDiviseur[i] === 0 ? randint(5, 9) : Number(dizaineDiviseur[i]) * 10 + randint(1, 9)
       quotient = randint(26, 196, [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, diviseur])
       reste = randint(3, diviseur - 1, [20, 30, 40, 50])
       dividende = quotient * diviseur + reste
