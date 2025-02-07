@@ -80,8 +80,8 @@ export default class DesChocolatsDansDesBoites extends Exercice {
     const cadrePrincipal = polygone([point(0, 0), point(largeurCadre, 0), point(largeurCadre, hauteurCadre), point(0, hauteurCadre)])
     const ligne1 = segment(point(0, hauteurCadre / 3), point(largeurCadre, hauteurCadre / 3))
     const ligne2 = segment(point(largeurCadre / 2, hauteurCadre), point(largeurCadre / 2, 0))
-    const text1 = texteParPosition('type A', largeurCadre / 4 - 1, hauteurCadre - 1, 'milieu', 'black', 2)
-    const text2 = texteParPosition('type B', 3 * largeurCadre / 4 - 1, hauteurCadre - 1, 'milieu', 'black', 2)
+    const text1 = texteParPosition('type A', largeurCadre / 4 - 1, hauteurCadre - 1, 0, 'black', 2, 'milieu')
+    const text2 = texteParPosition('type B', 3 * largeurCadre / 4 - 1, hauteurCadre - 1, 0, 'black', 2, 'milieu')
     text1.epaisseur = 4
     text1.contour = true
     text1.couleurDeRemplissage = colorToLatexOrHTML('black')
@@ -102,7 +102,7 @@ export default class DesChocolatsDansDesBoites extends Exercice {
       point3d(3 * largeurCadre / 4 - 5, 0, hauteurCadre - 5),
       point3d(3 * largeurCadre / 4 - 5, 5, hauteurCadre / 3 + 2)
     ]
-    const pave = pave3d(...sommetsPave)
+    const pave = pave3d(sommetsPave[0], sommetsPave[1], sommetsPave[2], sommetsPave[3])
     const diametreTruffes = randint(10, 15) / 10
     const volumeTotalTruffe = nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3 / 3
     const volumeCible = 1.7 * volumeTotalTruffe
@@ -121,13 +121,13 @@ export default class DesChocolatsDansDesBoites extends Exercice {
     }
     const volumePave = largeurPave * longueurPave * hauteurPave
     const volumePyramide = (hauteurPyramide * basePyramide ** 2) / 3
-    const textA1 = texteParPosition('Pyramide à base carrée', largeurCadre / 4, hauteurCadre / 3 - 1, 'milieu', 'black', 1.5)
-    const textA2 = texteParPosition(`de côté ${stringNombre(basePyramide, 1)} cm`, largeurCadre / 4, hauteurCadre / 3 - 2, 'milieu', 'black', 1.5)
-    const textA3 = texteParPosition(`et de hauteur ${stringNombre(hauteurPyramide, 1)} cm`, largeurCadre / 4, hauteurCadre / 3 - 3, 'milieu', 'black', 1.5)
-    const textB1 = texteParPosition('Pavé droit', 3 * largeurCadre / 4, hauteurCadre / 3 - 1, 'milieu', 'black', 1.5)
-    const textB2 = texteParPosition(`de longueur ${longueurPave} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 2, 'milieu', 'black', 1.5)
-    const textB3 = texteParPosition(`de largeur ${stringNombre(largeurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 3, 'milieu', 'black', 1.5)
-    const textB4 = texteParPosition(`et de hauteur ${stringNombre(hauteurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 4, 'milieu', 'black', 1.5)
+    const textA1 = texteParPosition('Pyramide à base carrée', largeurCadre / 4, hauteurCadre / 3 - 1, 0, 'black', 1.5, 'milieu')
+    const textA2 = texteParPosition(`de côté ${stringNombre(basePyramide, 1)} cm`, largeurCadre / 4, hauteurCadre / 3 - 2, 0, 'black', 1.5, 'milieu')
+    const textA3 = texteParPosition(`et de hauteur ${stringNombre(hauteurPyramide, 1)} cm`, largeurCadre / 4, hauteurCadre / 3 - 3, 0, 'black', 1.5, 'milieu')
+    const textB1 = texteParPosition('Pavé droit', 3 * largeurCadre / 4, hauteurCadre / 3 - 1, 0, 'black', 1.5, 'milieu')
+    const textB2 = texteParPosition(`de longueur ${longueurPave} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 2, 0, 'black', 1.5, 'milieu')
+    const textB3 = texteParPosition(`de largeur ${stringNombre(largeurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 3, 0, 'black', 1.5, 'milieu')
+    const textB4 = texteParPosition(`et de hauteur ${stringNombre(hauteurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 4, 0, 'black', 1.5, 'milieu')
     const objets = [cadrePrincipal, ligne1, ligne2, text1, text2, pyramide.c2d, pave.c2d, textA1, textA2, textA3, textB1, textB2, textB3, textB4]
 
     texteQuestion2 += `Le chocolatier souhaite fabriquer des boîtes contenant $${nbTruffesParBoite}$ truffes. Pour cela, il a le choix entre deux types de boites qui peuvent contenir les $${nbTruffesParBoite}$ truffes, et dont les caractéristiques sont données ci-dessous:`
@@ -186,6 +186,7 @@ export default class DesChocolatsDansDesBoites extends Exercice {
       style: 'fleches',
       introduction: 'Le pavé droit :'
     }
+    // @ts-expect-error
     correctionQuestion2 += createList({
       items: [`Une truffe est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm, donc de rayon $${texNombre(diametreTruffes / 2, 2)}$ cm et son voulme en cm$^3$ est : $\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3$.`,
       `Le volume occupé par $${nbTruffesParBoite}$ truffes est donc de : $${nbTruffesParBoite}\\times\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3=\\dfrac{${texNombre(nbTruffesParBoite * 4 * (diametreTruffes / 2) ** 3, 4)}}{3}\\pi$ soit environ $${texNombre(nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3 / 3, 1)}$cm$^3$.`,
