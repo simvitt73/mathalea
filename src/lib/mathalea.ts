@@ -480,89 +480,96 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let indiceExercice = -1
   const newExercisesParams: InterfaceParams[] = []
   let previousEntryWasUuid = false
-  for (const entry of entries) {
-    if (entry[0] === 'uuid') {
-      indiceExercice++
-      const uuid = entry[1]
-      const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
-        return currentRefToUuid[key] === uuid
-      })
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id }
-      newExercisesParams[indiceExercice].uuid = uuid // string
-      newExercisesParams[indiceExercice].id = id // string
-      newExercisesParams[indiceExercice].interactif = '0' // par défaut
-    } else if (entry[0] === 'id' && !previousEntryWasUuid) {
-      // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
-      indiceExercice++
-      const id = entry[1]
-      const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
-    } else if (entry[0] === 'n') {
-      newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
-    } else if (entry[0] === 'd') {
-      newExercisesParams[indiceExercice].duration = parseInt(entry[1]) // int
-    } else if (entry[0] === 's') {
-      newExercisesParams[indiceExercice].sup = entry[1]
-    } else if (entry[0] === 's2') {
-      newExercisesParams[indiceExercice].sup2 = entry[1]
-    } else if (entry[0] === 's3') {
-      newExercisesParams[indiceExercice].sup3 = entry[1]
-    } else if (entry[0] === 's4') {
-      newExercisesParams[indiceExercice].sup4 = entry[1]
-    } else if (entry[0] === 's5') {
-      newExercisesParams[indiceExercice].sup5 = entry[1]
-    } else if (entry[0] === 'alea') {
-      newExercisesParams[indiceExercice].alea = entry[1]
-    } else if (entry[0] === 'cols') {
-      newExercisesParams[indiceExercice].cols = parseInt(entry[1])
-    } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
-      newExercisesParams[indiceExercice].interactif = entry[1]
-    } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
-      newExercisesParams[indiceExercice].cd = entry[1]
-    } else if (entry[0] === 'v') {
-      v = convertVueType(entry[1])
-    } else if (entry[0] === 'recorder') {
-      if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
-        recorder = entry[1]
+  try {
+    for (const entry of entries) {
+      if (entry[0] === 'uuid') {
+        indiceExercice++
+        const uuid = entry[1]
+        const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
+          return currentRefToUuid[key] === uuid
+        })
+        if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id }
+        newExercisesParams[indiceExercice].uuid = uuid // string
+        newExercisesParams[indiceExercice].id = id // string
+        newExercisesParams[indiceExercice].interactif = '0' // par défaut
+      } else if (entry[0] === 'id' && !previousEntryWasUuid) {
+        // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
+        indiceExercice++
+        const id = entry[1]
+        const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
+        if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
+      } else if (entry[0] === 'n') {
+        newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
+      } else if (entry[0] === 'd') {
+        newExercisesParams[indiceExercice].duration = parseInt(entry[1]) // int
+      } else if (entry[0] === 's') {
+        newExercisesParams[indiceExercice].sup = entry[1]
+      } else if (entry[0] === 's2') {
+        newExercisesParams[indiceExercice].sup2 = entry[1]
+      } else if (entry[0] === 's3') {
+        newExercisesParams[indiceExercice].sup3 = entry[1]
+      } else if (entry[0] === 's4') {
+        newExercisesParams[indiceExercice].sup4 = entry[1]
+      } else if (entry[0] === 's5') {
+        newExercisesParams[indiceExercice].sup5 = entry[1]
+      } else if (entry[0] === 'alea') {
+        newExercisesParams[indiceExercice].alea = entry[1]
+      } else if (entry[0] === 'cols') {
+        newExercisesParams[indiceExercice].cols = parseInt(entry[1])
+      } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
+        newExercisesParams[indiceExercice].interactif = entry[1]
+      } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
+        newExercisesParams[indiceExercice].cd = entry[1]
+      } else if (entry[0] === 'v') {
+        v = convertVueType(entry[1])
+      } else if (entry[0] === 'recorder') {
+        if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
+          recorder = entry[1]
+        }
+      } else if (entry[0] === 'done' && entry[1] === '1') {
+        done = '1'
+      } else if (entry[0] === 'z') {
+        z = entry[1]
+      } else if (entry[0] === 'dGlobal') {
+        durationGlobal = parseInt(entry[1])
+      } else if (entry[0] === 'shuffle') {
+        shuffle = true
+      } else if (entry[0] === 'select') {
+        select = entry[1].split('-').map((e) => parseInt(e))
+      } else if (entry[0] === 'order') {
+        order = entry[1].split('-').map((e) => parseInt(e))
+      } else if (entry[0] === 'ds') {
+        ds = entry[1]
+      } else if (entry[0] === 'es') {
+        es = entry[1]
+      } else if (entry[0] === 'title') {
+        title = decodeURIComponent(entry[1])
+      } else if (entry[0] === 'iframe') {
+        iframe = entry[1]
+      } else if (entry[0] === 'answers') {
+        answers = entry[1]
+      } else if (entry[0] === 'beta') {
+        beta = true
+      } else if (entry[0] === 'canD') {
+        canDuration = parseInt(entry[1])
+      } else if (entry[0] === 'canT') {
+        canTitle = entry[1]
+      } else if (entry[0] === 'canSA') {
+        canSolAccess = entry[1] === '1'
+      } else if (entry[0] === 'canSM') {
+        canSolMode = entry[1]
+      } else if (entry[0] === 'canI') {
+        canIsInteractive = entry[1] === '1'
       }
-    } else if (entry[0] === 'done' && entry[1] === '1') {
-      done = '1'
-    } else if (entry[0] === 'z') {
-      z = entry[1]
-    } else if (entry[0] === 'dGlobal') {
-      durationGlobal = parseInt(entry[1])
-    } else if (entry[0] === 'shuffle') {
-      shuffle = true
-    } else if (entry[0] === 'select') {
-      select = entry[1].split('-').map((e) => parseInt(e))
-    } else if (entry[0] === 'order') {
-      order = entry[1].split('-').map((e) => parseInt(e))
-    } else if (entry[0] === 'ds') {
-      ds = entry[1]
-    } else if (entry[0] === 'es') {
-      es = entry[1]
-    } else if (entry[0] === 'title') {
-      title = decodeURIComponent(entry[1])
-    } else if (entry[0] === 'iframe') {
-      iframe = entry[1]
-    } else if (entry[0] === 'answers') {
-      answers = entry[1]
-    } else if (entry[0] === 'beta') {
-      beta = true
-    } else if (entry[0] === 'canD') {
-      canDuration = parseInt(entry[1])
-    } else if (entry[0] === 'canT') {
-      canTitle = entry[1]
-    } else if (entry[0] === 'canSA') {
-      canSolAccess = entry[1] === '1'
-    } else if (entry[0] === 'canSM') {
-      canSolMode = entry[1]
-    } else if (entry[0] === 'canI') {
-      canIsInteractive = entry[1] === '1'
-    }
 
-    if (entry[0] === 'uuid') previousEntryWasUuid = true
-    else previousEntryWasUuid = false
+      if (entry[0] === 'uuid') previousEntryWasUuid = true
+      else previousEntryWasUuid = false
+    }
+  } catch (error) {
+    // MOUCHARD SUR LES URLS FANTAISISTES
+    window.notify(`${error} Erreur d'URL`, { err: error, urlString, url: window.location.href.toString() })
+    console.error(error)
+    throw error
   }
 
   exercicesParams.set(newExercisesParams)
