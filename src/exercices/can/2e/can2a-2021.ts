@@ -337,9 +337,9 @@ export default class SujetCAN2021Seconde extends Exercice {
        Comme $${Math.floor(Math.sqrt(a)) ** 2}=${Math.floor(Math.sqrt(a))}^2$, alors :
      $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
           if (this.interactif) {
-            texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
+            texte += '<br>Écrire les entiers séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, '')
           }
 

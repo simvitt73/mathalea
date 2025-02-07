@@ -69,24 +69,24 @@ export default class TermeInconnuDeSomme extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           if (a > b) feedback = feedbackNeedParentheses
-          texte = remplisLesBlancs(this, i, `${texNombre(a)} + %{champ1} = ${texNombre(b)}`, KeyboardType.clavierDeBase)
+          texte = remplisLesBlancs(this, i, `${texNombre(a)} + %{champ1} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))} = ${texNombre(b)}$`
           break
 
         case 2:
-          texte = remplisLesBlancs(this, i, `%{champ1} + ${texNombre(a)} = ${texNombre(b)}`, KeyboardType.clavierDeBase)
+          texte = remplisLesBlancs(this, i, `%{champ1} + ${texNombre(a)} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)} = ${texNombre(b)}$`
           break
 
         case 3:
           if (a > b) feedback = feedbackNeedParentheses
-          texte = remplisLesBlancs(this, i, `${texNombre(b)} = %{champ1} + ${texNombre(a)}`, KeyboardType.clavierDeBase)
+          texte = remplisLesBlancs(this, i, `${texNombre(b)} = %{champ1} + ${texNombre(a)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${texNombre(b)}=${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)}$`
           break
 
         case 4:
         default:
-          texte = remplisLesBlancs(this, i, `${texNombre(b)} = ${texNombre(a)} + %{champ1}`, KeyboardType.clavierDeBase)
+          texte = remplisLesBlancs(this, i, `${texNombre(b)} = ${texNombre(a)} + %{champ1}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))}$`
           break
       }

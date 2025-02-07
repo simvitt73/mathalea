@@ -301,9 +301,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             this.canEnonce = 'Complète.'
             this.canReponseACompleter = '$\\ldots \\times \\ldots =35$'
           }
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
           if (this.interactif) {
-            texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point-virgule.'
+            texte += '<br>Écrire les deux nombres séparés par un point-virgule.'
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
 
