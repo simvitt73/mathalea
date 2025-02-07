@@ -28,6 +28,7 @@ export const refs = {
   'fr-ch': ['10FA5-6', '11FA8-2', '1F1-10']
 }
 export default class CalculsImagesFonctions extends Exercice {
+  fonctions: string
   constructor () {
     super()
     this.besoinFormulaireTexte = [
@@ -101,6 +102,8 @@ export default class CalculsImagesFonctions extends Exercice {
     }
     for (let i = 0, texte, texteCorr, x, y, m, n, enonce, correction, reponses = [], tagImage, ant, img, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
+      texte = ''
+      texteCorr = ''
       if (this.sup3 > 2 && this.fonctions === 'polynomialesOuRationnelles') this.sup3++
       if (this.sup3 === 1) {
         x = randint(2, 9)
@@ -252,14 +255,18 @@ export default class CalculsImagesFonctions extends Exercice {
               correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}$`
               reponses[i] = new FractionEtendue(x, x + m)
               break
-            case 1:
-              if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
-              else m = n ** 2 - x
-              enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${rienSi1(m)}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x + m}}`
-              reponses[i] = new FractionEtendue(m * x, x + m)
+            case 1:{ if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
+            else m = n ** 2 - x
+            enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
+            correction = `$f(x)=\\dfrac{${rienSi1(m)}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x + m}}`
+            /*               reponses[i] = new FractionEtendue(m * x, x + m)
               correction += reponses[i].estEntiere ? `=${reponses[i].simplifie().texFraction}$` : '$'
-              break
+ */
+            const repFraction = new FractionEtendue(m * x, x + m)
+            correction += repFraction.estEntiere ? `=${repFraction.simplifie().texFraction}$` : '$'
+            reponses[i] = repFraction
+            break
+            }
             case 2:
               if (n !== x) m = n - x // // n différent de 0 donc m + x différent de zéro et x différent de zéro
               else m = n ** 2 - x
@@ -267,17 +274,20 @@ export default class CalculsImagesFonctions extends Exercice {
               correction = `$f(x)=\\dfrac{${rienSi1(m)}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(m)}\\times ${ecritureParentheseSiNegatif(x)}}=\\dfrac{${m * x ** 2}${ecritureAlgebrique(n * x)}}{${x ** 2}${ecritureAlgebrique(m * x)}}=\\dfrac{${m * x ** 2 + n * x}}{${x ** 2 + m * x}}=\\dfrac{${m * x + n}}{${x + m}}$`
               reponses[i] = new FractionEtendue(m * x ** 2 + n * x, x ** 2 + m * x)
               break
-            case 3:
-              if (n !== x && n !== 2 * x) m = n - x // x - m = 2x - n donc différent de zéro
-              else if (n ** 2 !== 2 * x) m = n ** 2 - x // x-m = 2x - n**2 donc différent de zéro
-              else m = n + x // x-m = n donc différent de zéro
-              enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. <br> Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$`
-              correction += `donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}`
-              correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`
-              reponses[i] = new FractionEtendue(1, x - m)
-              correction += `=${reponses[i].texFSD}$`
-              break
+            case 3:{ if (n !== x && n !== 2 * x) m = n - x // x - m = 2x - n donc différent de zéro
+            else if (n ** 2 !== 2 * x) m = n ** 2 - x // x-m = 2x - n**2 donc différent de zéro
+            else m = n + x // x-m = n donc différent de zéro
+            enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. <br> Quelle est l'image de $${x}$ ?<br>`
+            correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$`
+            correction += `donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}`
+            correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`
+            /* reponses[i] = new FractionEtendue(1, x - m)
+            correction += `=${reponses[i].texFSD}$` */
+            const repFraction = new FractionEtendue(1, x - m)
+            correction += `=${repFraction.texFSD}$`
+            reponses[i] = repFraction
+            break
+            }
           }
           setReponse(this, i, reponses[i], { formatInteractif: 'fractionEgale' })
           break
@@ -296,13 +306,13 @@ export default class CalculsImagesFonctions extends Exercice {
       }
 
       if (tagImage) {
-        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(reponses[i] instanceof FractionEtendue ? reponses[i].simplifie().texFSD : texNombre(reponses[i], 5))}$`
+        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))}$`
       } else {
-        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(reponses[i] instanceof FractionEtendue ? reponses[i].simplifie().texFSD : texNombre(reponses[i], 5))})=${img}$`
+        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))})=${img}$`
       }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = texte
+        this.listeQuestions[i] = texte ?? ''
         this.listeCorrections[i] = texteCorr
         i++
       }
@@ -313,12 +323,17 @@ export default class CalculsImagesFonctions extends Exercice {
     let maxNbDecimals = 0
     if (context.isAmc) {
       for (let i = 0; i < this.nbQuestions; i++) {
+        // @ts-ignore this.autoCorrection[i] est bien défini
         maxNbChiffresAvantLaVirgule = Math.max(maxNbChiffresAvantLaVirgule, nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]))
+        // @ts-ignore this.autoCorrection[i] est bien défini
         maxNbDecimals = Math.max(maxNbDecimals, nombreDeChiffresDansLaPartieDecimale(this.autoCorrection[i].reponse.valeur[0]))
       }
       for (let i = 0; i < this.nbQuestions; i++) {
+        // @ts-expect-error
         this.autoCorrection[i].reponse.param.digits = maxNbChiffresAvantLaVirgule + maxNbDecimals
+        // @ts-expect-error
         this.autoCorrection[i].reponse.param.decimals = maxNbDecimals
+        // @ts-expect-error
         this.autoCorrection[i].reponse.param.signe = true
       }
     }

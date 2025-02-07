@@ -61,9 +61,11 @@ export default class VocabulaireNotationsFonctions extends Exercice {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
-    for (let i = 0, texte, texteCorr, x, y, m, d, A, enonce, reponses = [], monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, x, y, m, d, A, reponses = [], monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-
+      let texte = ''
+      let texteCorr = ''
+      let enonce = ''
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, x)
@@ -114,7 +116,12 @@ export default class VocabulaireNotationsFonctions extends Exercice {
             case 4:
               m = randint(-9, 9, [x, y])
               enonce = `On sait que $f(${x})=f(${y})=${m}$, alors pour la fonction $f$ :`
-              reponses[i] = [[`$${x}$ et $${y}$ sont des antécédents de $${m}$.`, true], [`$${m}$ est l'image de $${x}$ et de $${y}$.`, true], [`$${x}$ et $${y}$ sont des images de $${m}$.`, false], [`$${m}$ est un antécédent de $${x}$ et $${y}$.`, false]]
+              reponses[i] = [
+                [`$${x}$ et $${y}$ sont des antécédents de $${m}$.`, true],
+                [`$${m}$ est l'image de $${x}$ et de $${y}$.`, true],
+                [`$${x}$ et $${y}$ sont des images de $${m}$.`, false],
+                [`$${m}$ est un antécédent de $${x}$ et $${y}$.`, false]
+              ]
               break
           }
           break
@@ -126,7 +133,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
         propositions: []
       }
       for (let k = 0; k < reponses[i].length; k++) {
-        this.autoCorrection[i].propositions.push({ texte: reponses[i][k][0] + (context.isHtml ? '' : '<br>'), statut: reponses[i][k][1] })
+        this.autoCorrection[i].propositions?.push({ texte: reponses[i][k][0] + (context.isHtml ? '' : '<br>'), statut: reponses[i][k][1] })
       }
       monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

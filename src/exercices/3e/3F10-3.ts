@@ -61,7 +61,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
       axeXStyle: '->',
       axeYStyle: '->'
     })
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu')
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -77,7 +77,13 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
     choixDesQuestions.push(combinaisonListes(!this.interactif && !context.isAmc ? range(4) : range(2), this.nbQuestions))
 
     const indice = [0, 0, 0, 0]
-    for (let i = 0, texte, texteCorr, x, y, A, d, t, fonction1, nomF = [], PointC = [], listeFonction = [], cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, x, y, A, d, t, fonction1, listeFonction = [], cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let nomF = ''
+      let PointC = ''
+      texte = ''
+      texteCorr = ''
+      x = 0
+      y = 0
       nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
       switch (typeDeQuestions[i]) {
         case 1 : // 'Traduire une égalité par une phrase':
@@ -305,7 +311,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
           }
           texteCorr = `L'égalité traduisant cette phrase est : $${nomF}(${x})=${y}$
             `
-          this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+          this.autoCorrection[i] = { options: { ordered: false, vertical: false } }
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
@@ -339,7 +345,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
               texte += mathalea2d({ xmin: -5.1, ymin: -4.1, xmax: 5.1, ymax: 4.1, pixelsParCm: 30, scale: 0.7 }, r, d, o, t, labelPoint(A))
               texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
             `
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i] = { options: { ordered: false, vertical: false } }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
@@ -360,7 +366,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
               Donner l'égalité correspondante.`
               texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
               `
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i] = { options: { ordered: false, vertical: false } }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
@@ -381,7 +387,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
               Donner l'égalité correspondante. `
               texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
               `
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i] = { options: { ordered: false, vertical: false } }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
@@ -403,7 +409,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
            Quelles sont les coordonnées du point $${PointC}$ ? `
               texteCorr = `L'égalité $${nomF}(${x})=${y}$ permet d'affirmer que le point  $${PointC}(${x}\\;;\\;${y})$ est sur la courbe représentant $${nomF}$.
               `
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i] = { options: { ordered: false, vertical: false } }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
@@ -547,7 +553,7 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        indice[typeDeQuestions[i] - 1]++
+        indice[(typeDeQuestions[i] as number) - 1]++
         i++
       }
       cpt++

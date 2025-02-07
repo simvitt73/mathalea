@@ -165,7 +165,7 @@ export default class DesChocolatsDansDesBoites extends Exercice {
     let correctionQuestion2 = ''
     correctionQuestion2 += `Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
     correctionQuestion2 += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
-    const sousListe1 = {
+    const sousListe1 = 'La pyramide :<br>' + createList({
       items: [`La pyramide a une base carrée de côté $${texNombre(basePyramide, 1)}$ cm, l'aire de sa base est donc en cm$^2$ : $${texNombre(basePyramide, 1)}\\times ${texNombre(basePyramide, 1)} = ${texNombre(basePyramide ** 2, 2)}$cm$^2$.`,
       `Son volume en cm$^3$ est : $\\dfrac{\\text{aire de la base}\\times\\text{hauteur}}{3}=\\dfrac{${texNombre(basePyramide ** 2, 2)}\\times ${hauteurPyramide}}{3}${egalOuApprox(volumePyramide, 1)}${texNombre(volumePyramide, 1)}$ cm$^3$.`,
       `Le volume de la pyramide est d'environ $${texNombre(volumePyramide, 1)}$ cm$^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}$ cm$^3$.`,
@@ -174,9 +174,9 @@ export default class DesChocolatsDansDesBoites extends Exercice {
         ? 'il est supérieur au volume des truffes, donc la boite en forme de pyramide ne convient pas.'
         : 'il est inférieur au volume des truffes, donc la boite en forme de pyramide convient.'],
       style: 'fleches',
-      introduction: 'La pyramide :'
-    }
-    const sousListe2 = {
+      // introduction: 'La pyramide :'
+    })
+    const sousListe2 = 'Le pavé droit :<br>' + createList({
       items: [`Le pavé droit a pour volume en cm$^3$ de : $${texNombre(largeurPave, 1)}\\times ${texNombre(longueurPave, 1)} \\times ${texNombre(hauteurPave, 1)}=${texNombre(volumePave, 3)}$.`,
       `Le volume du pavé droit est de $${texNombre(volumePave, 1)}$ cm$^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}$ cm$^3$.`,
       `Le volume non occupé par les truffes est d'environ $${texNombre(volumePave, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePave - volumeTotalTruffe, 1)}$ cm$^3$.`,
@@ -184,9 +184,9 @@ export default class DesChocolatsDansDesBoites extends Exercice {
         ? 'il est inférieur au volume des truffes, donc la boite en forme de pavé droit convient.'
         : 'il est supérieur au volume des truffes, donc la boite en forme de pavé droit ne convient pas.'],
       style: 'fleches',
-      introduction: 'Le pavé droit :'
-    }
-    // @ts-expect-error
+      // introduction: 'Le pavé droit :'
+    })
+
     correctionQuestion2 += createList({
       items: [`Une truffe est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm, donc de rayon $${texNombre(diametreTruffes / 2, 2)}$ cm et son voulme en cm$^3$ est : $\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3$.`,
       `Le volume occupé par $${nbTruffesParBoite}$ truffes est donc de : $${nbTruffesParBoite}\\times\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3=\\dfrac{${texNombre(nbTruffesParBoite * 4 * (diametreTruffes / 2) ** 3, 4)}}{3}\\pi$ soit environ $${texNombre(nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3 / 3, 1)}$cm$^3$.`,

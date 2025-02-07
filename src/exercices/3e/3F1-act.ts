@@ -36,7 +36,7 @@ export const refs = {
  * @param {string} titrePopup
  * @param {string} textePopup
  */
-export function katexPopup (texte, titrePopup, textePopup) {
+export function katexPopup (texte:string, titrePopup:string, textePopup:string) {
   // ToDo afficher les dialog au survol sur le texte
   let contenu = ''
   if (context.isHtml) {
@@ -72,13 +72,13 @@ export default class FonctionNotionVocabulaire extends Exercice {
     this.sup = 5
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion (numeroExercice:number) {
     const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
     let typesDeQuestions
     let j, idDuDivDiag, idDuDivCorr
 
-    let typesDeQuestionsDisponibles
+    let typesDeQuestionsDisponibles:number[] = []
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     switch (this.sup) {
       case 1:
@@ -122,7 +122,13 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
 
     for (let i = 0, x, y, z, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-
+      idDuDivDiag = ''
+      idDuDivCorr = ''
+      texte = ''
+      texteCorr = ''
+      x = 0
+      y = 0
+      z = 0
       if (context.isHtml) {
         const idUnique = `${numEx}_${i}_${Date.now()}`
         idDuDivDiag = `div_svg_diag${numeroExercice}${idUnique}`
