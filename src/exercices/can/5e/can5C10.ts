@@ -14,7 +14,6 @@ export default class DecomposerFacteursPremierSimple extends ExerciceDecomposerE
     this.sup2 = false
     this.sup = 1
 
-    this.consigne = `Décomposer en produit de facteurs premiers :<br>
-  (facteurs dans l’ordre croissant)`
+    this.consigne = 'Décomposer en produit de facteurs premiers :'
   }
 }
