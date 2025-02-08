@@ -29,7 +29,7 @@ async function handleBugsnag () {
 
 if (document.location.hostname === 'coopmaths.fr') {
   // Mgu supprime le await si pas de problème au chargement..
-  await handleBugsnag()
+  handleBugsnag()
 }
 
 function isDevMode () {
