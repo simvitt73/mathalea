@@ -230,7 +230,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
       reponseAttendueEstUnNombre = isValidNumber(objetReponse.value)
     }
 
-    const options = objetReponse.options ?? reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : ''
+    const options = objetReponse.options ?? (reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : '')
 
     /*
     console.log(isValidNumber('3x')) // Faux
