@@ -1497,8 +1497,8 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   let splitInput: string[]
   let splitGoodAnswer: string[]
   if (avecAccolades) {
-    if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
-    if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
+    if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade ou bien être l\'ensemble vide.' }
+    if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade ou bien être l\'ensemble vide.' }
     splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
     splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
   } else {
