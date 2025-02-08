@@ -62,7 +62,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
       return callback(exercice, i, variables, bareme)
     }
     if (variables.length > 1 || variables[0][0] !== 'reponse') {
-      if (variables[0][0].match(/L\dC\d/)) {
+      if (variables[0][0].match(/L\dC\d/)) { // un tableau avec Lignes (L) et Colonnes (L)
         // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
         // on pourra faire d'autres formats interactifs sur le même modèle
         const points = []
@@ -133,7 +133,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (saisie == null || saisie === '') {
-            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie N°${key.charAt(key.length - 1)}.<br>` }
+            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}.<br>` }
           } else {
             if (Array.isArray(reponse.value)) {
               let ii = 0
@@ -205,7 +205,57 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
       return { isOk: false, feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     }
     const compareFunction = objetReponse.compare ?? fonctionComparaison
-    const options = objetReponse.options ?? {}
+
+    // La solution est-elle un nombre ? Si oui, on force l'option nombreDecimalSeulement.
+    function isValidNumber (value: any): boolean {
+      // Convertir la valeur en chaîne et remplacer les séparateurs de milliers (par exemple, '{,}')
+      const cleanedValue = String(value)
+        .replace(/{,}/g, '')  // Enlève les caractères '{,}' (séparateurs de milliers comme dans "1{,}5")
+        .replace(',', '.')   // Remplace la virgule par un point pour les décimales
+
+      // Vérifier que la chaîne ne contient que des chiffres et un seul séparateur décimal (point ou virgule)
+      const validNumberPattern = /^[+-]?\d+(\.\d+)?$/
+
+      // Vérifier si la chaîne nettoyée correspond à un nombre valide
+      return validNumberPattern.test(cleanedValue)
+    }
+
+    let reponseAttendueEstUnNombre : boolean
+    if (Array.isArray(objetReponse.value)) {
+      reponseAttendueEstUnNombre = true
+      for (let ee = 0; ee < objetReponse.value.length; ee++) {
+        reponseAttendueEstUnNombre &&= isValidNumber(objetReponse.value[ee])
+      }
+    } else {
+      reponseAttendueEstUnNombre = isValidNumber(objetReponse.value)
+    }
+
+    const options = objetReponse.options ?? reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : ''
+
+    /*
+    console.log(isValidNumber('3x')) // Faux
+    console.log(isValidNumber('\\rac(5)')) // Faux
+    console.log(isValidNumber(new FractionEtendue(3, 7).texFraction)) // Faux
+    console.log(isValidNumber('3')) // Vrai
+    console.log(isValidNumber(3)) // Vrai
+    console.log(isValidNumber('1.5')) // Vrai
+    console.log(isValidNumber(1.5)) // Vrai
+    console.log('------------------------')
+    console.log(isValidNumber(-1.5)) // Vrai
+    console.log(isValidNumber(-3)) // Vrai
+    console.log(isValidNumber('3^2')) // Faux
+    console.log('------------------------')
+    console.log(isValidNumber(1.34e-12)) // Faux
+    console.log(isValidNumber('1.34e-12')) // Faux
+    console.log('------------------------')
+    console.log(isValidNumber(0.27)) // Vrai
+    console.log(isValidNumber(-0.27)) // Vrai
+    console.log(isValidNumber('0.27')) // Vrai
+    console.log(isValidNumber('-0.27')) // Vrai
+
+    console.log(options)
+    */
+
     if (Array.isArray(objetReponse.value)) {
       while ((!isOk) && (ii < objetReponse.value.length)) {
         reponse = objetReponse.value[ii]

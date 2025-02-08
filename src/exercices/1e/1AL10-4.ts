@@ -157,7 +157,7 @@ export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(texNombre(u, 0))}$.`
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
 
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
       if (this.questionJamaisPosee(i, a, u, k)) { // Si la question n'a jamais été posée, on en créé une autre
