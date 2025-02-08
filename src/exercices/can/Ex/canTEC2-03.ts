@@ -4,21 +4,17 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Résoudre |z-z\'|=r'
-export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/5/2024'
 
-// export const uuid = '16c5e'
-/* export const refs = {
-  'fr-fr': [],
+export const uuid = '16c5e'
+export const refs = {
+  'fr-fr': ['canTEC2-03'],
   'fr-ch': []
 }
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Stéphane Guyon
-
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -40,8 +36,6 @@ export default class NomExercice extends Exercice {
     this.correction += `<br>Les points $M$ solutions correspondent donc à l'ensemble des points du plan complexe,<br> situés à une distance de ${r} unités du point $A$.<br>`
     this.correction += `C'est donc le cercle de centre $A$ et de rayon ${r}.`
     this.correction += `<br>$S=${miseEnEvidence(`\\mathcal{C}\\big(A, ${texNombre(r, 0)}\\big)`)}$.`
-    this.reponse = `\\mathcal{C}\\big(A, ${texNombre(r, 0)}\\big)` // Cet exercice n'est pas fonctionnel.
-    // comment définir une réponse avec A qui n'est défini nulle part, et qui est aléatoire, comment saisir ce mathcal{C}  au clavier ?
-    // à revoir, en attendant je supprime le référencement de l'exo.
+    this.reponse = `\\mathcal{C}\\big(A, ${texNombre(r, 0)}\\big)`
   }
 }
