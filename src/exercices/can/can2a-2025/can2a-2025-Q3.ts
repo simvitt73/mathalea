@@ -30,7 +30,6 @@ export default class Developper extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.question = 'Forme développée et réduite de  $(x-2)(x+3)$'
-      if (this.interactif) { this.question += '<br>$(x-2)(x+3)=$' }
       this.correction = `$\\begin{aligned}
       (x-2)(x+3)&=x^2+3x-2x-6\\\\
       &=${miseEnEvidence('x^2+x-6')}
@@ -44,7 +43,7 @@ export default class Developper extends Exercice {
       const b = randint(-9, 9, 0)
       const c = 1
       const d = randint(-5, 5, [0, b])
-      this.question = `Forme développée et réduite de $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.`
+      this.question = `Forme développée et réduite de $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$`
       this.correction = `$\\begin{aligned}
       (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
       &=${miseEnEvidence(reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d))}
@@ -54,6 +53,7 @@ export default class Developper extends Exercice {
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
       this.reponse = { reponse: { value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x') } }
     }
+    if (this.interactif) { this.question += '<br>$(x-2)(x+3)=$' }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

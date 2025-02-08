@@ -29,11 +29,12 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.question = 'Développer $(2-3x)^2$'
       if (this.interactif) { this.question += '<br>$(2-3x)^2=$' }
-      this.correction = `$\\begin{aligned}
-      (2-3x)^2)&=2^2-2\\times 2\\times 3x+ (3x)^2\\\
+      this.correction = 'On utilise l\'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=2$ et $b=3x$.<br>'
+      this.correction += `$\\begin{aligned}
+      (2-3x)^2&=2^2-2\\times 2\\times 3x+ (3x)^2\\\\
        &=${miseEnEvidence('9x^2-12x+4')}
        \\end{aligned}$`
-      this.correction += '<br>On utilise l\'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=2$ et $b=3x$.'
+
       this.reponse = { reponse: { value: reduirePolynomeDegre3(0, 9, -12, 4, 'x') } }
     } else {
       const a = randint(2, 5)
@@ -41,14 +42,14 @@ export default class NomExercice extends Exercice {
 
       this.question = `Développer  $(${a}-${b}x)^2$.<br>`
       if (this.interactif) { this.question += `<br>$(${a}-${b}x)^2=$` }
-      this.correction = `$\\begin{aligned}
-       (${a}-${b}x)^2&=${a}^2-2\\times ${a}\\times ${b}+ (${b}x)^2\\\\
-       &=${miseEnEvidence(reduirePolynomeDegre3(0, b ** 2, 2 * a * b, a ** 2))}
+      this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${a}$ et $b=${b}x$.<br>`
+      this.correction += `$\\begin{aligned}
+       (${a}-${b}x)^2&=${a}^2-2\\times ${a}\\times ${b}x+ (${b}x)^2\\\\
+       &=${miseEnEvidence(reduirePolynomeDegre3(0, b ** 2, -2 * a * b, a ** 2))}
        \\end{aligned}$`
-      this.correction += `<br>On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${a}$ et $b=${b}x$.`
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, b ** 2, 2 * a * b, a ** 2, 'x') } }
-    }
 
+      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, b ** 2, -2 * a * b, a ** 2, 'x') } }
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

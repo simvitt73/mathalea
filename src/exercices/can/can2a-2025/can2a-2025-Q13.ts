@@ -61,10 +61,10 @@ export default class ImageGraphique extends Exercice {
     const objets1 = [r1, o, courbef1, courbef2, courbe(f1, { repere: r1, color: 'blue', epaisseur: 2 }), courbe(f2, { repere: r1, color: 'red', epaisseur: 2 })]
     const colonne1 = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets1)), objets1)
     this.question = `Courbes de deux fonctions $f$ et $g$<br>${colonne1}\n
-    Image de $2$ par $f$.`
+    Image de $2$ par $f$`
     if (this.interactif) { this.question += '<br>' }
-    this.correction = `L'image de $2$ se lit sur l'axe des ordonnées : <br>
-              On lit $f(2)=${miseEnEvidence('-1')}$ `
+    this.correction = `L'image de $2$ se lit sur l'axe des ordonnées. <br>
+              On lit $f(2)=${miseEnEvidence('-1')}$. `
     this.reponse = -1
     this.canEnonce = `Courbes de deux fonctions $f$ et $g$<br>${colonne1}`
     this.canReponseACompleter = 'Image de $2$ par $f$ : $\\ldots$'

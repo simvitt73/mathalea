@@ -64,8 +64,8 @@ export default class ResoudreGraphiqumentInequation extends Exercice {
     this.question = `Courbes de deux fonctions $f$ et $g$<br>${colonne1}\n
     Solutions de $f(x)=g(x)$`
     if (this.interactif) { this.question += '<br>' }
-    this.correction = `Les solutions sont les abscisses des points d'intersection entre les deux courbes :<br>
-   $S=\\{${miseEnEvidence('-1\\,;\\,2')}\\}$ `
+    this.correction = `Les solutions sont les abscisses des points d'intersection entre les deux courbes :
+   $S=\\{${miseEnEvidence('-1\\,;\\,2')}\\}$. `
 
     this.reponse = ['-1;2', '2;-1', '\\{-1;2\\}', '\\{2;-1\\}']
     this.canEnonce = `Courbes de deux fonctions $f$ et $g$ <br>${colonne1}`
