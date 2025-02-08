@@ -56,8 +56,10 @@ async function testEleveView () {
 
   const button = page.locator('#buttonScoreEx0')
   await button.click()
-  const divScore = page.locator('#divScoreEx0')
-  await expect(divScore).toContainText('30 / 30')
+  const stringScore = await page.locator('#divScoreEx0').first().innerText()
+  // Attendre 5 minutes pour analyser les résultats
+  // await page.waitForTimeout(5 * 60 * 1000)
+  await expect(stringScore).toBe('30 / 30')
   return true
 }
 
