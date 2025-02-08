@@ -205,56 +205,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
       return { isOk: false, feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     }
     const compareFunction = objetReponse.compare ?? fonctionComparaison
-
-    // La solution est-elle un nombre ? Si oui, on force l'option nombreDecimalSeulement.
-    function isValidNumber (value: any): boolean {
-      // Convertir la valeur en chaîne et remplacer les séparateurs de milliers (par exemple, '{,}')
-      const cleanedValue = String(value)
-        .replace(/{,}/g, '')  // Enlève les caractères '{,}' (séparateurs de milliers comme dans "1{,}5")
-        .replace(',', '.')   // Remplace la virgule par un point pour les décimales
-
-      // Vérifier que la chaîne ne contient que des chiffres et un seul séparateur décimal (point ou virgule)
-      const validNumberPattern = /^[+-]?\d+(\.\d+)?$/
-
-      // Vérifier si la chaîne nettoyée correspond à un nombre valide
-      return validNumberPattern.test(cleanedValue)
-    }
-
-    let reponseAttendueEstUnNombre : boolean
-    if (Array.isArray(objetReponse.value)) {
-      reponseAttendueEstUnNombre = true
-      for (let ee = 0; ee < objetReponse.value.length; ee++) {
-        reponseAttendueEstUnNombre &&= isValidNumber(objetReponse.value[ee])
-      }
-    } else {
-      reponseAttendueEstUnNombre = isValidNumber(objetReponse.value)
-    }
-
-    const options = objetReponse.options ?? (reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : '')
-
-    /*
-    console.log(isValidNumber('3x')) // Faux
-    console.log(isValidNumber('\\rac(5)')) // Faux
-    console.log(isValidNumber(new FractionEtendue(3, 7).texFraction)) // Faux
-    console.log(isValidNumber('3')) // Vrai
-    console.log(isValidNumber(3)) // Vrai
-    console.log(isValidNumber('1.5')) // Vrai
-    console.log(isValidNumber(1.5)) // Vrai
-    console.log('------------------------')
-    console.log(isValidNumber(-1.5)) // Vrai
-    console.log(isValidNumber(-3)) // Vrai
-    console.log(isValidNumber('3^2')) // Faux
-    console.log('------------------------')
-    console.log(isValidNumber(1.34e-12)) // Faux
-    console.log(isValidNumber('1.34e-12')) // Faux
-    console.log('------------------------')
-    console.log(isValidNumber(0.27)) // Vrai
-    console.log(isValidNumber(-0.27)) // Vrai
-    console.log(isValidNumber('0.27')) // Vrai
-    console.log(isValidNumber('-0.27')) // Vrai
-
-    console.log(options)
-    */
+    const options = objetReponse.options ?? {}
 
     if (Array.isArray(objetReponse.value)) {
       while ((!isOk) && (ii < objetReponse.value.length)) {
