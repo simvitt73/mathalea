@@ -43,7 +43,7 @@ export default class NomExercice extends Exercice {
     const sin = Array.isArray(teta.sin) ? teta.sin[0] : teta.sin
     const parsedReel = kCosOuKSin(k, cos)
     const parsedImaginaire = kCosOuKSin(k, sin)
-    this.question = `Soit le nombre complexe $z=${k}\\left(\\cos\\left(${teta.radians}\\right) + \\text{i}\\sin\\left(${teta.radians}\\right)\\right)$. Écrire $z$ sous la forme $a+bi$ `
+    this.question = `Soit le nombre complexe $z=${k}\\left(\\cos\\left(${teta.radians}\\right) + \\text{i}\\sin\\left(${teta.radians}\\right)\\right)$.<br> Écrire $z$ sous  forme algébrique. `
     this.correction = `On a :<br>$\\begin{aligned}z&=${k}\\left( ${cos}+\\text{i}${parenthesesSiNegatifStrigArray(sin)}\\right)\\\\
     &= ${k}\\times ${parenthesesSiNegatifStrigArray(cos)} + ${k}\\times${parenthesesSiNegatifStrigArray(sin)}\\text{i}\\\\
     &=${parsedReel}${ajoutePlusSiPasMoins(`${parsedImaginaire !== '1' ? parsedImaginaire : ''}\\text{i}`)}\\end{aligned}$`
