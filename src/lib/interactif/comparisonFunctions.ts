@@ -8,7 +8,8 @@ import Hms from '../../modules/Hms'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
-import { number } from 'mathjs'
+import { exp, number } from 'mathjs'
+import { randint } from '../../modules/outils'
 
 const engine = new ComputeEngine()
 export default engine
@@ -53,6 +54,7 @@ export type OptionsComparaisonType = {
   texteAvecCasse?: boolean
   texteSansCasse?: boolean
   nombreAvecEspace?: boolean
+  developpementEgal?: boolean
   egaliteExpression?: boolean
   noUselessParen?: boolean
   nonReponseAcceptee?: boolean,
@@ -598,6 +600,7 @@ engine.latexDictionary = [
  *   exclusifFactorisation: boolean,
  *   nbFacteursIdentiquesFactorisation: boolean,
  *   unSeulFacteurLitteral,
+ *   developpementEgal,
  *   puissance: boolean,
  *   texteAvecCasse: boolean,
  *   texteSansCasse: boolean
@@ -639,6 +642,7 @@ export function fonctionComparaison (
     nbFacteursIdentiquesFactorisation, // Documenté
     unSeulFacteurLitteral, // Documenté
     HMS, // Documenté
+    developpementEgal,
     intervalle,
     estDansIntervalle,
     ecritureScientifique, // Documenté
@@ -682,6 +686,7 @@ export function fonctionComparaison (
     nbFacteursIdentiquesFactorisation: false,
     unSeulFacteurLitteral: false,
     HMS: false,
+    developpementEgal: false,
     intervalle: false,
     estDansIntervalle: false,
     ecritureScientifique: false,
@@ -722,6 +727,7 @@ export function fonctionComparaison (
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
   if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale || fractionIdentique) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale, fractionIdentique }) // feedback OK
+  if (developpementEgal) return ontDeveloppementsEgaux(input, goodAnswer)
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   const inputNew = resultatSeulementEtNonOperation
     ? input.replace('(', '').replace(')', '').replace('\\lparen', '').replace('\\rparen', '') // Utile pour 5R20
@@ -1174,13 +1180,54 @@ feedback = expressionsForcementReduites
 
 /**
  * Fonction pour évaluer une expression avec des substitutions dynamiques (quelle que soit la lettre utilisée dans substitutions)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @author Eric Elter
+ * @return {boolean}
+ */
+
+export function ontDeveloppementsEgaux (
+  input: string,
+  goodAnswer: string
+): ResultType {
+  const clean = generateCleaner([
+    'puissances',
+    'virgules',
+    'parentheses',
+    'foisUn'
+  ])
+  const localInput = clean(input)
+  const localGoodAnswer = clean(goodAnswer)
+  const expr1 = engine.parse(localInput, { canonical: true })
+  const expr2 = engine.parse(localGoodAnswer, { canonical: true })
+
+  if (!expr1.ops || !expr2.ops) return { isOk: false, feedback: 'Cette expression n\'est pas développée.' }
+  if (expr1.operator !== expr2.operator) return { isOk: false, feedback: 'Cette expression n\'est pas développée.' }
+
+  // On va tenter de réduire expr1
+  let expr1Reduite = engine.parse('0')
+  for (const item1 of expr1.ops) {
+    expr1Reduite = expr1Reduite.add(item1)
+  }
+
+  // On va tenter de réduire expr2
+  let expr2Reduite = engine.parse('0')
+  for (const item2 of expr2.ops) {
+    expr2Reduite = expr2Reduite.add(item2)
+  }
+
+  return { isOk: expr1Reduite.isSame(expr2Reduite), feedback: expr1Reduite.isSame(expr2Reduite) ? '' : expr1Reduite.isEqual(expr2Reduite) ? 'Cette expression n\'est pas assez développée.' : 'Incorrect' }
+}
+
+/**
+ * Fonction pour évaluer une expression avec des substitutions dynamiques (quelle que soit la lettre utilisée dans substitutions)
  * @param {BoxedExpression} expr
  * @param {Substitutions} substitutions
  * @example evaluateExpression('3x+5', { x: 2}) -> 11
  * @example evaluateExpression('3x+5', { y: 2}) -> NAN
  * @example evaluateExpression('3x+5', { c: 2, x: 2, y: 2}) -> 5
  * @author Eric Elter
- * @return integer||string
+ * @return {integer||string}
  */
 function evaluateExpression (
   expr: string,
