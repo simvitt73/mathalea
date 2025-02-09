@@ -23,6 +23,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.optionsDeComparaison = { developpementEgal: true }
   }
 
   nouvelleVersion () {
@@ -35,7 +36,7 @@ export default class NomExercice extends Exercice {
        &=${miseEnEvidence('9x^2-12x+4')}
        \\end{aligned}$`
 
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, 9, -12, 4, 'x') } }
+      this.reponse = reduirePolynomeDegre3(0, 9, -12, 4, 'x')
     } else {
       const a = randint(2, 5)
       const b = randint(2, 6, a)
@@ -48,8 +49,9 @@ export default class NomExercice extends Exercice {
        &=${miseEnEvidence(reduirePolynomeDegre3(0, b ** 2, -2 * a * b, a ** 2))}
        \\end{aligned}$`
 
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, b ** 2, -2 * a * b, a ** 2, 'x') } }
+      this.reponse = reduirePolynomeDegre3(0, b ** 2, -2 * a * b, a ** 2, 'x')
     }
+
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
