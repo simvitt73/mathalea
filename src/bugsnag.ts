@@ -14,10 +14,12 @@ if (typeof (BigInt) === 'undefined') {
   // @ts-expect-error
   window.BigInt = bigInt
 }
-async function handleBugsnag () {
+
+function handleBugsnag () {
   const fileName = '../_private/bugsnagApiKey'
-  const getBugsnagApiKey = await import(/* @vite-ignore */fileName)
-  const key = getBugsnagApiKey.default() || ''
+  // PROVISOIRE : MGU
+  const getBugsnagApiKey = '6f45f454e2366599256bddc91cd7000b' // await import(/* @vite-ignore */fileName)
+  const key = getBugsnagApiKey // .default() || ''
   Bugsnag.start({
     apiKey: key,
     onError: function (event) {
