@@ -567,7 +567,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     }
   } catch (error) {
     // MOUCHARD SUR LES URLS FANTAISISTES
-    window.notify(`${error} Erreur d'URL`, { err: error, urlString, url: window.location.href.toString() })
+    window.notify(`${error} Erreur d'URL`, { err: error, urlString, url: window.location.href.toString(), referer: document.referer })
     console.error(error)
     throw error
   }

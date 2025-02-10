@@ -38,7 +38,8 @@ async function testEleveView () {
 
   ]
   const page = await getDefaultPage()
-  const urlExercice = 'http://localhost:5173/alea/?uuid=4581b&n=30&d=10&s=true&s2=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30&s3=false&i=1&cd=1&alea=lyjz&v=eleve&es=0211001'
+  const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+  const urlExercice = hostname + '?uuid=4581b&n=30&d=10&s=true&s2=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30&s3=false&i=1&cd=1&alea=lyjz&v=eleve&es=0211001'
   await page.goto(urlExercice)
 
   for (let i = 0; i < 30; i++) {
