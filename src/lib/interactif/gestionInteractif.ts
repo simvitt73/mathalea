@@ -1038,7 +1038,8 @@ function isValidNumber (value: any): boolean {
     .replace(',', '.')   // Remplace la virgule par un point pour les décimales
   // Vérifier que la chaîne ne contient que des chiffres et un seul séparateur décimal (point ou virgule)
   // Ou un nombre javascript écrit dans tous les formats supportés
-  const validNumberPattern = /^[+-]?(\d*(\.\d*)?([eE][+-]?\d*)?|0[xX][0-9a-fA-F]*|0[bB][01]*)$/
+  // const validNumberPattern = /^[+-]?(\d*(\.\d*)?([eE][+-]?\d*)?|0[xX][0-9a-fA-F]*|0[bB][01]*)$/
+  const validNumberPattern = /^[+-]?\d+(.\d+)?$/
 
   // Vérifier si la chaîne nettoyée correspond à un nombre valide
   return validNumberPattern.test(cleanedValue)
@@ -1063,8 +1064,9 @@ function handleDefaultValeur (reponse: Valeur): ValeurNormalized {
         if (val.value instanceof FractionEtendue) val.value = val.value.texFraction
       }
     }
+
     if (val.compare === undefined) val.compare = fonctionComparaison
-    if (val.options === undefined) {
+    if (val.options === undefined || Object.keys(val.options).length === 0) {
       let reponseAttendueEstUnNombre : boolean
       if (Array.isArray(val.value)) {
         reponseAttendueEstUnNombre = true
