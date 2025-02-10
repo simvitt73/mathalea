@@ -18,7 +18,7 @@ describe('fonctionComparaison', () => {
     expect(result5.isOk).toBe(true)
     const result6 = fonctionComparaison('-0.07\\times n+18', '-0.07n+18')
     expect(result6.isOk).toBe(true)
-    const result7 = fonctionComparaison(['-2-(6-2)'], '-6')
+    const result7 = fonctionComparaison('-2-(6-2)', '-6')
     expect(result7.isOk).toBe(true)
   })
 
