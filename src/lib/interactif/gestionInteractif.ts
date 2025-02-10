@@ -1047,37 +1047,39 @@ function isValidNumber (value: any): boolean {
 
 function handleDefaultValeur (reponse: Valeur): ValeurNormalized {
   for (const [, val] of Object.entries(reponse)) {
-    if (val?.value !== undefined) {
-      if (Array.isArray(val.value)) {
-        for (let i = 0; i < val.value.length; i++) {
-          if (typeof val.value[i] === 'string') continue
-          if (val.value[i] instanceof Decimal || val.value[i] instanceof Grandeur || val.value[i] instanceof Hms || typeof val.value[i] === 'number') {
-            val.value[i] = val.value[i].toString()
+    if (val !== undefined) {
+      if (val?.value !== undefined) {
+        if (Array.isArray(val.value)) {
+          for (let i = 0; i < val.value.length; i++) {
+            if (typeof val.value[i] === 'string') continue
+            if (val.value[i] instanceof Decimal || val.value[i] instanceof Grandeur || val.value[i] instanceof Hms || typeof val.value[i] === 'number') {
+              val.value[i] = val.value[i].toString()
+            }
+            if (val.value[i] instanceof FractionEtendue) val.value[i] = val.value[i].texFraction
           }
-          if (val.value[i] instanceof FractionEtendue) val.value[i] = val.value[i].texFraction
+        } else {
+          if (typeof val.value === 'string') continue
+          if (val.value instanceof Decimal || val.value instanceof Grandeur || val.value instanceof Hms || typeof val.value === 'number') {
+            val.value = val.value.toString()
+          }
+          if (val.value instanceof FractionEtendue) val.value = val.value.texFraction
         }
-      } else {
-        if (typeof val.value === 'string') continue
-        if (val.value instanceof Decimal || val.value instanceof Grandeur || val.value instanceof Hms || typeof val.value === 'number') {
-          val.value = val.value.toString()
-        }
-        if (val.value instanceof FractionEtendue) val.value = val.value.texFraction
       }
-    }
 
-    if (val.compare === undefined) val.compare = fonctionComparaison
-    if (val.options === undefined || Object.keys(val.options).length === 0) {
-      let reponseAttendueEstUnNombre : boolean
-      if (Array.isArray(val.value)) {
-        reponseAttendueEstUnNombre = true
-        for (let ee = 0; ee < val.value.length; ee++) {
-          reponseAttendueEstUnNombre &&= isValidNumber(val.value[ee])
+      if (val.compare === undefined) val.compare = fonctionComparaison
+      if (val.options === undefined || Object.keys(val.options).length === 0) {
+        let reponseAttendueEstUnNombre : boolean
+        if (Array.isArray(val.value)) {
+          reponseAttendueEstUnNombre = true
+          for (let ee = 0; ee < val.value.length; ee++) {
+            reponseAttendueEstUnNombre &&= isValidNumber(val.value[ee])
+          }
+        } else {
+          reponseAttendueEstUnNombre = isValidNumber(val.value)
         }
-      } else {
-        reponseAttendueEstUnNombre = isValidNumber(val.value)
+        const options = reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : {}
+        val.options = options
       }
-      const options = reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : {}
-      val.options = options
     }
   }
   return reponse as ValeurNormalized // La normalisation consiste à transformer toute value en string et c'est fait maintenant par cette fonction
