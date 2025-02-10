@@ -30,22 +30,18 @@ export default class Can2025CE1Q5 extends ExerciceCan {
         options: { estDansIntervalle: true }
       }
     }
+    this.optionsChampTexte = { texteAvant: '<br>' }
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
-    this.question = ` Un nombre a $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines.<br>
-Écris un nombre vérifiant cela.`
+    this.question = `Écris un  nombre qui a $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines.`
     this.correction = `Les nombres qui ont $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines sont :<br>`
-    for (let i = 0; i <= 9; i++) {
+    for (let i = 0; i <= 8; i++) {
       this.correction += `$${miseEnEvidence(b * 100 + a * 10 + i)}$ ; `
     }
-
+    this.correction += `$${miseEnEvidence(b * 100 + a * 10 + 9)}$. `
     this.canEnonce = this.question
-    if (this.interactif) {
-      this.question += ' : '
-    }
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(4, 5) : this.enonce()
   }
 }

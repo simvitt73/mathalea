@@ -23,18 +23,17 @@ export default class Can2025CE1Q16 extends ExerciceCan {
 
     this.reponse = a - 10 * diz
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
-    this.question = `Calcule $${a}$ moins $${diz}$ dizaines. `
-    this.correction = `$${a}$ moins $${diz}$ dizaines est égal à $${a}-\\underbrace{${diz}\\times 10}_{${diz} \\text{ dizaines}}=${miseEnEvidence(a - 10 * diz)}$.`
+    this.question = `Calcule $${a}-${diz}$ dizaines. `
+    this.correction = `$${a}-${diz}$ dizaines est égal à $${a}-\\underbrace{${diz}\\times 10}_{${diz} \\text{ dizaines}}=${miseEnEvidence(a - 10 * diz)}$.`
 
     this.canEnonce = 'Calcule.'
-    this.canReponseACompleter = `$${a}$ moins $${diz}$ dizaines $=\\ldots$ `
+    this.canReponseACompleter = `$${a}-${diz}$ dizaines $=\\ldots$ `
     if (this.interactif) {
       this.question += ' <br> '
     }
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
-    this.canOfficielle ? this.enonce(80) : this.enonce()
+    this.canOfficielle ? this.enonce(159, 5) : this.enonce()
   }
 }

@@ -24,16 +24,15 @@ export default class Can2025CE1Q11 extends ExerciceCan {
     this.reponse = { champ1: { value: (a + 2 * k).toString() } }
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.consigne = 'Complète cette suite logique.'
-    this.question = `${a}~-~${a + k}~-~{%{champ1}}~-~${a + 3 * k}~-~${a + 4 * k}`
+    this.question = `${a}~;~${a + k}~;~{%{champ1}}~;~${a + 3 * k}~;~${a + 4 * k}`
     this.correction = `On constate que l'on passe d'un nombre au suivant en ajoutant $${k}$.<br>
     Ainsi, le nombre cherché est donné par la somme : $${a + k}+${k}=${miseEnEvidence(a + 2 * k)}$.`
 
     this.canEnonce = 'Complète cette suite logique.'
-    this.canReponseACompleter = `${a}~-~${a + k}~-~\\ldots~-~${a + 3 * k}~-~${a + 4 * k}`
+    this.canReponseACompleter = `${a}~;~${a + k}~;~\\ldots~;~${a + 3 * k}~;~${a + 4 * k}`
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(5, 3) : this.enonce()
   }
 }

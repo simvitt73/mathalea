@@ -46,7 +46,7 @@ export default class VocabulaireSolide extends Exercice {
       pixelsParCm: 30,
       scale: 0.6,
       style: 'margin: auto; display: block'
-    }, fixeBordures(objets, { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0 })), objets)
+    }, fixeBordures(objets, { rxmin: 0, rxmax: 0, rymax: 0, rymin: -0.5 })), objets)
 
     this.question += `Que montre la flèche ?<br>
        Coche la bonne réponse.`
