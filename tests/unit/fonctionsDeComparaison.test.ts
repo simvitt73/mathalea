@@ -8,17 +8,18 @@ describe('fonctionComparaison', () => {
   it('Doit retourner true for si saisie et answer sont identiques', () => {
     const result = fonctionComparaison('test', 'test', { texteAvecCasse: true })
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('3\\times2', '6', {})
+    const result2 = fonctionComparaison('3\\times2', '6')
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('\\sqrt{36}', '6', {})
+    const result3 = fonctionComparaison('\\sqrt{36}', '6')
     expect(result3.isOk).toBe(true)
-    const result4 = fonctionComparaison('2\\times (3^2-\\dfrac{24}{4})', '6', {})
+    const result4 = fonctionComparaison('2\\times (3^2-\\dfrac{24}{4})', '6')
     expect(result4.isOk).toBe(true)
-    const result5 = fonctionComparaison('5+\\cos(2\\pi)', '6', {})
+    const result5 = fonctionComparaison('5+\\cos(2\\pi)', '6')
     expect(result5.isOk).toBe(true)
-    // @fixme: ça ne devrait pas être false (JCL)
-    // const result6 = fonctionComparaison('[-2-(6-2)]', '-6', {})
-    // expect(result6.isOk).toBe(true)
+    const result6 = fonctionComparaison('-0.07\\times n+18', '-0.07n+18')
+    expect(result6.isOk).toBe(true)
+    const result7 = fonctionComparaison('-2-(6-2)', '-6')
+    expect(result7.isOk).toBe(true)
   })
 
   it('doit retourner false si saisie et answer sont différents', () => {
@@ -360,14 +361,22 @@ describe('fonctionComparaison', () => {
   it('Vérifie le fonctionnement de l\'option nonReponseAcceptee', () => {
     const result = fonctionComparaison('', '', { nonReponseAcceptee: true })
     expect(result.isOk).toBe(true)
-    // expect(result.feedback).toBe('Comparaison réussie')
+  })
+
+  it('Vérifie le fonctionnement de l\'option developpementEgal', () => {
+    const result = fonctionComparaison('25x^2-40x+16', '5x*5x-2*4*5x+4*4', { developpementEgal: true }) // Développement de (5x-4)^2
+    expect(result.isOk).toBe(true)
+    const result2 = fonctionComparaison('25x^2-40x+16', '4*4+5x*5x-2*20x', { developpementEgal: true }) // Développement de (5x-4)^2
+    expect(result2.isOk).toBe(true)
+    const result3 = fonctionComparaison('25x^2-40x+16', '4*4+5x*5x-20x-20x', { developpementEgal: true }) // Développement de (5x-4)^2
+    expect(result3.isOk).toBe(true)
   })
 
   it('Vérifie le dysfonctionnement de 0.27.0 avant prochaine MAJ', () => {
     // Bug 1
     const result = fonctionComparaison('(2+x)^2', '(2+x)(2+x)')
     expect(result.isOk).toBe(false)
-    /* En fait, c'est parce que console.log(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) renvoie undefined (prévu par ArnoG, mais pas vraiment compris la raison)
+    /* En fait, c'est parce que console.info(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) renvoie undefined (prévu par ArnoG, mais pas vraiment compris la raison)
      Dans ce cas (undefined), il faut faire un nouveau test
     console.info(
       engine
@@ -381,8 +390,8 @@ describe('fonctionComparaison', () => {
     // result = fonctionComparaison('-0.07\\times n+18', '-0.07n+18')
     // expect(result.isOk).toBe(false)
     /* Actuellement les JSON sont différents alors qu'ils ne devraient pas
-        console.log(engine.parse('-0.07\\times n+18').json.toString()) // -> Add,Multiply,-0.07,n,18
-        console.log(engine.parse('-0.07\n+18').json.toString()) // -> Add,Negate,Multiply,0.07,n,18
+        console.info(engine.parse('-0.07\\times n+18').json.toString()) // -> Add,Multiply,-0.07,n,18
+        console.info(engine.parse('-0.07\n+18').json.toString()) // -> Add,Negate,Multiply,0.07,n,18
         */
 
     // Bug 3

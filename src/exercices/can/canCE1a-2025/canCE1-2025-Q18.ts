@@ -31,23 +31,16 @@ export default class Can2025CE1Q18 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     let texte = ''; let texteCorr = ''
-    let hour:number, minute: number
-    if (this.canOfficielle) {
-      hour = 13
-      minute = 30
-    } else {
-      hour = randint(13, 22)
-      minute = randint(1, 11) * 5
-    }
+    const hour = this.canOfficielle ? 13 : randint(13, 22)
+    const minute = this.canOfficielle ? 30 : randint(1, 11) * 5
     const horloge2 = new Horloge(0, 0, 2, new Hms({ hour: hour % 12, minute }))
     const horloge = new Horloge(0, 0, 2)
     const objets = horloge.objets ?? []
     texte = mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures(objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0.5 })), horloge)
     texte += `Il est $${hour}$ h $${minute}$. `
     if (this.interactif) {
-      texte += 'La petite aiguille doit être entre le ' + ajouteChampTexteMathLive(this, 0) + 'et le ' + ajouteChampTexteMathLive(this, 1) + '<br>'
+      texte += 'La petite aiguille doit être entre le ' + ajouteChampTexteMathLive(this, 0) + 'et le ' + ajouteChampTexteMathLive(this, 1) + '.<br>'
       texte += 'La grande aiguille doit être sur le ' + ajouteChampTexteMathLive(this, 2) + '.'
     } else {
       texte += 'La petite aiguille doit être entre le $\\ldots$ et le $\\ldots$ <br>'

@@ -52,6 +52,7 @@ export default class Developper extends Exercice {
       this.correction += `<br>Le terme en $x$ vient de la somme de $${rienSi1(a)}x \\times ${ecritureParentheseSiNegatif(d)}$ et de $${b} \\times ${c === 1 ? '' : `${ecritureParentheseSiNegatif(c)}`}x$.`
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
       this.reponse = { reponse: { value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x') } }
+      if (this.interactif) { this.question += `<br>$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=$` }
     }
     if (this.interactif) { this.question += '<br>$(x-2)(x+3)=$' }
     this.canEnonce = this.question

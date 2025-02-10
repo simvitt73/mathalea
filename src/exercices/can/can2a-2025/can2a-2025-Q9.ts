@@ -43,7 +43,7 @@ export default class FactoriserA2MoinsB2 extends Exercice {
       const a = randint(1, 10)
       this.reponse = choix ? `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})` : `(${reduireAxPlusB(1, a)})(${reduireAxPlusB(-1, a)})`
       this.question = ` Factoriser  ${choix ? `$x^2-${a * a}$` : `$${a * a}-x^2$`}.`
-      if (this.interactif) { this.question += `<br>${choix ? `$x^2-${a * a}=$` : `$${a * a}-x^2=$`}` }
+      if (this.interactif) { this.question += `<br>${choix ? `$x^2-${a * a}=$` : `<br>$${a * a}-x^2=$`}` }
       this.correction = `On utilise l'égalité remarquable $${miseEnCouleur('a', 'red')}^2-${miseEnCouleur('b', 'blue')}^2=(${miseEnCouleur('a', 'red')}-${miseEnCouleur('b', 'blue')})(${miseEnCouleur('a', 'red')}+${miseEnCouleur('b', 'blue')})$ avec ${choix ? `$a=${miseEnCouleur('x', 'red')}$  et $b=${miseEnCouleur(`${a}`, 'blue')}$` : `$a=${miseEnCouleur(`${a}`, 'red')}$ et $b=${miseEnCouleur('x', 'blue')}$`}.<br>`
       if (choix === true) {
         this.correction += `$\\begin{aligned}

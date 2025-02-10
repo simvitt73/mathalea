@@ -1,6 +1,7 @@
 import { getDefaultPage } from '../../helpers/browser'
 import { runTest } from '../../helpers/run'
 import { expect } from '@playwright/test'
+import prefs from '../../helpers/prefs.js'
 
 async function testEleveView () {
   const goodAnswers = [
@@ -63,4 +64,11 @@ async function testEleveView () {
   return true
 }
 
-runTest(testEleveView, import.meta.url, { pauseOnError: true })
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(testEleveView, import.meta.url, { pauseOnError: false })
+} else {
+  prefs.headless = false
+  runTest(testEleveView, import.meta.url, { pauseOnError: false })
+}

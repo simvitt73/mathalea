@@ -69,7 +69,7 @@ export default class Can2025CE1Q15 extends ExerciceCan {
       style: 'margin: auto'
     }, objets) + '<br>'
 
-    this.question += `Quelle est la figure ${a === 0 ? 'n\'' : ''}ayant ${a === 1 ? 'qu\'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `$${a}$ axes de symétrie`} ?`
+    this.question += `Quelle est la figure ${a === 0 ? 'n\'' : ''}ayant ${a === 1 ? 'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `que $${a}$ axes de symétrie`} ?`
     this.autoCorrection[0] = {
       enonce: this.question,
       propositions: [
@@ -110,7 +110,6 @@ export default class Can2025CE1Q15 extends ExerciceCan {
 
   nouvelleVersion () {
     this.formatInteractif = 'qcm'
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(1) : this.enonce()
   }
 }

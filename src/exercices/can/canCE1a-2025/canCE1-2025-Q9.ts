@@ -1,6 +1,7 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
+import { context } from '../../../modules/context'
 export const titre = 'Trouver un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,8 +25,8 @@ export default class Can2025CE1Q9 extends ExerciceCan {
     }
     chiffre = [['quatre-vingt', 80], ['soixante', 60]]
     chiffre2 = [['onze', 11], ['douze', 12], ['treize', 13], ['quatorze', 14], ['quinze', 15], ['seize', 16], ['dix-sept', 17], ['dix-huit', 18], ['dix-neuf', 19]]
-    this.question = `Écris en chiffres le nombre : <br>
-                             $\\textit{cent-${chiffre[a][0]}-${chiffre2[b][0]}}$ `
+    this.question = `Écris en chiffres : 
+                             ${context.isHtml ? `<i>cent-${chiffre[a][0]}-${chiffre2[b][0]} </i>` : `\\textit{cent-${chiffre[a][0]}-${chiffre2[b][0]}} `}`
     this.reponse = 100 + chiffre[a][1] + chiffre2[b][1]
     this.correction = ` $\\textit{cent-${chiffre[a][0]}-${chiffre2[b][0]}}=100 + ${chiffre[a][1]} + ${chiffre2[b][1]} =
                              ${miseEnEvidence(100 + chiffre[a][1] + chiffre2[b][1])}$ `
@@ -39,7 +40,6 @@ export default class Can2025CE1Q9 extends ExerciceCan {
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce([['quatre-vingt', 80]], [['douze', 12]], 0, 1) : this.enonce()
   }
 }
