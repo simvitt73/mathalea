@@ -97,6 +97,9 @@ export default class MetaExercice extends Exercice {
           this.listeCorrections[indexQuestion] = (Question.correction)
           const formatChampTexte = Question.formatChampTexte ?? ''
           const optionsChampTexte = Question.optionsChampTexte ?? {}
+          if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
+          if (Question.canReponseACompleter != null) this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
+
           if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
             this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
             if (typeof Question.reponse === 'string') {
@@ -122,7 +125,6 @@ export default class MetaExercice extends Exercice {
               const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
               if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse, options)
               else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, options } })
-              // else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
             } else {
               const compare = Question.compare
               const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
@@ -171,9 +173,6 @@ export default class MetaExercice extends Exercice {
           this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
           this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-          if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
-          // à priori, canReponseACompleter est à '' dans le constructeur d'Exercice, donc le test est superflu, mais on ne sait jamais.
-          if (Question.canReponseACompleter != null) this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
 
           this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
           this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
@@ -196,6 +195,7 @@ export default class MetaExercice extends Exercice {
           this.listeQuestions[indexQuestion] = consigne + enonce + monQcm.texte
           if (this.listeCorrections[indexQuestion] == null) this.listeCorrections[indexQuestion] = monQcm.texteCorr
         }
+
         indexQuestion++
       }
       numExo++

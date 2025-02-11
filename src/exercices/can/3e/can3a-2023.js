@@ -80,7 +80,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           } else {
@@ -132,7 +131,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -180,7 +178,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 5:
@@ -410,7 +407,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 9:
@@ -423,7 +419,6 @@ export default class SujetCAN2023troisieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -467,7 +462,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 11:
           if (choice([true, false])) {
@@ -555,7 +549,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + '$°$'
           }
@@ -790,7 +783,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -808,7 +800,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 18:
@@ -837,7 +828,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 19:
@@ -862,7 +852,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -1018,7 +1007,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 22:
@@ -1037,7 +1025,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 

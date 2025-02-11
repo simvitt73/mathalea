@@ -89,13 +89,17 @@ class Latex {
       for (const exercice of this.exercices) {
         if (exercice != null) {
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            if (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter != null && exercice.listeCanReponsesACompleter[i] !== undefined) {
-              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
-                  exercice.listeCanReponsesACompleter[i]
-              )} &\\tabularnewline \\hline\n`
+            if (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined) {
+              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &`
             } else {
-              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &&\\tabularnewline \\hline\n`
+              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &`
             }
+            if (exercice.listeCanReponsesACompleter != null && exercice.listeCanReponsesACompleter[i] !== undefined) {
+              content += `${format(
+                exercice.listeCanReponsesACompleter[i]
+            )} `
+            }
+            content += '&\\tabularnewline \\hline\n'
           }
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`

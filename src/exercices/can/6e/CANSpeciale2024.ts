@@ -242,7 +242,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
 
           break
 
@@ -268,7 +267,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
 
           break
         case 3:{ // De CM à Terminale - Degré de difficulté variant
@@ -279,7 +277,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(2))
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 4: // De 5ème à Terminale : Difficulté ?
@@ -330,7 +327,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -342,7 +338,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 7: { // De 4ème à Terminale : Difficile pour 4e, moyenne pour 3ème, Facile ensuite
@@ -353,7 +348,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 8: { // De 3ème à Terminale
@@ -366,7 +360,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 9: { // De CM à Terminale : Facile
@@ -378,7 +371,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 10: {
@@ -389,7 +381,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 11: {
@@ -405,7 +396,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 12: {
@@ -471,7 +461,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 14: {
@@ -483,7 +472,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(2))
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 15: {
@@ -495,7 +483,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(4))
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 16: {
@@ -517,7 +504,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(2))
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 17: {
@@ -529,7 +515,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '', { texteApres: ' ans' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 18:{
@@ -582,7 +567,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           texte += '<br>' + mathalea2d({ xmin: -0.9, ymin: -1.5, xmax: 10, ymax: 1.5, pixelsParCm: 30, scale: 0.6 }, texteParPosition('A', 4 * Number(x1), 0.8, 0, 'blue', 1.5), d)
           // texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 19:{
@@ -635,7 +619,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           texte += '<br>' + mathalea2d({ xmin: -0.7, ymin: -1.5, xmax: 10, ymax: 1.5, pixelsParCm: 35, scale: 0.75 }, texteParPosition('A', 4 * Number(x1), 0.8, 0, 'blue', 2), d)
           setReponse(this, index, reponse.toFixed(2))
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 20: { // EE : Changement selon le niveau attendu
@@ -659,7 +642,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 21: {
@@ -684,7 +666,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           texte += this.interactif ? '<br>' : ''
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: sp(10) + '$x=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 22: { // niveau premiere facile
@@ -701,7 +682,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 23: {
@@ -737,7 +717,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 25: {
@@ -752,7 +731,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           texte += !this.interactif ? '' : ('<br>' + ajouteChampTexteMathLive(this, index, ' ', { texteAvant: `L'antécédent de $${texNombre(ant)}$ par la fonction $f$ est : ` }))
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 26: {
@@ -776,7 +754,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 27: {
           const prefixes = [[10, 'd'], [100, 'c'], [1000, 'm'], [10, 'da'], [100, 'h'], [1000, 'k']]
@@ -847,7 +824,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 30: {
@@ -888,7 +864,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                 '<br>La figure n\'est pas à l\'échelle.'
           setReponse(this, index, reponse)
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 31:{
@@ -915,7 +890,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(3))
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 32:{
@@ -936,7 +910,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(3))
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 33: {
@@ -962,7 +935,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 34 ://  [a;b] inter [c;d] avec c<b resultat [c;b]
@@ -1002,7 +974,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 36 ://
@@ -1056,7 +1027,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 38: {
@@ -1070,7 +1040,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 39: {
@@ -1104,7 +1073,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 40:
@@ -1124,7 +1092,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 41: {
           const choix = randint(1, 3)
@@ -1145,7 +1112,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 42: {
@@ -1199,7 +1165,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' lycee  ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 43: {
@@ -1268,7 +1233,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           }
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 46: {
@@ -1292,7 +1256,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 47: {
@@ -1311,7 +1274,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 48: {
@@ -1325,7 +1287,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           texteCorr = `$${texNombre(dec, 5)}=${miseEnEvidence(`\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}`)}$`
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1368,7 +1329,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1385,7 +1345,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1422,7 +1381,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           reponse = choix === Diviseurs ? ['oui', 'OUI', 'Oui'] : ['non', 'NON', 'Non']
           setReponse(this, index, reponse)
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1440,7 +1398,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 53: {
@@ -1467,7 +1424,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte += '<br>$f\'(x)=$' + ajouteChampTexteMathLive(this, index, '  lycee alphanumeric')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 54: { // EE : Devrait être plus aléatoire en introduisant des -. Je te laisse faire, Gilles. Bon finalement, j'ai fait.
@@ -1524,7 +1480,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte += '<br>$f\'(x)=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1543,7 +1498,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 56: {
@@ -1571,7 +1525,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1599,7 +1552,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1619,7 +1571,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: `<br>$${texNombre(2024)}\\times ${a}=$` })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1749,7 +1700,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1764,7 +1714,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: true } } })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1787,7 +1736,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1945,7 +1893,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
 
@@ -1968,7 +1915,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' alphanumeric')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
 
           break
 
@@ -2004,7 +1950,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte += '(Répondre par oui ou par non.)'
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
 
           break
 
@@ -2080,7 +2025,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 77: { // De CM à 3eme : Moins Facile
@@ -2092,7 +2036,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 78: {
@@ -2106,7 +2049,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(3))
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 79: {
@@ -2120,7 +2062,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(3))
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 80: {
@@ -2137,7 +2078,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 81: {
@@ -2159,7 +2099,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 82: {
@@ -2179,7 +2118,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse.toFixed(6))
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 83:
@@ -2224,7 +2162,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
 
           break
         case 84:
@@ -2269,7 +2206,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
 
           break
 
@@ -2281,7 +2217,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
         }
           break
         case 86:
@@ -2308,7 +2243,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, '')
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 87:{

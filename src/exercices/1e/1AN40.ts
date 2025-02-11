@@ -145,7 +145,6 @@ export default class CosEtsin extends Exercice {
 
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push('Donner la valeur exacte de ' + enonce + '.')
-        this.listeCanReponsesACompleter.push('')
       }
     }
   }
