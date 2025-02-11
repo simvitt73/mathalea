@@ -33,7 +33,7 @@ export const refs = {
 export const dateDePublication = '01/01/2024'
 
 export default class CourseAuxNombresSpeciale2024 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Niveau attendu de la CAN',
@@ -44,7 +44,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
     this.nbQuestions = 30
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let niveauAttendu = this.sup === 0 ? 0 : !this.sup ? 8 : parseInt(this.sup) // Ce parseInt est nécessaire car le formulaire est un texte
     if (isNaN(niveauAttendu) || (niveauAttendu > 7)) {
       niveauAttendu = choice(range(7)) // Niveau au Hasard
@@ -186,19 +186,19 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
     // On crée trois tableaux de questions de difficultés différentes et on les concatène ensuite pour former le tableau de questions.
     // Si un des tableaux n'est pas assez rempli, on le remplit avec des questions
 
-    let questionsFaciles:number[] = []
-    let questionsMoyennes:number[] = []
-    let questionsDifficiles:number[] = []
+    let questionsFaciles: number[] = []
+    let questionsMoyennes: number[] = []
+    let questionsDifficiles: number[] = []
 
     for (let i = 0; i < listeCAN.length; i++) { // Ici, selon le niveau attendu, on ne sélectionne que les questions qu'il faut
       switch (listeCAN[i][niveauAttendu]) {
-        case 0 :
+        case 0:
           questionsFaciles.push(i + 1)
           break
-        case 1 :
+        case 1:
           questionsMoyennes.push(i + 1)
           break
-        case 2 :
+        case 2:
           questionsDifficiles.push(i + 1)
           break
       }
@@ -269,7 +269,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
 
           break
-        case 3:{ // De CM à Terminale - Degré de difficulté variant
+        case 3: { // De CM à Terminale - Degré de difficulté variant
           const a = randint(1, 29, [10, 20]) / choice([10, 100])
           reponse = 20224 - a
           texte = `$${texNombre(2024)}-${texNombre(a, 2)}$`
@@ -434,18 +434,18 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           // J'ai mis des cas différents selon les niveaux
           let a
           switch (niveauAttendu) {
-            case 7 :
-            case 6 :
+            case 7:
+            case 6:
               a = choice([2, 10, 100, 1000, 2000])
               break
-            case 5 :
-            case 4 :
+            case 5:
+            case 4:
               a = choice([2, 4, 10, 20, 100, 1000, 2000])
               break
-            case 3 :
+            case 3:
               a = choice([2, 3, 4, 10, 20, 100, 1000, 2000])
               break
-            default :
+            default:
               a = choice([2, 3, 4, 5, 10, 20, 50, 100, 1000, 2000])
               break
           }
@@ -517,7 +517,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
         }
           break
-        case 18:{
+        case 18: {
           let d, abs0, abs1, abs2, x1, nbIntervalles
           if (choice([true, false])) {
             abs0 = 2000
@@ -569,7 +569,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
         }
           break
-        case 19:{
+        case 19: {
           let d, abs0, abs1, abs2, x1
           if (choice([true, false])) {
             abs0 = 2023
@@ -861,12 +861,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           }
           texte += ajouteChampTexteMathLive(this, index, '', { texteApres: ' cm' })
           texte += '<br>' + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets) +
-                '<br>La figure n\'est pas à l\'échelle.'
+            '<br>La figure n\'est pas à l\'échelle.'
           setReponse(this, index, reponse)
           this.listeCanEnonces.push(texte)
         }
           break
-        case 31:{
+        case 31: {
           const choix = choice([true, false])
           const a = randint(1, 4)
           const val = 2024 / choice([10, 100, 1000])
@@ -892,7 +892,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
         }
           break
-        case 32:{
+        case 32: {
           const val = 2024 / choice([100, 1000])
           const coeff = randint(15, 59, [20, 30, 40, 50])
           const b = 100 - coeff
@@ -937,7 +937,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
         }
           break
-        case 34 ://  [a;b] inter [c;d] avec c<b resultat [c;b]
+        case 34://  [a;b] inter [c;d] avec c<b resultat [c;b]
           {
             const a = -2024
             const b = randint(-10, 5)
@@ -959,7 +959,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             this.listeCanReponsesACompleter.push('')
           }
           break
-        case 35 : {
+        case 35: {
           const crochet1 = choice([']', '['])
           const crochet2 = choice([']', '['])
           if (choice([true, false])) {
@@ -976,8 +976,9 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
         }
           break
-        case 36 ://
-          { let solution1
+        case 36://
+          {
+            let solution1
             const a = choice([-2024, 2024])
             const b = choice([-2024, 2024])
             const inégalité = choice(['>', '\\geqslant', '<', '\\leqslant'])
@@ -1432,18 +1433,18 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte = 'Soit $f$ la fonction définie sur $\\mathbb{R}$ par : '
             texteCorr = '$f\'(x)='
             switch (choice([1, 2, 3])) {
-              case 1 :
+              case 1:
                 texte += `$f(x)=x^{${texNombre(2024)}}$`
                 texteCorr = `$f'(x)=${miseEnEvidence(`${texNombre(2024)}x^{${texNombre(2024 - 1)}}`)}$`
                 reponse = '2024x^{2023}'
                 break
-              case 2 :
+              case 2:
                 texte += `$f(x)=x^{${texNombre(2024)}- 1}$`
                 texteCorr = `$f(x)=x^{${texNombre(2024)}- 1}=x^{${texNombre(2024 - 1)}}$<br>`
                 texteCorr += `$f'(x)=${miseEnEvidence(`${texNombre(2024 - 1)}x^{${texNombre(2024 - 2)}}`)}$`
                 reponse = '2023x^{2022}'
                 break
-              case 3 :
+              case 3:
               default:
                 texte += `$f(x)=x^{${texNombre(2024)}+ 1}$`
                 texteCorr = `$f(x)=x^{${texNombre(2024)}+ 1}=x^{${texNombre(2024 + 1)}}$<br>`
@@ -1780,7 +1781,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const C = point(5, 4, nom[2], 'above')
             const D = point(2.5, 2, nom[3], 'above')
             const E = point(3, 0, nom[4], 'below')
-            const objets:any[] = []
+            const objets: any[] = []
             objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
               codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
             if (choice([true, false])) {
@@ -1817,7 +1818,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           const B = point(6, 0, nom[1], 'below')
           const C = point(6, 2, nom[2], 'above')
 
-          const objets:any[] = []
+          const objets: any[] = []
 
           if (choice([true, false])) {
             objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
@@ -1868,19 +1869,19 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           } else {
             texte = 'Quel est le plus grand nombre entier de '
             switch (choix) {
-              case 2 :
+              case 2:
                 texte += 'cinq'
                 reponse = 44222
                 break
-              case 3 :
+              case 3:
                 texte += 'six'
                 reponse = 442222
                 break
-              case 4 :
+              case 4:
                 texte += 'sept'
                 reponse = 4422220
                 break
-              case 5 :
+              case 5:
               default:
                 texte += 'huit'
                 reponse = 44222200
@@ -1897,7 +1898,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           break
 
         case 71: // Pas d'aléatoire mais question qui demande de réfléchir
-        // Attention, les questions sans aléatoires sont problèmatiques car elles font planter la CAN si on la demande deux fois (ce qui est possible en 6ème et CM)
+          // Attention, les questions sans aléatoires sont problèmatiques car elles font planter la CAN si on la demande deux fois (ce qui est possible en 6ème et CM)
           // Je corrige ici. Faut corriger les autres.
           if (randint(1, 3) === 1) {
             reponse = 'MMXXIV'
@@ -2065,7 +2066,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
         }
           break
         case 80: {
-          let tabChiffres:number[] = []
+          let tabChiffres: number[] = []
           let a
           do { // Pour éviter d'avoir 2024 + 2024, qui aurait été demandé avec le double de 2024
             tabChiffres = shuffle([2, 0, 2, 4])
@@ -2122,32 +2123,32 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           break
         case 83:
           switch (randint(1, 7)) {
-            case 1 :
+            case 1:
               texte = 'Combien vaut $2+0+2+4$ ?'
               reponse = 8
               texteCorr = `$2+0+2+4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 2 :
+            case 2:
               texte = 'Combien vaut $2+0-2+4$ ?'
               reponse = 4
               texteCorr = `$2+0-2+4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 3 :
+            case 3:
               texte = 'Combien vaut $2-0+2-4$ ?'
               reponse = 0
               texteCorr = `$2-0+2-4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 4 :
+            case 4:
               texte = 'Combien vaut $(2 \\times 0)+2+4$ ?'
               reponse = 6
               texteCorr = `$(2 \\times 0)+2+4=0+2+4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 5 :
+            case 5:
               texte = 'Combien vaut $(2 \\times 0) \\times (2+4)$ ?'
               reponse = 0
               texteCorr = `$(2 \\times 0) \\times (2+4)=0 \\times 6=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 6 :
+            case 6:
               texte = 'Combien vaut $(2 + 0) \\times (2+4)$ ?'
               reponse = 12
               texteCorr = `$(2 + 0) \\times (2+4)=2 \\times 6 = ${miseEnEvidence(texNombre(reponse, 4))}$`
@@ -2166,32 +2167,32 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           break
         case 84:
           switch (randint(1, 7)) {
-            case 1 :
+            case 1:
               texte = `Combien vaut $${texNombre(2024)} + 20 + 4$ ?`
               reponse = 2048
               texteCorr = `$${texNombre(2024)} + 20 + 4=${texNombre(2044)} + 4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 2 :
+            case 2:
               texte = `Combien vaut $${texNombre(2024)} + 20 - 4$ ?`
               reponse = 2040
               texteCorr = `$${texNombre(2024)} + 20 - 4=${texNombre(2044)} - 4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 3 :
+            case 3:
               texte = `Combien vaut $${texNombre(2024)} - 20 - 4$ ?`
               reponse = 2000
               texteCorr = `$${texNombre(2024)} - 20 - 4=${texNombre(2004)} -4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 4 :
+            case 4:
               texte = `Combien vaut $${texNombre(2024)} - 20 + 4$ ?`
               reponse = 2008
               texteCorr = `$${texNombre(2024)} - 20 + 4=${texNombre(2004)} + 4=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 5 :
+            case 5:
               texte = `Combien vaut $${texNombre(2024)} - (20 + 4)$ ?`
               reponse = 2000
               texteCorr = `$${texNombre(2024)} - (20 + 4)=${texNombre(2024)} - 24=${miseEnEvidence(texNombre(reponse, 4))}$`
               break
-            case 6 :
+            case 6:
               texte = `Combien vaut $${texNombre(2024)} - (20 \\times 4)$ ?`
               reponse = 1944
               texteCorr = `$${texNombre(2024)} - (20 \\times 4)=${texNombre(2024)} - 80=${miseEnEvidence(texNombre(reponse, 4))}$`
@@ -2221,18 +2222,18 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           break
         case 86:
           switch (randint(1, 3)) {
-            case 1 :
+            case 1:
               texte = `Exprimer la somme de $a$ et $${texNombre(2024, 0)}$ en fonction de $a$.`
               reponse = '2024+a'
               texteCorr = `La somme de $a$ et $${texNombre(2024, 0)}$ en fonction de $a$ est donnée par $${miseEnEvidence(`${texNombre(2024)}+a`)}$`
               break
-            case 2 :
+            case 2:
               reponse = 'a\\times 2024'
               texte = `Comment peut se noter le produit de $a$ par $${texNombre(2024, 0)}$ ?`
 
               texteCorr = `Le produit de $a$ par $${texNombre(2024, 0)}$ se note $${miseEnEvidence(`a\\times ${texNombre(2024)}`)}$.`
               break
-            case 3 :
+            case 3:
             default:
               reponse = ['a\\div 2024', '\\dfrac{a}{2024}']
               texte = `Exprimer le quotient de $a$ par $${texNombre(2024, 0)}$.`
@@ -2245,14 +2246,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           this.listeCanEnonces.push(texte)
           break
 
-        case 87:{
+        case 87: {
           const a = randint(1, 6) * 2
           const k = choice([1.5, 2, 0.5])
           const b = a * k
           const c = 2024
           const reponse = c * k
 
-          texte = 'Complèter le tableau de proportionnalité :<br><br>'
+          texte = 'Compléter le tableau de proportionnalité :<br><br>'
           texte += `$
             \\begin{array}{|c|c|}
             \\hline
@@ -2266,7 +2267,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             Donc, la valeur cherchée est : $${texNombre(2024)}\\times ${texNombre(k, 1)} =${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse.toFixed(0), { formatInteractif: 'calcul' })
           texte += ajouteChampTexteMathLive(this, index, '')
-          this.listeCanEnonces.push('Complèter le tableau de proportionnalité.')
+          this.listeCanEnonces.push('Compléter le tableau de proportionnalité.')
           this.listeCanReponsesACompleter.push(`<br>$
             \\begin{array}{|c|c|}
             \\hline
@@ -2279,7 +2280,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
         }
           break
 
-        case 88:{
+        case 88: {
           const b = randint(10, 15)
 
           texte = 'Soit le script python : <br>'
@@ -2385,7 +2386,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           break
 
         case 93:
-        default:{
+        default: {
           const oliveK = choice([100, 200])
           const nbreBouteilles = choice([20, 25, 10])
           const oliveParBouteille = oliveK / nbreBouteilles
