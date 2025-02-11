@@ -48,6 +48,7 @@ export default class nomExercice extends Exercice {
       let xC = 0
       let yC = 0
       let zC = 0
+      let test = 0
 
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// Normal
@@ -63,28 +64,15 @@ export default class nomExercice extends Exercice {
           xC = xA + a2// et celles de C
           yC = yA + b2
           zC = zA + c2
-          texte = `Dans un repère orthonormé de l'espace, déterminer si le vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est normal au plan $\\mathcal{ABC}$ engendré par les points :<br>`
-          texte += `$A(${xA}~;${yA}~;${zA})\\quad B(${xB}~;${yB}~;${zB})\\quad\\text{et}~~C(${xC}~;${yC}~;${zC})$`
-          texteCorr = 'On calcule les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ :<br> '
-          texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\\\${zB}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{pmatrix}$ `
-          texteCorr += `$\\iff\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\\\\\end{pmatrix}$<br> `
-          texteCorr += `$\\overrightarrow{AC}\\begin{pmatrix}${xC}-${ecritureParentheseSiNegatif(xA)}\\\\${yC}-${ecritureParentheseSiNegatif(yA)}\\\\${zC}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{pmatrix}$ `
-          texteCorr += `$\\iff\\overrightarrow{AC}\\begin{pmatrix}${xC - xA}\\\\${yC - yA}\\\\${zC - zA}\\\\\\end{pmatrix}$<br> `
-          texteCorr += `On vérifie que leurs coordonnées ne sont pas proportionnelles : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}$`
-          texteCorr += '<br> Ce qui permet de déduire que les vecteurs ne sont pas colinéaires.'
-          texteCorr += '<br>$\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment donc une base du plan $\\mathcal{ABC}$.'
-          texteCorr += '<br>Pour vérifier si $\\vec n$ est normal au plan $\\mathcal{ABC}$, il suffit de vérifier que le vecteur $\\vec n$ est orthogonal aux deux vecteurs de sa base, donc à $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.'
-          texteCorr += '<br>On calcule alors les deux produits scalaires :'
-          texteCorr += `<br>$\\begin{aligned}\\overrightarrow{AB}\\cdot\\vec{n}&=${a1}\\times ${ecritureParentheseSiMoins(a)}${ecritureAlgebrique(b1)}\\times ${ecritureParentheseSiMoins(b)}${ecritureAlgebrique(c1)}\\times ${ecritureParentheseSiMoins(c)}\\\\&=${a1 * a + b1 * b + c1 * c}\\end{aligned}$`
-          texteCorr += `<br>$\\begin{aligned}\\overrightarrow{AC}\\cdot\\vec{n}&=${a2}\\times ${ecritureParentheseSiMoins(a)}${ecritureAlgebrique(b2)}\\times ${ecritureParentheseSiMoins(b)}${ecritureAlgebrique(c2)}\\times ${ecritureParentheseSiMoins(c)}\\\\&=${a2 * a + b2 * b + c2 * c}\\end{aligned}$`
-          texteCorr += '<br>On en déduit que $\\vec n$ est orthogonal aux vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$, il est donc normal au plan $\\mathcal{ABC}$'
+          test = 1
+
           break
         case 'type2':// pas Normal
         default :
-          c1 = -(a * a1 + b * b1)// On calcule c1 ne pas annuler le pdt scal
+          c1 = -(a * a1 + b * b1)// On calcule c1
           a1 = a1 * c// on adapte les coord du vect AB pour avoir des coord entières
           b1 = b1 * c// on adapte les coord du vect AB pour avoir des coord entières
-          c2 = -(a * a2 + b * b2) + 1// idem pour c2
+          c2 = -(a * a2 + b * b2) + 1// on ajoute le +1 pour planter la nullité du produit scalaire
           a2 = a2 * c// et vecteur AC
           b2 = b2 * c
           xB = xA + a1// on déduit les coord de B
@@ -93,25 +81,24 @@ export default class nomExercice extends Exercice {
           xC = xA + a2// et celles de C
           yC = yA + b2
           zC = zA + c2
-          texte = `Dans un repère orthonormé de l'espace, déterminer si le vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est normal au plan $\\mathcal{ABC}$ engendré par les points :<br>`
-          texte += `$A(${xA}~;${yA}~;${zA})\\quad B(${xB}~;${yB}~;${zB})\\quad\\text{et}~~C(${xC}~;${yC}~;${zC})$`
-          texteCorr = 'On calcule les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ :<br> '
-          texteCorr += `$\\overrightarrow{AB}\\begin{cases}x_B-x_A&=${xB}-${ecritureParentheseSiNegatif(xA)}\\\\y_B-y_A&=${yB}-${ecritureParentheseSiNegatif(yA)}\\\\z_B-z_A&=${zB}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{cases}$ `
-          texteCorr += ` et $\\quad\\overrightarrow{AC}\\begin{cases}x_C-x_A=${xC}-${ecritureParentheseSiNegatif(xA)}\\\\y_C-yA=${yC}-${ecritureParentheseSiNegatif(yA)}\\\\z_C-z_A=${zC}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{cases}$ `
-          texteCorr += `<br><br>Ce qui donne après simplification : $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\\\\\end{pmatrix}$ `
-          texteCorr += `et $\\quad\\overrightarrow{AC}\\begin{pmatrix}${xC - xA}\\\\${yC - yA}\\\\${zC - zA}\\\\\\end{pmatrix}$<br> `
-          texteCorr += `On vérifie que leurs coordonnées ne sont pas proportionnelles : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}$`
-          texteCorr += '<br> Ce qui permet de déduire que les vecteurs ne sont pas colinéaires.'
-          texteCorr += '<br><br>$\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment donc une base du plan $\\mathcal{ABC}$.'
-          texteCorr += '<br>Pour vérifier si $\\vec n$ est normal au plan $\\mathcal{ABC}$, il suffit de vérifier que le vecteur $\\vec n$ est orthogonal aux deux vecteurs de sa base, donc à $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.'
-          texteCorr += '<br>On calcule alors les deux produits scalaires :'
-          texteCorr += `<br>$\\begin{aligned}\\overrightarrow{AB}\\cdot\\vec{n}&=${a1}\\times ${ecritureParentheseSiMoins(a)}${ecritureAlgebrique(b1)}\\times ${ecritureParentheseSiMoins(b)}${ecritureAlgebrique(c1)}\\times ${ecritureParentheseSiMoins(c)}\\\\&=${a1 * a + b1 * b + c1 * c}\\end{aligned}$`
-          texteCorr += `<br>$\\begin{aligned}\\overrightarrow{AC}\\cdot\\vec{n}&=${a2}\\times ${ecritureParentheseSiMoins(a)}${ecritureAlgebrique(b2)}\\times ${ecritureParentheseSiMoins(b)}${ecritureAlgebrique(c2)}\\times ${ecritureParentheseSiMoins(c)}\\\\&=${a2 * a + b2 * b + c2 * c}\\end{aligned}$`
-          texteCorr += '<br>On en déduit que $\\vec n$ n\'est pas orthogonal aux vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$, il n\'est donc pas normal au plan $\\mathcal{ABC}$'
 
           break
       }
-
+      texte = `Dans un repère orthonormé de l'espace, déterminer si le vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est normal au plan $\\mathcal{ABC}$ engendré par les points :<br>`
+      texte += `$A(${xA}~;${yA}~;${zA})\\quad B(${xB}~;${yB}~;${zB})\\quad\\text{et}~~C(${xC}~;${yC}~;${zC}).$`
+      texteCorr = 'On calcule les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ :<br> '
+      texteCorr += `$\\overrightarrow{AB}\\begin{cases}x_B-x_A&=${xB}-${ecritureParentheseSiNegatif(xA)}\\\\y_B-y_A&=${yB}-${ecritureParentheseSiNegatif(yA)}\\\\z_B-z_A&=${zB}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{cases}$ `
+      texteCorr += ` $\\quad$ et $\\quad\\overrightarrow{AC}\\begin{cases}x_C-x_A=${xC}-${ecritureParentheseSiNegatif(xA)}\\\\y_C-yA=${yC}-${ecritureParentheseSiNegatif(yA)}\\\\z_C-z_A=${zC}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{cases}$ `
+      texteCorr += `<br><br>Ce qui donne après simplification : $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\\\\\end{pmatrix}\\quad$ `
+      texteCorr += `$\\quad$ et $\\quad\\overrightarrow{AC}\\begin{pmatrix}${xC - xA}\\\\${yC - yA}\\\\${zC - zA}\\\\\\end{pmatrix}.$<br> `
+      texteCorr += `On vérifie que leurs coordonnées ne sont pas proportionnelles : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}.$`
+      texteCorr += '<br> Ce qui permet de déduire que les vecteurs ne sont pas colinéaires.'
+      texteCorr += '<br>$\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment donc une base du plan $\\mathcal{ABC}$.'
+      texteCorr += '<br>Pour vérifier si $\\vec n$ est normal au plan $\\mathcal{ABC}$, il suffit de vérifier que le vecteur $\\vec n$ est orthogonal aux deux vecteurs de sa base, donc à $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.'
+      texteCorr += '<br>On calcule alors les deux produits scalaires :'
+      texteCorr += `<br>$\\begin{aligned}\\overrightarrow{AB}\\cdot\\vec{n}&=${a1}\\times ${ecritureParentheseSiMoins(a)}${ecritureAlgebrique(b1)}\\times ${ecritureParentheseSiMoins(b)}${ecritureAlgebrique(c1)}\\times ${ecritureParentheseSiMoins(c)}\\\\&=${a1 * a + b1 * b + c1 * c}\\end{aligned}.$`
+      texteCorr += `<br>$\\begin{aligned}\\overrightarrow{AC}\\cdot\\vec{n}&=${a2}\\times ${ecritureParentheseSiMoins(a)}${ecritureAlgebrique(b2)}\\times ${ecritureParentheseSiMoins(b)}${ecritureAlgebrique(c2)}\\times ${ecritureParentheseSiMoins(c)}\\\\&=${a2 * a + b2 * b + c2 * c}\\end{aligned}.$`
+      if (test === 1) { texteCorr += '<br>On en déduit que $\\vec n$ est orthogonal aux vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$, il est donc normal au plan $\\mathcal{ABC}.$' } else { texteCorr += '<br>On en déduit que $\\vec n$ n\'est pas orthogonal aux vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$, il n\'est donc pas normal au plan $\\mathcal{ABC}.$' }
       if (this.questionJamaisPosee(i, a, b, c, a2, b2, c2, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
