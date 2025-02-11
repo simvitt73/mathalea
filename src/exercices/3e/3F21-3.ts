@@ -68,7 +68,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       const yMax = -yMin
 
       const r = repere({ xMin, yMin, xMax, yMax })
-      const f = x => a * x + b
+      const f = (x:number):number => a * x + b
 
       const d = droite(a, -1, b)
       d.color = colorToLatexOrHTML('blue')
@@ -134,7 +134,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
                 ((vocabulaire === 'affine')
                   ? '$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'
                   : '$ax$ avec $a$ son coefficient directeur (ou pente).')
-      correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
+      correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${(rienSi1(a) as string).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
       handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}` } })
@@ -158,7 +158,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
             propositions: []
           }
           if (vocabulaire === 'affine') {
-            this.autoCorrection[i].propositions.push(
+            this.autoCorrection[i].propositions?.push(
               {
                 type: 'AMCNum',
                 propositions: [{
@@ -175,7 +175,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
               }
             )
           }
-          this.autoCorrection[i].propositions.push(
+          this.autoCorrection[i].propositions?.push(
             {
               type: 'AMCNum',
               propositions: [{

@@ -23,11 +23,12 @@ export const uuid = '17c65'
  * @author Jean-Claude Lhote
  */
 export default class FonctionsAffinesOuLineaires extends Exercice {
+  lycee: boolean
   constructor () {
     super()
 
     this.lycee = false
-    this.lycee = true // mettre à true dans 2F10-8.js
+    // this.lycee = true  mettre à true dans 2F10-8.js
     this.comment = 'L\'exercice propose de panacher les questions de 3F20 et 3F20-1.'
     this.sup = 1 // coefficient entier relatif
     this.nbQuestions = 8

@@ -1,4 +1,4 @@
-import Decimal from 'decimal.js'
+// import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths'
@@ -40,9 +40,19 @@ export default class AntecedentGraphique extends Exercice {
   }
 
   nouvelleVersion () {
-    let a, b, c, x1, x2, x3, fx1, fx2, fx3, texte, texteCorr, f
+    let a = 0
+    let b = 0
+    let c = 0
+    let x1 = 0
+    let x2 = 0
+    let x3 = 0
+    let fx1 = 0
+    let fx2 = 0
+    let fx3 = 0
+    let texte:string, texteCorr:string, f:(x :number)=>number
+    f = x => 0
     let indexInteractif = 0
-    let incrementInteractif
+    let incrementInteractif = 0
     this.sup = Number(this.sup)
     for (let i = 0; i < this.nbQuestions;) {
       const initialiseVariables = function () {
@@ -67,10 +77,11 @@ export default class AntecedentGraphique extends Exercice {
 
       initialiseVariables()
       texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
+      texteCorr = ''
       const choix = this.sup === 1 ? 1 : this.sup === 2 ? 2 : i % 2 + 1
       if (choix === 1) {
-        a = new Decimal(fx2 - fx1).div(x2 - x1)
-        b = a.mul(x1).sub(fx1)
+        a = (fx2 - fx1) / (x2 - x1)
+        b = a * x1 - fx1
         f = x => a * x - b
         texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ et de $${fx2}$ par cette fonction $f$.<br><br>`
         texte += ajouteChampTexteMathLive(this, indexInteractif, '', { texteAvant: `Le ou les antécédents de $${fx1}$ (séparer les nombres avec un point-virgule) :` })
@@ -97,7 +108,7 @@ export default class AntecedentGraphique extends Exercice {
         } else {
           fx3 = fx1;
           [a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
-          while (Number.isNaN(a) || Number.isNaN(b) === 0 || a === 0) {
+          while (Number.isNaN(a) || Number.isNaN(b) || a === 0) { // Number.isNaN(b) === 0 a l'origine pourquoi ?
             x1 = randint(-4, -1)
             x3 = randint(1, 4)
             fx1 = randint(-7, 7)

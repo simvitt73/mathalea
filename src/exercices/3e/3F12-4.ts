@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -45,7 +44,18 @@ export default class ImageGraphique extends Exercice {
   }
 
   nouvelleVersion () {
-    let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, ymax, f
+    let a = 0
+    let b = 0
+    let c = 0
+    let d = 0
+    let x1 = 0
+    let x2 = 0
+    let x3 = 0
+    let fx1 = 0
+    let fx2 = 0
+    let fx3 = 0
+    let ymax = 0
+    let f :(x :number)=>number
 
     function initialiseVariables () {
       x1 = randint(-6, -3)
@@ -63,11 +73,13 @@ export default class ImageGraphique extends Exercice {
       initialiseVariables()
 
       texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
+      texteCorr = ''
       const r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+      f = x => 0
       if (this.sup === 1) {
-        a = new Decimal(fx2 - fx1).div(x2 - x1)
-        b = a.mul(x1).sub(fx1)
-        f = x => a * x - b
+        a = (fx2 - fx1) / (x2 - x1)
+        b = a * x1 - fx1
+        f = (x : number):number => a * x - b
 
         texte += `Déterminer par lecture graphique les images de $${x1}$ et de $${x2}$ par cette fonction $f$.<br>`
         texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
@@ -80,7 +92,7 @@ export default class ImageGraphique extends Exercice {
         fx1 = randint(-5, 5)
         fx3 = randint(-6, 6, c);
         [a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
-        while (Number.isNaN(a) || Number.isNaN(b) === 0 || a === 0) {
+        while (Number.isNaN(a) || Number.isNaN(b) || a === 0) {
           x1 = randint(-6, -3)
           x3 = randint(1, 6)
           fx1 = randint(-5, 5)
@@ -94,12 +106,19 @@ export default class ImageGraphique extends Exercice {
       }
 
       if (this.sup === 3) {
-        [a, b, c] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
+        let a1:Number, b1:Number, c1:Number
+        [a1, b1, c1] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
+        a = a1.valueOf()
+        b = b1.valueOf()
+        c = c1.valueOf()
         let [extremum1, extremum2] = chercheMinMaxFonction([a, b, c, d])
-        while (Number.isNaN(a) || Number.isNaN(b) === 0 || Number.isNaN(c) || a === 0 || abs(extremum1[1]) > ymax || abs(extremum2[1]) > ymax) {
+        while (Number.isNaN(a) || Number.isNaN(b) || Number.isNaN(c) || a === 0 || abs(extremum1[1]) > ymax || abs(extremum2[1]) > ymax) {
           initialiseVariables();
-          [a, b, c] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
-          if (chercheMinMaxFonction([a, b, c, d]) === []) {
+          [a1, b1, c1] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
+          a = a1.valueOf()
+          b = b1.valueOf()
+          c = c1.valueOf()
+          if (chercheMinMaxFonction([a, b, c, d]).length === 0) {
             [extremum1, extremum2] = [[0, 999], [0, 999]]
           } else {
             [extremum1, extremum2] = chercheMinMaxFonction([a, b, c, d])
@@ -114,6 +133,7 @@ export default class ImageGraphique extends Exercice {
         texteCorr += `L'image de $${x2}$ est $${fx2}$, on note $f(${x2})=${fx2}$.<br>`
         texteCorr += `L'image de $${x3}$ est $${fx3}$, on note $f(${x3})=${fx3}$.<br>`
       }
+
       const C = courbe(f, { repere: r, step: 0.25 })
       texte += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
 
@@ -159,7 +179,7 @@ export default class ImageGraphique extends Exercice {
           ]
         }
         if (this.sup !== 1) {
-          this.autoCorrection[i].propositions.push({
+          this.autoCorrection[i].propositions?.push({
             type: 'AMCNum',
             propositions: [{
               texte: `L'image de $${x3}$ est $${fx3}$, on note $f(${x3})=${fx3}$.\\\\`,
@@ -192,7 +212,7 @@ export default class ImageGraphique extends Exercice {
           setReponse(this, 3 * i + 2, fx3)
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
