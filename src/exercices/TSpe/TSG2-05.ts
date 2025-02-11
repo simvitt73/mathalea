@@ -70,7 +70,8 @@ export default class nomExercice extends Exercice {
           texteCorr += `$\\iff\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\\\\\end{pmatrix}$<br> `
           texteCorr += `$\\overrightarrow{AC}\\begin{pmatrix}${xC}-${ecritureParentheseSiNegatif(xA)}\\\\${yC}-${ecritureParentheseSiNegatif(yA)}\\\\${zC}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{pmatrix}$ `
           texteCorr += `$\\iff\\overrightarrow{AC}\\begin{pmatrix}${xC - xA}\\\\${yC - yA}\\\\${zC - zA}\\\\\\end{pmatrix}$<br> `
-          texteCorr += `On vérifie trivialement qu'ils ne sont pas colinéaires : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}$`
+          texteCorr += `On vérifie que leurs coordonnées ne sont pas proportionnelles : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}$`
+          texteCorr += '<br> Ce qui permet de déduire que les vecteurs ne sont pas colinéaires.'
           texteCorr += '<br>$\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment donc une base du plan $\\mathcal{ABC}$.'
           texteCorr += '<br>Pour vérifier si $\\vec n$ est normal au plan $\\mathcal{ABC}$, il suffit de vérifier que le vecteur $\\vec n$ est orthogonal aux deux vecteurs de sa base, donc à $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.'
           texteCorr += '<br>On calcule alors les deux produits scalaires :'
@@ -99,7 +100,8 @@ export default class nomExercice extends Exercice {
           texteCorr += ` et $\\quad\\overrightarrow{AC}\\begin{cases}x_C-x_A=${xC}-${ecritureParentheseSiNegatif(xA)}\\\\y_C-yA=${yC}-${ecritureParentheseSiNegatif(yA)}\\\\z_C-z_A=${zC}-${ecritureParentheseSiNegatif(zA)}\\\\\\end{cases}$ `
           texteCorr += `<br><br>Ce qui donne après simplification : $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\\\\\end{pmatrix}$ `
           texteCorr += `et $\\quad\\overrightarrow{AC}\\begin{pmatrix}${xC - xA}\\\\${yC - yA}\\\\${zC - zA}\\\\\\end{pmatrix}$<br> `
-          texteCorr += `On vérifie trivialement qu'ils ne sont pas colinéaires : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}$`
+          texteCorr += `On vérifie que leurs coordonnées ne sont pas proportionnelles : $\\dfrac{x_B-x_A}{x_C-x_A}=\\dfrac{${texNombre(xB - xA)}}{${texNombre(xC - xA)}}\\neq\\dfrac{y_B-y_A}{y_C-y_A}=\\dfrac{${texNombre(yB - yA)}}{${texNombre(yC - yA)}}$`
+          texteCorr += '<br> Ce qui permet de déduire que les vecteurs ne sont pas colinéaires.'
           texteCorr += '<br><br>$\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ forment donc une base du plan $\\mathcal{ABC}$.'
           texteCorr += '<br>Pour vérifier si $\\vec n$ est normal au plan $\\mathcal{ABC}$, il suffit de vérifier que le vecteur $\\vec n$ est orthogonal aux deux vecteurs de sa base, donc à $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$.'
           texteCorr += '<br>On calcule alors les deux produits scalaires :'
