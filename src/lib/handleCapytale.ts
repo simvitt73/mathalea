@@ -97,6 +97,18 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
         return l
       })
     }
+    // En vue CAN, on efface la graine pour que l'élève ne recommence pas le même exercice
+    if (newCanOptions?.isChoosen) {
+      exercicesParams.update((l) => {
+        for (const param of l) {
+          if (param.alea !== undefined) {
+            param.alea = undefined
+          }
+        }
+        return l
+      }
+      )
+    }
   } else if (mode === 'review') {
     // Mettre le done à true pour que l'on ne puisse plus modifier les réponses
     globalOptions.update((l) => {
