@@ -1,12 +1,12 @@
 import { droiteParPointEtPente, positionLabelDroite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { katexPopup2 } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, Vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -40,6 +40,7 @@ export const refs = {
   'fr-ch': ['11FA8-10']
 }
 export default class LectureExpressionFonctionsAffines extends Exercice {
+  lineaire: boolean
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'\n4 : Mélange"]
@@ -54,7 +55,7 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
     this.lineaire = false
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion (numeroExercice:number) {
     let explain = ''
     let preK = this.sup
     if (this.sup === 4) {
@@ -106,8 +107,12 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
       d[i] = droiteParPointEtPente(point(0, listeDroites[i][0]), listeDroites[i][1], '', colors[i])
       posLab[i] = positionLabelDroite(d[i], { xmin, ymin, xmax, ymax })
       posLab[i].positionLabel = 'center'
-      nomDroite[i] = latexParPoint(`(d_${i + 1})`, posLab[i], colors[i], 20, 10, '', 6)
-      objets2d.push(d[i], nomDroite[i])
+      if (posLab[i] instanceof Vide2d) {
+        objets2d.push(d[i])
+      } else {
+        nomDroite[i] = latexParPoint(`(d_${i + 1})`, (posLab[i] as Point), colors[i], 20, 10, '', 6)
+        objets2d.push(d[i], nomDroite[i])
+      }
     }
 
     this.introduction = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, scale: 0.75 }, objets2d)

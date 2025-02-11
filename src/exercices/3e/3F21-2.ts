@@ -9,6 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Déterminer une fonction affine par la donnée des images de deux nombres'
 export const interactifReady = true
@@ -53,10 +54,15 @@ export default class DeterminerFonctionAffine extends Exercice {
       typeDeQuestionsDisponibles = [3, 4]
     }
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, x1, x2, y1, y2, a, b, tA, tB, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, tA, tB, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
-
+      let a = 0
+      let b = 0
+      let x1 = 0
+      let x2 = 0
+      let y1 = 0
+      let y2 = 0
       switch (listeTypeDeQuestions[i]) {
         case 0: // fonction constante
           a = 0
@@ -186,27 +192,28 @@ export default class DeterminerFonctionAffine extends Exercice {
           }
           break
 
-        case 4:
+        case 4:{
           x1 = randint(-5, 5, 0)
           x2 = randint(-5, 5, [0, x1])
           y1 = randint(-5, 5)
           y2 = randint(-5, 5)
-          a = fraction(y2 - y1, x2 - x1)
-          b = a.multiplieEntier(-x1).ajouteEntier(y1)
+          const aFrac = new FractionEtendue(y2 - y1, x2 - x1)
+          let bFrac = new FractionEtendue(y2 - y1, x2 - x1)
+          bFrac = aFrac.multiplieEntier(-x1).ajouteEntier(y1)
           texteCorr = `Soit $f(x)=ax+b$. En utilisant les données de l'énoncé, on obtient : $f(${x1})=${y1}=a \\times ${ecritureParentheseSiNegatif(x1)}+b$ et $f(${x2})=${y2}=a \\times ${ecritureParentheseSiNegatif(x2)}+b$<br>`
           texteCorr += `Donc d'une part : $b=${y1}+a\\times ${ecritureParentheseSiNegatif(-x1)}$ et d'autre part : $b=${y2}+a\\times ${ecritureParentheseSiNegatif(-x2)}$.<br>`
           texteCorr += `Par identification, on obtient : $${y1}+a\\times ${ecritureParentheseSiNegatif(-x1)}=${y2}+a\\times ${ecritureParentheseSiNegatif(-x2)}$.<br>`
           texteCorr += `On en déduit que $${y1}${ecritureAlgebrique(-y2)}=a(${x1}${ecritureAlgebrique(-x2)})$ soit $${y1 - y2}=${x1 - x2}a$.<br>`
-          texteCorr += `Donc $a=\\dfrac{${y1 - y2}}{${x1 - x2}}=${a.texFractionSimplifiee}$.<br>`
-          texteCorr += `Donc $b=${y1}+${a.texFractionSimplifiee}\\times ${ecritureParentheseSiNegatif(-x1)}=${fraction(y1 * a.denIrred, a.denIrred).texFraction}+${a.multiplieEntier(-x1).texFractionSimplifiee}=${b.texFractionSimplifiee}$.<br>`
-          texteCorr += `Donc $f(x)=${a.texFractionSimplifiee}x${b.simplifie().texFractionSignee}$.`
-          setReponse(this, i, `f(x)=${a.texFractionSimplifiee}x${b.simplifie().texFractionSignee}`)
+          texteCorr += `Donc $a=\\dfrac{${y1 - y2}}{${x1 - x2}}=${aFrac.texFractionSimplifiee}$.<br>`
+          texteCorr += `Donc $b=${y1}+${aFrac.texFractionSimplifiee}\\times ${ecritureParentheseSiNegatif(-x1)}=${fraction(y1 * aFrac.denIrred, aFrac.denIrred).texFraction}+${aFrac.multiplieEntier(-x1).texFractionSimplifiee}=${bFrac.texFractionSimplifiee}$.<br>`
+          texteCorr += `Donc $f(x)=${aFrac.texFractionSimplifiee}x${bFrac.simplifie().texFractionSignee}$.`
+          setReponse(this, i, `f(x)=${aFrac.texFractionSimplifiee}x${bFrac.simplifie().texFractionSignee}`)
           if (this.correctionDetaillee) {
             tA = tracePoint(point(x1, y1), 'red')
             tB = tracePoint(point(x2, y2), 'red')
 
-            a = a.n / a.d
-            b = b.n / b.d
+            a = aFrac.n / aFrac.d
+            b = bFrac.n / bFrac.d
             r = repere({
               xMin: -5,
               yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)),
@@ -223,6 +230,7 @@ export default class DeterminerFonctionAffine extends Exercice {
                         }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
           break
+        }
       }
       texte = `La fonction $f$ est une fonction affine et on sait que $f(${x1})=${y1}$ et $f(${x2})=${y2}$.<br>`
       texte += 'Déterminer la forme algébrique de la fonction $f$.'

@@ -44,8 +44,10 @@ export default class FonctionsCalculsDImages extends Exercice {
     this.sup = 5
   }
 
-  nouvelleVersion (numeroExercice) {
-    let pourcentage, idDuDiv, idDuDivCorr, j
+  nouvelleVersion (numeroExercice:number) {
+    let pourcentage, j
+    let idDuDiv = ''
+    let idDuDivCorr = ''
     const numEx = '3F12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
     if (context.isHtml) {
@@ -67,7 +69,8 @@ export default class FonctionsCalculsDImages extends Exercice {
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-
+      texte = ''
+      texteCorr = ''
       if (context.isHtml) {
         const idUnique = `${numEx}_${i}_${Date.now()}`
         idDuDiv = `div_svg${numeroExercice}${idUnique}`
@@ -113,11 +116,12 @@ export default class FonctionsCalculsDImages extends Exercice {
             texteCorr += numAlpha(j) + `L'image de ${c} par cette fonction vaut ${a * c + b}.`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction.`
           } else {
-            texte += texCadreParOrange(itemize(['Choisir un nombre.', `Multiplier ce nombre par ${a}.`, `Ajouter ${b} au résultat obtenu.`]))
+            const monTexte = itemize(['Choisir un nombre.', `Multiplier ce nombre par ${a}.`, `Ajouter ${b} au résultat obtenu.`])
+            texte += texCadreParOrange((typeof monTexte === 'string') ? monTexte : '')
             // sous-question a/
             texte += texEnumerate([`Appliquer ce programme de calcul au nombre ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
-            // texteCorr +=
-            texteCorr += texEnumerate([texCadreParOrange(itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$. `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$.`])), `L'image de ${c} par cette fonction vaut ${a * c + b}.<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction.`], this.spacing)
+            const monTexteCorr = itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$. `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$.`])
+            texteCorr += texEnumerate([texCadreParOrange((typeof monTexteCorr === 'string') ? monTexteCorr : ''), `L'image de ${c} par cette fonction vaut ${a * c + b}.<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction.`], this.spacing)
           }
 
           break
@@ -211,7 +215,7 @@ export default class FonctionsCalculsDImages extends Exercice {
             // sous-question a/ et b/
             texte += texEnumerate([`Calculer l'image de ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             texteCorr = texEnumerate(
-              [`Calculons l'image par $g$ de $x=$ ${c} :<br>` + tikzMachineDiag('h', c, [['\\times ' + a, (a * c)], ['+' + b, (a * c + b)]]),
+              [`Calculons l'image par $g$ de $x=$ ${c} :<br>` + tikzMachineDiag('h', `${c}`, [['\\times ' + a, (a * c)], ['+' + b, (a * c + b)]]),
                 `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
  <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`
               ], this.spacing)
@@ -220,7 +224,7 @@ export default class FonctionsCalculsDImages extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

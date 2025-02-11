@@ -92,7 +92,7 @@ export default class AntecedentEtImageGraphique extends Exercice {
     let cont1 = `${numAlpha(0)} Quelle est l'image de $${x0}$ ?`
     cont1 += ajouteChampTexteMathLive(this, 0)
     if (context.isAmc) {
-      this.autoCorrection[0].propositions.push(
+      this.autoCorrection[0].propositions?.push(
         {
           type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
           propositions: [ // une ou plusieurs (Qcms) 'propositions'
@@ -118,7 +118,7 @@ export default class AntecedentEtImageGraphique extends Exercice {
     cont1 += '<br>' + enonceAMC
     cont1 += ajouteChampTexteMathLive(this, 1)
     if (context.isAmc) {
-      this.autoCorrection[0].propositions.push(
+      this.autoCorrection[0].propositions?.push(
         {
           type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
           propositions: [ // une ou plusieurs (Qcms) 'propositions'
@@ -154,7 +154,7 @@ export default class AntecedentEtImageGraphique extends Exercice {
       cont2 += ajouteChampTexteMathLive(this, 3)
     }
     if (context.isAmc) {
-      this.autoCorrection[0].propositions.push(
+      this.autoCorrection[0].propositions?.push(
         {
           type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
           propositions: [ // une ou plusieurs (Qcms) 'propositions'
@@ -175,7 +175,7 @@ export default class AntecedentEtImageGraphique extends Exercice {
           ]
         }
       )
-      this.autoCorrection[0].propositions.push(
+      this.autoCorrection[0].propositions?.push(
         {
           type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
           propositions: [ // une ou plusieurs (Qcms) 'propositions'

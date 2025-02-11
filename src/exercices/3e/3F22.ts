@@ -54,24 +54,10 @@ export default class AntecedentParCalcul extends Exercice {
       texte = ''
       let a = 0; let b = 0; let c = 0; let d = 0; let e = 0; let m = 0
       let expr = ''
-      let ante
+      let ante:FractionEtendue
       texteCorr = `On cherche un nombre $x$ tel que $f(x) = ${m}$.<br>`
       texteCorr += `On résout donc l'équation : $f(x) = ${m}$. <br>`
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent
-        case 1:
-          // f(x) = ax + b avec a et b petits relatifs
-          a = randint(-20, 20, [-1, 0, 1])
-          b = randint(-20, 20)
-          m = randint(-20, 20)
-          expr = `$f(x)=${a}x ${ecritureAlgebrique(b)}$`
-          texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `
-
-          texteCorr += '$\\begin{aligned} '
-          texteCorr += `${a}x ${ecritureAlgebrique(b)} &= ${m} \\\\ `
-          texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-b)} \\\\ `
-          ante = new FractionEtendue(m - b, a)
-          break
-
         case 2:
           // f(x) = ax + b avec a et b grands relatifs
           a = randint(-999, 999, [-1, 0, 1])
@@ -118,6 +104,20 @@ export default class AntecedentParCalcul extends Exercice {
           texteCorr += `${a * b + d}x  &= ${m}${ecritureAlgebrique(-a * c - e)}\\\\`
           texteCorr += `${a * b + d}x &= ${m - a * c - e}\\\\`
           ante = new FractionEtendue(m - a * c - e, a * b + d)
+          break
+        case 1:
+        default :
+          // f(x) = ax + b avec a et b petits relatifs
+          a = randint(-20, 20, [-1, 0, 1])
+          b = randint(-20, 20)
+          m = randint(-20, 20)
+          expr = `$f(x)=${a}x ${ecritureAlgebrique(b)}$`
+          texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `
+
+          texteCorr += '$\\begin{aligned} '
+          texteCorr += `${a}x ${ecritureAlgebrique(b)} &= ${m} \\\\ `
+          texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-b)} \\\\ `
+          ante = new FractionEtendue(m - b, a)
           break
       }
 

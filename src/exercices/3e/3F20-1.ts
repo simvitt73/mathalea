@@ -15,7 +15,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, type AutoCorrection } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Fonctions affines'
@@ -36,6 +36,7 @@ export const uuid = '20d20'
  * @author Jean-Claude Lhote
  */
 export default class FonctionsAffines extends Exercice {
+  lycee: boolean
   constructor () {
     super()
 
@@ -46,6 +47,7 @@ Certaines questions de calcul d'image nécessitent des calculs préalables.<br>
 Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50% ainsi que l'ordonnée à l'origine.<br>`
     this.sup = 1 // coefficient entier relatif
     this.nbQuestions = 8
+    this.lycee = false
     this.sup2 = this.lycee ? '11' : '9'
     this.spacingCorr = 3
 
@@ -101,7 +103,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       texte2AMC = ''
       texte3AMC = ''
       valeur2AMC = ''
-      const elementAmc = {}
+      const elementAmc :AutoCorrection = {}
       const nomFonction = String.fromCharCode(102 + i)
       let texte = ''
       let texteCorr = ''
@@ -110,29 +112,31 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       // ce sont antecedent et image qui seront à calculer.
       const antecedent0 = 2 * randint(2, 5) + 1
       const ordonneeOrigine = randint(-10, 10, [0])
-      let coefficient, image
+      let coefficient : number | FractionEtendue
+      let image
       switch (listeTypeDeCoeff[i]) {
-        case 1:
-          coefficient = randint(2, 8) * choice([-1, 1])
-          break
         case 2:
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
+          break
+        case 1:
+        default:
+          coefficient = randint(2, 8) * choice([-1, 1])
           break
       }
       const coeffRationnel = coefficient instanceof FractionEtendue
       let imageString
       const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1]))
-      const image0 = ordonneeOrigine + (coeffRationnel ? coefficient.num : coefficient * antecedent0)
+      const image0 = ordonneeOrigine + (coeffRationnel ? (coefficient as FractionEtendue).num : (coefficient as number) * antecedent0)
       if (coeffRationnel) {
-        image = coefficient.multiplieEntier(antecedent).ajouteEntier(ordonneeOrigine)
-        imageString = image.texFSD
+        image = (coefficient as FractionEtendue).multiplieEntier(antecedent).ajouteEntier(ordonneeOrigine)
+        imageString = (image as FractionEtendue).texFSD
         // formatInteractif = 'fractionEgale'
       } else {
-        image = ordonneeOrigine + coefficient * antecedent
+        image = ordonneeOrigine + (coefficient as number) * antecedent
         imageString = texNombre(image, 0)
       }
       antecedents.push(antecedent, antecedent0)
-      const coefficientString = coeffRationnel ? coefficient.simplifie().texFSD : coefficient.toString()
+      const coefficientString = coeffRationnel ? (coefficient as FractionEtendue).simplifie().texFSD : (coefficient as number).toString()
       let xUnite, yUnite, xThickDistance, yThickDistance, xThickMin, yThickMin
       const tableauEchelleX = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200], [2000, 0.00025, 400]]
       const tableauEchelleY = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200], [2000, 0.00025, 400]]
@@ -187,12 +191,12 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       switch (listeTypesDeQuestions[i]) {
         // On détermine l'image à partir de l'expression générale de la fonction
         case 'imageParExpression':
-          texte += `Soit $${nomFonction}(x)=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient)}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
+          texte += `Soit $${nomFonction}(x)=${coeffRationnel ? (coefficient as FractionEtendue).texFSD : texNombre((coefficient as number))}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
           texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
-          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
-          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
-          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
+          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? (coefficient as FractionEtendue).texFSD : texNombre((coefficient as number), 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
+          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? (coefficient as FractionEtendue).multiplieEntier(antecedent).texFraction : texNombre((coefficient as number) * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * (coefficient as FractionEtendue).den, (coefficient as FractionEtendue).den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
+          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? (image as FractionEtendue).texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
@@ -211,9 +215,9 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteCorr += `=${simplification}`
           }
           texteCorr += `$ et par suite $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
-          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
-          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
-          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
+          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? (coefficient as FractionEtendue).texFSD : texNombre((coefficient as number), 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
+          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? (coefficient as FractionEtendue).multiplieEntier(antecedent).texFraction : texNombre((coefficient as number) * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * (coefficient as FractionEtendue).den, (coefficient as FractionEtendue).den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
+          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? (image as FractionEtendue).texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
@@ -241,9 +245,9 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteCorr += `=${simplification}`
           }
           texteCorr += `$ et par suite $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
-          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
-          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
-          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
+          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? (coefficient as FractionEtendue).texFSD : texNombre((coefficient as number), 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
+          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? (coefficient as FractionEtendue).multiplieEntier(antecedent).texFraction : texNombre((coefficient as number) * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * (coefficient as FractionEtendue).den, (coefficient as FractionEtendue).den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
+          texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? (image as FractionEtendue).texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
@@ -251,20 +255,20 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           } else handleAnswers(this, i, { reponse: { value: image } })
           break
         case 'antecedentParExpression':
-          texte += `Soit $${nomFonction}(x)=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient)}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
+          texte += `Soit $${nomFonction}(x)=${coeffRationnel ? (coefficient as FractionEtendue).texFSD : texNombre(coefficient as number)}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
           texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b${ecritureAlgebrique(ordonneeOrigine)}=${imageString}$.<br>`
           texteCorr += `On en déduit $${coefficientString}b=${imageString}${ecritureAlgebrique(-ordonneeOrigine)}`
           if (coeffRationnel) {
-            texteCorr += `=${imageString}${fraction(-ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique}`
+            texteCorr += `=${imageString}${fraction(-ordonneeOrigine * (coefficient as FractionEtendue).den, (coefficient as FractionEtendue).den).ecritureAlgebrique}`
           }
-          texteCorr += `=${coeffRationnel ? image.ajouteEntier(-ordonneeOrigine).texFraction : image - ordonneeOrigine}$.<br>`
+          texteCorr += `=${coeffRationnel ? (image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFraction : (image as number) - ordonneeOrigine}$.<br>`
           if (coeffRationnel) {
-            texteCorr += `Donc $b=\\dfrac{${image.ajouteEntier(-ordonneeOrigine).texFSD}}{${coefficientString}}=`
-            texteCorr += `${image.ajouteEntier(-ordonneeOrigine).texFSD}\\times ${coefficient.inverse().texFSP}=`
+            texteCorr += `Donc $b=\\dfrac{${(image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFSD}}{${coefficientString}}=`
+            texteCorr += `${(image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFSD}\\times ${(coefficient as FractionEtendue).inverse().texFSP}=`
           } else {
-            texteCorr += `Donc $b=\\dfrac{${texNombre(image - ordonneeOrigine, 0)}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${texNombre((image as number) - ordonneeOrigine, 0)}}{${coefficientString}}=`
           }
           texteCorr += `${antecedent}$`
           if (context.isAmc) {
@@ -288,14 +292,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b${ecritureAlgebrique(ordonneeOrigine)}=${imageString}$.<br>`
           texteCorr += `On en déduit $${coefficientString}b=${imageString}${ecritureAlgebrique(-ordonneeOrigine)}`
           if (coeffRationnel) {
-            texteCorr += `=${imageString}${fraction(-ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique}`
+            texteCorr += `=${imageString}${fraction(-ordonneeOrigine * (coefficient as FractionEtendue).den, (coefficient as FractionEtendue).den).ecritureAlgebrique}`
           }
-          texteCorr += `=${coeffRationnel ? image.ajouteEntier(-ordonneeOrigine).texFraction : image - ordonneeOrigine}$.<br>`
+          texteCorr += `=${coeffRationnel ? (image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFraction : (image as number) - ordonneeOrigine}$.<br>`
           if (coeffRationnel) {
-            texteCorr += `Donc $b=\\dfrac{${image.ajouteEntier(-ordonneeOrigine).texFSD}}{${coefficientString}}=`
-            texteCorr += `${image.ajouteEntier(-ordonneeOrigine).texFSD}\\times ${coefficient.inverse().texFSP}=`
+            texteCorr += `Donc $b=\\dfrac{${(image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFSD}}{${coefficientString}}=`
+            texteCorr += `${(image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFSD}\\times ${(coefficient as FractionEtendue).inverse().texFSP}=`
           } else {
-            texteCorr += `Donc $b=\\dfrac{${texNombre(image - ordonneeOrigine, 0)}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${texNombre((image as number) - ordonneeOrigine, 0)}}{${coefficientString}}=`
           }
           texteCorr += `${antecedent}$`
           if (context.isAmc) {
@@ -327,14 +331,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b${ecritureAlgebrique(ordonneeOrigine)}=${imageString}$.<br>`
           texteCorr += `On en déduit $${coefficientString}b=${imageString}${ecritureAlgebrique(-ordonneeOrigine)}`
           if (coeffRationnel) {
-            texteCorr += `=${imageString}${fraction(-ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique}`
+            texteCorr += `=${imageString}${fraction(-ordonneeOrigine * (coefficient as FractionEtendue).den, (coefficient as FractionEtendue).den).ecritureAlgebrique}`
           }
-          texteCorr += `=${coeffRationnel ? image.ajouteEntier(-ordonneeOrigine).texFraction : image - ordonneeOrigine}$.<br>`
+          texteCorr += `=${coeffRationnel ? (image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFraction : (image as number) - ordonneeOrigine}$.<br>`
           if (coeffRationnel) {
-            texteCorr += `Donc $b=\\dfrac{${image.ajouteEntier(-ordonneeOrigine).texFSD}}{${coefficientString}}=`
-            texteCorr += `${image.ajouteEntier(-ordonneeOrigine).texFSD}\\times ${coefficient.inverse().texFSP}=`
+            texteCorr += `Donc $b=\\dfrac{${(image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFSD}}{${coefficientString}}=`
+            texteCorr += `${(image as FractionEtendue).ajouteEntier(-ordonneeOrigine).texFSD}\\times ${(coefficient as FractionEtendue).inverse().texFSP}=`
           } else {
-            texteCorr += `Donc $b=\\dfrac{${texNombre(image - ordonneeOrigine, 0)}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${texNombre((image as number) - ordonneeOrigine, 0)}}{${coefficientString}}=`
           }
           texteCorr += `${antecedent}$`
           if (context.isAmc) {
@@ -406,7 +410,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
 
           if (coeffRationnel) { // on redéfinit le coefficient et les images pour ce cas de figure
             coefficient = new FractionEtendue(numCoefficient, denCoefficient).simplifie()
-            coefficientString = coefficient.texFSD
+            coefficientString = (coefficient as FractionEtendue).texFSD
           } else {
             coefficient = randint(-4, 4, 0)
             coefficientString = coefficient.toString()
@@ -415,11 +419,11 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           const antecedent2 = randint(-4, 4, [-1, 0, 1]) * denCoefficient
           const antecedent0 = randint(Math.abs(antecedent2), 8, [-1, 0, 1]) * denCoefficient
           const ordonneeOrigine = randint(-10, 10, 0)
-          const image2 = coeffRationnel ? coefficient.multiplieEntier(antecedent2).ajouteEntier(ordonneeOrigine) : coefficient * antecedent2 + ordonneeOrigine
-          const image2String = coeffRationnel ? image2.texFraction : image2
-          const image0 = coeffRationnel ? coefficient.multiplieEntier(antecedent0).ajouteEntier(ordonneeOrigine) : coefficient * antecedent0 + ordonneeOrigine
-          const image0String = coeffRationnel ? image0.texFraction : image0
-          const diffImage0Image2 = coeffRationnel ? image0.sommeFraction(image2.oppose()).texFraction : image0 - image2
+          const image2 = coeffRationnel ? (coefficient as FractionEtendue).multiplieEntier(antecedent2).ajouteEntier(ordonneeOrigine) : (coefficient as number) * antecedent2 + ordonneeOrigine
+          const image2String = coeffRationnel ? (image2 as FractionEtendue).texFraction : image2
+          const image0 = coeffRationnel ? (coefficient as FractionEtendue).multiplieEntier(antecedent0).ajouteEntier(ordonneeOrigine) : (coefficient as number) * antecedent0 + ordonneeOrigine
+          const image0String = coeffRationnel ? (image0 as FractionEtendue).texFraction : image0
+          const diffImage0Image2 = coeffRationnel ? (image0 as FractionEtendue).sommeFraction((image2 as FractionEtendue).oppose()).texFraction : (image0 as number) - (image2 as number)
 
           xUnite = tableauEchelleX[0][1]
           xThickDistance = tableauEchelleX[0][2]
@@ -433,7 +437,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           yUnite = tableauEchelleY[0][1]
           yThickDistance = tableauEchelleY[0][2]
           yThickMin = -tableauEchelleY[0][0] - yThickDistance
-          for (let k = 1; Math.max(Math.abs(image0), Math.abs(ordonneeOrigine)) > tableauEchelleY[k - 1][0]; k++) {
+          for (let k = 1; Math.max(Math.abs(image0 as number), Math.abs(ordonneeOrigine)) > tableauEchelleY[k - 1][0]; k++) {
             if (k >= tableauEchelleY.length) break
             yUnite = tableauEchelleY[k][1]
             yThickDistance = tableauEchelleY[k][2]
@@ -460,7 +464,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             grille: false
           })
           const origine = point(0, ordonneeOrigine * yUnite)
-          const M = point(antecedent0 * xUnite, image0 * yUnite)
+          const M = point(antecedent0 * xUnite, (image0 as number) * yUnite)
           const d = droite(origine, M)
           const t = tracePoint(M)
           const projeteX = point(M.x, 0)
@@ -470,7 +474,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           pointilles.epaisseur = 1
           // const coordonnees = texteParPoint(`(${antecedent0};${image0String})`, point(M.x + 0.2, M.y), 0, 'black', 1, 'gauche')
           const coordonnees = latexParPoint(`(${antecedent0};${image0String})`, point(M.x + 0.2, M.y), 'black', 12, 20, '')
-          const N = point(antecedent2 * xUnite, coeffRationnel ? image2.valeurDecimale * yUnite : image2 * yUnite)
+          const N = point(antecedent2 * xUnite, coeffRationnel ? (image2 as FractionEtendue).valeurDecimale * yUnite : (image2 as number) * yUnite)
           const u = tracePoint(N)
           const projeteNX = point(N.x, 0)
           const projeteNY = point(0, N.y)
@@ -495,14 +499,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }, r, d, t, coordonnees, pointilles, u, coordonneesN, pointillesN)
           texteCorr += `La fonction $${nomFonction}(x)=ax+b$ est telle que `
           if (antecedent2 - antecedent0 > 0) {
-            texteCorr += `$a=\\dfrac{f(${stringNombre(antecedent2)})-f(${antecedent0})}{${stringNombre(antecedent2)}-${ecritureParentheseSiNegatif(antecedent0)}}=\\dfrac{${image2String}-${ecritureParentheseSiNegatif(image0)}}{${antecedent2 - antecedent0}}=\\dfrac{${image2 - image0}}{${antecedent2 - antecedent0}}=${coefficientString}$.<br>`
+            texteCorr += `$a=\\dfrac{f(${stringNombre(antecedent2)})-f(${antecedent0})}{${stringNombre(antecedent2)}-${ecritureParentheseSiNegatif(antecedent0)}}=\\dfrac{${image2String}-${ecritureParentheseSiNegatif(image0)}}{${antecedent2 - antecedent0}}=\\dfrac{${(image2 as number) - (image0 as number)}}{${antecedent2 - antecedent0}}=${coefficientString}$.<br>`
           } else {
             texteCorr += `$a=\\dfrac{f(${antecedent0})-f(${stringNombre(antecedent2)})}{${antecedent0}-${ecritureParentheseSiNegatif(antecedent2)}}=\\dfrac{${image0String}-${ecritureParentheseSiNegatif(image2)}}{${antecedent0 - antecedent2}}=\\dfrac{${diffImage0Image2}}{${antecedent0 - antecedent2}}=${coefficientString}$.<br>`
           }
           texteCorr += `On en déduit que $${nomFonction}(x)=${coefficientString}x+b$.<br>`
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${image0String}$, on a $${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent0)}+b=${image0String}$ et par suite `
           texteCorr += coeffRationnel
-            ? `$b=${image0String}${coefficient.multiplieEntier(-1).ecritureAlgebrique}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
+            ? `$b=${image0String}${(coefficient as FractionEtendue).multiplieEntier(-1).ecritureAlgebrique}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
             : `$b=${image0String}${ecritureAlgebrique(-coefficient)}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
           texteCorr += `D'où $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$`
           if (context.isAmc) {
@@ -523,22 +527,24 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `La fonction $${nomFonction}(x)=ax+b$ est telle que `
           if (antecedent - antecedent0 > 0) {
             if (coeffRationnel) {
-              texteCorr += `$a=\\dfrac{f(${antecedent})-f(${antecedent0})}{${antecedent}-${ecritureParentheseSiNegatif(antecedent0)}}=\\dfrac{${imageString}-${ecritureParentheseSiNegatif(image0)}}{${antecedent - antecedent0}}=\\dfrac{${imageString}-${new FractionEtendue(image0 * image.den, image.den).ecritureParentheseSiNegatif}}{${antecedent - antecedent0}}=\\dfrac{${image.ajouteEntier(-image0).texFraction}}{${antecedent - antecedent0}}=${image.ajouteEntier(-image0).texFraction}\\times \\dfrac{1}{${antecedent - antecedent0}}=${coefficientString}$.<br>`
+              texteCorr += `$a=\\dfrac{f(${antecedent})-f(${antecedent0})}{${antecedent}-${ecritureParentheseSiNegatif(antecedent0)}}=\\dfrac{${imageString}-${ecritureParentheseSiNegatif(image0)}}{${antecedent - antecedent0}}=\\dfrac{${imageString}-${new FractionEtendue(image0 * (image as FractionEtendue).den, (image as FractionEtendue).den).ecritureParentheseSiNegatif}}{${antecedent - antecedent0}}=\\dfrac{${(image as FractionEtendue).ajouteEntier(-image0).texFraction}}{${antecedent - antecedent0}}=${(image as FractionEtendue).ajouteEntier(-image0).texFraction}\\times \\dfrac{1}{${antecedent - antecedent0}}=${coefficientString}$.<br>`
             } else {
-              texteCorr += `$a=\\dfrac{f(${antecedent})-f(${antecedent0})}{${antecedent}-${ecritureParentheseSiNegatif(antecedent0)}}=\\dfrac{${imageString}-${ecritureParentheseSiNegatif(image0)}}{${antecedent - antecedent0}}=\\dfrac{${image - image0}}{${antecedent - antecedent0}}=${coefficientString}$.<br>`
+              texteCorr += `$a=\\dfrac{f(${antecedent})-f(${antecedent0})}{${antecedent}-${ecritureParentheseSiNegatif(antecedent0)}}=\\dfrac{${imageString}-${ecritureParentheseSiNegatif(image0)}}{${antecedent - antecedent0}}=\\dfrac{${(image as number) - image0}}{${antecedent - antecedent0}}=${coefficientString}$.<br>`
             }
           } else {
             if (coeffRationnel) {
-              texteCorr += `$a=\\dfrac{f(${antecedent0})-f(${antecedent})}{${antecedent0}-${ecritureParentheseSiNegatif(antecedent)}}=\\dfrac{${image0}-${image.ecritureParentheseSiNegatif}}{${antecedent0 - antecedent}}=\\dfrac{${new FractionEtendue(image0 * image.den, image.den).texFraction}-${image.ecritureParentheseSiNegatif}}{${antecedent0 - antecedent}}=\\dfrac{${image.multiplieEntier(-1).ajouteEntier(image0).texFraction}}{${antecedent0 - antecedent}}=${image.multiplieEntier(-1).ajouteEntier(image0).texFraction}\\times \\dfrac{1}{${antecedent0 - antecedent}}=${coefficientString}$.<br>`
+              texteCorr += `$a=\\dfrac{f(${antecedent0})-f(${antecedent})}{${antecedent0}-${ecritureParentheseSiNegatif(antecedent)}}=\\dfrac{${image0}-${(image as FractionEtendue).ecritureParentheseSiNegatif}}{${antecedent0 - antecedent}}=\\dfrac{${new FractionEtendue(image0 * (image as FractionEtendue).den, (image as FractionEtendue).den).texFraction}-${(image as FractionEtendue).ecritureParentheseSiNegatif}}{${antecedent0 - antecedent}}=\\dfrac{${(image as FractionEtendue).multiplieEntier(-1).ajouteEntier(image0).texFraction}}{${antecedent0 - antecedent}}=${(image as FractionEtendue).multiplieEntier(-1).ajouteEntier(image0).texFraction}\\times \\dfrac{1}{${antecedent0 - antecedent}}=${coefficientString}$.<br>`
             } else {
-              texteCorr += `$a=\\dfrac{f(${antecedent0})-f(${antecedent})}{${antecedent0}-${ecritureParentheseSiNegatif(antecedent)}}=\\dfrac{${image0}-${ecritureParentheseSiNegatif(image)}}{${antecedent0 - antecedent}}=\\dfrac{${image0 - image}}{${antecedent0 - antecedent}}=${coefficientString}$.<br>`
+              texteCorr += `$a=\\dfrac{f(${antecedent0})-f(${antecedent})}{${antecedent0}-${ecritureParentheseSiNegatif(antecedent)}}=\\dfrac{${image0}-${ecritureParentheseSiNegatif(image)}}{${antecedent0 - antecedent}}=\\dfrac{${image0 - (image as number)}}{${antecedent0 - antecedent}}=${coefficientString}$.<br>`
             }
           }
           texteCorr += `On en déduit que $${nomFonction}(x)=${coefficientString}x+b$.<br>`
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${image0}$, on a $${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent0)}+b=${image0}$ et par suite `
-          texteCorr += coeffRationnel
-            ? `$b=${image0}${coefficient.multiplieEntier(-1).ecritureAlgebrique}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
-            : `$b=${image0}${ecritureAlgebrique(-coefficient)}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
+          if (coefficient !== undefined) {
+            texteCorr += coeffRationnel
+              ? `$b=${image0}${(coefficient as FractionEtendue).multiplieEntier(-1).ecritureAlgebrique}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
+              : `$b=${image0}${ecritureAlgebrique(-coefficient)}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
+          }
           texteCorr += `D'où $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$`
           if (context.isAmc) {
             texteAMC = `Valeur de $a$ dans $${nomFonction}(x)=ax+b$`
@@ -555,7 +561,9 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       }
 
       const JCAMC = false || (texte2AMC !== '') // Si besoin de prendre en compte une info supplémentaire avant les cases à cocher dans AMC
-
+      if (coefficient !== undefined) {
+        coefficient = 0
+      }
       if (this.questionJamaisPosee(i, coefficient, antecedent0, image0) && Math.abs(image0) > 1) {
         if (context.isAmc) {
           elementAmc.propositions = [
@@ -604,6 +612,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           elementAmc.enonce = texte + '\\\\'
           elementAmc.enonceAvant = false
           elementAmc.enonceApresNumQuestion = true
+          //  @ts-expect-error : pourquoi cette erreur ?
           elementAmc.propositions[0].propositions[0].texte = texteCorr
           elementAmc.options = { multicolsAll: true }
           this.autoCorrection[i] = elementAmc
@@ -619,7 +628,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         }
         texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
         // Fin de cette uniformisation typesDeQuestionsDisponibles
-        if (typesDeQuestionsDisponibles.indexOf(listeTypesDeQuestions[i]) > 2) texteCorr += '.'
+        if (typesDeQuestionsDisponibles.indexOf(listeTypesDeQuestions[i].toString()) > 2) texteCorr += '.'
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
