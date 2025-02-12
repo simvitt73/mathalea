@@ -310,6 +310,7 @@ Correction
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
     contents.preamble += '\n\\usepackage{xcolor}'
     contents.preamble += '\n\\usepackage{ProfMaquette}'
+    contents.preamble += '\n\\usepackage{fancyvrb}'
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
     contents.preamble += loadFonts(latexFileInfos)
     contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
