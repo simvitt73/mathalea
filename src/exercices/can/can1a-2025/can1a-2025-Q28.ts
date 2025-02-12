@@ -37,7 +37,7 @@ export default class Can2025N5Q28 extends Exercice {
     this.question = `Soient $\\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${xv} \\\\${yv}\\end{pmatrix}$ dans une base orthonormée.<br>`
     if (!this.interactif) { this.question += '$\\vec{u}\\cdot \\vec{v}=\\ldots$' }
     this.correction = `$\\vec{u}\\cdot \\vec{v}=${xu}\\times ${ecritureParentheseSiNegatif(xv)}+${ecritureParentheseSiNegatif(yu)}\\times ${ecritureParentheseSiNegatif(yv)}=${miseEnEvidence(this.reponse)}$.`
-    this.canEnonce = `Soient \\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et \\vec{v}\\begin{pmatrix}${xv} \\\\${yv}\\end{pmatrix}$ dans une base orthonormée.`
+    this.canEnonce = `Soient $\\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${xv} \\\\${yv}\\end{pmatrix}$ dans une base orthonormée.`
     this.canReponseACompleter = '$\\vec{u}\\cdot \\vec{v}=\\ldots$'
   }
 }
