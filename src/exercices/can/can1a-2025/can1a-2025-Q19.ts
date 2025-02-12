@@ -25,7 +25,7 @@ export default class Can2025N5Q19 extends Exercice {
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
     this.canOfficielle = true
-    // this.optionsDeComparaison = { ensembleDeNombres: true }
+    this.optionsDeComparaison = { ensembleDeNombres: true }
   }
 
   nouvelleVersion () {
@@ -33,7 +33,7 @@ export default class Can2025N5Q19 extends Exercice {
 
     this.reponse = [`${-a};${a}`, `\\{${-a};${a}\\}`, `${a};${-a}`, `\\{${a};${-a}\\}`]
     this.question = `Solution(s) de l'équation  $x^2-${texNombre(a ** 2, 0)}=0$`
-    this.correction = `Puisque $${a ** 2}>0$, l'équation a deux solutions :  $-\\sqrt{${texNombre(a ** 2, 0)}}$ et $\\sqrt{${texNombre(a ** 2, 0)}}$, soit $${miseEnEvidence(-a)}$ et $${miseEnEvidence(a)}$.<br>
+    this.correction = `Puisque $${a ** 2}>0$, l'équation a deux solutions :  $-\\sqrt{${texNombre(a ** 2, 0)}}$ et $\\sqrt{${texNombre(a ** 2, 0)}}$, soit $${-a}$ et $${a}$.<br>
     Ainsi, $S=${miseEnEvidence(`\\{${-a}\\,;\\,${a}\\}`)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
