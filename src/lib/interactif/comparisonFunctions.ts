@@ -8,8 +8,7 @@ import Hms from '../../modules/Hms'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
-import { exp, number } from 'mathjs'
-import { randint } from '../../modules/outils'
+import { number } from 'mathjs'
 
 const engine = new ComputeEngine()
 export default engine
@@ -726,7 +725,7 @@ export function fonctionComparaison (
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
   if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
-  if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale || fractionIdentique) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale, fractionIdentique }) // feedback OK
+  if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale || fractionIdentique) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale, fractionIdentique, nombreDecimalSeulement }) // feedback OK
   if (developpementEgal) return ontDeveloppementsEgaux(input, goodAnswer)
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   const inputNew = resultatSeulementEtNonOperation
@@ -845,7 +844,8 @@ function comparaisonFraction (
     fractionIrreductible = false,
     fractionDecimale = false,
     fractionEgale = false,
-    fractionIdentique = false
+    fractionIdentique = false,
+    nombreDecimalSeulement = false
   }
   = {}
 ): ResultType {
@@ -859,6 +859,14 @@ function comparaisonFraction (
   const cleanGoodAnswer = clean(goodAnswer)
   const saisieNativeParsed = engine.parse(cleanIput, { canonical: false })
   const reponseNativeParsed = engine.parse(cleanGoodAnswer, { canonical: false })
+  // if (nombreDecimalSeulement) { console.log(reponseNativeParsed.toLatex(), reponseNativeParsed.N().toString()) }
+  if (nombreDecimalSeulement) {
+    if (expressionDeveloppeeEtReduiteCompare(cleanIput, reponseNativeParsed.N().toString(), { nombreDecimalSeulement: true }).isOk) {
+      return { isOk: true, feedback: '' }
+    }
+    // if (!(reponseNativeParsed.operator === 'Number' || (reponseNativeParsed.operator === 'Negate' && reponseNativeParsed.ops !== null && reponseNativeParsed.ops.length === 1))) return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
+  }
+
   const reponseParsed = reponseNativeParsed.engine.number(Number(reponseNativeParsed.value)) // Ici, c'est la valeur numérique (même approchée) de cleanGoodAnswer.
   if (saisieNativeParsed.isEqual(reponseNativeParsed)) {
     if (fractionIdentique) {
