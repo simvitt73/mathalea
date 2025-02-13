@@ -33,7 +33,7 @@ export default class Can2025N5Q14 extends Exercice {
     const b = this.canOfficielle ? 0.6 : randint(1, 9) / 10
     const pAinterB = a * b
     this.reponse = texNombre(pAinterB, 2)
-    this.question = `$A$ et $B$ sont des événements indépendantstels que $P(A)=${texNombre(a, 1)}$ et $P(B)=${texNombre(b, 1)}$.
+    this.question = `$A$ et $B$ sont des événements indépendants tels que $P(A)=${texNombre(a, 1)}$ et $P(B)=${texNombre(b, 1)}$.
 `
 
     this.correction = ` Comme $A$ et $B$ sont des événements indépendants,  $P(A\\cap B)=P(A)\\times  P(B)$.<br>
@@ -44,7 +44,7 @@ P(A\\cap B)&=${miseEnEvidence(this.reponse)}
 \\end{aligned}$
   `
 
-    this.canEnonce = this.question
+    // this.canEnonce = this.question
     this.canReponseACompleter = '$P(A\\cap B)=\\ldots$'
     if (!this.interactif) {
       this.question += '<br> $P(A\\cap B)=\\ldots$.'
