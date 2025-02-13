@@ -28,6 +28,8 @@ export default class MetaExercice extends Exercice {
   nouvelleVersion (): void {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
+    this.listeCanLiees = []
+    this.listeCanNumerosLies = []
     this.nbQuestionsModifiable = this.sup3
     this.besoinFormulaire2Texte = false
     let listeTypeDeQuestions : (string | number)[]
@@ -99,6 +101,8 @@ export default class MetaExercice extends Exercice {
           const optionsChampTexte = Question.optionsChampTexte ?? {}
           if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
           if (Question.canReponseACompleter != null) this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
+          this.listeCanLiees[indexQuestion] = Question.canLiee
+          this.listeCanNumerosLies[indexQuestion] = Question.canNumeroLie
 
           if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
             this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
@@ -188,7 +192,7 @@ export default class MetaExercice extends Exercice {
         if (Question?.autoCorrection[0]?.propositions != null) {
         // qcm
           const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
-          this.listeCanReponsesACompleter[indexQuestion] = monQcm.texte
+          this.listeCanReponsesACompleter[indexQuestion] = Question.canReponseACompleter != null ? Question.canReponseACompleter : monQcm.texte
           const consigne = (Question.consigne === null || Question.consigne === '') ? '' : `${Question.consigne}<br>`
           const objetReponse = this.autoCorrection[indexQuestion]
           const enonce = 'enonce' in objetReponse ? objetReponse.enonce : ''

@@ -69,6 +69,8 @@ export default class ResoudreGraphiqumentInequation extends Exercice {
 
     this.reponse = ['-1;2', '2;-1', '\\{-1;2\\}', '\\{2;-1\\}']
     this.canEnonce = `Courbes de deux fonctions $f$ et $g$ <br>${colonne1}`
-    this.canReponseACompleter = 'Solutions de $f(x)=g(x)$'
+    this.canReponseACompleter = 'Solutions de $f(x)=g(x)$<br>$\\dots$'
+    this.canNumeroLie = 15
+    this.canLiee = [14, 13]
   }
 }
