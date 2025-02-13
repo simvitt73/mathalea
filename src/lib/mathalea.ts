@@ -722,6 +722,9 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       exercice.listeCorrections.push(exercice.correction ?? '')
       exercice.listeCanEnonces?.push(exercice.canEnonce ?? '')
       exercice.listeCanReponsesACompleter?.push(exercice.canReponseACompleter ?? '')
+      exercice.listeCanLiees?.push(exercice.canLiee ?? '')
+      exercice.listeCanNumerosLies?.push(exercice.canNumeroLie ?? '')
+
       cptSecours = 0
       i++
     } else {

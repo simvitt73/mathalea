@@ -74,6 +74,8 @@ export default class ResoudreGraphiquementEquation extends Exercice {
     }
 
     this.canEnonce = `Courbes de deux fonctions $f$ et $g$ <br>${colonne1}`
-    this.canReponseACompleter = 'Résoudre $f(x)>1$'
+    this.canReponseACompleter = 'Résoudre $f(x)>1$<br>$\\dots$'
+    this.canNumeroLie = 14
+    this.canLiee = [13, 15]
   }
 }

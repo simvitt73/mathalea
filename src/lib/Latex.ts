@@ -88,18 +88,38 @@ class Latex {
       contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
         if (exercice != null) {
+          // Initalisation de questionLiee à rien pour toutes les questions
+          const questionLiee: { compteurQuestionsLiees: number, dejaLiee: boolean }[] = Array.from({ length: exercice.listeQuestions.length }, () => ({ compteurQuestionsLiees: 0, dejaLiee: false }))
+
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            if (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined) {
-              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &`
-            } else {
-              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &`
+            // Enoncé de la question
+            const enonce = (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined)
+              ? exercice.listeCanEnonces[i]
+              : exercice.listeQuestions[i]
+
+            // Recherche si la question est liée à la suivante et aux prochaines
+            if (exercice.listeCanLiees != null && exercice.listeCanLiees[i].length !== 0 && !(questionLiee[i].dejaLiee)) { // Recherche d'une question liée à d'autres
+              let j = i + 1
+              let questionSuivante = j < exercice.listeQuestions.length
+              while (questionSuivante) { // Recherche des questions liées à la précédente
+                questionLiee[j].dejaLiee = exercice.listeCanLiees[j].includes(exercice.listeCanNumerosLies[i])
+                console.log(questionLiee[j].dejaLiee)
+                if (questionLiee[j].dejaLiee) questionLiee[i].compteurQuestionsLiees++
+                questionSuivante = questionLiee[j] && j < exercice.listeQuestions.length - 1
+                j++
+              }
             }
+
+            content += '\\CompteurTC  &'
+            if (questionLiee[i].compteurQuestionsLiees !== 0) content += `\\SetCell[r=${questionLiee[i].compteurQuestionsLiees + 1}]{c}`
+            content += !questionLiee[i].dejaLiee ? ` { ${format(enonce)} }&` : '&'
+
             if (exercice.listeCanReponsesACompleter != null && exercice.listeCanReponsesACompleter[i] !== undefined) {
-              content += `${format(
+              content += `{${format(
                 exercice.listeCanReponsesACompleter[i]
-            )} `
+            )} }`
             }
-            content += '&\\tabularnewline \\hline\n'
+            content += '&\\\\'
           }
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`
@@ -310,7 +330,6 @@ Correction
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
     contents.preamble += '\n\\usepackage{xcolor}'
     contents.preamble += '\n\\usepackage{ProfMaquette}'
-    contents.preamble += '\n\\usepackage{fancyvrb}'
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
     contents.preamble += loadFonts(latexFileInfos)
     contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
@@ -625,7 +644,6 @@ export function format (text: string): string {
   if (lang === 'fr-CH') {
     formattedText = formattedText.replace(/\\times/g, '\\cdot')
   }
-
   return formattedText
 }
 

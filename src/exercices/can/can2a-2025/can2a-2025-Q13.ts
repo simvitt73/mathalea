@@ -68,5 +68,7 @@ export default class ImageGraphique extends Exercice {
     this.reponse = -1
     this.canEnonce = `Courbes de deux fonctions $f$ et $g$<br>${colonne1}`
     this.canReponseACompleter = 'Image de $2$ par $f$ : $\\ldots$'
+    this.canNumeroLie = 13
+    this.canLiee = [14, 15]
   }
 }
