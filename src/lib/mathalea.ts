@@ -200,7 +200,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       return exercice
     } catch (error) {
       attempts++
-      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}`, {})
       if (attempts === maxAttempts) {
         console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
         console.error(error)
@@ -567,12 +567,12 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     }
   } catch (error) {
     // MOUCHARD SUR LES URLS FANTAISISTES
-    window.notify(`${error} Erreur d'URL`, { err: error, urlString, url: window.location.href.toString(), referer: document.referer })
+    window.notify(`Erreur d'URL : ${error} `, { err: error, urlString, url: window.location.href.toString(), referrer: document.referrer })
     console.error(error)
     throw error
   }
 
-  exercicesParams.set(newExercisesParams)
+  exercicesParams.set(newExercisesParams.filter(e => e.uuid || e.id))
 
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
