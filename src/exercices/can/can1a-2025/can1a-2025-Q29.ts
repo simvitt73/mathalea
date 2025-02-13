@@ -40,7 +40,7 @@ export default class Can2025N5Q29 extends Exercice {
     this.correction = `$f$ est une fonction polynôme du second degré écrite sous forme développée $ax^2+bx+c$.<br>
        Le sommet de la parabole a pour abscisse $-\\dfrac{b}{2a}$.<br>
            L'axe de symétrie a donc pour équation $x=-\\dfrac{b}{2a}$. <br>
-       On obtient alors  $x=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}$, soit $x=\\dfrac{${-b}}{${2 * a}}$ ou encore  $x=${miseEnEvidence(`${texNombre(-b / (2 * a), 2)}`)}$`
+       On obtient alors  $x=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}$, soit $x=\\dfrac{${-b}}{${2 * a}}$ ou encore  $x=${miseEnEvidence(`${texNombre(-b / (2 * a), 2)}`)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$x=\\ldots$'
   }

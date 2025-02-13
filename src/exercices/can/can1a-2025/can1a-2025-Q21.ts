@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Calculer avec un cosinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,14 +33,15 @@ export default class Can2025N5Q21 extends Exercice {
     const coeff = this.canOfficielle ? 2024 : randint(2, 20) * 2
     const coeffb = this.canOfficielle ? 1 : choice([0, 1])
     const signe = this.canOfficielle ? '+' : choice(['+', '-'])
-    this.question = ` $${a} ${signe} \\cos(${coeff + coeffb}\\pi)$`
+    this.question = ` $${a} ${signe} \\cos(${texNombre(coeff + coeffb, 0)}\\pi)$`
+    this.correction = 'Si $n$ est pair $\\cos(n\\pi)=1$ et si $n$ est impair, $\\cos(n\\pi)=-1$.<br>'
     if (signe === '+') {
       this.reponse = coeffb === 0 ? a + 1 : a - 1
 
-      this.correction = `$${a} ${signe} \\cos(${coeff + coeffb}\\pi)=${coeffb === 0 ? `${a} ${signe} 1` : `${a} ${signe} (-1)`}=${miseEnEvidence(this.reponse)}$`
+      this.correction += `$${a} ${signe} \\cos(${texNombre(coeff + coeffb, 0)}\\pi)=${coeffb === 0 ? `${a} ${signe} 1` : `${a} ${signe} (-1)`}=${miseEnEvidence(this.reponse)}$`
     } else {
       this.reponse = coeffb === 0 ? a - 1 : a + 1
-      this.correction = `$${a} ${signe} \\cos(${coeff + coeffb}\\pi)=${coeffb === 0 ? `${a} ${signe} 1` : `${a} ${signe} (-1)`}=${miseEnEvidence(this.reponse)}$`
+      this.correction += `$${a} ${signe} \\cos(${texNombre(coeff + coeffb, 0)}\\pi)=${coeffb === 0 ? `${a} ${signe} 1` : `${a} ${signe} (-1)`}=${miseEnEvidence(this.reponse)}$`
     }
 
     this.canEnonce = this.question

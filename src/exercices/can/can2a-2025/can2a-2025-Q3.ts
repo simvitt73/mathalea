@@ -38,6 +38,7 @@ export default class Developper extends Exercice {
       this.correction += '<br>Le terme en $x$ vient de la somme de $3 \\times x$ et de $-2 \\times x$.'
       this.correction += '<br>Le terme constant vient de $-2\\times 3=6$.'
       this.reponse = { reponse: { value: reduirePolynomeDegre3(0, 1, 1, -6, 'x') } }
+      if (this.interactif) { this.question += '<br>$(x-2)(x+3)=$' }
     } else {
       const a = 1
       const b = randint(-9, 9, 0)
@@ -54,7 +55,7 @@ export default class Developper extends Exercice {
       this.reponse = { reponse: { value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x') } }
       if (this.interactif) { this.question += `<br>$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=$` }
     }
-    if (this.interactif) { this.question += '<br>$(x-2)(x+3)=$' }
+
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

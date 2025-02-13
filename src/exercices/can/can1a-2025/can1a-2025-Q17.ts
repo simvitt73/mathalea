@@ -34,7 +34,7 @@ export default class Can2025N5Q17 extends Exercice {
     this.question = `Soit $f$ : $x\\longmapsto \\dfrac{1}{x^${a}}$<br>`
     if (!this.interactif) { this.question += '$f\'(x)=\\ldots$' }
     this.correction = `D'après le cours, si $f=\\dfrac{1}{u}$ alors $f'=\\dfrac{-u'}{u^2}$.<br>
-    $f'(x)=\\dfrac{-${a}x^{${rienSi1(a - 1)}}}{x^{${2 * a}}}=${miseEnEvidence(`\\dfrac{-${a}}{x^{${a + 1}}}`)}$.`
+    $f'(x)=\\dfrac{-${a}x^{${rienSi1(a - 1)}}}{x^{${2 * a}}}=${miseEnEvidence(`-\\dfrac{${a}}{x^{${a + 1}}}`)}$.`
     this.canEnonce = `Soit $f$ : $x\\longmapsto \\dfrac{1}{x^${a}}$`
     this.canReponseACompleter = '$f\'(x)=\\ldots$'
   }
