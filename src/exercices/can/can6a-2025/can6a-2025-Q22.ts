@@ -31,7 +31,7 @@ export default class Can2025N6Q22 extends Exercice {
     this.reponse = a * 25
     this.question = `$${a}\\times 25$ `
 
-    this.correction = `On décompose $${a}$ en $${texNombre(a / 4, 0)}\\times 4$.<br>
+    this.correction = `On peut décomposer $${a}$ en $${texNombre(a / 4, 0)}\\times 4$.<br>
     $\\begin{aligned}
     ${a}\\times 25 &= ${texNombre(a / 4, 0)}\\times 4\\times 25\\\\
     &=${texNombre(a / 4, 0)}\\times 100\\\\

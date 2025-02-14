@@ -5,6 +5,7 @@ import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import type Exercice from '../../Exercice'
 import type { MathfieldElement } from 'mathlive'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { generateCleaner } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver un produit égal à 1000'
 export const interactifReady = true
@@ -28,9 +29,10 @@ export default class Can2025N6Q12 extends ExerciceCan {
     this.formatInteractif = 'fillInTheBlank'
     const callback = (exercice: Exercice, question: number) => {
       const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+      const cleaner = generateCleaner(['virgules'])
       if (mfe == null) return { isOk: false, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 0 } }
-      const a = Number(mfe.getPromptValue('champ1') || 0)
-      const b = Number(mfe.getPromptValue('champ2') || 0)
+      const a = Number(cleaner(mfe.getPromptValue('champ1')) || 0)
+      const b = Number(cleaner(mfe.getPromptValue('champ2')) || 0)
       const isOk = (a * b === c)
       if (isOk) {
         mfe.setPromptState('champ1', 'correct', true)
@@ -47,7 +49,7 @@ export default class Can2025N6Q12 extends ExerciceCan {
 
     this.question = `%{champ1}\\times %{champ2} =${texNombre(c, 0)}`
 
-    this.correction = `Par exemple $${miseEnEvidence(2)}\\times ${miseEnEvidence(`${texNombre(c / 2, 0)}`)}=${texNombre(c, 0)}$.`
+    this.correction = `Par exemple, $${miseEnEvidence(2)}\\times ${miseEnEvidence(`${texNombre(c / 2, 0)}`)}=${texNombre(c, 0)}$.`
     this.canReponseACompleter = '$\\ldots\\times \\ldots$'
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }

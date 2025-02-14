@@ -20,7 +20,7 @@ const duree: [number, 'm' | 'cm' | 'km', string][] = [
   [2, 'm', 'La longueur d\'une table  de salon'],
   [70, 'km', 'La distance entre Gisors et Paris est '],
   [4, 'm', 'La hauteur d\'une maison peut mesurer '],
-  [10, 'cm', 'La hauteur d\'un mug peut mesurer '],
+  [10, 'cm', 'La hauteur d\'une tasse peut mesurer '],
   [10, 'm', 'La profondeur d\'un puits peut mesurer '],
   [30, 'cm', 'Une feuille de papier peut mesurer '],
   [6, 'km', 'La hauteur d\'une montagne peut mesurer'],

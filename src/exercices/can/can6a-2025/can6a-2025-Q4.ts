@@ -27,7 +27,7 @@ export default class Can2025N6Q4 extends ExerciceCan {
     }
     chiffre = [['vingt', 20], ['trente', 30]]
     chiffre2 = [['deux', 2], ['trois', 3], ['quatre', 4], ['cinq', 5], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-    this.question = `Écris en chiffres le nombre : <br>
+    this.question = `Écris, en chiffres, le nombre : <br>
                              ${choix ? `« mille-${chiffre[a][0]}-${chiffre2[b][0]} »` : `« mille-${chiffre2[b][0]} »`}`
     this.reponse = choix ? texNombre(1000 + chiffre[a][1] + chiffre2[b][1], 0) : texNombre(1000 + chiffre2[b][1], 0)
     this.correction = ` ${choix ? `« mille-${chiffre[a][0]}-${chiffre2[b][0]} » $= ${miseEnEvidence(this.reponse)}$  ` : `« mille-${chiffre2[b][0]} » $= ${miseEnEvidence(this.reponse)}$  `} `

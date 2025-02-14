@@ -40,15 +40,12 @@ export default class Can2025N62Q13 extends Exercice {
     this.correction = `$${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=100 \\text{ ${prefixes[k]}}=`
     if (choix === 1) {
       this.reponse = 10
-      this.correction += `${miseEnEvidence(10)} \\text{ ${prefixes[k - choix]}}$`
-    } else
-      if (choix === 2) {
-        this.reponse = 1
-        this.correction += `${miseEnEvidence(1)}\\text{ ${prefixes[k - choix]}}$`
-      } else {
-        this.reponse = 0.1
-        this.correction += `${miseEnEvidence(`${texNombre(0.1)}`)} \\text{ ${prefixes[k - choix]}}$`
-      }
+    } else if (choix === 2) {
+      this.reponse = 1
+    } else {
+      this.reponse = 0.1
+    }
+    this.correction += `${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
 
     this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k - choix]}}$` }
 

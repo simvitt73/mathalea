@@ -52,7 +52,7 @@ export default class Can2025N6Q16 extends Exercice {
     const figureA = latex2d('\\text{A}', 2.5, 2.5, { letterSize: 'normalsize' })
     const figureB = latex2d('\\text{B}', 7, 2.5, { letterSize: 'normalsize' })
     const objets = [grille, poly1, poly2, figureA, figureB]
-    this.question = 'Quelle est la figure qui a la plus grande aire ?'
+    this.question = 'Quelle figure a la plus grande aire ?'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     /*
     this.canEnonce = this.question

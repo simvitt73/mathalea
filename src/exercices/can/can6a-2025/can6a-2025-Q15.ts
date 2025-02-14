@@ -52,7 +52,7 @@ export default class Can2025N6Q15 extends Exercice {
     const figureA = latex2d('\\text{A}', 2.5, 2.5, { letterSize: 'normalsize' })
     const figureB = latex2d('\\text{B}', 7, 2.5, { letterSize: 'normalsize' })
     const objets = [grille, poly1, poly2, figureA, figureB]
-    this.question = 'Quelle est la figure qui a le plus grand périmètre ?'
+    this.question = 'Quelle figure a le plus grand périmètre ? '
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     /* this.canEnonce = this.question
     this.canReponseACompleter = 'Figure $\\ldots$'

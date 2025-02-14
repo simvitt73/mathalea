@@ -36,7 +36,7 @@ export default class Can2025N62Q6 extends Exercice {
     this.question = `Il est $${h}$ h $${min}$ min.<br>
     Dans une demi-heure, quelle heure sera-t-il ?`
 
-    this.correction = `Une demi-heure est égal à $30$ minutes. <br>
+    this.correction = `Une demi-heure est égale à $30$ minutes. <br>
     Ainsi $${h}$ h $${min}$ min + $30$ min est égal à $${miseEnEvidence(h + 1)}$ h $${miseEnEvidence(min - 30)}$ min.`
 
     handleAnswers(this, 0, { reponse: { value: new Hms({ hour: h + 1, minute: min - 30 }).toString(), options: { HMS: true } } })

@@ -53,6 +53,6 @@ export default class Can2025N6Q17 extends Exercice {
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.reponse = texNombre(l2, 0)
-    this.correction = `Chaque carreau a une longueur de $${l1}\\div 5 = ${texNombre(l1 / 5, 0)}$ cm, ainsi la longueur du segment est  $${miseEnEvidence(this.reponse)}$ cm.`
+    this.correction = `Chaque carreau a une longueur de $${l1}\\div 5 = ${texNombre(l1 / 5, 0)}$ cm, ainsi la longueur du segment est $6$ fois celle d'un carreau, soit $${miseEnEvidence(this.reponse)}$ cm.`
   }
 }

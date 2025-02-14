@@ -37,7 +37,7 @@ export default class Can2025N62Q8 extends Exercice {
     this.correction = `$${a}$ morceaux de sucre pèsent $${a * unit}$ g,  donc $1$ morceau de sucre pèse $${unit}$ g.<br>
       Donc $${b}$ morceaux de sucre pèsent  $${b}\\times${unit}$ g $=${miseEnEvidence(texNombre(this.reponse, 0))}$ g.`
 
-    if (!this.interactif) { this.question += '$\\ldots$ g' }
+    if (!this.interactif) { this.question += '$\\ldots$ g.' }
     this.canEnonce = `$${a}$ morceaux de sucre pèsent $${a * unit}$ g.`
     this.canReponseACompleter = `$${b}$ morceaux de sucre pèsent $\\ldots$ g.`
   }

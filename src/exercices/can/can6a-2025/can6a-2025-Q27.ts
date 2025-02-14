@@ -35,7 +35,7 @@ export default class Can2025N6Q27 extends Exercice {
     } else if (a === 0.25) {
       this.correction = `$${texNombre(a, 2)}$ h $=\\dfrac{1}{4}$ h $=${miseEnEvidence(this.reponse)}$ min`
     } else { this.correction = `$${texNombre(a, 2)}$ h $=\\dfrac{3}{4}$ h $=${miseEnEvidence(this.reponse)}$ min` }
-    if (!this.interactif) { this.question += '$= \\ldots$ min ' }
+    if (!this.interactif) { this.question += ' $= \\ldots$ min ' }
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${texNombre(a, 2)}$ h $=\\ldots$ min `
   }
