@@ -54,9 +54,16 @@ export default class Can2025N6Q16 extends Exercice {
     const objets = [grille, poly1, poly2, figureA, figureB]
     this.question = 'Quelle est la figure qui a la plus grande aire ?'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    /*
     this.canEnonce = this.question
     this.canReponseACompleter = 'Figure $\\ldots$'
+    */
+    this.canEnonce = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.canReponseACompleter = 'Quelle figure a la plus grande aire ? $\\ldots$'
     this.reponse = 'A'
     this.correction = `La figure A est composé de plus de carreaux que la figure B, donc c'est la figure $${miseEnEvidence('A')}$ qui a la plus grande aire.`
+
+    this.canNumeroLie = 16
+    this.canLiee = [15]
   }
 }

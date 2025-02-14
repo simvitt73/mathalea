@@ -36,11 +36,6 @@ export default class Can2025N6Q22 extends Exercice {
     ${a}\\times 25 &= ${texNombre(a / 4, 0)}\\times 4\\times 25\\\\
     &=${texNombre(a / 4, 0)}\\times 100\\\\
     &=${miseEnEvidence(a * 25)}
-    
-    
     \\end{aligned}$`
-
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

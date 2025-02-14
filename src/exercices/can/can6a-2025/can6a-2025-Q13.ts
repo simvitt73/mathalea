@@ -53,6 +53,6 @@ export default class Can2025N62Q13 extends Exercice {
     this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k - choix]}}$` }
 
     this.canEnonce = 'Compléte. '
-    this.canReponseACompleter = ` $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}== \\ldots \\text{ ${prefixes[k - choix]}}$`
+    this.canReponseACompleter = ` $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}= \\ldots \\text{ ${prefixes[k - choix]}}$`
   }
 }

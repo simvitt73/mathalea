@@ -54,9 +54,16 @@ export default class Can2025N6Q15 extends Exercice {
     const objets = [grille, poly1, poly2, figureA, figureB]
     this.question = 'Quelle est la figure qui a le plus grand périmètre ?'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    this.canEnonce = this.question
+    /* this.canEnonce = this.question
     this.canReponseACompleter = 'Figure $\\ldots$'
+    */
     this.reponse = 'B'
+    this.canEnonce = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.canReponseACompleter = 'Quelle figure a le plus grand périmètre ? $\\ldots$'
+
     this.correction = `Le périmètre est la longueur du contour donc c'est la figure  $${miseEnEvidence('B')}$ qui a le plus grand périmètre.`
+
+    this.canNumeroLie = 15
+    this.canLiee = [16]
   }
 }

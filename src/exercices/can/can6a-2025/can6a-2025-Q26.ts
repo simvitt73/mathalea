@@ -80,7 +80,7 @@ export default class Can2025N6Q26 extends Exercice {
       xmax: 10,
       ymax: 0.7,
       pixelsParCm: 20,
-      scale: 0.6,
+      scale: 0.5,
       style: 'margin: auto'
     }, dPDF)
     if (this.interactif) {

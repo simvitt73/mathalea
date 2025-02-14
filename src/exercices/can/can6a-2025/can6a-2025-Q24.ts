@@ -33,7 +33,8 @@ export default class Can2025N6Q24 extends Exercice {
        $${texNombre(pE + 0.85, 2, true)}$ ${sp(2)} ; ${sp(2)} $${texNombre(pE + 0.85 + k, 2, true)}$ ${sp(2)} ; ${sp(2)} $${texNombre(pE + 0.85 + 2 * k, 2, true)}$ ${sp(2)} ;  ${sp(2)} ${this.interactif ? '' : '$\\ldots$'}`
     this.correction = `On obtient un nombre de cette suite en ajoutant $${texNombre(k, 2)}$ au nombre précédent.<br>
        Ainsi, le nombre qui suit est $${texNombre(pE + 0.85 + 2 * k, 2, true)}+${texNombre(k, 2)}=${miseEnEvidence(texNombre(pE + 0.85 + 3 * k, 2))}$.`
-    this.canEnonce = this.question
+    this.canEnonce = `Complète la suite de nombres.<br>
+       $${texNombre(pE + 0.85, 2, true)}$ ${sp(2)} ; ${sp(2)} $${texNombre(pE + 0.85 + k, 2, true)}$ ${sp(2)} ; ${sp(2)} $${texNombre(pE + 0.85 + 2 * k, 2, true)}$ ${sp(2)} ;  ${sp(2)} ?`
     this.canReponseACompleter = '? $=\\ldots$'
   }
 }

@@ -1367,7 +1367,7 @@ export default class SujetCAN2023Seconde extends Exercice {
             style: 'margin: auto'
           }, r1, o, gr)
           texte = '  Voici la courbe  d\'une fonction $f$.<br>'
-          texte += `${graphique}`
+          texte += `${graphique}<br>`
           texte += `Quel est le nombre d'antécédents de $${texNombre(a, 1)}$ par la fonction $f$ ?`
           if (a < 0) {
             texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en un point. <br>
