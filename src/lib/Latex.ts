@@ -123,7 +123,7 @@ class Latex {
                 exercice.listeCanReponsesACompleter[i]
             )} }`
             }
-            content += '&\\stepcounter{nbEx}\\\\'
+            content += '&\\stepcounter{nbEx}\\\\ \n'
           }
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`
