@@ -64,8 +64,7 @@ export default class Can2025N5Q12 extends Exercice {
     this.canEnonce += '}'
     this.canEnonce += '}\\newline'
     this.canEnonce += '\\medskip'
-    this.canReponseACompleter += `Que renvoie  $\\texttt{resultat(${a})}$ ?<br>`
-    this.canReponseACompleter += '$\\ldots$'
+    this.canReponseACompleter = `$\\texttt{resultat(${a})}$ renvoie $\\ldots$`
 
     if (this.interactif) { this.question += '<br>' }
   }
