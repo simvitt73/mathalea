@@ -21,7 +21,7 @@ export default class MetaExercice extends Exercice {
     this.besoinFormulaireCaseACocher = ['Sujet officiel']
     this.nbQuestions = 30
     this.sup = false
-    this.sup2 = Array.from({ length: 30 }, (_, i) => i + 1).join('-') // Toutes les questions de 1 à 30.
+    this.sup2 = Array.from({ length: this.Exercices.length }, (_, i) => i + 1).join('-') // Toutes les questions de 1 à 30 (ou 20 pour les CE)
     this.sup3 = false
   }
 
@@ -220,11 +220,12 @@ export default class MetaExercice extends Exercice {
           'Nombres séparés par des tirets'
         ]
     this.besoinFormulaire3CaseACocher = ['Choix du nombre de questions']
-    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
-  Il est composé de 30 questions réparties de la façon suivante. 
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres (CAN).<br>
+  Il est plus souvent composé de 30 questions (parfois 20 pour les CE1/CE2) réparties de la façon suivante. 
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.<br>
-  Le choix des questions permet de choisir certaines questions parmi les 30. <br>
+  Dans les CAN depuis 2024, le choix des questions permet de choisir certaines questions parmi les 30. <br>
+  Dans les CAN d'avant 2024, on pouvait seulement choisir le nombre de questions comme décrit ci-après. <br>
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
