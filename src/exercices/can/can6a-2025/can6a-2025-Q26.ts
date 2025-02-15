@@ -29,7 +29,7 @@ export default class Can2025N6Q26 extends Exercice {
   }
 
   nouvelleVersion () {
-    const choix = this.canOfficielle ? [[texNombre(1.5, 1), new FractionEtendue(3, 2).texFraction, 'E']] : [[texNombre(0.25, 2), new FractionEtendue(1, 4).texFraction, 'A'], [texNombre(0.5, 1), new FractionEtendue(1, 2).texFraction, 'B'], [texNombre(0.75, 2), new FractionEtendue(3, 4).texFraction, 'C'], [texNombre(1.25, 2), new FractionEtendue(5, 4).texFraction, 'D'], [texNombre(1.75, 2), new FractionEtendue(7, 4).texFraction, 'F']]
+    const choix = this.canOfficielle ? [[texNombre(1.5, 1), new FractionEtendue(3, 2).texFraction, 'E', new FractionEtendue(6, 4).texFraction]] : [[texNombre(0.25, 2), new FractionEtendue(1, 4).texFraction, 'A', new FractionEtendue(1, 4).texFraction], [texNombre(0.5, 1), new FractionEtendue(1, 2).texFraction, 'B', new FractionEtendue(2, 4).texFraction], [texNombre(0.75, 2), new FractionEtendue(3, 4).texFraction, 'C', new FractionEtendue(3, 4).texFraction], [texNombre(1.25, 2), new FractionEtendue(5, 4).texFraction, 'D', new FractionEtendue(5, 4).texFraction], [texNombre(1.75, 2), new FractionEtendue(7, 4).texFraction, 'F', new FractionEtendue(7, 4).texFraction]]
     const a = choice(choix)
     const d = droiteGraduee({
       Unite: 3,
@@ -72,7 +72,10 @@ export default class Can2025N6Q26 extends Exercice {
       style: 'margin: auto'
     }, d)
     this.question += `Quelle lettre repère le nombre $${a[1]}$ ?`
-    this.correction = `$${a[1]}=${a[0]}$ donc la lettre qui repère le nombre $${a[1]}$ est $${miseEnEvidence(a[2])}$.`
+    if (a[2] === 'E' || a[2] === 'B') {
+      this.correction = `L'unité est partagée en $4$.<br>
+      Comme  $${a[1]}=${a[3]}$ alors la lettre qui repère le nombre $${a[1]}$ est $${miseEnEvidence(a[2])}$.`
+    } else { this.correction = `L'unité est partagée en $4$ donc la lettre qui repère le nombre $${a[1]}$ est $${miseEnEvidence(a[2])}$.` }
     this.canEnonce = `Place le nombre $${a[1]}$.`
     this.canReponseACompleter = mathalea2d({
       xmin: -1,
