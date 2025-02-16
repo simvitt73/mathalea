@@ -119,8 +119,8 @@ export default class Can2025TQ14 extends Exercice {
     // const absExtrema=extrema.map((el)=>el.x)
     this.correction = `On retrouve le nombre de solutions de l'équation $f'(x)=0$ en comptant le nombre de points en lesquels la tangente à la courbe est horizontale. <br>
       En parcourant la courbe, on constate qu'il y a $${this.reponse}$ 
-      ${extrema.length === 0 || extrema.length === 0 ? 'tangente horizontale' : 'tangentes horizontales'} (au niveau des changmements de variations)
- , on en déduit que l'équation $f'(x)=0$ admet $${miseEnEvidence(this.reponse)}$ ${extrema.length === 0 || extrema.length === 0 ? 'solution' : 'solutions'}.`
+      ${extrema.length === 0 || extrema.length === 0 ? 'tangente horizontale' : 'tangentes horizontales'} (au niveau des changmements de variations),
+       on en déduit que l'équation $f'(x)=0$ admet $${miseEnEvidence(this.reponse)}$ ${extrema.length === 0 || extrema.length === 0 ? 'solution' : 'solutions'}.`
     // this.correction +=`${absExtrema.join(' et ') }`
     this.canEnonce = this.question
     this.canReponseACompleter = ''

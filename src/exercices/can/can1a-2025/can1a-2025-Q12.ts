@@ -55,15 +55,13 @@ export default class Can2025N5Q12 extends Exercice {
     }
     this.reponse = a ** 2 + coeff * a
     this.correction = ` L'algorithme retourne $${ecritureParentheseSiNegatif(a)}^2${ecritureAlgebrique(coeff)}\\times${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(this.reponse)}$.`
-    this.canEnonce = '\\medskip'
-    this.canEnonce += '\\hspace*{10mm}\\fbox{'
+    this.canEnonce = '\\hspace*{10mm}\\fbox{'
     this.canEnonce += '\\parbox{0.6\\linewidth}{'
     this.canEnonce += '\\setlength{\\parskip}{.5cm}'
     this.canEnonce += ' \\texttt{def resultat(a) :}\\newline'
     this.canEnonce += ` \\hspace*{7mm}\\texttt{return (a**2${ecritureAlgebrique(coeff)}*a)}`
     this.canEnonce += '}'
-    this.canEnonce += '}\\newline'
-    this.canEnonce += '\\medskip'
+    this.canEnonce += '}'
     this.canReponseACompleter = `$\\texttt{resultat(${a})}$ renvoie $\\ldots$`
 
     if (this.interactif) { this.question += '<br>' }

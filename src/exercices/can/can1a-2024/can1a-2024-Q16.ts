@@ -71,6 +71,6 @@ export default class PointsCourbe extends Exercice {
 
     this.canEnonce = `$P(A\\cap B)=${texNombre(AinterB, 2)}$<br>
     $P(A)=${texNombre(A, 2)}$${sp(2)} ;${sp(2)}$P(B)=${texNombre(B, 2)}$`
-    this.canReponseACompleter = `$A$ et $B$ sont indépendants.<br>$\\Box$ VRAI ${sp(2)}$\\Box$ FAUX`
+    this.canReponseACompleter = `$A$ et $B$ sont indépendants.<br>\\faSquare[regular] VRAI ${sp(2)}\\faSquare[regular] FAUX`
   }
 }

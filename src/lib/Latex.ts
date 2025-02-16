@@ -308,6 +308,7 @@ Correction
       if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
       if (latexFileInfos.style === 'Can') {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        contents.preamble += '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
