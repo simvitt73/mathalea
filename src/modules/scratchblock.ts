@@ -48,7 +48,6 @@ export function scratchblock (stringLatex: string) {
             break
           case 'look':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
-            console.log('textetexte', texte, chaine)
             resultat = [texte[0], texte[1], texte[2]]
             break
           case 'move':
