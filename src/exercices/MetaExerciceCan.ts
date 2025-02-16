@@ -19,9 +19,9 @@ export default class MetaExercice extends Exercice {
     super()
     this.Exercices = ExercicesCAN
     this.besoinFormulaireCaseACocher = ['Sujet officiel']
-    this.nbQuestions = 30
+    this.nbQuestions = this.Exercices.length
     this.sup = false
-    this.sup2 = Array.from({ length: this.Exercices.length }, (_, i) => i + 1).join('-') // Toutes les questions de 1 à 30 (ou 20 pour les CE)
+    this.sup2 = Array.from({ length: this.nbQuestions }, (_, i) => i + 1).join('-') // Toutes les questions de 1 à 30 (ou 20 pour les CE)
     this.sup3 = false
   }
 
@@ -33,13 +33,12 @@ export default class MetaExercice extends Exercice {
     this.nbQuestionsModifiable = this.sup3
     this.besoinFormulaire2Texte = false
     let listeTypeDeQuestions : (string | number)[]
-    let listeDeQuestions = this.sup2
+    const listeDeQuestions = this.sup2
     let exercicesRef = this.Exercices
     if (this.sup3) {
       this.sup2 = false
     } else {
-      this.nbQuestions = 30
-      listeDeQuestions = this.sup2
+      // this.nbQuestions = 30
       exercicesRef = this.Exercices
     }
 
@@ -50,10 +49,11 @@ export default class MetaExercice extends Exercice {
         max: 30,
         defaut: 1,
         melange: 31,
-        nbQuestions: 30
+        shuffle: false,
+        nbQuestions: this.sup2.split('-').length
       })
     } else {
-      listeTypeDeQuestions = range1(30)
+      listeTypeDeQuestions = range1(this.nbQuestions)
       exercicesRef = this.Exercices
 
       const base = Math.floor(this.nbQuestions / 3)
@@ -64,15 +64,15 @@ export default class MetaExercice extends Exercice {
       }
       repartition = combinaisonListes(repartition, 3)
 
-      let exercices1 = exercicesRef.slice(0, 10)
+      let exercices1 = exercicesRef.slice(0, base)
       exercices1 = shuffle(exercices1)
       exercices1 = exercices1.slice(0, repartition[0])
 
-      let exercices2 = exercicesRef.slice(10, 20)
+      let exercices2 = exercicesRef.slice(base, 2 * base)
       exercices2 = shuffle(exercices2)
       exercices2 = exercices2.slice(0, repartition[1])
 
-      let exercices3 = exercicesRef.slice(20, 30)
+      let exercices3 = exercicesRef.slice(2 * base, this.nbQuestions)
       exercices3 = shuffle(exercices3)
       exercices3 = exercices3.slice(0, repartition[2])
 
@@ -80,129 +80,133 @@ export default class MetaExercice extends Exercice {
     }
 
     let indexQuestion = 0
-    let numExo = 1
-    if (exercicesRef.length > 30) {
-      window.notify('Nombre de questions supérieur à 30 dans MetaExercice', { nbQuestions: exercicesRef.length })
-      exercicesRef = exercicesRef.slice(0, 30)
+    if (exercicesRef.length > this.nbQuestions) {
+      window.notify(`Nombre de questions supérieur à ${this.nbQuestions} dans MetaExercice`, { nbQuestions: exercicesRef.length })
+      exercicesRef = exercicesRef.slice(0, this.nbQuestions)
     }
     this.reinit() // On réinitialise les listes de questions parce qu'on a eu des soucis (est-ce que MetaExercice passe par le nouvelleVersionWrapper ?)
-    for (const UnExercice of exercicesRef as Exercice[]) {
-      if (listeTypeDeQuestions.includes(numExo)) { // Permet de ne choisir que certaines questions
-        const Question = new UnExercice()
-        Question.numeroExercice = 0
-        Question.canOfficielle = !!this.sup
-        Question.interactif = this.interactif
-        Question.nouvelleVersionWrapper()
-        //* ************ Question Exo simple *************//
-        if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
-          const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
-          this.listeCorrections[indexQuestion] = (Question.correction)
-          const formatChampTexte = Question.formatChampTexte ?? ''
-          const optionsChampTexte = Question.optionsChampTexte ?? {}
-          if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
-          if (Question.canReponseACompleter != null) this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
-          this.listeCanLiees[indexQuestion] = Question.canLiee
-          this.listeCanNumerosLies[indexQuestion] = Question.canNumeroLie
 
-          if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
-            this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
-            if (typeof Question.reponse === 'string') {
-              handleAnswers(this, indexQuestion, {
-                champ1: {
-                  value: Question.reponse,
-                  compare: Question.compare ?? fonctionComparaison,
-                  options: optionsChampTexte
-                }
-              })
-            } else if (typeof Question.reponse === 'object') {
-              handleAnswers(this, indexQuestion, Question.reponse)
-            } else {
-              window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
-            }
-          } else if (Question.formatInteractif === 'qcm') {
-            Question.question.replaceAll('labelEx0Q0', `labelEx0Q${indexQuestion}`)
-            Question.question.replaceAll('resultatCheckEx0', `resultatCheckEx${indexQuestion}`)
-            this.listeQuestions[indexQuestion] = consigne + Question.question
-            this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-          } else {
-            if (Question.compare == null) {
-              const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
-              if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse, options)
-              else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, options } })
-            } else {
-              const compare = Question.compare
-              const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
-              if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
-                const reponse = String(Question.reponse)
+    for (const item of listeTypeDeQuestions) { // Pour les questions soient dans l'ordre choisi par l'utilisateur
+      let numExo = 1
+      for (const UnExercice of exercicesRef as Exercice[]) {
+        if (item === numExo) { // Permet de ne choisir que certaines questions
+          const Question = new UnExercice()
+          Question.numeroExercice = 0
+          Question.canOfficielle = !!this.sup
+          Question.interactif = this.interactif
+          Question.nouvelleVersionWrapper()
+          //* ************ Question Exo simple *************//
+          if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
+            const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
+            this.listeCorrections[indexQuestion] = (Question.correction)
+            const formatChampTexte = Question.formatChampTexte ?? ''
+            const optionsChampTexte = Question.optionsChampTexte ?? {}
+            if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
+            if (Question.canReponseACompleter != null) this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
+            this.listeCanLiees[indexQuestion] = Question.canLiee
+            this.listeCanNumerosLies[indexQuestion] = Question.canNumeroLie
+
+            if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
+              this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
+              if (typeof Question.reponse === 'string') {
                 handleAnswers(this, indexQuestion, {
-                  reponse: {
-                    value: reponse,
-                    compare,
-                    options
+                  champ1: {
+                    value: Question.reponse,
+                    compare: Question.compare ?? fonctionComparaison,
+                    options: optionsChampTexte
                   }
                 })
               } else if (typeof Question.reponse === 'object') {
-                const reponse = Question.reponse
-                if (reponse instanceof FractionEtendue) {
-                  handleAnswers(this, indexQuestion, {
-                    reponse: {
-                      value: reponse.texFraction,
-                      compare,
-                      options
-                    }
-                  })
-                } else if (reponse instanceof Decimal) {
-                  handleAnswers(this, indexQuestion, {
-                    reponse: {
-                      value: reponse.toString(),
-                      compare,
-                      options
-                    }
-                  })
-                } else if (reponse instanceof Grandeur) {
-                  handleAnswers(this, indexQuestion, { reponse: { value: reponse.toString(), compare, options } })
-                } else if (Array.isArray(reponse)) {
-                  handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare, options } })
-                } else {
-                  handleAnswers(this, indexQuestion, reponse) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
-                }
+                handleAnswers(this, indexQuestion, Question.reponse)
               } else {
-                window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
+                window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
               }
+            } else if (Question.formatInteractif === 'qcm') {
+              Question.question.replaceAll('labelEx0Q0', `labelEx0Q${indexQuestion}`)
+              Question.question.replaceAll('resultatCheckEx0', `resultatCheckEx${indexQuestion}`)
+              this.listeQuestions[indexQuestion] = consigne + Question.question
+              this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+            } else {
+              if (Question.compare == null) {
+                const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
+                if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse, options)
+                else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, options } })
+              } else {
+                const compare = Question.compare
+                const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
+                if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
+                  const reponse = String(Question.reponse)
+                  handleAnswers(this, indexQuestion, {
+                    reponse: {
+                      value: reponse,
+                      compare,
+                      options
+                    }
+                  })
+                } else if (typeof Question.reponse === 'object') {
+                  const reponse = Question.reponse
+                  if (reponse instanceof FractionEtendue) {
+                    handleAnswers(this, indexQuestion, {
+                      reponse: {
+                        value: reponse.texFraction,
+                        compare,
+                        options
+                      }
+                    })
+                  } else if (reponse instanceof Decimal) {
+                    handleAnswers(this, indexQuestion, {
+                      reponse: {
+                        value: reponse.toString(),
+                        compare,
+                        options
+                      }
+                    })
+                  } else if (reponse instanceof Grandeur) {
+                    handleAnswers(this, indexQuestion, { reponse: { value: reponse.toString(), compare, options } })
+                  } else if (Array.isArray(reponse)) {
+                    handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare, options } })
+                  } else {
+                    handleAnswers(this, indexQuestion, reponse) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
+                  }
+                } else {
+                  window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
+                }
+              }
+              this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte)
             }
-            this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte)
-          }
-        } else {
-        //* ***************** Question Exo classique *****************//
-          this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
-          this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
-          this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-
-          this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
-          this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
-
-          // fin d'alimentation des listes de question et de correction pour cette question
-          const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
-          if (formatInteractif === 'qcm') {
-            this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
           } else {
-            handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur)
-          }
-        }
-        if (Question?.autoCorrection[0]?.propositions != null) {
-        // qcm
-          const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
-          this.listeCanReponsesACompleter[indexQuestion] = Question.canReponseACompleter != null ? Question.canReponseACompleter : monQcm.texte
-          const consigne = (Question.consigne === null || Question.consigne === '') ? '' : `${Question.consigne}<br>`
-          const objetReponse = this.autoCorrection[indexQuestion]
-          const enonce = 'enonce' in objetReponse ? objetReponse.enonce : ''
-          this.listeQuestions[indexQuestion] = consigne + enonce + monQcm.texte
-          if (this.listeCorrections[indexQuestion] == null) this.listeCorrections[indexQuestion] = monQcm.texteCorr
-        }
+            //* ***************** Question Exo classique *****************//
+            this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
+            this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
+            this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
 
-        indexQuestion++
+            this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
+            this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
+
+            // fin d'alimentation des listes de question et de correction pour cette question
+            const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
+            if (formatInteractif === 'qcm') {
+              this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+            } else {
+              handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur)
+            }
+          }
+          if (Question?.autoCorrection[0]?.propositions != null) {
+            // qcm
+            const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
+            this.listeCanReponsesACompleter[indexQuestion] = Question.canReponseACompleter != null ? Question.canReponseACompleter : monQcm.texte
+            const consigne = (Question.consigne === null || Question.consigne === '') ? '' : `${Question.consigne}<br>`
+            const objetReponse = this.autoCorrection[indexQuestion]
+            const enonce = 'enonce' in objetReponse ? objetReponse.enonce : ''
+            this.listeQuestions[indexQuestion] = consigne + enonce + monQcm.texte
+            if (this.listeCorrections[indexQuestion] == null) this.listeCorrections[indexQuestion] = monQcm.texteCorr
+          }
+
+          indexQuestion++
+          break
+        }
+        numExo++
       }
-      numExo++
     }
     // Une deuxième sécurité pour virer les questions en trop
     if (indexQuestion > 30) {
