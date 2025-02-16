@@ -70,6 +70,6 @@ export default class PointsCourbe extends Exercice {
 
     this.canEnonce = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
-    this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+    this.canReponseACompleter = '\\faSquare[regular] VRAI <br>\\faSquare[regular] FAUX'
   }
 }

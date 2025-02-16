@@ -34,7 +34,7 @@ export default class Can2025TQ15 extends Exercice {
     Sa raison $q$ est `
     if (!this.interactif) { this.question += ' $\\ldots$' }
     this.correction = `Le nombre $q$ vérifie $q\\times u_0=u_1$, soit  $q\\times ${u0}=1$. <br>
-   On obtient  $q= ${miseEnEvidence(this.reponse)}$`
+   On obtient  $q= ${miseEnEvidence(this.reponse)}$.`
     this.canEnonce = `$(u_n)$ est une suite géométrique telle que $u_0=${u0}$ et $u_1=1$.`
     this.canReponseACompleter = 'Sa raison $q$ est $\\ldots$'
   }

@@ -59,7 +59,7 @@ export default class EvolutionPourcentages extends Exercice {
 
       this.canEnonce = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.`
-      this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+      this.canReponseACompleter = '\\faSquare[regular] VRAI <br>\\faSquare[regular] FAUX'
     } else {
       question = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${a}\\,\\%$. `
       this.correction = `Une augmentation de $${a}\\,\\%$ n'est pas compensée par une baisse de $${a}\\,\\%$.<br>
@@ -85,7 +85,7 @@ export default class EvolutionPourcentages extends Exercice {
       this.question = question + qcm.texte
 
       this.canEnonce = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${b}\\,\\%$. `
-      this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+      this.canReponseACompleter = '\\faSquare[regular] VRAI <br>\\faSquare[regular] FAUX'
     }
   }
 }

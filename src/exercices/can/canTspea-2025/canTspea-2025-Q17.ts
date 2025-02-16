@@ -45,17 +45,20 @@ export default class Can2025TQ17 extends Exercice {
     const frac2 = new FractionEtendue(num2, den)
     const frac3 = new FractionEtendue(num3, den)
     const frac4 = new FractionEtendue(num4, den)
-    this.reponse = new FractionEtendue(num1 * (-1) + num3 * v1 + num4 * v2, den).texFraction
+    const fractionReponse = new FractionEtendue(num1 * (-1) + num3 * v1 + num4 * v2, den)
+    this.reponse = fractionReponse.texFraction
     this.question = tableauColonneLigne(['x_i', '-1', '0', `${v1}`, `${v2}`],
       ['P(X=x_i)'],
       [`${frac1.texFraction}`, `${frac2.texFraction}`, `${frac3.texFraction}`, `${frac4.texFraction}`]) + '<br>'
     this.question += '<br> $E(X)=$'
+
     if (!this.interactif) { this.question += ' $\\ldots$' }
-    this.correction = ` On calcule l'espèrance :<br>
+    this.correction = ` On calcule l'espérance :<br>
     $\\begin{aligned}
     E(X)&=-1\\times ${frac1.texFraction}+0\\times ${frac2.texFraction}+${v1}\\times ${frac3.texFraction}+${v2}\\times ${frac4.texFraction}\\\\
-    &=  ${miseEnEvidence(this.reponse)}
-  \\end{aligned}$`
+    &=  ${((fractionReponse.estEntiere || !fractionReponse.estIrreductible) && fractionReponse.num !== 0) ? this.reponse : miseEnEvidence(this.reponse)}`
+    if ((fractionReponse.estEntiere || !fractionReponse.estIrreductible) && fractionReponse.num !== 0) this.correction += `\\\\&=${miseEnEvidence(fractionReponse.texFractionSimplifiee)}`
+    this.correction += '\\end{aligned}$'
 
     this.canEnonce = tableauColonneLigne(['x_i', '-1', '0', `${v1}`, `${v2}`],
       ['P(X=x_i)'],

@@ -32,9 +32,9 @@ export default class Can2025N5Q11 extends Exercice {
     const h = this.canOfficielle ? 2 : randint(1, 9)
     const m = this.canOfficielle ? 0.7 : randint(1, 9) / 10
     this.reponse = texNombre(m * 60, 0)
-    this.question = `$${texNombre(h + m, 1)}$  h $=${h}$ h`
+    this.question = `$${texNombre(h + m, 1)}$  h $ = ${h}$ h`
     if (!this.interactif) { this.question += ' $\\ldots$ min' }
-    this.correction = `$${texNombre(h + m, 1)} =${h} \\text{ h } +${texNombre(m, 1)}\\times 60 \\text{ min }=${h} \\text{ h }  ${miseEnEvidence(this.reponse)} \\text{ min}$`
+    this.correction = `$${texNombre(h + m, 1)} = ${h} \\text{ h } + ${texNombre(m, 1)}\\times 60 \\text{ min } = ${h} \\text{ h }  ${miseEnEvidence(this.reponse)} \\text{ min}$`
     this.canEnonce = this.question
     this.canReponseACompleter = `$${h}$ h $\\ldots$ min`
   }
