@@ -53,7 +53,7 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 % Une valeur d'environ 1.2em à 1.5em est couramment conseillée. Cela crée un espace plus ample entre les mots, ce qui peut aider à réduire la fatigue visuelle et à améliorer la fluidité de la lecture.
 }{
 % POLICE STANDARD
-\\usepackage{fontenc}
+\\usepackage[T1]{fontenc} 
 \\usepackage[scaled=1]{helvet}
 \\usepackage[fontsize=${latexFileInfos.tailleFontOption}]{scrextend}
 }`
