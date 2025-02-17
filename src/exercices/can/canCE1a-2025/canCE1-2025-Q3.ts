@@ -25,7 +25,6 @@ export default class Can2025CE1Q3 extends ExerciceCan {
     this.reponse = a - b
     this.question = `$${a} -${b}$`
     this.correction = `$${a} -${b}=${miseEnEvidence(a - b)}$`
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${a} -${b}$`
     if (this.interactif) {

@@ -32,7 +32,6 @@ export default class Can2025CE1Q4 extends ExerciceCan {
 Elle avance de $${b}$ cases et tombe sur « recule de $${c}$ cases ».<br>
 Elle doit alors aller sur la case`
     if (!this.interactif) { this.question += ' $\\ldots$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.optionsChampTexte = { texteApres: '.' }
     this.correction = `$${a}+${b}-${c}=${a + b - c}$<br>
     Elle arrive donc sur la case $${miseEnEvidence(a + b - c)}$.`

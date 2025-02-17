@@ -27,7 +27,6 @@ export default class Can2025TQ13 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatInteractif = 'fillInTheBlank'
     this.canOfficielle = true
   }

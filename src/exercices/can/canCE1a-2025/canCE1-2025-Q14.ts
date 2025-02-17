@@ -28,7 +28,6 @@ export default class Can2025CE1Q14 extends ExerciceCan {
         options: { estDansIntervalle: true }
       }
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.canEnonce = this.question
     this.correction = `Par exemple : $${miseEnEvidence(80)}$ qui se lit quatre-${context.isHtml ? '<i> vingt </i>' : '$\\textit{vingt}$'}.`
     if (this.interactif) { this.question += '<br>Le nombre  doit être plus petit que $100$.<br>' }

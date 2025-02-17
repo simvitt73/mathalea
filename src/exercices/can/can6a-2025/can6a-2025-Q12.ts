@@ -51,7 +51,6 @@ export default class Can2025N6Q12 extends ExerciceCan {
 
     this.correction = `Par exemple, $${miseEnEvidence(2)}\\times ${miseEnEvidence(`${texNombre(c / 2, 0)}`)}=${texNombre(c, 0)}$.`
     this.canReponseACompleter = '$\\ldots\\times \\ldots$'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

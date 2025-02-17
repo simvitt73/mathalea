@@ -55,7 +55,6 @@ export default class Can2025N4Q28 extends ExerciceCan {
     this.canEnonce = `Dans un club sportif de $${c}$ membres, il y a $${partA}$ minimes et $${partB}$ cadets.<br>
     Quel est le ratio entre le nombre de minimes et de cadets ?`
     this.canReponseACompleter = '$\\ldots:\\ldots$'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

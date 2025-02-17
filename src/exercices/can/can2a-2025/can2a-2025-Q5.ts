@@ -21,7 +21,6 @@ export const refs = {
 export default class Mediane extends Exercice {
   constructor () {
     super()
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase

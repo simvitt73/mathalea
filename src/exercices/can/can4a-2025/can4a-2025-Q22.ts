@@ -28,7 +28,6 @@ export default class Can2025N4Q22 extends ExerciceCan {
     this.canReponseACompleter = ''
     this.reponse = Math.round((a + b * 2) / 3)
     this.question += this.interactif ? '' : ' $\\ldots$'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

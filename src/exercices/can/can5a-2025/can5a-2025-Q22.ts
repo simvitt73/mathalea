@@ -30,7 +30,6 @@ export default class Can2025N5Q14 extends ExerciceCan {
     }
     pu = b / a
     coeff = c / a
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = pu * c
     this.question = `$${a}$ gommes coûtent $${b}$ euros. <br>
     Combien coûtent $${c}$ gommes ?`
