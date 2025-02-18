@@ -17,14 +17,14 @@ export const refs = {
 
 */
 const duree: [number, 'm' | 'cm' | 'km', string][] = [
-  [2, 'm', 'La longueur d\'une table  de salon'],
-  [70, 'km', 'La distance entre Gisors et Paris est '],
-  [4, 'm', 'La hauteur d\'une maison peut mesurer '],
-  [10, 'cm', 'La hauteur d\'une tasse peut mesurer '],
-  [10, 'm', 'La profondeur d\'un puits peut mesurer '],
-  [30, 'cm', 'Une feuille de papier peut mesurer '],
-  [6, 'km', 'La hauteur d\'une montagne peut mesurer'],
-  [4, 'm', 'Une voiture peut mesurer ']
+  [2, 'm', 'La longueur d\'une table de salon peut mesurer :'],
+  [70, 'km', 'La distance entre Gisors et Paris est :'],
+  [4, 'm', 'La hauteur d\'une maison peut mesurer :'],
+  [10, 'cm', 'La hauteur d\'une tasse peut mesurer :'],
+  [10, 'm', 'La profondeur d\'un puits peut mesurer :'],
+  [30, 'cm', 'Une feuille de papier peut mesurer :'],
+  [6, 'km', 'La hauteur d\'une montagne peut mesurer :'],
+  [4, 'm', 'Une voiture peut mesurer :']
 ]
 export default class Can2025N6Q10 extends ExerciceCan {
   enonce (a?: number, b?: 'm' | 'cm' | 'km', c?: string) {
@@ -48,8 +48,8 @@ export default class Can2025N6Q10 extends ExerciceCan {
         {
           texte: `$${texNombre(a, 1)}$ km`,
           statut: b === 'km'
-        },
-      ],
+        }
+      ]
     }
     this.formatInteractif = 'qcm'
 
@@ -61,6 +61,6 @@ export default class Can2025N6Q10 extends ExerciceCan {
   }
 
   nouvelleVersion () {
-    this.canOfficielle ? this.enonce(4, 'm', 'Une voiture peut mesurer') : this.enonce()
+    this.canOfficielle ? this.enonce(4, 'm', 'Une voiture peut mesurer :') : this.enonce()
   }
 }
