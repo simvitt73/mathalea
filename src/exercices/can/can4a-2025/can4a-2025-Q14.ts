@@ -3,6 +3,7 @@ import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Probabilités'
 export const interactifReady = true
@@ -33,7 +34,7 @@ export default class Can2025N4Q14 extends ExerciceCan {
     this.correction = `Il y a $${b}$ billes ${couleur2}s sur un total de $${a + b}$ billes, donc la probabilité de tirer une bille ${couleur2} est de $${miseEnEvidence(reponse.texFraction)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    this.formatChampTexte = 'fraction'
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     if (this.interactif) {
       this.question += '<br><br>'
     }
