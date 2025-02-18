@@ -28,7 +28,7 @@ export default class FractionCommeFacteurManquant extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 

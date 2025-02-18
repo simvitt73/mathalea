@@ -40,7 +40,7 @@ export default class Proportionnalite extends Exercice {
 
     this.correction = `$${a}$ stylos coûtent $${b}$ €.<br>
           $${a / 2}$ ${a / 2 === 1 ? 'stylo coûte' : 'stylos coûtent'}  $${texPrix(b / 2)}$ €.<br>
-          Ainsi,   $${nbreStylos}$ stylos coûtent ${k1 === 2.5 ? `$2\\times ${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(this.reponse))}$ €.` : `$${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(this.reponse))}$ €.`}`
+          Ainsi,   $${nbreStylos}$ stylos coûtent ${k1 === 2.5 ? `$2\\times ${b}$ € $ + ${texPrix(b / 2)}$ € $ =${miseEnEvidence(texPrix(this.reponse))}$ €.` : `$${b}$ € $ + ${texPrix(b / 2)}$ € $ =${miseEnEvidence(texPrix(this.reponse))}$ €.`}`
 
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ €'

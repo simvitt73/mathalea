@@ -26,7 +26,7 @@ export default class CoeffDirecteur extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -43,7 +43,7 @@ export default class CoeffDirecteur extends Exercice {
       this.correction = `On remarque que les points $K$ et $L$ ont les mêmes ordonnées. <br>
     On en déduit que la droite $(KL)$ est horizontale et donc que son coefficient directeur est égal à $${miseEnEvidence('0')}$.`
     } else {
-      this.correction = 'On sait d\'après le cours que le coefficient directeur $m$ est donné par : $m=\\dfrac{y_L-y_K}{x_-x_A}$.'
+      this.correction = 'On sait, d\'après le cours, que le coefficient directeur $m$ est donné par : $m=\\dfrac{y_L-y_K}{x_L-x_K}$.'
       this.correction += `<br>On applique avec les données de l'énoncé :
         $m=\\dfrac{${yL}-${ecritureParentheseSiNegatif(yK)}}{${xL}-${ecritureParentheseSiNegatif(xK)}}=
         ${miseEnEvidence(`${this.reponse}`)}$.`

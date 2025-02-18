@@ -35,7 +35,7 @@ export default class AntecedentFonction extends Exercice {
     const nomF = this.canOfficielle ? 'f' : choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
     this.question = `Antécédent de $${m * x + y}$ par $${nomF}$ : $x \\longmapsto ${m}x${ecritureAlgebrique(y)}$`
     this.correction = `L'antécédent de $${m * x + y}$ est le nombre $x$ qui a pour image $${m * x + y}$. <br>
-       On cherche donc $x$ tel que : $${m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>Soit $x=\\dfrac{${m * x + y}${ecritureAlgebrique(-y)}}{${m}}=${miseEnEvidence(x)}$.`
+       On cherche donc $x$ tel que : $${m}x${ecritureAlgebrique(y)}=${m * x + y}$. <br>Soit $x=\\dfrac{${m * x + y}${ecritureAlgebrique(-y)}}{${m}}=${miseEnEvidence(x)}$.`
     this.reponse = x
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

@@ -27,7 +27,7 @@ export default class SommeEntierFraction extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

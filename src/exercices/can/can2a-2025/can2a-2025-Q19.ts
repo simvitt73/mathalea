@@ -23,6 +23,7 @@ export default class TauxGlobal extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.optionsChampTexte = { texteApres: '$\\%$.' }
   }
 
   nouvelleVersion () {
@@ -32,12 +33,7 @@ export default class TauxGlobal extends Exercice {
       Ainsi, les deux hausses successives de $100\\,\\%$ correspondent à un coefficient multiplicateur global de $4$.<br>
       On en déduit que la hausse globale est de $${miseEnEvidence('300')}\\,\\%$. `
       this.reponse = 300
-      this.optionsChampTexte = { texteApres: '$\\%$' }
-      if (!this.interactif) {
-        this.question += '$\\ldots\\,\\%$'
-      }
       this.canEnonce = 'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de : '
-      this.canReponseACompleter = '$\\ldots\\,\\%$'
     } else {
       const taux = new Decimal(choice([10, 20, 30, 40, 50, 60])).div(100)
       const Taux = taux.mul(100)
@@ -49,13 +45,11 @@ export default class TauxGlobal extends Exercice {
         Augmenter de $${texNombre(Taux, 0)}\\,\\%$ revient à multiplier par $${texNombre(coeff, 2)}$.<br>
         Le coefficient multiplicateur global est donc $2\\times ${texNombre(coeff, 2)}=${texNombre(coeffG, 2)}$.<br>
         Ainsi, le taux global est donné par $${texNombre(coeffG, 2)}-1=${miseEnEvidence(this.reponse)}\\,\\%$.`
-
-      this.optionsChampTexte = { texteApres: '$\\%$' }
-      if (!this.interactif) {
-        this.question += '$\\ldots\\,\\%$'
-      }
       this.canEnonce = `Une hausse de $100\\,\\%$ suivie d'une hausse de $${texNombre(Taux, 0)}$ correspondent à une  hausse globale de : `
-      this.canReponseACompleter = '$\\ldots\\,\\%$'
     }
+    if (!this.interactif) {
+      this.question += '$\\ldots\\,\\%$'
+    }
+    this.canReponseACompleter = '$\\ldots\\,\\%$'
   }
 }

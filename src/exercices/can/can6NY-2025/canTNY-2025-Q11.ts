@@ -24,7 +24,7 @@ export default class calcAntecedent extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -35,7 +35,6 @@ export default class calcAntecedent extends Exercice {
     this.correction = `L'antécédent est la solution de l'équation  $${rienSi1(a)}x+${texNombre(2025, 0)}=${texNombre(ant)}$.<br>
     Il s'agit  de $${miseEnEvidence(this.reponse)}$.`
     if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question
     this.canReponseACompleter = '$f(x)=\\ldots$'
   }
 }
