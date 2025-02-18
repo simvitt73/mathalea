@@ -119,7 +119,10 @@ class Latex {
              exercice.listeCanReponsesACompleter[i]
               )} }`
             }
-            content += '&\\stepcounter{nbEx}\\\\ \n'
+            content += '&\\stepcounter{nbEx}\\\\'
+
+            if (i + 1 < exercice.listeQuestions.length && questionLiee[i + 1].dejaLiee) content += '*' // Cette étoile permet de gérer les sauts de page malencontreux
+            content += '\n'
           }
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`

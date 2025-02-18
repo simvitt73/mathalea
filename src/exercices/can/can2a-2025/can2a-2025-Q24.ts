@@ -76,5 +76,7 @@ export default class CoefficientDeColinearite extends Exercice {
       style: 'margin: auto'
     }, objets)
     this.canReponseACompleter = 'Compléter : <br>$\\overrightarrow{DE}=\\ldots\\overrightarrow{AB}$'
+    this.canNumeroLie = 24
+    this.canLiee = [23]
   }
 }

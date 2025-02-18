@@ -75,5 +75,7 @@ export default class VecteurEgal extends Exercice {
       style: 'margin: auto'
     }, objets)
     this.canReponseACompleter = 'Compléter : <br>$\\overrightarrow{AB}=\\overrightarrow{B\\ldots}$'
+    this.canNumeroLie = 23
+    this.canLiee = [24]
   }
 }
