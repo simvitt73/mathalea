@@ -59,7 +59,7 @@ export default class Can2025N6Q15 extends Exercice {
     if (this.interactif) {
       this.autoCorrection[0] = {
         enonce: this.question,
-        options: { vertical: false },
+        options: { vertical: false, ordered: true },
         propositions: [
           {
             texte: 'Figure $A$',

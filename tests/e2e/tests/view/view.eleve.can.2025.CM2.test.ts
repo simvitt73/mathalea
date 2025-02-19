@@ -19,8 +19,8 @@ async function testEleveView () {
     '54',
     '12',
     '172',
-    'B',
-    'A',
+    '',
+    '',
     '8',
     '5',
     '\\dfrac{38}{100}+\\dfrac{\\placeholder[champ1]{2}}{100}=\\dfrac{4}{10}',
@@ -39,6 +39,8 @@ async function testEleveView () {
 
   const checkBoxesIds = [
     'checkEx0Q9R1',
+    'checkEx0Q14R1',
+    'checkEx0Q15R0',
     'checkEx0Q24R0'
   ]
   const page = await getDefaultPage()
