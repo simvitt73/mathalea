@@ -91,8 +91,8 @@ export default class Can2025TQ19 extends Exercice {
     const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
     this.consigne = 'Équation réduite de cette droite.<br>'
     this.consigne += `${objet}`
-    this.question = 'y=\\dfrac{%{champ1}}{%{champ2}}x+%{champ3}'
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: yB - yA }, champ2: { value: 3 }, champ3: { value: yA } }
+    this.question = 'y=%{champ1}x+%{champ2}'
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: new FractionEtendue(yB - yA, 3).texFraction }, champ2: { value: yA } }
 
     this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
             $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}$.<br>
@@ -100,7 +100,7 @@ export default class Can2025TQ19 extends Exercice {
             Ainsi, $y=${miseEnEvidence(`${m.texFraction}`)}x+${miseEnEvidence(`${yA}`)}$.`
     this.correction += `${objetC}`
     this.canEnonce = `${objet}`
-    this.canReponseACompleter = `Équation réduite de cette droite : <br>
+    this.canReponseACompleter = `Équation réduite de cette droite : <br> \\vspace{5mm}
     $y=\\dfrac{\\ldots}{\\ldots}x+\\ldots$`
   }
 }

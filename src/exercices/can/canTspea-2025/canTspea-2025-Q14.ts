@@ -4,7 +4,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteParPosition } from '../../../lib/2d/textes'
+import { latex2d, texteParPosition } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes'
 export const titre = 'Déterminer le nombre de solutions d\'une équation'
 export const interactifReady = true
@@ -107,21 +107,20 @@ export default class Can2025TQ14 extends Exercice {
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
       color: 'blue'
     })
-    const objetsEnonce = [repere1, courbe1]
+    const courbef1 = latex2d('\\mathscr{C}_f', -2, 1, { color: 'blue' })
+
+    const objetsEnonce = [repere1, courbe1, courbef1]
 
     this.question = `Nombre de solutions de l'équation $f'(x)=0$ ${this.canOfficielle ? 'sur $[-3\\,;\\,4]$' : ''}.<br>` +
         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
     this.question += '<br>'
     const extrema = nuage.filter((el) => el.deriveeGauche === 0)
-    // const nbreExtremum=nuage.filter((el)=>el.deriveeGauche===0).length
     this.reponse = String(extrema.length)
 
-    // const absExtrema=extrema.map((el)=>el.x)
-    this.correction = `On retrouve le nombre de solutions de l'équation $f'(x)=0$ en comptant le nombre de points en lesquels la tangente à la courbe est horizontale. <br>
-      En parcourant la courbe, on constate qu'il y a $${this.reponse}$ 
-      ${extrema.length === 0 || extrema.length === 0 ? 'tangente horizontale' : 'tangentes horizontales'} (au niveau des changmements de variations),
-       on en déduit que l'équation $f'(x)=0$ admet $${miseEnEvidence(this.reponse)}$ ${extrema.length === 0 || extrema.length === 0 ? 'solution' : 'solutions'}.`
-    // this.correction +=`${absExtrema.join(' et ') }`
+    this.correction = `On retrouve le nombre de solutions de l'équation $f'(x)=0$ en comptant le nombre de points en lesquels la tangente à la courbe $\\mathscr{C}_f$ est horizontale. <br>
+      En parcourant la courbe $\\mathscr{C}_f$, on constate qu'il y a $${this.reponse}$ 
+      ${extrema.length < 2 ? 'tangente horizontale' : 'tangentes horizontales'} (au niveau des changmements de variations),
+       on en déduit que l'équation $f'(x)=0$ admet $${miseEnEvidence(this.reponse)}$ ${extrema.length < 2 ? 'solution' : 'solutions'}.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

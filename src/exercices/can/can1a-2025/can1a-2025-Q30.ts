@@ -46,7 +46,7 @@ export default class Can2025N5Q30 extends Exercice {
         new Arbre(
           {
             rationnel: false,
-            nom: 'A',
+            nom: 'A~',
             proba: pA,
             visible: true,
             alter: '',
@@ -69,7 +69,7 @@ export default class Can2025N5Q30 extends Exercice {
           }),
         new Arbre({
           rationnel: false,
-          nom: '\\overline{A}',
+          nom: '\\overline{A}~',
           proba: 1,
           visible: false,
           enfants: [new Arbre({
@@ -131,6 +131,11 @@ export default class Can2025N5Q30 extends Exercice {
     // Avec ProfCollege
     this.canEnonce = '$A$ et $B$ sont deux événements tels que :<br>' + arbreProfCollege
 
+    /* Avec profCollege
+    this.canEnonce = '$A$ et $B$ sont deux événements tels que :<br>' +
+     `\\[\\Proba[Arbre,Branche=3,Rayon=0.75,Incline=false]{A/$0{,}2$,$\\overline{A}$/,B
+/$0{,}2$,$\\overline{B}$/,B/$0{,}2$,$\\overline{B}$/}\\]`
+*/
     this.canReponseACompleter = '$P(B)=\\ldots$'
   }
 }

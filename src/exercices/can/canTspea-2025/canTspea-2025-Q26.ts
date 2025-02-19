@@ -36,7 +36,7 @@ export default class Can2025TQ24 extends Exercice {
     this.reponse = texNombre((xu * xv) / (-yu), 0)
     this.question = `Dans une base orthonormée, $\\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${xv} \\\\x\\end{pmatrix}$ sont orthogonaux si `
     if (!this.interactif) { this.question += '$x=\\ldots$' }
-    this.correction = `Les vecteurs sont orthogonaux sileur produit scalaire est nul.<br>
+    this.correction = `Les vecteurs sont orthogonaux si leur produit scalaire est nul.<br>
     $\\vec{u}\\cdot \\vec{v}=${xu}\\times ${ecritureParentheseSiNegatif(xv)}+${ecritureParentheseSiNegatif(yu)}\\times x=${xu * xv}${ecritureAlgebriqueSauf1(yu)}x$.<br>
     On cherche $x$ tel que $${xu * xv}${ecritureAlgebriqueSauf1(yu)}x=0$, on trouve $x=${miseEnEvidence(this.reponse)}$.`
     this.canEnonce = `Dans une base orthonormée, $\\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${xv} \\\\x\\end{pmatrix}$ sont orthogonaux si `

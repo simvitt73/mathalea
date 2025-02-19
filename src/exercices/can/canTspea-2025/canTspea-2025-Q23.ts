@@ -44,6 +44,6 @@ export default class Can2025TQ23 extends Exercice {
     if (!this.interactif) { this.question += ' $\\ldots$' }
     this.correction = `$\\dbinom{${n}}{${k}}=\\dfrac{${n}!}{${k}!\\times (${n} - ${k})!}=${miseEnEvidence(this.reponse)}$.`
     this.canEnonce = `Le coefficient binomial $\\dbinom{${n}}{${k}}$ est égal à :`
-    this.canReponseACompleter = '$f\'(x)=\\ldots$'
+    this.canReponseACompleter = '$\\ldots$'
   }
 }
