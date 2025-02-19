@@ -19,8 +19,8 @@ async function testEleveView () {
     '\\placeholder[champ1]{10}\\times\\placeholder[champ2]{100}',
     '0,1',
     '17,2',
-    'B', // Q15
-    'A',
+    '', // Q15
+    '',
     '24',
     '4,5',
     '',
@@ -39,6 +39,8 @@ async function testEleveView () {
 
   const checkBoxesIds = [
     'checkEx0Q9R1',
+    'checkEx0Q14R1',
+    'checkEx0Q15R0',
     'checkEx0Q18R0',
     'checkEx0Q24R0'
   ]
