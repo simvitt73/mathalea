@@ -236,6 +236,7 @@ export function loadPackagesFromContent (contents: contentsType) {
     if (!contents.preamble.includes('definecolor{nombres}')) contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
   }
   testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}', contents)
+  testIfLoaded(['pgfmathsetmacro'], '\\usetikzlibrary{decorations,decorations.text}', contents)
   testIfLoaded(['decorate,decoration=', 'decorate, decoration='], '\\usetikzlibrary{decorations.pathmorphing}', contents)
   testIfLoaded(['decoration=brace', 'decoration={brace}', 'decoration={brace,'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
@@ -246,6 +247,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\begin{Scratch}'], '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}', contents)
   testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
   testIfLoaded(['\\degree'], '\\usepackage{gensymb}', contents)
+  testIfLoaded(['\\tblr'], '\\usepackage{tabularray}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
   testIfLoaded(['\\dotfills'], '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}', contents)
 
