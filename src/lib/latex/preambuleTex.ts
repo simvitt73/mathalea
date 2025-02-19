@@ -247,6 +247,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\begin{Scratch}'], '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}', contents)
   testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
   testIfLoaded(['\\degree'], '\\usepackage{gensymb}', contents)
+  testIfLoaded(['\\tblr'], '\\usepackage{tabularray}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
   testIfLoaded(['\\dotfills'], '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}', contents)
 
