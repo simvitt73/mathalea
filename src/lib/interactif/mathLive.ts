@@ -133,7 +133,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (saisie == null || saisie === '') {
-            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}.<br>` }
+            result = { isOk: false, feedback: ` Pas de réponse dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}.<br>` }
           } else {
             if (Array.isArray(reponse.value)) {
               let ii = 0

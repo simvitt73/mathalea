@@ -35,15 +35,15 @@ export default class Can2025TQ28 extends Exercice {
     const inegalite = this.canOfficielle ? '\\leqslant' : choice(['\\leqslant', '\\geqslant'])
     this.reponse = inegalite === '\\leqslant' ? `[${-c};${-b / a}]` : [`]-\\infty;${-c}]\\cup [${-b / a};+\\infty[`, ` [${-b / a};+\\infty[\\cup]-\\infty;${-c}]`]
     this.question = `Résoudre $(${a}x${ecritureAlgebrique(b)})(x+${c})${inegalite} 0$`
+    this.canEnonce = this.question
     if (!this.interactif) { this.question += '<br> $x\\in \\ldots$' }
     this.correction = `On reconnaît une forme factorisée d'un polynôme du second degré.<br>
     Ses racines sont $${texNombre(-b / a, 0)}$ et $${-c}$.<br>
-   Un polynome du second degré est du signe de $a$ sauf entre ses racines.<br>
+   Un polynôme du second degré est du signe de $a$ sauf entre ses racines.<br>
    Comme $a=${a}>0$, on en déduit que $x\\in `
     if (inegalite === '\\leqslant') {
       this.correction += ` ${miseEnEvidence(`[${-c};${-b / a}]`)}$.`
     } else { this.correction += `${miseEnEvidence(`]-\\infty;${-c}]\\cup [${-b / a};+\\infty[`)}$.` }
-    this.canEnonce = this.question
     this.canReponseACompleter = '$x\\in \\ldots$'
   }
 }
