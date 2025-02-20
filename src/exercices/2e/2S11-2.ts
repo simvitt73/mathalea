@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
-import { abs } from '../../lib/outils/nombres'
+import { abs, arrondi } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale'
 export const interactifReady = true
@@ -346,7 +346,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
           }
           break
       }
-      setReponse(this, i, reponse)
+      handleAnswers(this, i, { reponse: { value: arrondi(reponse) } })
       if (this.interactif) texte += '<br><br>'
       if (listeTypeDeQuestions[i] === 'evolution') {
         texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
