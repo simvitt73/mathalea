@@ -1,12 +1,13 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Raisonnement par récurrence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '19/02/2025'
 
-export const uuid = '667d6' // Quand on exécute pnpm start la première fois, le terminal renvoie une référence d'uuid, à copier-coller ici
+export const uuid = '667d6'
 export const refs = {
   'fr-fr': ['canTSpeS11'],
   'fr-ch': []
@@ -23,6 +24,7 @@ export default class recurrence extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: '<br> $n$' }
+    this.formatChampTexte = KeyboardType.clavierCompare
   }
 
   nouvelleVersion () {
