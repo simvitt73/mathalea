@@ -36,8 +36,6 @@ export default class EtudeFctPoly3 extends Exercice {
     this.sup = '12'
     this.spacing = 1.5
     this.spacingCorr = 2
-    this.correctionDetaillee = false
-    this.correctionDetailleeDisponible = true
     this.besoinFormulaireTexte = [
       'Type de questions', [
         'Nombres séparés par des tirets  :',
@@ -788,10 +786,10 @@ Ainsi, $g(t)=${rest}-${texNombre(new Decimal(m).div(2), 1)}t$.
             texte = `  Le hand-spinner est une sorte de toupie plate qui tourne sur elle-même.<br>
 On donne au  hand-spinner  une vitesse de rotation initiale au temps $t = 0$, puis, au cours du temps, sa vitesse de rotation diminue jusqu'à l'arrêt complet du hand-spinner.<br>
 Sa vitesse de rotation est alors égale à $0$.<br>
-Pour calculer la vitesse de rotation du  hand-spinner  en fonction du temps $t$, notée $V(t)$, on utilise la fonction suivante :
+Pour calculer la vitesse de rotation du  hand-spinner (en nombre de tours par seconde) en fonction du temps $t$ (en secondes), notée $V(t)$, on utilise la fonction suivante :
 $V(t) = ${texNombre(a, 3)} \\times t + V_{\\text{initiale}}.$<br>
-$\\bullet$ $t$ est le temps (exprimé en s) qui s'est écoulé depuis le début de rotation du hand-spinner  ;<br>
-$\\bullet$ $V_{\\text{initiale}}$ est la vitesse de rotation à laquelle on a lancé le  hand-spinner  au départ.<br><br>
+$\\bullet$ $t$ est le temps (en s) qui s'est écoulé depuis le début de rotation du hand-spinner  ;<br>
+$\\bullet$ $V_{\\text{initiale}}$ est la vitesse de rotation (en nombre de tours par seconde) à laquelle on a lancé le  hand-spinner  au départ.<br><br>
 On lance le  hand-spinner  à une vitesse initiale de $${v}$ tours par seconde.`
             texte += createList(
               {
@@ -827,16 +825,16 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
            t&=\\dfrac{${v}}{${texNombre(-a, 3)}}
            \\end{aligned}$<br>
            Comme  $\\dfrac{${v}}{${texNombre(-a, 3)}}\\simeq ${texNombre(new Decimal(-v).div(a), 0)}$, le hand-spinner s'arrte au bout de $${texNombre(new Decimal(-v).div(a), 0)}$ secondes (valeur arrondie à la seconde).`,
-           `Si on fait tourner le hand-spinner deux fois plus vite au départ, la vitesse de rotation (en tours par seconde) est donnée par la formule :
-           $V(t) = ${texNombre(a, 3)} \\times t + ${2 * v}$.<br>
-           On a alors : <br>
+           ` D'une manière générale, on a  : <br>
            $\\begin{aligned}
             V(t)&=0\\\\
-            ${texNombre(a, 3)} \\times t + ${2 * v}&= 0\\\\
-           ${texNombre(a, 3)} \\times t&=-${2 * v}\\\\
-           t&=\\dfrac{${2 * v}}{${texNombre(-a, 3)}}
+            ${texNombre(a, 3)} \\times t + V_{\\text{initiale}}&= 0\\\\
+           ${texNombre(a, 3)} \\times t&=- V_{\\text{initiale}}\\\\
+           t&=\\dfrac{ V_{\\text{initiale}}}{${texNombre(-a, 3)}}
            \\end{aligned}$<br>
-           Comme $\\dfrac{${2 * v}}{${texNombre(-a, 3)}} =2\\times \\dfrac{${v}}{${texNombre(-a, 3)}}$, on en déduit  si l'on fait tourner le hand-spinner deux fois plus vite au départ, il tournera bien deux fois plus longtemps.
+          Le hand-spinner s'arrête au bout de $\\dfrac{ V_{\\text{initiale}}}{${texNombre(-a, 3)}}$ secondes.<br>
+           Si on fait tourner le hand-spinner deux fois plus vite au départ, il s'arrête au bout de $2\\times \\dfrac{  V_{\\text{initiale}}}{${texNombre(-a, 3)}}$ secondes.<br>
+          On en déduit  si l'on fait tourner le hand-spinner deux fois plus vite au départ, il tournera bien deux fois plus longtemps.
            `
                 ],
                 style: 'nombres'
