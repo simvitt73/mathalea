@@ -190,7 +190,7 @@ export const logPDF = (str: string) => {
 }
 
 export function loadProfCollegeIfNeed (contents: contentsType) {
-  testIfLoaded(['\\Engrenages[', '\\Arbre[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', '\\SquarO[', 'begin{Scratch}', 'begin{Tableur}', '\\pointilles'], '\\usepackage{ProfCollege}', contents)
+  testIfLoaded(['\\Engrenages[', '\\Proba[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', '\\SquarO[', 'begin{Scratch}', 'begin{Tableur}', '\\pointilles'], '\\usepackage{ProfCollege}', contents)
 }
 
 function testIfLoaded (values : string[], valueToPut : string, contents: contentsType, display? : string) {
