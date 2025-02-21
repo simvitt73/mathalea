@@ -61,16 +61,16 @@ export default class NomExercice extends Exercice {
         this.reponse = (choix - a) ** 2
         if (context.isHtml) {
           this.question = 'Nombre de départ <br>'
-          this.question += `${sp(15)}$\\downarrow$<br>`
+          this.question += '$\\downarrow$<br>'
           this.question += '$\\begin{array}{|l|}\n'
           this.question += '\\hline\n'
           this.question += `\\\n \\text{Soustraire } ${a} \\\n`
           this.question += '\\\\\n \\text{Prendre son carré } \\\\\n '
           this.question += '\\hline\n'
           this.question += '\\end{array}\n$<br>'
-          this.question += `${sp(15)}$\\downarrow$<br>
+          this.question += `$\\downarrow$<br>
          `
-          this.question += `${sp(8)}Résultat<br><br>`
+          this.question += 'Résultat<br>'
         } else {
           this.question = `${sp(2)}\\texttt{Nombre de départ}`
           this.question += `<br>${sp(8)}$\\downarrow$<br>`
