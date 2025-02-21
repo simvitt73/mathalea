@@ -36,10 +36,12 @@ export default class MetaExercice extends Exercice {
     let listeTypeDeQuestions : (string | number)[]
     const listeDeQuestions = this.sup2
     let exercicesRef = this.Exercices
+    const nbTotalQuestions = exercicesRef.length
     if (this.sup3) {
       this.sup2 = false
     } else {
       exercicesRef = this.Exercices
+      this.nbQuestions = string(this.sup2).includes('-') ? this.sup2.split('-').length : 1
     }
 
     if (this.sup2) {
@@ -64,26 +66,25 @@ export default class MetaExercice extends Exercice {
       }
       repartition = combinaisonListes(repartition, 3)
 
-      let exercices1 = exercicesRef.slice(0, base)
+      let exercices1 = exercicesRef.slice(0, Math.floor(nbTotalQuestions / 3))
       exercices1 = shuffle(exercices1)
       exercices1 = exercices1.slice(0, repartition[0])
 
-      let exercices2 = exercicesRef.slice(base, 2 * base)
+      let exercices2 = exercicesRef.slice(Math.floor(nbTotalQuestions / 3), 2 * Math.floor(nbTotalQuestions / 3))
       exercices2 = shuffle(exercices2)
       exercices2 = exercices2.slice(0, repartition[1])
 
-      let exercices3 = exercicesRef.slice(2 * base, this.nbQuestions)
+      let exercices3 = exercicesRef.slice(2 * Math.floor(nbTotalQuestions / 3), nbTotalQuestions)
       exercices3 = shuffle(exercices3)
       exercices3 = exercices3.slice(0, repartition[2])
 
       exercicesRef = [...exercices1, ...exercices2, ...exercices3]
     }
-
     let indexQuestion = 0
-    if (exercicesRef.length > this.nbQuestions) {
+    /* if (exercicesRef.length > this.nbQuestions) {
       window.notify(`Nombre de questions supérieur à ${this.nbQuestions} dans MetaExercice`, { nbQuestions: exercicesRef.length })
       exercicesRef = exercicesRef.slice(0, this.nbQuestions)
-    }
+    } */
     this.reinit() // On réinitialise les listes de questions parce qu'on a eu des soucis (est-ce que MetaExercice passe par le nouvelleVersionWrapper ?)
 
     for (const item of listeTypeDeQuestions) { // Pour les questions soient dans l'ordre choisi par l'utilisateur
