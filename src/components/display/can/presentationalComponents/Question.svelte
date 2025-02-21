@@ -86,6 +86,7 @@
         const figureCliquables = questionContainer?.querySelectorAll(
           '[id^="cliquefigure"]'
         )
+        const clocks = questionContainer?.querySelectorAll('[id^="clockEx"]')
         if (figureCliquables.length > 0) {
           $keyboardState.isVisible = false
           for (const figureCliquable of figureCliquables) {
@@ -100,6 +101,9 @@
               $canOptions.questionGetAnswer[index] = val
             })
           }
+        } else if (clocks.length > 0) {
+          $keyboardState.isVisible = false
+          clocks[0].addEventListener('click', () => $canOptions.questionGetAnswer[index] = true)
         } else {
           const qcm = questionContainer?.querySelectorAll('input')
           if (qcm.length < 2) {

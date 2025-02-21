@@ -43,6 +43,7 @@
   function removeMF (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (text.includes('placeholder')) return cleanFillInTheBlanks(text, removeDollar)
+    if (text.includes('interactive-clock')) return removeInteractiveClock(text)
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
     return text.replace(regex, ' ... ')
   }
@@ -51,6 +52,13 @@
     if (typeof text !== 'string') return ''
     if (removeDollar) text = text.replace(/\$/g, '')
     return text.replace(/\\placeholder(\[[^\]]*\])+/g, '')
+  }
+
+  function removeInteractiveClock (text: string) {
+    if (typeof text !== 'string') return ''
+    const regex = /<interactive-clock[^>]*\/>/g
+    console.log(text.replace(regex, ''))
+    return text.replace(regex, '')
   }
 </script>
 

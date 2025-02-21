@@ -876,6 +876,15 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
         console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
       }
     }
+    if (answer.includes('clockEx')) {
+      const clock = document.querySelector(`#${answer}`) as HTMLDivElement
+      if (clock !== null) {
+        const [hour, minute] = answers[answer].split('h')
+        clock.setAttribute('hour', hour)
+        clock.setAttribute('minute', minute)
+        continue
+      }
+    }
     // La réponse correspond à un champs texte ?
     const field = document.querySelector(`#champTexte${answer}`)
     if (field !== null) {
