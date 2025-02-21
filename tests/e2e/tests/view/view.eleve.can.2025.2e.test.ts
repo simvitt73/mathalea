@@ -25,7 +25,7 @@ async function testEleveView () {
     '300',
     '6',
     '15',
-    '\\dfrac{5}{8}',
+    '\\dfrac{1}{7}',
     '\\overrightarrow{AB}=\\overrightarrow{B{\\placeholder[champ1]{G}}}', // 'F'
     '\\overrightarrow{DE}={\\placeholder[champ1]{-2}}\\overrightarrow{AB}',
     '30',
@@ -50,7 +50,7 @@ async function testEleveView () {
   }
 
   const check1 = page.locator('#checkEx0Q15R1')
-  const check2 = page.locator('#checkEx0Q6R1')
+  const check2 = page.locator('#checkEx0Q6R0')
   await check1.click()
   await check2.click()
 
