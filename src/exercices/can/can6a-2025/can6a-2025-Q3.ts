@@ -31,7 +31,7 @@ export default class Can2025N6Q2 extends ExerciceCan {
     if (this.interactif) {
       this.question += '<br>'
     }
-    this.correction = `$${a} \\times ${c} =${texNombre(a * c, 0)}= ${a * 10} \\times ${b}$<br>
+    this.correction = `$${a} \\times ${texNombre(c)} =${texNombre(a * c, 0)}= ${a * 10} \\times ${b}$<br>
     Il y a $${miseEnEvidence(a * 10)}$ ${premierMot} dans $${a}$ ${deuxiemeMot}.`
   }
 

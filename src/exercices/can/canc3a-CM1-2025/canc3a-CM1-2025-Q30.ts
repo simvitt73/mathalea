@@ -29,10 +29,8 @@ export default class Can2025CM2Q30 extends Exercice {
     const b = this.canOfficielle ? 11 : choice([11, 22])
     const a = this.canOfficielle ? 3 : randint(3, 4)
     this.question = ` $${b * a} \\div ${a}$`
-    this.correction = `$${b * a} \\div ${a} =${miseEnEvidence(b)}$.`
+    this.correction = `$${b * a} \\div ${a} =${miseEnEvidence(b)}$`
 
     this.reponse = b
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

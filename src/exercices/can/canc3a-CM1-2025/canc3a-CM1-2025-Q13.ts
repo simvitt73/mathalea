@@ -30,14 +30,15 @@ export default class Can2025CM12Q13 extends Exercice {
     const a = this.canOfficielle ? 10 : randint(1, 3) * 10
     const b = this.canOfficielle ? 3 : randint(2, 5)
     this.reponse = texNombre(a * b / 10, 0)
-    this.question = `$${a}$ petites ficelles de longeur $${b}$ cm sont mises bout à bout.<br>
+    this.question = `$${a}$ petites ficelles de longueur $${b}$ cm sont mises bout à bout.<br>
     On obtient une longueur de  `
-    if (!this.interactif) { this.question += '$\\ldots$ dm' }
+    if (!this.interactif) { this.question += '$\\ldots$ dm.' }
+    this.optionsChampTexte = { texteApres: ' dm.' }
     this.correction = ` La longueur totale est donnée par le produit du nombre de petites ficelles par la longueur d'une petite ficelle. <br>
     $${a}\\times ${b}=${a * b}$<br>
     La longueur totale est $${a * b}$ cm.<br>
     Comme $1$ dm $=10$ cm, la longueur totale est $${miseEnEvidence(this.reponse)}$ dm.`
-    this.canEnonce = `$${a}$ petites ficelles de longeur $${b}$ cm sont mises bout à bout.`
+    this.canEnonce = `$${a}$ petites ficelles de longueur $${b}$ cm sont mises bout à bout.`
     this.canReponseACompleter = 'On obtient une longueur de $\\ldots$ dm.'
   }
 }

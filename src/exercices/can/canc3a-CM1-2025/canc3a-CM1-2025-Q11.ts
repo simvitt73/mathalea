@@ -32,9 +32,9 @@ export default class Can2025CM1Q11 extends Exercice {
 
     this.reponse = b === 'dizaines' ? texNombre(a * 10, 1) : texNombre(a * 100, 2)
     this.question = `Le nombre $${texNombre(a, 0)}$ ${b} est égal à `
-    if (!this.interactif) { this.question += '$\\ldots$ unités.' }
-    this.correction = `$${texNombre(a, 0)}$ ${b}  est égal à $ ${b === 'dizaines' ? `${texNombre(a, 0)}\\times 10` : `${texNombre(a, 0)}\\times 100`} = ${miseEnEvidence(this.reponse)}$ unités`
     this.canEnonce = this.question
+    if (!this.interactif) { this.question += '$\\ldots$ unités.' }
+    this.correction = `$${texNombre(a, 0)}$ ${b}  est égal à $ ${b === 'dizaines' ? `${texNombre(a, 0)}\\times 10` : `${texNombre(a, 0)}\\times 100`} = ${miseEnEvidence(this.reponse)}$ unités.`
     this.canReponseACompleter = '$\\ldots$ unités'
   }
 }

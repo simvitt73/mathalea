@@ -55,7 +55,7 @@ export default class Can2025CM1Q15 extends Exercice {
       */
     this.reponse = 14
     this.canEnonce = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    this.canReponseACompleter = 'La longueur du contour de cette figure est $\\ldots$ u'
+    this.canReponseACompleter = 'La longueur du contour de cette figure est $\\ldots$ u.'
 
     this.correction = ` La longueur du contour  est  $${miseEnEvidence(14)}$ u.`
   }

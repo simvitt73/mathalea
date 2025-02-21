@@ -57,7 +57,7 @@ export default class Can2025CM1Q18 extends Exercice {
     this.question += `La longueur du contour de ce triangle  est de  $${l1 + l2 + l3}$ cm.<br>`
     if (!this.interactif) { this.question += 'Complète.' } else { this.question += 'La longueur manquante est : ' }
     this.canEnonce = `La longueur du contour de ce triangle  est de  $${l1 + l2 + l3}$ cm.<br>
-    complète. `
+    Complète. `
     this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.5, style: 'display: block', pixelsParCm: 25 }, fixeBordures(objets)), objets)
     this.reponse = texNombre(l3, 0)
     this.correction = `La longueur du côté est donnée par :  <br>
