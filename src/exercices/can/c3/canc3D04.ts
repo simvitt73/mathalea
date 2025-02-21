@@ -35,7 +35,7 @@ export default class ExerciceInteractiveClock extends Exercice {
       const minute = randint(1, 11) * 5
       let enonce = `Placer correctement les aiguilles pour indiquer ${hour} h ${minute}.`
       if (context.isHtml) {
-        enonce += `<br><br><interactive-clock id="clockEx${this.numeroExercice}Q${i}"/>`
+        enonce += `<br><br><interactive-clock id="clockEx${this.numeroExercice}Q${i}" isDynamic="${this.interactif}" showHands="${this.interactif}"/>`
       } else {
         const horloge = new Horloge(0, 0, 2)
         enonce += mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge)
