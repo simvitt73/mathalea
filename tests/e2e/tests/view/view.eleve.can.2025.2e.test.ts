@@ -1,7 +1,6 @@
 import { getDefaultPage } from '../../helpers/browser'
 import { runTest } from '../../helpers/run'
 import { expect } from '@playwright/test'
-import prefs from '../../helpers/prefs.js'
 
 async function testEleveView () {
   const goodAnswers = [
@@ -26,7 +25,7 @@ async function testEleveView () {
     '300',
     '6',
     '15',
-    '\\dfrac{1}{7}',
+    '\\dfrac{5}{8}',
     '\\overrightarrow{AB}=\\overrightarrow{B{\\placeholder[champ1]{G}}}', // 'F'
     '\\overrightarrow{DE}={\\placeholder[champ1]{-2}}\\overrightarrow{AB}',
     '30',
@@ -35,18 +34,13 @@ async function testEleveView () {
     '\\emptyset',
     '4-12x+9x^2',
     '5'
-  ]
 
-  const checkBoxesIds = [
-    'checkEx0Q15R1',
-    'checkEx0Q6R0'
   ]
   const page = await getDefaultPage()
-  const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
-  const urlExercice = hostname + '?uuid=4581b&n=30&d=10&s=true&s2=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30&s3=false&i=1&cd=1&alea=lyjz&v=eleve&es=0211001'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=4581b&n=30&d=10&s=true&s2=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30&s3=false&i=1&cd=1&alea=lyjz&v=eleve&es=0211001'
   await page.goto(urlExercice)
 
-  for (let i = 0; i < goodAnswers.length; i++) {
+  for (let i = 0; i < 30; i++) {
     const mathField = page.locator(`#champTexteEx0Q${i}`)
     if (goodAnswers[i].length > 0) {
       await mathField.evaluate((mf, answer) => {
@@ -55,10 +49,10 @@ async function testEleveView () {
     }
   }
 
-  for (const checkBoxId of checkBoxesIds) {
-    const checkBox = page.locator(`#${checkBoxId}`)
-    await checkBox.click()
-  }
+  const check1 = page.locator('#checkEx0Q15R1')
+  const check2 = page.locator('#checkEx0Q6R1')
+  await check1.click()
+  await check2.click()
 
   const button = page.locator('#buttonScoreEx0')
   await button.click()
@@ -69,11 +63,4 @@ async function testEleveView () {
   return true
 }
 
-if (process.env.CI) {
-  // utiliser pour les tests d'intégration
-  prefs.headless = true
-  runTest(testEleveView, import.meta.url, { pauseOnError: false })
-} else {
-  prefs.headless = false
-  runTest(testEleveView, import.meta.url, { pauseOnError: false })
-}
+runTest(testEleveView, import.meta.url, { pauseOnError: true })

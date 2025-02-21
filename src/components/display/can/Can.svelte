@@ -137,9 +137,18 @@
           indexQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]),
         )
       } else if (type === "custom") {
-        // si le typ est `custom` on est sûr que `correctionInteractive` existe
+        // si le type est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
         resultsByQuestion[i] = exercice.correctionInteractive!(i) === "OK"
+      } else { // Rémi Angot : j'ai ajouté cela car le type est undefined pour un exercice comme betaInteractiveClock
+        if (exercice.correctionInteractive !== undefined) {
+          resultsByQuestion[i] = exercice.correctionInteractive!(i) === "OK"
+          if (exercice?.answers && exercice.answers[`clockEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`] !== undefined) {
+            answers.push(
+              exercice.answers[`clockEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`]
+            )
+          }
+        }
       }
     }
     // Désactiver l'interactivité avant l'affichage des solutions
