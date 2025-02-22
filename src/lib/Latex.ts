@@ -302,6 +302,7 @@ Correction
           contents.contentCorr += `\n\\version{${i}}`
           if (i > 1 && latexFileInfos.style === 'Can') {
             contents.content += '\n\\setcounter{nbEx}{1}'
+            contents.content += '\n\\setcounter{CompteurTableauCan}{0}'
             contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
           }
         }
@@ -315,6 +316,7 @@ Correction
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
+        contents.intro += '\n\\setcounter{CompteurTableauCan}{0}'
         contents.intro += '\n\\pageDeGardeCan{nbEx}'
         contents.intro += '\n\\clearpage'
       } else {
