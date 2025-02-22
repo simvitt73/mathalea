@@ -6,7 +6,7 @@ import prefs from '../../helpers/prefs.js'
 async function testEleveView () {
   const goodAnswers = [
     '25',
-    '-8\\times \\placeholder[champ1]{4}=32',
+    '4',
     '50',
     '1024',
     '531',
