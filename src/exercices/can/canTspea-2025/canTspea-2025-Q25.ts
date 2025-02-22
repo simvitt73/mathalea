@@ -29,10 +29,10 @@ export default class Can2025TQ25 extends Exercice {
   nouvelleVersion () {
     this.reponse = 1
     this.question = 'Soit la suite $(u_n)$ définie par $u_0=1$ et pour tout $n\\in\\mathbb{N}$, $u_{n+1}=\\dfrac{1}{u_n}$.'
+    this.canEnonce = this.question
     if (!this.interactif) { this.question += `<br>$u_{${texNombre(2025, 0)}}=\\ldots$` }
     this.correction = `On constate que $u_1=\\dfrac{1}{1}=1$, la suite est constante. <br>
     Ainsi $u_{${texNombre(2025, 0)}}=${miseEnEvidence(1)}$.`
-    this.canEnonce = this.question
     this.canReponseACompleter = `$u_{${texNombre(2025, 0)}}=\\ldots$`
   }
 }

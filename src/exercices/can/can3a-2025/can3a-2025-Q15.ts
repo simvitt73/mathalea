@@ -46,7 +46,7 @@ export default class hypoténusePythagore extends Exercice {
     const objets = []
     const xmin = Math.min(S.x, R.x, T.x) - 1
     const ymin = Math.min(S.y, R.y, T.y) - 1
-    const xmax = Math.max(S.x, R.x, T.x) + 1
+    const xmax = Math.max(S.x, R.x, T.x) + 2
     const ymax = Math.max(S.y, R.y, T.y) + 1
     objets.push(pol[0], pol[1], codageAngleDroit(S, R, T)) // pol[0], c'est le tracé et pol[1] ce sont les labels
     objets.push(latex2d(`${texNombre(a)} \\text{ cm}`, milieu(S, R).x - 0.2, milieu(S, R).y + 0.8, { color: 'black' }),
@@ -54,6 +54,7 @@ export default class hypoténusePythagore extends Exercice {
     )
 
     this.question = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
+    this.canEnonce = this.question + '<br>Compléter.'
     this.question += '<br>La valeur exacte de $ST$ est '
     if (!this.interactif) { this.question += '$\\ldots$ cm.' }
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $SRT$,  rectangle en $R$.<br>
@@ -66,7 +67,6 @@ export default class hypoténusePythagore extends Exercice {
                     ST&=${miseEnEvidence(`\\sqrt{${c2}}`)}
                     \\end{aligned}$`
     this.reponse = `\\sqrt{${c2}}`
-    this.canEnonce = this.question// 'Compléter'
-    this.canReponseACompleter = '$ST=\\ldots$ cm'
+    this.canReponseACompleter = 'La valeur exacte de $ST$ est $\\ldots$ cm.'
   }
 }

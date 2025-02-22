@@ -111,7 +111,7 @@ export default class Can2025TQ14 extends Exercice {
 
     const objetsEnonce = [repere1, courbe1, courbef1]
 
-    this.question = `Nombre de solutions de l'équation $f'(x)=0$ ${this.canOfficielle ? 'sur $[-3\\,;\\,4]$' : ''}.<br>` +
+    this.question = `Nombre de solutions de l'équation $f'(x)=0$${this.canOfficielle ? ' sur $[-3\\,;\\,4]$' : ''}.<br>` +
         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
     this.question += '<br>'
     const extrema = nuage.filter((el) => el.deriveeGauche === 0)

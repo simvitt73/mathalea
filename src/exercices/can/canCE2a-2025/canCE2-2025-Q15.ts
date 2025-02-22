@@ -50,6 +50,7 @@ export default class Can2025CE2Q15 extends ExerciceCan {
     this.question += `<br>\n${monQcm.texte}`
     this.correction = `On peut faire $${a} = ${quotient} \\times ${b} + ${reste}$.<br>
     La bonne réponse était : ${texteEnCouleurEtGras(`Il y a ${quotient} fois ${b} et il reste ${reste}`)}.`
+    this.canReponseACompleter = monQcm.texte
   }
 
   nouvelleVersion () {

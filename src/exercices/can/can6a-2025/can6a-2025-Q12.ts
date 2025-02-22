@@ -46,7 +46,7 @@ export default class Can2025N6Q12 extends ExerciceCan {
     }
     this.reponse = { bareme: toutPourUnPoint, callback }
     this.consigne = 'Complète.'
-
+    this.canEnonce = this.consigne
     this.question = `%{champ1}\\times %{champ2} =${texNombre(c, 0)}`
 
     this.correction = `Par exemple, $${miseEnEvidence(2)}\\times ${miseEnEvidence(`${texNombre(c / 2, 0)}`)}=${texNombre(c, 0)}$.`

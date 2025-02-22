@@ -40,7 +40,7 @@ export default class CalculMoyenne extends Exercice {
                    La moyenne est donc $\\dfrac{${d}}{3}=${miseEnEvidence(this.reponse)}$.`
 
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = '$\\ldots$'
     if (!this.interactif) {
       this.question += ' $\\ldots$'
     }

@@ -24,7 +24,7 @@ export default class Can2025N5Q4 extends ExerciceCan {
     this.reponse = 100 - a
     this.question = `$${a} + \\text{?} = 100$`
     this.correction = `Pour trouver le nombre manquant, on peut calculer $100-${a}=${miseEnEvidence(texNombre(100 - a, 0))}$.`
-    this.canEnonce = 'Complète.'
+    this.canEnonce = 'Compléter.'
     this.canReponseACompleter = `$${a} + \\ldots\\ldots = 100$`
     if (this.interactif) {
       this.question += '<br> ? $=$'

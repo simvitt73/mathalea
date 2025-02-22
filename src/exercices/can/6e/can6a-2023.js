@@ -356,30 +356,31 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = Math.round(a / 3)
             texte = `Pour partager $${a}$ œufs, combien de boites de  $3$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 3=${miseEnEvidence(a / 3)}$.`
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             reponse = randint(8, 12)
             a = reponse * 4
-            texte = `Pour partager $${a}$ œufs, combien de boites de  $4$ œufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 4=${miseEnEvidence(a / 4)}$.`
-          }
-          if (choix === 'c') {
+            texte = `Pour partager $${a}$ œufs, combien de boîtes de  $4$ œufs dois-je utiliser ? `
+            texteCorr = `Le nombre de boîtes est donné par $${a}\\div 4=${miseEnEvidence(a / 4)}$.`
+          } else if (choix === 'c') {
             reponse = randint(6, 10)
             a = reponse * 5
-            texte = `Pour partager $${a}$ œufs, combien de boites de  $5$ œufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 5=${miseEnEvidence(reponse)}$.`
-          }
-          if (choix === 'd') {
+            texte = `Pour partager $${a}$ œufs, combien de boîtes de  $5$ œufs dois-je utiliser ? `
+            texteCorr = `Le nombre de boîtes est donné par $${a}\\div 5=${miseEnEvidence(reponse)}$.`
+          } else {
             reponse = randint(4, 8)
             a = reponse * 6
-            texte = `Pour partager $${a}$ œufs, combien de boites de  $6$ œufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 6=${miseEnEvidence(reponse)}$.`
+            texte = `Pour partager $${a}$ œufs, combien de boîtes de  $6$ œufs dois-je utiliser ? `
+            texteCorr = `Le nombre de boîtes est donné par $${a}\\div 6=${miseEnEvidence(reponse)}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: ' boîtes' })
           }
 
+          if (!context.isHtml) {
+            texte = texte.replaceAll('œufs', '\\oe ufs')
+            texteCorr = texteCorr.replaceAll('œufs', '\\oe ufs')
+          }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('Je dois utiliser $\\ldots$ boîtes.')
           nbChamps = 1

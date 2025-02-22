@@ -622,9 +622,12 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           } else {
             texte += ' ....  œufs.'
           }
-
-          this.canEnonce = `Le tiers de $${a}$ œufs`
-          this.canReponseACompleter = '$\\ldots$ œufs'
+          if (!context.isHtml) {
+            texte = texte.replaceAll('œufs', '\\oe ufs')
+            texteCorr = texteCorr.replaceAll('œufs', '\\oe ufs')
+          }
+          this.canEnonce = `Le tiers de $${a}$ \\oe ufs est`
+          this.canReponseACompleter = '$\\ldots$ \\oe ufs'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1

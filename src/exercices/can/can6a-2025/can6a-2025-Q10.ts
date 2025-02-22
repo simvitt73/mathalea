@@ -57,7 +57,7 @@ export default class Can2025N6Q10 extends ExerciceCan {
     this.canEnonce = this.question
     this.question += `${monQcm.texte}`
     this.correction = monQcm.texteCorr
-    this.canReponseACompleter = monQcm.texte
+    this.canReponseACompleter = `\\faSquare[regular] $${texNombre(a, 1)}$ m \\faSquare[regular] $${texNombre(a, 1)}$ cm <br>\\faSquare[regular] $${texNombre(a, 1)}$ km`
   }
 
   nouvelleVersion () {

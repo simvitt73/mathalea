@@ -32,9 +32,9 @@ export default class Can2025CM2Q11 extends Exercice {
 
     this.reponse = b === 'dixièmes' ? texNombre(a / 10, 1) : texNombre(a / 100, 2)
     this.question = `$${texNombre(a, 0)}$ ${b} est égal à `
+    this.canEnonce = this.question
     if (!this.interactif) { this.question += '$\\ldots$ unités.' }
     this.correction = `$${texNombre(a, 0)}$ ${b}  est égal à $ ${b === 'dixièmes' ? `${texNombre(a, 0)}\\div 10` : `${texNombre(a, 0)}\\div 100`} = ${miseEnEvidence(this.reponse)}$ unités`
-    this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ unités'
   }
 }

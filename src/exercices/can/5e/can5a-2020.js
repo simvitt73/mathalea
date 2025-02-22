@@ -618,7 +618,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           somme = new Decimal(a).add(b)
           c = randint(10, 15)
           propositions = shuffle([`$${texNombre(a)}$`, `$${texNombre(b)}$`, `$${texNombre(c)}$`])
-          texte = `VRAI/FAUX<br>
+          texte = `Vrai/Faux<br>
           On peut construire un triangle (non aplati) dont les trois côtés ont pour longueur :<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           if (somme > c) {
@@ -633,7 +633,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           L'affirmation est donc fausse (${texteEnCouleurEtGras('F')}).`
           }
           if (this.interactif) {
-            texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+            texte += '<br>Pour Vrai, écrire V et pour Faux : F'
             texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
 

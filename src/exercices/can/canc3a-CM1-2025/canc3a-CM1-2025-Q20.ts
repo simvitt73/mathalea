@@ -3,6 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { context } from '../../../modules/context'
 export const titre = 'Calculer le tiers d\'une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +32,8 @@ export default class Can2025CM1Q20 extends Exercice {
     this.question = `Le tiers de  $${a}$ œufs est  `
     if (!this.interactif) { this.question += '$\\ldots$ œufs.' }
     this.correction = `Pour prendre le tiers d'un nombre, on le divise par $3$.<br>
-     $${a}\\div 3 =  ${miseEnEvidence(texNombre(a / 3, 0))}$ œufs.`
+     $${a}\\div 3 =  ${miseEnEvidence(texNombre(a / 3, 0))}$`
+    this.correction += (context.isHtml) ? ' œufs.' : ' \\oe ufs.'
 
     this.canEnonce = `Le tiers de  $${a}$ \\oe ufs est  `
     this.canReponseACompleter = '$\\ldots$ \\oe ufs'
