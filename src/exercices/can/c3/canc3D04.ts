@@ -5,6 +5,7 @@ import { context } from '../../../modules/context'
 import Horloge from '../../../lib/2d/horloge'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import Hms from '../../../modules/Hms'
+import { formatMinute } from '../../../lib/outils/texNombre'
 export const titre = 'Indiquer l\'heure sur une horloge'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -82,8 +83,4 @@ export default class ExerciceInteractiveClock extends Exercice {
       return 'KO'
     }
   }
-}
-
-function formatMinute (minute: number): string {
-  return minute < 10 ? `0${minute}` : minute.toString()
 }
