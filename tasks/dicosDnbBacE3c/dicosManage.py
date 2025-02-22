@@ -100,7 +100,7 @@ def newEntry(file:str,dicoType:str)->list:
         if ('sti2d' in filename) :
             if ('j1' in filename or 'j2' in filename) :
                 # numeroInitial = filename.split('_')[5]
-                numeroInitial = filename.split('_')[4]+'-'+filename.split('_')[5] # Pour avoir J1 ou J2 en plus du numeroInitial de Base
+                numeroInitial = filename.split('_')[4].upper()+' - '+filename.split('_')[5]+' ' # Pour avoir J1 ou J2 en plus du numeroInitial de Base
             else :
                 numeroInitial = filename.split('_')[4]
             lieu = locationName(filename.split('_')[3])
