@@ -45,5 +45,7 @@ export default class CalculAvecRacineCarree1 extends Exercice {
      Donc  $${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}=${a}\\times ${c}-${b}\\times ${d}=${miseEnEvidence(a * c - b * d)}$.`
       this.reponse = `${a * c - b * d}`
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

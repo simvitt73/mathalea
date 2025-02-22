@@ -170,5 +170,7 @@ export default class CalculAvecRacineDef extends Exercice {
 
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
