@@ -9,7 +9,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -331,12 +331,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = b + c - 60
           }
           if (b > c) {
-            texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
-            On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
+            texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>`
           } else {
-            texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
-            On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
+            texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>`
           }
+          texteCorr += `  On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(formatMinute(reponse))}$ min.`
 
           texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 

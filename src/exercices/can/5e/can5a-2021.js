@@ -9,7 +9,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embell
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
@@ -716,7 +716,7 @@ export default class SujetCAN20215ieme extends Exercice {
           texte = `Une montre affiche  $${a}$ h $${b}$ min.<br>
           Quelle heure affichera-t-elle $1$ h $${c}$ plus tard ?`
 
-          texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(b + c - 60)}$ min.`
+          texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(formatMinute(b + c - 60))}$ min.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
