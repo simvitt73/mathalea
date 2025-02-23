@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import generateFile from 'vite-plugin-generate-file'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -48,6 +49,13 @@ export default defineConfig({
       compilerOptions: {
         dev: process.env.NODE_ENV !== 'production'
       }
-    })
+    }),
+    generateFile([{
+      type: 'json',
+      output: './version.txt',
+      data: {
+        version: '3.0.20230508.' + Date.now()
+      }
+    }])
   ]
 })

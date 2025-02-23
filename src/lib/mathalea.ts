@@ -29,6 +29,8 @@ import { contraindreValeur } from '../modules/outils'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange'
 import { resizeContent } from './components/sizeTools'
 import Decimal from 'decimal.js'
+import { checkForServerUpdate } from './components/version'
+import { showPopupAndWait } from './components/dialogs'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -86,7 +88,6 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
   }
   let attempts = 0
   const maxAttempts = 3
-
   while (attempts < maxAttempts) {
     try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
@@ -151,7 +152,6 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
   }
   let attempts = 0
   const maxAttempts = 3
-
   while (attempts < maxAttempts) {
     try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
@@ -200,7 +200,11 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       return exercice
     } catch (error) {
       attempts++
-      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}`, {})
+      const serverUpdated = await checkForServerUpdate()
+      if (serverUpdated) {
+        await showPopupAndWait()
+      }
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}, serverUpdated: ${serverUpdated}`, {})
       if (attempts === maxAttempts) {
         console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
         console.error(error)

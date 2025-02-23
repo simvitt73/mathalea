@@ -13,8 +13,8 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-  - test
   - build-projet
+  - test
   - playwright-testCanEleve
   - playwright-test
   - playwright-testLycee
@@ -306,7 +306,8 @@ build:
     - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    #- NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm vite build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -314,7 +315,10 @@ build:
       when: never
     - when: always
   artifacts:
-    when: on_failure
+    when: always
+    paths:
+      - dist
+    expire_in: 1 day
 
 playwright-testCanEleve:
   extends: .testCI

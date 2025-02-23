@@ -32,6 +32,7 @@
   import type { CanSolutionsMode } from '../lib/types/can'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
+  import { fetchServerVersion } from '../lib/components/version';
 
   let isInitialUrlHandled = false
 
@@ -43,6 +44,9 @@
       ElementButtonInstrumenpoche
     )
   }
+
+  // charge le numéro de version du serveur
+  fetchServerVersion()
 
   // resultsByExercice.subscribe(value => {
   //   console.log('resultsByExercice updated')

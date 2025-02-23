@@ -151,7 +151,8 @@
     "typed-function": "^4.2.1",
     "typescript": "^5.7.3",
     "util": "^0.12.5",
-    "vite": "^5.4.14"
+    "vite": "^5.4.14",
+    "vite-plugin-generate-file": "0.2.0"
   },
   "git-precommit-checks": {
     "display": {

@@ -280,6 +280,7 @@ function createUuid () {
 function handleExerciceSvelte (uuidToUrl) {
   uuidToUrl.spline = 'OutilSpline.svelte'
   uuidToUrl.clavier = 'ClavierTest.svelte'
+  uuidToUrl.version = 'Version.svelte'
   return uuidToUrl
 }
 
