@@ -249,6 +249,9 @@ class InteractiveClock extends HTMLElement {
   }
 
   set hour (value: number) {
+    if (value === 0) {
+      value = 12
+    }
     this.setAttribute('hour', value.toString())
   }
 
