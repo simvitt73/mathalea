@@ -101,22 +101,18 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre(a + b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: true
         },
         {
           texte: `$${texNombre(a - b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: false
         },
         {
           texte: `$${texNombre(-a + b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: false
         },
         {
           texte: `$${texNombre(-a - b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: false
         }
       ]
