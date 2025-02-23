@@ -78,7 +78,7 @@ export default class ExerciceInteractiveClock extends Exercice {
       return 'OK'
     } else {
       const divFeedback = document.createElement('div')
-      divFeedback.innerHTML = `☹️ Tu as marqué ${clock.getAttribute('hour')} h ${formatMinute(clock.getAttribute('minute'))}.`
+      divFeedback.innerHTML = `☹️ Les aiguilles indiquent ${clock.getAttribute('hour')} h ${formatMinute(clock.getAttribute('minute'))}.`
       clock.parentElement?.appendChild(divFeedback)
       return 'KO'
     }

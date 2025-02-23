@@ -8,7 +8,6 @@
  * @attr {boolean} [showHands=true] - Indique si les aiguilles de l'horloge doivent être affichées
  */
 class InteractiveClock extends HTMLElement {
-  currentAction: 'hour' | 'minute' = 'minute' // Par défaut, on déplace l'aiguille des heures
   svgHandHour!: SVGElement
   svgHandMinute!: SVGElement
   radius = 200
@@ -16,6 +15,7 @@ class InteractiveClock extends HTMLElement {
   draggingHand: boolean
   previousMinute = 0
   private _isDynamic = true
+  private _currentAction?: 'hour' | 'minute'
 
   constructor () {
     super()
@@ -117,6 +117,7 @@ class InteractiveClock extends HTMLElement {
     this.appendChild(container)
 
     if (this.isDynamic) {
+      this.currentAction = 'minute'
       const preventDefault = (event: PointerEvent | TouchEvent) => {
         event.preventDefault()
       }
@@ -130,7 +131,6 @@ class InteractiveClock extends HTMLElement {
 
       const handlePointerUp = () => {
         this.draggingHand = false
-        this.setCurrentAction('minute')
         // Réactive le défilement après le drag
         svg.removeEventListener('pointermove', preventDefault)
         svg.removeEventListener('touchmove', preventDefault)
@@ -142,11 +142,11 @@ class InteractiveClock extends HTMLElement {
 
       svg.addEventListener('touchstart', handlePointerDown)
       svg.addEventListener('touchend', handlePointerUp)
-      svg.addEventListener('touchmove', (event) => this.dragHand(event.touches[0]))
+      svg.addEventListener('touchmove', (event) => this.dragHand(event))
 
       this.svgHandHour.addEventListener('pointerdown', (event) => {
         this.draggingHand = true
-        this.setCurrentAction('hour')
+        this.currentAction = 'hour'
         handlePointerDown(event)
       })
 
@@ -154,7 +154,7 @@ class InteractiveClock extends HTMLElement {
 
       this.svgHandMinute.addEventListener('pointerdown', (event) => {
         this.draggingHand = true
-        this.setCurrentAction('minute')
+        this.currentAction = 'minute'
         handlePointerDown(event)
       })
 
@@ -169,7 +169,7 @@ class InteractiveClock extends HTMLElement {
     const hand = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     hand.setAttribute('x1', '0')
     hand.setAttribute('y1', '0')
-    hand.setAttribute('stroke', '#F15929')
+    hand.setAttribute('stroke', 'black')
     hand.setAttribute('stroke-width', type === 'hour' ? '12' : '8')
     hand.setAttribute('stroke-linecap', 'round')
     hand.setAttribute('class', type + '-hand')
@@ -195,16 +195,14 @@ class InteractiveClock extends HTMLElement {
     this.svgHandMinute.setAttribute('y2', y2.toString())
   }
 
-  setCurrentAction (action: 'hour' | 'minute') {
-    this.currentAction = action
-  }
-
-  dragHand (event: MouseEvent) {
+  dragHand (event: MouseEvent | TouchEvent) {
     if (!this.isDynamic) return
     if (!this.draggingHand) return
     const rect = (event.target as SVGElement).getBoundingClientRect()
-    const x = event.clientX - rect.left - rect.width / 2
-    const y = event.clientY - rect.top - rect.height / 2
+    const clientX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX
+    const clientY = event instanceof MouseEvent ? event.clientY : event.touches[0].clientY
+    const x = clientX - rect.left - rect.width / 2
+    const y = clientY - rect.top - rect.height / 2
     // Ne rien faire si on est trop près du centre
     if (Math.sqrt(x * x + y * y) < 20) return
     const angle = (Math.atan2(y, x) + Math.PI / 2 + 2 * Math.PI) % (2 * Math.PI)
@@ -228,6 +226,24 @@ class InteractiveClock extends HTMLElement {
     // Code pour gérer la suppression de l'horloge du DOM
   }
 
+  get currentAction () {
+    return this._currentAction
+  }
+
+  set currentAction (value: 'hour' | 'minute' | undefined) {
+    this._currentAction = value
+    if (value === 'hour') {
+      this.svgHandHour.setAttribute('stroke', '#216D9A')
+      this.svgHandMinute.setAttribute('stroke', '#F15929')
+    } else if (value === 'minute') {
+      this.svgHandHour.setAttribute('stroke', '#F15929')
+      this.svgHandMinute.setAttribute('stroke', '#216D9A')
+    } else {
+      this.svgHandHour.setAttribute('stroke', 'black')
+      this.svgHandMinute.setAttribute('stroke', 'black')
+    }
+  }
+
   get hour () {
     return Number(this.getAttribute('hour'))
   }
@@ -242,6 +258,9 @@ class InteractiveClock extends HTMLElement {
 
   set isDynamic (value: boolean) {
     this._isDynamic = value
+    if (!value) {
+      this.currentAction = undefined
+    }
   }
 
   get minute () {
