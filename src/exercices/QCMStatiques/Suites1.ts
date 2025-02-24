@@ -1,92 +1,87 @@
-import Exercice from '../Exercice'
-import { randint } from '../../modules/outils'
-import { listeQuestionsToContenu } from '../../modules/outils'
+import ExerciceQcm from '../ExerciceQcm'
 
-export const titre = 'QCM de cours : Suites numériques'
+export const uuid = '3421f'
+export const refs = {
+  'fr-fr': ['TSA2-QCM03'],
+  'ch-fr': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const dateDePublication = '23/02/2025'
+export const amcReady = 'true'
+export const amcType = 'qcmMono'
+export const titre = 'QCM sur les suites numériques'
+export const dateDePublication = '03/11/2024'
 
-export const uuid = '19fc1'
-export const refs = {
-  'fr-fr': ['TSA1-QCM05'],
-  'fr-ch': []
-}
+export default class SuitesNumeriquesQCM extends ExerciceQcm {
+  // Déclaration des propriétés
+  affirmations: { texte: string, estVraie: boolean }[]
+  reponses: string[]
+  questions: string[]
+  score: number
 
-export default class SuitesNumeriquesQCM extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 1
-    this.spacing = 1.5
-    this.spacingCorr = 1.5
+    this.options = { vertical: true, ordered: false }
+    this.titre = titre
+    this.nbQuestions = 4 // Nombre d'affirmations à afficher
+    this.consigne = 'Pour chaque affirmation, indique si elle est vraie ou fausse.'
+    this.affirmations = [
+      { texte: 'Toute suite bornée est convergente', estVraie: false },
+      { texte: 'Toute suite minorée et croissante converge', estVraie: true },
+      { texte: 'Toute suite croissante est bornée', estVraie: false },
+      { texte: 'Toute suite qui n\'est pas bornée diverge vers +∞', estVraie: false },
+      { texte: 'Toute suite croissante majorée par L, converge vers L', estVraie: true },
+      { texte: 'Toute suite convergente est bornée', estVraie: true }
+    ]
+    this.reponses = [] // Réponses attendues (Vrai/Faux)
+    this.questions = [] // Affirmations choisies aléatoirement
+    this.score = 0 // Score de l'élève
+    this.genererExercice()
   }
 
-  nouvelleVersion () {
-    // Liste des affirmations et leurs réponses (true = vrai, false = faux)
-    const affirmations: { texte: string, estVrai: boolean }[] = [
-      { texte: 'Toute suite bornée est convergente.', estVrai: false },
-      { texte: 'Toute suite minorée et croissante converge.', estVrai: true },
-      { texte: 'Toute suite croissante est bornée.', estVrai: false },
-      { texte: 'Toute suite qui n\'est pas bornée diverge vers $+\\infty$.', estVrai: false },
-      { texte: 'Toute suite croissante majorée par L converge vers L.', estVrai: true },
-      { texte: 'Toute suite croissante et majorée converge.', estVrai: true },
-      { texte: 'Toute suite croissante est minorée.', estVrai: true },
-      { texte: 'Toute suite minorée converge.', estVrai: false },
-      { texte: 'Toute suite convergente est bornée.', estVrai: true }
-    ]
+  // Méthode pour générer l'exercice
+  genererExercice () {
+    // Mélanger les affirmations et en choisir 4
+    this.affirmations = this.shuffleArray(this.affirmations).slice(0, this.nbQuestions)
 
-    // Sélection aléatoire de 4 affirmations
-    const selectionnerAffirmationsAleatoires = (): { texte: string, estVrai: boolean }[] => {
-      const indicesAleatoires: number[] = []
-      while (indicesAleatoires.length < 4) {
-        const indice = randint(0, affirmations.length - 1)
-        if (!indicesAleatoires.includes(indice)) {
-          indicesAleatoires.push(indice)
-        }
+    // Préparer les questions et les réponses attendues
+    this.questions = this.affirmations.map(affirmation => affirmation.texte)
+    this.reponses = this.affirmations.map(affirmation => affirmation.estVraie ? 'Vrai' : 'Faux')
+
+    // Générer l'énoncé avec les questions
+    this.enonce = 'Voici les affirmations :<br>'
+    this.enonce += this.questions.map((question, index) => {
+      return `Affirmation ${index + 1} : ${question}`
+    }).join('<br>')
+
+    // Générer la correction
+    this.correction = 'Correction :<br>'
+    this.correction += this.affirmations.map((affirmation, index) => {
+      const reponseCorrecte = affirmation.estVraie ? 'Vrai' : 'Faux'
+      return `Affirmation ${index + 1} : ${affirmation.texte} <br> Réponse correcte : ${reponseCorrecte}`
+    }).join('<br><br>')
+
+    // Ajouter les réponses au QCM
+    this.autoCorrection = this.reponses
+  }
+
+  // Méthode pour mélanger un tableau (aléatoire)
+  shuffleArray (array: { texte: string, estVraie: boolean }[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[array[i], array[j]] = [array[j], array[i]]
+    }
+    return array
+  }
+
+  // Méthode pour évaluer les réponses de l'élève
+  evaluerReponses (reponsesEleve: string[]) {
+    this.score = 0
+    reponsesEleve.forEach((reponse: string, index: number) => {
+      if (reponse === this.reponses[index]) {
+        this.score++
       }
-      return indicesAleatoires.map(indice => affirmations[indice])
-    }
-
-    // Générer l'exercice
-    const genererExercice = () => {
-      const affirmationsSelectionnees = selectionnerAffirmationsAleatoires()
-
-      // Enoncé de l'exercice avec cases "Vrai" ou "Faux"
-      let enonce = 'Parmi les affirmations suivantes, cochez "Vrai" ou "Faux" :<br>'
-      affirmationsSelectionnees.forEach((affirmation, index) => {
-        enonce += `
-          <div>
-            ${index + 1}. ${affirmation.texte}
-            <label>
-              <input type="radio" name="affirmation${index}" value="true"> Vrai
-            </label>
-            <label>
-              <input type="radio" name="affirmation${index}" value="false"> Faux
-            </label>
-          </div><br>
-        `
-      })
-
-      // Enregistrer les réponses correctes
-      const reponsesCorrectes = affirmationsSelectionnees.map(affirmation => affirmation.estVrai)
-
-      // Correction détaillée (dans le même ordre que les propositions)
-      let correction = 'Correction :<br>'
-      affirmationsSelectionnees.forEach((affirmation, index) => {
-        correction += `${index + 1}. ${affirmation.texte} : ${affirmation.estVrai ? 'Vrai' : 'Faux'}<br>`
-      })
-
-      return { enonce, correction, reponsesCorrectes }
-    }
-
-    // Appel de la fonction pour générer l'exercice
-    const { enonce, correction, reponsesCorrectes } = genererExercice()
-
-    // Affichage interactif
-    this.listeQuestions[0] = enonce
-    this.listeCorrections[0] = correction
-
-    // Génération du contenu
-    listeQuestionsToContenu(this)
+    })
+    return this.score === this.nbQuestions // Retourne true si toutes les réponses sont correctes
   }
 }
