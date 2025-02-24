@@ -822,18 +822,6 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    // La réponse correspond à une case à cocher qui doit être cochée ?
-    const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-    if (checkBox !== null && answers[answer] === '1') {
-      checkBox.checked = true
-      continue
-    }
-    // La réponse correspond à une liste déroulante ?
-    const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-    if (select !== null) {
-      select.value = answers[answer]
-      continue
-    }
     if (answer.includes('apigeom')) {
       // La réponse correspond à une figure apigeom
       const event = new CustomEvent(answer, { detail: answers[answer] })
@@ -888,6 +876,18 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
         clock.setAttribute('minute', minute)
         continue
       }
+    }
+    // La réponse correspond à une case à cocher qui doit être cochée ?
+    const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+    if (checkBox !== null && answers[answer] === '1') {
+      checkBox.checked = true
+      continue
+    }
+    // La réponse correspond à une liste déroulante ?
+    const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+    if (select !== null) {
+      select.value = answers[answer]
+      continue
     }
     // La réponse correspond à un champs texte ?
     const field = document.querySelector(`#champTexte${answer}`)
