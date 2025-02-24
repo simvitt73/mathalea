@@ -7,7 +7,7 @@ import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 
 export const uuid = 'bc8ae'
 export const refs = {
-  'fr-fr': ['TSA5-QCM01'],
+  'fr-fr': ['TSA5-QCM02'],
   'fr-ch': []
 }
 export const interactifReady = true

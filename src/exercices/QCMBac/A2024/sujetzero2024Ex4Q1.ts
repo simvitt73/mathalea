@@ -21,6 +21,11 @@ export const dateDePublication = '28/10/2024'
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
  */
+/**
+ *
+ * @author Stéphane Guyon
+ *
+ */
 export default class SujetZero2024Ex4Q1 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     const basePoints = [

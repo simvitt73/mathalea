@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
-export const uuid = 'QCME2023_Q2'
+export const uuid = '79c98'
 export const refs = {
   'fr-fr': ['TSP1-QCM04'],
   'fr-ch': []

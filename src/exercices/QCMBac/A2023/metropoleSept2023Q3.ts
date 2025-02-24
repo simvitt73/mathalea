@@ -1,6 +1,6 @@
 import ExerciceQcm from '../../ExerciceQcm'
 
-export const uuid = 'M092023Q3'
+export const uuid = '999ee'
 export const refs = {
   'fr-fr': ['TSA1-QCM03'],
   'fr-ch': []
@@ -16,6 +16,11 @@ export const dateDePublication = '03/11/2024'
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
+ */
+/**
+ *
+ * @author Stéphane Guyon
+ *
  */
 export default class metropoleSept2023Q3 extends ExerciceQcm {
   versionOriginale: () => void = () => {

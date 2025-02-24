@@ -1,7 +1,7 @@
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
-export const uuid = 'Z2024E5Q2'
+export const uuid = '6d32c'
 export const refs = {
   'fr-fr': ['TSG1-QCM03'],
   'fr-ch': []
@@ -17,6 +17,11 @@ export const dateDePublication = '28/10/2024'
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
+ */
+/**
+ *
+ * @author Stéphane Guyon
+ *
  */
 export default class SujetZero2024Ex5Q2 extends ExerciceQcm {
   versionOriginale: () => void = () => {
