@@ -21,16 +21,15 @@ import {
   gestionnaireFormulaireTexte
 } from '../../modules/outils'
 
+export const dateDePublication = '22/11/2020'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Utiliser les propriétés des droites parallèles et perpendiculaires'
 
 /**
- * Ref 6G14
  * @author Jean-Claude Lhote (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
  * @author Mickael Guironnet (refactoring avec ajout des 4 à 6 et des figures)
- * publié le 22/11/2020
- */
+  */
 export const uuid = 'c46e8'
 
 export const refs = {
@@ -40,9 +39,10 @@ export const refs = {
 export default class ProprietesParallelesPerpendiculaires extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
     this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
+    this.comment = 'Il se peut que l\'exercice vous propose moins de questions que le nombre demandé par manque de possibiilités d\'exercices différents. Pour augmenter cette possibilité, choisissez d\'autres types de raisonnement.'
     this.nbQuestions = 3
 
     this.sup = 4
@@ -64,6 +64,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
     } else {
       questionsParNiveau = [[2], [5], [15], [31], [2, 5, 15, 31]]
     }
+    console.log('questionsParNiveau', questionsParNiveau)
     const IndiceNew = [0, 0, 0, 0, 0]
     let NumQuestionsDisponibles
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
@@ -79,6 +80,11 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       NumQuestionsDisponibles = contraindreValeur(1, 5, QuestionsDisponibles[i % QuestionsDisponibles.length], 4) - 1
       const liste1 = questionsParNiveau[NumQuestionsDisponibles]
       const listeAEviter = typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])
+      if (listeAEviter.length === liste1.length) {
+        this.nbQuestions = i
+        break
+      }
+      console.log(liste1, listeAEviter)
       typesDeQuestionsDisponibles[i] = choice(liste1, listeAEviter) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
       if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
         IndiceNew[NumQuestionsDisponibles] = i
@@ -97,7 +103,6 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       texteCorr = ''
 
       const numDroites = shuffle([1, 2, 3, 4, 5])
-      // const numDroites = [1, 2, 3, 4, 5]
       const d = []
       const dE = []
       const P = []
@@ -224,7 +229,6 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
         textetemp += `(d_${numDroites[codeAll[j][1] - 1]})$`
         phrases.push(textetemp)
       }
-      // phrases=shuffle(phrases)
       for (let j = 0; j < codeAll.length - 1; j++) {
         texte += phrases[j]
         if (j !== codeAll.length - 2) texte += ', '
