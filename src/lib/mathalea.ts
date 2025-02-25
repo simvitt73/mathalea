@@ -822,7 +822,7 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    if (answer.includes('apigeom')) {
+    if (answer.includes('apiGeomVersion')) {
       // La réponse correspond à une figure apigeom
       const event = new CustomEvent(answer, { detail: answers[answer] })
       document.dispatchEvent(event)
