@@ -10,8 +10,8 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Amérique du Nord Août 2023 : limite de ln(x)'
-export const dateDePublication = '05/11/2024'
+export const titre = 'QCM Bac centres étrangers 2022 : primitive et logarithme'
+export const dateDePublication = '24/02/2025'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
