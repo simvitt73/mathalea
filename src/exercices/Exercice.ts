@@ -1,6 +1,6 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
-import type { AutoCorrection, clickFigures, Valeur } from '../lib/interactif/gestionInteractif'
+import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
