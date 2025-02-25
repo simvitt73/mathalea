@@ -41,7 +41,7 @@ export default class Exercice {
   listeCanLiees: number[][] = []
   listeCanNumerosLies: number[] = []
   question?: string // Seulement pour les exercices de type simple
-  reponse?: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[] | Valeur// Seulement pour les exercices de type simple
+  reponse?: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[] // Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???
@@ -227,7 +227,7 @@ export default class Exercice {
 
   correctionInteractive? (i: number): string | string[]
 
-  nouvelleVersion (numeroExercice?: number): void {
+  nouvelleVersion (numeroExercice?: number, numeroQuestion?: number): void {
     console.info(numeroExercice)
   }
 

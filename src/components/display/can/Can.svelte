@@ -36,6 +36,7 @@
   import { context } from "../../../modules/context"
   import { mathaleaUpdateUrlFromExercicesParams } from "../../../lib/mathalea"
   import { get } from "svelte/store"
+  import MetaExercice from "../../../exercices/MetaExerciceCan";
 
   let state: CanState = "start"
   let exercises: TypeExercice[] = []
@@ -86,15 +87,8 @@
         exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param
           ?.formatInteractif
       if (type === "mathlive" || type === "fillInTheBlank") {
-        resultsByQuestion[i] = Boolean(
-          verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk,
-        )
-
-        // Pour Capytale, on a besoin du score de l'exercice et non de la question
-        // donc on sauvegarde le score dans l'exercice
-        if (resultsByQuestion[i] && exercice.score !== undefined) {
-          exercice.score++
-        }
+        resultsByQuestion[i] = 
+          Boolean(verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk)
         // récupération de la réponse
         answers[i] =
           exercice.answers![
@@ -126,37 +120,34 @@
         resultsByQuestion[i] =
           verifQuestionListeDeroulante(
             exercice,
-            indiceQuestionInExercice[i],
-          ) === "OK"
+            indiceQuestionInExercice[i]) === "OK"
         answers[i] =
           exercice.answers![
             `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
           ]
       } else if (type === "cliqueFigure") {
         resultsByQuestion[i] =
-          verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) ===
-          "OK"
+          verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) === "OK"
         answers[i] = indexQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]
         )
       } else if (type === "custom") {
         // si le type est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
-        resultsByQuestion[i] = exercice.correctionInteractive!(i) === "OK"
-        // L'affichage de la réponse n'est pas gérée pour les exercices custom
-        answers[i] = ''
-      } else {
-        // Rémi Angot : j'ai ajouté cela car le type est undefined pour un exercice comme betaInteractiveClock
-        if (exercice.correctionInteractive !== undefined) {
-          resultsByQuestion[i] = exercice.correctionInteractive!(i) === "OK"
-          if (
-            exercice?.answers &&
-            exercice.answers[
-              `clockEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
-            ] !== undefined
-          ) {
-            answers[i] = exercice.answers[`clockEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`]
-          }
+        if (exercice instanceof MetaExercice) {
+          const result = exercice.correctionInteractives[indiceQuestionInExercice[i]](indiceQuestionInExercice[i])
+          resultsByQuestion[i] = (result === "OK")
+        } else {
+          resultsByQuestion[i] = exercice.correctionInteractive!(indiceQuestionInExercice[i]) === "OK"
         }
+        const keys = Object.keys(exercice.answers || {})
+        // on cherche des id avec clockEx0Q0
+        const key = keys.find(k => k.endsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`));
+        answers[i] = key ? exercice.answers![key] : ''
+      }
+      // Pour Capytale, on a besoin du score de l'exercice et non de la question
+      // donc on sauvegarde le score dans l'exercice
+      if (resultsByQuestion[i] && exercice.score !== undefined) {
+        exercice.score++
       }
     }
     // Désactiver l'interactivité avant l'affichage des solutions
@@ -168,6 +159,7 @@
       const exercise = exercises[i]
       for (let q = 0; q < exercise.nbQuestions; q++) {
         const ans: { [key: string]: string } = {}
+        // MGU : Ici il y a un bug potentiel!!!
         ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
         const quest: InterfaceResultExercice = {
           uuid: exercise.uuid,

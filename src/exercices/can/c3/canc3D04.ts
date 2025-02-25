@@ -27,11 +27,12 @@ export default class ExerciceInteractiveClock extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
+    this.interactifType = interactifType // MGu obligatoire car chargé en statique avec la CAN2025
     handleInteractiveClock() // Obligatoire pour la gestion de l'élément custom <interactive-clock>
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion (numeroExercice: number, numeroQuestion?: number) {
+    for (let i = numeroQuestion ?? 0, cpt = 0; i < (numeroQuestion ? numeroQuestion + 1 : this.nbQuestions) && cpt < 50;) {
       const hour = randint(1, 12)
       const minute = randint(1, 11) * 5
       let enonce = `Placer correctement les aiguilles pour indiquer ${hour} h ${formatMinute(minute)}.`
@@ -52,6 +53,7 @@ export default class ExerciceInteractiveClock extends Exercice {
         this.listeQuestions[i] = enonce
         this.listeCorrections[i] = correction
         this.goodAnswers[i] = { hour: hour.toString(), minute: minute.toString() }
+        this.autoCorrection[i] = { reponse: { valeur: { reponse: { value: hour.toString() + 'h' + minute.toString() } }, param: { formatInteractif: 'custom' } } }
         i++
       }
       cpt++
