@@ -15,10 +15,12 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export default class MetaExercice extends Exercice {
-  Exercices: Exercice[]
-  constructor (ExercicesCAN: Exercice[]) {
+  Exercices: (typeof Exercice)[]
+  correctionInteractives: ((i: number) => string | string[])[]
+  constructor (ExercicesCAN: (typeof Exercice)[]) {
     super()
     this.Exercices = ExercicesCAN
+    this.correctionInteractives = []
     this.besoinFormulaireCaseACocher = ['Sujet officiel']
     this.nbQuestions = this.Exercices.length
     this.sup = false
@@ -27,10 +29,12 @@ export default class MetaExercice extends Exercice {
   }
 
   nouvelleVersion (): void {
+    this.correctionInteractives = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     this.listeCanLiees = []
     this.listeCanNumerosLies = []
+    this.answers = {}
     this.nbQuestionsModifiable = this.sup3
     this.besoinFormulaire2Texte = false
     let listeTypeDeQuestions : (string | number)[]
@@ -81,25 +85,22 @@ export default class MetaExercice extends Exercice {
       exercicesRef = [...exercices1, ...exercices2, ...exercices3]
     }
     let indexQuestion = 0
-    /* if (exercicesRef.length > this.nbQuestions) {
-      window.notify(`Nombre de questions supérieur à ${this.nbQuestions} dans MetaExercice`, { nbQuestions: exercicesRef.length })
-      exercicesRef = exercicesRef.slice(0, this.nbQuestions)
-    } */
     this.reinit() // On réinitialise les listes de questions parce qu'on a eu des soucis (est-ce que MetaExercice passe par le nouvelleVersionWrapper ?)
 
     for (const item of listeTypeDeQuestions) { // Pour les questions soient dans l'ordre choisi par l'utilisateur
       let numExo = 1
-      for (const UnExercice of exercicesRef as Exercice[]) {
+      for (const UnExercice of exercicesRef) {
         if (item === numExo) { // Permet de ne choisir que certaines questions
           const Question = new UnExercice()
-          Question.numeroExercice = 0
+          Question.numeroExercice = this.numeroExercice
           Question.canOfficielle = !!this.sup
           Question.interactif = this.interactif
+          Question.seed = this.seed
           Question.nouvelleVersionWrapper()
           //* ************ Question Exo simple *************//
           if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
             const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
-            this.listeCorrections[indexQuestion] = (Question.correction)
+            this.listeCorrections[indexQuestion] = (Question.correction ?? '')
             const formatChampTexte = Question.formatChampTexte ?? ''
             const optionsChampTexte = Question.optionsChampTexte ?? {}
             if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
@@ -108,7 +109,7 @@ export default class MetaExercice extends Exercice {
             this.listeCanNumerosLies[indexQuestion] = Question.canNumeroLie
 
             if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
-              this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
+              this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question ?? '', formatChampTexte, '\\ldots')
               if (typeof Question.reponse === 'string') {
                 handleAnswers(this, indexQuestion, {
                   champ1: {
@@ -118,20 +119,19 @@ export default class MetaExercice extends Exercice {
                   }
                 })
               } else if (typeof Question.reponse === 'object') {
-                handleAnswers(this, indexQuestion, Question.reponse)
+                handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } })
               } else {
                 window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
               }
             } else if (Question.formatInteractif === 'qcm') {
-              Question.question.replaceAll('labelEx0Q0', `labelEx0Q${indexQuestion}`)
-              Question.question.replaceAll('resultatCheckEx0', `resultatCheckEx${indexQuestion}`)
+              Question?.question?.replaceAll('labelEx0Q0', `labelEx0Q${indexQuestion}`)
+              Question?.question?.replaceAll('resultatCheckEx0', `resultatCheckEx${indexQuestion}`)
               this.listeQuestions[indexQuestion] = consigne + Question.question
               this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
             } else {
               if (Question.compare == null) {
                 const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
-                if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse, options)
-                else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, options } })
+                handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse ?? '', options } })
               } else {
                 const compare = Question.compare
                 const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
@@ -183,10 +183,25 @@ export default class MetaExercice extends Exercice {
 
             this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
             this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
+            this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('clockEx0Q0', `clockEx0Q${indexQuestion}`)
 
             // fin d'alimentation des listes de question et de correction pour cette question
-            const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
-            if (formatInteractif === 'qcm') {
+            const formatInteractif = Question.autoCorrection[0]?.reponse?.param?.formatInteractif
+            if (formatInteractif === 'custom') {
+              Question.reinit()
+              Question.nouvelleVersionWrapper(this.numeroExercice, indexQuestion)
+              const that = this
+              this.correctionInteractives[indexQuestion] = function (i: number) {
+                const result = Question.correctionInteractive!(i)
+                if (Question.answers) {
+                  that.answers = { ...that.answers, ...Question.answers }
+                }
+                return result
+              }
+              this.autoCorrection[indexQuestion] = Question.autoCorrection[indexQuestion]
+              this.listeQuestions[indexQuestion] = Question.listeQuestions[indexQuestion]
+              this.listeCorrections[indexQuestion] = Question.listeCorrections[indexQuestion]
+            } else if (formatInteractif === 'qcm') {
               this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
             } else {
               handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur)
