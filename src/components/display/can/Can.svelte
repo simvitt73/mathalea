@@ -36,7 +36,7 @@
   import { context } from "../../../modules/context"
   import { mathaleaUpdateUrlFromExercicesParams } from "../../../lib/mathalea"
   import { get } from "svelte/store"
-  import MetaExercice from "../../../exercices/MetaExerciceCan";
+  import MetaExercice from "../../../exercices/MetaExerciceCan"
 
   let state: CanState = "start"
   let exercises: TypeExercice[] = []
@@ -87,8 +87,9 @@
         exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param
           ?.formatInteractif
       if (type === "mathlive" || type === "fillInTheBlank") {
-        resultsByQuestion[i] = 
-          Boolean(verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk)
+        resultsByQuestion[i] = Boolean(
+          verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk,
+        )
         // récupération de la réponse
         answers[i] =
           exercice.answers![
@@ -120,29 +121,39 @@
         resultsByQuestion[i] =
           verifQuestionListeDeroulante(
             exercice,
-            indiceQuestionInExercice[i]) === "OK"
+            indiceQuestionInExercice[i],
+          ) === "OK"
         answers[i] =
           exercice.answers![
             `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
           ]
       } else if (type === "cliqueFigure") {
         resultsByQuestion[i] =
-          verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) === "OK"
-        answers[i] = indexQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]
+          verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) ===
+          "OK"
+        answers[i] = indexQuestionCliqueFigure(
+          exercice,
+          indiceQuestionInExercice[i],
         )
       } else if (type === "custom") {
         // si le type est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
         if (exercice instanceof MetaExercice) {
-          const result = exercice.correctionInteractives[indiceQuestionInExercice[i]](indiceQuestionInExercice[i])
-          resultsByQuestion[i] = (result === "OK")
+          const result = exercice.correctionInteractives[
+            indiceQuestionInExercice[i]
+          ](indiceQuestionInExercice[i])
+          resultsByQuestion[i] = result === "OK"
         } else {
-          resultsByQuestion[i] = exercice.correctionInteractive!(indiceQuestionInExercice[i]) === "OK"
+          resultsByQuestion[i] =
+            exercice.correctionInteractive!(indiceQuestionInExercice[i]) ===
+            "OK"
         }
         const keys = Object.keys(exercice.answers || {})
         // on cherche des id avec clockEx0Q0
-        const key = keys.find(k => k.endsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`));
-        answers[i] = key ? exercice.answers![key] : ''
+        const key = keys.find((k) =>
+          k.endsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`),
+        )
+        answers[i] = key ? exercice.answers![key] : ""
       }
       // Pour Capytale, on a besoin du score de l'exercice et non de la question
       // donc on sauvegarde le score dans l'exercice
@@ -264,23 +275,19 @@
       return
     }
     console.info("answersFromCapytale", answersFromCapytale)
+
     for (const exercise of answersFromCapytale) {
       if (exercise.answers !== undefined) {
-        const answersOfExercise: string[] = []
+        const answersOfExercise = []
         const keysAns = Object.keys(exercise.answers)
-        for (let i = 0; i < exercise.numberOfQuestions; i++) {
-          const numberQ = keysAns.findIndex((e) => e.endsWith(`Q${i}`))
-          if (numberQ < 0) {
-            answersOfExercise[i] = ""
-          } else {
-            answersOfExercise[i] = exercise.answers[keysAns[numberQ]]
-          }
+        for (const key of keysAns) {
+          answersOfExercise.push(exercise.answers[key])
         }
-        // const answersOfExercise = Object.values(exercise.answers)
-        console.log('answersOfExercise', answersOfExercise)
         answers = answers.concat(answersOfExercise)
       }
     }
+    console.log("answers", answers)
+
     if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
       resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
     if (assignmentDataFromCapytale?.duration !== undefined)

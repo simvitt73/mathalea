@@ -92,7 +92,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          // @ts-expect-error typage de AMC
           propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
         }
       }
@@ -132,7 +131,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: this.consigne + '<br>' + texte + '<br>',
-          // @ts-expect-error typage de AMC
           propositions: [{ statut: 3, sanscadre: true }]
         }
       }
