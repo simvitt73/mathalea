@@ -36,7 +36,7 @@ export const dateDePublication = '01/02/2025'
  * @author Jean-Claude Lhote
 */
 
-const exercices = [
+const questions = [
   Question1,
   Question2,
   Question3,
@@ -58,8 +58,6 @@ const exercices = [
   Question19,
   Question20
 ]
-
-const questions = exercices
 
 export default class Can5CE12025 extends MetaExercice {
   constructor () {
