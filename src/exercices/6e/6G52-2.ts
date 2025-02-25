@@ -83,7 +83,6 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
         this.nbQuestions = i
         break
       }
-      console.log(liste1, listeAEviter)
       typesDeQuestionsDisponibles[i] = choice(liste1, listeAEviter) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
       if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
         IndiceNew[NumQuestionsDisponibles] = i
