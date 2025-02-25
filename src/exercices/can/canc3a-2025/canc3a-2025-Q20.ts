@@ -30,8 +30,7 @@ export default class Can2025CM2Q20 extends Exercice {
     const a = this.canOfficielle ? 18 : randint(2, 9) * 3
     this.reponse = texNombre(a / 3, 0)
     this.question = `Le tiers de  $${a}$ œufs est  `
-    this.question = `Le tiers de  $${a}$ \\oe ufs est  `
-    this.canEnonce = this.question
+    this.canEnonce = `Le tiers de  $${a}$ \\oe ufs est  `
     if (!this.interactif) {
       this.question += '$\\ldots$'
       this.question += (context.isHtml) ? ' œufs.' : ' \\oe ufs.'
