@@ -82,9 +82,7 @@
     if (input == null || input.length === 0) {
       results.length = 0
     } else {
-      console.log(input)
       const resultsWithDuplicates = getResults(input)
-      console.log(resultsWithDuplicates)
       const unsortedResults = getUniques(resultsWithDuplicates)
       // on ordonne la liste de recherche
       // tri des exercices par type
