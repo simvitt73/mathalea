@@ -183,6 +183,10 @@ export default class ExerciceInequationProduit extends Exercice {
       const ligneMPPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20, 't', 5, '+', 20]
       const ligneMMPP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
       const ligneMMMP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
+      // Paramètre la largeur des colonnes
+      const lgt = 10 // Première colonne
+      const deltacl = 0.8 // Distance entre la bordure et les premiers et derniers antécédents
+      const espcl = context.isHtml ? 3.5 : 2.5 // Espace entre les antécédents
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'                                      Type 1        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,9 +231,9 @@ export default class ExerciceInequationProduit extends Exercice {
           // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
-          espcl: 3.5, // taille en cm entre deux antécédents
-          deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-          lgt: 8 // taille de la première colonne en cm
+          espcl,
+          deltacl,
+          lgt
         })
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -297,9 +301,9 @@ export default class ExerciceInequationProduit extends Exercice {
           // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
-          espcl: 3.5,
-          deltacl: 0.8,
-          lgt: 10
+          espcl,
+          deltacl,
+          lgt
         })
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -383,9 +387,9 @@ export default class ExerciceInequationProduit extends Exercice {
           // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
-          espcl: 3.5,
-          deltacl: 0.8,
-          lgt: 10
+          espcl,
+          deltacl,
+          lgt
         })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} ${separateur} ${valGrand} \\right${pDroite} $.`
@@ -564,9 +568,9 @@ export default class ExerciceInequationProduit extends Exercice {
           // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ligne3, ligne4],
           colorBackground: '',
-          espcl: 3.5,
-          deltacl: 0.8,
-          lgt: 10
+          espcl,
+          deltacl,
+          lgt
         })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\cup \\bigg${pGauche} ${valMoyen}${separateur} ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
@@ -658,9 +662,9 @@ export default class ExerciceInequationProduit extends Exercice {
           // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
-          espcl: 3.5,
-          deltacl: 0.8,
-          lgt: 10
+          espcl,
+          deltacl,
+          lgt
         })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = ${singletonGauche} \\left] -\\infty${separateur} ${texFractionReduite(-d, c)} \\right${pDroite} ${singletonDroite} $.`
