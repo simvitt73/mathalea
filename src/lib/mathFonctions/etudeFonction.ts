@@ -32,7 +32,7 @@ import { Matrix, round } from 'mathjs'
  * colorV (comme couleur de la variable) pour la zone 2
  * colorC (comme couleur de la colonne) pour la zone 3
  * colorT (comme couleur du tableau) pour la zone 4.
- * escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
+ * espcl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
  * lgt = taille de la première colonne tout est en cm
  * tabInit contient 2 tableaux
  * le premier contient des triplets [chaine d'entête,hauteur de ligne,nombre de pixels de largeur estimée du texte pour le centrage]
@@ -53,7 +53,7 @@ export function tableauDeVariation ({
   tabInit = ['', ''],
   tabLines = [],
   lgt = 3.5,
-  escpl = 5,
+  espcl = 5,
   deltacl = 0.8,
   colors = [],
   scale = 0.75
@@ -76,7 +76,7 @@ export function tableauDeVariation ({
     let ZI = []
     let ZIon
     let zonesEstInterdit = []
-    const longueurTotale = lgt + (tabInit1.length / 2 - 1) * escpl + 2 * deltacl
+    const longueurTotale = lgt + (tabInit1.length / 2 - 1) * espcl + 2 * deltacl
     const demiIntervalle = 1 / context.pixelsParCm / 2
     const intervalle = 2 * demiIntervalle
     /**
@@ -139,7 +139,7 @@ export function tableauDeVariation ({
       textes.push(
         sortieTexte(
           latexContent(texte),
-          lgt + deltacl + escpl * j,
+          lgt + deltacl + espcl * j,
           -tabInit0[0][1] * hauteurLignes * demiIntervalle
         )
       )
@@ -172,14 +172,14 @@ export function tableauDeVariation ({
                     textes.push(
                       sortieTexte(
                         '0',
-                        lgt + deltacl + (escpl / 2) * (k - 1),
+                        lgt + deltacl + (espcl / 2) * (k - 1),
                         yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle
                       )
                     )
                     s = segment(
-                      lgt + deltacl + (escpl / 2) * (k - 1),
+                      lgt + deltacl + (espcl / 2) * (k - 1),
                       yLine,
-                      lgt + deltacl + (escpl / 2) * (k - 1),
+                      lgt + deltacl + (espcl / 2) * (k - 1),
                       yLine - tabInit0[i][1] * hauteurLignes * intervalle
                     )
                     s.pointilles = 4
@@ -188,26 +188,26 @@ export function tableauDeVariation ({
                   case 'd':
                     segments.push(
                       segment(
-                        lgt + deltacl + (escpl / 2) * (k - 1) - 0.05,
+                        lgt + deltacl + (espcl / 2) * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + (escpl / 2) * (k - 1) - 0.05,
+                        lgt + deltacl + (espcl / 2) * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                     )
                     segments.push(
                       segment(
-                        lgt + deltacl + (escpl / 2) * (k - 1) + 0.05,
+                        lgt + deltacl + (espcl / 2) * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + (escpl / 2) * (k - 1) + 0.05,
+                        lgt + deltacl + (espcl / 2) * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                     )
                     break
                   case 't':
                     s = segment(
-                      lgt + deltacl + (escpl / 2) * (k - 1),
+                      lgt + deltacl + (espcl / 2) * (k - 1),
                       yLine,
-                      lgt + deltacl + (escpl / 2) * (k - 1),
+                      lgt + deltacl + (espcl / 2) * (k - 1),
                       yLine - tabInit0[i][1] * hauteurLignes * intervalle
                     )
                     s.pointilles = 4
@@ -215,14 +215,14 @@ export function tableauDeVariation ({
                     break
                   case 'h':
                     p = polygone([
-                      point(lgt + deltacl + (escpl / 2) * (k - 1), yLine),
-                      point(lgt + deltacl + (escpl / 2) * k, yLine),
+                      point(lgt + deltacl + (espcl / 2) * (k - 1), yLine),
+                      point(lgt + deltacl + (espcl / 2) * k, yLine),
                       point(
-                        lgt + deltacl + (escpl / 2) * k,
+                        lgt + deltacl + (espcl / 2) * k,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       ),
                       point(
-                        lgt + deltacl + (escpl / 2) * (k - 1),
+                        lgt + deltacl + (espcl / 2) * (k - 1),
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                     ])
@@ -233,7 +233,7 @@ export function tableauDeVariation ({
                     textes.push(
                       sortieTexte(
                         '+',
-                        lgt + deltacl + (escpl / 2) * (k - 1),
+                        lgt + deltacl + (espcl / 2) * (k - 1),
                         yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle
                       )
                     )
@@ -243,7 +243,7 @@ export function tableauDeVariation ({
                     textes.push(
                       sortieTexte(
                         '-',
-                        lgt + deltacl + (escpl / 2) * (k - 1),
+                        lgt + deltacl + (espcl / 2) * (k - 1),
                         yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle
                       )
                     )
@@ -251,12 +251,12 @@ export function tableauDeVariation ({
                     break
                 }
               } else if (texte === 'R/') {
-                // textes.push(sortieTexte(texte, lgt + deltacl + escpl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
+                // textes.push(sortieTexte(texte, lgt + deltacl + espcl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
               } else {
                 textes.push(
                   sortieTexte(
                     latexContent(texte),
-                    lgt + deltacl + (escpl / 2) * (k - 1),
+                    lgt + deltacl + (espcl / 2) * (k - 1),
                     yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle
                   )
                 )
@@ -321,18 +321,18 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -344,7 +344,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -352,7 +352,7 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -360,9 +360,9 @@ export function tableauDeVariation ({
                       )
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -374,32 +374,32 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -411,7 +411,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -419,31 +419,31 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
                         )
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -455,32 +455,32 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) - long / 28,
+                          lgt + deltacl + espcl * (k - 1) - long / 28,
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -492,7 +492,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) - long / 28,
+                          lgt + deltacl + espcl * (k - 1) - long / 28,
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -500,31 +500,31 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
                         )
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -536,17 +536,17 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) - long / 28,
+                          lgt + deltacl + espcl * (k - 1) - long / 28,
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       ZI.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine),
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
@@ -557,7 +557,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) - long / 28,
+                          lgt + deltacl + espcl * (k - 1) - long / 28,
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -565,16 +565,16 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
                         )
                       )
                       ZI.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine),
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
@@ -585,7 +585,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) + long / 28,
+                          lgt + deltacl + espcl * (k - 1) + long / 28,
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -593,31 +593,31 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
                         )
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -629,32 +629,32 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) + long / 28,
+                          lgt + deltacl + espcl * (k - 1) + long / 28,
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       if (ZIon) {
                         ZI.push(
-                          point(lgt + deltacl + escpl * (k - 1), yLine),
+                          point(lgt + deltacl + espcl * (k - 1), yLine),
                           point(
-                            lgt + deltacl + escpl * (k - 1),
+                            lgt + deltacl + espcl * (k - 1),
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                         )
@@ -666,7 +666,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) - long / 28,
+                          lgt + deltacl + espcl * (k - 1) - long / 28,
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -674,30 +674,30 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
                         )
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       ZI.push(
-                        point(lgt + deltacl + escpl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
                         point(
-                          lgt + deltacl + escpl * (k - 1) + 0.06,
+                          lgt + deltacl + espcl * (k - 1) + 0.06,
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
@@ -708,31 +708,31 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1) - long / 28,
+                          lgt + deltacl + espcl * (k - 1) - long / 28,
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       ZI.push(
-                        point(lgt + deltacl + escpl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
                         point(
-                          lgt + deltacl + escpl * (k - 1) + 0.06,
+                          lgt + deltacl + espcl * (k - 1) + 0.06,
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
@@ -743,7 +743,7 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
@@ -751,30 +751,30 @@ export function tableauDeVariation ({
                       )
                       fleches.push(
                         point(
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
                         )
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       ZI.push(
-                        point(lgt + deltacl + escpl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
                         point(
-                          lgt + deltacl + escpl * (k - 1) + 0.06,
+                          lgt + deltacl + espcl * (k - 1) + 0.06,
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
@@ -785,31 +785,31 @@ export function tableauDeVariation ({
                       textes.push(
                         sortieTexte(
                           latexContent(codeVar[1]),
-                          lgt + deltacl + escpl * (k - 1),
+                          lgt + deltacl + espcl * (k - 1),
                           yLine - 0.95
                         )
                       )
                       fleches.push(
-                        point(lgt + deltacl + escpl * (k - 1), yLine - 0.95)
+                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
                       )
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) - 0.05,
+                        lgt + deltacl + espcl * (k - 1) - 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       s = segment(
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine,
-                        lgt + deltacl + escpl * (k - 1) + 0.05,
+                        lgt + deltacl + espcl * (k - 1) + 0.05,
                         yLine - tabInit0[i][1] * hauteurLignes * intervalle
                       )
                       segments.push(s)
                       ZI.push(
-                        point(lgt + deltacl + escpl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
                         point(
-                          lgt + deltacl + escpl * (k - 1) + 0.06,
+                          lgt + deltacl + espcl * (k - 1) + 0.06,
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
@@ -826,7 +826,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -835,7 +835,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -843,31 +843,31 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -880,42 +880,42 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) + long / 14,
+                              lgt + deltacl + espcl * (k - 1) + long / 14,
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -928,7 +928,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -937,13 +937,13 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -952,29 +952,29 @@ export function tableauDeVariation ({
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -987,14 +987,14 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1002,38 +1002,38 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1046,7 +1046,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1055,7 +1055,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1063,7 +1063,7 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1072,31 +1072,31 @@ export function tableauDeVariation ({
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1109,49 +1109,49 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1164,7 +1164,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1173,13 +1173,13 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1188,29 +1188,29 @@ export function tableauDeVariation ({
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1223,14 +1223,14 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1238,38 +1238,38 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1282,7 +1282,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1291,7 +1291,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1299,31 +1299,31 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1336,44 +1336,44 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1386,7 +1386,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1395,13 +1395,13 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1410,29 +1410,29 @@ export function tableauDeVariation ({
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1445,14 +1445,14 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] *
                                   hauteurLignes *
@@ -1462,38 +1462,38 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
                             )
                           )
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) - 0.05,
+                            lgt + deltacl + espcl * (k - 1) - 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           s = segment(
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine,
-                            lgt + deltacl + escpl * (k - 1) + 0.05,
+                            lgt + deltacl + espcl * (k - 1) + 0.05,
                             yLine - tabInit0[i][1] * hauteurLignes * intervalle
                           )
                           segments.push(s)
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1506,7 +1506,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1515,7 +1515,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1523,7 +1523,7 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1531,9 +1531,9 @@ export function tableauDeVariation ({
                           )
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1546,20 +1546,20 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1567,9 +1567,9 @@ export function tableauDeVariation ({
                           )
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1582,7 +1582,7 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1591,13 +1591,13 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine - 0.95
                             )
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1606,15 +1606,15 @@ export function tableauDeVariation ({
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1627,14 +1627,14 @@ export function tableauDeVariation ({
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[1]),
-                              lgt + deltacl + escpl * (k - 1) - long / 28,
+                              lgt + deltacl + espcl * (k - 1) - long / 28,
                               yLine - 0.95
                             )
                           )
                           textes.push(
                             sortieTexte(
                               latexContent(codeVar[2]),
-                              lgt + deltacl + escpl * (k - 1) + long / 28,
+                              lgt + deltacl + espcl * (k - 1) + long / 28,
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1642,14 +1642,14 @@ export function tableauDeVariation ({
                           )
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine - 0.95
                             )
                           )
                           zonesEstInterdit.push(true)
                           fleches.push(
                             point(
-                              lgt + deltacl + escpl * (k - 1),
+                              lgt + deltacl + espcl * (k - 1),
                               yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
@@ -1657,9 +1657,9 @@ export function tableauDeVariation ({
                           )
                           if (ZIon) {
                             ZI.push(
-                              point(lgt + deltacl + escpl * (k - 1), yLine),
+                              point(lgt + deltacl + espcl * (k - 1), yLine),
                               point(
-                                lgt + deltacl + escpl * (k - 1),
+                                lgt + deltacl + espcl * (k - 1),
                                 yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
                               )
@@ -1729,9 +1729,9 @@ export function tableauDeVariation ({
                 latexContent(tabLines[index][5]),
                 lgt +
                   deltacl +
-                  escpl * (tabLines[index][1] - 1) +
+                  espcl * (tabLines[index][1] - 1) +
                   1 +
-                  (escpl - 2) *
+                  (espcl - 2) *
                     (tabLines[index][2] - tabLines[index][1]) *
                     tabLines[index][3],
                 yLine +
@@ -1747,9 +1747,9 @@ export function tableauDeVariation ({
                 latexContent(tabLines[index][4]),
                 lgt +
                   deltacl +
-                  escpl * (tabLines[index][1] - 1) +
+                  espcl * (tabLines[index][1] - 1) +
                   1 +
-                  (escpl - 2) *
+                  (espcl - 2) *
                     (tabLines[index][2] - tabLines[index][1]) *
                     tabLines[index][3],
                 -tabInit0[0][1] * hauteurLignes * demiIntervalle
@@ -1767,7 +1767,7 @@ export function tableauDeVariation ({
                 latexContent(texte),
                 lgt +
                   deltacl +
-                  (escpl *
+                  (espcl *
                     (tabLines[index][1] - 1 + (tabLines[index][2] - 1))) /
                     2,
                 yLine + tabInit0[i][1] * hauteurLignes * demiIntervalle
@@ -1827,7 +1827,7 @@ export function tableauDeVariation ({
     return codeHtml
   }
   let codeLatex = `\\begin{tikzpicture}[baseline, scale=${scale}]
-    \\tkzTabInit[lgt=${lgt},deltacl=${deltacl},espcl=${escpl}`
+    \\tkzTabInit[lgt=${lgt},deltacl=${deltacl},espcl=${espcl}`
   for (let i = 0; i < colors.length; i++) {
     codeLatex += `,${colors[i]}`
   }
@@ -2270,7 +2270,7 @@ export function tableauSignesFonction (
     ],
     tabLines: [tabLine],
     colorBackground: '',
-    escpl: 2.1, // taille en cm entre deux antécédents
+    espcl: 2.1, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3 // taille de la première colonne en cm
   })
@@ -2445,7 +2445,7 @@ export function tableauVariationsFonction (
     ],
     tabLines,
     colorBackground: '',
-    escpl: 4.5, // taille en cm entre deux antécédents
+    espcl: 4.5, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3 // taille de la première colonne en cm
   })
