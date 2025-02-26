@@ -14,6 +14,7 @@ import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { lectureImage } from '../../lib/2d/courbes'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import PointOnPolyLine from '../../lib/mathFonctions/PointOnPolyLine'
+import Figure from 'apigeom/src/Figure'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
