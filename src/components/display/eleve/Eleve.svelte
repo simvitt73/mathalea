@@ -385,7 +385,8 @@
       : 'lg:top-20'}  lg:right-6"
   >
     <div
-      class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100"
+      class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100
+      {$globalOptions.v === 'myriade' || $globalOptions.v === 'indices' ? 'translate-y-16' : ''}"
     >
       <BtnZoom
         size="bx-sm md:bx-md"
