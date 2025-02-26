@@ -487,11 +487,14 @@ div[id^="title-lampeMessage"]{
 }
 /* aides */
 div[id^="aide-"] {
-  @apply inline-block
+  @apply inline
+    text-coopmaths-warn-dark dark:text-coopmathsdark-warn-light
 }
 
 div[id^="aide-trigger-"]{
-  @apply h-[1em] w-[1em] ml-1 inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
+  @apply h-[1em] w-[1em] inline-flex justify-center items-center rounded-full font-bold
+    text-coopmaths-canvas dark:text-coopmathsdark-canvas
+    bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
 }
 
 div[id^="aide-content-"]{
