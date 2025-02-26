@@ -285,7 +285,6 @@ export default class PavageEtReflexion2d extends Exercice {
         B = monpavage.barycentres[couples[i][1] - 1]
         P1 = monpavage.polygones[couples[i][0] - 1]
         P1.color = colorToLatexOrHTML(couleurs[i])
-        console.log('couleurs[i]', couleurs[i], couleurs[i])
         P1.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
