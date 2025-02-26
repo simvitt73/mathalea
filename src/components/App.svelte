@@ -32,9 +32,31 @@
   import type { CanSolutionsMode } from '../lib/types/can'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
-  import { fetchServerVersion } from '../lib/components/version';
+  import { fetchServerVersion } from '../lib/components/version'
+  import { UAParser } from 'ua-parser-js'
+  import Popup from './shared/modal/Popup.svelte'
+  import { checkBrowserVersion } from '../lib/components/browserVersion'
 
   let isInitialUrlHandled = false
+
+  let showPopup = false
+  let popupMessage = ''
+
+  function handlePopupClose() {
+    // console.log('Popup has been closed');
+    showPopup = false
+  }
+
+  onMount(() => {
+
+    handleInitialUrl()
+
+    const version = checkBrowserVersion()
+    if (version.popupMessage.length > 0) {
+      showPopup = true
+      popupMessage = version.popupMessage
+    }
+  })
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -120,8 +142,6 @@
     $canOptions.isInteractive = canIsInteractive === 'true'
   }
 
-  onMount(handleInitialUrl)
-
   $: {
     if (isInitialUrlHandled) {
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -170,7 +190,9 @@
 <div class=" {$darkMode.isActive
   ? 'dark'
   : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="appComponent">
-  {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
+  {#if showPopup}
+    <Popup message={popupMessage} visible={showPopup} onClose={handlePopupClose} />
+  {:else if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}
     <Can />
