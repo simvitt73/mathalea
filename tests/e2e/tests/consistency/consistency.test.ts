@@ -4,8 +4,41 @@ import { clean } from '../../helpers/text'
 import prefs from '../../helpers/prefs'
 
 type ExerciseType = 'classique' | 'simple'
-type LatexModel = 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
-type AMCModel = 'AMCcodeGrid' | 'AMCassociation' | 'manuscrits'
+
+const ViewValidKeys = <const>['start', 'diaporama', 'apercu', 'eleve', 'LaTeX', 'AMC']
+type ViewValidKeysType = typeof ViewValidKeys
+type View = ViewValidKeysType[number]
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function isView (obj: unknown): obj is View {
+  if (obj == null || typeof obj !== 'string') return false
+  return ViewValidKeys.includes(obj as View)
+}
+
+const StudentVariationValidKeys = <const>['Tous les exercices sur une page', 'Une page par exercice', 'Toutes les questions sur une page', 'Une page par question', 'Course aux nombres']
+type StudentVariationValidKeysType = typeof StudentVariationValidKeys
+type StudentVariation = StudentVariationValidKeysType[number]
+function isStudentVariation (obj: unknown): obj is StudentVariation {
+  if (obj == null || typeof obj !== 'string') return false
+  return StudentVariationValidKeys.includes(obj as StudentVariation)
+}
+
+const LatexVariationValidKeys = <const>['Coopmaths', 'Classique', 'ProfMaquette', 'ProfMaquetteQrcode', 'Can']
+type LatexVariationValidKeysType = typeof LatexVariationValidKeys
+type LatexVariation = LatexVariationValidKeysType[number]
+function isLatexVariation (obj: unknown): obj is LatexVariation {
+  if (obj == null || typeof obj !== 'string') return false
+  return LatexVariationValidKeys.includes(obj as LatexVariation)
+}
+
+const AMCVariationValidKeys = <const>['AMCcodeGrid', 'AMCassociation', 'manuscrits']
+type AMCVariationValidKeysType = typeof AMCVariationValidKeys
+type AMCVariation = AMCVariationValidKeysType[number]
+function isAMCVariation (obj: unknown): obj is AMCVariation {
+  if (obj == null || typeof obj !== 'string') return false
+  return AMCVariationValidKeys.includes(obj as AMCVariation)
+}
+
+type Variation = '' | StudentVariation | LatexVariation | AMCVariation
 
 type State = {
   url: string
@@ -13,6 +46,9 @@ type State = {
   numbers: string[]
   exerciseType: ExerciseType
 }
+
+type CallbackType = (page: Page, view: View, variation: Variation, exerciseType: ExerciseType, questionNb: number) => Promise<void>
+
 const states: State[] = []
 
 async function test (page: Page) {
@@ -29,42 +65,77 @@ async function test (page: Page) {
 }
 
 async function testUrl (url: string, page: Page, context: BrowserContext, questionsNb: number, exerciseType: ExerciseType) {
+  const callback = async (page: Page, view: View, variation: Variation, exerciseType: ExerciseType, questionNb: number) => {
+    if (view === 'diaporama') {
+      await diaporamaStatePush(page, view, exerciseType, questionsNb)
+    } else if (view === 'LaTeX' || view === 'AMC') {
+      if (!isLatexVariation(variation) && !isAMCVariation(variation)) throw new Error('LaTeX or AMC callback called with invalid variation')
+      if (view === 'LaTeX' && !isLatexVariation(variation)) throw new Error('LaTeX invalid variation')
+      if (view === 'AMC' && !isAMCVariation(variation)) throw new Error('AMC invalid variation')
+      await LatexStatePush(page, view, variation, exerciseType, questionsNb)
+    } else {
+      if (view === 'eleve' && !isStudentVariation(variation)) throw new Error('Student callback called with invalid view')
+      await defaultViewStatePush(page, view, variation, exerciseType)
+    }
+  }
   await page.goto(url)
   await page.waitForLoadState('networkidle')
-  await pushState(page, 'start', exerciseType)
-  await checkSlideshow(page, questionsNb, exerciseType)
-  await pushState(page, 'start', exerciseType)
-  await checkStudent(page, context, exerciseType)
-  await pushState(page, 'start', exerciseType)
-  await checkLatex(page, 'LaTeX', 'Coopmaths', exerciseType, questionsNb)
-  await checkLatex(page, 'LaTeX', 'Classique', exerciseType, questionsNb)
-  await checkLatex(page, 'LaTeX', 'ProfMaquette', exerciseType, questionsNb)
-  await checkLatex(page, 'LaTeX', 'ProfMaquetteQrcode', exerciseType, questionsNb)
-  await checkLatex(page, 'LaTeX', 'Can', exerciseType, questionsNb)
-  await pushState(page, 'start', exerciseType)
-  await checkLatex(page, 'AMC', 'AMCcodeGrid', exerciseType, questionsNb)
-  await checkLatex(page, 'AMC', 'AMCassociation', exerciseType, questionsNb)
-  await checkLatex(page, 'AMC', 'manuscrits', exerciseType, questionsNb)
-  await pushState(page, 'start', exerciseType)
+  await callback(page, 'start', '', exerciseType, questionsNb)
+  await checkSlideshow(page, exerciseType, questionsNb, callback)
+  await callback(page, 'start', '', exerciseType, questionsNb)
+  await checkStudent(page, context, exerciseType, questionsNb, callback)
+  await callback(page, 'start', '', exerciseType, questionsNb)
+  await checkLatex(page, exerciseType, questionsNb, callback)
+  await callback(page, 'start', '', exerciseType, questionsNb)
+  await checkAmc(page, exerciseType, questionsNb, callback)
+  await callback(page, 'start', '', exerciseType, questionsNb)
 }
 
-async function pushState (page: Page, view: string, exerciseType: ExerciseType) {
+async function diaporamaStatePush (page: Page, view: View, exerciseType: ExerciseType, questionsNb: number) {
+  const url = page.url()
+  const numbers: string[] = []
+  for (let i = 0; i < questionsNb; i++) {
+    numbers.push(await getSlideshowNumbers(page))
+    await page.locator('.bx-skip-next').click()
+  }
+  states.push({
+    url,
+    view,
+    numbers,
+    exerciseType
+  })
+}
+
+async function LatexStatePush (page: Page, view: 'LaTeX' | 'AMC', variation: LatexVariation | AMCVariation, exerciseType: ExerciseType, questionsNb: number) {
+  const url = page.url()
+  await waitForLatex(page, variation)
+  const latex = await getLatex(page)
+  const numbers = getLatexNumbers(latex, view, variation, questionsNb)
+  states.push({
+    url,
+    view: view + ':' + variation,
+    numbers,
+    exerciseType
+  })
+}
+
+async function defaultViewStatePush (page: Page, view: View, variation: Variation, exerciseType: ExerciseType) {
   const url = page.url()
   await page.waitForSelector('.katex')
   const locators = await page.locator('.katex').all()
   const numbers = await getNumbers(locators)
-  if (view === 'eleve:Une page par exercice' || view === 'eleve:Course aux nombres' || view === 'eleve:Une page par question') {
+  if (view === 'eleve' && (variation === 'Une page par exercice' || variation === 'Course aux nombres' || variation === 'Une page par question')) {
     // Bizarrement, les nombres se répètent 3 fois à partir du deuxième exercice dans ces vues au lieu de 2 partout ailleurs
     // À modifier lorsque ce problème de duplication sera réglé
-    const duplicationBeginningIndex = view === 'eleve:Une page par exercice' ? numbers.length / 2 : 1
+    const duplicationBeginningIndex = variation === 'Une page par exercice' ? numbers.length / 2 : 1
     for (let i = 0; i < numbers.length; i++) {
       if (i >= duplicationBeginningIndex) {
         numbers[i] = numbers[i].slice(0, Math.round(numbers[i].length * 2 / 3))
       }
     }
-  }
-  if (view === 'eleve:Course aux nombres') {
-    numbers.pop()
+    if (variation === 'Course aux nombres') {
+      numbers.pop()
+    }
   }
   states.push({
     url,
@@ -84,26 +155,16 @@ async function getNumbers (locators: Locator[]) {
   return numbers
 }
 
-async function checkSlideshow (page: Page, questionsNb: number, exerciseType: ExerciseType) {
+async function checkSlideshow (page: Page, exerciseType: ExerciseType, questionsNb: number, callback: CallbackType) {
   await page.locator('div[data-tip="Diaporama"]').click()
-  await checkSlideshowPlay(page, questionsNb, exerciseType)
-  await checkSlideshowPreview(page, exerciseType)
+  await checkSlideshowPlay(page, questionsNb, exerciseType, callback)
+  await checkSlideshowPreview(page, questionsNb, exerciseType, callback)
   await page.locator('.bx-x').first().click()
 }
 
-async function checkSlideshowPlay (page: Page, questionsNb: number, exerciseType: ExerciseType) {
+async function checkSlideshowPlay (page: Page, questionsNb: number, exerciseType: ExerciseType, callback: CallbackType) {
   await page.locator('#diaporama-play-button').click()
-  const numbers: string[] = []
-  for (let i = 0; i < questionsNb; i++) {
-    numbers.push(await getSlideshowNumbers(page))
-    await page.locator('.bx-skip-next').click()
-  }
-  states.push({
-    url: page.url(),
-    view: 'diaporama',
-    numbers,
-    exerciseType
-  })
+  callback(page, 'diaporama', '', exerciseType, questionsNb)
 }
 
 async function getSlideshowNumbers (page: Page) {
@@ -114,53 +175,52 @@ async function getSlideshowNumbers (page: Page) {
   return number
 }
 
-async function checkSlideshowPreview (page: Page, exerciseType: ExerciseType) {
+async function checkSlideshowPreview (page: Page, questionNb: number, exerciseType: ExerciseType, callback: CallbackType) {
   await page.locator('.bx-detail').click()
-  await pushState(page, 'apercu', exerciseType)
+  await callback(page, 'apercu', '', exerciseType, questionNb)
   await page.locator('.bx-arrow-back').click()
 }
 
-async function checkStudent (page: Page, context: BrowserContext, exerciseType: ExerciseType) {
+async function checkStudent (page: Page, context: BrowserContext, exerciseType: ExerciseType, questionNb: number, callback: CallbackType) {
   await page.locator('.bx-link').click()
-  await checkStudentVariation('Tous les exercices sur une page', page, context, exerciseType)
-  await checkStudentVariation('Une page par exercice', page, context, exerciseType)
-  await checkStudentVariation('Toutes les questions sur une page', page, context, exerciseType)
-  await checkStudentVariation('Une page par question', page, context, exerciseType)
-  await checkStudentVariation('Course aux nombres', page, context, exerciseType)
+  await checkStudentVariation('Tous les exercices sur une page', page, context, exerciseType, questionNb, callback)
+  await checkStudentVariation('Une page par exercice', page, context, exerciseType, questionNb, callback)
+  await checkStudentVariation('Toutes les questions sur une page', page, context, exerciseType, questionNb, callback)
+  await checkStudentVariation('Une page par question', page, context, exerciseType, questionNb, callback)
+  await checkStudentVariation('Course aux nombres', page, context, exerciseType, questionNb, callback)
   await page.locator('.bx-x').first().click()
 }
 
-async function checkStudentVariation (variation: string, page: Page, context: BrowserContext, exerciseType: ExerciseType) {
+async function checkStudentVariation (variation: Variation, page: Page, browserContext: BrowserContext, exerciseType: ExerciseType, questionNb: number, callback: CallbackType) {
   await page.click(`text=${variation}`)
   page.click('text=Visualiser') // Si on await ici, on risque de manquer le context.waitForEvent('page') qui suit
-  const newPage = await context.waitForEvent('page')
+  const newPage = await browserContext.waitForEvent('page')
   await newPage.waitForLoadState('networkidle')
 
   if (variation === 'Course aux nombres') {
     await newPage.click('text=Démarrer')
     await newPage.waitForTimeout(6000)
   }
-  await pushState(newPage, `eleve:${variation}`, exerciseType)
+  await callback(newPage, 'eleve', variation, exerciseType, questionNb)
   await newPage.close()
 }
 
-async function checkLatex (page: Page, view: 'LaTeX' | 'AMC', model: LatexModel | AMCModel, exerciseType: ExerciseType, questionsNb: number) {
-  const url = page.url()
+async function checkLatex (page: Page, exerciseType: ExerciseType, questionsNb: number, callback: CallbackType) {
+  await checkLatexVariation(page, 'LaTeX', 'Coopmaths', exerciseType, questionsNb, callback)
+  await checkLatexVariation(page, 'LaTeX', 'Classique', exerciseType, questionsNb, callback)
+  await checkLatexVariation(page, 'LaTeX', 'ProfMaquette', exerciseType, questionsNb, callback)
+  await checkLatexVariation(page, 'LaTeX', 'ProfMaquetteQrcode', exerciseType, questionsNb, callback)
+  await checkLatexVariation(page, 'LaTeX', 'Can', exerciseType, questionsNb, callback)
+}
+
+async function checkLatexVariation (page: Page, view: 'LaTeX' | 'AMC', variation: LatexVariation | AMCVariation, exerciseType: ExerciseType, questionsNb: number, callback: CallbackType) {
   await page.locator(`button[data-tip="${view}"]`).click()
-  await page.click(`input[type="radio"][value="${model}"]`)
-  await waitForLatex(page, model)
-  const latex = await getLatex(page)
-  const numbers = getLatexNumbers(latex, view, model, questionsNb)
-  states.push({
-    url,
-    view: view + ':' + model,
-    numbers,
-    exerciseType
-  })
+  await page.click(`input[type="radio"][value="${variation}"]`)
+  await callback(page, view, variation, exerciseType, questionsNb)
   await page.locator('.bx-x').first().click()
 }
 
-async function waitForLatex (page: Page, model: LatexModel | AMCModel) {
+async function waitForLatex (page: Page, model: LatexVariation | AMCVariation) {
   switch (model) {
     case 'Coopmaths':
       await page.waitForFunction(() => {
@@ -201,7 +261,7 @@ async function getLatex (page: Page) {
   return await locator.innerText()
 }
 
-function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexModel | AMCModel, questionsNb: number) {
+function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexVariation | AMCVariation, questionsNb: number) {
   const lineRegex: RegExp = view === 'LaTeX' ? model === 'Can' ? /\\CompteurTC\s+&[^\r\n]*/g : /\\item[^\r\n]*/g : /\$ [^\r\n]*/g
   const rawLines: string[] = latex.match(lineRegex) || []
   if (model === 'Can') {
@@ -215,7 +275,7 @@ function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexMode
   }
 }
 
-function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 'AMC', model: LatexModel | AMCModel, linesNumber: number, questionsNb: number): string[] {
+function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 'AMC', model: LatexVariation | AMCVariation, linesNumber: number, questionsNb: number): string[] {
   if (view === 'LaTeX') {
     if (model === 'ProfMaquette' || model === 'ProfMaquetteQrcode') {
       const firstExercise = calculationsQuestionsAnswers.slice(0, questionsNb / 2)
@@ -229,10 +289,15 @@ function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 
   }
 }
 
+async function checkAmc (page: Page, exerciseType: ExerciseType, questionsNb: number, callback: CallbackType) {
+  await checkLatexVariation(page, 'AMC', 'AMCcodeGrid', exerciseType, questionsNb, callback)
+  await checkLatexVariation(page, 'AMC', 'AMCassociation', exerciseType, questionsNb, callback)
+  await checkLatexVariation(page, 'AMC', 'manuscrits', exerciseType, questionsNb, callback)
+}
+
 function isConsistent () {
   const differenceIndexes = getDifferencesIndexes()
   if (differenceIndexes.length > 0) {
-    const messages: string[] = []
     for (const differenceIndex of differenceIndexes) {
       console.log(`Il y a une différence entre la vue ${states[differenceIndex - 1].view} et la vue ${states[differenceIndex].view} pour les exercices de type ${states[differenceIndex].exerciseType}`)
       console.log(states[differenceIndex - 1], states[differenceIndex])
