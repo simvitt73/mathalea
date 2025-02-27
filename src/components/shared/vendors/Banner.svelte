@@ -6,6 +6,8 @@
   export let brandImagePath: string | null = 'assets/images/vendors/bordas/bordas_logo.png'
   export let productImagePath: string | null = 'assets/images/vendors/bordas/myriade_logo.png'
   export let state: boolean = false
+  export let iconOnTrue: string = 'bx-log-out-circle'
+  export let iconOnFalse: string = 'bxs-cog'
   function switchState() {
     dispatch('banner-state')
   }
@@ -22,14 +24,14 @@
       <img class="h-6 lg:h-8" src={brandImagePath} alt="Brand" />
     </div>
     <ButtonIconTooltip
-      icon={state ? 'bx-log-out-circle' : 'bxs-cog'}
+      icon={state ? iconOnTrue : iconOnFalse}
       tooltip="Accéder aux réglages"
       class="hidden lg:block text-3xl"
       on:click={switchState}
     />
   </div>
   <ButtonIconTooltip
-    icon={state ? 'bx-log-out-circle' : 'bxs-cog'}
+    icon={state ? iconOnTrue : iconOnFalse}
     tooltip="Accéder aux réglages"
     class="block lg:hidden text-3xl"
     on:click={switchState}
