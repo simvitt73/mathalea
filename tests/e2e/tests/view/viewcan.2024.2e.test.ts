@@ -133,7 +133,7 @@ async function testCanView (page: Page) {
   expect(await page1.locator('#score:first-child > span').innerText()).toBe('30/30')
   expect(await page1.locator('#answer-28').innerText()).toBe('3{3}3')
   expect(await page1.locator('#answer-12').innerText()).toBe('6{6}6')
-  await page1.waitForTimeout(5 * 60 * 1000)
+  // await page1.waitForTimeout(5 * 60 * 1000)
   return true
 }
 
