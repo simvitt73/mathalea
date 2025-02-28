@@ -126,7 +126,7 @@ async function getScenario (page: Page, view: View, variation: Variation): Promi
 }
 
 async function testNanUndefined (page: Page) {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     const NaNLocators = await page.locator('text=NaN').all()
     const undefinedLocators = await page.locator('text=undefined').all()
     if (NaNLocators.length > 0 || undefinedLocators.length > 0) {
