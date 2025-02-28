@@ -108,9 +108,7 @@
     "sortablejs": "^1.15.6",
     "svelte-gestures": "^4.0.0",
     "ts-import": "5.0.0-beta.0",
-    "tw-elements": "^1.1.0",
-    "vite-plugin-dynamic-import": "^1.6.0",
-    "vitest": "^1.6.1",
+    "tw-elements": "^1.1.0",    
     "xstate": "^4.38.3",
     "ua-parser-js": "^2.0.1"
   },
@@ -135,8 +133,8 @@
     "globals": "^15.15.0",
     "jsdom": "^25.0.1",
     "neostandard": "^0.12.1",
-    "playwright": "1.49.0",
-    "pnpm": "^8.15.9",
+    "playwright": "1.50.0",
+    "pnpm": "^10.5.2",
     "postcss": "^8.5.2",
     "postcss-load-config": "^5.1.0",
     "prettier": "^3.5.1",
@@ -153,7 +151,9 @@
     "typescript": "^5.7.3",
     "util": "^0.12.5",
     "vite": "^5.4.14",
-    "vite-plugin-generate-file": "0.2.0"
+    "vite-plugin-generate-file": "0.2.0",
+    "vite-plugin-dynamic-import": "^1.6.0",
+    "vitest": "^1.6.1"
   },
   "git-precommit-checks": {
     "display": {
