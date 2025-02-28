@@ -155,12 +155,27 @@ async function waitForLatex (page: Page, model: LatexVariation | AMCVariation) {
 }
 
 async function checkAmc (page: Page, callback: CallbackType) {
+  if (!await isAmcAvailable(page)) return
   await checkLatexVariation(page, 'AMC', 'AMCcodeGrid', callback)
   await checkLatexVariation(page, 'AMC', 'AMCassociation', callback)
   await checkLatexVariation(page, 'AMC', 'manuscrits', callback)
 }
 
+async function isAmcAvailable (page: Page): Promise<boolean> {
+  await page.locator('button[data-tip="AMC"]').click()
+  await page.waitForTimeout(1000)
+  const AmcErrorLocator = await page.getByRole('dialog').locator('.bxs-error').all()
+  if (AmcErrorLocator.length > 0) {
+    await page.getByRole('dialog').getByRole('button', { name: '' }).locator('.bx-x').click()
+    await page.locator('.bx-x').first().click()
+    return false
+  }
+  await page.locator('.bx-x').first().click()
+  return true
+}
+
 export function getUrlParam (page: Page, param: string): string {
   const url = page.url()
+  if (!url.includes(`${param}=`)) return ''
   return url.split('?')[1].split('&').filter(el => el.startsWith(`${param}=`))[0].split('=')[1]
 }
