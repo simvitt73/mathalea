@@ -11,7 +11,6 @@
     isInIframe,
     isMenuNeededForExercises,
     resultsByExercice
-
   } from '../lib/stores/generalStore'
   import { context } from '../modules/context'
   import {
@@ -36,6 +35,7 @@
   import { UAParser } from 'ua-parser-js'
   import Popup from './shared/modal/Popup.svelte'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
+  import { vendor } from '../lib/stores/vendorStore'
 
   let isInitialUrlHandled = false
 
@@ -48,7 +48,6 @@
   }
 
   onMount(() => {
-
     handleInitialUrl()
 
     const version = checkBrowserVersion()
@@ -61,10 +60,7 @@
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-    customElements.define(
-      'alea-buttoninstrumenpoche',
-      ElementButtonInstrumenpoche
-    )
+    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
   }
 
   // charge le numéro de version du serveur
@@ -164,6 +160,19 @@
     } else {
       context.isAmc = false
     }
+    // initialisation du vendor pour l'intégration de la bannière dans la vue élève
+    if ($globalOptions.v === 'myriade') {
+      $vendor.product = {
+        name: 'indices',
+        logoPath: 'assets/images/vendors/bordas/myriade_logo.png'
+      }
+    }
+    if ($globalOptions.v === 'indices') {
+      $vendor.product = {
+        name: 'indices',
+        logoPath: 'assets/images/vendors/bordas/indices_logo.png'
+      }
+    }
     context.vue = ''
     if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
     if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
@@ -172,7 +181,7 @@
     context.isInEditor = false
   }
 
-  function handleInitialUrl () {
+  function handleInitialUrl() {
     updateReferentielLocaleFromURL()
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
@@ -181,22 +190,24 @@
     isInitialUrlHandled = true
   }
 
-  function isDevMode () {
+  function isDevMode() {
     return window.location.href.startsWith('http://localhost')
   }
-
 </script>
 
-<div class=" {$darkMode.isActive
-  ? 'dark'
-  : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="appComponent">
+<div
+  class=" {$darkMode.isActive
+    ? 'dark'
+    : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  id="appComponent"
+>
   {#if showPopup}
     <Popup message={popupMessage} visible={showPopup} onClose={handlePopupClose} />
   {:else if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}
     <Can />
-  {:else if $globalOptions.v === 'eleve'}
+  {:else if $globalOptions.v === 'eleve' || $globalOptions.v === 'indices' || $globalOptions.v === 'myriade'}
     <Eleve />
   {:else if $globalOptions.v === 'latex'}
     <Latex />

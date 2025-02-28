@@ -64,9 +64,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
-export const capytaleMode = writable<
-  'none' | 'create' | 'assignment' | 'review' | 'view'
->('none')
+export const capytaleMode = writable<'none' | 'create' | 'assignment' | 'review' | 'view'>('none')
 
 export const capytaleStudentAssignment = writable<InterfaceResultExercice[]>()
 
@@ -87,14 +85,13 @@ export const previousView = writable<undefined | '' | VueType>(undefined)
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
-export const bibliothequeDisplayedContent =
-  writable<Record<string, JSONReferentielEnding>>()
+export const bibliothequeDisplayedContent = writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
 
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (
+export function moveExercice(
   liste: InterfaceParams[],
   iDepart: number,
   iArrivee: number
@@ -109,7 +106,7 @@ let timerId: ReturnType<typeof setTimeout> | undefined
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
  */
-export function updateGlobalOptionsInURL (url: URL) {
+export function updateGlobalOptionsInURL(url: URL) {
   const options = get(globalOptions)
   const canStore = get(canOptions)
   if (options.v) {
@@ -127,7 +124,7 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('dGlobal')
   }
-  if (options.v === 'eleve') {
+  if (options.v === 'eleve' || options.v === 'myriade' || options.v === 'indices') {
     if (options.title != null && options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
@@ -185,7 +182,12 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
   if (options.v === 'diaporama' || options.v === 'overview') {
     url.searchParams.append('ds', buildDsParams())
-    if (options.select !== undefined && options.select !== undefined && options.select.length > 0 && options.select.length < get(exercicesParams).length) {
+    if (
+      options.select !== undefined &&
+      options.select !== undefined &&
+      options.select.length > 0 &&
+      options.select.length < get(exercicesParams).length
+    ) {
       url.searchParams.append('select', options.select.join('-'))
     }
     if (options.order !== undefined && options.order.length > 0 && options.shuffle) {
