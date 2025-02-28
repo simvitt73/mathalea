@@ -28,7 +28,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
 
 default:
-  image: node:18.16.0
+  image: node:23.9.0
   cache:
     key:
       files:
@@ -38,9 +38,11 @@ default:
 
 .install_dependencies:
   before_script:
+    - npm install -g corepack@latest
     - corepack enable
-    - corepack prepare pnpm@latest-8 --activate
+    - corepack prepare pnpm@latest-10 --activate
     - pnpm config set store-dir .pnpm-store
+    - pnpm -v
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
     - sleep 20
@@ -123,7 +125,7 @@ default:
 
 .testCI:
   extends: .install_dependencies
-  image: mcr.microsoft.com/playwright:v1.49.0-noble
+  image: mcr.microsoft.com/playwright:v1.50.0-noble
   stage: playwright-test
   allow_failure: true
   rules:
@@ -133,6 +135,8 @@ default:
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: manual
+      variables:
+        CI_TEST_TICKETS: "CREATE"
     - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
       when: always
     - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
@@ -307,7 +311,7 @@ build:
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
     #- NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm vite build
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
