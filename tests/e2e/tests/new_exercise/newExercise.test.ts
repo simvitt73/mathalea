@@ -26,7 +26,10 @@ type Scenario = {
   callbackBeforeNavigation?: (page: Page, i: number) => Promise<void>
 }
 
+let questionsNb = 1
+
 const callback = async (page: Page, view: View, variation: Variation) => {
+  if (view === 'start') questionsNb = (await page.locator('.list-inside').locator('li').all()).length
   const scenario = await getScenario(page, view, variation)
   if (scenario.isMultiplePagesView) {
     if (!scenario.navigationSelectors || scenario.navigationSelectors.length === 0) {
@@ -73,7 +76,6 @@ async function action (page: Page, view: View, variation: Variation, append?: st
 }
 
 async function getScenario (page: Page, view: View, variation: Variation): Promise<Scenario> {
-  const questionsNb = Math.max((await page.locator('.list-inside li').all()).length, 1)
   if (view === 'start') {
     return {
       displayCorrectionSelectors: ['.bx-check-circle']
