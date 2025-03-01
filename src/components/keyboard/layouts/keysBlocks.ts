@@ -61,7 +61,7 @@ const fullOperationCaps: CompleteKeysList = {
 }
 const terminaleCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD', 'SQRT', 'SQRTN', 'e^', 'INFTY', 'PARENTHESES', 'POW10', 'BRACES', 'BRACKETS'],
-  block: ['SQRT', 'SQRTN', 'LN', 'LOG', 7, 8, 9, 'POW', 'e^', 'FRAC', 'INFTY', 4, 5, 6, 'POW10', 'PARENTHESES', 'BRACES', 'BRACKETS', 1, 2, 3, 'ADD', 'SUB', 'MULT', 'DIV', 0, 'COMMA', 'SEMICOLON']
+  block: ['SQRT', 'SQRTN', 'LN', 'LOG', 7, 8, 9, 'POW', 'e^', 'FRAC', 'INFTY', 4, 5, 6, 'POW10', 'PARENTHESES', 'BRACES', 'xMath', 1, 2, 3, 'ADD', 'SUB', 'MULT', 'DIV', 0, 'COMMA', 'SEMICOLON']
 }
 
 const numerationCaps: CompleteKeysList = {
