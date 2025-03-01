@@ -72,7 +72,6 @@
     "@bugsnag/js": "^7.25.0",
     "@cortex-js/compute-engine": "^0.28.0",
     "@mixer/postmessage-rpc": "^1.1.4",
-    "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "@svgdotjs/svg.js": "^3.2.4",
     "@types/crypto-js": "^4.2.2",
     "algebrite": "^1.4.0",
@@ -153,7 +152,9 @@
     "vite": "^5.4.14",
     "vite-plugin-generate-file": "0.2.0",
     "vite-plugin-dynamic-import": "^1.6.0",
-    "vitest": "^1.6.1"
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "vitest": "^1.6.1",
+    "rollup-plugin-visualizer": "^5.14.0"
   },
   "git-precommit-checks": {
     "display": {
