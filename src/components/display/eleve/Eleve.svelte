@@ -816,9 +816,11 @@
     </div>
   </div>
   <Keyboard />
-  <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
-    <Footer2 />
-  </div>
+  {#if $globalOptions.v !== 'myriade' && $globalOptions.v !== 'indices'}
+    <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
+      <Footer2 />
+    </div>
+  {/if}
 </section>
 
 <style>
