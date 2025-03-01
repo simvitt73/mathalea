@@ -845,7 +845,7 @@ export default class VariationsCourbe extends Exercice {
               scale: 0.7,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $]-\\infty\\,;\\,${x2}]$.<br>
+            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $]-\\infty\\,;\\,${x3}]$.<br>
             Dresser son tableau de variations sur son ensemble de définition.<br><br>`
             texte += `${graphique}`
 
