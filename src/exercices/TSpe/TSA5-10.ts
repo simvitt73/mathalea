@@ -43,7 +43,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
         correction: 'La dérivée de la fonction logarithme népérien est la fonction inverse, donc sa dérivée en $1$ vaut $1$.'
       }, // 4
       {
-        texte: '$\\ln(0)=1$.',
+        texte: '$\\ln(0)=1$',
         statut: false,
         correction: 'La fonction logarithme n\'est pas définie en $0$. On a par contre $\\ln(1)=0$.'
       },
@@ -63,12 +63,12 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
         correction: '$\\displaystyle\\lim_{x\\to 0^+}\\ln(x)=-\\infty$.  '
       },
       {
-        texte: '$\\displaystyle\\lim_{x\\to 0^+}\\dfrac{\\ln(x)}{x}=0$.',
+        texte: '$\\displaystyle\\lim_{x\\to 0^+}\\dfrac{\\ln(x)}{x}=0$',
         statut: false,
         correction: '$\\displaystyle\\lim_{x\\to 0^+}\\ln(x)=-\\infty$ donc on a une forme $\\dfrac{-\\infty}{0^+}=-\\infty$.  '
       },
       {
-        texte: '$\\displaystyle\\lim_{x\\to 0^+}x\\ln(x)=-\\infty$.',
+        texte: '$\\displaystyle\\lim_{x\\to 0^+}x\\ln(x)=-\\infty$',
         statut: false,
         correction: 'Résultat de cours, croissance comparée de $x$ et $\\ln$ en $0$. $\\displaystyle\\lim_{x\\to 0^+}x\\ln(x)=0$.  '
       }, // 10
@@ -130,7 +130,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
         correction: 'En utilisant les propriétés du logarithme, $\\ln\\left(\\dfrac{x}{\\mathrm{e}}\\right) = \\ln(x) - \\ln(\\mathrm{e}) = \\ln(x) - 1$, donc $\\ln(x) = \\ln\\left(\\dfrac{x}{\\mathrm{e}}\\right) + 1$.'
       },
       {
-        texte: '$\\ln(1)=\\mathrm{e}$.',
+        texte: '$\\ln(1)=\\mathrm{e}$',
         statut: false,
         correction: '$\\ln(\\mathrm{e})=1$ et $\\ln(1)=0$.'
       }// 22
