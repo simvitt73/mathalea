@@ -23,6 +23,8 @@ export default class VraiFaux extends Exercice {
     this.nbQuestions = 1
     this.consigne = 'Pour chaque affirmation, dire si elle est vraie ou fausse.'
     this.affirmations = []
+    this.besoinFormulaireCaseACocher = ['Ajout de « Je ne sais pas »', false]
+    this.sup = false
   }
 
   nouvelleVersion () {
@@ -30,19 +32,26 @@ export default class VraiFaux extends Exercice {
     this.nbQuestions = Math.min(this.affirmations.length, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = this.affirmations[i].texte
+      const propositions = [
+        {
+          texte: 'Vrai',
+          statut: this.affirmations[i].statut
+        },
+        {
+          texte: 'Faux',
+          statut: !this.affirmations[i].statut
+        }
+      ]
+      if (this.sup) {
+        propositions.push({
+          texte: 'Je ne sais pas',
+          statut: false
+        })
+      }
       this.autoCorrection[i] = {
         options: { ordered: true, vertical: false },
         enonce: texte,
-        propositions: [
-          {
-            texte: 'Vrai',
-            statut: this.affirmations[i].statut
-          },
-          {
-            texte: 'Faux',
-            statut: !this.affirmations[i].statut
-          }
-        ]
+        propositions
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
