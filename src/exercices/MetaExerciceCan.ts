@@ -70,15 +70,15 @@ export default class MetaExercice extends Exercice {
       }
       repartition = combinaisonListes(repartition, 3)
 
-      let exercices1 = exercicesRef.slice(0, Math.floor(nbTotalQuestions / 3))
+      let exercices1 = exercicesRef.slice(0, Math.floor(Math.max(nbTotalQuestions / 3, repartition[0])))
       exercices1 = shuffle(exercices1)
       exercices1 = exercices1.slice(0, repartition[0])
 
-      let exercices2 = exercicesRef.slice(Math.floor(nbTotalQuestions / 3), 2 * Math.floor(nbTotalQuestions / 3))
+      let exercices2 = exercicesRef.slice(Math.max(nbTotalQuestions / 3, repartition[0]), Math.max(2 * nbTotalQuestions / 3, repartition[0] + repartition[1]))
       exercices2 = shuffle(exercices2)
       exercices2 = exercices2.slice(0, repartition[1])
 
-      let exercices3 = exercicesRef.slice(2 * Math.floor(nbTotalQuestions / 3), nbTotalQuestions)
+      let exercices3 = exercicesRef.slice(Math.max(2 * nbTotalQuestions / 3, repartition[0] + repartition[1]), nbTotalQuestions)
       exercices3 = shuffle(exercices3)
       exercices3 = exercices3.slice(0, repartition[2])
 
