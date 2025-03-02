@@ -38,6 +38,6 @@ export default class Can2025CM1Q27 extends Exercice {
     $${texNombre(h * 60 + min, 0)}$ h $=${miseEnEvidence(h)}$ h $${miseEnEvidence(min)}$ min`
     if (!this.interactif) { this.question += '$=\\ldots$ h $\\ldots$ min' }
     this.canEnonce = 'Complète.'
-    this.canReponseACompleter = `$${texNombre(h * 60 + min, 0)}$ h $=\\ldots$ h $\\ldots$ min `
+    this.canReponseACompleter = `$${texNombre(h * 60 + min, 0)}$ min $=\\ldots$ h$\\ldots$ min `
   }
 }

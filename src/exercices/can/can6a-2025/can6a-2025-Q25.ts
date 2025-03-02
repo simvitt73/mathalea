@@ -54,11 +54,11 @@ export default class Can2025N6Q25 extends Exercice {
     const qcm = propositionsQcm(this, 0)
 
     this.question += `${qcm.texte}`
-    this.canEnonce = 'Coche le plus grand nombre.'
+    this.canEnonce = `Coche le résultat du calcul $${texNombre(a, 0)}\\times ${b}$.`
     this.canReponseACompleter = qcm.texte
     this.reponse = a * b// C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
-    this.correction = qcm.texteCorr + `Le résultat est proche de $${texNombre(a, 0)}\\times 100= ${texNombre(a * 100, 0)}$. <br>
+    this.correction = qcm.texteCorr + `<br>Le résultat est proche de $${texNombre(a, 0)}\\times 100= ${texNombre(a * 100, 0)}$. <br>
     Il s'agit du nombre $${miseEnEvidence(texNombre(a * b, 0))}$.`
-    this.canReponseACompleter = `\\raggedright $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b, 0)}$ <br> $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b / 10, 0)}$ <br> $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b * 10, 0)}$ km`
+    this.canReponseACompleter = `\\raggedright $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b, 0)}$ <br> $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b / 10, 0)}$ <br> $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b * 10, 0)}$`
   }
 }

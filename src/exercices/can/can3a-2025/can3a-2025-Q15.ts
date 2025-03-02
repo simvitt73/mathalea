@@ -53,8 +53,8 @@ export default class hypoténusePythagore extends Exercice {
       latex2d(`${texNombre(b)} \\text{ cm}`, milieu(R, T).x + 1, milieu(R, T).y, { color: 'black' })
     )
 
-    this.question = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
-    this.canEnonce = this.question + '<br>Compléter.'
+    this.question = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
+    this.canEnonce = this.question
     this.question += '<br>La valeur exacte de $ST$ est '
     if (!this.interactif) { this.question += '$\\ldots$ cm.' }
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $SRT$,  rectangle en $R$.<br>

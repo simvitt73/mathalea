@@ -26,7 +26,7 @@ export default class Can2025N5Q10 extends ExerciceCan {
     }
     this.reponse = c
     this.question = `On répartit $${a}$ élèves dans $${b}$ groupes de même effectif.<br>
-    Le nombre d'élèves dans chaque groupe est :`
+    Le nombre d'élèves dans un groupe est :`
     this.correction = `$${a}\\div ${b} = ${miseEnEvidence(String(c))}$<br>
     Donc, chaque groupe contient $${c}$ élèves.`
     this.canEnonce = this.question

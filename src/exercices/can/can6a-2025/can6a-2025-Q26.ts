@@ -66,7 +66,7 @@ export default class Can2025N6Q26 extends Exercice {
       xmin: -1,
       ymin: -1.3,
       xmax: 10,
-      ymax: 0.7,
+      ymax: 0.9,
       pixelsParCm: 20,
       scale: 0.6,
       style: 'margin: auto'
@@ -81,7 +81,7 @@ export default class Can2025N6Q26 extends Exercice {
       xmin: -1,
       ymin: -1.3,
       xmax: 10,
-      ymax: 0.7,
+      ymax: 0.8,
       pixelsParCm: 20,
       scale: 0.5,
       style: 'margin: auto'

@@ -24,9 +24,9 @@ export default class Can2025N4Q14 extends ExerciceCan {
     if (a == null || b == null || couleur1 == null || couleur2 == null) {
       a = randint(5, 15)
       b = randint(20, 25, 2 * a) - a
+      couleur1 = choice(listeCouleurs)
+      couleur2 = choice(listeCouleurs.filter(c => c !== couleur1))
     }
-    couleur1 = choice(listeCouleurs)
-    couleur2 = choice(listeCouleurs.filter(c => c !== couleur1))
     const reponse = new FractionEtendue(b, a + b)
     this.reponse = reponse.texFraction
     this.question = `Dans un sac opaque, il y a $${a}$ billes ${couleur1}s et $${b}$ billes ${couleur2}s. <br>
@@ -41,6 +41,6 @@ export default class Can2025N4Q14 extends ExerciceCan {
   }
 
   nouvelleVersion () {
-    this.canOfficielle ? this.enonce(12, 7, 'noires', 'rouges') : this.enonce()
+    this.canOfficielle ? this.enonce(12, 7, 'noire', 'rouge') : this.enonce()
   }
 }
