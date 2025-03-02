@@ -1,6 +1,7 @@
 import { runTest } from '../../helpers/run'
 import type { Locator, Page } from 'playwright'
 import { clean } from '../../helpers/text'
+import { log } from '../../helpers/log'
 import prefs from '../../helpers/prefs'
 import { type AMCVariation, type LatexVariation, type View, type Variation, testAllViews, isLatexVariation, isAMCVariation, isStudentVariation } from '../../helpers/testAllViews'
 
@@ -18,17 +19,29 @@ const questionsNb = 20
 
 let exerciseType: ExerciseType = 'classique'
 
+function logState () {
+  states.forEach(state => {
+    console.log(state)
+  })
+}
+
 async function test (page: Page) {
   const classicExerciseParams = 'uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true&uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true'
   exerciseType = 'classique'
+  log('Testing classic exercise')
   await testAllViews(page, classicExerciseParams, callback)
+  logState()
   const simpleExerciseParams = 'uuid=4ba86&id=canc3C04&n=10&d=10&cd=1&uuid=4ba86&id=canc3C04&n=10&d=10&cd=1'
   exerciseType = 'simple'
+  log('Testing simple exercise')
   await testAllViews(page, simpleExerciseParams, callback)
+  logState()
+  log('Check differences')
   return isConsistent()
 }
 
 const callback = async (page: Page, view: View, variation: Variation) => {
+  log(`Testing ${view} ${variation}`)
   if (view === 'diaporama') {
     await diaporamaStatePush(page, view)
   } else if (view === 'LaTeX' || view === 'AMC') {
@@ -45,7 +58,8 @@ const callback = async (page: Page, view: View, variation: Variation) => {
 async function diaporamaStatePush (page: Page, view: View) {
   const url = page.url()
   const numbers: string[] = []
-  const maxQuestionsNb = 50
+  const maxQuestionsNb = await page.locator('#stepsUl > button').count()
+  // const maxQuestionsNb = 50
   for (let i = 0; i < maxQuestionsNb; i++) {
     numbers.push(await getSlideshowNumbers(page))
     await page.locator('.bx-skip-next').click()
@@ -182,5 +196,6 @@ if (process.env.CI) {
   prefs.headless = true
   runTest(test, import.meta.url, { pauseOnError: false })
 } else {
+  prefs.slowMo = 0
   runTest(test, import.meta.url, { pauseOnError: true })
 }

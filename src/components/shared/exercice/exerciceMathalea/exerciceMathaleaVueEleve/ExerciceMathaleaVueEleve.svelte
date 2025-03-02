@@ -70,11 +70,13 @@
         $globalOptions.answers = objAnswers
       }
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-      mathaleaWriteStudentPreviousAnswers(objAnswers)
-      if (buttonScore) {
-        exercise.isDone = true
-        buttonScore.click()
-      }
+      Promise.all(mathaleaWriteStudentPreviousAnswers(objAnswers)).then(() => {
+        // une fois que les réponses sont chargées et on en est sûr, on clique...
+        if (buttonScore) {
+          exercise.isDone = true
+          buttonScore.click()
+        }
+      })
     }
   }
 

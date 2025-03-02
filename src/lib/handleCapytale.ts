@@ -130,7 +130,10 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
             window.postMessage(message, '*')
           }
         } else {
-          mathaleaWriteStudentPreviousAnswers(exercice.answers)
+          const starttime = window.performance.now()
+          await Promise.all(mathaleaWriteStudentPreviousAnswers(exercice.answers))
+          const time = window.performance.now()
+          console.log(`duration exercice ${exercice.uuid}: ${(time - starttime)}`)
         }
       }
     }

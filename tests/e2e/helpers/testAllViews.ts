@@ -59,6 +59,7 @@ export async function testAllViews (page: Page, params: string, callback: Callba
 
 async function checkSlideshow (page: Page, callback: CallbackType) {
   await page.locator('div[data-tip="Diaporama"]').click()
+  await page.waitForURL(url => url.searchParams.get('v') === 'diaporama')
   await checkSlideshowPlay(page, callback)
   await checkSlideshowPreview(page, callback)
   await page.locator('.bx-x').first().click()
@@ -66,7 +67,7 @@ async function checkSlideshow (page: Page, callback: CallbackType) {
 
 async function checkSlideshowPlay (page: Page, callback: CallbackType) {
   await page.locator('#diaporama-play-button').click()
-  callback(page, 'diaporama', '')
+  await callback(page, 'diaporama', '')
 }
 
 async function checkSlideshowPreview (page: Page, callback: CallbackType) {
