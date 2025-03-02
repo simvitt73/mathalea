@@ -1093,7 +1093,7 @@ export default class VariationsCourbe extends Exercice {
             const b = randint(-3, 3)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             fonction = (x:number) => a / ((x - b) ** 2 + 1)
-            derivee = (x:number) => -a * 2 * x / ((x - b) ** 2 + 1) ** 2
+            derivee = (x:number) => -a * 2 * (x - b) / ((x - b) ** 2 + 1) ** 2
             tolerance = 0.005
             xMin = -10
             xMax = 10
