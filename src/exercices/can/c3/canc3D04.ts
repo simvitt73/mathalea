@@ -76,7 +76,7 @@ export default class ExerciceInteractiveClock extends Exercice {
     const minute: string = clock.getAttribute('minute')
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[id] = `${hour}h${minute}`
+    this.answers[id] = `${hour}h${minute.toString().padStart(2, '0')}`
     if (hour === formatHour012(this.goodAnswers[i].hour) && minute === this.goodAnswers[i].minute) {
       const divFeedback = document.createElement('div')
       divFeedback.innerHTML = '😎'

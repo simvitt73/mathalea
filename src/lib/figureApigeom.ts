@@ -2,6 +2,7 @@ import type Exercice from '../exercices/Exercice'
 import type Figure from 'apigeom'
 import { context } from '../modules/context'
 import { globalOptions } from '../../src/lib/stores/generalStore'
+import { canOptions } from '../../src/lib/stores/canStore'
 import { get } from 'svelte/store'
 
 /**
@@ -53,6 +54,11 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     const customEvent = event as CustomEvent
     const json = customEvent.detail
     figure.loadJson(JSON.parse(json))
+    if (get(canOptions).isChoosen && get(canOptions).state === 'solutions') {
+      // c'est la can et on est en mode solutions
+      figure.divButtons.style.display = 'none'
+      figure.divUserMessage.style.display = 'none'
+    }
   }
   document.addEventListener(idApigeom, idApigeomFunct)
 
@@ -104,6 +110,8 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     }
     if (defaultAction) {
       figure.buttons.get(defaultAction)?.click()
+      // MGu que la première fois
+      defaultAction = ''
     }
     const zoom = Number(get(globalOptions).z)
     if (oldZoom !== zoom) {

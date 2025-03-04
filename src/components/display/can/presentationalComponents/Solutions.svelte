@@ -38,14 +38,24 @@
       const content = answersContents[i] as HTMLDivElement
       mathaleaRenderDiv(content)
     }
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
+      bubbles: true
+    })
+    document.dispatchEvent(exercicesAffiches)
   })
 
   function removeMF (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (text.includes('placeholder')) return cleanFillInTheBlanks(text, removeDollar)
     if (text.includes('interactive-clock')) return removeInteractiveClock(text)
+    if (text.includes('<select')) return cleanSelect(text)
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
     return text.replace(regex, ' ... ')
+  }
+
+  function cleanSelect(text: string) {
+    const regex = /<select[^>]*>[^]*?<\/select>/g
+    return text.replace(regex, '')
   }
 
   function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
@@ -57,7 +67,6 @@
   function removeInteractiveClock (text: string) {
     if (typeof text !== 'string') return ''
     const regex = /<interactive-clock[^>]*\/>/g
-    console.log(text.replace(regex, ''))
     return text.replace(regex, '')
   }
 </script>

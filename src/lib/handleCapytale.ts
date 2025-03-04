@@ -98,7 +98,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       })
     }
     // En vue CAN, on efface la graine pour que l'élève ne recommence pas le même exercice
-    if (newCanOptions?.isChoosen) {
+    if (newCanOptions?.isChoosen && (newGlobalOptions.isDataRandom === undefined || newGlobalOptions.isDataRandom === true)) {
       exercicesParams.update((l) => {
         for (const param of l) {
           if (param.alea !== undefined) {
@@ -120,20 +120,23 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   if (studentAssignment != null) {
     answersFromCapytale = studentAssignment
     console.info('Réponses à charger', studentAssignment)
-    for (const exercice of studentAssignment) {
-      if (exercice == null) continue
-      if (exercice != null && exercice.answers != null) {
-        if (exercice.type === 'app') {
-          // On prévient les apps avec un message
-          if (exercice != null) {
-            const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
-            window.postMessage(message, '*')
+    if (!newCanOptions.isChoosen) {
+      // On charge les réponses de l'élève (si ce n'est pas la CAN)
+      for (const exercice of studentAssignment) {
+        if (exercice == null) continue
+        if (exercice != null && exercice.answers != null) {
+          if (exercice.type === 'app') {
+            // On prévient les apps avec un message
+            if (exercice != null) {
+              const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
+              window.postMessage(message, '*')
+            }
+          } else {
+            const starttime = window.performance.now()
+            await Promise.all(mathaleaWriteStudentPreviousAnswers(exercice.answers))
+            const time = window.performance.now()
+            console.log(`duration exercice ${exercice.uuid}: ${(time - starttime)}`)
           }
-        } else {
-          const starttime = window.performance.now()
-          await Promise.all(mathaleaWriteStudentPreviousAnswers(exercice.answers))
-          const time = window.performance.now()
-          console.log(`duration exercice ${exercice.uuid}: ${(time - starttime)}`)
         }
       }
     }
