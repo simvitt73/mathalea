@@ -9,12 +9,13 @@ export const titre = 'Produit de matrices'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '04/03/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
  * @author Maxime Nguyen
  * Référence HPC103
+ * Multiplication de matrices : on teste les produits possibles ou non et on réalise le calcul.
 */
 export const uuid = 'a868f'
 export const ref = 'HPC103'
@@ -100,9 +101,21 @@ export default class nomExercice extends Exercice {
         const l1 = matrices[0].subset(index(nblignes[0] - 1, range(0, nbcolonnes[0])))
         const c1 = matrices[1].subset(index(range(0, nblignes[1]), nbcolonnes[1] - 1))
         let detail = `c_{${nblignes[0]}, ${nbcolonnes[1]}}  = `
-        for (let i = 0; i < nbcolonnes[0]; i++) {
-          detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
-          if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
+        // Vérification si l1 est un nombre ou un objet sans dimension
+        if (typeof l1 === 'number' || l1.size === undefined || l1.size()[0] === undefined) {
+          // Cas où l1 est un nombre scalaire
+          for (let i = 0; i < nbcolonnes[0]; i++) {
+            const valeurL1 = (typeof l1 === 'number') ? l1 : l1.subset(index(0))
+            const valeurC1 = (typeof c1 === 'number') ? c1 : c1.subset(index(i, 0))
+            detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(valeurL1.toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(valeurC1.toString()) + '}'
+            if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
+          }
+        } else {
+          // Cas normal où l1 est un vecteur ou une matrice
+          for (let i = 0; i < nbcolonnes[0]; i++) {
+            detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
+            if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
+          }
         }
         detail += `${produit.subset(index(nblignes[0] - 1, nbcolonnes[1] - 1))}`
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ où $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ est le coefficient de la $${nblignes[0]}$-ème ligne et de la $${nbcolonnes[1]}$-ème colonne de la matrice $C = AB$ donne : <br> $${detail}$.`
@@ -118,9 +131,21 @@ export default class nomExercice extends Exercice {
         const l1 = matrices[1].subset(index(nblignes[1] - 1, range(0, nbcolonnes[1])))
         const c1 = matrices[0].subset(index(range(0, nblignes[0]), nbcolonnes[0] - 1))
         let detail = `c_{${nblignes[1]}, ${nbcolonnes[0]}} = `
-        for (let i = 0; i < nbcolonnes[1]; i++) {
-          detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}.'
-          if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+        // Vérification si l1 est un nombre ou un objet sans dimension
+        if (typeof l1 === 'number' || l1.size === undefined || l1.size()[0] === undefined) {
+          // Cas où l1 est un nombre scalaire
+          for (let i = 0; i < nbcolonnes[1]; i++) {
+            const valeurL1 = (typeof l1 === 'number') ? l1 : l1.subset(index(0))
+            const valeurC1 = (typeof c1 === 'number') ? c1 : c1.subset(index(i, 0))
+            detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(valeurL1.toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(valeurC1.toString()) + '}'
+            if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+          }
+        } else {
+          // Cas normal où l1 est un vecteur ou une matrice
+          for (let i = 0; i < nbcolonnes[1]; i++) {
+            detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
+            if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+          }
         }
         detail += `${produit.subset(index(nblignes[1] - 1, nbcolonnes[0] - 1))}`
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ où $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ est le coefficient de la $${nblignes[1]}$-ème ligne et de la $${nbcolonnes[0]}$-ème colonne de la matrice $C = BA$ donne : <br> $${detail}$.`
