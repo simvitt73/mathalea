@@ -4,6 +4,7 @@ import { mathaleaGoToView, mathaleaWriteStudentPreviousAnswers } from './mathale
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
 import { canOptions as canOptionsStore } from './stores/canStore'
+import type { CanState } from './types/can'
 
 interface AssignmentData {
   duration?: number
@@ -42,6 +43,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // On récupère les paramètres de l'activité
   currentMode = mode
   capytaleMode.set(mode)
+  const canOptions = get(canOptionsStore)
   if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions, newCanOptions] = [activity.exercicesParams, activity.globalOptions, activity.canOptions]
   // On met à jour les paramètres des exercices
@@ -55,6 +57,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     return l
   })
   canOptionsStore.update((l) => {
+    newCanOptions.state = 'canHomeScreen'
     Object.assign(l, newCanOptions)
     l.isInteractive = newGlobalOptions.setInteractive === '1'
     return l
@@ -142,7 +145,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     }
     await new Promise((resolve) => setTimeout(resolve, 500))
     // On attend 500 ms pour que les champs texte soient bien remplis
-    const canOptions = get(canOptionsStore)
     console.info(studentAssignment)
     if (!canOptions.isChoosen) {
       console.info('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
@@ -160,11 +162,28 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
           console.info(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
         }
       }
-    } else if (canOptions.isChoosen && (mode === 'review' || workflow !== 'current')) {
-      console.info('On charge les réponses pour le CAN')
+    }
+  }
+
+  // Gestion du state de la CAN
+  if (canOptions.isChoosen) {
+    let newState: CanState = 'start'
+    if (mode === 'review') {
+      // Un prof regarde une copie
+      newState = 'solutions'
+    }
+    if (mode === 'assignment') {
+      // Un élève fait une copie
+      if (workflow === 'current') {
+        newState = get(globalOptions).oneShot ? 'canHomeScreen' : 'start'
+      } else {
+        newState = canOptions.solutionsAccess ? 'solutions' : 'canHomeScreen'
+      }
+    }
+    if (newState !== 'canHomeScreen') {
       canOptionsStore.update((l) => {
-        l.solutionsMode = 'gathered'
-        l.state = 'solutions'
+        l.state = newState
+        // l.solutionsMode = 'gathered' // Faut-il en faire une option par défaut ?
         return l
       })
     }

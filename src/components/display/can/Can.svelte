@@ -39,7 +39,7 @@
   import MetaExercice from '../../../exercices/MetaExerciceCan'
   import { verifDragAndDrop } from '../../../lib/interactif/DragAndDrop'
 
-  let state: CanState = 'start'
+  let state: CanState = 'canHomeScreen'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
   let consignes: string[] = []
@@ -51,6 +51,48 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
+  // handleCapytale peut changer la valeur du store pour que le
+  // professeur aille directement aux solutions de l'élève ou pour l'empêcher de recommencer
+  canOptions.subscribe((value) => {
+    state = value.state
+    if (value.state !== 'solutions' && value.state !== 'canHomeScreen') return
+    if (answersFromCapytale.length === 0) {
+      return
+    }
+    for (const param of exercises) {
+      param.interactif = false
+    }
+
+    for (const exercice of answersFromCapytale) {
+      if (exercice.answers === undefined) {
+        answers.push('')
+        continue
+      }
+      const keys = Object.keys(exercice.answers)
+      if (keys.length > 1) {
+        const regex = /^Ex\d+Q\d+$/
+        const key = keys.find((k) => regex.test(k))
+        answers.push(key ? exercice.answers[key] : '')
+      } else if (keys.length === 1) {
+        const value = exercice.answers[keys[0]]
+        if (value?.includes('apiGeomVersion')) {
+          answers.push('Voir figure')
+          const event = new CustomEvent(keys[0], { detail: value })
+          document.dispatchEvent(event)
+        } else {
+          answers.push(value ? exercice.answers[keys[0]] : '')
+        }
+      } else {
+        answers.push('')
+      }
+    }
+    console.log('answers', answers)
+
+    if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
+      resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
+    if (assignmentDataFromCapytale?.duration !== undefined)
+      recordedTimeFromCapytale = assignmentDataFromCapytale.duration
+  })
     context.isDiaporama = true
     // force le mode interactif
     globalOptions.update((gOpt) => {
@@ -335,53 +377,6 @@
       time.seconds.toString().padStart(2, '0'),
     ].join(':')
   }
-
-  // handleCapytale peut changer la valeur du store pour que le
-  // professeur aille directement aux solutions de l'élève
-  canOptions.subscribe((value) => {
-    if (value.state !== 'solutions') return
-    state = value.state
-    if (answersFromCapytale.length === 0) {
-      return
-    }
-    for (const param of exercises) {
-      param.interactif = false
-    }
-    console.info('answersFromCapytale', answersFromCapytale)
-
-    for (const exercice of answersFromCapytale) {
-      if (exercice.answers === undefined) {
-        answers.push('')
-        continue
-      }
-      const keys = Object.keys(exercice.answers)
-      if (keys.length > 1) {
-        const regex = /^Ex\d+Q\d+$/
-        const key = keys.find((k) => regex.test(k))
-        answers.push(key ? exercice.answers[key] : '')
-        // for (const key of keys) {
-        //   answers.push(exercice.answers[key] )
-        // }
-      } else if (keys.length === 1) {
-        const value = exercice.answers[keys[0]]
-        if (value?.includes('apiGeomVersion')) {
-          answers.push('Voir figure')
-          const event = new CustomEvent(keys[0], { detail: value })
-          document.dispatchEvent(event)
-        } else {
-          answers.push(value ? exercice.answers[keys[0]] : '')
-        }
-      } else {
-        answers.push('')
-      }
-    }
-    console.log('answers', answers)
-
-    if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
-      resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
-    if (assignmentDataFromCapytale?.duration !== undefined)
-      recordedTimeFromCapytale = assignmentDataFromCapytale.duration
-  })
 </script>
 
 <div
@@ -389,7 +384,7 @@
     ? 'dark'
     : ''} relative w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'
 >
-  {#if state === 'start'}
+  {#if state === 'start' || state === 'canHomeScreen'}
     <KickOff subTitle={$canOptions.subTitle} bind:state />
   {/if}
   {#if state === 'countdown'}
