@@ -110,12 +110,6 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      /*  if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
-        animationLoading(true)
-        await loadGiac()
-        animationLoading(false)
-      }
-        */
       return exercice
     } catch (error) {
       attempts++
@@ -186,14 +180,6 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      /* Plus de xcas
-
-     if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
-        animationLoading(true)
-        await loadGiac()
-        animationLoading(false)
-      }
-        */
       return exercice
     } catch (error) {
       attempts++
