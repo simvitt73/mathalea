@@ -199,7 +199,7 @@ async function displayCorrection (page: Page, scenario: Scenario, displayCorrect
 
 async function action (page: Page, view: View, variation: Variation, append?: string) {
   const id = getUrlParam(page, 'id')
-  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}.png` })
+  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}.png`, fullPage: true })
 }
 
 async function writeStringToFile (filePath: string, content: string): Promise<void> {
