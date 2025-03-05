@@ -3,7 +3,7 @@ import type { Locator, Page } from 'playwright'
 import { clean } from '../../helpers/text'
 import { log } from '../../helpers/log'
 import prefs from '../../helpers/prefs'
-import { type AMCVariation, type LatexVariation, type View, type Variation, testAllViews, isLatexVariation, isAMCVariation, isStudentVariation } from '../../helpers/testAllViews'
+import { type AMCVariation, type LatexVariation, type View, type Variation, testAllViews, isLatexVariation, isAMCVariation, isStudentVariation, getLatexFromPage } from '../../helpers/testAllViews'
 
 type ExerciseType = 'classique' | 'simple'
 
@@ -82,7 +82,7 @@ async function getSlideshowNumbers (page: Page) {
 
 async function LatexStatePush (page: Page, view: 'LaTeX' | 'AMC', variation: LatexVariation | AMCVariation) {
   const url = page.url()
-  const latex = await getLatex(page)
+  const latex = await getLatexFromPage(page)
   const numbers = getLatexNumbers(latex, view, variation)
   states.push({
     url,
@@ -90,12 +90,6 @@ async function LatexStatePush (page: Page, view: 'LaTeX' | 'AMC', variation: Lat
     numbers,
     exerciseType
   })
-}
-
-async function getLatex (page: Page) {
-  const questionSelector = 'pre.w-full'
-  const locator = page.locator(questionSelector)
-  return await locator.innerText()
 }
 
 function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexVariation | AMCVariation) {

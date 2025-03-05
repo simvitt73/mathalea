@@ -1,7 +1,10 @@
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs'
 import { runTest } from '../../helpers/run'
-import { getUrlParam, testAllViews, type Variation, type View } from '../../helpers/testAllViews'
+import { getExercisesCount, getLatexFromPage, getUrlParam, testAllViews, type Variation, type View } from '../../helpers/testAllViews'
+import { promises as fs } from 'fs'
+import { dirname } from 'path'
+import { exec } from 'child_process'
 
 // Exemple de test avec des paramètres définis dans les variables d'environnement :
 // params="id=5A11-1&n=4&d=10&s=2-5-10&s2=4&s3=1&s4=1&cd=1" pnpm testExercice
@@ -12,9 +15,9 @@ async function test (page: Page) {
   const shellId = Object.entries(process.env).filter(([key]) => key === 'params').map(el => el[1])[0]
   if (shellId) params = shellId
   await testAllViews(page, params, callback)
+  await testNanUndefined(page)
   console.warn(`Les captures d'écran sont dans le dossier screenshots/${getUrlParam(page, 'id')}`)
   console.warn('N\'oubliez pas de tester les différents paramètres de votre exercice avec et sans interactivité !')
-  await testNanUndefined(page)
   return true
 }
 
@@ -51,28 +54,80 @@ const callback = async (page: Page, view: View, variation: Variation) => {
       if (scenario.navigationSelectors[i] !== '' && i < scenario.navigationSelectors.length) await page.locator(scenario.navigationSelectors[i]).click()
     }
   } else {
-    await displayCorrection(page, scenario, 0)
-    await action(page, view, variation)
-  }
-}
-
-async function displayCorrection (page: Page, scenario: Scenario, displayCorrectionSelectorIndex: number) {
-  if (scenario.displayCorrectionSelectors.length === 0) return
-  const displayCorrectionSelector = scenario.displayCorrectionSelectors[displayCorrectionSelectorIndex]
-  if (displayCorrectionSelector === '') return
-  if (scenario.isMultipleDisplayCorrectionSelectorsOnSamePage) {
-    const correctionToggles = await page.locator(displayCorrectionSelector).all()
-    for (let i = correctionToggles.length - 1; i >= 0; i--) {
-      await correctionToggles[i].click()
+    if (view === 'LaTeX' || view === 'AMC') {
+      let latex = ''
+      if (view === 'LaTeX') {
+        await page.locator('text=Code + préambule').click()
+        latex = await page.evaluate(async () => {
+          return await navigator.clipboard.readText()
+        })
+      } else {
+        latex = await getLatexFromPage(page)
+      }
+      await compileLaTeX(page, view, variation, latex)
+    } else {
+      await displayCorrection(page, scenario, 0)
+      await action(page, view, variation)
     }
-  } else {
-    await page.locator(displayCorrectionSelector).click()
   }
 }
 
-async function action (page: Page, view: View, variation: Variation, append?: string) {
+async function compileLaTeX (page: Page, view: View, variation: Variation, latex: string) {
   const id = getUrlParam(page, 'id')
-  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}.png` })
+  const texDir = `screenshots/${id}/tex`
+  const fileName = `${texDir}/${view}-${variation}.tex`
+  await writeStringToFile(fileName, latex)
+  const AmcFiles = ['automultiplechoice.sty', 'liste.csv']
+
+  try {
+    await prepareCompilation(view, id, AmcFiles)
+    await compileLatex(texDir, fileName)
+    await cleanAuxiliaryFiles(page, view, variation, id, fileName, AmcFiles)
+    await movePdfFiles(view, variation, id, fileName)
+  } catch (error) {
+    console.error('Command execution failed', error)
+  }
+}
+
+async function prepareCompilation (view: View, id: string, AmcFiles: string[]) {
+  if (view === 'AMC') {
+    for (const file of AmcFiles) {
+      console.log(`copy ${file}`)
+      await runShellCommand(`cp tests/e2e/tests/new_exercise/${file} screenshots/${id}/tex/`)
+    }
+  }
+}
+
+async function compileLatex (texDir: string, fileName: string) {
+  const compilationCommand = `TEXINPUTS=${texDir}: lualatex ${fileName}`
+  console.log(`First compilation of ${fileName}`)
+  await runShellCommand(compilationCommand)
+  console.log(`Second compilation of ${fileName}`)
+  await runShellCommand(compilationCommand)
+}
+
+async function cleanAuxiliaryFiles (page: Page, view: View, variation: Variation, id: string, fileName: string, AmcFiles: string[]) {
+  const cleanUpCommand = `rm ${view}-${variation}.{aux,log,${view === 'LaTeX' ? 'out' : 'amc'}}`
+  console.log(`Cleaning auxiliary filed of ${fileName}`)
+  await runShellCommand(cleanUpCommand)
+  if (view === 'AMC') {
+    for (const file of AmcFiles) {
+      console.log(`remove ${file} copy`)
+      await runShellCommand(`rm screenshots/${id}/tex/${file}`)
+    }
+  } else if (view === 'LaTeX' && (variation === 'ProfMaquette' || variation === 'ProfMaquetteQrcode')) {
+    for (let i = 0; i < getExercisesCount(page); i++) {
+      const file = `LaTeX-ProfMaquette${variation === 'ProfMaquetteQrcode' ? 'Qrcode' : ''}-Ex${i + 1}.sol`
+      console.log(`remove ${file}`)
+      await runShellCommand(`rm ${file}`)
+    }
+  }
+}
+
+async function movePdfFiles (view: View, variation: Variation, id: string, fileName: string) {
+  const movePdfCommand = `mv ${view}-${variation}.pdf screenshots/${id}`
+  console.log(`Moving generated pdf from ${fileName}`)
+  await runShellCommand(movePdfCommand)
 }
 
 async function getScenario (page: Page, view: View, variation: Variation): Promise<Scenario> {
@@ -126,6 +181,50 @@ async function getScenario (page: Page, view: View, variation: Variation): Promi
   return {
     displayCorrectionSelectors: [],
   }
+}
+
+async function displayCorrection (page: Page, scenario: Scenario, displayCorrectionSelectorIndex: number) {
+  if (scenario.displayCorrectionSelectors.length === 0) return
+  const displayCorrectionSelector = scenario.displayCorrectionSelectors[displayCorrectionSelectorIndex]
+  if (displayCorrectionSelector === '') return
+  if (scenario.isMultipleDisplayCorrectionSelectorsOnSamePage) {
+    const correctionToggles = await page.locator(displayCorrectionSelector).all()
+    for (let i = correctionToggles.length - 1; i >= 0; i--) {
+      await correctionToggles[i].click()
+    }
+  } else {
+    await page.locator(displayCorrectionSelector).click()
+  }
+}
+
+async function action (page: Page, view: View, variation: Variation, append?: string) {
+  const id = getUrlParam(page, 'id')
+  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}.png`, fullPage: true })
+}
+
+async function writeStringToFile (filePath: string, content: string): Promise<void> {
+  try {
+    console.log(`Write ${filePath}`)
+    await fs.mkdir(dirname(filePath), { recursive: true })
+    await fs.writeFile(filePath, content, 'utf8')
+  } catch (error) {
+    console.error('Error writing to file', error)
+  }
+}
+
+async function runShellCommand (command: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing command: ${error.message}`)
+        reject(error)
+      } else {
+        if (stdout) console.log(`stdout: ${stdout}`)
+        if (stderr) console.error(`stderr: ${stderr}`)
+        resolve()
+      }
+    })
+  })
 }
 
 async function testNanUndefined (page: Page) {

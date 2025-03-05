@@ -100,8 +100,10 @@ async function checkStudentVariation (variation: Variation, page: Page, browserC
   await newPage.close()
 }
 
-function getExercisesCount (page: Page): number {
-  return page.url().split('&').filter(el => el.startsWith('uuid=')).length
+export function getExercisesCount (page: Page): number {
+  const regex = /uuid=/g
+  const matches = page.url().match(regex)
+  return matches ? matches.length : 0
 }
 
 async function checkLatex (page: Page, callback: CallbackType) {
@@ -179,4 +181,10 @@ export function getUrlParam (page: Page, param: string): string {
   const url = page.url()
   if (!url.includes(`${param}=`)) return ''
   return url.split('?')[1].split('&').filter(el => el.startsWith(`${param}=`))[0].split('=')[1]
+}
+
+export async function getLatexFromPage (page: Page) {
+  const questionSelector = 'pre.w-full'
+  const locator = page.locator(questionSelector)
+  return await locator.innerText()
 }

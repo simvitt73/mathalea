@@ -16,7 +16,7 @@ export default mergeConfig(viteConfig, defineConfig({
   test: {
     include: ['./tests/new_exercise/newExercise.test.{js,ts}'],
     hookTimeout: 600_000,
-    testTimeout: 60_000,
+    testTimeout: 300_000,
     poolOptions: {
       threads: {
         singleThread: true
