@@ -137,7 +137,7 @@
       {#if $canOptions.isInteractive}
         <div
           id="score"
-          class="text-normal text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
+          class="text-normal text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
         >
           Score : <span
             class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
@@ -147,27 +147,29 @@
       {/if}
       <div
         id="score"
-        class="text-normal text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
+        class="text-normal text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
       >
         Temps : <span
           class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
           >{time}</span
         >
       </div>
-      <ButtonToggle
-        bind:value={displayCorrection}
-        titles={[
-          'Correction uniquement des mauvaises réponses',
-          'Correction de toutes les questions'
-        ]}
-      />
+      <div class="flex justify-center text-center">
+        <ButtonToggle
+          bind:value={displayCorrection}
+          titles={[
+            'Correction uniquement des mauvaises réponses',
+            'Correction de toutes les questions'
+          ]}
+        />
+      </div>
     </div>
     <ol
       class="w-full list-none list-inside text-base flex flex-row flex-wrap justify-center p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       id="can-solutions"
     >
       {#each [...Array(numberOfQuestions).keys()] as i}
-        <li class="break-inside-avoid-column">
+        <li class="break-inside-avoid-column mx-2 min-w-72">
           <div class="flex flex-row items-center justify-start">
             <div
               class="text-lg text-coopmaths-struct dark:text-coopmathsdark-struct font-bold"
