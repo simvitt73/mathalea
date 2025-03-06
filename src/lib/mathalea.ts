@@ -855,6 +855,10 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
           const time = window.performance.now()
           log(`duration ${answer}: ${(time - starttime)}`)
           resolve(true)
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
         })
       })
       promiseAnswers.push(p)
@@ -870,6 +874,10 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
             log(`duration ${answer}: ${(time - starttime)}`)
             resolve(true)
           }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
         })
       })
       promiseAnswers.push(p)
@@ -901,6 +909,10 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
             log(`duration ${answer}: ${(time - starttime)}`)
             resolve(true)
           }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
         })
       })
       promiseAnswers.push(p)
@@ -923,6 +935,10 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
             log(`duration ${answer}: ${(time - starttime)}`)
             resolve(true)
           }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
         })
       })
       promiseAnswers.push(p)
@@ -955,6 +971,10 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
               resolve(true)
             }
           })
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
         })
       })
       promiseAnswers.push(p)
