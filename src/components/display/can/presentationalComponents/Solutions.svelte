@@ -163,7 +163,7 @@
       />
     </div>
     <ol
-      class="w-full list-none list-inside text-base columns-1 md:columns-3 p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      class="w-full list-none list-inside text-base flex flex-row flex-wrap justify-center p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       id="can-solutions"
     >
       {#each [...Array(numberOfQuestions).keys()] as i}
