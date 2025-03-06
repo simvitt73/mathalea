@@ -167,6 +167,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
 
   // Gestion du state de la CAN
   if (canOptions.isChoosen) {
+    if (canOptions.state !== 'canHomeScreen') return
     let newState: CanState = 'start'
     if (mode === 'review') {
       // Un prof regarde une copie
@@ -183,7 +184,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     if (newState !== 'canHomeScreen') {
       canOptionsStore.update((l) => {
         l.state = newState
-        // l.solutionsMode = 'gathered' // Faut-il en faire une option par défaut ?
+        l.solutionsMode = 'gathered' // Faut-il en faire une option par défaut ?
         return l
       })
     }
