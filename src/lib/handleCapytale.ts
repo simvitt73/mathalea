@@ -173,8 +173,8 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       // Un prof regarde une copie
       newState = 'solutions'
     }
-    if (mode === 'assignment') {
-      // Un élève fait une copie
+    if (mode === 'assignment' && studentAssignment != null) {
+      // Un élève fait une copie mais a déjà été évalué
       if (workflow === 'current') {
         newState = get(globalOptions).oneShot ? 'canHomeScreen' : 'start'
       } else {
