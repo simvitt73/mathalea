@@ -165,11 +165,11 @@
       </div>
     </div>
     <ol
-      class="w-full list-none list-inside text-base flex flex-row flex-wrap justify-center p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      class="w-full list-none list-inside text-base flex flex-row flex-wrap p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       id="can-solutions"
     >
       {#each [...Array(numberOfQuestions).keys()] as i}
-        <li class="break-inside-avoid-column mx-2 min-w-72">
+        <li class="break-inside-avoid-column mx-2 min-w-[32%]">
           <div class="flex flex-row items-center justify-start">
             <div
               class="text-lg text-coopmaths-struct dark:text-coopmathsdark-struct font-bold"
