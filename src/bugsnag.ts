@@ -4,7 +4,8 @@ import bigInt from 'big-integer'
 import { tropDeChiffres } from './modules/outils'
 import { showDialogForLimitedTime } from './lib/components/dialogs'
 import { get } from 'svelte/store'
-import { exercicesParams } from './lib/stores/generalStore'
+import { capytaleMode, capytaleStudentAssignment, exercicesParams, globalOptions } from './lib/stores/generalStore'
+import { canOptions } from './lib/stores/canStore'
 import { createURL } from './lib/mathalea'
 
 type Metadatas = Record<string, unknown>
@@ -24,6 +25,7 @@ function handleBugsnag () {
     apiKey: key,
     onError: function (event) {
       event.addMetadata('Parametres Exos', get(exercicesParams))
+      event.addMetadata('Parametres: ', { globalOptions: get(globalOptions), canOptions: get(canOptions), capytaleMode: get(capytaleMode), studentAssignment: get(capytaleStudentAssignment) })
       event.addMetadata('Url Exos', { url: createURL(get(exercicesParams)).toString() })
     }
   })

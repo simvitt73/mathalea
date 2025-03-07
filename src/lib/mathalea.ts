@@ -846,7 +846,7 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
   const promiseAnswers: Promise<Boolean>[] = []
   const starttime = window.performance.now()
   for (const answer in answers) {
-    if (answer.includes('apigeom')) {
+    if (answer.includes('apigeom') || answers[answer].includes('apiGeomVersion')) {
       const p = new Promise<Boolean>((resolve) => {
         waitForElement('#' + answer).then(() => {
           // La réponse correspond à une figure apigeom

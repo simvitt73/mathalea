@@ -364,6 +364,11 @@
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))
     }
     exercise.interactif = isInteractif
+    if (!interfaceParams) {
+      // MGU normalement impossible d'être indéfini...
+      // et pourtant d'après bugsnag ca arrive ici!
+      window.notify('Erreur : interfaceParams non défini', {exercicesParams: get(exercicesParams), exerciseIndex, exercise, interfaceParams})
+    }
     if (interfaceParams.alea !== exercise.seed && exercise.seed !== undefined) {
       // on met à jour le storer seulement si besoin
       exercicesParams.update((list) => {
