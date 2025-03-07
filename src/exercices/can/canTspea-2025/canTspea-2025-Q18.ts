@@ -23,6 +23,8 @@ export default class Can2025TQ18 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.lycee
+    this.compare = functionCompare
+    this.optionsDeComparaison = { variable: 'x' }
     this.canOfficielle = true
     this.optionsChampTexte = { texteAvant: ' <br>$f\'(x)=$' }
   }
@@ -30,7 +32,7 @@ export default class Can2025TQ18 extends Exercice {
   nouvelleVersion () {
     const a = this.canOfficielle ? -2 : randint(-5, 5, [-1, 0, 1])
     const b = this.canOfficielle ? 5 : randint(3, 9)
-    this.reponse = { reponse: { value: `${a}\\times e^{${a}x}+\\dfrac{1}{${b}}`, compare: functionCompare, options: { variable: 'x' } } }
+    this.reponse = `${a}\\times e^{${a}x}+\\dfrac{1}{${b}}`
     this.question = `Soit $f(x)=\\text{e}^{${a}x}+\\dfrac{x}{${b}}$<br>`
     if (!this.interactif) { this.question += '$f\'(x)=\\ldots$' }
     this.correction = `D'après le cours, si $f=\\text{e}^u$ alors $f'=u'\\times \\text{e}^{u}$.<br>
