@@ -80,7 +80,7 @@ export default class ProblemesFractions6e extends Exercice {
     super()
 
     this.besoinFormulaireTexte = [
-      'Lueu des questions', [
+      'Lieu des questions', [
         'Nombres séparés par des tirets  :',
         '1 : Libraire',
         '2 : Jardin public',
@@ -103,6 +103,9 @@ export default class ProblemesFractions6e extends Exercice {
     this.sup3 = 12
     this.spacing = 1.5
     this.spacingCorr = 2
+    this.comment = 'Le premier paramètre permet de choisir un ou plusieurs lieux différents pour les problèmes.<br>'
+    this.comment += 'Le deuxième paramètre permet de choisir une ou plusieurs questions parmi les 3 possibles.<br>'
+    this.comment += 'Le troisième paramètre permet de choisir le dénonminateur le plus grand parmi lesquels le hasard choisira pour chaque problème.<br>'
   }
 
   nouvelleVersion () {
