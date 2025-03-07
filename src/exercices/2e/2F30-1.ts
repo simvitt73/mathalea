@@ -66,7 +66,7 @@ export default class VariationsCourbe extends Exercice {
       let xMax // La borne droite de l'intervalle d'étude
       let substituts = []  // les valeur de substitution pour xMin ou xMax...
       let tolerance // la tolérance doit être réglée au cas par cas, car pour la dérivée de 1/x entre 17 et 19 par exemple, il y a trop peu de différence avec zéro !
-
+      this.consigne = `Dresser ${this.nbQuestions === 1 ? 'le tableau ' : 'les tableaux '}  de variations ${this.nbQuestions === 1 ? 'de la fonction dont on donne la représentation graphique.` ' : 'des  fonctions dont on donne les représentations graphiques.'}`
       const variables: number[] = []
       switch (listeTypeDeQuestions[i]) {
         case 1 :
@@ -82,14 +82,14 @@ export default class VariationsCourbe extends Exercice {
             const A1 = point(x1, y1)
             const A2 = point(x2, y2)
             const Tk = tracePoint(A0, A1, A2)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
 
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
               xMin: x0 - 1,
               yMin: Math.min(y2 - 1, y0 - 1),
               yMax: y1 + 2,
-              xMax: 6,
+              xMax: Math.max(4, x2 + 1),
               xUnite: 1,
               yUnite: 1,
               xThickDistance: 1,
@@ -104,7 +104,7 @@ export default class VariationsCourbe extends Exercice {
               grilleXMax: 6,
               grilleYMax: y1 + 2
             })
-
+            const nomC = latex2d(`C_{${nomF}}`, x0 + 0.7, y0 + 1, { color: 'blue', letterSize: 'normalsize' })
             const gr = courbeInterpolee(
               [
                 [x0, y0], [x1, y1], [x2, y2]
@@ -122,12 +122,11 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y0 - 1, y2 - 1),
               ymax: y1 + 2,
               pixelsParCm: 30,
-              scale: 0.8,
+              scale: 0.6,
               style: 'margin: auto'
-            }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
-            texte += `${graphique}`
+            }, r1, o, gr, Tk, nomC)
+
+            texte = `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
             Son tableau de variations est : <br><br>`
@@ -161,9 +160,10 @@ export default class VariationsCourbe extends Exercice {
             const A1 = point(x1, y1)
             const A2 = point(x2, y2)
             const Tk = tracePoint(A0, A1, A2)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+            const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 1, { color: 'blue', letterSize: 'normalsize' })
             const r1 = repere({
               xMin: x0 - 1,
               yMin: y1 - 2,
@@ -200,12 +200,11 @@ export default class VariationsCourbe extends Exercice {
               ymin: y1 - 2,
               ymax: Math.max(y2 + 1, y0 + 1),
               pixelsParCm: 30,
-              scale: 0.8,
+              scale: 0.6,
               style: 'margin: auto'
-            }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
-            texte += `${graphique}`
+            }, r1, o, gr, Tk, nomC)
+
+            texte = `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
         Son tableau de variations est : <br><br>`
@@ -241,9 +240,10 @@ export default class VariationsCourbe extends Exercice {
             const A2 = point(x2, y2)
             const A3 = point(x3, y3)
             const Tk = tracePoint(A0, A1, A2, A3)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+            const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, { color: 'blue', letterSize: 'normalsize' })
             const r1 = repere({
               xMin: x0 - 1,
               yMin: Math.min(y1 - 1, y3 - 1),
@@ -280,12 +280,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y1 - 1, y3 - 1),
               ymax: Math.max(y2 + 1, y0 + 1),
               pixelsParCm: 30,
-              scale: 0.8,
+              scale: 0.6,
               style: 'margin: auto'
-            }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
-            texte += `${graphique}`
+            }, r1, o, gr, Tk, nomC)
+            texte = `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
         Son tableau de variations est : <br><br>`
@@ -321,9 +319,10 @@ export default class VariationsCourbe extends Exercice {
             const A2 = point(x2, y2)
             const A3 = point(x3, y3)
             const Tk = tracePoint(A0, A1, A2, A3)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+            const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, { color: 'blue', letterSize: 'normalsize' })
             const r1 = repere({
               xMin: x0 - 1,
               yMin: Math.min(y2 - 1, y0 - 1),
@@ -360,12 +359,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y2 - 1, y0 - 1),
               ymax: Math.max(y1 + 1, y3 + 1),
               pixelsParCm: 30,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto'
-            }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
-            texte += `${graphique}`
+            }, r1, o, gr, Tk, nomC)
+            texte = `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
         Son tableau de variations est : <br><br>`
@@ -404,9 +401,10 @@ export default class VariationsCourbe extends Exercice {
             const A3 = point(x3, y3)
             const A4 = point(x4, y4)
             const Tk = tracePoint(A0, A1, A2, A3, A4)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+            const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, { color: 'blue', letterSize: 'normalsize' })
             const r1 = repere({
               xMin: x0 - 1,
               yMin: Math.min(y2 - 1, y0 - 1, y4 - 1),
@@ -443,12 +441,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y2 - 1, y0 - 1, y4 - 1),
               ymax: Math.max(y1 + 1, y3 + 1),
               pixelsParCm: 25,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto'
-            }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
-            texte += `${graphique}`
+            }, r1, o, gr, Tk, nomC)
+            texte = `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
         Son tableau de variations est : <br><br>`
@@ -484,7 +480,7 @@ export default class VariationsCourbe extends Exercice {
             const A3 = point(x3, y3)
             const A4 = point(x4, y4)
             const Tk = tracePoint(A0, A1, A2, A3, A4)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -517,18 +513,18 @@ export default class VariationsCourbe extends Exercice {
                 xMin: x0 - 1,
                 xMax: x4 + 1
               })
+            const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, { color: 'blue', letterSize: 'normalsize' })
             const graphique = mathalea2d({
               xmin: x0 - 1,
               xmax: x4 + 1,
               ymin: Math.min(y1 - 2, y3 - 2),
               ymax: Math.max(y2 + 1, y0 + 1, y4 + 1),
               pixelsParCm: 25,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto'
-            }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
-            texte += `${graphique}`
+            }, r1, o, gr, Tk, nomC)
+
+            texte = `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>
         Son tableau de variations est : <br><br>`
@@ -554,7 +550,7 @@ export default class VariationsCourbe extends Exercice {
           break
 
         case 2 :
-          choix = randint(1, 1)
+
           choix = randint(1, 6)
 
           if (choix === 1) { // croissante, décroissante
@@ -567,7 +563,7 @@ export default class VariationsCourbe extends Exercice {
             const A0 = point(x0, y0)
             const A1 = point(x1, y1)
             const Tk = tracePoint(A0, A1)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -607,11 +603,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: -5,
               ymax: y1 + 2,
               pixelsParCm: 30,
-              scale: 0.8,
+              scale: 0.6,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $[${x0}\\,;\\,+\\infty[$.<br>
-             Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = `  $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>
@@ -645,7 +640,7 @@ export default class VariationsCourbe extends Exercice {
             const A1 = point(x1, y1)
             const A2 = point(x2, y2)
             const Tk = tracePoint(A1, A2)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -684,11 +679,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: y1 - 2,
               ymax: 6,
               pixelsParCm: 30,
-              scale: 0.8,
+              scale: 0.6,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $]-\\infty\\,;\\,${x2}]$.<br>
-            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = `   $${nom}$ est définie sur $]-\\infty\\,;\\,${x2}]$.<br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $]-\\infty\\,;\\,${x2}]$.<br>
@@ -724,7 +718,7 @@ export default class VariationsCourbe extends Exercice {
             const A1 = point(x1, y1)
             const A2 = point(x2, y2)
             const Tk = tracePoint(A0, A1, A2)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -763,11 +757,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y1 - 1),
               ymax: Math.max(y2 + 1, y0 + 1),
               pixelsParCm: 30,
-              scale: 0.8,
+              scale: 0.6,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $[${x0}\\,;\\,+\\infty[$.<br>
-            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = `   $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$. <br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>
@@ -803,7 +796,7 @@ export default class VariationsCourbe extends Exercice {
             const A2 = point(x2, y2)
             const A3 = point(x3, y3)
             const Tk = tracePoint(A1, A2, A3)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -842,11 +835,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y2 - 1, -2),
               ymax: Math.max(y1 + 1, y3 + 1),
               pixelsParCm: 30,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $]-\\infty\\,;\\,${x3}]$.<br>
-            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = `   $${nom}$ est définie sur $]-\\infty\\,;\\,${x3}]$.<br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $]-\\infty\\,;\\,${x2}]$.<br>
@@ -886,7 +878,7 @@ export default class VariationsCourbe extends Exercice {
             const A3 = point(x3, y3)
 
             const Tk = tracePoint(A0, A1, A2, A3)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -925,11 +917,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y2 - 1, y0 - 1, -6),
               ymax: Math.max(y1 + 1, y3 + 1),
               pixelsParCm: 25,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $[${x0}\\,;\\,+\\infty[$.<br>
-            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = `  $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>
@@ -966,7 +957,7 @@ export default class VariationsCourbe extends Exercice {
             const A3 = point(x3, y3)
 
             const Tk = tracePoint(A0, A1, A2, A3)
-            Tk.epaisseur = 2
+            Tk.epaisseur = 1
             const nom = choice(nomF)
             const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
             const r1 = repere({
@@ -1005,11 +996,10 @@ export default class VariationsCourbe extends Exercice {
               ymin: Math.min(y1 - 2, y3 - 2),
               ymax: Math.max(y2 + 1, y0 + 1, 6),
               pixelsParCm: 25,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto'
             }, r1, o, gr, Tk)
-            texte = `  Voici la courbe représentative d'une fonction $${nom}$ définie sur $[${x0}\\,;\\,+\\infty[$.<br>
-         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = `  $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$. <br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
@@ -1075,8 +1065,7 @@ export default class VariationsCourbe extends Exercice {
 
             const tableau = tableauVariationsFonction(fonction as (x:FractionEtendue | number)=>number, derivee as (x:FractionEtendue | number)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 1, tolerance })
 
-            texte = `  Voici la courbe représentative d'une fonction $f$ définie sur $\\mathbb{R}$.<br>
-            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
+            texte = '$f$ est définie sur $\\mathbb{R}$.<br>'
             texte += mathalea2d({
               xmin: -6,
               xmax: 6.1,
@@ -1123,8 +1112,7 @@ export default class VariationsCourbe extends Exercice {
 
             const tableau = tableauVariationsFonction(fonction as (x:FractionEtendue | number)=>number, derivee as (x:FractionEtendue | number)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 1, tolerance })
 
-            texte = `  Voici la courbe représentative d'une fonction $f$ définie sur $\\mathbb{R}$.<br>
-            Dresser son tableau de variations sur  $\\mathbb{R}$.<br><br>`
+            texte = '  $f$ est définie sur $\\mathbb{R}$.<br>'
             texte += mathalea2d({
               xmin: -6,
               xmax: 6,
@@ -1173,8 +1161,7 @@ export default class VariationsCourbe extends Exercice {
 
             const tableau = tableauVariationsFonction(fonction as (x:FractionEtendue | number)=>number, derivee as (x:FractionEtendue | number)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 1, tolerance })
 
-            texte = `  Voici la courbe représentative d'une fonction $f$ définie sur $\\mathbb{R}$.<br>
-            Dresser son tableau de variations sur $\\mathbb{R}$.<br><br>`
+            texte = ' $f$ est définie sur $\\mathbb{R}$. <br>'
             texte += mathalea2d({
               xmin: -4,
               xmax: 4,
