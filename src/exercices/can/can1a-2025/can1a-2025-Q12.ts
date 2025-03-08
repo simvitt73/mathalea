@@ -29,7 +29,7 @@ export default class Can2025N5Q12 extends Exercice {
   }
 
   nouvelleVersion () {
-    const a = randint(-5, 5, [-1, 0, 1])
+    const a = this.canOfficielle ? 3 : randint(-5, 5, [-1, 0, 1])
     const coeff = this.canOfficielle ? 2 : randint(-3, 3, [-1, 0, 1])
     this.question = 'Soit le script Python : <br><br>'
     if (context.isHtml) {
