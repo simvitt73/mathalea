@@ -570,10 +570,6 @@
     on:clickCorrection={async (event) => {
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
-      // Cache les éventuelles figureApigeom
-      divExercice?.querySelectorAll('[id^="apigeomEx"]').forEach((e) => {
-        e.classList.toggle('hidden', isCorrectionVisible)
-      })
       if (
         isLocalStorageAvailable() &&
         exercise.id !== undefined &&
