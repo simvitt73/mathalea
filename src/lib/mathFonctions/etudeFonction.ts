@@ -13,7 +13,7 @@ import { polygone } from '../2d/polygones'
 import { segment, vecteur } from '../2d/segmentsVecteurs'
 import { translation } from '../2d/transformations'
 import { arrondi } from '../outils/nombres'
-import { stringNombre } from '../outils/texNombre'
+import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
 import engine from '../interactif/comparisonFunctions'
 import { Matrix, round } from 'mathjs'
@@ -2041,17 +2041,44 @@ export function racines ({
  * @param {number|FractionEtendue} xMax
  * @returns {{xG: number, xD: number, signe: string}[]}
  */
-export function signesFonction (fonction: (x: number)=>number, xMin: number | FractionEtendue, xMax: number | FractionEtendue) {
+export function signesFonction (fonction: (x: number)=>number, xMin: number | FractionEtendue, xMax: number | FractionEtendue, zeros:FractionEtendue[] = []) {
   const signes = []
+  let zerosUtilises : FractionEtendue[] | number[] = []
   if (xMin instanceof FractionEtendue) {
     xMin = xMin.toNumber()
   }
   if (xMax instanceof FractionEtendue) {
     xMax = xMax.toNumber()
   }
-  const zeros = racines({ fonction, xMin, xMax })
-  let x
-  if (zeros.length === 0) {
+
+  // On vérifie que les zeros donnés en paramètre sont autant que le nombre calculé de zéros
+  const zerosCalcules = racines({ fonction, xMin, xMax })
+  if (zeros.length !== 0 && zerosCalcules.length !== zeros.length) {
+    zerosUtilises = zerosCalcules
+    window.notify('Le nombre de racines données à la fonction tableauSignesFonction ne correspond au nombre de racines de la fonction sur l\'intervalle fourni.', { zeros, zerosCalcules })
+  } else if (zeros.length === 0) {
+    zerosUtilises = zerosCalcules
+  } else {
+    // On classe les zéros donnés en paramètre par ordre croissant
+    const tableauATrier = zeros.map((value, index) => ({
+      valeur1: value.toNumber(),
+      valeur2: value,
+    }))
+    tableauATrier.sort((a, b) => a.valeur1 - b.valeur1)
+    zeros = tableauATrier.map(item => item.valeur2)
+    let zerosEgaux = true
+    // On vérfie que les zeros donnés en paramètre sont égaux aux zéros calculés modulo un epsilon
+    for (let ee = 0; ee < zeros.length; ee++) {
+      zerosEgaux = Math.abs(zeros[ee].toNumber() - zerosCalcules[ee]) < 1e-12
+      if (!zerosEgaux) {
+        window.notify('Les racines données à la fonction tableauSignesFonction n\'ont pas les mêmes valeurs que celles de la fonction sur l\'intervalle fourni.', { zeros, zerosCalcules })
+        zerosUtilises = zerosCalcules
+        break
+      }
+    }
+    if (zerosEgaux) zerosUtilises = zeros
+  }
+  if (zerosCalcules.length === 0) {
     return [
       {
         xG: xMin,
@@ -2060,25 +2087,23 @@ export function signesFonction (fonction: (x: number)=>number, xMin: number | Fr
       }
     ]
   }
-  if (xMin !== zeros[0]) {
+  if (xMin !== zerosCalcules[0]) {
     signes.push({
       xG: xMin,
-      xD: zeros[0],
+      xD: zerosUtilises[0],
       signe: fonction(xMin) > 0 ? '+' : '-'
     })
   }
-  x = zeros[0]
-  signes.push({ xG: zeros[0], xD: zeros[0], signe: 'z' })
-  for (let i = 1; i < zeros.length; i++) {
-    const y = fonction((x + zeros[i]) / 2)
-    signes.push({ xG: x, xD: zeros[i], signe: y > 0 ? '+' : '-' })
-    signes.push({ xG: zeros[i], xD: zeros[i], signe: 'z' })
-    x = zeros[i]
+  signes.push({ xG: zerosUtilises[0], xD: zerosUtilises[0], signe: 'z' })
+  for (let i = 1; i < zerosCalcules.length; i++) {
+    const y = fonction((zerosCalcules[i - 1] + zerosCalcules[i]) / 2)
+    signes.push({ xG: zerosUtilises[i - 1], xD: zerosUtilises[i], signe: y > 0 ? '+' : '-' })
+    signes.push({ xG: zerosUtilises[i], xD: zerosUtilises[i], signe: 'z' })
   }
-  if (zeros[zeros.length - 1] === xMax) return signes
-  const y = fonction((zeros[zeros.length - 1] + xMax) / 2)
+  if (zerosCalcules[zerosCalcules.length - 1] === xMax) return signes
+  const y = fonction((zerosCalcules[zerosCalcules.length - 1] + xMax) / 2)
   signes.push({
-    xG: zeros[zeros.length - 1],
+    xG: zerosCalcules[zerosCalcules.length - 1],
     xD: xMax,
     signe: y > 0 ? '+' : '-'
   })
@@ -2186,6 +2211,8 @@ export function chercheMinMaxFonction ([a, b, c, d]: [number, number, number, nu
 export type Substitut = { antVal: number, antTex: string, imgVal?: number, imgTex?: string }
 /**
  * renvoie le tableau de signes d'une fonction
+ * EE : L'option zeros permet de passer les zéros à la fonction quand il y a des fractions sans valeur décimale nativement non trouvées par la fonction.
+ * EE : Si on utilise l'option zeros, il sera pertinent de mettre l'option fractionTex à true.
  * @param fonction
  * @param {number|FractionEtendue} xMin
  * @param {number|FractionEtendue} xMax
@@ -2195,6 +2222,7 @@ export type Substitut = { antVal: number, antTex: string, imgVal?: number, imgTe
  * @param {boolean} [options.fractionTex] // si true, les nombres sont affichés sous forme de fraction
  * @param {number|FractionEtendue} [options.tolerance] // écart maximum à zéro pour assimiler f(x) à zéro
  * @param {string} [options.nomVariable] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
+ * @param {FractionEtendue[]} [options.zeros] // Pour rentrer en dur, les zeros de la fonction. Quand on a besoin d'avoir les valeurs exactes de zéros qui sont des fractions n'ayant de pas valeur décimale
  * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
  */
 export function tableauSignesFonction (
@@ -2207,39 +2235,48 @@ export function tableauSignesFonction (
     tolerance = 0.005,
     nomVariable = 'x',
     nomFonction = 'f(x)',
-    fractionTex = false
+    fractionTex = false,
+    zeros = []
   }:{
     substituts?: Substitut[],
     step?: number | FractionEtendue,
     tolerance?: number | FractionEtendue,
     nomVariable?: string,
     nomFonction?: string,
-    fractionTex?: boolean
+    fractionTex?: boolean,
+    zeros?: FractionEtendue[]
   }
 ) {
-  const signes = signesFonction(fonction, xMin, xMax)
+  const signes = signesFonction(fonction, xMin, xMax, zeros)
   const premiereLigne: (string | number)[] = []
   for (let i = 0; i < signes.length; i++) {
     if (i === 0) {
       if (fractionTex === false) {
-        premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
+        if (signes[0].xG instanceof FractionEtendue) premiereLigne.push(texNombre(signes[0].xG.toNumber()), 10)
+        else premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
       } else {
-        premiereLigne.push(new FractionEtendue(signes[0].xG, 1).texFractionSimplifiee, 10)
+        if (signes[0].xG instanceof FractionEtendue) premiereLigne.push(signes[0].xG.texFractionSimplifiee, 10)
+        else premiereLigne.push(new FractionEtendue(signes[0].xG, 1).texFractionSimplifiee, 10)
       }
     }
-    if (i > 0 && signes[i].xG !== signes[i - 1].xG) {
+    if (i > 0 && (signes[i].xG instanceof FractionEtendue ? signes[i].xG.toNumber() : signes[i].xG) !== (signes[i - 1].xG instanceof FractionEtendue ? signes[i - 1].xG.toNumber() : signes[i - 1].xG)) {
       if (fractionTex === false) {
-        premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
+        if (signes[i].xG instanceof FractionEtendue) premiereLigne.push(texNombre(signes[i].xG.toNumber()), 10)
+        else premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
       } else {
-        premiereLigne.push(new FractionEtendue(signes[i].xG, 1).texFractionSimplifiee, 10)
+        if (signes[i].xG instanceof FractionEtendue) premiereLigne.push(signes[i].xG.texFractionSimplifiee, 10)
+        else premiereLigne.push(new FractionEtendue(signes[i].xG, 1).texFractionSimplifiee, 10)
       }
     }
   }
   if (fractionTex === false) {
-    premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+    if (signes[signes.length - 1].xD instanceof FractionEtendue) premiereLigne.push(texNombre(signes[signes.length - 1].xD.toNumber()), 10)
+    else premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
   } else {
-    premiereLigne.push(new FractionEtendue(signes[signes.length - 1].xD, 1).texFractionSimplifiee, 10)
+    if (signes[signes.length - 1].xD instanceof FractionEtendue) premiereLigne.push(signes[signes.length - 1].xD.texFractionSimplifiee, 10)
+    else premiereLigne.push(new FractionEtendue(signes[signes.length - 1].xD, 1).texFractionSimplifiee, 10)
   }
+
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
       const nb: number = Number(String(premiereLigne[i]).replaceAll(/\s/g, '').replace(',', '.'))

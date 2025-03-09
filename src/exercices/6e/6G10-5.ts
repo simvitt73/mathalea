@@ -114,14 +114,6 @@ export default class constructionElementaire extends Exercice {
         figure.options.labelAutomaticBeginsWith = E.nom
         figure.options.thickness = 2
         this.figures[i] = figure
-        /* if (this.sup < 3) { // Je l'ai enlevé car il n'existe pas les carreaux Seyes en interactif.
-          figure.create('Grid', {
-            axeX: false,
-            axeY: false,
-            labelX: false,
-            labelY: false
-          })
-        } */
         this.A = figure.create('Point', { x: A.x, y: A.y, label: A.nom, isFree: true })
         this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom, isFree: true })
         this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom, isFree: true })
