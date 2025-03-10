@@ -54,7 +54,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
         '8 : Mélange'
       ].join('\n')
     ]
-    this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
+    this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l\'écriture décimale.'
     this.spacing = 2
     this.spacingCorr = 2
     this.nbCols = 2
@@ -108,7 +108,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -126,7 +126,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -144,7 +144,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -162,7 +162,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -210,7 +210,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -228,7 +228,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -246,7 +246,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -264,7 +264,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -312,7 +312,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -330,7 +330,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -367,7 +367,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -405,7 +405,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -447,7 +447,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -466,7 +466,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -484,7 +484,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -502,7 +502,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -543,7 +543,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -561,7 +561,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',

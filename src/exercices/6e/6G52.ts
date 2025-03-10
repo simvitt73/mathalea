@@ -12,7 +12,7 @@ export const titre = 'Se servir des relations entre perpendicularité et parall�
 export const dateDePublication = '11/09/2022'
 
 /**
- * d0 et d1 sont parallèles données par l’énoncé
+ * d0 et d1 sont parallèles données par l'énoncé
  * d1 et d2 sont perpendiculaires à d3
  * d4 perpendiculaire à d3 non marquée
  * d5 (et d6 ?) random
@@ -126,7 +126,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
           texte += 'Donner tous les couples de droites perpendiculaires en justifiant.'
           texteCorr = `Les codages permettent d'affirmer que les droites ${texDroiteEnonce(1)} et ${texDroiteEnonce(2)} sont toutes les deux perpendiculaires à ${texDroiteEnonce(3)}.<br><br>`
           texteCorr += `Les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles (c'est l'énoncé qui le dit) et ${texDroiteEnonce(3)} est perpendiculaire à ${texDroiteEnonce(1)}`
-          this.correctionDetaillee ? texteCorr += '.<br>Or, si deux droites sont parallèles et si une troisième droite est perpendiculaire à l’une alors elle est perpendiculaire à l’autre.<br>D' : texteCorr += ' d'
+          this.correctionDetaillee ? texteCorr += '.<br>Or, si deux droites sont parallèles et si une troisième droite est perpendiculaire à l\'une alors elle est perpendiculaire à l\'autre.<br>D' : texteCorr += ' d'
           texteCorr += `onc ${texDroiteEnonce(3)} est aussi perpendiculaire à ${texDroiteEnonce(0)}.<br>`
           texteCorr += `<br>Remarque :<br>La droite ${texDroiteEnonce(4)} semble elle aussi être perpendiculaire à ${texDroiteEnonce(3)} mais rien ne nous permet de l'affirmer.<br>Il aurait fallu que l'énoncé dise qu'elle est parallèle à une autre ou qu'un angle droit soit marqué par exemple.`
           break

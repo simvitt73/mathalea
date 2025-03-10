@@ -2,12 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fraction } from '../../modules/fractions'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 
 export const titre = 'Etudier le sens de variation d\'une suite définie de façon explicite'
 export const interactifType = 'mathLive'
@@ -21,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.titre = titre
     // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
@@ -38,7 +36,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
     ]
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -81,7 +79,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
           texteCorr += '<br><br>'
           texteCorr += `Méthode 2 : en utilisant le sens de variation de la fonction associée : <br> Pour tout $n\\in\\mathbb{N}$ on a $(u_n) = f(n)$ où $f$ est la fonction définie sur $[0;+\\infty[$ par $f(x) = ${rienSi1(m)}x ${ecritureAlgebrique(p)}$`
           texteCorr += '<br>'
-          texteCorr += '$f$ est une fonction affine et le sens de variation d’une fonction affine dépend du signe de a :'
+          texteCorr += '$f$ est une fonction affine et le sens de variation d\'une fonction affine dépend du signe de a :'
           texteCorr += '<br>'
           if (m >= 0) {
             texteCorr += `Or $a=${m}>0$, la fonction $f$ est donc croissante sur $[0;+\\infty[$. <br> On en déduit que la suite $(u_n)$ est croissante sur $\\mathbb{N}$.`
@@ -143,20 +141,19 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
           alea1 = numA
           alea2 = numB
           const numerateur = (numA + numB) * denomD - numB * (denomC + denomD)
-          const maFonction = (x: number) => (numA * denomD - numB * denomC) / ((denomC * x + denomD + denomC) * (denomC * x + denomD))
           const Tableau = tableauColonneLigne(
             ['n', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
             ['u_n'],
             [new FractionEtendue(numB, denomD).texFractionSimplifiee,
-            new FractionEtendue(numA + numB, denomC + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 2 + numB, denomC * 2 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 3 + numB, denomC * 3 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 4 + numB, denomC * 4 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 5 + numB, denomC * 5 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 6 + numB, denomC * 6 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 7 + numB, denomC * 7 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 8 + numB, denomC * 8 + denomD).texFractionSimplifiee,
-            new FractionEtendue(numA * 9 + numB, denomC * 9 + denomD).texFractionSimplifiee]
+              new FractionEtendue(numA + numB, denomC + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 2 + numB, denomC * 2 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 3 + numB, denomC * 3 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 4 + numB, denomC * 4 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 5 + numB, denomC * 5 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 6 + numB, denomC * 6 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 7 + numB, denomC * 7 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 8 + numB, denomC * 8 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 9 + numB, denomC * 9 + denomD).texFractionSimplifiee]
           )
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$.`
           texte += '<br><br>'
@@ -171,9 +168,9 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
             texteCorr += 'La suite $(u_n)$ est constante sur $\\mathbb{N}$'
           } else {
             texteCorr = '<br>'
-            texteCorr += `Remarque : $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}=0 \\iff n= ${new FractionEtendue(- denomD, denomC).texFractionSimplifiee}$. Or $${new FractionEtendue(- denomD, denomC).texFractionSimplifiee} \\notin \\mathbb{N}$, c'est pourquoi $(u_n)$ est définie pour tout $n \\in \\mathbb{N}$`
+            texteCorr += `Remarque : $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}=0 \\iff n= ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$. Or $${new FractionEtendue(-denomD, denomC).texFractionSimplifiee} \\notin \\mathbb{N}$, c'est pourquoi $(u_n)$ est définie pour tout $n \\in \\mathbb{N}$`
             texteCorr += '<br>'
-            texteCorr += `Voici les premiers termes de la suite $(u_n)$ :`
+            texteCorr += 'Voici les premiers termes de la suite $(u_n)$ :'
             texteCorr += '<br>'
             texteCorr += Tableau
             texteCorr += '<br>'
@@ -234,18 +231,18 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
                 if (denomC + denomD > 0) {
                   texteCorr += `Comme $n\\in\\mathbb{N}$, $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$.`
                 } else {
-                  texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(- denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(- denomD / denomC) * denomC)}$ , soit  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)} \\geqslant ${texNombre(Math.ceil((- denomD / denomC)) * denomC + denomD + denomC)}$. On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$.`
+                  texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC)}$ , soit  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)} \\geqslant ${texNombre(Math.ceil((-denomD / denomC)) * denomC + denomD + denomC)}$. On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$.`
                 }
                 texteCorr += '<br>'
                 if (denomD > 0) {
                   texteCorr += `Comme $n\\in\\mathbb{N}$, $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
                 } else {
-                  texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(- denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(- denomD / denomC) * denomC)}$ , soit  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)} \\geqslant ${texNombre(Math.ceil(- denomD / denomC) * denomC + denomD)}$. On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
+                  texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC)}$ , soit  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)} \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC + denomD)}$. On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
                 }
               } else {
-                texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(- denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(- denomD / denomC) * denomC)}$.`
+                texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC)}$.`
                 texteCorr += '<br>'
-                texteCorr += `On alors  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)} \\geqslant ${texNombre(Math.ceil((- denomD / denomC)) * denomC + denomD + denomC)}$ et $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)} \\geqslant ${texNombre(Math.ceil(- denomD / denomC) * denomC + denomD)}$.`
+                texteCorr += `On alors  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)} \\geqslant ${texNombre(Math.ceil((-denomD / denomC)) * denomC + denomD + denomC)}$ et $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)} \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC + denomD)}$.`
                 texteCorr += '<br>'
                 texteCorr += `On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ et $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
               }

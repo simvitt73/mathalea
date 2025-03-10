@@ -138,7 +138,7 @@ if (typeof window.iMathAlea === 'undefined') {
         // fin compatibilité moodle 3.5
 
         if (questionDiv === null) {
-          shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
+          shadow.appendChild(document.createTextNode('[Erreur de détection de la l\'environnement moodle]'))
           return
         }
       }

@@ -375,8 +375,8 @@ export default class ParallélogrammeSommet extends Exercice {
 
           texte = `${pre} a retrouvé un vieux plan dans son grenier. La maison se situe au point $M$, la grange au point $G$ et
           les écuries au point $E$.<br>
-          Au dos, il est inscrit le texte suivant : « Pour trouver le trésor, il suffit de creuser à l’endroit bien précis $T$ tel que $TEGM$ soit un parallélogramme ».<br>
-          Déterminer précisément, par le calcul, l’emplacement de ce trésor.<br><br>`
+          Au dos, il est inscrit le texte suivant : « Pour trouver le trésor, il suffit de creuser à l'endroit bien précis $T$ tel que $TEGM$ soit un parallélogramme ».<br>
+          Déterminer précisément, par le calcul, l'emplacement de ce trésor.<br><br>`
           const E = latexParCoordonnees(`E(${stringNombre(xA)};${stringNombre(yA)})`, xA, yA - 0.5, 'black', 0, 0, '')
           const G = latexParCoordonnees(`G(${stringNombre(xB)};${stringNombre(yB)})`, xB, yB - 0.5, 'black', 0, 0, '')
           const M = latexParCoordonnees(`M(${stringNombre(xC)};${stringNombre(yC)})`, xC, yC - 0.5, 'black', 0, 0, '')

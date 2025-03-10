@@ -90,7 +90,7 @@ export default class EtudeFctPoly3 extends Exercice {
             ${texteGras('Formule A :')} abonnement mensuel de $${a}$ € puis $${texPrix(b)}$ € par séance ;<br>
             ${texteGras('Formule B :')} abonnement mensuel de $${c}$ € puis $${texPrix(d)}$ € par séance.<br>
             Le nombre de séances mensuelles ne peut excéder $${e}$. <br>
-            On note $x$ le nombre de séances mensuelles d’un abonné, $f(x)$ le prix payé avec la formule A et $g(x)$ le prix payé avec la formule B.<br>
+            On note $x$ le nombre de séances mensuelles d'un abonné, $f(x)$ le prix payé avec la formule A et $g(x)$ le prix payé avec la formule B.<br>
             `
             texte += createList(
               {
@@ -253,7 +253,7 @@ Lorsque la distance de freinage de la voiture est $${b}$ m, sa vitesse est alors
             const c = randint(31, 49) * 100 //
             const d = randint(30, 39) * 10
 
-            texte = ` Le nombre d’abonnés à une revue dépend du prix de l'abonnement à cette revue, prix exprimé en euros.<br>
+            texte = ` Le nombre d'abonnés à une revue dépend du prix de l'abonnement à cette revue, prix exprimé en euros.<br>
           On considère que l'on a la relation : <br>
           nombre d'abonnés $= ${texNombre(a)} - ${b} \\times$ (prix de l'abonnement en euros).<br>
           Soit $${nom}$ la fonction qui donne le nombre d'abonnés en fonction du prix de l'abonnement annuel à cette revue.`
@@ -261,12 +261,12 @@ Lorsque la distance de freinage de la voiture est $${b}$ m, sa vitesse est alors
             texte += createList(
               {
                 items: [
-                 `Déterminer l’expression algébrique de $${nom}$. Préciser la variable.`,
+                 `Déterminer l'expression algébrique de $${nom}$. Préciser la variable.`,
                  ' Que peut-on dire du nombre d\'abonnés lorsque le prix de l\'abonnement augmente ?',
-              ` Expliquer pourquoi le prix de l’abonnement ne doit pas être de $${d}$ €. Déterminer l'ensemble de définition de la fonction $${nom}$.`,
-               ` La directrice des abonnements souhaite avoir $${texNombre(c)}$ abonnés à la revue. Quel doit être le prix de l’abonnement ?`,
+              ` Expliquer pourquoi le prix de l'abonnement ne doit pas être de $${d}$ €. Déterminer l'ensemble de définition de la fonction $${nom}$.`,
+               ` La directrice des abonnements souhaite avoir $${texNombre(c)}$ abonnés à la revue. Quel doit être le prix de l'abonnement ?`,
                ` On obtient la recette de la vente de $x$ abonnements en multipliant le nombre d'abonnés par le prix d'un abonnement. <br>
-               Exprimer la recette en fonction du prix de l’abonnement sous forme développée.`
+               Exprimer la recette en fonction du prix de l'abonnement sous forme développée.`
 
                 ],
                 style: 'nombres'
@@ -551,17 +551,17 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             r1, o, sAAx, sAAy, sCCx, sBBx, sBxCx, Texte1, Texte2, Texte3, Texte4, Cg,
             r1, o])
 
-            texte = `Le Code de la route interdit toute conduite d’un véhicule lorsque le taux d’alcoolémie est supérieur ou égal à $0,5$ g/L.<br>
-            Le taux d’alcoolémie d’une personne pendant les $10$ heures suivant la consommation d’une certaine quantité d’alcool est modélisé par la fonction $${nom}$.<br>
-          $\\bullet$  $t$ représente le temps (exprimé en heure) écoulé depuis la consommation d’alcool ;<br>
-          $\\bullet$  $${nom} (t)$ représente le taux d’alcoolémie (exprimé en g/L) de cette personne.<br>
+            texte = `Le Code de la route interdit toute conduite d'un véhicule lorsque le taux d'alcoolémie est supérieur ou égal à $0,5$ g/L.<br>
+            Le taux d'alcoolémie d'une personne pendant les $10$ heures suivant la consommation d'une certaine quantité d'alcool est modélisé par la fonction $${nom}$.<br>
+          $\\bullet$  $t$ représente le temps (exprimé en heure) écoulé depuis la consommation d'alcool ;<br>
+          $\\bullet$  $${nom} (t)$ représente le taux d'alcoolémie (exprimé en g/L) de cette personne.<br>
           On donne la représentation graphique de la fonction $${nom}$ dans un repère. <br>`
             texte += `${graphique}`
 
             texte += createList(
               {
                 items: [`
-                  À quel instant le taux d’alcoolémie de cette personne est-il maximal ? <br>Quelle est alors sa valeur ? Arrondir
+                  À quel instant le taux d'alcoolémie de cette personne est-il maximal ? <br>Quelle est alors sa valeur ? Arrondir
                 au centième.`,
                  `Résoudre graphiquement l'inéquation $${nom}(t)>0,5$.`,
                 ` À l'instant $t=0$, il était $${h}$ h. <br>À quelle heure, à la minute près, l'automobiliste peut-il reprendre le volant sans être en infraction ?`
@@ -653,25 +653,25 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             }, TexteX, TexteY
             , r1, o, gr)
 
-            texte = `La tonométrie artérielle permet d’obtenir une mesure continue de la pression artérielle. L’examen renseigne sur
-          l’état des artères du patient dans le cadre du développement de l’hypertension artérielle. <br>
-          Un enregistrement des mesures permet d’apprécier la courbe de pression artérielle.<br>
+            texte = `La tonométrie artérielle permet d'obtenir une mesure continue de la pression artérielle. L'examen renseigne sur
+          l'état des artères du patient dans le cadre du développement de l'hypertension artérielle. <br>
+          Un enregistrement des mesures permet d'apprécier la courbe de pression artérielle.<br>
           On note $${nom}$ la fonction qui au temps $t$ en millisecondes (ms) associe la pression artérielle radiale $${nom}(t)$ en millimètres
-          de mercure (mmHg), mesurée au repos chez un patient suspecté d’insuffisance cardiaque. On donne la courbe représentative de $${nom}$ ci-dessous.<br>`
+          de mercure (mmHg), mesurée au repos chez un patient suspecté d'insuffisance cardiaque. On donne la courbe représentative de $${nom}$ ci-dessous.<br>`
             texte += `${graphique}`
 
             texte += createList(
               {
                 items: [`Quel est l'ensemble de définition de $${nom}$.`,
                   ` Quelle inéquation a pour ensemble de solution l'imtervalle de temps pendant lequel la pression artérielle est supérieure ou égale à $${a}$ mmHg ?`,
-                  ' Déterminer la valeur systolique mesurée, c’est-à-dire la valeur maximale de la pression artérielle.',
-                  '  Déterminer la valeur diastolique mesurée, c’est-à-dire la valeur minimale de la pression artérielle.',
+                  ' Déterminer la valeur systolique mesurée, c\'est-à-dire la valeur maximale de la pression artérielle.',
+                  '  Déterminer la valeur diastolique mesurée, c\'est-à-dire la valeur minimale de la pression artérielle.',
                `  Un patient est en hypertension artérielle lorsque la pression systolique est supérieure ou égale à $140$ mmHg
                         ou que la pression diastolique est supérieure ou égale à $90$ mmHg.<br>
                         Ce patient est-il en hypertension ? Justifier.`,
                 ` La fonction $${nom}$ a été représentée sur un intervalle de temps  correspondant à celui
-                        d’un battement de cœur du patient.<br>On parle de tachycardie lorsque, au repos, le nombre de battements du cœur est supérieur à $100$ par minute. <br>
-                        D’après cet examen, peut-on estimer que le patient souffre de tachycardie ?`
+                        d'un battement de cœur du patient.<br>On parle de tachycardie lorsque, au repos, le nombre de battements du cœur est supérieur à $100$ par minute. <br>
+                        D'après cet examen, peut-on estimer que le patient souffre de tachycardie ?`
 
                 ],
                 style: 'nombres'

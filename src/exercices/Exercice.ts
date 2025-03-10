@@ -210,7 +210,7 @@ export default class Exercice {
     // this.dimensionsDivMg32 = [500, 450] // Dimensions du SVG créé par MathGraph32.
 
     // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
-    // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
+    // this.typeExercice = 'dnb' // Ce n'est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
     // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
