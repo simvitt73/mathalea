@@ -19,7 +19,7 @@ import {
 } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
+export const titre = 'Calculer des coordonnées de points appartenant à une courbe connaissant l\'abscisse ou l\'ordonnée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '24/09/2022'
