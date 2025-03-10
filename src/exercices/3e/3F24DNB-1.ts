@@ -18,20 +18,20 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '68e607'
 export const refs = {
-  'fr-fr': ['3F14DNB-0'],
+  'fr-fr': ['3F24DNB-1'],
   'fr-ch': []
 }
-export const titre = 'Fonctions, tableur et équation produit nul'
+export const titre = 'Résoudre un exercice DNB : fonction, fonction affine, tableur et équation produit-nul'
 export const dateDePublication = '17/11/2024'
 /**
  * @Author Jean-Claude Lhote
- * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
+ * Cet exerice exploite la nouvelle classe d'exercices que j'ai conçue pour les sujets de brevet
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
  * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
  * La méthode versionOriginale permet de générer les valeurs de l'exercice telles qu'elles sont dans le sujet original
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
-export default class Exercice3F14DNB0 extends ExerciceBrevetA {
+export default class Exercice3F24DNB1 extends ExerciceBrevetA {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
@@ -82,7 +82,7 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
         `La fonction $f$, dont la représentation graphique est ci-dessous  est-elle une fonction affine ? Justifier votre réponse.<br>${figure}`,
         `À l'aide de ce graphique ci-dessus, compléter, ci-dessous, le tableau de valeurs de la fonction $f$.<br>
       ${tableau1}<br>`,
-        `Parmi les trois formules suivantes, l'une correspond à l'expression de la fonction $f$.<br>
+        `Parmi les trois formules suivantes (issues d'un tableur), l'une correspond à l'expression de la fonction $f$.<br>
         Elle a été saisie dans la cellule B2 puis étendue dans la cellule C2 du tableau ci-dessus.<br>
         $\\def\\arraystretch{1.2}\\begin{array}{|c|c|c|}
         \\hline
