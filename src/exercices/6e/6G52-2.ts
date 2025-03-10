@@ -326,19 +326,19 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
         texteCorr += `(d_${numDroites[code[j + 1][1] - 1]})$`
         // quelle propriété ?
         if (code[j][2] * code[j + 1][2] === -1) { // Une parallèle et une perpendiculaire
-          if (this.correctionDetaillee) texteCorr += '.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre».<br>Donc'
+          if (this.correctionDetaillee) texteCorr += '.<br> Or si deux droites sont parallèles alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre.<br>Donc'
           else texteCorr += ', on en déduit que '
           texteCorr += ` $(d_${numDroites[code[0][0] - 1]})\\perp(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = -1
         } else if (code[j][2] > 0) { // deux parallèles
-          if (this.correctionDetaillee) texteCorr += '.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc'
+          if (this.correctionDetaillee) texteCorr += '.<br> Or si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles.<br>Donc'
           else texteCorr += ', on en déduit que '
           texteCorr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = 1
         } else { // deux perpendiculaires
-          if (this.correctionDetaillee) texteCorr += '.<br> Or «Si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles».<br>Donc'
+          if (this.correctionDetaillee) texteCorr += '.<br> Or si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles.<br>Donc'
           else texteCorr += ', on en déduit que '
           texteCorr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]

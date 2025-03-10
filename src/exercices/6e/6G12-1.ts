@@ -338,7 +338,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             'green'
             ))
           } else {
-            objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, CC, DD, EE), labelPoint(A, B, C, D, CC, DD, EE))
+            objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE))
           }
           objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d)
           if (context.isHtml) enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
