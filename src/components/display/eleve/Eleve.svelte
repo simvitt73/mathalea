@@ -570,7 +570,7 @@
         </div>
       {:else if $globalOptions.presMode === 'liste_questions'}
         <div
-          class="columns-1 {$globalOptions.title.length === 0
+          class="columns-1 {$globalOptions.title?.length === 0
             ? 'mt-6'
             : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}"
         >
