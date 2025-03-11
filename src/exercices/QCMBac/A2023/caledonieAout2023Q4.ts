@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Nouvelle Calédonie Août 2023 : positions relatives de deux plans.'
+export const titre = 'Nouvelle Calédonie 08/23 : plans'
 export const dateDePublication = '05/11/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

@@ -1,15 +1,15 @@
 import ExerciceQcm from '../../ExerciceQcm'
 
-export const uuid = '0287b'
+export const uuid = '0649b'
 export const refs = {
-  'fr-fr': ['TSG2-QCM09'],
+  'fr-fr': ['TSG2-QCM07'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Métropole septembre 2024 : intersection plan-droite'
+export const titre = 'Métropole 09/2024 : droite-plan'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -22,34 +22,34 @@ export const dateDePublication = '28/10/2024'
  * @author Stéphane Guyon
  *
  */
-export default class metropoleSept2024Ex4Q5 extends ExerciceQcm {
+export default class metropoleSept2024Ex4Q3 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      'l\'ensemble vide',
-      'un plan',
-      'une droite',
-      'réduite à un point'
+      'strictement parallèle au plan $\\mathcal{P}$',
+      'orthogonale au plan $\\mathcal{P}$',
+      'sécante au plan $\\mathcal{P}$',
+      'incluse dans le plan $\\mathcal{P}$'
     ]
 
     this.enonce = this.sup3
       ? `L'espace est rapporté à un repère orthonormé $(O;\\vec{\\imath};\\vec{\\jmath};\\vec{k})$.
-On considère :<br>
+    On considère :<br>
 $\\bullet~~$ Les points A$(-1~;~-2~;~3)$, B$(1~;~-2~;~7)$ et C$(1~;~0~;~2)$;<br>
 $\\bullet~~$ La droite $(\\Delta)$ de représentation paramétrique :  $\\left\\{\\begin{array}{l}x=1-t \\\\ y=2 \\\\ z=-4+3 t\\end{array}\\right.$, où $t \\in \\mathbb{R}$;<br>
 $\\bullet~~$ Le plan $\\mathcal{P}$ d'équation cartésienne : $3 x+2 y+z-4=0$;<br>
 $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>`
       : ''
 
-    this.enonce += '<br>L\'intersection des plans $\\mathcal{P}$ et $\\mathcal{Q}$ est :'
+    this.enonce += '<br>La droite $(\\Delta)$ est :'
 
-    this.correction = 'Le plan $\\mathcal{P}$ a pour vecteur normal $\\vec n\\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix}$.<br>'
-    this.correction += 'et le plan $\\mathcal{Q}$ a pour vecteur normal $\\vec{n\'}\\begin{pmatrix}-6\\\\-4\\\\-2\\end{pmatrix}$.<br>'
-    this.correction += '$\\vec{n\'}=-2\\vec n$ donc les plans sont parallèles.<br>'
-    this.correction += 'Les plans sont donc confondus ou strictement parallèles.<br>'
-    this.correction += 'Pour vérifier, on teste avec le point T. On vérifie que le point T appartient à $\\mathcal{P}$.<br>'
-    this.correction += '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$. <br> Mais comme :<br>'
-    this.correction += '$-6x_{\\text T} -4y_{\\text T} -2z_{\\text T} +7= -6\\times 1 -4\\times 0 -2\\times 1+7=-1\\neq 0$ donc $\\text T \\notin \\mathcal{Q}$<br>'
-    this.correction += 'Les deux plans sont donc strictement parallèles.'
+    this.correction = 'La droite $(\\Delta)$ a pour vecteur directeur :<br> $\\vec{v}\\begin{pmatrix}-1\\\\0\\\\3\\end{pmatrix}$, '
+    this.correction += 'et le plan $\\mathcal{P}$ a pour vecteur normal $\\vec n \\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix}$.<br>'
+    this.correction += '$\\vec{v}\\cdot \\vec{n} = -1\\times 3 +0\\times 2+3\\times 1 = 0$ donc $\\vec{v}\\perp \\vec{v}$,<br>'
+    this.correction += 'et donc $(\\Delta)$ est parallèle à $\\mathcal{P}$.<br>'
+    this.correction += 'Le point H de coordonnées $H(1~;~2~;~-4)$ appartient à $(\\Delta)$.<br>'
+    this.correction += '$3x_{\\text H} +2y_{\\text H} +z_{\\text H}-4 =3\\times 1 + 2\\times 2 -4-4=-1\\neq 0$<br>'
+    this.correction += ' donc $\\text H \\notin\\mathcal{P}$.<br>'
+    this.correction += 'La droite $(\\Delta)$ n\'est pas incluse dans le plan $\\mathcal{P}$.'
   }
 
   constructor () {

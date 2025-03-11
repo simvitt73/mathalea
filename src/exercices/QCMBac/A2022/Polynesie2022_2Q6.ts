@@ -10,7 +10,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Polynésie 2022 : équation en puissance de $n$.'
+export const titre = 'Polynésie 05/22 : équation'
 export const dateDePublication = '09/03/2025'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

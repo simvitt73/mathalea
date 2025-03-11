@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac centres étrangers 2022 : Équation en logarithme'
+export const titre = 'Centres étrangers 05/22 : équation'
 export const dateDePublication = '23/02/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

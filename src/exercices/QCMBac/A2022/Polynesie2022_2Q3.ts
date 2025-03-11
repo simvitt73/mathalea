@@ -3,14 +3,14 @@ import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '06571'
 export const refs = {
-  'fr-fr': ['TSA4-QCM2'],
+  'fr-fr': ['TSA4-QCM02'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Polynésie 2022 : nombre de solution(s) d\'une équation.'
+export const titre = 'Polynésie 05/22 : équation'
 export const dateDePublication = '07/03/2025'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

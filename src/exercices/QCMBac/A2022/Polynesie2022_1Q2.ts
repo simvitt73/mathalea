@@ -3,14 +3,14 @@ import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'fb224'
 export const refs = {
-  'fr-fr': ['TSA6-QCM5'],
+  'fr-fr': ['TSA6-QCM05'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Polynésie 2022 : Primitive d\'une fonction logarithme népérien.'
+export const titre = 'Polynésie 05/22 : primitive'
 export const dateDePublication = '09/03/2025'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

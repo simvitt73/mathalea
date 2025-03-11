@@ -3,14 +3,14 @@ import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '70139'
 export const refs = {
-  'fr-fr': ['TSA6-QCM6'],
+  'fr-fr': ['TSA6-QCM06'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Polynésie 2022 : primitive.'
+export const titre = 'Polynésie 05/2022 : primitive'
 export const dateDePublication = '07/03/2025'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
