@@ -27,7 +27,7 @@ import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from
 import { resizeContent } from './components/sizeTools'
 import Decimal from 'decimal.js'
 import { checkForServerUpdate } from './components/version'
-import { showPopupAndWait } from './components/dialogs'
+import { showDialogForLimitedTime, showPopupAndWait } from './components/dialogs'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -456,13 +456,13 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   try {
     url = new URL(urlString)
   } catch (error) {
-    return {} // @fixme null n'est vraiment pas compatible avec la signature de la fonction, mais il faudrait sans doute traîter l'erreur mieux que ça
+    return {}
   }
   // let url = new URL(urlString)
   if (isCrypted(url)) {
     urlNeedToBeFreezed = true
+    url = decrypt(url)
   }
-  url = decrypt(url)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
   const newExercisesParams: InterfaceParams[] = []
@@ -556,7 +556,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     // MOUCHARD SUR LES URLS FANTAISISTES
     window.notify(`Erreur d'URL : ${error} `, { err: error, urlString, url: window.location.href.toString(), referrer: document.referrer })
     console.error(error)
-    throw error
+    showDialogForLimitedTime('notifUrlIncorrecte', 5000, 'L\'URL présente une erreur. Veuillez réessayer et nous contacter si le problème persiste.')
+    return {}
   }
 
   exercicesParams.set(newExercisesParams.filter(e => e.uuid || e.id))

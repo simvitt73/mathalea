@@ -50,7 +50,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   v: undefined,
   z: '1',
   title: 'Évaluation',
-  presMode: 'un_exo_par_page',
+  presMode: 'liste_exos',
   setInteractive: '2',
   isSolutionAccessible: true,
   isInteractiveFree: true,
@@ -91,7 +91,7 @@ export const bibliothequePathToSection = writable<string[]>([])
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice(
+export function moveExercice (
   liste: InterfaceParams[],
   iDepart: number,
   iArrivee: number
@@ -106,7 +106,7 @@ let timerId: ReturnType<typeof setTimeout> | undefined
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
  */
-export function updateGlobalOptionsInURL(url: URL) {
+export function updateGlobalOptionsInURL (url: URL) {
   const options = get(globalOptions)
   const canStore = get(canOptions)
   if (options.v) {
@@ -145,7 +145,7 @@ export function updateGlobalOptionsInURL(url: URL) {
       if (options.presMode != null) {
         es = presModeId.indexOf(options.presMode).toString()
       } else es = '1'
-      es += options.setInteractive
+      es += options.setInteractive ?? '2'
       es += options.isSolutionAccessible ? '1' : '0'
       es += options.isInteractiveFree ? '1' : '0'
       es += options.oneShot ? '1' : '0'

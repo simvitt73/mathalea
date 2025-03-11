@@ -53,8 +53,8 @@ export interface InterfaceGlobalOptions {
   order?: number[]
   manualMode?: boolean
   es?: string
-  title: string
-  presMode:
+  title?: string
+  presMode?:
     | 'liste_exos'
     | 'un_exo_par_page'
     | 'liste_questions'
@@ -62,7 +62,7 @@ export interface InterfaceGlobalOptions {
     | 'recto'
     | 'verso'
   // | 'cartes'
-  setInteractive: string
+  setInteractive?: string
   isSolutionAccessible?: boolean
   isTitleDisplayed?: boolean
   isInteractiveFree?: boolean
@@ -72,14 +72,14 @@ export interface InterfaceGlobalOptions {
   answers?: string
   iframe?: string
   twoColumns?: boolean
-  beta: boolean
+  beta?: boolean
   isDataRandom?: boolean
   canD?: string
   canT?: string
   canSA?: boolean
   canSM?: CanSolutionsMode
   canI?: boolean
-  lang: Language
+  lang?: Language
 }
 
 export interface InterfaceParams extends Partial<Record<string, string | number>> {
