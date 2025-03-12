@@ -123,7 +123,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
           texteCorr += qcm.texteCorr
         }
       } else {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: ' $=$' })
         handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
