@@ -104,7 +104,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
           }
           const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
           const monQcm = propositionsQcm(this, i, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
-          texte += `<br><br>${monQcm.texte}`
+          texte += `<br>${monQcm.texte}`
           let messageBonnesReponses: string
           if (this.corrections && autoCorr.propositions != null) {
             this.correction = ''
