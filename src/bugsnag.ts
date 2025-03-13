@@ -69,6 +69,10 @@ export function notify (error: string | NotifiableError, metadatas: Metadatas) {
     }
     error = Error(error).message
   }
+  // console.error(error)
+  // if (metadatas) console.info('Avec les metadatas:', metadatas)
+  // console.info('Paramètres des exercices:', get(exercicesParams))
+  // return
 
   if (Bugsnag && !isDevMode()) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)

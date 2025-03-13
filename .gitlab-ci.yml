@@ -12,7 +12,12 @@
 # Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+
+variables:
+  FF_USE_POD_ACTIVE_DEADLINE_SECONDS: "false"
+
 stages:
+  - deploy-server
   - build-projet
   - test
   - playwright-testCanEleve
@@ -125,7 +130,7 @@ default:
 
 .testCI:
   extends: .install_dependencies
-  image: mcr.microsoft.com/playwright:v1.50.0-noble
+  image: mcr.microsoft.com/playwright:v1.51.0-noble
   stage: playwright-test
   allow_failure: true
   rules:
@@ -318,6 +323,64 @@ build:
     - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
       when: never
     - when: always
+  artifacts:
+    when: always
+    paths:
+      - dist
+    expire_in: 1 day
+
+deploy:
+  image: ubuntu
+  stage: deploy-server
+  allow_failure: true
+  script:
+    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
+    - "command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )"
+    - apt-get update -y
+    - apt-get install -y wget iproute2
+    - wget -qO- ipinfo.io/ip
+    - ip addr show
+    - apt-get install -y rsync
+    - apt-get install -y nodejs npm
+    - npm install -g corepack@latest
+    - corepack enable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - eval $(ssh-agent -s)
+    - chmod 400 "$SSH_FILE_KEY"
+    - ssh-add "$SSH_FILE_KEY"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - ssh-keyscan ssh.cluster010.hosting.ovh.net >> ~/.ssh/known_hosts
+    - ssh -i "$SSH_FILE_KEY" -v clarensa-mgu@ssh.cluster010.hosting.ovh.net
+    - date_deploy=$(date +%Y-%m-%d_%H-%M-%S)
+    - echo "date_deploy $date_deploy"
+    - pnpm install
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    - ssh -i "$SSH_FILE_KEY" clarensa-mgu@ssh.cluster010.hosting.ovh.net "mkdir -p ~/releases/'$date_deploy'"
+    - rsync -avz -e "ssh -i '$SSH_FILE_KEY'" dist/ clarensa-mgu@ssh.cluster010.hosting.ovh.net:~/releases/$date_deploy
+    # - chmod 400 "$SSH_KEY"
+    # - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    # - ssh-add "$SSH_KEY"
+    # - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    # - ssh -v clarensa-mgu@ssh.cluster010.hosting.ovh.net
+    # - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    # - echo "$SSH_MGU" | tr -d '\r' | ssh-add -
+    #- echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    #- echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    # - apt-get update -y
+    # - apt-get install -y rsync
+    # - rsync -avz -e "ssh -i <(echo \"$SSH_PRIVATE_KEY\")" . clarensa@ssh.cluster010.hosting.ovh.net:~/releases/test/
+    #- NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
+    # - echo "$CI_COMMIT_AUTHOR"
+  rules:
+    - when: manual
   artifacts:
     when: always
     paths:
