@@ -94,7 +94,7 @@ async function prepareCompilation (view: View, id: string, AmcFiles: string[]) {
     for (const file of AmcFiles) {
       console.log(`copy ${file}`)
       try {
-        await fs.copyFile(`tests/e2e/tests/new_exercise/${file}`, `screenshots/${id}/tex/${file}`)
+        await fs.copyFile(`tests/e2e/tests/new_exercise/${file}`, `${file}`)
         console.log('File copied successfully')
       } catch (err) {
         console.error('Error copying file:', err)
@@ -104,7 +104,7 @@ async function prepareCompilation (view: View, id: string, AmcFiles: string[]) {
 }
 
 async function compileLatex (texDir: string, fileName: string) {
-  const compilationCommand = `TEXINPUTS=${texDir}: lualatex ${fileName}`
+  const compilationCommand = `lualatex ${fileName}`
   console.log(`First compilation of ${fileName}`)
   await runShellCommand(compilationCommand)
   console.log(`Second compilation of ${fileName}`)
@@ -119,7 +119,7 @@ async function cleanAuxiliaryFiles (page: Page, view: View, variation: Variation
     await removeFile(`${view}-${variation}.amc`)
     for (const file of AmcFiles) {
       console.log(`remove ${file} copy`)
-      await removeFile(`screenshots/${id}/tex/${file}`)
+      await removeFile(`${file}`)
     }
   } else if (view === 'LaTeX') {
     await removeFile(`${view}-${variation}.out`)
