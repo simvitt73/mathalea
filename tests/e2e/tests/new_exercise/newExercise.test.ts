@@ -93,13 +93,18 @@ async function prepareCompilation (view: View, id: string, AmcFiles: string[]) {
   if (view === 'AMC') {
     for (const file of AmcFiles) {
       console.log(`copy ${file}`)
-      await runShellCommand(`cp tests/e2e/tests/new_exercise/${file} screenshots/${id}/tex/`)
+      try {
+        await fs.copyFile(`tests/e2e/tests/new_exercise/${file}`, `${file}`)
+        console.log('File copied successfully')
+      } catch (err) {
+        console.error('Error copying file:', err)
+      }
     }
   }
 }
 
 async function compileLatex (texDir: string, fileName: string) {
-  const compilationCommand = `TEXINPUTS=${texDir}: lualatex ${fileName}`
+  const compilationCommand = `lualatex ${fileName}`
   console.log(`First compilation of ${fileName}`)
   await runShellCommand(compilationCommand)
   console.log(`Second compilation of ${fileName}`)
@@ -107,27 +112,55 @@ async function compileLatex (texDir: string, fileName: string) {
 }
 
 async function cleanAuxiliaryFiles (page: Page, view: View, variation: Variation, id: string, fileName: string, AmcFiles: string[]) {
-  const cleanUpCommand = `rm ${view}-${variation}.{aux,log,${view === 'LaTeX' ? 'out' : 'amc'}}`
   console.log(`Cleaning auxiliary filed of ${fileName}`)
-  await runShellCommand(cleanUpCommand)
+  await removeFile(`${view}-${variation}.aux`)
+  await removeFile(`${view}-${variation}.log`)
   if (view === 'AMC') {
+    await removeFile(`${view}-${variation}.amc`)
     for (const file of AmcFiles) {
       console.log(`remove ${file} copy`)
-      await runShellCommand(`rm screenshots/${id}/tex/${file}`)
+      await removeFile(`${file}`)
     }
-  } else if (view === 'LaTeX' && (variation === 'ProfMaquette' || variation === 'ProfMaquetteQrcode')) {
-    for (let i = 0; i < getExercisesCount(page); i++) {
-      const file = `LaTeX-ProfMaquette${variation === 'ProfMaquetteQrcode' ? 'Qrcode' : ''}-Ex${i + 1}.sol`
-      console.log(`remove ${file}`)
-      await runShellCommand(`rm ${file}`)
+  } else if (view === 'LaTeX') {
+    await removeFile(`${view}-${variation}.out`)
+    if (variation === 'ProfMaquette' || variation === 'ProfMaquetteQrcode') {
+      for (let i = 0; i < getExercisesCount(page); i++) {
+        try {
+          const file = `LaTeX-ProfMaquette${variation === 'ProfMaquetteQrcode' ? 'Qrcode' : ''}-Ex${i + 1}.sol`
+          console.log(`remove ${file}`)
+          await removeFile(`${file}`)
+        } catch (error) {
+          console.error('file not found')
+        }
+        try {
+          const file = `LaTeX-ProfMaquette${variation === 'ProfMaquetteQrcode' ? 'Qrcode' : ''}-Ma${i + 1}-Ex${i + 1}.sol`
+          console.log(`remove ${file}`)
+          await removeFile(`${file}`)
+        } catch (error) {
+          console.error('file not found')
+        }
+      }
     }
   }
 }
 
+async function removeFile (fileName: string) {
+  try {
+    await fs.unlink(fileName)
+    console.log(`Deleted ${fileName}`)
+  } catch (err) {
+    console.error(`Error deleting ${fileName}:`, err)
+  }
+}
+
 async function movePdfFiles (view: View, variation: Variation, id: string, fileName: string) {
-  const movePdfCommand = `mv ${view}-${variation}.pdf screenshots/${id}`
   console.log(`Moving generated pdf from ${fileName}`)
-  await runShellCommand(movePdfCommand)
+  try {
+    await fs.rename(`${view}-${variation}.pdf`, `screenshots/${id}/${view}-${variation}.pdf`)
+    console.log('File moved successfully')
+  } catch (err) {
+    console.error('Error moving file:', err)
+  }
 }
 
 async function getScenario (page: Page, view: View, variation: Variation): Promise<Scenario> {
