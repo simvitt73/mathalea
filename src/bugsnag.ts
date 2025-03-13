@@ -17,7 +17,7 @@ if (typeof (BigInt) === 'undefined') {
 }
 
 function handleBugsnag () {
-  const fileName = '../_private/bugsnagApiKey'
+  // const fileName = '../_private/bugsnagApiKey'
   // PROVISOIRE : MGU
   const getBugsnagApiKey = '6f45f454e2366599256bddc91cd7000b' // await import(/* @vite-ignore */fileName)
   const key = getBugsnagApiKey // .default() || ''
