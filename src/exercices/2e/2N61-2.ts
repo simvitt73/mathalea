@@ -28,8 +28,6 @@ export const titre = 'Résoudre une inéquation-produit'
  * * Type 5 : (ax+b)²(cx+d)<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2N61-2, ex 2L14-1
- * 17/07/2021
  */
 export const uuid = '014a4'
 
@@ -132,8 +130,8 @@ export default class ExerciceInequationProduit extends Exercice {
       // Fonction détaillant la résolution d'une équation de type x + val
       const resolutionDetailleeEquation = function (val: number) {
         texteCorr += `$x${ecritureAlgebrique(val)}${texSymbole('>')}0$ <br>`
-        texteCorr += `$x${ecritureAlgebrique(val)}${miseEnEvidence(ecritureAlgebrique(-1 * val))}
-        ${texSymbole('>')}${miseEnEvidence(ecritureAlgebrique(-1 * val))}$<br>`
+        texteCorr += `$x${ecritureAlgebrique(val)}${miseEnEvidence(ecritureAlgebrique(-1 * val), 'blue')}
+        ${texSymbole('>')}${miseEnEvidence(ecritureAlgebrique(-1 * val), 'blue')}$<br>`
         texteCorr += `$x${texSymbole('>')}${-val}$<br>`
       }
       // Fonction écrivant la correction détaillée d'une inéquation du type var1*x + var2 > 0
@@ -146,25 +144,25 @@ export default class ExerciceInequationProduit extends Exercice {
         }
         // Détaille les étapes de la résolution en mettant en évidence les calculs réalisés.
         texteCorr += `<br>$${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ <br>`
-        texteCorr += `$${var1}x${ecritureAlgebrique(var2)}${miseEnEvidence(ecritureAlgebrique(-1 * var2))}
-        ${symbolePlusGrand}${miseEnEvidence(ecritureAlgebrique(-1 * var2))}$<br>`
+        texteCorr += `$${var1}x${ecritureAlgebrique(var2)}${miseEnEvidence(ecritureAlgebrique(-1 * var2), 'blue')}
+        ${symbolePlusGrand}${miseEnEvidence(ecritureAlgebrique(-1 * var2), 'blue')}$<br>`
         texteCorr += `$${var1}x${symbolePlusGrand}${-var2}$<br>`
         // Si var1 < 0, l'inégalité change de sens
         if (var1 < 0) {
-          texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}`
+          texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1), 'blue')}`
           if (egal) { // On met en évidence un > qui se change en <, pas un = qui ne change pas
             texteCorr += symbolePlusPetit
           } else {
-            texteCorr += miseEnEvidence(symbolePlusPetit)
+            texteCorr += miseEnEvidence(symbolePlusPetit, 'blue')
           }
-          texteCorr += `${String(-var2) + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
+          texteCorr += `${String(-var2) + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1), 'blue')}$<br>`
           texteCorr += `$x${symbolePlusPetit}${texFractionFromString(-var2, var1)}$`
-          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusPetit} ${texFractionReduite(-var2, var1)}$`
+          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusPetit} ${texFractionReduite(-var2, var1)}$.`
         } else { // sinon elle ne change pas de sens
-          texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}
-            ${symbolePlusGrand}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
+          texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1), 'blue')}
+            ${symbolePlusGrand}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1), 'blue')}$<br>`
           texteCorr += `$x${symbolePlusGrand} ${texFractionFromString(-var2, var1)}$`
-          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusGrand}${texFractionReduite(-var2, var1)}$`
+          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusGrand}${texFractionReduite(-var2, var1)}$.`
         }
       }
       // Prépare les quatre types de lignes possibles pour les tableaux avec 2 antécédents : + + - , + - -, - + + et - - +
@@ -190,6 +188,7 @@ export default class ExerciceInequationProduit extends Exercice {
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'                                      Type 1        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       if (listeTypeDeQuestions[i] === '(x+a)(x+b)<0') {
         // Consigne
         texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})${texSymbole(signes[i])}0$`
@@ -199,12 +198,12 @@ export default class ExerciceInequationProduit extends Exercice {
         if (this.correctionDetaillee) {
           resolutionDetailleeEquation(a)
         }
-        texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-a}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-a}$.<br>`
         // Deuxième équation
         if (this.correctionDetaillee) {
           resolutionDetailleeEquation(b)
         }
-        texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-b}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-b}$.<br>`
         // Prépare l'affichage du tableau de signes : la ligne1 correspond à (x + a) et la ligne2 correspond à (x + b)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
         // Si la racine de x + a est inférieure à la racine de x + b, la ligne1 (celle de x + a) aura d'abord un 0, puis un | et ce sera l'inverse pour la ligne2
@@ -256,17 +255,17 @@ export default class ExerciceInequationProduit extends Exercice {
         if (this.correctionDetaillee) {
           resolutionDetailleeEquation(a)
         }
-        texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-a}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-a}$.<br>`
         // Deuxième équation
         if (this.correctionDetaillee) {
           resolutionDetailleeEquation(b)
         }
-        texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-b}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-b}$.<br>`
         // Troisième équation
         if (this.correctionDetaillee) {
           resolutionDetailleeEquation(c)
         }
-        texteCorr += `$x${ecritureAlgebrique(c)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-c}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(c)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-c}$.<br>`
         // On range les racines dans l'ordre croissant pour pouvoir les mettre dans l'ordre dans le tableau
         const racines = [-a, -b, -c].sort(function (a, b) {
           return a - b
@@ -329,14 +328,14 @@ export default class ExerciceInequationProduit extends Exercice {
           ecrireCorrectionDetaillee(c, d)
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
           if (a < 0) {
-            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-b, a)}$`
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-b, a)}$.`
           } else {
-            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-b, a)}$`
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-b, a)}$.`
           }
           if (c < 0) {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-d, c)}$.`
           } else {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$.`
           }
         }
         // Prépare l'affichage du tableau de signes
@@ -429,19 +428,19 @@ export default class ExerciceInequationProduit extends Exercice {
           ecrireCorrectionDetaillee(e, f)
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
           if (a < 0) {
-            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-b, a)}$`
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-b, a)}$.`
           } else {
-            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-b, a)}$`
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-b, a)}$.`
           }
           if (c < 0) {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-d, c)}$.`
           } else {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$.`
           }
           if (e < 0) {
-            texteCorr += `<br>$${e}x${ecritureAlgebrique(f)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-f, e)}$`
+            texteCorr += `<br>$${e}x${ecritureAlgebrique(f)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-f, e)}$.`
           } else {
-            texteCorr += `<br>$${e}x${ecritureAlgebrique(f)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-f, e)}$`
+            texteCorr += `<br>$${e}x${ecritureAlgebrique(f)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-f, e)}$.`
           }
         }
         // Prépare l'affichage du tableau de signes
@@ -609,12 +608,12 @@ export default class ExerciceInequationProduit extends Exercice {
           texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-b, a)}$.`
           ecrireCorrectionDetaillee(c, d)
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
-          texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}=0$ si et seulement si $x=${texFractionReduite(-b, a)}$`
+          texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}=0$ si et seulement si $x=${texFractionReduite(-b, a)}$.`
           texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-b, a)}$.`
           if (c < 0) {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('<')} ${texFractionReduite(-d, c)}$.`
           } else {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$.`
           }
         }
         // On se prépare au cas où il y aurait aussi un singleton dans l'ensemble de solution
@@ -703,6 +702,18 @@ export default class ExerciceInequationProduit extends Exercice {
           }
         }
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer.slice(0, -1))}$` + '.' // Gestion du point final
+      // Fin de cette uniformisation
+
       for (let kk = 0; kk < correctionInteractif.length; kk++) {
         correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
       }
