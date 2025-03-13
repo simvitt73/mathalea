@@ -22,7 +22,6 @@ export const dateDePublication = '06/01/2022'
  * * Retrouver la situation initiale
  * * Mélange des 3 types de problèmes
  * @author Rémi Angot + Florence Tapiero (correction version seconde)
- * 2S12-1
  */
 export const uuid = '12444'
 
@@ -217,64 +216,65 @@ export default class EvolutionsEnPourcentage extends Exercice {
               break
           }
           break
-        case 'facture':
+        case 'facture': {
           depart = randint(700, 1400)
           taux = randint(2, 30) * choice([-1, 1])
           tauxDec = taux / 100
           coeff = tauxDec + 1
           arrive = coeff * depart
           facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
+          const prixOuMontant = facture.substring(0, 2) === 'ma' ? 'montant' : 'prix'
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
-                texte = `Le prix de ${facture} était de $${texPrix(depart)}$ € l'année dernière et il a augmenté de $${taux}~\\%$.<br>
-                 Calculer son nouveau prix.`
+                texte = `Le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ € l'année dernière et il a augmenté de $${taux}~\\%$.<br>
+                 Calculer son nouveau ${prixOuMontant}.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
-                texteCorr += `<br>Le prix de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
+                texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
                 reponse = arrive
               } else {
-                texte = `Le prix de ${facture} était de $${texPrix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. <br>
-                Calculer son nouveau prix.`
+                texte = `Le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. <br>
+                Calculer son nouveau ${prixOuMontant}.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$.`
-                texteCorr += `<br>Le prix de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
+                texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
                 reponse = arrive
               }
               break
             case 'initiale':
               if (taux > 0) {
-                texte = `Après une augmentation de $${taux}~\\%$ le prix de ${facture} est maintenant $${texPrix(arrive)}$ €.<br>
-                 Calculer son prix avant l'augmentation.`
-                texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
+                texte = `Après une augmentation de $${taux}~\\%$ le ${prixOuMontant} de ${facture} est maintenant $${texPrix(arrive)}$ €.<br>
+                 Calculer son ${prixOuMontant} avant l'augmentation.`
+                texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le ${prixOuMontant} initial, on va donc diviser le ${prixOuMontant} final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant l'augmentation le prix de ${facture} était de $${texPrix(depart)}$ €.`
+                texteCorr += `<br>Avant l'augmentation le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ €.`
                 reponse = depart
               } else {
                 texte = `Après une diminution de $${abs(taux)}~\\%$ ${facture} coûte maintenant $${texPrix(arrive)}$ €. <br>
-                Calculer son prix avant la diminution.`
-                texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
+                Calculer son ${prixOuMontant} avant la diminution.`
+                texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le ${prixOuMontant} initial, on va donc diviser le ${prixOuMontant} final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$.`
-                texteCorr += `<br>Avant la diminution le prix de ${facture} était de $${texPrix(depart)}$ €.`
+                texteCorr += `<br>Avant la diminution le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ €.`
                 reponse = depart
               }
               break
             case 'evolution':
               if (taux > 0) {
-                texte = `Le prix de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €.<br>
-                 Calculer le taux d'évolution du prix en pourcentage.`
+                texte = `Le ${prixOuMontant} de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €.<br>
+                 Calculer le taux d'évolution du ${prixOuMontant} en pourcentage.`
                 texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le prix a donc augmenté de $${taux}~\\%$.`
+                texteCorr += `<br>Le ${prixOuMontant} a donc augmenté de $${taux}~\\%$.`
                 texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
                 texteCorr += `<br><br>$\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)} =  1 + ${texNombre(tauxDec, 2)} = 1 + \\dfrac{${taux}}{100}$.`
                 reponse = taux
               } else {
-                texte = `Le prix de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. <br>
-                Calculer le taux d'évolution du prix en pourcentage.`
+                texte = `Le ${prixOuMontant} de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. <br>
+                Calculer le taux d'évolution du ${prixOuMontant} en pourcentage.`
                 texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le prix a donc diminué de $${abs(taux)}~\\%$.`
+                texteCorr += `<br>Le ${prixOuMontant} a donc diminué de $${abs(taux)}~\\%$.`
                 texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
                 texteCorr += `<br><br>$\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)} =  1 - ${texNombre(Math.abs(tauxDec), 2)} = 1 - \\dfrac{${abs(taux)}}{100}$.`
                 reponse = taux
@@ -282,6 +282,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
               break
           }
           break
+        }
         case 'population':
         default:
           depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
