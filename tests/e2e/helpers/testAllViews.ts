@@ -297,7 +297,6 @@ async function getForms (page: Page) {
         const options = await formNum.locator('option').all()
         const allValues = await Promise.all(options.map(option => option.getAttribute('value')))
         const values = allValues.filter(value => value !== null)
-        console.log(values)
         formNumSelects.push({
           description: await label.innerHTML(),
           locator: formNum,
