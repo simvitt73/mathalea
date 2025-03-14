@@ -325,6 +325,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  // testRunAllLots('4e/4C32.js')
+  testRunAllLots('4e/4C32.js')
   // testRunAllLots('2e/2G12-6')
 }
