@@ -1,5 +1,6 @@
-import type { BrowserContext, Page } from 'playwright'
+import type { BrowserContext, Locator, Page } from 'playwright'
 import prefs from './prefs'
+import { rangeMinMax } from '../../../src/lib/outils/nombres'
 
 export const ViewValidKeys = <const>['start', 'diaporama', 'apercu', 'eleve', 'LaTeX', 'AMC']
 type ViewValidKeysType = typeof ViewValidKeys
@@ -36,6 +37,13 @@ export function isAMCVariation (obj: unknown): obj is AMCVariation {
 export type Variation = '' | StudentVariation | LatexVariation | AMCVariation
 
 export type CallbackType = (page: Page, view: View, variation: Variation) => Promise<void>
+
+type Form = {
+  description: string,
+  locator: Locator,
+  type: 'check' | 'num' | 'text',
+  values: string[] | number[] | boolean[]
+}
 
 const local = true
 
@@ -187,4 +195,116 @@ export async function getLatexFromPage (page: Page) {
   const questionSelector = 'pre.w-full'
   const locator = page.locator(questionSelector)
   return await locator.innerText()
+}
+
+export async function checkEachCombinationOfParams (page: Page, action: (page: Page) => Promise<void>) {
+  const { formChecks, formNums, formTexts } = await getForms(page)
+  // On range par ordre décroissant pour facilement exclure les formulaires vides
+  const allForms = [formNums, formTexts, formChecks].sort((a, b) => b.length - a.length)
+  const forms1 = allForms[0]
+  const forms2 = allForms[1]
+  const forms3 = allForms[2]
+
+  if (forms1.length === 0) {
+    await action(page)
+  } else {
+    for (const form1 of forms1) {
+      for (const value1 of form1.values) {
+        await setParam(form1, value1)
+        if (forms2.length === 0) {
+          await action(page)
+        } else {
+          for (const form2 of forms2) {
+            for (const value2 of form2.values) {
+              await setParam(form2, value2)
+              if (forms3.length === 0) {
+                await action(page)
+              } else {
+                for (const form3 of forms3) {
+                  for (const value3 of form3.values) {
+                    await setParam(form3, value3)
+                    await action(page)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async function setParam (form: Form, value: string | number | boolean) {
+  if (form.type === 'check') {
+    if (value) {
+      await form.locator.check()
+    } else {
+      await form.locator.uncheck()
+    }
+  }
+  if (form.type === 'num') {
+    await form.locator.fill(value.toString())
+  }
+  if (form.type === 'text') {
+    await form.locator.fill(value.toString())
+  }
+}
+
+async function getForms (page: Page) {
+  const settingsLocator = page.locator('#settings0')
+  const formChecks: Form[] = []
+  for (let i = 0; i < 5; i++) {
+    const formCheck = settingsLocator.locator(`#settings-check${i + 1}-0`)
+    if (await formCheck.isVisible()) {
+      const label = formCheck.locator('xpath=preceding-sibling::label')
+      formChecks.push({
+        description: await label.innerHTML(),
+        locator: formCheck,
+        type: 'check',
+        values: [true, false]
+      })
+    }
+  }
+  const formNums: Form[] = []
+  for (let i = 0; i < 5; i++) {
+    const formNum = settingsLocator.locator(`#settings-formNum${i + 1}-0`)
+    if (await formNum.isVisible()) {
+      const label = formNum.locator('xpath=preceding-sibling::label')
+      const min = Number(await formNum.getAttribute('min'))
+      const max = Number(await formNum.getAttribute('max'))
+      if (max < min) {
+        console.error('Max should be greater than min', 'url', page.url(), 'formulaire:', `#settings-formNum${i + 1}-0`, 'label:', label, 'min:', min, 'max:', max)
+        throw new Error('Max should be greater than min')
+      }
+      formNums.push({
+        description: await label.innerHTML(),
+        locator: formNum,
+        type: 'num',
+        values: rangeMinMax(min, max)
+      })
+    }
+  }
+  const formTexts: Form[] = []
+  for (let i = 0; i < 5; i++) {
+    const formText = settingsLocator.locator(`#settings-formText${i + 1}-0`)
+    if (await formText.isVisible()) {
+      const parent = formText.locator('..')
+      const label = parent.locator('xpath=preceding-sibling::label')
+      const dataTip = await parent.getAttribute('data-tip')
+      formTexts.push({
+        description: await label.innerHTML(),
+        locator: formText,
+        type: 'text',
+        values: getAllNumbersFromString(dataTip || '')
+      })
+    }
+  }
+  return { formTexts, formChecks, formNums }
+}
+
+function getAllNumbersFromString (inputString: string) {
+  const regex = /\d+/g // Regex pattern to match one or more digits
+  const matches = inputString.match(regex)
+  return matches ? matches.map(Number) : []
 }
