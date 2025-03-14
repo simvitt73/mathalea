@@ -1,6 +1,5 @@
 import type { BrowserContext, Locator, Page } from 'playwright'
 import prefs from './prefs'
-import { rangeMinMax } from '../../../src/lib/outils/nombres'
 
 export const ViewValidKeys = <const>['start', 'diaporama', 'apercu', 'eleve', 'LaTeX', 'AMC']
 type ViewValidKeysType = typeof ViewValidKeys
@@ -210,21 +209,21 @@ export async function checkEachCombinationOfParams (page: Page, action: (page: P
     for (const form1 of forms1) {
       for (const value1 of form1.values) {
         console.log('Testing', form1.description, value1)
-        await setParam(form1, value1)
+        await setParam(page, form1, value1)
         if (forms2.length === 0) {
           await action(page)
         } else {
           for (const form2 of forms2) {
             for (const value2 of form2.values) {
               console.log('Testing', form2.description, value2)
-              await setParam(form2, value2)
+              await setParam(page, form2, value2)
               if (forms3.length === 0) {
                 await action(page)
               } else {
                 for (const form3 of forms3) {
                   for (const value3 of form3.values) {
                     console.log('Testing', form3.description, value3)
-                    await setParam(form3, value3)
+                    await setParam(page, form3, value3)
                     await action(page)
                   }
                 }
@@ -237,7 +236,7 @@ export async function checkEachCombinationOfParams (page: Page, action: (page: P
   }
 }
 
-async function setParam (form: Form, value: string | number | boolean) {
+async function setParam (page: Page, form: Form, value: string | number | boolean) {
   if (form.type === 'check') {
     if (value) {
       await form.locator.check()
@@ -249,6 +248,7 @@ async function setParam (form: Form, value: string | number | boolean) {
     await form.locator.fill(value.toString())
   }
   if (form.type === 'text') {
+    await page.locator('#settings-nb-questions-0').fill(value.toString().split('-').length.toString())
     await form.locator.fill(value.toString())
   }
 }
@@ -279,14 +279,11 @@ async function getForms (page: Page) {
         console.error('Max should be greater than min', 'url', page.url(), 'formulaire:', `#settings-formNum${i + 1}-0`, 'label:', label, 'min:', min, 'max:', max)
         throw new Error('Max should be greater than min')
       }
-      if (max - min > 5) {
-        console.warn('Too many values, slicing down to 5 first', 'url', page.url(), 'formulaire:', `#settings-formNum${i + 1}-0`, 'label:', label, 'min:', min, 'max:', max)
-      }
       formNums.push({
         description: await label.innerHTML(),
         locator: formNum,
         type: 'num',
-        values: rangeMinMax(min, max).slice(0, 5)
+        values: [min, min + 1, max]
       })
     }
   }
@@ -297,11 +294,13 @@ async function getForms (page: Page) {
       const parent = formText.locator('..')
       const label = parent.locator('xpath=preceding-sibling::label')
       const dataTip = await parent.getAttribute('data-tip')
+      const allNumbers = getAllNumbersFromString(dataTip || '')
+      const uniqueNumbers = Array.from(new Set(allNumbers))
       formTexts.push({
         description: await label.innerHTML(),
         locator: formText,
         type: 'text',
-        values: getAllNumbersFromString(dataTip || '')
+        values: [uniqueNumbers.map(num => num.toString()).join('-')]
       })
     }
   }
