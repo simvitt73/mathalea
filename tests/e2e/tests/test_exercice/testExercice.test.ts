@@ -1,22 +1,27 @@
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs'
 import { runTest } from '../../helpers/run'
-import { getExercisesCount, getLatexFromPage, getUrlParam, testAllViews, type Variation, type View } from '../../helpers/testAllViews'
+import { getExercisesCount, getLatexFromPage, testAllViews, type Variation, type View } from '../../helpers/testAllViews'
 import { promises as fs } from 'fs'
 import { dirname } from 'path'
 import { exec } from 'child_process'
 
 // Exemple de test avec des paramètres définis dans les variables d'environnement :
-// params="id=5A11-1&n=4&d=10&s=2-5-10&s2=4&s3=1&s4=1&cd=1" pnpm testExercice
+// id=4C20 pnpm testExercice
 
-let params = 'uuid=d7e11&id=4C20&n=5&d=10&s=12&s2=true&cd=1' // paramètres par défaut utilisés si non définis dans les variables d'environnement (voir ci-dessus)
+let id = '4C20' // paramètres par défaut utilisés si non définis dans les variables d'environnement (voir ci-dessus)
 
 async function test (page: Page) {
-  const shellId = Object.entries(process.env).filter(([key]) => key === 'params').map(el => el[1])[0]
-  if (shellId) params = shellId
-  await testAllViews(page, params, callback)
+  const shellId = Object.entries(process.env).filter(([key]) => key === 'id').map(el => el[1])[0]
+  if (shellId) id = shellId
+  try {
+    await fs.rmdir(`screenshots/${id}/`, { recursive: true })
+  } catch (error) {
+    console.log('No screenshots folder to delete')
+  }
+  await testAllViews(page, { params: `id=${id}` }, callback)
   await testNanUndefined(page)
-  console.warn(`Les captures d'écran sont dans le dossier screenshots/${getUrlParam(page, 'id')}`)
+  console.warn(`Les captures d'écran sont dans le dossier screenshots/${id}`)
   console.warn('N\'oubliez pas de tester les différents paramètres de votre exercice avec et sans interactivité !')
   return true
 }
@@ -73,7 +78,6 @@ const callback = async (page: Page, view: View, variation: Variation) => {
 }
 
 async function compileLaTeX (page: Page, view: View, variation: Variation, latex: string) {
-  const id = getUrlParam(page, 'id')
   const texDir = `screenshots/${id}/tex`
   const fileName = `${texDir}/${view}-${variation}.tex`
   await writeStringToFile(fileName, latex)
@@ -94,7 +98,7 @@ async function prepareCompilation (view: View, id: string, AmcFiles: string[]) {
     for (const file of AmcFiles) {
       console.log(`copy ${file}`)
       try {
-        await fs.copyFile(`tests/e2e/tests/new_exercise/${file}`, `${file}`)
+        await fs.copyFile(`tests/e2e/tests/test_exercice/${file}`, `${file}`)
         console.log('File copied successfully')
       } catch (err) {
         console.error('Error copying file:', err)
@@ -181,7 +185,7 @@ async function getScenario (page: Page, view: View, variation: Variation): Promi
     }
   } else if (view === 'apercu') {
     return {
-      displayCorrectionSelectors: ['.bx-toggle-left'],
+      displayCorrectionSelectors: ['.mb-8.bx-toggle-left'],
     }
   } else if (view === 'eleve') {
     if (variation === 'Une page par question') {
@@ -231,8 +235,8 @@ async function displayCorrection (page: Page, scenario: Scenario, displayCorrect
 }
 
 async function action (page: Page, view: View, variation: Variation, append?: string) {
-  const id = getUrlParam(page, 'id')
-  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}.png`, fullPage: true })
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}-${timestamp}.png`, fullPage: true })
 }
 
 async function writeStringToFile (filePath: string, content: string): Promise<void> {
@@ -252,7 +256,7 @@ async function runShellCommand (command: string): Promise<void> {
         console.error(`Error executing command: ${error.message}`)
         reject(error)
       } else {
-        if (stdout) console.log(`stdout: ${stdout}`)
+        // if (stdout) console.log(`stdout: ${stdout}`) la sortie LaTeX plombe tout le log
         if (stderr) console.error(`stderr: ${stderr}`)
         resolve()
       }
