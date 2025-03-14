@@ -12,7 +12,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Transformer une soustraction en addition puis calculer'
 export const dateDePublication = '13/11/2023'
-export const dateDeModifImportante = '03/03/2025'
+export const dateDeModifImportante = '13/03/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -48,6 +48,9 @@ export default class SoustractionRelatifs extends Exercice {
 
   nouvelleVersion () {
     const listeTypeQuestions = combinaisonListes(this.typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
+    this.consigne = this.nbQuestions > 1
+      ? 'Transformer chaque soustraction en une addition puis calculer.'
+      : 'Transformer la soustraction en une addition puis calculer.'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -72,12 +75,12 @@ export default class SoustractionRelatifs extends Exercice {
       const textea = this.sup2 ? texNombre(a, 1) : ecritureNombreRelatif(a)
       const texteb = this.sup2 ? ecritureParentheseSiNegatif(b) : ecritureNombreRelatif(b)
       const texteReponse = this.sup2 ? texNombre(a - b, 1) : ecritureNombreRelatif(a - b)
-      texte = `$${textea} - ${texteb}$`
+      texte = `$${textea} - ${texteb}=$`
       texteCorr = `$${textea} - ${texteb} = ${miseEnEvidence(textea)} + ${miseEnEvidence(ecritureNombreRelatif(-b))} = ${miseEnEvidence(texteReponse)}$`
 
       if (this.interactif) {
-        const texteRemplisLesBlancs = this.sup2 ? `${textea} - ${texteb} = ${sp(1)}%{champ1}${sp(1)} + (%{champ2}) = ${sp(1)}%{champ3}${sp(1)}` : `${textea} - ${texteb} = (%{champ1}) + (%{champ2}) = (%{champ3})`
-        texte = remplisLesBlancs(this, i, texteRemplisLesBlancs, ` ${KeyboardType.clavierDeBase}`, '')
+        const texteRemplisLesBlancs = this.sup2 ? ` ${sp(1)}%{champ1}${sp(1)} + (%{champ2}) = ${sp(1)}%{champ3}${sp(1)}` : ' (%{champ1}) + (%{champ2}) = (%{champ3})'
+        texte += remplisLesBlancs(this, i, texteRemplisLesBlancs, ` ${KeyboardType.clavierDeBase}`, '')
 
         handleAnswers(this, i, {
           bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]) + listePoints[2], 2],
@@ -85,6 +88,8 @@ export default class SoustractionRelatifs extends Exercice {
           champ2: { value: ecritureNombreRelatif(-b) },
           champ3: { value: texteReponse }
         })
+      } else {
+        texte += ' $\\ldots\\ldots\\ldots + \\ldots\\ldots\\ldots = \\ldots\\ldots\\ldots$'
       }
 
       if (this.questionJamaisPosee(i, a, b, listeTypeQuestions[i])) {
