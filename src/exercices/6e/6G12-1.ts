@@ -255,7 +255,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           enonce += numAlpha(2) + ' Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
           enonce += numAlpha(3) + ' Tracer la droite parallèle à $(AB)$ passant par $E$ et nommer $O$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
           if (hasAutoCorrection) {
-            enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
+            enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.'
 
             correction = `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(lC
         )}$ cm, $AN \\approx ${texNombre(
@@ -348,7 +348,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           enonce += numAlpha(3) + ' Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d\'intersection de cette droite avec la droite $(BE)$.<br>'
           enonce += numAlpha(4) + ' Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d\'intersection de cette droite avec la droite $(CM)$.<br>'
           if (hasAutoCorrection) {
-            enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
+            enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.'
 
             correction += `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
           lC
@@ -376,7 +376,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
       }
       if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
       else g = vide2d()
-      if (parseInt(this.sup) === 2) {
+      if (this.sup === 2) {
         sc = 0.8
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
@@ -424,8 +424,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
       correction += anim.htmlBouton(this.numeroExercice ?? 0, i)
       if (this.questionJamaisPosee(i, Xmax, Xmin, Ymax, Ymin)) {
       // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++
