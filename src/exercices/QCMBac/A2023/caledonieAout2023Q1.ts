@@ -25,9 +25,9 @@ export const dateDePublication = '05/11/2024'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-       '$F(x) = 1+x\\mathrm{e}^x$',
-       '$F(x) = (1+x)\\mathrm{e}^x$',
-       '$F(x) = (2 + x)\\mathrm{e}^x$',
+      '$F(x) = 1+x\\mathrm{e}^x$',
+      '$F(x) = (1+x)\\mathrm{e}^x$',
+      '$F(x) = (2 + x)\\mathrm{e}^x$',
       '$F(x) = \\left(\\dfrac{x^2}{2}  + x\\right)\\mathrm{e}^x$'
     ]
 
