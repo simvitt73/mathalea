@@ -33,7 +33,7 @@ export default class Binomiale extends ExerciceQcm {
         `$F(x)=C\\times \\ln\\left(${reduireAxPlusB(1, a)}\\right)$, où $C\\in\\mathbb{R}$`,
         `$F(x)=\\dfrac{${c}}{\\left(${reduireAxPlusB(1, a)}\\right)^2}+C$ où $C\\in\\mathbb{R}$`,
         `$F(x)=C\\times \\ln\\left(${reduireAxPlusB(c, a * c)}\\right)$, où $C\\in\\mathbb{R}$`]
-    const texte = `Les primitives, sur $]${texNombre(-a)};+\\infty[$ de la fonction $f$ définie par $f(x)=\\dfrac{${c}}{${reduireAxPlusB(1, a)}}$, est la fonction : <br>`
+    const texte = `Une primitive de la fonction $f$ définie sur $]${texNombre(-a)};+\\infty[$ par $f(x)=\\dfrac{${c}}{${reduireAxPlusB(1, a)}}$, est la fonction : <br>`
     this.enonce = texte
 
     correction = `Soit $u$ la fonction définie sur  $]${texNombre(-a)};+\\infty[$ par $u(x)=${reduireAxPlusB(1, a)}$.<br>`
