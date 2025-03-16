@@ -1,11 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import { abs, arrondi } from '../../lib/outils/nombres'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale'
 export const interactifReady = true
@@ -69,8 +70,21 @@ export default class EvolutionsEnPourcentage extends Exercice {
       let reponse : number
       switch (typesDeSituations[i]) {
         case 'prix':
-          depart = choice([randint(11, 99) / 10, randint(11, 99), randint(11, 99) * 10])
-          taux = randint(5, 60) * choice([-1, 1])
+          switch (randint(1, 3)) {
+            case 1:
+              depart = randint(11, 99) / 10
+              taux = randint(1, 7) * 10 * choice([-1, 1])
+              break
+            case 2:
+              depart = randint(11, 99)
+              taux = randint(5, 60) * choice([-1, 1])
+              break
+            case 3:
+            default:
+              depart = randint(11, 99) * 10
+              taux = randint(5, 60) * choice([-1, 1])
+              break
+          }
           tauxDec = taux / 100
           coeff = tauxDec + 1
           arrive = depart * coeff
@@ -81,14 +95,14 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 Calculer son nouveau prix.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
-                texteCorr += `<br>Le nouveau prix de cet article est $${texPrix(arrive)}$ €.`
+                texteCorr += `<br>Le nouveau prix de cet article est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
               } else {
                 texte = `Un article coûtait $${texPrix(depart)}$ € et son prix est soldé à $${taux}~\\%$.<br>
                  Calculer son nouveau prix.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
-                texteCorr += `<br>Le nouveau prix de cet article est $${texPrix(arrive)}$ €.`
+                texteCorr += `<br>Le nouveau prix de cet article est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
               }
               break
@@ -98,14 +112,14 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 Calculer son prix avant l'augmentation.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant l'augmentation cet article coûtait $${texPrix(depart)}$ €.`
+                texteCorr += `<br>Avant l'augmentation cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
               } else {
                 texte = `Soldé à $${abs(taux)}~\\%$ un article coûte $${texPrix(arrive)}$ €. <br>
                 Calculer son prix avant les soldes.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant les soldes cet article coûtait $${texPrix(depart)}$ €.`
+                texteCorr += `<br>Avant les soldes cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
               }
               break
@@ -114,19 +128,22 @@ export default class EvolutionsEnPourcentage extends Exercice {
               if (taux > 0) {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €.<br>
                  Calculer le taux d'évolution du prix en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le prix a donc augmenté de $${taux}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)} =  1 + ${texNombre(tauxDec, 2)} = 1 + \\dfrac{${taux}}{100}$.`
+                texteCorr += `<br>L'évolution du  prix est $${miseEnEvidence(`${taux}`)}~\\%$.<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${miseEnEvidence(`${taux}`)}~\\%$`
                 reponse = taux
               } else {
-                texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Calculer le taux d'évolution du prix en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. <br>
+                Calculer le taux d'évolution du prix en pourcentage.`
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le prix a donc diminué de $${abs(taux)}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)} =  1 - ${texNombre(Math.abs(tauxDec), 2)} = 1 - \\dfrac{${abs(taux)}}{100}$.`
+                texteCorr += `<br>L'évolution du  prix est $${miseEnEvidence(taux)}~\\%$.<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
               break
@@ -140,16 +157,16 @@ export default class EvolutionsEnPourcentage extends Exercice {
           switch (randint(1, 3)) {
             case 1:
               depart = 50 * randint(7, 24)
-              taux = 2 * randint(1, 5)
+              taux = 2 * randint(1, 5) * choice([-1, 1])
               break
             case 2:
               depart = 20 * randint(17, 60)
-              taux = 5 * randint(1, 3)
+              taux = 5 * randint(1, 3) * choice([-1, 1])
               break
             case 3:
             default:
               depart = 100 * randint(4, 12)
-              taux = randint(1, 11)
+              taux = randint(1, 11) * choice([-1, 1])
               break
           }
           tauxDec = taux / 100
@@ -166,14 +183,14 @@ export default class EvolutionsEnPourcentage extends Exercice {
                  Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texNombre(depart, 0)}\\times ${texNombre(coeff, 2)} = ${texNombre(arrive, 0)}$`
-                texteCorr += `<br>Il y a maintenant ${stringNombre(arrive, 0)} élèves dans ce ${etablissement}.`
+                texteCorr += `<br>Il y a maintenant $${miseEnEvidence(`${texNombre(arrive, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = arrive
               } else {
                 texte = `Un ${etablissement} avait $${texNombre(depart, 0)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. <br>
                 Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texNombre(depart, 0)}\\times ${texNombre(coeff, 2)} = ${texNombre(arrive, 0)}$`
-                texteCorr += `<br>Il y a maintenant ${stringNombre(arrive, 0)} élèves dans ce ${etablissement}.`
+                texteCorr += `<br>Il y a maintenant $${miseEnEvidence(`${texNombre(arrive, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = arrive
               }
               break
@@ -183,14 +200,14 @@ export default class EvolutionsEnPourcentage extends Exercice {
                  Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texNombre(arrive, 0)}}{${texNombre(coeff, 2)}}  = ${texNombre(depart, 0)}$`
-                texteCorr += `<br>En ${anneeDerniere}, il y avait ${stringNombre(depart, 0)} élèves dans ce ${etablissement}.`
+                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = depart
               } else {
                 texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive, 2)}$ élèves.<br>
                  Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$..<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texNombre(arrive, 0)}}{${texNombre(coeff, 2)}}  = ${texNombre(depart, 0)}$`
-                texteCorr += `<br>En ${anneeDerniere}, il y avait ${stringNombre(depart, 0)} élèves dans ce ${etablissement}.`
+                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = depart
               }
               break
@@ -199,18 +216,20 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texte = `En ${anneeDerniere}, il y avait $${texNombre(depart, 0)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${texNombre(arrive, 2)}$. <br>
               Déterminer le taux d'évolution du nombre d'élèves de cet établissement en pourcentage.`
               if (taux > 0) {
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le nombre d'élèves a donc augmenté de $${taux}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 0)}} = ${texNombre(coeff, 2)} =  1 + ${texNombre(tauxDec, 2)} = 1 + \\dfrac{${taux}}{100}$.`
+                texteCorr += `<br>Le nombre d'élèves a donc augmenté de $${miseEnEvidence(`${taux}`)}~\\%$.<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               } else {
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le nombre d'élèves a donc diminué de $${abs(taux)}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 0)}} = ${texNombre(coeff, 2)} =  1 - ${texNombre(Math.abs(tauxDec), 2)} = 1 - \\dfrac{${abs(taux)}}{100}$.`
+                texteCorr += `<br>Le taux d'évolution est $${miseEnEvidence(taux)}~\\%$.<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
               break
@@ -231,14 +250,14 @@ export default class EvolutionsEnPourcentage extends Exercice {
                  Calculer son nouveau ${prixOuMontant}.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
-                texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
+                texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
               } else {
                 texte = `Le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. <br>
                 Calculer son nouveau ${prixOuMontant}.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$.`
-                texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
+                texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
               }
               break
@@ -248,14 +267,14 @@ export default class EvolutionsEnPourcentage extends Exercice {
                  Calculer son ${prixOuMontant} avant l'augmentation.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le ${prixOuMontant} initial, on va donc diviser le ${prixOuMontant} final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant l'augmentation le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ €.`
+                texteCorr += `<br>Avant l'augmentation le ${prixOuMontant} de ${facture} était de $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
               } else {
                 texte = `Après une diminution de $${abs(taux)}~\\%$ ${facture} coûte maintenant $${texPrix(arrive)}$ €. <br>
                 Calculer son ${prixOuMontant} avant la diminution.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le ${prixOuMontant} initial, on va donc diviser le ${prixOuMontant} final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$.`
-                texteCorr += `<br>Avant la diminution le ${prixOuMontant} de ${facture} était de $${texPrix(depart)}$ €.`
+                texteCorr += `<br>Avant la diminution le ${prixOuMontant} de ${facture} était de $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
               }
               break
@@ -263,20 +282,22 @@ export default class EvolutionsEnPourcentage extends Exercice {
               if (taux > 0) {
                 texte = `Le ${prixOuMontant} de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €.<br>
                  Calculer le taux d'évolution du ${prixOuMontant} en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le ${prixOuMontant} a donc augmenté de $${taux}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)} =  1 + ${texNombre(tauxDec, 2)} = 1 + \\dfrac{${taux}}{100}$.`
+                texteCorr += `<br>Le taux d'évolution du ${prixOuMontant} est $${miseEnEvidence(taux)}~\\%$.<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               } else {
                 texte = `Le ${prixOuMontant} de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. <br>
                 Calculer le taux d'évolution du ${prixOuMontant} en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>Le ${prixOuMontant} a donc diminué de $${abs(taux)}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)} =  1 - ${texNombre(Math.abs(tauxDec), 2)} = 1 - \\dfrac{${abs(taux)}}{100}$.`
+                texteCorr += `<br>Le taux d'évolution du ${prixOuMontant} est $${miseEnEvidence(taux)}~\\%$.<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
               break
@@ -298,13 +319,13 @@ export default class EvolutionsEnPourcentage extends Exercice {
                  Calculer le nombre d'habitants actuel de cette ville.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texNombre(depart, 0)}\\times ${texNombre(coeff, 2)} = ${texNombre(arrive, 2)}$`
-                texteCorr += `<br>La population de cette ville est maintenant de $${texNombre(arrive, 2)}$ habitants.`
+                texteCorr += `<br>La population de cette ville est maintenant de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ habitants.`
               } else {
                 texte = `Il y a ${nb} ans, la population d'une ville était de $${texNombre(depart, 0)}$ habitants. Depuis, elle a diminué de $${abs(taux)}~\\%$.<br>
                  Calculer le nombre d'habitants actuel de cette ville.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$${texNombre(depart, 0)}\\times ${texNombre(coeff, 2)} = ${texNombre(arrive, 2)}$.`
-                texteCorr += `<br>La population de cette ville est maintenant de $${texNombre(arrive, 2)}$ habitants.`
+                texteCorr += `<br>La population de cette ville est maintenant de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ habitants.`
               }
               reponse = arrive
               break
@@ -314,13 +335,13 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 Calculer sa population d'il y a ${nb} ans.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(coeff, 2)}}  = ${texNombre(depart, 0)}$`
-                texteCorr += `<br>Il y a ${nb} ans cette ville comptait $${texNombre(depart, 0)}$ habitants.`
+                texteCorr += `<br>Il y a ${nb} ans cette ville comptait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ habitants.`
               } else {
                 texte = `En ${nb} ans, la population d'une ville a diminué de $${abs(taux)}~\\%$. Il y a maintenant $${texNombre(arrive, 2)}$ habitants.<br>
                  Calculer sa population d'il y a ${nb} ans.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(coeff, 2)}}  = ${texNombre(depart, 0)}$.`
-                texteCorr += `<br>Il y a ${nb} ans cette ville comptait $${texNombre(depart, 0)}$ habitants.`
+                texteCorr += `<br>Il y a ${nb} ans cette ville comptait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ habitants.`
               }
               reponse = depart
               break
@@ -328,19 +349,21 @@ export default class EvolutionsEnPourcentage extends Exercice {
               if (taux > 0) {
                 texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants.<br>
                  Calculer le taux d'évolution de la population de cette ville en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>La population a donc augmenté de $${abs(taux)}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 0)}} = ${texNombre(coeff, 2)} =  1 + ${texNombre(tauxDec, 2)} = 1 + \\dfrac{${taux}}{100}$.`
+                texteCorr += `<br>Le taux d'évolution de la population est $${miseEnEvidence(taux)}~\\%$<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               } else {
                 texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants. <br>
                 Calculer le taux d'évolution de la population de cette ville en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
-                texteCorr += `<br>La population a donc diminué de $${abs(taux)}~\\%$.`
-                texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
-                texteCorr += `<br><br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 0)}} = ${texNombre(coeff, 2)} =  1 - ${texNombre(Math.abs(tauxDec), 2)} = 1 - \\dfrac{${abs(taux)}}{100}$.`
+                texteCorr += `<br>Le taux d'évolution de la population est $${miseEnEvidence(taux)}~\\%$<br><br>`
+                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
+                $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               }
               reponse = taux
               break
