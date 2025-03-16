@@ -58,9 +58,10 @@ export default class PasserEcritureFractionnaireFraction extends Exercice {
       do {
         numerateur = randint(1, 10 ** (nbDecimalesNumerateur + 1))
         denominateur = randint(2, 10 ** (nbDecimalesDenominateur + 1))
-      } while (pgcd(numerateur, denominateur) !== 1)
-      numerateur *= facteurCommun
-      denominateur *= facteurCommun
+        numerateur *= facteurCommun
+        denominateur *= facteurCommun
+      } while (pgcd(numerateur, denominateur) !== facteurCommun || numerateur % 10 === 0 || denominateur % 10 === 0)
+
       const texNombreNumerateur = texNombre(numerateur / 10 ** nbDecimalesNumerateur, nbDecimalesNumerateur)
       const texNombreDenominateur = texNombre(denominateur / 10 ** nbDecimalesDenominateur, nbDecimalesDenominateur)
       const value = new FractionEtendue(numerateur * 10 ** nbDecimalesMax / (10 ** nbDecimalesNumerateur), denominateur * 10 ** nbDecimalesMax / (10 ** nbDecimalesDenominateur))
