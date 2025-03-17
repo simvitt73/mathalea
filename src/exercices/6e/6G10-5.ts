@@ -181,7 +181,6 @@ export default class constructionElementaire extends Exercice {
         this.autoCorrection[i].propositions = [
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -193,7 +192,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -205,7 +203,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -217,7 +214,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -229,7 +225,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
