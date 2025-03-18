@@ -15,6 +15,7 @@ import { context } from '../../modules/context'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
+  ecritureParentheseSiMoins,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
@@ -38,12 +39,12 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
   figures: Figure[] = []
   pointsA: Point[] = []
   pointsB: Point[] = []
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1 // On complète le nb de questions
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.figures = []
 
     const textO = latex2d('\\text{O}', -0.3, -0.3, {
@@ -69,16 +70,25 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         ordonnéeOrigine * coeffMult,
       ]
 
-      // Version LaTeX propre de l'équation
-      let equation = ''
-      if (coeffs[0] === 0) {
-        equation = `${rienSi1(coeffs[1])}y`
-      } else {
-        equation = `${rienSi1(coeffs[0])}x${
-          ecritureAlgebriqueSauf1(coeffs[1])
-        }y`
+      function makeEquation(x: string | number, y: string) {
+        // Version LaTeX propre de l'équation
+        let equation = ''
+        if (coeffs[0] === 0) {
+          equation = `${rienSi1(coeffs[1])}y`
+        } else {
+          if (typeof x === 'number') {
+            equation = `${coeffs[0]}\\times ${ecritureParentheseSiMoins(x)}${ecritureAlgebriqueSauf1(
+              coeffs[1]
+            )}${y}`
+          } else {
+            equation = `${rienSi1(coeffs[0])}${x}${ecritureAlgebriqueSauf1(
+              coeffs[1]
+            )}${y}`
+          }
+        }
+        equation += `=${coeffs[2]}`
+        return equation
       }
-      equation += `=${coeffs[2]}`
 
       // Mise en place graphique
       const cadre = {
@@ -114,8 +124,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
 
       // Debut de l'énoncé/correction
       let texte, texteCorr: string
-      texte =
-        `Tracer dans le repère ci-dessous, la droite $d$ dont une équation cartésienne est $${equation}$.<br>`
+      texte = `Tracer dans le repère ci-dessous la droite $(d)$ dont une équation cartésienne est $${makeEquation('x', 'y')}$.<br>`
       if (!context.isHtml) {
         texte += mathalea2d(cadreFenetreSvg, monRepere, textO)
       }
@@ -123,20 +132,17 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         coeffs[2] - coeffs[0] * xA,
         coeffs[1]
       )
-      texteCorr =
-        `Dans l'équation cartésienne, on remplace $x$ par une valeur au choix, disons $${xA}$, et on en déduit la valeur de l'ordonnée : $y=\\dfrac{${
-          coeffs[2]
-        }-${ecritureParentheseSiNegatif(coeffs[0])}\\times${
-          ecritureParentheseSiNegatif(xA)
-        }}{${
-          coeffs[1]
+      texteCorr = `Dans l'équation cartésienne, on remplace $x$ par une valeur au choix, disons $${xA}$, et on en déduit la valeur de l'ordonnée : $${makeEquation(xA, 'y')}$, ce qui donne $y=\\dfrac{${coeffs[2]
+        }-${ecritureParentheseSiNegatif(coeffs[0])}\\times${ecritureParentheseSiNegatif(
+          xA
+        )}}{${coeffs[1]
         }}=${ordonnéeA.texFraction}${ordonnéeA.texSimplificationAvecEtapes()}$.<br>`
-      texteCorr +=
-        `On peut donc placer le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$.<br>`
-      texteCorr +=
-        `Un vecteur directeur de la droite est $\\vec{u}=\\begin{pmatrix}${vecteurDirecteur.x}\\\\${vecteurDirecteur.y}\\end{pmatrix}$`
+      texteCorr += `On peut donc placer le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$.<br>`
+      texteCorr += `Dans l'équation cartésienne, le coefficient de $x$ est $${coeffs[0]}$, et celui de $y$ est $${coeffs[1]}$. Notons le premier $a$, et le deuxième $b$.<br>`
+      texteCorr += 'On sait qu\'une droite d\'équation $ax+by=c$ admet pour vecteur directeur celui de coordonnées $\\begin{pmatrix}b\\\\-a\\end{pmatrix}$.<br>'
+      texteCorr += `Un vecteur directeur de la droite $d$ (notons le $\\vec{u}$) est donc de coordonnées $\\begin{pmatrix}${vecteurDirecteur.x}\\\\${vecteurDirecteur.y}\\end{pmatrix}$.`
       if (pente === 0) {
-        texteCorr += ', donc la droite $d$ est horizontale.'
+        texteCorr += ' Donc la droite $(d)$ est horizontale.'
         if (!context.isHtml) {
           texteCorr += mathalea2d(
             cadreFenetreSvg,
@@ -149,22 +155,23 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         }
       } else {
         texteCorr += `
-            .<br>On trouve un deuxième point $B$ défini par $\\overrightarrow{AB}=\\vec{u}$.
+             <br>On définit un deuxième point $B$ par $\\overrightarrow{AB}=\\vec{u}$.
             Les coordonnées $(x_B;y_B)$ de $B$ sont donc obtenues par
             <br>
             $
             \\begin{aligned}
-            x_B-x_A=${vecteurDirecteur.x}&\\iff x_B = ${vecteurDirecteur.x}${
-          ecritureAlgebrique(A.x)
-        }=${C.x}\\\\
-            y_B-y_A=${vecteurDirecteur.y}&\\iff y_B = ${vecteurDirecteur.y}${
-          ecritureAlgebrique(A.y)
-        }=${C.y}
+            x_B-x_A=${vecteurDirecteur.x}&\\iff x_B = ${vecteurDirecteur.x}${ecritureAlgebrique(
+          A.x
+        )}=${C.x}\\\\
+            y_B-y_A=${vecteurDirecteur.y}&\\iff y_B = ${vecteurDirecteur.y}${ecritureAlgebrique(
+          A.y
+        )}=${C.y}
             \\end{aligned}
             $
             <br>
             Les coordonnées de $B$ sont donc $(${C.x};${C.y})$.
-            On trace alors la droite $(AB)$.<br>`
+<br><br>
+            On connaît deux points de $(d)$, à savoir $A$ et $B$, ce qui suffit pour la tracer.<br>`
         if (!context.isHtml) {
           texteCorr += mathalea2d(
             cadreFenetreSvg,
