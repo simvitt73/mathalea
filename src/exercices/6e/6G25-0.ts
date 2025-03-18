@@ -286,21 +286,22 @@ export default class nomExercice extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  correctionInteractive = async (i: number) => {
+  async shakeCorrection (i: number) {
+    await this.figuresApiGeom[i].shake()
+    for (let ee = 0; ee < this.lesPoints[i].length; ee++) {
+      this.lesPointsCorr[i][ee].x = this.lesPoints[i][ee].x
+      this.lesPointsCorr[i][ee].y = this.lesPoints[i][ee].y
+    }
+  }
+
+  correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const resultat:('OK' | 'KO')[] = []
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''
-
-    await this.figuresApiGeom[i].shake()
-
-    for (let ee = 0; ee < this.lesPoints[i].length; ee++) {
-      this.lesPointsCorr[i][ee].x = this.lesPoints[i][ee].x
-      this.lesPointsCorr[i][ee].y = this.lesPoints[i][ee].y
-    }
-
+    this.shakeCorrection(i)
     for (let ee = 0; ee < this.nbMediatrices; ee++) {
       let feedbackUneQuestion = ''
       const elementsCouleur = [...this.figuresApiGeom[i].elements.values()].filter(e => e instanceof Element2D && e.color === this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurHTML)
@@ -326,6 +327,7 @@ export default class nomExercice extends Exercice {
       }
       if (feedbackUneQuestion !== '' && ee !== this.nbMediatrices - 1) feedbackUneQuestion += '<br>'
       feedback += ((this.nbMediatrices === 1 || feedbackUneQuestion === '') ? '' : numAlpha(ee)) + feedbackUneQuestion
+      if (feedback === '' && resultat.every(e => e === 'OK')) feedback = '😎 Bravo !'
     }
     if (divFeedback) divFeedback.innerHTML = feedback
     this.figuresApiGeom[i].isDynamic = false
