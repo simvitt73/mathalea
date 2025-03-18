@@ -308,13 +308,13 @@ export default class nomExercice extends Exercice {
       const elementsLigneCouleur = [...this.figuresApiGeom[i].elements.values()].filter(e => e instanceof Element2D && e.color === this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurHTML && e.type.includes('Line'))
       if (elementsCouleur.length === 0) {
         resultat[ee] = 'KO'
-        feedbackUneQuestion = 'Aucun élement n\'est de couleur ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + '.'
+        feedbackUneQuestion = 'Aucun élement n\'est en ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + '.'
       } else if (elementsCouleur.length > 1) {
         resultat[ee] = 'KO'
-        feedbackUneQuestion = 'Il y a trop d\'élements de couleur ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + '.'
+        feedbackUneQuestion = 'Il y a trop d\'élements en ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + '.'
       } else if (elementsLigneCouleur.length !== 1) {
         resultat[ee] = 'KO'
-        feedbackUneQuestion = 'L\'élement de couleur ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + ' n\'est pas une droite.'
+        feedbackUneQuestion = 'L\'élement en ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + ' n\'est pas une droite.'
       } else {
         const verif = checkLine({
           figure: this.figuresApiGeom[i],
@@ -325,10 +325,11 @@ export default class nomExercice extends Exercice {
         resultat[ee] = verif.isValid ? 'OK' : 'KO'
         if (!verif.isValid) feedbackUneQuestion = `La droite en ${this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais} n'est pas la médiatrice de $[${this.ensembleDesQuestions[i].mediatrice[ee].pointSeg1.label}${this.ensembleDesQuestions[i].mediatrice[ee].pointSeg2.label}]$.`
       }
-      if (feedbackUneQuestion !== '' && ee !== this.nbMediatrices - 1) feedbackUneQuestion += '<br>'
-      feedback += ((this.nbMediatrices === 1 || feedbackUneQuestion === '') ? '' : numAlpha(ee)) + feedbackUneQuestion
-      if (feedback === '' && resultat.every(e => e === 'OK')) feedback = '😎 Bravo !'
+      feedbackUneQuestion = (feedbackUneQuestion === '' ? '😎 ' : '☹️ ') + feedbackUneQuestion
+      if (ee !== this.nbMediatrices - 1) feedbackUneQuestion += '<br>'
+      feedback += ((this.nbMediatrices === 1) ? '' : numAlpha(ee)) + feedbackUneQuestion
     }
+
     if (divFeedback) divFeedback.innerHTML = feedback
     this.figuresApiGeom[i].isDynamic = false
     this.figuresApiGeom[i].divButtons.style.display = 'none'
