@@ -30,16 +30,13 @@ export default class Can2025CM2Q20 extends Exercice {
     const a = this.canOfficielle ? 18 : randint(2, 9) * 3
     this.reponse = texNombre(a / 3, 0)
     this.question = `Le tiers de  $${a}$ œufs est  `
-    this.canEnonce = `Le tiers de  $${a}$ \\oe ufs est  `
     if (!this.interactif) {
       this.question += '$\\ldots$'
-      this.question += (context.isHtml) ? ' œufs.' : ' \\oe ufs.'
     }
     this.correction = `Pour prendre le tiers d'un nombre, on le divise par $3$.<br>
      $${a}\\div 3 =${texNombre(a / 3, 0)}$<br>
-     $${texNombre(a / 3, 0)}\\times 2= ${miseEnEvidence(texNombre(2 * a / 3, 0))}$`
-    this.correction += (context.isHtml) ? ' œufs.' : ' \\oe ufs.'
+     $${texNombre(a / 3, 0)}\\times 2= ${miseEnEvidence(texNombre(2 * a / 3, 0))}$ œufs.`
 
-    this.canReponseACompleter = '$\\ldots$ \\oe ufs'
+    this.canReponseACompleter = '$\\ldots$ œufs'
   }
 }

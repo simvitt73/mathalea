@@ -376,10 +376,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: ' boîtes' })
           }
 
-          if (!context.isHtml) {
-            texte = texte.replaceAll('œufs', '\\oe ufs')
-            texteCorr = texteCorr.replaceAll('œufs', '\\oe ufs')
-          }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('Je dois utiliser $\\ldots$ boîtes.')
           nbChamps = 1

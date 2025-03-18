@@ -185,6 +185,10 @@ class Latex {
         }
       }
     }
+    content = content.replaceAll('œ', '\\oe ')
+    contentCorr = contentCorr.replaceAll('œ', '\\oe ')
+    content = content.replaceAll('°', '$^\\circ$ ')
+    contentCorr = contentCorr.replaceAll('°', '$^\\circ$')
     return { content, contentCorr }
   }
 
@@ -257,7 +261,8 @@ Correction
         content += '\n\\end{Solution}\n'
       }
     }
-    return content
+    return content.replaceAll('œ', '\\oe ')
+    content = content.replaceAll('°', '$^\\circ$ ')
   }
 
   async getContents (latexFileInfos : LatexFileInfos): Promise<contentsType> {
@@ -325,6 +330,11 @@ Correction
         contents.intro += '\n\\begin{document}\n'
       }
     }
+    contents.content = contents.content.replaceAll('œ', '\\oe ')
+    contents.contentCorr = contents.contentCorr.replaceAll('œ', '\\oe ')
+    contents.content = contents.content.replaceAll('°', '$^\\circ$ ')
+    contents.contentCorr = contents.contentCorr.replaceAll('°', '$^\\circ$')
+
     return contents
   }
 
