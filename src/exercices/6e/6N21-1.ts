@@ -236,6 +236,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     if (this == null) return ['KO']
     if (this.figures == null) return ['KO']
     if (this.figures[i] == null) return ['KO']
+    if (!(this.figures[i] instanceof Figure)) return ['KO']
     this.answers[this.figures[i].id] = this.figures[i].json
     const result: ('OK' | 'KO')[] = []
     const figure = this.figures[i]

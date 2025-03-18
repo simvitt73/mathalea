@@ -69,6 +69,10 @@ export default class constructionElementaire extends Exercice {
       const e = demiDroite(C, D, 'green', true)
       const f = segment(A, C, 'red')
       const E = pointIntersectionDD(droite(C, D), d, lettreDepuisChiffre(indLettre + 4), 'below right')
+      if (!E) {
+        window.notify('pointIntersectionDD n\'a pas renvoyé de point', {})
+        continue
+      }
       const F = pointSurSegment(B, A, -1, lettreDepuisChiffre(indLettre + 5), 'below')
       const T = tracePoint(A, B, C, D)
       const Tc = tracePoint(E, F, 'red')

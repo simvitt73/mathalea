@@ -599,7 +599,7 @@ export function pointSurDroite (d: Droite, x: number, nom = '', positionLabel = 
  * @return {Point|boolean} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = '', positionLabel = 'above'): Point | boolean {
+export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = '', positionLabel = 'above'): Point | false {
   let x, y
   if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
     // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
