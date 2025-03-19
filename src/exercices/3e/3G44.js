@@ -37,7 +37,7 @@ export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '19/12/2022'
-export const dateDeModifImportante = '13/11/2023'
+export const dateDeModifImportante = '19/03/2025'
 
 /**
  * Calcul de longueurs avec Pythagore dans la géométrie dans l'espace
@@ -389,15 +389,15 @@ export default class CalculPythagoreEspace extends Exercice {
           if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
           segmentATrouver.epaisseur = 2
+          ptBase = p.listePoints2d[numeroSommet]
+          ptBase.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)[0]
+          ptBase.positionLabel = 'below'
           texte += `Dans ce cône de révolution, le rayon de sa base est de $${r}$ ${listeUnites[j]} et sa hauteur est de $${h}$ ${listeUnites[j]}. Calculer la longueur d'une génératrice de ce cône, arrondie au dixième de ${listeUnites[j]}.<br>`
           texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures([...solideDessine.c2d]), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
-          }), [...solideDessine.c2d, segmentATrouver])
+          }), [...solideDessine.c2d, segmentATrouver, labelPoint(ptBase, D.c2d)])
 
-          ptBase = p.listePoints2d[numeroSommet]
-          ptBase.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)[0]
-          ptBase.positionLabel = 'below'
           longueurATrouver = D.label + ptBase.nom
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, new CodageAngleDroit3D(D, A, p.listePoints[numeroSommet], 'green', 2))
           segmentAnnexe = segment(A.c2d, p.listePoints2d[numeroSommet], 'green')
