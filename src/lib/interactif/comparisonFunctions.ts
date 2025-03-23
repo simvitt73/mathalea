@@ -1331,7 +1331,7 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
  * @return ResultType
  */
 function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
-  const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions'])
+  const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions', 'virgules'])
 
   // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
   input = input.replace(/\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g, '($1,$2)')
