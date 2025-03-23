@@ -220,7 +220,7 @@ export default class nomExercice extends Exercice {
               color: this.mediatrices[ee].couleurMed.couleurHTML,
               thickness: 2
             })
-            this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'DRAG', 'SHAKE', 'REMOVE', 'SET_OPTIONS'] })
+            this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'DRAG', 'SHAKE', 'REMOVE', 'SET_OPTIONS'] })
             this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions = true
 
             break
