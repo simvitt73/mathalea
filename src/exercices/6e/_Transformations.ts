@@ -454,8 +454,9 @@ export default class Transformations extends Exercice {
             break
         }
         if (this.can) texte = texte.replaceAll(numAlpha(0), '')
-        handleAnswers(this, i, { reponse: { value: String(images[i]) } })
-        texte += ajouteChampTexteMathLive(this, i, '')
+        // Attention ee correspond à l'index de la question
+        handleAnswers(this, ee, { reponse: { value: String(images[i]) } })
+        texte += ajouteChampTexteMathLive(this, ee, '')
       }
       const graphique = mathalea2d({
         xmin: -4.5,
