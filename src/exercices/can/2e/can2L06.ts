@@ -36,7 +36,7 @@ export default class DevelopperEgalitesRemarquables extends Exercice {
       inconnue = choice(['x', 'y', 'a'])
       a = randint(1, 9)
       b = randint(2, 5)
-      switch (choice([1, 6])) { //, 'b'
+      switch (randint(1, 6)) { //, 'b'
         case 1 :
           texte = `Développer $(${inconnue}+${a})^2$.` // (x+a)²
           texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
