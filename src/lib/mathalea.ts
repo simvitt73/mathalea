@@ -211,6 +211,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
     if (
       param.uuid.substring(0, 4) === 'crpe' ||
             param.uuid.substring(0, 4) === 'dnb_' ||
+            param.uuid.startsWith('dnbpro_') ||
             param.uuid.substring(0, 4) === 'e3c_' ||
             param.uuid.substring(0, 4) === 'bac_' ||
             param.uuid.startsWith('sti2d_') ||
@@ -221,7 +222,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       let content = ''
       let contentCorr = ''
       const sujet = param.uuid.split('_')[0]
-      if (sujet === 'dnb' || sujet === 'bac' || sujet === 'sti2d') {
+      if (sujet === 'dnb' || sujet === 'dnbpro' || sujet === 'bac' || sujet === 'sti2d') {
         let response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()
@@ -271,6 +272,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       let examen: string = ''
       if (param.uuid.substring(0, 4) === 'crpe') examen = 'CRPE'
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
+      if (param.uuid.startsWith('dnbpro_')) examen = 'DNBPRO'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
       if (param.uuid.startsWith('sti2d_')) examen = 'STI2D'
