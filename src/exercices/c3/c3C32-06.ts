@@ -14,8 +14,8 @@ export const refs = {
 }
 export const titre = 'Problèmes de billes'
 export const dateDePublication = '30/11/2024'
-export const interactifType = 'mathLive'
-export const interactifReady = true
+// export const interactifType = 'mathLive'
+// export const interactifReady = true
 /**
  * @Author Jean-Claude Lhote
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
