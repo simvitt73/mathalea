@@ -191,6 +191,7 @@ function cleanParentheses (str: string): string {
     .replaceAll(/\\lparen(\+?-?\d+,?\.?\d*)\\rparen/g, '($1)')
     .replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '($1)')
     .replaceAll(/\\lparen(\+?-?\d+)\\rparen/g, '($1)')
+    .replaceAll(/\\left\\{(.*?)\\right\\}/g, '\\{$1\\}')
     .replaceAll('\\lparen', '(')
     .replaceAll('\\rparen', ')')
     .replaceAll('\\left\\lbrack', '[')
@@ -1552,6 +1553,7 @@ export function ensembleNombres (input: string, goodAnswer: string, {
 = {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input)
+  goodAnswer = clean(goodAnswer)
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
   let splitInput: string[]
