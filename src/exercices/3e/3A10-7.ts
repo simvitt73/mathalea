@@ -37,6 +37,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     this.sup2 = 6
     this.sup3 = 1
     this.sup4 = 1
+    this.comment = 'La grille 8 par 8 est longue à obtenir à cause de nombre de calculs nécessaires.'
   }
 
   nouvelleVersion () {
