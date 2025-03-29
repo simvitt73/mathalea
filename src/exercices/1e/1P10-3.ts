@@ -6,13 +6,15 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { Arbre, texProba } from '../../modules/arbres'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Calculer  une probabilité avec un arbre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '22/03/2025'
+export const dateDePublication = '29/03/2025'
 
 /**
  *
@@ -40,6 +42,8 @@ export default class CalculerProbaArbre extends Exercice {
         '4 : Mélange'
       ].join('\n')
     ]
+    this.besoinFormulaire2CaseACocher = ['Proba rationnelle', true]
+    this.sup2 = false
   }
 
   nouvelleVersion () {
@@ -52,159 +56,269 @@ export default class CalculerProbaArbre extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
+    const rationnel = this.sup2
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, pA, pBsachantA, pAinterB, intro, cours, listeEV, ev, listeFractions, f; i < this.nbQuestions && cpt < 50;) {
-      cours = `Pour tout événement $A$ (avec $P(A)\\neq 0$) et $B$ d'un univers $\\Omega$, on a  : <br>
-          $P_{A}(B)=\\dfrac{P(A\\cap B)}{P(A)}$ ou encore  $P(A\\cap B)=P(A)\\times P_{A}(B)$.<br>`
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0, pA, pB, pBb, omega, pAsachantB, pAbsachantBb, pAbsachantB, pAsachantBb, pBsachantA, pAbinterBb, pAbinterB, pAinterBb, pAinterB, pBsachantAb, pAb, pBbsachantA, pBbsachantAb, objets, listeEV, ev, texteProbaTotaleB, texteProbaTotaleBb; i < this.nbQuestions && cpt < 50;) {
       listeEV = [['A', 'B'], ['A', 'C'], ['R', 'T'], ['K', 'L']]
       ev = choice(listeEV)
-      listeFractions = [[1, 3, 1, 4], [2, 3, 3, 7], [1, 4, 1, 6], [3, 4, 1, 7], [3, 5, 3, 7], [2, 3, 2, 9], [3, 8, 1, 4], [4, 7, 1, 4], [4, 7, 1, 3], [1, 6, 1, 9]]
-      f = choice(listeFractions)
+      pA = new FractionEtendue(randint(1, 9), 10)
+      pAb = pA.ajouteEntier(-1).oppose()
+      pBsachantA = new FractionEtendue(randint(1, 19), 20)
+      pBbsachantA = pBsachantA.ajouteEntier(-1).oppose()
+      pBsachantAb = new FractionEtendue(randint(1, 19), 20)
+      pBbsachantAb = pBsachantAb.ajouteEntier(-1).oppose()
+      pAinterB = pA.produitFraction(pBsachantA)
+      pAinterBb = pA.produitFraction(pBbsachantA)
+      pAbinterB = pAb.produitFraction(pBsachantAb)
+      pAbinterBb = pAb.produitFraction(pBbsachantAb)
+      pB = pAinterB.sommeFraction(pAbinterB)
+      pBb = pAinterBb.sommeFraction(pAbinterBb)
+      pAsachantB = pAinterB.diviseFraction(pB)
+      pAsachantBb = pAinterBb.diviseFraction(pBb)
+      pAbsachantB = pAbinterB.diviseFraction(pB)
+      pAbsachantBb = pAbinterBb.diviseFraction(pBb)
+      texteProbaTotaleB = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers, d'après la formule des probabilités totales  : <br>
+                $\\begin{aligned}
+                P(${ev[1]})&=P(${ev[0]}\\cap ${ev[1]})+P(\\overline{${ev[0]}}\\cap ${ev[1]})\\\\
+                &=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
+                &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBsachantA.valeurDecimale, 2)}`}+${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBsachantAb.valeurDecimale, 2)}`}\\\\
+                &=${this.sup2 === true ? `${pB.simplifie().texFraction}` : `${texNombre(pB.valeurDecimale, 4)}`}
+                \\end{aligned}$<br>`
+      texteProbaTotaleBb = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers, d'après la formule des probabilités totales  : <br>
+                $\\begin{aligned}
+                P(\\overline{${ev[1]}})&=P(${ev[0]}\\cap \\overline{${ev[1]}})+P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})\\\\
+                &=P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})\\\\
+                &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBbsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBbsachantA.valeurDecimale, 2)}`}+${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBbsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBbsachantAb.valeurDecimale, 2)}`}\\\\
+                &=${this.sup2 === true ? `${pBb.simplifie().texFraction}` : `${texNombre(pBb.valeurDecimale, 4)}`}
+                \\end{aligned}$<br>`
+      // On définit l'arbre complet
+      omega = new Arbre({
+        racine: true,
+        rationnel,
+        nom: '',
+        proba: 1,
+        visible: false,
+        alter: '',
+        enfants: [
+          new Arbre(
+            {
+              rationnel,
+              nom: `${ev[0]}`,
+              proba: pA,
+              enfants: [new Arbre(
+                {
+                  rationnel,
+                  nom: `${ev[1]}`,
+                  proba: pBsachantA
+                }),
+              new Arbre(
+                {
+                  rationnel,
+                  nom: `\\overline{${ev[1]}}`,
+                  proba: pBbsachantA
+                })
+              ]
+            }),
+          new Arbre({
+            rationnel,
+            nom: `\\overline{${ev[0]}}`,
+            proba: pAb,
+            enfants: [new Arbre({
+              rationnel,
+              nom: `${ev[1]}`,
+              proba: pBsachantAb
+            }),
+            new Arbre({
+              rationnel,
+              nom: `\\overline{${ev[1]}}`,
+              proba: pBbsachantAb
+            })
+            ]
+          })
+        ]
+      })
 
+      omega.setTailles() // On calcule les tailles des arbres.
+      objets = omega.represente(0, 9, 0, rationnel ? 2 : 2, true, 1, 2)// On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       switch (listeTypeDeQuestions[i]) { // listeTypeDeQuestions[i]
-        case 1: //
-          pA = randint(1, 9) / 10
-          pBsachantA = randint(1, 49) / 100
-          pAinterB = pA * pBsachantA
-          if (choice([true, false])) {
-            reponse = texNombre(pA * pBsachantA, 3)
-            handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
-            texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
-          $P(${ev[0]})=${texNombre(pA, 1)}$ et $P_{${ev[0]}}(${ev[1]})=${texNombre(pBsachantA, 2)}$.<br>
-         ${this.interactif ? `$P(${ev[0]}\\cap ${ev[1]})=$` : `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, ' ')
-            texteCorr = cours
-            texteCorr += `
-          $\\begin{aligned}
-          P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]}) \\times P_{${ev[0]}}(${ev[1]})\\\\
-          &=${texNombre(pA, 2)}\\times ${texNombre(pBsachantA, 2)}\\\\
-          &=${miseEnEvidence(`${texNombre(pA * pBsachantA, 3)}`)}
-          \\end{aligned}$`
-          } else {
-            reponse = texNombre(pBsachantA, 2)
-            handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
-            texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
-          $P(${ev[0]})=${texNombre(pA, 1)}$ et $P(${ev[0]}\\cap ${ev[1]})=${texNombre(pAinterB, 3)}$.<br>
-         ${this.interactif ? `$P_{${ev[0]}}(${ev[1]})=$` : `Calculer $P_{${ev[0]}}(${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, ' ')
-            texteCorr = cours
-            texteCorr += `
-          $\\begin{aligned}
-         P_{${ev[0]}}(${ev[1]})&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
-          &=\\dfrac{${texNombre(pA * pBsachantA, 3)}}{${texNombre(pA, 3)}}\\\\
-          &=${miseEnEvidence(`${texNombre(pBsachantA, 3)}`)}
-          \\end{aligned}$`
-          }
+        case 1: // intersection
 
-          break
-
-        case 2: //
-          pA = new FractionEtendue(f[0], f[1])
-          pBsachantA = new FractionEtendue(f[2], f[3])
-          pAinterB = pA.produitFraction(pBsachantA).simplifie()
-          if (choice([true, false])) {
-            reponse = pAinterB.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true } } })
-            texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
-        $P(${ev[0]})=${pA.texFraction}$ et $P_{${ev[0]}}(${ev[1]})=${pBsachantA.texFraction}$.<br>
-       ${this.interactif ? `$P(${ev[0]}\\cap ${ev[1]})=$` : `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-            texteCorr = cours
-            texteCorr += `
-        $\\begin{aligned}
-        P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]}) \\times P_{${ev[0]}}(${ev[1]})\\\\
-        &=${pA.texFraction}\\times ${pBsachantA.texFraction}\\\\
-        &=${miseEnEvidence(pAinterB.texFraction)}
-        \\end{aligned}$`
-          } else {
-            reponse = pBsachantA.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true } } })
-            texte = `$${reponse}$On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
-        $P(${ev[0]})=${pA.texFraction}$ et $P(${ev[0]}\\cap ${ev[1]})=${pAinterB.texFraction}$.<br>
-       ${this.interactif ? `$P_{${ev[0]}}(${ev[1]})=$` : `Calculer $P_{${ev[0]}}(${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-            texteCorr = cours
-            texteCorr += `
-        $\\begin{aligned}
-       P_{${ev[0]}}(${ev[1]})&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
-        &=${pAinterB.texFraction}\\div ${pA.texFraction}\\\\
-        &=${miseEnEvidence(pBsachantA.texFraction)}
-        \\end{aligned}$`
-          }
-
-          break
-
-        case 3:
-        default:
-          switch (randint(1, 2)) {
-            case 1:
-              pA = randint(40, 60) / 100
-              pBsachantA = randint(65, 85) / 100
-              pAinterB = pA * pBsachantA
-              intro = choice([`On estime que la proportion de spams, sur la boite de messagerie électronique d’un particulier est de $${texNombre(pA * 100, 0)}\\,\\%$. <br>
-                Un logiciel installé sur l'ordinateur supprime $${texNombre(pBsachantA * 100, 1)}\\,\\%$ de spams.<br>
-                On choisit un message au hasard et on note $${ev[0]}$ : « le message est un spam » et $${ev[1]}$ : « le message est supprimé ».<br>
-                Calculer la probabilité $P$ que le message soit un spam supprimé.`, `Le cuisinier d’une colonie de vacances a confectionné des beignets pour le goûter :<br>
- $${texNombre(pA * 100, 0)}\\,\\%$ des beignets sont à l’ananas, les autres sont aux pommes  et $${texNombre(pBsachantA * 100, 1)}\\,\\%$ des beignets à l’ananas sont aromatisés à la cannelle.<br>
-On choisit un beignet au hasard. <br>
-On définit les évènements suivants :<br>
-• $${ev[0]}$ : « le beignet choisi est à l’ananas » ;<br>
-• $${ev[1]}$ : « le beignet choisi est aromatisé à la cannelle ».<br>
-En utilisant les événements  $${ev[0]}$ et $${ev[1]}$ et en notant $P$ la probabilité associée à cette expérience aléatoire, écrire la probabilité que le beignet choisi soit un beignet à l'ananas aromatisé à la cannelle, puis calculer cette probabilité.`,
-`Le jour d'une grande journée de promotion, $${texNombre(pA * 100, 0)}\\,\\%$ des clients qui entrent dans un magasin ont été
-contactés lors d'une  campagne publicitaire. Une étude statistique montre que la probabilité qu’un client effectue un achat sachant qu’il a été contacté au cours de la campagne publicitaire est de $${texNombre(pBsachantA, 2)}$.<br>
-On choisit au hasard un client du magasin lors de cette grande journée de promotion. On définit les évènements suivants :
-• $${ev[0]}$ : « le client choisi a été contacté lors de la campagne publicitaire ; »
-• $${ev[1]}$ : le client choisi a effectué un achat. »<br>
-En utilisant les événements  $${ev[0]}$ et $${ev[1]}$ et en notant $P$ la probabilité associée à cette expérience aléatoire, écrire la probabilité que le client choisi ait été contacté par la campagne publicitaire et qu'il a fait un achat, puis calculer cette probabilité.`])
-              handleAnswers(this, 2 * i, { reponse: { value: [`P(${ev[0]} \\cap ${ev[1]})`, `P(${ev[1]} \\cap ${ev[0]})`], options: { texteAvecCasse: true } } })
-              handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(pAinterB, 4), compare: functionCompare } })
-              texte = intro
-              texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierProbabilite, { texteAvant: 'Notation de la probabilité :' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, { texteAvant: 'Valeur de la probabilité :' })
-              texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P(${ev[0]}\\cap ${ev[1]})`)}$.<br>
+          texte = 'On donne l\'arbre de probabilités :<br><br>'
+          texte += mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objets)), objets) + '<br>'
+          switch (randint(1, 4)) {
+            case 1 :// PAinterB
+              texte += `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`
+              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(${ev[0]}\\cap ${ev[1]})=$` })
+              reponse = pAinterB.texFraction
+              handleAnswers(this, i, { reponse: { value: reponse } })
+              texteCorr = `On a : <br>
               $\\begin{aligned}
-              P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]}) \\times P_{${ev[0]}}(${ev[1]})\\\\
-              &=${texNombre(pA, 2)}\\times ${texNombre(pBsachantA, 2)}\\\\
-              &=${miseEnEvidence(`${texNombre(pA * pBsachantA, 3)}`)}
+              P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})\\\\
+              &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBsachantA.valeurDecimale, 2)}`}\\\\
+              &=${this.sup2 === true ? `${miseEnEvidence(`${pAinterB.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAinterB.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
               break
+            case 2 :// PAinterBb
+              texte += `Calculer $P(${ev[0]}\\cap \\overline{${ev[1]}})$.`
+              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(${ev[0]}\\cap \\overline{${ev[1]}})=$` })
+              reponse = pAinterBb.texFraction
+              handleAnswers(this, i, { reponse: { value: reponse } })
+              texteCorr = `On a : <br>
+              $\\begin{aligned}
+              P(${ev[0]}\\cap \\overline{${ev[1]}})&=P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})\\\\
+              &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBbsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBbsachantA.valeurDecimale, 2)}`}\\\\
+              &=${this.sup2 === true ? `${miseEnEvidence(`${pAinterBb.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAinterBb.valeurDecimale, 4)}`)}`}
+              \\end{aligned}$`
+              break
+            case 3 :// PAbinterB
+              texte += `Calculer $P(\\overline{${ev[0]}}\\cap ${ev[1]})$.`
+              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap ${ev[1]})=$` })
+              reponse = pAbinterB.texFraction
+              handleAnswers(this, i, { reponse: { value: reponse } })
+              texteCorr = `On a : <br>
+              $\\begin{aligned}
+              P(\\overline{${ev[0]}}\\cap ${ev[1]})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
+              &=${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBsachantAb.valeurDecimale, 2)}`}\\\\
+              &=${this.sup2 === true ? `${miseEnEvidence(`${pAbinterB.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAbinterB.valeurDecimale, 4)}`)}`}
+              \\end{aligned}$`
+              break
+            case 4 :// PAbinterBb
+            default:
+              texte += `Calculer $P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})$.`
+              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})=$` })
+              reponse = pAbinterBb.texFraction
+              handleAnswers(this, i, { reponse: { value: reponse } })
+              texteCorr = `On a : <br>
+              $\\begin{aligned}
+              P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})\\\\
+              &=${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBbsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBbsachantAb.valeurDecimale, 2)}`}\\\\
+              &=${this.sup2 === true ? `${miseEnEvidence(`${pAbinterBb.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAbinterBb.valeurDecimale, 4)}`)}`}
+              \\end{aligned}$`
+              break
+          }
 
+          break
+
+        case 2: // proba totale
+
+          texte = 'On donne l\'arbre de probabilités :<br><br>'
+          texte += mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objets)), objets) + '<br>'
+          switch (randint(1, 2)) {
+            case 1 :// pB
+              texte += `Calculer $P(${ev[1]})$.`
+              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(${ev[1]})=$` })
+              reponse = pB.texFraction
+              handleAnswers(this, i, { reponse: { value: reponse } })
+              texteCorr = texteProbaTotaleB
+              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(${ev[1]})=${miseEnEvidence(`${pB.simplifie().texFraction}`)}$` : `$P(${ev[1]})=${miseEnEvidence(`${texNombre(pB.valeurDecimale, 4)}`)}`}$`
+              break
             case 2 :
             default:
-              pA = randint(40, 60) / 100
-              pBsachantA = randint(89, 95) / 100
-              pAinterB = pA * pBsachantA
-              intro = choice([`On estime que la proportion de spams, sur la boite de messagerie électronique d’un particulier est de $${texNombre(pA * 100, 0)}\\,\\%$. <br>
-                  Un logiciel de suppression de spams est installé sur l'ordinateur mais ne supprime pas tous les spams.<br>
-                    En choisissant un message au hasard, on constate que  $${texNombre(pAinterB * 100, 1)}\\,\\%$ sont des spams supprimés.<br>
-                 On note $${ev[0]}$ : « le message est un spam » et $${ev[1]}$ : « le message est supprimé ».<br>
-                  Le message choisi est un spam. <br>Calculer la probabilité $P$ que le message soit supprimé par le logiciel.`, `Le cuisinier d’une colonie de vacances a confectionné des beignets pour le goûter :<br>
-                  $${texNombre(pA * 100, 0)}\\,\\%$ des beignets sont à l’ananas, les autres sont aux pommes  et $${texNombre(pBsachantA * 100, 1)}\\,\\%$ des beignets sont des beignets à l’ananas  aromatisés à la cannelle.<br>
-                 On choisit un beignet au hasard. <br>
-                 On définit les évènements suivants :<br>
-                 • $${ev[0]}$ : « le beignet choisi est à l’ananas » ;<br>
-                 • $${ev[1]}$ : « le beignet choisi est aromatisé à la cannelle ».<br>
-                 En utilisant les événements  $${ev[0]}$ et $${ev[1]}$ et en notant $P$ la probabilité associée à cette expérience aléatoire, écrire la probabilité que le beignet choisi soit aromatisé à la cannelle sachant que ce beignet est à l'ananas, puis calculer cette probabilité.`,
-                `Le jour d'une grande journée de promotion, $${texNombre(pA * 100, 0)}\\,\\%$ des clients qui entrent dans un magasin ont été
-contactés lors d'une  campagne publicitaire. Une étude statistique montre que parmi tous les clients  $${texNombre(pAinterB * 100, 3)}\\,\\%$ ont été contacté lors de la campagne publicitaire et ont fait un achat.<br>
-On choisit au hasard un client du magasin lors de cette grande journée de promotion. <br>On définit les évènements suivants :<br>
-• $${ev[0]}$ : « le client choisi a été contacté lors de la campagne publicitaire  » ;<br>
-• $${ev[1]}$ : le client choisi a effectué un achat. »<br>
-Le client choisi a été contacté lors de la campagne publicitaire.<br>
-En utilisant les événements  $${ev[0]}$ et $${ev[1]}$ et en notant $P$ la probabilité associée à cette expérience aléatoire, écrire la probabilité que ce client ait fait un achat, puis calculer cette probabilité.`])
+              texte += `Calculer $P(\\overline{${ev[1]}})$.`
+              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(\\overline{${ev[1]}})=$` })
+              reponse = pBb.texFraction
+              handleAnswers(this, i, { reponse: { value: reponse } })
+              texteCorr = texteProbaTotaleBb
+              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${pBb.simplifie().texFraction}`)}$` : `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${texNombre(pBb.valeurDecimale, 4)}`)}$`}`
 
-              handleAnswers(this, 2 * i, { reponse: { value: [`P_{${ev[0]}}(${ev[1]})`], options: { texteAvecCasse: true } } })
-              handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(pBsachantA, 4), compare: functionCompare } })
-              texte = intro
-              texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierProbabilite, { texteAvant: 'Notation de la probabilité :' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, { texteAvant: 'Valeur de la probabilité :' })
-              texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P_{${ev[0]}}(${ev[1]})`)}$.<br>
+              break
+          }
+          break
+        case 3: // conditionnelle inversée
+        default:
+          texte = 'On donne l\'arbre de probabilités :<br><br>'
+          texte += mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objets)), objets) + '<br>'
+          switch (randint(1, 4)) {
+            case 1 :// PAsachantB
+              texte += `Calculer $P_{${ev[1]}}(${ev[0]})$.`
+              reponse = this.sup2 === true ? pAsachantB.texFraction : arrondi(pAsachantB.valeurDecimale, 3)
+              if (this.sup2 === true) {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(${ev[0]})=$`, texteApres: '(résultat en fraction)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              } else {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(${ev[0]})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              }
+              texteCorr = `On utilise la formule :  $P_{${ev[1]}}(${ev[0]})=\\dfrac{P(${ev[1]}\\cap ${ev[0]})}{P(${ev[1]})}$.<br> 
+              On commence par calculer $P(${ev[1]})$.<br>`
+              texteCorr += texteProbaTotaleB
+              texteCorr += `On obtient donc :<br>
+              $\\begin{aligned}
+              P_{${ev[1]}}(${ev[0]})&=\\dfrac{P(${ev[1]}\\cap ${ev[0]})}{P(${ev[1]})}\\\\
+              &=\\dfrac{P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})}{P(${ev[1]})}\\\\
+              &=${this.sup2 === true ? `\\left(${texProba(pA)}\\times ${texProba(pBsachantA)}\\right) \\div ${texProba(pB)}` : `\\dfrac{${texNombre(pA.valeurDecimale, 4)}\\times ${texNombre(pBsachantA.valeurDecimale, 4)}}{${texNombre(pB.valeurDecimale, 4)}}`}\\\\
+               &=${this.sup2 === true ? `${texProba(pAinterB)}\\div ${texProba(pB)}` : `\\dfrac{${texNombre(pAinterB.valeurDecimale, 4)}}{${texNombre(pB.valeurDecimale, 4)}}`}\\\\
+              &${this.sup2 === true ? `=${miseEnEvidence(`${pAsachantB.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAsachantB.valeurDecimale, 3)}`)}`}
+              \\end{aligned}$`
+              break
+            case 2 :// PAsachantBb
+              texte += `Calculer $P_{\\overline{${ev[1]}}}(${ev[0]})$.`
+              reponse = this.sup2 === true ? pAsachantBb.texFraction : arrondi(pAsachantBb.valeurDecimale, 3)
+              if (this.sup2 === true) {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})=$`, texteApres: '(résultat en fraction)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              } else {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              }
+              texteCorr = `On utilise la formule :  $P_{\\overline{${ev[1]}}}(${ev[0]})=\\dfrac{P(\\overline{${ev[1]}}\\cap ${ev[0]})}{P(\\overline{${ev[1]}})}$.<br> 
+            On commence par calculer $P(\\overline{${ev[1]}})$.<br>`
+              texteCorr += texteProbaTotaleBb
+              texteCorr += `On obtient donc :<br>
+            $\\begin{aligned}
+            P_{\\overline{${ev[1]}}}(${ev[0]})&=\\dfrac{P(\\overline{${ev[1]}}\\cap ${ev[0]})}{P(\\overline{${ev[1]}})}\\\\
+            &=\\dfrac{P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})}{P(\\overline{${ev[1]}})}\\\\
+            &=${this.sup2 === true ? `\\left(${texProba(pA)}\\times ${texProba(pBbsachantA)}\\right) \\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pA.valeurDecimale, 4)}\\times ${texNombre(pBbsachantA.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
+             &=${this.sup2 === true ? `${texProba(pAinterBb)}\\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pAinterBb.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
+            &${this.sup2 === true ? `=${miseEnEvidence(`${pAsachantBb.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAsachantBb.valeurDecimale, 3)}`)}`}
+            \\end{aligned}$`
+              break
+            case 3 :// PAbsachantB
+              texte += `Calculer $P_{${ev[1]}}(\\overline{${ev[0]}})$.`
+              reponse = this.sup2 === true ? pAbsachantB.texFraction : arrondi(pAbsachantB.valeurDecimale, 3)
+              if (this.sup2 === true) {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})=$`, texteApres: '(résultat en fraction)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              } else {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              }
+              texteCorr = `On utilise la formule :  $P_{${ev[1]}}(\\overline{${ev[0]}})=\\dfrac{P(${ev[1]}\\cap \\overline{${ev[0]}})}{P(${ev[1]})}$.<br> 
+          On commence par calculer $P(${ev[1]})$.<br>`
+              texteCorr += texteProbaTotaleB
+              texteCorr += `On obtient donc :<br>
           $\\begin{aligned}
-         P_{${ev[0]}}(${ev[1]})&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
-          &=\\dfrac{${texNombre(pA * pBsachantA, 4)}}{${texNombre(pA, 3)}}\\\\
-          &=${miseEnEvidence(`${texNombre(pBsachantA, 3)}`)}
+          P_{${ev[1]}}(\\overline{${ev[0]}})&=\\dfrac{P(${ev[1]}\\cap \\overline{${ev[0]}})}{P(${ev[1]})}\\\\
+          &=\\dfrac{P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})}{P(${ev[1]})}\\\\
+          &=${this.sup2 === true ? `\\left(${texProba(pAb)}\\times ${texProba(pBsachantAb)}\\right) \\div ${texProba(pB)}` : `\\dfrac{${texNombre(pAb.valeurDecimale, 4)}\\times ${texNombre(pBsachantAb.valeurDecimale, 4)}}{${texNombre(pB.valeurDecimale, 4)}}`}\\\\
+           &=${this.sup2 === true ? `${texProba(pAbinterB)}\\div ${texProba(pB)}` : `\\dfrac{${texNombre(pAbinterB.valeurDecimale, 4)}}{${texNombre(pB.valeurDecimale, 4)}}`}\\\\
+          &${this.sup2 === true ? `=${miseEnEvidence(`${pAbsachantB.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAbsachantB.valeurDecimale, 3)}`)}`}
           \\end{aligned}$`
+              break
+            case 4 :// PAbsachantBb
+            default:
+              texte += `Calculer $P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})$.`
+              reponse = this.sup2 === true ? pAbsachantBb.texFraction : arrondi(pAbsachantBb.valeurDecimale, 3)
+              if (this.sup2 === true) {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=$`, texteApres: '(résultat en fraction)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              } else {
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                handleAnswers(this, i, { reponse: { value: reponse } })
+              }
+              texteCorr = `On utilise la formule :  $P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=\\dfrac{P(\\overline{${ev[1]}}\\cap \\overline{${ev[0]}})}{P(\\overline{${ev[1]})}}$.<br> 
+          On commence par calculer $P(\\overline{${ev[1]}})$.<br>`
+              texteCorr += texteProbaTotaleBb
+              texteCorr += `On obtient donc :<br>
+          $\\begin{aligned}
+          P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})&=\\dfrac{P(\\overline{${ev[1]}}\\cap \\overline{${ev[0]}})}{P(\\overline{${ev[1]}})}\\\\
+          &=\\dfrac{P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})}{P(\\overline{${ev[1]}})}\\\\
+          &=${this.sup2 === true ? `\\left(${texProba(pAb)}\\times ${texProba(pBbsachantAb)}\\right) \\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pAb.valeurDecimale, 4)}\\times ${texNombre(pBbsachantAb.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
+           &=${this.sup2 === true ? `${texProba(pAbinterBb)}\\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pAbinterBb.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
+          &${this.sup2 === true ? `=${miseEnEvidence(`${pAbsachantBb.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAbsachantBb.valeurDecimale, 3)}`)}`}
+          \\end{aligned}$`
+              break
           }
 
           break
