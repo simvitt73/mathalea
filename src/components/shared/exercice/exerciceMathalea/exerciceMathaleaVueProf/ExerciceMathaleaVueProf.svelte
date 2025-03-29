@@ -73,6 +73,8 @@
   const interactifReady = exercise.interactifReady
   const exerciceHasNoSettings =
     !exercise.nbQuestionsModifiable &&
+    !exercise.correctionDetailleeDisponible &&
+    !exercise.seed &&
     !exercise.besoinFormulaireCaseACocher &&
     !exercise.besoinFormulaireNumerique &&
     !exercise.besoinFormulaireTexte &&
