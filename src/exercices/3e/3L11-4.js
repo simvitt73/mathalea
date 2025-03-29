@@ -75,7 +75,7 @@ export default class FactoriserParNombreOux extends Exercice {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}a-${k}\\times${abs(n)}b$`
           }
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${printlatex(`a+(${n})*b`)})$`
-          reponse = [`${k}(${printlatex(`a+(${n})*b`)})`, `${-k}(${printlatex(`-a+(${-n})*b`)})`]
+          reponse = `${k}(${printlatex(`a+(${n})*b`)})`
           break
         case '-ka+nkb':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-k}*a+(${n * k})*b`)}$`
@@ -87,7 +87,7 @@ export default class FactoriserParNombreOux extends Exercice {
           } else {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}a+(${-k})\\times${-n}b$`
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}(${printlatex(`a+(${-n})*b`)})$`
-            reponse = [`${-k}(${printlatex(`a+(${-n})*b`)})`, `${k}(${printlatex(`-a+(${n})*b`)})`]
+            reponse = `${-k}(${printlatex(`a+(${-n})*b`)})`
           }
           break
         case 'nka+mkb':
@@ -99,47 +99,47 @@ export default class FactoriserParNombreOux extends Exercice {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}a+${k}\\times${m}b$`
           }
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a+${m}b)$`
-          reponse = [`${k}(${n}a+${m}b)`, `${-k}(${-n}a-${m}b)`]
+          reponse = `${k}(${n}a+${m}b)`
           break
         case 'nka-mkb':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*a-(${m * k})*b`)}$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}a-${k}\\times${m}b$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a-${m}b)$`
-          reponse = [`${k}(${n}a-${m}b)`, `${-k}(${-n}a+${m}b)`]
+          reponse = `${k}(${n}a-${m}b)`
           break
         case 'nkx+mkx2':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x+(${m * k})*x^2`)}$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${ecritureParentheseSiNegatif(n)}+${k}x\\times${m}x$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x(${n}+${m}x)$`
-          reponse = [`${k}x(${n}+${m}x)`, `${-k}x(${-n}-${m}x)`]
+          reponse = `${k}x(${n}+${m}x)`
           break
         case 'nkx-mkx2':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x-(${m * k})*x^2`)}$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${ecritureParentheseSiNegatif(n)}-${k}x\\times${m}x$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x(${n}-${m}x)$`
-          reponse = [`${k}x(${n}-${m}x)`, `${-k}x(${-n}+${m}x)`]
+          reponse = `${k}x(${n}-${m}x)`
           break
         case 'nx2+x':
           texte = `$${lettreDepuisChiffre(i + 1)}=${n}x^2+x$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times 1$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+1)$`
-          reponse = [`x(${n}x+1)`, `-x(${-n}x-1)`]
+          reponse = `x(${n}x+1)`
           break
         case 'nx2+mx':
           texte = `$${lettreDepuisChiffre(i + 1)}=${n}x^2+${m}x$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times ${m}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+${m})$`
-          reponse = [`x(${n}x+${m})`, `-x(${-n}x-${m})`]
+          reponse = `x(${n}x+${m})`
           break
       }
       if (!context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: reponse, options: { operationSeulementEtNonResultat: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { factorisation: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
