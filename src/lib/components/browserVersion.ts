@@ -10,7 +10,8 @@ const minVersion = {
   'Samsung Internet': 8,
   'Mobile Safari': 12,
   'Mobile Chrome': 63,
-  'Chrome Headless': 80
+  'Chrome Headless': 80,
+  'Mobile Firefox': 136
 }
 
 export function checkBrowserVersion () {

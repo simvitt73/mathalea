@@ -185,7 +185,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       if (serverUpdated) {
         await showPopupAndWait()
       }
-      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}, serverUpdated: ${serverUpdated}`, {})
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}, serverUpdated: ${serverUpdated}`, { error })
       if (attempts === maxAttempts) {
         console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
         console.error(error)
