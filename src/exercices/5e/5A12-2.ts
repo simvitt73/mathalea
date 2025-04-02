@@ -41,9 +41,9 @@ export default class ReconnaitreNombrePremier extends Exercice {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     // Il faut qu'il y ait nbQuestions / 2 nombres premiers strictement inférieurs au max
     const premiers = obtenirListeNombresPremiers() // (this.nbQuestions) inutile la function revoit de toute facon la liste jusqu'à 297
-    const max = contraindreValeur(premiers[Math.floor(this.nbQuestions / 2) + 1], 10000, this.sup, 500) /* Math.max(maxp, 11) */
+    const max = contraindreValeur(premiers[Math.floor((this.nbQuestions + 1) / 2)], 10000, this.sup, 500) /* Math.max(maxp, 11) */
     // on est certain qu'il y a  la moitié des questions qui sont de type 'premier', le but est d'eviter le randint de a = listePremiers...
-    const listePremiersDansLordre = listeNombresPremiersStrictJusqua(max)
+    const listePremiersDansLordre = listeNombresPremiersStrictJusqua(max + 1)
     const listePremiers = shuffle(listePremiersDansLordre)
     let indexPremiers = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
