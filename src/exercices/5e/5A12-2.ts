@@ -32,7 +32,8 @@ export default class ReconnaitreNombrePremier extends Exercice {
     this.besoinFormulaireNumerique = ['Maximum', 10000] // 10000 car listeNombresPremiersStrictJusqua renvoie un tableau de premiers inférieurs à 10000
     this.sup = 500
     this.besoinFormulaire2CaseACocher = ['Avec calcul de la racine carrée']
-    this.sup2 = 'Maximum : le nombre maximum utilisé dans les questions. Si il est trop petit, ce nombre est adapté au nombre de questions.'
+    this.sup2 = false
+    this.comment = 'Maximum : Il s\'agit du nombre maximum utilisé dans les questions. Si il est trop petit, ce nombre est adapté au nombre de questions.'
   }
 
   nouvelleVersion () {
@@ -69,7 +70,6 @@ export default class ReconnaitreNombrePremier extends Exercice {
           break
         case 'non premier':
           a = randint(1, max - 1, listePremiers)
-          texte += '<br> non premier'
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `Le nombre $${texNombre(a)}$ est-il un nombre premier ?`
           this.autoCorrection[i].propositions = [
