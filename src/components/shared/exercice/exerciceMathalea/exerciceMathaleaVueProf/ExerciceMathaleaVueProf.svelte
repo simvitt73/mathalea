@@ -648,7 +648,7 @@
               class="{exercise.listeQuestions.length === 1 ||
               !exercise.listeAvecNumerotation
                 ? 'list-none'
-                : 'numbered-list'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercise.listeQuestions as item, i (i + '_' + (exercise.seed || ''))}
                 <div
