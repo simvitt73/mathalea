@@ -136,7 +136,7 @@ class AgrandirReduireFigure extends Exercice {
                       statut: 1,
                       sanscadre: true,
                       enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
               }
@@ -228,7 +228,7 @@ class AgrandirReduireFigure extends Exercice {
                       statut: 1,
                       sanscadre: true,
                       enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
               }
@@ -347,7 +347,7 @@ class AgrandirReduireFigure extends Exercice {
                       statut: 1,
                       sanscadre: true,
                       enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
               }
@@ -491,7 +491,7 @@ class AgrandirReduireFigure extends Exercice {
                       statut: 1,
                       sanscadre: true,
                       enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
               }
@@ -618,7 +618,7 @@ class AgrandirReduireFigure extends Exercice {
                       statut: 1,
                       sanscadre: true,
                       enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
               }
@@ -742,7 +742,7 @@ class AgrandirReduireFigure extends Exercice {
                       statut: 1,
                       sanscadre: true,
                       enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
               }
