@@ -18,7 +18,7 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 
 export const uuid = '4beb9'
 export const refs = {
-  'fr-fr': ['3G30DNB0', '3Z1DNB-3'],
+  'fr-fr': ['3G30DNB0', '3Z1DNB-03'],
   'fr-ch': []
 }
 export const titre = 'Préparation DNB : Pythagore, trigonométrie, aire, volume'

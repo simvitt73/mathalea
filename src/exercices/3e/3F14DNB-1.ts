@@ -11,7 +11,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = 'fb6e0'
 export const refs = {
-  'fr-fr': ['3F14DNB-1', '3Z1DNB-5'],
+  'fr-fr': ['3F14DNB-1', '3Z1DNB-05'],
   'fr-ch': []
 }
 export const titre = 'Préparation DNB : Fonctions, tableur et équation produit nul'
