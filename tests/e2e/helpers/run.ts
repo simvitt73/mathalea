@@ -8,6 +8,9 @@ import type { Prefs, Question } from './types.js'
 import { clean } from './text.js'
 import path from 'node:path'
 import { store } from './store.js'
+import { exercicesParams } from '../../../src/lib/stores/generalStore'
+import { createURL } from '../../../src/lib/mathalea'
+import { get } from 'svelte/store'
 
 declare global {
   interface Window {
@@ -104,9 +107,11 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
               const promise = test(page)
               if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
               result = await promise
+              if (!result) logError(`test ${filename} : ${createURL(get(exercicesParams))}`)
               expect(result).toBe(true) // si le résultat n'est pas bon, ça lève une exception
             } catch (error: unknown) {
               result = false
+              await logError(`test ${filename} : ${createURL(get(exercicesParams))}`)
               // faut attendre que l'écriture se termine (sinon on se retrouve en pause avant
               // d'avoir le message d'erreur et on sait pas pourquoi ça a planté)
               await logError(error)
