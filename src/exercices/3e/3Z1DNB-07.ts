@@ -32,7 +32,7 @@ export const dateDePublication = '06/04/2025'
  * La méthode versionOriginale permet de générer les valeurs de l'exercice telles qu'elles sont dans le sujet original
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
-export default class Exercice3F14DNB2 extends ExerciceBrevetA {
+export default class ExercicePythThalTrigo extends ExerciceBrevetA {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
