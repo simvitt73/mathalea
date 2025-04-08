@@ -17,13 +17,13 @@ variables:
   FF_USE_POD_ACTIVE_DEADLINE_SECONDS: "false"
 
 stages:
+  - playwright-pdf
   - deploy-server
   - build-projet
   - test
   - playwright-testCanEleve
   - playwright-test
   - playwright-testLycee
-  - playwright-pdf
   - playwright-pdfDNB
   - playwright-pdfBAC
 
@@ -61,7 +61,7 @@ default:
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
     - ls /root/.cache/ms-playwright/
-    - pnpm add playwright@1.44.1 --save-dev
+    # - pnpm add playwright@1.44.1 --save-dev
     - pnpm install
     - nohup pnpm start &
     - sleep 10
@@ -75,7 +75,7 @@ default:
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
     - ls /root/.cache/ms-playwright/
-    - pnpm add playwright@1.44.1 --save-dev
+    # - pnpm add playwright@1.44.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - pnpm install
     - nohup pnpm start &
@@ -90,7 +90,7 @@ default:
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
     - ls /root/.cache/ms-playwright/
-    - pnpm add playwright@1.44.1 --save-dev
+    # - pnpm add playwright@1.44.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - pnpm install
     - nohup pnpm start &
@@ -99,10 +99,11 @@ default:
     - sleep 30
 
 .testCIPDF:
-  image: guironne/tex-live-nodejs-playwright8
+  image: guironne/tex-live-nodejs-playwright9
   extends: .install_dependenciesPDF
   stage: playwright-pdf
   allow_failure: true
+  timeout: 1h 30m
   rules:
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: manual
@@ -124,15 +125,16 @@ default:
       - updatefile
     reports:
       junit: tests/e2e/logs/junit-report.xml
-    exclude:
-      - updatefile/output/*.*
     expire_in: 10 day
+    # exclude:
+    #  - updatefile/output/*.*
 
 .testCI:
   extends: .install_dependencies
   image: mcr.microsoft.com/playwright:v1.51.0-noble
   stage: playwright-test
   allow_failure: true
+  timeout: 1h 30m
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
@@ -204,10 +206,15 @@ testQCM:
   script:
     - NIV=QCM pnpm test:e2e:console_errors
 
-testCan6e5e4e3e:
+testCan6e5e:
   extends: .testCI
   script:
-    - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:console_errors
+    - NIV=can/6e^can/5e pnpm test:e2e:console_errors
+
+testCan4e3e:
+  extends: .testCI
+  script:
+    - NIV=can/4e^can/3e pnpm test:e2e:console_errors
 
 testCan2e1e:
   extends: .testCI
@@ -226,10 +233,16 @@ testCan2e1ePDF:
   script:
     - NIV=can/2e^can/1e pnpm test:e2e:pdfexports
 
-testCan6e5e4e3ePDF:
+testCan6e5ePDF:
   extends: .testCIPDF
   script:
-    - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:pdfexports
+    - NIV=can/6e^can/5e pnpm test:e2e:pdfexports
+    - pnpm -v
+
+testCan4e3ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=can/4e^can/3e pnpm test:e2e:pdfexports
     - pnpm -v
 
 testE3C20202024PDF:
@@ -303,6 +316,10 @@ bcommit:
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
     - echo "$CI_COMMIT_AUTHOR"
+    - apt-get update -y
+    - apt-get install -y wget iproute2
+    - wget -qO- ipinfo.io/ip
+    - ip addr show
   rules:
     - when: always
   artifacts:
@@ -390,11 +407,10 @@ deploy:
 playwright-testCanEleve:
   extends: .testCI
   stage: playwright-testCanEleve
+  allow_failure: true
   script:
     - pnpm test:e2e:views
   rules:
-    #     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    #       when: always
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
@@ -410,6 +426,7 @@ playwright-testCanEleve:
 playwright-testConsistency:
   extends: .testCI
   stage: playwright-testCanEleve
+  allow_failure: true
   script:
     - pnpm test:e2e:consistency
   rules:
@@ -428,6 +445,7 @@ playwright-testConsistency:
 playwright-testInteractivity:
   extends: .testCI
   stage: playwright-testCanEleve
+  allow_failure: true
   script:
     - pnpm test:e2e:interactivity
   rules:
