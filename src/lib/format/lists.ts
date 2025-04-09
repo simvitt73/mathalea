@@ -120,7 +120,7 @@ export function createList(
   if (!context.isHtml && label.length !== 0) {
     openingTagLine += `[label=${label}]` + LaTeXCorrection
   } else {
-    openingTagLine += LaTeXCorrection
+    openingTagLine += !context.isHtml ? LaTeXCorrection : ''
   }
 
   openingTagLine += lineBreak
