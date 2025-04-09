@@ -252,6 +252,10 @@ testE3C20202024PDF:
   stage: playwright-pdfBAC
   script:
     - NIV=e3c_2024^e3c_2023^e3c_2022^e3c_2021 pnpm test:e2e:pdfexports
+  artifacts:
+    paths:
+      - updatefile/*
+      - updatefile/output/e3c*
 
 testBAC20202024PDF:
   extends:
@@ -260,6 +264,10 @@ testBAC20202024PDF:
   stage: playwright-pdfBAC
   script:
     - NIV=bac_2024^bac_2023^bac_2022^bac_2021 pnpm test:e2e:pdfexports
+  artifacts:
+    paths:
+      - updatefile/*
+      - updatefile/output/bac*
 
 testDNB20132015PDF:
   extends:
@@ -268,6 +276,10 @@ testDNB20132015PDF:
   stage: playwright-pdfDNB
   script:
     - NIV=dnb_2013^dnb_2014^dnb_2015 pnpm test:e2e:pdfexports
+  artifacts:
+    paths:
+      - updatefile/*
+      - updatefile/output/dnb*
 
 testDNB20162019PDF:
   extends:
@@ -276,6 +288,10 @@ testDNB20162019PDF:
   stage: playwright-pdfDNB
   script:
     - NIV=dnb_2016^dnb_2017^dnb_2018^dnb_2019 pnpm test:e2e:pdfexports
+  artifacts:
+    paths:
+      - updatefile/*
+      - updatefile/output/dnb*
 
 testDNB20202024PDF:
   extends:
@@ -284,6 +300,10 @@ testDNB20202024PDF:
   stage: playwright-pdfDNB
   script:
     - NIV=dnb_2020^dnb_2021^dnb_2022^dnb_2023^dnb_2024 pnpm test:e2e:pdfexports
+  artifacts:
+    paths:
+      - updatefile/*
+      - updatefile/output/dnb*
 
 test6ePDF:
   extends: .testCIPDF
