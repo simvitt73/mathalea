@@ -206,9 +206,6 @@ export default class Pythagore2D extends Exercice {
         texte = '~\\\\'
       }
       texte += mathalea2d({ xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
-      if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) {
-        texte += '\\columnbreak'
-      } // pour la sortie LaTeX sauf la dernière question
 
       let redaction
       let nomCote = ''

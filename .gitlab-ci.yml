@@ -34,12 +34,11 @@ include:
 
 default:
   image: node:23.9.0
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
-    paths:
-      - .pnpm-store
+
+cache:
+  key: "pnpm-${CI_COMMIT_REF_SLUG}"
+  paths:
+    - .pnpm-store
 
 .install_dependencies:
   before_script:
@@ -85,7 +84,7 @@ default:
 
 .install_dependenciesPDFBAC:
   before_script:
-    - pnpm config set store-dir .pnpm-store
+    # - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
@@ -103,7 +102,7 @@ default:
   extends: .install_dependenciesPDF
   stage: playwright-pdf
   allow_failure: true
-  timeout: 1h 30m
+  timeout: 2h 30m
   rules:
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: manual
@@ -116,7 +115,7 @@ default:
     max: 2
     when:
       - runner_system_failure
-      - script_failure
+      - api_failure
       - unknown_failure
   artifacts:
     when: always
@@ -133,7 +132,7 @@ default:
   image: mcr.microsoft.com/playwright:v1.51.0-noble
   stage: playwright-test
   allow_failure: true
-  timeout: 1h 30m
+  timeout: 2h 30m
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
@@ -231,12 +230,18 @@ testCan2e1ePDF:
   extends: .testCIPDF
   script:
     - NIV=can/2e^can/1e pnpm test:e2e:pdfexports
+  artifacts:
+    paths:
+      - updatefile/output/can*
 
 testCan6e5ePDF:
   extends: .testCIPDF
   script:
     - NIV=can/6e^can/5e pnpm test:e2e:pdfexports
     - pnpm -v
+  artifacts:
+    paths:
+      - updatefile/output/can*
 
 testCan4e3ePDF:
   extends: .testCIPDF

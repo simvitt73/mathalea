@@ -49,15 +49,15 @@ export default class Transformations extends Exercice {
   }
 
   nouvelleVersion () {
+    const nbImages = this.can ? 1 : 3
+
     const choixTransformation = gestionnaireFormulaireTexte({
       max: 10,
       defaut: randint(1, 10),
-      nbQuestions: this.nbQuestions,
+      nbQuestions: this.nbQuestions * nbImages,
       saisie: this.sup,
       melange: 11
     }).map(Number) as TransformationsIndex[]
-
-    const nbImages = this.can ? 1 : 3
 
     const O = point(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
