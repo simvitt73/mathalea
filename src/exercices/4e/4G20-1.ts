@@ -7,7 +7,7 @@ export const dateDeModifImportante = '28/12/2022'
 export const uuid = '40c47'
 
 export const refs = {
-  'fr-fr': ['4G20-1'],
+  'fr-fr': ['4G20-1', 'bp2autoR2'],
   'fr-ch': ['10GM4-2', '11GM1-2']
 }
 export default class EgalitePythagore2D extends Pythagore2D {

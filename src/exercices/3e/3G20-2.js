@@ -5,7 +5,7 @@ export const interactifReady = false
 export const titre = 'Écrire une relation de Thalès'
 export const uuid = '6fd12'
 export const refs = {
-  'fr-fr': ['3G20-2'],
+  'fr-fr': ['3G20-2', 'bp2autoR8'],
   'fr-ch': ['11GM3-3']
 }
 export default class RelationDeThales3e extends RelationDeThales {

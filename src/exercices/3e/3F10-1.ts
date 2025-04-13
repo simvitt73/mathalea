@@ -24,7 +24,7 @@ export const titre = 'Utiliser le vocabulaire et les notations des fonctions (g√
 export const uuid = '0eecd'
 
 export const refs = {
-  'fr-fr': ['3F10-1'],
+  'fr-fr': ['3F10-1', 'bp2autoO2'],
   'fr-ch': ['10FA5-5', '1F1-4']
 }
 export default class VocabulaireNotationsFonctions extends Exercice {

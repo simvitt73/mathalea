@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const uuid = 'dc3d2'
 export const refs = {
-  'fr-fr': ['2S20-1'],
+  'fr-fr': ['2S20-1', 'bp2autoA5'],
   'fr-ch': []
 }
 export default class CalculEffectifFrequence2nde extends calculEffectifFrequence {

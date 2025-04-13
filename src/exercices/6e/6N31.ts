@@ -34,7 +34,7 @@ export const interactifReady = true
 export const uuid = 'be1e4'
 
 export const refs = {
-  'fr-fr': ['6N31'],
+  'fr-fr': ['6N31', 'bp2autoG4'],
   'fr-ch': ['9NO7-4']
 }
 export default class ComparerDecimaux extends Exercice {

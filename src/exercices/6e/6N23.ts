@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 export const uuid = '4b9d5'
 
 export const refs = {
-  'fr-fr': ['6N23'],
+  'fr-fr': ['6N23', 'bp2autoC2'],
   'fr-ch': []
 }
 export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends Exercice {

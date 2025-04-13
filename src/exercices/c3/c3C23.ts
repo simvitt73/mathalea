@@ -20,7 +20,7 @@ export const dateDeModifImportante = '25/08/2024'
 export const uuid = '3a087'
 
 export const refs = {
-  'fr-fr': ['c3C23'],
+  'fr-fr': ['c3C23', 'bp2autoH26'],
   'fr-ch': ['9NO13-1']
 }
 class CalculsFractionsSimples extends Exercice {

@@ -22,7 +22,7 @@ export const dateDePublication = '16/08/2021'
 export const uuid = 'b2c55'
 
 export const refs = {
-  'fr-fr': ['5N110'],
+  'fr-fr': ['5N110', 'bp2autoB5'],
   'fr-ch': ['9NO14-11']
 }
 export default class VariationEnPourcentages extends Exercice {

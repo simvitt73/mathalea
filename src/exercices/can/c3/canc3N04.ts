@@ -17,7 +17,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'de7d5'
 
 export const refs = {
-  'fr-fr': ['canc3N04'],
+  'fr-fr': ['canc3N04', 'bp2autoS10'],
   'fr-ch': []
 }
 export default class ArrondiUnite extends Exercice {

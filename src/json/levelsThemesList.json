@@ -1079,5 +1079,74 @@
   "HPC1": {
     "titre": "Calculs",
     "sousThemes": {}
+  },
+  "bp2auto": {
+    "titre": "Automatismes"
+  },
+  "bp2autoA": {
+    "titre": "Calcul d’une fréquence"
+  },
+  "bp2autoB": {
+    "titre": "Utilisation des pourcentages"
+  },
+  "bp2autoC": {
+    "titre": "Expression d’un nombre donné en écriture décimale ou fractionnaire sous forme d’un pourcentage et réciproquement"
+  },
+  "bp2autoD": {
+    "titre": "Calcul d’une moyenne"
+  },
+  "bp2autoE": {
+    "titre": "Calculs avec les puissances de 10"
+  },
+  "bp2autoF": {
+    "titre": "Écriture d’un nombre en notation scientifique"
+  },
+  "bp2autoG": {
+    "titre": "Comparaison des fractions simples entre elles ou avec des nombres décimaux"
+  },
+  "bp2autoH": {
+    "titre": "Additions de fractions, multiplication de fractions"
+  },
+  "bp2autoI": {
+    "titre": "Développement, factorisation, réduction d’expressions littérales"
+  },
+  "bp2autoJ": {
+    "titre": "Transformation de formules (par exemple U = RI, d = vt…), expression d’une variable en fonction des autres"
+  },
+  "bp2autoK": {
+    "titre": "Résolutions d’équations du type ax = b et a + x = b, avec a et b entiers relatifs"
+  },
+  "bp2autoL": {
+    "titre": "Utilisation des différentes procédures de calcul d’une quatrième proportionnelle"
+  },
+  "bp2autoM": {
+    "titre": "Application et calcul d’un pourcentage ou d’une échelle"
+  },
+  "bp2autoN": {
+    "titre": "Repérage dans un plan rapporté à un repère orthogonal"
+  },
+  "bp2autoO": {
+    "titre": "Recherche d’image et d’antécédents d’un nombre par une fonction"
+  },
+  "bp2autoP": {
+    "titre": "Utilisation des procédures de résolution graphique d’équations"
+  },
+  "bp2autoQ": {
+    "titre": "Conversions d’unités de longueur, d’aire et de volume"
+  },
+  "bp2autoR": {
+    "titre": "Reconnaissance des configurations de Pythagore et de Thalès"
+  },
+  "bp2autoS": {
+    "titre": "Détermination d’un arrondi, d’une valeur approchée"
+  },
+  "bp2autoT": {
+    "titre": "Expression d’un résultat dans une unité adaptée"
+  },
+  "bp2autoU": {
+    "titre": "Vérification de la cohérence grandeur - unité d’une mesure"
+  },
+  "bp2autoV": {
+    "titre": "Calcul de l’aire d’un carré, d’un rectangle, d’un disque"
   }
 }

@@ -6,7 +6,7 @@ export const interactifReady = true
 export const uuid = '6575c'
 
 export const refs = {
-  'fr-fr': ['2N30-5'],
+  'fr-fr': ['2N30-5', 'bp2autoH4'],
   'fr-ch': ['1CN-5']
 }
 export default class SommeOuProduitFractions2nde extends SommeOuProduitFractions {

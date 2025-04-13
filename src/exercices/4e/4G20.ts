@@ -125,7 +125,7 @@ export function pythagoreCompare (input: string, goodAnswer: string) {
 export const uuid = 'bd660'
 
 export const refs = {
-  'fr-fr': ['4G20'],
+  'fr-fr': ['4G20', 'bp2autoR1'],
   'fr-ch': ['10GM4-1', '11GM1-1']
 }
 
