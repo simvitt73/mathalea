@@ -8,10 +8,10 @@ export const amcType = 'AMCNum'
 export const uuid = 'e6a58'
 
 export const refs = {
-  'fr-fr': ['bp2autoQ1'],
+  'fr-fr': ['BP2AutoQ1'],
   'fr-ch': []
 }
-export default class ExerciceBP2autoQ1 extends ExerciceConversions {
+export default class ExerciceBP2AutoQ1 extends ExerciceConversions {
   constructor () {
     super()
     this.sup = 3

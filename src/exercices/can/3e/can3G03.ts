@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
 export const uuid = '14145'
 
 export const refs = {
-  'fr-fr': ['can3G03', 'bp2autoR11'],
+  'fr-fr': ['can3G03', 'BP2AutoR11'],
   'fr-ch': []
 }
 export default class CalculLongueurThales2 extends Exercice {
