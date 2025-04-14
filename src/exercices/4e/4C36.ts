@@ -97,7 +97,7 @@ export default class nomExercice extends Exercice {
       },
       {
         intitule: 'le volume d\'une bouteille d\'eau',
-        puissanceDe10: 3,
+        puissanceDe10: 6,
         unite: 'mm$^3$'
       },
       {
