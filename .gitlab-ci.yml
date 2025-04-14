@@ -17,10 +17,10 @@ variables:
   FF_USE_POD_ACTIVE_DEADLINE_SECONDS: "false"
 
 stages:
+  - build-projet
   - playwright-pdfDNB
   - playwright-pdf
   - deploy-server
-  - build-projet
   - test
   - playwright-testCanEleve
   - playwright-test
@@ -151,7 +151,7 @@ cache:
     max: 2
     when:
       - runner_system_failure
-      - script_failure
+      - api_failure
       - unknown_failure
   artifacts:
     when: always
@@ -342,6 +342,26 @@ test3ePDF:
   artifacts:
     paths:
       - updatefile/output/3e*
+
+testExosModified:
+  extends: .testCI
+  stage: build-projet
+  script:
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
+    - CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+    - echo "$CHANGED_FILES"
+    - CHANGED_FILES="$CHANGED_FILES" pnpm test:e2e:console_errors
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
+      when: never
+    - when: always
+  artifacts:
+    when: always
+    paths:
+      - dist
+    expire_in: 1 day
 
 bcommit:
   stage: build-projet
