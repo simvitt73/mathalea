@@ -213,7 +213,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
     !file.includes('ressources') &&
     !file.includes('apps') &&
     file.replace('src/exercices/', '').split('/').length >= 2).map(file =>
-    file.replace(/^src\/exercices\//, '').replace(/\.ts$/, '')
+    file.replace(/^src\/exercices\//, '').replace(/\.ts$/, '.').replace(/\.js$/, '.')
   )
   log(filtered)
   if (filtered.length === 0) {
