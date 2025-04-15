@@ -17,14 +17,14 @@ variables:
   FF_USE_POD_ACTIVE_DEADLINE_SECONDS: "false"
 
 stages:
-  - build-projet
-  - playwright-pdfDNB
-  - playwright-pdf
-  - deploy-server
   - test
+  - build-projet
   - playwright-testCanEleve
+  - deploy-server
   - playwright-test
   - playwright-testLycee
+  - playwright-pdf
+  - playwright-pdfDNB
   - playwright-pdfBAC
 
 sast:
@@ -391,6 +391,45 @@ build:
     - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
       when: never
     - when: always
+  artifacts:
+    when: always
+    paths:
+      - dist
+    expire_in: 1 day
+
+deployftp:
+  image: ubuntu
+  stage: deploy-server
+  allow_failure: true
+  script:
+    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
+    - apt-get update -y && apt-get install -y lftp
+    - date_deploy=$(date +%Y-%m-%d_%H-%M-%S)
+    - apt-get install -y nodejs npm
+    - npm install -g corepack@latest
+    - corepack enable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - pnpm install
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    - echo "date_deploy $date_deploy"
+    - echo "Déploiement FTP avec lftp sur ftp.sc1ceto1587.universe.wf..."
+    - lftp -c "
+      set ftp:ssl-allow no;
+      open -u $FTP_USER,$FTP_PASSWORD ftp.sc1ceto1587.universe.wf;
+      mirror -R --delete --verbose ./dist /releases/$date_deploy;
+      "
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: manual
+    - when: never
   artifacts:
     when: always
     paths:
