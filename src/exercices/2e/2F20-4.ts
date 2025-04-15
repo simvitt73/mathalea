@@ -642,7 +642,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     trait1.epaisseur = 2
     trait2.epaisseur = 2
     const courbes = [courbe1, courbe2, trait1, trait2, nomCourbe1, nomCourbe2]
-    this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...(repere.objets ?? []), ...courbes])), repere.objets ?? [], ...courbes)]
+    this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...(repere.objets ?? [])])), repere.objets ?? [], ...courbes)]
     // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
     const textCorrSplit = texteCorr.split(':')
     let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
