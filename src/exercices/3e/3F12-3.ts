@@ -33,7 +33,7 @@ export const uuid = 'afb2f'
 
 export const refs = {
   'fr-fr': ['3F12-3'],
-  'fr-ch': ['10FA5-11', '11FA8-5', '1F1-11']
+  'fr-ch': ['10FA5-11', '11FA8-5', '1mF1-11']
 }
 export default class TableauDeValeurs extends Exercice {
   constructor () {

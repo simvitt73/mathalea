@@ -42,7 +42,7 @@ export const uuid = '2045e'
 
 export const refs = {
   'fr-fr': ['3G32-0'],
-  'fr-ch': []
+  'fr-ch': ['1mT-9']
 }
 export default class ProblemesTrigoLongueur extends Exercice {
   constructor () {

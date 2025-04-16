@@ -28,7 +28,7 @@ export const uuid = 'b8946'
 
 export const refs = {
   'fr-fr': ['3F12-4'],
-  'fr-ch': ['11FA7-3', '1F1-3']
+  'fr-ch': ['11FA7-3', '1mF1-3']
 }
 export default class ImageGraphique extends Exercice {
   constructor () {

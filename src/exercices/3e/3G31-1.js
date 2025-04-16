@@ -33,7 +33,7 @@ export const uuid = '35e0b'
 
 export const refs = {
   'fr-fr': ['3G31-1'],
-  'fr-ch': []
+  'fr-ch': ['1mT-6']
 }
 export default class CalculDAngleFigureComplexe extends Exercice {
   constructor () {

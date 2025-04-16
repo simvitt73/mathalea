@@ -39,7 +39,7 @@ export const uuid = 'bd6b1'
 
 export const refs = {
   'fr-fr': ['3G30'],
-  'fr-ch': []
+  'fr-ch': ['1mT-5']
 }
 export default class CalculDeLongueur extends Exercice {
   level: number
