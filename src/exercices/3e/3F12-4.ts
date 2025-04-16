@@ -33,7 +33,7 @@ export const refs = {
 export default class ImageGraphique extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
+    this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynôme du 2nd degré\n3 : Polynôme du 3e degré']
 
     this.sup = 3
 
