@@ -38,7 +38,7 @@ export const refs = {
 export default class TableauDeValeurs extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynôme du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
     this.nbQuestions = 1
 
