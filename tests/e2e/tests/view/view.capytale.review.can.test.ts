@@ -56,6 +56,8 @@ describe('playwright meets vitest', () => {
     await page.goto(hostname)
 
     await expect(page.getByText('bonjour')).toBeVisible()
+    await page.waitForSelector('#iframe')
+    await page.waitForTimeout(3000) // attendre 3000 ms de plus pour assurer le rendu
 
     // await page.pause()
     expect(await page.locator('#iframe').contentFrame().locator('#score:first-child > span').innerText()).toBe('1/11')

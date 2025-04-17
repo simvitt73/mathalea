@@ -55,9 +55,9 @@ describe('playwright meets vitest', () => {
     await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
     await page.goto(hostname)
 
+    await expect(page.getByText('bonjour')).toBeVisible()
     await page.waitForSelector('#iframe')
     await page.waitForTimeout(3000) // attendre 3000 ms de plus pour assurer le rendu
-    await expect(page.getByText('bonjour')).toBeVisible()
 
     // await page.pause()
     // const v1 = await page.locator('#iframe').contentFrame().locator('#answer-8').innerText()

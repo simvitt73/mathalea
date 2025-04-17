@@ -498,6 +498,13 @@ playwright-testCanEleve:
     - when: always
   artifacts:
     when: on_failure
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - api_failure
+      - unknown_failure
+      - script_failure
 
 playwright-testConsistency:
   extends: .testCI
@@ -509,6 +516,13 @@ playwright-testConsistency:
     - when: always
   artifacts:
     when: on_failure
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - api_failure
+      - unknown_failure
+      - script_failure
 
 playwright-testInteractivity:
   extends: .testCI
