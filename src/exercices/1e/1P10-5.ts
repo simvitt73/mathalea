@@ -7,6 +7,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { createList } from '../../lib/format/lists'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import { prenomM } from '../../lib/outils/Personne'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Résoudre des problèmes avec des probabilités (E3C)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -84,32 +85,32 @@ export default class ProlemesE3CProbabiltesCond extends Exercice {
                 P(${ev[1]})&=P(${ev[0]}\\cap ${ev[1]})+P(\\overline{${ev[0]}}\\cap ${ev[1]})\\\\
                 &=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
                 &=${texNombre(pA, 5)}\\times ${texNombre(pBsachantA, 5)}+${texNombre(pAb, 5)}\\times ${texNombre(pBsachantAb, 5)}\\\\
-                &=${texNombre(pB, 5)}
+                &=${miseEnEvidence(`${texNombre(pB, 5)}`)}
                 \\end{aligned}$<br>`
       textePAinterB = `
                 $\\begin{aligned}
               P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})\\\\
               &=${texNombre(pA, 4)}\\times ${texNombre(pBsachantA, 4)}\\\\
-              &=${texNombre(pAinterB, 5)}
+              &=${miseEnEvidence(`${texNombre(pAinterB, 5)}`)}
               \\end{aligned}$<br>`
       textePAbinterB = `
               $\\begin{aligned}
             P(\\overline{${ev[0]}}\\cap ${ev[1]})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
             &=${texNombre(pAb, 4)}\\times ${texNombre(pBsachantAb, 4)}\\\\
-            &=${texNombre(pAbinterB, 5)}
+            &=${miseEnEvidence(`${texNombre(pAbinterB, 5)}`)}
             \\end{aligned}$<br>`
       textePAbinterBb = `
             $\\begin{aligned}
           P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})\\\\
           &=${texNombre(pAb, 4)}\\times ${texNombre(pBbsachantAb, 4)}\\\\
-          &=${texNombre(pAbinterBb, 5)}
+          &=${miseEnEvidence(`${texNombre(pAbinterBb, 5)}`)}
           \\end{aligned}$<br>`
 
       textePAinterBb = `
               $\\begin{aligned}
             P(${ev[0]}\\cap \\overline{${ev[1]}})&=P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})\\\\
             &=${texNombre(pA, 4)}\\times ${texNombre(pBbsachantA, 4)}\\\\
-            &=${texNombre(pAinterBb, 5)}
+            &=${miseEnEvidence(`${texNombre(pAinterBb, 5)}`)}
             \\end{aligned}$<br>`
 
       // texteProbaTotaleBb = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers, d'après la formule des probabilités totales  : <br>
@@ -124,21 +125,21 @@ export default class ProlemesE3CProbabiltesCond extends Exercice {
               P_${ev[1]}\\left(\\overline{${ev[0]}}\\right)&=\\dfrac{P(\\overline{${ev[0]}}\\cap ${ev[1]})}{P(${ev[1]})}\\\\
               &=\\dfrac{${texNombre(pAb, 5)}\\times ${texNombre(pBsachantAb, 5)}}{${texNombre(pB, 5)}}\\\\
               &=\\dfrac{${texNombre(pAbinterB, 5)}}{${texNombre(pB, 5)}}\\\\
-              &\\approx ${this.sup === 1 ? `${texNombre(pAbsachantB, 3, true)}` : this.sup === 2 ? `${texNombre(pAbsachantB, 2, true)}` : `${texNombre(pAbsachantB, 3)}`}
+              &\\approx ${this.sup === 1 ? `${miseEnEvidence(`${texNombre(pAbsachantB, 3, true)}`)}` : this.sup === 2 ? `${miseEnEvidence(`${texNombre(pAbsachantB, 2, true)}`)}` : `${miseEnEvidence(`${texNombre(pAbsachantB, 3)}`)}`}
               \\end{aligned}$<br>`
       textePAsachantB = `
                $\\begin{aligned}
               P_${ev[1]}\\left(${ev[0]}\\right)&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[1]})}\\\\
               &=\\dfrac{${texNombre(pA, 5)}\\times ${texNombre(pBsachantA, 5)}}{${texNombre(pB, 5)}}\\\\
               &=\\dfrac{${texNombre(pAinterB, 5)}}{${texNombre(pB, 5)}}\\\\
-              &\\approx  ${this.sup === 4 ? ` ${texNombre(pAsachantB, 2, true)}` : `${texNombre(pAsachantB, 3, true)}`}
+              &\\approx  ${this.sup === 4 ? ` ${miseEnEvidence(`${texNombre(pAsachantB, 2, true)}`)}` : `${miseEnEvidence(`${texNombre(pAsachantB, 3, true)}`)}`}
               \\end{aligned}$<br>`
       textePAsachantBb = `
                $\\begin{aligned}
               P_{\\overline{${ev[1]}}}\\left(${ev[0]}\\right)&=\\dfrac{P(${ev[0]}\\cap \\overline{${ev[1]}})}{P(\\overline{${ev[1]}})}\\\\
               &=\\dfrac{${texNombre(pA, 5)}\\times ${texNombre(pBbsachantA, 5)}}{1-${texNombre(pB, 5)}}\\\\
               &=\\dfrac{${texNombre(pAinterBb, 5)}}{${texNombre(pBb, 5)}}\\\\
-              &\\approx  ${texNombre(pAsachantBb, 2, true)}
+              &\\approx  ${miseEnEvidence(`${texNombre(pAsachantBb, 2, true)}`)}
               \\end{aligned}$<br>`
       // On définit l'arbre complet
       omegaC = new Arbre({
@@ -336,12 +337,12 @@ createList({
               $\\begin{aligned}
               P(\\overline{${ev[0]}}\\cap ${ev[1]})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
               &=${texNombre(pAb, 4)}\\times ${texNombre(pBsachantAb, 4)}\\\\
-              &=${texNombre(pAbinterB, 5)}
+              &=${miseEnEvidence(`${texNombre(pAbinterB, 5)}`)}
               \\end{aligned}$`,
               `${texteProbaTotaleB}`,
               `On a :<br>
                ${textePAbsachantB}
-              La probabilité que la personne ne soit pas malade sachant que le test est positif est $${texNombre(pAbsachantB, 3)}$.`
+              La probabilité que la personne ne soit pas malade sachant que le test est positif est $${miseEnEvidence(`${texNombre(pAbsachantB, 3)}`)}$.`
             ],
             style: 'nombres'
           })
@@ -418,7 +419,7 @@ On note les évènements suivants :<br>`
           })
           texteCorr = createList({
             items: [mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objetsC)), objetsC) + `Quand ${P} atteint la cible, il tire un ticket dans l'urne $U_1$ qui contient ${nombreEnLettres(u1)} ${u1 === 1 ? 'ticket marqué' : 'tickets marqués'}  « gagnant » sur un total de $10$ tickets.<br>
-                Ainsi, la probabilité d'obtenir un ticket  « gagnant » est $\\dfrac{${u1}}{10}=${texNombre(pBsachantA, 2)}$.`,
+                Ainsi, la probabilité d'obtenir un ticket  « gagnant » est $\\dfrac{${u1}}{10}=${miseEnEvidence(`${texNombre(pBsachantA, 2)}`)}$.`,
               `On a :<br>
               ${textePAbinterB}`,
               `${texteProbaTotaleB}`,
@@ -514,7 +515,7 @@ On note les évènements suivants :<br>`
                   $\\begin{aligned}
               P_${ev[0]}\\left(${ev[1]}\\right)&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
               &=\\dfrac{${texNombre(pAinterB, 5)}}{${texNombre(pA, 5)}}\\\\
-              &=   ${texNombre(pBsachantA, 2, true)}
+              &=   ${miseEnEvidence(`${texNombre(pBsachantA, 2, true)}`)}
               \\end{aligned}$
                  `,
                   `${texteProbaTotaleB}`,
@@ -524,7 +525,7 @@ On note les évènements suivants :<br>`
                 $P(\\overline {${ev[1]}}_1\\cap\\overline {${ev[1]}}_2)=P(\\overline {${ev[1]}}_1)\\times P(\\overline {${ev[1]}}_2)$.<br>
                 Or $P(\\overline {${ev[1]}}_1)=P(\\overline {${ev[1]}}_2)=1-${texNombre(pB, 5)}=${texNombre(pBb, 4)}$.<br>
                 On en déduit : $P(\\overline {${ev[1]}}_1\\cap\\overline {${ev[1]}}_2)=${texNombre(pBb, 4)}\\times ${texNombre(pBb, 4)}\\approx${texNombre(pBb ** 2, 3, true)}$.<br>
-                Ainsi, la probabilité qu'aucun des deux ne prenne l'option   visites guidées  est environ $${texNombre(pBb ** 2, 3, true)}$. `
+                Ainsi, la probabilité qu'aucun des deux ne prenne l'option   visites guidées  est environ $${miseEnEvidence(`${texNombre(pBb ** 2, 3, true)}`)}$. `
             ],
             style: 'nombres'
           })
@@ -538,7 +539,7 @@ On note les évènements suivants :<br>`
               ' Des mèches blondes pour donner du relief à la chevelure, appelées « effet coup de soleil ».'
             ],
             style: 'fleches'
-          }) + '<br>Il apparaît que :'
+          }) + 'Il apparaît que :'
 
           texte += createList({
             items: [
@@ -568,7 +569,7 @@ On note les évènements suivants :<br>`
           })
           texteCorr = createList({
             items: [`D'après l'énoncé, on a : <br>
-                  $P(${ev[0]})=${texNombre(pA, 2)}$,  $P(${ev[0]}\\cap ${ev[1]})=${texNombre(pAinterB, 3)}$ et $P_{\\overline{${ev[0]}}}(${ev[1]})=${texNombre(pBsachantAb, 2)}$.
+                  $P(${ev[0]})=${miseEnEvidence(`${texNombre(pA, 2)}`)}$,  $P(${ev[0]}\\cap ${ev[1]})=${miseEnEvidence(`${texNombre(pAinterB, 3)}`)}$ et $P_{\\overline{${ev[0]}}}(${ev[1]})=${miseEnEvidence(`${texNombre(pBsachantAb, 2)}`)}$.
                   `, 'On peut réaliser un arbre pondéré qui sera complété au fur et à mesure des questions : ' +
             mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objetsC)), objetsC) +
             `La probabilité que le client ne souhaite ni une « couleur-soin » , ni un « effet coup de soleil » est $P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})$ :<br>
@@ -577,7 +578,7 @@ On note les évènements suivants :<br>`
                     $\\begin{aligned}
                 P_${ev[0]}\\left(${ev[1]}\\right)&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
                 &=\\dfrac{${texNombre(pAinterB, 5)}}{${texNombre(pA, 5)}}\\\\
-                &=   ${texNombre(pBsachantA, 2, true)}
+                &=   ${miseEnEvidence(`${texNombre(pBsachantA, 2, true)}`)}
                 \\end{aligned}$
                    `,
                     `${texteProbaTotaleB}`,
@@ -625,7 +626,7 @@ sonner le portique en passant. On arrondira le résultat à $10^{-3}$.
           texteCorr = createList({
             items: [
                 `D'après l'énoncé, on a : <br>
-                  $P(${ev[0]})=\\dfrac{${a}}{500}=${texNombre(pA, 4)}$,  $P_{${ev[0]}}(${ev[1]})=${texNombre(pBsachantA, 4)}$ et $P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})=${texNombre(pBbsachantAb, 4)}$.
+                  $P(${ev[0]})=\\dfrac{${a}}{500}=${miseEnEvidence(`${texNombre(pA, 4)}`)}$,  $P_{${ev[0]}}(${ev[1]})=${miseEnEvidence(`${texNombre(pBsachantA, 4)}`)}$ et $P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})=${miseEnEvidence(`${texNombre(pBbsachantAb, 4)}`)}$.
                   `,
 
                 mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objetsC)), objetsC),
