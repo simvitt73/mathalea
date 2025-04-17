@@ -374,7 +374,7 @@ createList({
           })
           texteCorr = createList({
             items: [mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objetsC)), objetsC),
-            `La probabilité la probabilité que le client ait choisi un sandwich et un dessert est donnée par  $P(${ev[0]}}\\cap ${ev[1]})$.<br>
+            `La probabilité la probabilité que le client ait choisi un sandwich et un dessert est donnée par  $P(${ev[0]}\\cap ${ev[1]})$.<br>
             ${textePAinterB}`,
             `${texteProbaTotaleB}`,
             `La probabilité que le client ait acheté une pizza sachant qu'il a acheté un dessert est donnée par $P_${ev[1]}\\left(\\overline{${ev[0]}}\\right)$.<br>
