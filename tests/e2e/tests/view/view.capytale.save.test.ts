@@ -65,15 +65,22 @@ describe('playwright meets vitest', () => {
     //   await page.mouse.move(box.x + box.width / 2 + 10, box.y + box.height / 2 + 10)
     //   await page.mouse.up()
     // }
+
+    await page.waitForSelector('#iframe')
+    await page.waitForTimeout(3000) // attendre 3000 ms de plus pour assurer le rendu
+    // MGu obligatoire car les différents exo se chargent et le rendu se déplace car réponsive.
+
     const box = await page.locator('#iframe').contentFrame().locator('.minute-hand').boundingBox()
     const box2 = await page.locator('#iframe').contentFrame().locator('#clockEx0Q0 > div > div > svg > text:nth-child(5)').boundingBox()
+    console.log('box', box)
+    console.log('box2', box2)
     if (box !== null && box2 !== null) {
       await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
       await page.mouse.down()
       await page.mouse.move(box2.x + box2.width / 2, box2.y + box2.height / 2)
       await page.mouse.up()
     } else {
-      console.log('Box/Box2 is null')
+      console.error('Box/Box2 is null', box, box2)
     }
     // const start = await page.locator('#iframe').contentFrame().locator('.minute-hand')
     // console.log(start)

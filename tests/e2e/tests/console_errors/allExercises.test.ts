@@ -97,77 +97,81 @@ async function getConsoleTest (page: Page, urlExercice: string) {
   // on configure à 5 min le timeout
   page.setDefaultTimeout(5 * 60 * 1000)
 
-  // await page.reload()
-  const messages: string[] = []
-
-  try {
-    page.on('pageerror', msg => {
-      if (msg.message !== 'Erreur de chargement de Mathgraph') { // mtgLoad : 3G22
-        messages.push(page.url() + ' ' + msg.stack)
-        logError(msg)
-      }
-    })
-    page.on('crash', msg => {
-      messages.push(page.url() + ' ' + msg)
-      logError(msg)
-    })
-    // Listen for all console events and handle errors
-    page.on('console', msg => {
-      // if (msg.type() === 'error') {
-      if (!msg.text().includes('[vite]') &&
-          !msg.text().includes('[bugsnag] Loaded!') &&
-          !msg.text().includes('No character metrics for') && // katex
-          !msg.text().includes('LaTeX-incompatible input') && // katex
-          !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
-          !msg.text().includes('MG32div0') && // MG32div0 : 3G22
-          !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
-          !msg.location().url.includes('mathgraph32')
-      ) {
-        if (!msg.text().includes('<HeaderExercice>')) {
-          messages.push(page.url() + ' ' + msg.text())
+  const retries = 3 // Nombre de tentatives en cas d'erreur
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    const messages: string[] = []
+    try {
+      page.on('pageerror', msg => {
+        if (msg.message !== 'Erreur de chargement de Mathgraph') { // mtgLoad : 3G22
+          messages.push(page.url() + ' ' + msg.stack)
+          logError(msg)
         }
+      })
+      page.on('crash', msg => {
+        messages.push(page.url() + ' ' + msg)
+        logError(msg)
+      })
+      // Listen for all console events and handle errors
+      page.on('console', msg => {
+        // if (msg.type() === 'error') {
+        if (!msg.text().includes('[vite]') &&
+            !msg.text().includes('[bugsnag] Loaded!') &&
+            !msg.text().includes('No character metrics for') && // katex
+            !msg.text().includes('LaTeX-incompatible input') && // katex
+            !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
+            !msg.text().includes('MG32div0') && // MG32div0 : 3G22
+            !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
+            !msg.location().url.includes('mathgraph32')
+        ) {
+          if (!msg.text().includes('<HeaderExercice>')) {
+            messages.push(page.url() + ' ' + msg.text())
+          }
+        }
+        // }
+      })
+
+      logDebug('On charge la page')
+      await page.goto(urlExercice)
+      await page.waitForLoadState('networkidle')
+      logDebug('fin : On charge la page')
+
+      // Correction
+      // On cherche les questions
+      logDebug('On cherche les questions')
+      await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
+      logDebug('fin : On cherche les questions')
+      // Pour chaque combinaison de paramètres, on clique sur nouvel énoncé 3 fois, active le mode interactif et reclique sur nouvel énoncé 3 fois
+      await checkEachCombinationOfParams(page, action, { isFullViews: true })
+      // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
+      const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
+      logDebug('Ferme les paramètres ')
+      if (await buttonParam.isVisible()) {
+        await buttonParam.click()
       }
-      // }
-    })
-
-    logDebug('On charge la page')
-    await page.goto(urlExercice)
-    await page.waitForLoadState('networkidle')
-    logDebug('fin : On charge la page')
-
-    // Correction
-    // On cherche les questions
-    logDebug('On cherche les questions')
-    await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
-    logDebug('fin : On cherche les questions')
-    // Pour chaque combinaison de paramètres, on clique sur nouvel énoncé 3 fois, active le mode interactif et reclique sur nouvel énoncé 3 fois
-    await checkEachCombinationOfParams(page, action, { isFullViews: true })
-    // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
-    const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
-    logDebug('Ferme les paramètres ')
-    if (await buttonParam.isVisible()) {
-      await buttonParam.click()
-    }
-    if (messages.length > 0) {
+      if (messages.length > 0) {
+        logError(messages)
+        logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
+        await createIssue(urlExercice, messages, ['console'], log)
+        return 'KO'
+      } else {
+        return 'OK'
+      }
+    } catch (error) {
+      // si une exception comme timeout: on récupère la requete
+      let message = 'Unknown Error'
+      if (error instanceof Error) message = error.message
+      messages.push('erreur:' + message)
       logError(messages)
       logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
-      await createIssue(urlExercice, messages, ['console'], log)
-      return 'KO'
+      if (attempt === retries) {
+        if (!message.includes('net::ERR_CONNECTION_REFUSED')) {
+          // le serveur ne répond pas... si net::ERR_CONNECTION_REFUSED
+          await createIssue(urlExercice, messages, ['console'], log)
+        }
+        return 'KO'
+      }
     }
-  } catch (error) {
-    // si une exception comme timeout: on récupère la requete
-    let message = 'Unknown Error'
-    if (error instanceof Error) message = error.message
-    messages.push('erreur:' + message)
-    logError(messages)
-    logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
-    if (!message.includes('net::ERR_CONNECTION_REFUSED')) {
-      // le serveur ne répond pas... si net::ERR_CONNECTION_REFUSED
-      await createIssue(urlExercice, messages, ['console'], log)
-    }
-    return 'KO'
   }
-  return 'OK'
 }
 
 async function testRunAllLots (filter: string) {

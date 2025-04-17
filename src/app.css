@@ -663,6 +663,7 @@ table.tableauMathlive {
   tbody {
     tr {
       td {
+        min-width: 50px;
         math-field {
           min-width: 60px;
           margin-top: 2px;
