@@ -162,11 +162,33 @@
   function adjustQuestionsOrder () {
     const areSomeExercisesSelected = $globalOptions.select && $globalOptions.select.length > 0
     const selectedIndexes = areSomeExercisesSelected ? getSelectedQuestionsIndexes() : [...Array(slideshow.slides.length).keys()]
-    if ($globalOptions.shuffle) {
-      $globalOptions.order = shuffle(selectedIndexes)
-    } else {
-      $globalOptions.order = $globalOptions.select ? selectedIndexes : undefined
+    let order = undefined
+    if ($globalOptions.order && $globalOptions.order.length > 0) {
+      order = $globalOptions.order.slice(0, selectedIndexes.length)
     }
+    if ($globalOptions.select && $globalOptions.select.length > 0 || ($globalOptions.order && $globalOptions.order.length < selectedIndexes.length)) {
+      order = selectedIndexes
+    }
+    if ($globalOptions.shuffle) {
+      if (!$globalOptions.order || $globalOptions.order.length === 0 || isSameArray($globalOptions.order, selectedIndexes)) {
+        order = shuffle(selectedIndexes)
+      } else {
+        if ($globalOptions.order.length >= selectedIndexes.length) {
+          order = $globalOptions.order.slice(0, selectedIndexes.length)
+        } else {
+          order = shuffle(selectedIndexes)
+        }
+      }
+    }
+    $globalOptions.order = order
+  }
+
+  function isSameArray (a: number[], b: number[]) {
+    if (a.length !== b.length) return false
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false
+    }
+    return true
   }
 
   function getSelectedQuestionsIndexes () {

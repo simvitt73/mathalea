@@ -65,10 +65,12 @@
 
   function updateQuestionsOrder (isQuestionsOrdered: boolean) {
     $globalOptions.shuffle = !isQuestionsOrdered
+    updateExercises(exercises)
   }
 
   function updateSelect (selectedExercisesIndexes: number[] | undefined) {
     $globalOptions.select = selectedExercisesIndexes
+    updateExercises(exercises)
   }
 
   function updateManualMode (isManualModeActive: boolean) {
