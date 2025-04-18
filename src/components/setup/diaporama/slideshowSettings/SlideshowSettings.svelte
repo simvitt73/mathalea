@@ -18,6 +18,7 @@
 
   export let exercises: Exercice[]
   export let updateExercises: (updatedExercises: Exercice[]) => void
+  export let updateLink: () => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
   export let startSlideshow: () => void
   export let goToOverview: () => void
@@ -42,24 +43,29 @@
 
   function updateNbOfViews (nbVues: NumberRange<1, 4>) {
     $globalOptions.nbVues = nbVues
+    updateLink()
   }
 
   function updateFlow (flow: 0 | 1 | 2) {
     $globalOptions.flow = flow
+    updateLink()
   }
 
   function updateScreenBetweenSlides (screenBetweenSlides: boolean) {
     $globalOptions.screenBetweenSlides = screenBetweenSlides
+    updateLink()
   }
 
   function updatePauseAfterEachQuestion (pauseAfterEachQuestion: boolean) {
     $globalOptions.pauseAfterEachQuestion = pauseAfterEachQuestion
+    updateLink()
   }
 
   function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
     const soundCandidate = tune + 1
     if (isIntegerInRange0to4(soundCandidate)) {
       $globalOptions.sound = soundCandidate
+      updateLink()
     }
   }
 
@@ -75,14 +81,17 @@
 
   function updateManualMode (isManualModeActive: boolean) {
     $globalOptions.manualMode = isManualModeActive
+    updateLink()
   }
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
     $globalOptions.durationGlobal = durationGlobal
+    updateLink()
   }
 
   function updateIsImagesOnSides (isImagesOnSides: boolean) {
     $globalOptions.isImagesOnSides = isImagesOnSides
+    updateLink()
   }
 
   function remove (exerciseIndex: number) {
