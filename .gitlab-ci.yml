@@ -47,6 +47,8 @@ cache:
     - corepack prepare pnpm@latest-10 --activate
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
+    - pnpm add playwright@1.51.1 --save-dev
+    - pnpm add @playwright/test@1.51.1 --save-dev
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
     - sleep 20
@@ -60,7 +62,7 @@ cache:
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
     - ls /root/.cache/ms-playwright/
-    # - pnpm add playwright@1.44.1 --save-dev
+    - pnpm add playwright@1.51.1 --save-dev
     - pnpm install
     - nohup pnpm start &
     - sleep 10
@@ -74,7 +76,7 @@ cache:
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
     - ls /root/.cache/ms-playwright/
-    # - pnpm add playwright@1.44.1 --save-dev
+    - pnpm add playwright@1.51.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - pnpm install
     - nohup pnpm start &
@@ -89,7 +91,7 @@ cache:
     - lualatex -v
     - pnpm exec playwright install --with-deps chromium
     - ls /root/.cache/ms-playwright/
-    # - pnpm add playwright@1.44.1 --save-dev
+    - pnpm add playwright@1.51.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - pnpm install
     - nohup pnpm start &
