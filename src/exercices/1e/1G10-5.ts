@@ -14,7 +14,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec des coordonnées'
-export const dateDeModifImportante = '14/04/2025'
+export const dateDePublication = '19/04/2025'
 
 /**
  *
@@ -33,7 +33,7 @@ export default class ProduitScalaireCoordonnees extends Exercice {
     super()
     this.nbQuestions = 1
     // this.nbQuestionsModifiable= false
-    this.sup = 4
+    this.sup = 5
     this.spacing = 1.5
     this.besoinFormulaire2CaseACocher = ['Rappel de la formule de cours', false]
     this.besoinFormulaireTexte = [
@@ -124,7 +124,7 @@ export default class ProduitScalaireCoordonnees extends Exercice {
                 texte = `Dans un repère orthonormé, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ et  $\\overrightarrow{v}\\begin{pmatrix}${xv}\\\\${yv}\\end{pmatrix}$.<br>
                 Calculer $(${rienSi1(k)}\\vec{u})\\cdot\\vec{v}$.`
                 if (this.sup2) { texteCorr = `${cours}` } else { texteCorr = '' }
-                texteCorr += `On a : $${k}\\overrightarrow{u}\\begin{pmatrix}${k}\\times ${ecritureParentheseSiNegatif(xu)}\\\\${k}\\times ${ecritureParentheseSiNegatif(yu)}\\end{pmatrix}$ soit 
+                texteCorr += `On a : $${k}\\overrightarrow{u}\\begin{pmatrix}${k}\\times ${ecritureParentheseSiNegatif(xu)}\\\\${k}\\times ${ecritureParentheseSiNegatif(yu)}\\end{pmatrix}$, soit 
                   $${k}\\overrightarrow{u}\\begin{pmatrix}${k * xu}\\\\${k * yu}\\end{pmatrix}$.<br>
                   Ainsi, 
                   $(${rienSi1(k)}\\vec{u})\\cdot\\vec{v}=${k * xu}\\times ${ecritureParentheseSiNegatif(xv)}+${ecritureParentheseSiNegatif(k * yu)}\\times ${ecritureParentheseSiNegatif(yv)}=${miseEnEvidence(k * xu * xv + k * yu * yv)}$`
@@ -137,13 +137,13 @@ export default class ProduitScalaireCoordonnees extends Exercice {
                 texte = `Dans un repère orthonormé, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$, $\\overrightarrow{v}\\begin{pmatrix}${xv}\\\\${yv}\\end{pmatrix}$ et $\\overrightarrow{w}\\begin{pmatrix}${xw}\\\\${yw}\\end{pmatrix}$.<br>
                   Calculer ${choix ? '$\\vec{u}\\cdot(\\vec{v}+\\vec{w})$' : '$\\vec{u}\\cdot(\\vec{v}-\\vec{w})$'}.`
                 if (this.sup2) { texteCorr = `${cours}` } else { texteCorr = '' }
-                texteCorr += `On a : $\\vec{v}${choix ? '+' : '-'}\\vec{w}\\begin{pmatrix}${xv}${choix ? '+' : '-'} ${ecritureParentheseSiNegatif(xw)}\\\\${yv}${choix ? '+' : '-'} ${ecritureParentheseSiNegatif(yw)}\\end{pmatrix}$ soit 
+                texteCorr += `On a : $\\vec{v}${choix ? '+' : '-'}\\vec{w}\\begin{pmatrix}${xv}${choix ? '+' : '-'} ${ecritureParentheseSiNegatif(xw)}\\\\${yv}${choix ? '+' : '-'} ${ecritureParentheseSiNegatif(yw)}\\end{pmatrix}$, soit 
                 $\\vec{v}${choix ? '+' : '-'}\\vec{w}\\begin{pmatrix} ${choix ? `${xv + xw}` : `${xv - xw}`} \\\\${choix ? `${yv + yw}` : `${yv - yw}`} \\end{pmatrix}$.<br>
                     Ainsi, 
-                    $${choix ? '\\vec{u}\\cdot(\\vec{v}+\\vec{w})' : '\\vec{u}\\cdot(\\vec{v}+\\vec{w})'}=${xu}\\times ${ecritureParentheseSiNegatif(xv + xw)}${choix ? '+' : '-'}${ecritureParentheseSiNegatif(yu)}\\times ${ecritureParentheseSiNegatif(yv + yw)}=${choix ? `${miseEnEvidence(xu * (xv + xw) + yu * (yv + yw))}` : `${miseEnEvidence(xu * (xv + xw) - yu * (yv + yw))}`}$.`
+                    $${choix ? '\\vec{u}\\cdot(\\vec{v}+\\vec{w})' : '\\vec{u}\\cdot(\\vec{v}-\\vec{w})'}=${xu}\\times ${ecritureParentheseSiNegatif(xv + xw)}${choix ? '+' : '-'}${ecritureParentheseSiNegatif(yu)}\\times ${ecritureParentheseSiNegatif(yv + yw)}=${choix ? `${miseEnEvidence(xu * (xv + xw) + yu * (yv + yw))}` : `${miseEnEvidence(xu * (xv + xw) - yu * (yv + yw))}`}$.`
                 reponse = choix ? xu * (xv + xw) + yu * (yv + yw) : xu * (xv + xw) - yu * (yv + yw)
                 handleAnswers(this, i, { reponse: { value: reponse } })
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '<br>$\\vec{u}\\cdot\\vec{v}=$' })
+                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `<br>$${choix ? '\\vec{u}\\cdot(\\vec{v}+\\vec{w})' : '\\vec{u}\\cdot(\\vec{v}-\\vec{w})'}=$` })
                 break
             }
           }
