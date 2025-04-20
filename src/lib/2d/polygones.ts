@@ -1254,19 +1254,8 @@ export class Tetris {
         }
       }
 
-      // Renseigner la zone rectangulaire qui contient le pavage
-      let xMin = 1000
-      let xMax = -1000
-      let yMin = 1000
-      let yMax = -1000
-      for (const carre of this.carresOccupes) {
-        xMin = Math.min(xMin, carre.x)
-        xMax = Math.max(xMax, carre.x)
-        yMin = Math.min(yMin, carre.y)
-        yMax = Math.max(yMax, carre.y)
-      }
       this.rectangle = this.findRectangle()
-      aireTotale = (xMax - xMin + 1) * (yMax - yMin + 1)
+      aireTotale = (this.rectangle.xMax - this.rectangle.xMin) * (this.rectangle.yMax - this.rectangle.yMin)
       aireExt = this.aireExt()
 
       this.translate(-this.rectangle.xMin, -this.rectangle.yMin)
@@ -1288,9 +1277,9 @@ export class Tetris {
     let yMax = -1000
     for (const carre of this.carresOccupes) {
       xMin = Math.min(xMin, carre.x)
-      xMax = Math.max(xMax, carre.x)
+      xMax = Math.max(xMax, carre.x + 1)
       yMin = Math.min(yMin, carre.y)
-      yMax = Math.max(yMax, carre.y)
+      yMax = Math.max(yMax, carre.y + 1)
     }
     return { xMin, xMax, yMin, yMax }
   }
@@ -1353,10 +1342,10 @@ export class Tetris {
 
   detoure () {
     const borduresNonNettoyees:[boolean, boolean, boolean, boolean][][] = []
-    for (let x = this.rectangle.xMin; x <= this.rectangle.xMax; x++) {
+    for (let x = this.rectangle.xMin; x < this.rectangle.xMax; x++) {
       borduresNonNettoyees[x] = []
 
-      for (let y = this.rectangle.yMin; y <= this.rectangle.yMax; y++) {
+      for (let y = this.rectangle.yMin; y < this.rectangle.yMax; y++) {
         borduresNonNettoyees[x][y] = this.carresOccupes.find((carre) => carre.x === x && carre.y === y) == null
           ? [false, false, false, false]
           : [true, true, true, true]
@@ -1366,20 +1355,20 @@ export class Tetris {
       return (a || b) && !(a && b)
     }
     const borduresNettoyees:[boolean, boolean, boolean, boolean][][] = []
-    for (let x = this.rectangle.xMin; x <= this.rectangle.xMax; x++) {
+    for (let x = this.rectangle.xMin; x < this.rectangle.xMax; x++) {
       borduresNettoyees[x] = []
-      for (let y = this.rectangle.yMin; y <= this.rectangle.yMax; y++) {
+      for (let y = this.rectangle.yMin; y < this.rectangle.yMax; y++) {
         borduresNettoyees[x][y] = [false, false, false, false]
         borduresNettoyees[x][y][0] = y === 0 ? borduresNonNettoyees[x][y][0] : xor(borduresNonNettoyees[x][y][0], borduresNonNettoyees[x][y - 1][2])
-        borduresNettoyees[x][y][1] = x === this.rectangle.xMax ? borduresNonNettoyees[x][y][1] : xor(borduresNonNettoyees[x][y][1], borduresNonNettoyees[x + 1][y][3])
-        borduresNettoyees[x][y][2] = y === this.rectangle.yMax ? borduresNonNettoyees[x][y][2] : xor(borduresNonNettoyees[x][y][2], borduresNonNettoyees[x][y + 1][0])
+        borduresNettoyees[x][y][1] = x === this.rectangle.xMax - 1 ? borduresNonNettoyees[x][y][1] : xor(borduresNonNettoyees[x][y][1], borduresNonNettoyees[x + 1][y][3])
+        borduresNettoyees[x][y][2] = y === this.rectangle.yMax - 1 ? borduresNonNettoyees[x][y][2] : xor(borduresNonNettoyees[x][y][2], borduresNonNettoyees[x][y + 1][0])
         borduresNettoyees[x][y][3] = x === 0 ? borduresNonNettoyees[x][y][3] : xor(borduresNonNettoyees[x][y][3], borduresNonNettoyees[x - 1][y][1])
       }
     }
     let couplesCoords: [{ x: number, y: number }, { x: number, y: number }][] = []
 
-    for (let x = this.rectangle.xMin; x <= this.rectangle.xMax; x++) {
-      for (let y = this.rectangle.yMin; y <= this.rectangle.yMax; y++) {
+    for (let x = this.rectangle.xMin; x < this.rectangle.xMax; x++) {
+      for (let y = this.rectangle.yMin; y < this.rectangle.yMax; y++) {
         if (borduresNettoyees[x][y][0]) {
           const pt1 = { x, y }
           const pt2 = { x: x + 1, y }
