@@ -29,14 +29,14 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireNumerique = ['Types de question ', 4, '1 :Nombre de k-uplets\n2 : Arrangement\n3 : Combinaison\n4 : Nombre de sous-parties\n5 : Mélange']
+    this.besoinFormulaireNumerique = ['Types de question ', 5, '1 :Nombre de k-uplets\n2 : Arrangements\n3 : Combinaisons\n4 : Nombre de sous-parties\n5 : Permutations\n6 : Mélange']
     this.consigne = ''
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.sup = 1
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles: string[] = ['type1', 'type2', 'type3', 'type4']
+    let typesDeQuestionsDisponibles: string[] = ['type1', 'type2', 'type3', 'type4', 'type5'] // Mélange des cas précédents
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['type1'] //
     } else if (this.sup === 2) {
@@ -45,15 +45,19 @@ export default class nomExercice extends Exercice {
       typesDeQuestionsDisponibles = ['type3'] //
     } else if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['type4'] //
-    } else {
-      return ['type1', 'type2', 'type3', 'type4'] // Mélange des cas précédents
+    } else if (this.sup === 5) {
+      typesDeQuestionsDisponibles = ['type5'] //
+    }
+    if (this.sup >= 6) {
+      typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5'] // Mélange des cas précédents
     }
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let reponse = ''
-    const n = randint(3, 15)
+    let n = randint(3, 15)
     const k = randint(2, n - 1)
     const arrangement = factorielle(n) / factorielle(n - k)
     const combinaison = factorielle(n) / (factorielle(k) * factorielle(n - k))
+    let factorielleN = 0
     let kuplet = ''
     if (k === 2) { kuplet = 'couples' }
     if (k === 3) { kuplet = 'triplets' }
@@ -102,12 +106,22 @@ export default class nomExercice extends Exercice {
           reponse = `${combinaison}`
           break
         case 'type4':
-          texte = `On considère une urne contenant ${n} boules numérotées de $1$ à ${n}.<br> En considérant cette urne comme un ensemble $E$, combien de sous parties de $E$ peut-on créer ?<br>`
+          texte = `On considère ${n} boules numérotées de $1$ à ${n}.<br> En considérant l'ensemble $E$ constitué de ces boules, combien de sous parties de $E$ peut-on créer ?<br>`
           texteCorr = 'On sait que le nombre de sous parties d\'un ensemble fini à $n$ éléménts est $2^n$.<br>'
           texteCorr += `Dans notre situation, $\\mathrm{Card}(E)=${n}$.<br>`
           texteCorr += `On calcule alors $2^{${n}}=${texNombre(2 ** n)}$ . <br>`
           texteCorr += `On peut donc créer $${miseEnEvidence(texNombre(2 ** n))}$ sous-parties de $E$.<br>`
           reponse = `${2 ** n}`
+          break
+        case 'type5':
+          if (n >= 10) { n = randint(3, 9) }
+          factorielleN = factorielle(n)
+          texte = `On ${n} boules numérotées de $1$ à ${n}.<br> Déterminer le nombre de permutations possibles.<br>`
+          texteCorr = 'On sait que le nombre de permutations d\'un ensemble fini à $n$ éléménts est $n~!$<br>'
+          texteCorr += `Dans notre situation, $\\mathrm{Card}(E)=${n}$.<br>`
+          texteCorr += `On calcule alors $${n}~!=${texNombre(factorielleN)}$ . <br>`
+          texteCorr += `On peut donc créer $${miseEnEvidence(texNombre(factorielleN))}$ permutations de $E$.<br>`
+          reponse = `${factorielleN}`
           break
       }
 
