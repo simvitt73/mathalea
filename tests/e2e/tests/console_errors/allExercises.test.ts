@@ -175,11 +175,10 @@ async function getConsoleTest (page: Page, urlExercice: string) {
 }
 
 async function testRunAllLots (filter: string) {
-  // return testAll(page, '6e/6G23')
   const uuids = filter.includes('dnb') ? await findStatic(filter) : await findUuid(filter)
-  for (let i = 0; i < uuids.length && i < 300; i += 10) {
+  for (let i = 0; i < uuids.length && i < 300; i += 20) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
-    for (let k = i; k < i + 10 && k < uuids.length; k++) {
+    for (let k = i; k < i + 20 && k < uuids.length; k++) {
       const myName = 'test' + uuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs

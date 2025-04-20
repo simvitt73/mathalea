@@ -3,6 +3,7 @@ import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
+import { context } from '../../modules/context'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
@@ -291,11 +292,15 @@ export default class SommeDeVecteurs extends Exercice {
       pointOrigine = this.figureApig[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       this.figureApigCorr[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       texte = `Construire le point $${this.nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${this.nomExtremite[i]}} = \\vec{u} + \\vec{v}$.<br>`
-      texte += figureApigeom({
-        exercice: this,
-        figure: this.figureApig[i],
-        i
-      })
+      if (context.isHtml) {
+        texte += figureApigeom({
+          exercice: this,
+          figure: this.figureApig[i],
+          i
+        })
+      } else {
+        texte += this.figureApig[i].tikz()
+      }
 
       this.figureApigCorr[i].options.animationStepInterval = 250
       this.figureApigCorr[i].grid!.color = 'gray'
@@ -364,7 +369,11 @@ export default class SommeDeVecteurs extends Exercice {
 
       this.figureApigCorr[i].saveState()
 
-      texteCorr = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: this.figureApigCorr[i] })
+      if (context.isHtml) {
+        texteCorr = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: this.figureApigCorr[i] })
+      } else {
+        texteCorr = this.figureApigCorr[i].tikz()
+      }
       texteCorr += `Le point $${this.nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${this.nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${this.pointExtremite[i].x} ; ${this.pointExtremite[i].y} )`)}.<br>`
 
       if (this.questionJamaisPosee(i, xSomme[i], xSomme[i])) { // Si la question n'a jamais été posée, on en créé une autre

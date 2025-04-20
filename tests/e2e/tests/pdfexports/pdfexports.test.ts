@@ -255,9 +255,9 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
 async function testRunAllLots (filter: string) {
   // return testAll(page, '6e/6G23')
   const uuids = filter.includes('dnb') || filter.includes('crpe') || filter.includes('sti2d') || filter.includes('bac') || filter.includes('e3c') ? await findStatic(filter) : await findUuid(filter)
-  for (let i = 0; i < uuids.length && i < 300; i += 10) {
+  for (let i = 0; i < uuids.length && i < 300; i += 20) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
-    for (let k = i; k < i + 10 && k < uuids.length; k++) {
+    for (let k = i; k < i + 20 && k < uuids.length; k++) {
       const myName = 'test' + uuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs

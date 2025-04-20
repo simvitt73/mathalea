@@ -136,16 +136,12 @@ cache:
   allow_failure: true
   timeout: 2h 30m
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
-      when: never
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: always
     - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: manual
-      variables:
-        CI_TEST_TICKETS: "CREATE"
-    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
-      when: always
     - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
       when: always
     - when: never
@@ -397,7 +393,11 @@ build:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
-    - when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
   artifacts:
     when: always
     paths:
@@ -431,8 +431,6 @@ deployftp:
       "
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
-    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
       when: manual
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: manual
@@ -494,7 +492,11 @@ deploy:
     # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
     # - echo "$CI_COMMIT_AUTHOR"
   rules:
-    - when: manual
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: manual
+    - when: never
   artifacts:
     when: always
     paths:
@@ -508,7 +510,13 @@ playwright-testCanEleve:
   script:
     - pnpm test:e2e:views
   rules:
-    - when: always
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
   artifacts:
     when: on_failure
   retry:
@@ -526,7 +534,13 @@ playwright-testConsistency:
   script:
     - pnpm test:e2e:consistency
   rules:
-    - when: always
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
   artifacts:
     when: on_failure
   retry:
@@ -544,11 +558,9 @@ playwright-testInteractivity:
   script:
     - pnpm test:e2e:interactivity
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
-      when: never
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_OPEN_MERGE_REQUESTS
       when: always
-    - if: $CI_COMMIT_BRANCH == "mathalea-jobs"
+    - if: $CI_COMMIT_BRANCH == "main"
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
