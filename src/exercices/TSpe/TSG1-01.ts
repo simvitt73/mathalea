@@ -24,7 +24,7 @@ export const refs = {
 }
 /**
  *
- * @author
+ * @author Stéphane Guyon
 */
 export default class nomExercice extends Exercice {
   constructor () {
