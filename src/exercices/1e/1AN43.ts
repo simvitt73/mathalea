@@ -4,6 +4,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer un sinus ou un cosinus associé à un réel $x$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -51,6 +52,8 @@ export default class IntegraleAffine extends Exercice {
         \\cos(x)&=\\sqrt{1-\\sin^2(x)}\\\\
         &=\\sqrt{1-${texNombre(a / 10)}^2}\\\\
         &=\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
+        this.correction += `<br>On peut conclure que   $${miseEnEvidence(`\\cos(x)=\\sqrt{${texNombre(solution)}}`)}$`
+        this.reponse = `\\sqrt{${texNombre(solution)}}`
       }
       if (ISin === '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[') {
         this.correction += ` Comme $x\\in ${ISin}$, on a $\\cos(x)\\leqslant 0$.<br>`
@@ -58,6 +61,8 @@ export default class IntegraleAffine extends Exercice {
         \\cos(x)&=-\\sqrt{1-\\sin^2(x)}\\\\
         &=-\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
         &=-\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
+        this.correction += `<br>On peut conclure que   $${miseEnEvidence(`\\cos(x)=-\\sqrt{${texNombre(solution)}}`)}$`
+        this.reponse = `-\\sqrt{${texNombre(solution)}}`
       }
     }
     if (choix === 2) // On cherche le sin
@@ -69,6 +74,8 @@ export default class IntegraleAffine extends Exercice {
         \\sin(x)&=-\\sqrt{1-\\cos^2(x)}\\\\
         &=-\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
         &=-\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
+        this.correction += `<br>On peut conclure que   $${miseEnEvidence(`\\sin(x)=-\\sqrt{${texNombre(solution)}}`)}$`
+        this.reponse = `-\\sqrt{${texNombre(solution)}}`
       }
       if (ICos === '\\left[0;\\pi\\right[') {
         this.correction += ` Comme $x\\in ${ICos}$, on a $\\sin(x)\\geqslant 0$.<br>`
@@ -76,14 +83,16 @@ export default class IntegraleAffine extends Exercice {
             \\sin(x)&=\\sqrt{1-\\cos^2(x)}\\\\
             &=\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
             &=\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
+        this.correction += `<br>On peut conclure que   $\\sin(x)=${miseEnEvidence(`\\sqrt{${texNombre(solution)}}`)}$`
+        this.reponse = `\\sqrt{${texNombre(solution)}}`
       }
     }
-    if (ICos === '\\left[0;\\pi\\right[' || ISin === '\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[') {
-      this.reponse = `\\sqrt{${texNombre(solution)}}`
-    } 
-    if (ICos === '\\left[-;0\\right[' || ISin === '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[') {
-      this.reponse = `-\\sqrt{${texNombre(solution)}}`
-    }
+    // if (ICos === '\\left[0;\\pi\\right[' || ISin === '\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[') {
+    //   this.reponse = `\\sqrt{${texNombre(solution)}}`
+    // }
+    // if (ICos === '\\left[-\\pi;0\\right[' || ISin === '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[') {
+    //  this.reponse = `-\\sqrt{${texNombre(solution)}}`
+    // }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
