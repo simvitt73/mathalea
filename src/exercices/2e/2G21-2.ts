@@ -299,12 +299,16 @@ export default class SommeDeVecteurs extends Exercice {
           i
         })
       } else {
+        this.figureApig[i].options.latexHeight = 20
+        this.figureApig[i].options.latexWidth = 20
         texte += this.figureApig[i].tikz()
       }
 
       this.figureApigCorr[i].options.animationStepInterval = 250
       this.figureApigCorr[i].grid!.color = 'gray'
       this.figureApigCorr[i].grid!.colorLabel = 'gray'
+      this.figureApigCorr[i].options.latexHeight = 20
+      this.figureApigCorr[i].options.latexWidth = 20
 
       /* const vectorsBlue = [...figureCorrection.elements.values()].filter(e => e.color === 'blue')
       for (let ee = 0; ee < vectorsBlue.length; ee++) {
@@ -370,9 +374,9 @@ export default class SommeDeVecteurs extends Exercice {
       this.figureApigCorr[i].saveState()
 
       if (context.isHtml) {
-        texteCorr = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: this.figureApigCorr[i] })
+        texteCorr = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: this.figureApigCorr[i] }) + '<br>'
       } else {
-        texteCorr = this.figureApigCorr[i].tikz()
+        texteCorr = this.figureApigCorr[i].tikz() + '<br>'
       }
       texteCorr += `Le point $${this.nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${this.nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${this.pointExtremite[i].x} ; ${this.pointExtremite[i].y} )`)}.<br>`
 

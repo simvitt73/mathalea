@@ -7,6 +7,8 @@ import prefs from '../../helpers/prefs.js'
 import { spawn } from 'node:child_process'
 import { findStatic, findUuid } from '../../helpers/filter'
 import { createIssue } from '../../helpers/issue'
+import { describe, test } from 'vitest'
+import { expect } from '@playwright/test'
 
 const logPDF = getFileLogger('exportPDF', { append: true })
 const logPackage = getFileLogger('exportPackage', { append: true })
@@ -54,6 +56,11 @@ async function getLatexFile (page: Page, urlExercice: string) {
   // Classique
   // ProfMaquette
   // ProfMaquette avec QrCode
+
+  log(urlExercice)
+  page.setDefaultTimeout(120000)
+  await page.goto(urlExercice)
+
   // const resu0 = await getLatexFileStyle(page, urlExercice, 'Coopmaths')
   // if (resu0 === 'KO') {
   //   return 'KO'
@@ -62,6 +69,7 @@ async function getLatexFile (page: Page, urlExercice: string) {
   // if (resu1 === 'KO') {
   //   return 'KO'
   // }
+
   const resu2 = await getLatexFileStyle(page, urlExercice, 'ProfMaquette')
   if (resu2 === 'KO') {
     return 'KO'
@@ -74,11 +82,6 @@ async function getLatexFile (page: Page, urlExercice: string) {
 }
 
 async function getLatexFileStyle (page: Page, urlExercice: string, style: string) {
-  log(urlExercice)
-  page.setDefaultTimeout(120000)
-
-  await page.goto(urlExercice)
-  await page.reload()
   log('style=' + style)
   let styleLocator = ''
   switch (style) {
@@ -296,18 +299,32 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   prefs.headless = true
   log(filter)
   testRunAllLots(filter)
+} else if (process.env.CI && process.env.CHANGED_FILES !== null && process.env.CHANGED_FILES !== undefined) {
+  const changedFiles = process.env.CHANGED_FILES?.split('\n') ?? []
+  log(changedFiles)
+  prefs.headless = true
+  const filtered = changedFiles.filter(file => file.startsWith('src/exercices/') &&
+    !file.includes('ressources') &&
+    !file.includes('apps') &&
+    file.replace('src/exercices/', '').split('/').length >= 2).map(file =>
+    file.replace(/^src\/exercices\//, '').replace(/\.ts$/, '.').replace(/\.js$/, '.')
+  )
+  log(filtered)
+  if (filtered.length === 0) {
+    // aucun fichier concerné.. on sort
+    describe('dummy', () => {
+      test('should pass', () => {
+        expect(true).toBe(true)
+      })
+    })
+  } else {
+    filtered.forEach(file => {
+      const filter = file.replaceAll(' ', '')
+      testRunAllLots(filter)
+    })
+  }
 } else {
-  // testRunAllLots('dnb_2013')
-  // testRunAllLots('dnb_2014')
-  // testRunAllLots('dnb_2015')
-  // testRunAllLots('dnb_2016')
-  // testRunAllLots('dnb_2017')
-  // testRunAllLots('dnb_2018')
-  // testRunAllLots('dnb_2019')
-  // testRunAllLots('dnb_2020')
-  // testRunAllLots('dnb_2021')
-  // testRunAllLots('dnb_2022')
-  // testRunAllLots('dnb_2023')
+  // testRunAllLots('dnb')
   // testRunAllLots('c3')
   // testRunAllLots('can')
   // testRunAllLots('3e')
@@ -316,13 +333,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('6e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
-  // testRunAllLots('nb_2017_12_wallisfutuna_6')
-  // testRunAllLots('dnb_2018_05_pondichery_4')
-  // testRunAllLots('dnb_2018_12_caledonie_4')
-  // testRunAllLots('dnb_2019_03_caledonie_7')
-  // testRunAllLots('dnb_2020_09_metropole_4')
-  // testRunAllLots('dnb_2021_06_polynesie_5')
-  // testRunAllLots('dnb_2014_12_caledonie_2')
-  // testRunAllLots('dnb_2020^dnb_2021^dnb_2022^dnb_2023')
-  testRunAllLots('bac_2022')
+  // testRunAllLots('bac')
+  testRunAllLots('6e/6G10')
 }
