@@ -45,6 +45,10 @@ class ExternalApp extends Exercice {
           return l
         })
       }
+      if (event.data?.type === 'height' && event.data?.numeroExercice === this.numeroExercice) {
+        this.iframe.setAttribute('scrolling', 'no')
+        this.iframe.setAttribute('height', event.data.height + 20)
+      }
     })
   }
 
