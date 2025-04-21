@@ -104,7 +104,7 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     this.enonce += `${texteGras('Pâturage :')} ${densiteChevre} chèvres maximum par hectare <br><br>`
     this.enonce += `${texteGras('Document 2')} : `
     this.enonce += `${texteGras('Plan simplifié des surfaces de pâturage.')} <br>`
-    this.enonce += `${figure} <br>`
+    this.enonce += `${figure} `
     this.enonce += `${texteGras('Document 3')} <br>`
     this.enonce += `1 hectare = $${texNombre(10000)}$ m$^2$` //
     this.enonce += listeQuestions + '<br><br>'

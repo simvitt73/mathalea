@@ -134,10 +134,8 @@ cache:
   image: mcr.microsoft.com/playwright:v1.51.0-noble
   stage: playwright-test
   allow_failure: true
-  timeout: 2h 30m
+  timeout: 3h 30m
   rules:
-    - if: $CI_OPEN_MERGE_REQUESTS
-      when: always
     - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"

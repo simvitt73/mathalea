@@ -76,8 +76,13 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       const c = cercle(point(0, b), 0.8, '#f15929')
       c.epaisseur = 2
       let x0 = -7
-      while (!Number.isInteger(f(x0)) || f(x0) <= yMin || f(x0) >= yMax || x0 === -2 || x0 === -1 || x0 === 0) {
+      while (!Number.isInteger(f(x0)) || f(x0) <= yMin || f(x0) >= yMax || x0 === -1 || x0 === 0) {
         x0 += 1
+        if (x0 >= xMax) {
+          // pour éviter une boucle infinie
+          x0 = 1
+          break
+        }
       }
       const A = point(x0, f(x0))
       const B = point(x0 + 1, f(x0))
