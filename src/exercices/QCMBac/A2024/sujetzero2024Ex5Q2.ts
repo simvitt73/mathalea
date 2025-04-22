@@ -74,11 +74,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       this.generateProduct(p), // Réponse incorrecte
       this.generateProduct2(n, p)  // Réponse incorrecte
     ]
-    this.enonce = this.sup3
-      ? `Une urne contient ${n} boules numérotées de 1 à ${n}.<br> On tire successivement ${p} boules dans cette urne, ${texteEnCouleurEtGras('sans remise')}. <br>
+    this.enonce = `Une urne contient ${n} boules numérotées de 1 à ${n}.<br> On tire successivement ${p} boules dans cette urne, ${texteEnCouleurEtGras('sans remise')}. <br>
           On appelle  "tirage" la liste non ordonnée des numéros des ${p} boules tirées. <br> Quel est le nombre de tirages possibles, sans tenir compte de l'ordre des numéros ?`
-      : ''
-    this.enonce += '?'
+
     this.correction = `Il n'y a pas d'ordre dans le tirage, on cherche donc le nombre de combinaisons de ${p} éléments d'un ensemble parmi ${n}. <br>`
     this.correction += `<br>$\\displaystyle\\binom{${n}}{${p}}=\\dfrac{${n}~!}{(${n}-${p})~!\\times${p}~!}$`
     this.correction += `$=\\dfrac{${n}~!}{${n - p}~!\\times${p}~!}=$` + this.generateFraction(n, p)
@@ -105,7 +103,5 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
-    this.sup3 = true
   }
 }
