@@ -181,21 +181,21 @@ export default class VocabulaireDuCercle extends Exercice {
       if (typesDeQuestions.includes('3')) {
         questions.push(
           {
-            nom: `[$${B.nom + C.nom}$]`,
-            nature: 'un diamètre',
-            commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
-            commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-            sens: sensDesQuestions[i * nbSousQuestionMax + 1]
-          })
-      }
-      if (typesDeQuestions.includes('4')) {
-        questions.push(
-          {
             nom: `$${B.nom + C.nom}$`,
             nature: 'le diamètre',
             commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
             commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
             sens: sensDesQuestions[i * nbSousQuestionMax + 3]
+          })
+      }
+      if (typesDeQuestions.includes('4')) {
+        questions.push(
+          {
+            nom: `[$${B.nom + C.nom}$]`,
+            nature: 'un diamètre',
+            commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
+            commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+            sens: sensDesQuestions[i * nbSousQuestionMax + 1]
           })
       }
       if (typesDeQuestions.includes('5')) {
