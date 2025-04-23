@@ -2,8 +2,6 @@ import Exercice from '../Exercice'
 import { randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { choice } from '../../lib/outils/arrayOutils'
-import { i } from 'mathjs'
 export const titre = 'Dénombrement.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,7 +32,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     const n = randint(3, 6) // nombre de chiffres
     const p = randint(3, 5) // nombre de lettres du code
-    const lettre = randint(p+1, 8) // nombre de lettres possibles pour le code.
+    const lettre = randint(p + 1, 8) // nombre de lettres possibles pour le code.
     const code = (() => {
       if (lettre === 3) return 'A, B, C'
       if (lettre === 4) return 'A, B, C, D'
