@@ -60,9 +60,17 @@ async function action (page: Page, description: string) {
   await buttonNewData.click({ clickCount: 3 })
   logDebug('fin Actualier (nouvel énoncé) 3 fois')
   const buttonZoom = page.locator('#setupButtonsBar > div > div:nth-child(2) > button')
-  await buttonZoom.highlight()
+  const buttonZoomMoins = page.locator('#setupButtonsBar > div > div:nth-child(1) > button')
+  const zParam = new URL(page.url()).searchParams.get('z')
+  const z = (zParam === null || zParam === '' ? 1 : Number(zParam))
   log('Zoom')
-  await waitForExercicesAffiches(page, buttonZoom)
+  if (z < 1.4) {
+    // await buttonZoom.highlight()
+    await waitForExercicesAffiches(page, buttonZoom)
+  } else {
+    // await buttonZoomMoins.highlight()
+    await waitForExercicesAffiches(page, buttonZoomMoins)
+  }
   log('Fin zoom')
   // Active le mode interactif
   const activateInteractivityButton = page.getByRole('button', { name: 'Rendre interactif' })
@@ -103,12 +111,14 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     try {
       page.on('pageerror', msg => {
         if (msg.message !== 'Erreur de chargement de Mathgraph') { // mtgLoad : 3G22
-          messages.push(page.url() + ' ' + msg.stack)
+          messages.push('error:' + page.url() + ' ' + msg.stack)
+          log(msg.message)
+          log(msg.stack)
           logError(msg)
         }
       })
       page.on('crash', msg => {
-        messages.push(page.url() + ' ' + msg)
+        messages.push('crach:' + page.url() + ' ' + msg)
         logError(msg)
       })
       // Listen for all console events and handle errors
@@ -124,7 +134,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
             !msg.location().url.includes('mathgraph32')
         ) {
           if (!msg.text().includes('<HeaderExercice>')) {
-            messages.push(page.url() + ' ' + msg.text())
+            messages.push('console:' + page.url() + ' ' + msg.text())
           }
         }
         // }
@@ -151,6 +161,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       if (messages.length > 0) {
         logError(messages)
         logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
+        log('url:' + page.url())
         await createIssue(urlExercice, messages, ['console'], log)
         return 'KO'
       } else {
@@ -161,6 +172,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       let message = 'Unknown Error'
       if (error instanceof Error) message = error.message
       messages.push('erreur:' + message)
+      log('url:' + page.url())
       logError(messages)
       logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
       if (attempt === retries) {
@@ -233,7 +245,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
     })
   }
 } else {
-  prefs.headless = false
+  prefs.headless = true
   testRunAllLots('can')
   testRunAllLots('6e')
   testRunAllLots('5e')
@@ -250,5 +262,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  // testRunAllLots('5e/5G30-2')
+  // testRunAllLots('6e/6M21.')
 }

@@ -347,6 +347,7 @@ testExosModified:
     # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
     # - CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
     - git fetch origin "$CI_COMMIT_REF_NAME" --depth=6
+    - git checkout FETCH_HEAD
     - |
       COMMIT_COUNT=$(git rev-list --count HEAD)
       MAX_COMMITS=5

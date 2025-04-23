@@ -103,7 +103,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
 
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
-      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br><br>` + mathalea2d({
+      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br>` + mathalea2d({
         xmin: xMin,
         xmax: xMax,
         ymin: yMin,
@@ -145,7 +145,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}` } })
       handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, options: { variable: 'x' }, compare: functionCompare } })
 
-      texte = introduction + '<br>' + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
+      texte = introduction + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
       texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3
 
       if (this.questionJamaisPosee(i, a, b, num, den)) {

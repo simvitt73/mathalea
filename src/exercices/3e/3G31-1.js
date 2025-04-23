@@ -99,7 +99,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             optionsTikz: 'baseline=(current bounding box.north)'
           }, objetsMathalea)
           if (!this.sup) {
-            texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
+            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
           }
           texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           texteCorr = ''
@@ -167,7 +167,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             optionsTikz: 'baseline=(current bounding box.north)'
           }, objetsMathalea)
           if (!this.sup) {
-            texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
+            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
           }
           texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           texteCorr = ''

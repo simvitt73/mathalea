@@ -60,6 +60,7 @@ async function getLatexFile (page: Page, urlExercice: string) {
   log(urlExercice)
   page.setDefaultTimeout(120000)
   await page.goto(urlExercice)
+  await page.waitForLoadState('networkidle')
 
   // const resu0 = await getLatexFileStyle(page, urlExercice, 'Coopmaths')
   // if (resu0 === 'KO') {
@@ -73,6 +74,10 @@ async function getLatexFile (page: Page, urlExercice: string) {
   const resu2 = await getLatexFileStyle(page, urlExercice, 'ProfMaquette')
   if (resu2 === 'KO') {
     return 'KO'
+  }
+  const urlPage = page.url()
+  if (urlPage.includes('dnb') || urlPage.includes('crpe') || urlPage.includes('sti2d') || urlPage.includes('bac') || urlPage.includes('e3c')) {
+    return 'OK'
   }
   const resu3 = await getLatexFileStyle(page, urlExercice, 'Can')
   if (resu3 === 'KO') {

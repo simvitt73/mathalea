@@ -67,16 +67,16 @@ export default class AireParComptage extends Exercice {
       const objets = [grille(xmin, ymin, xmax, ymax), tetris.poly, tetris2.poly, fig1, fig2, uniteAire, uniteLongueur, texteUniteAire, texteUniteLongueur]
       const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, { xmin, ymin, xmax, ymax }), objets)
       const texte = this.sup2 === 1
-        ? `${figure}<br><br>
+        ? `${figure}
 Quelles sont les aires des figures ci-dessus ?<br>
  ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteAvant: 'figure 1 : ', texteApres: ` u.a ${sp(17)} `, objetReponse: { reponse: { value: aire } } })}
  ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteAvant: 'figure 2 : ', texteApres: ' u.a.', objetReponse: { reponse: { value: aire2 } } })}`
         : this.sup2 === 2
-          ? `${figure}<br><br>
+          ? `${figure}
  Quels sont les périmètres des figures ci-dessus ?<br>
   ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteAvant: 'figure 1 : ', texteApres: ` u.l ${sp(6)}`, objetReponse: { reponse: { value: tetris.poly.perimetre } } })}
   ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteAvant: 'figure 2 : ', texteApres: ' u.l.', objetReponse: { reponse: { value: tetris2.poly.perimetre } } })}`
-          : `${figure}<br><br>
+          : `${figure}
   Quels sont les aires et les périmètres des figures ci-dessus ?<br>
   ${ajouteQuestionMathlive({ exercice: this, question: 4 * i, typeInteractivite: 'mathlive', texteAvant: ' Aire figure 1 : ', texteApres: `u.a ${sp(17)}`, objetReponse: { reponse: { value: aire } } })}
   ${ajouteQuestionMathlive({ exercice: this, question: 4 * i + 1, typeInteractivite: 'mathlive', texteAvant: 'Aire figure 2 : ', texteApres: 'u.a.', objetReponse: { reponse: { value: aire2 } } })}${this.interactif ? '<br>' : ''}
