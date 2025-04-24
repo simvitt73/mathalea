@@ -1206,7 +1206,7 @@ function TrouveExtremites (pt1: { x: number, y: number }, couplesPoints: [{ x: n
  * sa propriété poly donne le polygone de la forme
  * sa méthode render retourne un array contenant toutes les cases carrées
  */
-export class Tetris {
+export class Polyquad {
   xOrigine: number
   yOrigine: number
   poly!: Polygone
@@ -1294,6 +1294,35 @@ export class Tetris {
       carre.y += dy
     }
     this.rectangle = { xMin: this.rectangle.xMin + dx, xMax: this.rectangle.xMax + dx, yMin: this.rectangle.yMin + dy, yMax: this.rectangle.yMax + dy }
+  }
+
+  rotate (sens: boolean) {
+    const matriceTransfo = sens
+      ? [[0, -1], [1, 0]]
+      : [[0, 1], [-1, 0]]
+    if (matriceTransfo == null) throw Error('La matrice ne peut pas être créée, ce qui est impossible')
+    for (const carre of this.carresOccupes) {
+      const x = matriceTransfo[0][0] * carre.x + matriceTransfo[0][1] * carre.y
+      const y = matriceTransfo[1][0] * carre.x + matriceTransfo[1][1] * carre.y
+      carre.x = x
+      carre.y = y
+    }
+    for (const carre of this.carresAdjacentsDispo) {
+      const x = matriceTransfo[0][0] * carre.x + matriceTransfo[0][1] * carre.y
+      const y = matriceTransfo[1][0] * carre.x + matriceTransfo[1][1] * carre.y
+      carre.x = x
+      carre.y = y
+    }
+    this.rectangle = this.findRectangle()
+
+    this.translate(-this.rectangle.xMin, -this.rectangle.yMin)
+    // permet de renseigner this.dots (la liste des sommets.)
+    this.detoure()
+
+    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(this.xOrigine, this.yOrigine))
+    this.poly.color = colorToLatexOrHTML('red')
+    this.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
+    this.poly.epaisseur = 2
   }
 
   isEmpty (x:number, y:number) {

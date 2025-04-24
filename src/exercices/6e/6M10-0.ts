@@ -1,12 +1,12 @@
 import { point } from '../../lib/2d/points'
-import { carre, Tetris } from '../../lib/2d/polygones'
+import { carre, Polyquad } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -28,6 +28,8 @@ export const refs = {
 export default class AireParComptage extends Exercice {
   constructor () {
     super()
+    this.comment = `Une version course aux nombres de cet exercice est disponible sous la référence can6M14 pour l'aire et can6M15 pour le périmètre. Dans les versions can, il n'y a qu'une figure.<br>
+    Les figures sont générées aléatoirement à partir d'une aire choisie. Les possiblités sont nombreuses, mais aucune vérification n'a été faite afin d'éviter les doublons.`
     this.besoinFormulaireTexte = ['Aire maximale', 'Nombres séparés par des tirets\n1 : Inférieure à 10\n2 : Inférieure à 20\n3 : Inférieure à 30\n4 : Mélange']
     this.besoinFormulaire2Numerique = ['Mesures demandées', 3, '1 : Aire\n2 : Périmètre\n3 : Aire et périmètre']
     this.sup = '4'
@@ -47,13 +49,13 @@ export default class AireParComptage extends Exercice {
         : typeDeQuestion[i] === 2
           ? randint(10, 19)
           : randint(20, 29)
-      const tetris = new Tetris(aire, 0, 0)
-      const tetris2 = new Tetris(aire2, tetris.rectangle.xMax + 1, 0)
-      const xmin = tetris.rectangle.xMin - 1
-      const ymin = tetris.rectangle.yMin - 1
-      const decalage = tetris.rectangle.xMax + 1
+      const tetris = new Polyquad(aire, 0, 0)
+      const tetris2 = new Polyquad(aire2, tetris.rectangle.xMax + 1, 0)
+      const xmin = tetris.rectangle.xMin
+      const ymin = tetris.rectangle.yMin
+      const decalage = tetris.rectangle.xMax
       const xmax = tetris2.rectangle.xMax + decalage + 4
-      const ymax = Math.max(tetris.rectangle.yMax, tetris2.rectangle.yMax) + 1
+      const ymax = Math.max(tetris.rectangle.yMax, tetris2.rectangle.yMax)
       const fig1 = texteParPosition('Figure 1', (tetris.rectangle.xMin + tetris.rectangle.xMax) / 2, tetris.rectangle.yMin - 0.5)
       const fig2 = texteParPosition('Figure 2', (tetris2.rectangle.xMin + tetris2.rectangle.xMax) / 2 + decalage, tetris2.rectangle.yMin - 0.5)
       const uniteAire = carre(point(xmax - 2, ymax - 2), point(xmax - 1, ymax - 2))
@@ -65,7 +67,7 @@ export default class AireParComptage extends Exercice {
       const texteUniteLongueur = texteParPosition('u.l', xmax - 1.5, ymax - 4.5)
 
       const objets = [grille(xmin, ymin, xmax, ymax), tetris.poly, tetris2.poly, fig1, fig2, uniteAire, uniteLongueur, texteUniteAire, texteUniteLongueur]
-      const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, { xmin, ymin, xmax, ymax }), objets)
+      const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets, { rxmin: -0.1, rymin: -0.1, rxmax: 0.1, rymax: 0.1 })), objets)
       const texte = this.sup2 === 1
         ? `${figure}
 Quelles sont les aires des figures ci-dessus ?<br>
