@@ -49,7 +49,7 @@ export default class DifferenceAireParComptageCan extends Exercice {
       const xmax = tetris.rectangle.xMax + 3
       const ymax = tetris.rectangle.yMax
       const rectangle = polygone(point(tetris.rectangle.xMin, tetris.rectangle.yMin), point(tetris.rectangle.xMax, tetris.rectangle.yMin), point(tetris.rectangle.xMax, tetris.rectangle.yMax), point(tetris.rectangle.xMin, tetris.rectangle.yMax))
-
+      const nomFigure = (tetris.rectangle.xMax === tetris.rectangle.yMax) ? 'carré' : 'rectangle'
       aireRectangle = rectangle.aire
       aireTetris = tetris.poly.aire
       aireDiff = aireRectangle - aireTetris
@@ -85,13 +85,13 @@ export default class DifferenceAireParComptageCan extends Exercice {
       }
 
       const fig1 = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5, style: 'display: inline-block' }, fixeBordures(objets, { rxmin: -0.1, rymin: -0.1, rxmax: 0.1, rymax: 0.1 })), objets)
-      this.question = `L'aire du rectangle est : ${aireRectangle} u.a.<br>
+      this.question = `L'aire du ${nomFigure} est : ${aireRectangle} u.a.<br>
        ${aireDiff <= aireTetris
             ? 'Quelle est l\'aire de la zone non hachurée ?'
             : 'Quele est l\'aire de la zone hachurée ?'}<br>
       
             ${fig1}`
-    } while (aireTetris < 10 || aireDiff < 3 || Math.abs(aireDiff - aireTetris) < 3)
+    } while (aireTetris < 10 || aireDiff < 3 || Math.abs(aireDiff - aireTetris) < 5)
     this.optionsChampTexte = { texteApres: ' u.a' }
     this.reponse = aire
     this.correction = `${aireDiff <= aireTetris
