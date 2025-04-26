@@ -92,7 +92,6 @@ export default class DifferenceAireParComptageCan extends Exercice {
       
             ${fig1}`
     } while (aireTetris < 10 || aireDiff < 3 || Math.abs(aireDiff - aireTetris) < 3)
-    console.log(aireDiff, aireTetris)
     this.optionsChampTexte = { texteApres: ' u.a' }
     this.reponse = aire
     this.correction = `${aireDiff <= aireTetris
