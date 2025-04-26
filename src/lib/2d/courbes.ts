@@ -1,8 +1,8 @@
 import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { inferieurouegal } from '../../modules/outils'
-import { point, tracePoint } from './points'
-import { motifs, polygone, polyline } from './polygones'
+import { Point, point, tracePoint } from './points'
+import { elimineDoublonsConsecutifs, eliminePointsIntermediairesAlignes, motifs, polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { arc } from './cercle'
@@ -558,7 +558,129 @@ export function integrale (f: (x:number)=>number, {
 } = {}) {
   return new Integrale(f, { repere, color, couleurDeRemplissage, epaisseur, step, a, b, opacite, hachures })
 }
-
+/**
+ * Trace l'aire entre la courbe d'une fonction et l'axe des abscisses
+ * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {number} [parametres.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.pas = 1]  Pas entre deux abscisses pour tracer l'aire
+ * @param {boolean} [parametres.sup = false] Si true, l'aire est arrondie par le haut, sinon par le bas
+ * @param {string} [parametres.colorPositif = 'red']  Couleur de l'aire positive
+ * @param {string} [parametres.colorNegatif = 'blue']  Couleur de l'aire négative
+ * @example integraleComptable(g, {repere: r})
+ * // Trace l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis.
+ * @example integraleComptable(g, {repere: r, pas: 0.1, sup: true, colorPositif: 'green', colorNegatif: 'orange'})
+ * // Trace l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis. L'aire est arrondie par le haut, le pas entre deux abscisses est de 0.1, l'aire positive est verte et l'aire négative est orange.
+ * @author Jean-Claude Lhote
+ */
+export class IntegraleComptable extends ObjetMathalea2D {
+  constructor (f: (x:number)=>number, {
+    repere,
+    xMin,
+    xMax,
+    pas = 1,
+    sup = false,
+    colorPositif = 'red',
+    colorNegatif = 'blue'
+  }:{
+    repere: Repere,
+    xMin: number,
+    xMax: number,
+    pas?: number,
+    sup?: boolean,
+    colorPositif?: string,
+    colorNegatif?: string
+  }) {
+    super()
+    this.objets = []
+    this.bordures = (repere?.bordures ?? [0, 0, 0, 0]) as unknown as [number, number, number, number]
+    const points: Point[] = [point(xMin, 0)]
+    for (let x = xMin; inferieurouegal(x, xMax); x += pas) {
+      if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
+      const y = sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas
+      if (isFinite(y)) {
+        points.push(point(x, y))
+      } else {
+        x += pas
+      }
+    }
+    let n = 0
+    let side = points[1].y >= 0 ? 'pos' : 'neg'
+    while (n < points.length) {
+      const pointSuivant = points[n + 1]
+      if (pointSuivant == null) break
+      const yn = points[n].y
+      const ySuivant = pointSuivant.y
+      const xn = points[n].x
+      const xSuivant = pointSuivant.x
+      if (side === 'pos') {
+        if (ySuivant === yn) n++
+        else {
+          if (ySuivant >= 0) {
+            if (ySuivant > yn) {
+              points.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
+            } else {
+              points.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
+            }
+            n += 2
+          } else {
+            let pointEnPlus = 0
+            if (sup) {
+              points.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
+              pointEnPlus = 2
+            } else {
+              points.splice(n + 1, 0, point(xn, 0))
+              pointEnPlus = 1
+            }
+            const pointsPol = eliminePointsIntermediairesAlignes(points.slice(0, n + pointEnPlus + 1))
+            const pol = polygone(pointsPol, colorPositif)
+            pol.couleurDeRemplissage = colorToLatexOrHTML(colorPositif)
+            this.objets.push(pol)
+            points.splice(0, n + pointEnPlus)
+            points.unshift(point(sup ? xSuivant : xn, 0))
+            n = 1
+            side = 'neg'
+          }
+        }
+      } else {
+        if (ySuivant === yn) n++
+        else {
+          if (ySuivant < 0) {
+            if (ySuivant > yn) {
+              points.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
+            } else {
+              points.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
+            }
+            n += 2
+          } else {
+            if (sup) {
+              points.splice(n + 1, 0, point(xn, 0), point(xSuivant, 0))
+            } else {
+              points.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
+            }
+            const pointsPol = eliminePointsIntermediairesAlignes(points.slice(0, n + 3))
+            const pol = polygone(pointsPol, colorNegatif)
+            pol.couleurDeRemplissage = colorToLatexOrHTML(colorNegatif)
+            this.objets.push(pol)
+            points.splice(0, n + 2)
+            points.unshift(point(xSuivant, 0))
+            n = 1
+            side = 'pos'
+          }
+        }
+      }
+    }
+    if (points.length > 2) {
+      points.push(point(xMax, 0))
+      const pointsPol = elimineDoublonsConsecutifs(points)
+      const pol = polygone(pointsPol, side === 'pos' ? colorPositif : colorNegatif)
+      pol.couleurDeRemplissage = colorToLatexOrHTML(side === 'pos' ? colorPositif : colorNegatif)
+      this.objets.push(pol)
+    }
+  }
+}
 export class BezierPath extends ObjetMathalea2D {
   xStart: number
   yStart: number

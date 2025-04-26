@@ -1492,29 +1492,58 @@ export class Polyquad {
       }
     }
     // on supprime les points intermédiaires
-    for (let i = 1; i < this.dots.length - 1;) {
-      const pt1 = this.dots[i - 1]
-      const pt2 = this.dots[i]
-      const pt3 = this.dots[i + 1]
-      const dx = pt2.x - pt1.x
-      const dy = pt2.y - pt1.y
-      const dx2 = pt3.x - pt2.x
-      const dy2 = pt3.y - pt2.y
-      if (dx2 === dx && dy2 === dy) {
-        this.dots.splice(i, 1)
-      } else {
-        i++
-      }
+    this.dots = eliminePointsIntermediairesAlignes(this.dots.map(el => point(el.x, el.y))).map(el => ({ x: el.x, y: el.y }))
+  }
+}
+
+/**
+ * Une fonction pour éliminer les points consécutifs identiques d'une liste de points
+ * @param points
+ * @returns {Point[]}
+ * @author Jean-Claude Lhote
+ */
+export function elimineDoublonsConsecutifs (points: Point[]) {
+  const pointsConserves: Point[] = []
+  for (let i = 0; i < points.length; i++) {
+    if (i === 0 || points[i].x !== points[i - 1].x || points[i].y !== points[i - 1].y) {
+      pointsConserves.push(points[i])
     }
-    const pt1 = this.dots[this.dots.length - 1]
-    const pt2 = this.dots[0]
-    const pt3 = this.dots[1]
+  }
+  return pointsConserves
+}
+
+/**
+ * Supprime de la liste de points les points intermédiaires alignés
+ * Elle permet aussi de supprimer les doublons consécutifs puisque forcément, ils sont alignés
+ * @param {Point[]} points une liste de points censés former un polygone
+ * @returns {Point[]} une liste de points formant un polygone
+ * @author Jean-Claude Lhote
+ */
+export function eliminePointsIntermediairesAlignes (points: Point[]) {
+  // on supprime les points intermédiaires
+  for (let i = 1; i < points.length - 1;) {
+    const pt1 = points[i - 1]
+    const pt2 = points[i]
+    const pt3 = points[i + 1]
     const dx = pt2.x - pt1.x
-    const dy = pt2.x - pt1.y
+    const dy = pt2.y - pt1.y
     const dx2 = pt3.x - pt2.x
     const dy2 = pt3.y - pt2.y
     if (dx2 === dx && dy2 === dy) {
-      this.dots.splice(0, 1)
+      points.splice(i, 1)
+    } else {
+      i++
     }
   }
+  const pt1 = points[points.length - 1]
+  const pt2 = points[0]
+  const pt3 = points[1]
+  const dx = pt2.x - pt1.x
+  const dy = pt2.x - pt1.y
+  const dx2 = pt3.x - pt2.x
+  const dy2 = pt3.y - pt2.y
+  if (dx2 === dx && dy2 === dy) {
+    points.splice(0, 1)
+  }
+  return points
 }
