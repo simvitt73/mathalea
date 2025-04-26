@@ -346,7 +346,7 @@ testExosModified:
     # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
     # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
     # - CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
-    - git fetch origin "$CI_COMMIT_REF_NAME" --depth=6
+    - git fetch origin "$CI_COMMIT_REF_NAME" --depth=10
     - git checkout FETCH_HEAD
     - |
       COMMIT_COUNT=$(git rev-list --count HEAD)
@@ -358,7 +358,16 @@ testExosModified:
         DIFF_BASE="HEAD~$MAX_COMMITS"
       fi
       echo "Comparing from $DIFF_BASE to HEAD"
-      CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
+
+      if git rev-parse --verify "$DIFF_BASE" >/dev/null 2>&1; then
+        echo "Comparing from $DIFF_BASE to HEAD"
+        CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
+      else
+        echo "⚠️ Le commit $DIFF_BASE n'est pas disponible (clone trop peu profond ?)"
+        CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+      fi
+
+    # -  CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
     # - CHANGED_FILES=$(git diff --name-only HEAD~5..HEAD)
     - echo "$CHANGED_FILES"
     - CHANGED_FILES="$CHANGED_FILES" pnpm test:e2e:console_errors
