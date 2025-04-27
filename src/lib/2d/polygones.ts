@@ -1500,6 +1500,32 @@ export class Polyquad {
 }
 
 /**
+ * Vérifie si deux vecteurs sont orientés dans la même direction
+ * @param {number} dx1 Composante x du premier vecteur
+ * @param {number} dy1 Composante y du premier vecteur
+ * @param {number} dx2 Composante x du second vecteur
+ * @param {number} dy2 Composante y du second vecteur
+ * @returns {boolean} true si les vecteurs sont orientés dans la même direction, false sinon
+ */
+function sontVecteursAlignes (dx1: number, dy1: number, dx2: number, dy2: number): boolean {
+  if (dx1 === 0) {
+    if (dy1 === 0) {
+      return dx2 === 0 && dy2 === 0
+    } else {
+      return dy2 / dy1 > 0
+    }
+  }
+  if (dy1 === 0) {
+    if (dx1 === 0) {
+      return dx2 === 0 && dy2 === 0
+    } else {
+      return dx2 / dx1 > 0
+    }
+  }
+  return dx2 * dy1 === dx1 * dy2 && dx1 * dx2 > 0 && dy1 * dy2 > 0
+}
+
+/**
  * Supprime de la liste de binomesXY les binomes intermédiaires correspondant à des point alignés avec le précédent et le suivant afin de limiter le nombre de sommets d'un polygone
  * Elle permet aussi de supprimer les doublons consécutifs puisque forcément, ils sont alignés
  * @param {BinomesXY} binomesXY une liste de binomesXY
@@ -1516,7 +1542,7 @@ export function elimineBinomesXYIntermediairesAlignes (binomesXY: BinomesXY) {
     const dy = pt2.y - pt1.y
     const dx2 = pt3.x - pt2.x
     const dy2 = pt3.y - pt2.y
-    if (dx2 === dx && dy2 === dy) {
+    if (sontVecteursAlignes(dx, dy, dx2, dy2)) {
       binomesXY.splice(i, 1)
     } else {
       i++
