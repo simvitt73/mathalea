@@ -1,13 +1,14 @@
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { inferieurouegal } from '../../modules/outils'
-import { Point, point, tracePoint } from './points'
-import { elimineBinomesXYIntermediairesAlignes, motifs, polygone, polyline } from './polygones'
+import { estentier, inferieurouegal } from '../../modules/outils'
+import { point, tracePoint } from './points'
+import { motifs, polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { arc } from './cercle'
 import { Repere } from './reperes'
 import type { Spline } from '../mathFonctions/Spline'
+import { tousDeMemeSigne } from '../outils/nombres'
 
 export class LectureImage extends ObjetMathalea2D {
   x: number
@@ -593,88 +594,40 @@ export class IntegraleComptable extends ObjetMathalea2D {
   }) {
     super()
     this.objets = []
-    const binomesXY: Point[] = [point(xMin, 0)]
-    for (let x = xMin; inferieurouegal(x, xMax); x += pas) {
-      if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
-      const y = sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas
-      if (isFinite(y)) {
-        binomesXY.push(point(x, y))
-      } else {
-        x += pas
-      }
-    }
-    let n = 0
-    let side = binomesXY[1].y >= 0 ? 'pos' : 'neg'
-    while (n < binomesXY.length) {
-      const binomesXYuivant = binomesXY[n + 1]
-      if (binomesXYuivant == null) break
-      const yn = binomesXY[n].y
-      const ySuivant = binomesXYuivant.y
-      const xn = binomesXY[n].x
-      const xSuivant = binomesXYuivant.x
-      if (side === 'pos') {
-        if (ySuivant === yn) n++
-        else {
-          if (ySuivant >= 0) {
-            if (ySuivant > yn) {
-              binomesXY.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
-            } else {
-              binomesXY.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
-            }
-            n += 2
-          } else {
-            let pointEnPlus = 0
-            if (sup) {
-              binomesXY.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
-              pointEnPlus = 2
-            } else {
-              binomesXY.splice(n + 1, 0, point(xn, 0))
-              pointEnPlus = 1
-            }
-            const binomesXYPol = elimineBinomesXYIntermediairesAlignes(binomesXY.slice(0, n + pointEnPlus + 1))
-            const pol = polygone(binomesXYPol.map(el => point(el.x, el.y)), colorPositif)
-            pol.couleurDeRemplissage = colorToLatexOrHTML(colorPositif)
-            this.objets.push(pol)
-            binomesXY.splice(0, n + pointEnPlus)
-            binomesXY.unshift(point(sup ? xSuivant : xn, 0))
-            n = 1
-            side = 'neg'
-          }
-        }
-      } else {
-        if (ySuivant === yn) n++
-        else {
-          if (ySuivant < 0) {
-            if (ySuivant > yn) {
-              binomesXY.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
-            } else {
-              binomesXY.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
-            }
-            n += 2
-          } else {
-            if (sup) {
-              binomesXY.splice(n + 1, 0, point(xn, 0), point(xSuivant, 0))
-            } else {
-              binomesXY.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
-            }
-            const binomesXYPol = elimineBinomesXYIntermediairesAlignes(binomesXY.slice(0, n + 3))
-            const pol = polygone(binomesXYPol.map(el => point(el.x, el.y)), colorNegatif)
-            pol.couleurDeRemplissage = colorToLatexOrHTML(colorNegatif)
-            this.objets.push(pol)
-            binomesXY.splice(0, n + 2)
-            binomesXY.unshift(point(xSuivant, 0))
-            n = 1
-            side = 'pos'
-          }
+    const echantillonnage: number[][] = []
+    for (let k = 0; k < (xMax - xMin) / pas; k++) {
+      echantillonnage[k] = []
+      for (let j = 0; j < 5; j++) {
+        const x = xMin + k * pas + j * pas / 5
+        if (estentier(f(x) / pas, 0.05)) {
+          echantillonnage[k].push(Math.round(f(x) / pas) * pas)
+        } else {
+          echantillonnage[k].push(sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas)
         }
       }
     }
-    if (binomesXY.length > 2) {
-      binomesXY.push(point(xMax, 0))
-      const binomesXYPol = elimineBinomesXYIntermediairesAlignes(binomesXY)
-      const pol = polygone(binomesXYPol.map(el => point(el.x, el.y)), side === 'pos' ? colorPositif : colorNegatif)
-      pol.couleurDeRemplissage = colorToLatexOrHTML(side === 'pos' ? colorPositif : colorNegatif)
-      this.objets.push(pol)
+    for (let k = 0; k < echantillonnage.length - 1; k++) {
+      echantillonnage[k].push(echantillonnage[k + 1][0])
+    }
+    if (estentier(f(xMax) / pas, 0.05)) {
+      echantillonnage[echantillonnage.length - 1].push(Math.round(f(xMax) / pas) * pas)
+    } else {
+      echantillonnage[echantillonnage.length - 1].push(sup ? Math.ceil(f(xMax) / pas) * pas : Math.floor(f(xMax) / pas) * pas)
+    }
+
+    for (let k = 0; k < echantillonnage.length; k++) {
+      const xk = xMin + k * pas
+      const yk = sup ? Math.max(...echantillonnage[k]) : Math.min(...echantillonnage[k])
+      if (tousDeMemeSigne(echantillonnage[k])) {
+        const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], yk > 0 ? colorPositif : colorNegatif)
+        p.couleurDeRemplissage = colorToLatexOrHTML(yk > 0 ? colorPositif : colorNegatif)
+        this.objets.push(p)
+      } else {
+        const couleur = sup ? colorPositif : colorNegatif
+        const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], couleur)
+        p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+        this.objets.push(p)
+      }
     }
     const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmax: 0, rxmin: 0, rymax: 0, rymin: 0 })
     this.bordures = [xmin, xmax, ymin, ymax] as unknown as [number, number, number, number]
