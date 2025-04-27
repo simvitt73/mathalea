@@ -9,6 +9,9 @@ import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texte
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
 
+type BinomeXY = { x: number, y: number }
+type BinomesXY = BinomeXY[]
+
 /**
  * Crée le barycentre d'un polygone
  * @param {Polygone} p Polygone dont on veut créer le barycentre
@@ -1492,58 +1495,42 @@ export class Polyquad {
       }
     }
     // on supprime les points intermédiaires
-    this.dots = eliminePointsIntermediairesAlignes(this.dots.map(el => point(el.x, el.y))).map(el => ({ x: el.x, y: el.y }))
+    this.dots = elimineBinomesXYIntermediairesAlignes(this.dots)
   }
 }
 
 /**
- * Une fonction pour éliminer les points consécutifs identiques d'une liste de points
- * @param points
- * @returns {Point[]}
- * @author Jean-Claude Lhote
- */
-export function elimineDoublonsConsecutifs (points: Point[]) {
-  const pointsConserves: Point[] = []
-  for (let i = 0; i < points.length; i++) {
-    if (i === 0 || points[i].x !== points[i - 1].x || points[i].y !== points[i - 1].y) {
-      pointsConserves.push(points[i])
-    }
-  }
-  return pointsConserves
-}
-
-/**
- * Supprime de la liste de points les points intermédiaires alignés
+ * Supprime de la liste de binomesXY les binomes intermédiaires correspondant à des point alignés avec le précédent et le suivant afin de limiter le nombre de sommets d'un polygone
  * Elle permet aussi de supprimer les doublons consécutifs puisque forcément, ils sont alignés
- * @param {Point[]} points une liste de points censés former un polygone
- * @returns {Point[]} une liste de points formant un polygone
+ * @param {BinomesXY} binomesXY une liste de binomesXY
+ * @returns {BinomesXY} une liste de binomesXY
  * @author Jean-Claude Lhote
  */
-export function eliminePointsIntermediairesAlignes (points: Point[]) {
-  // on supprime les points intermédiaires
-  for (let i = 1; i < points.length - 1;) {
-    const pt1 = points[i - 1]
-    const pt2 = points[i]
-    const pt3 = points[i + 1]
+export function elimineBinomesXYIntermediairesAlignes (binomesXY: BinomesXY) {
+  // on supprime les binomesXY intermédiaires
+  for (let i = 1; i < binomesXY.length - 1;) {
+    const pt1 = binomesXY[i - 1]
+    const pt2 = binomesXY[i]
+    const pt3 = binomesXY[i + 1]
     const dx = pt2.x - pt1.x
     const dy = pt2.y - pt1.y
     const dx2 = pt3.x - pt2.x
     const dy2 = pt3.y - pt2.y
     if (dx2 === dx && dy2 === dy) {
-      points.splice(i, 1)
+      binomesXY.splice(i, 1)
     } else {
       i++
     }
   }
-  const pt1 = points[points.length - 1]
-  const pt2 = points[0]
-  const pt3 = points[1]
+  const pt1 = binomesXY[binomesXY.length - 1]
+  const pt2 = binomesXY[0]
+  const pt3 = binomesXY[1]
   const dx = pt2.x - pt1.x
   const dy = pt2.x - pt1.y
   const dx2 = pt3.x - pt2.x
   const dy2 = pt3.y - pt2.y
   if (dx2 === dx && dy2 === dy) {
-    points.splice(0, 1)
+    binomesXY.splice(0, 1)
   }
-  return points
+  return binomesXY
 }

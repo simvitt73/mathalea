@@ -1,8 +1,8 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { inferieurouegal } from '../../modules/outils'
 import { Point, point, tracePoint } from './points'
-import { elimineDoublonsConsecutifs, eliminePointsIntermediairesAlignes, motifs, polygone, polyline } from './polygones'
+import { elimineBinomesXYIntermediairesAlignes, motifs, polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { arc } from './cercle'
@@ -577,7 +577,6 @@ export function integrale (f: (x:number)=>number, {
  */
 export class IntegraleComptable extends ObjetMathalea2D {
   constructor (f: (x:number)=>number, {
-    repere,
     xMin,
     xMax,
     pas = 1,
@@ -585,7 +584,6 @@ export class IntegraleComptable extends ObjetMathalea2D {
     colorPositif = 'red',
     colorNegatif = 'blue'
   }:{
-    repere: Repere,
     xMin: number,
     xMax: number,
     pas?: number,
@@ -595,51 +593,50 @@ export class IntegraleComptable extends ObjetMathalea2D {
   }) {
     super()
     this.objets = []
-    this.bordures = (repere?.bordures ?? [0, 0, 0, 0]) as unknown as [number, number, number, number]
-    const points: Point[] = [point(xMin, 0)]
+    const binomesXY: Point[] = [point(xMin, 0)]
     for (let x = xMin; inferieurouegal(x, xMax); x += pas) {
       if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
       const y = sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas
       if (isFinite(y)) {
-        points.push(point(x, y))
+        binomesXY.push(point(x, y))
       } else {
         x += pas
       }
     }
     let n = 0
-    let side = points[1].y >= 0 ? 'pos' : 'neg'
-    while (n < points.length) {
-      const pointSuivant = points[n + 1]
-      if (pointSuivant == null) break
-      const yn = points[n].y
-      const ySuivant = pointSuivant.y
-      const xn = points[n].x
-      const xSuivant = pointSuivant.x
+    let side = binomesXY[1].y >= 0 ? 'pos' : 'neg'
+    while (n < binomesXY.length) {
+      const binomesXYuivant = binomesXY[n + 1]
+      if (binomesXYuivant == null) break
+      const yn = binomesXY[n].y
+      const ySuivant = binomesXYuivant.y
+      const xn = binomesXY[n].x
+      const xSuivant = binomesXYuivant.x
       if (side === 'pos') {
         if (ySuivant === yn) n++
         else {
           if (ySuivant >= 0) {
             if (ySuivant > yn) {
-              points.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
+              binomesXY.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
             } else {
-              points.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
+              binomesXY.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
             }
             n += 2
           } else {
             let pointEnPlus = 0
             if (sup) {
-              points.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
+              binomesXY.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
               pointEnPlus = 2
             } else {
-              points.splice(n + 1, 0, point(xn, 0))
+              binomesXY.splice(n + 1, 0, point(xn, 0))
               pointEnPlus = 1
             }
-            const pointsPol = eliminePointsIntermediairesAlignes(points.slice(0, n + pointEnPlus + 1))
-            const pol = polygone(pointsPol, colorPositif)
+            const binomesXYPol = elimineBinomesXYIntermediairesAlignes(binomesXY.slice(0, n + pointEnPlus + 1))
+            const pol = polygone(binomesXYPol.map(el => point(el.x, el.y)), colorPositif)
             pol.couleurDeRemplissage = colorToLatexOrHTML(colorPositif)
             this.objets.push(pol)
-            points.splice(0, n + pointEnPlus)
-            points.unshift(point(sup ? xSuivant : xn, 0))
+            binomesXY.splice(0, n + pointEnPlus)
+            binomesXY.unshift(point(sup ? xSuivant : xn, 0))
             n = 1
             side = 'neg'
           }
@@ -649,36 +646,38 @@ export class IntegraleComptable extends ObjetMathalea2D {
         else {
           if (ySuivant < 0) {
             if (ySuivant > yn) {
-              points.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
+              binomesXY.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
             } else {
-              points.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
+              binomesXY.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
             }
             n += 2
           } else {
             if (sup) {
-              points.splice(n + 1, 0, point(xn, 0), point(xSuivant, 0))
+              binomesXY.splice(n + 1, 0, point(xn, 0), point(xSuivant, 0))
             } else {
-              points.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
+              binomesXY.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
             }
-            const pointsPol = eliminePointsIntermediairesAlignes(points.slice(0, n + 3))
-            const pol = polygone(pointsPol, colorNegatif)
+            const binomesXYPol = elimineBinomesXYIntermediairesAlignes(binomesXY.slice(0, n + 3))
+            const pol = polygone(binomesXYPol.map(el => point(el.x, el.y)), colorNegatif)
             pol.couleurDeRemplissage = colorToLatexOrHTML(colorNegatif)
             this.objets.push(pol)
-            points.splice(0, n + 2)
-            points.unshift(point(xSuivant, 0))
+            binomesXY.splice(0, n + 2)
+            binomesXY.unshift(point(xSuivant, 0))
             n = 1
             side = 'pos'
           }
         }
       }
     }
-    if (points.length > 2) {
-      points.push(point(xMax, 0))
-      const pointsPol = elimineDoublonsConsecutifs(points)
-      const pol = polygone(pointsPol, side === 'pos' ? colorPositif : colorNegatif)
+    if (binomesXY.length > 2) {
+      binomesXY.push(point(xMax, 0))
+      const binomesXYPol = elimineBinomesXYIntermediairesAlignes(binomesXY)
+      const pol = polygone(binomesXYPol.map(el => point(el.x, el.y)), side === 'pos' ? colorPositif : colorNegatif)
       pol.couleurDeRemplissage = colorToLatexOrHTML(side === 'pos' ? colorPositif : colorNegatif)
       this.objets.push(pol)
     }
+    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmax: 0, rxmin: 0, rymax: 0, rymin: 0 })
+    this.bordures = [xmin, xmax, ymin, ymax] as unknown as [number, number, number, number]
   }
 }
 export class BezierPath extends ObjetMathalea2D {
