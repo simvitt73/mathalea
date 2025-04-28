@@ -20,7 +20,6 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 /**
  * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
  * ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
- * @param {number} numero
  * @param {number} type
  * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
  * @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
@@ -28,7 +27,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
  * @author Jean-claude Lhote & Rémi Angot & Sebastien Lozano
  **/
 
-export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
+export function katexPopup2 (type, texte, titrePopup, textePopup) {
   // ToDo : gérer les popup avec la version 3
   // Pour l'instant, ils sont supprimés
   switch (type) {
@@ -36,13 +35,13 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
       return katexPopupTest(texte, titrePopup, textePopup)
     case 1:
       if (context.isHtml) {
-        return modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
+        return modalTexteLong(`${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
       } else {
         return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
       }
     case 2:
       if (context.isHtml) {
-        return modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
+        return modalImage(textePopup, `${titrePopup}`, `${texte}`)
       } else {
         return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
       }

@@ -2,19 +2,18 @@ import { context } from '../../modules/context'
 
 /**
  * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
- * @param numeroExercice
  * @param contenu code HTML
  * @author Rémi Angot
  */
-export function creerModal (numeroExercice: number, contenu: string, labelBouton: string, icone: string) {
+export function creerModal (contenu: string, labelBouton: string, icone: string) {
   if (context.isHtml) {
     let HTML = ''
-    HTML = `<div id="aide-${numeroExercice}" class="group">
-      ${labelBouton} 
-      <div id="aide-trigger-${numeroExercice}">?</div>
-      <div id="aide-content-${numeroExercice}">
-      ${contenu}
-      </div>
+    HTML = `<div class="aide group">
+      ${labelBouton}
+      <div class="aide-trigger">?</div>
+        <div class="aide-content-wrapper">
+          ${contenu}
+        </div>
       </div>`
     return HTML
   } else {
@@ -31,7 +30,6 @@ export function createLink ({ text, url }: { text: string; url: string }) {
 
 /**
  * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
- * @param numeroExercice
  * @param contenu code HTML
  * @param icone
  * @author Rémi Angot
@@ -42,27 +40,25 @@ export function creerBoutonMathalea2d (numeroExercice: number | string, fonction
 
 /**
  * Créé un bouton pour une aide modale avec un texte court
- * @param numeroExercice
  * @param texte Texte court qui sera affiché comme un titre
  * @param labelBouton Titre du bouton (par défaut Aide)
  * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Rémi Angot
  */
-export function modalTexteCourt (numeroExercice: number, texte: string, labelBouton = 'Aide', icone = 'info circle') {
+export function modalTexteCourt (texte: string, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<div class="header">${texte}</div>`
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
- * @param numeroExercice
  * @param idYoutube
  * @param titre Texte court qui sera affiché comme un titre
  * @param labelBouton Titre du bouton (par défaut Aide)
  * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Rémi Angot
  */
-export function modalYoutube (numeroExercice: number, idYoutube: string, titre: string, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
+export function modalYoutube (idYoutube: string, titre: string, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
   if (idYoutube.substring(0, 4) === 'http') {
     if (idYoutube.slice(-4) === '.pdf') {
@@ -78,62 +74,58 @@ export function modalYoutube (numeroExercice: number, idYoutube: string, titre: 
   } else {
     contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   }
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec un titre et un texte
- * @param numeroExercice
  * @param titre
  * @param texte
  * @param labelBouton Titre du bouton (par défaut Aide)
  * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Rémi Angot
  */
-export function modalTexteLong (numeroExercice: number, titre: string, texte: string, labelBouton = 'Aide', icone = 'info circle') {
+export function modalTexteLong (titre: string, texte: string, labelBouton = 'Aide', icone = 'info circle') {
   let contenu = ''
   contenu = `<div class="aide-header">${titre}</div>`
   contenu += `<div class="aide-content">${texte}</div>`
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec un titre et un texte
- * @param numeroExercice
  * @param url
  * @param labelBouton Titre du bouton (par défaut Aide)
  * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Rémi Angot
  */
-export function modalUrl (numeroExercice: number, url: string, labelBouton = 'Aide', icone = 'info circle') {
+export function modalUrl (url: string, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<iframe width="100%" height="600"  loading="lazy" src="${url}" frameborder="0" ></iframe>`
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
- * @param numeroExercice
  * @param urlPdf
  * @param titre Texte court qui sera affiché comme un titre
  * @param labelBouton Titre du bouton (par défaut Aide)
  * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Rémi Angot
  */
-export function modalPdf (numeroExercice: number, urlPdf: string, titre = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
+export function modalPdf (urlPdf: string, titre = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
   const contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }
 
 /**
- * Créé un bouton pour une aide modale avec une vidéo
- * @param numeroExercice désigne l'id du modal qui doit être unique
+ * Créé un bouton pour une aide modale avec une vidéo désigne l'id du modal qui doit être unique
  * @param urlVideo
  * @param titre Texte court qui sera affiché comme un titre
  * @param labelBouton Titre du bouton (par défaut Vidéo)
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Sébastien Lozano
  */
-export function modalVideo (numeroExercice: number, urlVideo: string, titre: string, labelBouton = 'Vidéo', icone = 'file video outline') {
+export function modalVideo (urlVideo: string, titre: string, labelBouton = 'Vidéo', icone = 'file video outline') {
   // let contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
   <div class="header">${titre}</div>
@@ -145,18 +137,17 @@ export function modalVideo (numeroExercice: number, urlVideo: string, titre: str
       </video>
       </div>
   </div>`
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }
 
 /**
  *
- * @param {number} numeroExercice
  * @param {string} urlImage
  * @param {string} titre = ce qui est écrit en titre de l'image
  * @param {string} labelBouton = ce qui est écrit sur le bouton à côté de l'icône d'image.
  * @param {string} icone
  */
-export function modalImage (numeroExercice: number, urlImage: string, titre: string, labelBouton = 'Illustration', icone = 'image') {
+export function modalImage (urlImage: string, titre: string, labelBouton = 'Illustration', icone = 'image') {
   const contenu = `<div class="header">${titre}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
-  return creerModal(numeroExercice, contenu, labelBouton, icone)
+  return creerModal(contenu, labelBouton, icone)
 }

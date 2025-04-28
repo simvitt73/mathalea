@@ -125,7 +125,7 @@ const vitesses: [string, number, number, number][] = [
   ['à pied', 2, 4, 5]
 ] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h]
 export default class ProblemesGrandeursComposees extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = [
       'Type des grandeurs',
@@ -139,7 +139,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
     this.sup = ''
   }
 
-  nouvelleVersion(numeroExercice: number) {
+  nouvelleVersion (numeroExercice: number) {
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
@@ -157,26 +157,26 @@ export default class ProblemesGrandeursComposees extends Exercice {
 
     for (
       let i = 0,
-      j,
-      index,
-      index1,
-      index2,
-      duree,
-      quidam,
-      nbheures,
-      nbminutes,
-      nbsecondes,
-      vitesseMoy,
-      distance,
-      masse,
-      masse2,
-      masse3,
-      prix1,
-      prix2,
-      prix3,
-      texte,
-      texteCorr,
-      cpt = 0;
+        j,
+        index,
+        index1,
+        index2,
+        duree,
+        quidam,
+        nbheures,
+        nbminutes,
+        nbsecondes,
+        vitesseMoy,
+        distance,
+        masse,
+        masse2,
+        masse3,
+        prix1,
+        prix2,
+        prix3,
+        texte,
+        texteCorr,
+        cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -204,7 +204,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ' Exprimer en kWh l\'' +
             katexPopup2(
-              numeroExercice + i + 1,
               typeAide,
               'énergie',
               'Définition : Énergie (grandeur physique)',
@@ -265,7 +264,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(0) +
                 ' Calculer le ' +
                 katexPopup2(
-                  numeroExercice + i * 3,
                   typeAide,
                   'volume',
                   'Définition : Volume (grandeur physique)',
@@ -334,7 +332,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(0) +
                 ' Calculer le ' +
                 katexPopup2(
-                  numeroExercice + i * 3,
                   typeAide,
                   'volume',
                   'Définition : Volume (grandeur physique)',
@@ -345,7 +342,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
                 katexPopup2(
-                  numeroExercice + i * 3,
                   typeAide,
                   'densité',
                   'Définition : Densité (grandeur physique)',
@@ -383,7 +379,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             `${quidam} se déplace ${vitesses[index1][0]} à la ` +
             katexPopup2(
-              numeroExercice + i * 3,
               typeAide,
               'vitesse',
               'Définition : Vitesse (grandeur physique)',
@@ -395,7 +390,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ' Calculer sa ' +
             katexPopup2(
-              numeroExercice + i * 3 + 1,
               typeAide,
               'quantité de mouvement',
               'Définition : Quantité de mouvement (grandeur physique)',
@@ -406,7 +400,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(1) +
             ' En déduire son ' +
             katexPopup2(
-              numeroExercice + i * 3 + 2,
               typeAide,
               'énergie cinétique',
               'Définition : Énergie cinétique (grandeur physique)',
@@ -432,7 +425,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une balançoire ` +
             katexPopup2(
-              numeroExercice + i * 3,
               2,
               'trébuchet',
               'Schéma explicatif',
@@ -445,7 +437,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ' Calculer le ' +
             katexPopup2(
-              numeroExercice + i * 3 + 1,
               typeAide,
               'moment',
               'Définition : Moment (grandeur physique)',
@@ -453,7 +444,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ) +
             ' du ' +
             katexPopup2(
-              numeroExercice + i * 3 + 2,
               typeAide,
               'poids',
               'Définition : Poids (grandeur physique)',
@@ -502,7 +492,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ` Un bus de ville transporte en moyenne $${n1}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d1}$ km.<br> Calculer le ` +
             katexPopup2(
-              numeroExercice + i * 3,
               typeAide,
               'trafic',
               'Définition : Trafic de voyageurs',
@@ -530,7 +519,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
             katexPopup2(
-              numeroExercice + i * 3 + 1,
               typeAide,
               'puissance',
               'Définition : Puissance (grandeur physique)',
@@ -570,7 +558,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte =
                 `${quidam} se déplace ${vitesses[index1][0]} à la ` +
                 katexPopup2(
-                  numeroExercice + i * 3,
                   typeAide,
                   'vitesse',
                   'Définition : Vitesse (grandeur physique)',
@@ -663,7 +650,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte =
                 'Le son se déplace dans l\'air à la ' +
                 katexPopup2(
-                  numeroExercice + i * 3,
                   typeAide,
                   'vitesse',
                   'Définition : Vitesse (grandeur physique)',
@@ -715,7 +701,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte =
                 `${quidam} vient de courir ${distance} kilomètres. Sa montre connectée a enregistré l'` +
                 katexPopup2(
-                  numeroExercice + i,
                   typeAide,
                   'allure',
                   'Définition : Allure (grandeur physique)',
@@ -755,7 +740,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(1) +
                 ' En déduire sa ' +
                 katexPopup2(
-                  numeroExercice + i + 1,
                   typeAide,
                   'vitesse',
                   'Définition : Vitesse (grandeur physique)',
@@ -963,7 +947,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(1) +
             ' La même année, la ' +
             katexPopup2(
-              numeroExercice + i * 3 + 1,
               typeAide,
               'densité de population',
               'Définition : Densité de population',
@@ -1011,7 +994,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ' La ' +
             katexPopup2(
-              numeroExercice + i * 3 + 1,
               typeAide,
               'masse volumique',
               'Définition : Masse volumique (grandeur physique)',
@@ -1101,7 +1083,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             'Le ' +
             katexPopup2(
-              numeroExercice + i,
               typeAide,
               'débit',
               'Définition : Débit (grandeur physique)',
@@ -1158,7 +1139,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             ` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa ` +
             katexPopup2(
-              numeroExercice + i,
               typeAide,
               'vitesse de téléchargement',
               'Définition : Vitesse de téléchargement',

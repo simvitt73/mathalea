@@ -128,7 +128,7 @@ export default class CalculDiscriminant extends Exercice {
         correctionComplementaire += mathalea2d({ xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
           graphique, r, s)
 
-        texteCorr += modalTexteLong(numeroExercice, '<br>Complément graphique', correctionComplementaire, '<br>Complément graphique', 'info circle')
+        texteCorr += modalTexteLong('<br>Complément graphique', correctionComplementaire, '<br>Complément graphique', 'info circle')
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte
