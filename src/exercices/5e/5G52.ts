@@ -32,7 +32,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Consigne'
+    this.consigne = ''// 'Consigne'
   }
 
   nouvelleVersion () {
