@@ -7,6 +7,7 @@ import { randint } from '../../../modules/outils'
 import { interpolationDeLagrange } from '../../../lib/mathFonctions/outilsMaths'
 import { range } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 export const titre = 'Encadrer une intégrale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +29,7 @@ export default class IntegraleSurface extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    this.formatInteractif = 'fillInTheBlank'
+    this.formatInteractif = 'qcm'
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = ['Unité de quadrillage', 2, '1 : unité graphique\n2 : quart de l\'unité graphique']
@@ -62,14 +63,15 @@ export default class IntegraleSurface extends Exercice {
       const figCorr1 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'display: inline-block' }, fixeBordures(objets1)), objets1)
       const figCorr2 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'display: inline-block' }, fixeBordures(objets2)), objets2)
       this.reponse = '0'
-      this.introduction = `On a représenté ci-dessous graphiquement la fonction $f$ définie sur $[0;5]$.<br>
-      Donner un encadrement par deux entiers de $\\int_{0}^{5}f(x).dx$.<br>
+      this.question = `On a représenté ci-dessous graphiquement la fonction $f$ définie sur $[0;5]$.<br>
+      Quels sont les encadrements qui conviennent pour $\\mathcal{A}=\\int_{0}^{5}f(x).dx$ ?<br>
       
       ${fig}`
-      this.question = '%{champ1}<\\int_{0}^{5}f(x).dx<%{champ2}'
-
-      const aireSup = Number(integrale2.objets?.map(p => p.aire * (p.color[0] === 'red' ? 1 : -1)).reduce((a, b) => a + b))
-      const aireInf = Number(integrale.objets?.map(p => p.aire * (p.color[0] === 'red' ? 1 : -1)).reduce((a, b) => a + b))
+      const integrale3 = new IntegraleComptable(f, { xMin: 0, xMax: 5, pas: 0.1, sup: false, colorPositif: 'red', colorNegatif: 'blue' })
+      const integrale4 = new IntegraleComptable(f, { xMin: 0, xMax: 5, pas: 0.1, sup: true, colorPositif: 'red', colorNegatif: 'blue' })
+      const aireFine = Math.round((integrale3.aire.positive + integrale4.aire.positive) / 2) // Number(integrale3.objets?.map(p => p.aire * (p.color[0] === 'red' ? 1 : -1)).reduce((a, b) => a + b))
+      const aireSup = integrale2.aire.positive // Number(integrale2.objets?.map(p => p.aire * (p.color[0] === 'red' ? 1 : -1)).reduce((a, b) => a + b))
+      const aireInf = integrale.aire.positive // Number(integrale.objets?.map(p => p.aire * (p.color[0] === 'red' ? 1 : -1)).reduce((a, b) => a + b))
       this.correction = `Un encadrement par deux entiers de $\\int_{0}^{5}f(x).dx$ est donné par les aires des zones colorées.<br>
       Sous la courbe, on a $${Math.round(aireInf / pas / pas)}$ carreaux et au-dessus de la courbe, on a $${aireSup / pas / pas}$ carreaux.<br>
       ${pas === 1
@@ -78,7 +80,15 @@ export default class IntegraleSurface extends Exercice {
  on obtient $${texNombre(Math.floor(aireInf), 0)}<\\int_{0}^{5}f(x).dx<${texNombre(Math.ceil(aireSup), 0)}$<br>
      
       ${figCorr1} ${figCorr2}`
-      this.reponse = { champ1: { value: Math.floor(aireInf) }, champ2: { value: Math.ceil(aireSup) } }
+      this.autoCorrection[0] = {
+        propositions: [
+          { texte: `$${aireFine + 2}<\\mathcal{A}<${aireFine + 7}$`, statut: false },
+          { texte: `$${aireInf}<\\mathcal{A}<${aireSup}$`, statut: true },
+          { texte: `$${aireInf - 2}<\\mathcal{A}<${aireSup + 2}$`, statut: true },
+          { texte: `$${aireFine - 7}<\\mathcal{A}<${aireFine - 2}$`, statut: false }
+        ]
+      }
+      this.question += propositionsQcm(this, 0).texte
     } while (cF.objets == null || Math.min(...cF.objets.map(p => p.bordures[1])) < 0)
   }
 }

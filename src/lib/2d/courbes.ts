@@ -577,6 +577,7 @@ export function integrale (f: (x:number)=>number, {
  * @author Jean-Claude Lhote
  */
 export class IntegraleComptable extends ObjetMathalea2D {
+  aire: { negative: number, positive: number }
   constructor (f: (x:number)=>number, {
     xMin,
     xMax,
@@ -674,6 +675,14 @@ export class IntegraleComptable extends ObjetMathalea2D {
 
     const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmax: 0, rxmin: 0, rymax: 0, rymin: 0 })
     this.bordures = [xmin, xmax, ymin, ymax] as unknown as [number, number, number, number]
+    this.aire = { negative: 0, positive: 0 }
+    for (const objet of this.objets) {
+      if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
+        this.aire.negative += objet.aire
+      } else {
+        this.aire.positive += objet.aire
+      }
+    }
   }
 }
 export class BezierPath extends ObjetMathalea2D {
