@@ -1,8 +1,8 @@
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { estentier, inferieurouegal } from '../../modules/outils'
-import { point, tracePoint } from './points'
-import { motifs, polygone, polyline } from './polygones'
+import { Point, point, tracePoint } from './points'
+import { elimineBinomesXYIntermediairesAlignes, motifs, Polygone, polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { arc } from './cercle'
@@ -594,6 +594,7 @@ export class IntegraleComptable extends ObjetMathalea2D {
   }) {
     super()
     this.objets = []
+    const rectangles: Polygone[] = []
     const echantillonnage: number[][] = []
     for (let k = 0; k < (xMax - xMin) / pas; k++) {
       echantillonnage[k] = []
@@ -621,14 +622,56 @@ export class IntegraleComptable extends ObjetMathalea2D {
       if (tousDeMemeSigne(echantillonnage[k])) {
         const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], yk > 0 ? colorPositif : colorNegatif)
         p.couleurDeRemplissage = colorToLatexOrHTML(yk > 0 ? colorPositif : colorNegatif)
-        this.objets.push(p)
+        rectangles.push(p)
       } else {
         const couleur = sup ? colorPositif : colorNegatif
         const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], couleur)
         p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-        this.objets.push(p)
+        rectangles.push(p)
       }
     }
+    // On joint les rectangles adjacents de même couleur
+    let color: string[] = []
+    let sommetFinal: Point = point(0, 0)
+    while (rectangles.length > 0) {
+      const sommets = [rectangles[0].listePoints[0], rectangles[0].listePoints[1], rectangles[0].listePoints[2]]
+      color = rectangles[0].color.slice()
+      const pol = rectangles.shift()
+      if (pol != null) {
+        sommetFinal = pol.listePoints[3]
+      }
+      while (rectangles.length > 0 && rectangles[0].couleurDeRemplissage[0] === color[0]) {
+        sommets.push(rectangles[0].listePoints[1], rectangles[0].listePoints[2])
+        const pol = rectangles.shift()
+        if (pol != null) {
+          sommetFinal = pol.listePoints[3]
+        }
+      }
+      // Il n'y a plus de rectangle, on ferme le polygone
+      if (rectangles.length === 0) {
+        sommets.push(sommetFinal)
+        const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
+        const p = polygone(binomesXY.map(el => point(el.x, el.y)))
+        p.color = p.bordures[1] < 0 && p.bordures[3] === 0 ? colorToLatexOrHTML(colorNegatif) : colorToLatexOrHTML(colorPositif)
+        p.couleurDeRemplissage = p.color
+        this.objets.push(p)
+        break
+      }
+      // on a encore des rectangles, donc on change de couleur et on ferme le précédent polygone
+      // s'il reste qu'un seul rectangle alors on le pousse dans la liste des objets
+      sommets.push(sommetFinal)
+      const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
+      const p = polygone(binomesXY.map(el => point(el.x, el.y)))
+      p.color = p.bordures[1] < 0 && p.bordures[3] === 0 ? colorToLatexOrHTML(colorNegatif) : colorToLatexOrHTML(colorPositif)
+      p.couleurDeRemplissage = p.color
+      this.objets.push(p)
+      if (rectangles.length === 1) {
+        this.objets.push(rectangles[0])
+        rectangles.length = 0
+        break
+      } // sinon on contine en initialisant le nouveau polygone au début de la boucle
+    }
+
     const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmax: 0, rxmin: 0, rymax: 0, rymin: 0 })
     this.bordures = [xmin, xmax, ymin, ymax] as unknown as [number, number, number, number]
   }
