@@ -83,9 +83,9 @@ export default class IntegraleSurface extends Exercice {
       this.autoCorrection[0] = {
         propositions: [
           { texte: `$${aireFine + 2}<\\mathcal{A}<${aireFine + 7}$`, statut: false },
-          { texte: `$${aireInf}<\\mathcal{A}<${aireSup}$`, statut: true },
-          { texte: `$${aireInf - 2}<\\mathcal{A}<${aireSup + 2}$`, statut: true },
-          { texte: `$${aireFine - 7}<\\mathcal{A}<${aireFine - 2}$`, statut: false }
+          { texte: `$${texNombre(aireInf, 0)}<\\mathcal{A}<${texNombre(aireSup, 0)}$`, statut: true },
+          { texte: `$${texNombre(aireInf - 2, 0)}<\\mathcal{A}<${texNombre(aireSup + 2, 0)}$`, statut: true },
+          { texte: `$${Math.max(0, aireFine - 7)}<\\mathcal{A}<${aireFine - 2}$`, statut: false }
         ]
       }
       this.question += propositionsQcm(this, 0).texte
