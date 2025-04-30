@@ -41,7 +41,8 @@
   "scripts": {
     "dev": "npm run makeJson && vite",
     "start": "npm run makeJson && vite",
-    "build": "npm run makeJson && npm run prebuild-unit-tests&& npm run prebuild-e2e-tests && vite build",
+    "testAndBuild": "npm run makeJson && npm run prebuild-unit-tests&& npm run prebuild-e2e-tests && vite build",
+    "build": "npm run makeJson && vite build",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
     "getNewUuid": "npm run makeJson",
     "updateMenu": "npm run makeJson",
