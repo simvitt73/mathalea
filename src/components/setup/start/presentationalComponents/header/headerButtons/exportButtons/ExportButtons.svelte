@@ -74,6 +74,8 @@
   action="download"
   useCurrentUrl={true}
   fileName="mathAlea"
+  successMessage="Téléchargement en cours"
+  errorMessage="Erreur lors du téléchargement"
   icon="bxs-file-export text-2xl"
   tooltip="Fichier de redirection"
 />
