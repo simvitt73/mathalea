@@ -97,7 +97,7 @@ export class MathAleaURL extends URL {
  * @returns l'URL correspondant à la feuille d'exercices avec tous les paramètres
  */
 export function buildMathAleaURL (options: {
-  view: VueType,
+  view?: VueType,
   mode?: InterfaceGlobalOptions['presMode'],
   isEncrypted?: boolean,
   isShort?: boolean,
@@ -112,7 +112,7 @@ export function buildMathAleaURL (options: {
   }
   const global = get(globalOptions)
   const can = get(canOptions)
-  url.setVue(options.view).addParam('es', buildEsParams(options.mode))
+  if (options.view) url.setVue(options.view).addParam('es', buildEsParams(options.mode))
   if (options.view === 'can') {
     // paramètres spécifiques à la can dans l'URL
     url
