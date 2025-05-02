@@ -72,7 +72,7 @@
 </button>
 <ButtonActionInfo
   action="download"
-  urlToDownload={location.href}
+  useCurrentUrl={true}
   fileName="mathAlea"
   icon="bxs-file-export text-2xl"
   tooltip="Fichier de redirection"

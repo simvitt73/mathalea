@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { buildMathAleaURL } from '../../../lib/components/urls';
+  import { buildMathAleaURL } from '../../../lib/components/urls'
   import { downloadFile } from '../../../lib/files'
   import BasicInfoModal from '../modal/BasicInfoModal.svelte'
   import ButtonIconTooltip from './ButtonIconTooltip.svelte'
