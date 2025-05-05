@@ -17,7 +17,7 @@
   import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
 
   export let exercises: Exercice[]
-  export let updateExercises: (updatedExercises: Exercice[]) => void
+  export let updateExercises: (updateSlidesContent?: boolean) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
   export let startSlideshow: () => void
   export let goToOverview: () => void
@@ -64,12 +64,12 @@
 
   function updateQuestionsOrder (isQuestionsOrdered: boolean) {
     $globalOptions.shuffle = !isQuestionsOrdered
-    updateExercises(exercises)
+    updateExercises()
   }
 
   function updateSelect (selectedExercisesIndexes: number[] | undefined) {
     $globalOptions.select = selectedExercisesIndexes
-    updateExercises(exercises)
+    updateExercises()
   }
 
   function updateManualMode (isManualModeActive: boolean) {
@@ -90,7 +90,7 @@
       goToHome()
     }
     applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
-    updateExercises(exercises)
+    updateExercises()
     exercises = exercises // to refresh ExercisesSettings component
   }
 

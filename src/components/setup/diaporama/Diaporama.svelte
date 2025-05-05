@@ -46,7 +46,7 @@
     selectedQuestionsNumber: 0
   }
 
-  $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises()
+  $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises(true)
   $: if (state === 'race') startSlideshow()
 
   onMount(async () => {
@@ -62,11 +62,11 @@
   })
 
   async function forceUpdate () {
-    updateExercises()
+    updateExercises(true)
   }
 
-  async function updateExercises () {
-    setSlidesContent(exercises)
+  async function updateExercises (updateSlidesContent = false) {
+    if (updateSlidesContent) setSlidesContent(exercises)
     if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
     updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -218,7 +218,7 @@
   }
 
   function startSlideshow () {
-    updateExercises()
+    updateExercises(true)
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = 0
   }
