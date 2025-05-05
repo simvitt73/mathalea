@@ -1,20 +1,21 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { cylindre3d, droite3d, Point3d, point3d, rotation3d, translation3d, vecteur3d } from '../../modules/3d'
+
 import { labelPoint, Latex2d, TexteParPoint } from '../../lib/2d/textes'
 import { fixeBordures, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
 import { longueur, Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
 import { texNombre } from '../../lib/outils/texNombre'
 import { NommePolygone, Polygone, polygone, Polyline } from '../../lib/2d/polygones'
-import { Point, point, TracePoint } from '../../lib/2d/points'
+import { Point, point, pointAdistance, tracePoint, TracePoint } from '../../lib/2d/points'
 import { cercle } from '../../lib/2d/cercle'
 import { similitude, translation } from '../../lib/2d/transformations'
 import type { CodageAngleDroit, MarqueAngle } from '../../lib/2d/angles'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
+import { cylindre2d } from '../../lib/2d/projections3d'
 
 export const titre = 'Calculer des longueurs avec un patron de cylindre'
 
@@ -26,19 +27,19 @@ export const refs = {
   'fr-ch': []
 }
 /**
- *
- * @author
+ * calculer des longueurs avec un patron de cylindre
+ * @author Olivier Mimeau
 */
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = ''// 'Consigne'
+    this.consigne = 'problème en  baseCoteCoucheVuDroite avec r=4'// 'Consigne'
   }
 
   nouvelleVersion () {
     const typeQuestionsDisponibles = ['CylindreVersPatron']// ['CylindreVersPatron', 'PatronVersCylindre', 'type3']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    const orientationCylindre = ['DeboutVuDessus', 'baseAvantCoucheVuDroite', 'baseCoteCoucheVuDroite']// ['DeboutVuDessus', 'DeboutVuDessous', 'baseAvantCoucheVuGauche', 'baseAvantCoucheVuDroite', 'baseCoteCoucheVuGauche', 'baseCoteCoucheVuDroite']
+    const orientationCylindre = ['DeboutVuDessus', 'baseAvantCoucheVuGauche']/// ['DeboutVuDessus', 'baseCoteCoucheVuDroite', 'baseAvantCoucheVuGauche']// ['DeboutVuDessus', 'baseAvantCoucheVuDroite', 'baseCoteCoucheVuDroite']// ['DeboutVuDessus', 'DeboutVuDessous', 'baseAvantCoucheVuGauche', 'baseAvantCoucheVuDroite', 'baseCoteCoucheVuGauche', 'baseCoteCoucheVuDroite']
     const listetypeOrientationCylindre = combinaisonListes(orientationCylindre, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -47,58 +48,71 @@ export default class nomExercice extends Exercice {
       const scaleDessin = 0.5
       const largeurCol = 40 // en % sert pour sortie PDF et HTML ?
       const largeurHTMCol = `${tailleMinFigure * 20}px`
-      const cylindre = []
+      const objetsPerspective = []
       const objetsPatron = []
       const objetsPatronReponse = []
 
-      let r = randint(2, 7) // rayon
+      const r = randint(2, 7) // rayon
       const h = randint(3, 10, [r]) // hauteur
 
-      const centre1 = point3d(0, 0, 0, true, 'O', 'left')
-      let bord1 :Point3d = point3d(0, 0, 0, true, 'B', 'right')
-      let centre2 :Point3d = point3d(0, 0, 0, true, 'D', 'left')
-      let ptBase1 :Point3d = point3d(0, 0, 0, true, 'B', 'right')
-      let ptBase2 :Point3d = point3d(0, 0, 0, true, 'D', 'left')
-      let rayon :Latex2d = placeLatexSurSegment('.', ptBase1.c2d, centre1.c2d)
-      let hauteur :Latex2d = placeLatexSurSegment('.', ptBase1.c2d, centre1.c2d)
+      const cent1 = point(0, 0, 'A', 'left')
+      let cylindre = cylindre2d({ centre: cent1, rx: r, hauteur: h, color: 'black' })
+      let cent2 = point(0, h, 'Z', 'left')
+      let ext1Rayon = point(0, 0)
+      let ext2Rayon = point(0, 0)
+      let segRayon = segment(cent1, ext1Rayon, 'black')
+      segRayon.pointilles = 1
+      let rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, ext1Rayon, cent1)
+      let hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ext2Rayon, ext1Rayon)
+
       switch (listetypeOrientationCylindre[i]) {
         case 'DeboutVuDessus':
-          bord1 = point3d(r, 0, 0, true, 'B', 'right')
-          centre2 = point3d(0, 0, h, true, 'D', 'left')
-          ptBase1 = rotation3d(bord1, droite3d(centre1, vecteur3d(centre1, centre2)), 20, 'black')
-          ptBase2 = translation3d(ptBase1, vecteur3d(centre1, centre2))
-          rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, ptBase1.c2d, centre1.c2d)
-          hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ptBase2.c2d, ptBase1.c2d)
+          cylindre = cylindre2d({ centre: cent1, rx: r, hauteur: h, position: 'DeboutVuDessus', color: 'black' })
+          cent2 = point(0, h, 'B', 'left')
+          ext1Rayon = point(r, 0)
+          ext2Rayon = point(r, h)
+          segRayon = segment(cent1, ext1Rayon, 'black')
+          segRayon.pointilles = 1
+          rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, ext1Rayon, cent1)
+          hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ext2Rayon, ext1Rayon)
           break
-        case 'baseCoteCoucheVuDroite':
-          bord1 = point3d(0, r, 0, true, 'B', 'right')
-          centre2 = point3d(h, 0, 0, true, 'D', 'left')
-          ptBase1 = rotation3d(bord1, droite3d(centre1, vecteur3d(centre1, centre2)), 80, 'black')
-          ptBase2 = translation3d(ptBase1, vecteur3d(centre1, centre2))
-          rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, centre1.c2d, ptBase1.c2d)
-          hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ptBase1.c2d, ptBase2.c2d)
+        case 'baseAvantCoucheVuGauche':{
+          // valeurs par defaut dans la perspective
+          const angDeFuite = 30
+          const coefDeFuite = 0.8
+          // valeurs par defaut dans la perspective
+          cylindre = cylindre2d({ centre: cent1, rx: r, hauteur: h, position: 'baseAvantCoucheVuGauche', color: 'black', coefficientDeFuite: coefDeFuite })
+
+          cent2 = pointAdistance(cent1, h * coefDeFuite, angDeFuite, 'G', 'left')
+          const ey = -r * Math.cos(angDeFuite * Math.PI / 180)
+          const ex = r * Math.sin(angDeFuite * Math.PI / 180)
+          ext1Rayon = point(cent1.x + ex, cent1.y + ey)
+          ext2Rayon = point(cent2.x + ex, cent2.y + ey)
+          segRayon = segment(cent1, point(cent1.x + r, cent1.y), 'black')
+          segRayon.pointilles = 1
+          rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, point(cent1.x + r, cent1.y), cent1)
+          hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ext2Rayon, ext1Rayon)
           break
-        case 'baseAvantCoucheVuDroite':
-          if (r === 2) { r = randint(4, 7, [h]) }
-          bord1 = point3d(0, 0, r, true, 'B', 'right')
-          centre2 = point3d(0, h, 0, true, 'D', 'left')
-          ptBase1 = rotation3d(bord1, droite3d(centre1, vecteur3d(centre1, centre2)), -30, 'black')
-          ptBase2 = translation3d(ptBase1, vecteur3d(centre1, centre2))
-          rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, centre1.c2d, ptBase1.c2d)
-          hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ptBase1.c2d, ptBase2.c2d)
+        }
+        case 'baseCoteCoucheVuDroite':{ // a finir
+          cylindre = cylindre2d({ centre: cent1, rx: r, hauteur: h, position: 'baseCoteCoucheVuDroite', color: 'black' })
+          cent2 = point(0, h, 'B', 'left')
+          ext1Rayon = point(r, 0)
+          ext2Rayon = point(r, h)
+          segRayon = segment(cent1, ext1Rayon, 'black')
+          segRayon.pointilles = 1
+          rayon = placeLatexSurSegment(`${texNombre(r, 1)}\\text{ cm}`, ext1Rayon, cent1)
+          hauteur = placeLatexSurSegment(`${texNombre(h, 1)}\\text{ cm}`, ext2Rayon, ext1Rayon)
           break
+        }
         default:
           break
       }
+      const tCent1 = tracePoint(cent1)
+      const tCent2 = tracePoint(cent2)
 
-      const v = vecteur3d(centre1, bord1)
+      objetsPerspective.push(cylindre, tCent1, tCent2, segRayon, rayon, hauteur, labelPoint(cent1, cent2))
 
-      const solideDessine = cylindre3d(centre1, centre2, v, v, 'black', false, true, false)
-      const segmentRayon = segment(centre1.c2d, ptBase1.c2d, 'black')
-      segmentRayon.pointilles = 1
-
-      cylindre.push(...solideDessine.c2d, segmentRayon, rayon, hauteur, segmentRayon, labelPoint(centre1.c2d, centre2.c2d, bord1.c2d))
-      /*  const [dimlRect, dimLRect, dimRCercle] = [hauteur, Math.round(2 * Math.PI * rayon), rayon]       */
       const [dimlRect, dimLRect, dimRCercle] = [4, 12, 2] // dimLargeurRectangle
       const A = point(0, 0)
       const B = point(0, dimlRect)
@@ -161,12 +175,13 @@ export default class nomExercice extends Exercice {
       objetsPatron.push(coteLongueurPatron, coteHauteurPatron, coteRayon, coteDiametre, qLongueurPatron, qHauteurPatron, qRayon, qDiametre)
       objetsPatronReponse.push(coteLongueurPatron, coteHauteurPatron, coteRayon, coteDiametre, rLongueurPatron, rHauteurPatron, rRayon, rDiametre)
 
-      const [colonne1, colonne2] = definiColonnes([...solideDessine.c2d, rayon, hauteur, segmentRayon], objetsPatron, scaleDessin)
-      const [rColonne1, rColonne2] = definiColonnes([...solideDessine.c2d, rayon, hauteur, segmentRayon], objetsPatronReponse, scaleDessin)
+      //      const [colonne1, colonne2] = definiColonnes([...solideDessine.c2d, rayon, hauteur, segmentRayon], objetsPatron, scaleDessin)
+      const [colonne1, colonne2] = definiColonnes(objetsPerspective, objetsPatron, scaleDessin)
+      const [rColonne1, rColonne2] = definiColonnes(objetsPerspective, objetsPatronReponse, scaleDessin)
 
       switch (listeTypeQuestions[i]) {
         case 'CylindreVersPatron':
-          // texte = `Question ${i + 1} de type CylindreVersPatron<br>${listetypeOrientationCylindre[i]}<br>`
+          texte = `Question ${i + 1} de type CylindreVersPatron<br>${listetypeOrientationCylindre[i]}<br>`
           texte += 'On souhaite construire le patron  du cylindre ci-dessous.<br> Complète le schéma du patron en indiquant les longeurs en valeur exacte si possible ou au millimètre près.<br>'
           texte += '<br><br>'
           texte += deuxColonnesResp(colonne1, colonne2, {
