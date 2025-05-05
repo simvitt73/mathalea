@@ -1,6 +1,6 @@
 import { droite } from '../../../lib/2d/droites'
 import { point, TracePoint, tracePoint } from '../../../lib/2d/points'
-import { projectionOrtho, symetrieAxiale } from '../../../lib/2d/transformations'
+import { symetrieAxiale } from '../../../lib/2d/transformations'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
@@ -10,7 +10,6 @@ import { range } from '../../../lib/outils/nombres'
 import { latex2d, type Latex2d } from '../../../lib/2d/textes'
 import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
 import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive'
-import { longueur } from '../../../lib/2d/segmentsVecteurs'
 
 export const titre = 'Trouver le symétrique'
 export const dateDePublication = '03/05/2025'
@@ -32,35 +31,9 @@ export const refs = {
   'fr-ch': []
 }
 
-function ilYADesPointsTropProchesOuTopLoin (indexNumerosChoisis: number[], typeAxe: number): boolean {
-  const pointsChoisis = indexNumerosChoisis.map(n => point(n % 7, Math.floor(n / 7)))
-  let tropProcheOuTropLoin = false
-  const d = typeAxe === 1
-    ? droite(point(3, 0), point(3, 6))
-    : typeAxe === 2
-      ? droite(point(0, 3), point(6, 3))
-      : typeAxe === 3
-        ? droite(point(0, 0), point(6, 6))
-        : droite(point(0, 6), point(6, 0))
-  for (let i = 0; i < pointsChoisis.length && !tropProcheOuTropLoin; i++) {
-    const p1 = projectionOrtho(pointsChoisis[i], d)
-    const l = longueur(pointsChoisis[i], p1)
-    if (l < 0.5) {
-      tropProcheOuTropLoin = true
-    }
-    if (typeAxe === 1 || typeAxe === 2) {
-      if (l > 2) {
-        tropProcheOuTropLoin = true
-      }
-    } else {
-      if (l > 2 * Math.sqrt(2)) {
-        tropProcheOuTropLoin = true
-      }
-    }
-  }
-  return tropProcheOuTropLoin
-}
 export default class TrouverLeSym extends Exercice {
+  croix: TracePoint[] = []
+
   constructor () {
     super()
     this.nbQuestions = 1
@@ -70,24 +43,31 @@ export default class TrouverLeSym extends Exercice {
     this.sup2 = 1
     this.besoinFormulaire3CaseACocher = ['Numéros dans le désordre', false]
     this.sup3 = false
-  }
-
-  nouvelleVersion () {
-    const typeAxe = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, nbQuestions: this.nbQuestions, defaut: 1 }).map(Number)
-    const croix: TracePoint[] = []
+    this.croix = []
     for (let i = 0; i < 49; i++) {
       const x = i % 7
       const y = Math.floor(i / 7)
       const trace = tracePoint(point(x, y))
       trace.taille = context.isHtml ? 2 : 1
-      croix.push(trace)
+      this.croix.push(trace)
     }
+  }
+
+  nouvelleVersion () {
+    const typeAxe = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, nbQuestions: this.nbQuestions, defaut: 1 }).map(Number)
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on remet à vide tous les tableaux utilisés pour la question suivante
       let indexNumerosChoisis: number[] = []
-      do {
-        indexNumerosChoisis = choisitNombresEntreMetN(0, 48, this.sup2)
-      } while (ilYADesPointsTropProchesOuTopLoin(indexNumerosChoisis, typeAxe[i]))
+      const numerosAEviter = typeAxe[i] === 1
+        ? [3, 10, 17, 24, 31, 38, 45, 0, 7, 14, 21, 28, 35, 42, 6, 13, 20, 27, 34, 41, 48]
+        : typeAxe[i] === 2
+          ? [21, 22, 23, 24, 25, 26, 27, 0, 1, 2, 3, 4, 5, 6, 42, 43, 44, 45, 46, 47, 48]
+          : typeAxe[i] === 3
+            ? [35, 42, 43, 5, 6, 13]
+            : [0, 1, 7, 41, 47, 48]
+
+      indexNumerosChoisis = choisitNombresEntreMetN(0, 48, this.sup2, numerosAEviter)
       const numeros = this.sup3
         ? shuffle(range(49))
         : range(49)
@@ -140,8 +120,8 @@ export default class TrouverLeSym extends Exercice {
       let texte = this.interactif
         ? questionInteractive
         : `Donner ${this.sup2 > 1 ? 'les' : 'le'} symétrique${this.sup2 > 1 ? 's' : ''} ${this.sup2 > 1 ? 'des' : 'du'} point${this.sup2 > 1 ? 's' : ''} ${numerosChoisis.map(String).join(', ')} par rapport à $(d)$.<br>`
-      const objetsEnonce:NestedObjetMathalea2dArray = [croix, nums, d]
-      const objetsCorrection:NestedObjetMathalea2dArray = [croix, nums, d]
+      const objetsEnonce:NestedObjetMathalea2dArray = [this.croix, nums, d]
+      const objetsCorrection:NestedObjetMathalea2dArray = [this.croix, nums, d]
       const pointsChoisis = []
       for (let j = 0; j < this.sup2; j++) {
         const n = indexNumerosChoisis[j]
