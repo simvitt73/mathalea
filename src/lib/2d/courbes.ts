@@ -1,13 +1,14 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { inferieurouegal } from '../../modules/outils'
+import { estentier, inferieurouegal } from '../../modules/outils'
 import { Point, point, tracePoint } from './points'
-import { elimineDoublonsConsecutifs, eliminePointsIntermediairesAlignes, motifs, polygone, polyline } from './polygones'
+import { elimineBinomesXYIntermediairesAlignes, motifs, Polygone, polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { arc } from './cercle'
 import { Repere } from './reperes'
 import type { Spline } from '../mathFonctions/Spline'
+import { tousDeMemeSigne } from '../outils/nombres'
 
 export class LectureImage extends ObjetMathalea2D {
   x: number
@@ -576,8 +577,8 @@ export function integrale (f: (x:number)=>number, {
  * @author Jean-Claude Lhote
  */
 export class IntegraleComptable extends ObjetMathalea2D {
+  aire: { negative: number, positive: number }
   constructor (f: (x:number)=>number, {
-    repere,
     xMin,
     xMax,
     pas = 1,
@@ -585,7 +586,6 @@ export class IntegraleComptable extends ObjetMathalea2D {
     colorPositif = 'red',
     colorNegatif = 'blue'
   }:{
-    repere: Repere,
     xMin: number,
     xMax: number,
     pas?: number,
@@ -595,89 +595,93 @@ export class IntegraleComptable extends ObjetMathalea2D {
   }) {
     super()
     this.objets = []
-    this.bordures = (repere?.bordures ?? [0, 0, 0, 0]) as unknown as [number, number, number, number]
-    const points: Point[] = [point(xMin, 0)]
-    for (let x = xMin; inferieurouegal(x, xMax); x += pas) {
-      if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
-      const y = sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas
-      if (isFinite(y)) {
-        points.push(point(x, y))
-      } else {
-        x += pas
-      }
-    }
-    let n = 0
-    let side = points[1].y >= 0 ? 'pos' : 'neg'
-    while (n < points.length) {
-      const pointSuivant = points[n + 1]
-      if (pointSuivant == null) break
-      const yn = points[n].y
-      const ySuivant = pointSuivant.y
-      const xn = points[n].x
-      const xSuivant = pointSuivant.x
-      if (side === 'pos') {
-        if (ySuivant === yn) n++
-        else {
-          if (ySuivant >= 0) {
-            if (ySuivant > yn) {
-              points.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
-            } else {
-              points.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
-            }
-            n += 2
-          } else {
-            let pointEnPlus = 0
-            if (sup) {
-              points.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
-              pointEnPlus = 2
-            } else {
-              points.splice(n + 1, 0, point(xn, 0))
-              pointEnPlus = 1
-            }
-            const pointsPol = eliminePointsIntermediairesAlignes(points.slice(0, n + pointEnPlus + 1))
-            const pol = polygone(pointsPol, colorPositif)
-            pol.couleurDeRemplissage = colorToLatexOrHTML(colorPositif)
-            this.objets.push(pol)
-            points.splice(0, n + pointEnPlus)
-            points.unshift(point(sup ? xSuivant : xn, 0))
-            n = 1
-            side = 'neg'
-          }
-        }
-      } else {
-        if (ySuivant === yn) n++
-        else {
-          if (ySuivant < 0) {
-            if (ySuivant > yn) {
-              points.splice(n + 1, 0, sup ? point(xn, ySuivant) : point(xSuivant, yn))
-            } else {
-              points.splice(n + 1, 0, sup ? point(xSuivant, yn) : point(xn, ySuivant))
-            }
-            n += 2
-          } else {
-            if (sup) {
-              points.splice(n + 1, 0, point(xn, 0), point(xSuivant, 0))
-            } else {
-              points.splice(n + 1, 0, point(xSuivant, yn), point(xSuivant, 0))
-            }
-            const pointsPol = eliminePointsIntermediairesAlignes(points.slice(0, n + 3))
-            const pol = polygone(pointsPol, colorNegatif)
-            pol.couleurDeRemplissage = colorToLatexOrHTML(colorNegatif)
-            this.objets.push(pol)
-            points.splice(0, n + 2)
-            points.unshift(point(xSuivant, 0))
-            n = 1
-            side = 'pos'
-          }
+    const rectangles: Polygone[] = []
+    const echantillonnage: number[][] = []
+    for (let k = 0; k < (xMax - xMin) / pas; k++) {
+      echantillonnage[k] = []
+      for (let j = 0; j < 5; j++) {
+        const x = xMin + k * pas + j * pas / 5
+        if (estentier(f(x) / pas, 0.05)) {
+          echantillonnage[k].push(Math.round(f(x) / pas) * pas)
+        } else {
+          echantillonnage[k].push(sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas)
         }
       }
     }
-    if (points.length > 2) {
-      points.push(point(xMax, 0))
-      const pointsPol = elimineDoublonsConsecutifs(points)
-      const pol = polygone(pointsPol, side === 'pos' ? colorPositif : colorNegatif)
-      pol.couleurDeRemplissage = colorToLatexOrHTML(side === 'pos' ? colorPositif : colorNegatif)
-      this.objets.push(pol)
+    for (let k = 0; k < echantillonnage.length - 1; k++) {
+      echantillonnage[k].push(echantillonnage[k + 1][0])
+    }
+    if (estentier(f(xMax) / pas, 0.05)) {
+      echantillonnage[echantillonnage.length - 1].push(Math.round(f(xMax) / pas) * pas)
+    } else {
+      echantillonnage[echantillonnage.length - 1].push(sup ? Math.ceil(f(xMax) / pas) * pas : Math.floor(f(xMax) / pas) * pas)
+    }
+
+    for (let k = 0; k < echantillonnage.length; k++) {
+      const xk = xMin + k * pas
+      const yk = sup ? Math.max(...echantillonnage[k]) : Math.min(...echantillonnage[k])
+      if (tousDeMemeSigne(echantillonnage[k])) {
+        const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], yk > 0 ? colorPositif : colorNegatif)
+        p.couleurDeRemplissage = colorToLatexOrHTML(yk > 0 ? colorPositif : colorNegatif)
+        rectangles.push(p)
+      } else {
+        const couleur = sup ? colorPositif : colorNegatif
+        const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], couleur)
+        p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+        rectangles.push(p)
+      }
+    }
+    // On joint les rectangles adjacents de même couleur
+    let color: string[] = []
+    let sommetFinal: Point = point(0, 0)
+    while (rectangles.length > 0) {
+      const sommets = [rectangles[0].listePoints[0], rectangles[0].listePoints[1], rectangles[0].listePoints[2]]
+      color = rectangles[0].color.slice()
+      const pol = rectangles.shift()
+      if (pol != null) {
+        sommetFinal = pol.listePoints[3]
+      }
+      while (rectangles.length > 0 && rectangles[0].couleurDeRemplissage[0] === color[0]) {
+        sommets.push(rectangles[0].listePoints[1], rectangles[0].listePoints[2])
+        const pol = rectangles.shift()
+        if (pol != null) {
+          sommetFinal = pol.listePoints[3]
+        }
+      }
+      // Il n'y a plus de rectangle, on ferme le polygone
+      if (rectangles.length === 0) {
+        sommets.push(sommetFinal)
+        const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
+        const p = polygone(binomesXY.map(el => point(el.x, el.y)))
+        p.color = p.bordures[1] < 0 && p.bordures[3] === 0 ? colorToLatexOrHTML(colorNegatif) : colorToLatexOrHTML(colorPositif)
+        p.couleurDeRemplissage = p.color
+        this.objets.push(p)
+        break
+      }
+      // on a encore des rectangles, donc on change de couleur et on ferme le précédent polygone
+      // s'il reste qu'un seul rectangle alors on le pousse dans la liste des objets
+      sommets.push(sommetFinal)
+      const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
+      const p = polygone(binomesXY.map(el => point(el.x, el.y)))
+      p.color = p.bordures[1] < 0 && p.bordures[3] === 0 ? colorToLatexOrHTML(colorNegatif) : colorToLatexOrHTML(colorPositif)
+      p.couleurDeRemplissage = p.color
+      this.objets.push(p)
+      if (rectangles.length === 1) {
+        this.objets.push(rectangles[0])
+        rectangles.length = 0
+        break
+      } // sinon on contine en initialisant le nouveau polygone au début de la boucle
+    }
+
+    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmax: 0, rxmin: 0, rymax: 0, rymin: 0 })
+    this.bordures = [xmin, xmax, ymin, ymax] as unknown as [number, number, number, number]
+    this.aire = { negative: 0, positive: 0 }
+    for (const objet of this.objets) {
+      if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
+        this.aire.negative += objet.aire
+      } else {
+        this.aire.positive += objet.aire
+      }
     }
   }
 }

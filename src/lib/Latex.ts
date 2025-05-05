@@ -322,6 +322,8 @@ Correction
       if (latexFileInfos.style === 'Can') {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
         contents.preamble += '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
+        contents.preamble += '\n\\newbool{correctionDisplay}'
+        contents.preamble += `\n\\setbool{correctionDisplay}{${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
@@ -436,6 +438,9 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     latexWithoutPreamble += content
     if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
       latexWithoutPreamble += '\n\\end{document}'
+    } else if (latexFileInfos.style === 'Can') {
+      latexWithoutPreamble += '\n\n\\clearpage\n\n\\ifbool{correctionDisplay}{\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}}{}\n\\end{document}'
+      latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     } else {
       latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
       latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
@@ -530,12 +535,14 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
           } else {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.png`)
           }
-        } else {
+        } else if (serie != null) {
           if (file.format) {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
           } else {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
           }
+        } else {
+          imagesFilesUrls.push(`${window.location.origin}/alea/${file.name}.${file.format}`)
         }
       }
     }

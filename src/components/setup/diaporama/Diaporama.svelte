@@ -40,7 +40,6 @@
 
   let state: CanState = 'end'
   let exercises: Exercice[] = []
-  let link: string = window.location.href
   let slideshow: Slideshow = {
     slides: [],
     currentQuestion: -1,
@@ -71,13 +70,6 @@
     if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
     updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    updateLink()
-  }
-
-  function updateLink () {
-    setTimeout(() => {
-      link = buildMathAleaURL({ view: 'diaporama' }).toString()
-    }, 600) // to update link after the updateGlobalOptionsInURL setTimout
   }
 
   function setSlidesContent (newExercises: Exercice[]) {
@@ -279,12 +271,10 @@
         <SlideshowSettings
           {exercises}
           {updateExercises}
-          {updateLink}
           {transitionSounds}
           {startSlideshow}
           {goToOverview}
           {goToHome}
-          {link}
         />
       {/if}
     {/if}
