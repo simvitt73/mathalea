@@ -97,16 +97,16 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
               break
           }
           reponse = longueur * largeur
-          texte += `$x$ est un nombre tel que $${segment1}=${equation.membreDeGauche}$ et $${segment2}=${equation.membreDeDroite}$ (en $cm$).<br>`
+          texte += `$x$ est un nombre tel que $${segment1}=${equation.membreDeGauche}$ et $${segment2}=${equation.membreDeDroite}$ (en cm).<br>`
           texteCorr = `${nomRectangle} est un rectangle donc ses côtés opposés sont de la même longueur donc $${A.nom}${B.nom}=${C.nom}${D.nom}$ et $${B.nom}${C.nom}=${D.nom}${A.nom}$.<br>
             Ainsi $${equation.egalite}$.<br><br>
             ${texteGras('Résolution de l\'équation.')}<br>
             ${this.correctionDetaillee ? equation.correctionDetaillee : equation.correction}<br><br>
-            ${texteGras(`Calcul de $${segment1}$ en $cm$.`)}<br>
+            ${texteGras(`Calcul de $${segment1}$ en cm.`)}<br>
             $${segment1}=${equation.membreDeGauche}$<br>
             $${segment1}=${a} \\times ${equation.reponse}${ecritureAlgebrique(b)}$<br>
             $${segment1}=${longueurConnue}$<br><br>
-            ${texteGras(`Calcul de $${coteInconnu}$ en $cm$.`)}<br>
+            ${texteGras(`Calcul de $${coteInconnu}$ en cm.`)}<br>
             $\\mathcal{P} = 2 \\times ${longueurConnue} + 2 \\times ${coteInconnu}$<br>
             $${perimetre} = ${2 * longueurConnue} + 2 ${coteInconnu}$<br>`
           if (this.correctionDetaillee) texteCorr += `On soustrait $${2 * longueurConnue}$ aux deux membres.<br>`
@@ -115,12 +115,12 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
           if (this.correctionDetaillee) texteCorr += 'On divise les deux membres par $2$.<br>'
           texteCorr += `$${perimetre - 2 * longueurConnue} ${miseEnEvidence('\\div 2')} = 2 ${coteInconnu} ${miseEnEvidence('\\div 2')}$<br>
             $${longueurInconnue} = ${coteInconnu}$<br><br>
-            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en $cm^2$.`)}<br>
+            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm².`)}<br>
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
             $\\mathcal{A} = ${reponse}$<br>
-            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}~cm^2$.`
+            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}$ cm².`
           break
         }
         case 2: // Deux longueurs différentes
@@ -162,7 +162,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
           segment1 = longCote
           segment2 = largeCote
           largeur = a2 * equation.reponse + b2
-          texte += `$x$ est un nombre tel que $${segment1}=${expression1}$ et $${segment2}=${expression2}$ (en $cm$).<br>`
+          texte += `$x$ est un nombre tel que $${segment1}=${expression1}$ et $${segment2}=${expression2}$ (en cm).<br>`
           texteCorr = `${nomRectangle} est un rectangle donc ses côtés opposés sont de la même longueur donc $${A.nom}${B.nom}=${C.nom}${D.nom}$ et $${B.nom}${C.nom}=${D.nom}${A.nom}$.<br><br>
             ${texteGras('Mise en équation.')}<br>
             $\\mathcal{P} = 2 \\times ${segment1} + 2 \\times ${segment2}$<br>
@@ -170,24 +170,24 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             $${perimetre} = ${equation.membreDeGauche}$<br><br>
             ${texteGras('Résolution de l\'équation.')}<br>
             ${this.correctionDetaillee ? equation.correctionDetaillee : equation.correction}<br><br>
-            ${texteGras(`Calcul de ${segment1} en $cm$.`)}<br>
+            ${texteGras(`Calcul de $${segment1}$ en cm.`)}<br>
             $${segment1} = ${a1} \\times ${equation.reponse}${b1 === 0 ? '' : ecritureAlgebrique(b1)}$<br>
             $${segment1} = ${longueur}$<br><br>
-            ${texteGras(`Calcul de ${segment2} en $cm$.`)}<br>
+            ${texteGras(`Calcul de $${segment2}$ en cm.`)}<br>
             $${segment2} = ${a2} \\times ${equation.reponse}${b2 === 0 ? '' : ecritureAlgebrique(b2)}$<br>
             $${segment2} = ${largeur}$<br><br>
-            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en $cm^2$.`)}<br>
+            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm².`)}<br>
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
             $\\mathcal{A} = ${longueur * largeur}$<br>
-            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(longueur * largeur)}~cm^2$.`
+            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(longueur * largeur)}$ cm².`
           reponse = 0
           break
         }
       }
-      texte += `Le périmètre de $${nomRectangle}$ mesure $${perimetre}~cm$.<br>
-      Déterminer son aire en $cm^2$.` + ajouteChampTexteMathLive(this, i, 'inline')
+      texte += `Le périmètre de $${nomRectangle}$ mesure $${perimetre}$ cm.<br>
+      Déterminer son aire en cm².` + ajouteChampTexteMathLive(this, i, 'inline')
       handleAnswers(this, i, { reponse: { value: reponse } })
       texte += mathalea2d(Object.assign({
         pixelsParCm: 20,
