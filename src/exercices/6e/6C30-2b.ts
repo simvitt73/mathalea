@@ -11,6 +11,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import Operation from '../../modules/operations'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
+export const dateDePublication = '06/05/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer le produit (en ligne) de deux décimaux connaissant le produit de deux entiers'
