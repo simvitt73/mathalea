@@ -8,6 +8,9 @@ import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
 import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
+import { lettreDepuisChiffre } from '../outils/outilString'
+import { codageSegments } from './codages'
+import { codageAngleDroit } from './angles'
 
 type BinomeXY = { x: number, y: number }
 type BinomesXY = BinomeXY[]
@@ -886,6 +889,52 @@ export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, 
   const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10) as Vecteur, nom[3])
   const C = translation(D, vecteur(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
+}
+
+/**
+ * Construit un rectangle à partir d'un point A et de deux longueurs
+ * @param {Point} A
+ * @param {number} longueur
+ * @param {number} largeur
+ * @param {object} options
+ * @param {string} [options.nom] noms des sommets
+ * @param {number} [options.angleRotation] angle de rotation du rectangle
+ * @return {PolygoneAvecNom}
+ * @example rectangle1Point2Longueurs(A, 5, 3)
+ * @example rectangle1Point2Longueurs(A, 5, 3, { nom: 'ABCD' })
+ * @example rectangle1Point2Longueurs(A, 5, 3, { angleRotation: 45 })
+ * @example rectangle1Point2Longueurs(A, 5, 3, { nom: 'ABCD', angleRotation: 45 })
+ * @author Guillaume Valmont d'après 6M11 d'Eric Elter
+ */
+export function rectangle1Point2Longueurs (A: Point, longueur: number, largeur: number, options: { nom?: string, angleRotation?: number, avecCodageSegments?: boolean, avecCodagesAnglesDroits?: boolean } = { avecCodageSegments: true, avecCodagesAnglesDroits: true }) {
+  const objets: ObjetMathalea2D[] = []
+  const angleRotation = options.angleRotation ?? 0
+  const B = pointAdistance(A, longueur, angleRotation)
+  const C = rotation(pointAdistance(B, largeur, 180 + angleRotation), B, -90)
+  const D = rotation(pointAdistance(A, largeur, angleRotation), A, 90)
+  if (options.nom) {
+    A.nom = options.nom[0]
+    B.nom = options.nom[1]
+    C.nom = options.nom[2]
+    D.nom = options.nom[3]
+  } else {
+    const numA = randint(1, 26)
+    const numB = randint(1, 26, [numA])
+    const numC = randint(1, 26, [numA, numB])
+    const numD = randint(1, 26, [numA, numB, numC])
+    A.nom = lettreDepuisChiffre(numA)
+    B.nom = lettreDepuisChiffre(numB)
+    C.nom = lettreDepuisChiffre(numC)
+    D.nom = lettreDepuisChiffre(numD)
+  }
+  objets.push(...polygoneAvecNom(A, B, C, D))
+  if (options.avecCodageSegments || options.avecCodageSegments === undefined) { // Lorsqu'un objet d'options est passé, le avecCodageSegments: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
+    objets.push(codageSegments('/', 'red', B, C, D, A), codageSegments('||', 'blue', A, B, C, D))
+  }
+  if (options.avecCodagesAnglesDroits || options.avecCodagesAnglesDroits === undefined) { // Lorsqu'un objet d'options est passé, le avecCodagesAnglesDroits: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
+    objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
+  }
+  return objets
 }
 
 /**
