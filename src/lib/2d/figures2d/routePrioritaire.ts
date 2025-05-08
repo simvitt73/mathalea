@@ -4,6 +4,9 @@ import { Figure2D } from '../Figures2D'
  * Génère une figure représentant un panneau de route prioritaire.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de route prioritaire.
+ * @author Jean-Claude Lhote
+ * @version 1.0
+ * @date 2025-05-10
  */
 export function routePrioritaire (
   options?: {

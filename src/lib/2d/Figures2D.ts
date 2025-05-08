@@ -4,7 +4,7 @@ import { context } from '../../modules/context'
 export class Figure2D extends ObjetMathalea2D {
   codeSvg: string
   codeTikz: string
-  scale: number
+  scale: { x: number, y: number }
   angle: number
   width: number // laargeur en cm
   height: number // hauteur en cm
@@ -15,7 +15,7 @@ export class Figure2D extends ObjetMathalea2D {
     x = 0,
     y = 0,
     angle = 0,
-    scale = 1,
+    scale = { x: 1, y: 1 },
     width = 0,
     height = 0,
     pixelsParCm = context.pixelsParCm,
@@ -25,7 +25,7 @@ export class Figure2D extends ObjetMathalea2D {
     x?: number,
     y?: number,
     angle?: number,
-    scale?: number,
+    scale?: { x: number, y: number },
     width: number,
     height: number,
     pixelsParCm?: number,
@@ -49,13 +49,13 @@ export class Figure2D extends ObjetMathalea2D {
   }
 
   svg (coeff: number) {
-    return `<g transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale}) rotate(${this.angle})">${this.codeSvg}</g>`
+    return `<g transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>`
   }
 
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[shift={(${this.x},${this.y})}, scale=${this.scale}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope}`
+    return `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope}`
   }
 
   rotate (angle: number) {
@@ -71,18 +71,22 @@ export class Figure2D extends ObjetMathalea2D {
     return this
   }
 
-  dilate (factor: number) {
-    this.scale *= factor
-    this.width = this.width * factor
-    this.height = this.height * factor
+  dilate (factor: { x: number, y: number } | number) {
+    if (typeof factor === 'number') {
+      factor = { x: factor, y: factor }
+    }
+    this.scale.x *= factor.x
+    this.scale.y *= factor.y
+    this.width = this.width * factor.x
+    this.height = this.height * factor.y
     let xmin = this.bordures[0]
     let ymin = this.bordures[1]
     let xmax = this.bordures[2]
     let ymax = this.bordures[3]
-    xmin = (xmin - this.x) * factor + this.x
-    ymin = (ymin - this.y) * factor + this.y
-    xmax = (xmax - this.x) * factor + this.x
-    ymax = (ymax - this.y) * factor + this.y
+    xmin = (xmin - this.x) * factor.x + this.x
+    ymin = (ymin - this.y) * factor.y + this.y
+    xmax = (xmax - this.x) * factor.x + this.x
+    ymax = (ymax - this.y) * factor.y + this.y
     this.bordures = [
       xmin,
       ymin,
@@ -104,19 +108,127 @@ export class Figure2D extends ObjetMathalea2D {
     return this
   }
 
-  get CodeSvg () {
-    return this.codeSvg
+  flip (axes:'x' | 'y' | 'xy' = 'x') {
+    if (axes === 'x') {
+      this.scale.x = -this.scale.x
+      this.angle = -this.angle
+    } else if (axes === 'y') {
+      this.scale.y = -this.scale.y
+      this.angle = -this.angle
+    } else if (axes === 'xy') {
+      this.scale.x = -this.scale.x
+      this.scale.y = -this.scale.y
+    }
+    return this
   }
 
-  get CodeTikz () {
-    return this.codeTikz
+  rotationAnimee ({ angleStart = 0, angleEnd = 180, cx, cy, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
+    angleStart?: number,
+    angleEnd?: number,
+    duration?: string,
+    repeatCount?: string,
+    loop?: boolean,
+    delay?: number,
+    cx?: number,
+    cy?: number
+  }) {
+    if (cx === undefined) {
+      cx = this.x * this.pixelsParCm
+    }
+    if (cy === undefined) {
+      cy = -this.y * this.pixelsParCm
+    }
+    return new Figure2D({
+      codeSvg: `<g> 
+      <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="${angleStart} ${cx} ${cy}"
+      to="${angleEnd} ${cx} ${cy}"
+      dur="${duration}"
+      repeatCount="${repeatCount}"
+      begin="${loop ? `0s; ${delay}s` : '0s'}"
+      keyTimes="0;0.4;0.5;0.9;1"
+      values="${angleStart} ${cx} ${cy};${angleEnd} ${cx} ${cy};${angleEnd} ${cx} ${cy};${angleStart} ${cx} ${cy};${angleStart} ${cx} ${cy}"
+      />
+        <g transform="translate(${this.x * this.pixelsParCm}, ${-this.y * this.pixelsParCm}) scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>
+      </g>`,
+      codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
+      width: this.width,
+      height: this.height,
+      pixelsParCm: this.pixelsParCm
+    })
   }
 
-  get Width () {
-    return this.width
+  dilatationAnimee ({ cx, cy, factorXStart = 1, factorXEnd = -1, factorYStart = 1, factorYEnd = 1, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
+    factorXStart?: number,
+    factorXEnd?: number,
+    factorYStart?: number,
+    factorYEnd?: number,
+    duration?: string,
+    repeatCount?: string,
+    loop?: boolean,
+    delay?: number,
+    cx?: number,
+    cy?: number
+  }) {
+    if (cx === undefined) {
+      cx = this.x * this.pixelsParCm
+    }
+    if (cy === undefined) {
+      cy = -this.y * this.pixelsParCm
+    }
+    return new Figure2D({
+      codeSvg: `<g transform="translate(${cx}, ${cy})"> 
+      <g>
+      <animateTransform
+      attributeName="transform"
+      type="scale"
+      from="${factorXStart} ${factorYStart}"
+      to="${factorXEnd} ${factorYEnd}"
+      dur="${duration}"
+      repeatCount="${repeatCount}"
+      begin="${loop ? `0s; ${delay}s` : '0s'}"
+      keyTimes="0;0.4;0.5;0.9;1"
+      values="${factorXStart} ${factorYStart};${factorXEnd} ${factorYEnd};${factorXEnd} ${factorYEnd};${factorXStart} ${factorYStart};${factorXStart} ${factorYStart}"
+      />
+        <g transform=" scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>
+      </g>
+      </g>`,
+      codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
+      width: this.width,
+      height: this.height,
+      pixelsParCm: this.pixelsParCm
+    })
   }
 
-  get Height () {
-    return this.height
+  translationAnimee ({ dx, dy, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
+    dx: number,
+    dy: number,
+    duration?: string,
+    repeatCount?: string,
+    loop?: boolean,
+    delay?: number
+  }) {
+    return new Figure2D({
+      codeSvg: `<g>
+      <animateTransform
+      attributeName="transform"
+      type="translate"
+      from="${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm}"
+      to="${this.x * this.pixelsParCm + dx} ${-this.y * this.pixelsParCm - dy}"
+      dur="${duration}"
+      repeatCount="${repeatCount}"
+      begin="${loop ? `0s; ${delay}s` : '0s'}"
+      keyTimes="0;0.4;0.5;0.9;1"
+      values="${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm};${this.x * this.pixelsParCm + dx} ${-this.y * this.pixelsParCm - dy};${this.x * this.pixelsParCm + dx} ${-this.y * this.pixelsParCm - dy};${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm};${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm}"
+      />
+        <g transform=" scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>
+      </g>`,
+      codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
+      width: this.width,
+      height: this.height,
+      pixelsParCm: this.pixelsParCm
+    })
   }
 }

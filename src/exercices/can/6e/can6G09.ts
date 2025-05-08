@@ -2,13 +2,17 @@ import Exercice from '../../Exercice'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import { pacman } from '../../../lib/2d/figures2d/pacman'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { sensInterdit } from '../../../lib/2d/figures2d/sensInterdit'
 import { arretInterdit } from '../../../lib/2d/figures2d/arretInterdit'
 import { finDeRoutePrioritaire, routePrioritaire } from '../../../lib/2d/figures2d/routePrioritaire'
 import { ovale } from '../../../lib/2d/figures2d/ovale'
 import { stationnementInterdit } from '../../../lib/2d/figures2d/stationnementInterdit'
-import { croisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens } from '../../../lib/2d/figures2d/panneauDanger'
+import { croisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2 } from '../../../lib/2d/figures2d/panneauDanger'
 import { panneauStop } from '../../../lib/2d/figures2d/panneauStop'
+import { panneauParking, panneauVoieSansIssue } from '../../../lib/2d/figures2d/panneauInfo'
+import { briqueLego } from '../../../lib/2d/figures2d/legos'
+import { interdictionDeCirculer, sensInterdit } from '../../../lib/2d/figures2d/Interdictions'
+import { finInterdiction } from '../../../lib/2d/figures2d/finInterdictionDoubler'
+import { aileDelta, cerfVolant, etoile5Branches, hexagoneNonRegulier, pentagoneRegulier, trapezeIsocele, triangleQuelconque1 } from '../../../lib/2d/figures2d/geometrie'
 
 export const titre = 'Identifier des figures symétriques'
 export const dateDePublication = '10/05/2025'
@@ -37,29 +41,67 @@ export default class SymetriqueOuPas extends Exercice {
 
   nouvelleVersion () {
     for (let i = 0; i < this.nbQuestions;) {
-      const pac = pacman({ fillStyle: 'red' })
-      const sensI = sensInterdit()
+      const pac = pacman({ fillStyle: 'red' }).translate(15, 0)
+      const sensI = sensInterdit().translate(6, 0).dilatationAnimee({ duration: '3s', repeatCount: 'indefinite', loop: true, factorXStart: 1, factorXEnd: 1, factorYStart: 1, factorYEnd: -1 })
       const arrInter = arretInterdit()
       const rp = routePrioritaire()
       const fdrp = finDeRoutePrioritaire()
       const ov = ovale({ fillStyle: 'blue' })
-      const statInter = stationnementInterdit()
+      const statInter = stationnementInterdit().translate(6, -3).rotationAnimee({ angleStart: 0, angleEnd: 360, duration: '3s', repeatCount: 'indefinite', loop: true })
+
       const ps = panneauStop()
       const prioriteAD = croisementPrioriteADroite()
-      prioriteAD.dilate(2).translate(6, -10)
-      ps.dilate(2).translate(24, -5)
-      fdrp.dilate(2).translate(18, -5)
+      const pRC = panneauRetrecissementChaussee1()
+      const pRC2 = panneauRetrecissementChaussee2()
+      const pFT = panneauFeuTricolore()
+      const pVSI = panneauVoieSansIssue()
+      const lego1 = briqueLego(6, 2, { fillStyle: 'red', studFillStyle: 'red' })
+      const lego2 = briqueLego(3, 2, { fillStyle: 'green', studFillStyle: 'green' })
+      const lego3 = briqueLego(4, 2, { fillStyle: 'gray', studFillStyle: 'gray' })
+      const lego4 = briqueLego(5, 4, { fillStyle: 'yellow', studFillStyle: 'yellow' })
+      const lego5 = briqueLego(4, 1, { fillStyle: 'white', studFillStyle: 'white' })
+      const lego6 = briqueLego(4, 3, { fillStyle: 'orange', studFillStyle: 'orange' })
+      const lego7 = briqueLego(4, 4, { fillStyle: 'pink', studFillStyle: 'pink' })
+      const lego8 = briqueLego(2, 2, { fillStyle: 'lightgray', studFillStyle: 'lightgray' })
+      const lego9 = briqueLego(2, 1, { fillStyle: 'brown', studFillStyle: 'brown' })
+      const interCircu = interdictionDeCirculer()
+      const finInter = finInterdiction()
+      const park = panneauParking().translate(0, -8)
+      const hexa = hexagoneNonRegulier({ rayonHorizontal: 20, rayonVertical: 10 }).translate(3, -8)
+      const trap = trapezeIsocele({ baseInferieure: 38, baseSuperieure: 25, hauteur: 32 }).translate(6, -8)
+      const ad = aileDelta({ base: 40, hauteur: 20 }).translate(9, -8)
+      const cv = cerfVolant({ hauteur: 30, largeur: 30 }).translate(12, -8)
+      const penta = pentagoneRegulier({ rayon: 20 }).translate(15, -8)
+      const etoile = etoile5Branches({ rayonInterieur: 10, rayonExterieur: 20 }).translate(15, -10)
+      const tri1 = triangleQuelconque1().translate(15, -3)
+      finInter.translate(0, 0)
+      interCircu.translate(0, -3)
+
+      lego2.translate(3, -6)
+      lego1.translate(0, -6)
+      lego3.translate(6, -6)
+      lego4.translate(9, -6)
+      lego5.translate(12, -6)
+      lego6.translate(15, -6)
+      lego7.translate(0, -12)
+      lego8.translate(3, -12)
+      lego9.translate(6, -12)
+      pVSI.translate(9, 0).rotate(30)
+      pFT.translate(3, -10)
+      const pFT2 = pFT.translationAnimee({ dx: -100, dy: -30, duration: '3s', repeatCount: 'indefinite', loop: true })
+      pRC2.translate(9, -10)
+      pRC.translate(0, -10)
+      prioriteAD.translate(6, -10)
+      ps.translate(3, -3).rotate(45)
+      fdrp.translate(9, -3)
       const danger = panneauCederLePassage()
       const doubleSens = panneauDoubleSens()
-      doubleSens.dilate(2).translate(12, -10)
-      danger.dilate(2).translate(12, -5)
-      statInter.dilate(2).translate(6, -5)
-      ov.dilate(2).translate(0, -5)
-      pac.dilate(2)
-      rp.dilate(2).translate(24, 0)
-      sensI.dilate(2).translate(6, 0)
-      arrInter.dilate(2).translate(12, 0)
-      const objets = [pac, sensI, arrInter, rp, ov, statInter, danger, fdrp, ps, doubleSens, prioriteAD]
+      doubleSens.translate(12, -10)
+      danger.translate(12, -3)
+      ov.translate(0, -3)
+      rp.translate(3, 0)
+      arrInter.translate(12, 0)
+      const objets = [park, penta, etoile, pac, tri1, trap, hexa, ad, cv, sensI, arrInter, rp, statInter, danger, fdrp, ps, doubleSens, prioriteAD, pRC, pRC2, pFT, pVSI, lego1, lego2, lego3, lego4, lego5, lego6, lego7, lego8, lego9, interCircu, finInter, pFT2]
       const texte = `On considère les figures suivantes :<br>
   ${mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)}
 
