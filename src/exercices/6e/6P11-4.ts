@@ -30,15 +30,15 @@ export default class ProblemesDeProportionnalité extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.consigne = ' Compléter :'
+    this.consigne = 'On considère que les situations suivantes sont des situations de proportionnalités. Compléter.'
     this.sup = 1
     this.sup2 = 4
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières\n2 : Une décimale\n3 : Deux décimales']
     this.besoinFormulaire2Texte = ['Type de questions',
       `Nombres séparés par des tirets :
-  1 : passage à l'unité
-  2 : recherche une quantité
-  3 : recherche le nombre de personnes
+  1 : Passage à l'unité
+  2 : Recherche d'une quantité
+  3 : Recherche du nombre de cartons
   4 : Mélange`
     ]
   }
@@ -64,64 +64,63 @@ export default class ProblemesDeProportionnalité extends Exercice {
     const fois = [2, 3, 4, 5, 10]
     const foisUsed : number[] = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // Boucle principale où i+1 correspond au numéro de la question
       const f = choice(fois, foisUsed) // On choisit un nombre de fois aléatoire
       const quantite = randint(2, 10) * 10 + randint(1, 9) + (n > 0 ? randint(1, 9) * 0.1 : 0) + (n > 1 ? randint(1, 9) * 0.01 : 0)
-      const personnes = randint(2, 10)
+      const cartons = randint(2, 10)
       const unites = ['€', 'kg', 'L']
       switch (typesDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: {
           const unité = choice(unites)
-          texte = this.createArray(`$${f}$ personnes`, '$\\rightarrow$', `$${texNombre(f * quantite)} \\text{${unité}}$.`, `$${1}$ personne`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
-          texteCorr = `$${f}$ personnes $\\div ${f} = 1 personne<br>`
+          texte = this.createArray(`$${f}$ cartons`, '$\\rightarrow$', `$${texNombre(f * quantite)}~\\text{${unité}}$`, `$${1}$ personne`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
+          texteCorr = `$${f}~\\text{cartons} \\div ${f} = 1~\\text{personne}$<br>`
           texteCorr += `$${texNombre(quantite * f)} \\text{ ${unité}} \\div ${f} = ${texNombre(quantite)} \\text{ ${unité}}$<br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texNombre(quantite))}$ ${unité}.`)
+          texteCorr += 'Donc le résultat est ' + `$${miseEnEvidence(texNombre(quantite))}$ ${unité}.`
           if (context.isAmc) setReponse(this, i, quantite)
           else handleAnswers(this, i, { reponse: { value: quantite } })
           break
         }
         case 21: {
           const unité = choice(unites)
-          texte = this.createArray(`$${personnes}$ personnes`, '$\\rightarrow$', `$${texNombre(quantite)} \\text{${unité}}$.`, `$${personnes * f}$ personnes`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
-          texteCorr = `$${personnes}$ personnes $\\times ${f} = ${personnes * f}$ personnes<br>`
-          texteCorr += `$${texNombre(quantite)} \\text{ ${unité}} \\times ${f} = ${texNombre(quantite * f)} \\text{ ${unité}}$<br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texNombre(quantite * f))}$ ${unité}.`)
+          texte = this.createArray(`$${cartons}$ cartons`, '$\\rightarrow$', `$${texNombre(quantite)}~\\text{${unité}}$`, `$${cartons * f}$ cartons`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
+          texteCorr = `$${cartons}~\\text{cartons} \\times ${f} = ${cartons * f}~\\text{cartons}$<br>`
+          texteCorr += `$${texNombre(quantite)}~\\text{${unité}} \\times ${f} = ${texNombre(quantite * f)}~\\text{${unité}}$<br>`
+          texteCorr += 'Donc le résultat est ' + `$${miseEnEvidence(texNombre(quantite * f))}$ ${unité}.`
           if (context.isAmc) setReponse(this, i, quantite * f)
           else handleAnswers(this, i, { reponse: { value: quantite * f } })
           break
         }
         case 22: {
           const unité = choice(unites)
-          texte = this.createArray(`$${personnes * f}$ personnes`, '$\\rightarrow$', `$${texNombre(quantite * f)} \\text{${unité}}$.`, `$${personnes}$ personnes`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
-          texteCorr = `$${personnes * f}$ personnes $\\div ${f} = ${personnes}$ personnes<br>`
-          texteCorr += `$${texNombre(quantite * f)} \\text{ ${unité}} \\div ${f} = ${texNombre(quantite)} \\text{ ${unité}}$<br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texNombre(quantite))}$ ${unité}.`)
+          texte = this.createArray(`$${cartons * f}$ cartons`, '$\\rightarrow$', `$${texNombre(quantite * f)}~\\text{${unité}}$`, `$${cartons}$ cartons`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
+          texteCorr = `$${cartons * f}~\\text{cartons} \\div ${f} = ${cartons}~\\text{cartons}$<br>`
+          texteCorr += `$${texNombre(quantite * f)}~\\text{${unité}} \\div ${f} = ${texNombre(quantite)}~\\text{${unité}}$<br>`
+          texteCorr += 'Donc le résultat est ' + `$${miseEnEvidence(texNombre(quantite))}$ ${unité}.`
           if (context.isAmc) setReponse(this, i, quantite)
           else handleAnswers(this, i, { reponse: { value: quantite } })
           break
         }
         case 31: {
           const unité = choice(unites)
-          texte = this.createArray(`$${personnes}$ personnes`, '$\\rightarrow$', `$${texNombre(quantite)} \\text{${unité}}$.`, (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' personnes' }) : '....', '$\\rightarrow$', `$${texNombre(quantite * f)} \\text{ ${unité}}$`)
-          texteCorr = `$${texNombre(quantite)} \\text{ ${unité}} \\times ${f} = ${texNombre(quantite * f)} \\text{ ${unité}}$<br>`
-          texteCorr += `$${personnes}$ personnes $\\times ${f} = ${personnes * f}$ personnes<br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(personnes * f)}$ personnes.`)
-          if (context.isAmc) setReponse(this, i, personnes * f)
-          else handleAnswers(this, i, { reponse: { value: personnes * f } })
+          texte = this.createArray(`$${cartons}$ cartons`, '$\\rightarrow$', `$${texNombre(quantite)}~\\text{${unité}}$`, (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cartons' }) : '....', '$\\rightarrow$', `$${texNombre(quantite * f)} \\text{ ${unité}}$`)
+          texteCorr = `$${texNombre(quantite)}~\\text{${unité}} \\times ${f} = ${texNombre(quantite * f)}~\\text{${unité}}$<br>`
+          texteCorr += `$${cartons}~\\text{cartons} \\times ${f} = ${cartons * f}~\\text{cartons}$<br>`
+          texteCorr += 'Donc le résultat est ' + `$${miseEnEvidence(cartons * f)}$ cartons.`
+          if (context.isAmc) setReponse(this, i, cartons * f)
+          else handleAnswers(this, i, { reponse: { value: cartons * f } })
           break
         }
         case 32: {
           const unité = choice(unites)
-          texte = this.createArray(`$${personnes * f}$ personnes`, '$\\rightarrow$', `$${texNombre(quantite * f)} \\text{${unité}}$.`, (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' personnes' }) : '....', '$\\rightarrow$', `$${texNombre(quantite)} \\text{ ${unité}}$`)
-          texteCorr = `$${texNombre(quantite * f)} \\text{ ${unité}} \\div ${f} = ${texNombre(quantite)} \\text{ ${unité}}$<br>`
-          texteCorr += `$${personnes * f}$ personnes $\\div ${f} = ${personnes}$ personnes<br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(personnes)}$ personnes.`)
-          if (context.isAmc) setReponse(this, i, personnes)
-          else handleAnswers(this, i, { reponse: { value: personnes } })
+          texte = this.createArray(`$${cartons * f}$ cartons`, '$\\rightarrow$', `$${texNombre(quantite * f)}~\\text{${unité}}$`, (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cartons' }) : '....', '$\\rightarrow$', `$${texNombre(quantite)} \\text{ ${unité}}$`)
+          texteCorr = `$${texNombre(quantite * f)}~\\text{${unité}} \\div ${f} = ${texNombre(quantite)}~\\text{${unité}}$<br>`
+          texteCorr += `$${cartons * f}~\\text{cartons} \\div ${f} = ${cartons}~\\text{cartons}$<br>`
+          texteCorr += 'Donc le résultat est ' + `$${miseEnEvidence(cartons)}$ cartons.`
+          if (context.isAmc) setReponse(this, i, cartons)
+          else handleAnswers(this, i, { reponse: { value: cartons } })
           break
         }
       }
-      if (this.questionJamaisPosee(i, personnes, f)) {
+      if (this.questionJamaisPosee(i, cartons, f)) {
         // Si la question n'a jamais été posée, on en crée une autre
         foisUsed.push(f) // On enlève le nombre de fois utilisé pour ne pas le réutiliser
         if (foisUsed.length === fois.length) foisUsed.splice(0, foisUsed.length) // Si tous les nombres de fois ont été utilisés, on les réinitialise
