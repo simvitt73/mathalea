@@ -7,6 +7,10 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { min } from 'mathjs'
 import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Multiplier un décimal par 10, 100, 1000, 0,1, 0,01, 0,001...'
 
 // Gestion de la date de publication initiale
@@ -40,6 +44,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
   nouvelleVersion () {
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes', '', 'dizaines', 'centaines', 'milliers']
     let listeChoixAlea = range(6, [3])
+    let reponse
     this.nbQuestions = min(this.nbQuestions, 6)
     if (parseInt(this.sup2) === 1) {
       listeChoixAlea = rangeMinMax(4, 6)
@@ -47,7 +52,9 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
       listeChoixAlea = range(2)
       this.nbQuestions = min(this.nbQuestions, 3)
     }
-    this.introduction = 'Compléter les calculs en suivant le modèle : <br>14,5 × 10 = 14,5 dizaines. <br>Le chiffre des unités (4) devient celui des dizaines. Donc 14,5 x 10 = 145'
+    if (this.interactif) {
+      this.consigne = 'Calculer.'
+    } else { this.consigne = 'Compléter les calculs en suivant le modèle : <br>14,5 × 10 = 14,5 dizaines. <br>Le chiffre des unités (4) devient celui des dizaines. Donc 14,5 x 10 = 145' }
 
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -61,11 +68,13 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
       const exemple = centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100
 
       texte = `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =$`
+      if (this.interactif) { texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme') }
       texteCorr = `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} = $  `
       texteCorr += `$${texNombre(exemple, 2)}$ ${texteGras(choixUnites[choixAlea])} <br>`
       texteCorr += `Le chiffre des unités ( ${texteGras(unite)} ) va donc devenir celui des ${texteGras(choixUnites[choixAlea])} <br> `
       texteCorr += `Donc : $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} = ${miseEnEvidence(texNombre(exemple * 10 ** (choixAlea - 3), 5))}.$<br><br>`
-
+      reponse = texNombre(exemple * 10 ** (choixAlea - 3))
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.html) { if (this.sup3) { texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3)) } }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
