@@ -1,4 +1,5 @@
 import { Figure2D } from '../Figures2D'
+import { segment } from '../segmentsVecteurs'
 /**
  * Génère une figure représentant un panneau de céder le passage.
  * @param options Options pour personnaliser le style du panneau.
@@ -162,8 +163,10 @@ export function panneauRetrecissementChaussee2 (
     \\draw[draw=black, line width=3pt] (-0.195,-0.3) -- (-0.195,-0.1) -- (-0.095,0.1) -- (-0.095,0.3);
     \\draw[draw=black, line width=3pt] (0.195,-0.3) -- (0.195,-0.1) -- (0.095,0.1) -- (0.095,0.3);
   `.trim()
-
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(0, -1.2, 0, 1.2),
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
 }
 /**
  *
@@ -171,7 +174,7 @@ export function panneauRetrecissementChaussee2 (
  * @returns
  * @author Jean-Claude Lhote
  */
-export function croisementPrioriteADroite (
+export function panneauCroisementPrioriteADroite (
   options?: {
     fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
     strokeStyle?: string; // Couleur de la bordure rouge
@@ -204,8 +207,10 @@ export function croisementPrioriteADroite (
     \\draw[draw=black, line width=3pt] (-0.25,0.25) -- (0.25,-0.25);
     \\draw[draw=black, line width=3pt] (-0.25,-0.25) -- (0.25,0.25);
   `.trim()
-
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(0, -1.2, 0, 1.2),
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
 }
 /**
  *
@@ -250,5 +255,8 @@ export function panneauFeuTricolore (
     \\fill[green] (0,-0.15) circle (0.075);
   `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(0, -1.2, 0, 1.2),
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
 }

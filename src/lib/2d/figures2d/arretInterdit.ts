@@ -1,4 +1,6 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
+import { segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau d'interdiction de stationner.
@@ -8,7 +10,7 @@ import { Figure2D } from '../Figures2D'
  * @version 1.0
  * @date 2025-05-10
  */
-export function arretInterdit (
+export function panneauArretInterdit (
   options?: {
     fillStyle?: string; // Couleur de remplissage du cercle rouge
     strokeStyle?: string; // Couleur de la bordure du cercle
@@ -39,5 +41,11 @@ export function arretInterdit (
     \\draw[${tikzCrossColor}, line width=5pt] (-0.7,0.7) -- (0.7,-0.7);
   `.trim()
   // Retourne une nouvelle instance de Figure2D avec le code SVG et TikZ généré
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(-1.2, 0, 1.2, 0),
+    segment(0, -1.2, 0, 1.2),
+    segment(-1, -1, 1, 1),
+    segment(-1, 1, 1, -1)
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
 }

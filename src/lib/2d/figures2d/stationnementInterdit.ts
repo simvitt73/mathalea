@@ -1,4 +1,6 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
+import { segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau de stationnement interdit.
@@ -8,7 +10,7 @@ import { Figure2D } from '../Figures2D'
  * @version 1.0
  * @date 2025-05-10
  */
-export function stationnementInterdit (
+export function panneauStationnementInterdit (
   options?: {
     fillStyle?: string; // Couleur de remplissage du cercle bleu
     strokeStyle?: string; // Couleur de la bordure du cercle
@@ -37,5 +39,9 @@ export function stationnementInterdit (
       \\draw[${tikzCrossColor}, line width=5pt] (-0.7,0.7) -- (0.7,-0.7);
   `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(-1, -1, 1, 1),
+    segment(-1, 1, 1, -1)
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
 }

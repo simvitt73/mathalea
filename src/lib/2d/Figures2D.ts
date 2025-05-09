@@ -1,5 +1,7 @@
 import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import type { Point } from './points'
+import type { Segment } from './segmentsVecteurs'
 
 export class Figure2D extends ObjetMathalea2D {
   codeSvg: string
@@ -9,6 +11,9 @@ export class Figure2D extends ObjetMathalea2D {
   width: number // laargeur en cm
   height: number // hauteur en cm
   pixelsParCm: number
+  axes: Segment[]
+  centre: Point | null
+  nbAxes: number
   constructor ({
     codeSvg,
     codeTikz,
@@ -19,6 +24,9 @@ export class Figure2D extends ObjetMathalea2D {
     width = 0,
     height = 0,
     pixelsParCm = context.pixelsParCm,
+    axes = [],
+    centre = null,
+    nbAxes = 0
   }: {
     codeSvg: string,
     codeTikz: string,
@@ -29,6 +37,9 @@ export class Figure2D extends ObjetMathalea2D {
     width: number,
     height: number,
     pixelsParCm?: number,
+    axes?: Segment[]
+    centre?: Point | null
+    nbAxes?: number
   }) {
     super()
     this.x = x
@@ -46,6 +57,9 @@ export class Figure2D extends ObjetMathalea2D {
       (this.x + this.width / 2),
       (this.y + this.height / 2)
     ]
+    this.axes = axes
+    this.nbAxes = nbAxes ?? this.axes.length
+    this.centre = centre
   }
 
   svg (coeff: number) {
@@ -230,5 +244,14 @@ export class Figure2D extends ObjetMathalea2D {
       height: this.height,
       pixelsParCm: this.pixelsParCm
     })
+  }
+
+  set Axes (axes: Segment[]) {
+    this.axes = axes
+    this.nbAxes = axes.length
+  }
+
+  get Axes () {
+    return this.axes
   }
 }

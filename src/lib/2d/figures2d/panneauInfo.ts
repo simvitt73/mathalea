@@ -1,4 +1,5 @@
 import { Figure2D } from '../Figures2D'
+import { segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau de voie sans issue.
@@ -39,8 +40,9 @@ export function panneauVoieSansIssue (
     \\fill[${tFillStyle}] (-0.35,0.35) rectangle (0.35,0.7);
     \\fill[${barFillStyle}] (-0.3,0.4) rectangle (0.3,0.6);
   `.trim()
+  const axes = [segment(0, -1.2, 0, 1.2)]
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
 }
 /**
  * Génère une figure représentant un panneau de parking.

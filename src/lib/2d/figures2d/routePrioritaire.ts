@@ -1,4 +1,6 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
+import { segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau de route prioritaire.
@@ -8,7 +10,7 @@ import { Figure2D } from '../Figures2D'
  * @version 1.0
  * @date 2025-05-10
  */
-export function routePrioritaire (
+export function panneauRoutePrioritaire (
   options?: {
     fillStyle?: string; // Couleur de remplissage du losange jaune
     strokeStyle?: string; // Couleur de la bordure du losange
@@ -35,10 +37,16 @@ export function routePrioritaire (
     \\draw[${tikzDiamondFill}, ${tikzDiamondStroke}, ${tikzDiamondLineWidth}] (0,-0.75) -- (0.75,0) -- (0,0.75) -- (-0.75,0) -- cycle;
   `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(-1, -1, 1, 1),
+    segment(-1, 1, 1, -1),
+    segment(-1.2, 0, 1.2, 0),
+    segment(0, -1.2, 0, 1.2)
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
 }
 
-export function finDeRoutePrioritaire (
+export function panneauFinDeRoutePrioritaire (
   options?: {
     fillStyle?: string; // Couleur de remplissage du losange jaune
     strokeStyle?: string; // Couleur de la bordure du losange
@@ -68,5 +76,9 @@ export function finDeRoutePrioritaire (
     \\draw[${tikzDiamondFill}, ${tikzDiamondStroke}, ${tikzDiamondLineWidth}] (0,-0.75) -- (0.75,0) -- (0,0.75) -- (-0.75,0) -- cycle;
     \\draw[${tikzDiamondCancelStroke}, line width=3pt] (-0.5,-0.5) -- (0.5,0.5);
   `.trim()
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(-1, -1, 1, 1),
+    segment(-1, 1, 1, -1)
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
 }

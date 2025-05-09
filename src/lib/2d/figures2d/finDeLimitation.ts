@@ -1,4 +1,6 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
+import { segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau de fin de limitation.
@@ -8,7 +10,7 @@ import { Figure2D } from '../Figures2D'
  * @version 1.0
  * @date 2025-05-10
  */
-export function finDeLimitation (
+export function panneauFinDeLimitation (
   options?: {
     fillStyle?: string; // Couleur de remplissage du cercle (par défaut blanc)
     strokeStyle?: string; // Couleur de la bordure du cercle (par défaut noir)
@@ -23,7 +25,6 @@ export function finDeLimitation (
   const diagonalColor = options?.diagonalColor || 'gray'
   const codeSvg = `
     <circle cx="0" cy="0" r="20" fill="${circleFill}" stroke="${circleStroke}" stroke-width="${circleLineWidth}" />
-    <line x1="-15" y1="-15" x2="15" y2="15" stroke="${diagonalColor}" stroke-width="2" />
     <line x1="-15" y1="15" x2="15" y2="-15" stroke="${diagonalColor}" stroke-width="2" />
   `.trim()
 
@@ -35,8 +36,10 @@ export function finDeLimitation (
   const codeTikz = `
     \\draw[${tikzCircleFill}, ${tikzCircleStroke}, ${tikzCircleLineWidth}] (0,0) circle (1cm);
     \\draw[${tikzDiagonalColor}, line width=1pt] (-0.75,-0.75) -- (0.75,0.75);
-    \\draw[${tikzDiagonalColor}, line width=1pt] (-0.75,0.75) -- (0.75,-0.75);
   `.trim()
-
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(-1, -1, 1, 1),
+    segment(-1, 1, 1, -1)
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
 }

@@ -1,4 +1,6 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
+import { Segment, segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau de sens interdit.
@@ -8,7 +10,7 @@ import { Figure2D } from '../Figures2D'
  * @version 1.0
  * @date 2025-05-10
  */
-export function sensInterdit (
+export function panneauSensInterdit (
   options?: {
     fillStyle?: string; // Couleur de remplissage du cercle rouge
     strokeStyle?: string; // Couleur de la bordure du cercle
@@ -35,8 +37,11 @@ export function sensInterdit (
    \\draw[${tikzCircleFill}, ${tikzCircleStroke}, ${tikzCircleLineWidth}] (0,0) circle (0.95cm);
     \\fill[white] (-0.75, -0.125) rectangle (0.75, 0.125);
   `.trim()
-
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes = [
+    segment(-1.2, 0, 1.2, 0),
+    segment(0, -1.2, 0, 1.2)
+  ]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
 }
 
 /**
@@ -45,7 +50,7 @@ export function sensInterdit (
  * @returns Une instance de Figure2D représentant un panneau d'interdiction de circuler.
  *
  */
-export function interdictionDeCirculer (
+export function panneauInterdictionDeCirculer (
   options?: {
     fillStyle?: string; // Couleur de remplissage de l'intérieur du cercle (par défaut blanc)
     strokeStyle?: string; // Couleur de la bordure rouge
@@ -72,7 +77,16 @@ export function interdictionDeCirculer (
   const codeTikz = `
      \\draw[ draw=black, line width=1pt] (0,0) circle (1cm);
    \\draw[${tikzCircleFill}, ${tikzCircleStroke}, ${tikzCircleLineWidth}] (0,0) circle (0.95cm);
+    \\fill[white] (-0,0) circle (0.7cm);
   `.trim()
-
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
+  const axes: Segment[] = []
+  for (let k = 0; k < 10; k++) {
+    const axe = segment(
+      -1.2 * Math.cos(Math.PI * (k * 180 / 10) / 180),
+      -1.2 * Math.sin(Math.PI * (k * 180 / 10) / 180),
+      1.2 * Math.cos(Math.PI * (k * 180 / 10) / 180),
+      1.2 * Math.sin(Math.PI * (k * 180 / 10) / 180))
+    axes.push(axe)
+  }
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nbAxes: Number.POSITIVE_INFINITY, axes, centre: point(0, 0) })
 }

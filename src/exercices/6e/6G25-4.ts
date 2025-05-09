@@ -1,0 +1,118 @@
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { choice } from '../../lib/outils/arrayOutils'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
+import Exercice from '../Exercice'
+import { rotation, translation } from '../../lib/2d/transformations'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { orangeMathalea } from '../../lib/colors'
+import type { Figure2D } from '../../lib/2d/Figures2D'
+import { point } from '../../lib/2d/points'
+
+export const titre = 'Reconnaitre des figures symétriques'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+// Gestion de la date de publication initiale
+export const dateDePublication = '08/05/2025'
+
+/**
+ * Donner le nombre d'axes de symétrie d'une figure.
+ * @author Jean-Claude Lhote
+ */
+export const uuid = '328b2'
+
+export const refs = {
+  'fr-fr': ['6G25-4'],
+  'fr-ch': []
+}
+
+export default class NbAxesDeSymetrie extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
+    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : formes géométriques\n3 : Legos\n4 : Mélange']
+    this.sup = '1'
+    this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
+    this.sup2 = 1
+    this.besoinFormulaire3CaseACocher = ['Avec des rotations aléatoires', false]
+    this.sup3 = false
+  }
+
+  nouvelleVersion (): void {
+    let nbFigures = this.sup2
+    const typeDeFigures = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: this.nbQuestions }).map(Number)
+    const numerosChoisis: number[] = []
+    for (let i = 0; i < this.nbQuestions;) {
+      let texte = ''
+      let texteCorr = ''
+      const objets: NestedObjetMathalea2dArray = []
+      const objetsCorr: NestedObjetMathalea2dArray = []
+
+      const typeDeFigureChoisie = ['panneau', 'geometrique', 'lego'][typeDeFigures[i] - 1]
+      const listeFigs = listeFigures2d.filter(el => el.type === typeDeFigureChoisie).filter(el => !numerosChoisis.includes(el.numero))
+      if (listeFigs.length === 0) {
+        this.listeQuestions.push('Aucune figure disponible')
+        this.listeCorrections.push('Aucune figure disponible')
+        break
+      }
+      const nbFigs = listeFigs.length
+      if (nbFigs < nbFigures) {
+        nbFigures = nbFigs
+      }
+      const figures = []
+      for (let j = 0; j < nbFigures; j++) {
+        const choix = listeFigs.filter(el => !numerosChoisis.includes(el.numero))
+        if (choix.length === 0) {
+          nbFigures = j
+          break
+        }
+        const figure: Forme = choice(choix)
+        numerosChoisis.push(figure.numero)
+        figures.push(figure)
+      }
+      texte += this.interactif
+        ? `Combien d'axes de symétrie possède${nbFigures > 1 ? 'nt' : ' '}l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} ?<br>`
+        : `Trace l${nbFigures > 1 ? 'es ' : '\''}axe${nbFigures > 1 ? 's' : ''} de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''}.<br>`
+      const formes: Figure2D[] = []
+      for (let j = 0; j < nbFigures; j++) {
+        const alpha = randint(-30, 30, 0)
+        const figure = figures[j]
+        const options = figure.options ?? {}
+        const forme = figure.figure2d(options).translate(j * 6, 0)
+        if (this.sup3) forme.rotate(alpha)
+        formes.push(forme)
+        const axes = forme.axes.map(el => this.sup3 ? rotation(el, point(0, 0), -alpha) : el)
+        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6, 2.8)
+        objets.push(forme, formeTexte)
+        objetsCorr.push(forme, formeTexte)
+        if (axes.length > 0) {
+          for (let k = 0; k < axes.length; k++) {
+            const seg = translation(axes[k], vecteur(j * 6, 0))
+            seg.color = colorToLatexOrHTML(orangeMathalea)
+            objetsCorr.push(seg)
+          }
+        }
+      }
+      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objets)), objets)
+      if (this.interactif) {
+        for (let j = 0; j < nbFigures; j++) {
+          texte += `figure ${j + 1} : ${ajouteQuestionMathlive({ exercice: this, question: i * nbFigures + j, typeInteractivite: 'mathlive', objetReponse: { reponse: { value: formes[j].nbAxes } }, texteApres: ' axes' })} <br>`
+        }
+      }
+      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsCorr)), objetsCorr)
+      texteCorr += `${formes.map((el, j) => Number.isFinite(el.nbAxes)
+       ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède $${miseEnEvidence(el.nbAxes)}$ axe${el.nbAxes > 1 ? 's' : ''} de symétrie`
+       : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède une infinité d'axes de symétrie`
+    ).join(', ')}`
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
+      i++
+    }
+  }
+}
