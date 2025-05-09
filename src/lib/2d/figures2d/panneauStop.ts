@@ -31,9 +31,9 @@ export function panneauStop (
 
   // Génération du code TikZ
   const codeTikz = `
-                    \\draw[fill=white, draw=black, line width=1pt] (-0.44,-1) -- (0.44,-1) -- (1,-0.44) -- (1,0.44) -- (0.44,1) -- (-0.44,1) -- (-1,0.44) -- (-1,-0.44) -- cycle;
-             \\begin{scope}[scale=0.9]\\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (-0.44,-1) -- (0.44,-1) -- (1,-0.44) -- (1,0.44) -- (0.44,1) -- (-0.44,1) -- (-1,0.44) -- (-1,-0.44) -- cycle;\\end{scope}
-                    \\node at (0,0) {\\textcolor{${textColor}}{\\textbf{\\large STOP}}};
+                    \\draw[fill=white, draw=black, line width=1pt] (-0.5,-1) -- (0.5,-1) -- (1,-0.5) -- (1,0.5) -- (0.5,1) -- (-0.5,1) -- (-1,0.5) -- (-1,-0.5) -- cycle;
+             \\begin{scope}[scale=0.95]\\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (-0.5,-1) -- (0.5,-1) -- (1,-0.5) -- (1,0.5) -- (0.5,1) -- (-0.5,1) -- (-1,0.5) -- (-1,-0.5) -- cycle;\\end{scope}
+                    \\node at (0,0) {\\textcolor{${textColor}}{\\textbf{\\small STOP}}};
     `.trim()
 
   return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2 })
