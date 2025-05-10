@@ -59,7 +59,7 @@ export default class QuestionsMasses extends Exercice {
       const typesQuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
         defaut: 9,
-        nbQuestions: 999,
+        nbQuestions: 0,
         melange: 9,
         saisie: this.sup,
         shuffle: this.sup2,
