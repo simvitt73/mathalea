@@ -31,7 +31,9 @@ export const refs = {
 export default class ValeurApprocheeDivisionDecimale extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 4
+    this.nbQuestions = 1
+    this.spacing = 2
+    this.spacingCorr = 2
     this.besoinFormulaireTexte = ['Type de questions',
       `Nombres séparés par des tirets :
   1 : Arrondi
@@ -115,9 +117,9 @@ export default class ValeurApprocheeDivisionDecimale extends Exercice {
               textePrecision = 'au millième près'
               break
           }
-          const ligne = `${numAlpha(numQuest)} ${type}${typeDeQuestion === 2 ? parDefaut ? ' par défaut' : ' par excès' : ''} de $${a}\\div${b}$ ${textePrecision} est `
+          const ligne = `${type}${typeDeQuestion === 2 ? parDefaut ? ' par défaut' : ' par excès' : ''} de $${a}\\div${b}$ ${textePrecision} est `
           possibilites.push({
-            texte: ligne + (this.interactif ? ajouteChampTexteMathLive(this, i * typesDeQuestions.length * precisions.length + numQuest, 'inline') : ':') + '<br>',
+            texte: ligne + (this.interactif ? ajouteChampTexteMathLive(this, i * typesDeQuestions.length * precisions.length + numQuest, 'inline') + '.' : ':') + '<br>',
             texteCorr: ligne + `$${texNombre(reponse, exposant, true, true)}$.<br>`
           })
           handleAnswers(this, i * typesDeQuestions.length * precisions.length + numQuest, { reponse: { value: reponse } })
@@ -125,8 +127,11 @@ export default class ValeurApprocheeDivisionDecimale extends Exercice {
         }
       }
       const possibilitesMelangees = shuffle(possibilites)
-      texte += possibilitesMelangees.map(p => p.texte).join('\n')
-      texteCorr += possibilitesMelangees.map(p => p.texteCorr).join('\n')
+      for (let j = 0; j < possibilitesMelangees.length; j++) {
+        const possibilite = possibilitesMelangees[j]
+        texte += numAlpha(j) + ' ' + possibilite.texte
+        texteCorr += numAlpha(j) + ' ' + possibilite.texteCorr
+      }
       if (this.questionJamaisPosee(i, q)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
