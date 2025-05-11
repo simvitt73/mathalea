@@ -87,7 +87,7 @@ export default class NbAxesDeSymetrie extends Exercice {
         const forme = figure.figure2d(options).translate(j * 6, 0)
         if (this.sup3) forme.rotate(alpha)
         formes.push(forme)
-        const axes = forme.axes.map(el => this.sup3 ? rotation(el, point(0, 0), -alpha) : el)
+        const axes = forme.Axes.map(el => this.sup3 ? rotation(el, point(0, 0), -alpha) : el)
         const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6, 2.8)
         objets.push(forme, formeTexte)
         objetsCorr.push(forme, formeTexte)

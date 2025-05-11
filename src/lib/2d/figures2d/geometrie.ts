@@ -1,4 +1,5 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
 import { segment } from '../segmentsVecteurs'
 
 /**
@@ -296,8 +297,21 @@ export function hexagoneNonRegulier (
     segment(0, -rayonVertical * 1.2, 0, rayonVertical * 1.2),
     segment(-rayonHorizontal * 1.2, 0, rayonHorizontal * 1.2, 0)
   ]
-  return new Figure2D({ codeSvg, codeTikz, width: rayonHorizontal * 2, height: rayonVertical * 2, axes })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: rayonHorizontal * 2,
+    height: rayonVertical * 2,
+    axes,
+    centre: point(0, 0)
+  })
 }
+/**
+ * Génère une figure représentant un triangle quelconque.
+ * @param options Options pour personnaliser le style du triangle.
+ * @returns Une instance de Figure2D représentant un triangle quelconque.
+ * @author Jean-Claude Lhote
+ */
 export function triangleQuelconque1 (
   options?: {
     fillStyle?: string; // Couleur de remplissage du triangle (par défaut bleu)
@@ -334,4 +348,497 @@ export function triangleQuelconque1 (
             \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
         `.trim()
   return new Figure2D({ codeSvg, codeTikz, width: (base + 10) / 20, height: hauteur / 20 })
+}
+/**
+ * Génère une figure représentant un croissant de lune.
+ * @param options Options pour personnaliser le style du croissant de lune.
+ * @returns Une instance de Figure2D représentant un croissant de lune.
+ * @author Jean-Claude Lhote
+ */
+export function croissantDeLune (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage du croissant (par défaut gris)
+    strokeStyle?: string; // Couleur de la bordure du croissant (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    rayonExterieur?: number; // Rayon extérieur du croissant (par défaut 2)
+    rayonInterieur?: number; // Rayon intérieur du croissant (par défaut 3)
+    angle?: number; // Angle de rotation du croissant (par défaut 0)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'gray'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const rayonExterieur = options?.rayonExterieur || 2
+  const rayonInterieur = options?.rayonInterieur || 3
+  const angle = options?.angle || 0
+  const rmin = Math.min(rayonExterieur, rayonInterieur)
+  const rmax = Math.max(rayonExterieur, rayonInterieur)
+  // Génération du code SVG
+  const codeSvg = rayonExterieur < rayonInterieur
+    ? `
+     <path d="
+      M 0,${-rmin * 10}
+      A ${rmin * 10},${rmin * 10} 0 0 1 0,${rmin * 10}
+      A ${rmax * 10},${rmax * 10} 0 0 0 0,${-rmin * 10}
+      Z
+    " fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+    : `
+    <path d="
+      M 0,${rmin * 10}
+      A ${rmin * 10},${rmin * 10} 0 1 1 0,${-rmin * 10}
+      A ${rmax * 10},${rmax * 10} 0 1 0 0,${rmin * 10}
+      Z
+    " fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const alpha = Math.asin(rmin / rmax) * 180 / Math.PI
+
+  const codeTikz = `
+    % Croissant de lune
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] 
+      (0,${-rmin / 2}) 
+      arc[start angle=${-alpha}, end angle=${alpha}, radius=${rmax / 2}] 
+      -- (0,${rmin / 2})
+      arc[start angle=${90}, end angle=${-90}, radius=${rmin / 2}] 
+      -- cycle;
+  `.trim()
+
+  const axes = [
+    rayonExterieur > rayonInterieur
+      ? segment(-rayonInterieur, 0, 1, 0)
+      : segment(-1, 0, rayonExterieur, 0),
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: rayonExterieur * 2,
+    height: rayonExterieur * 2,
+    axes,
+    angle,
+  })
+}
+/**
+ * @author Jean-Claude Lhote
+ * @param options
+ * @returns
+ */
+export function pacman (
+  options?: {
+    fillStyle?: string;
+    strokeStyle?: string;
+    lineWidth?: number;
+  }
+): Figure2D {
+  // Génération du code SVG
+  const fillStyle = options?.fillStyle || 'yellow'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const svgPath = `
+        M 0,0
+        L 20,0
+        A 20,20 0 1,1 0,-20
+        Z
+    `.trim()
+  const codeSvg = `<path d="${svgPath}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />`
+
+  // Génération du code TikZ
+  const tikzFill = options?.fillStyle || 'yellow'
+  const tikzStroke = options?.strokeStyle || 'black'
+  const tikzLineWidth = options?.lineWidth || '1pt'
+  const codeTikz = `
+        \\draw[fill=${tikzFill}, draw=${tikzStroke}, line width=${tikzLineWidth}] 
+        (0,0) -- (0,1) 
+        arc[start angle=90, end angle=360, radius=1cm] -- cycle;
+    `.trim()
+  const axes = [segment(-1, -1, 1, 1)]
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
+}
+/**
+ * Génère une figure représentant un fer à cheval.
+ * @param options Options pour personnaliser le style du fer à cheval.
+ * @returns Une instance de Figure2D représentant un fer à cheval.
+ * @author
+ */
+export function ferACheval (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage du fer à cheval (par défaut gris)
+    strokeStyle?: string; // Couleur de la bordure du fer à cheval (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    rayonExterieur?: number; // Rayon extérieur du fer à cheval (par défaut 20)
+    rayonInterieur?: number; // Rayon intérieur du fer à cheval (par défaut 15)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'gray'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const rayonExterieur = options?.rayonExterieur || 2
+  const rayonInterieur = options?.rayonInterieur || 1.5
+
+  // Génération du code SVG
+  const codeSvg = `
+    <path d="
+      M ${-rayonExterieur * 20},${-rayonExterieur * 20} 
+      L 0,${-rayonExterieur * 20}
+      A ${rayonExterieur * 20} ,${rayonExterieur * 20}  0 0 1 0,${rayonExterieur * 20}  
+      L ${-rayonExterieur * 20},${rayonExterieur * 20}
+      L ${-rayonExterieur * 20},${rayonInterieur * 20}
+      L 0,${rayonInterieur * 20}
+      A ${rayonInterieur * 20},${rayonInterieur * 20} 0 0 0 0,${-rayonInterieur * 20}
+      L ${-rayonExterieur * 20},${-rayonInterieur * 20}
+      L ${-rayonExterieur * 20},${-rayonExterieur * 20}
+
+      Z
+    " fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (${-rayonExterieur},${rayonExterieur}) 
+      -- (0,${rayonExterieur}) 
+      arc[start angle=90, end angle=-90, radius=${rayonExterieur}]
+      -- (${-rayonExterieur},${-rayonExterieur})
+      -- (${-rayonExterieur},${-rayonInterieur})
+      -- (0,${-rayonInterieur})
+      arc[start angle=-90, end angle=90, radius=${rayonInterieur}]
+      -- (${-rayonExterieur},${rayonInterieur})
+      -- cycle;
+  `.trim()
+
+  const axes = [
+    segment(-rayonExterieur, 0, rayonExterieur, 0)
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: rayonExterieur * 2,
+    height: rayonExterieur * 2,
+    axes
+  })
+}
+/**
+ * Génère une figure représentant un parallélogramme.
+ * @param options Options pour personnaliser le style du parallélogramme.
+ * @returns Une instance de Figure2D représentant un parallélogramme.
+ * @author
+ */
+export function parallelogramme (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage du parallélogramme (par défaut cyan)
+    strokeStyle?: string; // Couleur de la bordure du parallélogramme (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    base?: number; // Longueur de la base du parallélogramme (par défaut 40)
+    hauteur?: number; // Hauteur du parallélogramme (par défaut 30)
+    angle?: number; // Angle entre la base et un côté adjacent en degrés (par défaut 30)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'cyan'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const base = options?.base || 4
+  const hauteur = options?.hauteur || 3
+  const angle = options?.angle || 60
+
+  // Calcul des points du parallélogramme
+  const offsetX = hauteur * 20 / Math.tan((angle * Math.PI) / 180)
+  const points = [
+    `${-base * 10 - offsetX / 2},${hauteur * 10}`, // Coin inférieur gauche
+    `${base * 10 - offsetX / 2},${hauteur * 10}`, // Coin inférieur droit
+    `${base * 10 + offsetX / 2},${-hauteur * 10}`, // Coin supérieur droit
+    `${-base * 10 + offsetX / 2},${-hauteur * 10}` // Coin supérieur gauche
+  ].join(' ')
+
+  // Génération du code SVG
+  const codeSvg = `
+    <polygon points="${points}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const tikzPoints = [
+    `(${-base / 2 - offsetX / 20},${hauteur / 2})`, // Coin inférieur gauche
+    `(${base / 2 - offsetX / 20},${hauteur / 2})`, // Coin inférieur droit
+    `(${base / 2 + offsetX / 20},${-hauteur / 2})`, // Coin supérieur droit
+    `(${-base / 2 + offsetX / 20},${-hauteur / 2})` // Coin supérieur gauche
+  ].join(' -- ')
+
+  const codeTikz = `
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
+  `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: base + Math.abs(offsetX / 10),
+    height: hauteur,
+    centre: point(0, 0)
+  })
+}
+
+/**
+ * Génère une figure représentant une forme de cœur.
+ * @param options Options pour personnaliser le style du cœur.
+ * @returns Une instance de Figure2D représentant une forme de cœur.
+ * @author Jean-Claude Lhote
+ */
+export function coeur (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage du cœur (par défaut rouge)
+    strokeStyle?: string; // Couleur de la bordure du cœur (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    base?: number; // Taille du cœur (par défaut 2)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'red'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const base = options?.base || 2
+
+  // Génération du code SVG
+  const codeSvg = `
+    <path d="
+      M 0,${-base * 10}
+      C ${-base * 10},${-base * 20} ${-base * 20},${-base * 5} 0,${base * 10}
+      C ${base * 20},${-base * 5} ${base * 10},${-base * 20} 0,${-base * 10}
+      Z
+    " fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (0,${-base / 2})
+      .. controls (${-base / 2},${-base}) and (${-base},${-base / 4}) .. (0,${base / 2})
+      .. controls (${base},${-base / 4}) and (${base / 2},${-base}) .. (0,${-base / 2})
+      -- cycle;
+  `.trim()
+  const axes = [
+    segment(0, base * 0.7, 0, -base * 0.7)]
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: base * 2,
+    height: base * 2,
+    axes
+  })
+}
+/**
+ * Génère une figure représentant une ogive.
+ * @param options Options pour personnaliser le style de l'ogive.
+ * @returns Une instance de Figure2D représentant une ogive.
+ * @author Jean-Claude Lhote
+ */
+export function ogive (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de l'ogive (par défaut violet)
+    strokeStyle?: string; // Couleur de la bordure de l'ogive (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    hauteur?: number; // Hauteur de l'ogive (par défaut 4)
+    rayon?: number; // Rayon des arcs de l'ogive (par défaut 2.5)
+    base?: number; // Longueur de la base de l'ogive (par défaut 6)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'purple'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const hauteur = options?.hauteur || 3
+  let rayon = options?.rayon || 3
+  const base = options?.base || 4
+
+  if (rayon < hauteur / 2) {
+    rayon = hauteur / 2 + 1
+  }
+
+  // Calcul des points pour les arcs
+  const dx = base / 2 // Distance horizontale entre le centre des arcs et les points d'intersection
+  const points = [
+    `${-dx * 20},0`, // Point gauche
+    `${dx * 20},0`, // Point droit
+  ]
+
+  // Génération du code SVG
+  const codeSvg = `
+    <path d="
+      M ${points[0]}
+      A ${rayon * 20},${rayon * 20} 0 0 1 ${points[1]}
+      A ${rayon * 20},${rayon * 20} 0 0 1 ${points[0]}
+      Z
+    " fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+  // Génération du code TikZ
+  // @todo : vérifier le code TikZ
+  const angleDepart = 180 - Math.round(Math.atan2(hauteur / 2, dx) * (180 / Math.PI))
+  const angleArrivee = Math.round(Math.atan2(hauteur / 2, dx) * (180 / Math.PI))
+  const codeTikz = `\n
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (${-dx},0) arc[start angle=${angleDepart}, end angle=${angleArrivee}, radius=${rayon}]
+      (${dx},0) arc[start angle=${-180 + angleDepart}, end angle=${-180 + angleArrivee}, radius=${rayon}]
+      (${-dx},0)
+      -- cycle;
+  `.trim()
+
+  // Génération des axes
+  const axes = [
+    segment(-dx - 0.5, 0, dx + 0.5, 0),
+    segment(0, -hauteur, 0, hauteur)
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: dx * 2,
+    height: hauteur,
+    axes,
+    centre: point(0, 0)
+  })
+}
+/**
+ * Génère une figure représentant une étoile à 4 branches.
+ * @param options Options pour personnaliser le style de l'étoile.
+ * @returns Une instance de Figure2D représentant une étoile à 4 branches.
+ * @author Jean-Claude Lhote
+ */
+export function etoile4Branches (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de l'étoile (par défaut jaune)
+    strokeStyle?: string; // Couleur de la bordure de l'étoile (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    rayonExterieur?: number; // Rayon des pointes de l'étoile (par défaut 20)
+    rayonInterieur?: number; // Rayon des creux de l'étoile (par défaut 10)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'yellow'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const rayonExterieur = options?.rayonExterieur || 1
+  const rayonInterieur = options?.rayonInterieur || 0.3
+
+  // Calcul des points de l'étoile
+  const points = Array.from({ length: 8 }, (_, i) => {
+    const angle = (Math.PI / 4) * i
+    const rayon = i % 2 === 0 ? rayonExterieur * 20 : rayonInterieur * 20
+    return `${rayon * Math.cos(angle)},${rayon * Math.sin(angle)}`
+  }).join(' ')
+
+  // Génération du code SVG
+  const codeSvg = `
+    <polygon points="${points}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const tikzPoints = Array.from({ length: 8 }, (_, i) => {
+    const angle = (Math.PI / 4) * i
+    const rayon = i % 2 === 0 ? rayonExterieur : rayonInterieur
+    return `(${rayon * Math.cos(angle)},-${rayon * Math.sin(angle)})`
+  }).join(' -- ')
+  const codeTikz = `
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
+  `.trim()
+
+  const axes = [0, 45, 90, 135].map((angle) =>
+    segment(
+      -Math.cos(angle * Math.PI / 180) * Math.max(rayonExterieur, rayonInterieur) * 1.1,
+      -Math.sin(angle * Math.PI / 180) * Math.max(rayonExterieur, rayonInterieur) * 1.1,
+      Math.cos(angle * Math.PI / 180) * Math.max(rayonExterieur, rayonInterieur) * 1.1,
+      Math.sin(angle * Math.PI / 180) * Math.max(rayonExterieur, rayonInterieur) * 1.1
+    )
+  )
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: rayonExterieur * 2,
+    height: rayonExterieur * 2,
+    axes,
+    centre: point(0, 0)
+  })
+}
+/**
+ * Génère une figure représentant une croix du style de celle de la Croix-Rouge.
+ * @param options Options pour personnaliser le style de la croix.
+ * @returns Une instance de Figure2D représentant une croix.
+ * @author
+ */
+export function croixRouge (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la croix (par défaut rouge)
+    strokeStyle?: string; // Couleur de la bordure de la croix (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeurBras?: number; // Largeur des bras de la croix (par défaut 10)
+    longueurBras?: number; // Longueur des bras de la croix (par défaut 30)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'red'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const largeurBras = options?.largeurBras || 0.6
+  const longueurBras = options?.longueurBras || 2.5
+
+  // Calcul des points de la croix
+  const points = [
+    `${-largeurBras * 10},${-longueurBras * 10}`, // Haut gauche
+    `${largeurBras * 10},${-longueurBras * 10}`, // Haut droit
+    `${largeurBras * 10},${-largeurBras * 10}`, // Centre haut droit
+    `${longueurBras * 10},${-largeurBras * 10}`, // Centre droit haut
+    `${longueurBras * 10},${largeurBras * 10}`, // Centre droit bas
+    `${largeurBras * 10},${largeurBras * 10}`, // Centre bas droit
+    `${largeurBras * 10},${longueurBras * 10}`, // Bas droit
+    `${-largeurBras * 10},${longueurBras * 10}`, // Bas gauche
+    `${-largeurBras * 10},${largeurBras * 10}`, // Centre bas gauche
+    `${-longueurBras * 10},${largeurBras * 10}`, // Centre gauche bas
+    `${-longueurBras * 10},${-largeurBras * 10}`, // Centre gauche haut
+    `${-largeurBras * 10},${-largeurBras * 10}` // Centre haut gauche
+  ].join(' ')
+
+  // Génération du code SVG
+  const codeSvg = `
+    <polygon points="${points}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const tikzPoints = [
+    `(${-largeurBras / 2},${-longueurBras / 2})`, // Haut gauche
+    `(${largeurBras / 2},${-longueurBras / 2})`, // Haut droit
+    `(${largeurBras / 2},${-largeurBras / 2})`, // Centre haut droit
+    `(${longueurBras / 2},${-largeurBras / 2})`, // Centre droit haut
+    `(${longueurBras / 2},${largeurBras / 2})`, // Centre droit bas
+    `(${largeurBras / 2},${largeurBras / 2})`, // Centre bas droit
+    `(${largeurBras / 2},${longueurBras / 2})`, // Bas droit
+    `(${-largeurBras / 2},${longueurBras / 2})`, // Bas gauche
+    `(${-largeurBras / 2},${largeurBras / 2})`, // Centre bas gauche
+    `(${-longueurBras / 2},${largeurBras / 2})`, // Centre gauche bas
+    `(${-longueurBras / 2},${-largeurBras / 2})`, // Centre gauche haut
+    `(${-largeurBras / 2},${-largeurBras / 2})` // Centre haut gauche
+  ].join(' -- ')
+  const codeTikz = `
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
+  `.trim()
+
+  const axes = [0, 45, 90, 135].map((angle) =>
+    segment(
+      -Math.cos(angle * Math.PI / 180) * longueurBras * 1.1,
+      -Math.sin(angle * Math.PI / 180) * longueurBras * 1.1,
+      Math.cos(angle * Math.PI / 180) * longueurBras * 1.1,
+      Math.sin(angle * Math.PI / 180) * longueurBras * 1.1
+    )
+  )
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: longueurBras * 2,
+    height: longueurBras * 2,
+    axes,
+    centre: point(0, 0)
+  })
 }

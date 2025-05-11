@@ -8,7 +8,7 @@ import { panneauParking, panneauVoieSansIssue } from './panneauInfo'
 import { panneauStop } from './panneauStop'
 import { panneauStationnementInterdit } from './stationnementInterdit'
 import { briqueLego } from './legos'
-import { aileDelta, cerfVolant, etoile5Branches, hexagoneNonRegulier, pentagoneRegulier, trapezeIsocele, triangleQuelconque1 } from './geometrie'
+import { aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, ogive, pacman, parallelogramme, pentagoneRegulier, trapezeIsocele, triangleQuelconque1 } from './geometrie'
 import { randint } from '../../../modules/outils'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notzmment
@@ -322,7 +322,98 @@ export const listeFigures2d: Forme[] = [
     type: 'geometrique',
     figure2d: hexagoneNonRegulier,
     options: { rayonHorizontal: 2, rayonVertical: 1 }
-  }
+  },
+  {
+    numero: 47,
+    name: 'croissant de lune 1',
+    type: 'geometrique',
+    figure2d: croissantDeLune,
+    options: { rayonExterieur: 3, rayonInterieur: 4, }
+  },
+  {
+    numero: 48,
+    name: 'croissant de lune 2',
+    type: 'geometrique',
+    figure2d: croissantDeLune,
+    options: { rayonExterieur: 3, rayonInterieur: 5.5, angle: 90 } // lune avec le rayon intérieur plus grand
+  },
+  {
+    numero: 49,
+    name: 'croissant de lune 3',
+    type: 'geometrique',
+    figure2d: croissantDeLune,
+    options: { rayonExterieur: 2.5, rayonInterieur: 6, angle: -45 }
+  },
+  {
+    numero: 50,
+    name: 'pacman',
+    type: 'geometrique',
+    figure2d: pacman
+  },
+  {
+    numero: 51,
+    name: 'fer à cheval',
+    type: 'geometrique',
+    figure2d: ferACheval,
+    options: { rayonInterieur: 1.5, rayonExterieur: 2 }
+  },
+  {
+    numero: 52,
+    name: 'parallélogramme 1',
+    type: 'geometrique',
+    figure2d: parallelogramme,
+    options: { base: 4, hauteur: 2, angle: 60 }
+  },
+  {
+    numero: 52,
+    name: 'parallélogramme 2',
+    type: 'geometrique',
+    figure2d: parallelogramme,
+    options: { base: 4, hauteur: 3, angle: 80 }
+  },
+  {
+    numero: 54,
+    name: 'croissant de lune 4',
+    type: 'geometrique',
+    figure2d: croissantDeLune,
+    options: { rayonExterieur: 3.5, rayonInterieur: 3, angle: 45 } // lune avec le rayon extérieur plus grand
+  },
+  {
+    numero: 55,
+    name: 'coeur',
+    type: 'geometrique',
+    figure2d: coeur,
+    options: { base: 3 }
+  },
+  {
+    numero: 56,
+    name: 'ogive',
+    type: 'geometrique',
+    figure2d: ogive,
+    options: { hauteur: 2 }
+  },
+  {
+    numero: 57,
+    name: 'etoile à 4 branches 1',
+    type: 'geometrique',
+    figure2d: etoile4Branches,
+    options: { rayonExterieur: 2, rayonInterieur: 0.5, }
+  },
+  {
+    numero: 58,
+    name: 'etoile à 4 branches 2',
+    type: 'geometrique',
+    figure2d: etoile4Branches,
+    options: { rayonExterieur: 0.7, rayonInterieur: 2, }
+  },
+  {
+    numero: 59,
+    name: 'croix rouge',
+    type: 'geometrique',
+    figure2d: croixRouge,
+    options: { }
+  },
+
 ]
 export type Figure2DOptions = {
   fillStyle?: string
@@ -344,6 +435,7 @@ export type Figure2DOptions = {
   rayonVertical?: number
   rayonInterieur?: number
   rayonExterieur?: number
+  angle?: number
 }
 export type Forme = {
   numero: number

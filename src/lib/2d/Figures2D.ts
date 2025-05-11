@@ -1,7 +1,8 @@
 import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import type { Point } from './points'
-import type { Segment } from './segmentsVecteurs'
+import { point, type Point } from './points'
+import { type Segment } from './segmentsVecteurs'
+import { rotation } from './transformations'
 
 export class Figure2D extends ObjetMathalea2D {
   codeSvg: string
@@ -252,6 +253,6 @@ export class Figure2D extends ObjetMathalea2D {
   }
 
   get Axes () {
-    return this.axes
+    return this.axes.map(el => rotation(el, point(0, 0), -this.angle))
   }
 }
