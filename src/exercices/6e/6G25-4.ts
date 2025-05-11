@@ -5,7 +5,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
 import Exercice from '../Exercice'
-import { rotation, translation } from '../../lib/2d/transformations'
+import { homothetie, translation } from '../../lib/2d/transformations'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { orangeMathalea } from '../../lib/colors'
 import type { Figure2D } from '../../lib/2d/Figures2D'
@@ -34,18 +34,19 @@ export default class NbAxesDeSymetrie extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.correctionDetaillee = true
-    this.correctionDetailleeDisponible = true
-    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : formes géométriques\n3 : Legos\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Mélange']
     this.sup = '1'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 1
     this.besoinFormulaire3CaseACocher = ['Avec des rotations aléatoires', false]
     this.sup3 = false
+    this.besoinFormulaire4CaseACocher = ['Grandes figures', false]
+    this.sup4 = false
   }
 
   nouvelleVersion (): void {
     let nbFigures = this.sup2
+    const factor = this.sup4 ? 2 : 1
     const typeDeFigures = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: this.nbQuestions }).map(Number)
     const numerosChoisis: number[] = []
     for (let i = 0; i < this.nbQuestions;) {
@@ -84,16 +85,16 @@ export default class NbAxesDeSymetrie extends Exercice {
         const alpha = randint(-30, 30, 0)
         const figure = figures[j]
         const options = figure.options ?? {}
-        const forme = figure.figure2d(options).translate(j * 6, 0)
+        const forme = figure.figure2d(options).dilate(factor).translate(j * 6 * factor, 0)
         if (this.sup3) forme.rotate(alpha)
         formes.push(forme)
-        const axes = forme.Axes.map(el => this.sup3 ? rotation(el, point(0, 0), -alpha) : el)
-        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6, 2.8)
+        const axes = forme.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
+        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6 * factor, 2.8 * factor)
         objets.push(forme, formeTexte)
         objetsCorr.push(forme, formeTexte)
         if (axes.length > 0) {
           for (let k = 0; k < axes.length; k++) {
-            const seg = translation(axes[k], vecteur(j * 6, 0))
+            const seg = translation(axes[k], vecteur(j * 6 * factor, 0))
             seg.epaisseur = 1.5
             seg.color = colorToLatexOrHTML(orangeMathalea)
             objetsCorr.push(seg)

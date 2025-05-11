@@ -3,6 +3,37 @@ import { context } from '../../modules/context'
 import { point, type Point } from './points'
 import { type Segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
+function rotatedBoundingBoxWithCenter (
+  xmin: number,
+  ymin: number,
+  xmax: number,
+  ymax: number,
+  alpha: number,
+  cx: number,
+  cy: number
+): [number, number, number, number] {
+  const w2 = (xmax - xmin) / 2
+  const h2 = (ymax - ymin) / 2
+
+  const cosA = Math.cos(alpha)
+  const sinA = Math.sin(alpha)
+
+  const dx = Math.abs(w2 * cosA) + Math.abs(h2 * sinA)
+  const dy = Math.abs(w2 * sinA) + Math.abs(h2 * cosA)
+
+  const centerX = (xmin + xmax) / 2
+  const centerY = (ymin + ymax) / 2
+
+  const rotatedCenterX = cosA * (centerX - cx) - sinA * (centerY - cy) + cx
+  const rotatedCenterY = sinA * (centerX - cx) + cosA * (centerY - cy) + cy
+
+  return [
+    rotatedCenterX - dx,
+    rotatedCenterY - dy,
+    rotatedCenterX + dx,
+    rotatedCenterY + dy,
+  ]
+}
 
 export class Figure2D extends ObjetMathalea2D {
   codeSvg: string
@@ -64,6 +95,9 @@ export class Figure2D extends ObjetMathalea2D {
     this.axes = axes
     this.nbAxes = nbAxes ?? this.axes.length
     this.centre = centre
+    if (this.angle !== 0) {
+      this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
+    }
   }
 
   svg (coeff: number) {
@@ -78,14 +112,7 @@ export class Figure2D extends ObjetMathalea2D {
 
   rotate (angle: number) {
     this.angle += angle
-    this.width = this.width * Math.abs(Math.cos(angle)) + this.height * Math.abs(Math.sin(angle))
-    this.height = this.width * Math.abs(Math.sin(angle)) + this.height * Math.abs(Math.cos(angle))
-    this.bordures = [
-      (this.x - this.width / 2),
-      (this.y - this.height / 2),
-      (this.x + this.width / 2),
-      (this.y + this.height / 2)
-    ]
+    this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
     return this
   }
 

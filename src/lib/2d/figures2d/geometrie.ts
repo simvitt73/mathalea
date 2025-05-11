@@ -45,6 +45,7 @@ export function etoile5Branches (
     return `(${rayon * Math.cos(angle)},-${rayon * Math.sin(angle)})`
   }).join(' -- ')
   const codeTikz = `
+    % Étoile à 5 branches
       \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
     `.trim()
   const axes = [0, 72, 144, 216, 288].map(a => a + 90).map((angle) => segment(-Math.cos(angle * Math.PI / 180) * rayonExterieur, -Math.sin(angle * Math.PI / 180) * rayonExterieur, Math.cos(angle * Math.PI / 180) * rayonExterieur, Math.sin(angle * Math.PI / 180) * rayonExterieur))
@@ -91,6 +92,7 @@ export function pentagoneRegulier (
     return `(${rayon * Math.cos(angle)},${-rayon * Math.sin(angle)})`
   }).join(' -- ')
   const codeTikz = `
+            % Pentagone régulier
             \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
         `.trim()
   const axes = [0, 72, 144, 216, 288].map(a => a + 90).map((angle) => segment(-Math.cos(angle * Math.PI / 180) * rayon * 1.1, -Math.sin(angle * Math.PI / 180) * rayon * 1.1, Math.cos(angle * Math.PI / 180) * rayon * 1.1, Math.sin(angle * Math.PI / 180) * rayon * 1.1))
@@ -143,6 +145,7 @@ export function cerfVolant (
         `(${-largeur},${hauteur * 0.35})` // Coin gauche
   ].join(' -- ')
   const codeTikz = `
+            % Cerf-volant
             \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
         `.trim()
   const axes = [segment(0, -hauteur * 0.6, 0, hauteur * 0.6)]
@@ -195,6 +198,7 @@ export function aileDelta (
         `(${-base / 2},${-hauteur / 2})` // Coin gauche
   ].join(' -- ')
   const codeTikz = `
+    % Aile delta
                         \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
                 `.trim()
   const axes = [segment(0, -hauteur * 0.6, 0, hauteur * 0.7)]
@@ -248,6 +252,7 @@ export function trapezeIsocele (
         `(${-baseSuperieure / 2},${hauteur / 2})` // Coin supérieur gauche
   ].join(' -- ')
   const codeTikz = `
+    % Trapèze isocèle
         \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
     `.trim()
   const axes = [segment(0, -hauteur * 0.6, 0, hauteur * 0.6)]
@@ -303,6 +308,7 @@ export function hexagoneNonRegulier (
         `(${-rayonHorizontal},0)` // Coin gauche
   ].join(' -- ')
   const codeTikz = `
+        % Hexagone non régulier
                 \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
         `.trim()
   const axes = [
@@ -339,14 +345,14 @@ export function triangleQuelconque1 (
   const fillStyle = options?.fillStyle || 'blue'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
-  const base = options?.base || 3
-  const hauteur = options?.hauteur || 3.5
+  const base = options?.base || 4
+  const hauteur = options?.hauteur || 4
   const opacite = options?.opacite || 1
   // Calcul des points du triangle
   const points = [
-        `${-base * 10 - 10},${-hauteur * 10}`, // Sommet supérieur
-        `${base * 10},${hauteur * 10}`, // Coin inférieur droit
-        `${-base * 10},${hauteur * 10}` // Coin inférieur gauche
+        `${-base * 10 - 5},${-hauteur * 10}`, // Sommet supérieur
+        `${base * 10 + 5},${hauteur * 10}`, // Coin inférieur droit
+        `${-base * 10 + 5},${hauteur * 10}` // Coin inférieur gauche
   ].join(' ')
 
   // Génération du code SVG
@@ -360,9 +366,10 @@ export function triangleQuelconque1 (
         `(${-base / 2},${-hauteur / 2})` // Coin inférieur gauche
   ].join(' -- ')
   const codeTikz = `
+  % Triangle
             \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
         `.trim()
-  return new Figure2D({ codeSvg, codeTikz, width: (base + 10) / 20, height: hauteur / 20, opacite })
+  return new Figure2D({ codeSvg, codeTikz, width: (base * 20 + 10) / 20, height: hauteur, opacite })
 }
 /**
  * Génère une figure représentant un croissant de lune.
@@ -430,8 +437,8 @@ export function croissantDeLune (
   return new Figure2D({
     codeSvg,
     codeTikz,
-    width: rayonExterieur * 2,
-    height: rayonExterieur * 2,
+    width: rayonExterieur > rayonInterieur ? rmax : rmin,
+    height: rayonExterieur > rayonInterieur ? rmax : rmin,
     axes,
     angle,
     opacite
@@ -468,6 +475,7 @@ export function pacman (
   const tikzStroke = options?.strokeStyle || 'black'
   const tikzLineWidth = options?.lineWidth || '1pt'
   const codeTikz = `
+    % Pacman
         \\draw[fill=${tikzFill}, draw=${tikzStroke}, line width=${tikzLineWidth}] 
         (0,0) -- (0,1) 
         arc[start angle=90, end angle=360, radius=1cm] -- cycle;
@@ -518,6 +526,7 @@ export function ferACheval (
 
   // Génération du code TikZ
   const codeTikz = `
+    % Fer à cheval
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
       (${-rayonExterieur},${rayonExterieur}) 
       -- (0,${rayonExterieur}) 
@@ -592,6 +601,7 @@ export function parallelogramme (
   ].join(' -- ')
 
   const codeTikz = `
+  % Parallélogramme
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
   `.trim()
 
@@ -639,6 +649,7 @@ export function coeur (
 
   // Génération du code TikZ
   const codeTikz = `
+    % Coeur
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
       (0,${base / 2})
       .. controls (${base / 2},${base}) and (${base},${base / 4}) .. (0,${-base / 2})
@@ -704,6 +715,7 @@ export function ogive (
   `.trim()
   // Génération du code TikZ
   const codeTikz = `
+    % Ogive
     \\begin{scope}
       \\clip (0,${rayon / base}) circle(${rayon});
       \\fill[fill=${fillStyle}] (0,${-rayon / base}) circle(${rayon});
@@ -724,7 +736,7 @@ export function ogive (
   return new Figure2D({
     codeSvg,
     codeTikz,
-    width: dx * 2,
+    width: base,
     height: hauteur,
     axes,
     centre: point(0, 0),
@@ -774,6 +786,7 @@ export function etoile4Branches (
     return `(${rayon * Math.cos(angle)},-${rayon * Math.sin(angle)})`
   }).join(' -- ')
   const codeTikz = `
+% Etoile à 4 branches
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
   `.trim()
 
@@ -857,6 +870,7 @@ export function croixRouge (
     `(${-largeurBras / 2},${-largeurBras / 2})` // Centre haut gauche
   ].join(' -- ')
   const codeTikz = `
+  % Croix rouge
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt, opacity=0.6] ${tikzPoints} -- cycle;
   `.trim()
 
@@ -925,18 +939,11 @@ export function rectangle (
     `.trim()
 
   // Génération du code TikZ
-  const tikzPoints = coinArrondis
-    ? `\\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt, rounded corners=${Math.min(largeur, hauteur) / 2}cm] 
+  const codeTikz = (coinArrondis
+    ? `\\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt, rounded corners=${Math.min(largeur, hauteur) / 5}cm] 
         (${-largeur / 2},${-hauteur / 2}) rectangle (${largeur / 2},${hauteur / 2});`
-    : [
-        `(${-largeur / 2},${-hauteur / 2})`, // Coin supérieur gauche
-        `(${largeur / 2},${-hauteur / 2})`, // Coin supérieur droit
-        `(${largeur / 2},${hauteur / 2})`, // Coin inférieur droit
-        `(${-largeur / 2},${hauteur / 2})` // Coin inférieur gauche
-      ].join(' -- ')
-  const codeTikz = `
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
-  `.trim()
+    : `\\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] 
+        (${-largeur / 2},${-hauteur / 2}) rectangle (${largeur / 2},${hauteur / 2});`).trim()
 
   const axes = [
     segment(-largeur * 5 / 8, 0, largeur * 5 / 8, 0),
@@ -998,12 +1005,13 @@ export function losange (
 
   // Génération du code TikZ
   const tikzPoints = [
-        `(0,${-hauteur})`, // Sommet supérieur
-        `(${base},0)`, // Coin droit
-        `(0,${hauteur})`, // Sommet inférieur
-        `(${-base},0)` // Coin gauche
+        `(0,${-hauteur / 2})`, // Sommet supérieur
+        `(${base / 2},0)`, // Coin droit
+        `(0,${hauteur / 2})`, // Sommet inférieur
+        `(${-base / 2},0)` // Coin gauche
   ].join(' -- ')
   const codeTikz = `
+  % losange
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
   `.trim()
 
@@ -1066,6 +1074,7 @@ export function triangleIsocele (
     `(${-base / 2},${hauteur / 2})` // Coin inférieur gauche
   ].join(' -- ')
   const codeTikz = `
+  % triangle isocèle
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
   `.trim()
 
@@ -1105,13 +1114,13 @@ export function triangleEquilateral (
   const opacite = options?.opacite || 1
 
   // Calcul de la hauteur du triangle équilatéral
-  const hauteur = (Math.sqrt(3) / 2) * base
+  const hauteur = Math.round((Math.sqrt(3) / 2) * base * 100) / 100
 
   // Calcul des points du triangle
   const points = [
-    `0,${-hauteur * 40 / 3}`, // Sommet supérieur
-    `${base * 10},${hauteur * 20 / 3}`, // Coin inférieur droit
-    `${-base * 10},${hauteur * 20 / 3}` // Coin inférieur gauche
+    `0,${(-hauteur * 40 / 3).toFixed(2)}`, // Sommet supérieur
+    `${base * 10},${(hauteur * 20 / 3).toFixed(2)}`, // Coin inférieur droit
+    `${-base * 10},${(hauteur * 20 / 3).toFixed(2)}` // Coin inférieur gauche
   ].join(' ')
 
   // Génération du code SVG
@@ -1121,17 +1130,18 @@ export function triangleEquilateral (
 
   // Génération du code TikZ
   const tikzPoints = [
-    `(0,${-hauteur / 3})`, // Sommet supérieur
-    `(${base / 2},${2 * hauteur / 3})`, // Coin inférieur droit
-    `(${-base / 2},${2 * hauteur / 3})` // Coin inférieur gauche
+    `(0,${(-hauteur / 3).toFixed(2)})`, // Sommet supérieur
+    `(${base / 2},${(2 * hauteur / 3).toFixed(2)})`, // Coin inférieur droit
+    `(${-base / 2},${(2 * hauteur / 3).toFixed(2)})` // Coin inférieur gauche
   ].join(' -- ')
   const codeTikz = `
+  % triangle équilatéral
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
   `.trim()
   const axes = [
-    segment(0, -hauteur / 3, base / 2, 2 * hauteur / 3), // Axe du sommet supérieur au milieu de la base
-    segment(base / 2, 2 * hauteur / 3, -base / 2, 2 * hauteur / 3), // Axe du sommet inférieur droit au milieu du côté gauche
-    segment(-base / 2, 2 * hauteur / 3, 0, -hauteur / 3) // Axe du sommet inférieur gauche au milieu du côté droit
+    segment(0, Math.round(-hauteur * 100 / 3) / 100, base / 2, Math.round(200 * hauteur / 3) / 100), // Axe du sommet supérieur au milieu de la base
+    segment(base / 2, Math.round(200 * hauteur / 3) / 100, -base / 2, Math.round(200 * hauteur / 3) / 100), // Axe du sommet inférieur droit au milieu du côté gauche
+    segment(-base / 2, Math.round(200 * hauteur / 3) / 100, 0, Math.round(-hauteur * 100 / 3) / 100) // Axe du sommet inférieur gauche au milieu du côté droit
   ]
 
   return new Figure2D({
@@ -1139,6 +1149,70 @@ export function triangleEquilateral (
     codeTikz,
     width: base,
     height: hauteur,
+    axes,
+    opacite
+  })
+}
+
+/**
+ * Génère une figure représentant un carré avec une animation SVG montrant ses symétries.
+ * @param options Options pour personnaliser le style du carré.
+ * @returns Une instance de Figure2D représentant un carré.
+ */
+export function carreAnime (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage du carré (par défaut gris)
+    strokeStyle?: string; // Couleur de la bordure du carré (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    taille?: number; // Taille du carré (par défaut 4)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'black'
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const base = options?.taille || 4
+  const opacite = options?.opacite || 1
+
+  // Génération du code SVG avec animation
+  const codeSvg = `
+       <rect x="${-base * 10}" y="${-base * 10}" width="${base * 20}" height="${base * 20}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}">
+        <animateTransform attributeName="transform" type="matrix" dur="8s" repeatCount="indefinite"
+          values="
+            1 0 0 1 0 0;  /* Identité */
+            1 0 0 -1 0 0; /* Symétrie horizontale */
+            -1 0 0 -1 0 0; /* Symétrie verticale */
+            -1 0 0 1 0 0; /* Symétrie diagonale */
+            1 0 0 1 0 0  /* Retour à l'identité */
+          "
+      </rect>   
+  `.trim()
+
+  // Génération du code TikZ
+  const tikzPoints = [
+    `(${-base / 2},${-base / 2})`, // Coin supérieur gauche
+    `(${base / 2},${-base / 2})`, // Coin supérieur droit
+    `(${base / 2},${base / 2})`, // Coin inférieur droit
+    `(${-base / 2},${base / 2})` // Coin inférieur gauche
+  ].join(' -- ')
+  const codeTikz = `
+  % un simple carré
+    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
+  `.trim()
+
+  const axes = [
+    segment(-base / 2, 0, base / 2, 0), // Axe horizontal
+    segment(0, -base / 2, 0, base / 2), // Axe vertical
+    segment(-base / 2, -base / 2, base / 2, base / 2), // Diagonale 1
+    segment(-base / 2, base / 2, base / 2, -base / 2) // Diagonale 2
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: base,
+    height: base,
     axes,
     opacite
   })

@@ -8,7 +8,7 @@ import { panneauParking, panneauVoieSansIssue } from './panneauInfo'
 import { panneauStop } from './panneauStop'
 import { panneauStationnementInterdit } from './stationnementInterdit'
 import { briqueLego } from './legos'
-import { aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
+import { aileDelta, carreAnime, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
 import { randint } from '../../../modules/outils'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notzmment
@@ -366,7 +366,7 @@ export const listeFigures2d: Forme[] = [
     options: { base: 4, hauteur: 2, angle: 60 }
   },
   {
-    numero: 52,
+    numero: 53,
     name: 'parallélogramme 2',
     type: 'geometrique',
     figure2d: parallelogramme,
@@ -405,7 +405,7 @@ export const listeFigures2d: Forme[] = [
     name: 'etoile à 4 branches 2',
     type: 'geometrique',
     figure2d: etoile4Branches,
-    options: { rayonExterieur: 0.7, rayonInterieur: 2, }
+    options: { rayonExterieur: 2, rayonInterieur: 1, }
   },
   {
     numero: 59,
@@ -425,14 +425,21 @@ export const listeFigures2d: Forme[] = [
     numero: 61,
     name: 'rectangle 2',
     type: 'geometrique',
+    figure2d: rectangle,
+    options: { angle: -20, coinsArrondis: true, largeur: 3, hauteur: 2, fillStyle: 'blue', opacite: 0.5 }
+  },
+  {
+    numero: 62,
+    name: 'rectangle 3',
+    type: 'geometrique',
     figure2d: rectangle
   },
   {
     numero: 63,
-    name: 'rectangle 3',
+    name: 'rectangle 4',
     type: 'geometrique',
     figure2d: rectangle,
-    options: { angle: 90, coinsArrondis: true, hauteur: 2, largeur: 3, fillStyle: 'brown', opacite: 0.6 }
+    options: { angle: 20, hauteur: 1, largeur: 4, fillStyle: 'yellow', opacite: 0.9 }
   },
   {
     numero: 64,
@@ -457,7 +464,7 @@ export const listeFigures2d: Forme[] = [
   },
   {
     numero: 67,
-    name: 'triangle équilatéral',
+    name: 'triangle équilatéral 1',
     type: 'geometrique',
     figure2d: triangleEquilateral,
     options: { fillStyle: 'orange', base: 4, opacite: 0.6 }
@@ -470,11 +477,18 @@ export const listeFigures2d: Forme[] = [
   },
   {
     numero: 69,
-    name: 'triangle équilatéral 3',
+    name: 'triangle équilatéral 2',
     type: 'geometrique',
     figure2d: triangleEquilateral,
-    options: { fillStyle: 'orange', base: 4, opacite: 0.6, angle: -30 }
-  },
+    options: { fillStyle: 'red', base: 4, opacite: 0.6, angle: -30 }
+  }/*,
+  {
+    numero: 70,
+    name: 'carré animé',
+    type: 'geometrique',
+    figure2d: carreAnime,
+    options: { base: 4, fillStyle: 'black' }
+  }, */
 
 ]
 export type Figure2DOptions = {
