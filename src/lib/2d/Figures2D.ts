@@ -27,7 +27,8 @@ export class Figure2D extends ObjetMathalea2D {
     pixelsParCm = context.pixelsParCm,
     axes = [],
     centre = null,
-    nbAxes
+    nbAxes,
+    opacite = 1
   }: {
     codeSvg: string,
     codeTikz: string,
@@ -41,6 +42,7 @@ export class Figure2D extends ObjetMathalea2D {
     axes?: Segment[]
     centre?: Point | null
     nbAxes?: number
+    opacite?: number
   }) {
     super()
     this.x = x
@@ -52,6 +54,7 @@ export class Figure2D extends ObjetMathalea2D {
     this.scale = scale
     this.codeSvg = codeSvg
     this.codeTikz = codeTikz
+    this.opacite = opacite
     this.bordures = [
       (this.x - this.width / 2),
       (this.y - this.height / 2),
@@ -64,7 +67,7 @@ export class Figure2D extends ObjetMathalea2D {
   }
 
   svg (coeff: number) {
-    return `<g transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>`
+    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>`
   }
 
   tikz () {
@@ -253,6 +256,6 @@ export class Figure2D extends ObjetMathalea2D {
   }
 
   get Axes () {
-    return this.axes.map(el => rotation(el, point(0, 0), -this.angle))
+    return this.axes.map(el => rotation(el, point(0, 0), this.angle))
   }
 }

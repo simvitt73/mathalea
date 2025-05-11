@@ -2,13 +2,13 @@ import { panneauArretInterdit } from './arretInterdit'
 import { panneauFinDeLimitation } from './finDeLimitation'
 import { panneauInterdictionDeCirculer, panneauSensInterdit } from './Interdictions'
 import type { Figure2D } from '../Figures2D'
-import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2 } from './panneauDanger'
+import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2, panneauCroisementRouteSecondaire } from './panneauDanger'
 import { panneauFinDeRoutePrioritaire, panneauRoutePrioritaire } from './routePrioritaire'
 import { panneauParking, panneauVoieSansIssue } from './panneauInfo'
 import { panneauStop } from './panneauStop'
 import { panneauStationnementInterdit } from './stationnementInterdit'
 import { briqueLego } from './legos'
-import { aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, ogive, pacman, parallelogramme, pentagoneRegulier, trapezeIsocele, triangleQuelconque1 } from './geometrie'
+import { aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
 import { randint } from '../../../modules/outils'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notzmment
@@ -279,14 +279,15 @@ export const listeFigures2d: Forme[] = [
     numero: 40,
     name: 'triangle quelconque',
     type: 'geometrique',
-    figure2d: triangleQuelconque1
+    figure2d: triangleQuelconque1,
+    options: { opacite: 0.5 }
   },
   {
     numero: 41,
     name: 'pentagone régulier',
     type: 'geometrique',
     figure2d: pentagoneRegulier,
-    options: { rayon: 2 }
+    options: { rayon: 2, opacite: 0.7 }
   },
   {
     numero: 42,
@@ -300,7 +301,7 @@ export const listeFigures2d: Forme[] = [
     name: 'cerf-volant',
     type: 'geometrique',
     figure2d: cerfVolant,
-    options: { largeur: randint(2, 5) / 2, hauteur: randint(32, 40) / 10 }
+    options: { largeur: randint(2, 5) / 2, hauteur: randint(32, 40) / 10, opacite: 0.8 }
   },
   {
     numero: 44,
@@ -390,7 +391,7 @@ export const listeFigures2d: Forme[] = [
     name: 'ogive',
     type: 'geometrique',
     figure2d: ogive,
-    options: { hauteur: 2 }
+    options: { hauteur: 2, opacite: 0.5 }
   },
   {
     numero: 57,
@@ -412,6 +413,67 @@ export const listeFigures2d: Forme[] = [
     type: 'geometrique',
     figure2d: croixRouge,
     options: { }
+  },
+  {
+    numero: 60,
+    name: 'rectangle 1',
+    type: 'geometrique',
+    figure2d: rectangle,
+    options: { angle: 45, coinsArrondis: true, fillStyle: 'green', opacite: 0.5 }
+  },
+  {
+    numero: 61,
+    name: 'rectangle 2',
+    type: 'geometrique',
+    figure2d: rectangle
+  },
+  {
+    numero: 63,
+    name: 'rectangle 3',
+    type: 'geometrique',
+    figure2d: rectangle,
+    options: { angle: 90, coinsArrondis: true, hauteur: 2, largeur: 3, fillStyle: 'brown', opacite: 0.6 }
+  },
+  {
+    numero: 64,
+    name: 'losange 1',
+    type: 'geometrique',
+    figure2d: losange,
+    options: { fillStyle: 'cyan' }
+  },
+  {
+    numero: 65,
+    name: 'losange 2',
+    type: 'geometrique',
+    figure2d: losange,
+    options: { fillStyle: 'magenta', coinsArrondis: true, hauteur: 3, largeur: 5, angle: 45 }
+  },
+  {
+    numero: 66,
+    name: 'triangle isocèle',
+    type: 'geometrique',
+    figure2d: triangleIsocele,
+    options: { fillStyle: 'purple', opacite: 0.6 }
+  },
+  {
+    numero: 67,
+    name: 'triangle équilatéral',
+    type: 'geometrique',
+    figure2d: triangleEquilateral,
+    options: { fillStyle: 'orange', base: 4, opacite: 0.6 }
+  },
+  {
+    numero: 68,
+    name: 'danger : croisement avec une route secondaire',
+    type: 'panneau',
+    figure2d: panneauCroisementRouteSecondaire
+  },
+  {
+    numero: 69,
+    name: 'triangle équilatéral 3',
+    type: 'geometrique',
+    figure2d: triangleEquilateral,
+    options: { fillStyle: 'orange', base: 4, opacite: 0.6, angle: -30 }
   },
 
 ]
@@ -436,6 +498,8 @@ export type Figure2DOptions = {
   rayonInterieur?: number
   rayonExterieur?: number
   angle?: number
+  coinsArrondis?: boolean
+  opacite?: number
 }
 export type Forme = {
   numero: number

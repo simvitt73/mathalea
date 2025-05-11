@@ -6,11 +6,11 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
 import Exercice from '../Exercice'
 import { rotation, translation } from '../../lib/2d/transformations'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { orangeMathalea } from '../../lib/colors'
 import type { Figure2D } from '../../lib/2d/Figures2D'
 import { point } from '../../lib/2d/points'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Reconnaitre des figures symétriques'
 export const interactifReady = true
@@ -94,6 +94,7 @@ export default class NbAxesDeSymetrie extends Exercice {
         if (axes.length > 0) {
           for (let k = 0; k < axes.length; k++) {
             const seg = translation(axes[k], vecteur(j * 6, 0))
+            seg.epaisseur = 1.5
             seg.color = colorToLatexOrHTML(orangeMathalea)
             objetsCorr.push(seg)
           }
@@ -102,14 +103,30 @@ export default class NbAxesDeSymetrie extends Exercice {
       texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         for (let j = 0; j < nbFigures; j++) {
-          texte += `figure ${j + 1} : ${ajouteQuestionMathlive({ exercice: this, question: i * nbFigures + j, typeInteractivite: 'mathlive', objetReponse: { reponse: { value: formes[j].nbAxes } }, texteApres: ' axes' })} <br>`
+          this.autoCorrection[i * nbFigures + j] = {
+            propositions: [
+              { texte: 'aucun', statut: formes[j].nbAxes === 0 },
+              { texte: '1', statut: formes[j].nbAxes === 1 },
+              { texte: '2', statut: formes[j].nbAxes === 2 },
+              { texte: '3', statut: formes[j].nbAxes === 3 },
+              { texte: '4', statut: formes[j].nbAxes === 4 },
+              { texte: '5', statut: formes[j].nbAxes === 5 },
+              { texte: '6', statut: formes[j].nbAxes === 6 },
+              { texte: 'une infinité', statut: Number.isFinite(formes[j].nbAxes) === false },
+            ],
+            options: {
+              ordered: true
+            }
+          }
+          const monQcm = propositionsQcm(this, i * nbFigures + j, { style: 'inline-block', format: 'case' })
+          texte += `figure ${j + 1} : ${monQcm.texte}`
         }
       }
       texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsCorr)), objetsCorr)
       texteCorr += `${formes.map((el, j) => Number.isFinite(el.nbAxes)
        ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède $${miseEnEvidence(el.nbAxes)}$ axe${el.nbAxes > 1 ? 's' : ''} de symétrie`
        : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède une infinité d'axes de symétrie`
-    ).join(', ')}`
+    ).join(', ')}.`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

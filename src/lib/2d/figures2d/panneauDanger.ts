@@ -317,3 +317,56 @@ export function panneauFeuTricolore (
     segment(1.2 * Math.cos(angle * Math.PI / 180), -1.2 * Math.sin(angle * Math.PI / 180), -1.2 * Math.cos(angle * Math.PI / 180), 1.2 * Math.sin(angle * Math.PI / 180)))
   return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
 }
+/**
+ * Génère une figure représentant un panneau signalant un croisement avec une route secondaire.
+ * @param options Options pour personnaliser le style du panneau.
+ * @returns Figure2D représentant un panneau de danger pour un croisement avec une route secondaire.
+ * @author
+ */
+export function panneauCroisementRouteSecondaire (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+    strokeStyle?: string; // Couleur de la bordure rouge
+    lineWidth?: number; // Épaisseur de la bordure rouge
+    borderStyle?: string; // Couleur du liseré noir
+    borderWidth?: number; // Épaisseur du liseré noir
+  }
+): Figure2D {
+  // Options par défaut
+  const fillStyle = options?.fillStyle || 'white'
+  const strokeStyle = options?.strokeStyle || 'red'
+  const lineWidth = options?.lineWidth || 3
+  const borderStyle = options?.borderStyle || 'black'
+  const borderWidth = options?.borderWidth || 1
+  const sommets1 = [90, -30, -150].map((angle) =>
+    `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets2 = [90, -30, -150].map((angle) =>
+    `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  // Génération du code SVG
+  const codeSvg = `
+    <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
+    <polygon points="${sommets2}" fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+    <path d="M -3,-7 L 0,-11 L 3,-7 L 3,6 L 0,4 L -3,6 Z" fill="black" />
+    <line x1="-6" y1="-1" x2="6" y2="-1" stroke="black" stroke-width="2" />
+  `.trim()
+
+  const tikzSommets1 = [90, -30, -150].map((angle) =>
+    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
+  ).join(' -- ')
+  const tikzSommets2 = [90, -30, -150].map((angle) =>
+    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
+  ).join(' -- ')
+
+  const codeTikz = `
+    \\draw[fill=${fillStyle}, draw=${borderStyle}, line width=${borderWidth}pt] 
+      ${tikzSommets1} -- cycle;
+    \\draw[draw=${strokeStyle}, line width=${lineWidth}pt] 
+      ${tikzSommets2} -- cycle;
+    \\fill[black] (-0.15,0.35) -- (0,0.55) -- (0.15,0.35) -- (0.15,-0.3) -- (0,-0.2) -- (-0.15,-0.3) -- cycle;
+    \\draw[draw=black, line width=2pt] (-0.3,0.05) -- (0.3,0.05);
+  `.trim()
+
+  const axes = [-90].map((angle) =>
+    segment(1.2 * Math.cos(angle * Math.PI / 180), -1.2 * Math.sin(angle * Math.PI / 180), -1.2 * Math.cos(angle * Math.PI / 180), 1.2 * Math.sin(angle * Math.PI / 180)))
+  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
+}
