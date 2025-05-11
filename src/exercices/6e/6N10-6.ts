@@ -49,7 +49,7 @@ export default class SommeFractionsDecimales extends Exercice {
     this.besoinFormulaireTexte = ['Type des calculs', 'Nombres séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
     this.besoinFormulaire2Texte = ['Forme de la solution', 'Nombres séparés par des tirets\n1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Un pourcentage\n4 : Les trois']
     this.sup = '7'
-    this.sup2 = 3
+    this.sup2 = 4
 
     this.can = false
   }
