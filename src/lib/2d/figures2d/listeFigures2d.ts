@@ -2,7 +2,7 @@ import { panneauArretInterdit } from './arretInterdit'
 import { panneauFinDeLimitation } from './finDeLimitation'
 import { panneauInterdictionDeCirculer, panneauSensInterdit } from './Interdictions'
 import type { Figure2D } from '../Figures2D'
-import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2, panneauCroisementRouteSecondaire } from './panneauDanger'
+import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2, panneauCroisementRouteSecondaire, panneauRetrecissementChaussee3 } from './panneauDanger'
 import { panneauFinDeRoutePrioritaire, panneauRoutePrioritaire } from './routePrioritaire'
 import { panneauParking, panneauVoieSansIssue } from './panneauInfo'
 import { panneauStop } from './panneauStop'
@@ -453,7 +453,7 @@ export const listeFigures2d: Forme[] = [
     name: 'losange 2',
     type: 'geometrique',
     figure2d: losange,
-    options: { fillStyle: 'magenta', coinsArrondis: true, hauteur: 3, largeur: 5, angle: 45 }
+    options: { fillStyle: 'magenta', coinsArrondis: true, hauteur: 3, largeur: 5, angle: 45, opacite: 0.5 }
   },
   {
     numero: 66,
@@ -481,7 +481,14 @@ export const listeFigures2d: Forme[] = [
     type: 'geometrique',
     figure2d: triangleEquilateral,
     options: { fillStyle: 'red', base: 4, opacite: 0.6, angle: -30 }
-  }/*,
+  },
+  {
+    numero: 70,
+    name: 'rétrécissement e chaussée 3',
+    type: 'panneau',
+    figure2d: panneauRetrecissementChaussee3
+  },
+  /*,
   {
     numero: 70,
     name: 'carré animé',

@@ -1138,11 +1138,15 @@ export function triangleEquilateral (
   % triangle équilatéral
     \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
   `.trim()
-  const axes = [
-    segment(0, Math.round(-hauteur * 100 / 3) / 100, base / 2, Math.round(200 * hauteur / 3) / 100), // Axe du sommet supérieur au milieu de la base
-    segment(base / 2, Math.round(200 * hauteur / 3) / 100, -base / 2, Math.round(200 * hauteur / 3) / 100), // Axe du sommet inférieur droit au milieu du côté gauche
-    segment(-base / 2, Math.round(200 * hauteur / 3) / 100, 0, Math.round(-hauteur * 100 / 3) / 100) // Axe du sommet inférieur gauche au milieu du côté droit
-  ]
+  const axes = [90, 210, -30].map((angle) =>
+    segment(
+      -Math.cos(angle * Math.PI / 180) * base * 0.7,
+      -Math.sin(angle * Math.PI / 180) * base * 0.7,
+      Math.cos(angle * Math.PI / 180) * base * 0.7,
+      Math.sin(angle * Math.PI / 180) * base * 0.7
+    )
+  )
+  // Génération des axes]
 
   return new Figure2D({
     codeSvg,
