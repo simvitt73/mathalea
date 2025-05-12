@@ -81,27 +81,29 @@ export default class NbAxesDeSymetrie extends Exercice {
         ? `Combien d'axes de symétrie possède${nbFigures > 1 ? 'nt' : ' '}l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} ?<br>`
         : `Trace l${nbFigures > 1 ? 'es ' : '\''}axe${nbFigures > 1 ? 's' : ''} de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''}.<br>`
       const formes: Figure2D[] = []
+      const scale = nbFigures === 1 ? 1 : nbFigures === 2 ? 0.9 : 0.8
       for (let j = 0; j < nbFigures; j++) {
         const alpha = randint(-30, 30, 0)
         const figure = figures[j]
         const options = figure.options ?? {}
-        const forme = figure.figure2d(options).dilate(factor).translate(j * 6 * factor, 0)
+        const forme = figure.figure2d(options).dilate(factor).translate(j * 6 * factor * scale, 0)
         if (this.sup3) forme.rotate(alpha)
         formes.push(forme)
         const axes = forme.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
-        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6 * factor, 2.8 * factor)
+
+        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6 * factor * scale, 2.8 * factor)
         objets.push(forme, formeTexte)
         objetsCorr.push(forme, formeTexte)
         if (axes.length > 0) {
           for (let k = 0; k < axes.length; k++) {
-            const seg = translation(axes[k], vecteur(j * 6 * factor, 0))
+            const seg = translation(axes[k], vecteur(j * 6 * factor * scale, 0))
             seg.epaisseur = 1.5
             seg.color = colorToLatexOrHTML(orangeMathalea)
             objetsCorr.push(seg)
           }
         }
       }
-      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objets)), objets)
+      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale }, fixeBordures(objets)), objets)
       if (this.interactif) {
         for (let j = 0; j < nbFigures; j++) {
           this.autoCorrection[i * nbFigures + j] = {
@@ -123,7 +125,8 @@ export default class NbAxesDeSymetrie extends Exercice {
           texte += `figure ${j + 1} : ${monQcm.texte}`
         }
       }
-      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsCorr)), objetsCorr)
+
+      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale }, fixeBordures(objetsCorr)), objetsCorr)
       texteCorr += `${formes.map((el, j) => Number.isFinite(el.nbAxes)
        ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède $${miseEnEvidence(el.nbAxes)}$ axe${el.nbAxes > 1 ? 's' : ''} de symétrie`
        : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède une infinité d'axes de symétrie`
