@@ -1173,7 +1173,7 @@ export function carreAnime (
   }
 ): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'black'
+  const fillStyle = options?.fillStyle || 'red'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const base = options?.taille || 4
@@ -1181,17 +1181,7 @@ export function carreAnime (
 
   // Génération du code SVG avec animation
   const codeSvg = `
-       <rect x="${-base * 10}" y="${-base * 10}" width="${base * 20}" height="${base * 20}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}">
-        <animateTransform attributeName="transform" type="matrix" dur="8s" repeatCount="indefinite"
-          values="
-            1 0 0 1 0 0;  /* Identité */
-            1 0 0 -1 0 0; /* Symétrie horizontale */
-            -1 0 0 -1 0 0; /* Symétrie verticale */
-            -1 0 0 1 0 0; /* Symétrie diagonale */
-            1 0 0 1 0 0  /* Retour à l'identité */
-          "
-      </rect>   
-  `.trim()
+  <rect x="${-base * 10}" y="${-base * 10}" width="${base * 20}" height="${base * 20}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}">`
 
   // Génération du code TikZ
   const tikzPoints = [

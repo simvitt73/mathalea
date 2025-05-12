@@ -33,15 +33,15 @@ export const refs = {
 export default class NbAxesDeSymetrie extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 1
+    this.nbQuestions = 3
     this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Mélange']
-    this.sup = '1'
+    this.sup = '4'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
-    this.sup2 = 1
+    this.sup2 = 3
     this.besoinFormulaire3CaseACocher = ['Avec des rotations aléatoires', false]
     this.sup3 = false
-    this.besoinFormulaire4CaseACocher = ['Grandes figures', false]
-    this.sup4 = false
+    this.besoinFormulaire4CaseACocher = ['Grandes figures', true]
+    this.sup4 = true
   }
 
   nouvelleVersion (): void {
@@ -87,13 +87,15 @@ export default class NbAxesDeSymetrie extends Exercice {
         const figure = figures[j]
         const options = figure.options ?? {}
         const forme = figure.figure2d(options).dilate(factor).translate(j * 6 * factor * scale, 0)
+        forme.name = figure.name.replace(/ /g, '_')
         if (this.sup3) forme.rotate(alpha)
         formes.push(forme)
-        const axes = forme.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
 
         const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6 * factor * scale, 2.8 * factor)
         objets.push(forme, formeTexte)
-        objetsCorr.push(forme, formeTexte)
+        const formeCorr = forme.autoReflectionAnimee(`${forme.name}Corr_${i * this.sup3 + j}`, forme.x, forme.y)
+        const axes = formeCorr.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
+        objetsCorr.push(formeCorr, formeTexte)
         if (axes.length > 0) {
           for (let k = 0; k < axes.length; k++) {
             const seg = translation(axes[k], vecteur(j * 6 * factor * scale, 0))

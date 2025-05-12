@@ -488,14 +488,13 @@ export const listeFigures2d: Forme[] = [
     type: 'panneau',
     figure2d: panneauRetrecissementChaussee3
   },
-  /*,
   {
     numero: 70,
     name: 'carré animé',
     type: 'geometrique',
     figure2d: carreAnime,
-    options: { base: 4, fillStyle: 'black' }
-  }, */
+    options: { base: 4, fillStyle: 'red' }
+  },
 
 ]
 export type Figure2DOptions = {
@@ -521,6 +520,7 @@ export type Figure2DOptions = {
   angle?: number
   coinsArrondis?: boolean
   opacite?: number
+  name?: string
 }
 export type Forme = {
   numero: number

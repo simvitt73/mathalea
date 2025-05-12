@@ -46,6 +46,7 @@ export class Figure2D extends ObjetMathalea2D {
   axes: Segment[]
   centre: Point | null
   nbAxes: number
+  name: string
   constructor ({
     codeSvg,
     codeTikz,
@@ -59,7 +60,8 @@ export class Figure2D extends ObjetMathalea2D {
     axes = [],
     centre = null,
     nbAxes,
-    opacite = 1
+    opacite = 1,
+    name = Date.now().toString()
   }: {
     codeSvg: string,
     codeTikz: string,
@@ -74,8 +76,10 @@ export class Figure2D extends ObjetMathalea2D {
     centre?: Point | null
     nbAxes?: number
     opacite?: number
+    name?: string
   }) {
     super()
+    this.name = name
     this.x = x
     this.y = y
     this.width = width
@@ -275,6 +279,103 @@ export class Figure2D extends ObjetMathalea2D {
       height: this.height,
       pixelsParCm: this.pixelsParCm
     })
+  }
+
+  get axesAngles () {
+    let angles: number[] = []
+    if (this.Axes.length > 0) {
+      angles = this.Axes.map(el => {
+        const angle = Math.atan2(el.y1 - el.y2, el.x2 - el.x1) * 180 / Math.PI
+        return angle
+      })
+    }
+    return angles
+  }
+
+  autoReflectionAnimee (id: string, cx: number, cy: number) {
+    const copieAnimee = new Figure2D({
+      codeSvg: `<g id="${id}">
+      ${this.svg(20)}
+       transform="matrix(1 0 0 1 0 0)"
+      </g>`,
+      codeTikz: this.tikz(),
+      width: this.width / this.scale.x,
+      height: this.height / this.scale.y,
+      pixelsParCm: this.pixelsParCm,
+      scale: { x: 1, y: 1 },
+      angle: 0,
+      x: 0,
+      y: 0,
+      opacite: 0.5,
+      axes: this.Axes
+    })
+
+    copieAnimee.name = id
+    document.addEventListener('exercicesAffiches', () => {
+      const rect = document.getElementById(id)
+      let progress = 0
+      let currentSymmetry = 0
+      let animating = false
+      function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, cy: number) {
+        const angle = angleDeg * Math.PI / 180
+        const cosA = Math.cos(angle)
+        const sinA = Math.sin(angle)
+
+        const sy = 1 - 2 * progress
+
+        const a = cosA * cosA + sinA * sinA * sy
+        const b = cosA * sinA * (1 - sy)
+        const c = cosA * sinA * (1 - sy)
+        const d = sinA * sinA + cosA * cosA * sy
+
+        const tx = cx - a * cx - c * cy
+        const ty = cy - b * cx - d * cy
+
+        return { a, b, c, d, tx, ty }
+      }
+      const ppcm = this.pixelsParCm
+      function animateSymmetry (angleDeg: number, onComplete: () => void) {
+        progress = 0
+
+        function step () {
+          progress += 0.005
+          if (progress > 1) progress = 1
+
+          const { a, b, c, d, tx, ty } = computeSymmetryMatrix(progress, angleDeg, cx * ppcm, cy * ppcm)
+          rect?.setAttribute('transform', `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`)
+
+          if (progress < 1) {
+            requestAnimationFrame(step)
+          } else {
+            onComplete()
+          }
+        }
+
+        requestAnimationFrame(step)
+      }
+
+      function loopSymetries (symetries: number[]) {
+        if (animating) return
+        animating = true
+
+        function next () {
+          const angle = symetries[currentSymmetry]
+          animateSymmetry(angle, () => {
+            currentSymmetry = (currentSymmetry + 1) % symetries.length
+            setTimeout(next, 300) // petite pause entre chaque symétrie
+          })
+        }
+        next()
+      }
+
+      const symetries = copieAnimee.axesAngles
+      if (symetries.length === 0) {
+        rect?.setAttribute('transform', `matrix(1 0 0 1 ${cx * ppcm} ${-cy * ppcm})`)
+        return
+      }
+      loopSymetries(symetries)
+    })
+    return copieAnimee
   }
 
   set Axes (axes: Segment[]) {
