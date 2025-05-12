@@ -899,6 +899,7 @@ function comparaisonFraction (
       if ((saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational') &&
         Number.isInteger(Math.log10(Number(saisieNativeParsed.op2.value))) &&
         Math.log10(Number(saisieNativeParsed.op2.value)) >= 0) {
+        if (!saisieNativeParsed.op1.isInteger) return { isOk: false, feedback: 'Résultat incorrect car le numérateur n\'est pas entier.' }
         return { isOk: true }
       }
       return { isOk: false, feedback: 'Résultat incorrect car une fraction décimale est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
