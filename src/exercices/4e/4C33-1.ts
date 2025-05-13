@@ -340,9 +340,9 @@ export default class PuissancesDunRelatif1 extends Exercice {
                         )}$`
           }
           texteCorr += '<br>'
-          texteCorr += `$${lettre}= (${miseEnEvidence(ecritureParentheseSiNegatif(base[0]), coul0)} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(base[1]), coul1)})^{${exp}}=${miseEnEvidence(`${base[0] * base[1]}^{${exp}}`)}$`
+          texteCorr += `$${lettre}= (${miseEnEvidence(ecritureParentheseSiNegatif(base[0]), coul0)} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(base[1]), coul1)})^{${exp}}=${miseEnEvidence(`(${base[0] * base[1]})^{${exp}}`)}$`
 
-          reponseInteractive = `${base[0] * base[1]}^{${exp}}`
+          reponseInteractive = `(${base[0] * base[1]})^{${exp}}`
           baseUtile = base[0] * base[1]
           baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
           base = baseUtile
