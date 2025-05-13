@@ -5598,7 +5598,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Puissances', 'Vitesses', 'Probabilités', 'Fractions', 'Statistiques']
+    tags: ['QCM', 'Puissances', 'Vitesses', 'Probabilités', 'Fractions', 'Statistiques']
   },
   dnb_2024_06_etrangers_2: {
     annee: '2024',
@@ -5752,7 +5752,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Puissances', 'Statistiques', 'Transformations', 'Fonctions']
+    tags: ['QCM', 'Puissances', 'Statistiques', 'Transformations', 'Fonctions']
   },
   dnb_2024_07_antilles_3: {
     annee: '2024',
