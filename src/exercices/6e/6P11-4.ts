@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
@@ -71,8 +71,8 @@ export default class ProblemesDeProportionnalité extends Exercice {
       switch (typesDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: {
           const unité = choice(unites)
-          texte = this.createArray(`$${f}$ cartons`, '$\\rightarrow$', `$${texNombre(f * quantite)}~\\text{${unité}}$`, `$${1}$ personne`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
-          texteCorr = `$${f}~\\text{cartons} \\div ${f} = 1~\\text{personne}$<br>`
+          texte = this.createArray(`$${f}$ cartons`, '$\\rightarrow$', `$${texNombre(f * quantite)}~\\text{${unité}}$`, `$${1}$ carton`, '$\\rightarrow$', (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i, ' ', { texteApres: ` ${unité}` }) : '....')
+          texteCorr = `$${f}~\\text{cartons} \\div ${f} = 1~\\text{carton}$<br>`
           texteCorr += `$${texNombre(quantite * f)} \\text{ ${unité}} \\div ${f} = ${texNombre(quantite)} \\text{ ${unité}}$<br>`
           texteCorr += 'Donc le résultat est ' + `$${miseEnEvidence(texNombre(quantite))}$ ${unité}.`
           if (context.isAmc) setReponse(this, i, quantite)
