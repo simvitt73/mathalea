@@ -1,10 +1,13 @@
 /* Thèmes
+  Bienaymé-Tchebychev
    Combinatoire
    Convexité
+   Dénombrement
    Équations différentielles
    Espace
    Exponentielle
    Fonctions trigonométriques
+   Intégration
    Logarithme
    Loi binomiale
    Primitives
@@ -16,7 +19,6 @@
    Vrai/Faux
    TVI
    Tableur
-   Dénombrement
 */
 export const dictionnaireBAC = {
   bac_2021_01_sujet0_1: {
@@ -1248,7 +1250,7 @@ export const dictionnaireBAC = {
     mois: 'Janvier',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'Loi binomiale', 'Bienaymé-Tchebychev']
   },
   bac_2024_01_sujet0_4: {
     annee: '2024',
@@ -2082,7 +2084,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Primitives', 'Suites', 'Python']
+    tags: ['Intégration', 'Suites', 'Python', 'Fonctions trigonométriques']
   },
   bac_2024_05_sujet2_ameriquenord_1: {
     annee: '2024',
@@ -2245,7 +2247,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2024_06_sujet1_metropole_3: {
     annee: '2024',
@@ -2281,7 +2283,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: 'devoile',
     typeExercice: 'bac',
-    tags: ['Loi binomiale', 'Variables aléatoires']
+    tags: ['Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2024_06_sujet1_metropole_devoile_3: {
     annee: '2024',
@@ -2380,7 +2382,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2024_06_sujet2_metropole_2: {
     annee: '2024',
@@ -2416,7 +2418,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: 'devoile',
     typeExercice: 'bac',
-    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2024_06_sujet2_metropole_devoile_2: {
     annee: '2024',
@@ -2515,7 +2517,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Loi binomiale', 'Variables aléatoires']
+    tags: ['Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2024_09_sujet1_polynesie_1: {
     annee: '2024',
