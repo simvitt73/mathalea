@@ -53,7 +53,7 @@ export default class VraiFaux extends Exercice {
         enonce: texte,
         propositions
       }
-      const monQcm = propositionsQcm(this, i)
+      const monQcm = propositionsQcm(this, i, { radio: true, style: '', format: 'case'})
       if (!context.isAmc && this.interactif) {
         texte += monQcm.texte
       }
