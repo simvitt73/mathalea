@@ -1,6 +1,7 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { Point, point } from './points'
+import type { PointSimple } from './points-simples'
 import { segment } from './segmentsVecteurs'
 
 export class CrochetD extends ObjetMathalea2D {
@@ -121,7 +122,7 @@ export function crochetG (A:Point, color = 'blue') {
   return new CrochetG(A, color)
 }
 
-export function intervalle (A: Point, B: Point, color = 'blue', h = 0) {
+export function intervalle (A: PointSimple, B: PointSimple, color = 'blue', h = 0) {
   const A1 = point(A.x, A.y + h)
   const B1 = point(B.x, B.y + h)
   const s = segment(A1, B1, color)

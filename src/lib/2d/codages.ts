@@ -5,7 +5,7 @@ import { stringNombre } from '../outils/texNombre'
 import { codageAngle, codageAngleDroit } from './angles'
 import { angleOriente } from '../../lib/2d/angles-mesures'
 import { Droite, droite, mediatrice } from './droites'
-import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points'
+import { milieu, point, Point, pointSurSegment, tracePointSurDroite } from './points'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { Latex2d, latex2d, latexParCoordonnees, tailleDeNbVersLatex, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
 import { rotation, similitude, translation } from './transformations'
@@ -938,7 +938,7 @@ export class CodageAngle extends ObjetMathalea2D {
     this.opacite = opacite
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    this.angle = angle instanceof Point ? angleOriente(debut, centre, angle) : angle
+    this.angle = typeof angle === 'number' ? angle : angleOriente(debut, centre, angle)
     this.tailleTexte = tailleTexte
     this.angleArrondi = angleArrondi
     this.objets = []

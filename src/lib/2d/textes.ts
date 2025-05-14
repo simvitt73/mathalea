@@ -2,9 +2,10 @@ import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, type ObjetDivLatex } from 
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { point, Point } from './points'
+import { point, Point, pointDepuisPointSimple } from './points'
 import { Point3d } from '../../modules/3d'
 import { Polygone } from './polygones'
+import { PointSimple } from './points-simples'
 
 export type AncrageDeRotationType = 'gauche' | 'milieu' | 'droite'
 export const tikzAncrages = {
@@ -22,7 +23,7 @@ export const svgAncrages = {
  * @param {number} [distance=1.5] Taille de l'angle
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
- * @param {Point|Point[]} [parametres.points = []] Point ou tableau de points
+ * @param {PointSimple|PointSimple[]} [parametres.points = []] Point ou tableau de points
  * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
  * @param {number} [parametres.taille = 8] Taille du label
  * @param {number} [parametres.largeur = 10] Largeur en pixels du label à des fins de centrage
@@ -227,7 +228,7 @@ export class TexteParPoint extends ObjetMathalea2D {
   contour: boolean
   taille: number
 
-  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, opacite: number = 1) {
+  constructor (texte: string, A: PointSimple, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, opacite: number = 1) {
     super()
     if (typeof orientation !== 'number') {
       if (orientation === 'milieu' || typeof orientation === 'string') {
@@ -245,7 +246,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     this.opacite = opacite
     this.couleurDeRemplissage = colorToLatexOrHTML(color)
     this.mathOn = mathOn
-    this.point = A
+    this.point = pointDepuisPointSimple(A)
     this.gras = false
     this.contour = false
     this.opaciteDeRemplissage = opacite
@@ -341,8 +342,14 @@ export class TexteParPoint extends ObjetMathalea2D {
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
  * @author Rémi Angot rectifié par Jean-Claude Lhote
  */
-export function texteParPoint (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, opacite: number = 1) {
-  return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
+export function texteParPoint (texte: string, A: PointSimple | PointSimple, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, opacite: number = 1) {
+  let point: PointSimple
+  if (A instanceof PointSimple) {
+    point = pointDepuisPointSimple(A)
+  } else {
+    point = A
+  }
+  return new TexteParPoint(texte, point, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
 export class TexteParPointEchelle extends ObjetMathalea2D {
@@ -360,7 +367,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   opaciteDeRemplissage!: number
   bordures: [number, number, number, number]
   taille: number
-  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, scaleFigure: number) {
+  constructor (texte: string, A: PointSimple, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, scaleFigure: number) {
     super()
     if (typeof orientation !== 'number') {
       if (orientation === 'milieu' || typeof orientation === 'string') {
@@ -373,7 +380,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
     this.contour = false
     this.mathOn = mathOn
     this.gras = false
-    this.point = A
+    this.point = pointDepuisPointSimple(A)
     this.scale = scale
     this.scaleFigure = scaleFigure
     this.taille = 10 * scale
@@ -410,7 +417,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
       }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${copyThistexte}};`
   }
 }
-export function texteParPointEchelle (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number = 1): TexteParPointEchelle {
+export function texteParPointEchelle (texte: string, A: PointSimple, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number = 1): TexteParPointEchelle {
   return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 

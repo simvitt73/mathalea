@@ -5,10 +5,11 @@ import { arrondi } from '../outils/nombres'
 import { angleOriente } from '../../lib/2d/angles-mesures'
 import { Cercle } from './cercle'
 import { Droite, droite } from './droites'
-import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points'
+import { milieu, point, Point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points'
 import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import MainLevee from './MainLevee'
+import { PointSimple } from './points-simples'
 
 /**
  * v = vecteur('V') // son nom
@@ -24,7 +25,7 @@ export class Vecteur {
   x: number
   y: number
 
-  constructor (arg1: FractionEtendue | number | Point | string, arg2: FractionEtendue | number | Point, nom = '') {
+  constructor (arg1: FractionEtendue | number | PointSimple | string, arg2: FractionEtendue | number | PointSimple, nom = '') {
     if (arguments.length === 1) {
       this.nom = String(arg1)
       this.x = 0
@@ -34,7 +35,7 @@ export class Vecteur {
         this.x = arg1 instanceof FractionEtendue ? arg1.valeurDecimale : Number(arg1)
         this.y = arg2 instanceof FractionEtendue ? arg2.valeurDecimale : Number(arg2)
       } else {
-        if ((arg1 instanceof Point) && (arg2 instanceof Point)) {
+        if ((arg1 instanceof PointSimple) && (arg2 instanceof PointSimple)) {
           this.x = arg2.x - arg1.x
           this.y = arg2.y - arg1.y
         } else {
@@ -99,7 +100,7 @@ export class Vecteur {
  * @example v = vecteur(x,y,'v') // son nom et ses composantes.
  * @author Jean-Claude Lhote et Rémi Angot
  */
-export function vecteur (arg1: FractionEtendue | number | Point | string, arg2: FractionEtendue | number | Point, nom = '') {
+export function vecteur (arg1: FractionEtendue | number | PointSimple | string, arg2: FractionEtendue | number | PointSimple, nom = '') {
   return new Vecteur(arg1, arg2, nom)
 }
 
@@ -214,7 +215,7 @@ export class Segment extends ObjetMathalea2D {
       }
     } else if (arguments.length === 4) {
       if (typeof arg3 !== 'number') {
-        if ((arg1 instanceof Point) && (arg2 instanceof Point)) {
+        if ((arg1 instanceof PointSimple) && (arg2 instanceof PointSimple)) {
           this.x1 = arg1.x
           this.y1 = arg1.y
           this.x2 = arg2.x
@@ -660,14 +661,14 @@ export function demiDroite (A: Point, B: Point, color = 'black', extremites = fa
 
 /**
  * Renvoie la distance de A à B
- * @param {Point} A
- * @param {Point} B
+ * @param {PointSimple} A
+ * @param {PointSimple} B
  * @param {number} [precision] Nombre de chiffres après la virgule.
  * (ne sert à rien car si le number correspondant à l'arrondi ne tombe pas sur un flottant convertible en bianire sans erreur, il y aura 18 chiffres significatifs dans le number retourné
  * C'est à la fonction d'affichage de limiter le nombre de chiffres
  * @author Rémi Angot
  */
-export function longueur (A: Point, B: Point, precision = 2) {
+export function longueur (A: PointSimple, B: PointSimple, precision = 2) {
   return arrondi(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), precision ?? 6)
   // j chiffres après la virgule pour l'arrondi sachant que c'est à la fonction d'affichage de limiter le nombre de chiffres.
 }

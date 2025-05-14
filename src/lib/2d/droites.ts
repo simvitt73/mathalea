@@ -4,11 +4,12 @@ import { egal } from '../../lib/outils/comparaisons'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from '../../lib/2d/angles-mesures'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
-import { milieu, Point, point, pointSurDroite, pointSurSegment } from './points'
+import { milieu, point, Point, pointSurDroite, pointSurSegment } from './points'
 import { DemiDroite, demiDroite, longueur, norme, segment, Vecteur, vecteur } from './segmentsVecteurs'
 import { Latex2d, latex2d, TexteParPoint, texteParPosition, type LetterSizeType } from './textes'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations'
 import { traceCompas } from './arc'
+import { pointSimple, type PointSimple } from './points-simples'
 
 /**
  * Ajouter une étiquette sur une droite.
@@ -302,8 +303,8 @@ export function droiteAvecNomLatex (d: Droite, nom: string, color = 'black') { /
 }
 
 /**  Trace une droite
- * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
- * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
+ * @param {PointSimple | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
+ * @param {PointSimple | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
  * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
  * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN Nom affiché de la droite si arg1 est un nombre
  * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
@@ -345,13 +346,13 @@ export class Droite extends ObjetMathalea2D {
   directeur: Vecteur
   stringColor: string
   leNom?: TexteParPoint
-  constructor (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, arg5?: string) {
+  constructor (arg1: number | PointSimple, arg2: number | PointSimple, arg3?: number | string, arg4?: number | string, arg5?: string) {
     super()
     let a, b, c
     this.stringColor = 'black'
 
     if (arguments.length === 2) {
-      if (Number.isNaN((arg1 as Point).x) || Number.isNaN((arg1 as Point).y) || Number.isNaN((arg2 as Point).x) || Number.isNaN((arg2 as Point).y)) {
+      if (Number.isNaN((arg1 as PointSimple).x) || Number.isNaN((arg1 as PointSimple).y) || Number.isNaN((arg2 as PointSimple).x) || Number.isNaN((arg2 as PointSimple).y)) {
         window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', {
           arg1,
           arg2
@@ -361,10 +362,10 @@ export class Droite extends ObjetMathalea2D {
       this.pointilles = 0
       this.opacite = 1
       this.epaisseur = 1
-      this.x1 = (arg1 as Point).x
-      this.y1 = (arg1 as Point).y
-      this.x2 = (arg2 as Point).x
-      this.y2 = (arg2 as Point).y
+      this.x1 = (arg1 as PointSimple).x
+      this.y1 = (arg1 as PointSimple).y
+      this.x2 = (arg2 as PointSimple).x
+      this.y2 = (arg2 as PointSimple).y
       this.a = this.y1 - this.y2
       this.b = this.x2 - this.x1
       this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
@@ -404,7 +405,7 @@ export class Droite extends ObjetMathalea2D {
           this.y2 = (-c - a) / b
         }
       } else {
-        if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN((arg2 as Point).x) || isNaN((arg2 as Point).y)) {
+        if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN((arg2 as PointSimple).x) || isNaN((arg2 as PointSimple).y)) {
           window.notify('Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides', {
             arg1,
             arg2
@@ -412,8 +413,8 @@ export class Droite extends ObjetMathalea2D {
         }
         this.x1 = arg1.x
         this.y1 = arg1.y
-        this.x2 = (arg2 as Point).x
-        this.y2 = (arg2 as Point).y
+        this.x2 = (arg2 as PointSimple).x
+        this.y2 = (arg2 as PointSimple).y
         this.a = this.y1 - this.y2
         this.b = this.x2 - this.x1
         this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
@@ -452,7 +453,7 @@ export class Droite extends ObjetMathalea2D {
           this.y2 = (-c - a) / b
         }
       } else {
-        if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN((arg2 as Point).x) || isNaN((arg2 as Point).y)) {
+        if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN((arg2 as PointSimple).x) || isNaN((arg2 as PointSimple).y)) {
           window.notify('Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides', {
             arg1,
             arg2
@@ -460,8 +461,8 @@ export class Droite extends ObjetMathalea2D {
         }
         this.x1 = arg1.x
         this.y1 = arg1.y
-        this.x2 = (arg2 as Point).x
-        this.y2 = (arg2 as Point).y
+        this.x2 = (arg2 as PointSimple).x
+        this.y2 = (arg2 as PointSimple).y
         this.a = this.y1 - this.y2
         this.b = this.x2 - this.x1
         this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
@@ -523,9 +524,9 @@ export class Droite extends ObjetMathalea2D {
     this.normal = vecteur(this.a, this.b)
     this.directeur = vecteur(this.b, -this.a)
     this.angleAvecHorizontale = angleOriente(
-      point(1, 0),
-      point(0, 0),
-      point(this.directeur.x, this.directeur.y)
+      pointSimple(1, 0),
+      pointSimple(0, 0),
+      pointSimple(this.directeur.x, this.directeur.y)
     )
     this.bordures = [Math.min(this.x1, this.x2), Math.min(this.y1, this.y2), Math.max(this.x1, this.x2), Math.max(this.y1, this.y2)]
     let absNom: number
@@ -578,7 +579,7 @@ export class Droite extends ObjetMathalea2D {
       // On retourne une droite sans nom accompagnée de son nom Latex
       // return droiteAvecNomLAtex(new Droite(point(this.x1, this.y1), point(this.x2, this.y2)), leNom)
       // @fixme la ligne suivante sera à retirer lorsque les exos concernés auront été repérés. Et la précédente à utiliser.
-      return new Droite(point(this.x1, this.y1), point(this.x2, this.y2)) // On retourne une droite sans nom en attendant que quelqu'un adapte l'exo et utilise droiteAvecNom() à la place de droite.
+      return new Droite(pointSimple(this.x1, this.y1), pointSimple(this.x2, this.y2)) // On retourne une droite sans nom en attendant que quelqu'un adapte l'exo et utilise droiteAvecNom() à la place de droite.
     }
   }
 
@@ -690,8 +691,8 @@ export class Droite extends ObjetMathalea2D {
 
 /**  Trace une droite définie par 2 points OU BIEN par les coefficients de son équation
  * @property {number} epaisseur
- * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
- * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {PointSimple | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {PointSimple | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
  * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
  * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affiché de la droite si arg1 est un nombre
  * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
@@ -702,7 +703,7 @@ export class Droite extends ObjetMathalea2D {
  * @author Jean-Claude Lhote
  * @return {Droite}
  */
-export function droite (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, arg5?: string) {
+export function droite (arg1: number | PointSimple, arg2: number | PointSimple, arg3?: number | string, arg4?: number | string, arg5?: string) {
   if (arguments.length === 2) return new Droite(arg1, arg2)
   if (arguments.length === 3) return new Droite(arg1, arg2, arg3)
   if (arguments.length === 4) return new Droite(arg1, arg2, arg3, arg4)
@@ -711,7 +712,7 @@ export function droite (arg1: number | Point, arg2: number | Point, arg3?: numbe
 
 /**  Donne la position du point A par rapport à la droite d
  * @param {Droite} d
- * @param {Point} A
+ * @param {PointSimple} A
  * @param {number} [tolerance = 0.0001] Seuil de tolérance pour évaluer la proximité entre d et A.
  * @example dessousDessus(d1, M) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus'
  * @example dessousDessus(d1, M, 0.005) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus' (avec une tolérance de 0,005)
@@ -719,7 +720,7 @@ export function droite (arg1: number | Point, arg2: number | Point, arg3?: numbe
  */
 // JSDOC Validee par EE Aout 2022
 
-export function dessousDessus (d: Droite, A: Point, tolerance = 0.0001) {
+export function dessousDessus (d: Droite, A: PointSimple, tolerance = 0.0001) {
   if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
     if (A.x < -d.c / d.a) return 'gauche'
@@ -738,7 +739,7 @@ export function dessousDessus (d: Droite, A: Point, tolerance = 0.0001) {
  * @param {number} param1.xmax
  * @param {number} param1.ymin
  * @param {number} param1.ymax
- * @return {Point} le point qui servira à placer le label.
+ * @return {PointSimple} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -780,7 +781,7 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
 }
 
 /**  Trace la droite passant par le point A et de vecteur directeur v
- * @param {Point} A Point de la droite
+ * @param {PointSimple} A Point de la droite
  * @param {Vecteur} v Vecteur directeur de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -790,13 +791,13 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtVecteur (A: Point, v: Vecteur, nom = '', color = 'black') {
+export function droiteParPointEtVecteur (A: PointSimple, v: Vecteur, nom = '', color = 'black') {
   const B = point(A.x + v.x, A.y + v.y)
   return new Droite(A, B, nom, color)
 }
 
 /**  Trace la droite parallèle à d passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointSimple} A Point de la droite
  * @param {Droite} d Droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -806,12 +807,12 @@ export function droiteParPointEtVecteur (A: Point, v: Vecteur, nom = '', color =
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtParallele (A: Point, d: Droite, nom = '', color = 'black') {
+export function droiteParPointEtParallele (A: PointSimple, d: Droite, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.directeur, nom, color)
 }
 
 /**  Trace la droite perpendiculaire à d passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointSimple} A Point de la droite
  * @param {Droite} d Droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -821,12 +822,12 @@ export function droiteParPointEtParallele (A: Point, d: Droite, nom = '', color 
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtPerpendiculaire (A: Point, d: Droite, nom = '', color = 'black') {
+export function droiteParPointEtPerpendiculaire (A: PointSimple, d: Droite, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.normal, nom, color)
 }
 
 /**  Trace la droite horizontale passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointSimple} A Point de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteHorizontaleParPoint(M) // Trace la droite horizontale passant par le point M
@@ -835,12 +836,12 @@ export function droiteParPointEtPerpendiculaire (A: Point, d: Droite, nom = '', 
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteHorizontaleParPoint (A: Point, nom = '', color = 'black') {
+export function droiteHorizontaleParPoint (A: PointSimple, nom = '', color = 'black') {
   return droiteParPointEtPente(A, 0, nom, color)
 }
 
 /**  Trace la droite verticale passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointSimple} A Point de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteVerticaleParPoint(M) // Trace la droite verticale passant par le point M
@@ -849,12 +850,12 @@ export function droiteHorizontaleParPoint (A: Point, nom = '', color = 'black') 
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteVerticaleParPoint (A: Point, nom = '', color = 'black') {
+export function droiteVerticaleParPoint (A: PointSimple, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, vecteur(0, 1), nom, color)
 }
 
 /**  Trace la droite passant par le point A et de pente k
- * @param {Point} A Point de la droite
+ * @param {PointSimple} A Point de la droite
  * @param {number} k Pente de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -864,15 +865,15 @@ export function droiteVerticaleParPoint (A: Point, nom = '', color = 'black') {
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtPente (A: Point, k: number, nom = '', color = 'black') {
+export function droiteParPointEtPente (A: PointSimple, k: number, nom = '', color = 'black') {
   const B = point(A.x + 1, A.y + k)
   return new Droite(A, B, nom, color)
 }
 
 /**
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {PointSimple} A Première extrémité du segment
+ * @param {PointSimple} B Seconde extrémité du segment
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
@@ -1121,7 +1122,7 @@ export class Bissectrice extends DemiDroite {
     const M = pointSurSegment(O, A, this.tailleLosange)
     const N = pointSurSegment(O, B, this.tailleLosange)
     const dMN = droite(M, N)
-    const P = symetrieAxiale(O, dMN) as Point
+    const P = symetrieAxiale(O, dMN) as PointSimple
     if (construction || detail) {
       if (!M.estSur(segment(O, A))) {
         const sOM = segment(O, M, this.couleurConstruction)

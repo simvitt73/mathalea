@@ -4,13 +4,14 @@ import { egal } from '../../lib/outils/comparaisons'
 import type { Angle } from '../mathFonctions/trigo'
 import { cercle, cercleCentrePoint } from './cercle'
 import { CodageAngle } from './codages'
-import { Point, point, pointSurCercle, pointSurSegment } from './points'
+import { point, Point, pointSurCercle, pointSurSegment } from './points'
 import { polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation } from './transformations'
 import { angleOriente } from './angles-mesures'
 import { arc } from './arc'
+import type { PointSimple } from './points-simples'
 
 export type MarkType = 'simple' | 'double' | 'triple' | 'gras' | 'double-gras' | 'gras-simple-gras' | 'simple-gras-simple' | 'pointilles' | 'double-pointilles' | 'mixte-simple-pointilles' | 'mixte-gras-pointilles'
 export const markTypeArray: MarkType[] = [
@@ -27,7 +28,7 @@ export const markTypeArray: MarkType[] = [
   'mixte-gras-pointilles'
 ]
 export class MarqueAngle extends ObjetMathalea2D {
-  constructor (start: Point, sommet: Point, end: Point, {
+  constructor (start: PointSimple, sommet: PointSimple, end: PointSimple, {
     mark = 'simple',
     color = 'black',
     rayon = 1
@@ -186,7 +187,7 @@ export class MarqueAngle extends ObjetMathalea2D {
   }
 }
 
-export function marqueAngle (start: Point, sommet: Point, end: Point, {
+export function marqueAngle (start: PointSimple, sommet: PointSimple, end: PointSimple, {
   mark = 'simple',
   color = 'black',
   rayon = 1
@@ -249,43 +250,43 @@ export class Rapporteur extends ObjetMathalea2D {
       if (avecNombre !== '') {
         if (avecNombre === 'deuxSens') {
           if (i === 0) {
-            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, 2), -depart, color, 0.65)
+            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8) as PointSimple, centre, 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           }
           if (i === nbDivisions - 1) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as PointSimple, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           } else if ((arcPlein - (1 + i) * 10) % stepGraduation === 0) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as PointSimple, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
             numero.contour = true
             this.objets.push(numero)
           }
         }
         if (i === 0) {
-          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9) as Point, centre, 2), -depart, color, 0.65)
+          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9) as PointSimple, centre, 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
         if (i === nbDivisions - 1) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as PointSimple, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         } else if ((i + 1) * 10 % stepGraduation === 0) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as PointSimple, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
       }
       for (let s = 1, r; s < 10; s++) {
         if (s === 5 && precisionAuDegre < 10) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as PointSimple, homothetie(rotation(azimut2, centre, s), centre, 0.99) as PointSimple, color)
           r.opacite = 0.6
           r.tailleExtremites = 0.65
           this.objets.push(r)
         } else if (precisionAuDegre === 1) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as PointSimple, homothetie(rotation(azimut2, centre, s), centre, 0.99) as PointSimple, color)
           r.opacite = 0.6
           r.tailleExtremites = 0.65
           this.objets.push(r)
@@ -295,15 +296,15 @@ export class Rapporteur extends ObjetMathalea2D {
       azimut = rotation(azimut, centre, arcPlein / nbDivisions)
       azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
       if (rayonsVisibles) rayon = segment(azimut, azimut2, color)
-      else rayon = segment(homothetie(azimut2, centre, 0.9) as Point, azimut2, color)
+      else rayon = segment(homothetie(azimut2, centre, 0.9) as PointSimple, azimut2, color)
       rayon.opacite = this.opacite
     }
     if (!semi) {
-      rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2) as Point, homothetie(rotation(azimut, centre, -90), centre, 0.2) as Point, color)
+      rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2) as PointSimple, homothetie(rotation(azimut, centre, -90), centre, 0.2) as PointSimple, color)
       this.objets.push(rayon)
-      rayon = segment(homothetie(azimut, centre, -0.2) as Point, homothetie(azimut, centre, 0.2) as Point, color)
+      rayon = segment(homothetie(azimut, centre, -0.2) as PointSimple, homothetie(azimut, centre, 0.2) as PointSimple, color)
     } else {
-      rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2) as Point, color)
+      rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2) as PointSimple, color)
     }
     this.objets.push(rayon)
     const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
@@ -373,9 +374,9 @@ export function rapporteur ({
 
 /**
  * Code un angle droit
- * @param {Point} A Point sur un côté de l'angle droit
- * @param {Point} O Sommet de l'angle droit
- * @param {Point} B Point sur l'autre côté de l'angle droit
+ * @param {PointSimple} A Point sur un côté de l'angle droit
+ * @param {PointSimple} O Sommet de l'angle droit
+ * @param {PointSimple} B Point sur l'autre côté de l'angle droit
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'
  * @param {number} [d=0.4] Taille du codage de l'angle droit
  * @param {number} [epaisseur=0.5] Epaisseur du trait
@@ -433,9 +434,9 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o: Point
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
-      o = rotation(this.sommet, a, -90) as Point
+      o = rotation(this.sommet, a, -90)
     } else {
-      o = rotation(this.sommet, a, 90) as Point
+      o = rotation(this.sommet, a, 90)
     }
     const result = polygone([this.sommet, a, o, b], this.color[0])
     if (this.couleurDeRemplissage[0] !== 'none') {
@@ -494,9 +495,9 @@ export class CodageAngleDroit extends ObjetMathalea2D {
 
 /**
  * Code un angle droit
- * @param {Point} A Point sur un côté de l'angle droit
- * @param {Point} O Sommet de l'angle droit
- * @param {Point} B Point sur l'autre côté de l'angle droit
+ * @param {PointSimple} A Point sur un côté de l'angle droit
+ * @param {PointSimple} O Sommet de l'angle droit
+ * @param {PointSimple} B Point sur l'autre côté de l'angle droit
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'
  * @param {number} [d=0.4] Taille du codage de l'angle droit
  * @param {number} [epaisseur=0.5] Epaisseur du trait
@@ -517,9 +518,9 @@ export function codageAngleDroit (A: Point, O: Point, B: Point, color = 'black',
 
 /**
  * Code un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @param {PointSimple} A Point sur un côté de l'angle
+ * @param {PointSimple} O Sommet de l'angle
+ * @param {number|PointSimple} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
  * @param {number} [taille=0.8] Taille de l'angle
  * @param {string} [mark=''] Marque sur l'angle
  * @param {string} [color='black'] Couleur de l'angle : du type 'blue' ou du type '#f15929'

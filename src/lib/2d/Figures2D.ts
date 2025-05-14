@@ -1,6 +1,7 @@
 import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { point, type Point } from './points'
+import { point } from './points'
+import type { PointSimple } from './points-simples'
 import { type Segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
 function rotatedBoundingBoxWithCenter (
@@ -44,7 +45,7 @@ export class Figure2D extends ObjetMathalea2D {
   height: number // hauteur en cm
   pixelsParCm: number
   axes: Segment[]
-  centre: Point | null
+  centre: PointSimple | null
   nbAxes: number
   name: string
   constructor ({
@@ -73,7 +74,7 @@ export class Figure2D extends ObjetMathalea2D {
     height: number,
     pixelsParCm?: number,
     axes?: Segment[]
-    centre?: Point | null
+    centre?: PointSimple | null
     nbAxes?: number
     opacite?: number
     name?: string

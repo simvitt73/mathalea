@@ -11,25 +11,24 @@ import { droite, Droite, droiteParPointEtPerpendiculaire, Mediatrice } from './d
 import { carre, Polygone, polygone } from './polygones'
 import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, similitude } from './transformations'
+import { PointSimple } from './points-simples'
 
 /**
- * A = point('A') //son nom
- * A = point(x,y) //ses coordonnées
- * A = point(x,y,'A') //ses coordonnées et son nom
- * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
- * @author Rémi Angot
- * @class
+ * Un point avec toutes les fonctionnalités estSur... etc.
+ * À privilégier dans les exercices pour disposer de toutes les fonctionnalités.
+ * À utiliser comme valeur de retour pour les fonctions destinées aux développeurs d'exercices.
+ * @example A = point('A') // son nom
+ * @example A = point(x,y) // ses coordonnées
+ * @example A = point(x,y,'A') // ses coordonnées et son nom
+ * @example A = point(x,y,'A',below') // ses coordonnées, son nom et la position de son label
  */
 export class Point extends ObjetMathalea2D {
-  nom: string
-  x: number
-  y: number
-
+  x: number = 0
+  y: number = 0
   constructor (arg1: string | number, arg2: number, arg3?: number | string, positionLabel = 'above') {
     super()
     this.typeObjet = 'point'
-    this.x = 0
-    this.y = 0
+    this.positionLabel = positionLabel
     this.nom = ' ' // Le nom d'un point est par défaut un espace. On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
     if (arguments.length === 1) {
       this.nom = String(arg1)
@@ -50,8 +49,6 @@ export class Point extends ObjetMathalea2D {
     // On n'a pas besoin de davantage de décimales pour les graphiques !
     this.x = arrondi(this.x, 2)
     this.y = arrondi(this.y, 2)
-
-    this.positionLabel = positionLabel
     this.bordures = [this.x, this.y, this.x, this.y]
   }
 
@@ -176,6 +173,11 @@ export class Point extends ObjetMathalea2D {
  */
 export function point (x: number, y: number, A = '', positionLabel = 'above') {
   return new Point(x, y, A, positionLabel)
+}
+
+export function pointDepuisPointSimple (A: PointSimple) {
+  if (A instanceof Point) return A
+  return new Point(A.x, A.y)
 }
 
 /**
@@ -531,7 +533,7 @@ export function traceMilieuSegment (A: Point, B: Point) {
  * @returns {Point} Milieu du segment [AB]
  * @author Rémi Angot
  */
-export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): Point {
+export function milieu (A: PointSimple, B: PointSimple, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
@@ -548,13 +550,13 @@ export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): 
  * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
-export function pointSurSegment (A: Point, B: Point, l?: number, nom = '', positionLabel = 'above'): Point {
+export function pointSurSegment<T extends PointSimple | Point > (A: T, B: T, l?: number, nom = '', positionLabel = 'above'): T {
   if (isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
   if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {
     l = (longueur(A, B) * randint(15, 85)) / 100
   }
-  return homothetie(B, A, l / longueur(A, B), nom, positionLabel) as Point
+  return homothetie(B, A, l / longueur(A, B), nom, positionLabel)
 }
 
 /**
@@ -621,7 +623,7 @@ export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = ''
  * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
-export function pointAdistance (A: Point, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
+export function pointAdistance (A: PointSimple, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
   let leNom = ''
   let lAngle = 0
   let lePositionLabel = 'above'

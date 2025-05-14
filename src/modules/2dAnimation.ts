@@ -1,18 +1,18 @@
-/**
- * Rend visible un element d'après son id
- * @param {number} id id propre à un objet MathALEA2d
- * @example montrerParDiv(s2.id) // Affiche l'objet s2
- * @author Rémi Angot
- */
-
 import type { Droite, Mediatrice } from '../lib/2d/droites'
 import type { Point } from '../lib/2d/points'
+import type { PointSimple } from '../lib/2d/points-simples'
 import type { Polygone } from '../lib/2d/polygones'
 import type { DemiDroite, Segment, Vecteur } from '../lib/2d/segmentsVecteurs'
 import { affiniteOrtho, homothetie, rotation, symetrieAxiale, translation } from '../lib/2d/transformations'
 import { arrondi } from '../lib/outils/nombres'
 import { fixeBordures, ObjetMathalea2D } from './2dGeneralites'
 
+/**
+ * Rend visible un element d'après son id
+ * @param {number} id id propre à un objet MathALEA2d
+ * @example montrerParDiv(s2.id) // Affiche l'objet s2
+ * @author Rémi Angot
+ */
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id: string) {
   const elt = document.getElementById(id)
@@ -276,12 +276,12 @@ export function translationAnimee (liste: (Point | Droite | Segment | DemiDroite
  */
 export class RotationAnimee extends ObjetMathalea2D {
   liste: (Point | Droite | Segment | DemiDroite | Polygone)[]
-  O: Point
+  O: PointSimple
   angle: number
   animation: string
   constructor (
     liste: (Point | Droite | Segment | DemiDroite | Polygone)[],
-    O: Point,
+    O: PointSimple,
     angle: number,
     animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
   ) {
@@ -317,7 +317,7 @@ export class RotationAnimee extends ObjetMathalea2D {
   }
 }
 export function rotationAnimee (liste: (Point | Droite | Segment | DemiDroite | Polygone)[],
-  O: Point,
+  O: PointSimple,
   angle: number,
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
   return new RotationAnimee(liste, O, angle, animation)
@@ -472,12 +472,12 @@ export class TranslationPuisRotationAnimee extends ObjetMathalea2D {
   figure1: ObjetMathalea2D | ObjetMathalea2D[]
   v: Vecteur
   figure2: ObjetMathalea2D | ObjetMathalea2D[]
-  O: Point
+  O: PointSimple
   angle: number
   t1: number
   t2: number
   numId: string
-  constructor (numId: string, figure1: ObjetMathalea2D | ObjetMathalea2D[], v: Vecteur, figure2: ObjetMathalea2D | ObjetMathalea2D[], O: Point, angle: number, t1 = 5, t2 = 2) {
+  constructor (numId: string, figure1: ObjetMathalea2D | ObjetMathalea2D[], v: Vecteur, figure2: ObjetMathalea2D | ObjetMathalea2D[], O: PointSimple, angle: number, t1 = 5, t2 = 2) {
     super()
     this.figure1 = figure1
     this.v = v
@@ -539,6 +539,6 @@ export class TranslationPuisRotationAnimee extends ObjetMathalea2D {
     return code
   }
 }
-export function translationPuisRotationAnimees (numId: string, figure1: ObjetMathalea2D | ObjetMathalea2D[], v: Vecteur, figure2: ObjetMathalea2D | ObjetMathalea2D[], O: Point, angle: number, t1 = 5, t2 = 2) {
+export function translationPuisRotationAnimees (numId: string, figure1: ObjetMathalea2D | ObjetMathalea2D[], v: Vecteur, figure2: ObjetMathalea2D | ObjetMathalea2D[], O: PointSimple, angle: number, t1 = 5, t2 = 2) {
   return new TranslationPuisRotationAnimee(numId, figure1, v, figure2, O, angle, t1, t2)
 }

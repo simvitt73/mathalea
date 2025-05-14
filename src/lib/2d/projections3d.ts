@@ -2,11 +2,12 @@ import { abs, random, round } from 'mathjs'
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { cercle, Cercle } from './cercle'
 import { afficheCoteSegment } from './codages'
-import { Point, point, pointAdistance } from './points'
+import { point, pointAdistance } from './points'
 import { pattern, polygone } from './polygones'
 import { longueur, segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, translation } from './transformations'
 import { arc } from './arc'
+import type { PointSimple } from './points-simples'
 
 /**
  *
@@ -75,7 +76,7 @@ export function pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, 
 }
 
 /**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
- * @param {Point} O Centre de l'ellipse
+ * @param {PointSimple} O Centre de l'ellipse
  * @param {number} rx Premier rayon de l'ellipse
  * @param {number} ry Second rayon de l'ellipse
  * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
@@ -95,12 +96,12 @@ export function pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, 
  */
 // JSDOC Validee par EE Aout 2022
 export class Ellipse extends ObjetMathalea2D {
-  centre: Point
+  centre: PointSimple
   rx: number
   ry: number
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
-  constructor (O:Point, rx: number, ry: number, color = 'black') {
+  constructor (O:PointSimple, rx: number, ry: number, color = 'black') {
     super()
     this.color = colorToLatexOrHTML(color)
     this.centre = O
@@ -231,7 +232,7 @@ export class Ellipse extends ObjetMathalea2D {
 }
 
 /**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
- * @param {Point} O Centre de l'ellipse
+ * @param {PointSimple} O Centre de l'ellipse
  * @param {number} rx Premier rayon de l'ellipse
  * @param {number} ry Second rayon de l'ellipse
  * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
@@ -241,12 +242,12 @@ export class Ellipse extends ObjetMathalea2D {
  * @return {Ellipse}
  */
 // JSDOC Validee par EE Aout 2022
-export function ellipse (O: Point, rx: number, ry: number, color = 'black') {
+export function ellipse (O: PointSimple, rx: number, ry: number, color = 'black') {
   return new Ellipse(O, rx, ry, color)
 }
 
 /**
- * @param {Point} centre centre de l'ellipse
+ * @param {PointSimple} centre centre de l'ellipse
  * @param {number} Rx rayon en X
  * @param {number} Ry rayon en Y
  * @param {string} hemisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
@@ -259,7 +260,7 @@ export function ellipse (O: Point, rx: number, ry: number, color = 'black') {
  * @return {SemiEllipse} Objet SemiEllipse
  */
 export class SemiEllipse extends ObjetMathalea2D {
-  centre: Point
+  centre: PointSimple
   rx: number
   ry: number
   rayon: boolean
@@ -269,8 +270,8 @@ export class SemiEllipse extends ObjetMathalea2D {
   couleurDesHachures: string[]
   epaisseurDesHachures: number
   distanceDesHachures: number
-  M: Point
-  N: Point
+  M: PointSimple
+  N: PointSimple
   angle: number
   large: number
   sweep: number
@@ -287,7 +288,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     hachures = false,
     anglesAxe = 0
   }: {
-    centre: Point
+    centre: PointSimple
     rx: number
     ry: number
     hemisphere?: string
@@ -315,7 +316,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     this.anglesAxe = anglesAxe
     this.angle = hemisphere === 'nord' ? 180 : -180
     this.M = point(centre.x + rx, centre.y)
-    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx) as Point
+    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx) as PointSimple
 
     this.large = 0
     this.sweep = 0
@@ -483,7 +484,7 @@ export class SemiEllipse extends ObjetMathalea2D {
 
   svgml (coeff:number, amp:number) {
     this.style = ''
-    let P: Point
+    let P: PointSimple
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -534,7 +535,7 @@ export class SemiEllipse extends ObjetMathalea2D {
 }
 
 /**
- * @param {Point} centre centre de l'ellipse
+ * @param {PointSimple} centre centre de l'ellipse
  * @param {number} rx rayon en X
  * @param {number} ry rayon en Y
  * @param {string} hemisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
@@ -559,7 +560,7 @@ export function semiEllipse ({
   hachures = false,
   anglesAxe = 0
 }: {
-  centre: Point
+  centre: PointSimple
   rx: number
   ry: number
   hemisphere?: string
@@ -587,7 +588,7 @@ export function semiEllipse ({
 
 /**
  * Trace un cône
- * @param {Point} centre Centre de la base
+ * @param {PointSimple} centre Centre de la base
  * @param {number} rx Rayon sur l'axe des abscisses
  * @param {number} hauteur Distance verticale entre le centre et le sommet.
  * @param {string} [color = 'black'] Facultatif, 'black' par défaut
@@ -597,8 +598,8 @@ export function semiEllipse ({
  * @private
  */
 export class Cone extends ObjetMathalea2D {
-  sommet: Point
-  centre: Point
+  sommet: PointSimple
+  centre: PointSimple
   couleurDeRemplissage: string
   opaciteDeRemplissage: number
   stringColor: string
@@ -610,7 +611,7 @@ export class Cone extends ObjetMathalea2D {
     color = 'black',
     opaciteDeRemplissage = 0.2
   }:{
-    centre: Point
+    centre: PointSimple
     rx: number
     hauteur: number
     couleurDeRemplissage?: string
@@ -685,7 +686,7 @@ export class Cone extends ObjetMathalea2D {
 }
 
 export class Sphere2d extends ObjetMathalea2D {
-  centre: Point
+  centre: PointSimple
   couleurDeRemplissage: string
   opaciteDeRemplissage: number
   constructor ({
@@ -695,7 +696,7 @@ export class Sphere2d extends ObjetMathalea2D {
     color = 'black',
     opaciteDeRemplissage = 0.2
   }:{
-    centre: Point
+    centre: PointSimple
     rx: number
     couleurDeRemplissage?: string
     color?: string
@@ -772,7 +773,7 @@ export function sphere2d ({
   color = 'black',
   opaciteDeRemplissage = 0.2
 }:{
-  centre: Point
+  centre: PointSimple
   rx: number
   couleurDeRemplissage?: string
   color?: string
@@ -790,7 +791,7 @@ export function cone ({
   color = 'black',
   opaciteDeRemplissage = 0.2
 }:{
-  centre: Point
+  centre: PointSimple
   rx: number
   hauteur: number
   couleurDeRemplissage?: string
@@ -802,7 +803,7 @@ export function cone ({
 
 /**
 * Trace un cylindre
-* @param {Point} centre Centre de la base
+* @param {PointSimple} centre Centre de la base
 * @param {number} rx Rayon sur l'axe des abscisses
 * @param {number} hauteur Distance verticale entre le centre et le sommet.
 * @param {string} [position = 'DeboutVuDessus'] Facultatif, 'DeboutVuDessus' par défaut, ou 'baseAvantCoucheVuGauche' a faire : baseCoteCoucheVuDroite
@@ -815,8 +816,8 @@ export function cone ({
 * @private
 */
 export class Cylindre extends ObjetMathalea2D {
-  centre: Point
-  centre2: Point
+  centre: PointSimple
+  centre2: PointSimple
   couleurDeRemplissage: string
   opaciteDeRemplissage: number
   stringColor: string
@@ -831,7 +832,7 @@ export class Cylindre extends ObjetMathalea2D {
     angleDeFuite = 30,
     coefficientDeFuite = 0.5
   }:{
-    centre: Point
+    centre: PointSimple
     rx: number
     hauteur: number
     position?: string
@@ -979,7 +980,7 @@ export function cylindre ({
   angleDeFuite = 30,
   coefficientDeFuite = 0.5
 }:{
-  centre: Point
+  centre: PointSimple
   rx: number
   hauteur: number
   position?: string

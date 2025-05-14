@@ -6,8 +6,9 @@ import { cercle } from './cercle'
 import { CodageMilieu } from './codages'
 import { Droite, droite, mediatrice } from './droites'
 import {
-  milieu, Point,
+  milieu,
   point,
+  Point,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
@@ -16,6 +17,7 @@ import {
 import { Polygone, polygone } from './polygones'
 import { longueur } from './segmentsVecteurs'
 import { projectionOrtho, rotation, similitude } from './transformations'
+import type { PointSimple } from './points-simples'
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H
@@ -151,12 +153,12 @@ export function aireTriangle (p: Polygone) {
 /**
  * Médiane issue de A relative à [BC]
  * @author Jean-Claude Lhote
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
+ * @param {PointSimple} A
+ * @param {PointSimple} B
+ * @param {PointSimple} C
  * @param {string} color
  */
-export function medianeTriangle (A:Point, B:Point, C:Point, color = 'black') {
+export function medianeTriangle (A:PointSimple, B:PointSimple, C:PointSimple, color = 'black') {
   const I = milieu(B, C)
   return droite(A, I, '', color)
 }
@@ -187,8 +189,8 @@ export function centreGraviteTriangle (A:Point, B:Point, C:Point, nom = '', posi
 
 /**  Trace la hauteur issue de A relative à [BC]
  * @param {Point} A Point dont est issue la hauteur
- * @param {Point} B Première extrémité du segment dont est relative la hauteur
- * @param {Point} C Seconde extrémité du segment dont est relative la hauteur
+ * @param {PointSimple} B Première extrémité du segment dont est relative la hauteur
+ * @param {PointSimple} C Seconde extrémité du segment dont est relative la hauteur
  * @param {string} [color = 'black'] Couleur de cette hauteur : du type 'blue' ou du type '#f15929'
  * @example hauteurTriangle (M, N, P) // Trace, en noir, la hauteur issue de M relative à [NP]
  * @example hauteurTriangle (M, N, P, 'red') // Trace, en rouge, la hauteur issue de M relative à [NP]
@@ -196,7 +198,7 @@ export function centreGraviteTriangle (A:Point, B:Point, C:Point, nom = '', posi
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function hauteurTriangle (A:Point, B:Point, C:Point, color = 'black') {
+export function hauteurTriangle (A:Point, B:PointSimple, C:PointSimple, color = 'black') {
   const d = droite(B, C)
   const p = projectionOrtho(A, d)
   return new Droite(p, A, '', color)
@@ -205,8 +207,8 @@ export function hauteurTriangle (A:Point, B:Point, C:Point, color = 'black') {
 /**
  * Code la hauteur d'un triangle
  * @param {Point} A Premier sommet d'un triangle
- * @param {Point} B Deuxième sommet d'un triangle
- * @param {Point} C Troisième sommet d'un triangle
+ * @param {PointSimple} B Deuxième sommet d'un triangle
+ * @param {PointSimple} C Troisième sommet d'un triangle
  * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -218,7 +220,7 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
   traceD: boolean
   c: CodageAngleDroit
   d: Droite
-  constructor (A:Point, B:Point, C:Point, color = 'black') {
+  constructor (A:Point, B:PointSimple, C:PointSimple, color = 'black') {
     super()
     this.color = colorToLatexOrHTML(color)
     this.d = droite(B, C)
@@ -269,22 +271,22 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
 /**
  * Code la hauteur d'un triangle
  * @param {Point} A Premier sommet d'un triangle
- * @param {Point} B Deuxième sommet d'un triangle
- * @param {Point} C Troisième sommet d'un triangle
+ * @param {PointSimple} B Deuxième sommet d'un triangle
+ * @param {PointSimple} C Troisième sommet d'un triangle
  * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
  * @example codageHauteurTriangle(M,N,P) // Code, en noir, la hauteur du triangle MNP.
  * @example codageHauteurTriangle(M,N,P,'red') // Code, en rouge, la hauteur du triangle MNP.
  * @return {CodageHauteurTriangle}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageHauteurTriangle (A:Point, B:Point, C:Point, color = 'black') {
+export function codageHauteurTriangle (A:Point, B:PointSimple, C:PointSimple, color = 'black') {
   return new CodageHauteurTriangle(A, B, C, color)
 }
 
 /**
  * Code la médiane d'un triangle
  * @param {Point} B Première extrémité du segment dont la médiane est relative
- * @param {Point} C Seconde extrémité du segment dont la médiane est relative
+ * @param {PointSimple} C Seconde extrémité du segment dont la médiane est relative
  * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
  * @param {string} [mark = '//'] Symbole posé de part et d'autre du milieu du segment
  * @param {boolean} [mil = false] Trace ou nom le point du milieu.
@@ -302,10 +304,10 @@ export function codageMedianeTriangle (A: Point, B: Point, color = 'black', mark
  * @author Jean-Claude Lhote
  * @param {Point} A
  * @param {Point} B
- * @param {Point} C
+ * @param {PointSimple} C
  * @param {string} nom
  */
-export function orthoCentre (A:Point, B:Point, C:Point, nom = '', positionLabel = 'above') {
+export function orthoCentre (A:Point, B:Point, C:PointSimple, nom = '', positionLabel = 'above') {
   const d = hauteurTriangle(B, A, C)
   const e = hauteurTriangle(A, B, C)
   const p = pointIntersectionDD(d, e) as Point
@@ -318,14 +320,14 @@ export function orthoCentre (A:Point, B:Point, C:Point, nom = '', positionLabel 
  * Crée le centre du cercle circonscrit au triangle ABC
  * @param {Point} A Premier sommet du triangle
  * @param {Point} B Deuxième sommet du triangle
- * @param {Point} C Troisième sommet du triangle
+ * @param {PointSimple} C Troisième sommet du triangle
  * @param {string} [nom=''] Nom du centre
  * @param {string} [positionLabel = 'above'] Position du nom par rapport au point
  * @example G = centreCercleCirconscrit(F,C,N)
  * // Crée G, le centre du cercle circonscrit au triangle FCN,sans être nommé.
  * @example G = centreCercleCirconscrit(F,C,N,'G','below')
  * // Crée G, le centre du cercle circonscrit au triangle FCN, en notant G sous le point, s'il est tracé et labellisé.
- * @return {Point}
+ * @return {PointSimple}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
