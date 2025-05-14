@@ -2,9 +2,9 @@ import { droite } from '../../lib/2d/droites'
 import { milieu, pointSurSegment } from '../../lib/2d/points'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { centreCercleCirconscrit } from '../../lib/2d/triangle'
-import { angleOriente } from '../../lib/2d/angles-vecteurs.js'
+import { angleOriente } from '../../lib/2d/angles-vecteurs'
 
-import { longueur } from '../../lib/2d/mesures.js'
+import { longueur } from '../../lib/2d/mesures'
 import { rotationAbstraite } from '../../lib/2d/transformations-abstraites'
 
 /**

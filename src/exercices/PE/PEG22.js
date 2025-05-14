@@ -5,7 +5,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 
-import {longueur} from "../../lib/2d/mesures.js";
+import { longueur } from '../../lib/2d/mesures'
 export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de Pythagore'
 
 export const dateDePublication = '1/11/2021'

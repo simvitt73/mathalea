@@ -14,8 +14,8 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
-import {segment} from "../../lib/2d/segments.js";
-import {longueur} from "../../lib/2d/mesures.js";
+import { segment } from '../../lib/2d/segments.js'
+import { longueur } from '../../lib/2d/mesures'
 export const titre = 'Construire l\'image d\'un point par une homothétie avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCHybride'

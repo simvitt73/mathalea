@@ -8,7 +8,7 @@ import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import {segment} from "../../lib/2d/segments.js";
+import { segment } from '../../lib/2d/segments.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 

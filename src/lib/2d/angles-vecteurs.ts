@@ -4,6 +4,7 @@ import type { PointAbstrait } from './points-abstraits'
 import { vecteurAbstrait } from './vecteurs-abstraits'
 import { longueur } from './mesures'
 import { rotationAbstraite } from './transformations-abstraites'
+import { vecteur } from './vecteurs'
 
 /**
  * Renvoie la mesure d'angle en degré
@@ -24,8 +25,8 @@ export function angle (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, pre
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
   if (OA > 0 && OB > 0) {
-    const v = vecteurAbstrait(O, A)
-    const w = vecteurAbstrait(O, B)
+    const v = vecteur(O, A)
+    const w = vecteur(O, B)
     if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
       if (v.x * w.x > 0) return 0
       else if (v.x * w.x < 0) return 180

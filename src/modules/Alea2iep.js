@@ -9,9 +9,9 @@ import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsec
 import { carre1point1longueur } from './iepMacros/quadrilateres'
 import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles'
-import { angleOriente } from '../lib/2d/angles-vecteurs.js'
-import { segment } from '../lib/2d/segments.js'
-import { longueur } from '../lib/2d/mesures.js'
+import { angleOriente } from '../lib/2d/angles-vecteurs'
+import { segment } from '../lib/2d/segments'
+import { longueur } from '../lib/2d/mesures'
 import { norme, vecteurAbstrait } from '../lib/2d/vecteurs-abstraits'
 import { rotationAbstraite } from '../lib/2d/transformations-abstraites'
 

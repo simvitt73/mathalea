@@ -15,7 +15,7 @@ import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import {angleOriente} from "../../lib/2d/angles-vecteurs.js";
+import { angleOriente } from '../../lib/2d/angles-vecteurs'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

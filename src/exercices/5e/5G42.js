@@ -10,7 +10,7 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import {segment} from "../../lib/2d/segments.js";
+import { segment } from '../../lib/2d/segments.js'
 export const titre = 'Déterminer la nature de parallélogrammes'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -8,9 +8,9 @@ import {
   translation,
   translation2Points
 } from '../../lib/2d/transformations'
-import { angleOriente } from '../../lib/2d/angles-vecteurs.js'
+import { angleOriente } from '../../lib/2d/angles-vecteurs'
 
-import { longueur } from '../../lib/2d/mesures.js'
+import { longueur } from '../../lib/2d/mesures'
 import { vecteurAbstrait } from '../../lib/2d/vecteurs-abstraits'
 import { rotationAbstraite } from '../../lib/2d/transformations-abstraites'
 

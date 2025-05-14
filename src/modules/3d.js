@@ -8,9 +8,9 @@ import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
 import { arrondi } from '../lib/outils/nombres'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, vide2d } from './2dGeneralites'
 import { context } from './context'
-import { segment } from '../lib/2d/segments.js'
-import { longueur } from '../lib/2d/mesures.js'
-import {norme, vecteurAbstrait} from '../lib/2d/vecteurs-abstraits'
+import { segment } from '../lib/2d/segments'
+import { longueur } from '../lib/2d/mesures'
+import { norme, vecteurAbstrait } from '../lib/2d/vecteurs-abstraits'
 
 const math = { matrix, multiply, norm, cross, dot }
 

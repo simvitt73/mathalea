@@ -4,7 +4,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { randint } from '../outils'
 
-import { longueur } from '../../lib/2d/mesures.js'
+import { longueur } from '../../lib/2d/mesures'
 import { vecteurAbstrait } from '../../lib/2d/vecteurs-abstraits'
 import { rotationAbstraite } from '../../lib/2d/transformations-abstraites'
 

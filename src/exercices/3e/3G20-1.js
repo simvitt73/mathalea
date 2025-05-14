@@ -12,8 +12,8 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import {segment} from "../../lib/2d/segments.js";
-import {longueur} from "../../lib/2d/mesures.js";
+import { segment } from '../../lib/2d/segments.js'
+import { longueur } from '../../lib/2d/mesures'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**

@@ -1,4 +1,4 @@
-import {combinaisonListes, range1} from '../../lib/outils/arrayOutils'
+import { combinaisonListes, range1 } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

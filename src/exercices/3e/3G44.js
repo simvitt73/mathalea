@@ -29,8 +29,8 @@ import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } fr
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { RedactionPythagore } from '../4e/_pythagore'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import {segment} from "../../lib/2d/segments.js";
-import {longueur} from "../../lib/2d/mesures.js";
+import { segment } from '../../lib/2d/segments.js'
+import { longueur } from '../../lib/2d/mesures'
 
 export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'
 export const amcReady = true

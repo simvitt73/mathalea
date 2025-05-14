@@ -9,7 +9,7 @@ import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import {segment} from "../../lib/2d/segments.js";
+import { segment } from '../../lib/2d/segments.js'
 
 export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, nouveau paramètre, couleur appropriée dans la correction, AMC
 

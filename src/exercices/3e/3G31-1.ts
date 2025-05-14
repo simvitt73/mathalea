@@ -15,10 +15,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
-import { angle } from '../../lib/2d/angles-mesures'
-import {angle} from "../../lib/2d/angles-vecteurs.js";
-
-import {longueur} from "../../lib/2d/mesures.js";
+import { angle } from '../../lib/2d/angles-vecteurs'
+import { longueur } from '../../lib/2d/mesures'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -54,7 +52,8 @@ export default class CalculDAngleFigureComplexe extends Exercice {
   nouvelleVersion () {
     for (let i = 0; i < this.nbQuestions; i++) {
       const typesDeQuestion = choice(['BA-AD-BAC', 'BA-AD-ACB'])
-      let texte, texteCorr
+      let texte = ''
+      let texteCorr = ''
 
       const B = point(0, 0, '', 'below')
       const A = point(randint(4, 7), 0, '', 'below')
@@ -77,6 +76,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
       const BA = longueur(B, A)
       const AD = longueur(A, D, 1)
       const BAC = Math.round(angle(B, A, C))
+      console.log(BAC)
       let AC = BA / Math.cos(degToRad(BAC))
       let ACD = Math.round(radToDeg(Math.atan(AD / AC)))
       let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '^\\circ')

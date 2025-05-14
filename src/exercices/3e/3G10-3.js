@@ -11,7 +11,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arcPointPointAngle } from '../../lib/2d/arc.js'
 
-import {longueur} from "../../lib/2d/mesures.js";
+import { longueur } from '../../lib/2d/mesures'
 export const titre = 'Construire l\'image d\'un point par une rotation avec cible auto-corrective'
 
 /**

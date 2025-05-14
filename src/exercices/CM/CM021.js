@@ -1,4 +1,4 @@
-import {combinaisonListes, range1, shuffle} from '../../lib/outils/arrayOutils'
+import { combinaisonListes, range1, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import {

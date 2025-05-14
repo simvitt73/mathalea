@@ -7,7 +7,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import {segmentAvecExtremites} from "../../lib/2d/segments.js";
+import { segmentAvecExtremites } from '../../lib/2d/segments.js'
 
 export const titre = 'Nom de l\'exercice'
 

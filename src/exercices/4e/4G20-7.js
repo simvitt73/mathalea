@@ -16,7 +16,7 @@ import blocklypyt from '../../lib/blockly/blocklypyt.json'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 
-import {longueur} from "../../lib/2d/mesures.js";
+import { longueur } from '../../lib/2d/mesures'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore (blockly)'
 export const interactifReady = true

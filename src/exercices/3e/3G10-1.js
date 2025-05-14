@@ -22,7 +22,7 @@ import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import {segment} from "../../lib/2d/segments.js";
+import { segment } from '../../lib/2d/segments.js'
 
 export const titre = 'Trouver les coordonnées de l\'image d\'un point par une rotation et une homothétie'
 export const interactifReady = true

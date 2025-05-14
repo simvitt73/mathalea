@@ -17,8 +17,8 @@ import { context } from '../../modules/context'
 import { clone } from 'mathjs'
 import { codageSegments } from '../../lib/2d/codages'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {segment} from "../../lib/2d/segments.js";
-import {longueur} from "../../lib/2d/mesures.js";
+import { segment } from '../../lib/2d/segments.js'
+import { longueur } from '../../lib/2d/mesures'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true

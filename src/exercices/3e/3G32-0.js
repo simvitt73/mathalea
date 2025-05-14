@@ -20,8 +20,8 @@ import Grandeur from '../../modules/Grandeur'
 import { max, min } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { angle } from '../../lib/2d/angles-mesures'
-import {segment} from "../../lib/2d/segments.js";
-import {longueur} from "../../lib/2d/mesures.js";
+import { segment } from '../../lib/2d/segments.js'
+import { longueur } from '../../lib/2d/mesures'
 
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'
 export const interactifReady = true

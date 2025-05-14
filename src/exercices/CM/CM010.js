@@ -1,4 +1,4 @@
-import {combinaisonListes, range1} from '../../lib/outils/arrayOutils'
+import { combinaisonListes, range1 } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'

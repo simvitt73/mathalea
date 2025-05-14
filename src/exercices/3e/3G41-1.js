@@ -9,8 +9,8 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { pave3d, point3d } from '../../modules/3d'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import {segment} from "../../lib/2d/segments.js";
-import {longueur} from "../../lib/2d/mesures.js";
+import { segment } from '../../lib/2d/segments.js'
+import { longueur } from '../../lib/2d/mesures'
 export const titre = 'Construire la section d\'un plan dans un un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCOpen'

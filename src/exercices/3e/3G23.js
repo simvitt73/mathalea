@@ -20,8 +20,8 @@ import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 import { arc } from '../../lib/2d/arc.js'
-import {angleOriente} from "../../lib/2d/angles-vecteurs.js";
-import {segment} from "../../lib/2d/segments.js";
+import { angleOriente } from '../../lib/2d/angles-vecteurs'
+import { segment } from '../../lib/2d/segments.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

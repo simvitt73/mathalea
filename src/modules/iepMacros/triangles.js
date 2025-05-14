@@ -12,7 +12,7 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import { randint } from '../outils'
 
-import { longueur } from '../../lib/2d/mesures.js'
+import { longueur } from '../../lib/2d/mesures'
 import { rotationAbstraite } from '../../lib/2d/transformations-abstraites'
 
 /**

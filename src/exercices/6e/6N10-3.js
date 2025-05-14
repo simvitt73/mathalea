@@ -1,4 +1,4 @@
-import {choice, combinaisonListes, combinaisonListesSansChangerOrdre, rangeMinMax} from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes, combinaisonListesSansChangerOrdre, rangeMinMax } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'

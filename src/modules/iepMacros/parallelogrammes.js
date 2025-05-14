@@ -8,7 +8,7 @@ import { droite } from '../../lib/2d/droites'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
 import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations'
 
-import {longueur} from "../../lib/2d/mesures.js";
+import {longueur} from "../../lib/2d/mesures";
 
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
