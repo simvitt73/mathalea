@@ -54,7 +54,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     }
     if (this.interactif) {
       this.consigne = 'Calculer.'
-    } else { this.consigne = 'Compléter les calculs en suivant le modèle : <br>14,5 × 10 = 14,5 dizaines. <br>Le chiffre des unités (4) devient celui des dizaines. Donc 14,5 x 10 = 145' }
+    } else { this.consigne = `${texteGras('Compléter les calculs en suivant le modèle :')} <br>14,5 × 10 = 14,5 dizaines. <br>Le chiffre des unités (4) devient celui des dizaines. Donc 14,5 x 10 = 145` }
 
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
