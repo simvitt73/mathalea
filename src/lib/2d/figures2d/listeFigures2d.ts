@@ -10,7 +10,7 @@ import { panneauStationnementInterdit } from './stationnementInterdit'
 import { briqueLego } from './legos'
 import { aileDelta, carreAnime, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
 import { randint } from '../../../modules/outils'
-import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH } from './lettres'
+import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH, lettreI, lettreJ, lettreK, lettreL, lettreM, lettreN, lettreO, lettreP, lettreQ, lettreR } from './lettres'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notzmment
  * @author Jean-Claude Lhote
@@ -544,6 +544,68 @@ export const listeFigures2d: Forme[] = [
     type: 'lettre',
     figure2d: lettreH
   },
+  {
+    numero: 79,
+    name: 'lettre I',
+    type: 'lettre',
+    figure2d: lettreI
+  },
+  {
+    numero: 80,
+    name: 'lettre J',
+    type: 'lettre',
+    figure2d: lettreJ,
+    options: { base: 4, fillStyle: 'red' }
+  },
+  {
+    numero: 81,
+    name: 'lettre K',
+    type: 'lettre',
+    figure2d: lettreK
+  },
+  {
+    numero: 82,
+    name: 'lettre L',
+    type: 'lettre',
+    figure2d: lettreL
+  },
+  {
+    numero: 83,
+    name: 'lettre M',
+    type: 'lettre',
+    figure2d: lettreM
+  },
+  {
+    numero: 84,
+    name: 'lettre N',
+    type: 'lettre',
+    figure2d: lettreN
+  },
+  {
+    numero: 85,
+    name: 'lettre O',
+    type: 'lettre',
+    figure2d: lettreO
+  },
+  {
+    numero: 86,
+    name: 'lettre P',
+    type: 'lettre',
+    figure2d: lettreP
+  },
+  {
+    numero: 88,
+    name: 'lettre Q',
+    type: 'lettre',
+    figure2d: lettreQ
+  },
+  {
+    numero: 88,
+    name: 'lettre R',
+    type: 'lettre',
+    figure2d: lettreR
+  },
+
 ]
 export type Figure2DOptions = {
   fillStyle?: string

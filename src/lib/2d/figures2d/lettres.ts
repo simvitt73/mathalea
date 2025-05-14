@@ -1,4 +1,5 @@
 import { Figure2D } from '../Figures2D'
+import { point } from '../points'
 import { segment } from '../segmentsVecteurs'
 
 /**
@@ -495,6 +496,594 @@ export function lettreH (
     width: largeur,
     height: hauteur,
     axes,
+    opacite,
+    centre: point(0, 0)
+  })
+}
+/**
+ * Génère une figure représentant une lettre "I".
+ * @param options Options pour personnaliser le style de la lettre "I".
+ * @returns Une instance de Figure2D représentant une lettre "I".
+ */
+export function lettreI (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "I" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "I" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "I" (par défaut 1 cm)
+    hauteur?: number; // Hauteur de la lettre "I" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 1 // en cm
+  const hauteur = options?.hauteur || 3.4 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+        <path d="
+            M ${-largeurPx / 2},${hauteurPx / 2}
+            L ${largeurPx / 2},${hauteurPx / 2}
+            M 0,${hauteurPx / 2}
+            L 0,${-hauteurPx / 2}
+            M ${-largeurPx / 2},${-hauteurPx / 2}
+            L ${largeurPx / 2},${-hauteurPx / 2}
+        " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+    `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+        % Lettre I
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${hauteur / 2}) -- (${(largeur / 2)},${hauteur / 2});
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (0,${hauteur / 2}) -- (0,${-hauteur / 2});
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${-hauteur / 2}) -- (${(largeur / 2)},${-hauteur / 2});
+    `.trim()
+
+  const axes = [
+    segment(0, -hauteur / 2, 0, hauteur / 2), // Axe vertical au centre
+    segment(-largeur / 2, 0, largeur / 2, 0) // Axe horizontal au centre
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    axes,
+    opacite,
+    centre: point(0, 0)
+  })
+}
+/**
+ * Génère une figure représentant une lettre "J".
+ * @param options Options pour personnaliser le style de la lettre "J".
+ * @returns Une instance de Figure2D représentant une lettre "J".
+ */
+export function lettreJ (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "J" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "J" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "J" (par défaut 2 cm)
+    hauteur?: number; // Hauteur de la lettre "J" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 2 // en cm
+  const hauteur = options?.hauteur || 3.6 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+  const rayon = largeurPx / 2
+
+  // Génération du code SVG
+  const codeSvg = `
+        <path d="
+            M ${-largeurPx / 2},${hauteurPx / 2 - largeurPx / 2}
+            A ${rayon},${rayon} 1 0,0 ${largeurPx / 2},${hauteurPx / 2 - largeurPx / 2}
+            L ${largeurPx / 2},${-hauteurPx / 2}
+        " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+    `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+        % Lettre J
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${-hauteur / 2 + largeur / 2})
+            arc[start angle=-180, end angle=0, radius=${rayon / 20}cm]
+            -- (${largeur / 2},${hauteur / 2});
+    `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    opacite,
+  })
+}
+/**
+ * Génère une figure représentant une lettre "K".
+ * @param options Options pour personnaliser le style de la lettre "K".
+ * @returns Une instance de Figure2D représentant une lettre "K".
+ */
+export function lettreK (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "K" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "K" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "K" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "K" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 2.5 // en cm
+  const hauteur = options?.hauteur || 3.6 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+        <path d="
+            M ${-largeurPx / 2},${hauteurPx / 2}
+            L ${-largeurPx / 2},${-hauteurPx / 2}
+            M ${-largeurPx / 2},0
+            L ${largeurPx / 2},${hauteurPx / 2}
+            M ${-largeurPx / 2},0
+            L ${largeurPx / 2},${-hauteurPx / 2}
+        " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+    `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+        % Lettre K
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${-hauteur / 2}) -- (${(-largeur / 2)},${hauteur / 2});
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},0) -- (${(largeur / 2)},${hauteur / 2});
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},0) -- (${(largeur / 2)},${-hauteur / 2});
+    `.trim()
+
+  const axes = [
+    segment(-largeur / 2, 0, largeur / 2, 0), // Axe horizontal au centre
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    axes,
+    opacite,
+  })
+}
+/**
+ * Génère une figure représentant une lettre "L".
+ * @param options Options pour personnaliser le style de la lettre "L".
+ * @returns Une instance de Figure2D représentant une lettre "L".
+ */
+export function lettreL (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "L" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "L" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "L" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "L" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 2.5 // en cm
+  const hauteur = options?.hauteur || 3.6 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+        <path d="
+            M ${-largeurPx / 2},${-hauteurPx / 2}
+            L ${-largeurPx / 2},${hauteurPx / 2}
+            L ${largeurPx / 2},${hauteurPx / 2}
+        " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+    `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+        % Lettre L
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${hauteur / 2}) -- (${(-largeur / 2)},${-hauteur / 2})
+            -- (${(largeur / 2)},${-hauteur / 2});
+    `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    opacite,
+  })
+}
+/**
+ * Génère une figure représentant une lettre "M".
+ * @param options Options pour personnaliser le style de la lettre "M".
+ * @returns Une instance de Figure2D représentant une lettre "M".
+ */
+export function lettreM (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "M" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "M" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "M" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "M" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 3 // en cm
+  const hauteur = options?.hauteur || 4 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+        <path d="
+            M ${-largeurPx / 2},${hauteurPx / 2}
+            L ${-largeurPx / 2},${-hauteurPx / 2}
+            L 0,${hauteurPx / 4}
+            L ${largeurPx / 2},${-hauteurPx / 2}
+            L ${largeurPx / 2},${hauteurPx / 2}
+        " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+    `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+        % Lettre M
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${-hauteur / 2}) -- (${(-largeur / 2)},${hauteur / 2})
+            -- (0,${hauteur / 4}) -- (${(largeur / 2)},${hauteur / 2})
+            -- (${(largeur / 2)},${-hauteur / 2});
+    `.trim()
+
+  const axes = [
+    segment(0, -hauteur / 2, 0, hauteur / 2) // Axe vertical au centre
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    axes,
+    opacite,
+  })
+}
+/**
+ * Génère une figure représentant une lettre "N".
+ * @param options Options pour personnaliser le style de la lettre "N".
+ * @returns Une instance de Figure2D représentant une lettre "N".
+ */
+export function lettreN (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "N" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "N" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "N" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "N" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 3 // en cm
+  const hauteur = options?.hauteur || 4 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+            <clipPath id="clipN">
+                <rect x="${-largeurPx / 2}" y="${-hauteurPx / 2}" width="${largeurPx}" height="${hauteurPx}" />
+            </clipPath>
+            <path d="
+                M ${-largeurPx / 2},${hauteurPx / 2}
+                L ${-largeurPx / 2},${-hauteurPx / 2}
+                L ${largeurPx / 2},${hauteurPx / 2}
+                L ${largeurPx / 2},${-hauteurPx / 2}
+            " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" clip-path="url(#clipN)" />
+    `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+        % Lettre N
+        \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+            (${(-largeur / 2)},${-hauteur / 2}) -- (${(-largeur / 2)},${hauteur / 2})
+            -- (${(largeur / 2)},${-hauteur / 2}) -- (${(largeur / 2)},${hauteur / 2});
+    `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    opacite,
+    centre: point(0, 0)
+  })
+}
+/**
+ * Génère une figure représentant une lettre "O".
+ * @param options Options pour personnaliser le style de la lettre "O".
+ * @returns Une instance de Figure2D représentant une lettre "O".
+ */
+export function lettreO (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "O" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "O" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "O" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "O" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 3 // en cm
+  const hauteur = options?.hauteur || 4 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+    <ellipse
+      cx="0"
+      cy="0"
+      rx="${largeurPx / 2}"
+      ry="${hauteurPx / 2}"
+      fill="none"
+      stroke="${strokeStyle}"
+      stroke-width="${lineWidth}"
+    />
+  `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+    % Lettre O
+    \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (0,0) ellipse [x radius=${largeur / 2}cm, y radius=${hauteur / 2}cm];
+  `.trim()
+
+  const axes = [
+    segment(-largeur / 2, 0, largeur / 2, 0), // Axe horizontal au centre
+    segment(0, -hauteur / 2, 0, hauteur / 2), // Axe vertical au centre
+  ]
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    axes,
+    opacite,
+    centre: point(0, 0),
+  })
+}
+/**
+ * Génère une figure représentant une lettre "P".
+ * @param options Options pour personnaliser le style de la lettre "P".
+ * @returns Une instance de Figure2D représentant une lettre "P".
+ */
+export function lettreP (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "P" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "P" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "P" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "P" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 3 // en cm
+  const hauteur = options?.hauteur || 3.8 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+  const rayon = hauteurPx / 4
+
+  // Génération du code SVG
+  const codeSvg = `
+    <path d="
+      M ${-largeurPx / 2},${hauteurPx / 2}
+      L ${-largeurPx / 2},${-hauteurPx / 2}
+      L 0,${-hauteurPx / 2}
+      A ${rayon},${rayon} 0 1,1 0,0
+      L ${-largeurPx / 2},0
+      Z
+    " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+    % Lettre P
+    \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (${(-largeur / 2)},${-hauteur / 2}) -- (${(-largeur / 2)},${hauteur / 2})
+      -- (0,${hauteur / 2})
+      arc[start angle=90, end angle=-90, radius=${rayon / 20}cm]
+      -- (${(-largeur / 2)},0) -- cycle;
+  `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    opacite,
+  })
+}
+/**
+ * Génère une figure représentant une lettre "Q".
+ * @param options Options pour personnaliser le style de la lettre "Q".
+ * @returns Une instance de Figure2D représentant une lettre "Q".
+ */
+export function lettreQ (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "Q" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "Q" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "Q" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "Q" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 3 // en cm
+  const hauteur = options?.hauteur || 4 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+
+  // Génération du code SVG
+  const codeSvg = `
+    <ellipse
+      cx="0"
+      cy="0"
+      rx="${largeurPx / 2}"
+      ry="${hauteurPx / 2}"
+      fill="none"
+      stroke="${strokeStyle}"
+      stroke-width="${lineWidth}"
+    />
+    <line
+      x1="${largeurPx / 4}"
+      y1="${hauteurPx / 4}"
+      x2="${largeurPx / 2}"
+      y2="${hauteurPx / 2}"
+      stroke="${strokeStyle}"
+      stroke-width="${lineWidth}"
+    />
+  `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+    % Lettre Q
+    \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (0,0) ellipse [x radius=${largeur / 2}cm, y radius=${hauteur / 2}cm];
+    \\draw[draw=${strokeStyle}, line width=${lineWidth}pt]
+      (${largeur / 4},${-hauteur / 4}) -- (${largeur / 2},${-hauteur / 2});
+  `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
+    opacite,
+  })
+}
+/**
+ * Génère une figure représentant une lettre "R".
+ * @param options Options pour personnaliser le style de la lettre "R".
+ * @returns Une instance de Figure2D représentant une lettre "R".
+ */
+export function lettreR (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de la lettre "R" (par défaut noir)
+    strokeStyle?: string; // Couleur de la bordure de la lettre "R" (par défaut noir)
+    lineWidth?: number; // Épaisseur de la bordure
+    largeur?: number; // Largeur de la lettre "R" (par défaut 3 cm)
+    hauteur?: number; // Hauteur de la lettre "R" (par défaut 4 cm)
+    opacite?: number; // Opacité de la figure (par défaut 1)
+  }
+): Figure2D {
+  // Options par défaut
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 8
+  const largeur = options?.largeur || 3 // en cm
+  const hauteur = options?.hauteur || 4 // en cm
+  const opacite = options?.opacite || 1
+
+  // Conversion des dimensions en pixels (20 pixels par cm)
+  const largeurPx = largeur * 20
+  const hauteurPx = hauteur * 20
+  const rayon = hauteurPx / 4
+
+  // Génération du code SVG
+  const codeSvg = `
+    <path d="
+      M ${-largeurPx / 2},${hauteurPx / 2}
+      L ${-largeurPx / 2},${-hauteurPx / 2}
+      L 0,${-hauteurPx / 2}
+      A ${rayon},${rayon} 0 1,1 0,0
+      L ${-largeurPx / 2},0
+      M ${-largeurPx / 5},0
+      L ${largeurPx / 3},${hauteurPx / 2 - lineWidth / 4}
+    " fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const codeTikz = `
+    % Lettre R
+    \\draw[fill=none, draw=${strokeStyle}, line width=${lineWidth}pt]
+      (${(-largeur / 2)},${-hauteur / 2}) -- (${(-largeur / 2)},${hauteur / 2})
+      -- (0,${hauteur / 2})
+      arc[start angle=90, end angle=-90, radius=${rayon / 20}cm]
+      -- (${(-largeur / 2)},0);
+    \\draw[draw=${strokeStyle}, line width=${lineWidth}pt]
+      (0,0) -- (${largeur / 2},${-hauteur / 2});
+  `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: largeur,
+    height: hauteur,
     opacite,
   })
 }

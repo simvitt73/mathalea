@@ -171,6 +171,25 @@ export class Figure2D extends ObjetMathalea2D {
     return this
   }
 
+  copy (newName: string) {
+    return new Figure2D({
+      codeSvg: this.codeSvg,
+      codeTikz: this.codeTikz,
+      x: this.x,
+      y: this.y,
+      angle: this.angle,
+      scale: this.scale,
+      width: this.width,
+      height: this.height,
+      pixelsParCm: this.pixelsParCm,
+      axes: this.axes,
+      centre: this.centre,
+      nbAxes: this.nbAxes,
+      opacite: this.opacite,
+      name: newName
+    })
+  }
+
   rotationAnimee ({ angleStart = 0, angleEnd = 180, cx, cy, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
     angleStart?: number,
     angleEnd?: number,
@@ -200,7 +219,7 @@ export class Figure2D extends ObjetMathalea2D {
       keyTimes="0;0.4;0.5;0.9;1"
       values="${angleStart} ${cx} ${cy};${angleEnd} ${cx} ${cy};${angleEnd} ${cx} ${cy};${angleStart} ${cx} ${cy};${angleStart} ${cx} ${cy}"
       />
-        <g transform="translate(${this.x * this.pixelsParCm}, ${-this.y * this.pixelsParCm}) scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>
+        <g transform="translate(${this.x * this.pixelsParCm}, ${-this.y * this.pixelsParCm}) scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>
       </g>`,
       codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
       width: this.width,
@@ -241,7 +260,7 @@ export class Figure2D extends ObjetMathalea2D {
       keyTimes="0;0.4;0.5;0.9;1"
       values="${factorXStart} ${factorYStart};${factorXEnd} ${factorYEnd};${factorXEnd} ${factorYEnd};${factorXStart} ${factorYStart};${factorXStart} ${factorYStart}"
       />
-        <g transform=" scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>
+        <g transform=" scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>
       </g>
       </g>`,
       codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
@@ -272,7 +291,7 @@ export class Figure2D extends ObjetMathalea2D {
       keyTimes="0;0.4;0.5;0.9;1"
       values="${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm};${this.x * this.pixelsParCm + dx} ${-this.y * this.pixelsParCm - dy};${this.x * this.pixelsParCm + dx} ${-this.y * this.pixelsParCm - dy};${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm};${this.x * this.pixelsParCm} ${-this.y * this.pixelsParCm}"
       />
-        <g transform=" scale(${this.scale.x},${this.scale.y}) rotate(${this.angle})">${this.codeSvg}</g>
+        <g transform=" scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>
       </g>`,
       codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
       width: this.width,
@@ -294,7 +313,7 @@ export class Figure2D extends ObjetMathalea2D {
 
   autoReflectionAnimee (id: string, cx: number, cy: number) {
     const copieAnimee = new Figure2D({
-      codeSvg: `<g id="${id}">
+      codeSvg: `<g id="${id}"style="filter: drop-shadow(7px 0px 10px rgb(25, 25, 25) )">
       ${this.svg(20)}
        transform="matrix(1 0 0 1 0 0)"
       </g>`,
@@ -370,9 +389,9 @@ export class Figure2D extends ObjetMathalea2D {
         progress = 0
 
         function step () {
-          progress += 0.005
+          progress += 0.01
           if (progress > 1) progress = 1
-
+          //   rect?.setAttribute('style', `style="filter: drop-shadow(5px ${-(0.5 - Math.abs(progress - 0.5)) * 40}px 10px (rgb(25, 25, 25))"`)
           const { a, b, c, d, tx, ty } = computeSymmetryMatrix(progress, angleDeg, cx * ppcm, cy * ppcm)
           figure?.setAttribute('transform', `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`)
 

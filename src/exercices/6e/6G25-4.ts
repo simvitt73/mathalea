@@ -35,7 +35,7 @@ export default class NbAxesDeSymetrie extends Exercice {
     super()
     this.nbQuestions = 3
     this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Mélange']
-    this.sup = '4'
+    this.sup = '5'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 3
     this.besoinFormulaire3CaseACocher = ['Avec des rotations aléatoires', false]
@@ -95,7 +95,7 @@ export default class NbAxesDeSymetrie extends Exercice {
         objets.push(forme, formeTexte)
         let axes: Segment[] = []
         if (forme.nbAxes !== 0) {
-          const formeBis = forme.translationAnimee({ dx: 0, dy: 0, duration: '0', repeatCount: '0' })
+          const formeBis = forme.copy(forme.name + 'Bis')
           formeBis.opacite = 0.3
           const formeCorr = forme.autoReflectionAnimee(`${forme.name}Corr_${i * this.sup3 + j}`, forme.x, forme.y)
           axes = formeCorr.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
