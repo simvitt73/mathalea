@@ -2,13 +2,15 @@ import { cross, dot, matrix, multiply, norm } from 'mathjs'
 import { distancePointDroite, droite } from '../lib/2d/droites'
 import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
 import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../lib/2d/textes'
 import { translation } from '../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
 import { arrondi } from '../lib/outils/nombres'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, vide2d } from './2dGeneralites'
 import { context } from './context'
+import { segment } from '../lib/2d/segments.js'
+import { longueur } from '../lib/2d/mesures.js'
+import {norme, vecteurAbstrait} from '../lib/2d/vecteurs-abstraits'
 
 const math = { matrix, multiply, norm, cross, dot }
 
@@ -103,10 +105,10 @@ class Vecteur3d {
     this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
     this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
     const W = math.multiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
-    this.c2d = vecteur(W._data[0], W._data[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this
+    this.c2d = vecteurAbstrait(W._data[0], W._data[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this
     this.representant = function (A) { // méthode pour construire un représentant d'origine A (un point 3d)
       const B = translation3d(A, this)
-      return vecteur(A.c2d, B.c2d).representant(A.c2d) // qui retourne un représentant de vecteur 2d (objet dessiné)
+      return vecteurAbstrait(A.c2d, B.c2d).representant(A.c2d) // qui retourne un représentant de vecteur 2d (objet dessiné)
     }
   }
 }
@@ -1030,11 +1032,11 @@ export class Cylindre3d extends ObjetMathalea2D {
       s.pointilles = 2
       s.opacite = 0.7
       this.c2d.push(s)
-      s = segment(translation(ptAxe1, vecteur(this.centrebase1.c2d, ptAxe1)), ptAxe1, this.colorAxe)
+      s = segment(translation(ptAxe1, vecteurAbstrait(this.centrebase1.c2d, ptAxe1)), ptAxe1, this.colorAxe)
       s.opacite = 0.7
       this.c2d.push(s)
 
-      const ptAxe2 = translation(this.centrebase2.c2d, vecteur(translation(ptAxe1, vecteur(this.centrebase1.c2d, ptAxe1)), this.centrebase1.c2d))
+      const ptAxe2 = translation(this.centrebase2.c2d, vecteurAbstrait(translation(ptAxe1, vecteurAbstrait(this.centrebase1.c2d, ptAxe1)), this.centrebase1.c2d))
       s = segment(ptAxe2, this.centrebase2.c2d)
       s.opacite = 0.7
       this.c2d.push(s)
@@ -1353,21 +1355,21 @@ export class Pyramide3d extends ObjetMathalea2D {
             s = segment(ptBase, this.sommet.c2d, this.colorAxe)
             s.pointilles = 2
             this.c2d.push(s)
-            s = segment(ptBase, translation(ptBase, vecteur(this.centre.c2d, ptBase)), this.colorAxe)
+            s = segment(ptBase, translation(ptBase, vecteurAbstrait(this.centre.c2d, ptBase)), this.colorAxe)
             this.c2d.push(s)
-            s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteur(ptBase, this.centre.c2d)), this.colorAxe)
+            s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteurAbstrait(ptBase, this.centre.c2d)), this.colorAxe)
             this.c2d.push(s)
           }
         } else {
           s = segment(this.centre.c2d, this.sommet.c2d, this.colorAxe)
           s.pointilles = 2
           this.c2d.push(s)
-          const v = vecteur(this.centre.c2d, this.sommet.c2d)
+          const v = vecteurAbstrait(this.centre.c2d, this.sommet.c2d)
           const L = longueur(this.base.listePoints[0].c2d, this.centre.c2d)
           const h = 2 * norme(v)
-          s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteur(L * v.x / h, L * v.y / h)), this.colorAxe)
+          s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteurAbstrait(L * v.x / h, L * v.y / h)), this.colorAxe)
           this.c2d.push(s)
-          s = segment(this.centre.c2d, translation(this.centre.c2d, vecteur(-L * v.x / h, -L * v.y / h)), this.colorAxe)
+          s = segment(this.centre.c2d, translation(this.centre.c2d, vecteurAbstrait(-L * v.x / h, -L * v.y / h)), this.colorAxe)
           this.c2d.push(s)
         }
       }

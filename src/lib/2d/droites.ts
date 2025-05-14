@@ -2,14 +2,17 @@ import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGen
 import { context } from '../../modules/context'
 import { egal } from '../../lib/outils/comparaisons'
 import { arrondi } from '../outils/nombres'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
 import { milieu, point, Point, pointSurDroite, pointSurSegment } from './points'
-import { DemiDroite, demiDroite, longueur, norme, segment, Vecteur, vecteur } from './segmentsVecteurs'
+import { Vecteur } from './vecteurs'
 import { Latex2d, latex2d, TexteParPoint, texteParPosition, type LetterSizeType } from './textes'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations'
 import { traceCompas } from './arc'
 import { pointSimple, type PointSimple } from './points-simples'
+import { angleOriente } from './angles-vecteurs'
+import { DemiDroite, demiDroite, segment } from './segments'
+import { longueur } from './mesures'
+import {norme, VecteurAbstrait, vecteurAbstrait} from './vecteurs-abstraits'
 
 /**
  * Ajouter une étiquette sur une droite.
@@ -342,8 +345,8 @@ export class Droite extends ObjetMathalea2D {
   pente: number
   angleAvecHorizontale: number
   nom: string
-  normal: Vecteur
-  directeur: Vecteur
+  normal: VecteurAbstrait
+  directeur: VecteurAbstrait
   stringColor: string
   leNom?: TexteParPoint
   constructor (arg1: number | PointSimple, arg2: number | PointSimple, arg3?: number | string, arg4?: number | string, arg5?: string) {
@@ -521,8 +524,8 @@ export class Droite extends ObjetMathalea2D {
     this.x2 = arrondi(this.x2, 2)
     this.y2 = arrondi(this.y2, 2)
 
-    this.normal = vecteur(this.a, this.b)
-    this.directeur = vecteur(this.b, -this.a)
+    this.normal = vecteurAbstrait(this.a, this.b)
+    this.directeur = vecteurAbstrait(this.b, -this.a)
     this.angleAvecHorizontale = angleOriente(
       pointSimple(1, 0),
       pointSimple(0, 0),
@@ -776,7 +779,7 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
       }
     }
   }
-  const position = translation(point(xLab, yLab), homothetie(vecteur(d.a, d.b), point(0, 0), 0.5 / norme(vecteur(d.a, d.b))) as Vecteur)
+  const position = translation(point(xLab, yLab), homothetie(vecteurAbstrait(d.a, d.b), point(0, 0), 0.5 / norme(vecteurAbstrait(d.a, d.b))) as Vecteur)
   return position
 }
 
@@ -791,7 +794,7 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtVecteur (A: PointSimple, v: Vecteur, nom = '', color = 'black') {
+export function droiteParPointEtVecteur (A: PointSimple, v: VecteurAbstrait, nom = '', color = 'black') {
   const B = point(A.x + v.x, A.y + v.y)
   return new Droite(A, B, nom, color)
 }
@@ -851,7 +854,7 @@ export function droiteHorizontaleParPoint (A: PointSimple, nom = '', color = 'bl
  */
 // JSDOC Validee par EE Aout 2022
 export function droiteVerticaleParPoint (A: PointSimple, nom = '', color = 'black') {
-  return droiteParPointEtVecteur(A, vecteur(0, 1), nom, color)
+  return droiteParPointEtVecteur(A, vecteurAbstrait(0, 1), nom, color)
 }
 
 /**  Trace la droite passant par le point A et de pente k
@@ -1122,7 +1125,7 @@ export class Bissectrice extends DemiDroite {
     const M = pointSurSegment(O, A, this.tailleLosange)
     const N = pointSurSegment(O, B, this.tailleLosange)
     const dMN = droite(M, N)
-    const P = symetrieAxiale(O, dMN) as PointSimple
+    const P = symetrieAxiale(O, dMN)
     if (construction || detail) {
       if (!M.estSur(segment(O, A))) {
         const sOM = segment(O, M, this.couleurConstruction)

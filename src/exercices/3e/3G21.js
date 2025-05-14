@@ -1,4 +1,3 @@
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { point, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPoint } from '../../lib/2d/textes'
@@ -16,6 +15,7 @@ import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import {angleOriente} from "../../lib/2d/angles-vecteurs.js";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,5 @@
 import { droite } from '../../lib/2d/droites'
 import { Point, point, tracePoint } from '../../lib/2d/points'
-import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -8,6 +7,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 import Exercice from '../Exercice'
+import {demiDroite, segment} from "../../lib/2d/segments";
 export const titre = 'Utiliser la notation de droites, segments et demi-droites'
 export const amcReady = true
 export const amcType = 'AMCOpen'

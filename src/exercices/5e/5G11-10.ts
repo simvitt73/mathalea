@@ -14,8 +14,8 @@ import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { codageMilieu } from '../../lib/2d/codages'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
+import {demiDroite} from "../../lib/2d/segments";
 
 export const titre = 'Construire des symétriques de points par rapport à un point'
 export const dateDePublication = '27/09/2024'

@@ -2,7 +2,6 @@ import { type CodageAngleDroit, codageAngle, codageAngleDroit } from '../../lib/
 import type { CodageAngle } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { type NommePolygone, Polygone, nommePolygone } from '../../lib/2d/polygones'
-import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -11,6 +10,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d, type ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const titre = 'Vocabulaire du triangle rectangle'
 export const interactifReady = true

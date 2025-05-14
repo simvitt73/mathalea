@@ -4,7 +4,6 @@ import { droite } from '../../../lib/2d/droites'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { droiteGraduee, repere } from '../../../lib/2d/reperes'
-import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -25,6 +24,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {demiDroite, segment, segmentAvecExtremites} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 3e sujet 2023'
 export const interactifReady = true

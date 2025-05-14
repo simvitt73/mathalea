@@ -1,7 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -20,6 +19,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true

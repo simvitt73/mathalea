@@ -2,7 +2,7 @@ import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages
 import { distancePointDroite, Droite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites'
 import { Point, point, pointAdistance, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { rotation, symetrieAxiale, translation, translation2Points } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
@@ -14,6 +14,9 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { angle } from '../../lib/2d/angles-mesures'
+import {angle} from "../../lib/2d/angles-vecteurs";
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
 export const dateDePublication = '05/08/2021'

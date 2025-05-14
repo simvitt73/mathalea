@@ -4,7 +4,6 @@ import { codageSegment, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionCC, pointIntersectionDD, pointSurCercle, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi, troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
@@ -20,6 +19,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { arc } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Calculer périmètre et aire de figures composées'
 export const interactifReady = true

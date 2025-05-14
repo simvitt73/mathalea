@@ -2,7 +2,6 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
@@ -16,6 +15,8 @@ import * as En from 'blockly/msg/en'
 import blocklypyt from '../../lib/blockly/blocklypyt.json'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+
+import {longueur} from "../../lib/2d/mesures.js";
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore (blockly)'
 export const interactifReady = true

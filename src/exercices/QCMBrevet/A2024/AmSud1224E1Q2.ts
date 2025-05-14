@@ -1,10 +1,10 @@
 import { point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { cube } from '../../../modules/3d'
 import { randint } from '../../../modules/outils'
 import ExerciceQcmA from '../../ExerciceQcmA'
+import {segment} from "../../../lib/2d/segments";
 
 export const uuid = 'f6fd7'
 export const refs = {

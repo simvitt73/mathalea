@@ -1,6 +1,6 @@
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
 import { createList } from '../../lib/format/lists'
@@ -13,6 +13,7 @@ import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 import ExerciceBrevetA from '../ExerciceBrevetA'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = '972f6'
 export const refs = {

@@ -3,7 +3,6 @@ import { courbeInterpolee } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { grille, repere } from '../../../lib/2d/reperes'
-import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import {choice, range1, shuffle} from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
@@ -23,6 +22,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {demiDroite, segment, segmentAvecExtremites} from "../../../lib/2d/segments";
 
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true

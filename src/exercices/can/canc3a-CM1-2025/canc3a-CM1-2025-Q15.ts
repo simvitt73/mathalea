@@ -6,7 +6,8 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { latex2d } from '../../../lib/2d/textes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
+
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer la longueur d\'un contour'
 export const interactifReady = true
 export const interactifType = 'mathLive'

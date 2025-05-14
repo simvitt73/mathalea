@@ -1,7 +1,6 @@
 import { cercle } from '../../../lib/2d/cercle'
 import { milieu, Point, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
@@ -10,6 +9,8 @@ import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
+
+import {longueur} from "../../../lib/2d/mesures";
 export const titre = 'Calculer le périmètre d’une figure'
 export const interactifReady = true
 export const interactifType = 'mathLive'

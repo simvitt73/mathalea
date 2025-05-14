@@ -6,8 +6,8 @@ import { randint } from '../../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { afficheCoteSegment } from '../../../lib/2d/codages'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../../lib/outils/texNombre'
+import {segment} from "../../../lib/2d/segments";
 export const uuid = '279da'
 export const refs = {
   'fr-fr': ['5M2QCM-1'],

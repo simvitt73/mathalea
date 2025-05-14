@@ -1,6 +1,5 @@
 import { courbe } from '../../../lib/2d/courbes'
 import { repere } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
@@ -10,6 +9,7 @@ import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true

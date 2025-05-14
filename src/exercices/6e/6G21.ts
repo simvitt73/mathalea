@@ -12,7 +12,6 @@ import {
   tracePoint
 } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
@@ -25,6 +24,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { arrondi } from '../../lib/outils/nombres'
 import { traceCompas } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Construire un triangle avec les instruments'
 

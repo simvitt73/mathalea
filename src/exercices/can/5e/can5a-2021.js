@@ -2,7 +2,6 @@ import { codageAngle } from '../../../lib/2d/angles'
 import { codageSegment } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
 import { droiteGraduee } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
@@ -20,6 +19,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true

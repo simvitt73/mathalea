@@ -1,6 +1,5 @@
 import { CrochetD, crochetD, CrochetG, crochetG, intervalle } from '../../lib/2d/intervalles'
 import { Point, point } from '../../lib/2d/points'
-import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d, Vide2d, vide2d } from '../../modules/2dGeneralites'
@@ -10,6 +9,7 @@ import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 export const interactifReady = true

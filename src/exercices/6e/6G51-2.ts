@@ -1,13 +1,13 @@
 import { droite } from '../../lib/2d/droites'
 import { point, pointAdistance, pointIntersectionDD } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import {demiDroite, segment} from "../../lib/2d/segments";
 export const titre = 'Utiliser les symboles ∈ et ∉'
 
 export const dateDePublication = '27/02/2023'

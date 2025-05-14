@@ -12,7 +12,8 @@ import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { Droite, droite, droiteParPointEtParallele } from '../../lib/2d/droites'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = '4beb8'
 export const refs = {

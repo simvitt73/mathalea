@@ -14,7 +14,6 @@ import {
   tracePoint
 } from '../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
-import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -27,6 +26,8 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { traceCompas } from '../../lib/2d/arc'
+import {demiDroite, segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Construire des quadrilatères particuliers'
 export const dateDeModifImportante = '18/04/2024'

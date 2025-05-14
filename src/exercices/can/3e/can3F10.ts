@@ -1,7 +1,6 @@
 import { courbe } from '../../../lib/2d/courbes'
 import { point, tracePoint } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -9,6 +8,7 @@ import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Déterminer une ordonnée/abscisse avec une fonction linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

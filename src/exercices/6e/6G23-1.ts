@@ -1,6 +1,5 @@
 import { afficheMesureAngle } from '../../lib/2d/codages'
 import { Point, point, pointSurSegment } from '../../lib/2d/points'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,6 +9,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import {demiDroite} from "../../lib/2d/segments";
 
 export const amcReady = true
 export const amcType = 'qcmMono'

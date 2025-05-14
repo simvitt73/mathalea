@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
 import { droiteHorizontaleParPoint, droiteParPointEtPente, droiteVerticaleParPoint } from '../../lib/2d/droites'
 import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelLatexPoint, latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
 import {
@@ -25,6 +25,7 @@ import { egal } from '../../lib/outils/comparaisons'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import {segment} from "../../lib/2d/segments";
 
 export const dateDeModifImportante = '11/04/2025'
 export const interactifReady = true

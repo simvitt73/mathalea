@@ -1,7 +1,6 @@
 import { cibleCouronne } from '../../lib/2d/cibles'
 import { afficheMesureAngle } from '../../lib/2d/codages'
 import { Point, point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, sensDeRotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -11,6 +10,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true

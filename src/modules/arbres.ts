@@ -1,11 +1,12 @@
 import { point } from '../lib/2d/points'
-import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'
 import { fraction } from './fractions'
 import FractionEtendue from './FractionEtendue'
 import { texNombre } from '../lib/outils/texNombre'
 import type { NestedObjetMathalea2dArray } from './2dGeneralites'
+import { segment } from '../lib/2d/segments'
+import { vecteurAbstrait } from '../lib/2d/vecteurs-abstraits'
 
 function isFraction (obj: any): obj is FractionEtendue {
   return (typeof obj === 'object' && obj instanceof FractionEtendue)
@@ -211,7 +212,7 @@ export class Arbre {
     )
 
     const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.1 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
-    const positionProba = vertical ? homothetie(A, B, 0.7, '', 'center') : translation(homothetie(A, B, 0.6), vecteur(A.x > B.x ? 0.5 : -0.5, 0), '', 'center') // Proba au 2/5 de [AB] en partant de A.
+    const positionProba = vertical ? homothetie(A, B, 0.7, '', 'center') : translation(homothetie(A, B, 0.6), vecteurAbstrait(A.x > B.x ? 0.5 : -0.5, 0), '', 'center') // Proba au 2/5 de [AB] en partant de A.
     positionProba.positionLabel = 'center'
     const probaA = this.visible
       ? latexParPoint(this.rationnel ? texProba(this.proba) : texNombre(this.proba.valueOf(), 4), positionProba, 'black', 20, 24, 'white', tailleCaracteres)

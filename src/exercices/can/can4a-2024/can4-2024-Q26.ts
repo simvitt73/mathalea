@@ -1,7 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { codageSegments } from '../../../lib/2d/codages'
-import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { milieu, point, tracePointSurDroite } from '../../../lib/2d/points'
 import { droite } from '../../../lib/2d/droites'
@@ -9,6 +8,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import {segmentAvecExtremites} from "../../../lib/2d/segments";
 export const titre = 'Calculer une longueur'
 export const interactifReady = true
 export const interactifType = 'mathLive'

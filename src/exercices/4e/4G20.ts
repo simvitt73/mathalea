@@ -2,7 +2,6 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
@@ -20,6 +19,8 @@ import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import engine from '../../lib/interactif/comparisonFunctions'
+
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCHybride'

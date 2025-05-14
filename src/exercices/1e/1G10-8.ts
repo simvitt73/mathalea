@@ -1,5 +1,4 @@
 import { point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -11,6 +10,7 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { context } from '../../modules/context'
+import {segment} from "../../lib/2d/segments";
 export const titre = 'Utiliser le produit scalaire pour montrer l\'orthogonalité'
 export const dateDePublication = '29/04/2025'
 

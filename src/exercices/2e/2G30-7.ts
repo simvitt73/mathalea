@@ -1,6 +1,5 @@
 import { droite } from '../../lib/2d/droites'
 import { repere } from '../../lib/2d/reperes'
-import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
@@ -17,6 +16,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 
 import { point } from '../../lib/2d/points'
 import { choice } from '../../lib/outils/arrayOutils'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const titre = 'Déterminer une équation réduite à partir de sa représentation graphique'
 export const dateDeModifImportante = '08/12/2024'

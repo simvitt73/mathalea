@@ -2,7 +2,6 @@ import { courbe } from '../../lib/2d/courbes'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -17,6 +16,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathlive'

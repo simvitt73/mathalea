@@ -5,7 +5,6 @@ import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { pave } from '../../../lib/2d/projections3d'
 import { droiteGraduee, grille, repere } from '../../../lib/2d/reperes'
 import { traceBarre } from '../../../lib/2d/diagrammes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
@@ -27,6 +26,7 @@ import { handleAnswers, setReponse } from '../../../lib/interactif/gestionIntera
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { arrondi } from '../../../lib/outils/nombres'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 5e sujet 2020'
 export const interactifReady = true

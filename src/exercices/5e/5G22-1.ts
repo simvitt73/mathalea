@@ -10,7 +10,6 @@ import {
   pointIntersectionLC,
   tracePoint
 } from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -19,6 +18,8 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Utiliser les propriétés de la médiatrice d\'un segment'
 export const dateDePublication = '05/08/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '17/08/2023'

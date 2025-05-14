@@ -1,7 +1,6 @@
 import { cercle } from '../lib/2d/cercle'
 import { point, Point } from '../lib/2d/points'
 import { carre } from '../lib/2d/polygones'
-import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../lib/2d/textes'
 import { rotation, translation } from '../lib/2d/transformations'
 import { miseEnEvidence } from '../lib/outils/embellissements'
@@ -24,6 +23,8 @@ import { colorToLatexOrHTML } from './2dGeneralites'
 import Decimal from 'decimal.js'
 import { egal } from '../lib/outils/comparaisons'
 import { arc } from '../lib/2d/arc'
+import { segment } from '../lib/2d/segments'
+import { vecteurAbstrait } from '../lib/2d/vecteurs-abstraits'
 
 type FractionRepresentationType = 'gateau' | 'barre' | 'segment'
 
@@ -1253,12 +1254,12 @@ class FractionEtendue {
     } else if (type === 'segment') {
       for (k = 0; k < n; k++) {
         const O = point(x + k * rayon, y)
-        const C = translation(O, vecteur(rayon, 0))
+        const C = translation(O, vecteurAbstrait(rayon, 0))
         const s = segment(O, C)
         s.styleExtremites = '-|'
         objets.push(s)
         for (let i = 0; i < this.denIrred; i++) {
-          const s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
+          const s = segment(translation(O, vecteurAbstrait(i * rayon / this.denIrred, 0)), translation(O, vecteurAbstrait((i + 1) * rayon / this.denIrred, 0)))
           s.styleExtremites = '|-'
           objets.push(s)
         }
@@ -1269,12 +1270,12 @@ class FractionEtendue {
         num -= this.denIrred
       }
       const O = point(x + k * rayon, y)
-      const C = translation(O, vecteur(rayon, 0))
+      const C = translation(O, vecteurAbstrait(rayon, 0))
       const s = segment(O, C)
       s.styleExtremites = '-|'
       objets.push(s)
       for (let i = 0; i < this.denIrred; i++) {
-        const s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
+        const s = segment(translation(O, vecteurAbstrait(i * rayon / this.denIrred, 0)), translation(O, vecteurAbstrait((i + 1) * rayon / this.denIrred, 0)))
         s.styleExtremites = '|-'
         objets.push(s)
       }
@@ -1314,7 +1315,7 @@ class FractionEtendue {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.denIrred / diviseur; h++) {
             const O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            const C: Point = translation(O, vecteur(tailleCarres, 0))
+            const C: Point = translation(O, vecteurAbstrait(tailleCarres, 0))
             const dep = carre(O, C, 'black')
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
@@ -1327,14 +1328,14 @@ class FractionEtendue {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.denIrred / diviseur; h++) {
             const O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            const C = translation(O, vecteur(tailleCarres, 0))
+            const C = translation(O, vecteurAbstrait(tailleCarres, 0))
             const dep = carre(O, C, 'black')
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           const O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
-          const C = translation(O, vecteur(tailleCarres, 0))
+          const C = translation(O, vecteurAbstrait(tailleCarres, 0))
           const dep = carre(O, C, 'black')
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
@@ -1412,12 +1413,12 @@ class FractionEtendue {
     } else if (type === 'segment') {
       for (k = 0; k < n; k++) {
         const O = point(x + k * rayon, y)
-        const C = translation(O, vecteur(rayon, 0))
+        const C = translation(O, vecteurAbstrait(rayon, 0))
         const s = segment(O, C)
         s.styleExtremites = '-|'
         objets.push(s)
         for (let i = 0; i < this.den; i++) {
-          const s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
+          const s = segment(translation(O, vecteurAbstrait(i * rayon / this.den, 0)), translation(O, vecteurAbstrait((i + 1) * rayon / this.den, 0)))
           s.styleExtremites = '|-'
           objets.push(s)
         }
@@ -1428,12 +1429,12 @@ class FractionEtendue {
         num -= this.den
       }
       const O = point(x + k * rayon, y)
-      const C = translation(O, vecteur(rayon, 0))
+      const C = translation(O, vecteurAbstrait(rayon, 0))
       const s = segment(O, C)
       s.styleExtremites = '-|'
       objets.push(s)
       for (let i = 0; i < this.den; i++) {
-        const s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
+        const s = segment(translation(O, vecteurAbstrait(i * rayon / this.den, 0)), translation(O, vecteurAbstrait((i + 1) * rayon / this.den, 0)))
         s.styleExtremites = '|-'
         objets.push(s)
       }
@@ -1473,7 +1474,7 @@ class FractionEtendue {
         for (let j = 0; j < diviseur; j++) { // on fait this.den carrés répartis sur this.den/diviseur lignes de diviseur de long
           for (let h = 0; h < this.den / diviseur; h++) {
             const O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            const C = translation(O, vecteur(tailleCarres, 0))
+            const C = translation(O, vecteurAbstrait(tailleCarres, 0))
             const dep = carre(O, C, 'black')
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
@@ -1486,14 +1487,14 @@ class FractionEtendue {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.den / diviseur; h++) {
             const O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            const C = translation(O, vecteur(tailleCarres, 0))
+            const C = translation(O, vecteurAbstrait(tailleCarres, 0))
             const dep = carre(O, C, 'black')
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           const O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
-          const C = translation(O, vecteur(tailleCarres, 0))
+          const C = translation(O, vecteurAbstrait(tailleCarres, 0))
           const dep = carre(O, C, 'black')
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4

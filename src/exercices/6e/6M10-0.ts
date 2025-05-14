@@ -1,7 +1,6 @@
 import { point } from '../../lib/2d/points'
 import { carre, Polyquad } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -9,6 +8,7 @@ import { sp } from '../../lib/outils/outilString'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Trouver une aire ou un périmètre par comptage'
 export const interactifReady = true

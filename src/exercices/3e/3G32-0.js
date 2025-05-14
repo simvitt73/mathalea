@@ -4,7 +4,6 @@ import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
 import { milieu, point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -21,6 +20,8 @@ import Grandeur from '../../modules/Grandeur'
 import { max, min } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { angle } from '../../lib/2d/angles-mesures'
+import {segment} from "../../lib/2d/segments.js";
+import {longueur} from "../../lib/2d/mesures.js";
 
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'
 export const interactifReady = true

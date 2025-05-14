@@ -1,10 +1,9 @@
 import { milieu, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import {
-  longueur,
   nomVecteurParPosition,
   vecteur
-} from '../../lib/2d/segmentsVecteurs'
+} from '../../lib/2d/vecteurs'
 import {
   labelPoint,
   latex2d,
@@ -23,6 +22,8 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import type VectorByPoints from 'apigeom/src/elements/vector/VectorByPoints'
+
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
 export const interactifReady = true

@@ -1,7 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -22,6 +21,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { context } from '../../../modules/context'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 4e sujet 2021'
 export const interactifReady = true

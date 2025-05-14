@@ -1,7 +1,6 @@
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/codages'
 import { point, tracePoint } from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -15,6 +14,8 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import {segment} from "../../lib/2d/segments.js";
+import {longueur} from "../../lib/2d/mesures.js";
 export const titre = 'Construire l\'image d\'un point par une homothétie avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCHybride'

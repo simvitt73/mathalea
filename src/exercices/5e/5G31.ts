@@ -12,9 +12,9 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { codageSegments } from '../../lib/2d/codages'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { arrondi } from '../../lib/outils/nombres'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme des angles dans un triangle'
 export const interactifReady = true

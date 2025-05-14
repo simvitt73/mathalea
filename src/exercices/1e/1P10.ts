@@ -1,6 +1,5 @@
 import { fraction, number } from 'mathjs'
 import { point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { texteGras } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -12,6 +11,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Probabilités conditionnelles'
 

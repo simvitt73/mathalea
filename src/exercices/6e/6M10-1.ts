@@ -1,6 +1,5 @@
 import { point } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -14,6 +13,7 @@ import { context } from '../../modules/context'
 // import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments";
 
 export const dateDePublication = '09/04/2022'
 export const dateDeModifImportante = '27/03/2024'

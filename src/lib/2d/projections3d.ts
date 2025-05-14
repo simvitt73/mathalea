@@ -4,10 +4,12 @@ import { cercle, Cercle } from './cercle'
 import { afficheCoteSegment } from './codages'
 import { point, pointAdistance } from './points'
 import { pattern, polygone } from './polygones'
-import { longueur, segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, translation } from './transformations'
 import { arc } from './arc'
 import type { PointSimple } from './points-simples'
+import { segment } from './segments'
+import { longueur } from './mesures'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  *
@@ -26,9 +28,9 @@ export class Pave extends ObjetMathalea2D {
     const D = point(A.x, A.y + l)
     const p = polygone(A, B, C, D)
     const E = pointAdistance(A, h * coefficientDeFuite, angleDeFuite)
-    const F = translation(B, vecteur(A, E))
-    const G = translation(C, vecteur(A, E))
-    const H = translation(D, vecteur(A, E))
+    const F = translation(B, vecteurAbstrait(A, E))
+    const G = translation(C, vecteurAbstrait(A, E))
+    const H = translation(D, vecteurAbstrait(A, E))
     const sAE = segment(A, E)
     const sBF = segment(B, F)
     const sCG = segment(C, G)
@@ -316,7 +318,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     this.anglesAxe = anglesAxe
     this.angle = hemisphere === 'nord' ? 180 : -180
     this.M = point(centre.x + rx, centre.y)
-    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx) as PointSimple
+    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx)
 
     this.large = 0
     this.sweep = 0

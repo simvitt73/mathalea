@@ -1,7 +1,6 @@
 import { afficheCoteSegment, codageSegments, texteSurSegment } from '../../../lib/2d/codages'
 import { point } from '../../../lib/2d/points'
 import { polygoneRegulier } from '../../../lib/2d/polygones'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -15,6 +14,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../../lib/outils/nombres'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true

@@ -3,9 +3,10 @@ import type Hms from '../../modules/Hms'
 import { cercle } from './cercle'
 import { point } from './points'
 import { polygone } from './polygones'
-import { segment, vecteur } from './segmentsVecteurs'
 import { latex2d } from './textes'
 import { rotation, similitude, translation } from './transformations'
+import { segment } from './segments'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  * Un objet pour avoir une horloge
@@ -48,7 +49,7 @@ export default class Horloge extends ObjetMathalea2D {
       const alpha = 90 - h * 30 - m / 2
       const beta = 90 - m * 6
       const epissure = 3
-      const point0 = translation(O, vecteur(0.2, 0))
+      const point0 = translation(O, vecteurAbstrait(0.2, 0))
       const extTitAig = point(x + rayon - 1, y)
       const m1TitAig = similitude(extTitAig, point0, epissure, 0.9)
       const m2TitAig = similitude(extTitAig, point0, -epissure, 0.9)

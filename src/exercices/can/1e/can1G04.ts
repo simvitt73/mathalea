@@ -1,6 +1,5 @@
 import { afficheLongueurSegment, afficheMesureAngle } from '../../../lib/2d/codages'
 import { point, pointAdistance } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
@@ -10,6 +9,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true
 export const interactifType = 'mathLive'

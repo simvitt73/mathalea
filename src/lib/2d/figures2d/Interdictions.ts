@@ -1,6 +1,7 @@
 import { Figure2D } from '../Figures2D'
 import { point } from '../points'
-import { Segment, segment } from '../segmentsVecteurs'
+
+import {Segment, segment} from "../segments";
 
 /**
  * Génère une figure représentant un panneau de sens interdit.

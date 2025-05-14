@@ -1,6 +1,5 @@
 import { point } from '../../lib/2d/points'
 import { droiteGraduee } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -14,6 +13,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 

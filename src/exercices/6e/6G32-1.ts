@@ -2,7 +2,6 @@ import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors, texteGras } from '../../lib/format/style'
@@ -15,6 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 import type { MathfieldElement } from 'mathlive'
+import {demiDroite, segment} from "../../lib/2d/segments";
 const cleaner = generateCleaner(['parentheses', 'espaces'])
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 

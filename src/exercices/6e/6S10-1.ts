@@ -3,7 +3,7 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { carre, motifs } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -15,6 +15,7 @@ import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 import { arc } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Lire des données représentées dans un diagramme'
 export const interactifReady = true

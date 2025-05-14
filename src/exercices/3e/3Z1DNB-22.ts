@@ -7,7 +7,6 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { polygone } from '../../lib/2d/polygones'
 import { randint } from '../../modules/outils'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../lib/2d/transformations'
 import { texNombre } from '../../lib/outils/texNombre'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -15,6 +14,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = 'bc6ad'
 export const refs = {

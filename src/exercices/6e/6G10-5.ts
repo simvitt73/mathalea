@@ -1,7 +1,6 @@
 import { droite } from '../../lib/2d/droites'
 import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
-import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
@@ -12,6 +11,7 @@ import Alea2iep from '../../modules/Alea2iep'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import type Point from 'apigeom/src/elements/points/Point'
+import {demiDroite, segment} from "../../lib/2d/segments";
 
 export const amcReady = true
 export const amcType = 'AMCHybride'

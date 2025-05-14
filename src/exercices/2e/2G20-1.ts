@@ -4,8 +4,9 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { point } from '../../lib/2d/points'
 import { grille } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Reconnaître des vecteurs égaux/opposés/colinéaires (QCM)'
 export const interactifReady = true

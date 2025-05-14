@@ -1,7 +1,6 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { cercle } from '../../../lib/2d/cercle'
 import { point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../../lib/2d/transformations'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
@@ -9,6 +8,7 @@ import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true

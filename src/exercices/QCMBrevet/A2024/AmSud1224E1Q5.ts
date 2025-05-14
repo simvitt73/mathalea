@@ -1,7 +1,6 @@
 import { Point, point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { grille } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { homothetie } from '../../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
@@ -10,6 +9,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
+import {segment} from "../../../lib/2d/segments";
 
 export const uuid = 'c6f47'
 export const refs = {

@@ -11,10 +11,10 @@ import { cercle } from '../../lib/2d/cercle'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ppcm, randint } from '../../modules/outils'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import Hms from '../../modules/Hms'
 import { texNombre } from '../../lib/outils/texNombre'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = 'ec6ad'
 export const refs = {

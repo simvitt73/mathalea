@@ -1,6 +1,7 @@
 import { Figure2D } from '../Figures2D'
 import { point } from '../points'
-import { segment } from '../segmentsVecteurs'
+
+import {segment} from "../segments";
 
 /**
  * Génère une figure représentant un panneau de stationnement interdit.

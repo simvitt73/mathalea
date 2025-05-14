@@ -1,7 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { milieu, point } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -18,6 +17,8 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

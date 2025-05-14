@@ -7,11 +7,12 @@ import {
   pointIntersectionLC,
   pointSurSegment
 } from '../../lib/2d/points'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import { randint } from '../outils'
+
+import {longueur} from "../../lib/2d/mesures.js";
 
 /**
    * Macro de construction d'un triangle à partir de ses 3 dimensions. Le premier point aura pour coordonnées (6,0).

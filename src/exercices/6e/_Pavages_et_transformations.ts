@@ -3,7 +3,7 @@ import { codageSegments } from '../../lib/2d/codages'
 import { Droite, droiteHorizontaleParPoint, droiteVerticaleParPoint, mediatrice } from '../../lib/2d/droites'
 import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { barycentre, polygone } from '../../lib/2d/polygones'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, latexParCoordonnees, texteParPoint } from '../../lib/2d/textes'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -19,6 +19,7 @@ import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import { arc } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

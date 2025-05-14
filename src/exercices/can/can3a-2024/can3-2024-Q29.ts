@@ -4,10 +4,10 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { point } from '../../../lib/2d/points'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Compléter un schéma avec un nombre '
 export const interactifReady = true

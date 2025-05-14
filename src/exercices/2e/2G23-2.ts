@@ -1,6 +1,6 @@
 import { Point, point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { nomVecteurParPosition, vecteur } from '../../lib/2d/vecteurs'
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,6 +10,8 @@ import Exercice from '../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -4,11 +4,12 @@ import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
 import { point } from '../../../lib/2d/points'
 import { homothetie, translation } from '../../../lib/2d/transformations'
-import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../../lib/2d/vecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { placeLatexSurSegment } from '../../../lib/2d/codages'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { choice } from '../../../lib/outils/arrayOutils'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Distance sur un segment'
 export const interactifReady = true

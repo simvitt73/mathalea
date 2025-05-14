@@ -1,5 +1,4 @@
 import { point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
@@ -14,6 +13,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = '61217'
 export const refs = {

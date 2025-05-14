@@ -1,6 +1,5 @@
 // on importe les fonctions nécessaires.
 import { point, tracePoint } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -12,6 +11,7 @@ import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'

@@ -5,11 +5,11 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { latex2d } from '../../../lib/2d/textes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { Polygone } from '../../../lib/2d/polygones'
 import { choice } from '../../../lib/outils/arrayOutils'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer la longueur d\'un côté d\'un triangle connaissant la longueur de son contour'
 export const interactifReady = true
 export const interactifType = 'mathLive'

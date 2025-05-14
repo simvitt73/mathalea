@@ -8,7 +8,6 @@ import { milieu, point, tracePoint, pointIntersectionLC, Point } from '../../lib
 import { codageSegments } from '../../lib/2d/codages'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { texteParPosition } from '../../lib/2d/textes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import Exercice from '../Exercice'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -18,6 +17,7 @@ import { ajouteChampTexte, ajouteChampTexteMathLive } from '../../lib/interactif
 import { texteGras } from '../../lib/format/style'
 import { Droite, mediatrice } from '../../lib/2d/droites'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import {segment} from "../../lib/2d/segments";
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer et utiliser la distance entre deux points dans un repère'

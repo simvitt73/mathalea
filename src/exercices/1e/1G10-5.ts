@@ -1,6 +1,6 @@
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

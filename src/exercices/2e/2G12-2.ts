@@ -1,6 +1,5 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -15,6 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

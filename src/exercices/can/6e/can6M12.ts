@@ -1,7 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegments } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
@@ -9,6 +8,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import Decimal from 'decimal.js'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer une longueur/un périmètre (avec des décimaux)'
 export const dateDePublication = '27/08/2022'
 export const interactifReady = true

@@ -2,8 +2,9 @@ import { context } from '../../modules/context'
 import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { point } from './points'
-import { segment, vecteur } from './segmentsVecteurs'
 import { texteParPosition, TexteParPoint } from './textes'
+import { segment } from './segments'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 export class GlisseNombre extends ObjetMathalea2D {
   constructor (nombre = 0, decalage = 0) {
     super()
@@ -77,7 +78,7 @@ export class GlisseNombre extends ObjetMathalea2D {
       }
     }
     if (context.isHtml) {
-      const chiffresQuiGlissent = translationAnimee(chiffresADecaler, vecteur(-decalage * largeurColonne, 0), 'id="op" dur="1s" begin="0s;op.end+5s" fill="freeze"')
+      const chiffresQuiGlissent = translationAnimee(chiffresADecaler, vecteurAbstrait(-decalage * largeurColonne, 0), 'id="op" dur="1s" begin="0s;op.end+5s" fill="freeze"')
       this.objets.push(chiffresQuiGlissent as ObjetMathalea2D)
     }
     const nombreDeZeroPartieEntiere = partieDecimale ? decalage - partieDecimale.length : decalage

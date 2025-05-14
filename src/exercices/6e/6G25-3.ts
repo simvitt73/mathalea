@@ -1,7 +1,6 @@
 import { codageMediatrice } from '../../lib/2d/codages'
 import { Droite, droiteHorizontaleParPoint, droiteVerticaleParPoint, Mediatrice, mediatrice } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD, tracePoint } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { symetrieAxiale } from '../../lib/2d/transformations'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -19,6 +18,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import type { Polygone } from '../../lib/2d/polygones'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
 export const interactifReady = true

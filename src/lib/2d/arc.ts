@@ -1,13 +1,15 @@
 import { rotation } from './transformations'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import { angleModulo, angleOriente } from './angles-mesures'
-import { longueur } from './segmentsVecteurs'
+import { angleModulo } from './angles-mesures'
 import { pattern } from './polygones'
 import { degToRad } from '../mathFonctions/trigo'
 import MainLevee from './MainLevee'
 import { arrondi } from '../outils/nombres'
 import { droite, Droite, mediatrice } from './droites'
 import { pointSimple, type PointSimple } from './points-simples'
+import {angleOriente} from "./angles-vecteurs";
+
+import {longueur} from "./mesures";
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {PointSimple} M Extrémité de départ de l'arc

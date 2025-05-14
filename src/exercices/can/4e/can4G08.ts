@@ -1,6 +1,5 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
@@ -15,6 +14,7 @@ import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer une aire, un périmètre ou une longueur'
 export const interactifReady = true
 export const interactifType = 'mathLive'

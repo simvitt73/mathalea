@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { grille } from '../../lib/2d/reperes'
-import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -11,6 +11,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { translation } from '../../lib/2d/transformations'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

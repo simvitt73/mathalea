@@ -2,7 +2,6 @@ import { cercle } from '../../lib/2d/cercle'
 import { droite } from '../../lib/2d/droites'
 import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -18,6 +17,8 @@ import { context } from '../../modules/context'
 import { clone } from 'mathjs'
 import { codageSegments } from '../../lib/2d/codages'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {segment} from "../../lib/2d/segments.js";
+import {longueur} from "../../lib/2d/mesures.js";
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true

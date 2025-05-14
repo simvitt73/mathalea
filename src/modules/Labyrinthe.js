@@ -1,10 +1,10 @@
 import { point } from '../lib/2d/points'
-import { segment } from '../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { runAStar } from './findPath'
 import { randint } from './outils'
+import {segment} from "../lib/2d/segments.js";
 
 /**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
  * @param {Object} parametres À saisir entre accolades

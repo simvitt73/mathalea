@@ -1,7 +1,6 @@
 import { cercle } from '../../../lib/2d/cercle'
 import { Point, point, pointIntersectionCC } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -11,6 +10,7 @@ import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
+import {segment} from "../../../lib/2d/segments";
 
 export const uuid = 'be991'
 export const refs = {

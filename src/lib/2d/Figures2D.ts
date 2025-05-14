@@ -2,8 +2,8 @@ import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { point } from './points'
 import type { PointSimple } from './points-simples'
-import { type Segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
+import {Segment} from "./segments";
 function rotatedBoundingBoxWithCenter (
   xmin: number,
   ymin: number,

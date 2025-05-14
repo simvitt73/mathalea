@@ -2,7 +2,6 @@ import { codageSegment } from '../../../lib/2d/codages'
 import { courbe } from '../../../lib/2d/courbes'
 import { milieu, point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
@@ -19,6 +18,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'CAN Seconde sujet 2021'
 export const interactifReady = true

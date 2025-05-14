@@ -1,11 +1,11 @@
 import { base10VersBaseN } from '../exercices/PE/PEA13'
-import { segment } from '../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../lib/2d/textes'
 import { nombreDeChiffresDansLaPartieEntiere, ordreDeGrandeur } from '../lib/outils/nombres'
 import Decimal from 'decimal.js'
 import { context } from './context'
 import { fixeBordures, mathalea2d } from './2dGeneralites'
 import { texNombre } from '../lib/outils/texNombre'
+import {segment} from "../lib/2d/segments.js";
 /**
  *
  * Pose une opération

@@ -1,6 +1,5 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { Point, point, tracePoint } from '../../lib/2d/points'
-import { demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -11,6 +10,9 @@ import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '.
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 import { angle } from '../../lib/2d/angles-mesures'
+import {angle} from "../../lib/2d/angles-vecteurs";
+import {demiDroite} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'AMCHybride'

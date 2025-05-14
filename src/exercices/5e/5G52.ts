@@ -4,7 +4,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 
 import { labelPoint, Latex2d, TexteParPoint } from '../../lib/2d/textes'
 import { fixeBordures, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
-import { longueur, Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
 import { texNombre } from '../../lib/outils/texNombre'
 import { NommePolygone, Polygone, polygone, Polyline } from '../../lib/2d/polygones'
@@ -16,6 +16,8 @@ import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { Cylindre, cylindre } from '../../lib/2d/projections3d'
+import {Segment, segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Calculer des longueurs avec un patron de cylindre'
 

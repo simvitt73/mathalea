@@ -1,4 +1,4 @@
-import { Segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
@@ -11,6 +11,7 @@ import { orangeMathalea } from '../../lib/colors'
 import type { Figure2D } from '../../lib/2d/Figures2D'
 import { point } from '../../lib/2d/points'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import {Segment} from "../../lib/2d/segments";
 
 export const titre = 'Reconnaitre des figures symétriques'
 export const interactifReady = true

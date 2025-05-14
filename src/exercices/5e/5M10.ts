@@ -3,7 +3,6 @@ import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { milieu, point, pointAdistance } from '../../lib/2d/points'
 import { parallelogramme2points1hauteur } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -11,6 +10,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Aire du parallélogramme'
 

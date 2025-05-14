@@ -1,5 +1,4 @@
 import { codageSegments } from '../../../lib/2d/codages'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import { point, tracePoint } from '../../../lib/2d/points'
@@ -10,6 +9,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import ExerciceQcmA from '../../ExerciceQcmA'
 import { randint } from '../../../modules/outils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
+import {segment} from "../../../lib/2d/segments";
 
 export const uuid = '41a13'
 export const refs = {

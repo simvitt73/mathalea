@@ -4,9 +4,9 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { point } from '../../../lib/2d/points'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
-import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {Segment, segment} from "../../../lib/2d/segments";
 
 export const titre = 'Déterminer une fraction d\'aire'
 export const interactifReady = true

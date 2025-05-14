@@ -10,13 +10,14 @@ import { fraction } from '../../modules/fractions'
 import { egal } from '../../lib/outils/comparaisons'
 import { point } from '../2d/points'
 import { polygone } from '../2d/polygones'
-import { segment, vecteur } from '../2d/segmentsVecteurs'
+import { vecteur } from '../2d/vecteurs'
 import { translation } from '../2d/transformations'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
 import engine from '../interactif/comparisonFunctions'
 import { Matrix, round } from 'mathjs'
 import { latex2d } from '../2d/textes'
+import { segment } from '../2d/segments'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote

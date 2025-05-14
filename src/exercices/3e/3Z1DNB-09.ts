@@ -9,11 +9,12 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 import { homothetie, similitude } from '../../lib/2d/transformations'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { polygone } from '../../lib/2d/polygones'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle, placeLatexSurSegment } from '../../lib/2d/codages'
 import { labelPoint } from '../../lib/2d/textes'
+
+import {longueur} from "../../lib/2d/mesures";
 
 export const uuid = 'fb6ed'
 export const refs = {

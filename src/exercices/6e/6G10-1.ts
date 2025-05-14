@@ -1,6 +1,5 @@
 import { Droite, droite } from '../../lib/2d/droites'
 import { Point, point, tracePointSurDroite } from '../../lib/2d/points'
-import { DemiDroite, demiDroite, Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -9,6 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
+import {DemiDroite, demiDroite, Segment, segment} from "../../lib/2d/segments";
 
 export const titre = 'Donner description et notation de droites, segments et demi-droites'
 export const amcReady = true

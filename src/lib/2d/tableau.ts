@@ -1,13 +1,13 @@
 import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { milieu, point, Point } from './points'
 import { polygone, Polyline, polyline } from './polygones'
-import { Segment, segment } from './segmentsVecteurs'
 import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
 import { context } from '../../modules/context'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
 import { MathfieldElement } from 'mathlive'
 import './tableau2x2.scss'
+import {Segment, segment} from "./segments";
 
 export type StyledText = { texte: string, gras?: boolean, math?: boolean, latex?: boolean, color?: string }
 

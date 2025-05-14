@@ -12,7 +12,6 @@ import {
   pointIntersectionLC
 } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import {combinaisonListes, range1} from '../../lib/outils/arrayOutils'
@@ -26,6 +25,9 @@ import { context } from '../../modules/context'
 import Exercice from '../Exercice'
 import { angle } from '../../lib/2d/angles-mesures'
 import { traceCompas } from '../../lib/2d/arc'
+import {angle} from "../../lib/2d/angles-vecteurs";
+import {segmentAvecExtremites} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const dateDeModifImportante = '18/01/2025'
 // Rémi Angot : Formulaire, affichage de la cible ou non, de la figure à main levée ou non et correction des erreurs

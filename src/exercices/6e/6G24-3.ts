@@ -2,7 +2,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { Point, point, tracePoint } from '../../lib/2d/points'
-import { longueur, segment, Vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -14,6 +14,8 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arrondi } from '../../lib/outils/nombres'
 import { traceCompas } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
 
 /**

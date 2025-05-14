@@ -3,7 +3,6 @@ import { afficheCoteSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -16,6 +15,8 @@ import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const dateDeModifImportante = '17/02/2025'
 export const amcReady = true

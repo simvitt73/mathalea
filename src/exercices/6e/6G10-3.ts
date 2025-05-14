@@ -1,6 +1,5 @@
 import { droite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
-import { demiDroite, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -9,6 +8,7 @@ import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import {demiDroite, segmentAvecExtremites} from "../../lib/2d/segments";
 export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono'

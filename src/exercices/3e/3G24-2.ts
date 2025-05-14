@@ -3,7 +3,6 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 // import { angle, angleOriente, MarqueAngle, MarqueAngleDroit } from '../../lib/2d/angles'
 import { MarqueAngle, markTypeArray } from '../../lib/2d/angles'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 // import { afficheLongueurSegment, texteSurSegment, placeLatexSurSegment } from '../../lib/2d/codages'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 
@@ -21,6 +20,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif' // foncti
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

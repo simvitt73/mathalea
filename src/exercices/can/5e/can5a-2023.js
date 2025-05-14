@@ -4,7 +4,6 @@ import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { pave } from '../../../lib/2d/projections3d'
 import { droiteGraduee } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -27,6 +26,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true

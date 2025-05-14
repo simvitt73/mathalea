@@ -7,10 +7,11 @@ import { axeY, labelY, pointDansRepere, Repere } from './reperes'
 import { texcolors } from '../format/style'
 import { combinaisonListes } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
-import { segment, vecteur } from './segmentsVecteurs'
 import { latexParPoint, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import { arc } from './arc'
+import { segment } from './segments'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  * Trace un graphique cartésien dans un repère
@@ -494,7 +495,7 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
     this.y = y
     const centre = point(this.x + rayon, this.y + (semi ? 0 : rayon))
     const depart = point(this.x + 2 * rayon, (semi ? this.y : this.y + rayon))
-    const contour = semi ? arc(translation(centre, vecteur(rayon, 0)), centre, 180, true, 'white', 'black') : cercle(centre, rayon, 'black')
+    const contour = semi ? arc(translation(centre, vecteurAbstrait(rayon, 0)), centre, 180, true, 'white', 'black') : cercle(centre, rayon, 'black')
     let positionLegende // On prévoit l'emplacement de la légende si celle-ci est demandée
     switch (legendePosition) {
       case 'droite':
@@ -548,14 +549,14 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
       // on crée les légendes
       switch (legendePosition) {
         case 'droite':
-          legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-          textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+          legende = carre(translation(T, vecteurAbstrait(0, 1.5 * i)), translation(T, vecteurAbstrait(1, 1.5 * i)), 'black')
+          textelegende = texteParPoint(labels[i], translation(T, vecteurAbstrait(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
           legendeMax = Math.max(legendeMax, labels[i].length * 0.6)
           break
         default:
-          legende = carre(T, translation(T, vecteur(1, 0)), 'black')
-          textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
-          T = translation(T, vecteur(labels[i].length * 0.6 + 1, 0))
+          legende = carre(T, translation(T, vecteurAbstrait(1, 0)), 'black')
+          textelegende = texteParPoint(labels[i], translation(T, vecteurAbstrait(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+          T = translation(T, vecteurAbstrait(labels[i].length * 0.6 + 1, 0))
           legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
           break
       }

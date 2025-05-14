@@ -1,6 +1,6 @@
 import { codageSegment } from '../../lib/2d/codages'
 import { Point, tracePoint } from '../../lib/2d/points'
-import { Segment, segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Vecteur, vecteur } from '../../lib/2d/vecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
 import { shuffle } from '../../lib/outils/arrayOutils'
@@ -14,6 +14,7 @@ import { egal } from '../../lib/outils/comparaisons'
 import { translationAnimee } from '../../modules/2dAnimation'
 import { Pavage, pavage } from '../../modules/Pavage'
 import type { Polygone } from '../../lib/2d/polygones'
+import {Segment, segment} from "../../lib/2d/segments";
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**

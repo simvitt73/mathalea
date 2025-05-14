@@ -11,9 +11,9 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { afficheLongueurSegment, codageSegment } from '../../lib/2d/codages'
 import { polygone } from '../../lib/2d/polygones'
-import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
+import {segment, segmentAvecExtremites} from "../../lib/2d/segments";
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un produit scalaire avec une projetction'

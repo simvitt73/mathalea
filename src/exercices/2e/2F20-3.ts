@@ -1,7 +1,6 @@
 import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -14,6 +13,7 @@ import { inferieurouegal, superieurouegal } from '../../lib/outils/comparaisons'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true

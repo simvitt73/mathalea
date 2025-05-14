@@ -1,5 +1,5 @@
 import { pointSurSegment, tracePoint } from '../../lib/2d/points'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -9,6 +9,8 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { pave3d, point3d } from '../../modules/3d'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {segment} from "../../lib/2d/segments.js";
+import {longueur} from "../../lib/2d/mesures.js";
 export const titre = 'Construire la section d\'un plan dans un un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCOpen'

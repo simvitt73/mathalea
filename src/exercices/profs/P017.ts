@@ -2,7 +2,7 @@ import { cercle } from '../../lib/2d/cercle'
 import { droite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
@@ -13,6 +13,8 @@ import { mathalea2d, colorToLatexOrHTML, type NestedObjetMathalea2dArray } from 
 import { listeQuestionsToContenu } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
+
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Encadrer l\'aire d\'un disque'
 
 export const refs = {

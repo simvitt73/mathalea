@@ -1,7 +1,7 @@
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
 import { Point, point } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { TexteParPoint, texteParPointEchelle } from '../../lib/2d/textes'
 import { rotation, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { centreGraviteTriangle } from '../../lib/2d/triangle'

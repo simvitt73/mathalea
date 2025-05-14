@@ -1,7 +1,5 @@
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
@@ -17,6 +15,9 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
+
+import {longueur} from "../../lib/2d/mesures";
 
 export const amcReady = true
 export const amcType = 'AMCHybride'

@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { milieu, point } from '../../../lib/2d/points'
 import { codageSegment } from '../../../lib/2d/codages'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { polygone } from '../../../lib/2d/polygones'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
@@ -11,6 +10,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { sp } from '../../../lib/outils/outilString'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Calculer une aire'
 export const interactifReady = true

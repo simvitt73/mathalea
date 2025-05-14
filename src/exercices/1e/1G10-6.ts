@@ -8,12 +8,12 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { texteSurSegment } from '../../lib/2d/codages'
 import { texNombre } from '../../lib/outils/texNombre'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { abs } from '../../lib/outils/nombres'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec les normes'

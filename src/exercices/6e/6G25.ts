@@ -3,7 +3,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire, positionLabelDroite } from '../../lib/2d/droites'
 import { Point, point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
-import { norme, segmentAvecExtremites, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Vecteur, vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -12,6 +12,8 @@ import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arrondi } from '../../lib/outils/nombres'
+import {segmentAvecExtremites} from "../../lib/2d/segments";
+import {norme} from "../../lib/2d/vecteurs-abstraits";
 
 export const dateDePublication = '30/11/2020'
 export const dateDeModifImportante = '06/09/2024'

@@ -9,9 +9,11 @@ import { arrondi } from '../outils/nombres'
 import { Cercle, cercle } from './cercle'
 import { droite, Droite, droiteParPointEtPerpendiculaire, Mediatrice } from './droites'
 import { carre, Polygone, polygone } from './polygones'
-import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, similitude } from './transformations'
 import { PointSimple } from './points-simples'
+import { DemiDroite, Segment, segment } from './segments'
+import { longueur } from './mesures'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  * Un point avec toutes les fonctionnalités estSur... etc.
@@ -88,9 +90,9 @@ export class Point extends ObjetMathalea2D {
      */
   // JSDOC Validee par EE Aout 2022
   estDansTriangle (A: Point, B: Point, C: Point): boolean {
-    const vMA = vecteur(this, A)
-    const vMB = vecteur(this, B)
-    const vMC = vecteur(this, C)
+    const vMA = vecteurAbstrait(this, A)
+    const vMB = vecteurAbstrait(this, B)
+    const vMC = vecteurAbstrait(this, C)
     const x1 = vMB.x * vMC.y - vMB.y * vMC.x
     const x2 = vMC.x * vMA.y - vMC.y * vMA.x
     const x3 = vMA.x * vMB.y - vMA.y * vMB.x
@@ -153,8 +155,8 @@ export class Point extends ObjetMathalea2D {
       return (egal(prodvect, 0, 0.01) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB))
     }
     if (objet instanceof DemiDroite) {
-      const OM = vecteur(objet.extremite1, this)
-      const vd = vecteur(objet.extremite1, objet.extremite2)
+      const OM = vecteurAbstrait(objet.extremite1, this)
+      const vd = vecteurAbstrait(objet.extremite1, objet.extremite2)
       const prodscal = OM.x * vd.x + OM.y * vd.y
       const prodvect = OM.x * vd.y - OM.y * vd.x
       return (egal(prodvect, 0, 0.01) && superieurouegal(prodscal, 0, 0.01))
@@ -175,7 +177,7 @@ export function point (x: number, y: number, A = '', positionLabel = 'above') {
   return new Point(x, y, A, positionLabel)
 }
 
-export function pointDepuisPointSimple (A: PointSimple) {
+export function pointSimpleVersPoint (A: PointSimple) {
   if (A instanceof Point) return A
   return new Point(A.x, A.y)
 }

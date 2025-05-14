@@ -5,8 +5,8 @@ import { grille } from '../../../lib/2d/reperes'
 import { point, tracePoint } from '../../../lib/2d/points'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { randint } from '../../../modules/outils'
+import {segment, segmentAvecExtremites} from "../../../lib/2d/segments";
 export const titre = 'Calculer une longueur sur une grille'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { droite } from '../../lib/2d/droites.js'
-import { vecteur, longueur } from '../../lib/2d/segmentsVecteurs.js'
+import { vecteur } from '../../lib/2d/vecteurs.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { projectionOrtho } from '../../lib/2d/transformations.js'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
@@ -13,6 +13,8 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Calculer des produits scalaires par projection'
 export const interactifReady = true

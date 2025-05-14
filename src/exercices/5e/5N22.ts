@@ -1,7 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { Point, point } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { shuffle } from '../../lib/outils/arrayOutils'
@@ -12,6 +11,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {segment} from "../../lib/2d/segments";
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
 /**

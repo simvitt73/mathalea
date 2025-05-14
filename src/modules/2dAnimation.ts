@@ -2,10 +2,11 @@ import type { Droite, Mediatrice } from '../lib/2d/droites'
 import type { Point } from '../lib/2d/points'
 import type { PointSimple } from '../lib/2d/points-simples'
 import type { Polygone } from '../lib/2d/polygones'
-import type { DemiDroite, Segment, Vecteur } from '../lib/2d/segmentsVecteurs'
+import type { Vecteur } from '../lib/2d/vecteurs'
 import { affiniteOrtho, homothetie, rotation, symetrieAxiale, translation } from '../lib/2d/transformations'
 import { arrondi } from '../lib/outils/nombres'
 import { fixeBordures, ObjetMathalea2D } from './2dGeneralites'
+import {DemiDroite, Segment} from "../lib/2d/segments";
 
 /**
  * Rend visible un element d'après son id

@@ -13,7 +13,6 @@ import {
   tracePoint
 } from '../../lib/2d/points'
 import { Polygone, polygone, polygoneRegulier } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
 import { labelPoint, TexteParPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -28,6 +27,7 @@ import { texTexte } from '../../lib/format/texTexte'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import { arc } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

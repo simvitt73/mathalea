@@ -8,7 +8,7 @@ import {
 import { Point, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
 import { grille, seyes } from '../../lib/2d/reperes'
-import { longueur, norme, segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Vecteur, vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { aireTriangle } from '../../lib/2d/triangle'
@@ -18,6 +18,9 @@ import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils'
 import { context } from '../../modules/context'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
+import {norme} from "../../lib/2d/vecteurs-abstraits";
 export const dateDeModifImportante = '14/11/2021'
 export const amcReady = true
 export const amcType = 'AMCOpen'

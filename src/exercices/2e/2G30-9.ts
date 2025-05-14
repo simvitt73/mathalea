@@ -11,10 +11,11 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { min, max } from 'mathjs'
 import { abs } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import type Point from 'apigeom/src/elements/points/Point'
 import { orangeMathalea } from '../../lib/colors'
 import { context } from '../../modules/context'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Tracer une droite à partir d\'un point et d\'un coefficient directeur ou d\'un vecteur directeur'
 export const dateDePublication = '09/03/2025'

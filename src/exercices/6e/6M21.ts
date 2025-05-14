@@ -2,7 +2,7 @@ import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import { milieu, Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { homothetie, projectionOrtho, rotation, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -15,6 +15,8 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
 import { arc } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const dateDePublication = '08/06/2022'
 export const dateDeModifImportante = '22/01/2025'

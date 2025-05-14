@@ -1,10 +1,8 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { codageSegments } from '../../lib/2d/codages'
 import { Droite, droite, mediatrice } from '../../lib/2d/droites'
 import { Point, point, pointAdistance, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { affiniteOrtho, rotation, similitude, translation2Points } from '../../lib/2d/transformations'
 import { shuffle } from '../../lib/outils/arrayOutils'
@@ -12,6 +10,9 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export default class UtiliserLeCodagePourDecrire extends Exercice {
   classe: number

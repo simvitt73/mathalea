@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { Vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Vecteur } from '../../lib/2d/vecteurs'
 import { Point, milieu } from '../../lib/2d/points'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { droite, Droite } from '../../lib/2d/droites'

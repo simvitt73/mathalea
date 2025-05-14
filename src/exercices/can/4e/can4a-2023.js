@@ -1,7 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -27,6 +26,7 @@ import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 4e sujet 2023'
 export const interactifReady = true

@@ -15,9 +15,10 @@ import {
   pointSurSegment
 } from './points'
 import { Polygone, polygone } from './polygones'
-import { longueur } from './segmentsVecteurs'
 import { projectionOrtho, rotation, similitude } from './transformations'
 import type { PointSimple } from './points-simples'
+
+import {longueur} from "./mesures";
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H

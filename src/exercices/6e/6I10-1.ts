@@ -1,7 +1,6 @@
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { degCos, degSin } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -9,6 +8,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
+import {segment} from "../../lib/2d/segments";
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

@@ -1,5 +1,4 @@
 import { BoiteBuilder } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { createList } from '../../lib/format/lists'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -10,6 +9,7 @@ import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = '972f7'
 export const refs = {

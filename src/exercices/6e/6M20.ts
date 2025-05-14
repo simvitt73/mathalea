@@ -2,7 +2,6 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheCoteSegment, afficheLongueurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points1hauteur } from '../../lib/2d/triangle'
 import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
@@ -18,6 +17,8 @@ import Grandeur from '../../modules/Grandeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Calculer l\'aire de triangles'
 export const interactifReady = true

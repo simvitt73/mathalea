@@ -2,7 +2,6 @@ import { codageSegment } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -20,6 +19,7 @@ import { handleAnswers, setReponse } from '../../../lib/interactif/gestionIntera
 import Hms from '../../../modules/Hms'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 6e sujet 2021'
 export const interactifReady = true

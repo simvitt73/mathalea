@@ -1,9 +1,8 @@
-import { codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles'
+import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -25,6 +24,8 @@ import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { angleModulo } from '../../../lib/2d/angles-mesures'
 import { arc } from '../../../lib/2d/arc.js'
+import {segment} from "../../../lib/2d/segments.js";
+import {rapporteur} from "../../../lib/2d/rapporteur.js";
 
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true

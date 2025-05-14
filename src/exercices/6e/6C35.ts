@@ -1,6 +1,5 @@
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import {choice, range, rangeMinMax, shuffle} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -14,6 +13,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true

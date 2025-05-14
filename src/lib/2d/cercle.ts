@@ -1,8 +1,9 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { pattern } from './polygones'
-import { longueur } from './segmentsVecteurs'
 import MainLevee from './MainLevee'
 import type { PointSimple } from './points-simples'
+
+import {longueur} from "./mesures";
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r

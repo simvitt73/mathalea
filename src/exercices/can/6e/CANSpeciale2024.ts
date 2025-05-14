@@ -4,7 +4,6 @@ import { arrondi, abs } from '../../../lib/outils/nombres'
 import { codageSegments } from '../../../lib/2d/codages'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition, labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
@@ -21,6 +20,7 @@ import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -7,7 +7,8 @@ import { Polygone } from '../../../lib/2d/polygones'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { latexParCoordonnees } from '../../../lib/2d/textes'
 import { codageAngleDroit } from '../../../lib/2d/angles'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
+
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer le périmètre d\'un rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

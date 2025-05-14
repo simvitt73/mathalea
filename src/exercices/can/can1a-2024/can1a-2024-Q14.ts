@@ -4,11 +4,11 @@ import { randint } from '../../../modules/outils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { point, tracePoint } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { droite } from '../../../lib/2d/droites'
 import { repere } from '../../../lib/2d/reperes'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Déterminer une équation réduite de droite'
 export const interactifReady = true

@@ -3,7 +3,6 @@ import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
 import { Plot, plot, point, tracePoint } from './points'
-import { segment } from './segmentsVecteurs'
 import {
   latex2d,
   latexParCoordonnees,
@@ -11,6 +10,7 @@ import {
   texteParPosition
 } from './textes'
 import {rangeMinMax} from "../outils/arrayOutils";
+import {segment} from "./segments";
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades

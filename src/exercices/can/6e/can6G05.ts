@@ -1,11 +1,11 @@
 import { codageSegments } from '../../../lib/2d/codages'
 import { droite } from '../../../lib/2d/droites'
 import { point, tracePointSurDroite } from '../../../lib/2d/points'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
+import {segment, segmentAvecExtremites} from "../../../lib/2d/segments";
 export const titre = 'Résoudre un problème de longueurs (inverse)'
 export const dateDePublication = '2/11/2021'
 export const interactifReady = true

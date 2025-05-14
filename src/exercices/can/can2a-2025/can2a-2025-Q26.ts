@@ -7,9 +7,9 @@ import { repere } from '../../../lib/2d/reperes'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { droite } from '../../../lib/2d/droites'
 import { latex2d } from '../../../lib/2d/textes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true

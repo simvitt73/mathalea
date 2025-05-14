@@ -1,5 +1,4 @@
 import { point, tracePoint } from '../../lib/2d/points'
-import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -17,6 +16,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
+import {Segment, segment} from "../../lib/2d/segments";
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {

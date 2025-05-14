@@ -2,7 +2,6 @@ import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { Point, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, symetrieAxiale } from '../../lib/2d/transformations'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -16,8 +15,11 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
-import { angle, angleOriente } from '../../lib/2d/angles-mesures'
+import { angle } from '../../lib/2d/angles-mesures'
 import { arc } from '../../lib/2d/arc'
+import {angle, angleOriente} from "../../lib/2d/angles-vecteurs";
+import {segmentAvecExtremites} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
 // Gestion de la date de publication initiale

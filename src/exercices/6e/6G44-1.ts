@@ -1,6 +1,5 @@
 import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d'
-import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
@@ -25,6 +24,7 @@ import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGener
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import type { Latex2d } from '../../lib/2d/textes'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const titre = 'Reconnaître des solides'
 export const dateDePublication = '24/09/2022'

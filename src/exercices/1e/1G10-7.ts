@@ -17,7 +17,8 @@ import { nommePolygone, Polygone } from '../../lib/2d/polygones'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { pi } from 'mathjs'
-import { angle, angleOriente } from '../../lib/2d/angles-mesures'
+import { angle } from '../../lib/2d/angles-mesures'
+import {angle, angleOriente} from "../../lib/2d/angles-vecteurs";
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Utiliser la formule d\'Al-Kashi'

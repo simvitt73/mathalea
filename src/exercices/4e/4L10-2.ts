@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,6 +10,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {segment} from "../../lib/2d/segments";
 export const titre = 'Donner l\'expression littérale d\'un périmètre et d\'une aire de quadrilatère'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

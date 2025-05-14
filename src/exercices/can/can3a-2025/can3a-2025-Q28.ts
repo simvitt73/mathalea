@@ -2,11 +2,11 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { milieu, point } from '../../../lib/2d/points'
 import { ellipse } from '../../../lib/2d/projections3d'
 import { latex2d } from '../../../lib/2d/textes'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer le volume d\'un cylindre'
 export const interactifReady = true
 export const interactifType = 'mathLive'

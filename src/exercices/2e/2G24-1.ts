@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { Repere, repere } from '../../lib/2d/reperes'
-import { nomVecteurParPosition, Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { nomVecteurParPosition, vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -14,6 +14,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

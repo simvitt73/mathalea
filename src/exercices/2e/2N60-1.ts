@@ -1,7 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { milieu, point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -20,6 +19,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils'
+import {segment} from "../../lib/2d/segments";
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

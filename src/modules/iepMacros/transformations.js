@@ -1,9 +1,11 @@
 import { milieu } from '../../lib/2d/points'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { arrondi } from '../../lib/outils/nombres'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { randint } from '../outils'
+
+import { longueur } from '../../lib/2d/mesures.js'
+import { vecteurAbstrait } from '../../lib/2d/vecteurs-abstraits'
 
 /**
    *
@@ -69,7 +71,7 @@ export const rotationPoint = function (p, centre, angle, nom, { couleur = this.c
       this.codageAngleDroit(p, centre, image, { couleur: couleurCodage })
     } else {
       this.angleCodage(p, centre, image, { couleur: couleurCodage })
-      this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p, centre, angle / 2), centre, 1.3 / longueur(centre, p)), vecteur(-0.2, 0.5)))
+      this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p, centre, angle / 2), centre, 1.3 / longueur(centre, p)), vecteurAbstrait(-0.2, 0.5)))
     }
   }
 }
@@ -118,7 +120,7 @@ export const rotationPoint = function (p, centre, angle, nom, { couleur = this.c
    * @author Jean-Claude Lhote
    */
 export const translationPoint = function (p, A, B, nom, { couleur = 'black', couleurCodage = this.couleurCodage } = {}) {
-  const v = vecteur(A, B)
+  const v = vecteurAbstrait(A, B)
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
   this.couleur = 'gray'
   if (nom === undefined || nom === '') {
@@ -294,7 +296,7 @@ export const symetrieAxialePolygone = function (p, d, noms = [], { couleur = thi
 */
 export const translationPolygone = function (p, A, B, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = 'O' } = {}) {
   let nom
-  const v = vecteur(A, B)
+  const v = vecteurAbstrait(A, B)
   const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
   this.couleur = 'gray'

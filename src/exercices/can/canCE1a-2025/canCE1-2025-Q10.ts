@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { milieu, point } from '../../../lib/2d/points'
 import { ellipse } from '../../../lib/2d/projections3d'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Vocabulaire dans un solide (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

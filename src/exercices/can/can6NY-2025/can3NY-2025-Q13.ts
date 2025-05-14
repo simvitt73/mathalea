@@ -8,7 +8,8 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { milieu, point } from '../../../lib/2d/points'
 import { latex2d } from '../../../lib/2d/textes'
 import { codageSegments } from '../../../lib/2d/codages'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
+
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Trouver une longuer'
 export const interactifReady = true
 export const interactifType = 'mathLive'

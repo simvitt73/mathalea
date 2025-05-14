@@ -6,12 +6,12 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { labelPoint } from '../../lib/2d/textes'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import type { Matrix } from 'mathjs'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

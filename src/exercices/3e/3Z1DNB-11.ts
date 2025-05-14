@@ -7,7 +7,6 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { polygone } from '../../lib/2d/polygones'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
@@ -20,6 +19,7 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 import { prenomM } from '../../lib/outils/Personne'
 import { context } from '../../modules/context'
 import { arc } from '../../lib/2d/arc'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = 'fb6ee'
 export const refs = {

@@ -4,14 +4,17 @@ import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
-import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
+import { Vecteur } from './vecteurs'
 import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
 import { lettreDepuisChiffre } from '../outils/outilString'
 import { codageSegments } from './codages'
 import { codageAngleDroit } from './angles'
-import {rangeMinMax} from "../outils/arrayOutils";
+import { rangeMinMax } from '../outils/arrayOutils'
+import { segment } from './segments'
+import { longueur } from './mesures'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 type BinomeXY = { x: number, y: number }
 type BinomesXY = BinomeXY[]
@@ -862,7 +865,7 @@ export function polygoneATrous ({
  * @return {PolygoneAvecNom}
  */
 export function parallelogramme3points (nom:string, A: Point, B: Point, C: Point) {
-  const D = translation(A, vecteur(B, C), nom[3])
+  const D = translation(A, vecteurAbstrait(B, C), nom[3])
   A.nom = nom[0]
   B.nom = nom[1]
   C.nom = nom[2]
@@ -887,8 +890,8 @@ export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, 
   B.nom = nom[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10) as Vecteur, nom[3])
-  const C = translation(D, vecteur(A, B), nom[2])
+  const D = translation(H, homothetie(vecteurAbstrait(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10) as Vecteur, nom[3])
+  const C = translation(D, vecteurAbstrait(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
 }
 
@@ -1318,7 +1321,7 @@ export class Polyquad {
     } while ((aireTotale - aireExt !== aire) && cpt < 100)
     this.complexity = aireExt / aireTotale
 
-    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(xOrigine, yOrigine))
+    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteurAbstrait(xOrigine, yOrigine))
     this.poly.color = colorToLatexOrHTML('red')
     this.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
     this.poly.epaisseur = 2
@@ -1370,7 +1373,7 @@ export class Polyquad {
     tetris2.carresAdjacentsDispo = JSON.parse(JSON.stringify(casesAdjacentesDispo))
     tetris2.complexity = aireExt / aireTotale
 
-    tetris2.poly = translation(polygone(tetris2.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(tetris2.xOrigine, tetris2.yOrigine))
+    tetris2.poly = translation(polygone(tetris2.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteurAbstrait(tetris2.xOrigine, tetris2.yOrigine))
     tetris2.poly.color = colorToLatexOrHTML('red')
     tetris2.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
     tetris2.poly.epaisseur = 2
@@ -1425,7 +1428,7 @@ export class Polyquad {
     // permet de renseigner this.dots (la liste des sommets.)
     this.detoure()
 
-    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(this.xOrigine, this.yOrigine))
+    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteurAbstrait(this.xOrigine, this.yOrigine))
     this.poly.color = colorToLatexOrHTML('red')
     this.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
     this.poly.epaisseur = 2

@@ -1,7 +1,6 @@
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { droiteGraduee } from '../../../lib/2d/reperes'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -23,6 +22,7 @@ import { min, round } from 'mathjs'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment, segmentAvecExtremites} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 6e sujet 2018'
 export const interactifReady = true

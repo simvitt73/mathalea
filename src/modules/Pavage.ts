@@ -1,10 +1,10 @@
 import { Point, point, TracePoint, tracePoint } from '../lib/2d/points'
 import { barycentre, Polygone, polygone, polygoneRegulier } from '../lib/2d/polygones'
-import { vecteur } from '../lib/2d/segmentsVecteurs'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
 import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { egal } from '../lib/outils/comparaisons'
+import { vecteurAbstrait } from '../lib/2d/vecteurs-abstraits'
 
 /**
  * Classe Pavage : permet de créer des pavages de polygones en un tour de main et de manipuler les polygones qu'il contient
@@ -86,7 +86,7 @@ export class Pavage {
     B = point(taille, 0)
     switch (type) {
       case 1: // triangles équilatéraux
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         w = rotation(v, A, -90)
         w = homothetie(w, A, 1.73205)
         for (let k = 0; k < Ny; k++) {
@@ -123,15 +123,15 @@ export class Pavage {
             A = translation(A, v)
             B = translation(B, v)
           }
-          A = translation(A, vecteur(-Nx * v.x, -2 * v.y))
-          B = translation(B, vecteur(-Nx * v.x, -2 * v.y))
+          A = translation(A, vecteurAbstrait(-Nx * v.x, -2 * v.y))
+          B = translation(B, vecteurAbstrait(-Nx * v.x, -2 * v.y))
           A = translation(A, w)
           B = translation(B, w)
         }
         break
 
       case 2: // carrés
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         v = homothetie(v, A, 2)
         w = rotation(v, A, -90)
         for (let k = 0; k < Ny; k++) {
@@ -169,8 +169,8 @@ export class Pavage {
             A = translation(A, v)
             B = translation(B, v)
           }
-          A = translation(A, vecteur(-Nx * v.x, -2 * v.y))
-          B = translation(B, vecteur(-Nx * v.x, -2 * v.y))
+          A = translation(A, vecteurAbstrait(-Nx * v.x, -2 * v.y))
+          B = translation(B, vecteurAbstrait(-Nx * v.x, -2 * v.y))
           A = translation(A, w)
           B = translation(B, w)
         }
@@ -178,7 +178,7 @@ export class Pavage {
 
       case 3: // hexagones
         B = homothetie(B, A, 0.8)
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         v = homothetie(v, A, 2)
         w = rotation(v, A, -90)
         w = homothetie(w, A, 1.73205)
@@ -215,16 +215,16 @@ export class Pavage {
               YMIN = Math.min(YMIN, p.y)
               YMAX = Math.max(YMAX, p.y)
             }
-            A = translation(A, vecteur(2 * v.x, 0))
-            B = translation(B, vecteur(2 * v.x, 0))
+            A = translation(A, vecteurAbstrait(2 * v.x, 0))
+            B = translation(B, vecteurAbstrait(2 * v.x, 0))
           }
-          A = translation(A, vecteur(-Nx * 2 * v.x, w.y))
-          B = translation(B, vecteur(-Nx * 2 * v.x, w.y))
+          A = translation(A, vecteurAbstrait(-Nx * 2 * v.x, w.y))
+          B = translation(B, vecteurAbstrait(-Nx * 2 * v.x, w.y))
         }
         break
 
       case 4: // Pavage 3².4.3.4
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         v = homothetie(v, A, 2.73205)
         w = rotation(v, A, -90)
         for (let k = 0; k < Ny; k++) {
@@ -319,15 +319,15 @@ export class Pavage {
               YMIN = Math.min(YMIN, p.y)
               YMAX = Math.max(YMAX, p.y)
             }
-            A = translation(A, vecteur(v.x, 0))
-            B = translation(B, vecteur(v.x, 0))
+            A = translation(A, vecteurAbstrait(v.x, 0))
+            B = translation(B, vecteurAbstrait(v.x, 0))
           }
-          A = translation(A, vecteur(-Nx * v.x, w.y))
-          B = translation(B, vecteur(-Nx * v.x, w.y))
+          A = translation(A, vecteurAbstrait(-Nx * v.x, w.y))
+          B = translation(B, vecteurAbstrait(-Nx * v.x, w.y))
         }
         break
       case 5: // 4.8²
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         v = homothetie(v, A, 2.4142)
         w = rotation(v, A, -90)
 
@@ -393,18 +393,18 @@ export class Pavage {
               YMAX = Math.max(YMAX, p.y)
             }
 
-            A = translation(A, vecteur(2 * v.x, 0))
-            B = translation(B, vecteur(2 * v.x, 0))
+            A = translation(A, vecteurAbstrait(2 * v.x, 0))
+            B = translation(B, vecteurAbstrait(2 * v.x, 0))
           }
-          A = translation(A, vecteur(-Nx * 2 * v.x, 2 * w.y))
-          B = translation(B, vecteur(-Nx * 2 * v.x, 2 * w.y))
+          A = translation(A, vecteurAbstrait(-Nx * 2 * v.x, 2 * w.y))
+          B = translation(B, vecteurAbstrait(-Nx * 2 * v.x, 2 * w.y))
         }
         break
 
       case 6: // Pavage hexagonal d'écolier
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         w = rotation(v, A, 60)
-        v = vecteur(v.x + w.x, v.y + w.y) // v=AB+CB
+        v = vecteurAbstrait(v.x + w.x, v.y + w.y) // v=AB+CB
         w = rotation(v, A, -60)
 
         for (let k = 0; k < Ny; k++) {
@@ -476,16 +476,16 @@ export class Pavage {
               YMIN = Math.min(YMIN, p.y)
               YMAX = Math.max(YMAX, p.y)
             }
-            A = translation(A, vecteur(w.x + v.x, w.y + v.y))
-            B = translation(B, vecteur(w.x + v.x, w.y + v.y))
+            A = translation(A, vecteurAbstrait(w.x + v.x, w.y + v.y))
+            B = translation(B, vecteurAbstrait(w.x + v.x, w.y + v.y))
           }
-          A = translation(A, vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
-          B = translation(B, vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
+          A = translation(A, vecteurAbstrait(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
+          B = translation(B, vecteurAbstrait(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
         }
         break
       case 7:
       default:
-        v = vecteur(A, B)
+        v = vecteurAbstrait(A, B)
         v = homothetie(v, A, 2)
         w = rotation(v, A, -60)
 
@@ -540,8 +540,8 @@ export class Pavage {
             A = translation(A, v)
             B = translation(B, v)
           }
-          A = translation(A, vecteur(-Nx * v.x + 2 * w.x - v.x, 2 * w.y - v.y))
-          B = translation(B, vecteur(-Nx * v.x + 2 * w.x - v.x, 2 * w.y - v.y))
+          A = translation(A, vecteurAbstrait(-Nx * v.x + 2 * w.x - v.x, 2 * w.y - v.y))
+          B = translation(B, vecteurAbstrait(-Nx * v.x + 2 * w.x - v.x, 2 * w.y - v.y))
         }
         break
     }

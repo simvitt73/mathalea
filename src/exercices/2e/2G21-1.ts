@@ -1,6 +1,6 @@
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,6 +10,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { translationAnimee } from '../../modules/2dAnimation'
 import { context } from '../../modules/context'
+
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Construire un point à partir d\'une égalité vectorielle'
 export const dateDeModifImportante = '29/01/2023'
 

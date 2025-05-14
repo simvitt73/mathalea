@@ -3,7 +3,6 @@ import { droite } from '../../../lib/2d/droites'
 import { milieu, plot, point, tracePoint } from '../../../lib/2d/points'
 import { pave } from '../../../lib/2d/projections3d'
 import { repere } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -29,6 +28,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'CAN première sujet 2022'
 export const interactifReady = true

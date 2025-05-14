@@ -1,7 +1,7 @@
 import { Droite, droite, mediatrice } from '../../lib/2d/droites'
 import { milieu, point, pointAdistance, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, Polygone, polygone, polygoneAvecNom, renommePolygone } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import Exercice from '../Exercice'
@@ -10,6 +10,8 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation'
+
+import {longueur} from "../../lib/2d/mesures";
 
 export const titre = 'Tranformations de triangle'
 /**

@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { Latex2d, latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -17,6 +17,7 @@ import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {Segment, segment} from "../../lib/2d/segments";
 
 export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
 export const interactifReady = true

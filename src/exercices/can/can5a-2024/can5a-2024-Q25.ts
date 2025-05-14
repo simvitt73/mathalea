@@ -2,12 +2,13 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { rotation } from '../../../lib/2d/transformations'
-import { codageAngle, rapporteur } from '../../../lib/2d/angles'
+import { codageAngle } from '../../../lib/2d/angles'
 import { point, pointSurSegment } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment} from "../../../lib/2d/segments";
+import {rapporteur} from "../../../lib/2d/rapporteur";
 
 export const titre = 'Déterminer la mesure d\'un angle sur un rapporteur'
 export const interactifReady = true

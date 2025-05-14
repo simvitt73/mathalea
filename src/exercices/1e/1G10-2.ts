@@ -1,6 +1,5 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -14,6 +13,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { createList } from '../../lib/format/lists'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { arrondi } from '../../lib/outils/nombres'
+import {demiDroite} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

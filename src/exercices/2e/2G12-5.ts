@@ -7,7 +7,6 @@ import { context } from '../../modules/context'
 import Decimal from 'decimal.js'
 import { repere } from '../../lib/2d/reperes'
 import { prenom } from '../../lib/outils/Personne'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
@@ -19,6 +18,7 @@ import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGen
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

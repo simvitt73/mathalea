@@ -1,8 +1,6 @@
 // import iepLoadPromise from 'instrumenpoche'
-import { angleOriente } from '../lib/2d/angles-mesures'
 import { droite } from '../lib/2d/droites'
 import { milieu, point, pointAdistance, pointSurSegment } from '../lib/2d/points'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, translation, translation2Points } from '../lib/2d/transformations'
 import { context } from './context'
 import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables'
@@ -11,6 +9,10 @@ import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsec
 import { carre1point1longueur } from './iepMacros/quadrilateres'
 import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles'
+import { angleOriente } from '../lib/2d/angles-vecteurs.js'
+import { segment } from '../lib/2d/segments.js'
+import { longueur } from '../lib/2d/mesures.js'
+import {norme, vecteurAbstrait} from '../lib/2d/vecteurs-abstraits'
 
 const store = {}
 
@@ -1222,15 +1224,15 @@ export default class Alea2iep {
 
   longueurSegment (A, B, dy, options) {
     const l = longueur(A, B)
-    const v = vecteur(A, B)
-    const w = vecteur(-v.y * dy / norme(v), v.x * dy / norme(v))
-    const ancrage = translation(translation(pointSurSegment(A, B, l / 2 - 0.7), w), vecteur(0, 1))
+    const v = vecteurAbstrait(A, B)
+    const w = vecteurAbstrait(-v.y * dy / norme(v), v.x * dy / norme(v))
+    const ancrage = translation(translation(pointSurSegment(A, B, l / 2 - 0.7), w), vecteurAbstrait(0, 1))
     return this.textePoint(`${l} cm`, ancrage, options)
   }
 
   mesureAngle (A, O, B) {
     const a = angleOriente(A, O, B)
-    const C = translation(homothetie(rotation(A, O, a / 2), O, 1.3 / longueur(O, A)), vecteur(-0.2, 0.5))
+    const C = translation(homothetie(rotation(A, O, a / 2), O, 1.3 / longueur(O, A)), vecteurAbstrait(-0.2, 0.5))
     return this.textePoint(Math.abs(a) + '°', C)
   }
 

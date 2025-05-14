@@ -2,7 +2,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, type ObjetDivLatex } from 
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { point, Point, pointDepuisPointSimple } from './points'
+import { point, Point, pointSimpleVersPoint } from './points'
 import { Point3d } from '../../modules/3d'
 import { Polygone } from './polygones'
 import { PointSimple } from './points-simples'
@@ -246,7 +246,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     this.opacite = opacite
     this.couleurDeRemplissage = colorToLatexOrHTML(color)
     this.mathOn = mathOn
-    this.point = pointDepuisPointSimple(A)
+    this.point = pointSimpleVersPoint(A)
     this.gras = false
     this.contour = false
     this.opaciteDeRemplissage = opacite
@@ -345,7 +345,7 @@ export class TexteParPoint extends ObjetMathalea2D {
 export function texteParPoint (texte: string, A: PointSimple | PointSimple, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, opacite: number = 1) {
   let point: PointSimple
   if (A instanceof PointSimple) {
-    point = pointDepuisPointSimple(A)
+    point = pointSimpleVersPoint(A)
   } else {
     point = A
   }
@@ -380,7 +380,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
     this.contour = false
     this.mathOn = mathOn
     this.gras = false
-    this.point = pointDepuisPointSimple(A)
+    this.point = pointSimpleVersPoint(A)
     this.scale = scale
     this.scaleFigure = scaleFigure
     this.taille = 10 * scale

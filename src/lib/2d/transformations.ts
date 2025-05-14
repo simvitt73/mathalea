@@ -4,9 +4,11 @@ import { degToRad } from '../mathFonctions/trigo'
 import { Droite, droite, Mediatrice } from './droites'
 import { Point, point } from './points'
 import { Polygone, polygone } from './polygones'
-import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs'
+import { Vecteur } from './vecteurs'
 import { arc } from './arc'
 import { PointSimple } from './points-simples'
+import { Segment, segment } from './segments'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v
@@ -129,7 +131,7 @@ export function rotation<T extends PointSimple | Point | Droite | Segment | Poly
       A.y * Math.sin((angle * Math.PI) / 180)
   const y = A.x * Math.sin((angle * Math.PI) / 180) +
       A.y * Math.cos((angle * Math.PI) / 180)
-  const v = vecteur(x, y)
+  const v = vecteurAbstrait(x, y)
   return v as T
 }
 
@@ -222,7 +224,7 @@ export function homothetie<T extends PointSimple | Point | Droite | Segment | Po
   }
   const x = Objet.x
   const y = Objet.y
-  const v = vecteur(x * k, y * k)
+  const v = vecteurAbstrait(x * k, y * k)
   return v as T
 }
 
@@ -281,7 +283,7 @@ export function symetrieAxiale<T extends PointSimple | Point | Droite | Segment 
   } else O = point(0, -c / b)
   const M = translation(O, A)
   const N = symetrieAxiale(M, d)
-  const v = vecteur(O, N)
+  const v = vecteurAbstrait(O, N)
   return v as T
 }
 
@@ -313,7 +315,7 @@ export function projectionOrtho<T extends Point | Vecteur> (M:T, d: Droite, nom 
   else O = point(0, -c / b)
   const A = translation(O, M)
   const N = projectionOrtho(A, d)
-  const v = vecteur(O, N)
+  const v = vecteurAbstrait(O, N)
   return v as T
 }
 

@@ -1,7 +1,6 @@
 import { courbe } from '../../lib/2d/courbes'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -15,6 +14,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
 

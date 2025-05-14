@@ -7,8 +7,8 @@ import { milieu, point } from '../../../lib/2d/points'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { grille } from '../../../lib/2d/reperes'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {segment, segmentAvecExtremites} from "../../../lib/2d/segments";
 
 export const titre = 'Déterminer la longueur d\'une ligne brisée'
 export const interactifReady = true

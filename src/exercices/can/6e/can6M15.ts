@@ -1,13 +1,13 @@
 import { point } from '../../../lib/2d/points'
 import { Polyquad } from '../../../lib/2d/polygones'
 import { grille } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Mesurer un périmètre par comptage'
 export const dateDePublication = '25/04/2025'
 export const interactifReady = true

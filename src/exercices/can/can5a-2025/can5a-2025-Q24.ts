@@ -5,11 +5,12 @@ import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../../modules/2dGe
 import { Point, point, tracePointSurDroite } from '../../../lib/2d/points'
 import { codageSegments, placeLatexSurSegment } from '../../../lib/2d/codages'
 import { context } from '../../../modules/context'
-import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../../lib/2d/vecteurs'
 import { droite } from '../../../lib/2d/droites'
 import { labelPoint } from '../../../lib/2d/textes'
 import { translation } from '../../../lib/2d/transformations'
 import { texNombre } from '../../../lib/outils/texNombre'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Partage d\'un segment'
 export const interactifReady = true

@@ -2,11 +2,11 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { point } from '../../../lib/2d/points'
 import { texNombre } from '../../../lib/outils/texNombre'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Calculer une longueur avec Thalès'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,6 @@
 import { droite } from '../../../lib/2d/droites'
 import { Point, point, tracePoint } from '../../../lib/2d/points'
 import { papierPointe } from '../../../lib/2d/reperes'
-import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { symetrieAxiale } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
@@ -11,6 +10,8 @@ import { context } from '../../../modules/context'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+
+import {longueur} from "../../../lib/2d/mesures";
 
 export const titre = 'Compter les points symétriques manquant'
 export const dateDePublication = '18/12/2021'

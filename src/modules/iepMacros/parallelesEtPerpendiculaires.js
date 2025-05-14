@@ -1,8 +1,6 @@
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { cercle } from '../../lib/2d/cercle'
 import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { point, pointIntersectionLC, pointSurDroite, pointSurSegment } from '../../lib/2d/points'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import {
   homothetie,
   projectionOrtho,
@@ -11,6 +9,10 @@ import {
   translation,
   translation2Points
 } from '../../lib/2d/transformations'
+import { angleOriente } from '../../lib/2d/angles-vecteurs.js'
+
+import { longueur } from '../../lib/2d/mesures.js'
+import { vecteurAbstrait } from '../../lib/2d/vecteurs-abstraits'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
@@ -272,7 +274,7 @@ export const perpendiculaireCompasPoint = function (d, A, description) {
     A.nom = 'A'
   }
   this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
-  this.textePoint(d.nom, translation(pointSurDroite(d, 0), vecteur(0, -0.5)))
+  this.textePoint(d.nom, translation(pointSurDroite(d, 0), vecteurAbstrait(0, -0.5)))
   this.pointCreer(A)
   if (description) this.textePosition(`1. Choisir deux points B et C sur la droite ${d.nom}.`, 0, 11, { couleur: 'lightblue', tempo: 20 })
   this.tempo = 20

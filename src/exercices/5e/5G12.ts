@@ -1,6 +1,6 @@
 import { codageMilieu } from '../../lib/2d/codages'
 import { Point, TracePoint, tracePoint } from '../../lib/2d/points'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -17,6 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import type { Polygone } from '../../lib/2d/polygones'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 export const interactifReady = true

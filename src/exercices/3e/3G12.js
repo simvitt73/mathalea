@@ -1,6 +1,5 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { tracePoint } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -16,6 +15,7 @@ import { egal } from '../../lib/outils/comparaisons'
 import { pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import {segment} from "../../lib/2d/segments.js";
 
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 export const dateDePublication = '16/12/2020'

@@ -1,6 +1,5 @@
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { createList } from '../../lib/format/lists'
@@ -12,6 +11,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Arithmétique & volumes'
 

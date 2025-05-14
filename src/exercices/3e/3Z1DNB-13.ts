@@ -8,11 +8,11 @@ import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 import { labelPoint } from '../../lib/2d/textes'
 import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { egalOuApprox } from '../../lib/outils/ecritures'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = 'fb7ad'
 export const refs = {

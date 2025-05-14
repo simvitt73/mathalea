@@ -6,10 +6,10 @@ import { randint } from '../../../modules/outils'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { milieu, point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { codageSegments } from '../../../lib/2d/codages'
 import { latex2d } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
+import {segment} from "../../../lib/2d/segments";
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'

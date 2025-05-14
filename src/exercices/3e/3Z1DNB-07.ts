@@ -2,7 +2,6 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { createList } from '../../lib/format/lists'
@@ -15,6 +14,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = 'fb6e2'
 export const refs = {

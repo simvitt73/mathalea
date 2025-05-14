@@ -1,12 +1,12 @@
 import { codageSegments } from '../../../lib/2d/codages'
 import { point } from '../../../lib/2d/points'
-import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
+import {segmentAvecExtremites} from "../../../lib/2d/segments";
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'

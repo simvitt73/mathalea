@@ -4,12 +4,12 @@ import { estentier } from '../../modules/outils'
 import { inferieurouegal } from '../../lib/outils/comparaisons'
 import { Point, point, tracePoint } from './points'
 import { elimineBinomesXYIntermediairesAlignes, motifs, Polygone, polygone, polyline } from './polygones'
-import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { Repere } from './reperes'
 import type { Spline } from '../mathFonctions/Spline'
 import { tousDeMemeSigne } from '../outils/nombres'
 import { arc } from './arc'
+import {segment} from "./segments";
 
 export class LectureImage extends ObjetMathalea2D {
   x: number

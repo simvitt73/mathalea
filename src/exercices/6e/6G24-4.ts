@@ -1,7 +1,6 @@
 import { droite } from '../../lib/2d/droites'
 import { Point, point, TracePoint, tracePoint } from '../../lib/2d/points'
 import { papierPointe } from '../../lib/2d/reperes'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { symetrieAxiale } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
@@ -9,6 +8,8 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
+
+import {longueur} from "../../lib/2d/mesures";
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = false

@@ -2,7 +2,7 @@ import { Droite, droite } from '../../lib/2d/droites'
 import { milieu, Point, point, TracePoint, tracePoint } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { Grille, grille } from '../../lib/2d/reperes'
-import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { Vecteur, vecteur } from '../../lib/2d/vecteurs'
 import { TexteParPointEchelle, texteParPointEchelle } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
 import { choice, compteOccurences, enleveElement } from '../../lib/outils/arrayOutils'
@@ -19,6 +19,7 @@ import { mod } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import type { RotationAnimee, SymetrieAnimee, TranslationAnimee } from '../../modules/2dAnimation'
 import { transfoPoly } from './4G12-1'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true

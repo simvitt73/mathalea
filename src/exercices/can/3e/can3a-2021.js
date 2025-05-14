@@ -3,7 +3,6 @@ import { codageSegment } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { ellipse } from '../../../lib/2d/projections3d'
-import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -20,6 +19,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {demiDroite, segment} from "../../../lib/2d/segments.js";
 
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true

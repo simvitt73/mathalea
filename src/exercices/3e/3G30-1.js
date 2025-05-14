@@ -3,7 +3,6 @@ import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { point, pointSurSegment } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { projectionOrtho, rotation, similitude } from '../../lib/2d/transformations'
 import { enleveDoublonNum, shuffleLettres } from '../../lib/outils/arrayOutils'
@@ -16,6 +15,8 @@ import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {segment} from "../../lib/2d/segments.js";
+import {longueur} from "../../lib/2d/mesures.js";
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d\'un angle en fonction des côtés du triangle'
 export const amcReady = true

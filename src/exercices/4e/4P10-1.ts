@@ -1,7 +1,6 @@
 import { courbe } from '../../lib/2d/courbes'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -13,6 +12,7 @@ import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGen
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arrondi } from '../../lib/outils/nombres'
+import {segment} from "../../lib/2d/segments";
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
 /**

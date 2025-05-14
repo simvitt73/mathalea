@@ -2,7 +2,8 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites
 import { context } from '../../modules/context'
 import { Point, point } from './points'
 import type { PointSimple } from './points-simples'
-import { segment } from './segmentsVecteurs'
+
+import {segment} from "./segments";
 
 export class CrochetD extends ObjetMathalea2D {
   A: Point

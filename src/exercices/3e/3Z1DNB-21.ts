@@ -8,9 +8,9 @@ import { premierMultipleInferieur, } from '../../lib/outils/primalite'
 import { prenomPronom } from '../../lib/outils/Personne'
 // import { texteParPosition } from '../../lib/2d/textes'
 import { randint } from '../../modules/outils'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
+import {segment} from "../../lib/2d/segments";
 
 export const uuid = '8abca'
 export const refs = {

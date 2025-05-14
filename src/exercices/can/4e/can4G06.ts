@@ -1,7 +1,6 @@
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
@@ -9,6 +8,7 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
+import {segment, segmentAvecExtremites} from "../../../lib/2d/segments";
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
 export const interactifType = 'mathLive'

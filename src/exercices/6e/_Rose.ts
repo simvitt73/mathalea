@@ -1,6 +1,5 @@
 import { Point, point } from '../../lib/2d/points'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
-import { longueur, Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -9,6 +8,8 @@ import { randint } from '../../modules/outils'
 import { calculer } from '../../modules/outilsMathjs'
 import { colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
+import {Segment, segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 type ValueType = number | FractionEtendue | string
 /**

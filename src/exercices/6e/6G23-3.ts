@@ -1,6 +1,5 @@
 import { droite } from '../../lib/2d/droites'
 import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
-import { longueur, segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages'
 import { rotation } from '../../lib/2d/transformations'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -12,6 +11,8 @@ import { arrondi } from '../../lib/outils/nombres'
 import Alea2iep from '../../modules/Alea2iep'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import {segment, segmentAvecExtremites} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

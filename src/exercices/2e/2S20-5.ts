@@ -13,7 +13,8 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre'
 import { lectureAntecedent } from '../../lib/2d/courbes'
 import { texteSurSegment } from '../../lib/2d/codages'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+
+import {segment} from "../../lib/2d/segments";
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '05/05/2024'

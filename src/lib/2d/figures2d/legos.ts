@@ -1,7 +1,8 @@
 import { choice } from '../../outils/arrayOutils'
 import { Figure2D } from '../Figures2D'
 import { point } from '../points'
-import { Segment, segment } from '../segmentsVecteurs'
+
+import {Segment, segment} from "../segments";
 /**
  * @author Jean-Claude Lhote
  * @param nx nombre de studs en x

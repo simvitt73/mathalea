@@ -1,7 +1,6 @@
 import { cercle } from '../../lib/2d/cercle'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -15,6 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Calculer périmètre et/ou aire de disques'
 export const interactifReady = true

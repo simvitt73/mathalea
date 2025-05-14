@@ -1,7 +1,6 @@
 import { milieu, plot, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
@@ -14,6 +13,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 import { egal } from '../../../lib/outils/comparaisons'
+import {segment, segmentAvecExtremites} from "../../../lib/2d/segments";
 
 export const titre = 'Classe CAN C3'
 

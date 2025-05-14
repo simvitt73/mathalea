@@ -3,14 +3,16 @@ import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { codageAngle, codageAngleDroit } from './angles'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { Droite, droite, mediatrice } from './droites'
 import { milieu, point, Point, pointSurSegment, tracePointSurDroite } from './points'
-import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { Latex2d, latex2d, latexParCoordonnees, tailleDeNbVersLatex, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import type { Polygone } from './polygones'
 import { arc } from './arc'
+import { angleOriente } from './angles-vecteurs'
+import { Segment, segment } from './segments'
+import { longueur } from './mesures'
+import { vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  * Code le milieu d'un segment
@@ -655,7 +657,7 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
     let valeur
     const A = s.extremite1
     const B = s.extremite2
-    const v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur)
+    const v = similitude(vecteurAbstrait(A, B), A, 90, positionCote / s.longueur)
     const cote = segment(translation(A, v), translation(B, v), couleurCote)
     if (longueur(A, B) > 1) cote.styleExtremites = '<->'
     else cote.styleExtremites = '>-<'

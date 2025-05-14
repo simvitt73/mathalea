@@ -2,7 +2,6 @@ import { codageAngleDroit } from '../../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../../lib/2d/codages'
 import { point, pointAdistance } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
@@ -11,6 +10,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { getLang } from '../../../lib/stores/languagesStore'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true

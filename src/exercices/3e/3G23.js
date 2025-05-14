@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { milieu, point, pointIntersectionDD, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { grille } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/vecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { aireTriangle } from '../../lib/2d/triangle'
@@ -21,6 +20,8 @@ import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 import { arc } from '../../lib/2d/arc.js'
+import {angleOriente} from "../../lib/2d/angles-vecteurs.js";
+import {segment} from "../../lib/2d/segments.js";
 export const interactifReady = true
 export const interactifType = 'qcm'
 

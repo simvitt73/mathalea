@@ -1,7 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments, texteSurSegment } from '../../lib/2d/codages'
 import { milieu, point } from '../../lib/2d/points'
-import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -13,6 +12,7 @@ import Exercice from '../Exercice'
 import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
+import {segment, segmentAvecExtremites} from "../../lib/2d/segments";
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**

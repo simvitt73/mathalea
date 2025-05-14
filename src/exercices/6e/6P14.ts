@@ -1,5 +1,4 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
@@ -18,6 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { max, min } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
 
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true

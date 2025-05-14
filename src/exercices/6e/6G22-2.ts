@@ -1,6 +1,5 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points1angle1longueur } from '../../lib/2d/triangle'
@@ -12,6 +11,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import {demiDroite} from "../../lib/2d/segments";
 
 export const interactifReady = true
 export const interactifType = 'qcm'

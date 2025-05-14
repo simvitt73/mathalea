@@ -12,11 +12,11 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import Figure from 'apigeom'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { courbe } from '../../lib/2d/courbes'
 import { latex2d } from '../../lib/2d/textes'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { point } from '../../lib/2d/points'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'

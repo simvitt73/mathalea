@@ -1,9 +1,8 @@
 import { codageAngle, CodageAngleDroit, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { NommePolygone, nommePolygone, Polygone } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur, Segment, } from '../../lib/2d/segmentsVecteurs'
+import { vecteur,  } from '../../lib/2d/vecteurs'
 import { homothetie, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { triangle2points2angles, triangle2points2longueurs } from '../../lib/2d/triangle'
 import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
@@ -21,6 +20,9 @@ import { droite } from '../../lib/2d/droites'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
+import {Segment, segment} from "../../lib/2d/segments";
+import {longueur} from "../../lib/2d/mesures";
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'listeDeroulante'// 'mathLive'

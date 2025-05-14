@@ -1,9 +1,7 @@
 import { codageAngle } from '../../lib/2d/angles'
-import { angleOriente } from '../../lib/2d/angles-mesures'
 import { droite } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { polygoneAvecNom, polyline } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import {choice, combinaisonListes, enleveElement, rangeMinMax} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -18,6 +16,8 @@ import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {angleOriente} from "../../lib/2d/angles-vecteurs";
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']

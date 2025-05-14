@@ -1,7 +1,6 @@
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -11,6 +10,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import {segment} from "../../lib/2d/segments";
 
 export const titre = 'Conjecture de Syracuse'
 

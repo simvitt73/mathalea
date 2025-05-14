@@ -1,6 +1,6 @@
 import { point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
-import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../../lib/2d/vecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
@@ -9,6 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { choice } from '../../../lib/outils/arrayOutils'
+import {segment} from "../../../lib/2d/segments";
 
 export const titre = 'Lire les coordonnées d’un vecteur représenté dans un repère'
 export const interactifReady = true

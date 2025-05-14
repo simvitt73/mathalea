@@ -1,7 +1,6 @@
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
@@ -10,6 +9,7 @@ import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import {segment} from "../../../lib/2d/segments";
 export const titre = 'Déterminer une équation de droite (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
