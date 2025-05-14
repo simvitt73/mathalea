@@ -1,13 +1,13 @@
 import type Grandeur from '../modules/Grandeur'
-import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
-import type Figure from 'apigeom/src/Figure'
+import Figure from 'apigeom/src/Figure'
 import { KeyboardType, type PartialKbType } from '../lib/interactif/claviers/keyboard'
-import type FractionEtendue from '../modules/FractionEtendue'
+import FractionEtendue from '../modules/FractionEtendue'
 import type Decimal from 'decimal.js'
 import type Hms from '../modules/Hms'
+import CryptoJS from 'crypto-js'
 
 type Reponse = string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
 type Bareme = (listePoints: number[]) => [number, number]
@@ -232,17 +232,114 @@ export default class Exercice {
     // Nécessaire pour éviter les fuites de mémoire des exercices HTML
   }
 
-  nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
-
+  nouvelleVersionWrapper (this: Exercice, numeroExercice?: number, numeroQuestion?: number): void {
+    const signature = [this.seed, this.sup, this.sup2, this.sup3, this.sup4, this.sup5, this.correctionDetaillee, this.interactif, this.nbQuestions, numeroExercice, numeroQuestion].map(String).join('')
+    if (this.lastCallback === signature) {
+    // identique
+    // pas de recalcul à faire
+      return
+    }
+    this.lastCallback = signature
+    this.reinit()
+    this.nouvelleVersion(numeroExercice, numeroQuestion)
+  }
   correctionInteractive? (i: number): string | string[]
 
   nouvelleVersion (numeroExercice?: number, numeroQuestion?: number): void {
     console.info(numeroExercice)
   }
 
-  reinit = exportedReinit.bind(this as Exercice)
+  reinit (this: Exercice) {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    this.listeCanLiees = []
+    this.listeCanNumerosLies = []
+    this.listeArguments = []
+    this.autoCorrection = []
+    if (this.figures) {
+      // figure APIGEOM
+      this.figures.forEach(fig => {
+        if (fig instanceof Figure) {
+          fig.clearHtml()
+          fig.container = document.createElement('div')
+        }
+      })
+    }
+    this.figures = []
+    if (this.dragAndDrops && this.dragAndDrops.length > 0) {
+      for (const leDragAndDrop of this.dragAndDrops) {
+        for (const [element, type, listener] of leDragAndDrop.listeners) {
+          element.removeEventListener(type, listener as EventListener)
+        }
+      }
+      this.dragAndDrops = []
+    }
+  }
 
-  applyNewSeed = exportedApplyNewSeed.bind(this as Exercice)
+  applyNewSeed (this: Exercice) {
+    const seed = this.generateSeed({
+      includeUpperCase: true,
+      includeNumbers: true,
+      length: 4,
+      startsWithLowerCase: false
+    })
+    this.seed = seed
+  }
 
-  questionJamaisPosee = exportedQuestionJamaisPosee.bind(this as Exercice)
+  /**
+ * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
+ * @param {int} i indice de la question
+ * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
+ * @returns {boolean} true si la question n'a jamais été posée
+ */
+  questionJamaisPosee (this: Exercice, i: number, ...args:(string | number | FractionEtendue | Decimal)[]) {
+    if (i === 0) this.listeArguments = []
+    let argsConcatenes = ''
+    for (const arg of args) {
+      if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
+    }
+    const empreinte = this.empreinteTexte(argsConcatenes)
+    if (this.listeArguments != null && this.listeArguments.indexOf(empreinte) > -1) {
+      return false
+    } else if (this.listeArguments != null) {
+      this.listeArguments.push(empreinte)
+      return true
+    }
+  }
+
+  empreinteTexte (str: string): string {
+  // Utiliser CryptoJS pour calculer une empreinte SHA256 de la chaîne de caractères
+    const hash = CryptoJS.SHA256(str)
+    // Convertir l'empreinte en chaîne de caractères hexadécimale
+    const empreinteTexte = hash.toString(CryptoJS.enc.Hex)
+    return empreinteTexte.length > str.length ? str : empreinteTexte
+  }
+
+  generateSeed ({ includeUpperCase = true, includeNumbers = true, length = 4, startsWithLowerCase = false }: { includeUpperCase?: boolean, includeNumbers?: boolean, length?: number, startsWithLowerCase?: boolean } = {}) {
+    let a = 10
+    const b = 'abcdefghijklmnopqrstuvwxyz'
+    let c = ''
+    let d = 0
+    let e = '' + b
+    if (startsWithLowerCase) {
+      c = b[Math.floor(Math.random() * b.length)]
+      d = 1
+    }
+    if (length) {
+      a = length
+    }
+    if (includeUpperCase) {
+      e += b.toUpperCase()
+    }
+    if (includeNumbers) {
+      e += '1234567890'
+    }
+
+    for (; d < a; d++) {
+      c += e[Math.floor(Math.random() * e.length)]
+    }
+    return c
+  }
 }
