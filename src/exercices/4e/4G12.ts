@@ -19,7 +19,7 @@ import { mod } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import type { RotationAnimee, SymetrieAnimee, TranslationAnimee } from '../../modules/2dAnimation'
 import { transfoPoly } from './4G12-1'
-import {segment} from "../../lib/2d/segments";
+import { segment } from '../../lib/2d/segments'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true

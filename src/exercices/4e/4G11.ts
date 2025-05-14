@@ -14,7 +14,7 @@ import { egal } from '../../lib/outils/comparaisons'
 import { translationAnimee } from '../../modules/2dAnimation'
 import { Pavage, pavage } from '../../modules/Pavage'
 import type { Polygone } from '../../lib/2d/polygones'
-import {Segment, segment} from "../../lib/2d/segments";
+import { Segment, segment } from '../../lib/2d/segments'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**

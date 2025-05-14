@@ -4,7 +4,6 @@ import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
-import { Vecteur } from './vecteurs'
 import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
@@ -890,7 +889,7 @@ export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, 
   B.nom = nom[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(H, homothetie(vecteurAbstrait(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10) as Vecteur, nom[3])
+  const D = translation(H, homothetie(vecteurAbstrait(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10), nom[3])
   const C = translation(D, vecteurAbstrait(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
 }

@@ -16,7 +16,7 @@ import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { RotationAnimee, rotationAnimee, SymetrieAnimee, symetrieAnimee, TranslationAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { colorToLatexOrHTML, mathalea2d, Vide2d, vide2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import {segment} from "../../lib/2d/segments";
+import { segment } from '../../lib/2d/segments'
 
 export const dateDePublication = '3/12/2021'
 export const dateDeModifImportante = '10/05/2025'

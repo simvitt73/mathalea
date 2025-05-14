@@ -5,11 +5,12 @@ import { pattern } from './polygones'
 import { degToRad } from '../mathFonctions/trigo'
 import MainLevee from './MainLevee'
 import { arrondi } from '../outils/nombres'
-import { droite, Droite, mediatrice } from './droites'
+import { droite, mediatrice } from './droites'
 import { pointAbstrait, type PointAbstrait } from './points-abstraits'
-import {angleOriente} from "./angles-vecteurs";
+import { angleOriente } from './angles-vecteurs'
 
-import {longueur} from "./mesures";
+import { longueur } from './mesures'
+import type { Point } from './points'
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {PointAbstrait} M Extrémité de départ de l'arc
@@ -375,8 +376,8 @@ export function arc (
  */
 // JSDOC Validee par EE Juin 2022
 export function arcPointPointAngle (
-  M: PointAbstrait,
-  N: PointAbstrait,
+  M: Point,
+  N: Point,
   angle: number,
   rayon = false,
   couleurDeRemplissage = 'none',
@@ -387,7 +388,7 @@ export function arcPointPointAngle (
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d = mediatrice(M, N) as Droite
+  const d = mediatrice(M, N)
   const e = droite(N, M)
   const f = rotation(e, N, anglerot)
   const determinant = d.a * f.b - f.a * d.b

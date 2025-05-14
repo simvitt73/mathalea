@@ -18,9 +18,9 @@ import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils'
 import { context } from '../../modules/context'
-import {segment} from "../../lib/2d/segments";
-import {longueur} from "../../lib/2d/mesures";
-import {norme} from "../../lib/2d/vecteurs-abstraits";
+import { segment } from '../../lib/2d/segments'
+import { longueur } from '../../lib/2d/mesures'
+import { norme } from '../../lib/2d/vecteurs-abstraits'
 export const dateDeModifImportante = '14/11/2021'
 export const amcReady = true
 export const amcType = 'AMCOpen'

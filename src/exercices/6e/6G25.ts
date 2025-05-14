@@ -12,8 +12,8 @@ import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arrondi } from '../../lib/outils/nombres'
-import {segmentAvecExtremites} from "../../lib/2d/segments";
-import {norme} from "../../lib/2d/vecteurs-abstraits";
+import { segmentAvecExtremites } from '../../lib/2d/segments'
+import { norme } from '../../lib/2d/vecteurs-abstraits'
 
 export const dateDePublication = '30/11/2020'
 export const dateDeModifImportante = '06/09/2024'

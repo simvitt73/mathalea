@@ -4,7 +4,6 @@ import { egal } from '../../lib/outils/comparaisons'
 import { arrondi } from '../outils/nombres'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
 import { milieu, point, Point, pointSurDroite, pointSurSegment } from './points'
-import { Vecteur } from './vecteurs'
 import { Latex2d, latex2d, TexteParPoint, texteParPosition, type LetterSizeType } from './textes'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations'
 import { traceCompas } from './arc'
@@ -12,7 +11,7 @@ import { pointAbstrait, type PointAbstrait } from './points-abstraits'
 import { angleOriente } from './angles-vecteurs'
 import { DemiDroite, demiDroite, segment } from './segments'
 import { longueur } from './mesures'
-import {norme, VecteurAbstrait, vecteurAbstrait} from './vecteurs-abstraits'
+import { norme, VecteurAbstrait, vecteurAbstrait } from './vecteurs-abstraits'
 
 /**
  * Ajouter une étiquette sur une droite.
@@ -779,13 +778,13 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
       }
     }
   }
-  const position = translation(point(xLab, yLab), homothetie(vecteurAbstrait(d.a, d.b), point(0, 0), 0.5 / norme(vecteurAbstrait(d.a, d.b))) as Vecteur)
+  const position = translation(point(xLab, yLab), homothetie(vecteurAbstrait(d.a, d.b), point(0, 0), 0.5 / norme(vecteurAbstrait(d.a, d.b))) as VecteurAbstrait)
   return position
 }
 
 /**  Trace la droite passant par le point A et de vecteur directeur v
  * @param {PointAbstrait} A Point de la droite
- * @param {Vecteur} v Vecteur directeur de la droite
+ * @param {VecteurAbstrait} v Vecteur directeur de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteParPointEtVecteur(M, v1) // Trace la droite passant par le point M et de vecteur directeur v1

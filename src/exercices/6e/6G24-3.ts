@@ -14,8 +14,8 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arrondi } from '../../lib/outils/nombres'
 import { traceCompas } from '../../lib/2d/arc'
-import {segment} from "../../lib/2d/segments";
-import {longueur} from "../../lib/2d/mesures";
+import { segment } from '../../lib/2d/segments'
+import { longueur } from '../../lib/2d/mesures'
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
 
 /**
