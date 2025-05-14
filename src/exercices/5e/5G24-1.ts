@@ -1,4 +1,4 @@
-import { angle, codageAngle } from '../../lib/2d/angles'
+import { codageAngle } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
@@ -13,6 +13,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
+import { angle } from '../../lib/2d/angles-mesures'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'listeDeroulante'// 'mathLive'

@@ -1,4 +1,4 @@
-import { angleModulo, codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles'
+import { codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/cercle'
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/points'
@@ -24,6 +24,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { angleModulo } from '../../../lib/2d/angles-mesures'
 
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true

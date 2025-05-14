@@ -1,4 +1,4 @@
-import { angleModulo, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle } from '../../lib/2d/codages'
 import { point, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -14,6 +14,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { angleModulo } from '../../lib/2d/angles-mesures'
 
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const amcReady = true

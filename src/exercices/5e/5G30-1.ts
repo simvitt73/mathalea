@@ -1,4 +1,4 @@
-import { angle, codageAngle } from '../../lib/2d/angles'
+import { codageAngle } from '../../lib/2d/angles'
 import { droite, droiteParPointEtParallele } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
@@ -13,6 +13,7 @@ import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGen
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { angle } from '../../lib/2d/angles-mesures'
 
 export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
 export const amcReady = true

@@ -1,4 +1,5 @@
-import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { milieu, Point, point, pointIntersectionDD } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'

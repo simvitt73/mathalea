@@ -3,7 +3,7 @@ import {
   ObjetMathalea2D
 } from '../../modules/2dGeneralites'
 import { arrondi } from '../outils/nombres'
-import { angleModulo, angleOriente } from './angles'
+import { angleModulo, angleOriente } from './angles-mesures'
 import { Droite, droite, mediatrice } from './droites'
 import { Point, point } from './points'
 import { pattern } from './polygones'
@@ -113,7 +113,7 @@ export class Cercle extends ObjetMathalea2D {
       return (
         pattern({
           motif: this.hachures,
-          id: Number(this.id),
+          id: String(this.id),
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[0],
@@ -186,7 +186,7 @@ export class Cercle extends ObjetMathalea2D {
       tableauOptions.push(
         pattern({
           motif: this.hachures,
-          id: Number(this.id),
+          id: String(this.id),
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
@@ -470,7 +470,7 @@ export class Arc extends ObjetMathalea2D {
         return (
           pattern({
             motif: this.hachures,
-            id: Number(this.id),
+            id: String(this.id),
             distanceDesHachures: this.distanceDesHachures,
             epaisseurDesHachures: this.epaisseurDesHachures,
             couleurDesHachures: this.couleurDesHachures[0] ?? 'black',
@@ -578,7 +578,7 @@ export class Arc extends ObjetMathalea2D {
       tableauOptions.push(
         pattern({
           motif: this.hachures,
-          id: Number(this.id),
+          id: String(this.id),
           distanceDesHachures: this.distanceDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],

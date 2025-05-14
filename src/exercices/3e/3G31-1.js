@@ -1,4 +1,4 @@
-import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment, afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
@@ -16,6 +16,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
+import { angle } from '../../lib/2d/angles-mesures'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

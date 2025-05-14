@@ -1,4 +1,3 @@
-import { angle } from '../../lib/2d/angles'
 import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages'
 import { distancePointDroite, Droite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites'
 import { Point, point, pointAdistance, tracePoint } from '../../lib/2d/points'
@@ -14,6 +13,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { angle } from '../../lib/2d/angles-mesures'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
 export const dateDePublication = '05/08/2021'

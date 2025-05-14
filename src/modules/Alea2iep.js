@@ -1,5 +1,5 @@
 // import iepLoadPromise from 'instrumenpoche'
-import { angleOriente } from '../lib/2d/angles'
+import { angleOriente } from '../lib/2d/angles-mesures'
 import { droite } from '../lib/2d/droites'
 import { milieu, point, pointAdistance, pointSurSegment } from '../lib/2d/points'
 import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'

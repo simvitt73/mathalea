@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { angleOriente } from '../../lib/2d/angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { arc } from '../../lib/2d/cercle'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'

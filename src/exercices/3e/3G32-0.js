@@ -1,4 +1,4 @@
-import { angle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
@@ -20,6 +20,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { max, min } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { angle } from '../../lib/2d/angles-mesures'
 
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'
 export const interactifReady = true

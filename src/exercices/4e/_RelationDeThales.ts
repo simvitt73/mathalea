@@ -1,4 +1,3 @@
-import { angle, angleOriente } from '../../lib/2d/angles'
 import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
@@ -12,6 +11,7 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { angle, angleOriente } from '../../lib/2d/angles-mesures'
 
 export const titre = 'Écrire une relation de Thalès'
 

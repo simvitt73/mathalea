@@ -2,7 +2,7 @@ import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { arrondi } from '../outils/nombres'
-import { angleOriente } from './angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { Cercle } from './cercle'
 import { Droite, droite } from './droites'
 import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points'

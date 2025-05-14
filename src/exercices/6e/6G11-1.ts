@@ -1,4 +1,5 @@
-import { angle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { angle } from '../../lib/2d/angles-mesures'
 import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { milieu, Point, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'

@@ -1,4 +1,5 @@
-import { angleOriente, codageAngle, CodageAngleDroit, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
+import { codageAngle, CodageAngleDroit, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { NommePolygone, nommePolygone, Polygone } from '../../lib/2d/polygones'

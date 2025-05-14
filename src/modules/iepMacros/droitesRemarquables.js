@@ -1,4 +1,4 @@
-import { angleOriente } from '../../lib/2d/angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { droite } from '../../lib/2d/droites'
 import { milieu, pointSurSegment } from '../../lib/2d/points'
 import { longueur } from '../../lib/2d/segmentsVecteurs'

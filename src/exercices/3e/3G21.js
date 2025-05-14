@@ -1,4 +1,4 @@
-import { angleOriente } from '../../lib/2d/angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { point, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPoint } from '../../lib/2d/textes'

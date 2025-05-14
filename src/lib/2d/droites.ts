@@ -2,7 +2,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGen
 import { context } from '../../modules/context'
 import { egal } from '../../lib/outils/comparaisons'
 import { arrondi } from '../outils/nombres'
-import { angleOriente } from './angles'
+import { angleOriente } from '../../lib/2d/angles-mesures'
 import { traceCompas } from './cercle'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
 import { milieu, Point, point, pointSurDroite, pointSurSegment } from './points'
