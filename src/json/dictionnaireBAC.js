@@ -2597,7 +2597,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Equations différentielles', 'Exponentielle', 'TVI', 'Python']
   },
   bac_2024_11_sujet1_amsud_2: {
     annee: '2024',
@@ -2606,7 +2606,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Dénombrement']
   },
   bac_2024_11_sujet1_amsud_3: {
     annee: '2024',
@@ -2615,7 +2615,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Suites', 'Vrai/Faux', 'Intégration']
   },
   bac_2024_11_sujet1_amsud_4: {
     annee: '2024',
@@ -2624,7 +2624,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_11_sujet2_amsud_1: {
     annee: '2024',
@@ -2633,7 +2633,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
   bac_2024_11_sujet2_amsud_2: {
     annee: '2024',
@@ -2642,7 +2642,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Suites', 'Equations différentielles']
   },
   bac_2024_11_sujet2_amsud_3: {
     annee: '2024',
@@ -2651,7 +2651,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Exponentielle', 'Intégration']
   },
   bac_2024_11_sujet2_amsud_4: {
     annee: '2024',
@@ -2660,7 +2660,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Espace']
   },
 
 }
