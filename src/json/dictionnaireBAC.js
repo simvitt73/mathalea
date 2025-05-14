@@ -2084,7 +2084,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Intégration', 'Suites', 'Python', 'Fonctions trigonométriques']
+    tags: ['Primitives', 'Suites', 'Python', 'Intégration']
   },
   bac_2024_05_sujet2_ameriquenord_1: {
     annee: '2024',
@@ -2202,7 +2202,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Convexité', 'Exponentielle', 'Primitives']
+    tags: ['Convexité', 'Exponentielle', 'Primitives', 'Intégration']
   },
   bac_2024_06_sujet1_asie_2: {
     annee: '2024',
