@@ -101,7 +101,22 @@ export default class NbAxesDeSymetrie extends Exercice {
           axes = formeCorr.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
           objetsCorr.push(formeBis, formeCorr, formeTexte)
         } else {
-          objetsCorr.push(forme, formeTexte)
+          if (forme.nonAxe) {
+            const formeBis = forme.copy(forme.name + 'Bis')
+            formeBis.opacite = 0.3
+            const formeCorr = forme.autoReflectionAnimee(`${forme.name}Corr_${i * this.sup3 + j}`, forme.x, forme.y)
+            const axe = formeCorr.nonAxe
+            if (axe) {
+              const seg = translation(axe, vecteur(j * 6 * factor * scale, 0))
+              seg.epaisseur = 1.5
+              seg.color = colorToLatexOrHTML(orangeMathalea)
+              objetsCorr.push(formeBis, formeCorr, formeTexte, seg, texteParPosition('Pas symétrique !', j * 6 * factor * scale, 0, 45, 'red'))
+            } else {
+              objetsCorr.push(forme, formeTexte)
+            }
+          } else {
+            objetsCorr.push(forme, formeTexte)
+          }
         }
         if (axes.length > 0) {
           for (let k = 0; k < axes.length; k++) {

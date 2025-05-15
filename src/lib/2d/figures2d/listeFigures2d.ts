@@ -8,9 +8,9 @@ import { panneauParking, panneauVoieSansIssue } from './panneauInfo'
 import { panneauStop } from './panneauStop'
 import { panneauStationnementInterdit } from './stationnementInterdit'
 import { briqueLego } from './legos'
-import { aileDelta, carreAnime, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
+import { aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
 import { randint } from '../../../modules/outils'
-import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH, lettreI, lettreJ, lettreK, lettreL, lettreM, lettreN, lettreO, lettreP, lettreQ, lettreR } from './lettres'
+import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH, lettreI, lettreJ, lettreK, lettreL, lettreM, lettreN, lettreO, lettreP, lettreQ, lettreR, lettreS, lettreT, lettreU, lettreV, lettreW, lettreX, lettreY, lettreZ } from './lettres'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notzmment
  * @author Jean-Claude Lhote
@@ -490,13 +490,6 @@ export const listeFigures2d: Forme[] = [
     figure2d: panneauRetrecissementChaussee3
   },
   {
-    numero: 70,
-    name: 'carré animé',
-    type: 'geometrique',
-    figure2d: carreAnime,
-    options: { base: 4, fillStyle: 'red' }
-  },
-  {
     numero: 71,
     name: 'lettre A',
     type: 'lettre',
@@ -605,7 +598,55 @@ export const listeFigures2d: Forme[] = [
     type: 'lettre',
     figure2d: lettreR
   },
-
+  {
+    numero: 89,
+    name: 'lettre S',
+    type: 'lettre',
+    figure2d: lettreS,
+    options: { base: 4, fillStyle: 'red' }
+  },
+  {
+    numero: 90,
+    name: 'lettre T',
+    type: 'lettre',
+    figure2d: lettreT
+  },
+  {
+    numero: 91,
+    name: 'lettre U',
+    type: 'lettre',
+    figure2d: lettreU
+  },
+  {
+    numero: 92,
+    name: 'lettre V',
+    type: 'lettre',
+    figure2d: lettreV
+  },
+  {
+    numero: 93,
+    name: 'lettre W',
+    type: 'lettre',
+    figure2d: lettreW
+  },
+  {
+    numero: 94,
+    name: 'lettre X',
+    type: 'lettre',
+    figure2d: lettreX
+  },
+  {
+    numero: 95,
+    name: 'lettre Y',
+    type: 'lettre',
+    figure2d: lettreY
+  },
+  {
+    numero: 96,
+    name: 'lettre Z',
+    type: 'lettre',
+    figure2d: lettreZ
+  },
 ]
 export type Figure2DOptions = {
   fillStyle?: string
