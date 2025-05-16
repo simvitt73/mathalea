@@ -246,9 +246,17 @@
   }
 
   function setAllInteractive (isAllInteractive: boolean) {
-    const eventName = isAllInteractive ? 'setAllInteractif' : 'removeAllInteractif'
+    let eventName: string
+    if (isAllInteractive) {
+      $globalOptions.setInteractive = '1'
+      eventName = 'setAllInteractif'
+    } else {
+      $globalOptions.setInteractive = '0'
+      eventName = 'removeAllInteractif'
+    }
     const event = new window.Event(eventName, { bubbles: true })
     document.dispatchEvent(event)
+    console.log($globalOptions.setInteractive)
   }
 
   function newDataForAll () {
@@ -278,7 +286,7 @@
 
   function addExercise (uuid: string, id: string) {
     const newExercise: InterfaceParams = { uuid, id }
-    if ($globalOptions.recorder === 'capytale') {
+    if ($globalOptions.recorder === 'capytale' || $globalOptions.setInteractive === '1') {
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
