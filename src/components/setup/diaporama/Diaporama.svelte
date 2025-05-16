@@ -14,6 +14,7 @@
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
     mathaleaHandleSup,
+    mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../lib/mathalea'
   import {
@@ -28,7 +29,6 @@
   import type { CanState } from '../../../lib/types/can'
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
-  import { buildMathAleaURL } from '../../../lib/components/urls'
   import { notify } from '../../../bugsnag'
 
   const transitionSounds = {
@@ -54,7 +54,7 @@
     context.vue = 'diap'
     document.addEventListener('updateAsyncEx', forceUpdate)
     exercises = await getExercisesFromExercicesParams()
-    updateExercises()
+    updateExercises(false, true)
   })
 
   onDestroy(() => {
@@ -65,10 +65,10 @@
     updateExercises(true)
   }
 
-  async function updateExercises (updateSlidesContent = false) {
+  async function updateExercises (updateSlidesContent = false, updateParamsFromUrl = false) {
     if (updateSlidesContent) setSlidesContent(exercises)
     if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
-    updateExerciseParams(exercises)
+    updateParamsFromUrl ? mathaleaUpdateExercicesParamsFromUrl() : updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
