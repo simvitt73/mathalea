@@ -64,7 +64,7 @@ export default class CalculAstucieux1 extends Exercice {
       case 'd':
         this.question = `Calculer $2,5 \\times ${texNombre(d)}\\times 4$.`
         this.correction = `$2,5 \\times ${texNombre(d)}\\times 4 = 10 \\times ${texNombre(d)} = ${texNombre(10 * d)}$`
-        this.reponse = arrondi(100 * d, 6)
+        this.reponse = arrondi(10 * d, 6)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         $2,5 \\times ${texNombre(d)}\\times 4 =\\underbrace{2,5\\times 4}_{10} \\times ${texNombre(d)} = ${texNombre(10 * d)}$ `)
         break
