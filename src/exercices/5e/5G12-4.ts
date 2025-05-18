@@ -17,7 +17,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
-export const dateDePublication = '08/05/2025'
+export const dateDePublication = '18/05/2025'
 
 /**
  * Dire si une figure possède un centre de symétrie.
@@ -26,7 +26,7 @@ export const dateDePublication = '08/05/2025'
 export const uuid = '428b2'
 
 export const refs = {
-  'fr-fr': ['5G14'],
+  'fr-fr': ['5G12-4'],
   'fr-ch': []
 }
 
@@ -79,7 +79,7 @@ export default class NbAxesDeSymetrie extends Exercice {
       }
       texte += this.interactif
         ? `Dire si l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} possède un centre de symétrie.<br>`
-        : `Place le centre de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} si il existe.<br>`
+        : `Placer le centre de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} si il existe.<br>`
       const formes: Figure2D[] = []
       const scale = nbFigures === 1 ? 1 : nbFigures === 2 ? 0.9 : 0.8
       for (let j = 0; j < nbFigures; j++) {
