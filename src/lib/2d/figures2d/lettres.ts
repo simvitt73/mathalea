@@ -379,7 +379,8 @@ export function lettreF (
     codeTikz,
     width: largeur,
     height: hauteur,
-    opacite
+    opacite,
+    nonAxe: segment(3, 0, -3, 0)
   })
 }
 /**
@@ -434,6 +435,7 @@ export function lettreG (
     width: largeur + offsetX / 10,
     height: hauteur + offsetY / 20,
     opacite,
+    nonAxe: null
   })
   return figure.dilate({ x: 1, y: 1.1 }).translate(0, 0.7)
 }
@@ -616,6 +618,7 @@ export function lettreJ (
     width: largeur,
     height: hauteur,
     opacite,
+    nonAxe: segment(-3, 0, 3, 0)
   })
 }
 /**
@@ -729,6 +732,7 @@ export function lettreL (
     width: largeur,
     height: hauteur,
     opacite,
+    nonAxe: segment(-3, 0, 3, 0)
   })
 }
 /**
@@ -841,7 +845,8 @@ export function lettreN (
     width: largeur,
     height: hauteur,
     opacite,
-    centre: point(0, 0)
+    centre: point(0, 0),
+    nonAxe: segment(0, -4, 0, 4)
   })
 }
 /**
@@ -960,6 +965,7 @@ export function lettreP (
     width: largeur,
     height: hauteur,
     opacite,
+    nonAxe: segment(2.5, 0, -2.5, 0)
   })
 }
 /**
@@ -1025,6 +1031,7 @@ export function lettreQ (
     width: largeur,
     height: hauteur,
     opacite,
+    nonAxe: segment(-3, 3.6, 3, -3.6)
   })
 }
 /**
@@ -1085,6 +1092,7 @@ export function lettreR (
     width: largeur,
     height: hauteur,
     opacite,
+    nonAxe: segment(-3, 0, 3, 0)
   })
 }
 /**
@@ -1487,7 +1495,9 @@ export function lettreZ (
     width: largeur,
     height: hauteur,
     opacite,
-    centre: point(0, 0)
+    centre: point(0, 0),
+    nonAxe: segment(1.2, 1.8, -1.2, -1.8)
+
   })
 }
 /**

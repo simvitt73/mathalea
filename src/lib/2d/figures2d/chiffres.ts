@@ -175,8 +175,13 @@ export function chiffreDigital (
     axes: nbAxesChiffre(chiffre) === 0
       ? []
       : nbAxesChiffre(chiffre) === 1
-        ? [segment(point(-2, 0), point(2, 0))]
-        : [segment(point(-2, 0), point(2, 0)), segment(point(0, -2), point(0, 2))]
+        ? [segment(point(-2.5, 0), point(2.5, 0))]
+        : [segment(point(-2.5, 0), point(2.5, 0)), segment(point(0, -2.5), point(0, 2.5))],
+    nonAxe: chiffre === 4 || chiffre === 7 || chiffre === 2 || chiffre === 5
+      ? segment(-2, 0, 2, 0)
+      : chiffre === 6 || chiffre === 9
+        ? segment(point(0, -4 * (chiffre === 6 ? -1 : 1)), point(0, 4 * (chiffre === 6 ? -1 : 1)))
+        : undefined
   })
 }
 
@@ -203,7 +208,7 @@ export function nombre88 (options?: {
     height: 6,
     opacite: options?.opacite ?? 1,
     centre: point(0, 0),
-    axes: [segment(point(-2, 0), point(2, 0)), segment(point(0, -2), point(0, 2))]
+    axes: [segment(-2, 0, 2, 0), segment(0, -2, 0, 2)]
   })
 }
 
@@ -229,7 +234,7 @@ export function nombre38 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    axes: [segment(point(-2, 0), point(2, 0))]
+    axes: [segment(-2, 0, 2, 0)]
   })
 }
 export function nombre30 (options?: {
@@ -253,7 +258,7 @@ export function nombre30 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    axes: [segment(point(-2, 0), point(2, 0))]
+    axes: [segment(-2, 0, 2, 0)]
   })
 }
 export function nombre25 (options?: {
@@ -278,7 +283,7 @@ export function nombre25 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    axes: [segment(point(0, -2), point(0, 2))]
+    axes: [segment(0, -2, 0, 2)]
   })
 }
 export function nombre75 (options?: {
@@ -302,7 +307,8 @@ export function nombre75 (options?: {
     codeTikz,
     width: 6,
     height: 6,
-    opacite: options?.opacite ?? 1
+    opacite: options?.opacite ?? 1,
+    nonAxe: segment(0, -4, 0, 4)
   })
 }
 export function nombre13 (options?: {
@@ -327,7 +333,7 @@ export function nombre13 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    axes: [segment(point(-2, 0), point(2, 0))]
+    axes: [segment(-2, 0, 2, 0)]
   })
 }
 export function nombre52 (options?: {
@@ -352,7 +358,7 @@ export function nombre52 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    axes: [segment(point(0, -2), point(0, 2))]
+    axes: [segment(0, -2, 0, 2)]
   })
 }
 export function nombre73 (options?: {
@@ -376,7 +382,8 @@ export function nombre73 (options?: {
     codeTikz,
     width: 6,
     height: 6,
-    opacite: options?.opacite ?? 1
+    opacite: options?.opacite ?? 1,
+    nonAxe: segment(0, -4, 0, 4)
   })
 }
 export function nombre26 (options?: {
@@ -400,7 +407,8 @@ export function nombre26 (options?: {
     codeTikz,
     width: 6,
     height: 6,
-    opacite: options?.opacite ?? 1
+    opacite: options?.opacite ?? 1,
+    nonAxe: segment(0, -4, 0, 4)
   })
 }
 export function nombre42 (options?: {
@@ -424,7 +432,8 @@ export function nombre42 (options?: {
     codeTikz,
     width: 6,
     height: 6,
-    opacite: options?.opacite ?? 1
+    opacite: options?.opacite ?? 1,
+    nonAxe: segment(0, -4, 0, 4)
   })
 }
 export function nombre96 (options?: {
@@ -449,7 +458,8 @@ export function nombre96 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    centre: point(0, 0)
+    centre: point(0, 0),
+    nonAxe: segment(0, -4, 0, 4)
   })
 }
 export function nombre80 (options?: {
@@ -474,6 +484,6 @@ export function nombre80 (options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    axes: [segment(point(-2, 0), point(2, 0))]
+    axes: [segment(-2, 0, 2, 0)]
   })
 }

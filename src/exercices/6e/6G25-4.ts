@@ -11,6 +11,7 @@ import { orangeMathalea } from '../../lib/colors'
 import type { Figure2D } from '../../lib/2d/Figures2D'
 import { point } from '../../lib/2d/points'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Reconnaitre des figures symétriques'
 export const interactifReady = true
@@ -35,7 +36,7 @@ export default class NbAxesDeSymetrie extends Exercice {
     super()
     this.nbQuestions = 3
     this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
-    this.sup = '5'
+    this.sup = '6'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 3
     this.besoinFormulaire3CaseACocher = ['Avec des rotations aléatoires', false]
@@ -79,7 +80,7 @@ export default class NbAxesDeSymetrie extends Exercice {
       }
       texte += this.interactif
         ? `Combien d'axes de symétrie possède${nbFigures > 1 ? 'nt' : ' '}l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} ?<br>`
-        : `Trace l${nbFigures > 1 ? 'es ' : '\''}axe${nbFigures > 1 ? 's' : ''} de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''}.<br>`
+        : `Trace le ou les axes de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} lorsqu'il y en a.<br>`
       const formes: Figure2D[] = []
       const scale = nbFigures === 1 ? 1 : nbFigures === 2 ? 0.9 : 0.8
       for (let j = 0; j < nbFigures; j++) {
@@ -110,7 +111,7 @@ export default class NbAxesDeSymetrie extends Exercice {
               const seg = translation(axe, vecteur(j * 6.5 * factor * scale, 0))
               seg.epaisseur = 1.5
               seg.color = colorToLatexOrHTML(orangeMathalea)
-              objetsCorr.push(formeBis, formeCorr, formeTexte, seg, texteParPosition('Pas symétrique !', j * 6.5 * factor * scale, 0, 45, 'red'))
+              objetsCorr.push(formeBis, formeCorr, formeTexte, seg, texteParPosition(`Il n'y a pas d'axe ${sp(2)} de symétrie ici !`, j * 6.5 * factor * scale, 0, 45, 'red'), texteParPosition(`Il n'y a pas d'axe ${sp(2)} de symétrie ici !`, j * 6.5 * factor * scale, 0, -45, 'red'))
             } else {
               objetsCorr.push(forme, formeTexte)
             }

@@ -1,14 +1,7 @@
-import { panneauArretInterdit } from './arretInterdit'
-import { panneauFinDeLimitation } from './finDeLimitation'
-import { panneauInterdictionDeCirculer, panneauSensInterdit } from './Interdictions'
 import type { Figure2D } from '../Figures2D'
-import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2, panneauCroisementRouteSecondaire, panneauRetrecissementChaussee3 } from './panneauDanger'
-import { panneauFinDeRoutePrioritaire, panneauRoutePrioritaire } from './routePrioritaire'
-import { panneauParking, panneauVoieSansIssue } from './panneauInfo'
-import { panneauStop } from './panneauStop'
-import { panneauStationnementInterdit } from './stationnementInterdit'
+import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2, panneauCroisementRouteSecondaire, panneauRetrecissementChaussee3, panneauFinDeLimitation, panneauSensInterdit, panneauArretInterdit, panneauInterdictionDeCirculer, panneauFinDeRoutePrioritaire, panneauVoieSansIssue, panneauParking, panneauStop, panneauStationnementInterdit, panneauRoutePrioritaire } from './panneaux'
 import { briqueLego } from './legos'
-import { aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
+import { ovale, aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
 import { randint } from '../../../modules/outils'
 import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH, lettreI, lettreJ, lettreK, lettreL, lettreM, lettreN, lettreO, lettreP, lettreQ, lettreR, lettreS, lettreT, lettreU, lettreV, lettreW, lettreX, lettreY, lettreZ } from './lettres'
 import { chiffreDigital, nombre13, nombre25, nombre26, nombre30, nombre38, nombre42, nombre52, nombre73, nombre75, nombre80, nombre88, nombre96 } from './chiffres'
@@ -282,7 +275,7 @@ export const listeFigures2d: Forme[] = [
     name: 'triangle quelconque',
     type: 'geometrique',
     figure2d: triangleQuelconque1,
-    options: { opacite: 0.5 }
+    options: { opacite: 0.8 }
   },
   {
     numero: 41,
@@ -342,10 +335,9 @@ export const listeFigures2d: Forme[] = [
   },
   {
     numero: 49,
-    name: 'croissant de lune 3',
+    name: 'ovale',
     type: 'geometrique',
-    figure2d: croissantDeLune,
-    options: { rayonExterieur: 2.5, rayonInterieur: 6, angle: -45 }
+    figure2d: ovale
   },
   {
     numero: 50,
@@ -421,7 +413,7 @@ export const listeFigures2d: Forme[] = [
     name: 'rectangle 1',
     type: 'geometrique',
     figure2d: rectangle,
-    options: { angle: 45, coinsArrondis: true, fillStyle: 'green', opacite: 0.5 }
+    options: { angle: 45, coinsArrondis: true, fillStyle: 'green', opacite: 0.7 }
   },
   {
     numero: 61,

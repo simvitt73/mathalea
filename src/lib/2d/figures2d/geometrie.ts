@@ -19,7 +19,7 @@ export function etoile5Branches (
   }
 ): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'yellow'
+  const fillStyle = options?.fillStyle || 'lime'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const rayonExterieur = options?.rayonExterieur || 1
@@ -342,7 +342,7 @@ export function triangleQuelconque1 (
   }
 ): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'blue'
+  const fillStyle = options?.fillStyle || 'teal'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const base = options?.base || 4
@@ -350,9 +350,9 @@ export function triangleQuelconque1 (
   const opacite = options?.opacite || 1
   // Calcul des points du triangle
   const points = [
-        `${-base * 10 - 5},${-hauteur * 10}`, // Sommet supérieur
+        `${-base * 10 - 5},${-hauteur * 8}`, // Sommet supérieur
         `${base * 10 + 5},${hauteur * 10}`, // Coin inférieur droit
-        `${-base * 10 + 5},${hauteur * 10}` // Coin inférieur gauche
+        `${-base * 10},${hauteur * 10}` // Coin inférieur gauche
   ].join(' ')
 
   // Génération du code SVG
@@ -361,15 +361,15 @@ export function triangleQuelconque1 (
         `.trim()
   // Génération du code TikZ
   const tikzPoints = [
-        `(${-base / 2 - 0.5},${hauteur / 2})`, // Sommet supérieur
-        `(${base / 2},${-hauteur / 2})`, // Coin inférieur droit
+        `(${-base / 2 - 0.25},${hauteur * 0.4})`, // Sommet supérieur
+        `(${base / 2 + 0.25},${-hauteur / 2})`, // Coin inférieur droit
         `(${-base / 2},${-hauteur / 2})` // Coin inférieur gauche
   ].join(' -- ')
   const codeTikz = `
   % Triangle
             \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoints} -- cycle;
         `.trim()
-  return new Figure2D({ codeSvg, codeTikz, width: (base * 20 + 10) / 20, height: hauteur, opacite })
+  return new Figure2D({ codeSvg, codeTikz, width: (base * 20 + 10) / 20, height: hauteur, opacite, nonAxe: segment(-base * 1.1, -hauteur * 1.1, base * 0.55, hauteur * 0.55) })
 }
 /**
  * Génère une figure représentant un croissant de lune.
@@ -464,8 +464,8 @@ export function pacman (
   const opacite = options?.opacite || 1
   const svgPath = `
         M 0,0
-        L 20,0
-        A 20,20 0 1,1 0,-20
+        L 40,0
+        A 40,40 0 1,1 0,-40
         Z
     `.trim()
   const codeSvg = `<path d="${svgPath}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />`
@@ -478,10 +478,10 @@ export function pacman (
     % Pacman
         \\draw[fill=${tikzFill}, draw=${tikzStroke}, line width=${tikzLineWidth}] 
         (0,0) -- (0,1) 
-        arc[start angle=90, end angle=360, radius=1cm] -- cycle;
+        arc[start angle=90, end angle=360, radius=2cm] -- cycle;
     `.trim()
-  const axes = [segment(-1, -1, 1, 1)]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, opacite })
+  const axes = [segment(-2.2, -2.2, 1, 1)]
+  return new Figure2D({ codeSvg, codeTikz, width: 4, height: 4, axes, opacite })
 }
 /**
  * Génère une figure représentant un fer à cheval.
@@ -611,6 +611,7 @@ export function parallelogramme (
     width: base + Math.abs(offsetX / 10),
     height: hauteur,
     centre: point(0, 0),
+    nonAxe: segment((-base / 2 + offsetX / 40) * 2.5, hauteur * 1.25, (base / 2 - offsetX / 40) * 2.5, -hauteur * 1.25),
     opacite
   })
 }
@@ -760,7 +761,7 @@ export function etoile4Branches (
   }
 ): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'yellow'
+  const fillStyle = options?.fillStyle || 'silver'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const rayonExterieur = options?.rayonExterieur || 1
@@ -1155,5 +1156,51 @@ export function triangleEquilateral (
     height: hauteur,
     axes,
     opacite
+  })
+}
+/**
+ * Génère une figure représentant un ovale.
+ * @param options Options pour personnaliser le style de l'ovale.
+ * @returns Une instance de Figure2D représentant un ovale.
+ * @author Jean-Claude Lhote
+ * @version 1.0
+ * @date 2025-05-10
+ */
+export function ovale (
+  options?: {
+    fillStyle?: string; // Couleur de remplissage de l'ovale
+    strokeStyle?: string; // Couleur de la bordure de l'ovale
+    lineWidth?: number; // Épaisseur de la bordure
+    opacite?: number; // Opacité de l'ovale
+  }
+): Figure2D {
+  // Génération du code SVG
+  const ovaleFill = options?.fillStyle || 'maroon'
+  const ovaleStroke = options?.strokeStyle || 'black'
+  const ovaleLineWidth = options?.lineWidth || 1
+  const opacite = options?.opacite || 0.7
+  const codeSvg = `
+    <ellipse cx="0" cy="0" rx="40" ry="20" fill="${ovaleFill}" stroke="${ovaleStroke}" stroke-width="${ovaleLineWidth}" />
+  `.trim()
+
+  // Génération du code TikZ
+  const tikzOvaleFill = `fill=${ovaleFill}`
+  const tikzOvaleStroke = `draw=${ovaleStroke}`
+  const tikzOvaleLineWidth = `line width=${ovaleLineWidth}pt`
+  const codeTikz = `
+    \\draw[${tikzOvaleFill}, ${tikzOvaleStroke}, ${tikzOvaleLineWidth}] (0,0) ellipse (2cm and 1cm);
+  `.trim()
+
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 4,
+    height: 2,
+    opacite,
+    axes: [
+      segment(-2.2, 0, 2.2, 0),
+      segment(0, -1.2, 0, 1.2)
+    ],
+    centre: point(0, 0)
   })
 }
