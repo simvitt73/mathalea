@@ -1,8 +1,27 @@
 import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import type { Droite } from './droites'
 import { point, type Point } from './points'
 import { type Segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
+
+function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, cy: number) {
+  const angle = angleDeg * Math.PI / 180
+  const cosA = Math.cos(angle)
+  const sinA = Math.sin(angle)
+
+  const sy = 1 - 2 * progress
+
+  const a = cosA * cosA + sinA * sinA * sy
+  const b = cosA * sinA * (1 - sy)
+  const c = cosA * sinA * (1 - sy)
+  const d = sinA * sinA + cosA * cosA * sy
+
+  const tx = cx - a * cx - c * cy
+  const ty = cy - b * cx - d * cy
+
+  return { a, b, c, d, tx, ty }
+}
 function rotatedBoundingBoxWithCenter (
   xmin: number,
   ymin: number,
@@ -177,22 +196,76 @@ export class Figure2D extends ObjetMathalea2D {
     return this
   }
 
-  copy (newName: string) {
-    return new Figure2D({
-      codeSvg: this.codeSvg,
-      codeTikz: this.codeTikz,
-      x: this.x,
-      y: this.y,
-      angle: this.angle,
+  symetrie (axe: Droite) {
+    // Calcul de l'angle de l'axe par rapport à l'horizontale
+    const angleAxe = Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180 / Math.PI
+    // Calcul du centre de symétrie (image de (this.x, this.y) par la symétrie d'axe 'axe')
+    // Formule de la symétrie orthogonale d'un point (px, py) par rapport à la droite passant par (x1, y1), (x2, y2)
+    const { a, b, c, d, tx, ty } = computeSymmetryMatrix(1, angleAxe, 0, 0)
+
+    const svg = `<g transform="matrix(${a}, ${b}, ${c}, ${d}, ${tx}, ${ty})">${this.codeSvg}</g>`
+    const xImg = a * this.x + c * this.y + tx
+    const yImg = -b * this.x - d * this.y - ty
+    // Calcul du code TikZ pour la symétrie
+    // On applique la même transformation que pour le SVG, mais en TikZ
+    // L'angle de symétrie est angleAxe, le centre est (0,0) car la matrice est centrée sur (0,0)
+    const tikz = `\\begin{scope}[xscale=${a.toFixed(4)}, yscale=${d.toFixed(4)}, xslant=${c.toFixed(4)}, yslant=${b.toFixed(4)}, shift={({${tx.toFixed(4)},${ty.toFixed(4)}})}]
+  ${this.codeTikz}
+  \\end{scope}`
+    // Nouvelle instance avec les mêmes propriétés, mais codeSvg/codeTikz modifiés
+    const symForme = new Figure2D({
+      codeSvg: svg,
+      codeTikz: tikz,
+      x: xImg,
+      y: yImg,
+      // L'angle après symétrie : 2 * angleAxe - this.angle
+      angle: (360 - this.angle) % 360,
       scale: this.scale,
       width: this.width,
       height: this.height,
       pixelsParCm: this.pixelsParCm,
       axes: this.axes,
+      nonAxe: this.nonAxe,
       centre: this.centre,
       nbAxes: this.nbAxes,
       opacite: this.opacite,
-      name: newName
+      name: this.name + '_sym'
+    })
+    symForme.bordures = rotatedBoundingBoxWithCenter(
+      symForme.bordures[0], symForme.bordures[1], symForme.bordures[2], symForme.bordures[3], angleAxe * Math.PI / 180, xImg, yImg)
+    return symForme
+  }
+
+  copy (newName: string) {
+    const codeTikz = String(this.codeTikz)
+    const codeSvg = String(this.codeSvg)
+    const x = Number(this.x)
+    const y = Number(this.y)
+    const angle = Number(this.angle)
+    const scale = { x: this.scale.x, y: this.scale.y }
+    const width = Number(this.width)
+    const height = Number(this.height)
+    const pixelsParCm = Number(this.pixelsParCm)
+    const axes = this.axes.map(el => el)
+    const centre = this.centre
+    const nbAxes = Number(this.nbAxes)
+    const opacite = Number(this.opacite)
+    const name = newName
+    return new Figure2D({
+      codeSvg,
+      codeTikz,
+      x,
+      y,
+      angle,
+      scale,
+      width,
+      height,
+      pixelsParCm,
+      axes,
+      centre,
+      nbAxes,
+      opacite,
+      name
     })
   }
 
@@ -320,6 +393,87 @@ export class Figure2D extends ObjetMathalea2D {
     return angles
   }
 
+  loopReflectionAnimee (axe: Droite, id: string) {
+    const copieAnimee = new Figure2D({
+      codeSvg: `<g id="${id}" style="filter: drop-shadow(0px 0px 0px rgb(80, 80, 80))">
+        ${this.svg(this.pixelsParCm)}
+      </g>`,
+      codeTikz: this.tikz(),
+      width: this.width / this.scale.x,
+      height: this.height / this.scale.y,
+      pixelsParCm: this.pixelsParCm,
+      scale: { x: 1, y: 1 },
+      angle: 0,
+      x: 0,
+      y: 0,
+      opacite: 1,
+      axes: this.Axes,
+      nonAxe: this.nonAxe,
+      centre: this.centre
+    })
+
+    const ppcm = this.pixelsParCm
+
+    copieAnimee.name = id
+    document.addEventListener('exercicesAffiches', () => {
+      const figure = document.getElementById(id)
+      if (!figure) return
+
+      // Calcul du centre de l'axe
+      const cx = (axe.x1 + axe.x2) / 2
+      const cy = (axe.y1 + axe.y2) / 2
+
+      // Création du clipPath
+      const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath')
+      const clipId = 'clip-' + id
+      clipPath.setAttribute('id', clipId)
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+      rect.setAttribute('id', `clipingRect_${id}`)
+      const largeur = 500
+      const hauteur = 500
+      rect.setAttribute('x', String(cx * ppcm - largeur / 2))
+      rect.setAttribute('y', String(cy * ppcm - hauteur / 2))
+      rect.setAttribute('width', String(largeur))
+      rect.setAttribute('height', String(hauteur))
+      clipPath.appendChild(rect)
+      figure.appendChild(clipPath)
+      figure.setAttribute('clip-path', `url(#${clipId})`)
+
+      // Animation de la symétrie en boucle
+      let progress = 0
+      let direction = 1
+
+      // Calcul de l'angle de l'axe par rapport à l'horizontale
+      const angleAxe = Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180 / Math.PI
+
+      function animateLoop () {
+        if (figure == null) return
+        progress += 0.004 * direction
+        if (progress > 1) {
+          progress = 1
+          direction = -1
+        } else if (progress < 0) {
+          progress = 0
+          direction = 1
+        }
+        const shadowOffsetX = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.cos(angleAxe * Math.PI / 180)
+        const shadowOffsetY = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.sin(angleAxe * Math.PI / 180)
+        const shadowStyle = `drop-shadow(${shadowOffsetX}px ${shadowOffsetY}px 5px rgb(80, 80, 80))`
+        figure.setAttribute('style', `filter: ${shadowStyle}`)
+
+        const { a, b, c, d, tx, ty } = computeSymmetryMatrix(progress, angleAxe, cx * ppcm, cy * ppcm)
+        figure.setAttribute('transform', `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`)
+
+        requestAnimationFrame(animateLoop)
+      }
+
+      animateLoop()
+    })
+    return copieAnimee
+  }
+
+  // Fonction pour créer une figure animée avec une réflexion automatique selon les axes de la figure
+
   autoReflectionAnimee (id: string, cx: number, cy: number) {
     const copieAnimee = new Figure2D({
       codeSvg: `<g id="${id}" style="filter: drop-shadow(0px 0px 0px rgb(80, 80, 80))"> 
@@ -367,23 +521,7 @@ export class Figure2D extends ObjetMathalea2D {
       let progress = 0
       let currentSymmetry = 0
       let animating = false
-      function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, cy: number) {
-        const angle = angleDeg * Math.PI / 180
-        const cosA = Math.cos(angle)
-        const sinA = Math.sin(angle)
 
-        const sy = 1 - 2 * progress
-
-        const a = cosA * cosA + sinA * sinA * sy
-        const b = cosA * sinA * (1 - sy)
-        const c = cosA * sinA * (1 - sy)
-        const d = sinA * sinA + cosA * cosA * sy
-
-        const tx = cx - a * cx - c * cy
-        const ty = cy - b * cx - d * cy
-
-        return { a, b, c, d, tx, ty }
-      }
       function animateSymmetry (angleDeg: number, onComplete: () => void) {
         // Création du rectangle bord gauche centré en (cx, cy) avec largeur et hauteur suffisantes
         const rect = document.getElementById(`clipingRect_${id}`)
