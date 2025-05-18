@@ -115,7 +115,7 @@ export class Figure2D extends ObjetMathalea2D {
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]
     ${this.codeTikz}
     \\end{scope}`
   }
@@ -196,7 +196,7 @@ export class Figure2D extends ObjetMathalea2D {
     })
   }
 
-  rotationAnimee ({ angleStart = 0, angleEnd = 180, cx, cy, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
+  rotationAnimee ({ angleStart = 0, angleEnd = 180, cx, cy, duration = '2s', repeatCount = 'indefinite', loop = true, delay = 0 }: {
     angleStart?: number,
     angleEnd?: number,
     duration?: string,
@@ -208,10 +208,10 @@ export class Figure2D extends ObjetMathalea2D {
   }) {
     if (cx === undefined) {
       cx = this.x * this.pixelsParCm
-    }
+    } else cx *= this.pixelsParCm
     if (cy === undefined) {
       cy = -this.y * this.pixelsParCm
-    }
+    } else cy *= -this.pixelsParCm
     return new Figure2D({
       codeSvg: `<g> 
       <animateTransform
