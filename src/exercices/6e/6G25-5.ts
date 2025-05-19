@@ -6,8 +6,7 @@ import Exercice from '../Exercice'
 import { homothetie, projectionOrtho, rotation } from '../../lib/2d/transformations'
 import { point } from '../../lib/2d/points'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import { randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { droite } from '../../lib/2d/droites'
 import { latex2d } from '../../lib/2d/textes'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -34,6 +33,8 @@ export default class NbAxesDeSymetrie extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
+    this.sup = '1'
+    this.besoinFormulaireTexte = ['Type d\'axes', 'Nombres séparés par des tirets\n1 : Plutôt vertical\n2 : Plutôt horizontal\n3 : Plutôt oblique\n4 : Mélange']
     this.besoinFormulaire4CaseACocher = ['Grandes figures', true]
     this.sup4 = true
   }
@@ -41,6 +42,7 @@ export default class NbAxesDeSymetrie extends Exercice {
   nouvelleVersion (): void {
     const factor = this.sup4 ? 2 : 1
     const numerosChoisis: number[] = []
+    const typeAxe = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 1, nbQuestions: this.nbQuestions, listeOfCase: ['vertical', 'horizontal', 'oblique'] })
     for (let i = 0; i < this.nbQuestions;) {
       let texte = ''
       let texteCorr = ''
@@ -57,25 +59,33 @@ export default class NbAxesDeSymetrie extends Exercice {
       const choix = listeFigs.filter(el => !numerosChoisis.includes(el.numero))
       const figure: Forme = choice(choix)
       numerosChoisis.push(figure.numero)
-      texte += `Les deux figures sont-elles symétrique par rapport à la droite $(${i <= 25 ? lettreMinusculeDepuisChiffre(i + 1) : `d_{${(i + 1) % 26}}`})$ ?<br>`
+      texte += `Les deux figures sont-elles symétriques par rapport à la droite $(d_{${(i + 1) % 10}})$ ?<br>`
       const alpha = 0 // randint(-30, 30, 0)
       const options = figure.options ?? {}
-      const forme = figure.figure2d(options).dilate(factor).rotate(alpha).translate(-4.5, 0)
+      const forme = typeAxe[i] === 'vertical'
+        ? figure.figure2d(options).dilate(factor).rotate(alpha).translate(-4.5, 0)
+        : typeAxe[i] === 'horizontal'
+          ? figure.figure2d(options).dilate(factor).rotate(alpha).translate(0, 4.5)
+          : figure.figure2d(options).dilate(factor).rotate(alpha).translate(-4.5, 4.5)
       forme.name = figure.name.replace(/ /g, '_')
       forme.opacite = 0.5
       objets.push(forme)
       const beta = randint(-4, 4, [0, 1, -1]) * 2
-      const axe = rotation(droite(point(0, 0), point(0, 1)), point(0, 0), -beta)
-      const dy = axe.y2 - axe.y1
-      const dx = axe.x2 - axe.x1
-      const d = Math.sqrt(dx * dx + dy * dy)
-      axe.x1 = -dx / d * 5
-      axe.y1 = -dy / d * 5
-      axe.x2 = dx / d * 5
-      axe.y2 = dy / d * 5
+      const angle = typeAxe[i] === 'vertical'
+        ? 0
+        : typeAxe[i] === 'horizontal'
+          ? 90
+          : -45
+      const axe = rotation(droite(point(0, -1), point(0, 1)), point(0, 0), angle + beta)
+
       objets.push(axe)
-      const h = projectionOrtho(point(-4.5, 0), axe)
-      const v = homothetie(vecteur(point(-4.5, 0), h), h, 2)
+      const centre = typeAxe[i] === 'vertical'
+        ? point(-4.5, 0)
+        : typeAxe[i] === 'horizontal'
+          ? point(0, 4.5)
+          : point(-4.5, 4.5)
+      const h = projectionOrtho(centre, axe)
+      const v = homothetie(vecteur(centre, h), h, 2)
       const choixReponse = choice(['translation', 'symetrie', 'rotation', 'homothetie'])
       let forme2
       switch (choixReponse) {
@@ -91,18 +101,19 @@ export default class NbAxesDeSymetrie extends Exercice {
           break
 
         case 'homothetie':
-          forme2 = forme.copy(forme.name + 'b').translate(4.5, 0).dilate(choice([1.2, 1.3, 1.1, 0.9, 0.8])).translate(-4.5, 0)
+          forme2 = forme.copy(forme.name + 'b').translate(-centre.x, -centre.y).dilate(choice([1.2, 1.3, 1.1, 0.9, 0.8])).translate(centre.x, centre.y)
           forme2 = forme2.symetrie(axe)
           objets.push(forme2)
           break
 
         case 'rotation':
         default:
-          forme2 = forme.copy(forme.name + 'b').rotate(4 * beta).translate(v.x, v.y)
+          forme2 = forme.copy(forme.name + 'b').rotate(180 - angle - 4 * beta).translate(v.x, v.y)
           objets.push(forme2)
           break
       }
-      objets.push(latex2d(`(${i <= 25 ? lettreMinusculeDepuisChiffre(i + 1) : `d_{${(i + 1) % 26}}`})`, axe.x2 + 0.6, axe.y2, { }))
+      const nomDroite = latex2d(`(d_{${(i + 1) % 10}})`, axe.x2 + 0.6, axe.y2, { })
+      objets.push(nomDroite)
       texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures(objets, { rxmax: 3, rymax: 1, rymin: -1 })), objets)
       if (this.interactif) {
         this.autoCorrection[i] = {
@@ -117,21 +128,73 @@ export default class NbAxesDeSymetrie extends Exercice {
         const monQcm = propositionsQcm(this, i, { style: 'inline-block', format: 'case', radio: true })
         texte += `${monQcm.texte}`
       }
-      const anim = forme.loopReflectionAnimee(axe, `${forme.name}Corr_${i}`)
+      const onDirectionChange = (direction = 1) => {
+        if (direction === 1) return
+        // Ajoute l'icône à côté de la figure symétrique (forme2)
+        const elem = document.getElementById(`${forme.name}Corr_${i - 1}`) as unknown as SVGElement// Je n'ai pas compris pourquoi il faut -1
+        // On ne peut pas insérer un span dans un SVG, donc on crée un élément SVG pour l'icône
+        if (elem && !elem.ownerSVGElement?.querySelector(`#icone-resultat-${i}`)) {
+          const svgNS = 'http://www.w3.org/2000/svg'
+          const iconGroup = document.createElementNS(svgNS, 'g')
+          iconGroup.setAttribute('id', `icone-resultat-${i}`)
+          iconGroup.setAttribute('class', 'icone-resultat')
+          // Positionne l'icône à droite de la figure (décalage arbitraire, à ajuster si besoin)
+          //   const bbox = elem.getBBox()
+          const x = 0 // bbox.x + bbox.width + 100
+          const y = 0 // bbox.y + bbox.height / 2
+          if (choixReponse === 'symetrie') {
+            // coche verte
+            const path = document.createElementNS(svgNS, 'path')
+            path.setAttribute('d', 'M4 20 L16 32 L36 8')
+            path.setAttribute('stroke', 'green')
+            path.setAttribute('stroke-width', '5')
+            path.setAttribute('fill', 'none')
+            path.setAttribute('stroke-linecap', 'round')
+            path.setAttribute('stroke-linejoin', 'round')
+            iconGroup.appendChild(path)
+          } else {
+            // croix rouge
+            const line1 = document.createElementNS(svgNS, 'line')
+            line1.setAttribute('x1', '4')
+            line1.setAttribute('y1', '4')
+            line1.setAttribute('x2', '36')
+            line1.setAttribute('y2', '36')
+            line1.setAttribute('stroke', 'red')
+            line1.setAttribute('stroke-width', '5')
+            line1.setAttribute('stroke-linecap', 'round')
+            const line2 = document.createElementNS(svgNS, 'line')
+            line2.setAttribute('x1', '36')
+            line2.setAttribute('y1', '4')
+            line2.setAttribute('x2', '4')
+            line2.setAttribute('y2', '36')
+            line2.setAttribute('stroke', 'red')
+            line2.setAttribute('stroke-width', '5')
+            line2.setAttribute('stroke-linecap', 'round')
+            iconGroup.appendChild(line1)
+            iconGroup.appendChild(line2)
+          }
+          iconGroup.setAttribute('transform', `translate(${x},${y}) scale(1.2)`)
+          elem.ownerSVGElement?.appendChild(iconGroup)
+          setTimeout(() => {
+            iconGroup.remove()
+          }, 2000)
+        }
+      }
+      const anim = forme.loopReflectionAnimee(axe, `${forme.name}Corr_${i}`, onDirectionChange)
       const formeBis = forme.copy(forme.name + 'Bis')
       formeBis.opacite = 0.3
       const forme2Bis = forme2.copy(forme2.name + 'Bis')
       forme2Bis.opacite = 0.3
-      objetsCorr.push(formeBis, forme2Bis, anim, axe)
-      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures(objetsCorr, { rxmax: 3, rymax: 1, rymin: -1 })), objetsCorr)
-      texteCorr += `Les deux figures ${texteEnCouleurEtGras((choixReponse === 'symetrie' ? 'sont' : 'ne sont pas') + ' symétriques')} par rapport à la droite $(${i <= 25 ? lettreMinusculeDepuisChiffre(i + 1) : `d_{${(i + 1) % 26}}`})$.<br>`
+      objetsCorr.push(formeBis, forme2Bis, anim, axe, nomDroite)
+      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures(objetsCorr, { rxmax: 4, rymax: 2, rymin: -2.5 })), objetsCorr)
+      texteCorr += `Les deux figures ${texteEnCouleurEtGras((choixReponse === 'symetrie' ? 'sont' : 'ne sont pas') + ' symétriques')} par rapport à la droite $(d_{${(i + 1) % 10}})$.<br>`
       texteCorr += choixReponse === 'homothetie'
-        ? 'Les figures nont pas la même taille.'
+        ? 'Les figures n\'ont pas la même taille.'
         : choixReponse === 'translation'
-          ? 'Les figures ne sont pas symétriques, comme le montre l\'animation.'
+          ? `Les figures ne sont pas symétriques par rapport à la droite $(d_{${(i + 1) % 10}})$, comme le montre l'animation.`
           : choixReponse === 'rotation'
-            ? 'L\'animation montre que les figures ne sont pas symétriques.'
-            : 'L\'animation montre que par pliage selon l\'axe les deux figures se superposent parfaitement.'
+            ? `L'animation montre que les figures ne sont pas symétriques par rapport à la droite $(d_{${(i + 1) % 10}})$.`
+            : `L'animation montre que par pliage selon l'axe  $(d_{${(i + 1) % 10}})$ les deux figures se superposent parfaitement.`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

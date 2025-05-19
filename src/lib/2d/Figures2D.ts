@@ -3,8 +3,10 @@ import { context } from '../../modules/context'
 import type { Droite } from './droites'
 import { point, type Point } from './points'
 import { type Segment } from './segmentsVecteurs'
-import { rotation } from './transformations'
+import { rotation, symetrieAxiale } from './transformations'
 
+// ne fonctionne qu'avec cx=0 et cy=0... je ne sais pas pourquoi.
+// Donc si cx = 0 et cy = 0, alors, il y a plein de code qui ne sert à rien.
 function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, cy: number) {
   const angle = angleDeg * Math.PI / 180
   const cosA = Math.cos(angle)
@@ -15,7 +17,7 @@ function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, 
   const a = cosA * cosA + sinA * sinA * sy
   const b = cosA * sinA * (1 - sy)
   const c = cosA * sinA * (1 - sy)
-  const d = sinA * sinA + cosA * cosA * sy
+  const d = (sinA * sinA + cosA * cosA * sy)
 
   const tx = cx - a * cx - c * cy
   const ty = cy - b * cx - d * cy
@@ -204,8 +206,8 @@ export class Figure2D extends ObjetMathalea2D {
     const { a, b, c, d, tx, ty } = computeSymmetryMatrix(1, angleAxe, 0, 0)
 
     const svg = `<g transform="matrix(${a}, ${b}, ${c}, ${d}, ${tx}, ${ty})">${this.codeSvg}</g>`
-    const xImg = a * this.x + c * this.y + tx
-    const yImg = -b * this.x - d * this.y - ty
+    const xImg = a * this.x - c * this.y + tx
+    const yImg = -b * this.x + d * this.y - ty
     // Calcul du code TikZ pour la symétrie
     // On applique la même transformation que pour le SVG, mais en TikZ
     // L'angle de symétrie est angleAxe, le centre est (0,0) car la matrice est centrée sur (0,0)
@@ -224,9 +226,9 @@ export class Figure2D extends ObjetMathalea2D {
       width: this.width,
       height: this.height,
       pixelsParCm: this.pixelsParCm,
-      axes: this.axes,
+      axes: this.axes.map(el => symetrieAxiale(el, axe)),
       nonAxe: this.nonAxe,
-      centre: this.centre,
+      centre: this.centre == null ? null : symetrieAxiale(this.centre, axe),
       nbAxes: this.nbAxes,
       opacite: this.opacite,
       name: this.name + '_sym'
@@ -393,7 +395,7 @@ export class Figure2D extends ObjetMathalea2D {
     return angles
   }
 
-  loopReflectionAnimee (axe: Droite, id: string) {
+  loopReflectionAnimee (axe: Droite, id: string, onDirectionChange?: (direction: number) => void) {
     const copieAnimee = new Figure2D({
       codeSvg: `<g id="${id}" style="filter: drop-shadow(0px 0px 0px rgb(80, 80, 80))">
         ${this.svg(this.pixelsParCm)}
@@ -407,9 +409,6 @@ export class Figure2D extends ObjetMathalea2D {
       x: 0,
       y: 0,
       opacite: 1,
-      axes: this.Axes,
-      nonAxe: this.nonAxe,
-      centre: this.centre
     })
 
     const ppcm = this.pixelsParCm
@@ -419,11 +418,9 @@ export class Figure2D extends ObjetMathalea2D {
       const figure = document.getElementById(id)
       if (!figure) return
 
-      // Calcul du centre de l'axe
       const cx = (axe.x1 + axe.x2) / 2
       const cy = (axe.y1 + axe.y2) / 2
 
-      // Création du clipPath
       const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath')
       const clipId = 'clip-' + id
       clipPath.setAttribute('id', clipId)
@@ -439,11 +436,9 @@ export class Figure2D extends ObjetMathalea2D {
       figure.appendChild(clipPath)
       figure.setAttribute('clip-path', `url(#${clipId})`)
 
-      // Animation de la symétrie en boucle
       let progress = 0
       let direction = 1
 
-      // Calcul de l'angle de l'axe par rapport à l'horizontale
       const angleAxe = Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180 / Math.PI
 
       function animateLoop () {
@@ -452,9 +447,19 @@ export class Figure2D extends ObjetMathalea2D {
         if (progress > 1) {
           progress = 1
           direction = -1
+          if (onDirectionChange) onDirectionChange(direction)
+          setTimeout(() => {
+            requestAnimationFrame(animateLoop)
+          }, 2000)
+          return
         } else if (progress < 0) {
           progress = 0
           direction = 1
+          if (onDirectionChange) onDirectionChange(direction)
+          setTimeout(() => {
+            requestAnimationFrame(animateLoop)
+          }, 200)
+          return
         }
         const shadowOffsetX = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.cos(angleAxe * Math.PI / 180)
         const shadowOffsetY = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.sin(angleAxe * Math.PI / 180)
@@ -473,7 +478,6 @@ export class Figure2D extends ObjetMathalea2D {
   }
 
   // Fonction pour créer une figure animée avec une réflexion automatique selon les axes de la figure
-
   autoReflectionAnimee (id: string, cx: number, cy: number) {
     const copieAnimee = new Figure2D({
       codeSvg: `<g id="${id}" style="filter: drop-shadow(0px 0px 0px rgb(80, 80, 80))"> 
