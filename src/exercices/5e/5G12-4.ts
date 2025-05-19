@@ -123,10 +123,11 @@ export default class NbAxesDeSymetrie extends Exercice {
               { texte: 'non', statut: formes[j].centre == null }
             ],
             options: {
-              ordered: true
+              ordered: true,
+              radio: true
             }
           }
-          const monQcm = propositionsQcm(this, i * nbFigures + j, { style: 'inline-block', format: 'case', radio: true })
+          const monQcm = propositionsQcm(this, i * nbFigures + j, { style: 'inline-block', format: 'case' })
           texte += `figure ${j + 1} : ${monQcm.texte}`
         }
       }

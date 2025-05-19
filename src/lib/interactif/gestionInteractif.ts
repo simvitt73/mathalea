@@ -211,6 +211,7 @@ export interface AutoCorrection {
 
   }
   options?: {
+    radio?: boolean,
     ordered?: boolean,
     vertical?: boolean,
     lastChoice?: number,

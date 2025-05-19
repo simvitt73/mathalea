@@ -49,11 +49,11 @@ export default class VraiFaux extends Exercice {
         })
       }
       this.autoCorrection[i] = {
-        options: { ordered: true, vertical: false },
+        options: { ordered: true, vertical: false, radio: true },
         enonce: texte,
         propositions
       }
-      const monQcm = propositionsQcm(this, i, { radio: true, style: '', format: 'case'})
+      const monQcm = propositionsQcm(this, i)
       if (!context.isAmc && this.interactif) {
         texte += monQcm.texte
       }
