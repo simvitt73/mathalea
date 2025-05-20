@@ -54,6 +54,7 @@ export default class CoefficientDirecteur extends Exercice {
     this.sup = '1-2-3-4-5-6-7'
     this.sup2 = true
     this.sup3 = true
+    this.spacing = 1.5
   }
 
   nouvelleVersion () {
@@ -126,7 +127,7 @@ export default class CoefficientDirecteur extends Exercice {
           const signe = choice([true, false])
           if (choice([true, false])) { // sqrt est sur a
             a = randint(2, 8, [4])
-            coefDir = choice([true, false]) ? `\\sqrt{${a}}` : `-\\sqrt{${a}}`
+            coefDir = signe ? `\\sqrt{${a}}` : `-\\sqrt{${a}}`
             ordOrigine = b
             if (choice([true, false])) { // Dans cet ordre : ${nomFonction}(${nomVariable})=sqrt(a)${nomVariable}+b
               fonctionF = `${coefDir}${nomVariable} ${ecritureAlgebrique(b)}`
@@ -144,10 +145,9 @@ export default class CoefficientDirecteur extends Exercice {
             if (choice([true, false])) { // Dans cet ordre : ${nomFonction}(${nomVariable})=ax+sqrt(b)
               fonctionF = signe ? `${coefDir}${nomVariable} + ${ordOrigine}` : `${coefDir}${nomVariable} ${ordOrigine}`
               texteCorSelonCase += `On observe que la fonction $${nomFonction}_{${i + 1}}$ s'écrit bien sous la forme $${nomFonction}(${nomVariable})= m ${nomVariable}+ p`
-              if (!signe) texteCorSelonCase += `$ et donc $${nomFonction}_{${i + 1}}(${nomVariable}) = \\sqrt{${coefDir}}${nomVariable}+(${ordOrigine})`
+              if (!signe) texteCorSelonCase += `$ et donc $${nomFonction}_{${i + 1}}(${nomVariable}) = ${coefDir}${nomVariable}+(${ordOrigine})`
             } else { // Dans cet ordre : ${nomFonction}(${nomVariable})=sqrt(b)+ax
-              fonctionF = `${ordOrigine} + ${ecritureAlgebrique(a)}${nomVariable}`
-              if (!signe) texteCorSelonCase += `$ et donc $${nomFonction}_{${i + 1}}(${nomVariable}) = \\sqrt{${coefDir}}${nomVariable}+(${ordOrigine})`
+              fonctionF = `${ordOrigine} ${ecritureAlgebrique(a)}${nomVariable}`
               texteCorSelonCase += `On peut réécrire l'expression algébrique de cette fonction sous la forme $${nomFonction}(${nomVariable}) = m ${nomVariable} + p$ et donc $${nomFonction}_{${i + 1}}(${nomVariable})=${signe ? `${coefDir}${nomVariable} + ${ordOrigine}` : `${coefDir}${nomVariable} ${ordOrigine}`}`
               if (!signe) texteCorSelonCase += ` = \\sqrt{${coefDir}}${nomVariable}+(${ordOrigine})`
             }
