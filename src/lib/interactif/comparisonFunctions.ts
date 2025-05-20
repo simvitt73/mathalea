@@ -1961,7 +1961,7 @@ export function approximatelyCompare (
   ])
   const saisieClean = Number(engine.parse(cleaner(input)).numericValue)
   const answerClean = Number(engine.parse(cleaner(goodAnswer)).numericValue)
-  return { isOk: Math.abs(saisieClean - answerClean) < tolerance }
+  return { isOk: Math.abs(saisieClean - answerClean) <= tolerance }
 }
 
 /**
