@@ -5865,7 +5865,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Arithmétique', 'Vrai/Faux', 'Probabilités', 'Équations', 'Volumes', 'Vitesses']
   },
   dnb_2024_09_metropole_2: {
     annee: '2024',
@@ -5873,7 +5873,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Thalès', 'Pythagore', 'Aires et périmètres', 'Géométrie plane', 'Proportionnalité']
   },
   dnb_2024_09_metropole_3: {
     annee: '2024',
@@ -5881,7 +5881,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Statistiques', 'Pourcentages', 'Trigonométrie']
   },
   dnb_2024_09_metropole_4: {
     annee: '2024',
@@ -5889,7 +5889,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2024_09_metropole_5: {
     annee: '2024',
@@ -5897,7 +5897,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Géométrie plane', 'Algorithmique-programmation']
   },
   dnb_2024_12_ameriquesud_1: {
     annee: '2024',
@@ -5905,7 +5905,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['QCM', 'Probabilités', 'Géométrie dans l\'espace', 'Thalès', 'Transformations']
   },
   dnb_2024_12_ameriquesud_2: {
     annee: '2024',
@@ -5913,7 +5913,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2024_12_ameriquesud_3: {
     annee: '2024',
@@ -5921,7 +5921,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Probabilités', 'Vitesses', 'Pourcentages', 'Coordonnées terrestres']
   },
   dnb_2024_12_ameriquesud_4: {
     annee: '2024',
@@ -5929,7 +5929,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Pythagore', 'Trigonométrie', 'Volumes']
   },
   dnb_2024_12_ameriquesud_5: {
     annee: '2024',
@@ -5937,7 +5937,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Algorithmique-programmation']
   },
 
 }
