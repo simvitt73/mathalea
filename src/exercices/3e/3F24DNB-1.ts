@@ -107,7 +107,7 @@ export default class Exercice3F24DNB1 extends ExerciceBrevetA {
       items: [
         `La fonction $f$ n'est pas affine car une fonction affine est représentée par une droite (voir ci-dessous).<br>${figureCoor}`,
         `${this.correctionDetaillee
-? `Le tableau de valeur peut être rempli grâce à la calculatrice :<br>
+? `Le tableau de valeurs peut être rempli grâce à la calculatrice :<br>
         Pour cela, il faut saisir la fonction $f$ donnée à la question 3, puis faire calculer les images des antécédents de $-3$ à $2$ par pas de $1$.<br>
         Ou par lecture graphique :<br>
         On peut lire les images des nombres $-1$, $0$, $1$ et $2$ sur le graphique ci-dessus.<br>`
@@ -185,7 +185,7 @@ export default class Exercice3F24DNB1 extends ExerciceBrevetA {
       items: [
         sousListe1,
        `On considère la fonction affine $g$ définie par $g(x) = ${rienSi1(a)}x${ecritureAlgebrique(b)}$.${sousListe2}`,
-        `L'expression de la fonction $f$ ci-dessus est $f(x) = (x${ecritureAlgebrique(c)})(x${ecritureAlgebrique(d)})$${sousListe3}.`
+        `L'expression de la fonction $f$ ci-dessus est $f(x) = (x${ecritureAlgebrique(c)})(x${ecritureAlgebrique(d)})$.${sousListe3}.`
       ],
       style: 'nombres'
     })
