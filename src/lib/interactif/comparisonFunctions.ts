@@ -291,11 +291,18 @@ export function generateCleaner (
     }
   })
 
-  return (str: string) =>
-    cleaningFunctions.reduce(
+  return (str: string) => {
+    let cleaned = String(str)
+
+    // Supprimer tous les '_{}' et tous les '^{}'
+    cleaned = cleaned.replaceAll('_{}', '').replaceAll('^{}', '')
+
+    // Appliquer les fonctions de nettoyage
+    return cleaningFunctions.reduce(
       (result, cleaningFn) => cleaningFn(result),
-      String(str)
+      cleaned
     )
+  }
 }
 
 /**
