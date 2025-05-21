@@ -16,7 +16,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
-export const titre = 'Additionner ou soustraire deux fractions positives (dénominateurs multiples, )'
+export const titre = 'Additionner ou soustraire deux fractions positives (dénominateurs multiples)'
 /**
  * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
  * Les numérateurs peuvent être positifs ou négatifs.

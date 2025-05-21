@@ -1,5 +1,5 @@
 import ExerciceAdditionnerSoustraireFractions5ebis from './5N20'
-export const titre = 'Additionner ou soustraire deux fractions relatives (dénominateurs multiples, )'
+export const titre = 'Additionner ou soustraire deux fractions relatives (dénominateurs multiples)'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
