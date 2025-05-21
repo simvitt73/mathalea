@@ -153,7 +153,7 @@ export interface ValeurNormalized {
     score: { nbBonnesReponses: number, nbReponses: number }
   }
 }
-type UneProposition = {
+export type UneProposition = {
   texte?: string
   statut?: number | boolean | string
   sanscadre?: boolean | number
