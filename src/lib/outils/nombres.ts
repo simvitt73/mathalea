@@ -44,7 +44,7 @@ export function signe (a: number) { // + ou -
 }
 
 /**
- * Retourne l'arrondi (par défaut au centième près)
+ * Retourne l'arrondi (par défaut au millionième près)
  * @author Rémi Angot
  * @param {number} nombre
  * @param {number} precision
