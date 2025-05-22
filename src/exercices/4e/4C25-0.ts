@@ -50,7 +50,7 @@ export default class ProblemesAdditifsFractionsBis extends Exercice {
       : this.nbQuestions > 1
         ? 'Justifier vos réponses aux problèmes suivants.'
         : 'Justifier votre réponse au problème suivant.'
-
+    if ((!context.isHtml) && this.nbQuestions > 1) this.consigne += '<br>'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
