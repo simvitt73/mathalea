@@ -19,6 +19,6 @@ REMOTE_CURRENT_BUILD_PATH="${REMOTE_BUILDS_PATH}/${TIMESTAMP}"
 rsync -avz ${LOCAL_DIST_PATH}/ ${REMOTE_SERVER}:${REMOTE_CURRENT_BUILD_PATH}/
 
 # Edit the symbolic link to point to the new build
-ssh ${REMOTE_SERVER} "ln -sf ${REMOTE_CURRENT_BUILD_PATH}/ ${REMOTE_DIST_PATH}"
+ssh ${REMOTE_SERVER} "rm ${REMOTE_DIST_PATH}; ln -s ${REMOTE_CURRENT_BUILD_PATH}/ ${REMOTE_DIST_PATH}"
 
 echo "Déploiement terminé. Le site est disponible dans ${REMOTE_CURRENT_BUILD_PATH} et lié à ${REMOTE_DIST_PATH}."
