@@ -12,7 +12,7 @@ export const refs = {
 export default class CoefficientDirecteur2nde extends CoefficientDirecteur {
   constructor () {
     super()
-    this.sup = 12
+    this.sup = 13
     this.sup2 = false
     this.sup3 = false
   }
