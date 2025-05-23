@@ -30,7 +30,7 @@ class IdentiteRemarquable {
   }
 
   static sommeProduit (a: PolynomePlusieursVariables | MonomePlusieursVariables, b: PolynomePlusieursVariables | MonomePlusieursVariables, c: PolynomePlusieursVariables | MonomePlusieursVariables) : PolynomePlusieursVariables {
-    // a² - b² = (a + b)(a - b)
+    // (x+a)(x+b) = x² + (a+b)x + ab
     let aP : PolynomePlusieursVariables
     if (a instanceof MonomePlusieursVariables) { aP = PolynomePlusieursVariables.createPolynomeFromMonome(a) } else { aP = a }
     let bP : PolynomePlusieursVariables

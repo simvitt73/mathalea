@@ -110,7 +110,10 @@ export default class nomExercice extends Exercice {
         {
           const expr = IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}$`
+          // si deux carrés facile
+          // si un seul carré, alors on calcule la racine et on s'il divise le terme restant, si oui, alors première identité autrement, la quatrième
+          texteCorr = 'On remarque que '
+          texteCorr += `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}$`
           break
         }
         case 2:
@@ -118,6 +121,7 @@ export default class nomExercice extends Exercice {
         {
           const expr = IdentiteRemarquable.carreDuneDifference(p1, p2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
+          // idem que pour la 1re
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}-${p2.toString()}\\right)^2`)}$`
           break
         }
@@ -128,6 +132,8 @@ export default class nomExercice extends Exercice {
           const signeT2 = pSP2.coefficient.signe < 0 ? '' : '+'
           const expr = IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
+          // si un seul carré et que la racine ne divise pas le terme restant, alors la quatrième
+          // si aucun carré, alors la quatrième
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)`)}$`
           break
         }
