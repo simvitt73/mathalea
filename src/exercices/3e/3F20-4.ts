@@ -24,7 +24,7 @@ export const uuid = 'a2b1b'
 
 export const refs = {
   'fr-fr': ['3F20-4'],
-  'fr-ch': ['']
+  'fr-ch': ['1mF2-16', '11FA8-19']
 }
 export default class CoefficientDirecteur extends Exercice {
   constructor () {
