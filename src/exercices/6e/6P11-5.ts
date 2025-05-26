@@ -7,6 +7,7 @@ import { AddTabPropMathlive } from '../../lib/interactif/tableaux/AjouteTableauM
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 
 export const titre = 'Compléter un tableau de proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
@@ -98,7 +99,7 @@ function achat (entier = true): [string, number, number, string, string] {
     pu = listeDePrixUnit[index1][index2]
     entier = Boolean(entier)
   } while ((entier && pu % 1 !== 0) || (!entier && pu % 1 === 0))
-  return [objet, 1, pu, `\\text{${objet}}`, '\\text{Prix en euros}']
+  return [objet, 1, pu, `\\text{${premiereLettreEnMajuscule(objet)}}`, '\\text{Prix en euros}']
 }
 function carrelage (entier = true): [string, number, number, string, string] {
   const listeDeCarreaux: [string, number][] = [
