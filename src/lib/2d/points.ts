@@ -128,16 +128,16 @@ export class Point extends PointAbstrait {
  * Crée un objet Point ayant les propriétés suivantes :
  * @param {number} x abscisse
  * @param {number} y ordonnée
- * @param {string} [A] son nom qui apparaîtra
+ * @param {string} nom son nom qui apparaîtra
  * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
-export function point (x: number, y: number, A = '', positionLabel = 'above') {
-  return new Point(x, y, A, positionLabel)
+export function point (x: number, y: number, nom = '', positionLabel = 'above') {
+  return new Point(x, y, nom, positionLabel)
 }
 
 export function pointDepuisPointAbstrait (point: PointAbstrait) {
-  return new Point(point.x, point.y, point.A, point.positionLabel)
+  return new Point(point.x, point.y, point.nom, point.positionLabel)
 }
 
 /**
@@ -493,11 +493,11 @@ export function traceMilieuSegment (A: PointAbstrait, B: PointAbstrait) {
  * @returns {PointAbstrait} Milieu du segment [AB]
  * @author Rémi Angot
  */
-export function milieu (A: PointAbstrait, B: PointAbstrait, nom = '', positionLabel = 'above'): PointAbstrait {
+export function milieu (A: PointAbstrait, B: PointAbstrait, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
-  return new PointAbstrait(x, y, nom, positionLabel)
+  return point(x, y, nom, positionLabel)
 }
 
 /**
