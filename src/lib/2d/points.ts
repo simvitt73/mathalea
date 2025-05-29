@@ -10,6 +10,7 @@ import { droite, Droite, droiteParPointEtPerpendiculaire, Mediatrice } from './d
 import { carre, Polygone, polygone } from './polygones'
 import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, similitude } from './transformations'
+import { PointAbstrait } from './points-abstraits'
 
 /**
  * A = point('A') //son nom
@@ -19,49 +20,7 @@ import { homothetie, rotation, similitude } from './transformations'
  * @author Rémi Angot
  * @class
  */
-export class Point extends ObjetMathalea2D {
-  nom: string
-  x: number
-  y: number
-
-  constructor (arg1: string | number, arg2: number, arg3?: number | string, positionLabel = 'above') {
-    super()
-    this.typeObjet = 'point'
-    this.x = 0
-    this.y = 0
-    this.nom = ' ' // Le nom d'un point est par défaut un espace. On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
-    if (arguments.length === 1) {
-      this.nom = String(arg1)
-    } else if (arguments.length === 2) {
-      if (Number.isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
-      else {
-        this.x = Number(arg1)
-        this.y = arg2
-      }
-    } else {
-      if (Number.isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
-      else {
-        this.x = Number(arg1)
-        this.y = arg2
-      }
-      this.nom = String(arg3)
-    }
-    // On n'a pas besoin de davantage de décimales pour les graphiques !
-    this.x = arrondi(this.x, 2)
-    this.y = arrondi(this.y, 2)
-
-    this.positionLabel = positionLabel
-    this.bordures = [this.x, this.y, this.x, this.y]
-  }
-
-  xSVG (coeff: number) {
-    return arrondi(this.x * coeff, 1)
-  }
-
-  ySVG (coeff: number) {
-    return arrondi(-this.y * coeff, 1)
-  }
-
+export class Point extends PointAbstrait {
   /**
      * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
      * @memberof Point
@@ -169,12 +128,16 @@ export class Point extends ObjetMathalea2D {
  * Crée un objet Point ayant les propriétés suivantes :
  * @param {number} x abscisse
  * @param {number} y ordonnée
- * @param {string} [A] son nom qui apparaîtra
+ * @param {string} nom son nom qui apparaîtra
  * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
-export function point (x: number, y: number, A = '', positionLabel = 'above') {
-  return new Point(x, y, A, positionLabel)
+export function point (x: number, y: number, nom = '', positionLabel = 'above') {
+  return new Point(x, y, nom, positionLabel)
+}
+
+export function pointDepuisPointAbstrait (point: PointAbstrait) {
+  return new Point(point.x, point.y, point.nom, point.positionLabel)
 }
 
 /**
@@ -467,14 +430,14 @@ export function tracePoint (...args: (Point | Point3d | string)[]) {
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export class TracePointSurDroite extends ObjetMathalea2D {
-  lieu: Point
+  lieu: PointAbstrait
   taille: number
   x: number
   y: number
-  direction: Point
+  direction: PointAbstrait
   stringColor: string
 
-  constructor (A: Point, O: Point | Droite, color = 'black') {
+  constructor (A: PointAbstrait, O: PointAbstrait | Droite, color = 'black') {
     super()
     this.stringColor = color
     this.lieu = A
@@ -484,7 +447,7 @@ export class TracePointSurDroite extends ObjetMathalea2D {
     let M, d
     this.bordures = [A.x - 0.2, A.y - 0.2, A.x + 0.2, A.y + 0.2]
 
-    if (O.constructor === Point) {
+    if (O instanceof PointAbstrait) {
       if (longueur(this.lieu, O) < 0.001) {
         window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', {
           A,
@@ -515,11 +478,11 @@ export class TracePointSurDroite extends ObjetMathalea2D {
   }
 }
 
-export function tracePointSurDroite (A: Point, O: Point | Droite, color = 'black') {
+export function tracePointSurDroite (A: PointAbstrait, O: PointAbstrait | Droite, color = 'black') {
   return new TracePointSurDroite(A, O, color)
 }
 
-export function traceMilieuSegment (A: Point, B: Point) {
+export function traceMilieuSegment (A: PointAbstrait, B: PointAbstrait) {
   return new TracePointSurDroite(milieu(A, B), droite(A, B))
 }
 
@@ -527,14 +490,14 @@ export function traceMilieuSegment (A: Point, B: Point) {
  * M = milieu(A,B) //M est le milieu de [AB]
  * M = milieu(A,B,'M') //M est le milieu [AB] et se nomme M
  * M = milieu(A,B,'M','below') //M est le milieu [AB], se nomme M et le nom est en dessous du point
- * @returns {Point} Milieu du segment [AB]
+ * @returns {PointAbstrait} Milieu du segment [AB]
  * @author Rémi Angot
  */
-export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): Point {
+export function milieu (A: PointAbstrait, B: PointAbstrait, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
-  return new Point(x, y, nom, positionLabel)
+  return point(x, y, nom, positionLabel)
 }
 
 /**
@@ -547,13 +510,13 @@ export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): 
  * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
-export function pointSurSegment (A: Point, B: Point, l?: number, nom = '', positionLabel = 'above'): Point {
+export function pointSurSegment (A: PointAbstrait, B: PointAbstrait, l?: number, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
-  if (longueur(A, B) === 0) return A
+  if (longueur(A, B) === 0) return pointDepuisPointAbstrait(A)
   if (l === undefined || typeof l === 'string') {
     l = (longueur(A, B) * randint(15, 85)) / 100
   }
-  return homothetie(B, A, l / longueur(A, B), nom, positionLabel) as Point
+  return pointDepuisPointAbstrait(homothetie(B, A, l / longueur(A, B), nom, positionLabel))
 }
 
 /**
