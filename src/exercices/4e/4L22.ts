@@ -7,6 +7,7 @@ export const refs = {
   'fr-fr': ['4L22'],
   'fr-ch': []
 }
+export const dateDePublication = '24/05/2025'
 /**
  * @author Jean-Claude Lhote (implémentation des nombres relatifs dans 5L14)
  */
