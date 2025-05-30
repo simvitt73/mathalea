@@ -5,7 +5,7 @@
     grid-auto-flow: column; /* Remplissage en colonnes */
     width: 50%; /* Assure que la largeur totale est utilisée */
     margin: 0;
-    height: 100px;
+    height: auto;
   }
   
   .SchemaItem {
