@@ -6,8 +6,10 @@
 
 import { droite } from '../../lib/2d/droites'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations'
+import type Alea2iep from '../Alea2iep'
 
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
@@ -17,7 +19,7 @@ import { homothetie, similitude, translation2Points } from '../../lib/2d/transfo
    * @param {string} nomD
    * @param {boolean} description
    */
-export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', description = true) {
+export function parallelogramme3sommetsConsecutifs (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, nomD = '', description = true) {
   const D = translation2Points(C, B, A)
   D.nom = nomD
   const xMin = Math.min(A.x, B.x, C.x, D.x)
@@ -26,9 +28,9 @@ export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', descript
   // const yMax = Math.max(A.y, B.y, C.y, D.y)
   this.traitRapide(A, B)
   this.traitRapide(B, C)
-  this.pointCreer(A, A.nom, 0)
-  this.pointCreer(B, B.nom, 0)
-  this.pointCreer(C, C.nom, 0)
+  this.pointCreer(A, { tempo: 0 })
+  this.pointCreer(B, { tempo: 0 })
+  this.pointCreer(C, { tempo: 0 })
   if (description) {
     this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
   }
@@ -37,7 +39,7 @@ export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', descript
   this.compasTracerArcCentrePoint(C, D)
   this.compasEcarter2Points(B, C)
   this.textePosition(`${B.nom + C.nom} = ${A.nom + D.nom}`, xMin - 1, yMin - 3)
-  this.compasTracerArcCentrePoint(A, D, 10)
+  this.compasTracerArcCentrePoint(A, D)
   this.pointCreer(D)
   this.compasMasquer()
   this.regleSegment(C, D)
