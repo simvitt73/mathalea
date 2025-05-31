@@ -16,6 +16,7 @@ import {
 import { Polygone, polygone } from './polygones'
 import { longueur } from './segmentsVecteurs'
 import { projectionOrtho, rotation, similitude } from './transformations'
+import type { PointAbstrait } from './points-abstraits'
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H
@@ -329,7 +330,7 @@ export function orthoCentre (A:Point, B:Point, C:Point, nom = '', positionLabel 
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function centreCercleCirconscrit (A:Point, B:Point, C:Point, nom = '', positionLabel = 'above') {
+export function centreCercleCirconscrit (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, nom = '', positionLabel = 'above') {
   const d = mediatrice(A, B)
   const e = mediatrice(B, C)
   const p = pointIntersectionDD(d, e)

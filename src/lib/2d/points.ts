@@ -48,7 +48,7 @@ export class Point extends PointAbstrait {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansTriangle (A: Point, B: Point, C: Point): boolean {
+  estDansTriangle (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait): boolean {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
     const vMC = vecteur(this, C)
