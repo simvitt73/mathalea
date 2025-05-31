@@ -23,7 +23,7 @@ import { randint } from '../outils'
    * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
    * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
    */
-export const triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
+export const triangle3longueurs = function (this: Alea2iep, ABC: string, AB: number, AC: number, BC: number, description = true) {
   const A = point(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const p = triangle2points2longueurs(A, B, AC, BC)
@@ -48,7 +48,7 @@ export const triangle3longueurs = function (ABC, AB, AC, BC, description = true)
   this.epaisseur = 2
   this.compasMontrer(A)
   this.compasEcarterAvecRegle(AC)
-  this.compasTracerArcCentrePoint(A, C, 40)
+  this.compasTracerArcCentrePoint(A, C, { tempo: 40 })
   if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${B.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
   this.compasDeplacer(B)
   this.compasEcarterAvecRegle(BC)
@@ -265,7 +265,7 @@ export const triangle1longueur2angles = function (this: Alea2iep, NOM: string, A
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true) {
+export const triangle2longueurs1angle = function (this: Alea2iep, NOM: string, AB: number, AC: number, BAC: number, description = true) {
   const angle = randint(-20, 20)
   const a1 = BAC
   const A = point(6, 0)
@@ -294,7 +294,7 @@ export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description 
   this.rapporteurRotation(angle)
   if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
   this.epaisseur = 3
-  this.trait(D, D1, 20)
+  this.trait(D, D1, { tempo: 20 })
   this.epaisseur = 1
   this.rapporteurMasquer()
   this.regleSegment(A, D2)
