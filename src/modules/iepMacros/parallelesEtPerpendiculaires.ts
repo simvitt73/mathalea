@@ -1,7 +1,8 @@
 import { angleOriente } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
-import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { Droite, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { point, pointIntersectionLC, pointSurDroite, pointSurSegment } from '../../lib/2d/points'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import {
   homothetie,
@@ -11,6 +12,7 @@ import {
   translation,
   translation2Points
 } from '../../lib/2d/transformations'
+import type Alea2iep from '../Alea2iep'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
@@ -19,7 +21,7 @@ import {
    * @param {Point} C
    * @param {*} [options]
    */
-export const paralleleRegleEquerre2points3epoint = function (A, B, C, options) {
+export const paralleleRegleEquerre2points3epoint = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options) {
   let G, D, H1
   // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
   // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
@@ -125,26 +127,26 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
  * @param {Point} P
  * @param {boolean} [description]
  */
-export const perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
+export const perpendiculaireRegleEquerreDroitePoint = function (this: Alea2iep, d: Droite, P: PointAbstrait, description: boolean = false) {
   if (!P.estSur(d)) {
     const H = projectionOrtho(P, d)
     const A = rotation(P, H, 90)
     const B = rotation(A, H, 180)
     const P3 = homothetie(P, H, 1.2)
     const alpha = angleOriente(point(10000, H.y), H, B)
-    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
+    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`, 0, 10, {}, { couleur: 'lightblue' })
     this.equerreRotation(alpha)
     this.equerreMontrer(H)
-    if (description) this.textePosition(`2. Tracer le segment de droite passant par le point ${P.nom}`, 0, 9.3, { couleur: 'lightblue' })
+    if (description) this.textePosition(`2. Tracer le segment de droite passant par le point ${P.nom}`, 0, 9.3, {}, { couleur: 'lightblue' })
     this.crayonMontrer(P)
     this.tracer(H)
     this.equerreMasquer()
-    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, { couleur: 'lightblue' })
+    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, {}, { couleur: 'lightblue' })
     this.regleMontrer(P3)
     this.regleRotation(alpha - 90)
     this.crayonDeplacer(P3)
     this.tracer(rotation(P3, H, 180))
-    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, {}, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(A, H, P)
   } else {
@@ -152,22 +154,23 @@ export const perpendiculaireRegleEquerreDroitePoint = function (d, P, descriptio
     const C = cercle(P, 6)
     const A = pointSurDroite(d, -10000)
     const B = pointSurDroite(d, 10000)
-    let P3 = rotation(pointIntersectionLC(d, C, 1), P, 90)
+    const pointIntersectionDC = pointIntersectionLC(d, C)
+    let P3 = rotation(pointIntersectionDC, P, 90)
     if (P3.y < P.y) P3 = rotation(P3, P, 180)
     const alpha = angleOriente(point(10000, H.y), H, B)
-    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} avec l'angle droit au point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
+    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} avec l'angle droit au point ${P.nom}.`, 0, 10, {}, { couleur: 'lightblue' })
     this.equerreRotation(alpha)
     this.equerreMontrer(H)
-    if (description) this.textePosition('2. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre', 0, 9.3, { couleur: 'lightblue' })
+    if (description) this.textePosition('2. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre', 0, 9.3, {}, { couleur: 'lightblue' })
     this.crayonMontrer(P3)
     this.tracer(H)
     this.equerreMasquer()
-    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, { couleur: 'lightblue' })
+    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, {}, { couleur: 'lightblue' })
     this.regleMontrer(P3)
     this.regleRotation(alpha - 90)
     this.crayonDeplacer(P3)
     this.tracer(rotation(P3, H, 180))
-    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, {}, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(A, H, P3)
   }
@@ -188,23 +191,23 @@ export const perpendiculaireRegleEquerrePointSurLaDroite = function (d, x, descr
   }
   this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
   this.pointCreer(A)
-  if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom}.`, 0, 10, { couleur: 'lightblue' })
+  if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom}.`, 0, 10, {}, { couleur: 'lightblue' })
   this.equerreRotation(d.angleAvecHorizontale)
   this.equerreMontrer(B)
   if (description) {
-    this.textePosition(`2. Faire glisser l'équerre sur la droite jusqu'au point ${A.nom}`, 0, 9.3, { couleur: 'lightblue' })
+    this.textePosition(`2. Faire glisser l'équerre sur la droite jusqu'au point ${A.nom}`, 0, 9.3, {}, { couleur: 'lightblue' })
   }
   this.equerreDeplacer(A)
-  if (description) this.textePosition('3. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre.', 0, 8.6, { couleur: 'lightblue' })
+  if (description) this.textePosition('3. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre.', 0, 8.6, {}, { couleur: 'lightblue' })
   this.crayonMontrer(A)
   this.tracer(P1)
   this.equerreMasquer()
-  if (description) this.textePosition(`4. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 7.9, { couleur: 'lightblue' })
+  if (description) this.textePosition(`4. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 7.9, {}, { couleur: 'lightblue' })
   this.regleRotation(d.angleAvecHorizontale - 90)
   this.regleMontrer(P1)
   this.crayonDeplacer(P1)
   this.tracer(P2)
-  if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
+  if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.2, {}, { couleur: 'lightblue' })
   this.regleMasquer()
   this.codageAngleDroit(P1, A, B)
 }
@@ -225,22 +228,22 @@ export const perpendiculaireCompasPointSurLaDroite = function (d, x, description
   }
   this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
   this.pointCreer(A)
-  if (description) this.textePosition('1. Avec le compas, marquer deux points B et C de part et d\'autre de A, tels que AB=AC.', 0, 10, { couleur: 'lightblue' })
+  if (description) this.textePosition('1. Avec le compas, marquer deux points B et C de part et d\'autre de A, tels que AB=AC.', 0, 10, {}, { couleur: 'lightblue' })
   this.compasEcarter2Points(A, B)
   this.compasTracerArcCentrePoint(A, B, { couleur: 'lightgray', epaisseur: 1 })
   this.compasTracerArcCentrePoint(A, C, { couleur: 'lightgray', epaisseur: 1 })
   this.pointsCreer(B, C, { tempo: 10 })
   if (description) {
-    this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, { couleur: 'lightblue' })
+    this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, {}, { couleur: 'lightblue' })
   }
   this.compasEcarter2Points(B, P1)
-  if (description) this.textePosition('3. Tracer un arc de cercle de centre B avec cet écartement.', 0, 8.6, { couleur: 'lightblue' })
+  if (description) this.textePosition('3. Tracer un arc de cercle de centre B avec cet écartement.', 0, 8.6, {}, { couleur: 'lightblue' })
   this.compasTracerArcCentrePoint(B, P1, { couleur: 'lightgray', epaisseur: 1 })
-  if (description) this.textePosition('4. Tracer un arc de cercle de centre C en conservant le même écartement.', 0, 7.9, { couleur: 'lightblue' })
+  if (description) this.textePosition('4. Tracer un arc de cercle de centre C en conservant le même écartement.', 0, 7.9, {}, { couleur: 'lightblue' })
   this.compasTracerArcCentrePoint(C, P1, { couleur: 'lightgray', epaisseur: 1 })
   this.compasMasquer()
   if (description) {
-    this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 7.2, { couleur: 'lightblue' })
+    this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 7.2, {}, { couleur: 'lightblue' })
   }
   this.regleRotation(d.angleAvecHorizontale - 90)
   const P11 = homothetie(P1, A, 1.1)
@@ -248,7 +251,7 @@ export const perpendiculaireCompasPointSurLaDroite = function (d, x, description
   this.regleMontrer(P11)
   this.crayonMontrer(P11)
   this.tracer(P12)
-  if (description) this.textePosition('5. Coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
+  if (description) this.textePosition('5. Coder l\'angle droit.', 0, 6.5, {}, { couleur: 'lightblue' })
   this.regleMasquer()
   this.codageAngleDroit(P1, A, B)
 }
@@ -274,23 +277,23 @@ export const perpendiculaireCompasPoint = function (d, A, description) {
   this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
   this.textePoint(d.nom, translation(pointSurDroite(d, 0), vecteur(0, -0.5)))
   this.pointCreer(A)
-  if (description) this.textePosition(`1. Choisir deux points B et C sur la droite ${d.nom}.`, 0, 11, { couleur: 'lightblue', tempo: 20 })
+  if (description) this.textePosition(`1. Choisir deux points B et C sur la droite ${d.nom}.`, 0, 11, { tempo: 20 }, { couleur: 'lightblue' })
   this.tempo = 20
   this.pointCreer(B)
   this.pointCreer(C)
-  if (description) this.textePosition(`2. Tracer un arc de cercle de centre B passant par A et un autre de centre C passant par ${A.nom}.`, 0, 10.3, { couleur: 'lightblue', tempo: 20 })
+  if (description) this.textePosition(`2. Tracer un arc de cercle de centre B passant par A et un autre de centre C passant par ${A.nom}.`, 0, 10.3, { tempo: 20 }, { couleur: 'lightblue' })
   this.compasEcarter2Points(B, A)
   this.compasTracerArcCentrePoint(B, D, { couleur: 'lightgray', epaisseur: 1 })
   this.compasEcarter2Points(C, A)
   this.compasTracerArcCentrePoint(C, D, { couleur: 'lightgray', epaisseur: 1 })
-  if (description) this.textePosition(`3. Ces deux arcs de cercle se recoupent en un point qui est le symétrique de ${A.nom} par rapport à ${d.nom}`, 0, 9.6, { couleur: 'lightblue', tempo: 20 })
+  if (description) this.textePosition(`3. Ces deux arcs de cercle se recoupent en un point qui est le symétrique de ${A.nom} par rapport à ${d.nom}`, 0, 9.6, { tempo: 20 }, { couleur: 'lightblue' })
   this.compasMasquer()
-  if (description) this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 8.9, { couleur: 'lightblue', tempo: 20 })
+  if (description) this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 8.9, { tempo: 20 }, { couleur: 'lightblue' })
   this.regleRotation(d.angleAvecHorizontale - 90)
   this.regleMontrer(P1)
   this.crayonMontrer(P1)
   this.tracer(P2)
-  if (description) this.textePosition('5. Coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
+  if (description) this.textePosition('5. Coder l\'angle droit.', 0, 8.2, { tempo: 20 }, { couleur: 'lightblue' })
   this.regleMasquer()
   this.codageAngleDroit(P1, H, B)
 }
@@ -318,33 +321,33 @@ export const paralleleRegleEquerreDroitePointAvecDescription = function (A, B, M
   this.pointsCreer(A, B, M)
   this.pointMasquer(AA, BB)
   this.traitRapide(AA, BB)
-  this.textePosition('Parallèle à une droite passant par un point (règle et équerre)', -10, 10.7, { couleur: 'green', taille: 4, tempo: 20 })
-  if (description) this.textePosition('On veut construire la parallèle à (AB) passant par M à la règle et à l\'equerre.', -10, 10, { couleur: 'red', taille: 4, tempo: 50 })
-  if (description) this.textePosition('1. Placer l\'équerre un côté de l\'angle droit le long de la droite (AB).', -9, 9.3, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  this.textePosition('Parallèle à une droite passant par un point (règle et équerre)', -10, 10.7, { tempo: 20 }, { couleur: 'green', taille: 4 })
+  if (description) this.textePosition('On veut construire la parallèle à (AB) passant par M à la règle et à l\'equerre.', -10, 10, { tempo: 50 }, { couleur: 'red', taille: 4 })
+  if (description) this.textePosition('1. Placer l\'équerre un côté de l\'angle droit le long de la droite (AB).', -9, 9.3, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.equerreMontrer(A)
   this.equerreRotation(d.angleAvecHorizontale + (dessus ? -90 : 0), { tempo: 20 })
-  if (description) this.textePosition('2. Placer ensuite la règle contre l\'autre côté de l\'angle droit de l\'équerre.', -9, 8.6, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('2. Placer ensuite la règle contre l\'autre côté de l\'angle droit de l\'équerre.', -9, 8.6, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.regleRotation(d.angleAvecHorizontale - 90)
   this.regleMontrer(AA)
   this.regleDeplacer(homothetie(rotation(B, A, 90), A, 1.5), { tempo: 20 })
-  if (description) this.textePosition('Remarque : On peut tracer des pointillés pour matérialiser la position de la règle.', -9.5, 7.9, { couleur: 'pink', taille: 2, tempo: 10 })
+  if (description) this.textePosition('Remarque : On peut tracer des pointillés pour matérialiser la position de la règle.', -9.5, 7.9, { tempo: 10 }, { couleur: 'pink', taille: 2 })
   this.crayonMontrer(A)
   this.tracer(homothetie(rotation(B, A, dessus ? 90 : -90), A, 1.5), { pointilles: 5 })
-  if (description) this.textePosition('3. Faire glisser l\'équerre le long de la règle jusqu\'au point M.', -9, 7.2, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('3. Faire glisser l\'équerre le long de la règle jusqu\'au point M.', -9, 7.2, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   if (!dessus) {
     this.equerreRotation(d.angleAvecHorizontale - 90)
   }
   this.equerreDeplacer(H, { tempo: 20 })
-  if (description) this.textePosition('4. Tracer le segment de droite passant par M.', -9, 6.5, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('4. Tracer le segment de droite passant par M.', -9, 6.5, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.crayonDeplacer(H)
   this.tracer(N)
   this.equerreMasquer()
-  if (description) this.textePosition('5. Placer la règle sur ce segment et prolonger la parallèle à (AB).', -9, 5.8, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('5. Placer la règle sur ce segment et prolonger la parallèle à (AB).', -9, 5.8, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.regleDeplacer(P)
   this.regleRotation(d.angleAvecHorizontale)
   this.tracer(P)
   this.regleMasquer()
-  if (description) this.textePosition('6. Pour finir, coder la figure.', -9, 5.1, { couleur: 'lightblue', taille: 2, tempo: 20 })
+  if (description) this.textePosition('6. Pour finir, coder la figure.', -9, 5.1, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.codageAngleDroit(B, A, H)
   this.codageAngleDroit(A, H, M)
   this.crayonMasquer()
@@ -369,20 +372,20 @@ export const paralleleAuCompasAvecDescription = function (A, B, C, description =
   this.tempo = 10
   this.pointsCreer(A, B, C)
   this.traitRapide(AA, BB)
-  this.textePosition('Parallèle à une droite passant par un point (compas et règle)', -10, 10.7, { couleur: 'green', taille: 4, tempo: 20 })
-  if (description) this.textePosition('On veut construire la parallèle à (AB) passant par C à la règle et au compas.', -10, 10, { couleur: 'red', taille: 4, tempo: 30 })
-  if (description) this.textePosition('1. Prendre avec le compas l\'écartement correspondant à la longueur AB.', -9, 9.3, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  this.textePosition('Parallèle à une droite passant par un point (compas et règle)', -10, 10.7, { tempo: 20 }, { couleur: 'green', taille: 4 })
+  if (description) this.textePosition('On veut construire la parallèle à (AB) passant par C à la règle et au compas.', -10, 10, { tempo: 30 }, { couleur: 'red', taille: 4 })
+  if (description) this.textePosition('1. Prendre avec le compas l\'écartement correspondant à la longueur AB.', -9, 9.3, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.compasEcarter2Points(A, B)
-  if (description) this.textePosition('2. Reporter cette longueur à partir du point C.', -9, 8.6, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('2. Reporter cette longueur à partir du point C.', -9, 8.6, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.compasTracerArcCentrePoint(C, D, { couleur: 'lightgray', epaisseur: 1 })
-  if (description) this.textePosition('3. Prendre ensuite avec le compas l\'écartement correspondant à la longueur AC.', -9, 7.9, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('3. Prendre ensuite avec le compas l\'écartement correspondant à la longueur AC.', -9, 7.9, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.compasEcarter2Points(A, C)
-  if (description) this.textePosition('4. Reporter cette longueur à partir du point B.', -9, 7.2, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('4. Reporter cette longueur à partir du point B.', -9, 7.2, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.compasTracerArcCentrePoint(B, D, { couleur: 'lightgray', epaisseur: 1 })
   this.compasMasquer()
-  if (description) this.textePosition('5. Noter D, le point d\'intersection des deux arcs de cercle.', -9, 6.5, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('5. Noter D, le point d\'intersection des deux arcs de cercle.', -9, 6.5, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.pointCreer(D)
-  if (description) this.textePosition('6. Tracer la droite passant par C et D.', -9, 5.8, { couleur: 'lightblue', taille: 2, tempo: 10 })
+  if (description) this.textePosition('6. Tracer la droite passant par C et D.', -9, 5.8, { tempo: 10 }, { couleur: 'lightblue', taille: 2 })
   this.regleSegment(N, P)
   this.regleMasquer()
   this.crayonMasquer()

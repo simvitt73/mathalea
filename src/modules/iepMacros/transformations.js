@@ -197,15 +197,15 @@ export const homothetiePoint = function (p, centre, k, nom, { couleur = this.cou
   }
   const image = homothetie(p, centre, k, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
   if (k > 0) {
-    t = this.textePosition(`Comme le rapport est positif, alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}.`, positionTexte.x, positionTexte.y, { taille: 15 })
+    t = this.textePosition(`Comme le rapport est positif, alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}.`, positionTexte.x, positionTexte.y, {}, { taille: 15 })
   } else {
-    t = this.textePosition(`Comme le rapport est négatif, alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}.`, positionTexte.x, positionTexte.y, { taille: 15 })
+    t = this.textePosition(`Comme le rapport est négatif, alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}.`, positionTexte.x, positionTexte.y, {}, { taille: 15 })
   }
   this.regleSegment(p, centre)
   const l = longueur(p, centre)
   const lprime = arrondi(l, 1) * Math.abs(k)
-  const t1 = this.textePosition(`La mesure de [${centre.nom}${p.nom}] est ${stringNombre(l, 1)} cm et le rapport de l'homothétie est ${stringNombre(k, 3)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
-  const t2 = this.textePosition(`donc ${centre.nom}${image.nom} est ${stringNombre(l, 1)} cm × ${stringNombre(Math.abs(k), 3)} = ${stringNombre(lprime, 2)} cm.`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
+  const t1 = this.textePosition(`La mesure de [${centre.nom}${p.nom}] est ${stringNombre(l, 1)} cm et le rapport de l'homothétie est ${stringNombre(k, 3)}`, positionTexte.x, positionTexte.y - 1, {}, { taille: 15 })
+  const t2 = this.textePosition(`donc ${centre.nom}${image.nom} est ${stringNombre(l, 1)} cm × ${stringNombre(Math.abs(k), 3)} = ${stringNombre(lprime, 2)} cm.`, positionTexte.x, positionTexte.y - 2, {}, { taille: 15 })
   this.regleSegment(centre, image)
   this.pointCreer(image, { couleur, couleurLabel: couleur }) // on construit l'image
   this.regleMasquer()
@@ -354,7 +354,7 @@ export const homothetiePolygone = function (p, centre, k, noms = [], { couleur =
   const p2 = homothetie(p, centre, k) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
   this.couleur = 'gray'
-  const t = this.textePosition('Comme k est ' + (k >= 0 ? 'positif' : 'négatif') + ' alors ' + (k >= 0 ? 'les figures sont du même côté de ' + centre.nom : centre.nom + ' est entre les figures'), 0, 0, { taille: 15 })
+  const t = this.textePosition('Comme k est ' + (k >= 0 ? 'positif' : 'négatif') + ' alors ' + (k >= 0 ? 'les figures sont du même côté de ' + centre.nom : centre.nom + ' est entre les figures'), 0, 0, {}, { taille: 15 })
   let i = 0
   for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
     if (noms[i] !== undefined) {
