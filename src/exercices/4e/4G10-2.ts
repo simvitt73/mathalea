@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { Point, point, pointAdistance, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points'
+import { point, pointAdistance, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -12,6 +12,7 @@ import Exercice from '../Exercice'
 import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 export const titre = 'Transformer une figure par translation'
 
 export const dateDePublication = '16/05/2022'
@@ -27,7 +28,7 @@ export const refs = {
   'fr-ch': ['10ES2-3']
 }
 
-function segmente (point:Point, image:Point) {
+function segmente (point:PointAbstrait, image:PointAbstrait) {
   const segmentAA = segment(point, image, 'red')
   segmentAA.styleExtremites = '|->'
   segmentAA.pointilles = 2
@@ -116,8 +117,7 @@ export default class nomExercice extends Exercice {
       anim.tempo = 0.5
       anim.couleur = 'red'
       anim.pointilles = true
-      anim.equerreDeplacer(pied)
-      anim.equerreMontrer(A)
+      anim.equerreMontrer(pied)
       anim.equerreRotation(AA)
       anim.regleDeplacer(pied)
       anim.regleMontrer()
