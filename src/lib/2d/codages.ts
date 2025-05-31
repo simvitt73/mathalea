@@ -317,7 +317,6 @@ export class AfficheLongueurSegment extends ObjetMathalea2D {
   }
 
   svg (coeff: number) {
-    console.log(this.text)
     const N = pointSurSegment(this.O, this.M, (this.distance * 20) / coeff)
     return texteParPoint(this.text, N, this.angle, this.stringColor, 1, 'milieu', false).svg(coeff)
   }
