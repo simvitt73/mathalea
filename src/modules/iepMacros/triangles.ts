@@ -11,6 +11,7 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
+import type Alea2iep from '../Alea2iep'
 import { randint } from '../outils'
 
 /**
@@ -187,7 +188,7 @@ export const triangleRectangle2Cotes = function (ABC, AB, BC, description = true
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true, mesure = false) {
+export const triangle1longueur2angles = function (this: Alea2iep, NOM: string, AB: number, BAC: number, CBA: number, description = true, mesure = false) {
   const angle = randint(-20, 20)
   const a1 = BAC
   const a2 = CBA
@@ -226,7 +227,7 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
   this.rapporteurRotation(angle)
   if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
   this.epaisseur = 3
-  this.trait(D, D1, 20)
+  this.trait(D, D1, { tempo: 20 })
   this.epaisseur = 1
   this.rapporteurMasquer()
   this.regleSegment(A, D2)
@@ -236,8 +237,8 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
   this.rapporteurDeplacer(B)
   if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom + C.nom}).`, 0, -6)
   this.epaisseur = 3
-  this.trait(E, E1, 10)
-  this.trait(F, F1, 20)
+  this.trait(E, E1, { tempo: 10 })
+  this.trait(F, F1, { tempo: 20 })
   this.epaisseur = 1
   this.rapporteurMasquer()
   this.regleMontrer(B)
