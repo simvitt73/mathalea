@@ -48,7 +48,7 @@ export const triangle3longueurs = function (this: Alea2iep, ABC: string, AB: num
   this.epaisseur = 2
   this.compasMontrer(A)
   this.compasEcarterAvecRegle(AC)
-  this.compasTracerArcCentrePoint(A, C, { tempo: 40 })
+  this.compasTracerArcCentrePoint(A, C)
   if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${B.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
   this.compasDeplacer(B)
   this.compasEcarterAvecRegle(BC)
