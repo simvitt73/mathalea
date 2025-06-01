@@ -3,7 +3,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire, positionLabelDroite } from '../../lib/2d/droites'
 import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
-import { norme, segmentAvecExtremites, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { norme, segmentAvecExtremites, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -75,13 +75,13 @@ export default class ConstruireMediatrices6e extends Exercice {
 
       const objetsEnonce = []
       const objetsCorrection = []
-      const nomA1 = texteParPoint(noms[0], translation(A1, homothetie(vecteur(A2, A1), A, 0.5 / norme(vecteur(A2, A1))) as Vecteur), 0, 'black', 1, 'milieu', true)
-      const nomA2 = texteParPoint(noms[1], translation(A2, homothetie(vecteur(A1, A2), A, 0.5 / norme(vecteur(A2, A1))) as Vecteur), 0, 'black', 1, 'milieu', true)
-      const nomB1 = texteParPoint(noms[2], translation(B1, homothetie(vecteur(B2, B1), A, 0.5 / norme(vecteur(B2, B1))) as Vecteur), 0, 'black', 1, 'milieu', true)
-      const nomB2 = texteParPoint(noms[3], translation(B2, homothetie(vecteur(B1, B2), A, 0.5 / norme(vecteur(B2, B1))) as Vecteur), 0, 'black', 1, 'milieu', true)
+      const nomA1 = texteParPoint(noms[0], translation(A1, homothetie(vecteur(A2, A1), A, 0.5 / norme(vecteur(A2, A1)))), 0, 'black', 1, 'milieu', true)
+      const nomA2 = texteParPoint(noms[1], translation(A2, homothetie(vecteur(A1, A2), A, 0.5 / norme(vecteur(A2, A1)))), 0, 'black', 1, 'milieu', true)
+      const nomB1 = texteParPoint(noms[2], translation(B1, homothetie(vecteur(B2, B1), A, 0.5 / norme(vecteur(B2, B1)))), 0, 'black', 1, 'milieu', true)
+      const nomB2 = texteParPoint(noms[3], translation(B2, homothetie(vecteur(B1, B2), A, 0.5 / norme(vecteur(B2, B1)))), 0, 'black', 1, 'milieu', true)
 
       const cellule = celluleAlea(6)
-      result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule) as number[]
+      result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
       const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6, color: '#f15929' })
       cible.opacite = 0.7
 

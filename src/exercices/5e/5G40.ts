@@ -105,9 +105,9 @@ export default class ConstructionsParallelogrammes extends Exercice {
       const result2 = dansLaCibleCarree(D.x, D.y, 5, tailleGrille, cellule2)
       const result3 = dansLaCibleCarree(B.x, B.y, 5, tailleGrille, cellule3)
 
-      const cible = cibleCarree({ x: result[0] as number, y: result[1] as number, rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : 0, taille: tailleGrille, color: 'gray', opacite: 0.7 })
-      const cible2 = cibleCarree({ x: result2[0] as number, y: result2[1] as number, rang: 5, num: 2, taille: tailleGrille, color: 'gray', opacite: 0.7 })
-      const cible3 = cibleCarree({ x: result3[0] as number, y: result3[1] as number, rang: 5, num: 3, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : 0, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: tailleGrille, color: 'gray', opacite: 0.7 })
       const xMin = Math.min(A.x, B.x, C.x, D.x) - 3
       const yMin = Math.min(A.y, B.y, C.y, D.y) - 4
       const xMax = Math.max(A.x, B.x, C.x, D.x) + 4

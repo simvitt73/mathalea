@@ -3,7 +3,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
-import { longueur, segment, Vecteur } from '../../lib/2d/segmentsVecteurs'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -48,8 +48,8 @@ export default class ConstruireSymetriquePoint6e extends Exercice {
     // On prépare la figure...
     const a = randint(-10, 10); const b = randint(-10, 10, a)
     const d = droite(a, b, 0, '(d)')
-    const A = translation(point(0, 0), homothetie(d.directeur, point(0, 0), -0.5) as Vecteur)
-    const B = translation(point(0, 0), homothetie(d.directeur, point(0, 0), 0.5) as Vecteur)
+    const A = translation(point(0, 0), homothetie(d.directeur, point(0, 0), -0.5))
+    const B = translation(point(0, 0), homothetie(d.directeur, point(0, 0), 0.5))
     const marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
     const noms = choisitLettresDifferentes(nbpoints, 'Q', true)
     this.consigne = `Construire le symétrique des points $${noms[0]}$`
@@ -87,7 +87,7 @@ export default class ConstruireSymetriquePoint6e extends Exercice {
 
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
-      result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i]) as number[]
+      result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
       cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
       cible.taille = 0.6
       cible.opacite = 0.7
