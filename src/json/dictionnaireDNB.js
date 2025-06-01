@@ -5720,7 +5720,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes', 'Aires et périmètres']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes', 'Aires et périmètres', 'Grandeurs composées']
   },
   dnb_2024_06_polynesie_4: {
     annee: '2024',
