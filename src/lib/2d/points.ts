@@ -48,7 +48,7 @@ export class Point extends PointAbstrait {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansTriangle (A: Point, B: Point, C: Point): boolean {
+  estDansTriangle (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait): boolean {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
     const vMC = vecteur(this, C)
@@ -559,14 +559,14 @@ export function pointSurDroite (d: Droite, x: number, nom = '', positionLabel = 
  * @param {Droite} f
  * @param {string} nom  le nom du point d'intersection. Facultatif, vide par défaut.
  * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
- * @return {Point|boolean} Point 'M' d'intersection de d1 et de d2
+ * @return {Point} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = '', positionLabel = 'above'): Point | false {
+export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite | Mediatrice, nom = '', positionLabel = 'above'): Point {
   let x, y
   if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
     // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
-    return false
+    return pointIntersectionNonTrouveEntre(d, f, point(0, 0))
   } else {
     y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a)
   }
@@ -583,7 +583,7 @@ export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = ''
  * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
-export function pointAdistance (A: Point, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
+export function pointAdistance (A: PointAbstrait, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
   let leNom = ''
   let lAngle = 0
   let lePositionLabel = 'above'
@@ -606,10 +606,10 @@ export function pointAdistance (A: Point, d: number = 1, angle:string | number =
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
  * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
- * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
+ * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c). On renvoie le centre du cercle sinon.
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point | boolean {
+export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point {
   const O = C.centre
   const r = C.rayon
   const a = d.a
@@ -623,7 +623,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
     xi = -c / a
     xiPrime = xi
     Delta = 4 * (-xO * xO - (c * c) / (a * a) - (2 * xO * c) / a + r * r)
-    if (Delta < 0) return false
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       yi = yO + Math.sqrt(Delta) / 2
@@ -638,7 +638,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
     yi = -c / b
     yiPrime = yi
     Delta = 4 * (-yO * yO - (c * c) / (b * b) - (2 * yO * c) / b + r * r)
-    if (Delta < 0) return false
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       xi = xO + Math.sqrt(Delta) / 2
@@ -651,7 +651,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
   } else {
     // cas général
     Delta = (2 * ((a * c) / (b * b) + (yO * a) / b - xO)) ** 2 - 4 * (1 + (a / b) ** 2) * (xO * xO + yO * yO + (c / b) ** 2 + (2 * yO * c) / b - r * r)
-    if (Delta < 0) return false
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       delta = Math.sqrt(Delta)
@@ -690,7 +690,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
  * @author Rémi Angot
  * @see https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
  */
-export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point | boolean {
+export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point {
   const O1 = c1.centre
   const O2 = c2.centre
   const r0 = c1.rayon
@@ -703,10 +703,10 @@ export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): P
   const dy = y1 - y0
   const d = Math.sqrt(dy * dy + dx * dx)
   if (d > r0 + r1) {
-    return false
+    return pointIntersectionNonTrouveEntre(c1, c2, c1.centre)
   }
   if (d < Math.abs(r0 - r1)) {
-    return false
+    return pointIntersectionNonTrouveEntre(c1, c2, c1.centre)
   }
   const a = (r0 * r0 - r1 * r1 + d * d) / (2.0 * d)
   const x2 = x0 + (dx * a) / d
@@ -731,4 +731,9 @@ export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): P
       return point(xiPrime, yiPrime, nom)
     }
   }
+}
+
+function pointIntersectionNonTrouveEntre (objet1: Cercle | Droite | Mediatrice, objet2: Cercle | Droite | Mediatrice, valeurParDefaut: Point): Point {
+  window.notify(`${objet1.nom} et ${objet2.nom} ne se coupent pas. Impossible de trouver leur intersection.`, { objet1, objet2 })
+  return valeurParDefaut
 }

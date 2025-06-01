@@ -219,7 +219,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const N = point(0, c * zoom, 'N')
           const O = point(c * zoom, c * zoom, 'O')
           const P = point(c * zoom, 0, 'P')
-          const S = pointIntersectionCC(cercle(N, c1 * zoom), cercle(O, c2 * zoom), 'S', 2) as Point
+          const S = pointIntersectionCC(cercle(N, c1 * zoom), cercle(O, c2 * zoom), 'S', 2)
           const p2 = polygoneAvecNom(M, N, S, O, P)
           contourFigure.push(p2[0])
           const NO = segment(N, O)
@@ -287,10 +287,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const N = point(0, c * zoom, 'N')
           const O = point(c * zoom, c * zoom, 'O')
           const P = point(c * zoom, 0, 'P')
-          const S = pointIntersectionCC(cercle(N, h1 * zoom), cercle(O, h2 * zoom), 'S', 2) as Point
-          const T = pointIntersectionDD(droite(M, N), droiteParPointEtPerpendiculaire(S, droite(M, N))) as Point
-          const U = pointIntersectionDD(droite(O, P), droiteParPointEtPerpendiculaire(S, droite(M, N))) as Point
-          const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O))) as Point
+          const S = pointIntersectionCC(cercle(N, h1 * zoom), cercle(O, h2 * zoom), 'S', 2)
+          const T = pointIntersectionDD(droite(M, N), droiteParPointEtPerpendiculaire(S, droite(M, N)))
+          const U = pointIntersectionDD(droite(O, P), droiteParPointEtPerpendiculaire(S, droite(M, N)))
+          const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O)))
           const p2 = polygoneAvecNom(M, N, S, O, P)
           contourFigure.push(p2[0])
           const HS = segment(H, S)

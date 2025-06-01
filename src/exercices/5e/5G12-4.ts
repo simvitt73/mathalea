@@ -5,7 +5,7 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
 import Exercice from '../Exercice'
 import type { Figure2D } from '../../lib/2d/Figures2D'
-import { Point, tracePoint } from '../../lib/2d/points'
+import { tracePoint } from '../../lib/2d/points'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { translation } from '../../lib/2d/transformations'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -105,7 +105,7 @@ export default class NbAxesDeSymetrie extends Exercice {
           objetsCorr.push(formeBis, formeTexte)
         }
         if (forme.centre != null) {
-          const centre = translation(forme.centre, vecteur(j * 6.5 * factor * scale, 0)) as Point
+          const centre = translation(forme.centre, vecteur(j * 6.5 * factor * scale, 0))
           const trace = tracePoint(centre)
           trace.epaisseur = 3
           trace.color = colorToLatexOrHTML('red')

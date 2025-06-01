@@ -249,43 +249,43 @@ export class Rapporteur extends ObjetMathalea2D {
       if (avecNombre !== '') {
         if (avecNombre === 'deuxSens') {
           if (i === 0) {
-            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8) as PointAbstrait, centre, 2), -depart, color, 0.65)
+            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           }
           if (i === nbDivisions - 1) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as PointAbstrait, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           } else if ((arcPlein - (1 + i) * 10) % stepGraduation === 0) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as PointAbstrait, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
             numero.contour = true
             this.objets.push(numero)
           }
         }
         if (i === 0) {
-          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9) as PointAbstrait, centre, 2), -depart, color, 0.65)
+          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
         if (i === nbDivisions - 1) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as PointAbstrait, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         } else if ((i + 1) * 10 % stepGraduation === 0) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as PointAbstrait, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
       }
       for (let s = 1, r; s < 10; s++) {
         if (s === 5 && precisionAuDegre < 10) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as PointAbstrait, homothetie(rotation(azimut2, centre, s), centre, 0.99) as PointAbstrait, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99), color)
           r.opacite = 0.6
           r.tailleExtremites = 0.65
           this.objets.push(r)
         } else if (precisionAuDegre === 1) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as PointAbstrait, homothetie(rotation(azimut2, centre, s), centre, 0.99) as PointAbstrait, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99), color)
           r.opacite = 0.6
           r.tailleExtremites = 0.65
           this.objets.push(r)
@@ -295,15 +295,15 @@ export class Rapporteur extends ObjetMathalea2D {
       azimut = rotation(azimut, centre, arcPlein / nbDivisions)
       azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
       if (rayonsVisibles) rayon = segment(azimut, azimut2, color)
-      else rayon = segment(homothetie(azimut2, centre, 0.9) as PointAbstrait, azimut2, color)
+      else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2, color)
       rayon.opacite = this.opacite
     }
     if (!semi) {
-      rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2) as PointAbstrait, homothetie(rotation(azimut, centre, -90), centre, 0.2) as PointAbstrait, color)
+      rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2), color)
       this.objets.push(rayon)
-      rayon = segment(homothetie(azimut, centre, -0.2) as PointAbstrait, homothetie(azimut, centre, 0.2) as PointAbstrait, color)
+      rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2), color)
     } else {
-      rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2) as PointAbstrait, color)
+      rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2), color)
     }
     this.objets.push(rayon)
     const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
@@ -543,9 +543,9 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o: PointAbstrait
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
-      o = rotation(this.sommet, a, -90) as PointAbstrait
+      o = rotation(this.sommet, a, -90)
     } else {
-      o = rotation(this.sommet, a, 90) as PointAbstrait
+      o = rotation(this.sommet, a, 90)
     }
     const result = polygone([this.sommet, a, o, b], this.color[0])
     if (this.couleurDeRemplissage[0] !== 'none') {

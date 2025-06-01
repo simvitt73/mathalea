@@ -61,7 +61,7 @@ export class Polyline extends ObjetMathalea2D {
       this.stringColor = points[1] as string
       this.color = colorToLatexOrHTML(String(points[1]))
     } else {
-      this.listePoints = points as unknown as PointAbstrait[]
+      this.listePoints = points
       this.color = colorToLatexOrHTML('black')
       this.stringColor = 'black'
     }
@@ -292,7 +292,7 @@ export class Polygone extends ObjetMathalea2D {
         this.stringColor = String(points[points.length - 1])
         points.splice(points.length - 1, 1)
       }
-      this.listePoints = points as unknown as PointAbstrait[]
+      this.listePoints = points
       this.nom = this.listePoints.map(el => el.nom).join('')
       this.couleurDeRemplissage = colorToLatexOrHTML('none')
       this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
@@ -534,15 +534,15 @@ export function polygone (...args: (PointAbstrait | PointAbstrait[] | string)[])
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
  * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
-export function polygoneAvecNom (...args: (Point | number)[]): [Polygone, NommePolygone] {
+export function polygoneAvecNom (...args: (PointAbstrait | number)[]): [Polygone, NommePolygone] {
   let k = 0.5
   if (typeof args[args.length - 1] === 'number') {
     k = Number(args[args.length - 1])
     args.splice(args.length - 1, 1)
   }
-  const p = polygone(...args as unknown as Point[])
+  const p = polygone(...args)
   let nom = ''
-  ;(args as Point[]).forEach((el: Point) => {
+  ;(args).forEach((el: Point) => {
     nom += el.nom + ','
   })
   nom = nom.substring(0, nom.length - 1)

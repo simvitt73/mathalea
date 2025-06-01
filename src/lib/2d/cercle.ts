@@ -48,7 +48,7 @@ import { PointAbstrait } from './points-abstraits'
  */
 // JSDOC Validee par EE Juin 2022
 export class Cercle extends ObjetMathalea2D {
-  centre: Point
+  centre: PointAbstrait
   rayon: number
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
@@ -58,7 +58,7 @@ export class Cercle extends ObjetMathalea2D {
   distanceDesHachures: number
 
   constructor (
-    O: Point,
+    O: PointAbstrait,
     r: number,
     color = 'black',
     couleurDeRemplissage = 'none',
@@ -259,7 +259,7 @@ export class Cercle extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function cercle (
-  O: Point,
+  O: PointAbstrait,
   r: number,
   color = 'black',
   couleurDeRemplissage = 'none',
