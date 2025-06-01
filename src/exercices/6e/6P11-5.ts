@@ -296,7 +296,7 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 2, nbQuestions: this.nbQuestions, melange: 3, defaut: 1 }).map(Number)
     const difficulté = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, nbQuestions: this.nbQuestions, melange: 4, defaut: 1 }).map(Number)
-    this.consigne = this.nbQuestions === 1 ? 'compléter le tableau de proportionnalité ci dessous' : 'compléter les tableaux de proportionnalité ci-dessous'
+    this.consigne = this.nbQuestions === 1 ? 'Compléter le tableau de proportionnalité ci dessous.' : 'Compléter les tableaux de proportionnalité ci-dessous.'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const fonctionChoisie = choice([achat, achat, dillution, carrelage])
