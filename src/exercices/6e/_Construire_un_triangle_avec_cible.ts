@@ -125,7 +125,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          IEP.triangle3longueurs(nom, lAB, lAC, lBC, true)
+          IEP.triangle3longueurs(nom, lAB, lAC, lBC, { description: true })
           break
         case 2: // triangle ABC rectangle en B dont on connaît AB et BC
           lBC = randint(70, 80) / 10
@@ -157,7 +157,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          IEP.triangleRectangle2Cotes(nom, lAB, lBC, true)
+          IEP.triangleRectangle2Cotes(nom, lAB, lBC, { description: true })
           break
         case 3: // triangle ABC isocèle en A
           lBC = arrondi(randint(35, 45) / 10)
@@ -186,7 +186,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          montriangle = IEP.triangle3longueurs(nom, lAB, lAC, lBC, true)
+          montriangle = IEP.triangle3longueurs(nom, lAB, lAC, lBC, { description: true })
           IEP.segmentCodage(montriangle[0], montriangle[1], { codage: '\\\\' })
           IEP.segmentCodage(montriangle[0], montriangle[2], { codage: '\\\\' })
           break
@@ -217,7 +217,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          montriangle = IEP.triangleRectangle2Cotes(nom, lAB, lAB, true)
+          montriangle = IEP.triangleRectangle2Cotes(nom, lAB, lAB, { description: true })
           IEP.segmentCodage(montriangle[0], montriangle[1], { codage: '\\\\' })
           IEP.segmentCodage(montriangle[1], montriangle[2], { codage: '\\\\' })
           break
@@ -272,7 +272,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          IEP.triangle2longueurs1angle(nom, lAB, lAC, Math.round(angle(B, A, C)), true)
+          IEP.triangle2longueurs1angle(nom, lAB, lAC, Math.round(angle(B, A, C)), { description: true })
           break
         case 7: // triangle ABC dont on connait AB et les deux angles adjacents
           lAB = arrondi(randint(46, 60) / 10)
@@ -331,7 +331,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          IEP.triangleRectangleCoteHypotenuse(nom, lAB, lAC, true)
+          IEP.triangleRectangleCoteHypotenuse(nom, lAB, lAC, { description: true })
           break
         case 9: // triangle ABC dont ont connait AB un angle adjacent et l'angle opposé
         default:
@@ -362,7 +362,7 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
           xMin = Math.min(0, B.x, C.x, A.x) - 1
           yMax = Math.max(0, B.y, C.y, A.y) + 3
           IEP.recadre(xMin, yMax)
-          IEP.triangle1longueur2angles(nom, lAB, Math.round(angle(B, A, C)), Math.round(angle(C, B, A)), true)
+          IEP.triangle1longueur2angles(nom, lAB, Math.round(angle(B, A, C)), Math.round(angle(C, B, A)), { description: true })
       }
       if (B === undefined) {
         throw new Error('B est undefined')

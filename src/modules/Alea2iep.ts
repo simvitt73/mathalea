@@ -57,6 +57,7 @@ export type OptionsIep = {
   pointilles?: boolean // Pointillés ou traits pleins
   couleurLabel?: string // Couleur du label des points
   couleurPoint?: string // Couleur du nom des points
+  description?: boolean // Pour ajouter un texte qui décrit les étapes de construction
 }
 
 export type OptionsOutil = OptionsIep & {

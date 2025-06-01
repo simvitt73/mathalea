@@ -536,14 +536,14 @@ export function texteSurArc (texte: string, A: Point, B: Point, angle: number, c
  */
 // JSDOC Validee par EE Juin 2022
 export class AfficheMesureAngle extends ObjetMathalea2D {
-  depart: Point
-  sommet: Point
-  arrivee: Point
+  depart: PointAbstrait
+  sommet: PointAbstrait
+  arrivee: PointAbstrait
   distance: number
   ecart: number
   saillant: boolean
 
-  constructor (A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
+  constructor (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, color = 'black', distance = 1.5, label = '', {
     ecart = 0.5,
     mesureEnGras = false,
     saillant = true,
@@ -602,7 +602,7 @@ export class AfficheMesureAngle extends ObjetMathalea2D {
  * @return {AfficheMesureAngle}
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheMesureAngle (A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
+export function afficheMesureAngle (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, color = 'black', distance = 1.5, label = '', {
   ecart = 0.5,
   mesureEnGras = false,
   saillant = true,

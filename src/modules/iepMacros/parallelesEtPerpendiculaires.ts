@@ -15,10 +15,6 @@ import {
 import type { OptionsCompas, OptionsEquerre } from '../Alea2iep'
 import type Alea2iep from '../Alea2iep'
 
-type OptionsCompasAvecDescription = OptionsCompas & {
-  description?: boolean
-}
-
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
    * @param {Point} A
@@ -100,7 +96,7 @@ export const paralleleRegleEquerre2points3epoint = function (this: Alea2iep, A: 
    * @param {Point} C
    * @param {*} [options]
    */
-export const perpendiculaireRegleEquerre2points3epoint = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsCompasAvecDescription = {}) {
+export const perpendiculaireRegleEquerre2points3epoint = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsCompas = {}) {
   const longueurRegle = this.regle.longueur
   const zoomEquerre = this.equerre.zoom
   const d = droite(A, B)
@@ -134,7 +130,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (this: Alea2ie
  * @param {Point} P
  * @param {boolean} [description]
  */
-export const perpendiculaireRegleEquerreDroitePoint = function (this: Alea2iep, d: Droite, P: PointAbstrait, options: OptionsCompasAvecDescription = {}) {
+export const perpendiculaireRegleEquerreDroitePoint = function (this: Alea2iep, d: Droite, P: PointAbstrait, options: OptionsCompas = {}) {
   if (!P.estSur(d)) {
     const H = projectionOrtho(P, d)
     const A = rotation(P, H, 90)
@@ -188,7 +184,7 @@ export const perpendiculaireRegleEquerreDroitePoint = function (this: Alea2iep, 
  * @param {number} x  // pour choisir le point sur d : l'abscisse de A
  * @param {boolean} description
  */
-export const perpendiculaireRegleEquerrePointSurLaDroite = function (this: Alea2iep, d: Droite, x: number, options: OptionsCompasAvecDescription = {}) {
+export const perpendiculaireRegleEquerrePointSurLaDroite = function (this: Alea2iep, d: Droite, x: number, options: OptionsCompas = {}) {
   const A = pointSurDroite(d, x, 'A')
   const B = pointSurDroite(d, x + 5)
   const P1 = rotation(B, A, 90)
@@ -224,7 +220,7 @@ export const perpendiculaireRegleEquerrePointSurLaDroite = function (this: Alea2
  * @param {number} x // pour choisir le point sur d : l'abscisse de A
  * @param {boolean} description
  */
-export const perpendiculaireCompasPointSurLaDroite = function (this: Alea2iep, d: Droite, x: number, options: OptionsCompasAvecDescription = {}) {
+export const perpendiculaireCompasPointSurLaDroite = function (this: Alea2iep, d: Droite, x: number, options: OptionsCompas = {}) {
   const A = pointSurDroite(d, x, 'A')
   const B = pointSurDroite(d, x + 3, 'B')
   const C = pointSurDroite(d, x - 3, 'C')
@@ -267,7 +263,7 @@ export const perpendiculaireCompasPointSurLaDroite = function (this: Alea2iep, d
  * @param {number} x // pour choisir le point sur d : l'abscisse de A
  * @param {boolean} description
  */
-export const perpendiculaireCompasPoint = function (this: Alea2iep, d: Droite, A: PointAbstrait, options: OptionsCompasAvecDescription = {}) {
+export const perpendiculaireCompasPoint = function (this: Alea2iep, d: Droite, A: PointAbstrait, options: OptionsCompas = {}) {
   const H = projectionOrtho(A, d)
   const B = similitude(A, H, -90, 1.2, 'B')
   const C = homothetie(B, H, -0.7, 'C')
@@ -312,7 +308,7 @@ export const perpendiculaireCompasPoint = function (this: Alea2iep, d: Droite, A
    * @param {boolean} dessus
    * @param {*} [options]
    */
-export const paralleleRegleEquerreDroitePointAvecDescription = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, M: PointAbstrait, dessus: boolean, options: OptionsCompasAvecDescription = { description: true }) {
+export const paralleleRegleEquerreDroitePointAvecDescription = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, M: PointAbstrait, dessus: boolean, options: OptionsCompas = { description: true }) {
   A.nom = 'A'
   B.nom = 'B'
   M.nom = 'M'
@@ -367,7 +363,7 @@ export const paralleleRegleEquerreDroitePointAvecDescription = function (this: A
  * @param {Point} C
  * @param {boolean} description
  */
-export const paralleleAuCompasAvecDescription = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsCompasAvecDescription = { description: true }) {
+export const paralleleAuCompasAvecDescription = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsCompas = { description: true }) {
   const D = translation2Points(C, A, B, 'D')
   A.nom = 'A'
   B.nom = 'B'

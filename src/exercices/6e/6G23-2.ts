@@ -89,7 +89,7 @@ export default class TracerTriangle2Angles extends Exercice {
         texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}$ cm.`
       }
       const anim = new Alea2iep()
-      anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
+      anim.triangle1longueur2angles(p, c, angle1, angle2, { description: true, mesure: true }) // description et longueur
       texteCorr += anim.htmlBouton(this.numeroExercice ?? 0, i)
 
       if (this.questionJamaisPosee(i, c, angle1, angle2)) {
