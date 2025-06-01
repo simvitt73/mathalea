@@ -5,7 +5,7 @@
     grid-auto-flow: column; /* Remplissage en colonnes */
     width: 50%; /* Assure que la largeur totale est utilisée */
     margin: 0;
-    height: 100px;
+    height: auto;
   }
   
   .SchemaItem {
@@ -26,6 +26,35 @@ display: block;
 
   .latexAccoladeTop {
     position: relative;
+  }
+  .horizontalArrow {
+    width: 100%;
+    height: 6px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+     left: 50%;
+    margin-left: -50%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .horizontalArrowLine {
+    flex: 1;
+    height: 2px;
+    background: black;
+    position: relative;
+  }
+
+  .horizontalArrowHead {
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 12px solid black;
+    margin-left: -2px;
   }
 
   .braceTop {
