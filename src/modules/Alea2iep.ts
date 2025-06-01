@@ -1100,8 +1100,8 @@ export default class Alea2iep {
   traitRapide (A: PointAbstrait, B: PointAbstrait, options: OptionsCrayon = {}) {
     const tempo = 0
     const vitesse = 10000
-    this.crayonDeplacer(A, Object.assign(options, { tempo, vitesse }))
-    return this.tracer(B, Object.assign(options, { tempo, vitesse }))
+    this.crayonDeplacer(A, Object.assign({ tempo, vitesse }, options))
+    return this.tracer(B, Object.assign({ tempo, vitesse }, options))
   }
 
   /**
@@ -1388,8 +1388,8 @@ export default class Alea2iep {
     const M = translation2Points(A1, B, C1)
     const options1 = { ...options } // On recopie options pour pouvoir en changer le tempo du premier tracé
     options1.tempo = 0
-    const trait1 = this.trait(C1, M, Object.assign(options1, { couleur }))
-    const trait2 = this.trait(M, A1, Object.assign(options, { couleur }))
+    const trait1 = this.trait(C1, M, Object.assign({ couleur }, options1))
+    const trait2 = this.trait(M, A1, Object.assign({ couleur }, options))
     return [trait1, trait2]
   }
 
@@ -1400,8 +1400,8 @@ export default class Alea2iep {
    */
   codageAngleDroitMasquer (id: [number, number], options: OptionsIep = {}) {
     const tempo = options.tempo ?? 0
-    this.traitMasquer(id[0], Object.assign(options, { tempo }))
-    this.traitMasquer(id[1], Object.assign(options, { tempo }))
+    this.traitMasquer(id[0], Object.assign({ tempo }, options))
+    this.traitMasquer(id[1], Object.assign({ tempo }, options))
   }
 
   /**
