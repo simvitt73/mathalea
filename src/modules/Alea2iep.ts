@@ -55,6 +55,8 @@ export type OptionsIep = {
   couleur?: string // Couleur des traits
   epaisseur?: number // Epaisseur des traits
   pointilles?: boolean // Pointillés ou traits pleins
+  couleurLabel?: string // Couleur du label des points
+  couleurPoint?: string // Couleur du nom des points
 }
 
 export type OptionsOutil = OptionsIep & {
@@ -89,10 +91,8 @@ export type OptionsCompas = OptionsRapporteur & {
   couleurCompas?: string // Couleur du compas
 }
 
-export type OptionsPoint = OptionsIep & {
+export type OptionsPoint = OptionsCrayon & {
   label?: string // Label du point
-  couleurLabel?: string // Couleur du label du point
-  couleurPoint?: string // Couleur du nom des points
   dx?: number // Décalage horizontal du label du point
   dy?: number // Décalage vertical du label du point
 }
@@ -194,7 +194,7 @@ export default class Alea2iep {
     this.couleurCodage = '#f15929'
     this.couleurTraitsDeConstruction = 'gray'
     this.epaisseur = 2
-    this.epaisseurTraitsDeConstruction = 1
+    this.epaisseurTraitsDeConstruction = 0.5
     this.pointilles = false
     this.liste_script = [] // Liste des instructions xml mise à jour par les méthodes
 
@@ -579,9 +579,9 @@ export default class Alea2iep {
  */
   pointCreer (A: PointAbstrait, options: OptionsPoint = {}) {
     const label = options.label ?? A.nom
-    const couleur = options.couleur ?? this.couleurPoint
+    const couleur = options.couleurPoint ?? options.couleur ?? this.couleurPoint
     const tempo = options.tempo ?? this.tempo
-    const couleurLabel = options.couleurLabel ?? this.couleurTexte
+    const couleurLabel = options.couleurLabel ?? couleur
     if (options.id) {
       A.id = options.id
     } else {
@@ -779,7 +779,7 @@ export default class Alea2iep {
   compasTracerArc2Angles (angle1: number, angle2: number, options: OptionsCompas = {}) {
     const tempo = options.tempo ?? this.tempo
     const sens = options.sens ?? this.vitesse / 2
-    const epaisseur = options.epaisseur ?? this.epaisseur
+    const epaisseur = options.epaisseur ?? 0.5
     const couleurCompas = options.couleurCompas ?? this.couleurCompas
     const pointillesTexte = options.pointilles ? 'pointille="tiret"' : ''
     this.idIEP += 1
@@ -1182,12 +1182,23 @@ export default class Alea2iep {
    * Trace un polygone avec traitRapide()
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
-  polygoneRapide (...sommets: PointAbstrait[]) {
-    if (Array.isArray(sommets) && sommets.length > 2) {
-      for (let i = 0; i < sommets.length - 1; i++) {
-        this.traitRapide(sommets[i], sommets[i + 1])
+  polygoneRapide (...args: (PointAbstrait | OptionsCrayon)[]) {
+    const sommets: PointAbstrait[] = []
+    const option: OptionsCrayon = {}
+    args.forEach(arg => {
+      if (arg instanceof PointAbstrait) {
+        sommets.push(arg)
+      } else if (typeof arg === 'object') {
+        Object.assign(option, arg)
+      } else {
+        window.notify('polygoneRapide appelé avec un mauvais jeu d\'arguments', { arg })
       }
-      this.traitRapide(sommets[sommets.length - 1], sommets[0])
+    })
+    if (sommets.length > 2) {
+      for (let i = 0; i < sommets.length - 1; i++) {
+        this.traitRapide(sommets[i], sommets[i + 1], option)
+      }
+      this.traitRapide(sommets[sommets.length - 1], sommets[0], option)
     } else throw Error(`Pour utiliser polygoneRapide, il faut passer une liste de points ! et pas ça : ${JSON.stringify(sommets)} `)
   }
 
@@ -1341,7 +1352,7 @@ export default class Alea2iep {
       }
     }
     const tempo = options.tempo ?? this.tempo
-    const couleur = options.couleur ?? this.couleurCodage
+    const couleur = options.couleurCodage ?? options.couleur ?? this.couleurCodage
     const codage = options.codage ?? '\\'
     this.idIEP++
     const id = this.idIEP
@@ -1381,15 +1392,15 @@ export default class Alea2iep {
    */
   codageAngleDroit (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsRegle = {}) {
     const longueur = options.longueur ?? 0.3
-    const couleur = options.couleur ?? this.couleurCodage
+    const couleur = options.couleurCodage ?? options.couleur ?? this.couleurCodage
     this.crayonMontrer()
     const C1 = pointSurSegment(B, C, longueur)
     const A1 = pointSurSegment(B, A, longueur)
     const M = translation2Points(A1, B, C1)
     const options1 = { ...options } // On recopie options pour pouvoir en changer le tempo du premier tracé
     options1.tempo = 0
-    const trait1 = this.trait(C1, M, Object.assign({ couleur }, options1))
-    const trait2 = this.trait(M, A1, Object.assign({ couleur }, options))
+    const trait1 = this.trait(C1, M, Object.assign({}, options1, { couleur }))
+    const trait2 = this.trait(M, A1, Object.assign({}, options, { couleur }))
     return [trait1, trait2]
   }
 
@@ -1416,7 +1427,7 @@ export default class Alea2iep {
    * @return {id} L'identifiant correspond à l'identifiant des 3 points de l'angle séparés par _
    */
   angleCodage (B: PointAbstrait, A: PointAbstrait, C: PointAbstrait, options: OptionsCompas = {}) {
-    const couleur = options.couleur ?? this.couleurCodage
+    const couleur = options.couleurCodage ?? options.couleur ?? this.couleurCodage
     const codage = options.codage ?? 'plein'
     const rayon = options.rayon ?? 1
     const tempo = options.tempo ?? this.tempo
