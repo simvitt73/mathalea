@@ -48,7 +48,16 @@ window.onload = function () {
       exo = exo + '&alea=' + seed
     }
   }
-  iframe.src = 'https://coopmaths.fr/alea/?' + exo + '&i=1&v=eleve&recorder=moodle&title=&es=011010' + (answers !== '' ? '&done=1&answers=' + answers : '')
+  let src = 'https://coopmaths.fr/alea/?'
+  src += exo
+  if (!exo.includes('&v=can')) {
+    src += '&i=1&v=eleve&title=&es=011010'
+  }
+  src += '&recorder=moodle'
+  if (answers !== '') {
+    src += '&done=1&answers=' + answers
+  }
+  iframe.src = src
   iframe.setAttribute('frameborder', '0')
   iframe.setAttribute('width', '100%')
   iframe.setAttribute('height', '100%')
