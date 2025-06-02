@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
-import { texNombre, texPrix } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -43,7 +43,7 @@ type ReponseType = [number, number, number, number]
  }
 
 type FonctionProbleme = {
-  (interactif?: boolean, typeQuestion?: QuestionType, decimaux?: boolean): { enonce: string, barre: SchemaEnBoite, reponse: ReponseType, type: string }
+  (interactif?: boolean, typeQuestion?: QuestionType, decimaux?: boolean): { enonce: string, barre: SchemaEnBoite, reponses: ReponseType, type: string }
 }
 
 // matériel des fonctions problèmes
@@ -112,58 +112,10 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
     const prenomData = choice(prenoms)
     const prenom = prenomData.prenom
     const pronom = prenomData.pronom
-    const enonce = typeQuestion === 'schéma'
-      ? `${prenom} achète ${choix[0].nom} à ${prixAchat[0]} €, ${choix[1].nom} à ${prixAchat[1]} € et ${choix[2].nom} à ${prixAchat[2]} €. Combien a-t-${pronom} dépensé au total ?<br><br>
-    Réponse : ${prenom} a dépensé au total $${texPrix(total)}$ €.`
-      : typeQuestion === 'énoncé'
-        ? `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom} à zone2 €. Combien a-t-${pronom} dépensé au total ?<br><br>
+    const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom} à zone2 €. Combien a-t-${pronom} dépensé au total ?<br><br>
     Réponse : ${prenom} a dépensé au total zone3 €.`
-        : `${prenom} achète ${choix[0].nom} à ${prixAchat[0]} €, ${choix[1].nom} à zone1 € et ${choix[2].nom} à ${prixAchat[2]} €. Combien a-t-${pronom} dépensé au total ?<br><br>
-    Réponse : ${prenom} a dépensé au total zone3 €.`
-    const barre = typeQuestion === 'schéma'
-      ? new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
-      : typeQuestion === 'énoncé'
-        ? new SchemaEnBoite({
-          topBar: [
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[0])}$` },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[1])}$` },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[2])}$` }
-          ],
-          bottomBar: [
-            { color: 'lightgray', length: 12, content: `$${texPrix(total)}$` }
-          ]
-        })
-        : new SchemaEnBoite({
-          topBar: [
-            { color: 'lightgray', length: 4, content: 'zone0' },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[1])}$` },
-            { color: 'lightgray', length: 4, content: 'zone2' }
-          ],
-          bottomBar: [
-            { color: 'lightgray', length: 12, content: `$${texPrix(total)}$` }
-          ]
-        })
-
-    return {
-      enonce,
-      barre,
-      reponse: [
-        prixAchat[0],
-        prixAchat[1],
-        prixAchat[2],
-        total
-      ],
-      type: 'additif'
-    }
+    const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
+    return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total], type: 'additif' }
   }
 
   /**
@@ -173,7 +125,7 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
    * @param typeQuestion
    * @returns
    */
-  const troisDistances: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
+  const troisDistances = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
     const prenomData = choice(prenoms)
     const prenom = prenomData.prenom
     const pronom = prenomData.pronom
@@ -185,16 +137,7 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
       const total = distanceNatation + distanceVelo + distanceCourse
       const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait du vélo sur zone1 m et court sur zone2 m. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
       Réponse : ${prenom} a parcouru au total zone3 m.`
-      const barre = new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
+      const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distanceNatation, distanceVelo, distanceCourse, total]
     }
     function etapeDeMontagne (prenom: string, pronom: string): TroisDistancesFonction {
@@ -204,16 +147,7 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
       const total = ascension1 + ascension2 + ascension3
       const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 m pour le premier col, zone1 m pour le deuxième et zone2 m pour le dernier. Quelle dénivelé cumulé a-t-${pronom} grimpé ?<br><br>
       Réponse : ${prenom} a grimpé au total zone3 m.`
-      const barre = new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
+      const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, ascension1, ascension2, ascension3, total]
     }
     function randonnee (prenom: string, pronom: string):TroisDistancesFonction {
@@ -223,84 +157,13 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
       const total = distance1 + distance2 + distance3
       const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, puis zone1 m avant le repas de midi et enfin zone2 m. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
       Réponse : ${prenom} a parcouru au total zone3 m.`
-      const barre = new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
+      const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distance1, distance2, distance3, total]
     }
-
     const choix = choice([triathlon, etapeDeMontagne, randonnee])
-    let [enonce, barre, distance1, distance2, distance3, total] = choix(prenom, pronom)
-    const reponses = [distance1, distance2, distance3, total]
-    const zoneAQuestionner = combinaisonListes(['e', 's'], 4)
-
-    for (let i = 0; i <= 3; i++) {
-      if (typeQuestion === 'schéma') {
-        enonce = enonce.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-      } else if (typeQuestion === 'énoncé') {
-        if (barre.topBar != null) {
-          const bar = barre.topBar.findIndex(b => b.content.includes(`zone${i}`))
-          if (bar !== -1) {
-            barre.topBar[bar].content = barre.topBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-        if (barre.bottomBar != null) {
-          const bar = barre.bottomBar.findIndex(b => b.content.includes(`zone${i}`))
-          if (bar !== -1) {
-            barre.bottomBar[bar].content = barre.bottomBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-        if (barre.topBraces != null) {
-          const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
-          if (brace !== -1) {
-            barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-        if (barre.bottomBraces != null) {
-          const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
-          if (brace !== -1) {
-            barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-      } else {
-        if (zoneAQuestionner[i] === 'e') {
-          enonce = enonce.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-        } else {
-          if (barre.topBar != null) {
-            const bar = barre.topBar.findIndex(b => b.content.includes(`zone${i}`))
-            if (bar !== -1) {
-              barre.topBar[bar].content = barre.topBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-          if (barre.bottomBar != null) {
-            const bar = barre.bottomBar.findIndex(b => b.content.includes(`zone${i}`))
-            if (bar !== -1) {
-              barre.bottomBar[bar].content = barre.bottomBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-          if (barre.topBraces != null) {
-            const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
-            if (brace !== -1) {
-              barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-          if (barre.bottomBraces != null) {
-            const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
-            if (brace !== -1) {
-              barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-        }
-      }
-    }
-    return { enonce, barre, reponse: [distance1, distance2, distance3, total], type: 'additif' }
+    const [enonce, barre, distance1, distance2, distance3, total] = choix(prenom, pronom)
+    const reponses: [number, number, number, number] = [distance1, distance2, distance3, total]
+    return { enonce, barre, reponses, type: 'additif' }
   }
 
   const choixFonction = choice([troisAchats, troisDistances])
@@ -315,58 +178,11 @@ const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: Quest
     const prenomData = choice(prenoms)
     const prenom = prenomData.prenom
     const pronom = prenomData.pronom
-    const enonce = typeQuestion === 'schéma'
-      ? `${prenom} achète ${choix[0].nom} à ${prixAchat[0]} €, ${choix[1].nom} à ${prixAchat[1]} € et ${choix[2].nom}. ${premiereLettreEnMajuscule(pronom)} a payé en tout $${total}$ €. Combien coûte ${choix[2].nom} ?<br><br>
-    Réponse :  ${choix[2].nom} a couté $${texPrix(prixAchat[2])}$ €.`
-      : typeQuestion === 'énoncé'
-        ? `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom}. ${premiereLettreEnMajuscule(pronom)} a payé en tout zone3 €. Combien coûte ${choix[2].nom} ?<br><br>
+    const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom}. ${premiereLettreEnMajuscule(pronom)} a payé en tout zone3 €. Combien coûte ${choix[2].nom} ?<br><br>
     Réponse :  ${choix[2].nom} a couté zone2 €.`
-        : `${prenom} achète ${choix[0].nom} à ${prixAchat[0]} €, ${choix[1].nom} à zone1 € et ${choix[2].nom}.  ${premiereLettreEnMajuscule(pronom)} a payé en tout $${total}$ €. Combien coûte ${choix[2].nom} ?<br><br>
-    Réponse :  ${choix[2].nom} a couté zone2 €.`
-    const barre = typeQuestion === 'schéma'
-      ? new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
-      : typeQuestion === 'énoncé'
-        ? new SchemaEnBoite({
-          topBar: [
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[0])}$` },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[1])}$` },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[2])}$` }
-          ],
-          bottomBar: [
-            { color: 'lightgray', length: 12, content: `$${texPrix(total)}$` }
-          ]
-        })
-        : new SchemaEnBoite({
-          topBar: [
-            { color: 'lightgray', length: 4, content: 'zone0' },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[1])}$` },
-            { color: 'lightgray', length: 4, content: `$${texPrix(prixAchat[2])}$` }
-          ],
-          bottomBar: [
-            { color: 'lightgray', length: 12, content: 'zone3' }
-          ]
-        })
 
-    return {
-      enonce,
-      barre,
-      reponse: [
-        prixAchat[0],
-        prixAchat[1],
-        prixAchat[2],
-        total
-      ],
-      type: 'partie-tout'
-    }
+    const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
+    return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total], type: 'parties-tout' }
   } // fin de unAchatParmisTrois
   const uneDistanceParmiTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
     const prenomData = choice(prenoms)
@@ -380,16 +196,7 @@ const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: Quest
       const total = distanceNatation + distanceVelo + distanceCourse
       const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait ensuite du vélo et ensuite court sur zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru en tout zone3 m. Quelle distance a-t-${pronom} parcourue à vélo ?<br><br>
       Réponse : ${prenom} a parcouru zone1 m à vélo.`
-      const barre = new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
+      const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distanceNatation, distanceVelo, distanceCourse, total]
     }
     function etapeDeMontagne (prenom: string, pronom: string): UneDistanceParmiTroisFonction {
@@ -399,16 +206,7 @@ const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: Quest
       const total = ascension1 + ascension2 + ascension3
       const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 m pour le premier col et zone2 m pour le dernier. ${premiereLettreEnMajuscule(pronom)} a grimpé au total zone3 m. Combien de mètres a-t-${pronom} grimpé lors de l'ascension du deuxième col ?<br><br>
       Réponse : ${prenom} a grimpé zone1 m au deuxième col.`
-      const barre = new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
+      const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, ascension1, ascension2, ascension3, total]
     }
     function randonnee (prenom: string, pronom: string): UneDistanceParmiTroisFonction {
@@ -418,83 +216,13 @@ const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: Quest
       const total = distance1 + distance2 + distance3
       const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, ${pronom} marche encore un peu avant le repas de midi et repart ensuite pour éffectuer zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru au total zone3 m. Quelle distance a-t-${pronom} parcourue entre sa halte matinale et le repas de midi ?<br><br>
       Réponse : ${prenom} a parcouru zone1 m avant le repas de midi.`
-      const barre = new SchemaEnBoite({
-        topBar: [
-          { color: 'lightgray', length: 4, content: 'zone0' },
-          { color: 'lightgray', length: 4, content: 'zone1' },
-          { color: 'lightgray', length: 4, content: 'zone2' }
-        ],
-        bottomBar: [
-          { color: 'lightgray', length: 12, content: 'zone3' }
-        ]
-      })
+      const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distance1, distance2, distance3, total]
     }
 
     const choix = choice([triathlon, etapeDeMontagne, randonnee])
-    let [enonce, barre, distance1, distance2, distance3, total] = choix(prenom, pronom)
-    const reponses = [distance1, distance2, distance3, total]
-    const zoneAQuestionner = combinaisonListes(['e', 's'], 4)
-    for (let i = 0; i <= 3; i++) {
-      if (typeQuestion === 'schéma') {
-        enonce = enonce.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-      } else if (typeQuestion === 'énoncé') {
-        if (barre.topBar != null) {
-          const bar = barre.topBar.findIndex(b => b.content.includes(`zone${i}`))
-          if (bar !== -1) {
-            barre.topBar[bar].content = barre.topBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-        if (barre.bottomBar != null) {
-          const bar = barre.bottomBar.findIndex(b => b.content.includes(`zone${i}`))
-          if (bar !== -1) {
-            barre.bottomBar[bar].content = barre.bottomBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-        if (barre.topBraces != null) {
-          const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
-          if (brace !== -1) {
-            barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-        if (barre.bottomBraces != null) {
-          const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
-          if (brace !== -1) {
-            barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-          }
-        }
-      } else {
-        if (zoneAQuestionner[i] === 'e') {
-          enonce = enonce.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-        } else {
-          if (barre.topBar != null) {
-            const bar = barre.topBar.findIndex(b => b.content.includes(`zone${i}`))
-            if (bar !== -1) {
-              barre.topBar[bar].content = barre.topBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-          if (barre.bottomBar != null) {
-            const bar = barre.bottomBar.findIndex(b => b.content.includes(`zone${i}`))
-            if (bar !== -1) {
-              barre.bottomBar[bar].content = barre.bottomBar[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-          if (barre.topBraces != null) {
-            const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
-            if (brace !== -1) {
-              barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-          if (barre.bottomBraces != null) {
-            const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
-            if (brace !== -1) {
-              barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
-            }
-          }
-        }
-      }
-    }
-    return { enonce, barre, reponse: [distance1, distance2, distance3, total], type: 'partie-tout' }
+    const [enonce, barre, distance1, distance2, distance3, total] = choix(prenom, pronom)
+    return { enonce, barre, reponses: [distance1, distance2, distance3, total], type: 'partie-tout' }
   } // fin de uneDistanceParmiTrois
   const choixFonction = choice([unAchatParmisTrois, uneDistanceParmiTrois])
   return choixFonction(interactif, typeQuestion, decimaux)
@@ -520,95 +248,41 @@ const partageEquitable: FonctionProbleme = (interactif = false, typeQuestion: Qu
     } while (nombrePartsRestantes === 0 || nombreObjets === nombrePartsParObjet ||
     nombreObjets === nombrePartsParAmi || nombrePartsParObjet === nombrePartsParAmi ||
   nombrePartsParAmi === nombreAmis || nombreObjets === nombreAmis || nombrePartsParObjet === nombreAmis)
-    let enonce = `${prenom} a zone0 ${objet.nom} chacun contenant zone1 ${objet.nomPart}. Quand ${pronom} les distribue à ses amis, chacun en a zone2 et il en reste ${nombrePartsRestantes}. Combien a-t-${pronom} d'amis ?<br><br>
+    const enonce = `${prenom} a zone0 ${objet.nom} chacun contenant zone1 ${objet.nomPart}. Quand ${pronom} les distribue à ses amis, chacun en a zone2 et il en reste ${nombrePartsRestantes}. Combien a-t-${pronom} d'amis ?<br><br>
     Réponse : ${prenom} a zone3 amis.`
-    const barre = new SchemaEnBoite({
+    const barre = SchemaEnBoite.multiplicationPuisDivisionAvecReste('zone0', 'zone1', 'zone2', 'zone3', nombrePartsRestantes, 0)
+    /*
+    new SchemaEnBoite({
       topBraces: [
-        { start: 1, end: 9, text: 'zone0 fois', type: 'curl' }
+        { start: 1, end: 9, text: 'zone0 fois', type: 'accolade' }
       ],
-      topBar: [
-        { color: 'lightgray', length: 1, content: 'zone1', options: { style: ' border-right: dashed 1px;' } },
-        { color: 'lightgray', length: 7, content: ' \\ldots', options: { justify: 'start', style: 'border-left: none;' } },
-      ],
-      bottomBar: [
-        { color: 'lightgray', length: 2, content: 'zone2', options: { style: ' border-right: dashed 1px;' } },
-        { color: 'lightgray', length: 5, content: ' \\ldots', options: { justify: 'start', style: ' border-left: none;' } },
-        { color: 'lightgray', length: 1, content: texNombre(nombrePartsRestantes, 0) }
+      lignes: [
+        {
+          barres: [
+            { color: 'lightgray', length: 1, content: 'zone1', options: { style: ' border-right: dashed 1px;' } },
+            { color: 'lightgray', length: 7, content: ' \\ldots', options: { justify: 'start', style: 'border-left: none;' } },
+          ]
+        },
+        {
+          barres: [
+            { color: 'lightgray', length: 2, content: 'zone2', options: { style: ' border-right: dashed 1px;' } },
+            { color: 'lightgray', length: 5, content: ' \\ldots', options: { justify: 'start', style: ' border-left: none;' } },
+            { color: 'lightgray', length: 1, content: texNombre(nombrePartsRestantes, 0) }
+          ]
+        }
       ],
       bottomBraces: [
-        { start: 1, end: 8, text: 'zone3 fois', type: 'curl' }
+        { start: 1, end: 8, text: 'zone3 fois', type: 'accolade' }
       ]
     })
-
-    const reponse: [number, number, number, number] = [
+*/
+    const reponses: [number, number, number, number] = [
       nombreObjets,
       nombrePartsParObjet,
       nombrePartsParAmi,
       nombreAmis
     ]
-    const zoneAQuestionner = combinaisonListes(['e', 's'], 4)
-    for (let i = 0; i <= 3; i++) {
-      if (typeQuestion === 'schéma') {
-        enonce = enonce.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-      } else if (typeQuestion === 'énoncé') {
-        if (barre.topBar != null) {
-          const bar = barre.topBar.filter(b => b.content.includes(`zone${i}`))
-          if (bar.length > 0) {
-            barre.topBar.forEach(b => {
-              b.content = b.content.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-            })
-          }
-        }
-        if (barre.bottomBar != null) {
-          const bar = barre.bottomBar.findIndex(b => b.content.includes(`zone${i}`))
-          if (bar !== -1) {
-            barre.bottomBar[bar].content = barre.bottomBar[bar].content.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-          }
-        }
-        if (barre.topBraces != null) {
-          const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
-          if (brace !== -1) {
-            barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-          }
-        }
-        if (barre.bottomBraces != null) {
-          const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
-          if (brace !== -1) {
-            barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-          }
-        }
-      } else {
-        if (zoneAQuestionner[i] === 'e') {
-          enonce = enonce.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-        } else {
-          if (barre.topBar != null) {
-            const bar = barre.topBar.findIndex(b => b.content.includes(`zone${i}`))
-            if (bar !== -1) {
-              barre.topBar[bar].content = barre.topBar[bar].content.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-            }
-          }
-          if (barre.bottomBar != null) {
-            const bar = barre.bottomBar.findIndex(b => b.content.includes(`zone${i}`))
-            if (bar !== -1) {
-              barre.bottomBar[bar].content = barre.bottomBar[bar].content.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-            }
-          }
-          if (barre.topBraces != null) {
-            const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
-            if (brace !== -1) {
-              barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-            }
-          }
-          if (barre.bottomBraces != null) {
-            const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
-            if (brace !== -1) {
-              barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponse[i], 2)}$`)
-            }
-          }
-        }
-      }
-    }
-    return { enonce, barre, reponse, type: 'partage' }
+    return { enonce, barre, reponses, type: 'partage' }
   } // fin de partageEntreAmis
 
   const choixFonction = choice([partageEntreAmis])
@@ -627,56 +301,98 @@ function genereEnonces (exercice: Exercice, typeQuestion: QuestionType, startInt
   const interactif = exercice.interactif
   const fonctionsGenerales = [sommeTroisParties, unePartieTout, partageEquitable]
   const fonctionEnonce = choice(fonctionsGenerales)
-  let { enonce, barre, reponse, type } = fonctionEnonce(interactif, typeQuestion)
+  let { enonce, barre, reponses } = fonctionEnonce(interactif, typeQuestion)
   let i = startInteractif
+  const zoneAQuestionner = combinaisonListes(['e', 's'], 4)
+  for (let i = 0; i <= 3; i++) {
+    if (typeQuestion === 'schéma') {
+      enonce = enonce.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+    } else if (typeQuestion === 'énoncé') {
+      for (const ligne of barre.lignes) {
+        const bar = ligne.barres.findIndex(b => b.content.includes(`zone${i}`))
+        if (bar !== -1) {
+          ligne.barres[bar].content = ligne.barres[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+        }
+      }
+      if (barre.topBraces != null) {
+        const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
+        if (brace !== -1) {
+          barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+        }
+      }
+      if (barre.bottomBraces != null) {
+        const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
+        if (brace !== -1) {
+          barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+        }
+      }
+    } else {
+      if (zoneAQuestionner[i] === 'e') {
+        enonce = enonce.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+      } else {
+        for (const ligne of barre.lignes) {
+          const bar = ligne.barres.findIndex(b => b.content.includes(`zone${i}`))
+          if (bar !== -1) {
+            ligne.barres[bar].content = ligne.barres[bar].content.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+          }
+        }
+        if (barre.topBraces != null) {
+          const brace = barre.topBraces.findIndex(b => b.text.includes(`zone${i}`))
+          if (brace !== -1) {
+            barre.topBraces[brace].text = barre.topBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+          }
+        }
+        if (barre.bottomBraces != null) {
+          const brace = barre.bottomBraces.findIndex(b => b.text.includes(`zone${i}`))
+          if (brace !== -1) {
+            barre.bottomBraces[brace].text = barre.bottomBraces[brace].text.replace(`zone${i}`, `$${texNombre(reponses[i], 2)}$`)
+          }
+        }
+      }
+    }
+  }
   let enonceCorr = enonce
-  const barreCorr = new SchemaEnBoite({ topBraces: barre.topBraces ? JSON.parse(JSON.stringify(barre.topBraces)) : undefined, bottomBraces: barre.bottomBraces ? JSON.parse(JSON.stringify(barre.bottomBraces)) : undefined, topBar: JSON.parse(JSON.stringify(barre.topBar)), bottomBar: JSON.parse(JSON.stringify(barre.bottomBar)) })
+  const barreCorr = new SchemaEnBoite({ topBraces: barre.topBraces ? JSON.parse(JSON.stringify(barre.topBraces)) : undefined, bottomBraces: barre.bottomBraces ? JSON.parse(JSON.stringify(barre.bottomBraces)) : undefined, lignes: JSON.parse(JSON.stringify(barre.lignes)) })
   for (let k = 0; k < 4; k++) {
     if (enonceCorr.includes(`zone${k}`)) {
-      enonceCorr = enonceCorr.replaceAll(`zone${k}`, `$${miseEnEvidence(texNombre(reponse[k], 2))}$`)
+      enonceCorr = enonceCorr.replaceAll(`zone${k}`, `$${miseEnEvidence(texNombre(reponses[k], 2))}$`)
     }
     if (barreCorr.topBraces != null) {
       const brace = barreCorr.topBraces.findIndex(b => b.text.includes(`zone${k}`))
       if (brace !== -1) {
-        barreCorr.topBraces[brace].text = barreCorr.topBraces[brace].text.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponse[k], 2))}$`)
+        barreCorr.topBraces[brace].text = barreCorr.topBraces[brace].text.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponses[k], 2))}$`)
       }
     }
     if (barreCorr.bottomBraces != null) {
       const brace = barreCorr.bottomBraces.findIndex(b => b.text.includes(`zone${k}`))
       if (brace !== -1) {
-        barreCorr.bottomBraces[brace].text = barreCorr.bottomBraces[brace].text.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponse[k], 2))}$`)
+        barreCorr.bottomBraces[brace].text = barreCorr.bottomBraces[brace].text.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponses[k], 2))}$`)
       }
     }
-    if (barreCorr.topBar != null) {
-      const bar = barreCorr.topBar.findIndex(b => b.content.includes(`zone${k}`))
+    for (const ligne of barreCorr.lignes) {
+      const bar = ligne.barres.findIndex(b => b.content.includes(`zone${k}`))
       if (bar !== -1) {
-        barreCorr.topBar[bar].content = barreCorr.topBar[bar].content.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponse[k], 2))}$`)
-      }
-    }
-    if (barreCorr.bottomBar != null) {
-      const bar = barreCorr.bottomBar.findIndex(b => b.content.includes(`zone${k}`))
-      if (bar !== -1) {
-        barreCorr.bottomBar[bar].content = barreCorr.bottomBar[bar].content.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponse[k], 2))}$`)
+        ligne.barres[bar].content = ligne.barres[bar].content.replace(`zone${k}`, `$${miseEnEvidence(texNombre(reponses[k], 2))}$`)
       }
     }
   }
   enonceCorr = typeQuestion === 'schéma'
     ? `Le problème :<br><br>${enonceCorr}<br><br>
-  se modélise par le schéma de type ${type} suivant :<br>
+  se modélise par le schéma suivant :<br><br>
 ${barreCorr.display()}`
     : typeQuestion === 'énoncé'
-      ? `Le schéma : <br>${barreCorr.display()}<br>
+      ? `Le schéma : <br><br>${barreCorr.display()}<br>
 correspond à l'énoncé ci-dessous :<br><br>
 ${enonceCorr}`
       : `Voici l'énoncé et le schéma correspondant :<br><br>
-${enonceCorr}<br>
+${enonceCorr}<br><br>
 ${barreCorr.display()}`
 
   for (let k = 0; k < 4; k++) {
     if (enonce.includes(`zone${k}`)) {
       if (interactif && exercice != null) {
-        enonce = enonce.replaceAll(`zone${k}`, ajouteChampTexteMathLive(exercice, i, 'schemaEnBoite'))
-        handleAnswers(exercice, i, { reponse: { value: texNombre(reponse[k], 2), options: { noFeedback: true } } })
+        enonce = enonce.replaceAll(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
+        handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
         i++
       } else {
         enonce = enonce.replace(`zone${k}`, '$\\ldots$')
@@ -690,8 +406,8 @@ ${barreCorr.display()}`
       if (braces.length > 0) {
         if (interactif && exercice != null) {
           braces.forEach(b => {
-            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, i, 'schemaEnBoite'))
-            handleAnswers(exercice, i, { reponse: { value: texNombre(reponse[k], 2), options: { noFeedback: true } } })
+            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
+            handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
           })
           i++
         } else {
@@ -708,8 +424,8 @@ ${barreCorr.display()}`
       if (braces.length > 0) {
         if (interactif && exercice != null) {
           braces.forEach(b => {
-            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, i, 'schemaEnBoite'))
-            handleAnswers(exercice, i, { reponse: { value: texNombre(reponse[k], 2), options: { noFeedback: true } } })
+            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
+            handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
           })
           i++
         } else {
@@ -720,32 +436,13 @@ ${barreCorr.display()}`
         }
       }
     }
-    if (barre.topBar != null) {
-      const bars = barre.topBar.filter(b => b.content.includes(`zone${k}`))
+    for (const ligne of barre.lignes) {
+      const bars = ligne.barres.filter(b => b.content.includes(`zone${k}`))
       if (bars.length > 0) {
         if (interactif && exercice != null) {
           bars.forEach(b => {
-            b.content = b.content.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, i, 'schemaEnBoite'))
-            handleAnswers(exercice, i, { reponse: { value: texNombre(reponse[k], 2), options: { noFeedback: true } } })
-          }
-          )
-          i++
-        } else {
-          bars.forEach(b => {
-            b.content = b.content.replace(`zone${k}`, '\\ldots')
-          }
-          )
-          i++
-        }
-      }
-    }
-    if (barre.bottomBar != null) {
-      const bars = barre.bottomBar.filter(b => b.content.includes(`zone${k}`))
-      if (bars.length > 0) {
-        if (interactif && exercice != null) {
-          bars.forEach(b => {
-            b.content = b.content.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, i, 'schemaEnBoite'))
-            handleAnswers(exercice, i, { reponse: { value: texNombre(reponse[k], 2), options: { noFeedback: true } } })
+            b.content = b.content.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
+            handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
           })
           i++
         } else {
