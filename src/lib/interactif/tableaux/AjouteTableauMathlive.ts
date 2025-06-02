@@ -152,6 +152,8 @@ export class AddTabPropMathlive {
     const ligne1 = [...tableau.ligne1]
     const ligne2 = [...tableau.ligne2]
     const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(numeroExercice, question, tableau, classes, isInteractif)
+    tableauMathlive.ligne1 = ligne1.map(el => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
+    tableauMathlive.ligne2 = ligne2.map(el => JSON.parse(JSON.stringify(el)))
     const table = document.createElement('table')
     table.className = 'tableauMathlive'
     table.id = `tabMathliveEx${NoEx}Q${question}`
@@ -197,6 +199,18 @@ export class AddTabPropMathlive {
     }
     return { ligne1, ligne2, nbColonnes }
   }
+
+  get latexOutput ():string {
+    // retourne le tableau au format latex
+    let output = '\\begin{tabular}{|c|' + 'c|'.repeat(this.nbColonnes - 1) + '}\n'
+    output += '\\hline\n'
+    output += this.ligne1.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+    output += '\\hline\n'
+    output += this.ligne2.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+    output += '\\hline\n'
+    output += '\\end{tabular}'
+    return output
+  }
 }
 
 export class AddTabDbleEntryMathlive {
@@ -238,6 +252,7 @@ export class AddTabDbleEntryMathlive {
     table.id = `tabMathliveEx${numeroExercice}Q${question}`
     const firstLine = document.createElement('tr')
     table.appendChild(firstLine)
+    tableauMathlive.headingCols = tableau.headingCols.map(el => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
     if (tableau.headingCols != null) {
       fillLine({ isInteractif, line: firstLine, content: tableau.headingCols, index: 0, tag: 'th', classes, NoEx, NoQ, style })
     }
@@ -246,6 +261,7 @@ export class AddTabDbleEntryMathlive {
       const newLine = document.createElement('tr')
       table.appendChild(newLine)
       if (tableau.headingLines != null) {
+        tableauMathlive.headingLines = tableau.headingLines.map(el => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
         const sty = style[`L${tableau.headingCols != null ? 1 + j : j}C${0}`] || style[`LC${0}`]
         appendCell({ isInteractif, line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ, style: sty })
         /*
@@ -254,6 +270,7 @@ export class AddTabDbleEntryMathlive {
         newLine.appendChild(head)
         */
       }
+      tableauMathlive.raws = tableau.raws.map(el => JSON.parse(JSON.stringify(el))) // on clone les raws pour ne pas modifier le tableau passé en argument
       const raw = tableau.raws[j]
       if (Array.isArray(raw) && raw.length > 0) {
         for (let i = 0; i < raw.length; i++) {
@@ -266,6 +283,28 @@ export class AddTabDbleEntryMathlive {
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
     tableauMathlive.output = table.outerHTML + spanCheckOuterHTML
     return tableauMathlive
+  }
+
+  get latexOutput ():string {
+    if (this.headingCols.length === 0 && this.headingLines.length === 0) {
+      throw Error('Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne')
+    }
+    const nbCols = this.headingCols.length > 0 ? this.headingCols.length : this.raws[0].length + (this.headingLines.length > 0 ? 1 : 0)
+    const nbLines = this.headingLines.length > 0 ? this.headingLines.length : this.raws.length
+
+    // retourne le tableau au format latex
+    let output = '\\begin{tabular}{|c|' + 'c|'.repeat(nbCols - 1) + '}\n'
+    output += '\\hline\n'
+    for (let i = 0; i < nbLines; i++) {
+      if (this.headingLines[i] != null) {
+        output += `$${this.headingLines[i].texte}$ & `
+      }
+      const raw = this.raws[i]
+      output += raw.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+      output += '\\hline\n'
+    }
+    output += '\\end{tabular}'
+    return output
   }
 
   /**

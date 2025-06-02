@@ -404,8 +404,8 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
       const tableau = AddTabPropMathlive.create(this.numeroExercice ?? 0, i, cells, 'tableauMathlive', this.interactif, {})
 
       if (this.questionJamaisPosee(i, objet)) { // Si la question n'a jamais été posée, on la garde.
-        this.listeQuestions[i] = tableau.output
-        this.listeCorrections[i] = tableauCorr.output + '<br>' + correctionsOrdonnees.join('<br>')
+        this.listeQuestions.push(context.isHtml ? tableau.output : tableau.latexOutput)
+        this.listeCorrections.push((context.isHtml ? tableauCorr.output : tableauCorr.latexOutput) + '<br>' + correctionsOrdonnees.join('<br>'))
         i++
       }
       cpt++
