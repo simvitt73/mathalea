@@ -1,4 +1,5 @@
 import { context } from '../../modules/context'
+import { range } from './nombres'
 import './ShemasEnBoite.css'
 import { texNombre } from './texNombre'
 
@@ -6,7 +7,7 @@ type AccoladeType = {
   start: number, // colonne de début (1 = première colonne)
   end: number, // colonne de fin = start + longueur de l'accolade
   text: string,
-  type?: 'curl' | 'arrow', // pour le style de l'accolade, 'curl' pour les accolades classiques, 'arrow' pour les accolades avec une flèche
+  type?: 'accolade' | 'flèche', // pour le style de l'accolade, 'curl' pour les accolades classiques, 'arrow' pour les accolades avec une flèche
   options?: {
     justify?: 'start' | 'center' | 'end', // pour justifier le texte à gauche, au centre ou à droite
     color?: string, // pour la couleur du texte
@@ -19,10 +20,11 @@ type BarreSchemaType = {
   color: string
   length: number
   content: string,
+  type?: 'boite' | 'flèche',
   options?: {
+    borderless?: boolean, // pour une boîte sans bordure
     justify?: 'start' | 'center' | 'end', // pour justifier le texte à gauche, au centre ou à droite
     color?: string, // pour la couleur du texte
-    lineHeight?: string, // pour la hauteur de ligne
     fontSize?: string, // pour la taille de la police
     fontWeight?: string, // pour le poids de la police
     textAlign?: 'left' | 'center' | 'right', // pour aligner le texte à gauche, au centre ou à droite
@@ -32,27 +34,40 @@ type BarreSchemaType = {
     // on peut aussi ajouter d'autres options si besoin
   }
 }
-type LigneSchemaType = BarreSchemaType[]
+
+type LigneSchemaType = {
+  barres: BarreSchemaType[]
+  entete?: {
+    content: string // pour le titre de la ligne
+    longueur?: number // pour la longueur de l'entête (en nombre d'unité de grille) n"cessaire sur la prémière ligne du schéma les autres lignes auront la même longueur
+    couleur?: string // pour la couleur du texte de l'entête (le fond est dans la couleur de la page)
+    fontSize?: string // pour la taille de la police de l'entête
+    fontWeight?: string // pour le poids de la police de l'entête
+  }
+  spacing?: number // pour l'espacement après la ligne
+  height?: number // pour la hauteur de la ligne (en em), si non défini, on utilise la hauteur par défaut
+}
+
 type LigneAccoladeType = AccoladeType[]
 export default class SchemaEnBoite {
   topBraces?: LigneAccoladeType
   bottomBraces?: LigneAccoladeType
-  topBar: LigneSchemaType
-  bottomBar: LigneSchemaType
+  lignes: LigneSchemaType[] = []
+  rightBraces?: AccoladeType[] // pour les accolades à droite, si nécessaire
+  maxEnteteLength?: number // pour la largeur max des entêtes (en nombre d'unité de grille), si nécessaire
 
-  constructor ({ topBar, bottomBar, bottomBraces, topBraces }: { topBar: LigneSchemaType, bottomBar: LigneSchemaType, bottomBraces?: LigneAccoladeType, topBraces?: LigneAccoladeType } = { topBar: [], bottomBar: [] }) {
-    this.topBar = topBar
-    this.bottomBar = bottomBar
+  constructor ({ lignes, bottomBraces, topBraces, rightBraces }: { lignes: LigneSchemaType[], bottomBraces?: LigneAccoladeType, topBraces?: LigneAccoladeType, rightBraces?: LigneAccoladeType } = { lignes: [] }) {
+    this.lignes = lignes
+    this.rightBraces = []
     if (bottomBraces) {
       this.bottomBraces = bottomBraces
     }
     if (topBraces) {
       this.topBraces = topBraces
     }
-  }
-
-  concat (boite: SchemaEnBoite): SchemaEnBoite {
-    return new SchemaEnBoite({ topBar: this.topBar.concat(boite.topBar) ?? [], bottomBar: this.bottomBar.concat(boite.bottomBar) ?? [], bottomBraces: this.bottomBraces?.concat(boite.bottomBraces ?? []) ?? [], topBraces: this.topBraces?.concat(boite.topBraces ?? []) ?? [] })
+    if (rightBraces) {
+      this.rightBraces = rightBraces
+    }
   }
 
   display (): string {
@@ -64,18 +79,16 @@ export default class SchemaEnBoite {
           const start = brace.start
           const end = brace.end
           const texte = brace.text
-          const type = brace.type ?? 'curl' // 'curl' par défaut
+          const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const justify = options.justify ?? 'center' // 'center' par défaut
-          const color = options.color ?? 'black' // 'black' par défaut
-          const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-          const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
-          const lineHeight = options.lineHeight ?? '1.2em' // '1.2em' par défaut
-          // On crée la ligne d'accolade en fonction du type
-          // et des options
+          const justify = options.justify ?? 'center'
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
+          const lineHeight = options.lineHeight ?? '1.2em'
           if (start != null && end != null && texte != null) {
-            ligneAccoladeH += type === 'arrow'
-              ? `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none;">
+            ligneAccoladeH += type === 'flèche'
+              ? `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none; --arrow-color: ${color}">
                     <div class="latexAccoladeTop" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                   <div class="horizontalArrow">
                     <div class="horizontalArrowHead" style="transform: rotate(180deg);"></div>
@@ -83,7 +96,7 @@ export default class SchemaEnBoite {
                     <div class="horizontalArrowHead"></div>
                   </div>
                 </div>\n`
-              : `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none">
+              : `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none"; --brace-color: ${color}">
                     <div class="latexAccoladeTop" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                     <div class="braceTop">
                       <div class="braceTopLeft">
@@ -101,51 +114,112 @@ export default class SchemaEnBoite {
           }
         }
       }
-      let ligne1 = ''
-      let start = 1
-      for (let k = 0; k < this.topBar.length; k++) {
-        // On crée la ligne du haut
-        // en fonction des barres et de leurs options
-        const barre = this.topBar[k]
-        if (barre.length <= 0) continue // On ignore les barres de longueur 0
-        if (barre.content == null) barre.content = '' // On met un contenu vide si pas défini
-        if (barre.color == null) barre.color = 'lightgray' // On met une couleur par défaut si pas définie
-        if (barre.options == null) barre.options = {} // On met un objet vide si pas défini
-        const options = barre.options ?? {}
-        const justify = options.justify ?? 'center' // 'center' par défaut
-        const color = options.color ?? 'black' // 'black' par défaut
-        const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-        const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
-        const lineHeight = options.lineHeight ?? '1.2em' // '1.2em' par défaut
-        const style = options.style ?? '' // 'none' par défaut
-        // On crée la barre en fonction des options
-        // et de la longueur
-        // On ajoute la barre à la ligne
-        ligne1 += `<div class="SchemaItem" style="grid-row: 2; grid-column-start: ${start}; grid-column-end: ${start + barre.length}; background-color:${barre.color}; justify-content:${justify}; color:${color}; font-size:${fontSize}; font-weight:${fontWeight}; line-height:${lineHeight}; ${style}">${barre.content}</div>\n`
-        start += barre.length
+
+      // Trouver la largeur max des entêtes (en nombre d'unité de grille)
+      let maxEnteteLength = 0
+      let hasEntete = false
+      for (const ligne of this.lignes) {
+        if (ligne.entete !== undefined) {
+          hasEntete = true
+          if ((ligne.entete.longueur ?? 0) > maxEnteteLength) {
+            maxEnteteLength = ligne.entete.longueur ?? 0
+          }
+        }
       }
-      let ligne2 = ''
-      start = 1
-      for (let k = 0; k < this.bottomBar.length; k++) {
-        // On crée la ligne du bas
-        // en fonction des barres et de leurs options
-        const barre = this.bottomBar[k]
-        if (barre.length <= 0) continue // On ignore les barres de longueur 0
-        if (barre.content == null) barre.content = '' // On met un contenu vide si pas défini
-        if (barre.color == null) barre.color = 'lightgray' // On met une couleur par défaut si pas définie
-        if (barre.options == null) barre.options = {} // On met un objet vide si pas défini
-        const options = barre.options ?? {}
-        const justify = options.justify ?? 'center' // 'center' par défaut
-        const color = options.color ?? 'black' // 'black' par défaut
-        const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-        const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
-        const style = options.style ?? '' // 'none' par défaut
-        // On crée la barre en fonction des options
-        // et de la longueur
-        // On ajoute la barre à la ligne
-        ligne2 += `<div class="SchemaItem" style="grid-row: 3; grid-column-start: ${start}; grid-column-end: ${start + barre.length}; background-color:${barre.color}; justify-content:${justify}; color:${color}; font-size:${fontSize}; font-weight:${fontWeight}; line-height: 1.2em; ${style}">${barre.content}</div>\n`
-        start += barre.length
+      this.maxEnteteLength = maxEnteteLength
+      // Si aucune entête n'est définie, on ne met pas de colonne d'entête
+
+      // Générer les lignes de barres avec entête et gestion du spacing
+      const lignesHtml: string[] = []
+      let offset = 0
+      for (let i = 0; i < this.lignes.length; i++) {
+        const ligne = this.lignes[i]
+        const entete = ligne.entete?.content ?? ''
+        const couleurEntete = ligne.entete?.couleur ?? 'black'
+        const fontSizeEntete = ligne.entete?.fontSize ?? '1em'
+        const fontWeightEntete = ligne.entete?.fontWeight ?? 'normal'
+        const spacing = ligne.spacing ?? 0
+        const lineHeight = ligne.height ?? '1.2em'
+
+        let barresHtml = ''
+        let start = 1
+        const barres = ligne.barres ?? []
+        for (let k = 0; k < barres.length; k++) {
+          const barre = barres[k]
+          if (barre.length <= 0) continue
+          if (barre.content == null) barre.content = ''
+          if (barre.color == null) barre.color = 'lightgray'
+          if (barre.options == null) barre.options = {}
+          const options = barre.options ?? {}
+          const justify = options.justify ?? 'center'
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
+          const style = options.style ?? ''
+          const type = barre.type ?? 'boite'
+          const borderless = options.borderless ?? false// Si on veut une boîte sans bordure
+          barresHtml += type === 'boite'
+            ? `<div class="SchemaItem" style="grid-row: ${i + 2 + offset};
+                  grid-column-start: ${start + maxEnteteLength};
+                  grid-column-end: ${start + barre.length + maxEnteteLength};
+                  background-color:${barre.color};
+                  justify-content:${justify};
+                  color:${color};
+                  font-size:${fontSize};
+                  font-weight:${fontWeight};
+                  line-height:${lineHeight};
+                  ${borderless
+                   ? 'border: none;'
+                   : k > 0 ? 'border-left: none;' : 'border: solid 1px black;'}
+                   ${style}">
+                ${barre.content.includes('<br>')
+                  ? `<div style="text-align: center;">${barre.content}</div>\n`
+                  : barre.content
+                  }
+              </div>\n`
+            : `<div class="SchemaItem" style="grid-row: ${i + 2 + offset};
+                  grid-column-start: ${start + maxEnteteLength};
+                  grid-column-end: ${start + barre.length + maxEnteteLength};
+                  background-color:${barre.color};
+                  font-size:${fontSize};
+                  font-weight:${fontWeight};
+                  line-height:${lineHeight};
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  border: ${borderless ? 'none' : 'solid 1px black'};
+                  ${style}">
+                <div class="horizontalArrow" style="width: 100%;margin-top: 0.5em; --arrow-color: ${color}">
+                  <div class="horizontalArrowHead" style="border-left: 12px solid ${color}; transform: rotate(180deg);"></div>
+                  <div class="horizontalArrowLine" style="--arrow-color: ${color}"></div>
+                  <div class="horizontalArrowHead" style="border-left: 12px solid ${color};"></div>
+                </div>
+                <div style="width: 100%; text-align: center; color: ${color};">${barre.content}</div>
+              </div>\n`
+
+          start += barre.length
+        }
+        // Si on doit afficher une colonne d'entête
+        if (hasEntete) {
+          // On met un div d'entête devant la ligne
+          // On peut fixer la largeur en "em" selon maxEnteteLength, ou laisser le CSS gérer
+          lignesHtml.push(
+            `<div class="SchemaItem" style="grid-row: ${i + 2 + offset}; grid-column-start: 1; grid-column-end: ${maxEnteteLength + 1}; border: none; color: ${couleurEntete}; font-size: ${fontSizeEntete}; font-weight: ${fontWeightEntete}">${entete}</div>\n` +
+            barresHtml
+          )
+        } else {
+          lignesHtml.push(
+            barresHtml
+          )
+        }
+        // Espacement vertical si spacing > 0 (on ajoute un div vide)
+        if (spacing > 0) {
+          lignesHtml.push(`<div class="SchemaItem" style="grid-row: ${i + 3 + offset}; grid-column-start: 1; grid-column-end: 2; border: none; height: ${spacing}em"></div>\n`)
+          offset++
+        }
       }
+
       let ligneAccoladeB = ''
       if (this.bottomBraces) {
         for (let k = 0; k < this.bottomBraces.length; k++) {
@@ -153,16 +227,16 @@ export default class SchemaEnBoite {
           const start = brace.start
           const end = brace.end
           const texte = brace.text
-          const type = brace.type ?? 'curl' // 'curl' par défaut
+          const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const justify = options.justify ?? 'center' // 'center' par défaut
-          const color = options.color ?? 'black' // 'black' par défaut
-          const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-          const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
-          const lineHeight = options.lineHeight ?? '1.2em' // '1.2em' par défaut
+          const justify = options.justify ?? 'center'
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
+          const lineHeight = options.lineHeight ?? '1.2em'
           if (start != null && end != null && texte != null) {
-            ligneAccoladeB += type === 'arrow'
-              ? `<div class="SchemaBottom" style="grid-row: 4; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none;">
+            ligneAccoladeB += type === 'flèche'
+              ? `<div class="SchemaBottom" style="grid-row: ${this.lignes.length + 2 + offset}; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none; --brace-color: ${color}">
                   <div class="horizontalArrow">
                     <div class="horizontalArrowHead" style="transform: rotate(180deg);"></div>
                     <div class="horizontalArrowLine"></div>
@@ -170,231 +244,269 @@ export default class SchemaEnBoite {
                   </div>
                     <div class="latexAccoladeBottom" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                 </div>\n`
-              : `<div class="SchemaBottom" style="grid-row: 4; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none;">
-            <div class="braceBottom">
-              <div class="braceBottomLeft">
-                <div class="curlBottomLeftLeft"></div>
-                <div class="lineBottomLeftMiddle"></div>
-                <div class="curlBottomLeftRight"></div>
-              </div>
-              <div class="braceBottomRight">
-                  <div class="curlBottomRightLeft"></div>
-                  <div class="lineBottomRightMiddle"></div>
-                  <div class="curlBottomRightRight"></div>
-              </div>
-            </div>
-             <div class="latexAccoladeBottom">${texte}</div>
-            </div>\n`
+              : `<div class="SchemaBottom" style="grid-row: ${this.lignes.length + 2 + offset}; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none; --brace-color: ${color}">
+                    <div class="braceBottom">
+                      <div class="braceBottomLeft">
+                        <div class="curlBottomLeftLeft"></div>
+                        <div class="lineBottomLeftMiddle"></div>
+                        <div class="curlBottomLeftRight"></div>
+                      </div>
+                    <div class="braceBottomRight">
+                      <div class="curlBottomRightLeft"></div>
+                      <div class="lineBottomRightMiddle"></div>
+                      <div class="curlBottomRightRight"></div>
+                    </div>
+                  </div>
+                <div class="latexAccoladeBottom" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">
+                  ${texte.includes('<br>')
+                    ? `<div style="text-align: center;">${texte}</div>\n`
+                    : `${texte}`
+                  }</div>\n
+                  </div>\n`
           }
         }
       }
-      return `<div class="SchemaContainer">${ligneAccoladeH}\n${ligne1}\n${ligne2}\n${ligneAccoladeB}</div>`
+      let ligneAccoladeDroite = ''
+      if (this.rightBraces) {
+        for (let k = 0; k < this.rightBraces.length; k++) {
+          const gridLength = Math.max(...this.lignes.map(l => l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) + (maxEnteteLength ?? 0) + 1)) // Longueur totale de la grille
+          const brace = this.rightBraces[k]
+          const start = brace.start
+          const end = brace.end
+          const texte = brace.text
+          // const type = brace.type ?? 'accolade'
+          const options = brace.options ?? {}
+          const justify = options.justify ?? 'center'
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
+          if (start != null && end != null && texte != null) {
+            ligneAccoladeDroite +=
+  `<div class="SchemaRight" style="grid-row: ${start}/${end}; grid-column-start: ${gridLength + 1}; grid-column-end: ${gridLength + 2}; text-align:center; border: none; --brace-color: ${color}">
+    <div class="braceRight">
+      <div class="braceRightTop">
+        <div class="curlRightTopTop"></div>
+        <div class="lineRightTopMiddle"></div>
+        <div class="curlRightTopBottom"></div>
+      </div>
+      <div class="braceRightBottom">
+        <div class="curlRightBottomTop"></div>
+        <div class="lineRightBottomMiddle"></div>
+        <div class="curlRightBottomBottom"></div>
+      </div>
+    </div>
+  </div>
+    <div class="latexAccoladeRight" style="grid-row: ${Math.round((start + end) / 2)}; grid-column-start: ${gridLength + 3}; grid-column-end: ${gridLength + 4};text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}">
+      ${texte.includes('<br>')
+        ? `<div style="text-align: center;">${texte}</div>\n`
+        : `${texte}`
+      }
+    </div>\n`
+          }
+        }
+      }
+      return `<div class="SchemaContainer">${ligneAccoladeH}\n${lignesHtml.join('\n')}\n${ligneAccoladeB}${ligneAccoladeDroite}</div>\n`
     } else { // latex
+      // Trouver la largeur max des entêtes (en nombre de caractères)
+      let maxEnteteLength = 0
+      let hasEntete = false
+      for (const ligne of this.lignes) {
+        if (ligne.entete !== undefined) {
+          hasEntete = true
+          if ((ligne.entete.longueur ?? 0) > maxEnteteLength) {
+            maxEnteteLength = ligne.entete.longueur ?? 0
+          }
+        }
+      }
+      // Si aucune entête n'est définie, on ne met pas de colonne d'entête
+      // On peut aussi utiliser la plus grande largeur réelle (en px) mais ici on reste simple
       let latex = '\\begin{tikzpicture}\n'
       if (this.topBraces) {
         for (let k = 0; k < this.topBraces.length; k++) {
           const brace = this.topBraces[k]
-          const start = (brace.start - 1) * 2 / 3
-          const end = (brace.end - 1) * 2 / 3
+          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
+          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
           const texte = brace.text
-          const type = brace.type ?? 'curl' // 'curl' par défaut
+          const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const color = options.color ?? 'black' // 'black' par défaut
-          const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-          const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
-            // Gestion du style du texte
             let styleTexte = ''
             if (color) styleTexte += `\\textcolor{${color}}{`
             let fontSizeCmd = ''
             if (fontSize) {
-              // Conversion simple pour quelques tailles courantes
               if (fontSize === 'small') fontSizeCmd = '\\small '
               else if (fontSize === 'large') fontSizeCmd = '\\large '
               else if (fontSize === 'Large') fontSizeCmd = '\\Large '
               else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
-              // Pour d'autres tailles, il faudrait gérer plus finement
             }
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
-            // lineHeight et justify sont difficiles à rendre en latex tikz, on ignore ou on pourrait utiliser node options avancées
-
-            // Utilisation de styleTexte pour ouvrir la couleur, et fermeture à la fin
             const texteLatex = `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
-
-            // Justify: left/center/right
-            if (type === 'arrow') {
-              // Flèche horizontale avec texte au-dessus
-              latex += `\\draw[<->,thick] (${start.toFixed(1)},3.2) -- (${end.toFixed(1)},3.2) node[above, pos=0.5] {${texteLatex}};\n`
+            if (type === 'flèche') {
+              latex += `\\draw[<->,thick, draw=${color}] (${start.toFixed(1)},3.2) -- (${end.toFixed(1)},3.2) node[above, pos=0.5] {${texteLatex}};\n`
             } else {
-              // Accolade classique
-              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt] (${start.toFixed(1)},3) -- node[above=10pt, pos=0.5] {${texteLatex}} (${end.toFixed(1)},3);\n`
+              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt,draw=${color}] (${start.toFixed(1)},3) -- node[above=10pt, pos=0.5] {${texteLatex}} (${end.toFixed(1)},3);\n`
             }
           }
         }
       }
-      let start = 0
-      for (let k = 0; k < this.topBar.length; k++) {
-        const barre = this.topBar[k]
-        const end = start + barre.length * 2 / 3
-        if (barre.length <= 0) continue // On ignore les barres de longueur 0
-        if (barre.content == null) barre.content = '' // On met un contenu vide si pas défini
-        if (barre.color == null) barre.color = 'lightgray' // On met une couleur par défaut si pas définie
-        if (barre.options == null) barre.options = {} // On met un objet vide si pas défini
-        const options = barre.options ?? {}
-        const justify = options.justify ?? 'center' // 'center' par défaut
-        const color = options.color ?? 'black' // 'black' par défaut
-        const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-        const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
-        const lineHeight = options.lineHeight ?? '1.2em'
-        // '1.2em' par défaut
-        let rectHeight = 1 // hauteur par défaut
+      let y = 3
+      for (let i = 0; i < this.lignes.length; i++) {
+        const ligne = this.lignes[i]
+        const entete = ligne.entete?.content ?? ''
+        const couleurEntete = ligne.entete?.couleur ?? 'black'
+        const fontSizeEntete = ligne.entete?.fontSize ?? '1em'
+        const fontWeightEntete = ligne.entete?.fontWeight ?? 'normal'
+
+        const barres = ligne.barres ?? []
+        if (hasEntete) {
+          // On ajoute une barre vide pour l'entête
+          barres.unshift({ color: 'white', length: maxEnteteLength, content: entete, type: 'boite', options: { color: couleurEntete, justify: 'center', style: 'borderless', fontSize: fontSizeEntete, fontWeight: fontWeightEntete } })
+        }
+        let start = 0
+        const lineHeight = ligne.height ?? '1.2em'
+
+        let rectHeight = 1
         if (lineHeight && typeof lineHeight === 'string') {
-          // Essaye d'extraire un nombre depuis la string (ex: "1.5em" => 1.5)
           const match = lineHeight.match(/^([\d.]+)(em|pt|cm|mm)?$/)
           if (match) {
             const value = parseFloat(match[1])
-            // On suppose que la hauteur par défaut (1) correspond à 1.2em
-            // donc on ajuste proportionnellement
             if (match[2] === 'em' || !match[2]) {
               rectHeight = value / 1.2
             } else if (match[2] === 'pt') {
-              rectHeight = value / 12 // 12pt ≈ 1.2em
+              rectHeight = value / 12
             } else if (match[2] === 'cm') {
-              rectHeight = value / 0.508 // 0.508cm ≈ 1.2em
-            } else if (match[2] === 'mm') {
-              // 5.08mm ≈ 1.2em
+              rectHeight = value / 0.508
             }
           }
         }
-        // Gestion du style du texte
-        let styleTexte = ''
-        if (color) styleTexte += `\\textcolor{${color}}{`
-        let fontSizeCmd = ''
-        if (fontSize) {
-          if (fontSize === 'small') fontSizeCmd = '\\small '
-          else if (fontSize === 'large') fontSizeCmd = '\\large '
-          else if (fontSize === 'Large') fontSizeCmd = '\\Large '
-          else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
-        }
-        let fontWeightCmd = ''
-        if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
-        // lineHeight et justify sont difficiles à rendre en latex tikz, on ignore ou on pourrait utiliser node options avancées
 
-        // Utilisation de styleTexte pour ouvrir la couleur, et fermeture à la fin
-        const texteLatex = `${styleTexte}${fontSizeCmd}${fontWeightCmd}${barre.content}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
-        let xText
-        if (justify === 'start') {
-          xText = start + 0.1
-        } else if (justify === 'end') {
-          xText = end - 0.1
-        } else {
-          xText = (start + end) / 2
-        }
-        latex += `\\draw[fill=${barre.color}] (${start.toFixed(1)},${2}) rectangle (${end.toFixed(1)},${2 + rectHeight});\n`
-        latex += `\\draw (${xText.toFixed(2)},${(2 + rectHeight / 2).toFixed(2)}) node[anchor=${justify === 'start' ? 'west' : justify === 'end' ? 'east' : 'center'}] {${texteLatex}};\n`
-        start += barre.length * 2 / 3
-      }
-      start = 0
-      for (let k = 0; k < this.bottomBar.length; k++) {
-        const barre = this.bottomBar[k]
-        const end = start + barre.length * 2 / 3
-        if (barre.length <= 0) continue // On ignore les barres de longueur 0
-        if (barre.content == null) barre.content = '' // On met un contenu vide si pas défini
-        if (barre.color == null) barre.color = 'lightgray' // On met une couleur par défaut si pas définie
-        if (barre.options == null) barre.options = {} // On met un objet vide si pas défini
-        const options = barre.options ?? {}
-        const justify = options.justify ?? 'center' // 'center' par défaut
-        const color = options.color ?? 'black' // 'black' par défaut
-        const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-        const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
-        const lineHeight = options.lineHeight ?? '1.2em' // '1.2em' par défaut
-        // '1.2em' par défaut
-        let rectHeight = 1 // hauteur par défaut
-        if (lineHeight && typeof lineHeight === 'string') {
-          // Essaye d'extraire un nombre depuis la string (ex: "1.5em" => 1.5)
-          const match = lineHeight.match(/^([\d.]+)(em|pt|cm|mm)?$/)
-          if (match) {
-            const value = parseFloat(match[1])
-            // On suppose que la hauteur par défaut (1) correspond à 1.2em
-            // donc on ajuste proportionnellement
-            if (match[2] === 'em' || !match[2]) {
-              rectHeight = value / 1.2
-            } else if (match[2] === 'pt') {
-              rectHeight = value / 12 // 12pt ≈ 1.2em
-            } else if (match[2] === 'cm') {
-              rectHeight = value / 0.508 // 0.508cm ≈ 1.2em
-            } else if (match[2] === 'mm') {
-              // 5.08mm ≈ 1.2em
-            }
+        y -= rectHeight
+
+        for (let k = 0; k < barres.length; k++) {
+          const barre = barres[k]
+          if (barre.length <= 0) continue
+          if (barre.content == null) barre.content = ''
+          if (barre.color == null) barre.color = 'lightgray'
+          if (barre.options == null) barre.options = {}
+          const options = barre.options ?? {}
+          const justify = options.justify ?? 'center'
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
+
+          let styleTexte = ''
+          if (color) styleTexte += `\\textcolor{${color}}{`
+          let fontSizeCmd = ''
+          if (fontSize) {
+            if (fontSize === 'small') fontSizeCmd = '\\small '
+            else if (fontSize === 'large') fontSizeCmd = '\\large '
+            else if (fontSize === 'Large') fontSizeCmd = '\\Large '
+            else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
           }
-        }
-        // Gestion du style du texte
-        let styleTexte = ''
-        if (color) styleTexte += `\\textcolor{${color}}{`
-        let fontSizeCmd = ''
-        if (fontSize) {
-          if (fontSize === 'small') fontSizeCmd = '\\small '
-          else if (fontSize === 'large') fontSizeCmd = '\\large '
-          else if (fontSize === 'Large') fontSizeCmd = '\\Large '
-          else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
-        }
-        let fontWeightCmd = ''
-        if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
-        // lineHeight et justify sont difficiles à rendre en latex tikz, on ignore ou on pourrait utiliser node options avancées
+          let fontWeightCmd = ''
+          if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
+          const texteLatex = barre.content.includes('<br>')
+            ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${barre.content.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+            : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${barre.content}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+          if (barre.type === 'boite') {
+            if (barre.options?.style === 'borderless') {
+              latex += `\\draw[fill=${barre.color}, draw=none] (${(start * 2 / 3).toFixed(1)},${y}) rectangle (${((start + barre.length) * 2 / 3).toFixed(1)},${(rectHeight + y).toFixed(1)});\n`
+            } else {
+              latex += `\\draw[fill=${barre.color}] (${(start * 2 / 3).toFixed(1)},${y}) rectangle (${((start + barre.length) * 2 / 3).toFixed(1)},${(rectHeight + y).toFixed(1)});\n`
+            }
+            let anchor = 'center'
+            let align = 'center'
+            let x = ((start + barre.length / 2) * 2 / 3).toFixed(1)
+            if (justify === 'start') {
+              anchor = 'west'
+              align = 'left'
+              x = (start * 2 / 3).toFixed(1)
+            } else if (justify === 'end') {
+              anchor = 'east'
+              align = 'right'
+              x = ((start + barre.length) * 2 / 3).toFixed(1)
+            }
+            latex += `\\node[anchor=${anchor}, align=${align}] at (${x},${(y + rectHeight / 2).toFixed(1)}) {${texteLatex}};\n`
+          } else if (barre.type === 'flèche') {
+            latex += `\\draw[<->,thick, draw=${color}] (${(start * 2 / 3).toFixed(1)},${(y + 0.8).toFixed(1)}) -- (${((start + barre.length) * 2 / 3).toFixed(1)},${(y + 0.8).toFixed(1)}) node[pos=0.5, below] {${texteLatex}};\n`
+          } else {
+            latex += `\\draw[fill=${barre.color}] (${(start * 2 / 3).toFixed(1)},${y}) rectangle (${((start + barre.length) * 2 / 3).toFixed(1)},${(rectHeight + y).toFixed(1)}) node[pos=0.5] {${texteLatex}};\n`
+          }
 
-        // Utilisation de styleTexte pour ouvrir la couleur, et fermeture à la fin
-        const texteLatex = `${styleTexte}${fontSizeCmd}${fontWeightCmd}${barre.content}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
-        let xText
-        if (justify === 'start') {
-          xText = start + 0.1
-        } else if (justify === 'end') {
-          xText = end - 0.1
-        } else {
-          xText = (start + end) / 2
+          // On met à jour le start pour le prochain élément
+          start += barre.length // On ajoute un espace de 0.5 pour le prochain élément
         }
-        latex += `\\draw[fill=${barre.color}] (${start.toFixed(1)},${2 - rectHeight}) rectangle (${end.toFixed(1)},2);\n`
-        latex += `\\draw (${xText.toFixed(2)},${(2 - rectHeight / 2).toFixed(2)}) node[anchor=${justify === 'start' ? 'west' : justify === 'end' ? 'east' : 'center'}] {${texteLatex}};\n`
-        start += barre.length * 2 / 3
+        y -= ligne?.spacing ?? 0
       }
       if (this.bottomBraces) {
         for (let k = 0; k < this.bottomBraces.length; k++) {
           const brace = this.bottomBraces[k]
-          const start = (brace.start - 1) * 2 / 3
-          const end = (brace.end - 1) * 2 / 3
+          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
+          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
           const texte = brace.text
-          const type = brace.type ?? 'curl' // 'curl' par défaut
+          const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const color = options.color ?? 'black' // 'black' par défaut
-          const fontSize = options.fontSize ?? '1em' // '1em' par défaut
-          const fontWeight = options.fontWeight ?? 'normal' // 'normal' par défaut
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
-            // Gestion du style du texte
             let styleTexte = ''
             if (color) styleTexte += `\\textcolor{${color}}{`
             let fontSizeCmd = ''
             if (fontSize) {
-              // Conversion simple pour quelques tailles courantes
               if (fontSize === 'small') fontSizeCmd = '\\small '
               else if (fontSize === 'large') fontSizeCmd = '\\large '
               else if (fontSize === 'Large') fontSizeCmd = '\\Large '
               else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
-              // Pour d'autres tailles, il faudrait gérer plus finement
             }
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
-            // lineHeight et justify sont difficiles à rendre en latex tikz, on ignore ou on pourrait utiliser node options avancées
-
-            // Utilisation de styleTexte pour ouvrir la couleur, et fermeture à la fin
-            const texteLatex = `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
-            // Justify: left/center/right
-            if (type === 'arrow') {
-              // Flèche horizontale avec texte en dessous
-              latex += `\\draw[<->,thick] (${start.toFixed(1)},0.8) -- (${end.toFixed(1)},0.8) node[below, pos=0.5] {${texteLatex}};\n`
+            const texteLatex = texte.includes('<br>')
+              ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+              : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+            if (type === 'flèche') {
+              latex += `\\draw[<->,thick, draw=${color}] (${start.toFixed(1)},${y}) -- (${end.toFixed(1)},${y}) node[below, pos=0.5] {${texteLatex}};\n`
             } else {
-              // Accolade classique
-              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt] (${end.toFixed(1)},1) -- node[below=10pt, pos=0.5] {${texteLatex}} (${start.toFixed(1)},1);\n`
+              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${end.toFixed(1)},${y}) -- node[below=10pt, pos=0.5] {${texteLatex}} (${start.toFixed(1)},${y});\n`
             }
+          }
+        }
+      }
+      if (this.rightBraces) {
+        const gridLength = Math.max(...this.lignes.map(l => l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) + (maxEnteteLength ?? 0) - 1)) // Longueur totale de la grille
+        for (let k = 0; k < this.rightBraces.length; k++) {
+          const brace = this.rightBraces[k]
+          const start = brace.start
+          const end = brace.end
+          const texte = brace.text
+          // const type = brace.type ?? 'accolade'
+          const options = brace.options ?? {}
+          const color = options.color ?? 'black'
+          const fontSize = options.fontSize ?? '1em'
+          const fontWeight = options.fontWeight ?? 'normal'
+          if (start != null && end != null && texte != null) {
+            let styleTexte = ''
+            if (color) styleTexte += `\\textcolor{${color}}{`
+            let fontSizeCmd = ''
+            if (fontSize) {
+              if (fontSize === 'small') fontSizeCmd = '\\small '
+              else if (fontSize === 'large') fontSizeCmd = '\\large '
+              else if (fontSize === 'Large') fontSizeCmd = '\\Large '
+              else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
+            }
+            let fontWeightCmd = ''
+            if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
+            const texteLatex = texte.includes('<br>')
+              ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+              : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+
+            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${((gridLength + 0.3) * 2 / 3).toFixed(1)},${(end * 2 / 3).toFixed(1)}) -- (${((gridLength + 0.3) * 2 / 3).toFixed(1)},${(start * 2 / 3).toFixed(1)});\n`
+            // Ajoute un petit espace horizontal (par exemple 0.3) entre l'accolade et le texte
+            latex += `\\node[anchor=west, align=left] at (${((gridLength + 0.8) * 2 / 3).toFixed(1)},${((start + end) / 2 * 2 / 3).toFixed(1)}) {${texteLatex}};\n`
           }
         }
       }
@@ -419,38 +531,21 @@ export default class SchemaEnBoite {
           end: 8 + precision * 2,
           text: nb2 != null ? `$${texNombre(nb2, precision)}\\text{ fois}$` : '? fois',
         }
-      ], /* // Pour les test d'ajustement css (J-C)
-      bottomBraces: [
+      ],
+      lignes: [
         {
-          start: 1,
-          end: 8 + precision * 2,
-          text: 'produit',
-        }
-      ], */
-      topBar: [
-        {
-          length: 2 + precision,
-          color: 'lightgray',
-          content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
+          barres: [
+            { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?', type: 'boite' },
+            { color: 'lightgray', length: 3, content: '\\ldots', type: 'boite' },
+            { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?', type: 'boite' },
+          ]
         },
         {
-          length: 3,
-          color: 'lightgray',
-          content: '\\ldots',
-        },
-        {
-          length: 2 + precision,
-          color: 'lightgray',
-          content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
+          barres: [
+            { color: 'white', length: 7 + precision * 2, content: produit != null ? produit : '?' } // `${nb1 * nb2}`,
+          ]
         }
       ],
-      bottomBar: [
-        {
-          length: 7 + precision * 2,
-          color: 'white',
-          content: produit != null ? produit : '?' // `${nb1 * nb2}`,
-        }
-      ]
     })
     return seb
   }
@@ -472,15 +567,59 @@ export default class SchemaEnBoite {
           text: quotient == null ? '? fois' : `${texNombre(quotient, 0)} fois`,
         }
       ],
-      topBar: [
-        { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
-        { color: 'lightgray', length: 3, content: '\\ldots' },
-        { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
+      lignes: [
+        {
+          barres: [
+            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`, type: 'boite' },
+            { color: 'lightgray', length: 3, content: '\\ldots', type: 'boite' },
+            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`, type: 'boite' },
+          ]
+        },
+        {
+          barres: [
+
+            { color: 'white', length: 7 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` },
+          ]
+        }
       ],
-      bottomBar: [
-        { color: 'white', length: 7 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` },
+    })
+    return seb
+  }
+
+  static multiplicationPuisDivisionAvecReste (nbFois: number | string | undefined, nb1: number | string | undefined, nb2: number | string | undefined, nbParts: number | String | undefined, reste: number | string | undefined, precison: number): SchemaEnBoite {
+    const longueur = typeof nbFois === 'number' ? nbFois * 2 : 10
+    const seb = new SchemaEnBoite({
+      topBraces: nbFois != null
+        ? typeof nbFois === 'string'
+          ? [{ start: 1, end: longueur + 1, text: `${nbFois}`, type: 'accolade' }]
+          : [{ start: 1, end: longueur + 1, text: `${texNombre(nbFois, 0)}`, type: 'accolade' }]
+        : [{ start: 1, end: longueur + 1, text: '? fois', type: 'accolade' }],
+      lignes: [{
+        spacing: 0.5,
+        barres: typeof nbFois === 'number'
+          ? range(nbFois - 1).map(i => {
+            const nb1Tex = nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?'
+            return { color: 'white', length: 2, content: nb1Tex, type: 'boite' }
+          })
+          : [
+              { color: 'white', length: 2, content: nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?', type: 'boite' },
+              { color: 'white', length: longueur - 2, content: '\\ldots', type: 'boite', options: { justify: 'start' } }
+            ]
+      }, {
+        barres: [{ color: 'white', length: 2, content: nb2 != null ? typeof nb2 === 'number' ? `$${texNombre(nb2, precison)}$` : `${nb2}` : '?', type: 'boite' as const },
+          { color: 'white', length: longueur - 5, content: '\\ldots', type: 'boite' as const, options: { justify: 'start' as 'start' } },
+          { color: 'white', length: 3, content: reste != null ? typeof reste === 'number' ? `$${texNombre(reste, precison)}$` : `${reste}` : '?', type: 'boite' as const, options: { justify: 'center' as const } }]
+      }],
+      bottomBraces: [
+        {
+          start: 1,
+          end: longueur - 2,
+          text: nbParts != null ? typeof nbParts === 'string' ? nbParts : `$${texNombre(Number(nbParts), precison)}$` : '?',
+          type: 'flèche'
+        }
       ]
     })
+
     return seb
   }
 
@@ -502,14 +641,20 @@ export default class SchemaEnBoite {
           text: quotient == null ? '? fois' : `$${quotient}$ fois`,
         }
       ],
-      topBar: [
-        { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
-        { color: 'lightgray', length: 3, content: '\\ldots' },
-        { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
-        { color: 'lightgray', length: 2, content: reste ?? '?' }
-      ],
-      bottomBar: [
-        { color: 'white', length: 9 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` },
+      lignes: [
+        {
+          barres: [
+            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
+            { color: 'lightgray', length: 3, content: '\\ldots' },
+            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
+            { color: 'lightgray', length: 2, content: reste ?? '?' }
+          ]
+        },
+        {
+          barres: [
+            { color: 'white', length: 9 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` }
+          ]
+        }
       ]
     })
     return seb
@@ -517,12 +662,79 @@ export default class SchemaEnBoite {
 
   static addition (nb1: number | undefined, nb2: number | undefined, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      topBar: [
-        { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?' },
-        { color: 'lightgray', length: 2 + precision, content: nb2 != null ? `$${texNombre(nb2, precision)}$` : '?' },
+      lignes: [
+        {
+          barres: [
+            { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?' },
+            { color: 'lightgray', length: 2 + precision, content: nb2 != null ? `$${texNombre(nb2, precision)}$` : '?' },
+          ]
+        },
+        {
+          barres: [
+            { color: 'white', length: 4 + precision * 2, content: '?' },
+          ]
+        }
+      ]
+    })
+    return seb
+  }
+
+  static additionPartiesTout (tout: number | string | undefined, precision: number, parties: (number | string | undefined)[]): SchemaEnBoite {
+    const nbParties = parties.length
+    const partieLength = (nbParties < 3 ? 4 : 3)
+    const seb = new SchemaEnBoite({
+      topBraces: [
+        {
+          start: 1,
+          end: nbParties * partieLength + 1,
+          text: tout != null
+            ? typeof tout === 'string'
+              ? tout
+              : `$${texNombre(tout, precision)}$`
+            : '?',
+          type: 'accolade'
+        }
       ],
-      bottomBar: [
-        { color: 'white', length: 4 + precision * 2, content: '?' },
+      lignes: [
+        {
+          barres:
+          parties.map((partie, index) => Object.assign({
+            color: 'lightgray',
+            length: partieLength,
+            content: partie != null
+              ? typeof partie === 'string'
+                ? partie
+                : `$${texNombre(Number(partie), precision)}$`
+              : '?',
+          }, {}))
+        }
+      ]
+    })
+    return seb
+  }
+
+  static additionPartiesToutComparaison (partie1: number | undefined, partie2: number | undefined, difference: number | undefined, tout: number | undefined, precision: number): SchemaEnBoite {
+    const seb = new SchemaEnBoite({
+      rightBraces: [
+        {
+          start: 1,
+          end: 5,
+          text: tout != null ? `${texNombre(tout, precision)}$` : '?',
+          type: 'accolade'
+        }
+      ],
+      lignes: [
+        {
+          barres: [
+            { color: 'lightgray', length: 8 + precision, content: partie1 == null ? '?' : `$${texNombre(partie1, precision)}$` }
+          ]
+        },
+        {
+          barres: [
+            { color: 'lightgray', length: 4 + precision, content: partie2 == null ? '?' : `$${texNombre(partie2, precision)}$` },
+            { color: 'white', type: 'flèche', length: 4 + precision, content: difference != null ? `$${texNombre(difference, precision)}$` : 'différence' }
+          ]
+        }
       ]
     })
     return seb
@@ -530,12 +742,18 @@ export default class SchemaEnBoite {
 
   static soustraction (terme1: number | undefined, difference: number | undefined, terme2: number | undefined, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
-      topBar: [
-        { color: 'lightgray', length: 2 + precision, content: terme2 == null ? '?' : `$${texNombre(terme2, precision)}$` },
-        { color: 'lightgray', length: 2 + precision, content: difference == null ? '?' : `$${texNombre(difference, precision)}$` },
-      ],
-      bottomBar: [
-        { color: 'white', length: 4 + precision * 2, content: terme1 == null ? '?' : `$${texNombre(terme1, precision)}$` },
+      lignes: [
+        {
+          barres: [
+            { color: 'lightgray', length: 2 + precision, content: terme1 == null ? '?' : `$${texNombre(terme1, precision)}$` },
+            { color: 'lightgray', length: 2 + precision, content: terme2 == null ? '?' : `$${texNombre(terme2, precision)}$` },
+          ]
+        },
+        {
+          barres: [
+            { color: 'white', length: 4 + precision * 2, content: difference == null ? '?' : `$${texNombre(difference, precision)}$` },
+          ]
+        }
       ]
     })
     return seb
