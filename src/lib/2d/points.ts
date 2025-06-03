@@ -562,7 +562,7 @@ export function pointSurDroite (d: Droite, x: number, nom = '', positionLabel = 
  * @return {Point} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite | Mediatrice, nom = '', positionLabel = 'above'): Point {
+export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite | Mediatrice, nom = '', positionLabel = 'above'): Point | false {
   let x, y
   if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
     // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
@@ -609,7 +609,7 @@ export function pointAdistance (A: PointAbstrait, d: number = 1, angle:string | 
  * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c). On renvoie le centre du cercle sinon.
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point {
+export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point | false {
   const O = C.centre
   const r = C.rayon
   const a = d.a
@@ -690,7 +690,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
  * @author Rémi Angot
  * @see https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
  */
-export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point {
+export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point | false {
   const O1 = c1.centre
   const O2 = c2.centre
   const r0 = c1.rayon
@@ -733,7 +733,8 @@ export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): P
   }
 }
 
-function pointIntersectionNonTrouveEntre (objet1: Cercle | Droite | Mediatrice, objet2: Cercle | Droite | Mediatrice, valeurParDefaut: Point): Point {
-  window.notify(`${objet1.nom} et ${objet2.nom} ne se coupent pas. Impossible de trouver leur intersection.`, { objet1, objet2 })
-  return valeurParDefaut
+function pointIntersectionNonTrouveEntre (objet1: Cercle | Droite | Mediatrice, objet2: Cercle | Droite | Mediatrice, valeurParDefaut: PointAbstrait): false {
+  // window.notify(`${objet1.nom} et ${objet2.nom} ne se coupent pas. Impossible de trouver leur intersection.`, { objet1, objet2 })
+  // return pointDepuisPointAbstrait(valeurParDefaut)
+  return false
 }
