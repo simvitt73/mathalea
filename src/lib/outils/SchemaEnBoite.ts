@@ -587,7 +587,7 @@ export default class SchemaEnBoite {
   }
 
   static multiplicationPuisDivisionAvecReste (nbFois: number | string | undefined, nb1: number | string | undefined, nb2: number | string | undefined, nbParts: number | String | undefined, reste: number | string | undefined, precison: number): SchemaEnBoite {
-    const longueur = typeof nbFois === 'number' ? nbFois * 2 : 10
+    const longueur = typeof nbFois === 'number' ? nbFois * 3 : 10
     const seb = new SchemaEnBoite({
       topBraces: nbFois != null
         ? typeof nbFois === 'string'
@@ -599,15 +599,15 @@ export default class SchemaEnBoite {
         barres: typeof nbFois === 'number'
           ? range(nbFois - 1).map(i => {
             const nb1Tex = nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?'
-            return { color: 'white', length: 2, content: nb1Tex, type: 'boite' }
+            return { color: 'white', length: 3, content: nb1Tex, type: 'boite' }
           })
           : [
-              { color: 'white', length: 2, content: nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?', type: 'boite' },
-              { color: 'white', length: longueur - 2, content: '\\ldots', type: 'boite', options: { justify: 'start' } }
+              { color: 'white', length: 3, content: nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?', type: 'boite' },
+              { color: 'white', length: longueur - 3, content: '\\ldots', type: 'boite', options: { justify: 'start' } }
             ]
       }, {
-        barres: [{ color: 'white', length: 2, content: nb2 != null ? typeof nb2 === 'number' ? `$${texNombre(nb2, precison)}$` : `${nb2}` : '?', type: 'boite' as const },
-          { color: 'white', length: longueur - 5, content: '\\ldots', type: 'boite' as const, options: { justify: 'start' as 'start' } },
+        barres: [{ color: 'white', length: 3, content: nb2 != null ? typeof nb2 === 'number' ? `$${texNombre(nb2, precison)}$` : `${nb2}` : '?', type: 'boite' as const },
+          { color: 'white', length: longueur - 6, content: '\\ldots', type: 'boite' as const, options: { justify: 'start' as 'start' } },
           { color: 'white', length: 3, content: reste != null ? typeof reste === 'number' ? `$${texNombre(reste, precison)}$` : `${reste}` : '?', type: 'boite' as const, options: { justify: 'center' as const } }]
       }],
       bottomBraces: [

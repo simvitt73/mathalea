@@ -93,42 +93,38 @@ const objetsAPartager: ObjetAPartager[] = [
   { nom: 'sachets de bonbons', nomPart: 'bonbons', partsMaxParObjet: 12, partsMinParObjet: 5, multiplicateurParts: 2 }
 ]
 
+// Somme de trois parties
 /**
- * Fonction qui choisit une situation problème basée sur la somme de trois nombres.
- * la situation sera choisie entre troisAchats et troisDistances (qui contient 3 sous-cas)
- */
-const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 'schéma', decimaux = false) => {
-  /**
    *
    * @param interactif fournit un énoncé d'achat cumulé de 3 objets.
    * @param typeQuestion
    * @param decimaux
    * @returns
    */
-  const troisAchats: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
-    const choix = choice(troisObjetsAVendre)
-    const prixAchat = choix.map(o => randint(o.prixMini, o.prixMaxi) + (decimaux ? Number(Math.random().toFixed(1)) + choice([0.05, 0]) : 0))
-    const total = prixAchat.reduce((a, b) => a + b, 0)
-    const prenomData = choice(prenoms)
-    const prenom = prenomData.prenom
-    const pronom = prenomData.pronom
-    const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom} à zone2 €. Combien a-t-${pronom} dépensé au total ?<br><br>
-    Réponse : ${prenom} a dépensé au total zone3 €.`
-    const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
-    return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total] }
-  }
+const troisAchats: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+  const choix = choice(troisObjetsAVendre)
+  const prixAchat = choix.map(o => randint(o.prixMini, o.prixMaxi) + (decimaux ? Number(Math.random().toFixed(1)) + choice([0.05, 0]) : 0))
+  const total = prixAchat.reduce((a, b) => a + b, 0)
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
+  const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom} à zone2 €. Combien a-t-${pronom} dépensé au total ?<br><br>
+    Réponse : ${prenom} a dépensé au total : $${texNombre(prixAchat[0], 2)}+${texNombre(prixAchat[1], 2)}+${texNombre(prixAchat[2], 2)}=$ zone3 €.`
+  const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
+  return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total] }
+}
 
-  /**
+/**
    * Fonction problème qui sous-traite 3 situations identiques d'addition dans des contextes légèrement différents.
    * Elle fait partie de sommeTroisParties avec troisAchats
    * @param interactif
    * @param typeQuestion
    * @returns
    */
-  const troisDistances = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
-    const prenomData = choice(prenoms)
-    const prenom = prenomData.prenom
-    const pronom = prenomData.pronom
+const troisDistances = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
     type TroisDistancesFonction = [string, SchemaEnBoite, number, number, number, number]
     function triathlon (prenom: string, pronom: string): TroisDistancesFonction {
       const distanceNatation = randint(2, 15) * 100 // en mètres
@@ -136,7 +132,7 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
       const distanceCourse = distanceNatation * 5 // en mètres
       const total = distanceNatation + distanceVelo + distanceCourse
       const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait du vélo sur zone1 m et court sur zone2 m. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
-      Réponse : ${prenom} a parcouru au total zone3 m.`
+      Réponse : ${prenom} a parcouru au total : $${texNombre(distanceNatation, 0)}+${texNombre(distanceVelo, 0)}+${texNombre(distanceCourse, 0)} = $ zone3 m.`
       const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distanceNatation, distanceVelo, distanceCourse, total]
     }
@@ -156,7 +152,7 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
       const distance3 = randint(10, 15, [distance1 / 300, distance2 / 300].map(Math.round)) * 100 // en mètres
       const total = distance1 + distance2 + distance3
       const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, puis zone1 m avant le repas de midi et enfin zone2 m. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
-      Réponse : ${prenom} a parcouru au total zone3 m.`
+      Réponse : ${prenom} a parcouru au total : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}+${texNombre(distance3, 0)}=$ zone3 m.`
       const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distance1, distance2, distance3, total]
     }
@@ -164,38 +160,40 @@ const sommeTroisParties: FonctionProbleme = (interactif = false, typeQuestion = 
     const [enonce, barre, distance1, distance2, distance3, total] = choix(prenom, pronom)
     const reponses: [number, number, number, number] = [distance1, distance2, distance3, total]
     return { enonce, barre, reponses }
-  }
+}
 
-  const choixFonction = choice([troisAchats, troisDistances])
-  return choixFonction(interactif, typeQuestion, decimaux)
-} // fin de sommeTroisParties
+const unAchatParmisTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+  const choix = choice(troisObjetsAVendre)
+  const prixAchat = choix.map(o => randint(o.prixMini, o.prixMaxi) + (decimaux ? Number(Math.random().toFixed(1)) + choice([0.05, 0]) : 0))
+  const total = prixAchat.reduce((a, b) => a + b, 0)
+  const totalInter = prixAchat[0] + prixAchat[1]
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
+  const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom}. ${premiereLettreEnMajuscule(pronom)} a payé en tout zone3 €. Combien coûte ${choix[2].nom} ?<br><br>
+    Réponse :<br>
+    - Calcul de la somme dépensée pour ${choix[0].nom} et ${choix[1].nom} en € : $${texNombre(prixAchat[0], 2)}+${texNombre(prixAchat[1], 2)}=${texNombre(totalInter, 2)}$<br>
+    - Prix ${choix[2].nom.replace('un', 'du').replace('une', 'de la')} en € : $${texNombre(total, 2)}-${texNombre(totalInter, 2)}=$ zone2.`
 
-const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
-  const unAchatParmisTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
-    const choix = choice(troisObjetsAVendre)
-    const prixAchat = choix.map(o => randint(o.prixMini, o.prixMaxi) + (decimaux ? Number(Math.random().toFixed(1)) + choice([0.05, 0]) : 0))
-    const total = prixAchat.reduce((a, b) => a + b, 0)
-    const prenomData = choice(prenoms)
-    const prenom = prenomData.prenom
-    const pronom = prenomData.pronom
-    const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom}. ${premiereLettreEnMajuscule(pronom)} a payé en tout zone3 €. Combien coûte ${choix[2].nom} ?<br><br>
-    Réponse :  ${choix[2].nom} a couté zone2 €.`
-
-    const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
-    return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total], type: 'parties-tout' }
-  } // fin de unAchatParmisTrois
-  const uneDistanceParmiTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
-    const prenomData = choice(prenoms)
-    const prenom = prenomData.prenom
-    const pronom = prenomData.pronom
+  const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
+  return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total], type: 'parties-tout' }
+} // fin de unAchatParmisTrois
+const uneDistanceParmiTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma') => {
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
     type UneDistanceParmiTroisFonction = [string, SchemaEnBoite, number, number, number, number]
     function triathlon (prenom: string, pronom: string): UneDistanceParmiTroisFonction {
       const distanceNatation = randint(2, 15) * 100 // en mètres
       const distanceVelo = distanceNatation * 15 // en mètres
       const distanceCourse = distanceNatation * 5 // en mètres
       const total = distanceNatation + distanceVelo + distanceCourse
+      const totalInter = distanceNatation + distanceVelo
       const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait ensuite du vélo et ensuite court sur zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru en tout zone3 m. Quelle distance a-t-${pronom} parcourue à vélo ?<br><br>
-      Réponse : ${prenom} a parcouru zone1 m à vélo.`
+      Réponse :<br>
+      - Calcul de la distance parcourue en nage et en vélo en m : $${texNombre(distanceNatation, 0)}+${texNombre(distanceVelo, 0)}=${texNombre(totalInter, 0)}$<br>
+      - Distance parcourue en course à pied en m : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone2.`
+
       const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distanceNatation, distanceVelo, distanceCourse, total]
     }
@@ -214,8 +212,12 @@ const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: Quest
       const distance2 = randint(10, 15, Math.round(distance1 / 300)) * 300 // en mètres
       const distance3 = randint(10, 15, [distance1 / 300, distance2 / 300].map(Math.round)) * 100 // en mètres
       const total = distance1 + distance2 + distance3
+      const totalInter = distance1 + distance2
       const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, ${pronom} marche encore un peu avant le repas de midi et repart ensuite pour éffectuer zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru au total zone3 m. Quelle distance a-t-${pronom} parcourue entre sa halte matinale et le repas de midi ?<br><br>
-      Réponse : ${prenom} a parcouru zone1 m avant le repas de midi.`
+         Réponse :<br>
+      - Calcul de la distance parcourue le matin en m : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}=${texNombre(totalInter, 0)}$<br>
+      - Distance parcourue l'après-midi en m : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone2.`
+
       const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
       return [enonce, barre, distance1, distance2, distance3, total]
     }
@@ -223,46 +225,114 @@ const unePartieTout: FonctionProbleme = (interactif = false, typeQuestion: Quest
     const choix = choice([triathlon, etapeDeMontagne, randonnee])
     const [enonce, barre, distance1, distance2, distance3, total] = choix(prenom, pronom)
     return { enonce, barre, reponses: [distance1, distance2, distance3, total], type: 'partie-tout' }
-  } // fin de uneDistanceParmiTrois
-  const choixFonction = choice([unAchatParmisTrois, uneDistanceParmiTrois])
-  return choixFonction(interactif, typeQuestion, decimaux)
-} // fin de unePartieTout
+} // fin de uneDistanceParmiTrois
 
-const partageEquitable: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
-  const partageEntreAmis: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
-    const objet = choice(objetsAPartager)
-    const prenomData = choice(prenoms)
-    const prenom = prenomData.prenom
-    const pronom = prenomData.pronom
-    let nombreAmis: number
-    let nombrePartsParObjet: number
-    let nombreObjets: number
-    let nombrePartsParAmi: number
-    let nombrePartsRestantes: number
-    do {
-      nombreAmis = randint(4, 9)
-      nombrePartsParObjet = randint(objet.partsMinParObjet, objet.partsMaxParObjet) * objet.multiplicateurParts
-      nombreObjets = premierAvec(nombreAmis, [], false)
-      nombrePartsParAmi = Math.floor(nombreObjets * nombrePartsParObjet / nombreAmis)
-      nombrePartsRestantes = nombreObjets * nombrePartsParObjet - nombreAmis * nombrePartsParAmi
-    } while (nombrePartsRestantes === 0 || nombreObjets === nombrePartsParObjet ||
+const partageEntreAmis: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+  const objet = choice(objetsAPartager)
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
+  let nombreAmis: number
+  let nombrePartsParObjet: number
+  let nombreObjets: number
+  let nombrePartsParAmi: number
+  let nombrePartsRestantes: number
+  do {
+    nombreAmis = randint(4, 9)
+    nombrePartsParObjet = randint(objet.partsMinParObjet, objet.partsMaxParObjet) * objet.multiplicateurParts
+    nombreObjets = premierAvec(nombreAmis, [], false)
+    nombrePartsParAmi = Math.floor(nombreObjets * nombrePartsParObjet / nombreAmis)
+    nombrePartsRestantes = nombreObjets * nombrePartsParObjet - nombreAmis * nombrePartsParAmi
+  } while (nombrePartsRestantes === 0 || nombreObjets === nombrePartsParObjet ||
     nombreObjets === nombrePartsParAmi || nombrePartsParObjet === nombrePartsParAmi ||
   nombrePartsParAmi === nombreAmis || nombreObjets === nombreAmis || nombrePartsParObjet === nombreAmis)
-    const enonce = `${prenom} a zone0 ${objet.nom} chacun contenant zone1 ${objet.nomPart}. Quand ${pronom} les distribue à ses amis, chacun en a zone2 et il en reste ${nombrePartsRestantes}. Combien a-t-${pronom} d'amis ?<br><br>
-    Réponse : ${prenom} a zone3 amis.`
-    const barre = SchemaEnBoite.multiplicationPuisDivisionAvecReste('zone0', 'zone1', 'zone2', 'zone3', nombrePartsRestantes, 0)
-    const reponses: [number, number, number, number] = [
-      nombreObjets,
-      nombrePartsParObjet,
-      nombrePartsParAmi,
-      nombreAmis
-    ]
-    return { enonce, barre, reponses }
-  } // fin de partageEntreAmis
+  const enonce = `${prenom} a zone0 ${objet.nom} chacun contenant zone1 ${objet.nomPart}. Quand ${pronom} les distribue à ses amis, chacun en a zone2 et il en reste ${nombrePartsRestantes}. Combien a-t-${pronom} d'amis ?<br><br>
+    Réponse :<br>
+    - Calcul du nombre de ${objet.nomPart} total : $${nombreObjets} \\times ${nombrePartsParObjet} = ${nombreObjets * nombrePartsParObjet}$.<br>
+    - Calcul du nombre de ${objet.nomPart} partagés : $${nombreObjets * nombrePartsParObjet}-${nombrePartsRestantes}=${nombreAmis * nombrePartsParAmi}$.<br>
+    - Nombre d'amis : $${nombreAmis * nombrePartsParAmi} \\div ${nombrePartsParAmi} = ${nombreAmis}$.<br>
+    ${prenom} a zone3 amis.`
 
-  const choixFonction = choice([partageEntreAmis])
-  return choixFonction(interactif, typeQuestion, decimaux)
-} // fin de partageEquitable
+  const barre = SchemaEnBoite.multiplicationPuisDivisionAvecReste('zone0', 'zone1', 'zone2', 'zone3', nombrePartsRestantes, 0)
+  const reponses: [number, number, number, number] = [
+    nombreObjets,
+    nombrePartsParObjet,
+    nombrePartsParAmi,
+    nombreAmis
+  ]
+  return { enonce, barre, reponses }
+} // fin de partageEntreAmis
+
+const partageDuTemps: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
+  let tempsParJour: number
+  let nbJours: number
+  let tempsTotal: number
+  let tempsParSujet: number
+  let nbSujets: number
+  let tempsRestant: number
+  do {
+    tempsParJour = choice([30, 60, 90, 120]) // en minutes
+    nbJours = randint(5, 8)
+    tempsTotal = tempsParJour * nbJours // en minutes
+    tempsParSujet = choice([55, 65, 85])
+    nbSujets = Math.floor(tempsTotal / tempsParSujet)
+    tempsRestant = tempsTotal % tempsParSujet
+  } while (tempsRestant === 0 || nbSujets < 2)
+
+  const enonce = `${prenom} veut réviser avant un examen. ${premiereLettreEnMajuscule(pronom)} dispose de zone0 jours de révision et décide de travailler zone1 minutes chaque jour. Chaque thème à réviser demande zone2 minutes de révisions et il restera ${tempsRestant} minutes à la fin pour faire un bilan de ses révisions. Combien de thèmes a-t-${pronom} à réviser ?<br><br>
+    Réponse :<br>
+    - Calcul du temps de révision total : $${nbJours} \\times ${tempsParJour} = ${tempsTotal}$ minutes.<br>
+    - Calcul du temps hors bilan : $${tempsTotal}-${tempsRestant}=${tempsTotal - tempsRestant}$.<br>
+    - Nombre de thèmes révisés :  $${tempsTotal - tempsRestant}\\div ${tempsParSujet}=${nbSujets}$.<br>
+    ${prenom} a zone3 thèmes à réviser.`
+  const barre = SchemaEnBoite.multiplicationPuisDivisionAvecReste('zone0', 'zone1', 'zone2', 'zone3', tempsRestant, 0)
+  const reponses: [number, number, number, number] = [
+    nbJours,
+    tempsParJour,
+    tempsParSujet,
+    nbSujets
+  ]
+  return { enonce, barre, reponses }
+} // fin de partageDuTemps
+
+const preparationCulinaire: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+  const prenomData = choice(prenoms)
+  const prenom = prenomData.prenom
+  const pronom = prenomData.pronom
+  let nombreMoules: number
+  let nombrePartsParMoule: number
+  let nombrePartsParAssiette: number
+  let nombrePartsRestantes: number
+  let nombreAssiettes: number
+  const produit = choice(['cookies', 'muffins', 'madeleines', 'cupcakes', 'gâteaux'])
+
+  do {
+    nombreMoules = randint(4, 9)
+    nombrePartsParMoule = randint(3, 5) * 2
+    nombrePartsParAssiette = premierAvec(nombrePartsParMoule, [], false)
+    nombreAssiettes = Math.floor(nombreMoules * nombrePartsParMoule / nombrePartsParAssiette)
+    nombrePartsRestantes = nombreMoules * nombrePartsParMoule - nombreAssiettes * nombrePartsParAssiette
+  } while (nombrePartsRestantes === 0 || nombreMoules === nombrePartsParMoule || nombreMoules === nombrePartsParAssiette || nombreMoules === nombreAssiettes ||
+      nombrePartsParMoule === nombrePartsParAssiette || nombrePartsParMoule === nombreAssiettes || nombrePartsParAssiette === nombreAssiettes)
+  const enonce = `${prenom} prépare des ${produit}. ${premiereLettreEnMajuscule(pronom)} utilise zone0 moules, chacun pouvant contenir zone1 parts. Quand ${pronom} les
+ range dans des assiettes, chaque assiette contient zone2 parts et il en reste ${nombrePartsRestantes}. Combien d'assiettes a-t-${pronom} prévues ?<br><br>
+  Réponse :<br>
+  - Calcul du nombre de ${produit} total : $${nombreMoules} \\times ${nombrePartsParMoule} = ${nombreMoules * nombrePartsParMoule}$.<br>
+  - Calcul de nombres de ${produit} disposés sur les assiettes : $${nombreMoules * nombrePartsParMoule}-${nombrePartsRestantes}=${nombreAssiettes * nombrePartsParAssiette}$.<br>
+  - Nombre d'assiettes : $${nombreAssiettes * nombrePartsParAssiette} \\div ${nombrePartsParAssiette} = ${nombreAssiettes}$.<br>
+  ${prenom} a prévu zone3 assiettes.`
+  const barre = SchemaEnBoite.multiplicationPuisDivisionAvecReste('zone0', 'zone1', 'zone2', 'zone3', nombrePartsRestantes, 0)
+  const reponses: [number, number, number, number] = [
+    nombreMoules,
+    nombrePartsParMoule,
+    nombrePartsParAssiette,
+    nombreAssiettes
+  ]
+  return { enonce, barre, reponses }
+} // fin de preparationCulinaire
 
 const comparaisonDeuxSommes: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
@@ -275,7 +345,10 @@ const comparaisonDeuxSommes: FonctionProbleme = (interactif = false, typeQuestio
   const [objet2, prix2] = prixAchat1 < prixAchat2 ? [objets[1], prixAchat2] : [objets[0], prixAchat1]
   const argentDePrenom = Math.round((prixAchat1 + prixAchat2) * randint(5, 8) / 10)
   const enonce = `${premiereLettreEnMajuscule(objet1.nom)} coûte zone0 € et ${objet2.nom} coûte zone1 €. ${prenom} a zone2 €. Combien ${prenom} doit-${pronom} avoir en plus pour acheter ces deux objets ?<br><br>
-  Réponse : ${prenom} doit avoir en plus zone3 € pour acheter ces deux objets.`
+  Réponse :<br>
+  - Calcul du prix total en € : $${texNombre(prix1, 2)}+${texNombre(prix2, 2)}=${texNombre(prix1 + prix2)}$.<br>
+  - Calcul de la différence en € : $${texNombre(prix1 + prix2)}-${argentDePrenom}=${prix1 + prix2 - argentDePrenom}$.<br>
+  ${prenom} doit avoir zone3 € de plus pour acheter ces deux objets.`
   const barre = SchemaEnBoite.additionPartiesToutComparaison2('zone0', 'zone1', 'zone2', 'zone3')
   const reponses: [number, number, number, number] = [prix1, prix2, argentDePrenom, Math.max(0, prix1 + prix2 - argentDePrenom)]
   return { enonce, barre, reponses }
@@ -288,11 +361,9 @@ const comparaisonDeuxSommes: FonctionProbleme = (interactif = false, typeQuestio
  * @param startInteractif
  * @returns
  */
-function genereEnonces (exercice: Exercice, typeQuestion: QuestionType, startInteractif = 0) : { enonce: string, nextInteractif: number, correction: string } {
+function genereEnonces (exercice: Exercice, typeQuestion: QuestionType, startInteractif = 0, fonction: FonctionProbleme) : { enonce: string, nextInteractif: number, correction: string } {
   const interactif = exercice.interactif
-  const fonctionsGenerales = [sommeTroisParties, unePartieTout, partageEquitable, comparaisonDeuxSommes]
-  const fonctionEnonce = choice(fonctionsGenerales)
-  let { enonce, barre, reponses } = fonctionEnonce(interactif, typeQuestion)
+  let { enonce, barre, reponses } = fonction(interactif, typeQuestion)
   let i = startInteractif
   const zoneAQuestionner = combinaisonListes(['e', 's'], 4)
   for (let i = 0; i <= 3; i++) {
@@ -462,9 +533,11 @@ export default class ModelisationProblemes extends Exercice {
 
   nouvelleVersion () {
     const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: this.nbQuestions, listeOfCase: ['schéma', 'énoncé', 'mixte'] }) as unknown as QuestionType[]
+    const fonctionsGenerales = [comparaisonDeuxSommes, troisAchats, troisDistances, unAchatParmisTrois, uneDistanceParmiTrois, partageEntreAmis, partageDuTemps, preparationCulinaire]
+    const fonctions = combinaisonListes(fonctionsGenerales, this.nbQuestions)
     let indexInteractif = 0
     for (let i = 0; i < this.nbQuestions;) {
-      const { enonce, nextInteractif, correction } = genereEnonces(this, typeDeQuestions[i], indexInteractif)
+      const { enonce, nextInteractif, correction } = genereEnonces(this, typeDeQuestions[i], indexInteractif, fonctions[i])
       indexInteractif = nextInteractif
       if (this.questionJamaisPosee(i, enonce.split(' ')[0])) {
         this.listeQuestions.push(enonce)
