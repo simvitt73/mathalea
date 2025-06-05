@@ -30,6 +30,7 @@ export const refs = {
 type QuestionType = 'schéma' | 'énoncé' | 'mixte'
 type ReponseType = [number, number, number, number]
  type ObjetAVendre = {
+   nomPluriel: string
    nom: string
    prixMini: number
    prixMaxi: number
@@ -76,15 +77,40 @@ const prenoms: { prenom: string, pronom: string }[] = [
   { prenom: 'Nicolas', pronom: 'il' },
   { prenom: 'Nathalie', pronom: 'elle' },
   { prenom: 'Olivier', pronom: 'il' },
-  { prenom: 'Océane', pronom: 'elle' }
+  { prenom: 'Océane', pronom: 'elle' },
+  { prenom: 'Paul', pronom: 'il' },
+  { prenom: 'Pascale', pronom: 'elle' },
+  { prenom: 'Quentin', pronom: 'il' },
+  { prenom: 'Quynh', pronom: 'elle' },
+  { prenom: 'Romain', pronom: 'il' },
+  { prenom: 'Roxane', pronom: 'elle' },
+  { prenom: 'Sébastien', pronom: 'il' },
+  { prenom: 'Sophie', pronom: 'elle' },
+  { prenom: 'Thomas', pronom: 'il' },
+  { prenom: 'Tania', pronom: 'elle' },
+  { prenom: 'Ulysse', pronom: 'il' },
+  { prenom: 'Ursule', pronom: 'elle' },
+  { prenom: 'Victor', pronom: 'il' },
+  { prenom: 'Valérie', pronom: 'elle' },
+  { prenom: 'William', pronom: 'il' },
+  { prenom: 'Wendy', pronom: 'elle' },
+  { prenom: 'Xavier', pronom: 'il' },
+  { prenom: 'Yasmine', pronom: 'elle' },
+  { prenom: 'Zoé', pronom: 'elle' },
+  { prenom: 'Yann', pronom: 'il' },
+  { prenom: 'Yvette', pronom: 'elle' },
+  { prenom: 'Zacharie', pronom: 'il' },
+  { prenom: 'Madeleine', pronom: 'elle' },
+  { prenom: 'Schona', pronom: 'elle' },
+  { prenom: 'Lilian', pronom: 'il' }
 ]
-const troisObjetsAVendre: [ObjetAVendre, ObjetAVendre, ObjetAVendre][] = [
-  [{ nom: 'un tee-shirt', prixMini: 7, prixMaxi: 15 }, { nom: 'une paire de baskets', prixMini: 70, prixMaxi: 130 }, { nom: 'un short', prixMini: 10, prixMaxi: 25 }],
-  [{ nom: 'un livre', prixMini: 5, prixMaxi: 20 }, { nom: 'un cahier', prixMini: 2, prixMaxi: 5 }, { nom: 'un stylo', prixMini: 1, prixMaxi: 5 }],
-  [{ nom: 'un jeu vidéo', prixMini: 20, prixMaxi: 60 }, { nom: 'une console de jeux', prixMini: 200, prixMaxi: 400 }, { nom: 'un casque audio', prixMini: 30, prixMaxi: 100 }],
-  [{ nom: 'un vélo', prixMini: 100, prixMaxi: 300 }, { nom: 'un casque de vélo', prixMini: 10, prixMaxi: 30 }, { nom: 'une pompe à vélo', prixMini: 5, prixMaxi: 15 }],
-  [{ nom: 'un sac à dos', prixMini: 15, prixMaxi: 50 }, { nom: 'une trousse', prixMini: 5, prixMaxi: 15 }, { nom: 'un ordinateur portable', prixMini: 300, prixMaxi: 1000 }],
-  [{ nom: 'un smartphone', prixMini: 200, prixMaxi: 800 }, { nom: 'une tablette', prixMini: 150, prixMaxi: 600 }, { nom: 'une montre connectée', prixMini: 50, prixMaxi: 300 }]
+export const troisObjetsAVendre: [ObjetAVendre, ObjetAVendre, ObjetAVendre][] = [
+  [{ nomPluriel: 'tee-shirts', nom: 'un tee-shirt', prixMini: 7, prixMaxi: 15 }, { nomPluriel: 'paires de baskets', nom: 'une paire de baskets', prixMini: 70, prixMaxi: 130 }, { nomPluriel: 'shorts', nom: 'un short', prixMini: 10, prixMaxi: 25 }],
+  [{ nomPluriel: 'livres', nom: 'un livre', prixMini: 5, prixMaxi: 20 }, { nomPluriel: 'cahiers', nom: 'un cahier', prixMini: 2, prixMaxi: 5 }, { nomPluriel: 'stylos', nom: 'un stylo', prixMini: 1, prixMaxi: 5 }],
+  [{ nomPluriel: 'jeux vidéo', nom: 'un jeu vidéo', prixMini: 20, prixMaxi: 60 }, { nomPluriel: 'consoles de jeu', nom: 'une console de jeu', prixMini: 200, prixMaxi: 400 }, { nomPluriel: 'casques audio', nom: 'un casque audio', prixMini: 30, prixMaxi: 100 }],
+  [{ nomPluriel: 'vélos', nom: 'un vélo', prixMini: 100, prixMaxi: 300 }, { nomPluriel: 'casques de vélo', nom: 'un casque de vélo', prixMini: 10, prixMaxi: 30 }, { nomPluriel: 'pompes à vélo', nom: 'une pompe à vélo', prixMini: 5, prixMaxi: 15 }],
+  [{ nomPluriel: 'sacs à dos', nom: 'un sac à dos', prixMini: 15, prixMaxi: 50 }, { nomPluriel: 'trousses', nom: 'une trousse', prixMini: 5, prixMaxi: 15 }, { nomPluriel: 'ordinateurs portables', nom: 'un ordinateur portable', prixMini: 300, prixMaxi: 1000 }],
+  [{ nomPluriel: 'smartphones', nom: 'un smartphone', prixMini: 200, prixMaxi: 800 }, { nomPluriel: 'tablettes', nom: 'une tablette', prixMini: 150, prixMaxi: 600 }, { nomPluriel: 'montres connectées', nom: 'une montre connectée', prixMini: 50, prixMaxi: 300 }]
 ]
 const objetsAPartager: ObjetAPartager[] = [
   { nom: 'paquets de gâteaux', nomPart: 'gâteaux', partsMaxParObjet: 10, partsMinParObjet: 4, multiplicateurParts: 1 },
@@ -95,7 +121,7 @@ const objetsAPartager: ObjetAPartager[] = [
 
 // Somme de trois parties
 
-const troisAchats: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const troisAchats: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const choix = choice(troisObjetsAVendre)
   const prixAchat = choix.map(o => randint(o.prixMini, o.prixMaxi) + (decimaux ? Number(Math.random().toFixed(1)) + choice([0.05, 0]) : 0))
   const total = prixAchat.reduce((a, b) => a + b, 0)
@@ -108,7 +134,7 @@ const troisAchats: FonctionProbleme = (interactif = false, typeQuestion: Questio
   return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total] }
 }
 
-const triathlon: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const triathlon: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -122,7 +148,7 @@ const triathlon: FonctionProbleme = (interactif = false, typeQuestion: QuestionT
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
   return { enonce, barre, reponses: [distanceNatation, distanceVelo, distanceCourse, total] }
 }
-const etapeDeMontagne: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const etapeDeMontagne: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -136,7 +162,7 @@ const etapeDeMontagne: FonctionProbleme = (interactif = false, typeQuestion: Que
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
   return { enonce, barre, reponses: [ascension1, ascension2, ascension3, total] }
 }
-const randonnee: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const randonnee: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -153,7 +179,7 @@ const randonnee: FonctionProbleme = (interactif = false, typeQuestion: QuestionT
 
 // Différence entre un tout et la somme de deux parties
 
-const unAchatParmisTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const unAchatParmisTrois: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const choix = choice(troisObjetsAVendre)
   const prixAchat = choix.map(o => randint(o.prixMini, o.prixMaxi) + (decimaux ? Number(Math.random().toFixed(1)) + choice([0.05, 0]) : 0))
   const total = prixAchat.reduce((a, b) => a + b, 0)
@@ -164,7 +190,7 @@ const unAchatParmisTrois: FonctionProbleme = (interactif = false, typeQuestion: 
   const enonce = `${prenom} achète ${choix[0].nom} à zone0 €, ${choix[1].nom} à zone1 € et ${choix[2].nom}. ${premiereLettreEnMajuscule(pronom)} a payé en tout zone3 €. Combien coûte ${choix[2].nom} ?<br><br>
     Réponse :<br>
     - Calcul de la somme dépensée pour ${choix[0].nom} et ${choix[1].nom} en € : $${texNombre(prixAchat[0], 2)}+${texNombre(prixAchat[1], 2)}=${texNombre(totalInter, 2)}$<br>
-    - Prix ${choix[2].nom.replace('un', 'du').replace('une', 'de la')} en € : $${texNombre(total, 2)}-${texNombre(totalInter, 2)}=$ zone2.`
+    - Prix ${choix[2].nom.replace('une', 'de la').replace('un', 'du')} en € : $${texNombre(total, 2)}-${texNombre(totalInter, 2)}=$ zone2.`
 
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
   return { enonce, barre, reponses: [prixAchat[0], prixAchat[1], prixAchat[2], total], type: 'parties-tout' }
@@ -187,7 +213,7 @@ const triathlon2: FonctionProbleme = (interactif = false, typeQuestion: Question
   return { enonce, barre, reponses: [distanceNatation, distanceVelo, distanceCourse, total] }
 }
 
-const etapeDeMontagne2: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const etapeDeMontagne2: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -200,7 +226,7 @@ const etapeDeMontagne2: FonctionProbleme = (interactif = false, typeQuestion: Qu
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
   return { enonce, barre, reponses: [ascension1, ascension2, ascension3, total] }
 }
-const randonnee2:FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const randonnee2:FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -219,7 +245,7 @@ const randonnee2:FonctionProbleme = (interactif = false, typeQuestion: QuestionT
 }
 
 // quotient entier d'un produit par un diviseur (avec reste)
-const partageEntreAmis: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const partageEntreAmis: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const objet = choice(objetsAPartager)
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
@@ -255,7 +281,7 @@ const partageEntreAmis: FonctionProbleme = (interactif = false, typeQuestion: Qu
   return { enonce, barre, reponses }
 } // fin de partageEntreAmis
 
-const partageDuTemps: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const partageDuTemps: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -290,7 +316,7 @@ const partageDuTemps: FonctionProbleme = (interactif = false, typeQuestion: Ques
   return { enonce, barre, reponses }
 } // fin de partageDuTemps
 
-const preparationCulinaire: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const preparationCulinaire: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom
@@ -327,7 +353,7 @@ const preparationCulinaire: FonctionProbleme = (interactif = false, typeQuestion
 } // fin de preparationCulinaire
 
 // Différence entre une somme de deux parties et une troisième partie
-const comparaisonDeuxSommes: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
+export const comparaisonDeuxSommes: FonctionProbleme = (interactif = false, typeQuestion: QuestionType = 'schéma', decimaux = false) => {
   const prenomData = choice(prenoms)
   const prenom = prenomData.prenom
   const pronom = prenomData.pronom

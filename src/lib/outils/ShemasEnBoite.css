@@ -1,8 +1,11 @@
+/**
+ * @author Jean-Claude Lhote
+ */
 .SchemaContainer {
     display: grid;
     grid-template-rows: repeat(4, auto); /* Deux lignes ajustées automatiquement */
     grid-auto-columns: 1.5em;
-    grid-auto-rows: 1.5em;
+    grid-auto-rows: 0.5em;
     grid-auto-flow: column; /* Remplissage en colonnes */
     width: 50%; /* Assure que la largeur totale est utilisée */
     margin: 0;

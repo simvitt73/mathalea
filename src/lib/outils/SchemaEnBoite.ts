@@ -3,6 +3,10 @@ import { range } from './nombres'
 import './ShemasEnBoite.css'
 import { texNombre } from './texNombre'
 
+/**
+ * @author Jean-Claude Lhote
+ */
+
 type AccoladeType = {
   start: number, // colonne de début (1 = première colonne)
   end: number, // colonne de fin = start + longueur de l'accolade
@@ -296,11 +300,8 @@ export default class SchemaEnBoite {
       </div>
     </div>
   </div>
-    <div class="latexAccoladeRight" style="grid-row: ${Math.round((start + end) / 2)}; grid-column-start: ${gridLength + 3}; grid-column-end: ${gridLength + 6};text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}">
-      ${texte.includes('<br>')
-        ? `<div style="text-align: center;">${texte}</div>\n`
-        : `${texte}`
-      }
+    <div class="latexAccoladeRight" style="grid-row: ${Math.round((start + end) / 2) - 1}; grid-column-start: ${gridLength + 2}; grid-column-end: ${gridLength + 10};text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}">
+     <div style="display: inline-block; text-align: center;">${texte}</div>\n
     </div>\n`
           }
         }
