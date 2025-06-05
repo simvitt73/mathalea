@@ -5,67 +5,92 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modu
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
+import { arrondi } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Lier nombre décimal, fraction décimale et pourcentage'
+export const titre = 'Lier nombre décimal, fraction spécifique et pourcentage'
 export const dateDePublication = '04/06/2025'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
 /**
-* Lier nombre décimal, fraction décimale et pourcentage
+* Lier nombre décimal, fraction spécifique et pourcentage
 * @author Eric Elter
 */
 
-export const uuid = '2359a'
+export const uuid = '13f50'
 
 export const refs = {
-  'fr-fr': ['6N23-10'],
+  'fr-fr': ['6N23-11'],
   'fr-ch': ['']
 }
 export default class DecimalFractionPourcentage extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = [
-      'Choix du chiffre des centièmes', [
+      'Type de fractions désirées', [
         'Nombres séparés par des tirets  :',
-        '1 : Avoir un chiffre des centièmes jamais nul',
-        '2 : Avoir un chiffre des centièmes toujours nul',
-        '3 : Mélange'
+        '1 : 1/4',
+        '2 : 1/2',
+        '3 : 3/4',
+        '4 : 1/10',
+        '5 : 1/5',
+        '6 : 3/10',
+        '7 : 2/5',
+        '8 : 5/10',
+        '9 : 3/5',
+        '10 : 7/10',
+        '11 : 4/5',
+        '12 : 9/10',
+        '13 : Mélange'
       ].join('\n')
     ]
 
-    this.sup = 1
+    this.sup = 13
     this.nbQuestions = 1
     this.consigne = 'Dans chaque colonne de ce tableau, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter ce tableau.'
+    this.comment = 'Le tableau contiendra toujours 6 colonnes.<br>Un paramètre permettra de choisir des fractions.<br>'
+    this.comment += 'Si vous en choisissez plus que 6, alors un choix aléatoire sera fait parmi les fractions choisies pour n\'en garder que 6.<br>'
+    this.comment += 'Si vous en choisissez moins que 6, alors un choix aléatoire sera fait parmi les fractions non choisies pour compléter jusque 6 fractions.'
   }
 
   nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Dans chaque colonne de ce tableau, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter ce tableau.'
       : 'Dans chaque colonne de ces tableaux, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter les tableaux suivants.'
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+    const numerateursSpecifiques = [25, 50, 75, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+
+    const numerateur = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 2,
-      melange: 3,
-      defaut: 3,
-      nbQuestions: 6 * this.nbQuestions
+      max: 12,
+      defaut: 13,
+      melange: 13,
+      nbQuestions: 6,
+      listeOfCase: numerateursSpecifiques
     })
-    const tableauDeDizaines = combinaisonListes([20, 30, 40, 50, 60, 70, 80, 90], 6)
-    const tableauDeNombres = combinaisonListes(rangeMinMax(11, 99, tableauDeDizaines), 6)
+
+    let numerateurAuFormatNumber: number[] = numerateur
+      .filter((val): val is number => typeof val === 'number')
+    numerateurAuFormatNumber = enleveDoublonNum(numerateurAuFormatNumber)
+
+    const longueurListe = numerateurAuFormatNumber.length
+    if (longueurListe < 6) {
+      for (let i = longueurListe; i < 6; i++) {
+        numerateurAuFormatNumber.push(choice(numerateursSpecifiques, numerateurAuFormatNumber))
+      }
+    }
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nbfractionDecimaleEtPourcentage = function (i:number) {
-        const numerateur = Number(typesDeQuestionsDisponibles[i]) === 1 ? tableauDeNombres[i] : tableauDeDizaines[i]
+        const nbNum = numerateurAuFormatNumber[i]
         return {
-          decimal: texNombre(arrondi(numerateur / 100)),
-          fractionDecimale: new FractionEtendue(numerateur, 100).texFraction,
-          pourcentage: numerateur
+          decimal: texNombre(arrondi(nbNum / 100)),
+          fractionDecimale: new FractionEtendue(nbNum, 100).simplifie().texFraction,
+          pourcentage: texNombre(nbNum)
         }
       }
 
@@ -112,11 +137,11 @@ export default class DecimalFractionPourcentage extends Exercice {
       const enonces = []
       enonces.push({
         tabEntetesColonnes: [],
-        tabEntetesLignes: ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'],
+        tabEntetesLignes: ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'],
         tabLines: nbDecimal.concat(fractionDecimale).concat(pourcentage),
         tabLinesCorr: nbDecimalCorrNu.concat(fractionDecimaleCorrNu).concat(pourcentageCorrNu),
-        enonce: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'], nbDecimal.concat(fractionDecimale).concat(pourcentage))}`,
-        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'], nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr))}`
+        enonce: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimal.concat(fractionDecimale).concat(pourcentage))}`,
+        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr))}`
       })
       let objetReponse = {}
       for (let i = 0; i < enonces[0].tabLines.length; i++) {
@@ -124,7 +149,7 @@ export default class DecimalFractionPourcentage extends Exercice {
           const ligne = Math.floor(i / (6))
           const colonne = i % (6)
           const ref = `L${ligne + 1}C${colonne + 1}`
-          const valeur = Object.assign({}, { value: ligne === 2 ? `${enonces[0].tabLinesCorr[i]}`.slice(0, 2) : `${enonces[0].tabLinesCorr[i]}`, options: ligne === 1 ? { fractionDecimale: true } : { nombreDecimalSeulement: true } })
+          const valeur = Object.assign({}, { value: ligne === 2 ? `${enonces[0].tabLinesCorr[i]}`.slice(0, 2) : `${enonces[0].tabLinesCorr[i]}`, options: ligne === 1 ? { fractionEgale: true } : { nombreDecimalSeulement: true } })
           const cellule = Object.fromEntries([[ref, valeur]])
           objetReponse = Object.assign(objetReponse, cellule)
         }
