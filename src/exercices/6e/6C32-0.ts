@@ -7,6 +7,7 @@ import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { listeDeProblemesMultiplicatifs } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifs'
 import { listeDeProblemesPartage } from '../../lib/problems/ProblemesPartage/problemesPartage'
+import { listeDeProblemesMultiplicatifsComplexes } from '../../lib/problems/problemesMultiplicatifsComplexes/problemesMultiplicatifsComplexes'
 
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -24,7 +25,7 @@ export const titre = 'Résoudre des problèmes variés'
 export default class ProblemesVaries extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 1
+    this.nbQuestions = 4
     this.besoinFormulaireTexte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Problèmes additifs simples\n2 : Problèmes multiplicatifs simples\n3 : Problèmes de partage\n4 : Problèmes multiplicatifs complexes\n: 5 Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux quand c\'est possible', false]
     this.sup2 = false
@@ -32,14 +33,16 @@ export default class ProblemesVaries extends Exercice {
   }
 
   nouvelleVersion () {
-    const typesDeProblemes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 5, melange: 5, nbQuestions: this.nbQuestions }).map(Number)
+    const typesDeProblemes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions }).map(Number)
     const problemesAdditifs = combinaisonListes(listeDeProblemesAdditifs, this.nbQuestions)
     const problemesMultiplicatifs = combinaisonListes(listeDeProblemesMultiplicatifs, this.nbQuestions)
     const problemesPartage = combinaisonListes(listeDeProblemesPartage, this.nbQuestions)
+    const problemesComplexes = combinaisonListes(listeDeProblemesMultiplicatifsComplexes, this.nbQuestions)
     const fonctionsProblemes = []
     let indexAdditifs = 0
     let indexMultiplicatifs = 0
     let indexPartage = 0
+    let indexComplexes = 0
 
     for (let i = 0; i < this.nbQuestions; i++) {
       fonctionsProblemes.push(
@@ -49,7 +52,7 @@ export default class ProblemesVaries extends Exercice {
             ? problemesMultiplicatifs[indexMultiplicatifs++]
             : typesDeProblemes[i] === 3
               ? problemesPartage[indexPartage++]
-              : listeDeProblemesMultiplicatifs[indexMultiplicatifs++])
+              : problemesComplexes[indexComplexes++])
     }
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

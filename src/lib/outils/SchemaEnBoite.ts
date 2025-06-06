@@ -321,12 +321,12 @@ export default class SchemaEnBoite {
       }
       // Si aucune entête n'est définie, on ne met pas de colonne d'entête
       // On peut aussi utiliser la plus grande largeur réelle (en px) mais ici on reste simple
-      let latex = '\\begin{tikzpicture}\n'
+      let latex = '\\begin{tikzpicture}[scale=0.8]\n'
       if (this.topBraces) {
         for (let k = 0; k < this.topBraces.length; k++) {
           const brace = this.topBraces[k]
-          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
-          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
+          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
+          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -385,7 +385,7 @@ export default class SchemaEnBoite {
           }
         }
 
-        y -= rectHeight
+        y -= rectHeight * 0.7
 
         for (let k = 0; k < barres.length; k++) {
           const barre = barres[k]
@@ -415,29 +415,29 @@ export default class SchemaEnBoite {
             : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${barre.content}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
           if (barre.type === 'boite') {
             if (barre.options?.style === 'borderless') {
-              latex += `\\draw[fill=${barre.color}, draw=none] (${(start * 2 / 3).toFixed(1)},${y}) rectangle (${((start + barre.length) * 2 / 3).toFixed(1)},${(rectHeight + y).toFixed(1)});\n`
+              latex += `\\draw[fill=${barre.color}, draw=none] (${(start * 0.7).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * 0.7).toFixed(1)},${(rectHeight * 0.7 + y).toFixed(1)});\n`
             } else {
-              latex += `\\draw[fill=${barre.color}] (${(start * 2 / 3).toFixed(1)},${y}) rectangle (${((start + barre.length) * 2 / 3).toFixed(1)},${(rectHeight + y).toFixed(1)});\n`
+              latex += `\\draw[fill=${barre.color}] (${(start * 0.7).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * 0.7).toFixed(1)},${(rectHeight * 0.7 + y).toFixed(1)});\n`
             }
             let anchor = 'center'
             let align = 'center'
-            let x = ((start + barre.length / 2) * 2 / 3).toFixed(1)
+            let x = ((start + barre.length / 2) * 0.7).toFixed(1)
             if (justify === 'start') {
               anchor = 'west'
               align = 'left'
-              x = (start * 2 / 3).toFixed(1)
+              x = (start * 0.7).toFixed(1)
             } else if (justify === 'end') {
               anchor = 'east'
               align = 'right'
-              x = ((start + barre.length) * 2 / 3).toFixed(1)
+              x = ((start + barre.length) * 0.7).toFixed(1)
             }
             latex += `\\node[anchor=${anchor}, align=${align}] at (${x},${(y + rectHeight / 2).toFixed(1)}) {${texteLatex}};\n`
           } else if (barre.type === 'flèche') {
-            latex += `\\draw[<->,thick, draw=${color}] (${(start * 2 / 3).toFixed(1)},${(y + 0.8).toFixed(1)}) -- (${((start + barre.length) * 2 / 3).toFixed(1)},${(y + 0.8).toFixed(1)}) node[pos=0.5, below] {${texteLatex}};\n`
+            latex += `\\draw[<->,thick, draw=${color}] (${(start * 0.7).toFixed(1)},${(y + 0.56).toFixed(1)}) -- (${((start + barre.length) * 0.7).toFixed(1)},${(y + 0.56).toFixed(1)}) node[pos=0.5, below] {${texteLatex}};\n`
             // Ligne verticale à l'extrémité droite de la flèche
-            latex += `\\draw[dashed, thick, draw=${color}] (${((start + barre.length) * 2 / 3).toFixed(1)},${y}) -- (${((start + barre.length) * 2 / 3).toFixed(1)},${(y + rectHeight).toFixed(1)});\n`
+            latex += `\\draw[dashed, thick, draw=${color}] (${((start + barre.length) * 0.7).toFixed(1)},${y}) -- (${((start + barre.length) * 0.7).toFixed(1)},${(y + rectHeight * 0.7).toFixed(1)});\n`
           } else {
-            latex += `\\draw[fill=${barre.color}] (${(start * 2 / 3).toFixed(1)},${y}) rectangle (${((start + barre.length) * 2 / 3).toFixed(1)},${(rectHeight + y).toFixed(1)}) node[pos=0.5] {${texteLatex}};\n`
+            latex += `\\draw[fill=${barre.color}] (${(start * 0.7).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * 0.7).toFixed(1)},${(rectHeight * 0.7 + y).toFixed(1)}) node[pos=0.5] {${texteLatex}};\n`
           }
 
           // On met à jour le start pour le prochain élément
@@ -448,8 +448,8 @@ export default class SchemaEnBoite {
       if (this.bottomBraces) {
         for (let k = 0; k < this.bottomBraces.length; k++) {
           const brace = this.bottomBraces[k]
-          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
-          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 2 / 3
+          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
+          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -472,19 +472,20 @@ export default class SchemaEnBoite {
               ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
               : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
             if (type === 'flèche') {
-              latex += `\\draw[<->,thick, draw=${color}] (${start.toFixed(1)},${y - 0.2}) -- (${end.toFixed(1)},${y - 0.2}) node[below, pos=0.5] {${texteLatex}};\n`
+              latex += `\\draw[<->,thick, draw=${color}] (${(start).toFixed(1)},${y - 0.2}) -- (${(end).toFixed(1)},${y - 0.2}) node[below, pos=0.5] {${texteLatex}};\n`
             } else {
-              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${end.toFixed(1)},${y}) -- node[below=10pt, pos=0.5] {${texteLatex}} (${start.toFixed(1)},${y});\n`
+              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${(end).toFixed(1)},${y}) -- node[below=10pt, pos=0.5] {${texteLatex}} (${(start).toFixed(1)},${y});\n`
             }
           }
         }
       }
       if (this.rightBraces) {
-        const gridLength = Math.max(...this.lignes.map(l => l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) + (maxEnteteLength ?? 0) - 1)) // Longueur totale de la grille
+        const longueurBarres = this.lignes.map(l => l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) + (maxEnteteLength ?? 0))
+        const gridLength = Math.max(...longueurBarres) // Longueur totale de la grille
         for (let k = 0; k < this.rightBraces.length; k++) {
           const brace = this.rightBraces[k]
-          const start = brace.start
-          const end = brace.end
+          const start = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * 0.7 - brace.start * 0.7
+          const end = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * 0.7 - brace.end * 0.7
           const texte = brace.text
           // const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -507,9 +508,9 @@ export default class SchemaEnBoite {
               ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
               : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
 
-            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${((gridLength + 0.3) * 2 / 3).toFixed(1)},${(end * 2 / 3).toFixed(1)}) -- (${((gridLength + 0.3) * 2 / 3).toFixed(1)},${(start * 2 / 3).toFixed(1)});\n`
+            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}]  (${((gridLength + 0.3) * 0.7).toFixed(1)},${start.toFixed(1)}) -- (${((gridLength + 0.3) * 0.7).toFixed(1)},${end.toFixed(1)});\n`
             // Ajoute un petit espace horizontal (par exemple 0.3) entre l'accolade et le texte
-            latex += `\\node[anchor=west, align=left] at (${((gridLength + 0.8) * 2 / 3).toFixed(1)},${((start + end) / 2 * 2 / 3).toFixed(1)}) {${texteLatex}};\n`
+            latex += `\\node[anchor=west, align=left] at (${(gridLength * 0.7 + 0.8).toFixed(1)},${((start + end) / 2).toFixed(1)}) {${texteLatex}};\n`
           }
         }
       }
