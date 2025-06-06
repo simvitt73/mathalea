@@ -9,6 +9,7 @@ import { listeDeProblemesMultiplicatifs } from '../../lib/problems/problemesMult
 import { listeDeProblemesPartage } from '../../lib/problems/ProblemesPartage/problemesPartage'
 import { listeDeProblemesMultiplicatifsComplexes } from '../../lib/problems/problemesMultiplicatifsComplexes/problemesMultiplicatifsComplexes'
 
+export const dateDePublication = '06/06/2025'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const amcType = 'AMCNum'
@@ -27,8 +28,8 @@ export default class ProblemesVaries extends Exercice {
     super()
     this.nbQuestions = 4
     this.besoinFormulaireTexte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Problèmes additifs simples\n2 : Problèmes multiplicatifs simples\n3 : Problèmes de partage\n4 : Problèmes multiplicatifs complexes\n: 5 Mélange']
-    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux quand c\'est possible', false]
-    this.sup2 = false
+    // this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux quand c\'est possible', false]
+    this.sup2 = false // pour l'instant pas de décimaux quasiment dans les problèmes
     this.sup = '5'
   }
 
