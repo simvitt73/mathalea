@@ -19,6 +19,7 @@ import Grandeur from '../../modules/Grandeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer périmètre et aire de figures composées'
 export const interactifReady = true
@@ -541,10 +542,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
         }
       }
       if (this.sup4 === 1 || this.sup4 === 3 || this.sup4 === 4) {
-        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), '  unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
+        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), KeyboardType.longueur, { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
       }
       if (this.sup4 === 2 || this.sup4 === 3 || this.sup4 === 4) {
-        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), '  unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
+        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), KeyboardType.aire, { texteAvant: '<br>Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {

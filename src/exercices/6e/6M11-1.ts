@@ -14,7 +14,6 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
