@@ -28,7 +28,7 @@ export default class ProblemesVaries extends Exercice {
     super()
     this.nbQuestions = 4
     this.besoinFormulaireTexte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Problèmes additifs simples\n2 : Problèmes multiplicatifs simples\n3 : Problèmes de partage\n4 : Problèmes multiplicatifs complexes\n: 5 Mélange']
-    // this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux quand c\'est possible', false]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux si possible', false]
     this.sup2 = false // pour l'instant pas de décimaux quasiment dans les problèmes
     this.sup = '5'
   }

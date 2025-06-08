@@ -4,7 +4,13 @@ import { texNombre } from '../../outils/texNombre'
 import Probleme from '../Probleme'
 import { coureur2 } from './coureur'
 import { courses1 } from './courses'
+import { lecture } from './lecture'
+import { nageur } from './nageur'
+import { plantation } from './plantation'
 import { recette1 } from './recette'
+import { soif } from './soif'
+import { sportif } from './sportif'
+import { transports } from './transports'
 /**
  * @author Jean-Claude Lhote
  */
@@ -55,5 +61,11 @@ Combien cela coûte-t-il au total ?`
 export const listeDeProblemesAdditifs = [
   courses1,
   coureur2,
-  recette1
+  recette1,
+  soif,
+  nageur,
+  transports,
+  plantation,
+  sportif,
+  lecture
 ]

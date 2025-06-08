@@ -9,7 +9,7 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifs'
  */
 export function gateaux1 (decimal = false): Probleme {
   const personnage = prenomPronom()
-  const nbPaquets = randint(2, 5)
+  const nbPaquets = randint(2, 9)
   const nbGateauxParPaquet = choice([10, 12, 15, 16, 18, 20, 24, 30])
   const data = { nbFois: nbPaquets, facteur: nbGateauxParPaquet }
   const enonce = `Pour son goûter d'anniversaire, ${personnage.prenom} a acheté ${nbPaquets} paquets de gâteaux. Chaque paquet contient ${nbGateauxParPaquet} gâteaux. Combien de gâteaux a-t-${personnage.pronom} au total ?`
@@ -22,7 +22,7 @@ export function gateaux1 (decimal = false): Probleme {
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].start = 4
-  probleme.schema.topBraces[0].end = 2 * nbPaquets + 4
+  probleme.schema.topBraces[0].end = nbPaquets < 8 ? 2 * nbPaquets + 4 : 18
   probleme.styleChampTexteMathlive = KeyboardType.college6eme
   return probleme
 }

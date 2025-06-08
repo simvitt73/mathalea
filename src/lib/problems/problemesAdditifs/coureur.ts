@@ -9,25 +9,27 @@ import ProblemeAdditif from './problemesAdditifs'
  */
 export function coureur2 (decimal = true): Probleme {
   const personnage = prenomPronom()
-  const nb1 = randint(350, 700) * 10
-  const nb2 = randint(350, 300) * 10
+  const nb1 = randint(350, 700) * 10 / (decimal ? 1000 : 1)
+  const nb2 = randint(350, 300) * 10 / (decimal ? 1000 : 1)
   const data = { nb1, nb2 }
-  const enonce = `${personnage.prenom} a réalisé un trail pendant aucours duquel il a couru sur $${texNombre(nb1, 0)}$ mètres et a marché sur $${texNombre(nb2, 0)}$ mètres.
-  Quelle est la distance totale a-t-${personnage.pronom} parcourue ?`
-  const correction = `${personnage.prenom} a couru sur $${texNombre(nb1, 0)}$ mètres et a marché sur $${texNombre(nb2, 0)}$ mètres.
-  Donc, au total, ${personnage.pronom} a parcouru $${texNombre(nb1 + nb2, 0)}$ mètres.`
+  const unite = decimal ? 'km' : 'm'
+  const uniteComplete = decimal ? 'kilomètres' : 'mètres'
+  const enonce = `${personnage.prenom} a réalisé un trail au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché sur $${texNombre(nb2, 3)}$ ${uniteComplete}.
+  Quelle distance totale a-t-${personnage.pronom} parcourue au cours de ce trail ?`
+  const correction = `${personnage.prenom} a couru sur $${texNombre(nb1, 0)}$ ${uniteComplete} et a marché sur $${texNombre(nb2, 0)}$ ${uniteComplete}.
+  Donc, au total, ${personnage.pronom} a parcouru $${texNombre(nb1, 3)}\\text{ ${unite}}+${texNombre(nb2, 3)}\\text{ ${unite}}=${texNombre(nb1 + nb2, 3)}$ ${uniteComplete}.`
   const probleme = new ProblemeAdditif('coureur2', data)
   probleme.enonce = enonce
   probleme.correction = correction
-  probleme.schema.lignes[1].barres[0].content = `$${texNombre(nb1, 0)}$ m`
-  probleme.schema.lignes[1].barres[1].content = `$${texNombre(nb2, 0)}$ m`
-  probleme.schema.lignes[0].barres[0].content = `$${texNombre(nb1 + nb2, 2)}$ m`
+  probleme.schema.lignes[1].barres[0].content = `$${texNombre(nb1, 3)}\\text{  ${unite}}$`
+  probleme.schema.lignes[1].barres[1].content = `$${texNombre(nb2, 3)}\\text{  ${unite}}$`
+  probleme.schema.lignes[0].barres[0].content = `$${texNombre(nb1 + nb2, 3)}\\text{  ${unite}}$`
   if (probleme.schema.topBraces == null) {
     probleme.schema.topBraces = []
   }
-  probleme.schema.topBraces[0].text = 'Distance totale'
+  probleme.schema.topBraces[0].text = 'distance totale'
   probleme.styleChampTexteMathlive = KeyboardType.college6eme
-  probleme.reponse = `${texNombre(nb1 + nb2, 0)}km`
+  probleme.reponse = `${texNombre(nb1 + nb2, 3)}${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.optionsComparaison = { unite: true }
   return probleme

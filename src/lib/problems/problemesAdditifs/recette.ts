@@ -23,13 +23,14 @@ export function recette1 (decimal = false): Probleme {
   Quelle est la masse totale des ingrédients utilisés ?`
   const data = { nb1: masse1, nb2: masse2 }
   const correction = `${personnage.prenom} prépare des ${nomRecette} avec ${masse1} g de ${recette.ingredient1.nom} et ${masse2} g de ${recette.ingredient2.nom}.
-Donc, la masse totale des ingrédients utilisés est de ${texNombre(masse1 + masse2, 0)} g.`
+Donc, la masse totale des ingrédients utilisés est de : $${texNombre(masse1, 0)}\\text{ g}+${texNombre(masse2, 0)}\\text{ g}=${texNombre(masse1 + masse2, 0)}$ g.`
   const probleme = new ProblemeAdditif('recette1', data)
   probleme.enonce = enonce
   probleme.correction = correction
-  probleme.schema.lignes[1].barres[0].content = `$${texNombre(masse1, 2)}$ g`
-  probleme.schema.lignes[1].barres[1].content = `$${texNombre(masse2, 2)}$ g`
-  probleme.schema.lignes[0].barres[0].content = `$${texNombre(masse1 + masse2, 2)}$ g`
+  probleme.schema.lignes[1].barres[0].content = `$${texNombre(masse1, 2)}\\text{ g}$`
+  probleme.schema.lignes[1].barres[1].content = `$${texNombre(masse2, 2)}\\text{ g}$`
+  probleme.schema.lignes[0].barres[0].content = `$${texNombre(masse1 + masse2, 2)}\\text{ g}$`
+  probleme.schema.topBraces = [{ text: 'masse totale des ingrédients', start: 1, end: 11 }]
   probleme.styleChampTexteMathlive = KeyboardType.masse
   probleme.reponse = `${texNombre(masse1 + masse2, 2)}g`
   probleme.optionsComparaison = { unite: true }
