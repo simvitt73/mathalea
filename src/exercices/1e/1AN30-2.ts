@@ -7,6 +7,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Simplifier des expressions exponentielles'
 
 export const dateDePublication = '2/7/2024'
@@ -36,7 +37,7 @@ export default class SimplifierExponentielles extends Exercice {
     this.sup2 = 8
     this.besoinFormulaireNumerique = ['Niveaux de difficulté', 3, '1 : Exposants entiers\n2 : Exposants de la forme ax\n3 : Exposants de la forme ax + b']
     this.besoinFormulaire2Texte = ['Types de calculs', 'Nombres séparés par des tirets : \n1 : Produit\n2 : Puissance\n3 : Produit et puisances\n4 : Distributivité simple\n5 : Différence de puissance et de produit \n6 : Fraction et puissance\n7 : Fraction et produit\n8 : Mélange']
-    this.comment = '7 types de calculs différents. Le résultat peut être une exponentielle ou une somme de deux exponentiels'
+    this.comment = '7 types de calculs différents. Le résultat peut être une exponentielle ou une somme de deux exponentielles.'
     this.listeAvecNumerotation = false
   }
 
@@ -73,8 +74,10 @@ export default class SimplifierExponentielles extends Exercice {
         case 'mul': {
           const calcul = new Mul(e1, e2)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
+          texteCorr = texte
+          texteCorr += '<br>'
           if (calcul.step !== '') {
-            texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${calcul.step}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${calcul.step}$<br>`
           }
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${calcul.result}$`
           answer = calcul.result.toString()
@@ -83,7 +86,8 @@ export default class SimplifierExponentielles extends Exercice {
         case 'pow' : {
           const calcul = new Pow(e1, randint(2, 4))
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
-          texteCorr = ''
+          texteCorr = texte
+          texteCorr += '<br>'
           if (calcul.step !== '') {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${calcul.step}$<br>`
           }
@@ -97,7 +101,8 @@ export default class SimplifierExponentielles extends Exercice {
           const calcul = new Mul(facteur1, facteur2)
           const calculStep = new Mul(facteur1.result, facteur2.result)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
-          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${new Mul(facteur1.step, facteur2.step)}$`
+          texteCorr = texte
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${new Mul(facteur1.step, facteur2.step)}$`
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calculStep}$`
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calculStep.step}$`
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calculStep.result}$`
@@ -107,7 +112,8 @@ export default class SimplifierExponentielles extends Exercice {
         case 'k(a+b)': {
           const calcul = new Mul(e1, new Add(e2, e3))
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = `
+          texteCorr = texte
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = `
           const mul1 = new Mul(e1, e2)
           const mul2 = new Mul(e1, e3)
           const add = new Add(mul1, mul2)
@@ -143,7 +149,8 @@ export default class SimplifierExponentielles extends Exercice {
           const calcul = new Sub(terme1, terme2)
           const result = new Sub(terme1.result, terme2.result)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${terme1.step} - ${terme2.step}$`
+          texteCorr = texte
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${terme1.step} - ${terme2.step}$`
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${result}$`
           if (String(result) !== String(result.result)) {
             texteCorr += `<br> $${lettreDepuisChiffre(i + 1)} = ${result.result}$`
@@ -158,7 +165,8 @@ export default class SimplifierExponentielles extends Exercice {
           const calcul = new Frac(num, den)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul}$`
           const numStep = new Frac(num.step, den)
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${numStep}$`
+          texteCorr = texte
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${numStep}$`
           const calcul2 = new Frac(num.result, den)
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2}$`
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2.step}$`
@@ -172,7 +180,8 @@ export default class SimplifierExponentielles extends Exercice {
           const calcul = new Frac(num, den)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul}$`
           const numStep = new Frac(num.step, den)
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${numStep}$`
+          texteCorr = texte
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${numStep}$`
           const calcul2 = new Frac(num.result, den)
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2}$`
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2.step}$`
@@ -181,6 +190,18 @@ export default class SimplifierExponentielles extends Exercice {
           break
         }
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       if (this.can) {
         texte = 'Simplifier l\'expression :<br>' + texte
       }
