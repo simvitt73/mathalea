@@ -16,7 +16,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDModificationImportante = '07/06/2025'
+export const dateDeModifImportante = '07/06/2025'
 
 /**
  * On achète 2 aliments dont on connaît la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
