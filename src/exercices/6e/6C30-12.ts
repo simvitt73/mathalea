@@ -12,7 +12,7 @@ import { range1 } from '../../lib/outils/nombres'
 export const interactifReady = true
 export const interactifType = 'mathlive'
 // export const titre = 'Compléter des égalités contenant une fraction décimale de numérateur 1'
-export const titre = 'Restituer, de manière automatique, des relations entre fractions décimales'
+export const titre = 'Restituer, de manière automatique, des relations entre fractions décimales et nombres décimaux'
 export const dateDePublication = '08/06/2025'
 
 /**
