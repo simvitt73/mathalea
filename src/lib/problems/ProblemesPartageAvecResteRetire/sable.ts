@@ -1,7 +1,8 @@
 import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../outils/embellissements'
 import { texNombre } from '../../outils/texNombre'
 import type Probleme from '../Probleme'
-import ProblemePartage from './problemesPartage'
+import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
@@ -18,8 +19,8 @@ Le sable restant a été réparti en ${nbFois} tas égaux.
 Quelle masse de sable y a-t-il dans chaque tas ?`
   const correction = `$${texNombre(total, 2)}$ ${uniteComplete} ont été livrées, mais $${texNombre(reste, 2)}$ ${uniteComplete} ont été perdues.
 Il reste donc $${texNombre(total - reste, 2)}$ ${uniteComplete} à répartir en ${nbFois} tas.<br>
-La masse de chaque tas est : $\\dfrac{${texNombre(total - reste, 2)}}{${texNombre(nbFois, 0)}} = ${texNombre((total - reste) / nbFois, 2)}$ ${uniteComplete} par tas.`
-  const probleme = new ProblemePartage('sable', data)
+La masse de chaque tas est : $\\dfrac{${texNombre(total - reste, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre((total - reste) / nbFois, 2))}$ ${uniteComplete} par tas.`
+  const probleme = new ProblemePartageAvecResteRetire('sable', data)
   probleme.enonce = enonce
   probleme.correction = correction
   probleme.reponse = `${texNombre(quotité, 0)}`

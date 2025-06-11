@@ -1,10 +1,11 @@
 import { troisObjetsAVendre } from '../../../exercices/6e/6C35-1'
 import { randint } from '../../../modules/outils'
 import { choice, shuffle } from '../../outils/arrayOutils'
+import { miseEnEvidence } from '../../outils/embellissements'
 import { prenomPronom } from '../../outils/Personne'
 import { texNombre } from '../../outils/texNombre'
 import type Probleme from '../Probleme'
-import ProblemePartage from './problemesPartage'
+import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
@@ -25,8 +26,8 @@ export function courses2 (decimal = false): Probleme {
   Quel est le prix d' ${objet.nom} ?`
   const correction = `${personnage.prenom} a ${total} € pour acheter des ${objet.nomPluriel}.
   Grâce à un bon d'achat de ${reste} €, ${personnage.pronom} doit payer : $${total}-${reste}=${total - reste}$ €.<br>
-  Donc, le prix d' ${objet.nom} est : $${texNombre(total - reste, 0)}\\div${nbFois}=${quotité}$ €.`
-  const probleme = new ProblemePartage('courses2', data)
+  Donc, le prix d' ${objet.nom} est : $${texNombre(total - reste, 0)}\\div${nbFois}=${miseEnEvidence(quotité)}$ €.`
+  const probleme = new ProblemePartageAvecResteRetire('courses2', data)
   probleme.enonce = enonce
   probleme.correction = correction
   probleme.reponse = `${texNombre(quotité, 0)}`

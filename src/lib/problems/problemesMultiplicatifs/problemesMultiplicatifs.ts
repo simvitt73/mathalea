@@ -10,6 +10,7 @@ import { gateaux1 } from './gateaux'
 import { papier } from './papier'
 import { imprimante } from './imprimante'
 import { cantine } from './cantine'
+import { miseEnEvidence } from '../../outils/embellissements'
 /**
  * @author Jean-Claude Lhote
  */
@@ -70,7 +71,7 @@ export default class ProblemeMultiplicatifs extends Probleme {
       ]
     })
     this.enonce = `Combien coûte ${data.nbFois} fois un produit à $${data.facteur}$ € ?`
-    this.correction = `Le coût de ${data.nbFois} fois un produit à $${data.facteur}$ € est de $${data.nbFois * data.facteur}$ €`
+    this.correction = `Le coût de ${data.nbFois} fois un produit à $${data.facteur}$ € est de $${miseEnEvidence(data.nbFois * data.facteur)}$ €`
     this.reponse = texNombre(data.nbFois * data.facteur, 4)
   }
 }

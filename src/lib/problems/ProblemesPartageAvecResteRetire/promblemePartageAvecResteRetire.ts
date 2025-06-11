@@ -1,4 +1,5 @@
 import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../outils/embellissements'
 import SchemaEnBoite from '../../outils/SchemaEnBoite'
 import { texNombre } from '../../outils/texNombre'
 import Probleme from '../Probleme'
@@ -11,7 +12,7 @@ import { savon } from './savon'
 /**
  * @author Jean-Claude Lhote
  */
-export default class ProblemePartage extends Probleme {
+export default class ProblemePartageAvecResteRetire extends Probleme {
   constructor (name: string = '', data?: { nbFois: number, quotité: number, reste?: number }) {
     const nbFois = data?.nbFois ?? randint(2, 5)
     const reste = data?.reste ?? 0
@@ -64,12 +65,12 @@ export default class ProblemePartage extends Probleme {
       ]
     })
     this.enonce = `Nous avons ${total} objets. Après en avoir mis ${reste} de côté, nous formons ${nbFois} paquets. Combien y a-t-il d'objets par paquets ?`
-    this.correction = `Nous avons ${total} objets. Après en avoir mis ${reste} de côté, il en reste ${total - reste}. Donc, il y a $${texNombre((total - reste) / nbFois, 2)}$ objets par paquet.`
+    this.correction = `Nous avons ${total} objets. Après en avoir mis ${reste} de côté, il en reste ${total - reste}. Donc, il y a $${miseEnEvidence(texNombre((total - reste) / nbFois, 2))}$ objets par paquet.`
     this.reponse = texNombre((total - reste) / nbFois, 2)
   }
 }
 
-export const listeDeProblemesPartage = [
+export const listeDeProblemesPartageAvecResteRetire = [
   mariage1,
   courses2,
   fete,

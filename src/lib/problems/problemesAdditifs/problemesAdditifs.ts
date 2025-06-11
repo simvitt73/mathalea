@@ -1,4 +1,5 @@
 import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../outils/embellissements'
 import SchemaEnBoite from '../../outils/SchemaEnBoite'
 import { texNombre } from '../../outils/texNombre'
 import Probleme from '../Probleme'
@@ -54,7 +55,7 @@ export default class ProblemeAdditif extends Probleme {
     })
     this.enonce = `On achète deux produits : un à $${data.nb1}$ € et un autre à $${data.nb2}$ €.
 Combien cela coûte-t-il au total ?`
-    this.correction = `Le coût total est de $${data.nb1 + data.nb2}$ €.`
+    this.correction = `Le coût total est de $${miseEnEvidence(data.nb1 + data.nb2)}$ €.`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }
 }

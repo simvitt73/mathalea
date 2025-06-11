@@ -1,9 +1,10 @@
 import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../outils/outilString'
 import { prenomPronom } from '../../outils/Personne'
 import { texNombre } from '../../outils/texNombre'
 import type Probleme from '../Probleme'
-import ProblemePartage from './problemesPartage'
+import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
@@ -20,8 +21,8 @@ ${premiereLettreEnMajuscule(personnage.pronom)} a ensuite rempli ${nbFois} verre
 Quel volume de jus de fruit y a-t-il dans chaque verre ?`
   const correction = `${texNombre(total, 1)} centilitres ont été apportés, mais ${texNombre(reste, 1)} centilitres ont été renversés.
 Il reste donc ${texNombre(total - reste, 1)} centilitres à répartir dans ${nbFois} verres.
-Le calcul est : $${texNombre(total - reste, 1)} \\div ${texNombre(nbFois, 0)} = ${texNombre((total - reste) / nbFois, 2)}$ centilitres par verre.`
-  const probleme = new ProblemePartage('fete', data)
+Le calcul est : $${texNombre(total - reste, 1)} \\div ${texNombre(nbFois, 0)} = ${miseEnEvidence(texNombre((total - reste) / nbFois, 2))}$ centilitres par verre.`
+  const probleme = new ProblemePartageAvecResteRetire('fete', data)
   probleme.enonce = enonce
   probleme.correction = correction
   probleme.reponse = `${texNombre(quotité, 0)}`

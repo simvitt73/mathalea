@@ -1,5 +1,6 @@
 import { egal, randint } from '../../../modules/outils'
 import { egalOuApprox } from '../../outils/ecritures'
+import { miseEnEvidence } from '../../outils/embellissements'
 import { range1 } from '../../outils/nombres'
 import SchemaEnBoite from '../../outils/SchemaEnBoite'
 import { texNombre } from '../../outils/texNombre'
@@ -83,7 +84,7 @@ export default class ProblemeMultiplicatifsComplexes extends Probleme {
     Un rouleau de papier kraft mesure $${data.part2}$ m.<br>
     Donc, il faut $\\dfrac{${texNombre(data.nb1Fois * data.part1, 0)}}{${texNombre(data.part2, 0)}}${egalOuApprox(data.nb1Fois * data.part1 / data.part2, 2)}${texNombre((data.nb1Fois * data.part1) / data.part2, 2)}$ rouleaux de papier kraft.<br>`
     if (!egal(data.nb1Fois * data.part1, nb2Fois * data.part2)) {
-      this.correction += `Comme on ne peut pas acheter une fraction de rouleau, il faut ${Math.ceil((data.nb1Fois * data.part1) / data.part2)} rouleaux de papier kraft.`
+      this.correction += `Comme on ne peut pas acheter une fraction de rouleau, il faut ${miseEnEvidence(Math.ceil((data.nb1Fois * data.part1) / data.part2))} rouleaux de papier kraft.`
     }
     this.reponse = texNombre(Math.ceil((data.nb1Fois * data.part1) / data.part2), 0)
   }

@@ -1,8 +1,9 @@
 import { randint } from '../../../modules/outils'
 import { choice } from '../../outils/arrayOutils'
+import { miseEnEvidence } from '../../outils/embellissements'
 import { texNombre } from '../../outils/texNombre'
 import type Probleme from '../Probleme'
-import ProblemePartage from './problemesPartage'
+import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
@@ -20,9 +21,9 @@ La distance restante a été répartie entre les ${nbFois} coureurs de l'équipe
 Quelle distance chaque coureur a-t-il parcourue ?`
   const correction = `$${texNombre(total, 2)}$ ${uniteComplete} devaient être parcourus, mais $${texNombre(reste, 2)}$ ${unite} ne l'ont pas été.
 Il reste donc $${texNombre(total, 2)}-${texNombre(reste, 2)} = ${texNombre(total - reste, 2)}$ ${unite} à répartir entre ${nbFois} coureurs.
-Le calcul est : $\\dfrac{${texNombre(total - reste, 2)}}{${texNombre(nbFois, 0)}} = ${texNombre((total - reste) / nbFois, 2)}$ ${uniteComplete} par coureur.`
+Le calcul est : $\\dfrac{${texNombre(total - reste, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre((total - reste) / nbFois, 2))}$ ${uniteComplete} par coureur.`
 
-  const probleme = new ProblemePartage('relais', data)
+  const probleme = new ProblemePartageAvecResteRetire('relais', data)
   probleme.enonce = enonce
   probleme.correction = correction
   probleme.reponse = `${texNombre(quotité, 0)}`
