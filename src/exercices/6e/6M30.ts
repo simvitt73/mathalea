@@ -289,7 +289,7 @@ export default class CalculDeVolumes extends Exercice {
           resultat3 = volume.div(2).round()
           resultat4 = volume.mul(2).round()
           break
-        case 6: // pyramide
+        case 6: // pyramide à base carrée
           if (this.sup === 1) {
             // sans conversion
             j = randint(0, 3) // pour le choix de l'unité
@@ -435,7 +435,7 @@ export default class CalculDeVolumes extends Exercice {
             hauteurBase = randint(30, 50) // hauteur relative à ce côté (en unité inférieure)
             h = new Decimal(randint(3, 15)).div(10) // hauteur de la pyramide (en unité supérieure)
 
-            volume = coteBase.mul(hauteurBase).mul(h.mul(10)).div(6) // (1/3) × (côté×hauteur/2) × h = (côté×hauteur×h)/6
+            volume = coteBase.mul(hauteurBase).mul(h).div(6) // (1/3) × (côté×hauteur/2) × h = (côté×hauteur×h)/6
 
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
