@@ -322,7 +322,8 @@ export class Figure2D extends Shape2D {
     // Calcul du code TikZ pour la symétrie
     // On applique la même transformation que pour le SVG, mais en TikZ
     // L'angle de symétrie est angleAxe, le centre est (0,0) car la matrice est centrée sur (0,0)
-    const tikz = `\\begin{scope}[xscale=${a.toFixed(4)}, yscale=${d.toFixed(4)}, xslant=${c.toFixed(4)}, yslant=${b.toFixed(4)}, shift={({${tx.toFixed(4)},${ty.toFixed(4)}})}]
+    // Inversion de l'axe des y pour TikZ (y vers le haut)
+    const tikz = `\\begin{scope}[cm={${a.toFixed(4)},${-b.toFixed(4)},${-c.toFixed(4)},${d.toFixed(4)},(${tx.toFixed(4)},${-ty.toFixed(4)})}]
   ${this.codeTikz}
   \\end{scope}`
     // Nouvelle instance avec les mêmes propriétés, mais codeSvg/codeTikz modifiés
