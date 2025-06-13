@@ -12,6 +12,7 @@ n=1      n=2        n=3
                   ■ ■ ■ ■
 */
 const pattern0 = {
+  fonction: (x:number) => 2 * x + 1,
   formule: '2\\times n + 1',
   pattern: new PatternNumerique(
     [
@@ -57,6 +58,7 @@ n=1      n=2        n=3
                  ■ ■ ■
 */
 const pattern1 = {
+  fonction: (x:number) => x * x,
   formule: 'n^2',
   pattern: new PatternNumerique(
     [
@@ -84,6 +86,7 @@ n=1      n=2        n=3
 À chaque itération, on ajoute un carré à droite et un carré au-dessus du dernier carré à droite.
 */
 const pattern2 = {
+  fonction: (x:number) => 2 * x - 1,
   formule: '2\\times n -1',
   pattern: new PatternNumerique(
     [
@@ -114,6 +117,7 @@ const pattern2 = {
 //                   ■ ■ ■
 
 const pattern3 = {
+  fonction: (x:number) => x * x + x,
   formule: 'n^2 + n',
   pattern: new PatternNumerique(
     [
@@ -140,6 +144,7 @@ const pattern3 = {
 //         ■ ■      ■ ■
 //                  ■ ■ ■
 const pattern4 = {
+  fonction: (n:number) => n * (n + 1) / 2,
   formule: '\\frac{n\\times (n+1)}{2}',
   pattern: new PatternNumerique(
     [
@@ -166,6 +171,7 @@ const pattern4 = {
 //            ■   ■
 //          ■       ■
 const pattern5 = {
+  fonction: (n:number) => 4 * n + 1,
   formule: '4\\times n + 1',
   pattern: new PatternNumerique(
     [
@@ -196,6 +202,7 @@ const pattern5 = {
 // ■ ■ ■    ■ ■ ■ ■ ■    ■ ■ ■ ■ ■ ■ ■
 //   ■        ■   ■        ■   ■   ■
 const pattern6 = {
+  fonction: (n:number) => 4 * n + 1,
   formule: '4\\times n + 1',
   pattern: new PatternNumerique(
     [
@@ -234,6 +241,7 @@ const pattern6 = {
 //           ■          ■ ■ ■
 // ■       ■ ■ ■      ■ ■ ■ ■ ■
 const pattern7 = {
+  fonction: (x:number) => x * x,
   formule: 'n^2',
   pattern: new PatternNumerique(
     [
