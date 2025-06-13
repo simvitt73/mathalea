@@ -5940,4 +5940,45 @@ export const dictionnaireDNB = {
     tags: ['Algorithmique-programmation']
   },
 
+  dnb_2025_06_ameriquenord_1: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_ameriquenord_2: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_ameriquenord_3: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_ameriquenord_4: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_ameriquenord_5: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+
 }
