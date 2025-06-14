@@ -112,11 +112,11 @@ export default class PaternNum0 extends Exercice {
     const nbFigures = Math.max(2, this.sup)
     const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
     const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 5, defaut: 6, melange: 6, nbQuestions: this.nbQuestions }).map(Number)
-    const listePreDef = listePatternsPreDef
+    const listePreDef = shuffle(listePatternsPreDef)
     const patterns : PatternNumerique[] = []
     for (let i = 0; i < this.nbQuestions; i++) {
       if (typesMotifs[i] === 1 && listePreDef.length > 0) {
-        const { pattern, iterate } = listePreDef[i % listePreDef.length]
+        const { pattern, iterate } = listePreDef.pop() as { pattern: PatternNumerique, iterate: (this: PatternNumerique) => Set<string> }
         pattern.iterate = iterate
         patterns.push(pattern)
         // patterns.push(listePreDef.pop() as PatternNumerique)
