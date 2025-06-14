@@ -23,6 +23,13 @@ Le volume d'encre total est : $${texNombre(nbFois, 0)}\\times ${texNombre(facteu
   probleme.correction = correction
   probleme.schema.lignes[0].barres[0].content = `$${texNombre(facteur, 1)}\\text{ ${unite}}$`
   probleme.schema.lignes[1].barres[0].content = `$${texNombre(nbFois * facteur, 1)}\\text{ ${unite}}$`
+  if (nbFois < 8) {
+    probleme.schema.lignes[0].barres.forEach((barre, index) => {
+      if (index > 0) {
+        barre.content = `$${texNombre(facteur, 1)}\\text{\\,${unite}}$`
+      }
+    })
+  }
   probleme.styleChampTexteMathlive = KeyboardType.volume
   probleme.reponse = `${texNombre(nbFois * facteur, 1)}${unite}`
   probleme.optionsComparaison = { unite: true }

@@ -31,6 +31,11 @@ export function coureur1 (decimal = false): Probleme {
       probleme.schema.topBraces[0].end = nbFoisParSemaine * 3 + 1
     }
   }
+  probleme.schema.lignes[0].barres.forEach((barre, index) => {
+    if (index > 0) {
+      barre.content = `$${texNombre(nbKmParJour, 1)}\\text{\\,${unite}}$`
+    }
+  })
   probleme.schema.lignes[1].barres[0].content = `$${texNombre(nbFoisParSemaine * nbKmParJour, 1)}\\text{ ${unite}}$`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.reponse = `${texNombre(nbFoisParSemaine * nbKmParJour, 1)}km`

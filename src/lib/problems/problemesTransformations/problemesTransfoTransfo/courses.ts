@@ -25,18 +25,18 @@ export function courses4 (decimal = true): Probleme {
     augmentation = randint(1, Math.ceil(prix1 * 0.05))
   }
   const data = { nb1: prix1, nb2: augmentation }
-  const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2)}$ € dans une boutique. Mais aujourd'hui le prix est de $${texNombre(prix1 + augmentation, 2)}$ €.
-Quelle est le montant de l'augmentation ?`
-  const correction = `Le montant de l'augmentation est de $${texNombre(prix1 + augmentation, 2)}\\text{\\,€}-${texNombre(prix1, 2)}\\text{\\,€} = ${miseEnEvidence(texNombre(augmentation, 2))}$ €.`
+  const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2, true)}$ € dans une boutique. Mais aujourd'hui le prix est de $${texNombre(prix1 + augmentation, 2, true)}$ €.
+Quel est le montant de l'augmentation ?`
+  const correction = `Le montant de l'augmentation est de $${texNombre(prix1 + augmentation, 2, true)}\\text{\\,€}-${texNombre(prix1, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(augmentation, 2, true))}$ €.`
   const probleme = new ProblemeTransfoTransfo('courses4', data)
   probleme.enonce = enonce
   probleme.correction = correction
   if (probleme.schema.topBraces == null || probleme.schema.topBraces.length === 0) {
     probleme.schema.topBraces = []
   }
-  probleme.schema.topBraces[0].text = `$${texNombre(prix1 + augmentation, 2)}\\text{ €}$`
-  probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2)}\\text{ €}$`
-  probleme.schema.lignes[0].barres[1].content = `$${miseEnEvidence(texNombre(augmentation, 2))}\\text{ €}$`
+  probleme.schema.topBraces[0].text = `$${texNombre(prix1 + augmentation, 2, true)}\\text{ €}$`
+  probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2, true)}\\text{ €}$`
+  probleme.schema.lignes[0].barres[1].content = `$${miseEnEvidence(texNombre(augmentation, 2, true))}\\text{ €}$`
   probleme.styleChampTexteMathlive = KeyboardType.college6eme
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(augmentation, 2)}`

@@ -49,7 +49,7 @@ export default class ProblemeMultiplicatifNbParts extends Probleme {
       bottomBraces: [{
         start: 1,
         end: 15,
-        text: `${nbFois} boites`,
+        text: `$${miseEnEvidence(nbFois.toString())}$ boites`,
         type: 'flèche'
       }]
     })

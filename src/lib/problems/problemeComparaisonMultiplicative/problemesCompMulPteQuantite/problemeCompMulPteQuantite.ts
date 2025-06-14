@@ -66,9 +66,9 @@ export default class ProblemeCompMulPteQuantite extends Probleme {
       ]
     })
 
-    this.enonce = `Un chocolatier vend ses chocolats selon deux types de conditionnement : en sachets ou en boites qui coûtent $${texNombre(data.nbFois, 0)}$ fois plus cher qu'un sachet.Le prix des boites est de $${texNombre(data.nb2, 2)}$ €.
-Quelle est le prix d'un sachet ?`
-    this.correction = `Le prix d'un sachet est $\\dfrac{${texNombre(data.nb2, 2)}}{${texNombre(data.nbFois, 0)}}=${miseEnEvidence(texNombre(nb1, 2))}$ €.`
+    this.enonce = `Un chocolatier vend ses chocolats selon deux types de conditionnement : en sachets ou en boites qui coûtent $${texNombre(data.nbFois, 0)}$ fois plus cher qu'un sachet. Le prix des boites est de $${texNombre(data.nb2, 2, true)}$ €.
+Quel est le prix d'un sachet ?`
+    this.correction = `Le prix d'un sachet est $\\dfrac{${texNombre(data.nb2, 2, true)}}{${texNombre(data.nbFois, 0)}}=${miseEnEvidence(texNombre(nb1, 2, true))}$ €.`
     this.reponse = texNombre(nb1, 2)
   }
 }
