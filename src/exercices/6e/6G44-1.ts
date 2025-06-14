@@ -26,7 +26,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import type { Latex2d } from '../../lib/2d/textes'
 
-export const titre = 'Reconnaître des solides'
+export const titre = 'Reconnaitre des solides'
 export const dateDePublication = '24/09/2022'
 export const dateDeModifImportante = '08/05/2023'
 export const interactifReady = true

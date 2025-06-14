@@ -9,14 +9,14 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Connaître les liens entre les unités de numération'
+export const titre = 'Connaitre les liens entre les unités de numération'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '12/05/2025'
 /**
- * Connaître les liens entre les unités de numération : unité, dizaine, centaine, millier, dixième, centième, millième
+ * Connaitre les liens entre les unités de numération : unité, dizaine, centaine, millier, dixième, centième, millième
  *
  * @author Eric Elter
 

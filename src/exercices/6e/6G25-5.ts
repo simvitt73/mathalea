@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '17/05/2025'
 
 /**
- * Reconnaître des figures symétriques par rapport à une droite donnée.
+ * Reconnaitre des figures symétriques par rapport à une droite donnée.
  * @author Jean-Claude Lhote
  */
 export const uuid = '528b2'

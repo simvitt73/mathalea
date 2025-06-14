@@ -23,7 +23,7 @@ export const dateDePublication = '08/10/2024'
 export const dateDeModifImportante = '11/06/2025'
 
 /**
- * Reconnaître une fonction affine
+ * Reconnaitre une fonction affine
 * @author Erwan Duplessy Remis au gout du jour et interactif par Jean-Claude Lhote
 * 3F23
 * date : 2021/02/21

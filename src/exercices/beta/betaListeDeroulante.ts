@@ -9,7 +9,7 @@ import '../../lib/interactif/listeDeroulante/listeDeroulante.scss'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import type { Repere } from '../../lib/2d/reperes'
 
-export const titre = 'Reconnaître une fonction d\'après sa courbe'
+export const titre = 'Reconnaitre une fonction d\'après sa courbe'
 export const interactifReady = true
 export const interactifType = 'custom'
 

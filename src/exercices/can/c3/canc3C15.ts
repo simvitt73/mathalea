@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Connaître les tables de multiplication (phrases)'
+export const titre = 'Connaitre les tables de multiplication (phrases)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
