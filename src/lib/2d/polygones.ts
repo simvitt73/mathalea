@@ -1869,7 +1869,7 @@ export class PatternNumerique {
     return this.cells.has(PatternNumerique.coordToKey([x, y]))
   }
 
-  iterate (this: PatternNumerique): Set<string> {
+  iterate (this: PatternNumerique, n?: number): Set<string> {
     return this.cells // cette méthode doit être modifiée pour créer un motif changeant.
   }
 
@@ -1887,7 +1887,7 @@ export class PatternNumerique {
     for (let i = 1; i < n; i++) {
       const newPattern = new PatternNumerique(cells)
       newPattern.iterate = this.iterate.bind(newPattern)
-      cells = newPattern.iterate()
+      cells = newPattern.iterate(n)
     }
     if (cells.size === 0) {
       return []
