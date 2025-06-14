@@ -11,7 +11,7 @@ import { tempsEcran } from './tempsEcran'
 /**
  * @author Jean-Claude Lhote
  */
-export default class ProblemePartageSimple extends Probleme {
+export default class ProblemeMultiplicatifParts extends Probleme {
   constructor (name: string = '', data?: { nbFois: number, quotité: number }) {
     const nbFois = data?.nbFois ?? randint(5, 12)
     const quotité = data?.quotité ?? randint(10, 40)
@@ -63,7 +63,7 @@ export default class ProblemePartageSimple extends Probleme {
   }
 }
 
-export const listeDeProblemesPartageSimple = [
+export const listeDeProblemesMultiplicatifsParts = [
   centreLoisir,
   chocolats,
   tempsEcran,

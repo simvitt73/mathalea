@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import { prenomPronom } from '../../../outils/Personne'
 import { texNombre } from '../../../outils/texNombre'
 import type Probleme from '../../Probleme'
-import ProblemePartageSimple from './problemesMultiplicatifsPart'
+import ProblemeMultiplicatifParts from './problemesMultiplicatifsPart'
 /**
  * @author Jean-Claude Lhote
  */
@@ -17,7 +17,7 @@ export function tempsEcran (decimal = false): Probleme {
   const data = { nbFois, quotité }
   const unité = decimal ? 'h' : 'min'
   const unitéComplète = decimal ? 'heures' : 'minutes'
-  const probleme = new ProblemePartageSimple('tempsEcran', data)
+  const probleme = new ProblemeMultiplicatifParts('tempsEcran', data)
   probleme.enonce = `Les parents de ${prenom} veulent limiter le temps d’écran par semaine à $${texNombre(total, 2)}$ ${unité}. Il est réparti équitablement entre $${texNombre(nbFois, 0)}$ jours. Combien ${decimal ? 'd\'heures' : 'de minutes'} par jour ${prenom} peut-${pronom} s'exposer à un écran ?`
   probleme.correction = `On répartit $${texNombre(total, 2)}$ ${unité} d’écran sur $${texNombre(nbFois, 0)}$ jours. Chaque jour, cela représente $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre(total / nbFois, 2))}$ ${unitéComplète}.`
   probleme.schema.topBraces = [{

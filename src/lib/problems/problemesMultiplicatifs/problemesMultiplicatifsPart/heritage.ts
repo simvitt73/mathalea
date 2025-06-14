@@ -2,7 +2,7 @@ import { randint } from '../../../../modules/outils'
 import { miseEnEvidence } from '../../../outils/embellissements'
 import { texNombre } from '../../../outils/texNombre'
 import type Probleme from '../../Probleme'
-import ProblemePartageSimple from './problemesMultiplicatifsPart'
+import ProblemeMultiplicatifParts from './problemesMultiplicatifsPart'
 /**
  * @author Jean-Claude Lhote
  */
@@ -11,7 +11,7 @@ export function heritage (decimal = false): Probleme {
   const quotité = decimal ? randint(200000, 1500000) / 100 : randint(200, 1500) * 10
   const total = nbFois * quotité
   const data = { nbFois, quotité }
-  const probleme = new ProblemePartageSimple('heritage', data)
+  const probleme = new ProblemeMultiplicatifParts('heritage', data)
   probleme.enonce = `Lors d'un héritage, une somme de $${texNombre(total, 2)}\\text{\\,€}$ est partagée équitablement entre $${texNombre(nbFois, 0)}$ héritiers. Combien chacun recevra-t-il ?`
   probleme.correction = `On partage $${texNombre(total, 2)}\\text{\\,€}$ entre $${texNombre(nbFois, 0)}$ héritiers. Chacun recevra $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre(total / nbFois, 2))}$ euros.`
   probleme.schema.topBraces = [{

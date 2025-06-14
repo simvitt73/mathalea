@@ -2,20 +2,21 @@ import { randint } from '../../../../modules/outils'
 import { miseEnEvidence } from '../../../outils/embellissements'
 import { texNombre } from '../../../outils/texNombre'
 import type Probleme from '../../Probleme'
-import ProblemeMultiplicatifParts from './problemesMultiplicatifsPart'
+import ProblemeMultiplicatifNbParts from './problemesMultiplcatifsNbParts'
 /**
  * @author Jean-Claude Lhote
  */
-export function chocolats (decimal = false): Probleme {
+export function chocolats2 (decimal = false): Probleme {
   const nbFois = randint(5, 12)
   const quotité = decimal ? randint(3, 9) / 20 : randint(3, 9) * 50
   const total = nbFois * quotité
   const data = { nbFois, quotité }
   const unité = decimal ? 'kg' : 'g'
   const unitéComplète = decimal ? 'kilogrammes' : 'grammes'
-  const probleme = new ProblemeMultiplicatifParts('chocolats', data)
-  probleme.enonce = `Une boîte contient $${texNombre(total, 2)}$ ${unité} de chocolats. On veut la partager équitablement dans $${texNombre(nbFois, 0)}$ boites. Quelle masse doit-on mettre dans chaque boites ?`
-  probleme.correction = `On cherche à répartir $${texNombre(total, 2)}$ ${unité} dans ${nbFois} boites. Donc, il y a $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 2)}}=${miseEnEvidence(texNombre(total / nbFois, 2))}$ ${unitéComplète} par boite.`
+  const probleme = new ProblemeMultiplicatifNbParts('chocolats2', data)
+  probleme.enonce = `Un chocolatier a produit $${texNombre(total, 2)}$ ${unitéComplète} de chocolats. Il veut la répartir équitablement dans des boites de $${texNombre(quotité, 3)}$ ${unité}. Combien de boites pourra-t-il faire ?`
+  probleme.correction = `On cherche à répartir $${texNombre(total, 2)}$ ${unitéComplète} dans des boites de $${texNombre(quotité, 3)}$ ${unité}. Donc, il y a $\\dfrac{${texNombre(total, 2)}}{${texNombre(quotité, 3)}}=${miseEnEvidence(texNombre(total / quotité, 0))}$ boites.`
+  probleme.reponse = texNombre(total / quotité, 0)
   probleme.schema.topBraces = [{
     start: 1,
     end: 15,
@@ -25,7 +26,7 @@ export function chocolats (decimal = false): Probleme {
     {
       barres: [
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,${unité}}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,${unité}}$`,
           length: 3,
           color: 'lightgray'
         },
@@ -38,7 +39,7 @@ export function chocolats (decimal = false): Probleme {
           }
         },
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,${unité}}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,${unité}}$`,
           length: 3,
           color: 'lightgray'
         }

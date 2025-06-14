@@ -2,7 +2,7 @@ import { randint } from '../../../../modules/outils'
 import { miseEnEvidence } from '../../../outils/embellissements'
 import { texNombre } from '../../../outils/texNombre'
 import type Probleme from '../../Probleme'
-import ProblemePartageSimple from './problemesMultiplicatifsPart'
+import ProblemeMultiplicatifParts from './problemesMultiplicatifsPart'
 /**
  * @author Jean-Claude Lhote
  */
@@ -11,7 +11,7 @@ export function musique (decimal = false): Probleme {
   const quotité = decimal ? randint(21, 55, [30, 40, 50]) / 10 : randint(2, 6)
   const total = nbFois * quotité
   const data = { nbFois, quotité }
-  const probleme = new ProblemePartageSimple('musique', data)
+  const probleme = new ProblemeMultiplicatifParts('musique', data)
   probleme.enonce = `Un morceau de musique dure $${texNombre(total, 2)}$ minutes. Il est divisé en $${texNombre(nbFois, 0)}$ parties égales. Quelle est la durée d’une partie ?`
   probleme.correction = `On divise $${texNombre(total, 2)}$ minutes en $${texNombre(nbFois, 0)}$ parties. Chaque partie dure $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre(total / nbFois, 2))}$ minutes.`
   probleme.schema.topBraces = [{

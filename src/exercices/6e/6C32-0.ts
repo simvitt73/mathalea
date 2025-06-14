@@ -7,7 +7,7 @@ import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { listeDeProblemesAdditifsPart } from '../../lib/problems/problemesAdditifs/problemesAdditifsPart/problemesAdditifsPart'
 import { listeDeProblemesMultiplicatifs } from '../../lib/problems/problemesMultiplicatifs/problemeMultiplicatifsTout/problemesMultiplicatifsTout'
-import { listeDeProblemesPartageSimple } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsPart/problemesMultiplicatifsPart'
+import { listeDeProblemesMultiplicatifsParts } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsPart/problemesMultiplicatifsPart'
 // import { listeDeProblemesPartageAvecResteRetire } from '../../lib/problems/problemesMultiplicatifs/ProblemesPartageAvecResteRetire/promblemePartageAvecResteRetire'
 // import { listeDeProblemesMultiplicatifsComplexes } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsComplexes/problemesMultiplicatifsComplexes'
 import { listeDeProblemesCompAddEcart } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddEcart/problemesCompAddEcart'
@@ -16,6 +16,11 @@ import { listeDeProblemesCompAddPteQuantite } from '../../lib/problems/problemes
 import { listeDeProblemesTransfoApres } from '../../lib/problems/problemesTransformations/problemesTransfoApres/problemesTransfoApres'
 import { listeDeProblemesTransfoTransfo } from '../../lib/problems/problemesTransformations/problemesTransfoTransfo/problemesTransofTransfo'
 import { listeDeProblemesTransfoAvant } from '../../lib/problems/problemesTransformations/problemesTransfoAvant/problemesTransfoAvant'
+import { listeDeProblemesMultiplicatifsNbParts } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsNbParts/problemesMultiplcatifsNbParts'
+import { listeDeProblemesCompMulTout } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulTout/problemeCompMulTout'
+import { listeDeProblemesCompMulNbParts } from '../../lib/problems/problemeComparaisonMultiplicative/problemeCompMulNbParts/problemeCompMulNbParts'
+import { listeDeProblemesCompMulGdeQuantite } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulGdeQuantite/problemeCompMulGdeQuantite'
+import { listeDeProblemesCompMulPteQuantite } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulPteQuantite/problemeCompMulPteQuantite'
 
 export const dateDePublication = '06/06/2025'
 export const interactifType = 'mathLive'
@@ -46,26 +51,23 @@ export default class ProblemesVaries extends Exercice {
 8 : Comparaison additive recherche écart\n
 9 : Multiplicatif recherche du tout (fait)\n
 10 : Multiplicatif recherche de la valeur d'une part (fait)\n
-11 : Mélange`]
-    /*
 11: Multiplicatif recherche du nombre de part\n
 12 : Comparaison multiplicative recherche grande quantité\n
 13 : Comparaison multiplicative recherche petite quantité\n
 14 : Comparaison multiplicative recherche du tout\n
 15 : Comparaison multiplicative recherche du nombre de fois\n
 16  : Mélange`]
-*/
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux si possible', false]
     this.sup2 = false // pour l'instant pas de décimaux quasiment dans les problèmes
-    this.sup = '6-7'
+    this.sup = '16'
   }
 
   nouvelleVersion () {
-    const typesDeProblemes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, defaut: 11, melange: 11, nbQuestions: this.nbQuestions }).map(Number)
+    const typesDeProblemes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 15, defaut: 16, melange: 16, nbQuestions: this.nbQuestions }).map(Number)
     const problemesAdditifsTout = combinaisonListes(listeDeProblemesAdditifsTout, this.nbQuestions)
     const problemesAdditifsPart = combinaisonListes(listeDeProblemesAdditifsPart, this.nbQuestions)
     const problemesMultiplicatifs = combinaisonListes(listeDeProblemesMultiplicatifs, this.nbQuestions)
-    const problemesPartageSimple = combinaisonListes(listeDeProblemesPartageSimple, this.nbQuestions)
+    const problemesPartageSimple = combinaisonListes(listeDeProblemesMultiplicatifsParts, this.nbQuestions)
     // const problemesPartageAvecResteRetire = combinaisonListes(listeDeProblemesPartageAvecResteRetire, this.nbQuestions)
     //  const problemesComplexes = combinaisonListes(listeDeProblemesMultiplicatifsComplexes, this.nbQuestions)
     const problemesCompAddEcart = combinaisonListes(listeDeProblemesCompAddEcart, this.nbQuestions)
@@ -74,6 +76,11 @@ export default class ProblemesVaries extends Exercice {
     const problemesTransoApres = combinaisonListes(listeDeProblemesTransfoApres, this.nbQuestions)
     const problemesTransfoTransfo = combinaisonListes(listeDeProblemesTransfoTransfo, this.nbQuestions)
     const problemesTransoAvant = combinaisonListes(listeDeProblemesTransfoAvant, this.nbQuestions)
+    const problemesMultiplicatifsNbParts = combinaisonListes(listeDeProblemesMultiplicatifsNbParts, this.nbQuestions)
+    const problemesCompMulTout = combinaisonListes(listeDeProblemesCompMulTout, this.nbQuestions)
+    const problemesCompMulNbParts = combinaisonListes(listeDeProblemesCompMulNbParts, this.nbQuestions)
+    const problemesCompMulGdeQuantite = combinaisonListes(listeDeProblemesCompMulGdeQuantite, this.nbQuestions)
+    const problemesCompMulPteQuantite = combinaisonListes(listeDeProblemesCompMulPteQuantite, this.nbQuestions)
     const fonctionsProblemes = []
     let indexP1 = 0
     let indexP2 = 0
@@ -85,12 +92,12 @@ export default class ProblemesVaries extends Exercice {
     let indexP8 = 0
     let indexP9 = 0
     let indexP10 = 0
-    /* const indexP11 = 0
-    const indexP12 = 0
-    const indexP13 = 0
-    const indexP14 = 0
-    const indexP15 = 0
-*/
+    let indexP11 = 0
+    let indexP12 = 0
+    let indexP13 = 0
+    let indexP14 = 0
+    let indexP15 = 0
+
     for (let i = 0; i < this.nbQuestions; i++) {
       switch (typesDeProblemes[i]) {
         case 1:
@@ -130,15 +137,29 @@ export default class ProblemesVaries extends Exercice {
           indexP9++
           break
         case 10:
-          fonctionsProblemes.push(problemesPartageSimple[indexP10 % listeDeProblemesPartageSimple.length])
+          fonctionsProblemes.push(problemesPartageSimple[indexP10 % listeDeProblemesMultiplicatifsParts.length])
           indexP10++
           break
         case 11:
+          fonctionsProblemes.push(problemesMultiplicatifsNbParts[indexP11 % listeDeProblemesMultiplicatifsNbParts.length])
+          indexP11++
+          break
         case 12:
+          fonctionsProblemes.push(problemesCompMulGdeQuantite[indexP12 % listeDeProblemesCompMulGdeQuantite.length])
+          indexP12++
+          break
         case 13:
+          fonctionsProblemes.push(problemesCompMulPteQuantite[indexP13 % listeDeProblemesCompMulPteQuantite.length])
+          indexP13++
+          break
         case 14:
+          fonctionsProblemes.push(problemesCompMulTout[indexP14 % listeDeProblemesCompMulTout.length])
+          indexP14++
+          break
         case 15:
         default:
+          fonctionsProblemes.push(problemesCompMulNbParts[indexP15 % listeDeProblemesCompMulNbParts.length])
+          indexP15++
           break
       }
     }
