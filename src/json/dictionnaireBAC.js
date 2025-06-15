@@ -2882,4 +2882,41 @@ export const dictionnaireBAC = {
     tags: ['']
   },
 
+  bac_2025_06_sujet2_etrangers_1: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_etrangers_2: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_etrangers_3: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_etrangers_4: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+
 }
