@@ -1,7 +1,7 @@
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { listeDeProblemesAdditifsTout } from '../../lib/problems/problemesAdditifs/problemesAdditifsTout/problemesAdditifsTout'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -60,27 +60,30 @@ export default class ProblemesVaries extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux si possible', false]
     this.sup2 = false // pour l'instant pas de décimaux quasiment dans les problèmes
     this.sup = '16'
+    this.besoinFormulaire3CaseACocher = ['Liste de problèmes originale', false]
+    this.sup3 = false
   }
 
   nouvelleVersion () {
+    const fonctionCombinaison = this.sup3 ? combinaisonListesSansChangerOrdre : combinaisonListes
     const typesDeProblemes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 15, defaut: 16, melange: 16, nbQuestions: this.nbQuestions }).map(Number)
-    const problemesAdditifsTout = combinaisonListes(listeDeProblemesAdditifsTout, this.nbQuestions)
-    const problemesAdditifsPart = combinaisonListes(listeDeProblemesAdditifsPart, this.nbQuestions)
-    const problemesMultiplicatifs = combinaisonListes(listeDeProblemesMultiplicatifs, this.nbQuestions)
-    const problemesPartageSimple = combinaisonListes(listeDeProblemesMultiplicatifsParts, this.nbQuestions)
-    // const problemesPartageAvecResteRetire = combinaisonListes(listeDeProblemesPartageAvecResteRetire, this.nbQuestions)
-    //  const problemesComplexes = combinaisonListes(listeDeProblemesMultiplicatifsComplexes, this.nbQuestions)
-    const problemesCompAddEcart = combinaisonListes(listeDeProblemesCompAddEcart, this.nbQuestions)
-    const problemesCompAddGdeQuantite = combinaisonListes(listeDeProblemesCompAddGdeQuantite, this.nbQuestions)
-    const problemesCompAddPteQuantite = combinaisonListes(listeDeProblemesCompAddPteQuantite, this.nbQuestions)
-    const problemesTransoApres = combinaisonListes(listeDeProblemesTransfoApres, this.nbQuestions)
-    const problemesTransfoTransfo = combinaisonListes(listeDeProblemesTransfoTransfo, this.nbQuestions)
-    const problemesTransoAvant = combinaisonListes(listeDeProblemesTransfoAvant, this.nbQuestions)
-    const problemesMultiplicatifsNbParts = combinaisonListes(listeDeProblemesMultiplicatifsNbParts, this.nbQuestions)
-    const problemesCompMulTout = combinaisonListes(listeDeProblemesCompMulTout, this.nbQuestions)
-    const problemesCompMulNbParts = combinaisonListes(listeDeProblemesCompMulNbParts, this.nbQuestions)
-    const problemesCompMulGdeQuantite = combinaisonListes(listeDeProblemesCompMulGdeQuantite, this.nbQuestions)
-    const problemesCompMulPteQuantite = combinaisonListes(listeDeProblemesCompMulPteQuantite, this.nbQuestions)
+    const problemesAdditifsTout = fonctionCombinaison(listeDeProblemesAdditifsTout, this.nbQuestions)
+    const problemesAdditifsPart = fonctionCombinaison(listeDeProblemesAdditifsPart, this.nbQuestions)
+    const problemesMultiplicatifs = fonctionCombinaison(listeDeProblemesMultiplicatifs, this.nbQuestions)
+    const problemesPartageSimple = fonctionCombinaison(listeDeProblemesMultiplicatifsParts, this.nbQuestions)
+    // const problemesPartageAvecResteRetire = fonctionCombinaison(listeDeProblemesPartageAvecResteRetire, this.nbQuestions)
+    //  const problemesComplexes = fonctionCombinaison(listeDeProblemesMultiplicatifsComplexes, this.nbQuestions)
+    const problemesCompAddEcart = fonctionCombinaison(listeDeProblemesCompAddEcart, this.nbQuestions)
+    const problemesCompAddGdeQuantite = fonctionCombinaison(listeDeProblemesCompAddGdeQuantite, this.nbQuestions)
+    const problemesCompAddPteQuantite = fonctionCombinaison(listeDeProblemesCompAddPteQuantite, this.nbQuestions)
+    const problemesTransoApres = fonctionCombinaison(listeDeProblemesTransfoApres, this.nbQuestions)
+    const problemesTransfoTransfo = fonctionCombinaison(listeDeProblemesTransfoTransfo, this.nbQuestions)
+    const problemesTransoAvant = fonctionCombinaison(listeDeProblemesTransfoAvant, this.nbQuestions)
+    const problemesMultiplicatifsNbParts = fonctionCombinaison(listeDeProblemesMultiplicatifsNbParts, this.nbQuestions)
+    const problemesCompMulTout = fonctionCombinaison(listeDeProblemesCompMulTout, this.nbQuestions)
+    const problemesCompMulNbParts = fonctionCombinaison(listeDeProblemesCompMulNbParts, this.nbQuestions)
+    const problemesCompMulGdeQuantite = fonctionCombinaison(listeDeProblemesCompMulGdeQuantite, this.nbQuestions)
+    const problemesCompMulPteQuantite = fonctionCombinaison(listeDeProblemesCompMulPteQuantite, this.nbQuestions)
     const fonctionsProblemes = []
     let indexP1 = 0
     let indexP2 = 0

@@ -37,18 +37,18 @@ export default class ProblemeMultiplicatifs extends Probleme {
           barres: data.nbFois < 8
             ? [
                 {
-                  content: `$${data.facteur}$`,
+                  content: `$${texNombre(data.facteur, 2)}$`,
                   length: 2,
                   color: 'lightgray'
                 },
                 ...Array.from({ length: data.nbFois - 1 }, () => ({
-                  content: '$\\ldots$',
+                  content: `$${texNombre(data.facteur, 2)}$`,
                   length: 2,
                   color: 'lightgray'
                 }))
               ]
             : [{
-                content: `$${data.facteur}$`,
+                content: `$${texNombre(data.facteur, 2)}$`,
                 length: 2,
                 color: 'lightgray'
               },

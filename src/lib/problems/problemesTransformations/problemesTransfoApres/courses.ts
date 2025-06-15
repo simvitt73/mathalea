@@ -25,18 +25,18 @@ export function courses3 (decimal = true): Probleme {
     augmentation = randint(1, Math.ceil(prix1 * 0.05))
   }
   const data = { nb1: prix1, nb2: augmentation }
-  const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2)}$ € dans une boutique. Mais aujourd'hui le prix à augmenté de $${texNombre(augmentation, 2)}$ €.
+  const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2, true)}$ € dans une boutique. Mais aujourd'hui le prix a augmenté de $${texNombre(augmentation, 2, true)}$ €.
 Combien ${personnage.prenom} doit-${personnage.pronom} dépenser aujourd'hui ?`
-  const correction = `Aujourd'hui, le prix de ${objet.nom} est de $${texNombre(prix1, 2)}\\text{\\,€}+${texNombre(augmentation, 2)}\\text{\\,€} = ${miseEnEvidence(texNombre(prix1 + augmentation, 2))}$ €.`
+  const correction = `Aujourd'hui, le prix d'${objet.nom} est de $${texNombre(prix1, 2, true)}\\text{\\,€}+${texNombre(augmentation, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}$ €.`
   const probleme = new ProblemeTransfoApres('courses3', data)
   probleme.enonce = enonce
   probleme.correction = correction
   if (probleme.schema.topBraces == null || probleme.schema.topBraces.length === 0) {
     probleme.schema.topBraces = []
   }
-  probleme.schema.topBraces[0].text = `$${miseEnEvidence(texNombre(prix1 + augmentation, 2))}\\text{ €}$`
-  probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2)}\\text{ €}$`
-  probleme.schema.lignes[0].barres[1].content = `$${texNombre(augmentation, 2)}\\text{ €}$`
+  probleme.schema.topBraces[0].text = `$${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}\\text{ €}$`
+  probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2, true)}\\text{ €}$`
+  probleme.schema.lignes[0].barres[1].content = `$${texNombre(augmentation, 2, true)}\\text{ €}$`
   probleme.styleChampTexteMathlive = KeyboardType.college6eme
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(prix1 + augmentation, 2)}`

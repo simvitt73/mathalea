@@ -22,6 +22,13 @@ export function decoupe1 (decimal = false): Probleme {
   probleme.correction = correction
   probleme.schema.lignes[0].barres[0].content = `$${texNombre(longueur, 1)}$ cm`
   probleme.schema.lignes[1].barres[0].content = `$${texNombre(nbFois * longueur, 1)}\\text{ cm}$`
+  if (nbFois < 8) {
+    probleme.schema.lignes[0].barres.forEach((barre, index) => {
+      if (index > 0) {
+        barre.content = `$${texNombre(longueur, 1)}$ cm`
+      }
+    })
+  }
 
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.reponse = `${texNombre(nbFois * longueur, 1)}cm`
