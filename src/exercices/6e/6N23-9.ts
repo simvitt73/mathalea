@@ -137,9 +137,11 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
           : ' $\\ldots\\ldots\\ldots$ ' + unites[binomesConversion[i][1]]
         handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
+        const texteApres = binomesConversion[i][1] < 4 ? unites[binomesConversion[i][1]] : (`$\\times ${unitesNumeriques[binomesConversion[i][1]]}$`)
         texte = '$' + unitesNumeriques[binomesConversion[i][0]] + ' =$'
-        texteCorr = texte + ` $${miseEnEvidence(texNombre(reponse))}$ ` + (reponse > 1 ? unites[binomesConversion[i][1]] : unites[binomesConversion[i][1]].slice(0, -1))
-        const texteApres = binomesConversion[i][1] < 4 ? unites[binomesConversion[i][1]] : `$${unitesNumeriques[binomesConversion[i][1]]}$`
+        texteCorr = texte
+        if (binomesConversion[i][1] > 3) { texteCorr += ` $${miseEnEvidence(texNombre(reponse))}$ ` + texteApres + '$=$' }
+        texteCorr += ` $${miseEnEvidence(texNombre(reponse))}$ ` + (reponse > 1 ? unites[binomesConversion[i][1]] : unites[binomesConversion[i][1]].slice(0, -1))
 
         texte += this.interactif
           ? binomesConversion[i][1] > 3
