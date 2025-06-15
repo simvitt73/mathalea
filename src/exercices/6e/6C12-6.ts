@@ -369,7 +369,7 @@ export default class ProblèmesBalance extends Exercice {
 \\fill[yellow] (7.4,-0.2) rectangle +(1.2,1);
 \\pgfkeys{/pgf/number format/set decimal separator={,}}
 \\pgfkeys{/pgf/number format/set thousands separator={\\,}}
-\\node[black, font={\\small\\bfseries},anchor=center] at (8,0.3) {\\pgfmathprintnumber{\\masse}\\,g};
+\\node[black, font={\\small},anchor=center] at (8,0.3) {\\pgfmathprintnumber{\\masse}\\,g};
 
 \\end{tikzpicture}`
   }
