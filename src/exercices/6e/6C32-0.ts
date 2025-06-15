@@ -60,8 +60,7 @@ export default class ProblemesVaries extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux si possible', false]
     this.sup2 = false // pour l'instant pas de décimaux quasiment dans les problèmes
     this.sup = '16'
-    this.besoinFormulaire3CaseACocher = ['Liste de problèmes originale', false]
-    this.sup3 = false
+    this.sup3 = false // Ce paramètre permet de changer les problèmes choisis par type. Le mettre à true dans l'url pour avoir des problèmes qui ne changent pas d'ordre dans la liste (CDV)
   }
 
   nouvelleVersion () {
