@@ -2773,4 +2773,113 @@ export const dictionnaireBAC = {
     tags: ['Suites']
   },
 
+  bac_2025_06_sujet1_asie_1: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_asie_2: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_asie_3: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_asie_4: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_etrangers_1: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_etrangers_2: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_etrangers_3: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_etrangers_4: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_asie_1: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_asie_2: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_asie_3: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_asie_4: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+
 }
