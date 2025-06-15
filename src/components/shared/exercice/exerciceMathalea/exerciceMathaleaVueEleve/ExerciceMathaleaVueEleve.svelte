@@ -1,5 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  import { statsTracker } from '../../../../../modules/stats'
   import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
@@ -222,6 +223,7 @@
 
   function verifExerciceVueEleve () {
     log('verifExerciceVueEleve')
+    if (exercise.numeroExercice != null && !(exercise.isDone === true)) statsTracker(exercise, $globalOptions.recorder ?? '',$globalOptions.v ??'')
     exercise.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
     if (exercise.numeroExercice != null) {
