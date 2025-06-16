@@ -16,8 +16,8 @@ export function coureur1 (decimal = false): Probleme {
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
   const data = { nbFois: nbFoisParSemaine, facteur: nbKmParJour }
-  const enonce = `Pour entretenir sa bonne santé, ${personnage.prenom} court ${nbFoisParSemaine} jours par semaine. Chaque fois ${personnage.pronom} court $${texNombre(nbKmParJour, 1)}$ ${unite}. Combien de ${uniteComplete} parcourt-${personnage.pronom} au total chaque semaine ?`
-  const correction = `${personnage.prenom} court ${nbFoisParSemaine} jours par semaine. Chaque jour, ${personnage.pronom} court $${texNombre(nbKmParJour, 1)}$ ${unite}. Donc, au total, ${personnage.pronom} parcourt $${nbFoisParSemaine}\\times ${texNombre(nbKmParJour, 1)}\\text{ ${unite}}=${miseEnEvidence(texNombre(nbFoisParSemaine * nbKmParJour, 1))}$ ${uniteComplete} chaque semaine.`
+  const enonce = `Pour entretenir sa bonne santé, ${personnage.prenom} court ${nbFoisParSemaine} jours par semaine. Chaque fois ${personnage.pronom} court $${texNombre(nbKmParJour, 1)}$ ${uniteComplete}. Combien de ${uniteComplete} parcourt-${personnage.pronom} au total chaque semaine ?`
+  const correction = `${personnage.prenom} court ${nbFoisParSemaine} jours par semaine. Chaque jour, ${personnage.pronom} court $${texNombre(nbKmParJour, 1)}$ ${uniteComplete}. Donc, au total, ${personnage.pronom} parcourt $${nbFoisParSemaine}\\times ${texNombre(nbKmParJour, 1)}\\text{ ${unite}}=${miseEnEvidence(texNombre(nbFoisParSemaine * nbKmParJour, 1))}$ ${uniteComplete} chaque semaine.`
   const probleme = new ProblemeMultiplicatifs('coureur1', data)
   probleme.enonce = enonce
   probleme.correction = correction

@@ -15,7 +15,7 @@ export function coureur4 (decimal = true): Probleme {
   const data = { nb1, nb2 }
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
-  const enonce = `${personnage.prenom} a réalisé un trail de $${texNombre(nb1 + nb2, 3)}$ ${unite} au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché $${texNombre(nb2, 3)}$ ${uniteComplete}.
+  const enonce = `${personnage.prenom} a réalisé un trail de $${texNombre(nb1 + nb2, 3)}$ ${uniteComplete} au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché $${texNombre(nb2, 3)}$ ${uniteComplete}.
   Quelle est la différence entre la distance courue et celle marchée ?`
   const correction = `${personnage.prenom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché sur $${texNombre(nb2, 3)}$ ${uniteComplete}.
 ${personnage.prenom} a donc marché ${nb2 > nb1

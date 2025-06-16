@@ -15,7 +15,7 @@ export function coureur3 (decimal = true): Probleme {
   const data = { nb1, nb2 }
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
-  const enonce = `${personnage.prenom} a réalisé un trail de $${texNombre(nb1 + nb2, 3)}$ ${unite} au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché sur la distance restante.
+  const enonce = `${personnage.prenom} a réalisé un trail de $${texNombre(nb1 + nb2, 3)}$ ${uniteComplete} au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché sur la distance restante.
   Sur quelle distance a-t-${personnage.pronom} marché au cours de ce trail ?`
   const correction = `${personnage.prenom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} sur $${texNombre(nb2 + nb1, 3)}$ ${uniteComplete}.
   Donc, ${personnage.pronom} a marché sur $${texNombre(nb1 + nb2, 3)}\\text{ ${unite}}-${texNombre(nb1, 3)}\\text{ ${unite}}=${miseEnEvidence(texNombre(nb2, 3))}$ ${uniteComplete}.`
