@@ -44,6 +44,13 @@
     document.dispatchEvent(exercicesAffiches)
   })
 
+  function formatAnswer (question: string, answer: string) {
+    if (!answer) return 'aucune'
+    if (question.includes('checkbox')) return answer // Pour les QCM
+    if (question.includes('<select')) return answer // Pour les listeDeroulante
+    return '$' + cleanFillInTheBlanks(answer, false) + '$'
+  }
+
   function removeMF (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (text.includes('placeholder')) return cleanFillInTheBlanks(text, removeDollar)
@@ -109,9 +116,8 @@
             <span
               id="answer-{current}"
               class="text-coopmaths-warn-800 dark:text-coopmathsdark-warn font-bold"
-              >{answers[current] === undefined
-                ? 'aucune'
-                : ('$' + cleanFillInTheBlanks(answers[current]) + '$')}
+            >
+              {formatAnswer(questions[current], answers[current])}
             </span>
           </div>
         {/if}
@@ -223,7 +229,7 @@
                 id="answer-{i}"
                 class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
               >
-                {answers[i] === undefined ? 'aucune' : '$' + cleanFillInTheBlanks(answers[i]) + '$'}
+                {formatAnswer(questions[i], answers[i])}
               </span>
             </div>
           </div>
