@@ -57,14 +57,8 @@
     const regex = /<select[^>]*>[^]*?<\/select>/g
     return text.replace(regex, '')
   }
-
-  function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
-    if (typeof text !== 'string') return ''
-    if (removeDollar) text = text.replace(/\$/g, '')
-    return text.replace(/\\placeholder(\[[^\]]*\])+/g, '...')
-  }
   
-  function cleanFillInTheBlanksForAnswers (text: string, removeDollar: boolean = true) {
+  function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (removeDollar) text = text.replace(/\$/g, '')
     return text.replace(/\\placeholder(\[[^\]]*\])+/g, '').replace(/\{\}/g, '{...}')
@@ -229,7 +223,7 @@
                 id="answer-{i}"
                 class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
               >
-                {answers[i] === undefined ? 'aucune' : '$' + cleanFillInTheBlanksForAnswers(answers[i]) + '$'}
+                {answers[i] === undefined ? 'aucune' : '$' + cleanFillInTheBlanks(answers[i]) + '$'}
               </span>
             </div>
           </div>
