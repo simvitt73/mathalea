@@ -115,7 +115,7 @@
             Réponse donnée&nbsp;:&nbsp;
             <span
               id="answer-{current}"
-              class="text-coopmaths-warn-800 dark:text-coopmathsdark-warn font-bold"
+              class="text-coopmaths-warn-800 dark:text-coopmathsdark-warn font-medium"
             >
               {formatAnswer(questions[current], answers[current])}
             </span>
@@ -227,7 +227,7 @@
               Réponse donnée&nbsp;:&nbsp;
               <span
                 id="answer-{i}"
-                class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
+                class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-medium"
               >
                 {formatAnswer(questions[i], answers[i])}
               </span>
