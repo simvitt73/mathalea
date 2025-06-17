@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cube isométrique avec defs</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    svg {
+      background: white;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<svg id="svg" width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+    <!-- Face du dessus -->
+
+    <polygon id="face-top"
+      points="0,0 31.14,-20 0,-40 -31.14,-20"
+      fill="#eeeeee" stroke="black"/>
+
+    <!-- Face de gauche -->
+    <polygon id="face-left"
+      points="0,0 0,40 -31.14,20 -31.14,-20"
+      fill="#cccccc" stroke="black"/>
+
+    <!-- Face de droite -->
+    <polygon id="face-right"
+      points="0,0 31.14,-20 31.14,20 0,40"
+      fill="#aaaaaa" stroke="black"/>
+  </defs>
+
+</svg>
+
+<script>
+  const svg = document.getElementById("svg");
+  const svgNS = "http://www.w3.org/2000/svg";
+
+  const cubeSize = 1;
+  const offsetX = 250;
+  const offsetY = 250;
+  const angle = Math.PI / 6; // 30°
+
+ function projectIso(x, y, z) {
+  const cosA = Math.cos(angle);
+  const sinA = Math.sin(angle);
+  const px = (x * cosA - y * sinA) * cubeSize;
+  const py = -((x * sinA + y * cosA) * cubeSize * 0.5 - z * cubeSize);
+  return [px + offsetX, py + offsetY];
+}
+
+  function drawFace(id, x, y, z) {
+    const [px, py] = projectIso(x, y, z);
+    const use = document.createElementNS(svgNS, "use");
+    use.setAttributeNS("http://www.w3.org/1999/xlink", "href", `#${id}`);
+    use.setAttribute("transform", `translate(${px},${py}) scale(${cubeSize})`);
+    svg.appendChild(use);
+  }
+
+  function drawTop(x, y, z) {
+    drawFace("face-top", x, y, z);
+  }
+
+  function drawLeft(x, y, z) {
+    drawFace("face-left", x, y, z);
+  }
+
+  function drawRight(x, y, z) {
+    drawFace("face-right", x, y, z);
+  }
+
+  // Un seul cube à la position (0, 0, 0)
+  drawLeft(0, 0, 0);
+  drawRight(0, 0, 0);
+  drawTop(0, 0, 0);
+</script>
+
+</body>
+</html>

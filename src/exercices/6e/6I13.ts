@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { shapeCarre, shapeCarreArrondi, shapeChat, shapeCubeIso, shapeCubeIsoRot40, shapeEtoile4Branches, shapeSoleil } from '../../lib/2d/figures2d/shapes2d'
+import { chatDef, shapeCarre, shapeCarreArrondi, shapeChat, shapeCubeIso, shapeCubeIsoRot40, shapeEtoile4Branches, shapeSoleil, soleilDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternsPreDef, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -179,7 +179,24 @@ export default class PaternNum0 extends Exercice {
     let indexInteractif = 0
     for (let i = 0; i < this.nbQuestions;) {
       const pattern = patterns[i]
-      const objetsCorr = pattern.render(nbFigures + 1, 0, 0)
+      const objetsCorr: NestedObjetMathalea2dArray = pattern.shape.name === 'chat'
+        ? [chatDef]
+        : pattern.shape.name === 'soleil'
+          ? [soleilDef]
+          : pattern.shape.name === 'cube'
+            ? []
+            : pattern.shape.name === 'cube-rot10'
+              ? []
+              : pattern.shape.name === 'étoile'
+                ? []
+                : pattern.shape.name === 'carré arrondi'
+                  ? []
+                  : pattern.shape.name === 'carré'
+                    ? []
+                    : []
+      const rendered = pattern.render(nbFigures + 1, 0, 0)
+      objetsCorr.push(...rendered)
+
       let yMax = 0
       let yMin = 0
       let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs numériques. Ils évoluent selon des règles définies.<br>`
@@ -187,6 +204,11 @@ export default class PaternNum0 extends Exercice {
       const figures: NestedObjetMathalea2dArray[] = []
       for (let j = 1; j <= nbFigures; j++) {
         figures[j - 1] = []
+        if (pattern.shape.name === 'chat') {
+          figures[j - 1].push(chatDef)
+        } else if (pattern.shape.name === 'soleil') {
+          figures[j - 1].push(soleilDef)
+        }
         figures[j - 1].push(objet)
         const { xmax, ymax, xmin, ymin } = fixeBordures(objet, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
         figures[j - 1].push(texteParPosition(`Motif ${j}`, (xmax + xmin - 1) / 2, -1, 0, 'black', 0.8, 'milieu'))
@@ -195,9 +217,9 @@ export default class PaternNum0 extends Exercice {
         figures[j - 1].push(cadre)
         yMax = Math.max(yMax, ymax)
         yMin = Math.min(yMin, ymin)
-        objet = pattern.render(j + 1, xmax + 1, 0)
+        objet = pattern.render(j + 1, 0, 0)
       }
-      texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { pixelsParCm: arrondi(20 * 0.9 ** index, 2), yMax, yMin, scale: arrondi(0.4 * 0.9 ** index, 2), style: 'display: inline-block' }), fig)).join('\n')
+      texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { pixelsParCm: arrondi(20 * 0.9 ** index, 2), yMax, yMin, scale: arrondi(0.6 * 0.9 ** index, 2), style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n')
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
@@ -206,7 +228,7 @@ export default class PaternNum0 extends Exercice {
           case 1:
             listeQuestions.push(`\nDessiner le motif $${nbFigures + 1}$.<br>`)
             listeCorrections.push(`Voici le motif $${nbFigures + 1}$ :<br>
-              ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { scale: nbFigures === 3 ? 0.5 : 0.4 }), objetsCorr)}`)
+              ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { scale: 0.6 * 0.9 ** (nbFigures + 1), optionsTikz: 'transform shape' }), objetsCorr)}`)
             break
           case 2:{
             const nbFormes = pat[i].fonction(nbFigures + 1)
@@ -220,7 +242,7 @@ exercice: this,
             }
           )}`)
             listeCorrections.push(`Le motif $${nbFigures + 1}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shape.name[0]) ? 'd\'' : 'de '}${pattern.shape.name}s.<br>
-          ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -1, rymin: 0, rxmax: 0, rymax: 1 }), { scale: nbFigures === 3 ? 0.5 : 0.4 }), objetsCorr)}`)
+          ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -1, rymin: 0, rxmax: 0, rymax: 1 }), { scale: 0.6 * 0.9 ** (nbFigures + 1), optionsTikz: 'transform shape' }), objetsCorr)}`)
           }
             break
           case 3:{

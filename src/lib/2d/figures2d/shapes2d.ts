@@ -1,3 +1,4 @@
+import { ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { Shape2D } from '../Figures2D'
 
 /**
@@ -189,58 +190,19 @@ export function shapeChat (
     opacite?: number;
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || 'gray'
-  const strokeStyle = options?.strokeStyle || 'black'
-  const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
 
   // SVG: centré en (0,0), échelle *20
-  const svg = `
-    <g>
-      <!-- Tête -->
-      <ellipse cx="0" cy="-8" rx="7" ry="7" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-      <!-- Oreille gauche -->
-      <polygon points="-6,-13 -2,-13 -4,-19" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-      <!-- Oreille droite -->
-      <polygon points="2,-13 6,-13 4,-19" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-      <!-- Yeux -->
-      <ellipse cx="-2" cy="-9" rx="1" ry="1.5" fill="white" stroke="${strokeStyle}" stroke-width="0.5" />
-      <ellipse cx="2" cy="-9" rx="1" ry="1.5" fill="white" stroke="${strokeStyle}" stroke-width="0.5" />
-      <ellipse cx="-2" cy="-9" rx="0.4" ry="0.7" fill="black" />
-      <ellipse cx="2" cy="-9" rx="0.4" ry="0.7" fill="black" />
-      <!-- Nez -->
-      <ellipse cx="0" cy="-7" rx="0.7" ry="0.4" fill="pink" stroke="${strokeStyle}" stroke-width="0.3" />
-      <!-- Moustaches -->
-      <path d="M-1,-7 Q-4,-7.5 -7,-7" stroke="${strokeStyle}" stroke-width="0.5" fill="none" />
-      <path d="M-1,-6.5 Q-4,-6 -7,-6.5" stroke="${strokeStyle}" stroke-width="0.5" fill="none" />
-      <path d="M1,-7 Q4,-7.5 7,-7" stroke="${strokeStyle}" stroke-width="0.5" fill="none" />
-      <path d="M1,-6.5 Q4,-6 7,-6.5" stroke="${strokeStyle}" stroke-width="0.5" fill="none" />
-    </g>
-  `.trim()
+  const codeSvg = `
+   <use href="#chat"></use>`
 
   // TikZ : centré en (0,0), taille 1x1
   const codeTikz = `
-    % Tête
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (0,0.35) ellipse [x radius=0.35, y radius=0.35];
-    % Oreilles
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (-0.22,0.65) -- (-0.08,0.65) -- (-0.15,0.95) -- cycle;
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (0.08,0.65) -- (0.22,0.65) -- (0.15,0.95) -- cycle;
-    % Yeux
-    \\draw[fill=white, draw=${strokeStyle}, line width=0.2pt] (-0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
-    \\draw[fill=white, draw=${strokeStyle}, line width=0.2pt] (0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
-    \\fill[black] (-0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
-    \\fill[black] (0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
-    % Nez
-    \\draw[fill=pink, draw=${strokeStyle}, line width=0.1pt] (0,0.33) ellipse [x radius=0.035, y radius=0.02];
-    % Moustaches
-    \\draw[draw=${strokeStyle}, line width=0.2pt] (-0.03,0.33) .. controls (-0.15,0.36) .. (-0.3,0.33);
-    \\draw[draw=${strokeStyle}, line width=0.2pt] (-0.03,0.31) .. controls (-0.15,0.29) .. (-0.3,0.31);
-    \\draw[draw=${strokeStyle}, line width=0.2pt] (0.03,0.33) .. controls (0.15,0.36) .. (0.3,0.33);
-    \\draw[draw=${strokeStyle}, line width=0.2pt] (0.03,0.31) .. controls (0.15,0.29) .. (0.3,0.31);
+   \\pic at (0,0) {chat};
   `.trim()
 
   return new Shape2D({
-    codeSvg: svg,
+    codeSvg,
     codeTikz,
     width: 1,
     height: 1,
@@ -262,50 +224,14 @@ export function shapeSoleil (
     rayons?: number; // Nombre de rayons (par défaut 8)
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || 'yellow'
-  const strokeStyle = options?.strokeStyle || 'orange'
-  const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
-  const rayons = options?.rayons || 8
-
-  // Soleil centré, rayon du disque central
-  const r = 6 // rayon du cercle central (SVG)
-  const rExt = 10 // longueur des rayons (SVG)
-  const rInt = 7 // début des rayons (SVG)
-  const rays: string[] = []
-  for (let i = 0; i < rayons; i++) {
-    const angle = (2 * Math.PI * i) / rayons
-    const x1 = (rInt * Math.cos(angle)).toFixed(3)
-    const y1 = (rInt * Math.sin(angle)).toFixed(3)
-    const x2 = (rExt * Math.cos(angle)).toFixed(3)
-    const y2 = (rExt * Math.sin(angle)).toFixed(3)
-    rays.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />`)
-  }
 
   const codeSvg = `
-    <g>
-      <circle cx="0" cy="0" r="${r}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-      ${rays.join('\n')}
-    </g>
-  `.trim()
+   <use href="#soleil"></use>`
 
-  // TikZ : cercle central et rayons
-  const tikzR = 0.3
-  const tikzRInt = 0.35
-  const tikzRext = 0.5
-  const tikzRays: string[] = []
-  for (let i = 0; i < rayons; i++) {
-    const angle = (2 * Math.PI * i) / rayons
-    const x1 = (tikzRInt * Math.cos(angle)).toFixed(3)
-    const y1 = (tikzRInt * Math.sin(angle)).toFixed(3)
-    const x2 = (tikzRext * Math.cos(angle)).toFixed(3)
-    const y2 = (tikzRext * Math.sin(angle)).toFixed(3)
-    tikzRays.push(`\\draw[draw=${strokeStyle}, line width=${lineWidth}pt] (${x1},${y1}) -- (${x2},${y2});`)
-  }
-
+  // TikZ : centré en (0,0), taille 1x1
   const codeTikz = `
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (0,0) circle (${tikzR});
-    ${tikzRays.join('\n')}
+   \\pic at (0,0) {soleil};
   `.trim()
 
   return new Shape2D({
@@ -536,4 +462,102 @@ export function shapeCubeIsoRot40 (
     opacite,
     name: 'cube-rot10'
   })
+}
+
+export const chatDef = new ObjetMathalea2D()
+chatDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+chatDef.svg = function (coeff: number): string {
+  return `
+  <defs>
+ 
+<!-- Un chat stylisé -->
+ <g id="chat">
+  <g transform="scale(${coeff})">
+      <!-- Tête -->
+      <ellipse cx="0" cy="-8" rx="7" ry="7" fill="gray" stroke="black" stroke-width="1" />
+      <!-- Oreille gauche -->
+      <polygon points="-6,-13 -2,-13 -4,-19" fill="gray" stroke="black" stroke-width="1" />
+      <!-- Oreille droite -->
+      <polygon points="2,-13 6,-13 4,-19" fill="gray" stroke="black" stroke-width="1" />
+      <!-- Yeux -->
+      <ellipse cx="-2" cy="-9" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
+      <ellipse cx="2" cy="-9" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
+      <ellipse cx="-2" cy="-9" rx="0.4" ry="0.7" fill="black" />
+      <ellipse cx="2" cy="-9" rx="0.4" ry="0.7" fill="black" />
+      <!-- Nez -->
+      <ellipse cx="0" cy="-7" rx="0.7" ry="0.4" fill="pink" stroke="black" stroke-width="0.3" />
+      <!-- Moustaches -->
+      <path d="M-1,-7 Q-4,-7.5 -7,-7" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M-1,-6.5 Q-4,-6 -7,-6.5" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M1,-7 Q4,-7.5 7,-7" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M1,-6.5 Q4,-6 7,-6.5" stroke="black" stroke-width="0.5" fill="none" />
+    </g>
+  </g>
+  </defs>`
+}
+chatDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   chat/.pic = {
+    % Tête
+    \\draw[fill=gray, draw=black, line width=1pt] (0,0.35) ellipse [x radius=0.35, y radius=0.35];
+    % Oreilles
+    \\draw[fill=gray, draw=black, line width=1pt] (-0.22,0.65) -- (-0.08,0.65) -- (-0.15,0.95) -- cycle;
+    \\draw[fill=gray, draw=black, line width=1pt] (0.08,0.65) -- (0.22,0.65) -- (0.15,0.95) -- cycle;
+    % Yeux
+    \\draw[fill=white, draw=black, line width=0.2pt] (-0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
+    \\draw[fill=white, draw=black, line width=0.2pt] (0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
+    \\fill[black] (-0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
+    \\fill[black] (0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
+    % Nez
+    \\draw[fill=pink, draw=black, line width=0.1pt] (0,0.33) ellipse [x radius=0.035, y radius=0.02];
+    % Moustaches
+    \\draw[draw=black, line width=0.2pt] (-0.03,0.33) .. controls (-0.15,0.36) .. (-0.3,0.33);
+    \\draw[draw=black, line width=0.2pt] (-0.03,0.31) .. controls (-0.15,0.29) .. (-0.3,0.31);
+    \\draw[draw=black, line width=0.2pt] (0.03,0.33) .. controls (0.15,0.36) .. (0.3,0.33);
+    \\draw[draw=black, line width=0.2pt] (0.03,0.31) .. controls (0.15,0.29) .. (0.3,0.31);
+    }
+} 
+  `.trim()
+}
+
+export const soleilDef = new ObjetMathalea2D()
+soleilDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+soleilDef.svg = function (coeff: number): string {
+  return `
+  <defs>
+  <g transform="scale(${coeff})">
+    <g id="soleil">
+      <!-- Cercle central -->
+      <circle cx="0" cy="0" r="6" fill="yellow" stroke="orange" stroke-width="1" />
+      <!-- Rayons -->
+      <line x1="0" y1="-6" x2="0" y2="-10" stroke="orange" stroke-width="1" />
+      <line x1="0" y1="6" x2="0" y2="10" stroke="orange" stroke-width="1" />  
+      <line x1="-6" y1="0" x2="-10" y2="0" stroke="orange" stroke-width="1" />
+      <line x1="6" y1="0" x2="10" y2="0" stroke="orange" stroke-width="1" />
+      <line x1="-4.24" y1="-4.24" x2="-7.07" y2="-7.07" stroke="orange" stroke-width="1" />
+      <line x1="4.24" y1="-4.24" x2="7.07" y2="-7.07" stroke="orange" stroke-width="1" />
+      <line x1="-4.24" y1="4.24" x2="-7.07" y2="7.07" stroke="orange" stroke-width="1" />
+      <line x1="4.24" y1="4.24" x2="7.07" y2="7.07" stroke="orange" stroke-width="1" />
+    </g>
+  </g>
+  </defs>`
+}
+soleilDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   soleil/.pic = {
+    % Cercle central
+    \\draw[fill=yellow, draw=orange, line width=1pt] (0,0) circle (0.3);
+    % Rayons
+    \\draw[draw=orange, line width=1pt] (0,0.3) -- (0,0.5);
+    \\draw[draw=orange, line width=1pt] (0,-0.3) -- (0,-0.5);
+    \\draw[draw=orange, line width=1pt] (-0.3,0) -- (-0.5,0);
+    \\draw[draw=orange, line width=1pt] (0.3,0) -- (0.5,0);
+    \\draw[draw=orange, line width=1pt] (-0.212,-0.212) -- (-0.353,-0.353);
+    \\draw[draw=orange, line width=1pt] (0.212,-0.212) -- (0.353,-0.353);
+    \\draw[draw=orange, line width=1pt] (-0.212,0.212) -- (-0.353,0.353);
+    \\draw[draw=orange, line width=1pt] (0.212,0.212) -- (0.353,0.353);
+   }
+  }`.trim()
 }
