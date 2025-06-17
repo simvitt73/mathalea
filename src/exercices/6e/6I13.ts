@@ -107,7 +107,6 @@ export default class PaternNum0 extends Exercice {
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
     // this.besoinFormulaire2Texte = ['Types de motifs', 'Nombres séparés par des tirets\n1: Motifs prédéfinis (nombre limité de cas)\n2 : Motifs aléatoires (plus de variété)\n3 : Mélange (jusqu’à épuisement des motifs prédéfinis)']
-    this.sup2 = '1'
     this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Mélange']
     this.sup3 = '6'
     this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Motif 42 (nombre)\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 4 précédentes']
@@ -115,10 +114,10 @@ export default class PaternNum0 extends Exercice {
   }
 
   nouvelleVersion (): void {
+    const listePreDef = shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length))
     const nbFigures = Math.max(2, this.sup)
     // const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
     const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 5, defaut: 6, melange: 6, nbQuestions: this.nbQuestions }).map(Number)
-    const listePreDef = shuffle(listePatternsPreDef)
     const patterns : PatternNumerique[] = []
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
     const pat: PatternRiche[] = []
