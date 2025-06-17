@@ -116,7 +116,7 @@ export class Shape2D extends ObjetMathalea2D {
   }
 
   svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>`
+    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x * coeff / 20},${this.scale.y * coeff / 20}) rotate(${-this.angle})">${this.codeSvg}</g>`
   }
 
   tikz () {

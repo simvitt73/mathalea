@@ -375,7 +375,6 @@ export function shapeCubeIso (
     opacite?: number;
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || '#b0c4de'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
@@ -425,33 +424,22 @@ export function shapeCubeIso (
     `<polygon points="${face.map(idx => vertices2D[idx].map(n => n.toFixed(3)).join(',')).join(' ')}" fill="${faceColors[i]}" fill-opacity="${opacite}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />`
   ).join('\n').trim()
 
-  // Arêtes visibles
-  const edges = [
-    [0, 1], [1, 2], [2, 3], [3, 0], // base
-    [4, 5], [5, 6], [6, 7], [7, 4], // top
-    [0, 4], [1, 5], [2, 6], [3, 7]  // verticals
-  ]
-
   // TikZ version
   // On utilise les mêmes coordonnées projetées, ramenées à [-0.5,0.5]
   const verticesTikz = vertices3D.map(v => {
     const [x, y] = project(v)
-    return [x, y]
+    return [x, -y]
   })
   function tikzPoint (idx: number) {
     const [x, y] = verticesTikz[idx]
     return `(${x.toFixed(3)},${y.toFixed(3)})`
   }
-  const tikzPolygons = faces.map(face =>
-    `\\filldraw[fill=${fillStyle}, fill opacity=${opacite}, draw=${strokeStyle}, line width=${lineWidth}pt] ${face.map(tikzPoint).join(' -- ')} -- cycle;`
-  ).join('\n')
-  const tikzLines = edges.map(([a, b]) =>
-    `\\draw[draw=${strokeStyle}, line width=${lineWidth}pt] ${tikzPoint(a)} -- ${tikzPoint(b)};`
+  const tikzPolygons = faces.map((face, i) =>
+    `\\filldraw[fill=${faceColors[i]}, fill opacity=${opacite}, draw=${strokeStyle}, line width=${lineWidth}pt] ${face.map(tikzPoint).join(' -- ')} -- cycle;`
   ).join('\n')
 
   const codeTikz = `
     ${tikzPolygons}
-    ${tikzLines}
   `.trim()
 
   return new Shape2D({
@@ -461,5 +449,91 @@ export function shapeCubeIso (
     height: 2,
     opacite,
     name: 'cube'
+  })
+}
+/**
+ * Génère une figure représentant un cube en projection axonométrique centré en (0,0), taille 1x1,
+ * mais tourné de 10 degrés dans le sens horaire autour de l'axe z.
+ * @param options Options pour personnaliser le style du cube.
+ * @returns Une instance de Shape2D représentant un cube tourné.
+ */
+export function shapeCubeIsoRot40 (
+  options?: {
+    fillStyle?: string;
+    strokeStyle?: string;
+    lineWidth?: number;
+    opacite?: number;
+  }
+): Shape2D {
+  const strokeStyle = options?.strokeStyle || 'black'
+  const lineWidth = options?.lineWidth || 1
+  const opacite = options?.opacite || 1
+
+  // Projection isométrique
+  const cos40 = Math.cos(Math.PI * 2 / 9)
+  const sin40 = Math.sin(Math.PI * 2 / 9)
+  function project ([x, y, z]: [number, number, number]): [number, number] {
+    return [
+      (x - y) * cos40,
+      (x + y) * sin40 - z
+    ]
+  }
+
+  // Sommets du cube
+  const vertices3D: [number, number, number][] = [
+    [-0.5, -0.5, -0.5],
+    [0.5, -0.5, -0.5],
+    [0.5, 0.5, -0.5],
+    [-0.5, 0.5, -0.5],
+    [-0.5, -0.5, 0.5],
+    [0.5, -0.5, 0.5],
+    [0.5, 0.5, 0.5],
+    [-0.5, 0.5, 0.5]
+  ]
+  // Appliquer la rotation puis la projection
+  const vertices2D = vertices3D.map(v => {
+    const [x, y] = project(v)
+    return [x * 20, y * 20]
+  })
+
+  // Faces (avant, droite, dessus)
+  const faces = [
+    [0, 7, 3, 2], // bas
+    [1, 5, 6, 2], // droite
+    [5, 4, 7, 6]  // dessus
+  ]
+  const faceColors = [
+    'lightgray',
+    'gray',
+    'white'
+  ]
+  const codeSvg = faces.map((face, i) =>
+    `<polygon points="${face.map(idx => vertices2D[idx].map(n => n.toFixed(3)).join(',')).join(' ')}" fill="${faceColors[i]}" fill-opacity="${opacite}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />`
+  ).join('\n').trim()
+
+  // TikZ version
+  const verticesTikz = vertices3D.map(v => {
+    const [x, y] = project(v)
+    return [x, -y]
+  })
+  function tikzPoint (idx: number) {
+    const [x, y] = verticesTikz[idx]
+    return `(${x.toFixed(3)},${y.toFixed(3)})`
+  }
+  const tikzPolygons = faces.map((face, i) =>
+    `\\filldraw[fill=${faceColors[i]}, fill opacity=${opacite}, draw=${strokeStyle}, line width=${lineWidth}pt] ${face.map(tikzPoint).join(' -- ')} -- cycle;`
+  ).join('\n')
+
+  const codeTikz = `
+    ${tikzPolygons}
+  `.trim()
+
+  return new Shape2D({
+    codeSvg,
+    codeTikz,
+    width: 0.866 * 2,
+    height: 2,
+    opacite,
+    name: 'cube-rot10'
   })
 }
