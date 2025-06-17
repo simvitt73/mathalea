@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cube isométrique interactif</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+    svg {
+      background: white;
+      border: 1px solid #ccc;
+    }
+    #angle-indicator {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div id="angle-indicator">Angle : 0.52 rad</div>
+<svg id="svg" width="500" height="500" viewBox="0 0 500 500"></svg>
+<script>
+const svg = document.getElementById("svg");
+const angleIndicator = document.getElementById("angle-indicator");
+const svgNS = "http://www.w3.org/2000/svg";
+
+let angle = Math.PI / 6; // 30°
+let cubeSize = 40;
+const origin = { x: 250, y: 250 };
+
+function clearSVG() {
+  while (svg.lastChild) svg.removeChild(svg.lastChild);
+}
+
+function vec(x, y) {
+  return [x * cubeSize, y * cubeSize];
+}
+
+    function project(x, y, z) {
+      const cosA = Math.cos(angle);
+      const sinA = Math.sin(angle);
+      const px = (x * cosA - y * sinA) * cubeSize*7/6;
+      const py =(x * sinA + y * cosA) * cubeSize  * 0.5 - z * cubeSize ;
+      return [px + origin.x, py +origin.y];
+    }
+
+function drawPolygon(points, fill) {
+  const poly = document.createElementNS(svgNS, "polygon");
+  poly.setAttribute("points", points.map(p => p.join(",")).join(" "));
+  poly.setAttribute("fill", fill);
+  poly.setAttribute("stroke", "black");
+  svg.appendChild(poly);
+}
+
+function drawCube(x, y, z) {
+  const p = project(x, y, z);
+  const top = [
+    project(x, y, z),
+    project(x+1, y, z),
+    project(x+1, y+1, z),
+    project(x, y+1, z)
+  ];
+  const left = [
+    project(x, y+1, z),
+    project(x, y+1, z-1),
+    project(x+1, y+1, z-1),
+    project(x+1, y+1, z)
+  ];
+  const right = [
+    project(x+1, y, z),
+    project(x+1, y, z-1),
+    project(x+1, y+1, z-1),
+    project(x+1, y+1, z)
+  ];
+
+  drawPolygon(top, "#eeeeee");
+  drawPolygon(left, "#cccccc");
+  drawPolygon(right, "#aaaaaa");
+}
+
+function updateScene() {
+  clearSVG();
+  drawCube(0, 0, 0);
+  angleIndicator.textContent = `Angle : ${angle.toFixed(2)} rad`;
+}
+
+updateScene();
+
+// Drag pour rotation
+let isDragging = false;
+let startX = 0;
+svg.addEventListener("mousedown", e => {
+  isDragging = true;
+  startX = e.clientX;
+});
+window.addEventListener("mouseup", () => isDragging = false);
+window.addEventListener("mousemove", e => {
+  if (isDragging) {
+    const dx = e.clientX - startX;
+    angle -= dx * 0.005;
+    if (angle < 0.1) angle = 0.1;
+    if (angle > 1.5) angle = 1.5;
+    startX = e.clientX;
+    updateScene();
+  }
+});
+
+// Molette pour zoom
+svg.addEventListener("wheel", e => {
+  e.preventDefault();
+  cubeSize *= e.deltaY > 0 ? 0.9 : 1.1;
+  updateScene();
+});
+</script>
+</body>
+</html>

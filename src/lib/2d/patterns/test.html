@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Motif 5 interactif</title>
+  <style>
+    svg {
+      background: white;
+      cursor: grab;
+    }
+    polygon {
+      stroke: #333;
+      stroke-width: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <svg id="scene" width="800" height="600">
+    <defs>
+      <linearGradient id="grad-top" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f0f0f0" />
+        <stop offset="100%" stop-color="#d0d0d0" />
+      </linearGradient>
+      <linearGradient id="grad-left" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#bbbbbb" />
+        <stop offset="100%" stop-color="#888888" />
+      </linearGradient>
+      <linearGradient id="grad-right" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#aaaaaa" />
+        <stop offset="100%" stop-color="#666666" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script>
+    const svg = document.getElementById("scene");
+    const size = 5;
+    let cubeSize = 20;
+    const offsetX = 400;
+    const offsetY = 300;
+    const cubeSet = new Set();
+    let angle = Math.PI / 6; // angle initial
+    let scale = 1;           // facteur de zoom
+
+    for (let z = 0; z < size; z++) {
+      for (let y = size-1; y>= 0; y--) {
+        for (let x = 0; x < size; x++) {
+          cubeSet.add(`${x},${y},${z}`);
+        }
+      }
+    }
+
+    function projectIso(x, y, z, angle) {
+      const cosA = Math.cos(angle);
+      const sinA = Math.sin(angle);
+      const px = (x * cosA - y * sinA) * cubeSize * scale;
+      const py =(x * sinA + y * cosA) * cubeSize * scale * 0.5 - z * cubeSize * scale ;
+      return [px + offsetX, py + offsetY];
+    }
+
+    function drawFace(points, gradientId) {
+      const face = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      face.setAttribute("points", points.map(p => p.join(",")).join(" "));
+      face.setAttribute("fill", `url(#${gradientId})`);
+      svg.appendChild(face);
+    }
+
+    function isVisible(x, y, z, dx, dy, dz) {
+      return !cubeSet.has(`${x + dx},${y + dy},${z + dz}`);
+    }
+
+    function renderScene() {
+      while (svg.lastChild && svg.lastChild.nodeName !== "defs") {
+        svg.removeChild(svg.lastChild);
+      }
+
+      const cubes = [];
+      for (let z = 0; z < size; z++) {
+        for (let y = size-1; y >=0; y--) {
+          for (let x = 0; x < size; x++) {
+            cubes.push({ x, y, z });
+          }
+        }
+      }
+
+      for (const { x, y, z } of cubes) {
+        const top = [
+          projectIso(x, -y, z+1, angle),
+          projectIso(x + 1, -y, z+1, angle),
+          projectIso(x + 1, -y - 1, z+1, angle),
+          projectIso(x, -y -1, z+1, angle)
+        ];
+        const left = [
+          projectIso(x, y, z+1, angle),
+          projectIso(x+1, y, z+1, angle),
+          projectIso(x+1, y, z, angle),
+          projectIso(x, y, z, angle)
+        ];
+        const right = [
+          projectIso(x + 1, -(y + 1), z, angle),
+          projectIso(x + 1,-(y + 1), z + 1, angle),
+          projectIso(x + 1, -y, z + 1, angle),
+          projectIso(x + 1, -y, z, angle)
+        ];
+
+        if (isVisible(x, y, z, 0, 0, 1)) drawFace(top, "grad-top");
+        if (isVisible(x, y, z, 0, -1, 0)) drawFace(left, "grad-left");
+        if (isVisible(x, y, z, 1, 0, 0)) drawFace(right, "grad-right");
+      }
+    }
+
+    // 🌐 Rotation interactive
+    let dragging = false;
+    let lastX = 0;
+
+    svg.addEventListener("mousedown", e => {
+      dragging = true;
+      lastX = e.clientX;
+      svg.style.cursor = "grabbing";
+    });
+
+    window.addEventListener("mouseup", () => {
+      dragging = false;
+      svg.style.cursor = "grab";
+    });
+
+    window.addEventListener("mousemove", e => {
+      if (dragging) {
+        const dx =  lastX-e.clientX;
+        lastX = e.clientX;
+         angle += dx * 0.01;
+        if (angle<0.1) angle = 0.1; // limite l'angle
+       if (angle>1.5) angle = 1.5; // limite l'angle
+         console.log(angle)
+        renderScene();
+      }
+    });
+
+    // 🔍 Zoom à la molette
+    svg.addEventListener("wheel", e => {
+      e.preventDefault();
+      const zoomFactor = 1.1;
+      if (e.deltaY < 0) {
+        scale *= zoomFactor;
+      } else {
+        scale /= zoomFactor;
+      }
+      scale = Math.max(0.2, Math.min(5, scale)); // limite le zoom
+      renderScene();
+    });
+
+    renderScene();
+  </script>
+</body>
+</html>
