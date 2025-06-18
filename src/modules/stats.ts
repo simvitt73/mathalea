@@ -103,8 +103,8 @@ exercicesParams.subscribe((params) => {
       } else {
         paramExos.push(JSON.stringify(par))
         // if (window._paq) window._paq.push(['setCustomDimension', 2, par.uuid])
-        if (window._paq) window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + par.uuid, JSON.stringify(par)])
-        log(vue[0] + '-' + par.uuid, 'par:', JSON.stringify(par))
+        if (window._paq && vue[0] !== '') window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + par.uuid, JSON.stringify(par)])
+        if (vue[0] !== '') log(vue[0] + '-' + par.uuid, 'par:', JSON.stringify(par))
       }
     })
     // Supprimer les éléments qui ne sont pas dans la référence

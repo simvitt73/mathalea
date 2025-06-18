@@ -171,7 +171,7 @@
 
   async function newData () {
     exercise.isDone = false
-    if (isCorrectVisible) switchCorrectionVisible()
+    if (isCorrectVisible) switchCorrectionVisible(false)
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
     if (buttonScore) initButtonScore()
@@ -384,15 +384,15 @@
     adjustMathalea2dFiguresWidth(true)
   }
 
-  function switchCorrectionVisible () {
+  function switchCorrectionVisible (newdata: boolean = true) {
     isCorrectVisible = !isCorrectVisible
     if (isCorrectVisible && isLocalStorageAvailable() && exercise.id !== undefined) {
       window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
     }
-    if (!$globalOptions.oneShot && exercise.interactif && !isCorrectVisible && !exercise.isDone) {
+    if (newdata && !$globalOptions.oneShot && exercise.interactif && !isCorrectVisible && !exercise.isDone) {
       newData()
     }
-    adjustMathalea2dFiguresWidth()
+    if (newdata) adjustMathalea2dFiguresWidth()
   }
 
   function switchInteractif () {
