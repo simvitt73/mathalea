@@ -673,6 +673,7 @@ const pattern20: PatternRiche = {
     return newCells
   }
 }
+
 /**
  * Trie les coordonnées de cubes dans l'espace pour que les cubes du dessus ou de droite
  * recouvrent ceux du dessous ou de gauche.
@@ -974,6 +975,112 @@ const pattern27: PatternRiche = {
     return newCells
   }
 }
+const pattern28: PatternRiche = {
+  shapeDefault: shapeCarre(),
+  fonction: (x:number) => 2 * x + 1,
+  formule: '2\\times n + 1',
+  type: 'affine',
+  pattern: new PatternNumerique(
+    [
+      [0, 1],
+      [1, 0],
+      [1, 2]
+    ]),
+  iterate: function (this: PatternNumerique, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i <= n; i++) {
+      newCells.add(PatternNumerique.coordToKey([n - i, i]))
+      newCells.add(PatternNumerique.coordToKey([n - i, 2 * n - i]))
+    }
+    newCells.add(PatternNumerique.coordToKey([0, n]))
+    return newCells
+  }
+}
+
+const pattern29: PatternRiche = {
+  shapeDefault: shapeCarre(),
+  fonction: (x:number) => 3 * x + 2,
+  formule: '3\\times n + 2',
+  type: 'affine',
+  pattern: new PatternNumerique(
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0]
+    ]),
+  iterate: function (this: PatternNumerique, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(PatternNumerique.coordToKey([0, 0]))
+    newCells.add(PatternNumerique.coordToKey([4, 0]))
+    for (let i = 1; i < 4; i++) {
+      for (let j = 0; j < n; j++) {
+        newCells.add(PatternNumerique.coordToKey([i, j]))
+      }
+    }
+    return newCells
+  }
+}
+
+const pattern30: PatternRiche = {
+  shapeDefault: shapeCarre(),
+  fonction: (x:number) => 3 * x + 1,
+  formule: '3\\times n + 1',
+  type: 'affine',
+  pattern: new PatternNumerique(
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+      [1, 1]
+    ]),
+  iterate: function (this: PatternNumerique, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 1; i < n + 2; i++) {
+      newCells.add(PatternNumerique.coordToKey([i, n - 1]))
+      if (i < n + 1) {
+        newCells.add(PatternNumerique.coordToKey([i, n]))
+      }
+    }
+    for (let j = 0; j > -n; j--) {
+      newCells.add(PatternNumerique.coordToKey([0, j + n - 1]))
+    }
+    return newCells
+  }
+}
+
+const pattern31: PatternRiche = {
+  shapeDefault: shapeCarre(),
+  fonction: (x:number) => x ** 2 + 4 * x - 2,
+  formule: 'n^2 + 4\\times n - 2',
+  type: 'degré2',
+  pattern: new PatternNumerique(
+    [
+      [0, 0],
+      [1, 1],
+      [2, 2]
+    ]),
+  iterate: function (this: PatternNumerique, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let x = 0; x < 3; x++) {
+      for (let y = 0; y < 3; y++) {
+        if (x === y) {
+          for (let k = 0; k < n; k++) {
+            for (let l = 0; l < n; l++) {
+              newCells.add(PatternNumerique.coordToKey([x + k, y + l]))
+            }
+          }
+        }
+      }
+    }
+    return newCells
+  }
+}
 
 const listePatternsPreDef: PatternRiche[] = [
   pattern0,
@@ -1003,6 +1110,10 @@ const listePatternsPreDef: PatternRiche[] = [
   pattern24,
   pattern25,
   pattern26,
-  pattern27
+  pattern27,
+  pattern28,
+  pattern29,
+  pattern30,
+  pattern31
 ]
 export { listePatternsPreDef }

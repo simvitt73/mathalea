@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { chatDef, shapeCarre, shapeCarreArrondi, shapeChat, shapeCubeIso, shapeCubeIsoRot40, shapeEtoile4Branches, shapeSoleil, soleilDef } from '../../lib/2d/figures2d/shapes2d'
+import { carreDef, carreRondDef, chatDef, etoileDef, losangeDef, shapeCarre, shapeCarreArrondi, shapeChat, shapeCubeIso, shapeCubeIsoRot40, shapeEtoile4Branches, shapeLosange, shapeSoleil, soleilDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternsPreDef, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -107,8 +107,8 @@ export default class PaternNum0 extends Exercice {
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
     // this.besoinFormulaire2Texte = ['Types de motifs', 'Nombres séparés par des tirets\n1: Motifs prédéfinis (nombre limité de cas)\n2 : Motifs aléatoires (plus de variété)\n3 : Mélange (jusqu’à épuisement des motifs prédéfinis)']
-    this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Mélange']
-    this.sup3 = '6'
+    this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : losange\n 7 : Mélange']
+    this.sup3 = '7'
     this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Motif 42 (nombre)\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 4 précédentes']
     this.sup4 = '6'
   }
@@ -117,7 +117,7 @@ export default class PaternNum0 extends Exercice {
     const listePreDef = shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length))
     const nbFigures = Math.max(2, this.sup)
     // const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
-    const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 5, defaut: 6, melange: 6, nbQuestions: this.nbQuestions }).map(Number)
+    const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 6, defaut: 7, melange: 7, nbQuestions: this.nbQuestions }).map(Number)
     const patterns : PatternNumerique[] = []
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
     const pat: PatternRiche[] = []
@@ -167,7 +167,7 @@ export default class PaternNum0 extends Exercice {
             patterns[i].shape = shapeSoleil()
             break
           case 6:
-            patterns[i].shape = shapeCubeIso()
+            patterns[i].shape = shapeLosange()
             break
           case 1:
           default:
@@ -188,12 +188,13 @@ export default class PaternNum0 extends Exercice {
             : pattern.shape.name === 'cube-rot10'
               ? []
               : pattern.shape.name === 'étoile'
-                ? []
-                : pattern.shape.name === 'carré arrondi'
-                  ? []
+                ? [etoileDef]
+                : pattern.shape.name === 'pastille'
+                  ? [carreRondDef]
                   : pattern.shape.name === 'carré'
-                    ? []
-                    : []
+                    ? [carreDef]
+                    : [losangeDef]
+
       const rendered = pattern.render(nbFigures + 1, 0, 0)
       objetsCorr.push(...rendered)
 
@@ -208,6 +209,14 @@ export default class PaternNum0 extends Exercice {
           figures[j - 1].push(chatDef)
         } else if (pattern.shape.name === 'soleil') {
           figures[j - 1].push(soleilDef)
+        } else if (pattern.shape.name === 'étoile') {
+          figures[j - 1].push(etoileDef)
+        } else if (pattern.shape.name === 'pastille') {
+          figures[j - 1].push(carreRondDef)
+        } else if (pattern.shape.name === 'carré') {
+          figures[j - 1].push(carreDef)
+        } else if (pattern.shape.name === 'losange') {
+          figures[j - 1].push(losangeDef)
         }
         figures[j - 1].push(objet)
         const { xmax, ymax, xmin, ymin } = fixeBordures(objet, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
@@ -242,7 +251,7 @@ exercice: this,
             }
           )}`)
             listeCorrections.push(`Le motif $${nbFigures + 1}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shape.name[0]) ? 'd\'' : 'de '}${pattern.shape.name}s.<br>
-          ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -1, rymin: 0, rxmax: 0, rymax: 1 }), { scale: 0.6 * 0.9 ** (nbFigures + 1), optionsTikz: 'transform shape' }), objetsCorr)}`)
+          ${!typesQuestions.includes(1) ? mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -1, rymin: 0, rxmax: 0, rymax: 1 }), { scale: 0.6 * 0.9 ** (nbFigures + 1), optionsTikz: 'transform shape' }), objetsCorr) : ''}`)
           }
             break
           case 3:{
