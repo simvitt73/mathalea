@@ -472,7 +472,6 @@ chatDef.svg = function (coeff: number): string {
  
 <!-- Un chat stylisé -->
  <g id="chat">
-  <g transform="scale(${coeff})">
       <!-- Tête -->
       <ellipse cx="0" cy="-8" rx="7" ry="7" fill="gray" stroke="black" stroke-width="1" />
       <!-- Oreille gauche -->
@@ -492,7 +491,6 @@ chatDef.svg = function (coeff: number): string {
       <path d="M1,-7 Q4,-7.5 7,-7" stroke="black" stroke-width="0.5" fill="none" />
       <path d="M1,-6.5 Q4,-6 7,-6.5" stroke="black" stroke-width="0.5" fill="none" />
     </g>
-  </g>
   </defs>`
 }
 chatDef.tikz = function (): string {
