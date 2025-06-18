@@ -14,7 +14,7 @@ export function chocolats2 (decimal = false): Probleme {
   const unité = decimal ? 'kg' : 'g'
   const unitéComplète = decimal ? 'kilogrammes' : 'grammes'
   const probleme = new ProblemeMultiplicatifNbParts('chocolats2', data)
-  probleme.enonce = `Un chocolatier a produit $${texNombre(total, 2)}$ ${unitéComplète} de chocolats. Il veut la répartir équitablement dans des boites de $${texNombre(quotité, 3)}$ ${unité}. Combien de boites pourra-t-il faire ?`
+  probleme.enonce = `Un chocolatier a produit $${texNombre(total, 2)}$ ${unitéComplète} de chocolats. Il veut les répartir équitablement dans des boites de $${texNombre(quotité, 3)}$ ${unité}. Combien de boites pourra-t-il faire ?`
   probleme.correction = `On cherche à répartir $${texNombre(total, 2)}$ ${unitéComplète} dans des boites de $${texNombre(quotité, 3)}$ ${unité}. Donc, il y a $\\dfrac{${texNombre(total, 2)}}{${texNombre(quotité, 3)}}=${miseEnEvidence(texNombre(total / quotité, 0))}$ boites.`
   probleme.reponse = texNombre(total / quotité, 0)
   probleme.schema.topBraces = [{
