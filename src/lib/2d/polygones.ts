@@ -1137,12 +1137,13 @@ export function patternTikZ (params: {
 
     case 'grid': {
       // Quadrillage = idem crosshatch
-      for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 5
+      for (let y = y0; y <= y1; y += side) {
         lignes.push(
           `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
         )
       }
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
+      for (let x = x0; x <= x1; x += side) {
         lignes.push(
           `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
         )
@@ -1151,7 +1152,7 @@ export function patternTikZ (params: {
     }
 
     case 'checkerboard': {
-      const side = distanceDesHachures
+      const side = distanceDesHachures / 3
       let toggle = false
       for (let y = y0; y < y1; y += side) {
         toggle = !toggle
@@ -1165,8 +1166,9 @@ export function patternTikZ (params: {
     }
 
     case 'fivepointed stars': {
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
-        for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 3
+      for (let x = x0; x <= x1; x += side) {
+        for (let y = y0; y <= y1; y += side) {
           lignes.push(
             `\\node[star,star points=5,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
           )
@@ -1176,8 +1178,9 @@ export function patternTikZ (params: {
     }
 
     case 'sixpointed stars': {
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
-        for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 2
+      for (let x = x0; x <= x1; x += side) {
+        for (let y = y0; y <= y1; y += side) {
           lignes.push(
             `\\node[star,star points=6,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
           )
@@ -1188,8 +1191,9 @@ export function patternTikZ (params: {
 
     case 'crosshatch dots': {
       // Grille de points
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
-        for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 5
+      for (let x = x0; x <= x1; x += side) {
+        for (let y = y0; y <= y1; y += side) {
           lignes.push(
             `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`
           )
