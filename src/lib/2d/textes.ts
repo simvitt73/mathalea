@@ -242,7 +242,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     this.orientation = orientation
     this.color = colorToLatexOrHTML(color)
     this.scale = scale
-    this.taille = 14 * scale
+    this.taille = Math.round(14 * scale)
     this.opacite = opacite
     this.couleurDeRemplissage = colorToLatexOrHTML(color)
     this.mathOn = mathOn

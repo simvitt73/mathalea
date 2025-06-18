@@ -15,25 +15,11 @@ export function shapeCarre (
     opacite?: number; // Opacité de la figure (par défaut 1)
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || 'gray'
-  const strokeStyle = options?.strokeStyle || 'black'
-  const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
 
-  const points = [
-    '-10,-10',
-    '10,-10',
-    '10,10',
-    '-10,10'
-  ].join(' ')
+  const codeSvg = '<use href="#carre"></use>'
 
-  const codeSvg = `
-    <polygon points="${points}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-  `.trim()
-
-  const codeTikz = `
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt] (-0.5,-0.5) rectangle (0.5,0.5);
-  `.trim()
+  const codeTikz = '\\pic at (0,0) {carre};'
 
   return new Shape2D({
     codeSvg,
@@ -59,63 +45,12 @@ export function shapeEtoile4Branches (
     opacite?: number;
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || 'gray'
-  const strokeStyle = options?.strokeStyle || 'black'
-  const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
 
-  // Points pour une étoile à 4 branches, diagonales de longueur 1, centrée en (0,0)
-  // Branches sur les axes et les diagonales
-  const r = 0.5 // demi-diagonale
-  const r2 = r / 3 / Math.SQRT2 // demi-côté sur les axes diagonaux
-  // Appliquer une rotation de 45 degrés (pi/4) à chaque point
-  const angle = Math.PI / 4
-  function rotate45 (x: number, y: number): [number, number] {
-    const cos = Math.cos(angle)
-    const sin = Math.sin(angle)
-    return [
-      x * cos - y * sin,
-      x * sin + y * cos
-    ]
-  }
-  const points = [
-    `0,${-r}`,
-    `${r2},${-r2}`,
-    `${r},0`,
-    `${r2},${r2}`,
-    `0,${r}`,
-    `${-r2},${r2}`,
-    `${-r},0`,
-    `${-r2},${-r2}`
-  ]
-
-  const codeSvg = `
-    <polygon points="${points.map(p => {
-    // Convertir en coordonnées SVG (x*20, y*20)
-    const [x, y] = p.split(',').map(Number)
-    return `${rotate45(x, y).map(el => (el * 20).toFixed(3)).join(',')}`
-  }).join(' ')}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-  `.trim()
-
-  // Appliquer la rotation de 45° aux points TikZ
-  const tikzPoints = [
-    [0, -r],
-    [r2, -r2],
-    [r, 0],
-    [r2, r2],
-    [0, r],
-    [-r2, r2],
-    [-r, 0],
-    [-r2, -r2]
-  ].map(([x, y]) => {
-    const [xr, yr] = rotate45(x, y)
-    // Les coordonnées TikZ sont dans [-0.5, 0.5]
-    return `(${xr.toFixed(3)},${yr.toFixed(3)})`
-  }).join(' -- ')
-
+  const codeSvg = '<use href="#étoile"></use>'
+  // TikZ : centré en (0,0), taille 1x1
   const codeTikz = `
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
-      ${tikzPoints} -- cycle;
+   \\pic at (0,0) {etoile};
   `.trim()
 
   return new Shape2D({
@@ -142,37 +77,22 @@ export function shapeCarreArrondi (
     radius?: number; // Rayon des coins arrondis (par défaut 0.15)
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || 'gray'
-  const strokeStyle = options?.strokeStyle || 'black'
-  const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
-  const radius = options?.radius ?? 0.15
-
-  // Côté du carré
-  const size = 0.8
-  // Pour SVG, on multiplie par 20 pour correspondre à l'échelle des autres formes
-  const svgSize = size * 20
-  const svgRadius = radius * 20
-  const svgX = -svgSize / 2
-  const svgY = -svgSize / 2
 
   const codeSvg = `
-    <rect x="${svgX}" y="${svgY}" width="${svgSize}" height="${svgSize}" rx="${svgRadius}" ry="${svgRadius}"
-      fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-  `.trim()
+  <use href="#carre-arrondi"></use>`
 
   // Pour TikZ, le carré va de (-0.4,-0.4) à (0.4,0.4)
   // TikZ: rounded corners=<radius>
   const codeTikz = `
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt, rounded corners=${radius}cm]
-      (-0.4,-0.4) rectangle (0.4,0.4);
+   \\pic at (0,0) {carre-arrondi};
   `.trim()
 
   return new Shape2D({
     codeSvg,
     codeTikz,
-    width: size,
-    height: size,
+    width: 1,
+    height: 1,
     opacite,
     name: 'pastille'
   })
@@ -256,28 +176,14 @@ export function shapeLosange (
     opacite?: number;
   }
 ): Shape2D {
-  const fillStyle = options?.fillStyle || 'white'
-  const strokeStyle = options?.strokeStyle || 'black'
-  const lineWidth = options?.lineWidth || 1
   const opacite = options?.opacite || 1
 
   // Losange centré en (0,0), diagonales 1 (donc sommets à (0,±0.5) et (±0.5,0))
   // Pour SVG, on multiplie par 20
-  const points = [
-    [0, -0.5],
-    [0.5, 0],
-    [0, 0.5],
-    [-0.5, 0]
-  ].map(([x, y]) => `${(x * 20).toFixed(3)},${(y * 20).toFixed(3)}`).join(' ')
 
-  const codeSvg = `
-    <polygon points="${points}" fill="${fillStyle}" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
-  `.trim()
+  const codeSvg = '<use href="#losange"></use>'
 
-  const codeTikz = `
-    \\draw[fill=${fillStyle}, draw=${strokeStyle}, line width=${lineWidth}pt]
-      (0,-0.5) -- (0.5,0) -- (0,0.5) -- (-0.5,0) -- cycle;
-  `.trim()
+  const codeTikz = '\\pic at (0,0) {losange};'
 
   return new Shape2D({
     codeSvg,
@@ -468,9 +374,8 @@ export const chatDef = new ObjetMathalea2D()
 chatDef.bordures = [-0.5, -0.5, 0.5, 0.5]
 chatDef.svg = function (coeff: number): string {
   return `
-  <defs>
- 
 <!-- Un chat stylisé -->
+  <defs>
  <g id="chat">
       <!-- Tête -->
       <ellipse cx="0" cy="-8" rx="7" ry="7" fill="gray" stroke="black" stroke-width="1" />
@@ -523,10 +428,9 @@ export const soleilDef = new ObjetMathalea2D()
 soleilDef.bordures = [-0.5, -0.5, 0.5, 0.5]
 soleilDef.svg = function (coeff: number): string {
   return `
+  <!-- Cercle central -->
   <defs>
-  <g transform="scale(${coeff})">
     <g id="soleil">
-      <!-- Cercle central -->
       <circle cx="0" cy="0" r="6" fill="yellow" stroke="orange" stroke-width="1" />
       <!-- Rayons -->
       <line x1="0" y1="-6" x2="0" y2="-10" stroke="orange" stroke-width="1" />
@@ -538,7 +442,6 @@ soleilDef.svg = function (coeff: number): string {
       <line x1="-4.24" y1="4.24" x2="-7.07" y2="7.07" stroke="orange" stroke-width="1" />
       <line x1="4.24" y1="4.24" x2="7.07" y2="7.07" stroke="orange" stroke-width="1" />
     </g>
-  </g>
   </defs>`
 }
 soleilDef.tikz = function (): string {
@@ -556,6 +459,90 @@ soleilDef.tikz = function (): string {
     \\draw[draw=orange, line width=1pt] (0.212,-0.212) -- (0.353,-0.353);
     \\draw[draw=orange, line width=1pt] (-0.212,0.212) -- (-0.353,0.353);
     \\draw[draw=orange, line width=1pt] (0.212,0.212) -- (0.353,0.353);
+   }
+  }`.trim()
+}
+export const etoileDef = new ObjetMathalea2D()
+etoileDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+etoileDef.svg = function (coeff: number): string {
+  return `
+   <!-- Étoile à 4 branches -->
+  <defs>
+      <polygon id="étoile" points="0,-10 2,-2 10,0 2,2 0,10 -2,2 -10,0 -2,-2" transform="rotate(45)"
+        fill="yellow" stroke="orange" stroke-width="1" />
+  </defs>`
+}
+etoileDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   etoile/.pic = {
+    % Étoile à 4 branches
+    \\draw[fill=yellow, draw=orange, line width=1pt]
+      (0,0.09) -- (0.3,0.3) -- (0.09,0) -- (0.3,-0.3)
+      -- (0,-0.09) -- (-0.3,-0.3) -- (-0.09,0) -- (-0.3,0.3) -- cycle;
+   }
+  }`.trim()
+}
+
+export const carreRondDef = new ObjetMathalea2D()
+carreRondDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+carreRondDef.svg = function (coeff: number): string {
+  return `
+  <!-- Carré arrondi -->
+  <defs>
+    <g id="carre-arrondi">
+      <rect x="-8" y="-8" width="16" height="16" rx="3" ry="3"
+        fill="gray" stroke="black" stroke-width="1" />
+    </g>
+  </defs>`
+}
+carreRondDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   carre-arrondi/.pic = {
+    % Carré arrondi
+    \\draw[fill=gray, draw=black, line width=1pt, rounded corners=0.15cm]
+      (-0.4,-0.4) rectangle (0.4,0.4);
+   }
+  }`.trim()
+}
+export const losangeDef = new ObjetMathalea2D()
+losangeDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+losangeDef.svg = function (coeff: number): string {
+  return `
+  <!-- Losange -->
+  <defs>
+      <polygon id="losange" points="0,-6 8,0 0,6 -8,0"
+        fill="white" stroke="black" stroke-width="1" />
+  </defs>`
+}
+losangeDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   losange/.pic = {
+    % Losange
+    \\draw[fill=white, draw=black, line width=1pt]
+      (0,-0.3) -- (0.5,0) -- (0,0.3) -- (-0.5,0) -- cycle;
+   }
+  }`.trim()
+}
+
+export const carreDef = new ObjetMathalea2D()
+carreDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+carreDef.svg = function (coeff: number): string {
+  return `
+  <!-- Carré -->
+  <defs>
+      <rect id="carre" x="-10" y="-10" width="20" height="20"
+        fill="gray" stroke="black" stroke-width="1" />
+  </defs>`
+}
+carreDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   carre/.pic = {
+    % Carré
+    \\draw[fill=gray, draw=black, line width=1pt] (-0.5,-0.5) rectangle (0.5,0.5);
    }
   }`.trim()
 }
