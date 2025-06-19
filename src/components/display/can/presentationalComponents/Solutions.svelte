@@ -50,6 +50,7 @@
     if (question.includes('checkbox')) return answer // Pour les QCM
     if (question.includes('<select')) return answer // Pour les listeDeroulante
     if (question.includes('interactive-clock')) return `$${answer.split('h')[0]}$ h $${answer.split('h')[1]}$` // Pour les horloges interactives
+    if (question.includes('<input') && question.includes('champTexteEx')) return answer // Pour les champTexte
     if (question.includes('apigeomEx')) return answer // Pour le "Voir figure" des figures apigeom
     if (question.includes('divDragAndDropEx')) return answer // Pour les drag and drop
     return '$' + cleanFillInTheBlanks(answer, false) + '$'
