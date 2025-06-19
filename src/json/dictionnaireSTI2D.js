@@ -6,7 +6,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée', 'Equations différentielles', 'Exponentielle', 'Dérivation', 'Equation', 'Logarithme népérien']
+    tags: ['Nombres complexes', 'Géométrie repérée', 'Équations différentielles', 'Exponentielle', 'Dérivation', 'Équation', 'Logarithme népérien']
   },
   sti2d_2025_06_metropole_mq1: {
     annee: '2025',
@@ -22,7 +22,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Equations différentielles', 'Exponentielle', 'Dérivation']
+    tags: ['Équations différentielles', 'Exponentielle', 'Dérivation']
   },
   sti2d_2025_06_metropole_mq3: {
     annee: '2025',
@@ -30,7 +30,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Equation']
+    tags: ['Exponentielle', 'Équation']
   },
   sti2d_2025_06_metropole_mq4: {
     annee: '2025',
