@@ -4,7 +4,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations', 'Intégration', 'Logarithme népérien', 'Al-Kashi']
   },
   stl_2021_03_metropole_mq1: {
@@ -12,7 +12,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2021_03_metropole_mq2: {
@@ -20,7 +20,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2021_03_metropole_mq3: {
@@ -28,7 +28,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations']
   },
   stl_2021_03_metropole_mq4: {
@@ -36,7 +36,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Intégration']
   },
   stl_2021_03_metropole_mq5: {
@@ -44,7 +44,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien']
   },
   stl_2021_03_metropole_mq6: {
@@ -52,7 +52,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Al-Kashi']
   },
   stl_2021_03_metropole_pcm: {
@@ -60,7 +60,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équations différentielles', 'Exponentielle', 'Limites']
   },
   stl_2021_03_sujet0_maths: {
@@ -68,7 +68,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien', 'Dérivation', 'Tangente', 'Intégration', 'Python', 'Exponentielle', 'Variations', 'Équations différentielles', 'Trigonométrie', 'Géométrie repérée']
   },
   stl_2021_03_sujet0_mq1: {
@@ -76,7 +76,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien', 'Dérivation', 'Tangente', 'Géométrie repérée']
   },
   stl_2021_03_sujet0_mq2: {
@@ -84,7 +84,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien', 'Intégration', 'Python']
   },
   stl_2021_03_sujet0_mq3: {
@@ -92,7 +92,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien', 'Dérivation', 'Intégration']
   },
   stl_2021_03_sujet0_mq4: {
@@ -100,7 +100,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations']
   },
   stl_2021_03_sujet0_mq5: {
@@ -108,7 +108,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Al-Kashi']
   },
   stl_2021_03_sujet0_mq6: {
@@ -116,7 +116,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équations différentielles', 'Dérivation', 'Trigonométrie']
   },
   stl_2021_03_sujet0_pcm: {
@@ -124,7 +124,7 @@ export const dictionnaireSTL = {
     lieu: 'sujet0',
     mois: '03',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équations différentielles', 'Exponentielle', 'Limites', 'Équation']
   },
   stl_2021_06_metropole_maths: {
@@ -132,7 +132,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations', 'Trigonométrie', 'Intégration', 'Logarithme népérien', 'Produit scalaire']
   },
   stl_2021_06_metropole_mq1: {
@@ -140,7 +140,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2021_06_metropole_mq2: {
@@ -148,7 +148,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations']
   },
   stl_2021_06_metropole_mq3: {
@@ -156,7 +156,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Trigonométrie']
   },
   stl_2021_06_metropole_mq4: {
@@ -164,7 +164,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Intégration']
   },
   stl_2021_06_metropole_mq5: {
@@ -172,7 +172,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien']
   },
   stl_2021_06_metropole_mq6: {
@@ -180,7 +180,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Produit scalaire']
   },
   stl_2021_06_metropole_pcm: {
@@ -188,7 +188,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équation de droite', 'Exponentielle', 'Équation']
   },
 
@@ -197,7 +197,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équation de droite', 'Tangente', 'Primitive', 'Variations', 'Équations différentielles', 'Exponentielle', 'Dérivation', 'Logarithme décimal', 'Équation', 'Géométrie repérée']
   },
   stl_2022_05_mayotte_mq1: {
@@ -205,7 +205,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équation de droite', 'Tangente', 'Géométrie repérée']
   },
   stl_2022_05_mayotte_mq2: {
@@ -213,7 +213,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Primitive', 'Variations', 'Géométrie repérée']
   },
   stl_2022_05_mayotte_mq3: {
@@ -221,7 +221,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équations différentielles']
   },
   stl_2022_05_mayotte_mq4: {
@@ -229,7 +229,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations']
   },
   stl_2022_05_mayotte_mq5: {
@@ -237,7 +237,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme décimal', 'Équation']
   },
   stl_2022_05_mayotte_mq6: {
@@ -245,7 +245,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme décimal', 'Équation']
   },
   stl_2022_05_mayotte_pcm: {
@@ -253,7 +253,7 @@ export const dictionnaireSTL = {
     lieu: 'mayotte',
     mois: '05',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations', 'Équation']
   },
   stl_2022_05_metropole_maths: {
@@ -261,7 +261,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Équation', 'Variations', 'Logarithme népérien', 'Limites', 'Produit scalaire', 'Géométrie repérée']
   },
   stl_2022_05_metropole_mq1: {
@@ -269,7 +269,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation']
   },
   stl_2022_05_metropole_mq2: {
@@ -277,7 +277,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Équation']
   },
   stl_2022_05_metropole_mq3: {
@@ -285,7 +285,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Variations', 'Géométrie repérée']
   },
   stl_2022_05_metropole_mq4: {
@@ -293,7 +293,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien']
   },
   stl_2022_05_metropole_mq5: {
@@ -301,7 +301,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2022_05_metropole_mq6: {
@@ -309,7 +309,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Produit scalaire']
   },
   stl_2022_05_metropole_pcm: {
@@ -317,7 +317,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '05',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites', 'Géométrie repérée']
   },
   stl_2022_05_polynesie_maths: {
@@ -325,15 +325,15 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations', 'Equation', 'Python', 'Intégration']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations', 'Équation', 'Python', 'Intégration']
   },
   stl_2022_05_polynesie_mq1: {
     annee: '2022',
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2022_05_polynesie_mq2: {
@@ -341,7 +341,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2022_05_polynesie_mq3: {
@@ -349,7 +349,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations']
   },
   stl_2022_05_polynesie_mq4: {
@@ -357,15 +357,15 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Équation']
   },
   stl_2022_05_polynesie_mq5: {
     annee: '2022',
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Python']
   },
   stl_2022_05_polynesie_mq6: {
@@ -373,7 +373,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Intégration']
   },
   stl_2022_05_polynesie_pcm: {
@@ -381,15 +381,15 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '05',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Exponentielle', 'Limites', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Équations différentielles', 'Exponentielle', 'Limites', 'Équation']
   },
   stl_2022_09_metropole_maths: {
     annee: '2022',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites', 'Dérivation', 'Trigonométrie', 'Produit scalaire']
   },
   stl_2022_09_metropole_mq1: {
@@ -397,7 +397,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2022_09_metropole_mq2: {
@@ -405,7 +405,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2022_09_metropole_mq3: {
@@ -413,7 +413,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation']
   },
   stl_2022_09_metropole_mq4: {
@@ -421,7 +421,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2022_09_metropole_mq5: {
@@ -429,7 +429,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Trigonométrie']
   },
   stl_2022_09_metropole_mq6: {
@@ -437,7 +437,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Produit scalaire']
   },
   stl_2022_09_metropole_pcm: {
@@ -445,7 +445,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Équation de droite', 'Équations différentielles', 'Géométrie repérée']
   },
   stl_2022_10_caledonie_maths: {
@@ -453,31 +453,31 @@ export const dictionnaireSTL = {
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Tangente', 'Equation de droite', 'Logarithme népérien', 'Equation', 'Exponentielle', 'Dérivation', 'Produit scalaire', 'Equation différentielle', 'Python', 'Géométrie repérée']
+    typeExercice: 'stl',
+    tags: ['Tangente', 'Équation de droite', 'Logarithme népérien', 'Équation', 'Exponentielle', 'Dérivation', 'Produit scalaire', 'Équation différentielle', 'Python', 'Géométrie repérée']
   },
   stl_2022_10_caledonie_mq1: {
     annee: '2022',
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
-    tags: ['Tangente', 'Equation de droite', 'Géométrie repérée']
+    typeExercice: 'stl',
+    tags: ['Tangente', 'Équation de droite', 'Géométrie repérée']
   },
   stl_2022_10_caledonie_mq2: {
     annee: '2022',
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Logarithme népérien', 'Équation']
   },
   stl_2022_10_caledonie_mq3: {
     annee: '2022',
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation']
   },
   stl_2022_10_caledonie_mq4: {
@@ -485,7 +485,7 @@ export const dictionnaireSTL = {
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Produit scalaire']
   },
   stl_2022_10_caledonie_mq5: {
@@ -493,15 +493,15 @@ export const dictionnaireSTL = {
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'mq5',
-    typeExercice: 'sti2d',
-    tags: ['Equation différentielle']
+    typeExercice: 'stl',
+    tags: ['Équation différentielle']
   },
   stl_2022_10_caledonie_mq6: {
     annee: '2022',
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'mq6',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Python']
   },
   stl_2022_10_caledonie_pcm: {
@@ -509,8 +509,8 @@ export const dictionnaireSTL = {
     lieu: 'Nouvelle Calédonie',
     mois: '10',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equation différentielle', 'Exponentielle', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Équation différentielle', 'Exponentielle', 'Équation']
   },
 
   stl_2023_03_metropole_maths: {
@@ -518,15 +518,15 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Logarithme népérien', 'Equation différentielle']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Dérivation', 'Logarithme népérien', 'Équation différentielle']
   },
   stl_2023_03_metropole_mq1: {
     annee: '2023',
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2023_03_metropole_mq2: {
@@ -534,7 +534,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation']
   },
   stl_2023_03_metropole_mq3: {
@@ -542,7 +542,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien']
   },
   stl_2023_03_metropole_mq4: {
@@ -550,15 +550,15 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
-    tags: ['Equation différentielle']
+    typeExercice: 'stl',
+    tags: ['Équation différentielle']
   },
   stl_2023_03_metropole_pcm: {
     annee: '2023',
     lieu: 'Métropole',
     mois: '03',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Dérivation']
   },
   stl_2023_03_polynesie_maths: {
@@ -566,7 +566,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '03',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations', 'Python']
   },
   stl_2023_03_polynesie_mq1: {
@@ -574,7 +574,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '03',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2023_03_polynesie_mq2: {
@@ -582,7 +582,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '03',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Variations']
   },
   stl_2023_03_polynesie_mq3: {
@@ -590,7 +590,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '03',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2023_03_polynesie_mq4: {
@@ -598,7 +598,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '03',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Python']
   },
   stl_2023_03_polynesie_pcm: {
@@ -606,15 +606,15 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '03',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equations différentielles', 'Exponentielle', 'Limites']
+    typeExercice: 'stl',
+    tags: ['Équations différentielles', 'Exponentielle', 'Limites']
   },
   stl_2023_03_reunion_maths: {
     annee: '2023',
     lieu: 'reunion',
     mois: '03',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Inéquation', 'Dérivation', 'Primitive', 'Limites']
   },
   stl_2023_03_reunion_mq1: {
@@ -622,7 +622,7 @@ export const dictionnaireSTL = {
     lieu: 'reunion',
     mois: '03',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Inéquation']
   },
   stl_2023_03_reunion_mq2: {
@@ -630,7 +630,7 @@ export const dictionnaireSTL = {
     lieu: 'reunion',
     mois: '03',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Primitive']
   },
   stl_2023_03_reunion_mq3: {
@@ -638,7 +638,7 @@ export const dictionnaireSTL = {
     lieu: 'reunion',
     mois: '03',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Inéquation', 'Limites']
   },
   stl_2023_03_reunion_mq4: {
@@ -646,7 +646,7 @@ export const dictionnaireSTL = {
     lieu: 'reunion',
     mois: '03',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2023_03_reunion_pcm: {
@@ -654,23 +654,23 @@ export const dictionnaireSTL = {
     lieu: 'reunion',
     mois: '03',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equations différentielles', 'Exponentielle', 'Limites']
+    typeExercice: 'stl',
+    tags: ['Équations différentielles', 'Exponentielle', 'Limites']
   },
   stl_2023_09_caledonie_maths: {
     annee: '2023',
     lieu: 'Nouvelle Calédonie',
     mois: '09',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Equation de droite', 'Tangente', 'Géométrie repérée', 'Equation', 'Variations', 'Python']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Équation de droite', 'Tangente', 'Géométrie repérée', 'Équation', 'Variations', 'Python']
   },
   stl_2023_09_caledonie_mq1: {
     annee: '2023',
     lieu: 'Nouvelle Calédonie',
     mois: '09',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2023_09_caledonie_mq2: {
@@ -678,23 +678,23 @@ export const dictionnaireSTL = {
     lieu: 'Nouvelle Calédonie',
     mois: '09',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Equation de droite', 'Tangente', 'Géométrie repérée']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Dérivation', 'Équation de droite', 'Tangente', 'Géométrie repérée']
   },
   stl_2023_09_caledonie_mq3: {
     annee: '2023',
     lieu: 'Nouvelle Calédonie',
     mois: '09',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Equation', 'Variations']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Équation', 'Variations']
   },
   stl_2023_09_caledonie_mq4: {
     annee: '2023',
     lieu: 'Nouvelle Calédonie',
     mois: '09',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Python']
   },
   stl_2023_09_caledonie_pcm: {
@@ -702,23 +702,23 @@ export const dictionnaireSTL = {
     lieu: 'Nouvelle Calédonie',
     mois: '09',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equation différentielle', 'Exponentielle', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Équation différentielle', 'Exponentielle', 'Équation']
   },
   stl_2023_09_metropole_maths: {
     annee: '2023',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Tangente', 'Equation de droite', 'Géométrie repérée', 'Al-Kashi', 'Dérivation', 'Primitive']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Tangente', 'Équation de droite', 'Géométrie repérée', 'Al-Kashi', 'Dérivation', 'Primitive']
   },
   stl_2023_09_metropole_mq1: {
     annee: '2023',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2023_09_metropole_mq2: {
@@ -726,15 +726,15 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
-    tags: ['Tangente', 'Equation de droite', 'Géométrie repérée']
+    typeExercice: 'stl',
+    tags: ['Tangente', 'Équation de droite', 'Géométrie repérée']
   },
   stl_2023_09_metropole_mq3: {
     annee: '2023',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Al-Kashi']
   },
   stl_2023_09_metropole_mq4: {
@@ -742,7 +742,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Dérivation', 'Primitive']
   },
   stl_2023_09_metropole_pcm: {
@@ -750,8 +750,8 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equation différentielle', 'Exponentielle', 'Dérivation', 'Equation', 'Géométrie repérée', 'Equation de droite']
+    typeExercice: 'stl',
+    tags: ['Équation différentielle', 'Exponentielle', 'Dérivation', 'Équation', 'Géométrie repérée', 'Équation de droite']
   },
 
   stl_2024_06_metropole_maths: {
@@ -759,7 +759,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Géométrie repérée', 'Exponentielle', 'Limites', 'Logarithme népérien', 'Primitive']
   },
   stl_2024_06_metropole_mq1: {
@@ -767,7 +767,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Géométrie repérée']
   },
   stl_2024_06_metropole_mq2: {
@@ -775,7 +775,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Limites']
   },
   stl_2024_06_metropole_mq3: {
@@ -783,7 +783,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2024_06_metropole_mq4: {
@@ -791,7 +791,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Logarithme népérien', 'Primitive']
   },
   stl_2024_06_metropole_pcm: {
@@ -799,23 +799,23 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Primitive', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Primitive', 'Équation']
   },
   stl_2024_06_polynesie_maths: {
     annee: '2024',
     lieu: 'Polynésie',
     mois: '06',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Python', 'Equation', 'Variations', 'Dérivation', 'Integration']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Python', 'Équation', 'Variations', 'Dérivation', 'Integration']
   },
   stl_2024_06_polynesie_mq1: {
     annee: '2024',
     lieu: 'Polynésie',
     mois: '06',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Python']
   },
   stl_2024_06_polynesie_mq2: {
@@ -823,15 +823,15 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '06',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Équation']
   },
   stl_2024_06_polynesie_mq3: {
     annee: '2024',
     lieu: 'Polynésie',
     mois: '06',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Variations']
   },
   stl_2024_06_polynesie_mq4: {
@@ -839,7 +839,7 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '06',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle', 'Dérivation', 'Integration']
   },
   stl_2024_06_polynesie_pcm: {
@@ -847,23 +847,23 @@ export const dictionnaireSTL = {
     lieu: 'Polynésie',
     mois: '06',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equation  différentielle', 'Equation de droite', 'Logarithme népérien', 'Equation', 'Exponentielle', 'Limites', 'Dérivation', 'Tableau de variation']
+    typeExercice: 'stl',
+    tags: ['Équation  différentielle', 'Équation de droite', 'Logarithme népérien', 'Équation', 'Exponentielle', 'Limites', 'Dérivation', 'Tableau de variation']
   },
   stl_2024_09_metropole_maths: {
     annee: '2024',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'maths',
-    typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Logarithme népérien', 'Equation', 'Primitive', 'Integration']
+    typeExercice: 'stl',
+    tags: ['Exponentielle', 'Logarithme népérien', 'Équation', 'Primitive', 'Integration']
   },
   stl_2024_09_metropole_mq1: {
     annee: '2024',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq1',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Exponentielle']
   },
   stl_2024_09_metropole_mq2: {
@@ -871,15 +871,15 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq2',
-    typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Equation']
+    typeExercice: 'stl',
+    tags: ['Logarithme népérien', 'Équation']
   },
   stl_2024_09_metropole_mq3: {
     annee: '2024',
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq3',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Primitive']
   },
   stl_2024_09_metropole_mq4: {
@@ -887,7 +887,7 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'mq4',
-    typeExercice: 'sti2d',
+    typeExercice: 'stl',
     tags: ['Integration']
   },
   stl_2024_09_metropole_pcm: {
@@ -895,8 +895,56 @@ export const dictionnaireSTL = {
     lieu: 'Métropole',
     mois: '09',
     numeroInitial: 'pcm',
-    typeExercice: 'sti2d',
-    tags: ['Equation différentielle', 'Exponentielle', 'Dérivation', 'Logarithme népérien', 'Géométrie repérée', 'Equation de droite']
+    typeExercice: 'stl',
+    tags: ['Équation différentielle', 'Exponentielle', 'Dérivation', 'Logarithme népérien', 'Géométrie repérée', 'Équation de droite']
+  },
+  stl_2025_06_metropole_maths: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: '06',
+    numeroInitial: 'maths',
+    typeExercice: 'stl',
+    tags: ['Logarithme népérien', 'Dérivation', 'Équation différentielle', 'Exponentielle', 'Dérivation']
+  },
+  stl_2025_06_metropole_mq1: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: '06',
+    numeroInitial: 'mq1',
+    typeExercice: 'stl',
+    tags: ['Logarithme népérien']
+  },
+  stl_2025_06_metropole_mq2: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: '06',
+    numeroInitial: 'mq2',
+    typeExercice: 'stl',
+    tags: ['Logarithme népérien', 'Dérivation']
+  },
+  stl_2025_06_metropole_mq3: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: '06',
+    numeroInitial: 'mq3',
+    typeExercice: 'stl',
+    tags: ['Exponentielle']
+  },
+  stl_2025_06_metropole_mq4: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: '06',
+    numeroInitial: 'mq4',
+    typeExercice: 'stl',
+    tags: ['Équation différentielle', 'Exponentielle', 'Dérivation']
+  },
+  stl_2025_06_metropole_pcm: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: '06',
+    numeroInitial: 'pcm',
+    typeExercice: 'stl',
+    tags: ['Logarithme népérien', 'Équation', 'Exponentielle', 'Limites']
   },
 
 }
