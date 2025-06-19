@@ -25,7 +25,6 @@ export default class ExerciceProba extends Exercice {
     super()
     this.consigne = 'Classer les événéments selon qu\'ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     this.nbQuestions = 5
-
     this.besoinFormulaireNumerique = ['Notions testées', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
     this.sup = 1
     this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']
@@ -40,7 +39,8 @@ export default class ExerciceProba extends Exercice {
       const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
       this.consigne += imageCartes
     }
-    const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
+    // const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
+    const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] : ['type6', 'type8', 'type9', 'type10', 'type11', 'type12']
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -119,20 +119,21 @@ export default class ExerciceProba extends Exercice {
           }
           bonneReponse = 'contraires'
           break
-        case 'type7':
-          if (k === 1) {
-            texte = 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont...<br>'
-            texteCorr = 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont ' + texteEnCouleurEtGras('contraires')
-            if (this.sup === 2) { texteCorr += ' (et donc ' + texteEnCouleurEtGras('incompatibles') + ')' }
-            texteCorr += '.<br>'
-          } else {
-            texte = 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont...<br>'
-            texteCorr = 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
-            if (this.sup === 2) { texteCorr += ' (et donc ' + texteEnCouleurEtGras('incompatibles') + ')' }
-            texteCorr += '.<br>'
-          }
-          bonneReponse = 'contraires'
-          break
+        // ToFix ces évènements ne sont pas contraires
+        // case 'type7':
+        //   if (k === 1) {
+        //     texte = 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont...<br>'
+        //     texteCorr = 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont ' + texteEnCouleurEtGras('contraires')
+        //     if (this.sup === 2) { texteCorr += ' (et donc ' + texteEnCouleurEtGras('incompatibles') + ')' }
+        //     texteCorr += '.<br>'
+        //   } else {
+        //     texte = 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont...<br>'
+        //     texteCorr = 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+        //     if (this.sup === 2) { texteCorr += ' (et donc ' + texteEnCouleurEtGras('incompatibles') + ')' }
+        //     texteCorr += '.<br>'
+        //   }
+        //   bonneReponse = 'contraires'
+        //   break
         case 'type8':
           if (k === 2) {
             texte = 'Les événements « Obtenir une carte autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont...<br>'
