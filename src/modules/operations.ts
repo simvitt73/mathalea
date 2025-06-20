@@ -15,7 +15,7 @@ import { texNombre } from '../lib/outils/texNombre'
  */
 
 const espacement = 1
-export default function Operation ({ operande1 = new Decimal(1), operande2 = new Decimal(2), type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, options = { solution: true, colore: '' } }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, options = { solution: true, colore: '' } }) { // precision est pour le quotient décimal
   const calculer = options.solution
   let Code
   const nombreDeChiffresApresLaVirgule = function (x: Decimal) {
@@ -37,7 +37,9 @@ export default function Operation ({ operande1 = new Decimal(1), operande2 = new
     return blancs
   }
 
-  const DivisionPosee3d = function (divid: Decimal, divis: Decimal, precision = 0, calculer = true) {
+  const DivisionPosee3d = function (divid: number | Decimal, divis: number | Decimal, precision = 0, calculer = true) {
+    divid = new Decimal(divid)
+    divis = new Decimal(divis)
     if (divis.equals(0)) {
       return 'On ne peut pas diviser par 0.'
     }
@@ -151,7 +153,9 @@ export default function Operation ({ operande1 = new Decimal(1), operande2 = new
     return code
   }
 
-  const AdditionPosee3d = function (operande1: Decimal, operande2: Decimal, base: number, retenuesOn: boolean, calculer = true) {
+  const AdditionPosee3d = function (operande1: number | Decimal, operande2: number | Decimal, base: number, retenuesOn: boolean, calculer = true) {
+    operande1 = new Decimal(operande1)
+    operande2 = new Decimal(operande2)
     if (operande1.equals(0) || operande2.equals(0)) {
       return operande1.equals(0)
         ? `$${texNombre(operande1)}$ étant nul, l'addition est égale à $${texNombre(operande2)}$`
@@ -239,7 +243,9 @@ export default function Operation ({ operande1 = new Decimal(1), operande2 = new
     return code
   }
 
-  const SoustractionPosee3d = function (operande1: Decimal, operande2: Decimal, base: number, retenuesOn = true, methodeParCompensation = true, calculer = true) {
+  const SoustractionPosee3d = function (operande1: number | Decimal, operande2: number | Decimal, base: number, retenuesOn = true, methodeParCompensation = true, calculer = true) {
+    operande1 = new Decimal(operande1)
+    operande2 = new Decimal(operande2)
     if (operande1.lessThan(operande2)) {
       return `Je ne sais pas faire de soustraction avec un résultat négatif, or ici $${texNombre(operande1)} < ${texNombre(operande2)}$.`
     }
@@ -357,7 +363,9 @@ export default function Operation ({ operande1 = new Decimal(1), operande2 = new
     code += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
-  const MultiplicationPosee3d = function (operande1: Decimal, operande2: Decimal, base: number, calculer = true) {
+  const MultiplicationPosee3d = function (operande1: number | Decimal, operande2: number | Decimal, base: number, calculer = true) {
+    operande1 = new Decimal(operande1)
+    operande2 = new Decimal(operande2)
     if (operande1.equals(0) || operande2.equals(0)) {
       return operande1.equals(0)
         ? `$${texNombre(operande1)}$ étant nul, le produit est nul.`
@@ -520,8 +528,6 @@ export default function Operation ({ operande1 = new Decimal(1), operande2 = new
 
     return code
   }
-  operande1 = new Decimal(operande1)
-  operande2 = new Decimal(operande2)
   let colore = ''
   if (options.colore != null) colore = options.colore
   const solution = options.solution ? 'Solution' : ''
