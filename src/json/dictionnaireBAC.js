@@ -2919,4 +2919,41 @@ export const dictionnaireBAC = {
     tags: ['Espace']
   },
 
+  bac_2025_06_sujet1_polynesie_1: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_polynesie_2: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_polynesie_3: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_polynesie_4: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+
 }
