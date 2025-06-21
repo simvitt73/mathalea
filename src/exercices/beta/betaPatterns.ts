@@ -1,3 +1,21 @@
+// import { PatternNumerique } from '../../lib/2d/polygones'
+// import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+// import Exercice from '../Exercice'
+// export const uuid = 'patterns'
+// export const titre = 'Problème Beta - Motifs numériques'
+// export const dateDePublication = '10/06/2025'
+// export const refs = {
+//   'fr-fr': [],
+//   'fr-ch': []
+// }
+// export default class ProblemeBetaPatterns extends Exercice {
+//   constructor () {
+//     super()
+//     this.besoinFormulaireNumerique = ['Patter number', 3]
+//     this.besoinFormulaire2Numerique = ['Rang de la figure', 5]
+//     this.sup = 1
+//     this.sup2 = 2
+//   }
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import Exercice from '../Exercice'
@@ -17,6 +35,20 @@ export default class ProblemeBetaPatterns extends Exercice {
     this.sup2 = 2
   }
 
+//   nouvelleVersion () {
+//     // Motif initial : un carré en (0,0) et un en dessous pour activer la règle
+//     let pattern: PatternNumerique
+//     switch (this.sup) {
+//       case 1:
+//         pattern = new PatternNumerique(
+//           [
+//             [0, 0],
+//             [0, 1],
+//             [1, 0],
+//           ]
+//         )
+//         pattern.iterate = function () {
+//           const newCells = new Set<string>()
   nouvelleVersion () {
     // Motif initial : un carré en (0,0) et un en dessous pour activer la règle
     let pattern: VisualPattern
@@ -32,6 +64,15 @@ export default class ProblemeBetaPatterns extends Exercice {
         pattern.iterate = function () {
           const newCells = new Set<string>()
 
+//           for (const key of this.cells) {
+//             const [x, y] = PatternNumerique.keyToCoord(key)
+//             let replaced = false
+//             // Check neighbor below
+//             if (this.hasCell(x, y - 1)) {
+//               newCells.add(PatternNumerique.coordToKey([x, y]))
+//               newCells.add(PatternNumerique.coordToKey([x, y + 1]))
+//               replaced = true
+//             }
           for (const key of this.cells) {
             const [x, y] = VisualPattern.keyToCoord(key)
             let replaced = false
@@ -42,6 +83,12 @@ export default class ProblemeBetaPatterns extends Exercice {
               replaced = true
             }
 
+//             // Check neighbor to the left
+//             if (this.hasCell(x - 1, y)) {
+//               newCells.add(PatternNumerique.coordToKey([x, y]))
+//               newCells.add(PatternNumerique.coordToKey([x + 1, y]))
+//               replaced = true
+//             }
             // Check neighbor to the left
             if (this.hasCell(x - 1, y)) {
               newCells.add(VisualPattern.coordToKey([x, y]))
@@ -49,6 +96,13 @@ export default class ProblemeBetaPatterns extends Exercice {
               replaced = true
             }
 
+//             // If no replacement triggered, keep original cell
+//             if (!replaced) {
+//               newCells.add(PatternNumerique.coordToKey([x, y]))
+//             }
+//           }
+//           return newCells
+//         }
             // If no replacement triggered, keep original cell
             if (!replaced) {
               newCells.add(VisualPattern.coordToKey([x, y]))
@@ -57,6 +111,47 @@ export default class ProblemeBetaPatterns extends Exercice {
           return newCells
         }
 
+//         break
+//       case 2:
+//         pattern = new PatternNumerique(
+//           [
+//             [0, 0]
+//           ]
+//         )
+//         pattern.iterate = function () {
+//           const newCells = new Set<string>()
+//           for (const key of this.cells) {
+//             const [x, y] = PatternNumerique.keyToCoord(key)
+//             newCells.add(PatternNumerique.coordToKey([x, y]))
+//             newCells.add(PatternNumerique.coordToKey([x + 1, y]))
+//             newCells.add(PatternNumerique.coordToKey([x, y + 1]))
+//             newCells.add(PatternNumerique.coordToKey([x + 1, y + 1]))
+//           }
+//           return newCells
+//         }
+//         break
+//       case 3:
+//       default:
+//         pattern = new PatternNumerique(
+//           [
+//             [0, 0]
+//           ]
+//         )
+//         pattern.iterate = function () {
+//           const newCells = new Set<string>()
+//           for (const key of this.cells) {
+//             const [x, y] = PatternNumerique.keyToCoord(key)
+//             if (y === 0) {
+//               newCells.add(PatternNumerique.coordToKey([x, y]))
+//               newCells.add(PatternNumerique.coordToKey([x, y + 1]))
+//               newCells.add(PatternNumerique.coordToKey([x + 1, y]))
+//             } else {
+//               newCells.add(PatternNumerique.coordToKey([x, y]))
+//             }
+//           }
+//           return newCells
+//         }
+//     }
         break
       case 2:
         pattern = new VisualPattern(
@@ -99,9 +194,9 @@ export default class ProblemeBetaPatterns extends Exercice {
         }
     }
 
-    const objets = pattern.render(this.sup2, 0, 0)
-    this.listeQuestions = [
-      mathalea2d(Object.assign(fixeBordures(objets), { ymax: 10 }), objets)
-    ]
-  }
-}
+//     const objets = pattern.render(this.sup2, 0, 0)
+//     this.listeQuestions = [
+//       mathalea2d(Object.assign(fixeBordures(objets), { ymax: 10 }), objets)
+//     ]
+//   }
+// }
