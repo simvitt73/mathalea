@@ -203,9 +203,9 @@ export function cubeDef (shapeId?:string) {
   \\tikzset{
    cubeIso/.pic = {
     % Cube en projection axonométrique
-    \\draw[fill=lightgray, draw=black, line width=1pt] -- (0,1) -- (0.5,0.567) -- (0.5,-0.433) -- (0,0) -- cycle;
-    \\draw[fill=gray, draw=black, line width=1pt] (0.5,0.567) -- (1.366,0.817) -- (1.366,-0.183) -- (0.5,-0.433) -- cycle;
-    \\draw[fill=white, draw=black, line width=1pt]  (0,1) -- (0.5,0.567) -- (1.366,0.817) -- (0.866,1.25) -- cycle;
+    \\draw[fill=lightgray, draw=darkgray, line width=0.5pt] -- (0,1) -- (0.5,0.567) -- (0.5,-0.433) -- (0,0) -- cycle;
+    \\draw[fill=gray, draw=darkgray, line width=0.5pt] (0.5,0.567) -- (1.366,0.817) -- (1.366,-0.183) -- (0.5,-0.433) -- cycle;
+    \\draw[fill=white, draw=darkgray, line width=0.5pt]  (0,1) -- (0.5,0.567) -- (1.366,0.817) -- (0.866,1.25) -- cycle;
    }
   }`.trim()
   }

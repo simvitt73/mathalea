@@ -76,7 +76,9 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
     if (liste == null || liste.length === 0) return
     for (let i = 0; i < liste.length; i++) {
       texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: $\\left(${listePatternsPreDef[liste[i] - 1].fonction(43)}\\right)$${sp(6)}$\\left[${miseEnEvidence(listePatternsPreDef[liste[i] - 1].formule)}\\right]$ <br>`
+
       const patternRiche = listePatternsPreDef[liste[i] - 1]
+      texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
       const shape = patternRiche.shapeDefault ?? shapeCarre()
       const pattern = patternRiche.pattern
       if (pattern instanceof VisualPattern3D) {
@@ -146,7 +148,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         yMax = Math.max(yMax, ymax)
         yMin = Math.min(yMin, ymin)
       }
-      texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { id: `Motif${i}F${index}`, pixelsParCm: 20, yMax, yMin, scale: 0.4, style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n') + '<br>'
+      texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { id: `Motif${i}F${index}`, pixelsParCm: 20, yMax, yMin, scale: 0.5, style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n') + '<br>'
     }
     this.listeQuestions = [texte]
   }

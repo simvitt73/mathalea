@@ -203,11 +203,11 @@ chatDef.svg = function (coeff: number): string {
   <defs>
  <g id="chat">
       <!-- Tête -->
-      <ellipse cx="0" cy="-8" rx="7" ry="7" fill="gray" stroke="black" stroke-width="1" />
+      <ellipse cx="0" cy="-8" rx="7" ry="7" fill="gray" stroke="black" stroke-width="0.5" />
       <!-- Oreille gauche -->
-      <polygon points="-6,-13 -2,-13 -4,-19" fill="gray" stroke="black" stroke-width="1" />
+      <polygon points="-6,-13 -2,-13 -4,-19" fill="gray" stroke="black" stroke-width="0.5" />
       <!-- Oreille droite -->
-      <polygon points="2,-13 6,-13 4,-19" fill="gray" stroke="black" stroke-width="1" />
+      <polygon points="2,-13 6,-13 4,-19" fill="gray" stroke="black" stroke-width="0.5" />
       <!-- Yeux -->
       <ellipse cx="-2" cy="-9" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
       <ellipse cx="2" cy="-9" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
@@ -228,22 +228,22 @@ chatDef.tikz = function (): string {
   \\tikzset{
    chat/.pic = {
     % Tête
-    \\draw[fill=gray, draw=black, line width=1pt] (0,0.35) ellipse [x radius=0.35, y radius=0.35];
+    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (0,0.35) ellipse [x radius=0.35, y radius=0.35];
     % Oreilles
-    \\draw[fill=gray, draw=black, line width=1pt] (-0.22,0.65) -- (-0.08,0.65) -- (-0.15,0.95) -- cycle;
-    \\draw[fill=gray, draw=black, line width=1pt] (0.08,0.65) -- (0.22,0.65) -- (0.15,0.95) -- cycle;
+    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (-0.22,0.65) -- (-0.08,0.65) -- (-0.15,0.95) -- cycle;
+    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (0.08,0.65) -- (0.22,0.65) -- (0.15,0.95) -- cycle;
     % Yeux
-    \\draw[fill=white, draw=black, line width=0.2pt] (-0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
-    \\draw[fill=white, draw=black, line width=0.2pt] (0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
+    \\draw[fill=white, draw=darkgray, line width=0.2pt] (-0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
+    \\draw[fill=white, draw=darkgray, line width=0.2pt] (0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
     \\fill[black] (-0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
     \\fill[black] (0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
     % Nez
-    \\draw[fill=pink, draw=black, line width=0.1pt] (0,0.33) ellipse [x radius=0.035, y radius=0.02];
+    \\draw[fill=pink, draw=darkgray, line width=0.1pt] (0,0.33) ellipse [x radius=0.035, y radius=0.02];
     % Moustaches
-    \\draw[draw=black, line width=0.2pt] (-0.03,0.33) .. controls (-0.15,0.36) .. (-0.3,0.33);
-    \\draw[draw=black, line width=0.2pt] (-0.03,0.31) .. controls (-0.15,0.29) .. (-0.3,0.31);
-    \\draw[draw=black, line width=0.2pt] (0.03,0.33) .. controls (0.15,0.36) .. (0.3,0.33);
-    \\draw[draw=black, line width=0.2pt] (0.03,0.31) .. controls (0.15,0.29) .. (0.3,0.31);
+    \\draw[draw=darkgray, line width=0.2pt] (-0.03,0.33) .. controls (-0.15,0.36) .. (-0.3,0.33);
+    \\draw[draw=darkgray, line width=0.2pt] (-0.03,0.31) .. controls (-0.15,0.29) .. (-0.3,0.31);
+    \\draw[draw=darkgray, line width=0.2pt] (0.03,0.33) .. controls (0.15,0.36) .. (0.3,0.33);
+    \\draw[draw=darkgray, line width=0.2pt] (0.03,0.31) .. controls (0.15,0.29) .. (0.3,0.31);
     }
 } 
   `.trim()
@@ -274,16 +274,16 @@ soleilDef.tikz = function (): string {
   \\tikzset{
    soleil/.pic = {
     % Cercle central
-    \\draw[fill=yellow, draw=orange, line width=1pt] (0,0) circle (0.3);
+    \\draw[fill=yellow, draw=orange, line width=0.3pt] (0,0) circle (0.3);
     % Rayons
-    \\draw[draw=orange, line width=1pt] (0,0.3) -- (0,0.5);
-    \\draw[draw=orange, line width=1pt] (0,-0.3) -- (0,-0.5);
-    \\draw[draw=orange, line width=1pt] (-0.3,0) -- (-0.5,0);
-    \\draw[draw=orange, line width=1pt] (0.3,0) -- (0.5,0);
-    \\draw[draw=orange, line width=1pt] (-0.212,-0.212) -- (-0.353,-0.353);
-    \\draw[draw=orange, line width=1pt] (0.212,-0.212) -- (0.353,-0.353);
-    \\draw[draw=orange, line width=1pt] (-0.212,0.212) -- (-0.353,0.353);
-    \\draw[draw=orange, line width=1pt] (0.212,0.212) -- (0.353,0.353);
+    \\draw[draw=orange, line width=0.3pt] (0,0.3) -- (0,0.5);
+    \\draw[draw=orange, line width=0.3pt] (0,-0.3) -- (0,-0.5);
+    \\draw[draw=orange, line width=0.3pt] (-0.3,0) -- (-0.5,0);
+    \\draw[draw=orange, line width=0.3pt] (0.3,0) -- (0.5,0);
+    \\draw[draw=orange, line width=0.3pt] (-0.212,-0.212) -- (-0.353,-0.353);
+    \\draw[draw=orange, line width=0.3pt] (0.212,-0.212) -- (0.353,-0.353);
+    \\draw[draw=orange, line width=0.3pt] (-0.212,0.212) -- (-0.353,0.353);
+    \\draw[draw=orange, line width=0.3pt] (0.212,0.212) -- (0.353,0.353);
    }
   }`.trim()
 }
@@ -302,7 +302,7 @@ etoileDef.tikz = function (): string {
   \\tikzset{
    etoile/.pic = {
     % Étoile à 4 branches
-    \\draw[fill=yellow, draw=orange, line width=1pt]
+    \\draw[fill=yellow, draw=orange, line width=0.3pt]
       (0,0.09) -- (0.3,0.3) -- (0.09,0) -- (0.3,-0.3)
       -- (0,-0.09) -- (-0.3,-0.3) -- (-0.09,0) -- (-0.3,0.3) -- cycle;
    }
@@ -317,7 +317,7 @@ carreRondDef.svg = function (coeff: number): string {
   <defs>
     <g id="carre-arrondi">
       <rect x="-8" y="-8" width="16" height="16" rx="3" ry="3"
-        fill="gray" stroke="black" stroke-width="1" />
+        fill="gray" stroke="black" stroke-width="0.5" />
     </g>
   </defs>`
 }
@@ -326,7 +326,7 @@ carreRondDef.tikz = function (): string {
   \\tikzset{
    carre-arrondi/.pic = {
     % Carré arrondi
-    \\draw[fill=gray, draw=black, line width=1pt, rounded corners=0.15cm]
+    \\draw[fill=gray, draw=darkgray, line width=0.3pt, rounded corners=0.07cm]
       (-0.4,-0.4) rectangle (0.4,0.4);
    }
   }`.trim()
@@ -338,7 +338,7 @@ losangeDef.svg = function (coeff: number): string {
   <!-- Losange -->
   <defs>
       <polygon id="losange" points="0,-6 8,0 0,6 -8,0"
-        fill="white" stroke="black" stroke-width="1" />
+        fill="pink" stroke="black" stroke-width="0.3" />
   </defs>`
 }
 losangeDef.tikz = function (): string {
@@ -346,7 +346,7 @@ losangeDef.tikz = function (): string {
   \\tikzset{
    losange/.pic = {
     % Losange
-    \\draw[fill=white, draw=black, line width=1pt]
+    \\draw[fill=pink, draw=darkgray, line width=0.3pt]
       (0,-0.3) -- (0.5,0) -- (0,0.3) -- (-0.5,0) -- cycle;
    }
   }`.trim()
@@ -359,7 +359,7 @@ carreDef.svg = function (coeff: number): string {
   <!-- Carré -->
   <defs>
       <rect id="carre" x="-10" y="-10" width="20" height="20"
-        fill="gray" stroke="black" stroke-width="1" />
+        fill="gray" stroke="black" stroke-width="0.5" />
   </defs>`
 }
 carreDef.tikz = function (): string {
@@ -367,7 +367,7 @@ carreDef.tikz = function (): string {
   \\tikzset{
    carre/.pic = {
     % Carré
-    \\draw[fill=gray, draw=black, line width=1pt] (-0.5,-0.5) rectangle (0.5,0.5);
+    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (-0.5,-0.5) rectangle (0.5,0.5);
    }
   }`.trim()
 }
