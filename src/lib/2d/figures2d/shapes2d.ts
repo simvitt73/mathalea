@@ -6,194 +6,89 @@ import { Shape2D } from '../Figures2D'
  * @param options Options pour personnaliser le style du carré.
  * @returns Une instance de Figure2D représentant un carré.
  */
-
-export function shapeCarre (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du carré (par défaut gris)
-    strokeStyle?: string; // Couleur de la bordure du carré (par défaut noir)
-    lineWidth?: number; // Épaisseur de la bordure
-    opacite?: number; // Opacité de la figure (par défaut 1)
-  }
-): Shape2D {
-  const opacite = options?.opacite || 1
-
-  const codeSvg = '<use href="#carre"></use>'
-
-  const codeTikz = '\\pic at (0,0) {carre};'
-
-  return new Shape2D({
-    codeSvg,
-    codeTikz,
-    width: 1,
-    height: 1,
-    opacite,
-    name: 'carré'
-  })
-}
+export const shapeCarre = new Shape2D({
+  codeSvg: '<use href="#carre"></use>',
+  codeTikz: '\\pic at (0,0) {carre};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'carré'
+})
 
 /**
  * Génère une figure représentant une étoile à 4 branches centrée en (0,0),
  * dont les diagonales font 1.
- * @param options Options pour personnaliser le style de l'étoile.
  * @returns Une instance de Shape2D représentant une étoile à 4 branches.
  */
-export function shapeEtoile4Branches (
-  options?: {
-    fillStyle?: string;
-    strokeStyle?: string;
-    lineWidth?: number;
-    opacite?: number;
-  }
-): Shape2D {
-  const opacite = options?.opacite || 1
-
-  const codeSvg = '<use href="#étoile"></use>'
-  // TikZ : centré en (0,0), taille 1x1
-  const codeTikz = `
-   \\pic at (0,0) {etoile};
-  `.trim()
-
-  return new Shape2D({
-    codeSvg,
-    codeTikz,
-    width: 1,
-    height: 1,
-    opacite,
-    name: 'étoile'
-  })
-}
+export const shapeEtoile4Branches = new Shape2D({
+  codeSvg: '<use href="#étoile"></use>',
+  codeTikz: '\\pic at (0,0) {etoile};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'étoile'
+})
 
 /**
  * Génère une figure représentant un carré aux bords arrondis de côté 0.8 centré en (0,0).
- * @param options Options pour personnaliser le style du carré arrondi.
  * @returns Une instance de Shape2D représentant un carré aux coins arrondis.
  */
-export function shapeCarreArrondi (
-  options?: {
-    fillStyle?: string;
-    strokeStyle?: string;
-    lineWidth?: number;
-    opacite?: number;
-    radius?: number; // Rayon des coins arrondis (par défaut 0.15)
-  }
-): Shape2D {
-  const opacite = options?.opacite || 1
+export const shapeCarreArrondi = new Shape2D({
+  codeSvg: '<use href="#carre-arrondi"></use>',
+  codeTikz: '\\pic at (0,0) {carre-arrondi};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'pastille'
+})
 
-  const codeSvg = `
-  <use href="#carre-arrondi"></use>`
-
-  // Pour TikZ, le carré va de (-0.4,-0.4) à (0.4,0.4)
-  // TikZ: rounded corners=<radius>
-  const codeTikz = `
-   \\pic at (0,0) {carre-arrondi};
-  `.trim()
-
-  return new Shape2D({
-    codeSvg,
-    codeTikz,
-    width: 1,
-    height: 1,
-    opacite,
-    name: 'pastille'
-  })
-}
 /**
  * Génère une figure représentant un petit chat stylisé de taille 1x1 centré en (0,0).
- * @param options Options pour personnaliser le style du chat.
  * @returns Une instance de Shape2D représentant un chat.
  */
-export function shapeChat (
-  options?: {
-    fillStyle?: string;
-    strokeStyle?: string;
-    lineWidth?: number;
-    opacite?: number;
-  }
-): Shape2D {
-  const opacite = options?.opacite || 1
+export const shapeChat = new Shape2D({
+  codeSvg: '<use href="#chat"></use>',
+  codeTikz: '\\pic at (0,0) {chat};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'chat'
+})
 
-  // SVG: centré en (0,0), échelle *20
-  const codeSvg = `
-   <use href="#chat"></use>`
-
-  // TikZ : centré en (0,0), taille 1x1
-  const codeTikz = `
-   \\pic at (0,0) {chat};
-  `.trim()
-
-  return new Shape2D({
-    codeSvg,
-    codeTikz,
-    width: 1,
-    height: 1,
-    opacite,
-    name: 'chat'
-  })
-}
 /**
  * Génère une figure représentant un soleil stylisé centré en (0,0), taille 1x1.
- * @param options Options pour personnaliser le style du soleil.
  * @returns Une instance de Shape2D représentant un soleil.
  */
-export function shapeSoleil (
-  options?: {
-    fillStyle?: string;
-    strokeStyle?: string;
-    lineWidth?: number;
-    opacite?: number;
-    rayons?: number; // Nombre de rayons (par défaut 8)
-  }
-): Shape2D {
-  const opacite = options?.opacite || 1
+export const shapeSoleil = new Shape2D({
+  codeSvg: '<use href="#soleil"></use>',
+  codeTikz: '\\pic at (0,0) {soleil};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'soleil'
+})
 
-  const codeSvg = `
-   <use href="#soleil"></use>`
-
-  // TikZ : centré en (0,0), taille 1x1
-  const codeTikz = `
-   \\pic at (0,0) {soleil};
-  `.trim()
-
-  return new Shape2D({
-    codeSvg,
-    codeTikz,
-    width: 1,
-    height: 1,
-    opacite,
-    name: 'soleil'
-  })
-}
 /**
  * Génère une figure représentant un losange de taille 1x1 centré en (0,0).
- * @param options Options pour personnaliser le style du losange.
  * @returns Une instance de Shape2D représentant un losange.
  */
-export function shapeLosange (
-  options?: {
-    fillStyle?: string;
-    strokeStyle?: string;
-    lineWidth?: number;
-    opacite?: number;
-  }
-): Shape2D {
-  const opacite = options?.opacite || 1
+export const shapeLosange = new Shape2D({
+  codeSvg: '<use href="#losange"></use>',
+  codeTikz: '\\pic at (0,0) {losange};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'losange'
+})
 
-  // Losange centré en (0,0), diagonales 1 (donc sommets à (0,±0.5) et (±0.5,0))
-  // Pour SVG, on multiplie par 20
-
-  const codeSvg = '<use href="#losange"></use>'
-
-  const codeTikz = '\\pic at (0,0) {losange};'
-
-  return new Shape2D({
-    codeSvg,
-    codeTikz,
-    width: 1,
-    height: 1,
-    opacite,
-    name: 'losange'
-  })
-}
+export const shapeHexagone = new Shape2D({
+  codeSvg: '<use href="#hexagone"></use>',
+  codeTikz: '\\pic at (0,0) {hexagone};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'hexagone'
+})
 
 export const chatDef = new ObjetMathalea2D()
 chatDef.bordures = [-0.5, -0.5, 0.5, 0.5]
@@ -368,6 +263,111 @@ carreDef.tikz = function (): string {
    carre/.pic = {
     % Carré
     \\draw[fill=gray, draw=darkgray, line width=0.3pt] (-0.5,-0.5) rectangle (0.5,0.5);
+   }
+  }`.trim()
+}
+
+export const hexagoneDef = new ObjetMathalea2D()
+hexagoneDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+hexagoneDef.svg = function (coeff: number): string {
+  return `
+  <!-- Hexagone -->
+  <defs>
+    <g id="hexagone">
+      <polygon points="10,0 5,8.66 -5,8.66 -10,0 -5,-8.66 5,-8.66"
+        fill="lightblue" stroke="black" stroke-width="0.5" />
+    </g>
+  </defs>`
+}
+hexagoneDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   hexagone/.pic = {
+    \\draw[fill=cyan!30, draw=darkgray, line width=0.3pt]
+      (0.5,0) -- (0.25,0.433) -- (-0.25,0.433) -- (-0.5,0) -- (-0.25,-0.433) -- (0.25,-0.433) -- cycle;
+   }
+  }`.trim()
+}
+
+export const shapeRond = new Shape2D({
+  codeSvg: '<use href="#rond"></use>',
+  codeTikz: '\\pic at (0,0) {rond};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'rond'
+})
+
+export const rondDef = new ObjetMathalea2D()
+rondDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+rondDef.svg = function (coeff: number): string {
+  return `
+  <!-- Rond -->
+  <defs>
+    <g id="rond">
+      <circle cx="0" cy="0" r="10" fill="lightblue" stroke="blue" stroke-width="0.5" />
+    </g>
+  </defs>`
+}
+rondDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   rond/.pic = {
+    \\draw[fill=cyan!30, draw=blue, line width=0.3pt] (0,0) circle (0.5);
+   }
+  }`.trim()
+}
+export const shapeBalle = new Shape2D({
+  codeSvg: '<use href="#balle"></use>',
+  codeTikz: '\\pic at (0,0) {balle};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'balle'
+})
+
+export const balleDef = new ObjetMathalea2D()
+balleDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+balleDef.svg = function (coeff: number): string {
+  return `
+  <!-- Balle de tennis -->
+ <defs>
+    <g id="balle" transform="scale(0.2) translate(-60, -60)">
+      <!-- Dégradé -->
+      <radialGradient id="grad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+        <stop offset="0%" stop-color="#f7f95a" />
+        <stop offset="100%" stop-color="#b6d100" />
+      </radialGradient>
+
+      <!-- Ombre -->
+      <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.3" />
+      </filter>
+
+      <!-- Corps de la balle -->
+      <circle cx="60" cy="60" r="50" fill="url(#grad)" filter="url(#shadow)" />
+
+      <!-- Couture principale -->
+      <path d="M20,35 C40,30 80,35 100,25" stroke="white" stroke-width="5" fill="none" />
+
+      <!-- Couture secondaire (plus haute et réduite) -->
+      <path d="M35,110 C60,85 85,80 115,70" stroke="white" stroke-width="5" fill="none" />
+    </g>
+  </defs>`
+}
+balleDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   balle/.pic = {
+    % Balle de tennis jaune citron
+    \\shade[ball color=lime, opacity=0.5] 
+      (0,0) circle (0.5);
+    % Couture principale
+    \\draw[white, line width=0.3pt] 
+      plot [smooth, tension=1] coordinates {(-0.45,-0.15) (-0.2,-0.22) (0.1,-0.18) (0.45,-0.25)};
+    % Couture secondaire
+    \\draw[white, line width=0.3pt] 
+      plot [smooth, tension=1] coordinates {(-0.45,0.4) (-0.15,0.25) (0.2,0.28) (0.45,0.15)};
    }
   }`.trim()
 }

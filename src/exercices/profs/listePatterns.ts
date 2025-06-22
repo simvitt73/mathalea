@@ -1,6 +1,6 @@
 import type { Shape2D } from '../../lib/2d/Figures2D'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { carreDef, carreRondDef, chatDef, etoileDef, losangeDef, shapeCarre, soleilDef } from '../../lib/2d/figures2d/shapes2d'
+import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, losangeDef, rondDef, shapeCarre, soleilDef } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { listePatternsPreDef, type PatternRiche3D, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
@@ -78,8 +78,8 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
       texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: $\\left(${listePatternsPreDef[liste[i] - 1].fonction(43)}\\right)$${sp(6)}$\\left[${miseEnEvidence(listePatternsPreDef[liste[i] - 1].formule)}\\right]$ <br>`
 
       const patternRiche = listePatternsPreDef[liste[i] - 1]
-      texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-      const shape = patternRiche.shapeDefault ?? shapeCarre()
+      if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
+      const shape = patternRiche.shapeDefault ?? shapeCarre
       const pattern = patternRiche.pattern
       if (pattern instanceof VisualPattern3D) {
         pattern.shape = shape as Shape3D
@@ -112,7 +112,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         let ymax = -Infinity
         let xmin = Infinity
         let xmax = -Infinity
-        if (context.isHtml) figures[j] = [chatDef, soleilDef, etoileDef, losangeDef, carreRondDef, carreDef, cubeIsoDef]
+        if (context.isHtml) figures[j] = [chatDef, soleilDef, etoileDef, losangeDef, carreRondDef, carreDef, cubeIsoDef, hexagoneDef, rondDef, balleDef]
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
             updateCubeIso(pattern, i, j, angle)

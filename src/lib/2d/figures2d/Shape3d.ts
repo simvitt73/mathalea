@@ -163,7 +163,7 @@ export function faceTop (angle: number): string {
     project3dIso(1, 1, 1, angle),
     project3dIso(1, 0, 1, angle)
   ]
-  return `<polygon points="${topPoints.map(p => p.join(',')).join(' ')}" fill="white" stroke="black" stroke-width="1" />`
+  return `<polygon points="${topPoints.map(p => p.join(',')).join(' ')}" fill="green" stroke="black" stroke-width="1" />`
 }
 export function faceLeft (angle: number): string {
   const leftPoints = [
@@ -173,7 +173,7 @@ export function faceLeft (angle: number): string {
     project3dIso(0, 0, 0, angle)
   ]
   return `<polygon points="${leftPoints.map(p => p.join(',')).join(' ')}
-" fill="lightgray" stroke="black" stroke-width="1" />`
+" fill="yellow" stroke="black" stroke-width="1" />`
 }
 export function faceRight (angle: number): string {
   const rightPoints = [
@@ -182,7 +182,7 @@ export function faceRight (angle: number): string {
     project3dIso(1, 1, 0, angle),
     project3dIso(1, 0, 0, angle)
   ]
-  return `<polygon points="${rightPoints.map(p => p.join(',')).join(' ')}" fill="gray" stroke="black" stroke-width="1" />`
+  return `<polygon points="${rightPoints.map(p => p.join(',')).join(' ')}" fill="red" stroke="black" stroke-width="1" />`
 }
 
 export function cubeDef (shapeId?:string) {
@@ -203,9 +203,9 @@ export function cubeDef (shapeId?:string) {
   \\tikzset{
    cubeIso/.pic = {
     % Cube en projection axonométrique
-    \\draw[fill=lightgray, draw=darkgray, line width=0.5pt] -- (0,1) -- (0.5,0.567) -- (0.5,-0.433) -- (0,0) -- cycle;
-    \\draw[fill=gray, draw=darkgray, line width=0.5pt] (0.5,0.567) -- (1.366,0.817) -- (1.366,-0.183) -- (0.5,-0.433) -- cycle;
-    \\draw[fill=white, draw=darkgray, line width=0.5pt]  (0,1) -- (0.5,0.567) -- (1.366,0.817) -- (0.866,1.25) -- cycle;
+    \\draw[fill=yellow, draw=darkgray, line width=0.5pt] -- (0,1) -- (0.5,0.567) -- (0.5,-0.433) -- (0,0) -- cycle;
+    \\draw[fill=red, draw=darkgray, line width=0.5pt] (0.5,0.567) -- (1.366,0.817) -- (1.366,-0.183) -- (0.5,-0.433) -- cycle;
+    \\draw[fill=green, draw=darkgray, line width=0.5pt]  (0,1) -- (0.5,0.567) -- (1.366,0.817) -- (0.866,1.25) -- cycle;
    }
   }`.trim()
   }

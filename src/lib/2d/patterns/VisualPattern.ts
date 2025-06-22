@@ -34,7 +34,7 @@ export class VisualPattern {
       throw new Error('initialCells must be a Set, an array of coordinates or an array of strings')
     }
     if (!(shape instanceof Shape2D) || shape !== undefined) {
-      this.shape = shapeCarre()
+      this.shape = shapeCarre
     } else {
       this.shape = shape
     }

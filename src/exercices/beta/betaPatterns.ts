@@ -1,4 +1,4 @@
-import { PatternNumerique } from '../../lib/2d/polygones'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import Exercice from '../Exercice'
 export const uuid = 'patterns'
@@ -19,10 +19,10 @@ export default class ProblemeBetaPatterns extends Exercice {
 
   nouvelleVersion () {
     // Motif initial : un carré en (0,0) et un en dessous pour activer la règle
-    let pattern: PatternNumerique
+    let pattern: VisualPattern
     switch (this.sup) {
       case 1:
-        pattern = new PatternNumerique(
+        pattern = new VisualPattern(
           [
             [0, 0],
             [0, 1],
@@ -33,25 +33,25 @@ export default class ProblemeBetaPatterns extends Exercice {
           const newCells = new Set<string>()
 
           for (const key of this.cells) {
-            const [x, y] = PatternNumerique.keyToCoord(key)
+            const [x, y] = VisualPattern.keyToCoord(key)
             let replaced = false
             // Check neighbor below
             if (this.hasCell(x, y - 1)) {
-              newCells.add(PatternNumerique.coordToKey([x, y]))
-              newCells.add(PatternNumerique.coordToKey([x, y + 1]))
+              newCells.add(VisualPattern.coordToKey([x, y]))
+              newCells.add(VisualPattern.coordToKey([x, y + 1]))
               replaced = true
             }
 
             // Check neighbor to the left
             if (this.hasCell(x - 1, y)) {
-              newCells.add(PatternNumerique.coordToKey([x, y]))
-              newCells.add(PatternNumerique.coordToKey([x + 1, y]))
+              newCells.add(VisualPattern.coordToKey([x, y]))
+              newCells.add(VisualPattern.coordToKey([x + 1, y]))
               replaced = true
             }
 
             // If no replacement triggered, keep original cell
             if (!replaced) {
-              newCells.add(PatternNumerique.coordToKey([x, y]))
+              newCells.add(VisualPattern.coordToKey([x, y]))
             }
           }
           return newCells
@@ -59,7 +59,7 @@ export default class ProblemeBetaPatterns extends Exercice {
 
         break
       case 2:
-        pattern = new PatternNumerique(
+        pattern = new VisualPattern(
           [
             [0, 0]
           ]
@@ -67,18 +67,18 @@ export default class ProblemeBetaPatterns extends Exercice {
         pattern.iterate = function () {
           const newCells = new Set<string>()
           for (const key of this.cells) {
-            const [x, y] = PatternNumerique.keyToCoord(key)
-            newCells.add(PatternNumerique.coordToKey([x, y]))
-            newCells.add(PatternNumerique.coordToKey([x + 1, y]))
-            newCells.add(PatternNumerique.coordToKey([x, y + 1]))
-            newCells.add(PatternNumerique.coordToKey([x + 1, y + 1]))
+            const [x, y] = VisualPattern.keyToCoord(key)
+            newCells.add(VisualPattern.coordToKey([x, y]))
+            newCells.add(VisualPattern.coordToKey([x + 1, y]))
+            newCells.add(VisualPattern.coordToKey([x, y + 1]))
+            newCells.add(VisualPattern.coordToKey([x + 1, y + 1]))
           }
           return newCells
         }
         break
       case 3:
       default:
-        pattern = new PatternNumerique(
+        pattern = new VisualPattern(
           [
             [0, 0]
           ]
@@ -86,13 +86,13 @@ export default class ProblemeBetaPatterns extends Exercice {
         pattern.iterate = function () {
           const newCells = new Set<string>()
           for (const key of this.cells) {
-            const [x, y] = PatternNumerique.keyToCoord(key)
+            const [x, y] = VisualPattern.keyToCoord(key)
             if (y === 0) {
-              newCells.add(PatternNumerique.coordToKey([x, y]))
-              newCells.add(PatternNumerique.coordToKey([x, y + 1]))
-              newCells.add(PatternNumerique.coordToKey([x + 1, y]))
+              newCells.add(VisualPattern.coordToKey([x, y]))
+              newCells.add(VisualPattern.coordToKey([x, y + 1]))
+              newCells.add(VisualPattern.coordToKey([x + 1, y]))
             } else {
-              newCells.add(PatternNumerique.coordToKey([x, y]))
+              newCells.add(VisualPattern.coordToKey([x, y]))
             }
           }
           return newCells
