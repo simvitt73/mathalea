@@ -18,6 +18,11 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
 export function rienSi1 (a: number | FractionEtendue | Decimal | string) {
+  if (typeof a === 'number') {
+    if (a === 1) return ''
+    if (a === -1) return '-'
+    return texNombre(a)
+  }
   if (a instanceof Decimal) {
     if (a.eq(1)) return ''
     if (a.eq(-1)) return '-'
@@ -32,8 +37,9 @@ export function rienSi1 (a: number | FractionEtendue | Decimal | string) {
   }
   if (typeof a === 'string') {
     window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
-    return stringNombre(Number(a), 7)
+    return texNombre(Number(a), 7)
   }
+  console.log(typeof a)
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
   return String(a)
 }
