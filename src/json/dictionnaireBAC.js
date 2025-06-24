@@ -2956,4 +2956,113 @@ export const dictionnaireBAC = {
     tags: ['']
   },
 
+  bac_2025_06_sujet1_metropole_1: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_metropole_2: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_metropole_3: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet1_metropole_4: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_metropole_1: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_metropole_2: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_metropole_3: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_metropole_4: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_polynesie_1: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_polynesie_2: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_polynesie_3: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2025_06_sujet2_polynesie_4: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+
 }
