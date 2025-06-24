@@ -7,7 +7,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
-export const titre = 'Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01'
+export const titre = 'Multiplier par 10, 100, 1000 ou 0,1 ou 0,01 '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
