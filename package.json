@@ -79,7 +79,6 @@
     "@mixer/postmessage-rpc": "^1.1.4",
     "@svgdotjs/svg.js": "^3.2.4",
     "@types/crypto-js": "^4.2.2",
-    "algebrite": "^1.4.0",
     "apigeom": "git+https://forge.apps.education.fr/coopmaths/apigeom.git",
     "blockly": "11.1.1",
     "boxicons": "^2.1.4",

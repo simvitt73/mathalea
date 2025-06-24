@@ -18,14 +18,14 @@ const espacement = 1
 export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, options = { solution: true, colore: '' } }) { // precision est pour le quotient décimal
   const calculer = options.solution
   let Code
-  const nombreDeChiffresApresLaVirgule = function (x) {
+  const nombreDeChiffresApresLaVirgule = function (x: Decimal) {
     const s = x.toString()
     const pe = x.floor().toString()
     if (pe.length === s.length) return 0
     return s.length - pe.length - 1
   }
 
-  const cacherleszerosdevant = function (chaine) {
+  const cacherleszerosdevant = function (chaine: string) {
     let blancs = ''
     while (chaine[0] === '0') {
       chaine = chaine.substr(1)
@@ -37,17 +37,19 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return blancs
   }
 
-  const DivisionPosee3d = function (divid, divis, precision = 0, calculer = true) {
-    if (divis === 0) {
+  const DivisionPosee3d = function (divid: number | Decimal, divis: number | Decimal, precision = 0, calculer = true) {
+    divid = new Decimal(divid)
+    divis = new Decimal(divis)
+    if (divis.equals(0)) {
       return 'On ne peut pas diviser par 0.'
     }
-    if (divid === 0) {
+    if (divid.equals(0)) {
       return 'Lorsqu\'on divise 0 par un nombre, le quotient est 0.'
     }
-    if (divid === divis) {
+    if (divid.equals(divis)) {
       return 'Lorsqu\'on divise un nombre par lui-même, le quotient est 1.'
     }
-    if (divis === 1) {
+    if (divis.equals(1)) {
       return `Lorsqu'on divise un nombre par 1, le quotient est le nombre initial : $${texNombre(divid)}$.`
     }
     const objets = []; let zeroutile = false; const periode = 0 // EE : Pas compris à quoi servait cette variable ?
@@ -60,23 +62,23 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let dec2 = nombreDeChiffresApresLaVirgule(divid)
     dec2 = precision - dec2 - dec1
     divid = divid.mul(10 ** dec2) // math.format(divid * 10 ** dec2, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 })
-    const ecriresoustraction = function (upos, P) {
+    const ecriresoustraction = function (upos: number, P: string) {
       objets.push(texteParPosition('-', (upos - P.length - 0.5) * espacement, 10 - i * 2, 0, 'black', 1.2, 'milieu', false))
       for (let k = 0; k < P.length; k++) {
         objets.push(texteParPosition(P[P.length - k - 1], (upos - k - 1) * espacement, 10 - i * 2, 0, 'black', 1.2, 'milieu', false))
       }
       objets.push(segment((upos - P.length - 0.5) * espacement, 9.6 - i * 2, (upos + 0.2 - 1) * espacement, 9.6 - i * 2))
     }
-    const ecrirereste = function (upos, R) {
+    const ecrirereste = function (upos: number, R: string) {
       for (let k = 0; k < R.length; k++) {
         objets.push(texteParPosition(R[R.length - k - 1], (upos - k - 1) * espacement, 9 - i * 2, 0, 'black', 1.2, 'milieu', false))
       }
     }
-    const ecrirequotient = function (x, Q) {
+    const ecrirequotient = function (x: number, Q: string) {
       objets.push(texteParPosition(Q, (n + 1.5 + x) * espacement, 10, 0, 'black', 1.2, 'milieu', false))
     }
 
-    const divd = []; const Q = []; const R = []; const P = []; const ProduitPartiel = []; let q
+    const divd: string[] = []; const Q = []; const R = []; const P = []; const ProduitPartiel = []; let q
     const dividende = divid.toString()
     const diviseur = divis.toString()
     const n = Math.log10(ordreDeGrandeur(divid.toNumber(), 1)) // nombre de chiffres du dividende
@@ -97,7 +99,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let i = 0
     if (calculer) {
       divd.push(dividende.substr(0, m))
-      if (parseInt(divd[0]) < divis) {
+      if (parseInt(divd[0]) < divis.toNumber()) {
         divd[0] += dividende.substr(m, 1)
         if (divis.div(10 ** dec2).lt(divis) && zeroutile) {
           ecrirequotient(-1, '0')
@@ -151,9 +153,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const AdditionPosee3d = function (operande1, operande2, base, retenuesOn, calculer = true) {
-    if (operande1 === 0 || operande2 === 0) {
-      return operande1 === 0
+  const AdditionPosee3d = function (operande1: number | Decimal, operande2: number | Decimal, base: number, retenuesOn: boolean, calculer = true) {
+    operande1 = new Decimal(operande1)
+    operande2 = new Decimal(operande2)
+    if (operande1.equals(0) || operande2.equals(0)) {
+      return operande1.equals(0)
         ? `$${texNombre(operande1)}$ étant nul, l'addition est égale à $${texNombre(operande2)}$`
         : `$${texNombre(operande2)}$ étant nul, l'addition est égale à $${texNombre(operande1)}$`
     }
@@ -178,11 +182,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       operande2 = operande2.mul(10 ** decalage)
       if (dec1 > dec2) for (let j = 0; j < dec1 - dec2; j++) sop2 += ' ' // On complète par des espaces si besoin
       else for (let j = 0; j < dec2 - dec1; j++) sop1 += ' ' // On complète par des espaces si besoin
-      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(terme1)))); j++) sop1 = '0' + sop1 // On complète par des zéros si besoin
-      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(terme2)))); j++) sop2 = '0' + sop2 // On complète par des zéros si besoin
+      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(terme1.toNumber())))); j++) sop1 = '0' + sop1 // On complète par des zéros si besoin
+      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(terme2.toNumber())))); j++) sop2 = '0' + sop2 // On complète par des zéros si besoin
       resultat = operande1.plus(operande2)
       sresultat = resultat.toString()
-      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(somme)))); j++) sresultat = '0' + sresultat // On complète par des zéros si besoin
+      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(somme.toNumber())))); j++) sresultat = '0' + sresultat // On complète par des zéros si besoin
       lresultat = sresultat.length
     } else {
       decalage = 0
@@ -209,7 +213,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
       chiffreop1 = isNaN(parseInt(sop1[i], base)) ? 0 : parseInt(sop1[i], base)
       chiffreop2 = isNaN(parseInt(sop2[i], base)) ? 0 : parseInt(sop2[i], base)
-      if (chiffreop1 + chiffreop2 + parseInt(retenues[0] > 0 ? retenues[0] : 0) > base - 1) {
+      if (chiffreop1 + chiffreop2 + parseInt(Number(retenues[0]) > 0 ? retenues[0] : '0') > base - 1) {
         retenues = `1${retenues}`
       } else {
         retenues = ` ${retenues}`
@@ -239,11 +243,13 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn = true, methodeParCompensation = true, calculer = true) {
+  const SoustractionPosee3d = function (operande1: number | Decimal, operande2: number | Decimal, base: number, retenuesOn = true, methodeParCompensation = true, calculer = true) {
+    operande1 = new Decimal(operande1)
+    operande2 = new Decimal(operande2)
     if (operande1.lessThan(operande2)) {
       return `Je ne sais pas faire de soustraction avec un résultat négatif, or ici $${texNombre(operande1)} < ${texNombre(operande2)}$.`
     }
-    if (operande2 === 0) return `Lorsqu'on soustrait 0, le résultat est le nombre initial, ici $${texNombre(operande1)}$.`
+    if (operande2.equals(0)) return `Lorsqu'on soustrait 0, le résultat est le nombre initial, ici $${texNombre(operande1)}$.`
     let code = ''
     const objets = []
     let sop1; let sop2
@@ -319,11 +325,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         chiffreop2 = isNaN(parseInt(sop2[i], base)) ? 0 : parseInt(sop2[i], base)
         const additOp1 = new Decimal(parseInt(sresultat[i] === ' ' ? '0' : sresultat[i], base) + chiffreop2)
         if (ArrsOp1[i] !== ' ') objets.push(texteParPosition(ArrsOp1[i], i * espacement, 4, 0, 'black', 1.2, 'milieu', false))
-        if (retenuesOn && additOp1.sub(parseInt(ArrsOp1[i])).abs() > 0.5) {
+        if (retenuesOn && additOp1.sub(parseInt(ArrsOp1[i])).abs().greaterThan(0.5)) {
           // retenu à mettre ou cassage
           for (let k = 0; k < 2; k++) {
-            if ((additOp1.gte(10) && additOp1.sub(10).sub(parseInt(ArrsOp1[i])).abs() > 0.5) || // addition >= 10 & unités différentes donc il faut casser si unité différente
-              (additOp1.lt(10) && additOp1.sub(parseInt(ArrsOp1[i])).abs() > 0.5)) { // addition < 10 et chiffres différents donc il faut casser
+            if ((additOp1.gte(10) && additOp1.sub(10).sub(parseInt(ArrsOp1[i])).abs().greaterThan(0.5)) || // addition >= 10 & unités différentes donc il faut casser si unité différente
+              (additOp1.lt(10) && additOp1.sub(parseInt(ArrsOp1[i])).abs().greaterThan(0.5))) { // addition < 10 et chiffres différents donc il faut casser
               // on doit casser
               objets.push(segment(i * espacement - 0.3, 4 + hauteur[i] - 0.3, i * espacement + 0.3, 4 + hauteur[i] + 0.3))
               if (parseInt(ArrsOp1[i]) > 0) {
@@ -335,7 +341,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
               }
               hauteur[i]++
               objets.push(texteParPosition(ArrsOp1[i], i * espacement, 4 + hauteur[i], 0, 'black', 1.2, 'milieu', false))
-            } else if (additOp1.gte(10) && additOp1.sub(10).sub(parseInt(ArrsOp1[i])).abs() < 0.5) {
+            } else if (additOp1.gte(10) && additOp1.sub(10).sub(parseInt(ArrsOp1[i])).abs().lessThan(0.5)) { // addition >= 10 & unités différentes donc il faut mettre une retenue
               // addition >= 10 & et les unités sont les mêmes donc il faut mettre une retenue
               objets.push(texteParPosition('1', i * espacement - 0.25, 4 + hauteur[i], 0, 'red', 0.8, 'milieu', false))
               break
@@ -357,20 +363,22 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     code += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
-  const MultiplicationPosee3d = function (operande1, operande2, base, calculer = true) {
-    if (operande1 === 0 || operande2 === 0) {
-      return operande1 === 0
+  const MultiplicationPosee3d = function (operande1: number | Decimal, operande2: number | Decimal, base: number, calculer = true) {
+    operande1 = new Decimal(operande1)
+    operande2 = new Decimal(operande2)
+    if (operande1.equals(0) || operande2.equals(0)) {
+      return operande1.equals(0)
         ? `$${texNombre(operande1)}$ étant nul, le produit est nul.`
         : `$${texNombre(operande2)}$ étant nul, le produit est nul.`
     }
-    if (operande1 === 1 || operande2 === 1) {
-      return operande1 === 1
+    if (operande1.equals(1) || operande2.equals(1)) {
+      return operande1.equals(1)
         ? `Lorsqu'on multiplie par 1, le produit est le nombre initial, ici $${texNombre(operande2)}$.`
         : `Lorsqu'on multiplie par 1, le produit est le nombre initial, ici $${texNombre(operande1)}$.`
     }
     let sop1; let sop2; const objets = []; let lignesinutiles = 0
     let zeroUtile1, zeroUtile2
-    const produits = []; let strprod; const sommes = []
+    const produits = []; let strprod = 0; const sommes = []
     let dec1, dec2
     if (base ? base === 10 : true) { // on est en base 10, la multiplication peut être décimale, on gère
       zeroUtile1 = operande1.lt(1) // on gère les nombres en 0.xxx
@@ -402,7 +410,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (sop2[lop2 - i - 1] !== '0') { // On évite la ligne de 0 si le chiffre de l'operande2 est 0 (0.xxx)
         for (let j = 0; j < lop1; j++) { // on effectue le produit du chiffre de l'operande2 par l'operande1 (j est l'indice du chiffre de operande1 traité)
           if (base ? base === 10 : true) {
-            strprod = parseInt(sop1[lop1 - j - 1] * parseInt(sop2[lop2 - i - 1])) + parseInt(retenues[i][0]) // retenues[i][0] est la retenue du produit précédent
+            strprod = parseInt(sop1[lop1 - j - 1]) * parseInt(sop2[lop2 - i - 1]) + parseInt(retenues[i][0]) // retenues[i][0] est la retenue du produit précédent
             if (j !== lop1 - 1) retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}` // la nouvelle retenue est stockée en début de chaine retenues[i]
             // il n'y a pas de retenues sur le dernier produit on ajoutera les dizaines dans la chaine produits[i] à la fin
             produits[i] = `${Number(strprod % 10).toString()}${produits[i]}` // le chiffre du produit courant est stocké en début de chaine produits[i]
@@ -520,8 +528,6 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
     return code
   }
-  operande1 = new Decimal(operande1)
-  operande2 = new Decimal(operande2)
   let colore = ''
   if (options.colore != null) colore = options.colore
   const solution = options.solution ? 'Solution' : ''

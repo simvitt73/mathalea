@@ -18,25 +18,30 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
 export function rienSi1 (a: number | FractionEtendue | Decimal | string) {
+  if (typeof a === 'number') {
+    if (a === 1) return ''
+    if (a === -1) return '-'
+    return texNombre(a)
+  }
   if (a instanceof Decimal) {
     if (a.eq(1)) return ''
     if (a.eq(-1)) return '-'
     return texNombre(a)
   }
   if (a instanceof FractionEtendue && !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))) return a.toLatex()
-  if (typeof a === 'string') {
-    window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
-    a = Number(a)
-  }
   if (a instanceof FractionEtendue && (a.isEqual(fraction(1, 1)))) return ''
   if (a instanceof FractionEtendue && (a.isEqual(fraction(-1, 1)))) return '-'
   if (!(a instanceof FractionEtendue)) {
     if (egal(a, 1)) return ''
     if (egal(a, -1)) return '-'
   }
-
-  if (Number(a) || a === 0) return stringNombre(a as number, 7) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
+  if (typeof a === 'string') {
+    window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
+    return texNombre(Number(a), 7)
+  }
+  console.log(typeof a)
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
+  return String(a)
 }
 
 /**

@@ -12,6 +12,15 @@ export function pgcd (...args: number[]) {
 }
 
 /**
+ * Renvoie le PPCM de deux nombres
+ * @author Rémi Angot
+ */
+export function ppcm (a: number, b: number): number {
+  if (a === 0 || b === 0) return 0
+  return Math.abs(a * b) / pgcd(a, b)
+}
+
+/**
  * Donne la liste des facteurs premiers d'un nombre
  * @param { number } n - Nombre à décomposer
  * @returns {number[]} - Liste des facteurs premiers

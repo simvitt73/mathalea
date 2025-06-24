@@ -12,12 +12,13 @@ import {
   decompositionFacteursPremiers,
   listeDesDiviseurs,
   obtenirListeFacteursPremiers,
-  pgcd
+  pgcd,
+  ppcm
 } from '../lib/outils/primalite'
 import { stringNombre, texNombre } from '../lib/outils/texNombre'
 import {
   quotientier,
-  egal, ppcm
+  egal
 } from './outils'
 import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites'
