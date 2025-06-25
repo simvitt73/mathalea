@@ -2926,7 +2926,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2025_06_sujet1_polynesie_2: {
     annee: '2025',
@@ -2935,7 +2935,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2025_06_sujet1_polynesie_3: {
     annee: '2025',
@@ -2944,7 +2944,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Exponentielle', 'Intégration', 'Suites', 'Python']
   },
   bac_2025_06_sujet1_polynesie_4: {
     annee: '2025',
@@ -2953,7 +2953,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Affirmations', 'Dénombrement', 'Suites', 'Espace', 'Convexité']
   },
 
   bac_2025_06_sujet1_metropole_1: {
@@ -2963,7 +2963,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2025_06_sujet1_metropole_2: {
     annee: '2025',
@@ -2972,7 +2972,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Logarithme', 'Convexité', 'Intégration']
   },
   bac_2025_06_sujet1_metropole_3: {
     annee: '2025',
@@ -2981,7 +2981,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Affirmations', 'Espace']
   },
   bac_2025_06_sujet1_metropole_4: {
     annee: '2025',
@@ -2990,7 +2990,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Suites', 'Python', 'Exponentielle', 'Intégration', 'Equations différentielles']
   },
   bac_2025_06_sujet2_metropole_1: {
     annee: '2025',
@@ -2999,7 +2999,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2025_06_sujet2_metropole_2: {
     annee: '2025',
@@ -3008,7 +3008,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2025_06_sujet2_metropole_3: {
     annee: '2025',
@@ -3017,7 +3017,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Affirmations', 'Logarithme', 'Convexité', 'Suites']
   },
   bac_2025_06_sujet2_metropole_4: {
     annee: '2025',
@@ -3026,7 +3026,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Equations différentielles', 'Intégration', 'Exponentielle']
   },
   bac_2025_06_sujet2_polynesie_1: {
     annee: '2025',
@@ -3035,7 +3035,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Suites', 'Python']
   },
   bac_2025_06_sujet2_polynesie_2: {
     annee: '2025',
@@ -3044,7 +3044,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Logarithme', 'Convexité', 'TVI']
   },
   bac_2025_06_sujet2_polynesie_3: {
     annee: '2025',
@@ -3053,7 +3053,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2025_06_sujet2_polynesie_4: {
     annee: '2025',
@@ -3062,7 +3062,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['']
+    tags: ['Affirmations', 'Dénombrement', 'Intégration', 'Equations différentielles', 'Logarithme', 'Suites', 'Trigonométrie']
   },
 
 }
