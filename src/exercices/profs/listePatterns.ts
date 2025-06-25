@@ -1,5 +1,5 @@
-import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { balleDef, carreBleuDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, listeShapes2D, losangeDef, redCrossDef, rondDef, shapeCarre, soleilDef, tortueDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
+import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
+import { balleDef, carreBleuDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, losangeDef, redCrossDef, rondDef, shapeNames, soleilDef, tortueDef, triangleEquilateralDef, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { listePatternsPreDef, type PatternRiche3D, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
@@ -11,7 +11,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'
@@ -91,14 +91,13 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
       if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
       const pattern = patternRiche.pattern
       if (pattern instanceof VisualPattern3D) {
-        const shape = (patternRiche as PatternRiche3D).shapeDefault ?? shapeCarre
-        pattern.shape = shape as Shape3D
+        pattern.shapes = ['cube']
         pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
       } else {
-        pattern.shape0 = (patternRiche as PatternRiche).shape0 ?? 'carré'
-        pattern.shape1 = (patternRiche as PatternRiche).shape1 ?? 'carré'
-        pattern.shape = listeShapes2D[pattern.shape0] ?? shapeCarre
-        pattern.iterate = (patternRiche as PatternRiche).iterate
+        if (pattern.shapes[0] === 'carré' && (pattern.shapes[1] == null || pattern.shapes[1] === 'carré')) {
+          pattern.shapes = [shapeNames[randint(0, shapeNames.length - 1)] as ShapeName]
+          pattern.iterate = (patternRiche as PatternRiche).iterate
+        }
       }
 
       const angle = Math.PI / 6

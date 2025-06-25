@@ -524,9 +524,41 @@ redCrossDef.tikz = function (): string {
   }`.trim()
 }
 
-export type ShapeName = keyof typeof listeShapes2D
+export const shapeNames: string[] = [
+  'carré',
+  'carréRond',
+  'étoile',
+  'chat',
+  'soleil',
+  'losange',
+  'hexagone',
+  'rond',
+  'balle',
+  'tortue',
+  'triangle',
+  'redCross',
+  'carréBleu'
+]
 
-export const listeShapes2D: Record<string, Shape2D> = {
+export type ShapeName = (typeof shapeNames)[number]
+
+export const listeShapesDef: Record<ShapeName, ObjetMathalea2D > = {
+  carré: carreDef,
+  carréRond: carreRondDef,
+  étoile: etoileDef,
+  chat: chatDef,
+  soleil: soleilDef,
+  losange: losangeDef,
+  hexagone: hexagoneDef,
+  rond: rondDef,
+  balle: balleDef,
+  tortue: tortueDef,
+  triangle: triangleEquilateralDef,
+  redCross: redCrossDef,
+  carréBleu: carreBleuDef,
+}
+
+export const listeShapes2D: Record<ShapeName, Shape2D> = {
   carré: shapeCarre,
   carréRond: shapeCarreArrondi,
   étoile: shapeEtoile4Branches,
@@ -539,6 +571,6 @@ export const listeShapes2D: Record<string, Shape2D> = {
   tortue: shapeTortue,
   triangle: shapeTriangleEquilateral,
   redCross: shapeRedCross,
-  carréBleu: shapeCarreBleu
+  carréBleu: shapeCarreBleu,
 }
 export const listeShapes2DNames: ShapeName[] = Object.keys(listeShapes2D) as ShapeName[]

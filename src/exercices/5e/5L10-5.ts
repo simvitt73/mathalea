@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, listeShapes2D, listeShapes2DNames, losangeDef, redCrossDef, rondDef, shapeBalle, shapeCarre, shapeCarreArrondi, shapeChat, shapeEtoile4Branches, shapeHexagone, shapeLosange, shapeRedCross, shapeRond, shapeSoleil, shapeTortue, shapeTriangleEquilateral, soleilDef, tortueDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
+import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, listeShapes2DNames, listeShapesDef, losangeDef, redCrossDef, rondDef, soleilDef, tortueDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternAffine, listePatternAutres, listePatternDegre2, listePatternDegre3, listePatternLineaire, listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
@@ -104,82 +104,76 @@ export default class PaternNum1 extends Exercice {
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
         objetsCorr.push(cubeDef(`cubeIsoQ${i}F0`))
       } else {
-        pattern.shape = listeShapes2D[listeShapes2DNames[formes[i]]]
+        const pat2D = pat as PatternRiche
         pattern.iterate = (pat as PatternRiche).iterate
-        switch (formes[i]) {
-          case 2:
-            pattern.shape = shapeEtoile4Branches
-            pattern.shape0 = 'étoile'
-            pattern.shape1 = 'étoile'
-            objetsCorr.push(etoileDef)
-            break
-          case 3:
-            pattern.shape = shapeCarreArrondi
-            pattern.shape0 = 'carréRond'
-            pattern.shape1 = 'carréRond'
-            objetsCorr.push(carreRondDef)
-            break
-          case 4:
-            pattern.shape = shapeChat
-            pattern.shape0 = 'chat'
-            pattern.shape1 = 'chat'
-            objetsCorr.push(chatDef)
-            break
-          case 5:
-            pattern.shape = shapeSoleil
-            pattern.shape0 = 'soleil'
-            pattern.shape1 = 'soleil'
-            objetsCorr.push(soleilDef)
-            break
-          case 6:
-            pattern.shape = shapeLosange
-            pattern.shape0 = 'losange'
-            pattern.shape1 = 'losange'
-            objetsCorr.push(losangeDef)
-            break
-          case 7:
-            pattern.shape = shapeHexagone
-            pattern.shape0 = 'hexagone'
-            pattern.shape1 = 'hexagone'
-            objetsCorr.push(hexagoneDef)
-            break
-          case 8:
-            pattern.shape = shapeRond
-            pattern.shape0 = 'rond'
-            pattern.shape1 = 'rond'
-            objetsCorr.push(rondDef)
-            break
-          case 9:
-            pattern.shape = shapeBalle
-            pattern.shape0 = 'balle'
-            pattern.shape1 = 'balle'
-            objetsCorr.push(balleDef)
-            break
-          case 10:
-            pattern.shape = shapeTortue
-            pattern.shape0 = 'tortue'
-            pattern.shape1 = 'tortue'
-            objetsCorr.push(tortueDef)
-            break
-          case 11:
-            pattern.shape = shapeTriangleEquilateral
-            pattern.shape0 = 'triangle'
-            pattern.shape1 = 'triangle'
-            objetsCorr.push(triangleEquilateralDef)
-            break
-          case 12:
-            pattern.shape = shapeRedCross
-            pattern.shape0 = 'redCross'
-            pattern.shape1 = 'redCross'
-            objetsCorr.push(redCrossDef)
-            break
-          case 1:
-          default:
-            pattern.shape = shapeCarre
-            pattern.shape0 = 'carré'
-            pattern.shape1 = 'carré'
-            objetsCorr.push(carreDef)
-            break
+        if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
+          pattern.shapes = [listeShapes2DNames[formes[i]]]
+          switch (formes[i]) {
+            case 2:
+              pattern.shapes[0] = 'étoile'
+              pattern.shapes[1] = 'étoile'
+              objetsCorr.push(etoileDef)
+              break
+            case 3:
+              pattern.shapes[0] = 'carréRond'
+              pattern.shapes[1] = 'carréRond'
+              objetsCorr.push(carreRondDef)
+              break
+            case 4:
+              pattern.shapes[0] = 'chat'
+              pattern.shapes[1] = 'chat'
+              objetsCorr.push(chatDef)
+              break
+            case 5:
+              pattern.shapes[0] = 'soleil'
+              pattern.shapes[1] = 'soleil'
+              objetsCorr.push(soleilDef)
+              break
+            case 6:
+              pattern.shapes[0] = 'losange'
+              pattern.shapes[1] = 'losange'
+              objetsCorr.push(losangeDef)
+              break
+            case 7:
+              pattern.shapes[0] = 'hexagone'
+              pattern.shapes[1] = 'hexagone'
+              objetsCorr.push(hexagoneDef)
+              break
+            case 8:
+              pattern.shapes[0] = 'rond'
+              pattern.shapes[1] = 'rond'
+              objetsCorr.push(rondDef)
+              break
+            case 9:
+              pattern.shapes[0] = 'balle'
+              pattern.shapes[1] = 'balle'
+              objetsCorr.push(balleDef)
+              break
+            case 10:
+              pattern.shapes[0] = 'tortue'
+              pattern.shapes[1] = 'tortue'
+              objetsCorr.push(tortueDef)
+              break
+            case 11:
+              pattern.shapes[0] = 'triangle'
+              pattern.shapes[1] = 'triangle'
+              objetsCorr.push(triangleEquilateralDef)
+              break
+            case 12:
+              pattern.shapes[0] = 'redCross'
+              pattern.shapes[1] = 'redCross'
+              objetsCorr.push(redCrossDef)
+              break
+            case 1:
+            default:
+              pattern.shapes[0] = 'carré'
+              pattern.shapes[1] = 'carré'
+              objetsCorr.push(carreDef)
+              break
+          }
+        } else {
+          objetsCorr.push(listeShapesDef[pat2D.shapes[0]])
+          if (pat2D.shapes[1] !== pat2D.shapes[0]) objetsCorr.push(listeShapesDef[pat2D.shapes[1]])
         }
       }
 
@@ -195,44 +189,50 @@ export default class PaternNum1 extends Exercice {
         if (pattern instanceof VisualPattern3D) {
           figures[j].push(cubeDef(`cubeIsoQ${i}F${j}`))
         } else {
-          switch (formes[i]) {
-            case 2:
-              figures[j].push(etoileDef)
-              break
-            case 3:
-              figures[j].push(carreRondDef)
-              break
-            case 4:
-              figures[j].push(chatDef)
-              break
-            case 5:
-              figures[j].push(soleilDef)
-              break
-            case 6:
-              figures[j].push(losangeDef)
-              break
-            case 7:
-              figures[j].push(hexagoneDef)
-              break
-            case 8:
-              figures[j].push(rondDef)
-              break
-            case 9:
-              figures[j].push(balleDef)
-              break
-            case 10:
-              figures[j].push(tortueDef)
-              break
-            case 11:
-              figures[j].push(triangleEquilateralDef)
-              break
-            case 12:
-              figures[j].push(redCrossDef)
-              break
-            case 1:
-            default:
-              figures[j].push(carreDef)
-              break
+          const pat2D = pat as PatternRiche
+          if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
+            switch (formes[i]) {
+              case 2:
+                figures[j].push(etoileDef)
+                break
+              case 3:
+                figures[j].push(carreRondDef)
+                break
+              case 4:
+                figures[j].push(chatDef)
+                break
+              case 5:
+                figures[j].push(soleilDef)
+                break
+              case 6:
+                figures[j].push(losangeDef)
+                break
+              case 7:
+                figures[j].push(hexagoneDef)
+                break
+              case 8:
+                figures[j].push(rondDef)
+                break
+              case 9:
+                figures[j].push(balleDef)
+                break
+              case 10:
+                figures[j].push(tortueDef)
+                break
+              case 11:
+                figures[j].push(triangleEquilateralDef)
+                break
+              case 12:
+                figures[j].push(redCrossDef)
+                break
+              case 1:
+              default:
+                figures[j].push(carreDef)
+                break
+            }
+          } else {
+            figures[j].push(listeShapesDef[pat2D.shapes[0]])
+            if (pat2D.shapes[1] !== pat2D.shapes[0]) figures[j].push(listeShapesDef[pat2D.shapes[1]])
           }
         }
 
@@ -274,7 +274,7 @@ export default class PaternNum1 extends Exercice {
       }
       texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { id: `Motif${i}F${index}`, pixelsParCm: 20, yMax, yMin, scale: 0.4, style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n')
       let texteCorr = ''
-      texte += `<br>Quel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shape.name[0]) ? 'd\'' : 'de '}${pattern.shape.name}s dans le motif au rang $n$ en fonction de $n$ ?<br>${ajouteQuestionMathlive(
+      texte += `<br>Quel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0]) ? 'd\'' : 'de '}${pattern.shapes}s dans le motif au rang $n$ en fonction de $n$ ?<br>${ajouteQuestionMathlive(
             {
 exercice: this,
               question: i,
@@ -283,7 +283,7 @@ exercice: this,
             }
           )}`
 
-      texteCorr += `Le motif de rang $n$ contiendra $${miseEnEvidence(pat.formule)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shape.name[0]) ? 'd\'' : 'de '}${pattern.shape.name}s.<br>`
+      texteCorr += `Le motif de rang $n$ contiendra $${miseEnEvidence(pat.formule)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

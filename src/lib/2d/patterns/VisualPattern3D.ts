@@ -31,8 +31,7 @@ function filterCells (cells: Set<string>): Set<string> {
 
 export class VisualPattern3D {
   shape: Shape3D
-  shape0: ShapeName // forme par défaut, utilisée pour les cellules sans forme spécifique
-  shape1: ShapeName // forme utilisée pour les cellules avec une forme spécifique
+  shapes: ShapeName[] // formes utilisées pour les cellules
   cells: Set<string> // ce sont des coordonnées sous forme de chaîne de caractères "x,y" car les ensembles ne peuvent pas contenir d'objets complexes comme des tableaux
   // on utilise un ensemble pour stocker les cellules, ce qui permet d'éviter les doublons et de faciliter la vérification de la présence d'une cellule
   // et la conversion en chaîne de caractères permet de les stocker efficacement dans un ensemble
@@ -58,12 +57,10 @@ export class VisualPattern3D {
     }
     if (!(shape instanceof Shape3D) || shape !== undefined) {
       this.shape = shapeCubeIso()
-      this.shape0 = 'cube'
-      this.shape1 = 'cube'
+      this.shapes = ['cube']
     } else {
       this.shape = shape
-      this.shape0 = (shape as Shape3D).name // forme par défaut pour les cellules sans forme spécifique
-      this.shape1 = (shape as Shape3D).name // forme utilisée pour les cellules avec une forme spécifique
+      this.shapes = [(shape as Shape3D).name] // forme par défaut pour les cellules sans forme spécifique
     }
   }
 
