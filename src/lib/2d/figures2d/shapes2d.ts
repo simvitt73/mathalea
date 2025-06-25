@@ -1,10 +1,12 @@
 import { ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { Shape2D } from '../Figures2D'
-
-/**
- * Génère une figure représentant un carré de taille 1x1.
- * @param options Options pour personnaliser le style du carré.
- * @returns Une instance de Figure2D représentant un carré.
+/*
+La classe Shape2D est définie ddans le fichier Figures2D.ts car elle est une version simplifiée de la classe Figure2D.
+Elle représente une forme géométrique 2D avec des propriétés de base comme le code SVG, le code TikZ, la largeur, la hauteur, l'opacité et le nom.
+Elle est utilisée pour créer des formes géométriques simples comme des carrés, des ronds, des étoiles, etc.
+Si vous ajoutez une nouvelle forme géométrique, respectez le format 20x20 pixels et pensez à l'ajouter à la liste qui se trouve en fin de fichier.
+Il y a 2 constantes exportées qui sont l'instance de Shape2D et l'instance de ObjetMathalea2D qui définit la forme utilisée dans le code svg et tikz afin de limiter la taille du code nécessaire.
+Voir l'exemple de shapeChat et chatDef.
  */
 export const shapeCarre = new Shape2D({
   codeSvg: '<use href="#carre"></use>',
@@ -13,6 +15,14 @@ export const shapeCarre = new Shape2D({
   height: 1,
   opacite: 1,
   name: 'carré'
+})
+export const shapeCarreBleu = new Shape2D({
+  codeSvg: '<use href="#carre-bleu"></use>',
+  codeTikz: '\\pic at (0,0) {carre-bleu};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'carré bleu'
 })
 
 /**
@@ -267,6 +277,26 @@ carreDef.tikz = function (): string {
   }`.trim()
 }
 
+export const carreBleuDef = new ObjetMathalea2D()
+carreBleuDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+carreBleuDef.svg = function (coeff: number): string {
+  return `
+  <!-- Carré bleu -->
+  <defs>
+      <rect id="carre-bleu" x="-10" y="-10" width="20" height="20"
+        fill="blue" stroke="black" stroke-width="0.5" />
+  </defs>`
+}
+carreBleuDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   carre-bleu/.pic = {
+    % Carré bleu
+    \\draw[fill=blue, draw=darkgray, line width=0.3pt] (-0.5,-0.5) rectangle (0.5,0.5);
+   }
+  }`.trim()
+}
+
 export const hexagoneDef = new ObjetMathalea2D()
 hexagoneDef.bordures = [-0.5, -0.5, 0.5, 0.5]
 hexagoneDef.svg = function (coeff: number): string {
@@ -371,3 +401,144 @@ balleDef.tikz = function (): string {
    }
   }`.trim()
 }
+
+export const shapeTortue = new Shape2D({
+  codeSvg: '<use href="#tortue"></use>',
+  codeTikz: '\\pic at (0,0) {tortue};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'tortue'
+})
+
+export const tortueDef = new ObjetMathalea2D()
+tortueDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+tortueDef.svg = function (coeff: number): string {
+  return `
+  <!-- Tortue stylisée -->
+  <defs>
+    <g id="tortue">
+      <!-- Carapace -->
+      <ellipse cx="0" cy="0" rx="8" ry="6" fill="#7ec850" stroke="#3e6b1a" stroke-width="1"/>
+      <!-- Motif carapace -->
+      <ellipse cx="0" cy="0" rx="5" ry="3.5" fill="none" stroke="#3e6b1a" stroke-width="0.7"/>
+      <ellipse cx="0" cy="0" rx="2.5" ry="1.5" fill="none" stroke="#3e6b1a" stroke-width="0.5"/>
+      <!-- Tête -->
+      <ellipse cx="0" cy="-7" rx="2" ry="2.2" fill="#7ec850" stroke="#3e6b1a" stroke-width="0.7"/>
+      <!-- Yeux -->
+      <circle cx="-0.7" cy="-7.5" r="0.3" fill="#222"/>
+      <circle cx="0.7" cy="-7.5" r="0.3" fill="#222"/>
+      <!-- Pattes -->
+      <ellipse cx="-6" cy="-3" rx="1.2" ry="2" fill="#7ec850" stroke="#3e6b1a" stroke-width="0.5"/>
+      <ellipse cx="6" cy="-3" rx="1.2" ry="2" fill="#7ec850" stroke="#3e6b1a" stroke-width="0.5"/>
+      <ellipse cx="-6" cy="3" rx="1.2" ry="2" fill="#7ec850" stroke="#3e6b1a" stroke-width="0.5"/>
+      <ellipse cx="6" cy="3" rx="1.2" ry="2" fill="#7ec850" stroke="#3e6b1a" stroke-width="0.5"/>
+      <!-- Queue -->
+      <ellipse cx="0" cy="6.5" rx="0.5" ry="1.2" fill="#7ec850" stroke="#3e6b1a" stroke-width="0.4"/>
+    </g>
+  </defs>`
+}
+tortueDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   tortue/.pic = {
+    % Carapace
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.3pt] (0,0) ellipse [x radius=0.4, y radius=0.3];
+    % Motif carapace
+    \\draw[draw=green!50!black, line width=0.2pt] (0,0) ellipse [x radius=0.25, y radius=0.175];
+    \\draw[draw=green!50!black, line width=0.15pt] (0,0) ellipse [x radius=0.125, y radius=0.075];
+    % Tête
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.2pt] (0,0.35) ellipse [x radius=0.1, y radius=0.11];
+    % Yeux
+    \\fill[black] (-0.035,0.39) circle (0.015);
+    \\fill[black] (0.035,0.39) circle (0.015);
+    % Pattes
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.15pt] (-0.3,-0.15) ellipse [x radius=0.06, y radius=0.1];
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.15pt] (0.3,-0.15) ellipse [x radius=0.06, y radius=0.1];
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.15pt] (-0.3,0.15) ellipse [x radius=0.06, y radius=0.1];
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.15pt] (0.3,0.15) ellipse [x radius=0.06, y radius=0.1];
+    % Queue
+    \\draw[fill=green!60!lime, draw=green!50!black, line width=0.1pt] (0,-0.32) ellipse [x radius=0.025, y radius=0.06];
+   }
+  }`.trim()
+}
+export const shapeTriangleEquilateral = new Shape2D({
+  codeSvg: '<use href="#triangle-equilateral"></use>',
+  codeTikz: '\\pic at (0,0) {triangle-equilateral};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'triangle équilatéral'
+})
+
+export const triangleEquilateralDef = new ObjetMathalea2D()
+triangleEquilateralDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+triangleEquilateralDef.svg = function (coeff: number): string {
+  return `
+  <!-- Triangle équilatéral -->
+  <defs>
+    <g id="triangle-equilateral">
+      <polygon points="0,-10 8.66,5 -8.66,5"
+        fill="lightgreen" stroke="darkgreen" stroke-width="0.5" />
+    </g>
+  </defs>`
+}
+triangleEquilateralDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   triangle-equilateral/.pic = {
+    \\draw[fill=green!20, draw=green!50!black, line width=0.3pt]
+      (0,0.577) -- (0.5,-0.289) -- (-0.5,-0.289) -- cycle;
+   }
+  }`.trim()
+}
+export const shapeRedCross = new Shape2D({
+  codeSvg: '<use href="#red-cross"></use>',
+  codeTikz: '\\pic at (0,0) {red-cross};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'red cross'
+})
+
+export const redCrossDef = new ObjetMathalea2D()
+redCrossDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+redCrossDef.svg = function (coeff: number): string {
+  return `
+  <!-- Red Cross -->
+  <defs>
+    <g id="red-cross">
+      <rect x="-3" y="-10" width="6" height="20" fill="red" stroke="darkred" stroke-width="0.5"/>
+      <rect x="-10" y="-3" width="20" height="6" fill="red" stroke="darkred" stroke-width="0.5"/>
+    </g>
+  </defs>`
+}
+redCrossDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   red-cross/.pic = {
+    % Red Cross
+    \\draw[fill=red, draw=red!70!black, line width=0.3pt] (-0.15,-0.5) rectangle (0.15,0.5);
+    \\draw[fill=red, draw=red!70!black, line width=0.3pt] (-0.5,-0.15) rectangle (0.5,0.15);
+   }
+  }`.trim()
+}
+
+export type ShapeName = keyof typeof listeShapes2D
+
+export const listeShapes2D: Record<string, Shape2D> = {
+  carré: shapeCarre,
+  carréRond: shapeCarreArrondi,
+  étoile: shapeEtoile4Branches,
+  chat: shapeChat,
+  soleil: shapeSoleil,
+  losange: shapeLosange,
+  hexagone: shapeHexagone,
+  rond: shapeRond,
+  balle: shapeBalle,
+  tortue: shapeTortue,
+  triangle: shapeTriangleEquilateral,
+  redCross: shapeRedCross,
+  carréBleu: shapeCarreBleu
+}
+export const listeShapes2DNames: ShapeName[] = Object.keys(listeShapes2D) as ShapeName[]

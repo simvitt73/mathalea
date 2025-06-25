@@ -1,6 +1,5 @@
-import type { Shape2D } from '../../lib/2d/Figures2D'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, losangeDef, rondDef, shapeCarre, soleilDef } from '../../lib/2d/figures2d/shapes2d'
+import { balleDef, carreBleuDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, listeShapes2D, losangeDef, redCrossDef, rondDef, shapeCarre, soleilDef, tortueDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { listePatternsPreDef, type PatternRiche3D, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
@@ -8,7 +7,9 @@ import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -71,21 +72,32 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
       ${losangeDef.tikz()}\n
       ${carreRondDef.tikz()}\n
       ${carreDef.tikz()}\n
-       ${cubeDef('cubeIso').tikz()}\n`
+       ${cubeDef('cubeIso').tikz()}\n
+       ${hexagoneDef.tikz()}\n
+       ${rondDef.tikz()}\n
+       ${balleDef.tikz()}\n
+       ${tortueDef.tikz()}\n
+       ${triangleEquilateralDef.tikz()}\n
+       ${carreBleuDef.tikz()}\n
+       ${redCrossDef.tikz()}\n`
     }
     if (liste == null || liste.length === 0) return
     for (let i = 0; i < liste.length; i++) {
-      texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: $\\left(${listePatternsPreDef[liste[i] - 1].fonction(43)}\\right)$${sp(6)}$\\left[${miseEnEvidence(listePatternsPreDef[liste[i] - 1].formule)}\\right]$ <br>`
+      const n43 = listePatternsPreDef[liste[i] - 1].fonction(43)
+      const n43Tex = n43 instanceof FractionEtendue ? n43.texFraction : `${texNombre(n43)}`
+      texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: $\\left(${n43Tex}\\right)$${sp(6)}$\\left[${miseEnEvidence(listePatternsPreDef[liste[i] - 1].formule)}\\right]$ <br>`
 
       const patternRiche = listePatternsPreDef[liste[i] - 1]
       if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-      const shape = patternRiche.shapeDefault ?? shapeCarre
       const pattern = patternRiche.pattern
       if (pattern instanceof VisualPattern3D) {
+        const shape = (patternRiche as PatternRiche3D).shapeDefault ?? shapeCarre
         pattern.shape = shape as Shape3D
         pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
       } else {
-        pattern.shape = shape as Shape2D
+        pattern.shape0 = (patternRiche as PatternRiche).shape0 ?? 'carré'
+        pattern.shape1 = (patternRiche as PatternRiche).shape1 ?? 'carré'
+        pattern.shape = listeShapes2D[pattern.shape0] ?? shapeCarre
         pattern.iterate = (patternRiche as PatternRiche).iterate
       }
 
@@ -112,7 +124,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         let ymax = -Infinity
         let xmin = Infinity
         let xmax = -Infinity
-        if (context.isHtml) figures[j] = [chatDef, soleilDef, etoileDef, losangeDef, carreRondDef, carreDef, cubeIsoDef, hexagoneDef, rondDef, balleDef]
+        if (context.isHtml) figures[j] = [chatDef, soleilDef, etoileDef, losangeDef, carreRondDef, carreDef, cubeIsoDef, hexagoneDef, rondDef, balleDef, tortueDef, triangleEquilateralDef, carreBleuDef, redCrossDef]
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
             updateCubeIso(pattern, i, j, angle)

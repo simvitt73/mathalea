@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, losangeDef, rondDef, shapeBalle, shapeCarre, shapeCarreArrondi, shapeChat, shapeEtoile4Branches, shapeHexagone, shapeLosange, shapeRond, shapeSoleil, soleilDef } from '../../lib/2d/figures2d/shapes2d'
+import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, listeShapes2D, listeShapes2DNames, losangeDef, redCrossDef, rondDef, shapeBalle, shapeCarre, shapeCarreArrondi, shapeChat, shapeEtoile4Branches, shapeHexagone, shapeLosange, shapeRedCross, shapeRond, shapeSoleil, shapeTortue, shapeTriangleEquilateral, soleilDef, tortueDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -45,8 +45,8 @@ export default class PaternNum0 extends Exercice {
  Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Losange\n7 : Hexagone\n8: Cercle\n9: Balle de tennis\n10 : Mélange']
-    this.sup3 = '10'
+    this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Losange\n7 : Hexagone\n8: Cercle\n9: Balle de tennis\n10 : tortue\n11 : triangle\n12 : croix rouge\n13 : Mélange']
+    this.sup3 = '13'
     this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Motif 42 (nombre)\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 4 précédentes']
     this.sup4 = '6'
     this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
@@ -66,7 +66,7 @@ export default class PaternNum0 extends Exercice {
       : shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length))
     const nbFigures = Math.max(2, this.sup)
     // const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
-    const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions }).map(Number)
+    const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 12, defaut: 13, melange: 13, nbQuestions: this.nbQuestions }).map(Number)
     // const patterns : (VisualPattern | VisualPattern3D)[] = []
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
     let indexInteractif = 0
@@ -78,55 +78,88 @@ export default class PaternNum0 extends Exercice {
       }
       const pat = popped
       const pattern = pat.pattern
-      if (pattern instanceof VisualPattern3D) {
-        pattern.shape = pat.shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
-        pattern.iterate3d = (pat as PatternRiche3D).iterate3d
-      } else {
-        pattern.iterate = (pat as PatternRiche).iterate
-      }
 
       //  patterns.push(pattern)
 
-      if (pat.shapeDefault.name === 'cube') {
-        pattern.shape = shapeCubeIso()
+      if (pattern instanceof VisualPattern3D) {
+        pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
+        pattern.iterate3d = (pat as PatternRiche3D).iterate3d
         objetsCorr.push(cubeDef(`cubeIsoQ${i}F0`))
       } else {
+        pattern.shape = listeShapes2D[listeShapes2DNames[formes[i]]]
+        pattern.iterate = (pat as PatternRiche).iterate
         switch (formes[i]) {
           case 2:
             pattern.shape = shapeEtoile4Branches
+            pattern.shape0 = 'étoile'
+            pattern.shape1 = 'étoile'
             objetsCorr.push(etoileDef)
             break
           case 3:
             pattern.shape = shapeCarreArrondi
+            pattern.shape0 = 'carréRond'
+            pattern.shape1 = 'carréRond'
             objetsCorr.push(carreRondDef)
             break
           case 4:
             pattern.shape = shapeChat
+            pattern.shape0 = 'chat'
+            pattern.shape1 = 'chat'
             objetsCorr.push(chatDef)
             break
           case 5:
             pattern.shape = shapeSoleil
+            pattern.shape0 = 'soleil'
+            pattern.shape1 = 'soleil'
             objetsCorr.push(soleilDef)
             break
           case 6:
             pattern.shape = shapeLosange
+            pattern.shape0 = 'losange'
+            pattern.shape1 = 'losange'
             objetsCorr.push(losangeDef)
             break
           case 7:
             pattern.shape = shapeHexagone
+            pattern.shape0 = 'hexagone'
+            pattern.shape1 = 'hexagone'
             objetsCorr.push(hexagoneDef)
             break
           case 8:
             pattern.shape = shapeRond
+            pattern.shape0 = 'rond'
+            pattern.shape1 = 'rond'
             objetsCorr.push(rondDef)
             break
           case 9:
             pattern.shape = shapeBalle
+            pattern.shape0 = 'balle'
+            pattern.shape1 = 'balle'
             objetsCorr.push(balleDef)
+            break
+          case 10:
+            pattern.shape = shapeTortue
+            pattern.shape0 = 'tortue'
+            pattern.shape1 = 'tortue'
+            objetsCorr.push(tortueDef)
+            break
+          case 11:
+            pattern.shape = shapeTriangleEquilateral
+            pattern.shape0 = 'triangle'
+            pattern.shape1 = 'triangle'
+            objetsCorr.push(triangleEquilateralDef)
+            break
+          case 12:
+            pattern.shape = shapeRedCross
+            pattern.shape0 = 'redCross'
+            pattern.shape1 = 'redCross'
+            objetsCorr.push(redCrossDef)
             break
           case 1:
           default:
             pattern.shape = shapeCarre
+            pattern.shape0 = 'carré'
+            pattern.shape1 = 'carré'
             objetsCorr.push(carreDef)
             break
         }
@@ -139,9 +172,9 @@ export default class PaternNum0 extends Exercice {
       const angle = Math.PI / 6
       let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs numériques. Ils évoluent selon des règles définies.<br>`
       const figures: NestedObjetMathalea2dArray[] = []
-      for (let j = 0; j <= nbFigures; j++) {
+      for (let j = 0; j < nbFigures; j++) {
         figures[j] = []
-        if (pattern.shape.name === 'cube') {
+        if (pattern instanceof VisualPattern3D) {
           figures[j].push(cubeDef(`cubeIsoQ${i}F${j}`))
         } else {
           switch (formes[i]) {
@@ -168,6 +201,15 @@ export default class PaternNum0 extends Exercice {
               break
             case 9:
               figures[j].push(balleDef)
+              break
+            case 10:
+              figures[j].push(tortueDef)
+              break
+            case 11:
+              figures[j].push(triangleEquilateralDef)
+              break
+            case 12:
+              figures[j].push(redCrossDef)
               break
             case 1:
             default:
