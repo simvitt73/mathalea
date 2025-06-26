@@ -5981,4 +5981,85 @@ export const dictionnaireDNB = {
     tags: ['']
   },
 
+  dnb_2025_06_asie_1: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_asie_2: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_asie_3: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_asie_4: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_asie_5: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_etrangers_1: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_etrangers_2: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_etrangers_3: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_etrangers_4: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_etrangers_5: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+
 }
