@@ -2,9 +2,9 @@ import { angle, codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
-import { milieu, point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
-import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { milieu, Point, point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
+import { NommePolygone, Polygone, polygone, polygoneAvecNom } from '../../lib/2d/polygones'
+import { longueur, Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -15,7 +15,7 @@ import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d'
+import { Arete3d, arete3d, CodageAngleDroit3D, demicercle3d, Point3d, point3d, rotationV3d, sphere3d, Vecteur3d, vecteur3d } from '../../modules/3d'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { max, min } from 'mathjs'
@@ -72,27 +72,27 @@ export default class ProblemesTrigoLongueur extends Exercice {
     let listeDeNomsDePolygones
     const objet = [['arbre', 'un', '', 'situé'], ['immeuble', 'un', '', 'situé'], ['éolienne', 'une', 'te', 'située'], ['colline', 'une', 'te', 'située']]
     let distance
-    let beta
-    let alpha
+    let beta = 0
+    let alpha = 0
     let taille
-    let A
-    let B
-    let S
-    let C
-    let R
+    let A: Point | Point3d
+    let B: Point | Point3d
+    let S: Point | Point3d
+    let C: Point | Point3d
+    let R: [Polygone, NommePolygone] | Vecteur3d | Point
     let objets = []
     let p
-    let O
-    let H
-    let M
-    let R2
+    let O: Point | Point3d
+    let H: Point | Point3d
+    let M: Point | Point3d
+    let R2: Vecteur3d
     let Axe
     let normalV
     let normalH
-    let P
-    let HP
+    let P: Point | Point3d
+    let HP: Arete3d
     let Sph
-    let OP
+    let OP: Arete3d
     let PoleNord
     let PoleSud
     let hauteur
@@ -112,6 +112,8 @@ export default class ProblemesTrigoLongueur extends Exercice {
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     for (let i = 0, iiInitial, texte, numA, ordA, numB, numC, numR, absC, numS, absS, numH, AB, BA, propositionsAMC, enonceAMC, enonceInit, texteCorr, reponse, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
       propositionsAMC = []
       iiAMC = 0
       iiInitial = ii // ça c'est pour revenir au même index si on ne pousse pas la question !
@@ -674,7 +676,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           p = polygoneAvecNom(B, S, C, A)
           objets.push(p[1], p[0], segment(A, S), codageAngleDroit(B, C, A))
           objets.push(afficheMesureAngle(C, B, A, 'black', 2, `${alfa}`), afficheMesureAngle(C, S, A, 'black', 2, `${baita}`))
-          objets.push(texteSurSegment(`${stringNombre(distance)} m`, B, S, 'black', -sensH * 0.5), texteParPosition('h', milieu(C, A).x + sensH * 0.5, milieu(C, A).y, 0, 'black', 2, 'middle', true))
+          objets.push(texteSurSegment(`${stringNombre(distance)} m`, B, S, 'black', -sensH * 0.5), texteParPosition('h', milieu(C, A).x + sensH * 0.5, milieu(C, A).y, 0, 'black', 2, 'milieu', true))
           j = 0
           texte = 'Un observateur sur un bateau s\'approche d\'une falaise dont il veut mesurer la hauteur'
           texte += this.sup ? ' $h$.<br>' : '.<br>'
@@ -938,7 +940,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           objets.push(p[1], p[0], segment(H, C), segment(A, C), codageAngleDroit(B, S, A), codageAngleDroit(C, H, A))
           objets.push(afficheMesureAngle(S, B, A, 'black', 2, `${alfa}`), afficheMesureAngle(S, C, A, 'black', 2, `${baita}`))
 
-          objets.push(texteSurSegment(`${stringNombre(distance)} m`, B, C, 'black', -sensH * 0.5), labelPoint(H), texteParPosition('h', milieu(S, A).x + sensH * 0.5, milieu(S, A).y, 0, 'black', 2, 'middle', true))
+          objets.push(texteSurSegment(`${stringNombre(distance)} m`, B, C, 'black', -sensH * 0.5), labelPoint(H), texteParPosition('h', milieu(S, A).x + sensH * 0.5, milieu(S, A).y, 0, 'black', 2, 'milieu', true))
 
           texte = 'Un voyageur approche d\'une montagne. Il aimerait en calculer la hauteur.<br>'
           texte += `Pour cela, il utilise un théodolite en un point $${lB}$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $${lA}$ de la montagne, le point $${lB}$ et la base de la montagne $${lS}$.<br>`
@@ -979,7 +981,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               iiAMC++
             }
             enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lB}${lA}${lS}}$ en fonction de $${alfa}$.`
-            texte += enonceAMC
+            texte += '<br>' + enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -1004,7 +1006,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             j += 2
           }
           enonceAMC = `${numAlpha(j)}Montrer que $\\widehat{${lC}${lA}${lH}}=${baita}-${alfa}$.`
-          texte += enonceAMC
+          texte += '<br>' + enonceAMC
           if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
@@ -1026,7 +1028,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           } else {
             enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lA}$ en fonction de $${lH}$.`
           }
-          texte += enonceAMC
+          texte += '<br>' + enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}CA=$` })
             setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -1055,7 +1057,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           } else {
             enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lH}$ en fonction de $${lB}${lC}$.`
           }
-          texte += enonceAMC
+          texte += '<br>' + enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}${lC}${lH}=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
@@ -1086,7 +1088,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           } else {
             enonceAMC = `${numAlpha(j)}En déduire $h$ en fonction de $${lB}${lC}$.`
           }
-          texte += enonceAMC
+          texte += '<br>' + enonceAMC
           enonceAMC += this.sup ? '<br>' : ''
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}h=$` })
