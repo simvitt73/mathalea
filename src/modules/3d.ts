@@ -1,8 +1,8 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
-import { distancePointDroite, droite } from '../lib/2d/droites'
-import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
-import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
+import { distancePointDroite, Droite, droite } from '../lib/2d/droites'
+import { Point, point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
+import { Polygone, polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
+import { longueur, norme, Segment, segment, Vecteur, vecteur } from '../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../lib/2d/textes'
 import { translation } from '../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
@@ -39,14 +39,21 @@ const math = { matrix, multiply, norm, cross, dot }
  * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
  */
 export class Point3d {
-  constructor (x, y, z, visible, label, positionLabel) {
+  x: number
+  y: number
+  z: number
+  isVisible: boolean
+  label: string
+  typeObjet: string
+  c2d: Point
+  constructor (x: number, y: number, z: number, isVisible: boolean, label: string, positionLabel: string) {
     const alpha = context.anglePerspective * Math.PI / 180 // context.anglePerspective peut être changé globalement pour modifier la perspective
     const rapport = context.coeffPerspective // idem pour context.coefficientPerspective qui est la réduction sur l'axe y.
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // La matrice de projection 3d -> 2d
     this.x = x
     this.y = y
     this.z = z
-    this.visible = visible
+    this.isVisible = isVisible
     this.label = label
     this.typeObjet = 'point3d'
     const V = math.matrix([this.x, this.y, this.z])
@@ -55,7 +62,7 @@ export class Point3d {
   }
 }
 
-export function point3d (x, y, z = 0, visible = true, label = '', positionLabel = 'above left') {
+export function point3d (x: number, y: number, z = 0, visible = true, label = '', positionLabel = 'above left') {
   return new Point3d(x, y, z, visible, label, positionLabel)
 }
 
@@ -81,7 +88,14 @@ export function point3d (x, y, z = 0, visible = true, label = '', positionLabel 
  * let fleche = w.representant(point3d(5,0,0)) -> fleche est un objet 2d qui représente le vecteur w au point (5;0;0)
  */
 class Vecteur3d {
-  constructor (...args) {
+  x: number = 0
+  y: number = 0
+  z: number = 0
+  matrice: any
+  norme: number
+  c2d: Vecteur
+  representant: (A: Point3d) => Segment
+  constructor (...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) {
     const alpha = context.anglePerspective * Math.PI / 180
     const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // ceci est la matrice de projection 3d -> 2d
@@ -89,29 +103,27 @@ class Vecteur3d {
       this.x = args[1].x - args[0].x
       this.y = args[1].y - args[0].y
       this.z = args[1].z - args[0].z
-    } else {
-      if (typeof (args[0]) === 'number') {
-        this.x = args[0]
-        this.y = args[1]
-        this.z = args[2]
-      } else if (args.length === 1) {
-        this.x = args[0]._data[0]
-        this.y = args[0]._data[1]
-        this.z = args[0]._data[2]
-      }
+    } else if (args.length === 3) {
+      this.x = args[0]
+      this.y = args[1]
+      this.z = args[2]
+    } else if (args.length === 1) {
+      this.x = args[0]._data[0]
+      this.y = args[0]._data[1]
+      this.z = args[0]._data[2]
     }
     this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
     this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
     const W = math.multiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
     this.c2d = vecteur(W._data[0], W._data[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this
-    this.representant = function (A) { // méthode pour construire un représentant d'origine A (un point 3d)
+    this.representant = function (A: Point3d) { // méthode pour construire un représentant d'origine A (un point 3d)
       const B = translation3d(A, this)
       return vecteur(A.c2d, B.c2d).representant(A.c2d) // qui retourne un représentant de vecteur 2d (objet dessiné)
     }
   }
 }
 
-export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composantes du vecteur
+export function vecteur3d (...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) { // A,B deux Point3d ou x,y,z les composantes du vecteur
   return new Vecteur3d(...args)
 }
 
@@ -123,7 +135,12 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
  * sa propriété p2d est un segment en pointillé ou en trait plein suivant sa visibilité.
  */
 class Arete3d {
-  constructor (point1, point2, color, visible) {
+  extremite1: Point3d
+  extremite2: Point3d
+  color: any
+  visible: boolean
+  c2d: Segment
+  constructor (point1: Point3d, point2: Point3d, color: string, visible: boolean) {
     this.extremite1 = point1
     this.extremite2 = point2
     this.color = Array.isArray(color) ? color[0] : color // MGu parfois un tableau de couleurs, pasd compatible avec segment.
@@ -137,13 +154,13 @@ class Arete3d {
     if (!this.visible) {
       this.c2d.pointilles = 2
     } else {
-      this.c2d.pointilles = false
+      this.c2d.pointilles = 0
     }
   }
 }
 
 // l'arête est visible par défaut sauf si p1 ou p2 sont invisibles
-export function arete3d (p1, p2, color = 'black', visible = true) {
+export function arete3d (p1: Point3d, p2: Point3d, color = 'black', visible = true) {
   return new Arete3d(p1, p2, color, visible)
 }
 
@@ -156,7 +173,11 @@ export function arete3d (p1, p2, color = 'black', visible = true) {
  * Les droites servent principalement à définir des axes de rotation dans l'espace
  */
 class Droite3d {
-  constructor (point3D, vecteur3D) {
+  directeur: Vecteur3d = vecteur3d(0, 0, 1) // le vecteur directeur de la droite
+  origine: Point3d
+  point: any
+  c2d: Droite
+  constructor (point3D: Point3d, vecteur3D: Vecteur3d) {
     if (vecteur3D.constructor === Vecteur3d) {
       this.directeur = vecteur3D
     } else if (vecteur3D.constructor === Point3d) {
@@ -170,7 +191,7 @@ class Droite3d {
   }
 }
 
-export function droite3d (point3D, vecteur3D) {
+export function droite3d (point3D: Point3d, vecteur3D: Vecteur3d) {
   return new Droite3d(point3D, vecteur3D)
 }
 
@@ -228,7 +249,7 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {demiCercle}
  */
-export function demicercle3d (centre, normal, rayon, sens = 'direct', estCache = false, color = 'black', angledepart = context.anglePerspective) {
+export function demicercle3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, sens: string = 'direct', estCache: boolean = false, color: string = 'black', angledepart: number = context.anglePerspective) {
   let signe
   const M = []
   const listepoints = []
@@ -269,7 +290,7 @@ export function demicercle3d (centre, normal, rayon, sens = 'direct', estCache =
  * cote est soit 'caché' soit 'visible'
  *
  */
-export function arc3d (centre, normal, rayon, cote, color, angledepart, angledefin) {
+export function arc3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, cote: 'visible' | 'caché', color: string, angledepart: number, angledefin: number) {
   const M = []
   const listepoints = []
   const d = droite3d(centre, normal)
@@ -298,10 +319,10 @@ export function arc3d (centre, normal, rayon, cote, color, angledepart, angledef
  * visible est un booléen
  *
  */
-export function cercle3d (centre, normal, rayon, visible = true, color = 'black', pointilles = false) {
-  const M = []
-  const listepoints = []
-  const listepoints3d = []
+export function cercle3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, visible: boolean = true, color: string = 'black', pointilles: boolean = false): [Polygone, Point3d[], Point[]] {
+  const M: Point3d[] = []
+  const listepoints: Point[] = []
+  const listepoints3d: Point3d[] = []
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
   listepoints3d.push(M[0])
@@ -326,6 +347,11 @@ export function cercle3d (centre, normal, rayon, visible = true, color = 'black'
  * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
  */
 class Polygone3d {
+  listePoints: Point3d[]
+  color: string = 'black'
+  listePoints2d: Point[]
+  aretes: Arete3d[]
+  c2d: Segment[]
   constructor (...args) {
     if (Array.isArray(args[0])) {
       // Si le premier argument est un tableau
@@ -355,7 +381,7 @@ class Polygone3d {
   }
 }
 
-export function polygone3d (...args) {
+export function polygone3d (...args): Polygone3d {
   return new Polygone3d(...args)
 }
 
@@ -407,7 +433,7 @@ export function polygone3d (...args) {
  * @class
  */
 export class Sphere3d extends ObjetMathalea2D {
-  constructor (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
+  constructor (centre: Point3d, rayon: Vecteur3d, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
     super()
     this.centre = centre
     this.rayon = rayon
@@ -449,7 +475,13 @@ export class Sphere3d extends ObjetMathalea2D {
     let centreParallele
     let rayonDuParallele
     let normal
-    const paralleles = {
+    const paralleles: {
+      listePoints3d: Point3d[][]
+      ptCachePremier: Point3d[]
+      indicePtCachePremier: number[]
+      ptCacheDernier: Point3d[]
+      indicePtCacheDernier: number[]
+    } = {
       listePoints3d: [],
       ptCachePremier: [],
       indicePtCachePremier: [],
@@ -485,10 +517,10 @@ export class Sphere3d extends ObjetMathalea2D {
       inclinaison)
     unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
     paralleles.listePoints3d.push(unDesParalleles[1])
-    paralleles.ptCachePremier.push('')
-    paralleles.indicePtCachePremier.push('')
-    paralleles.ptCacheDernier.push('')
-    paralleles.indicePtCacheDernier.push('')
+    paralleles.ptCachePremier.push(point3d(0, 0, 0, false))
+    paralleles.indicePtCachePremier.push(0)
+    paralleles.ptCacheDernier.push(point3d(0, 0, 0, false))
+    paralleles.indicePtCacheDernier.push(0)
 
     // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
     for (let k = nbParallelesDeConstruction - 2, poly, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
@@ -1882,7 +1914,7 @@ export function pave3d (A, B, D, E, color = 'black', affichageNom = false, nom =
  * @param {*} vecteur3D vecteur directeur de l'axe de rotation (l'axe passe par l'origine, pour tourner autour d'une droite particulière on utilise rotation3d())
  * @param {*} angle Angle de rotation
  */
-export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
+export function rotationV3d<T extends Point3d | Vecteur3d> (point3D: T, vecteur3D: Vecteur3d, angle: number): T { // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
   let V, p2
   const norme = math.norm(vecteur3D.matrice)
   const unitaire = math.multiply(vecteur3D.matrice, 1 / norme)
@@ -1915,27 +1947,24 @@ export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fa
  * @param {Number} angle Angle de rotation
  * @param {string} color couleur du polygone créé. si non précisé la couleur sera celle du polygone argument
  */
-export function rotation3d (point3D, droite3D, angle, color) {
+export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d> (point3D: T, droite3D: Droite3d, angle: number, color?: string): T {
   const directeur = droite3D.directeur
   const origine = droite3D.origine
-  const p = []
-  if (point3D.constructor === Point3d) {
+  if (point3D instanceof Point3d) {
     const V = vecteur3d(origine, point3d(0, 0, 0))
     const W = vecteur3d(point3d(0, 0, 0), origine)
     const M = translation3d(point3D, V)
     const N = rotationV3d(M, directeur, angle)
     return translation3d(N, W)
-  } else if (point3D.constructor === Vecteur3d) {
+  }
+  if (point3D instanceof Vecteur3d) {
     return rotationV3d(point3D, directeur, angle)
-  } else if (point3D.constructor === Polygone3d) {
-    for (let i = 0; i < point3D.listePoints.length; i++) {
-      p.push(rotation3d(point3D.listePoints[i], droite3D, angle))
-    }
-    if (typeof (color) !== 'undefined') {
-      return polygone3d(p, color)
-    } else {
-      return polygone3d(p, point3D.color)
-    }
+  }
+  if (point3D instanceof Polygone3d) {
+    const rotated = point3D.listePoints.map((p: Point3d) =>
+      rotation3d(p, droite3D, angle)
+    )
+    return polygone3d(rotated, color ?? point3D.color) as T
   }
 }
 
