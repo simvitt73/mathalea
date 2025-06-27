@@ -110,7 +110,7 @@ export default class VolumeBoule extends Exercice {
           o = point3d(0, 0, 2.5)
           R = vecteur3d(O, B)
           s = sphere3d(o, 2.5, 'blue', 'blue', 4, 'gray', 10, 'gray')
-          c = cylindre3d(O, OO, R, R, ['black'], false)
+          c = cylindre3d(O, OO, R, R, 'black', false)
           reponse = Decimal.acos(-1).mul(2 * rayon ** 3).div(3).toDP(1)
           texteCorr += '<br>' + mathalea2d({
             xmin: -5,

@@ -104,10 +104,10 @@ export default class DecrireAssemblageDeSolides extends Exercice {
       const chapeau1SansPrisme = pyramide3d(base2, s1)
       const chapeau2 = pyramide3d(base2, s2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, false)
       const v = vecteur3d(0, -rayon, 0)
-      const cylindre = cylindre3d(O2, O1, v, v, ['black'], false, false, false, 'black', false, 'lightgray', chapeau === 'bas')
-      const cone1AvecCylindre = cone3d(O1, s1, v, ['black'], false, undefined, 'white', false)
-      const cone1SansCylindre = cone3d(O2, s1, v, ['black'], false, undefined, 'white', false)
-      const cone2 = cone3d(O2, s2, v, ['black'], false, undefined, 'white', false, false)
+      const cylindre = cylindre3d(O2, O1, v, v, 'black', false, false, false, 'black', false, 'lightgray', chapeau === 'bas')
+      const cone1AvecCylindre = cone3d(O1, s1, v, 'black', false, undefined, 'white', false)
+      const cone1SansCylindre = cone3d(O2, s1, v, 'black', false, undefined, 'white', false)
+      const cone2 = cone3d(O2, s2, v, 'black', false, undefined, 'white', false, false)
       this.correction = 'Ce solide est composé '
       switch (tronc) {
         case 'prisme':

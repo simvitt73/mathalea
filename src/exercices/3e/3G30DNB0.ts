@@ -87,7 +87,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     context.anglePerspective = 60
     const ABC = polygone3d(point3d(0, 0, 0, true, 'C', 'below left'), point3d(7, -4, 0, true, 'B', 'below right'), point3d(0, 0, 3, true, 'A', 'above left'))
     const CF = vecteur3d(8, 14, 0)
-    const prisme = prisme3d(ABC, CF, ['black'], true, 'FED', ['below', 'right', 'above'])
+    const prisme = prisme3d(ABC, CF, 'black', true, 'FED', ['below', 'right', 'above'])
     const carre1 = polygone3d(point3d(0, 0, 0), point3d(0.7, -0.4, 0), point3d(0.7, -0.4, 0.6), point3d(0, 0, 0.6))
     const listeSommets1 = carre1.listePoints2d
     const ang1 = polygone(...listeSommets1)

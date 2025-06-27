@@ -38,7 +38,7 @@ export default class AmeriqueNordJuin22Ex1Q5 extends ExerciceQcmA {
     }
     const a1 = codageAngleDroit(basePoints[1].c2d, basePoints[0].c2d, basePoints[2].c2d)
     const vecteurExtrusion = vecteur3d(0, 8, 0)
-    const lePrisme = prisme3d(base, vecteurExtrusion, ['black'], false, 'DCG', ['above right', 'below right', 'above right', 'above left'])
+    const lePrisme = prisme3d(base, vecteurExtrusion, 'black', false, 'DCG', ['above right', 'below right', 'above right', 'above left'])
     const base2 = lePrisme.base2.listePoints
     const a2 = codageAngleDroit(base2[1].c2d, base2[0].c2d, base2[2].c2d)
     const largeur = afficheCoteSegment(segment(basePoints[1].c2d, basePoints[0].c2d), `${l}cm`)

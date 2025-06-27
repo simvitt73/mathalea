@@ -40,7 +40,7 @@ export default class SujetZero2024Ex4Q1 extends ExerciceQcm {
     }
 
     const vecteurExtrusion = vecteur3d(0, 5, 0)
-    const lePrisme = prisme3d(base, vecteurExtrusion, ['black'], true, 'DCGH', ['above right', 'below right', 'above right', 'above left'])
+    const lePrisme = prisme3d(base, vecteurExtrusion, 'black', true, 'DCGH', ['above right', 'below right', 'above right', 'above left'])
     const pointJ = point3d(0, 0, 5, true, 'J', 'right').c2d
     const pointI = point3d(2.5, 0, 7.5, true, 'I', 'above').c2d
     const tracIJ = tracePoint(pointI, pointJ)

@@ -137,7 +137,7 @@ export function vecteur3d (...args: [Point3d, Point3d] | [number, number, number
 export class Arete3d {
   extremite1: Point3d
   extremite2: Point3d
-  color: any
+  color: string
   isVisible: boolean
   c2d: Segment
   constructor (point1: Point3d, point2: Point3d, color: string, isVisible: boolean) {
@@ -1246,12 +1246,12 @@ export function prisme3d (base: Polygone3d, vecteur: Vecteur3d, color: string = 
  * @class
  */
 export class Pyramide3d extends ObjetMathalea2D {
-  constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
+  constructor (base: Polygone3d, sommet: Point3d, color: string = 'black', centre?: Point3d, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
     super()
-    base.color = colorToLatexOrHTML(color)
+    base.color = color
     this.base = base
     this.sommet = sommet
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.centre = centre
     this.affichageAxe = affichageAxe
     this.colorAxe = colorAxe
@@ -1266,7 +1266,7 @@ export class Pyramide3d extends ObjetMathalea2D {
     this.aretesSommet = []
 
     for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
+      s = arete3d(this.base.listePoints[i], this.sommet, color, true)
       // s.c2d.isVisible = false
       this.aretesSommet.push(s)
     }
@@ -1274,7 +1274,7 @@ export class Pyramide3d extends ObjetMathalea2D {
     // Stockage de toutes les arêtes de la base
     const aretesBase = []
     for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], this.color, true)
+      s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], color, true)
       aretesBase.push(s)
     }
 
@@ -1337,7 +1337,7 @@ export class Pyramide3d extends ObjetMathalea2D {
           s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
           s.isVisible = false
           for (let j = 0; j < this.aretesSommet.length; j++) {
-            sommetCache = sommetCache || s.estSecant(this.aretesSommet[j].c2d)
+            sommetCache = sommetCache || !!s.estSecant(this.aretesSommet[j].c2d)
           }
           if (sommetCache) aretesBase[i].c2d.pointilles = 2
         }
@@ -1383,7 +1383,7 @@ export class Pyramide3d extends ObjetMathalea2D {
             if (s.pointilles !== 2) { // L'arête coupée doit être visible
               const d1 = droite(this.centre.c2d, this.sommet.c2d)
               d1.isVisible = false
-              intersectionTrouvee = s.estSecant(d1)
+              intersectionTrouvee = !!s.estSecant(d1)
             }
             ee++
           }
@@ -1394,6 +1394,10 @@ export class Pyramide3d extends ObjetMathalea2D {
             const d2 = droite(this.centre.c2d, this.sommet.c2d)
             d2.isVisible = false
             const ptBase = pointIntersectionDD(d1, d2)
+            if (!ptBase) {
+              window.notify('Axe de la pyramide non défini correctement', { d1, d2 })
+              return
+            }
             s = segment(ptBase, this.sommet.c2d, this.colorAxe)
             s.pointilles = 2
             this.c2d.push(s)
@@ -1426,7 +1430,7 @@ export class Pyramide3d extends ObjetMathalea2D {
       for (let ee = 0; ee < this.base.listePoints2d.length; ee++) {
         this.base.listePoints2d[ee].positionLabel = this.sommet.z > 0 ? 'below' : 'above'
       }
-      this.c2d.push(labelPoint(...p.listePoints))
+      this.c2d.push(labelPoint(...p.listePoints.map(point => pointDepuisPointAbstrait(point))))
       this.c2d.push(labelPoint(this.sommet))
       this.nom = nomBase.join('') + this.sommet.label
     }
@@ -1454,7 +1458,7 @@ export class Pyramide3d extends ObjetMathalea2D {
  * @example pyramide3d(c,A,'red',B,true,'green',false,true,'blue') // Créé un CONE de cercle c et de sommet A et dont les "arêtes" sont rouges, le centre affiché est B, l'axe affiché est vert et le cône est peint en vert
  * @return {Pyramide3d}
  */
-export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
+export function pyramide3d (base: Polygone3d, sommet: Point3d, color = 'black', centre?: Point3d, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
   return new Pyramide3d(base, sommet, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone, affichageBase)
 }
 

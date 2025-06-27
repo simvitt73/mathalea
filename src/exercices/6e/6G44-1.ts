@@ -159,13 +159,13 @@ export default class ReconnaitreDesSolides extends Exercice {
         case 'cône': // cone  ?
         {
           if (axe === 3) {
-            cone = cone3d(point3d(0, 0, 0), point3d(0, -7, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)), ['black'], true, 'black', 'white')
+            cone = cone3d(point3d(0, 0, 0), point3d(0, -7, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)), 'black', true, 'black', 'white')
             /* for (let kk = 15; kk < 25; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
             objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
           } else if (axe === 2) {
-            cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), ['black'], true, 'black', 'white')
+            cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
             /* for (let kk = 3; kk < 3 + 17; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
