@@ -34,7 +34,7 @@ export default class AmeriqueNordJuin22Ex1Q5 extends ExerciceQcmA {
     ]
     const base = polygone3d(...basePoints)
     for (const arete of base.aretes) {
-      arete.visible = true
+      arete.isVisible = true
     }
     const a1 = codageAngleDroit(basePoints[1].c2d, basePoints[0].c2d, basePoints[2].c2d)
     const vecteurExtrusion = vecteur3d(0, 8, 0)

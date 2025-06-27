@@ -1,8 +1,8 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
-import { distancePointDroite, droite } from '../lib/2d/droites'
-import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
-import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
+import { distancePointDroite, Droite, droite } from '../lib/2d/droites'
+import { Point, point, pointDepuisPointAbstrait, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
+import { Polygone, polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
+import { longueur, norme, Segment, segment, Vecteur, vecteur } from '../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../lib/2d/textes'
 import { translation } from '../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
@@ -39,14 +39,21 @@ const math = { matrix, multiply, norm, cross, dot }
  * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
  */
 export class Point3d {
-  constructor (x, y, z, visible, label, positionLabel) {
+  x: number
+  y: number
+  z: number
+  isVisible: boolean
+  label: string
+  typeObjet: string
+  c2d: Point
+  constructor (x: number, y: number, z: number, isVisible: boolean, label: string, positionLabel: string) {
     const alpha = context.anglePerspective * Math.PI / 180 // context.anglePerspective peut être changé globalement pour modifier la perspective
     const rapport = context.coeffPerspective // idem pour context.coefficientPerspective qui est la réduction sur l'axe y.
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // La matrice de projection 3d -> 2d
     this.x = x
     this.y = y
     this.z = z
-    this.visible = visible
+    this.isVisible = isVisible
     this.label = label
     this.typeObjet = 'point3d'
     const V = math.matrix([this.x, this.y, this.z])
@@ -55,7 +62,7 @@ export class Point3d {
   }
 }
 
-export function point3d (x, y, z = 0, visible = true, label = '', positionLabel = 'above left') {
+export function point3d (x: number, y: number, z = 0, visible = true, label = '', positionLabel = 'above left') {
   return new Point3d(x, y, z, visible, label, positionLabel)
 }
 
@@ -80,8 +87,15 @@ export function point3d (x, y, z = 0, visible = true, label = '', positionLabel 
  * let w = vecteur(point3d(0,0,0),point3d(1,1,1)) -> définit un vecteur d'origine O et d'extrémité M(1;1;1)
  * let fleche = w.representant(point3d(5,0,0)) -> fleche est un objet 2d qui représente le vecteur w au point (5;0;0)
  */
-class Vecteur3d {
-  constructor (...args) {
+export class Vecteur3d {
+  x: number = 0
+  y: number = 0
+  z: number = 0
+  matrice: any
+  norme: number
+  c2d: Vecteur
+  representant: (A: Point3d) => Segment
+  constructor (...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) {
     const alpha = context.anglePerspective * Math.PI / 180
     const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // ceci est la matrice de projection 3d -> 2d
@@ -89,29 +103,27 @@ class Vecteur3d {
       this.x = args[1].x - args[0].x
       this.y = args[1].y - args[0].y
       this.z = args[1].z - args[0].z
-    } else {
-      if (typeof (args[0]) === 'number') {
-        this.x = args[0]
-        this.y = args[1]
-        this.z = args[2]
-      } else if (args.length === 1) {
-        this.x = args[0]._data[0]
-        this.y = args[0]._data[1]
-        this.z = args[0]._data[2]
-      }
+    } else if (args.length === 3) {
+      this.x = args[0]
+      this.y = args[1]
+      this.z = args[2]
+    } else if (args.length === 1) {
+      this.x = args[0]._data[0]
+      this.y = args[0]._data[1]
+      this.z = args[0]._data[2]
     }
     this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
     this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
     const W = math.multiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
     this.c2d = vecteur(W._data[0], W._data[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this
-    this.representant = function (A) { // méthode pour construire un représentant d'origine A (un point 3d)
+    this.representant = function (A: Point3d) { // méthode pour construire un représentant d'origine A (un point 3d)
       const B = translation3d(A, this)
       return vecteur(A.c2d, B.c2d).representant(A.c2d) // qui retourne un représentant de vecteur 2d (objet dessiné)
     }
   }
 }
 
-export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composantes du vecteur
+export function vecteur3d (...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) { // A,B deux Point3d ou x,y,z les composantes du vecteur
   return new Vecteur3d(...args)
 }
 
@@ -122,28 +134,33 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
  * Si l'un des deux points n'est pas visible (propriété visible à false) alors l'arête aura aussi visible à false
  * sa propriété p2d est un segment en pointillé ou en trait plein suivant sa visibilité.
  */
-class Arete3d {
-  constructor (point1, point2, color, visible) {
+export class Arete3d {
+  extremite1: Point3d
+  extremite2: Point3d
+  color: string
+  isVisible: boolean
+  c2d: Segment
+  constructor (point1: Point3d, point2: Point3d, color: string, isVisible: boolean) {
     this.extremite1 = point1
     this.extremite2 = point2
     this.color = Array.isArray(color) ? color[0] : color // MGu parfois un tableau de couleurs, pasd compatible avec segment.
-    this.visible = visible
-    if (!point1.visible || !point2.visible || !this.visible) {
-      this.visible = false
+    this.isVisible = isVisible
+    if (!point1.isVisible || !point2.isVisible || !this.isVisible) {
+      this.isVisible = false
     } else {
-      this.visible = true
+      this.isVisible = true
     }
     this.c2d = segment(point1.c2d, point2.c2d, this.color)
-    if (!this.visible) {
+    if (!this.isVisible) {
       this.c2d.pointilles = 2
     } else {
-      this.c2d.pointilles = false
+      this.c2d.pointilles = 0
     }
   }
 }
 
 // l'arête est visible par défaut sauf si p1 ou p2 sont invisibles
-export function arete3d (p1, p2, color = 'black', visible = true) {
+export function arete3d (p1: Point3d, p2: Point3d, color = 'black', visible = true) {
   return new Arete3d(p1, p2, color, visible)
 }
 
@@ -156,7 +173,11 @@ export function arete3d (p1, p2, color = 'black', visible = true) {
  * Les droites servent principalement à définir des axes de rotation dans l'espace
  */
 class Droite3d {
-  constructor (point3D, vecteur3D) {
+  directeur: Vecteur3d = vecteur3d(0, 0, 1) // le vecteur directeur de la droite
+  origine: Point3d
+  point: any
+  c2d: Droite
+  constructor (point3D: Point3d, vecteur3D: Vecteur3d) {
     if (vecteur3D.constructor === Vecteur3d) {
       this.directeur = vecteur3D
     } else if (vecteur3D.constructor === Point3d) {
@@ -170,7 +191,7 @@ class Droite3d {
   }
 }
 
-export function droite3d (point3D, vecteur3D) {
+export function droite3d (point3D: Point3d, vecteur3D: Vecteur3d) {
   return new Droite3d(point3D, vecteur3D)
 }
 
@@ -228,7 +249,7 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {demiCercle}
  */
-export function demicercle3d (centre, normal, rayon, sens = 'direct', estCache = false, color = 'black', angledepart = context.anglePerspective) {
+export function demicercle3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, sens: string = 'direct', estCache: boolean = false, color: string = 'black', angledepart: number = context.anglePerspective) {
   let signe
   const M = []
   const listepoints = []
@@ -269,7 +290,7 @@ export function demicercle3d (centre, normal, rayon, sens = 'direct', estCache =
  * cote est soit 'caché' soit 'visible'
  *
  */
-export function arc3d (centre, normal, rayon, cote, color, angledepart, angledefin) {
+export function arc3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, cote: 'visible' | 'caché', color: string, angledepart: number, angledefin: number) {
   const M = []
   const listepoints = []
   const d = droite3d(centre, normal)
@@ -298,10 +319,10 @@ export function arc3d (centre, normal, rayon, cote, color, angledepart, angledef
  * visible est un booléen
  *
  */
-export function cercle3d (centre, normal, rayon, visible = true, color = 'black', pointilles = false) {
-  const M = []
-  const listepoints = []
-  const listepoints3d = []
+export function cercle3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, visible: boolean = true, color: string = 'black', pointilles: boolean = false): [Polygone, Point3d[], Point[]] {
+  const M: Point3d[] = []
+  const listepoints: Point[] = []
+  const listepoints3d: Point3d[] = []
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
   listepoints3d.push(M[0])
@@ -326,15 +347,20 @@ export function cercle3d (centre, normal, rayon, visible = true, color = 'black'
  * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
  */
 class Polygone3d {
-  constructor (...args) {
+  listePoints: Point3d[]
+  color: string = 'black'
+  listePoints2d: Point[]
+  aretes: Arete3d[]
+  c2d: Segment[]
+  constructor (...args: [Point3d[], string] | Point3d[]) {
     if (Array.isArray(args[0])) {
       // Si le premier argument est un tableau
       this.listePoints = args[0]
-      if (args[1]) {
+      if (typeof args[1] === 'string' && args[1] !== '') {
         this.color = args[1]
       }
     } else {
-      this.listePoints = args
+      this.listePoints = args.filter(arg => arg instanceof Point3d)
       this.color = 'black'
     }
     const segments3d = []
@@ -343,19 +369,19 @@ class Polygone3d {
     A = this.listePoints[0]
     this.listePoints2d = [A.c2d]
     for (let i = 1; i < this.listePoints.length; i++) {
-      segments3d.push(arete3d(A, this.listePoints[i], this.color, A.visible && this.listePoints[i].visible))
+      segments3d.push(arete3d(A, this.listePoints[i], this.color, A.isVisible && this.listePoints[i].isVisible))
       segments.push(segments3d[i - 1].c2d)
       A = this.listePoints[i]
       this.listePoints2d.push(A.c2d)
     }
-    segments3d.push(arete3d(A, this.listePoints[0], this.color, A.visible && this.listePoints[0].visible))
+    segments3d.push(arete3d(A, this.listePoints[0], this.color, A.isVisible && this.listePoints[0].isVisible))
     segments.push(segments3d[this.listePoints.length - 1].c2d)
     this.aretes = segments3d
     this.c2d = segments
   }
 }
 
-export function polygone3d (...args) {
+export function polygone3d (...args: [Point3d[], string] | Point3d[]): Polygone3d {
   return new Polygone3d(...args)
 }
 
@@ -407,7 +433,7 @@ export function polygone3d (...args) {
  * @class
  */
 export class Sphere3d extends ObjetMathalea2D {
-  constructor (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
+  constructor (centre: Point3d, rayon: Vecteur3d, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
     super()
     this.centre = centre
     this.rayon = rayon
@@ -449,18 +475,24 @@ export class Sphere3d extends ObjetMathalea2D {
     let centreParallele
     let rayonDuParallele
     let normal
-    const paralleles = {
+    const paralleles: {
+      listePoints3d: Point3d[][]
+      ptCachePremier: Point[]
+      indicePtCachePremier: number[]
+      ptCacheDernier: Point[]
+      indicePtCacheDernier: number[]
+    } = {
       listePoints3d: [],
       ptCachePremier: [],
       indicePtCachePremier: [],
       ptCacheDernier: [],
       indicePtCacheDernier: []
     }
-    const enveloppeSphere1 = []
-    let enveloppeSphere2 = []
+    const enveloppeSphere1: Point[] = []
+    let enveloppeSphere2: Point[] = []
     let premierParallele = 100
-    let indicePremier
-    let indiceDernier
+    let indicePremier = 0
+    let indiceDernier = 0
     this.c2d = []
 
     // Construction de tous les paralleles
@@ -485,10 +517,10 @@ export class Sphere3d extends ObjetMathalea2D {
       inclinaison)
     unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
     paralleles.listePoints3d.push(unDesParalleles[1])
-    paralleles.ptCachePremier.push('')
-    paralleles.indicePtCachePremier.push('')
-    paralleles.ptCacheDernier.push('')
-    paralleles.indicePtCacheDernier.push('')
+    paralleles.ptCachePremier.push(point(0, 0))
+    paralleles.indicePtCachePremier.push(0)
+    paralleles.ptCacheDernier.push(point(0, 0))
+    paralleles.indicePtCacheDernier.push(0)
 
     // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
     for (let k = nbParallelesDeConstruction - 2, poly, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
@@ -512,10 +544,10 @@ export class Sphere3d extends ObjetMathalea2D {
       for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
         paralleles.listePoints3d[j][ee].isVisible = !(paralleles.listePoints3d[j][ee].c2d.estDansPolygone(poly))
       }
-      paralleles.ptCachePremier.push('')
-      paralleles.indicePtCachePremier.push('')
-      paralleles.ptCacheDernier.push('')
-      paralleles.indicePtCacheDernier.push('')
+      paralleles.ptCachePremier.push(point(0, 0))
+      paralleles.indicePtCachePremier.push(0)
+      paralleles.ptCacheDernier.push(point(0, 0))
+      paralleles.indicePtCacheDernier.push(0)
 
       for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listePoints3d[0].length; ee++) {
         s = segment(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
@@ -537,6 +569,10 @@ export class Sphere3d extends ObjetMathalea2D {
             d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
             d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
             pt = pointIntersectionDD(d1, d2) // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+            if (!pt) {
+              window.notify('Erreur dans le calcul du point d\'intersection entre d1 et d2', { d1, d2 })
+              continue
+            }
             enveloppeSphere1.push(pt)
             //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
             // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
@@ -567,6 +603,10 @@ export class Sphere3d extends ObjetMathalea2D {
             d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
             d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
             pt = pointIntersectionDD(d1, d2)
+            if (!pt) {
+              window.notify('Erreur dans le calcul du point d\'intersection entre d1 et d2', { d1, d2 })
+              continue
+            }
             // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
             enveloppeSphere2.push(pt)
             // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
@@ -619,21 +659,21 @@ export class Sphere3d extends ObjetMathalea2D {
           if (polyLineCachee.length > 4) { // une précaution au cas où la liste de points est courte ça pourrait boucler à l'infini
             while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 1) {
               const dernierPoint = polyLineCachee.pop()
-              polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
+              if (dernierPoint) polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
               securite++
             }
           }
           if (polyLineVisible.length > 4) {
             while (securite < 20 && longueur(polyLineVisible[polyLineVisible.length - 1], polyLineVisible[0]) < 1) {
               const premierPoint = polyLineVisible.shift()
-              polyLineVisible.push(point(premierPoint.x, premierPoint.y))
+              if (premierPoint) polyLineVisible.push(point(premierPoint.x, premierPoint.y))
               securite++
             }
           }
         }
         if (faceCachee) {
           const ligneCachee = polyLineCachee.length > 0 ? polyline(...polyLineCachee) : null // parfois, il n'y a rien à cacher près du pôle nord
-          if (k === 0) { // là on est certain qu'il y a du monde à cacher
+          if (ligneCachee && k === 0) { // là on est certain qu'il y a du monde à cacher
             ligneCachee.color = colorToLatexOrHTML(this.colorEquateur)
             ligneCachee.epaisseur = 1.5
           } else {
@@ -646,7 +686,7 @@ export class Sphere3d extends ObjetMathalea2D {
           }
         }
         const ligneVisible = polyLineVisible.length > 0 ? polyline(...polyLineVisible) : null // et rien non plus à montrer près du pôle sud.
-        if (k === 0) { // là on est certain qu'il y a du monde à montrer
+        if (ligneVisible && k === 0) { // là on est certain qu'il y a du monde à montrer
           ligneVisible.color = colorToLatexOrHTML(this.colorEquateur)
           ligneVisible.epaisseur = 1.5
         } else {
@@ -804,7 +844,7 @@ export class Sphere3d extends ObjetMathalea2D {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {Sphere3d}
  */
-export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
+export function sphere3d (centre: Point3d, rayon: Vecteur3d, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
   return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe, inclinaison, faceCachee)
 }
 
@@ -830,12 +870,12 @@ export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe =
  * @class
  */
 export class Cone3d extends ObjetMathalea2D {
-  constructor (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
+  constructor (centre: Point3d, sommet: Point3d, rayon: Vecteur3d, color: string = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
     super()
     this.centre = centre
     this.sommet = sommet
     this.rayon = rayon
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.colorAxe = colorAxe
     this.colorCone = colorCone
 
@@ -845,9 +885,9 @@ export class Cone3d extends ObjetMathalea2D {
     for (let ee = 1; ee < nbSommets; ee++) {
       ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
     }
-    const p = polygone3d(ptsBase, this.color)
+    const p = polygone3d(ptsBase, this.color[0])
     // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
-    this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
+    this.c2d = pyramide3d(p, this.sommet, this.color[0], affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
   }
 }
 
@@ -868,7 +908,7 @@ export class Cone3d extends ObjetMathalea2D {
  * @author Eric Elter
  * @return {Cone3d}
  */
-export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
+export function cone3d (centre: Point3d, sommet: Point3d, rayon: Vecteur3d, color: string = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
   return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone, affichageCentre, affichageBase)
 }
 
@@ -906,13 +946,13 @@ export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = f
  * @class
  */
 export class Cylindre3d extends ObjetMathalea2D {
-  constructor (centrebase1, centrebase2, rayon1, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
+  constructor (centrebase1: Point3d, centrebase2: Point3d, rayon1: Vecteur3d, rayon2: Vecteur3d, color: string = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
     super()
     this.centrebase1 = centrebase1
     this.centrebase2 = centrebase2
     this.rayon1 = rayon1
     this.rayon2 = rayon2
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.affichageGeneratrices = affichageGeneratrices
     this.affichageCentreBases = affichageCentreBases
     this.affichageAxe = affichageAxe
@@ -953,13 +993,13 @@ export class Cylindre3d extends ObjetMathalea2D {
     this.angleDepart = angleDepart
     // Description de chaque demi-base en position verticale
     // c1 : cercle bas derrière
-    const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
+    const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color[0], angleDepart)
     // c3 : cercle haut derrière
-    const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
+    const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color[0], angleDepart)
     // c2 : cercle bas devant
-    const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
+    const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color[0], angleDepart)
     // c4 : cercle haut devant
-    const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
+    const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color[0], angleDepart)
     this.pointsBase1 = [...c1.listePoints, ...c2.listePoints]
     this.pointsBase2 = [...c3.listePoints, ...c4.listePoints]
     if (this.cylindreColore) {
@@ -982,24 +1022,24 @@ export class Cylindre3d extends ObjetMathalea2D {
 
     if (this.affichageGeneratrices) {
       for (let i = 1; i < c1.listePoints.length - 1; i += 2) {
-        s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
+        s = segment(c3.listePoints[i], c1.listePoints[i], this.color[0])
         s.pointilles = 2
         s.opacite = 0.3
         this.c2d.push(s)
       }
     }
 
-    s = segment(c4.listePoints[0], c2.listePoints[0], this.color)
+    s = segment(c4.listePoints[0], c2.listePoints[0], this.color[0])
     this.c2d.push(s)
 
     if (this.affichageGeneratrices) {
       for (let i = 1; i < c2.listePoints.length - 1; i++) {
-        s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
+        s = segment(c4.listePoints[i], c2.listePoints[i], this.color[0])
         this.c2d.push(s)
       }
     }
 
-    s = segment(c4.listePoints[c2.listePoints.length - 1], c2.listePoints[c2.listePoints.length - 1], this.color)
+    s = segment(c4.listePoints[c2.listePoints.length - 1], c2.listePoints[c2.listePoints.length - 1], this.color[0])
     this.c2d.push(s)
 
     this.c2d.push(c1, c2)
@@ -1026,6 +1066,10 @@ export class Cylindre3d extends ObjetMathalea2D {
       // Construction de l'extension de l'axe
       s = droite(pt[i], pt[i - 1])
       const ptAxe1 = pointIntersectionDD(s, axeCylindre)
+      if (!ptAxe1) {
+        window.notify('Axe du cylindre non défini correctement', { s, axeCylindre })
+        return
+      }
       s = segment(this.centrebase1.c2d, ptAxe1, this.colorAxe)
       s.pointilles = 2
       s.opacite = 0.7
@@ -1064,7 +1108,7 @@ export class Cylindre3d extends ObjetMathalea2D {
  * @author Jean-Claude Lhote (optimisé par Eric Elter)
  * @return {Cylindre3d}
  */
-export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
+export function cylindre3d (centrebase1: Point3d, centrebase2: Point3d, rayon: Vecteur3d, rayon2: Vecteur3d, color: string = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
   return new Cylindre3d(centrebase1, centrebase2, rayon, rayon2, color, affichageGeneratrices, affichageCentreBases, affichageAxe, colorAxe, cylindreColore, colorCylindre, avecFaceHaut)
 }
 
@@ -1086,11 +1130,11 @@ export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'bl
  * @class
  */
 export class Prisme3d extends ObjetMathalea2D {
-  constructor (base, vecteur, color, affichageNom = false, nomBase2, positionLabels2) {
+  constructor (base: Polygone3d, vecteur: Vecteur3d, color: string = 'black', affichageNom = false, nomBase2?: string, positionLabels2?: string[]) {
     super()
     this.affichageNom = affichageNom
-    this.color = color
-    base.color = colorToLatexOrHTML(this.color)
+    this.color = colorToLatexOrHTML(color)
+    base.color = this.color[0]
     this.vecteur = vecteur
     if (this.vecteur.y === 0 && this.vecteur.x === 0) {
       this.base1 = this.vecteur.z >= 1 ? base : translation3d(base, vecteur3d(this.vecteur.x, this.vecteur.y, -this.vecteur.z))
@@ -1110,25 +1154,25 @@ export class Prisme3d extends ObjetMathalea2D {
     let toutesLesAretesSontVisibles = true
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       const areteVisibleOuPas = pointSurSegment(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d, longueur(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d) / 50).estDansPolygone(polygone(this.base1.listePoints2d))
-      this.base2.listePoints[i].visible = !areteVisibleOuPas
-      toutesLesAretesSontVisibles = !areteVisibleOuPas & toutesLesAretesSontVisibles
+      this.base2.listePoints[i].isVisible = !areteVisibleOuPas
+      toutesLesAretesSontVisibles = !areteVisibleOuPas && toutesLesAretesSontVisibles
     }
     // On trace les arêtes de this.base2
     for (let i = 0; i < this.base2.listePoints.length; i++) {
-      s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color)
+      s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color[0])
       if (toutesLesAretesSontVisibles) { // Cas particulier où aucun sommet de this.base2 n'est caché (cas de certains tétraèdres)
         let areteVisibleOuPas = true
         for (let ee = 0; ee < this.base1.listePoints.length; ee++) {
           const areteLiaison = segment(this.base1.listePoints[ee].c2d, this.base2.listePoints[ee].c2d)
-          areteVisibleOuPas = areteVisibleOuPas && (areteLiaison.estSecant(s.c2d))
+          areteVisibleOuPas = areteVisibleOuPas && !!areteLiaison.estSecant(s.c2d)
         }
-        s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color, !areteVisibleOuPas)
+        s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color[0], !areteVisibleOuPas)
       }
       this.c2d.push(s.c2d)
     }
     // On trace les arêtes de liaison entre les bases
     for (let i = 0; i < this.base1.listePoints.length; i++) {
-      s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color)
+      s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color[0])
       this.c2d.push(s.c2d)
     }
 
@@ -1141,15 +1185,15 @@ export class Prisme3d extends ObjetMathalea2D {
       for (let ee = 0; ee < this.base1.listePoints2d.length; ee++) {
         this.base1.listePoints2d[ee].positionLabel = base.listePoints2d[ee].positionLabel ?? 'above'
       }
-      this.c2d.push(labelPoint(...p.listePoints))
+      this.c2d.push(labelPoint(...p.listePoints.map(point => pointDepuisPointAbstrait(point))))
       p = polygone(this.base2.listePoints2d)
       const listeDeLettres2 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX' + nomBase1)
       renommePolygone(p, nomBase2 ?? listeDeLettres2)
       for (let ee = 0; ee < this.base2.listePoints2d.length; ee++) {
-        this.base2.listePoints2d[ee].positionLabel = positionLabels2[ee] ?? 'below'
+        this.base2.listePoints2d[ee].positionLabel = positionLabels2?.[ee] ?? 'below'
       }
-      this.c2d.push(labelPoint(...p.listePoints))
-      this.nom = nomBase1 + nomBase2
+      this.c2d.push(labelPoint(...p.listePoints.map(point => pointDepuisPointAbstrait(point))))
+      this.nom = nomBase1 + (nomBase2 ?? '')
     }
   }
 }
@@ -1171,7 +1215,7 @@ export class Prisme3d extends ObjetMathalea2D {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {Prisme3d}
  */
-export function prisme3d (base, vecteur, color = 'black', affichageNom = false, nomBase2, positionLabels2) {
+export function prisme3d (base: Polygone3d, vecteur: Vecteur3d, color: string = 'black', affichageNom = false, nomBase2?: string, positionLabels2?: string[]) {
   return new Prisme3d(base, vecteur, color, affichageNom, nomBase2, positionLabels2)
 }
 
@@ -1202,12 +1246,12 @@ export function prisme3d (base, vecteur, color = 'black', affichageNom = false, 
  * @class
  */
 export class Pyramide3d extends ObjetMathalea2D {
-  constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
+  constructor (base: Polygone3d, sommet: Point3d, color: string = 'black', centre?: Point3d, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
     super()
-    base.color = colorToLatexOrHTML(color)
+    base.color = color
     this.base = base
     this.sommet = sommet
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.centre = centre
     this.affichageAxe = affichageAxe
     this.colorAxe = colorAxe
@@ -1222,7 +1266,7 @@ export class Pyramide3d extends ObjetMathalea2D {
     this.aretesSommet = []
 
     for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
+      s = arete3d(this.base.listePoints[i], this.sommet, color, true)
       // s.c2d.isVisible = false
       this.aretesSommet.push(s)
     }
@@ -1230,7 +1274,7 @@ export class Pyramide3d extends ObjetMathalea2D {
     // Stockage de toutes les arêtes de la base
     const aretesBase = []
     for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], this.color, true)
+      s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], color, true)
       aretesBase.push(s)
     }
 
@@ -1256,7 +1300,7 @@ export class Pyramide3d extends ObjetMathalea2D {
       }
       if (sommetCache) {
         if (sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
-          this.aretesSommet[i].visible = false
+          this.aretesSommet[i].isVisible = false
           this.aretesSommet[i].c2d.pointilles = 2
           aretesBase[i].c2d.pointilles = 2
           aretesBase[(this.base.listePoints.length + i - 1) % this.base.listePoints.length].c2d.pointilles = 2
@@ -1293,7 +1337,7 @@ export class Pyramide3d extends ObjetMathalea2D {
           s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
           s.isVisible = false
           for (let j = 0; j < this.aretesSommet.length; j++) {
-            sommetCache = sommetCache || s.estSecant(this.aretesSommet[j].c2d)
+            sommetCache = sommetCache || !!s.estSecant(this.aretesSommet[j].c2d)
           }
           if (sommetCache) aretesBase[i].c2d.pointilles = 2
         }
@@ -1339,7 +1383,7 @@ export class Pyramide3d extends ObjetMathalea2D {
             if (s.pointilles !== 2) { // L'arête coupée doit être visible
               const d1 = droite(this.centre.c2d, this.sommet.c2d)
               d1.isVisible = false
-              intersectionTrouvee = s.estSecant(d1)
+              intersectionTrouvee = !!s.estSecant(d1)
             }
             ee++
           }
@@ -1350,6 +1394,10 @@ export class Pyramide3d extends ObjetMathalea2D {
             const d2 = droite(this.centre.c2d, this.sommet.c2d)
             d2.isVisible = false
             const ptBase = pointIntersectionDD(d1, d2)
+            if (!ptBase) {
+              window.notify('Axe de la pyramide non défini correctement', { d1, d2 })
+              return
+            }
             s = segment(ptBase, this.sommet.c2d, this.colorAxe)
             s.pointilles = 2
             this.c2d.push(s)
@@ -1382,7 +1430,7 @@ export class Pyramide3d extends ObjetMathalea2D {
       for (let ee = 0; ee < this.base.listePoints2d.length; ee++) {
         this.base.listePoints2d[ee].positionLabel = this.sommet.z > 0 ? 'below' : 'above'
       }
-      this.c2d.push(labelPoint(...p.listePoints))
+      this.c2d.push(labelPoint(...p.listePoints.map(point => pointDepuisPointAbstrait(point))))
       this.c2d.push(labelPoint(this.sommet))
       this.nom = nomBase.join('') + this.sommet.label
     }
@@ -1410,7 +1458,7 @@ export class Pyramide3d extends ObjetMathalea2D {
  * @example pyramide3d(c,A,'red',B,true,'green',false,true,'blue') // Créé un CONE de cercle c et de sommet A et dont les "arêtes" sont rouges, le centre affiché est B, l'axe affiché est vert et le cône est peint en vert
  * @return {Pyramide3d}
  */
-export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
+export function pyramide3d (base: Polygone3d, sommet: Point3d, color = 'black', centre?: Point3d, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
   return new Pyramide3d(base, sommet, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone, affichageBase)
 }
 
@@ -1422,10 +1470,10 @@ export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe 
  * un coefficient de 0.5 coupera la pyramide à mi-hauteur (valeur par défaut).
  */
 export class PyramideTronquee3d extends ObjetMathalea2D {
-  constructor (base, sommet, coeff = 0.5, color = 'black') {
+  constructor (base: Polygone3d, sommet: Point3d, coeff = 0.5, color = 'black') {
     super()
-    this.color = color
-    base.color = colorToLatexOrHTML(color)
+    this.color = colorToLatexOrHTML(color)
+    base.color = color
     this.base = base
     this.coeff = coeff
     this.aretes = []
@@ -1434,20 +1482,20 @@ export class PyramideTronquee3d extends ObjetMathalea2D {
     const sommetsBase2 = []
     for (let i = 0, pointSection; i < this.base.listePoints.length; i++) {
       pointSection = homothetie3d(sommet, base.listePoints[i], coeff)
-      pointSection.visible = true
+      pointSection.isVisible = true
       sommetsBase2.push(pointSection)
     }
     this.base2 = polygone3d(...sommetsBase2)
     this.c2d.push(...this.base.c2d)
     for (let i = 0; i < base.listePoints.length; i++) {
-      this.aretes.push(arete3d(base.listePoints[i], this.base2.listePoints[i], this.color, base.listePoints[i].visible))
+      this.aretes.push(arete3d(base.listePoints[i], this.base2.listePoints[i], color, base.listePoints[i].isVisible))
       this.c2d.push(this.aretes[i].c2d)
     }
     this.c2d.push(...this.base2.c2d)
   }
 }
 
-export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') {
+export function pyramideTronquee3d (base: Polygone3d, sommet: Point3d, coeff = 0.5, color = 'black') {
   return new PyramideTronquee3d(base, sommet, coeff, color)
 }
 
@@ -1472,7 +1520,7 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
  * @class
  */
 export class Cube3d extends ObjetMathalea2D {
-  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
+  constructor (x: number, y: number, z:number, c: number, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
     super()
     this.affichageNom = affichageNom
     const A = point3d(x, y, z)
@@ -1521,7 +1569,11 @@ export class Cube3d extends ObjetMathalea2D {
     // Les 8 sommets sont indispensables pour pouvoir les utiliser ensuite.
 
     if (aretesCachee) {
-      faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
+      if (Array.isArray(faceAV)) {
+        faceAV[0].couleurDeRemplissage = colorToLatexOrHTML(colorAV)
+      } else {
+        faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
+      }
       faceVisibleHautOuBas.couleurDeRemplissage = colorToLatexOrHTML(colorHautouBas)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
       this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d(), faceDr, faceVisibleHautOuBas]
@@ -1557,7 +1609,7 @@ export class Cube3d extends ObjetMathalea2D {
  * @author Jean-Claude Lhote (Amendée par Eric Elter)
  * @return {Cube3d}
  */
-export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
+export function cube3d (x: number, y: number, z: number, c: number, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
   return new Cube3d(x, y, z, c, color, colorAV, colorHautouBas, colorDr, aretesCachee, affichageNom, nom)
 }
 
@@ -1567,15 +1619,21 @@ export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colo
  * La barre est positionnée suivant l'axe x
  */
 export class Barre3d extends ObjetMathalea2D {
-  constructor (x, y, z, c, l, color = 'black') {
+  constructor (x: number, y: number, z: number, c: number, l: number, color = 'black') {
     super()
-    let B, C, D, E, F, G, H, faceAv, faceTop
+    let faceAv, faceTop
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
     let A = point3d(x, y, z)
-
+    let B = A
+    let C = A
+    let D = A
+    let E = A
+    let F = A
+    let G = A
+    let H = A
     for (let i = 0; i < l; i++) {
       B = translation3d(A, vx)
       C = translation3d(B, vz)
@@ -1597,7 +1655,7 @@ export class Barre3d extends ObjetMathalea2D {
   }
 }
 
-export function barre3d (x, y, z, c, l, color = 'black') {
+export function barre3d (x: number, y: number, z: number, c: number, l: number, color = 'black') {
   return new Barre3d(x, y, z, c, l, color)
 }
 
@@ -1606,7 +1664,7 @@ export function barre3d (x, y, z, c, l, color = 'black') {
  * Crée une plaque de cubes de côtés c de dimensions l suivant x et p suivant y
  */
 export class Plaque3d extends ObjetMathalea2D {
-  constructor (x, y, z, c, l, p, color = 'black') {
+  constructor (x: number, y: number, z: number, c: number, l: number, p: number, color = 'black') {
     super()
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
@@ -1641,12 +1699,12 @@ export class Plaque3d extends ObjetMathalea2D {
   }
 }
 
-export function plaque3d (x, y, z, c, l, p, color = 'black') {
+export function plaque3d (x: number, y: number, z: number, c: number, l: number, p: number, color = 'black') {
   return new Plaque3d(x, y, z, c, l, p, color)
 }
 
 export class PaveLPH3d extends ObjetMathalea2D {
-  constructor (x, y, z, c, l, p, h, color = 'black') {
+  constructor (x: number, y: number, z: number, c: number, l: number, p: number, h: number, color = 'black') {
     super()
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
@@ -1697,7 +1755,7 @@ export class PaveLPH3d extends ObjetMathalea2D {
  * @param {*} color couleur
  * @returns {PaveLPH3d}
  */
-export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
+export function paveLPH3d (x: number, y: number, z: number, c: number, l: number, p: number, h: number, color = 'black') {
   return new PaveLPH3d(x, y, z, c, l, p, h, color)
 }
 
@@ -1710,7 +1768,7 @@ export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
  * Utilisée par exemple dans 6G43
  */
 export class Cube extends ObjetMathalea2D {
-  constructor (x, y, z, alpha, beta, colorD, colorT, colorG) {
+  constructor (x: number, y: number, z: number, alpha: number, beta: number, colorD: string, colorT: string, colorG: string) {
     super()
     this.x = x
     this.y = y
@@ -1724,7 +1782,7 @@ export class Cube extends ObjetMathalea2D {
     this.lstPoints = []
     this.lstPolygone = []
 
-    function proj (x, y, z, alpha, beta) {
+    function proj (x: number, y: number, z: number, alpha: number, beta: number) {
       const cosa = Math.cos(alpha * Math.PI / 180)
       const sina = Math.sin(alpha * Math.PI / 180)
       const cosb = Math.cos(beta * Math.PI / 180)
@@ -1784,7 +1842,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, {
  * @class
  */
 export class Pave3d extends ObjetMathalea2D {
-  constructor (A, B, D, E, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
+  constructor (A: Point3d, B: Point3d, D: Point3d, E: Point3d, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
     super()
     this.affichageNom = affichageNom
     const v1 = vecteur3d(A, B)
@@ -1795,7 +1853,7 @@ export class Pave3d extends ObjetMathalea2D {
     const F = translation3d(B, v2)
 
     // Determination du point caché
-    function distanceMoyenne4points (pt) {
+    function distanceMoyenne4points (pt: Point3d) {
       const dist1 = longueur(pt.c2d, A.c2d, 5)
       const dist2 = longueur(pt.c2d, B.c2d, 5)
       const dist3 = longueur(pt.c2d, C.c2d, 5)
@@ -1803,22 +1861,22 @@ export class Pave3d extends ObjetMathalea2D {
       return arrondi((dist1 + dist2 + dist3 + dist4) / 4, 5)
     }
 
-    E.visible = !E.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    F.visible = !F.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    G.visible = !G.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    H.visible = !H.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    if (E.visible && F.visible && G.visible && H.visible) {
+    E.isVisible = !E.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    F.isVisible = !F.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    G.isVisible = !G.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    H.isVisible = !H.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    if (E.isVisible && F.isVisible && G.isVisible && H.isVisible) {
       const minimum = Math.min(distanceMoyenne4points(E), distanceMoyenne4points(F), distanceMoyenne4points(G), distanceMoyenne4points(H))
-      E.visible = minimum !== distanceMoyenne4points(E)
-      F.visible = minimum !== distanceMoyenne4points(F)
-      G.visible = minimum !== distanceMoyenne4points(G)
-      H.visible = minimum !== distanceMoyenne4points(H)
+      E.isVisible = minimum !== distanceMoyenne4points(E)
+      F.isVisible = minimum !== distanceMoyenne4points(F)
+      G.isVisible = minimum !== distanceMoyenne4points(G)
+      H.isVisible = minimum !== distanceMoyenne4points(H)
     }
     // Fin de determination du point caché
 
     this.sommets = [A, B, C, D, E, F, G, H]
-    this.color = color
-    this.base = polygone3d([A, B, F, E])
+    this.color = colorToLatexOrHTML(color)
+    this.base = polygone3d(A, B, F, E)
     this.hauteur = vecteur3d(A, D)
     this.c2d = []
     this.aretes = [arete3d(A, B, color), arete3d(A, D, color), arete3d(A, E, color), arete3d(C, B, color), arete3d(F, B, color), arete3d(C, D, color), arete3d(C, G, color), arete3d(F, G, color), arete3d(F, E, color), arete3d(H, G, color), arete3d(H, E, color), arete3d(H, D, color)]
@@ -1860,7 +1918,7 @@ export class Pave3d extends ObjetMathalea2D {
  * @author Jean-Claude Lhote (optimisé par Eric Elter)
  * @return {Pave3d}
  */
-export function pave3d (A, B, D, E, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
+export function pave3d (A: Point3d, B: Point3d, D: Point3d, E: Point3d, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
   return new Pave3d(A, B, D, E, color, affichageNom, nom)
 }
 
@@ -1882,7 +1940,7 @@ export function pave3d (A, B, D, E, color = 'black', affichageNom = false, nom =
  * @param {*} vecteur3D vecteur directeur de l'axe de rotation (l'axe passe par l'origine, pour tourner autour d'une droite particulière on utilise rotation3d())
  * @param {*} angle Angle de rotation
  */
-export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
+export function rotationV3d<T extends Point3d | Vecteur3d> (point3D: T, vecteur3D: Vecteur3d, angle: number): T { // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
   let V, p2
   const norme = math.norm(vecteur3D.matrice)
   const unitaire = math.multiply(vecteur3D.matrice, 1 / norme)
@@ -1893,14 +1951,14 @@ export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fa
   const s = Math.sin(angle * Math.PI / 180)
   const k = 1 - c
   const matrice = math.matrix([[u * u * k + c, u * v * k - w * s, u * w * k + v * s], [u * v * k + w * s, v * v * k + c, v * w * k - u * s], [u * w * k - v * s, v * w * k + u * s, w * w * k + c]])
-  if (point3D.constructor === Point3d) {
+  if (point3D instanceof Point3d) {
     V = math.matrix([point3D.x, point3D.y, point3D.z])
     p2 = math.multiply(matrice, V)
-    return point3d(p2._data[0], p2._data[1], p2._data[2])
-  } else if (point3D.constructor === Vecteur3d) {
+    return point3d(p2._data[0], p2._data[1], p2._data[2]) as T
+  } else if (point3D instanceof Vecteur3d) {
     V = point3D
     p2 = math.multiply(matrice, V.matrice)
-    return vecteur3d(p2._data[0], p2._data[1], p2._data[2])
+    return vecteur3d(p2._data[0], p2._data[1], p2._data[2]) as T
   }
 }
 
@@ -1915,27 +1973,24 @@ export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fa
  * @param {Number} angle Angle de rotation
  * @param {string} color couleur du polygone créé. si non précisé la couleur sera celle du polygone argument
  */
-export function rotation3d (point3D, droite3D, angle, color) {
+export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d> (point3D: T, droite3D: Droite3d, angle: number, color?: string): T {
   const directeur = droite3D.directeur
   const origine = droite3D.origine
-  const p = []
-  if (point3D.constructor === Point3d) {
+  if (point3D instanceof Point3d) {
     const V = vecteur3d(origine, point3d(0, 0, 0))
     const W = vecteur3d(point3d(0, 0, 0), origine)
     const M = translation3d(point3D, V)
     const N = rotationV3d(M, directeur, angle)
     return translation3d(N, W)
-  } else if (point3D.constructor === Vecteur3d) {
+  }
+  if (point3D instanceof Vecteur3d) {
     return rotationV3d(point3D, directeur, angle)
-  } else if (point3D.constructor === Polygone3d) {
-    for (let i = 0; i < point3D.listePoints.length; i++) {
-      p.push(rotation3d(point3D.listePoints[i], droite3D, angle))
-    }
-    if (typeof (color) !== 'undefined') {
-      return polygone3d(p, color)
-    } else {
-      return polygone3d(p, point3D.color)
-    }
+  }
+  if (point3D instanceof Polygone3d) {
+    const rotated = point3D.listePoints.map((p: Point3d) =>
+      rotation3d(p, droite3D, angle)
+    )
+    return polygone3d(rotated, color ?? point3D.color) as T
   }
 }
 
@@ -1948,10 +2003,10 @@ export function rotation3d (point3D, droite3D, angle, color) {
  * son sens est définit par le vecteur directeur de l'axe (changer le signe de chaque composante de ce vecteur pour changer le sens de rotation)
  */
 export class SensDeRotation3d extends ObjetMathalea2D {
-  constructor (axe, rayon, angle, epaisseur, color) {
+  constructor (axe: Droite3d, rayon: Vecteur3d, angle: number, epaisseur: number, color: string) {
     super()
     this.epaisseur = epaisseur
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
     this.c2d = []
     let M
     let N
@@ -1959,28 +2014,28 @@ export class SensDeRotation3d extends ObjetMathalea2D {
     M = translation3d(axe.origine, rayon)
     for (let i = 0; i < angle; i += 5) {
       N = rotation3d(M, axe, 5)
-      s = segment(M.c2d, N.c2d, this.color)
+      s = segment(M.c2d, N.c2d, color)
       s.epaisseur = this.epaisseur
       this.c2d.push(s)
       M = N
     }
     N = rotation3d(M, axe, 5)
-    s = segment(M.c2d, N.c2d, this.color)
+    s = segment(M.c2d, N.c2d, color)
     s.epaisseur = this.epaisseur
     this.c2d.push(s)
     const d = droite3d(N, axe.directeur)
     const A = rotation3d(M, d, 30)
     const B = rotation3d(M, d, -30)
-    s = segment(N.c2d, A.c2d, this.color)
+    s = segment(N.c2d, A.c2d, color)
     s.epaisseur = this.epaisseur
     this.c2d.push(s)
-    s = segment(N.c2d, B.c2d, this.color)
+    s = segment(N.c2d, B.c2d, color)
     s.epaisseur = this.epaisseur
     this.c2d.push(s)
   }
 }
 
-export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
+export function sensDeRotation3d (axe: Droite3d, rayon: Vecteur3d, angle: number, epaisseur: number, color: string) {
   return new SensDeRotation3d(axe, rayon, angle, epaisseur, color)
 }
 
@@ -1991,19 +2046,21 @@ export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
  * @param {Point3d | Polygone3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
  * @param {Vecteur3d} vecteur3D
  */
-export function translation3d (point3D, vecteur3D) {
-  if (point3D.constructor === Point3d) {
+export function translation3d<T extends Point3d | Polygone3d> (point3D: T, vecteur3D: Vecteur3d): T {
+  if (point3D instanceof Point3d) {
     const x = point3D.x + vecteur3D.x
     const y = point3D.y + vecteur3D.y
     const z = point3D.z + vecteur3D.z
-    return point3d(x, y, z)
-  } else if (point3D.constructor === Polygone3d) {
+    return point3d(x, y, z) as T
+  } else if (point3D instanceof Polygone3d) {
     const p = []
     for (let i = 0; i < point3D.listePoints.length; i++) {
       p.push(translation3d(point3D.listePoints[i], vecteur3D))
     }
-    return polygone3d(p, point3D.color)
+    return polygone3d(p, point3D.color) as T
   }
+  window.notify('translation3d ne peut être appliqué qu\'à un point3d ou un polygone3d', point3D)
+  return point3D
 }
 
 /**
@@ -2012,35 +2069,33 @@ export function translation3d (point3D, vecteur3D) {
  * La même chose qu'ne 2d, mais en 3d...
  * Pour les points3d les polygones ou les vecteurs (multiplication scalaire par rapport)
  */
-export function homothetie3d (point3D, centre, rapport, color) {
+export function homothetie3d <T extends Point3d | Vecteur3d | Polygone3d> (point3D: T, centre: Point3d, rapport: number, color?: string): T {
   let V
   const p = []
-  if (point3D.constructor === Point3d) {
+  if (point3D instanceof Point3d) {
     V = vecteur3d(centre, point3D)
     V.x *= rapport
     V.y *= rapport
     V.z *= rapport
-    return translation3d(centre, V)
-  } else if (point3D.constructor === Vecteur3d) {
+    return translation3d(centre, V) as T
+  } else if (point3D instanceof Vecteur3d) {
     V = vecteur3d(point3D.x, point3D.y, point3D.z)
     V.x *= rapport
     V.y *= rapport
     V.z *= rapport
-    return V
-  } else if (point3D.constructor === Polygone3d) {
+    return V as T
+  } else if (point3D instanceof Polygone3d) {
     for (let i = 0; i < point3D.listePoints.length; i++) {
       p.push(homothetie3d(point3D.listePoints[i], centre, rapport, color))
     }
-    if (typeof (color) !== 'undefined') {
-      return polygone3d(p, color)
-    } else {
-      return polygone3d(p, point3D.color)
-    }
+    return polygone3d(p, color ?? point3D.color) as T
   }
+  window.notify('homothetie3d ne peut être appliqué qu\'à un point3d, un vecteur3d ou un polygone3d', point3D)
+  return point3D
 }
 
 export class CodageAngleDroit3D extends ObjetMathalea2D {
-  constructor (A, B, C, color = 'black', taille = 1) {
+  constructor (A: Point3d, B: Point3d, C: Point3d, color = 'black', taille = 1) {
     super()
     const BA = vecteur3d(B, A)
     const BC = vecteur3d(B, C)

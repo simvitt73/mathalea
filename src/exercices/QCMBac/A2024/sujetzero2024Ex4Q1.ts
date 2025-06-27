@@ -36,7 +36,7 @@ export default class SujetZero2024Ex4Q1 extends ExerciceQcm {
     ]
     const base = polygone3d(...basePoints)
     for (const arete of base.aretes) {
-      arete.visible = true
+      arete.isVisible = true
     }
 
     const vecteurExtrusion = vecteur3d(0, 5, 0)

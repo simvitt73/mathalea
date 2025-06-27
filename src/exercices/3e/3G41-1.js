@@ -125,7 +125,7 @@ export default class ConstruireSectionPaveDroit extends Exercice {
 
       switch (choix) {
         case 1 : // Parallèle à arête verticale - Cas 1
-          if (!sommetsPave[7].visible || !sommetsPave[6].visible) {
+          if (!sommetsPave[7].isVisible || !sommetsPave[6].isVisible) {
             s1.pointilles = 2
             s4.pointilles = 2
           } else {
@@ -134,9 +134,9 @@ export default class ConstruireSectionPaveDroit extends Exercice {
           }
           break
         case 2 : // Parallèle à arête verticale - Cas 2
-          if (!sommetsPave[6].visible) {
+          if (!sommetsPave[6].isVisible) {
             s1.pointilles = 2
-          } else if (!sommetsPave[7].visible) {
+          } else if (!sommetsPave[7].isVisible) {
             s2.pointilles = 2
             s1.pointilles = 2
           } else {
@@ -144,9 +144,9 @@ export default class ConstruireSectionPaveDroit extends Exercice {
           }
           break
         case 3 : // Parallèle à l'arête horizontale de la face de devant - Cas 1
-          if (!sommetsPave[6].visible || !sommetsPave[5].visible) {
+          if (!sommetsPave[6].isVisible || !sommetsPave[5].isVisible) {
             s1.pointilles = 2
-          } else if (!sommetsPave[7].visible) {
+          } else if (!sommetsPave[7].isVisible) {
             s3.pointilles = 2
             s4.pointilles = 2
           } else {
