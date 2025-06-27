@@ -48,7 +48,8 @@ export function barycentre (p: Polygone, nom = '', positionLabel = 'above') {
  * @author Rémi Angot
  */
 export class Polyline extends ObjetMathalea2D {
-  listePoints: (PointAbstrait | Point3d)[]
+  listePoints: PointAbstrait[]
+  listePoints3d: Point3d[]
   nom: string
   stringColor: string
   constructor (...points: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]) {
@@ -58,11 +59,13 @@ export class Polyline extends ObjetMathalea2D {
     this.opacite = 1
     if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
-      this.listePoints = points[0]
+      this.listePoints = points[0].filter(el => el instanceof PointAbstrait)
+      this.listePoints3d = points[0].filter(el => el instanceof Point3d)
       this.stringColor = String(points[1]) // alors le deuxième est un string
       this.color = colorToLatexOrHTML(String(points[1]))
     } else { // On n'a que des points
-      this.listePoints = points.filter(el => el instanceof PointAbstrait || el instanceof Point3d)
+      this.listePoints = points.filter(el => el instanceof PointAbstrait)
+      this.listePoints3d = points.filter(el => el instanceof Point3d)
       this.color = colorToLatexOrHTML('black')
       this.stringColor = 'black'
     }
@@ -82,8 +85,10 @@ export class Polyline extends ObjetMathalea2D {
     if (this.listePoints.length < 15) {
     // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
       for (const point of this.listePoints) {
-        if (point instanceof PointAbstrait) this.nom += point.nom
-        if (point instanceof Point3d) this.nom += point.label
+        this.nom += point.nom
+      }
+      for (const point of this.listePoints3d) {
+        this.nom += point.label
       }
     };
   }
@@ -115,16 +120,13 @@ export class Polyline extends ObjetMathalea2D {
     }
     let binomeXY = ''
     for (const point of this.listePoints) {
-      let X = 0
-      let Y = 0
-      if (point instanceof PointAbstrait) {
-        X = point.xSVG(coeff)
-        Y = point.ySVG(coeff)
-      }
-      if (point instanceof Point3d) {
-        X = point.c2d.xSVG(coeff)
-        Y = point.c2d.ySVG(coeff)
-      }
+      const X = point.xSVG(coeff)
+      const Y = point.ySVG(coeff)
+      binomeXY += `${X},${Y} `
+    }
+    for (const point of this.listePoints3d) {
+      const X = point.c2d.xSVG(coeff)
+      const Y = point.c2d.ySVG(coeff)
       binomeXY += `${X},${Y} `
     }
     return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
