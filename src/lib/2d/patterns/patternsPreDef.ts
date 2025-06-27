@@ -3,12 +3,15 @@ import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
 import { VisualPattern } from './VisualPattern'
 import { VisualPattern3D } from './VisualPattern3D'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { Ratio } from '../../mathFonctions/Ratio'
 export type PatternRiche = {
   visualImg?: string,
   visualId?: number,
   shapes: ShapeName[],
 
-  fonction: (x: number) => number | FractionEtendue,
+  fonctionNb: (x: number) => number,
+  fonctionFraction?: (x: number) => FractionEtendue,
+  fonctionRatio?: (x: number) => Ratio,
   formule: string,
   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre',
   pattern: VisualPattern,
@@ -18,29 +21,58 @@ export type PatternRiche3D = {
   visualImg?: string,
   visualId?: number,
   shapeDefault: Shape3D,
-  fonction: (x: number) => number,
+  fonctionNb: (x: number) => number,
+  fonctionFraction?: (x: number) => FractionEtendue,
+  fonctionRatio?: (x: number) => Ratio,
   formule: string,
   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre',
   pattern: VisualPattern3D,
   iterate3d: (this: VisualPattern3D, angle: number) => Set<string>
 }
 
+/**
+ * Trie les coordonnées de cubes dans l'espace pour que les cubes du dessus ou de droite
+ * recouvrent ceux du dessous ou de gauche.
+ * On trie d'abord par z croissant (du bas vers le haut), puis par y croissant (de gauche à droite),
+ * puis par x croissant (de l'arrière vers l'avant).
+ */
+const rangeCubes = function (coords: [number, number, number][]): [number, number, number][] {
+  // Regrouper par z croissant
+  const byZ = new Map<number, [number, number, number][]>()
+  for (const coord of coords) {
+    const z = coord[2]
+    if (!byZ.has(z)) byZ.set(z, [])
+    byZ.get(z)!.push(coord)
+  }
+  const result: [number, number, number][] = []
+  const zs = Array.from(byZ.keys()).sort((a, b) => a - b)
+  for (const z of zs) {
+    const groupZ = byZ.get(z)!
+    // Regrouper par y décroissant dans chaque z
+    const byY = new Map<number, [number, number, number][]>()
+    for (const coord of groupZ) {
+      const y = coord[1]
+      if (!byY.has(y)) byY.set(y, [])
+      byY.get(y)!.push(coord)
+    }
+    const ys = Array.from(byY.keys()).sort((a, b) => b - a)
+    for (const y of ys) {
+      const groupY = byY.get(y)!
+      // Trier par x croissant dans chaque (z, y)
+      groupY.sort((a, b) => a[0] - b[0])
+      result.push(...groupY)
+    }
+  }
+  return result
+}
+
 // Il faudra peut-être trouver un moyen de classer les patterns.
 
-/*
-Pattern 0: '2×n + 1'
-Itérations:
-n=1      n=2        n=3
-■     ■           ■
-■ ■   ■           ■
-      ■ ■ ■       ■
-                  ■ ■ ■ ■
-*/
 const pattern1:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/5da32a25-8bdd-4072-bd76-5e94635ba57d/vp11_2.png?format=2500w',
   visualId: 11,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 2 * x + 1,
+  fonctionNb: (x:number) => 2 * x + 1,
   formule: '2\\times n + 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -62,19 +94,12 @@ const pattern1:PatternRiche = {
     return newCells
   }
 }
-/*
-Pattern 1: 'n^2'
-Itérations:
-n=1      n=2        n=3
-■       ■ ■      ■ ■ ■
-        ■ ■      ■ ■ ■
-                 ■ ■ ■
-*/
+
 const pattern2:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/54e5912a-d7ae-4d39-82ba-c0a3822ba19c/2020-09-26-09-37-38_orig+%281%29.jpg?format=2500w',
   visualId: 1,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x * x,
+  fonctionNb: (x:number) => x * x,
   formule: 'n^2',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -93,19 +118,12 @@ const pattern2:PatternRiche = {
     return newCells
   }
 }
-/*
-Pattern 2: '2×n - 1'
-Itérations:
-n=1      n=2        n=3
-■       ■         ■ ■
-        ■ ■       ■ ■ ■
-À chaque itération, on ajoute un carré à droite et un carré au-dessus du dernier carré à droite.
-*/
+
 const pattern3:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/bae949b2-d658-41ad-a0ab-ff08226865f3/vp10_2_orig.png?format=2500w',
   visualId: 10,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 2 * x - 1,
+  fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n -1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -125,19 +143,11 @@ const pattern3:PatternRiche = {
   }
 }
 
-// Pattern 3: 'n^2 + n'
-// Itérations:
-// n=1      n=2        n=3
-// ■       ■ ■       ■ ■ ■
-// ■       ■ ■       ■ ■ ■
-//         ■ ■       ■ ■ ■
-//                   ■ ■ ■
-
 const pattern4:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/65bbb191-819f-42aa-b269-3c393e88a68b/8497466_orig+%281%29.png?format=2500w',
   visualId: 32,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x * x + x,
+  fonctionNb: (x:number) => x * x + x,
   formule: 'n^2 + n',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -156,17 +166,12 @@ const pattern4:PatternRiche = {
     return newCells
   }
 }
-// Pattern 4: 'n×(n+1)/2'
-// Itérations:
-// n=1      n=2        n=3
-// ■       ■        ■
-//         ■ ■      ■ ■
-//                  ■ ■ ■
+
 const pattern5:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/79dbcbbf-d2b5-4578-857e-fcdccb4fb8af/2023-03-22-10-30-31.png?format=2500w',
   visualId: 3,
   shapes: ['carré', 'carré'],
-  fonction: (n:number) => n * (n + 1) / 2,
+  fonctionNb: (n:number) => n * (n + 1) / 2,
   formule: '\\dfrac{n\\times (n+1)}{2}',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -186,19 +191,12 @@ const pattern5:PatternRiche = {
     return newCells
   }
 }
-// Pattern 5: '4×n + 1'
-// Itérations:
-// n=1      n=2
-// ■   ■    ■       ■
-//   ■        ■   ■
-// ■   ■        ■
-//            ■   ■
-//          ■       ■
+
 const pattern6:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/272cb8f2-585b-4b90-aca5-a115fe8b555d/vp5_3.png?format=2500w',
   visualId: 4,
   shapes: ['carré', 'carré'],
-  fonction: (n:number) => 4 * n + 1,
+  fonctionNb: (n:number) => 4 * n + 1,
   formule: '4\\times n + 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -223,17 +221,12 @@ const pattern6:PatternRiche = {
     return newCells
   }
 }
-// Pattern 6: '4×n + 1'
-// Itérations:
-// n=1      n=2
-//   ■        ■   ■        ■   ■   ■
-// ■ ■ ■    ■ ■ ■ ■ ■    ■ ■ ■ ■ ■ ■ ■
-//   ■        ■   ■        ■   ■   ■
+
 const pattern7:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a3f4ea08-cdcb-46c2-bcc8-bd6aa2722f96/720875_orig.png?format=2500w',
   visualId: 15,
   shapes: ['carré', 'carré'],
-  fonction: (n:number) => 4 * n + 1,
+  fonctionNb: (n:number) => 4 * n + 1,
   formule: '4\\times n + 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -261,18 +254,11 @@ const pattern7:PatternRiche = {
   }
 }
 
-// Pattern 7: 'n^2'
-// Itérations:
-// n=1      n=2
-//
-//                        ■
-//           ■          ■ ■ ■
-// ■       ■ ■ ■      ■ ■ ■ ■ ■
 const pattern8:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/bda4693c-4923-4c87-a3a1-06ef7762c45f/4203089_orig.png?format=2500w',
   visualId: 16,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x * x,
+  fonctionNb: (x:number) => x * x,
   formule: 'n^2',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -292,11 +278,12 @@ const pattern8:PatternRiche = {
     return newCells
   }
 }
+
 const pattern9:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/09099fb7-f01e-49d4-a328-25507dde66e5/4982399.png?format=2500w',
   visualId: 101,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x ** 2 + 4,
+  fonctionNb: (x:number) => x ** 2 + 4,
   formule: 'n^2 + 4',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -323,11 +310,12 @@ const pattern9:PatternRiche = {
     return newCells
   }
 }
+
 const pattern10:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9f3f398b-13e6-45a1-8929-446af89cb1d6/2020-09-08-09-47-44_orig.png?format=2500w',
   visualId: 391,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x * x + 2 * x,
+  fonctionNb: (x:number) => x * x + 2 * x,
   formule: '(n+1)^2-1',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -350,11 +338,12 @@ const pattern10:PatternRiche = {
     return newCells
   }
 }
+
 const pattern11:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9ef9630a-170f-41ec-9b43-a698a57cfa0e/vp22_orig.png?format=2500w',
   visualId: 296,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 4 * x + 4,
+  fonctionNb: (x:number) => 4 * x + 4,
   formule: '4\\times n + 4',
   type: 'affine',
   pattern: new VisualPattern(
@@ -388,7 +377,7 @@ const pattern12:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/d2fc2e2a-14e2-4446-85c0-3ba743bb5adf/8815256_orig.png?format=2500w',
   visualId: 108,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x * x + 1,
+  fonctionNb: (x:number) => x * x + 1,
   formule: 'n^2 + 1',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -416,7 +405,7 @@ const pattern13:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7fc51d33-c4af-4d94-9786-b7d75aab62a8/2163990_orig.png?format=2500w',
   visualId: 114,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 3 * x,
+  fonctionNb: (x:number) => 3 * x,
   formule: '3\\times n',
   type: 'linéaire',
   pattern: new VisualPattern(
@@ -446,7 +435,7 @@ const pattern14:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/1098eb03-4083-40d7-9d63-c4cbc87f1093/682934_orig.png?format=2500w',
   visualId: 115,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 7 * x,
+  fonctionNb: (x:number) => 7 * x,
   formule: '7\\times n',
   type: 'linéaire',
   pattern: new VisualPattern(
@@ -483,11 +472,12 @@ const pattern14:PatternRiche = {
     return newCells
   }
 }
+
 const pattern15:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3792615-d769-4c6b-a0f5-5c4397fe5d1b/7970874_orig.png?format=2500w',
   visualId: 116,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 8 * x - 1,
+  fonctionNb: (x:number) => 8 * x - 1,
   formule: '8\\times n - 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -534,7 +524,7 @@ const pattern16:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b9f7df36-66e8-452a-8619-06c1161736a3/2023-07-03_05-43-43.png?format=2500w',
   visualId: 128,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 4 * x - 3,
+  fonctionNb: (x:number) => 4 * x - 3,
   formule: '4\\times n - 3',
   type: 'affine',
   pattern: new VisualPattern(
@@ -564,7 +554,7 @@ const pattern17:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a9b947a5-1a65-49cd-ab8d-ff824ffbf718/2023-07-03_04-23-55.png?format=2500w',
   visualId: 85,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 2 * (x * x + x),
+  fonctionNb: (x:number) => 2 * (x * x + x),
   formule: '2\\times (n^2 +  n)',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -596,7 +586,7 @@ const pattern18: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/fbb334a6-f77e-402d-b438-c78f294ff6b3/2023-07-17_06-56-59.png?format=2500w',
   visualId: 93,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 2 + 2 * x * (1 + x),
+  fonctionNb: (x:number) => 2 + 2 * x * (1 + x),
   formule: '2\\times (n^2+2\\times n + 1)',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -626,7 +616,7 @@ const pattern19: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9e7e0715-850c-4ce4-9b3c-7b9d5b93bd75/2023-07-06_00-51-38.png?format=2500w',
   visualId: 91,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x ** 2 + 4 * x + 2,
+  fonctionNb: (x:number) => x ** 2 + 4 * x + 2,
   formule: 'n^2+4\\times n + 2',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -661,7 +651,7 @@ const pattern20: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b78ea1f9-f4ff-4121-964a-cb0ff2be2afc/2023-07-06_01-18-35.png?format=2500w',
   visualId: 94,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x * (x + 1) / 2 + 2,
+  fonctionNb: (x:number) => x * (x + 1) / 2 + 2,
   formule: '\\dfrac{n\\times (n+1)}{2}+2',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -689,7 +679,7 @@ const pattern21: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/62fb6a8b-01d1-4d0c-8cac-7eeb30fbba41/4528553_orig.png?format=2500w',
   visualId: 165,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 2 * x + 3,
+  fonctionNb: (x:number) => 2 * x + 3,
   formule: '2\\times n + 3',
   type: 'affine',
   pattern: new VisualPattern(
@@ -714,45 +704,9 @@ const pattern21: PatternRiche = {
   }
 }
 
-/**
- * Trie les coordonnées de cubes dans l'espace pour que les cubes du dessus ou de droite
- * recouvrent ceux du dessous ou de gauche.
- * On trie d'abord par z croissant (du bas vers le haut), puis par y croissant (de gauche à droite),
- * puis par x croissant (de l'arrière vers l'avant).
- */
-const rangeCubes = function (coords: [number, number, number][]): [number, number, number][] {
-  // Regrouper par z croissant
-  const byZ = new Map<number, [number, number, number][]>()
-  for (const coord of coords) {
-    const z = coord[2]
-    if (!byZ.has(z)) byZ.set(z, [])
-    byZ.get(z)!.push(coord)
-  }
-  const result: [number, number, number][] = []
-  const zs = Array.from(byZ.keys()).sort((a, b) => a - b)
-  for (const z of zs) {
-    const groupZ = byZ.get(z)!
-    // Regrouper par y décroissant dans chaque z
-    const byY = new Map<number, [number, number, number][]>()
-    for (const coord of groupZ) {
-      const y = coord[1]
-      if (!byY.has(y)) byY.set(y, [])
-      byY.get(y)!.push(coord)
-    }
-    const ys = Array.from(byY.keys()).sort((a, b) => b - a)
-    for (const y of ys) {
-      const groupY = byY.get(y)!
-      // Trier par x croissant dans chaque (z, y)
-      groupY.sort((a, b) => a[0] - b[0])
-      result.push(...groupY)
-    }
-  }
-  return result
-}
-
 const pattern22: PatternRiche3D = {
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => (x + 1) * (x + 2) / 2,
+  fonctionNb: (x:number) => (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{(n+1)\\times (n+2)}{2}',
   type: 'degré2',
   pattern: new VisualPattern3D(
@@ -787,7 +741,7 @@ const pattern23: PatternRiche3D = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/34b73461-9c26-4e8c-a979-82a32a319f1e/1188365_orig.png?format=2500w',
   visualId: 155,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => 6 * x - 5,
+  fonctionNb: (x:number) => 6 * x - 5,
   formule: '6\\times n-5',
   type: 'affine',
   pattern: new VisualPattern3D(
@@ -824,7 +778,7 @@ const pattern23: PatternRiche3D = {
 
 const pattern24: PatternRiche3D = {
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => (2 * x ** 3 + 3 * x ** 2 + x) / 6,
+  fonctionNb: (x:number) => (2 * x ** 3 + 3 * x ** 2 + x) / 6,
   formule: '\\dfrac{2\\times n^3 + 3\\times n^2 + n}{6}',
   type: 'degré3',
   pattern: new VisualPattern3D(
@@ -856,7 +810,7 @@ const pattern24: PatternRiche3D = {
 
 const pattern25: PatternRiche3D = {
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => x ** 3,
+  fonctionNb: (x:number) => x ** 3,
   formule: 'n^3',
   type: 'degré3',
   pattern: new VisualPattern3D(
@@ -886,11 +840,12 @@ const pattern25: PatternRiche3D = {
     return newCells
   }
 }
+
 const pattern26: PatternRiche3D = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/4150fdf6-f9ee-47f8-bc47-d96b8455c073/4158599_orig.png?format=2500w',
   visualId: 28,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => x ** 3 - (x - 1) ** 3,
+  fonctionNb: (x:number) => x ** 3 - (x - 1) ** 3,
   formule: '3\\times n^2 - 3\\times n + 1',
   type: 'degré2',
   pattern: new VisualPattern3D(
@@ -929,11 +884,12 @@ const pattern26: PatternRiche3D = {
     return newCells
   }
 }
+
 const pattern27: PatternRiche3D = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/17ccbdb3-2047-47f4-94cb-1ed0723982cd/8681279_orig.png?format=2500w',
   visualId: 46,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => 5 * x - 4,
+  fonctionNb: (x:number) => 5 * x - 4,
   formule: '5\\times n - 4',
   type: 'affine',
   pattern: new VisualPattern3D(
@@ -973,7 +929,7 @@ const pattern28: PatternRiche3D = {
   visualId: 52,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
 
-  fonction: (x:number) => 2 * x ** 2 - x,
+  fonctionNb: (x:number) => 2 * x ** 2 - x,
   formule: 'n\\times (2\\times n - 1)',
   type: 'degré2',
   pattern: new VisualPattern3D(
@@ -1007,11 +963,12 @@ const pattern28: PatternRiche3D = {
     return newCells
   }
 }
+
 const pattern29: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/5c72d74d-af6b-437e-a1a2-69495c67202d/2018-10-14-13-34-36_orig.png?format=2500w',
   visualId: 263,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 2 * x + 1,
+  fonctionNb: (x:number) => 2 * x + 1,
   formule: '2\\times n + 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1036,7 +993,7 @@ const pattern30: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3833797-d82a-4c4b-bff7-d22d877c000b/2018-11-18-11-34-08_orig.png?format=2500w',
   visualId: 266,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 3 * x + 2,
+  fonctionNb: (x:number) => 3 * x + 2,
   formule: '3\\times n + 2',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1065,7 +1022,7 @@ const pattern31: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/3b345e8a-ccab-4fb2-bec6-f21b650d79bc/2023-07-05_15-04-34.png?format=2500w',
   visualId: 256,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 3 * x + 1,
+  fonctionNb: (x:number) => 3 * x + 1,
   formule: '3\\times n + 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1095,7 +1052,7 @@ const pattern32: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/382218dd-df17-4747-8215-cbe3f950f453/p4_orig.png?format=2500w',
   visualId: 257,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x ** 2 + 4 * x - 2,
+  fonctionNb: (x:number) => x ** 2 + 4 * x - 2,
   formule: 'n^2 + 4\\times n - 2',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -1126,7 +1083,7 @@ const pattern33: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/d9c26deb-510e-43fc-85c5-4573f5d60735/vp54_2_orig.png?format=2500w',
   visualId: 54,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => x + 1,
+  fonctionNb: (x:number) => x + 1,
   formule: 'n+1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1149,7 +1106,7 @@ const pattern34: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/1fc58a54-b378-407b-9bea-b9a136fca28f/4700362_orig.png?format=2500w',
   visualId: 72,
   shapes: ['carré', 'carré'],
-  fonction: (x:number) => 8 * x ** 2 + 4 * x + 1,
+  fonctionNb: (x:number) => 8 * x ** 2 + 4 * x + 1,
   formule: '8\\times n^2 + 4\\times n + 1',
   type: 'degré2',
   pattern: new VisualPattern(
@@ -1180,11 +1137,12 @@ const pattern34: PatternRiche = {
     return newCells
   }
 }
+
 const pattern35: PatternRiche = {
   shapes: ['losange', 'losange'],
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/fe162543-f853-4705-9964-6ceceb0959a3/9292613_orig.png?format=2500w',
   visualId: 75,
-  fonction: (x:number) => 4 * x,
+  fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
   pattern: new VisualPattern(
@@ -1198,31 +1156,26 @@ const pattern35: PatternRiche = {
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    for (const cell of this.cells) {
-      const [x, y] = VisualPattern.keyToCoord(cell)
-      if (this.cells.has(VisualPattern.coordToKey([x + 1, y, this.shapes[0]])) && !this.cells.has(VisualPattern.coordToKey([x, y + 1, this.shapes[0]]))) {
-        newCells.add(VisualPattern.coordToKey([x + 1, y + 1, this.shapes[0]]))
-        newCells.add(VisualPattern.coordToKey([x + 1, y, this.shapes[0]]))
-        newCells.add(VisualPattern.coordToKey([x, y, this.shapes[0]]))
+    for (let y = 0; y <= n; y++) {
+      const end = 2 * n - y
+      if (y < n) {
+        newCells.add(VisualPattern.coordToKey([2 * n - end - 1, y, this.shapes[0]]))
+        newCells.add(VisualPattern.coordToKey([2 * n - end, y, this.shapes[0]]))
+        newCells.add(VisualPattern.coordToKey([end - 1, y, this.shapes[0]]))
+        newCells.add(VisualPattern.coordToKey([end - 2, y, this.shapes[0]]))
       } else {
-        newCells.add(VisualPattern.coordToKey([x + 1, y + 1, this.shapes[0]]))
-      }
-      if (this.cells.has(VisualPattern.coordToKey([x - 1, y, this.shapes[0]])) && !this.cells.has(VisualPattern.coordToKey([x, y + 1, this.shapes[0]]))) {
-        newCells.add(VisualPattern.coordToKey([x + 1, y + 1, this.shapes[0]]))
-        newCells.add(VisualPattern.coordToKey([x + 1, y, this.shapes[0]]))
-        newCells.add(VisualPattern.coordToKey([x + 2, y, this.shapes[0]]))
-      } else {
-        newCells.add(VisualPattern.coordToKey([x + 1, y + 1, this.shapes[0]]))
+        newCells.add(VisualPattern.coordToKey([n - 1, y, this.shapes[0]]))
       }
     }
     return newCells
   }
 }
+
 const pattern36: PatternRiche3D = {
   shapeDefault: shapeCubeIso(),
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7181e027-b3bc-4960-af21-07f38e5ebf03/9571721_orig.png?format=2500w',
   visualId: 79,
-  fonction: (x:number) => (x * (x + 1) / 2) ** 2,
+  fonctionNb: (x:number) => (x * (x + 1) / 2) ** 2,
   formule: '\\left(\\dfrac{n\\times (n+1)}{2}\\right)^2',
   type: 'autre',
   pattern: new VisualPattern3D(
@@ -1266,7 +1219,7 @@ const pattern36: PatternRiche3D = {
 const pattern37: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/e0ee90d8-a577-4ce3-877f-e4b52fcead83/2023-10-11_11-20-15.png?format=2500w',
   visualId: 254,
-  fonction: (x:number) => x ** 2 + 2 * x + 4,
+  fonctionNb: (x:number) => x ** 2 + 2 * x + 4,
   formule: 'n^2+2\\times n+4',
   type: 'degré2',
   shapes: ['soleil', 'soleil'],
@@ -1298,7 +1251,7 @@ const pattern37: PatternRiche = {
 const pattern38: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/24421acb-3211-41ba-8974-7b33abb8bb70/vp8_orig.png?format=2500w',
   visualId: 281,
-  fonction: (x:number) => x ** 2 + x + 2,
+  fonctionNb: (x:number) => x ** 2 + x + 2,
   formule: 'n^2+n+2',
   type: 'degré2',
   shapes: ['carréRond', 'carréRond'],
@@ -1326,7 +1279,7 @@ const pattern38: PatternRiche = {
 const pattern39: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/f817210e-0b89-42bb-8a37-dc3afa804f3a/vp10_orig.png?format=2500w',
   visualId: 283,
-  fonction: (x:number) => x * x,
+  fonctionNb: (x:number) => x * x,
   formule: 'n^2',
   type: 'degré2',
   shapes: ['losange', 'losange'],
@@ -1350,7 +1303,7 @@ const pattern40: PatternRiche3D = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3f1ff49-ca30-47ab-8ee9-acb7e253aa87/vp11_orig.png?format=2500w',
   visualId: 284,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  fonction: (x:number) => 2 * x + 2,
+  fonctionNb: (x:number) => 2 * x + 2,
   formule: '2\\times n + 2',
   type: 'affine',
   pattern: new VisualPattern3D(
@@ -1386,7 +1339,7 @@ const pattern40: PatternRiche3D = {
 const pattern41: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/58e493c4-91ae-408a-9eec-e5ac101bc5e0/vp24_orig.png?format=2500w',
   visualId: 298,
-  fonction: (x:number) => (x + 2) * (x + 1) / 2 + 1,
+  fonctionNb: (x:number) => (x + 2) * (x + 1) / 2 + 1,
   formule: '\\dfrac{(n+1)(n+2)}{2} + 1',
   type: 'degré2',
   shapes: ['étoile', 'étoile'],
@@ -1410,11 +1363,12 @@ const pattern41: PatternRiche = {
     return newCells
   }
 }
+
 const pattern42: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/048b9214-fee6-400a-a28c-aa420054c3c9/vp30_orig.png?format=2500w',
   visualId: 300,
   shapes: ['chat', 'chat'],
-  fonction: (x:number) => 2 * x * (x + 1) + 1,
+  fonctionNb: (x:number) => 2 * x * (x + 1) + 1,
   formule: '2\\times n\\times (n+1) + 1',
   type: 'degré3',
   pattern: new VisualPattern(
@@ -1444,7 +1398,7 @@ const pattern43: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7a81a3ec-f14f-4d8e-b440-bd24f8f3a58f/vp46_orig.png?format=2500w',
   visualId: 307,
   shapes: ['carréRond', 'carréRond'],
-  fonction: (x:number) => 3 * x + 1,
+  fonctionNb: (x:number) => 3 * x + 1,
   formule: '3\\times n + 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1468,11 +1422,12 @@ const pattern43: PatternRiche = {
     return newCells
   }
 }
+
 const pattern44: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a4735ae7-f530-45ae-aef0-4b46fb6cefa1/vp47_orig.png?format=2500w',
   visualId: 308,
   shapes: ['soleil', 'soleil'],
-  fonction: (x:number) => 4 * x + 2,
+  fonctionNb: (x:number) => 4 * x + 2,
   formule: '4\\times n + 2',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1502,7 +1457,7 @@ const pattern44: PatternRiche = {
 const pattern45: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/78b879d4-b760-4bd2-8ad3-316bb5607126/vp50_orig.png?format=2500w',
   visualId: 311,
-  fonction: (x:number) => x ** 2 + x + 3,
+  fonctionNb: (x:number) => x ** 2 + x + 3,
   formule: 'n^2+n+3',
   type: 'degré2',
   shapes: ['carréRond', 'carréRond'],
@@ -1533,7 +1488,7 @@ const pattern45: PatternRiche = {
 const pattern46: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c894cc7a-f78b-401d-a6fb-0c8eabceb28c/vp55_orig.png?format=2500w',
   visualId: 316,
-  fonction: (x:number) => x ** 2 + x,
+  fonctionNb: (x:number) => x ** 2 + x,
   formule: 'n^2+n',
   type: 'degré2',
   shapes: ['hexagone', 'hexagone'],
@@ -1560,7 +1515,7 @@ const pattern46: PatternRiche = {
 }
 
 const pattern47: PatternRiche = {
-  fonction: (x:number) => 4 * x,
+  fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
   pattern: new VisualPattern(
@@ -1585,7 +1540,7 @@ const pattern47: PatternRiche = {
 }
 
 const pattern48: PatternRiche = {
-  fonction: (x:number) => 2 * x - 1,
+  fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n - 1',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1607,7 +1562,7 @@ const pattern48: PatternRiche = {
 }
 
 const pattern49: PatternRiche = {
-  fonction: (x:number) => 2 * x + 2,
+  fonctionNb: (x:number) => 2 * x + 2,
   formule: '2\\times n + 2',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1630,7 +1585,7 @@ const pattern49: PatternRiche = {
 }
 
 const pattern50: PatternRiche = {
-  fonction: (x:number) => 3 * x + 2,
+  fonctionNb: (x:number) => 3 * x + 2,
   formule: '3\\times n + 2',
   type: 'affine',
   pattern: new VisualPattern(
@@ -1657,7 +1612,7 @@ const pattern50: PatternRiche = {
 }
 
 const pattern51: PatternRiche = {
-  fonction: (x:number) => 3 + x,
+  fonctionNb: (x:number) => 3 + x,
   formule: '3+n',
   type: 'affine',
   shapes: ['chat', 'chat'],
@@ -1681,7 +1636,7 @@ const pattern51: PatternRiche = {
 }
 
 const pattern52: PatternRiche = {
-  fonction: (x:number) => 4 * x + 4,
+  fonctionNb: (x:number) => 4 * x + 4,
   formule: '4\\times n + 4',
   type: 'affine',
   shapes: ['étoile', 'étoile'],
@@ -1713,7 +1668,7 @@ const pattern52: PatternRiche = {
 }
 
 const pattern53: PatternRiche = {
-  fonction: (x:number) => 2 * x,
+  fonctionNb: (x:number) => 2 * x,
   formule: '2\\times n',
   type: 'linéaire',
   shapes: ['étoile', 'étoile'],
@@ -1734,7 +1689,7 @@ const pattern53: PatternRiche = {
 }
 
 const pattern54: PatternRiche = {
-  fonction: (x:number) => 5 * x,
+  fonctionNb: (x:number) => 5 * x,
   formule: '5\\times n',
   type: 'linéaire',
   shapes: ['soleil', 'soleil'],
@@ -1763,7 +1718,7 @@ const pattern54: PatternRiche = {
 }
 
 const pattern55: PatternRiche = {
-  fonction: (x:number) => 4 * x,
+  fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
   shapes: ['balle', 'balle'],
@@ -1792,7 +1747,7 @@ const pattern55: PatternRiche = {
 }
 
 const pattern56:PatternRiche = {
-  fonction: (x:number) => 2 * x - 1,
+  fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n - 1',
   type: 'affine',
   shapes: ['rond', 'rond'],
@@ -1813,9 +1768,10 @@ const pattern56:PatternRiche = {
 }
 
 const pattern57: PatternRiche = {
-  fonction: (x:number) => new FractionEtendue(x, x ** 2 + 1),
+  fonctionNb: (x:number) => x ** 2 + 1,
+  fonctionFraction: (x:number) => new FractionEtendue(x, x ** 2 + 1),
   formule: '\\dfrac{n}{n^2+1}',
-  type: 'autre',
+  type: 'degré2',
   shapes: ['carré', 'carréBleu'],
   pattern: new VisualPattern(
     [
@@ -1832,6 +1788,302 @@ const pattern57: PatternRiche = {
       }
     }
     newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0]]))
+    return newCells
+  }
+}
+
+const pattern58: PatternRiche = {
+  fonctionNb: (x:number) => x ** 2 + 2 * x + 1,
+  fonctionFraction: (x:number) => new FractionEtendue(x ** 2, x ** 2 + 2 * x + 1),
+  fonctionRatio: (x:number) => new Ratio([x ** 2, 2 * x, 1]),
+  formule: 'n^2 : 2n : 1',
+  type: 'degré2',
+  shapes: ['carréBleu', 'carréRond', 'rond'],
+  pattern: new VisualPattern(
+    [
+      [0, 0, 'carréBleu'],
+      [0, 1, 'carréRond'],
+      [1, 1, 'rond'],
+      [1, 0, 'carréRond']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        newCells.add(VisualPattern.coordToKey([i, j, this.shapes[0]])) // carréBleu
+      }
+      newCells.add(VisualPattern.coordToKey([i, n, this.shapes[1]])) // carréRond
+      newCells.add(VisualPattern.coordToKey([n, i, this.shapes[1]])) // carréRond
+    }
+    newCells.add(VisualPattern.coordToKey([n, n, this.shapes[2]])) // rond
+    return newCells
+  }
+}
+
+const pattern59: PatternRiche = {
+  fonctionNb: (x:number) => 4 * x + 2,
+  fonctionFraction: (x:number) => new FractionEtendue(x, 4 * x + 2),
+  // ratio: new Ratio([2 * x,
+  fonctionRatio: (x:number) => new Ratio([x, x + 1, 2 * x + 1]),
+  formule: 'n : n+1 : 2n+1',
+  type: 'affine',
+  shapes: ['soleil', 'étoile', 'hexagone'],
+  pattern: new VisualPattern(
+    [
+      [0, 0, 'soleil'],
+      [1, 0, 'étoile'],
+      [2, 0, 'étoile'],
+      [0, 1, 'hexagone'],
+      [1, 1, 'hexagone'],
+      [2, 1, 'hexagone']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[0]])) // soleil
+    }
+    for (let j = 0; j < n + 1; j++) {
+      newCells.add(VisualPattern.coordToKey([n + j, 0, this.shapes[1]])) // étoile
+    }
+    for (let k = 0; k < 2 * n + 1; k++) {
+      newCells.add(VisualPattern.coordToKey([k, 1, this.shapes[2]])) // hexagone
+    }
+    return newCells
+  }
+}
+
+const pattern60: PatternRiche = {
+  fonctionNb: (x:number) => 2 * x + 2,
+  fonctionRatio: (x:number) => new Ratio([x, x + 2]),
+  fonctionFraction: (x:number) => new FractionEtendue(x, 2 * x + 2),
+  formule: '\\dfrac{n}{2n+2}',
+  type: 'affine',
+  shapes: ['tortue', 'chat'],
+  pattern: new VisualPattern(
+    [
+      [0, 0, 'tortue'],
+      [0, 1, 'chat'],
+      [1, 0, 'chat'],
+      [1, 1, 'chat']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[0]])) // tortue
+      newCells.add(VisualPattern.coordToKey([i, 1, this.shapes[1]])) // chat
+    }
+    newCells.add(VisualPattern.coordToKey([n, 0, this.shapes[1]])) // chat
+    newCells.add(VisualPattern.coordToKey([n, 1, this.shapes[1]])) // chat
+    return newCells
+  }
+}
+
+const pattern61: PatternRiche = {
+  fonctionNb: (x:number) => x ** 2 + 4 * x + 2,
+  fonctionFraction: (x:number) => new FractionEtendue(x ** 2 + 2 * x + 1, x ** 2 + 4 * x + 2),
+  fonctionRatio: (x:number) => new Ratio([x ** 2 + 2 * x + 1, 2 * x + 1]),
+  formule: 'n^2+4n+2',
+  type: 'degré2',
+  shapes: ['carréBleu', 'hexagone'],
+  pattern: new VisualPattern(
+    [
+      [0, 0, 'carréBleu'],
+      [0, 1, 'carréBleu'],
+      [1, 0, 'carréBleu'],
+      [1, 1, 'carréBleu'],
+      [2, 1, 'hexagone'],
+      [2, 2, 'hexagone'],
+      [1, 2, 'hexagone']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i <= n; i++) {
+      for (let j = 0; j <= n; j++) {
+        newCells.add(VisualPattern.coordToKey([i, j, this.shapes[0]])) // carréBleu
+      }
+    }
+    for (let i = 1; i < n + 2; i++) {
+      for (let j = 1; j < n + 2; j++) {
+        if (i > n || j > n) newCells.add(VisualPattern.coordToKey([i, j, this.shapes[1]])) // hexagone
+      }
+    }
+    return newCells
+  }
+}
+
+const pattern62: PatternRiche = {
+  fonctionNb: (x:number) => 3 * x,
+  fonctionRatio: (x:number) => new Ratio([x, 2 * x]),
+  fonctionFraction: (x:number) => new FractionEtendue(x, 3 * x),
+  formule: '3\\times n',
+  type: 'linéaire',
+  shapes: ['redCross', 'rond'],
+  pattern: new VisualPattern(
+    [
+      [1, 0, 'redCross'],
+      [0, 0, 'rond'],
+      [2, 0, 'rond']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i * 3, 0, this.shapes[1]])) // rond
+      newCells.add(VisualPattern.coordToKey([i * 3 + 1, 0, this.shapes[0]])) // redCross
+      newCells.add(VisualPattern.coordToKey([i * 3 + 2, 0, this.shapes[1]])) // rond
+    }
+    return newCells
+  }
+}
+const pattern63: PatternRiche = {
+  fonctionNb: (x:number) => 2 * x + 1,
+  fonctionRatio: (x:number) => new Ratio([x + 1, x]),
+  fonctionFraction: (x:number) => new FractionEtendue(x + 1, 2 * x + 1),
+  formule: '2\\times n + 1',
+  type: 'affine',
+  shapes: ['hexagone', 'étoile'],
+  pattern: new VisualPattern(
+    [
+      [0, 0, 'hexagone'],
+      [1, 0, 'étoile'],
+      [2, 0, 'hexagone']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0]])) // hexagone
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([1 + i * 2, 0, this.shapes[1]])) // hexagone
+      newCells.add(VisualPattern.coordToKey([i * 2 + 2, 0, this.shapes[0]])) // étoile
+    }
+    return newCells
+  }
+}
+
+const pattern64:PatternRiche = {
+  visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a3f4ea08-cdcb-46c2-bcc8-bd6aa2722f96/720875_orig.png?format=2500w',
+  visualId: 15,
+  shapes: ['carréRond', 'rond'],
+  fonctionNb: (n:number) => 4 * n + 1,
+  fonctionRatio: (x:number) => new Ratio([x, 3 * x + 1]),
+  fonctionFraction: (x:number) => new FractionEtendue(x, 4 * x + 1),
+  formule: '4\\times n + 1',
+  type: 'affine',
+  pattern: new VisualPattern(
+    [
+      [1, 1, 'carréRond'],
+      [1, 0, 'rond'],
+      [0, 1, 'rond'],
+      [1, 2, 'rond'],
+      [2, 1, 'rond']
+    ]
+  ),
+  iterate: function (this: VisualPattern, n: number = 1): Set<string> {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      if (i === 0) {
+        newCells.add(VisualPattern.coordToKey([0, 1, this.shapes[1]]))
+      }
+      newCells.add(VisualPattern.coordToKey([i * 2 + 1, 2, this.shapes[1]]))
+      newCells.add(VisualPattern.coordToKey([i * 2 + 1, 0, this.shapes[1]]))
+      newCells.add(VisualPattern.coordToKey([i * 2 + 1, 1, this.shapes[0]]))
+      newCells.add(VisualPattern.coordToKey([i * 2 + 2, 1, this.shapes[1]]))
+    }
+    return newCells
+  }
+}
+const pattern65: PatternRiche = {
+  visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/762956a8-dadf-4c59-bcfe-5212a27e0ca9/vp44_2_orig+%281%29.png?format=2500w',
+  visualId: 44,
+  shapes: ['hexagone', 'hexagoneJaune'],
+  type: 'affine',
+  formule: '5\\times n + 2',
+  fonctionNb: (x:number) => 5 * x + 2,
+  fonctionRatio: (x:number) => new Ratio([4 * x + 2, x]),
+  fonctionFraction: (x:number) => new FractionEtendue(4 * x + 2, 5 * x + 2),
+  pattern: new VisualPattern([
+    [1.25, 0, 'hexagone'],
+    [0, 0.433, 'hexagone'],
+    [1.5, 0.433, 'hexagone'],
+    [0, 1.299, 'hexagone'],
+    [1.5, 1.299, 'hexagone'],
+    [1.25, 1.732, 'hexagone']
+  ]),
+  iterate: function (this: VisualPattern, n: number = 1): Set<string> {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0.433, 'hexagone']))
+    newCells.add(VisualPattern.coordToKey([0, 1.299, 'hexagone']))
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i * 1.5 + 0.75, 0, 'hexagone']))
+      newCells.add(VisualPattern.coordToKey([i * 1.5 + 1.5, 0.433, 'hexagone']))
+      newCells.add(VisualPattern.coordToKey([i * 1.5 + 1.5, 1.299, 'hexagone']))
+      newCells.add(VisualPattern.coordToKey([i * 1.5 + 0.75, 1.732, 'hexagone']))
+      newCells.add(VisualPattern.coordToKey([i * 1.5 + 0.75, 0.866, 'hexagoneJaune']))
+    }
+    return newCells
+  }
+}
+
+const pattern66: PatternRiche = {
+  fonctionNb: (x:number) => 1 + 3 * (x + 1) * x,
+  formule: '1+3\\times n(n+1)',
+  fonctionRatio: (x:number) => new Ratio([1 + 3 * (x - 1) * x, 6 * x]),
+  fonctionFraction: (x:number) => new FractionEtendue(1 + 3 * (x - 1) * x, 1 + 3 * (x + 1) * x),
+  type: 'degré2',
+  shapes: ['hexagone', 'hexagoneJaune'],
+  pattern: new VisualPattern([
+    [1.25, 0, 'hexagone'],
+    [0, 0.433, 'hexagone'],
+    [1.5, 0.433, 'hexagone'],
+    [0, 1.299, 'hexagone'],
+    [1.5, 1.299, 'hexagone'],
+    [1.25, 1.732, 'hexagone']
+  ]),
+  iterate: function (this: VisualPattern, n: number = 1): Set<string> {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < 2 * n + 1; i++) {
+      const nbCells = 2 * n + 1 - Math.abs(i - n)
+      for (let j = 0; j < nbCells; j++) {
+        const hexa = i === 0 || i === 2 * n
+          ? n % 2 === 0 ? 'hexagoneJaune' : 'hexagone'
+          : j === 0 || j === nbCells - 1
+            ? n % 2 !== 0 ? 'hexagone' : 'hexagoneJaune'
+            : (n + 1) % 2 !== 0 ? 'hexagone' : 'hexagoneJaune'
+        if (i < n + 1) newCells.add(VisualPattern.coordToKey([j * 0.75, (n + 2 * i - j) * 0.433, hexa]))
+        else if (i === n + 1) newCells.add(VisualPattern.coordToKey([(j + i - n) * 0.75, (n + 2 * i - 1 - j) * 0.433, hexa]))
+        else newCells.add(VisualPattern.coordToKey([(j + i - n) * 0.75, (2 * n + i - j) * 0.433, hexa]))
+      }
+    }
+    return newCells
+  }
+}
+
+const pattern67: PatternRiche = {
+  fonctionNb: (x:number) => x * (x + 1) / 2,
+  fonctionRatio: (x:number) => new Ratio([Math.floor(x / 2) ** 2, Math.floor(x / 2) * (Math.floor(x / 2) + 1)]),
+  fonctionFraction: (x:number) => new FractionEtendue(Math.floor(x / 2) ** 2, Math.floor(x / 2) * (Math.floor(x / 2) + 1) + Math.floor(x / 2) ** 2),
+  formule: '\\dfrac{n\\times(n+1)}{2}',
+  type: 'degré2',
+  shapes: ['redCross', 'soleil'],
+  pattern: new VisualPattern(
+    [
+      [0, 0, 'rond']
+    ]),
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n - i; j++) {
+        newCells.add(VisualPattern.coordToKey([j + 0.5 * i, i, this.shapes[(i + n + 1) % 2]]))
+      }
+    }
     return newCells
   }
 }
@@ -1893,7 +2145,17 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern54,
   pattern55,
   pattern56,
-  pattern57
+  pattern57,
+  pattern58,
+  pattern59,
+  pattern60,
+  pattern61,
+  pattern62,
+  pattern63,
+  pattern64,
+  pattern65,
+  pattern66,
+  pattern67
 ]
 /**
  * Liste des patterns prédéfinis, triés par type.
@@ -1913,5 +2175,7 @@ const listePatternDegre3: (PatternRiche | PatternRiche3D)[] = listePatternsPreDe
 const listePattern2dAffine: PatternRiche[] = listePattern2d.filter((p) => p instanceof VisualPattern && p.type === 'affine')
 const listePattern2dLineaire: PatternRiche[] = listePattern2d.filter((p) => p instanceof VisualPattern && p.type === 'linéaire')
 const listePatternAutres: (PatternRiche | PatternRiche3D)[] = listePattern2d.filter((p) => p.type === 'autre')
+const listePatternRatio: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.fonctionRatio != null)
+const listePatternFraction: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.fonctionFraction != null)
 
-export { listePatternsPreDef, listePatternAutres, listePattern2d, listePattern3d, listePatternAffine, listePatternLineaire, listePatternDegre2, listePatternDegre3, listePattern2dAffine, listePattern2dLineaire }
+export { listePatternsPreDef, listePatternAutres, listePattern2d, listePattern3d, listePatternAffine, listePatternLineaire, listePatternDegre2, listePatternDegre3, listePattern2dAffine, listePattern2dLineaire, listePatternRatio, listePatternFraction }

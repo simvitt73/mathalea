@@ -15,7 +15,6 @@ import { point } from '../../lib/2d/points'
 import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Comprendre un algorithme itératif'
 export const interactifReady = true
@@ -62,9 +61,10 @@ export default class PaternNum0 extends Exercice {
       this.sup5 = 1
     }
 
-    const listePreDef = this.nbQuestions === 1
+    const listePreDef = (this.nbQuestions === 1
       ? [listePatternsPreDef[Number(this.sup5) - 1]]
-      : shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length))
+      : shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length)))
+      .filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2')
     const nbFigures = Math.max(2, this.sup)
     // const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
     const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 12, defaut: 13, melange: 13, nbQuestions: this.nbQuestions }).map(Number)
@@ -267,8 +267,8 @@ export default class PaternNum0 extends Exercice {
               ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}`)
             break
           case 2:{
-            const nbFormes = pat.fonction(nbFigures + 1)
-            const nbTex = nbFormes instanceof FractionEtendue ? nbFormes.texFraction : texNombre(nbFormes, 0)
+            const nbFormes = pat.fonctionNb(nbFigures + 1)
+            const nbTex = texNombre(nbFormes, 0)
 
             listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s dans le motif $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
             {
@@ -283,8 +283,8 @@ exercice: this,
           }
             break
           case 3:{
-            const nbFormes = pat.fonction(10)
-            const nbTex = nbFormes instanceof FractionEtendue ? nbFormes.texFraction : texNombre(nbFormes, 0)
+            const nbFormes = pat.fonctionNb(10)
+            const nbTex = texNombre(nbFormes, 0)
             listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $10$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
@@ -299,8 +299,8 @@ exercice: this,
           }
             break
           case 4:{
-            const nbFormes = pat.fonction(43)
-            const nbTex = nbFormes instanceof FractionEtendue ? nbFormes.texFraction : texNombre(nbFormes, 0)
+            const nbFormes = pat.fonctionNb(43)
+            const nbTex = texNombre(nbFormes, 0)
             listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $43$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
@@ -315,8 +315,8 @@ exercice: this,
           }
             break
           case 5:{
-            const nbFormes = pat.fonction(100)
-            const nbTex = nbFormes instanceof FractionEtendue ? nbFormes.texFraction : texNombre(nbFormes, 0)
+            const nbFormes = pat.fonctionNb(100)
+            const nbTex = texNombre(nbFormes, 0)
             listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $100$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,

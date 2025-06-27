@@ -100,6 +100,15 @@ export const shapeHexagone = new Shape2D({
   name: 'hexagone'
 })
 
+export const shapeHexagoneJaune = new Shape2D({
+  codeSvg: '<use href="#hexagoneJaune"></use>',
+  codeTikz: '\\pic at (0,0) {hexagoneJaune};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'hexagoneJaune'
+})
+
 export const chatDef = new ObjetMathalea2D()
 chatDef.bordures = [-0.5, -0.5, 0.5, 0.5]
 chatDef.svg = function (coeff: number): string {
@@ -108,50 +117,51 @@ chatDef.svg = function (coeff: number): string {
   <defs>
  <g id="chat">
       <!-- Tête -->
-      <ellipse cx="0" cy="-8" rx="7" ry="7" fill="gray" stroke="black" stroke-width="0.5" />
+      <ellipse cx="0" cy="1" rx="7" ry="7" fill="gray" stroke="black" stroke-width="0.5" />
       <!-- Oreille gauche -->
-      <polygon points="-6,-13 -2,-13 -4,-19" fill="gray" stroke="black" stroke-width="0.5" />
+      <polygon points="-6,-4 -2,-4 -4,-10" fill="gray" stroke="black" stroke-width="0.5" />
       <!-- Oreille droite -->
-      <polygon points="2,-13 6,-13 4,-19" fill="gray" stroke="black" stroke-width="0.5" />
+      <polygon points="2,-4 6,-4 4,-10" fill="gray" stroke="black" stroke-width="0.5" />
       <!-- Yeux -->
-      <ellipse cx="-2" cy="-9" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
-      <ellipse cx="2" cy="-9" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
-      <ellipse cx="-2" cy="-9" rx="0.4" ry="0.7" fill="black" />
-      <ellipse cx="2" cy="-9" rx="0.4" ry="0.7" fill="black" />
+      <ellipse cx="-2" cy="0" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
+      <ellipse cx="2" cy="0" rx="1" ry="1.5" fill="white" stroke="black" stroke-width="0.5" />
+      <ellipse cx="-2" cy="0" rx="0.4" ry="0.7" fill="black" />
+      <ellipse cx="2" cy="0" rx="0.4" ry="0.7" fill="black" />
       <!-- Nez -->
-      <ellipse cx="0" cy="-7" rx="0.7" ry="0.4" fill="pink" stroke="black" stroke-width="0.3" />
+      <ellipse cx="0" cy="2" rx="0.7" ry="0.4" fill="pink" stroke="black" stroke-width="0.3" />
       <!-- Moustaches -->
-      <path d="M-1,-7 Q-4,-7.5 -7,-7" stroke="black" stroke-width="0.5" fill="none" />
-      <path d="M-1,-6.5 Q-4,-6 -7,-6.5" stroke="black" stroke-width="0.5" fill="none" />
-      <path d="M1,-7 Q4,-7.5 7,-7" stroke="black" stroke-width="0.5" fill="none" />
-      <path d="M1,-6.5 Q4,-6 7,-6.5" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M-1,2 Q-4,1.5 -7,2" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M-1,2.5 Q-4,3 -7,2.5" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M1,2 Q4,1.5 7,2" stroke="black" stroke-width="0.5" fill="none" />
+      <path d="M1,2.5 Q4,3 7,2.5" stroke="black" stroke-width="0.5" fill="none" />
     </g>
   </defs>`
 }
+
 chatDef.tikz = function (): string {
   return `
-  \\tikzset{
-   chat/.pic = {
-    % Tête
-    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (0,0.35) ellipse [x radius=0.35, y radius=0.35];
-    % Oreilles
-    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (-0.22,0.65) -- (-0.08,0.65) -- (-0.15,0.95) -- cycle;
-    \\draw[fill=gray, draw=darkgray, line width=0.3pt] (0.08,0.65) -- (0.22,0.65) -- (0.15,0.95) -- cycle;
-    % Yeux
-    \\draw[fill=white, draw=darkgray, line width=0.2pt] (-0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
-    \\draw[fill=white, draw=darkgray, line width=0.2pt] (0.08,0.4) ellipse [x radius=0.05, y radius=0.08];
-    \\fill[black] (-0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
-    \\fill[black] (0.08,0.4) ellipse [x radius=0.02, y radius=0.04];
-    % Nez
-    \\draw[fill=pink, draw=darkgray, line width=0.1pt] (0,0.33) ellipse [x radius=0.035, y radius=0.02];
-    % Moustaches
-    \\draw[draw=darkgray, line width=0.2pt] (-0.03,0.33) .. controls (-0.15,0.36) .. (-0.3,0.33);
-    \\draw[draw=darkgray, line width=0.2pt] (-0.03,0.31) .. controls (-0.15,0.29) .. (-0.3,0.31);
-    \\draw[draw=darkgray, line width=0.2pt] (0.03,0.33) .. controls (0.15,0.36) .. (0.3,0.33);
-    \\draw[draw=darkgray, line width=0.2pt] (0.03,0.31) .. controls (0.15,0.29) .. (0.3,0.31);
-    }
-} 
-  `.trim()
+\\tikzset{
+ chat/.pic = {
+  % Tête
+  \\draw[fill=gray, draw=black, line width=0.5pt] (0,0.1) ellipse [x radius=0.35, y radius=0.35];
+  % Oreille gauche
+  \\draw[fill=gray, draw=black, line width=0.5pt] (-0.3,-0.15) -- (-0.1,-0.15) -- (-0.2,-0.5) -- cycle;
+  % Oreille droite
+  \\draw[fill=gray, draw=black, line width=0.5pt] (0.1,-0.15) -- (0.3,-0.15) -- (0.2,-0.5) -- cycle;
+  % Yeux
+  \\draw[fill=white, draw=black, line width=0.5pt] (-0.1,0) ellipse [x radius=0.05, y radius=0.075];
+  \\draw[fill=white, draw=black, line width=0.5pt] (0.1,0) ellipse [x radius=0.05, y radius=0.075];
+  \\fill[black] (-0.1,0) ellipse [x radius=0.02, y radius=0.035];
+  \\fill[black] (0.1,0) ellipse [x radius=0.02, y radius=0.035];
+  % Nez
+  \\draw[fill=pink, draw=black, line width=0.3pt] (0,0.1) ellipse [x radius=0.035, y radius=0.02];
+  % Moustaches
+  \\draw[black, line width=0.5pt] (-0.05,0.1) .. controls (-0.2,0.075) .. (-0.35,0.1);
+  \\draw[black, line width=0.5pt] (-0.05,0.13) .. controls (-0.2,0.16) .. (-0.35,0.13);
+  \\draw[black, line width=0.5pt] (0.05,0.1) .. controls (0.2,0.075) .. (0.35,0.1);
+  \\draw[black, line width=0.5pt] (0.05,0.13) .. controls (0.2,0.16) .. (0.35,0.13);
+ }
+}`.trim()
 }
 
 export const soleilDef = new ObjetMathalea2D()
@@ -314,6 +324,28 @@ hexagoneDef.tikz = function (): string {
   \\tikzset{
    hexagone/.pic = {
     \\draw[fill=cyan!30, draw=darkgray, line width=0.3pt]
+      (0.5,0) -- (0.25,0.433) -- (-0.25,0.433) -- (-0.5,0) -- (-0.25,-0.433) -- (0.25,-0.433) -- cycle;
+   }
+  }`.trim()
+}
+
+export const hexagoneJauneDef = new ObjetMathalea2D()
+hexagoneJauneDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+hexagoneJauneDef.svg = function (coeff: number): string {
+  return `
+  <!-- Hexagone -->
+  <defs>
+    <g id="hexagoneJaune">
+      <polygon points="10,0 5,8.66 -5,8.66 -10,0 -5,-8.66 5,-8.66"
+        fill="yellow" stroke="black" stroke-width="0.5" />
+    </g>
+  </defs>`
+}
+hexagoneJauneDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   hexagoneJaune/.pic = {
+    \\draw[fill=yellow, draw=darkgray, line width=0.3pt]
       (0.5,0) -- (0.25,0.433) -- (-0.25,0.433) -- (-0.5,0) -- (-0.25,-0.433) -- (0.25,-0.433) -- cycle;
    }
   }`.trim()
@@ -537,7 +569,8 @@ export const shapeNames: string[] = [
   'tortue',
   'triangle',
   'redCross',
-  'carréBleu'
+  'carréBleu',
+  'hexagoneJaune'
 ]
 
 export type ShapeName = (typeof shapeNames)[number]
@@ -556,6 +589,7 @@ export const listeShapesDef: Record<ShapeName, ObjetMathalea2D > = {
   triangle: triangleEquilateralDef,
   redCross: redCrossDef,
   carréBleu: carreBleuDef,
+  hexagoneJaune: hexagoneJauneDef
 }
 
 export const listeShapes2D: Record<ShapeName, Shape2D> = {
@@ -572,5 +606,6 @@ export const listeShapes2D: Record<ShapeName, Shape2D> = {
   triangle: shapeTriangleEquilateral,
   redCross: shapeRedCross,
   carréBleu: shapeCarreBleu,
+  hexagoneJaune: shapeHexagoneJaune
 }
 export const listeShapes2DNames: ShapeName[] = Object.keys(listeShapes2D) as ShapeName[]

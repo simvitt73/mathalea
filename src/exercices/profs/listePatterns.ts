@@ -1,5 +1,5 @@
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { balleDef, carreBleuDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, losangeDef, redCrossDef, rondDef, shapeNames, soleilDef, tortueDef, triangleEquilateralDef, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
+import { listeShapesDef, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { listePatternsPreDef, type PatternRiche3D, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
@@ -9,7 +9,6 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -65,39 +64,33 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
     const liste = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: nbPatterns, defaut: 100, melange: 100, nbQuestions: this.sup2, shuffle: false }).map(Number)
     let texte = ''
     if (!context.isHtml) {
-      texte += `
-      ${chatDef.tikz()}\n
-      ${soleilDef.tikz()}\n
-      ${etoileDef.tikz()}\n
-      ${losangeDef.tikz()}\n
-      ${carreRondDef.tikz()}\n
-      ${carreDef.tikz()}\n
-       ${cubeDef('cubeIso').tikz()}\n
-       ${hexagoneDef.tikz()}\n
-       ${rondDef.tikz()}\n
-       ${balleDef.tikz()}\n
-       ${tortueDef.tikz()}\n
-       ${triangleEquilateralDef.tikz()}\n
-       ${carreBleuDef.tikz()}\n
-       ${redCrossDef.tikz()}\n`
+      texte += `${Object.values(listeShapesDef).map(shape => shape.tikz()).join('\n')}\n`
     }
     if (liste == null || liste.length === 0) return
     for (let i = 0; i < liste.length; i++) {
-      const n43 = listePatternsPreDef[liste[i] - 1].fonction(43)
-      const n43Tex = n43 instanceof FractionEtendue ? n43.texFraction : `${texNombre(n43)}`
-      texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: $\\left(${n43Tex}\\right)$${sp(6)}$\\left[${miseEnEvidence(listePatternsPreDef[liste[i] - 1].formule)}\\right]$ <br>`
+      const pat = listePatternsPreDef[liste[i] - 1]
+      if (pat == null) {
+        texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
+        continue
+      }
+      const n43 = texNombre(pat.fonctionNb(43), 0)
+      const n43R = pat.fonctionRatio
+        ? pat.fonctionRatio(43).toLatex()
+        : null
+      const n43F = pat.fonctionFraction
+        ? pat.fonctionFraction(43).texFractionSimplifiee
+        : null
+      texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule)}\\right]$ <br>`
 
-      const patternRiche = listePatternsPreDef[liste[i] - 1]
+      const patternRiche = pat
       if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
       const pattern = patternRiche.pattern
       if (pattern instanceof VisualPattern3D) {
         pattern.shapes = ['cube']
         pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
       } else {
-        if (pattern.shapes[0] === 'carré' && (pattern.shapes[1] == null || pattern.shapes[1] === 'carré')) {
-          pattern.shapes = [shapeNames[randint(0, shapeNames.length - 1)] as ShapeName]
-          pattern.iterate = (patternRiche as PatternRiche).iterate
-        }
+        pattern.shapes = (patternRiche as PatternRiche).shapes || shapeNames[randint(0, shapeNames.length - 1)] as ShapeName
+        pattern.iterate = (patternRiche as PatternRiche).iterate
       }
 
       const angle = Math.PI / 6
@@ -107,9 +100,20 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
       const figures: NestedObjetMathalea2dArray[] = []
       for (let j = 0; j < this.sup3; j++) {
         figures[j] = []
-        const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`)
-        cubeIsoDef.svg = function (coeff: number): string {
-          return `
+        let objets: NestedObjetMathalea2dArray = []
+        let ymin = Infinity
+        let ymax = -Infinity
+        let xmin = Infinity
+        let xmax = -Infinity
+        if (context.isHtml) {
+          for (const name of pattern.shapes) {
+            if (name in listeShapesDef) {
+              figures[j].push(listeShapesDef[name])
+            } else {
+              if (name === 'cube') {
+                const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`)
+                cubeIsoDef.svg = function (coeff: number): string {
+                  return `
           <defs>
             <g id="cubeIsoQ${i}F${j}">
               ${faceTop(angle)}
@@ -117,13 +121,12 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
               ${faceRight(angle)}
             </g>
           </defs>`
+                }
+                figures[j].push(cubeIsoDef)
+              }
+            }
+          }
         }
-        let objets: NestedObjetMathalea2dArray = []
-        let ymin = Infinity
-        let ymax = -Infinity
-        let xmin = Infinity
-        let xmax = -Infinity
-        if (context.isHtml) figures[j] = [chatDef, soleilDef, etoileDef, losangeDef, carreRondDef, carreDef, cubeIsoDef, hexagoneDef, rondDef, balleDef, tortueDef, triangleEquilateralDef, carreBleuDef, redCrossDef]
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
             updateCubeIso(pattern, i, j, angle)
