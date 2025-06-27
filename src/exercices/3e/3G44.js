@@ -384,7 +384,7 @@ export default class CalculPythagoreEspace extends Exercice {
             ptsBase.push(rotation3d(B, droite3d(A, vecteur3d(D, A)), ee * 360 / (nbSommets)))
           }
           p = polygone3d(ptsBase, 'blue')
-          solideDessine = cone3d(A, D, v, 'blue', true, 'black', assombrirOuEclaircir('gray', 100))
+          solideDessine = cone3d(A, D, v, ['blue'], true, 'black', assombrirOuEclaircir('gray', 100))
           numeroSommet = randint(1, Math.floor(nbSommets / 2) - 1)
           if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')

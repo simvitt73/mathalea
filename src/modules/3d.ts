@@ -352,15 +352,15 @@ class Polygone3d {
   listePoints2d: Point[]
   aretes: Arete3d[]
   c2d: Segment[]
-  constructor (...args) {
+  constructor (...args: [Point3d[], string] | Point3d[]) {
     if (Array.isArray(args[0])) {
       // Si le premier argument est un tableau
       this.listePoints = args[0]
-      if (args[1]) {
+      if (typeof args[1] === 'string' && args[1] !== '') {
         this.color = args[1]
       }
     } else {
-      this.listePoints = args
+      this.listePoints = args.filter(arg => arg instanceof Point3d)
       this.color = 'black'
     }
     const segments3d = []
@@ -381,7 +381,7 @@ class Polygone3d {
   }
 }
 
-export function polygone3d (...args): Polygone3d {
+export function polygone3d (...args: [Point3d[], string] | Point3d[]): Polygone3d {
   return new Polygone3d(...args)
 }
 
@@ -477,9 +477,9 @@ export class Sphere3d extends ObjetMathalea2D {
     let normal
     const paralleles: {
       listePoints3d: Point3d[][]
-      ptCachePremier: Point3d[]
+      ptCachePremier: Point[]
       indicePtCachePremier: number[]
-      ptCacheDernier: Point3d[]
+      ptCacheDernier: Point[]
       indicePtCacheDernier: number[]
     } = {
       listePoints3d: [],
@@ -488,11 +488,11 @@ export class Sphere3d extends ObjetMathalea2D {
       ptCacheDernier: [],
       indicePtCacheDernier: []
     }
-    const enveloppeSphere1 = []
-    let enveloppeSphere2 = []
+    const enveloppeSphere1: Point[] = []
+    let enveloppeSphere2: Point[] = []
     let premierParallele = 100
-    let indicePremier
-    let indiceDernier
+    let indicePremier = 0
+    let indiceDernier = 0
     this.c2d = []
 
     // Construction de tous les paralleles
@@ -517,9 +517,9 @@ export class Sphere3d extends ObjetMathalea2D {
       inclinaison)
     unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
     paralleles.listePoints3d.push(unDesParalleles[1])
-    paralleles.ptCachePremier.push(point3d(0, 0, 0, false))
+    paralleles.ptCachePremier.push(point(0, 0))
     paralleles.indicePtCachePremier.push(0)
-    paralleles.ptCacheDernier.push(point3d(0, 0, 0, false))
+    paralleles.ptCacheDernier.push(point(0, 0))
     paralleles.indicePtCacheDernier.push(0)
 
     // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
@@ -544,9 +544,9 @@ export class Sphere3d extends ObjetMathalea2D {
       for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
         paralleles.listePoints3d[j][ee].isVisible = !(paralleles.listePoints3d[j][ee].c2d.estDansPolygone(poly))
       }
-      paralleles.ptCachePremier.push(point3d(0, 0, 0, false))
+      paralleles.ptCachePremier.push(point(0, 0))
       paralleles.indicePtCachePremier.push(0)
-      paralleles.ptCacheDernier.push(point3d(0, 0, 0, false))
+      paralleles.ptCacheDernier.push(point(0, 0))
       paralleles.indicePtCacheDernier.push(0)
 
       for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listePoints3d[0].length; ee++) {
@@ -569,6 +569,10 @@ export class Sphere3d extends ObjetMathalea2D {
             d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
             d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
             pt = pointIntersectionDD(d1, d2) // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+            if (!pt) {
+              window.notify('Erreur dans le calcul du point d\'intersection entre d1 et d2', { d1, d2 })
+              continue
+            }
             enveloppeSphere1.push(pt)
             //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
             // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
@@ -599,6 +603,10 @@ export class Sphere3d extends ObjetMathalea2D {
             d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
             d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
             pt = pointIntersectionDD(d1, d2)
+            if (!pt) {
+              window.notify('Erreur dans le calcul du point d\'intersection entre d1 et d2', { d1, d2 })
+              continue
+            }
             // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
             enveloppeSphere2.push(pt)
             // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
@@ -665,7 +673,7 @@ export class Sphere3d extends ObjetMathalea2D {
         }
         if (faceCachee) {
           const ligneCachee = polyLineCachee.length > 0 ? polyline(...polyLineCachee) : null // parfois, il n'y a rien à cacher près du pôle nord
-          if (k === 0) { // là on est certain qu'il y a du monde à cacher
+          if (ligneCachee && k === 0) { // là on est certain qu'il y a du monde à cacher
             ligneCachee.color = colorToLatexOrHTML(this.colorEquateur)
             ligneCachee.epaisseur = 1.5
           } else {
@@ -678,7 +686,7 @@ export class Sphere3d extends ObjetMathalea2D {
           }
         }
         const ligneVisible = polyLineVisible.length > 0 ? polyline(...polyLineVisible) : null // et rien non plus à montrer près du pôle sud.
-        if (k === 0) { // là on est certain qu'il y a du monde à montrer
+        if (ligneVisible && k === 0) { // là on est certain qu'il y a du monde à montrer
           ligneVisible.color = colorToLatexOrHTML(this.colorEquateur)
           ligneVisible.epaisseur = 1.5
         } else {
@@ -836,7 +844,7 @@ export class Sphere3d extends ObjetMathalea2D {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {Sphere3d}
  */
-export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
+export function sphere3d (centre: Point3d, rayon: Vecteur3d, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
   return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe, inclinaison, faceCachee)
 }
 
@@ -862,7 +870,7 @@ export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe =
  * @class
  */
 export class Cone3d extends ObjetMathalea2D {
-  constructor (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
+  constructor (centre: Point3d, sommet: Point3d, rayon: Vecteur3d, color: string[] = ['black'], affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
     super()
     this.centre = centre
     this.sommet = sommet
@@ -877,9 +885,9 @@ export class Cone3d extends ObjetMathalea2D {
     for (let ee = 1; ee < nbSommets; ee++) {
       ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
     }
-    const p = polygone3d(ptsBase, this.color)
+    const p = polygone3d(ptsBase, this.color[0])
     // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
-    this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
+    this.c2d = pyramide3d(p, this.sommet, this.color[0], affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
   }
 }
 
@@ -900,7 +908,7 @@ export class Cone3d extends ObjetMathalea2D {
  * @author Eric Elter
  * @return {Cone3d}
  */
-export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
+export function cone3d (centre: Point3d, sommet: Point3d, rayon: Vecteur3d, color: string[] = ['black'], affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
   return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone, affichageCentre, affichageBase)
 }
 
