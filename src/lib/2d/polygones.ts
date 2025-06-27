@@ -12,7 +12,7 @@ import { lettreDepuisChiffre } from '../outils/outilString'
 import { codageSegments } from './codages'
 import { codageAngleDroit } from './angles'
 import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
-import { Point3d } from '../../modules/3d'
+import { Point3d } from '../3d/elements'
 
 type BinomeXY = { x: number, y: number }
 type BinomesXY = BinomeXY[]

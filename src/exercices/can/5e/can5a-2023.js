@@ -17,7 +17,7 @@ import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNo
 import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { paveLPH3d } from '../../../modules/3d'
+import { paveLPH3d } from '../../../lib/3d/solides'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'

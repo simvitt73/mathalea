@@ -11,7 +11,8 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d'
+import { pyramide3d, pave3d } from '../../lib/3d/solides'
+import { point3d, polygone3d } from '../../lib/3d/elements'
 
 export const titre = 'Arithmétique & volumes'
 

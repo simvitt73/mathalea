@@ -10,7 +10,7 @@ import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import MainLevee from './MainLevee'
 import { PointAbstrait } from './points-abstraits'
-import { Point3d } from '../../modules/3d'
+import { Point3d } from '../3d/elements'
 
 /**
  * v = vecteur('V') // son nom

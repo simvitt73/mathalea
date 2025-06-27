@@ -5,16 +5,17 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha } from '../../lib/outils/outilString'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
+  rotation3d,
+  rotationV3d,
+  sensDeRotation3d
+} from '../../lib/3d/tranformations'
+import { sphere3d } from '../../lib/3d/solides'
+import {
   arete3d,
   demicercle3d,
   droite3d,
-  point3d,
-  rotation3d,
-  rotationV3d,
-  sensDeRotation3d,
-  sphere3d,
-  vecteur3d
-} from '../../modules/3d'
+  point3d, vecteur3d
+} from '../../lib/3d/elements'
 import { context } from '../../modules/context'
 import {
   listeQuestionsToContenuSansNumero,
