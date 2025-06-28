@@ -137,8 +137,7 @@ rectangleBlancDef.tikz = function (): string {
 
 export const shapeLicorne = new Shape2D({
   codeSvg: '<use href="#licorne"></use>',
-  //  codeTikz: '\\pic at (0,0) \\node[anchor=center] {licorne};',
-  codeTikz: '\\pic at (0,0) {rond};',
+  codeTikz: '\\pic at (0,0) {licorne};',
   width: 1,
   height: 1,
   opacite: 1,
@@ -167,8 +166,7 @@ licorneDef.tikz = function (): string {
   return `
   \\tikzset{
    licorne/.pic = {
-    % Licorne stylisée (SVG non converti)
-    \\draw (0,0) \\node[anchor=center] {\\twemoji{1f984}};
+    \\node[anchor=center, inner sep=0pt, scale=3] {\\twemoji{1f984}};
    }
   }`.trim()
 }
