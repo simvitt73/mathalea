@@ -5946,7 +5946,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Probabilités', 'Arithmétique', 'Pourcentages', 'Agrandissement-réduction', 'Statistiques']
   },
   dnb_2025_06_ameriquenord_2: {
     annee: '2025',
@@ -5954,7 +5954,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Géométrie plane']
   },
   dnb_2025_06_ameriquenord_3: {
     annee: '2025',
@@ -5962,7 +5962,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2025_06_ameriquenord_4: {
     annee: '2025',
@@ -5970,7 +5970,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Proportionnalité', 'Lecture graphique', 'Vitesses', 'Grandeurs composées']
   },
   dnb_2025_06_ameriquenord_5: {
     annee: '2025',
@@ -5978,7 +5978,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Algorithmique-programmation', 'Probabilités', 'statistiques']
   },
 
   dnb_2025_06_asie_1: {
@@ -5987,7 +5987,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Statistiques', 'Fonctions']
   },
   dnb_2025_06_asie_2: {
     annee: '2025',
@@ -5995,7 +5995,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Pythagore', 'Aires et périmètres', 'Thalès', 'Triangles semblables']
   },
   dnb_2025_06_asie_3: {
     annee: '2025',
@@ -6003,7 +6003,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Aires et périmètres', 'Géométrie plane', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2025_06_asie_4: {
     annee: '2025',
@@ -6011,7 +6011,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2025_06_asie_5: {
     annee: '2025',
@@ -6019,7 +6019,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Aritmétique', 'Pourcentages', 'Volumes']
   },
   dnb_2025_06_etrangers_1: {
     annee: '2025',
@@ -6027,7 +6027,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['QCM', 'Aritmétique', 'Tableur', 'Transformations', 'Calcul littéral', 'Trigonométrie']
   },
   dnb_2025_06_etrangers_2: {
     annee: '2025',
@@ -6035,7 +6035,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Grandeurs composées']
   },
   dnb_2025_06_etrangers_3: {
     annee: '2025',
@@ -6043,7 +6043,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Fonctions']
   },
   dnb_2025_06_etrangers_4: {
     annee: '2025',
@@ -6051,7 +6051,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Pythagore', 'Géométrie plane', 'Thalès', 'Aires et périmètres', 'Ratio', 'Recherche d\'informations']
   },
   dnb_2025_06_etrangers_5: {
     annee: '2025',
@@ -6059,7 +6059,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation']
   },
 
   dnb_2025_06_metropole_1: {
@@ -6068,7 +6068,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Probabilités']
   },
   dnb_2025_06_metropole_2: {
     annee: '2025',
@@ -6076,7 +6076,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
   dnb_2025_06_metropole_3: {
     annee: '2025',
@@ -6084,7 +6084,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Proportionnalité', 'Transformations', 'Pourcentages', 'Aires et périmètres', 'Calcul littéral', 'Volumes', 'QCM']
   },
   dnb_2025_06_metropole_4: {
     annee: '2025',
@@ -6092,7 +6092,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Algorithmique-programmation']
   },
   dnb_2025_06_metropole_5: {
     annee: '2025',
@@ -6100,7 +6100,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Fonctions', 'Tableur', 'Lecture graphique']
   },
 
 }
