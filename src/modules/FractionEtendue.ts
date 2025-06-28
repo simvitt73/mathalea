@@ -207,7 +207,7 @@ class FractionEtendue {
   texFractionSimplifiee!: string
   /**
    * num/den mais avec simplification des signes (numérateur et dénominateur positifs, signe - eventuellement devant.)
-   * littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
+   * littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser texFractionSignee)
    */
   texFSD!: string
   /**
