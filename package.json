@@ -80,6 +80,7 @@
     "@svgdotjs/svg.js": "^3.2.4",
     "@types/crypto-js": "^4.2.2",
     "apigeom": "git+https://forge.apps.education.fr/coopmaths/apigeom.git",
+    "glisse-nombre": "git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git",
     "blockly": "11.1.1",
     "boxicons": "^2.1.4",
     "brace": "^0.11.1",
