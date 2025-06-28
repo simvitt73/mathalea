@@ -45,6 +45,36 @@ export function rienSi1 (a: number | FractionEtendue | Decimal | string) {
 }
 
 /**
+ * @param a Un nombre, une fraction ou une chaîne de caractères
+ * @example
+ * // rienSi0(0) -> ''
+ * // rienSi0(2) -> '2'
+ * @author Guillaume Valmont
+ */
+export function rienSi0 (a: number | FractionEtendue | Decimal | string) {
+  if (typeof a === 'number') {
+    if (a === 0) return ''
+    return texNombre(a)
+  }
+  if (a instanceof Decimal) {
+    if (a.isZero()) return ''
+    return texNombre(a)
+  }
+  if (a instanceof FractionEtendue && !a.isEqual(fraction(0, 1))) return a.toLatex()
+  if (a instanceof FractionEtendue && a.isEqual(fraction(0, 1))) return ''
+  if (!(a instanceof FractionEtendue)) {
+    if (egal(a, 0)) return ''
+  }
+  if (typeof a === 'string') {
+    window.notify('rienSi0() n\'accepte pas les string.', { argument: a })
+    return texNombre(Number(a), 7)
+  }
+  console.log(typeof a)
+  window.notify('rienSi0 : type de valeur non prise en compte : ', { a })
+  return String(a)
+}
+
+/**
  * Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
  * Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
  * @Example
