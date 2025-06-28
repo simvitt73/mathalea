@@ -34,7 +34,7 @@ export default class SimplifierFractions extends Exercice {
     this.nbQuestions = 5
 
     // this.besoinFormulaireNumerique = ['Nombre de facteurs communs', 3, '1, 2 ou 3']
-    this.besoinFormulaireTexte = ['Nombre maximum de facteurs communs', 'Nombres séparés par des tirets.\n1, 2, 3 ou 4']
+    this.besoinFormulaireTexte = ['Nombre maximum de facteurs communs', 'Nombres séparés par des tirets.\n1 : 1 facteur\n2 : 2 facteurs\n3 : 3 facteurs\n4 : 4 facteurs\n 5 : Mélange']
 
     // this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
     this.besoinFormulaire2Texte = ['Choix des facteurs premiers utilisés', 'Nombres séparés par des tirets.\nChoisir valeur(s) entre 2 et 23.']
@@ -59,12 +59,13 @@ export default class SimplifierFractions extends Exercice {
       exclus: [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22]
     }).map(Number)
     const nbFacteursCommuns = gestionnaireFormulaireTexte({
-      melange: 0,
+      melange: 5,
       saisie: this.sup,
       max: 4,
       defaut: 4,
       nbQuestions: 1
     }).map(Number)
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       /* let facteurCommun1 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
       let facteurCommun2 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
