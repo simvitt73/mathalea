@@ -1,6 +1,8 @@
 import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import type { Shape2D } from '../Figures2D'
-import { listeShapes2D, type ShapeName } from '../figures2d/shapes2d'
+import { emoji } from '../figures2d/Emojis'
+import { emojis } from '../figures2d/listeEmojis'
+import { listeShapes2D, shapeNames, type ShapeName } from '../figures2d/shapes2d'
 
 type Coord = [number, number, ShapeName] // Coordonnées sous forme de tableau de deux nombres, avec un troisième élément optionnel pour la forme à y mettre
 /**
@@ -33,13 +35,13 @@ export class VisualPattern {
     } else {
       throw new Error('initialCells must be a Set, an array of coordinates or an array of strings')
     }
-    if (shapes == null || shapes.length === 0 || !Object.keys(listeShapes2D).includes(shapes[0])) {
+    if (shapes == null || shapes.length === 0 || !(Object.keys(listeShapes2D).includes(shapes[0]) || Object.keys(emojis).includes(shapes[0]))) {
       this.shapes = ['carré']
     } else {
       this.shapes = []
 
       for (const shape of shapes) {
-        if (!Object.keys(listeShapes2D).includes(shape)) {
+        if (!Object.keys(listeShapes2D).includes(shape) && !Object.keys(emojis).includes(shape)) {
           throw new Error(`VisualPattern: la forme ${shape} n'existe pas dans la liste des formes`)
         }
         this.shapes.push(shape)
@@ -70,7 +72,7 @@ export class VisualPattern {
 
   render (n:number, dx: number, dy:number): NestedObjetMathalea2dArray {
     let cells: Set<string> = this.cells
-    const newPattern = new VisualPattern(cells, Array.from(this.shapes))
+    const newPattern = new VisualPattern(cells, this.shapes)
     newPattern.iterate = this.iterate.bind(newPattern)
     cells = newPattern.iterate(n)
     if (cells.size === 0) {
@@ -85,15 +87,17 @@ export class VisualPattern {
     if (cells.size > 100000) {
       console.warn('PatternNumerique: le motif contient plus de 100000 cellules, l\'affichage peut être très très long')
     }
-    const objets: NestedObjetMathalea2dArray = []
+    const objets: (Shape2D | undefined)[] = []
     for (const cell of cells) {
       const [x, y, shape] = VisualPattern.keyToCoord(cell)
       /*  if (x < 0 || y < 0) {
         throw new Error('PatternNumerique: les coordonnées doivent être positives')
       }
         */
+      const isEmoji = Object.keys(emojis).includes(shape)
+      const isInListeShapes = shapeNames.includes(shape)
 
-      const shape2d = listeShapes2D[shape]
+      const shape2d = isInListeShapes ? listeShapes2D[shape] : isEmoji ? emoji(shape, emojis[shape]) : listeShapes2D['carré']
 
       if (!shape2d) {
         throw new Error(`PatternNumerique: la forme ${shape} n'existe pas`)
@@ -104,7 +108,10 @@ export class VisualPattern {
       newShape.updateBordures()
       objets.push(newShape)
     }
-    return objets
+    if (objets.some((obj) => obj === undefined || !obj.tikz || !obj.svg)) {
+      throw new Error(`PatternNumerique: un des objets est indéfini, vérifiez les formes utilisées dans le motif : ${this.print()}`)
+    }
+    return objets.filter((obj): obj is Shape2D => obj !== undefined)
   }
 
   print (): string {
