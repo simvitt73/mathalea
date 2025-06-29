@@ -17,6 +17,7 @@ vitetest.config.ts
 /public/assets/taf
 /public/assets/e3c
 /public/static
+/public/emojis
 _private/
 tests/e2e/logs
 updatefile

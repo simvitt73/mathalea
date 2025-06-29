@@ -1,3 +1,5 @@
+import { emoji } from '../../lib/2d/figures2d/Emojis'
+import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapesDef, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
@@ -12,6 +14,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'
 
@@ -66,6 +69,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
     let texte = ''
     if (!context.isHtml) {
       texte += `${Object.values(listeShapesDef).map(shape => shape.tikz()).join('\n')}\n`
+      texte += `${Object.entries(emojis).map(([nom, unicode]) => emoji(nom, unicode).shapeDef.tikz()).join('\n')}\n`
     }
     if (liste == null || liste.length === 0) return
     for (let i = 0; i < liste.length; i++) {
@@ -107,11 +111,21 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         let xmin = Infinity
         let xmax = -Infinity
         if (context.isHtml) {
-          for (const name of pattern.shapes) {
+          for (let n = 0; n < pattern.shapes.length; n++) {
+            let name = pattern.shapes[n]
             if (name in listeShapesDef) {
-              figures[j].push(listeShapesDef[name])
+              if (name === 'carré') {
+                const nom = String(choice(Object.keys(emojis)))
+                name = nom
+                pattern.shapes[n] = nom
+                figures[j].push(emoji(nom, emojis[nom]).shapeDef)
+              } else figures[j].push(listeShapesDef[name])
+            } else if (name in emojis) {
+              figures[j].push(emoji(name, emojis[name]).shapeDef)
             } else {
-              if (name === 'cube') {
+              if (Object.keys(emojis).includes(name)) {
+                figures[j].push(emoji(name, emojis[name]))
+              } else if (name === 'cube') {
                 const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`)
                 cubeIsoDef.svg = function (coeff: number): string {
                   return `
@@ -124,6 +138,8 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
           </defs>`
                 }
                 figures[j].push(cubeIsoDef)
+              } else {
+                console.warn(`Shape ${name} n'est pas dans listeShapesDef ou emojis et n'est pas un cube`)
               }
             }
           }

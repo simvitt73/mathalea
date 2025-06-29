@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { balleDef, carreDef, carreRondDef, chatDef, etoileDef, hexagoneDef, listeShapes2DNames, listeShapesDef, losangeDef, redCrossDef, rondDef, soleilDef, tortueDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
+import { balleDef, carreDef, carreRondDef, hexagoneDef, listeShapes2DNames, listeShapesDef, losangeDef, redCrossDef, rondDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -15,6 +15,8 @@ import { point } from '../../lib/2d/points'
 import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
+import { emoji } from '../../lib/2d/figures2d/Emojis'
+import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 
 export const titre = 'Comprendre un algorithme itératif'
 export const interactifReady = true
@@ -95,7 +97,7 @@ export default class PaternNum0 extends Exercice {
             case 2:
               pattern.shapes[0] = 'étoile'
               pattern.shapes[1] = 'étoile'
-              objetsCorr.push(etoileDef)
+              objetsCorr.push(emoji('étoile', emojis['étoile']).shapeDef)
               break
             case 3:
               pattern.shapes[0] = 'carréRond'
@@ -105,12 +107,12 @@ export default class PaternNum0 extends Exercice {
             case 4:
               pattern.shapes[0] = 'chat'
               pattern.shapes[1] = 'chat'
-              objetsCorr.push(chatDef)
+              objetsCorr.push(emoji('chat', emojis['chat']).shapeDef)
               break
             case 5:
               pattern.shapes[0] = 'soleil'
               pattern.shapes[1] = 'soleil'
-              objetsCorr.push(soleilDef)
+              objetsCorr.push(emoji('soleil', emojis['soleil']).shapeDef)
               break
             case 6:
               pattern.shapes[0] = 'losange'
@@ -135,7 +137,7 @@ export default class PaternNum0 extends Exercice {
             case 10:
               pattern.shapes[0] = 'tortue'
               pattern.shapes[1] = 'tortue'
-              objetsCorr.push(tortueDef)
+              objetsCorr.push(emoji('tortue', emojis['tortue']).shapeDef)
               break
             case 11:
               pattern.shapes[0] = 'triangle'
@@ -176,16 +178,16 @@ export default class PaternNum0 extends Exercice {
           if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
             switch (formes[i]) {
               case 2:
-                figures[j].push(etoileDef)
+                figures[j].push(emoji('étoile', emojis['étoile']).shapeDef)
                 break
               case 3:
                 figures[j].push(carreRondDef)
                 break
               case 4:
-                figures[j].push(chatDef)
+                figures[j].push(emoji('chat', emojis['chat']).shapeDef)
                 break
               case 5:
-                figures[j].push(soleilDef)
+                figures[j].push(emoji('soleil', emojis['soleil']).shapeDef)
                 break
               case 6:
                 figures[j].push(losangeDef)
@@ -200,7 +202,7 @@ export default class PaternNum0 extends Exercice {
                 figures[j].push(balleDef)
                 break
               case 10:
-                figures[j].push(tortueDef)
+                figures[j].push(emoji('tortue', emojis['tortue']).shapeDef)
                 break
               case 11:
                 figures[j].push(triangleEquilateralDef)
