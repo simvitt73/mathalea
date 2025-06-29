@@ -5,7 +5,7 @@ export const titre = 'Permis Littéral - Développer et factoriser'
 
 class permisLitteralDevFact extends ExternalApp {
   constructor () {
-    super('https://mathix.org/permis_litteral_dev_fact/index.html?mathalea=1')
+    super('https://mathix.org/permis_litteral_dev_fact/index.html?suivi=1&mathalea=1')
   }
 }
 
