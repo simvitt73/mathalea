@@ -42,4 +42,6 @@ export const emojis: Record<string, string> = {
   ananas: '1f34d',
   kiwi: '1f95d',
   mangue: '1f96d',
+  explosion: '1f4a5',
+  cadeau: '1f381'
 }

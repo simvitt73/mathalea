@@ -54,7 +54,65 @@ rectangleDef.tikz = function (): string {
    }
   }`.trim()
 }
+export const shapeAllumette = new Shape2D({
+  codeSvg: '<use href="#allumette-verticale"></use>',
+  codeTikz: '\\pic at (0,0) {allumette-verticale};',
+  width: 0.2,
+  height: 1,
+  opacite: 1,
+  name: 'allumetteV'
+})
 
+export const shapeAllumetteHorizontale = new Shape2D({
+  codeSvg: '<use href="#allumette-verticale" transform="rotate(90)"></use>',
+  codeTikz: '\\pic at (0,0) rotate(90) {allumette-verticale};',
+  width: 0.2,
+  height: 1,
+  opacite: 1,
+  name: 'allumetteH'
+})
+
+export const shapeAllumette60 = new Shape2D({
+  codeSvg: '<use href="#allumette-verticale" transform="rotate(30)"></use>',
+  codeTikz: '\\pic at (0,0) rotate(30) {allumette-verticale};',
+  width: 0.2,
+  height: 1,
+  opacite: 1,
+  name: 'allumette60'
+})
+
+export const shapeAllumette120 = new Shape2D({
+  codeSvg: '<use href="#allumette-verticale" transform="rotate(-30)"></use>',
+  codeTikz: '\\pic at (0,0) rotate(-30) {allumette-verticale};',
+  width: 0.2,
+  height: 1,
+  opacite: 1,
+  name: 'allumette120'
+})
+
+export const allumetteDef = new ObjetMathalea2D()
+allumetteDef.bordures = [-0.1, -0.5, 0.1, 0.5]
+allumetteDef.svg = function (coeff: number): string {
+  return `
+  <!-- Allumette verticale -->
+  <defs>
+    <g id="allumette-verticale">
+      <rect x="-1" y="-8" width="2" height="18" fill="#deb887" stroke="#8b5c2a" stroke-width="0.5"/>
+      <ellipse cx="0" cy="-9" rx="1.5" ry="2" fill="red" stroke="darkred" stroke-width="0.5"/>
+    </g>
+  </defs>`
+}
+allumetteDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   allumette-verticale/.pic = {
+    % Tige
+    \\draw[fill=brown!30!yellow, draw=brown!80!black, line width=0.3pt] (-0.1,-0.45) rectangle (0.1,0.45);
+    % Tête
+    \\draw[fill=red, draw=red!70!black, line width=0.3pt] (0,0.5) circle (0.15);
+   }
+  }`.trim()
+}
 export const shapeRectangleBlanc = new Shape2D({
   codeSvg: '<use href="#rectangle-blanc"></use>',
   codeTikz: '\\pic at (0,0) {rectangle-blanc};',
@@ -411,7 +469,11 @@ export const shapeNames: string[] = [
   'carréBleu',
   'hexagoneJaune',
   'rectangleBlanc',
-  'rectangleVert'
+  'rectangleVert',
+  'allumetteV',
+  'allumetteH',
+  'allumette60',
+  'allumette120'
 ]
 
 export type ShapeName = (typeof shapeNames)[number]
@@ -428,7 +490,11 @@ export const listeShapesDef: Record<ShapeName, ObjetMathalea2D > = {
   carréBleu: carreBleuDef,
   hexagoneJaune: hexagoneJauneDef,
   rectangleBlanc: rectangleBlancDef,
-  rectangleVert: rectangleDef
+  rectangleVert: rectangleDef,
+  allumetteV: allumetteDef,
+  allumetteH: allumetteDef,
+  allumette60: allumetteDef,
+  allumette120: allumetteDef
 }
 
 export const listeShapes2D: Record<ShapeName, Shape2D > = {
@@ -443,6 +509,10 @@ export const listeShapes2D: Record<ShapeName, Shape2D > = {
   carréBleu: shapeCarreBleu,
   hexagoneJaune: shapeHexagoneJaune,
   rectangleBlanc: shapeRectangleBlanc,
-  rectangleVert: shapeRectangle
+  rectangleVert: shapeRectangle,
+  allumetteV: shapeAllumette,
+  allumetteH: shapeAllumetteHorizontale,
+  allumette60: shapeAllumette60,
+  allumette120: shapeAllumette120
 }
 export const listeShapes2DNames: ShapeName[] = Object.keys(listeShapes2D) as ShapeName[]

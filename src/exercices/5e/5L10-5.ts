@@ -15,6 +15,7 @@ import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
 import { emoji } from '../../lib/2d/figures2d/Emojis'
 import { emojis } from '../../lib/2d/figures2d/listeEmojis'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 
 export const titre = 'Définir une expression littérale à partir d\'un pattern numérique'
 export const interactifReady = true
@@ -97,7 +98,7 @@ export default class PaternNum1 extends Exercice {
         continue
       }
       const pat = popped
-      const pattern = pat.pattern
+      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
 
       //  patterns.push(pattern)
 

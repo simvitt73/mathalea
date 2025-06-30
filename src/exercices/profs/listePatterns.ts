@@ -9,12 +9,13 @@ import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
+import Decimal from 'decimal.js'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 
 export const titre = 'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'
 
@@ -78,18 +79,18 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
         continue
       }
-      const n43 = texNombre(pat.fonctionNb(43), 0)
+      const n43 = new Decimal(pat.fonctionNb(43)).toString()
       const n43R = pat.fonctionRatio
-        ? pat.fonctionRatio(43).toLatex()
+        ? pat.fonctionRatio(43).values.map((el) => new Decimal(el).toString()).join('~:~')
         : null
-      const n43F = pat.fonctionFraction
-        ? pat.fonctionFraction(43).texFractionSimplifiee
+      const n43F = pat.fonctionFraction && pat.fonctionRatio
+        ? `\\dfrac{${(pat.fonctionRatio(43).values[0] ?? 0).toString()}}{${new Decimal(pat.fonctionNb(43)).toString()}}`
         : null
       texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule)}\\right]$ <br>`
 
       const patternRiche = pat
       if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-      const pattern = patternRiche.pattern
+      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
       if (pattern instanceof VisualPattern3D) {
         pattern.shapes = ['cube']
         pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
@@ -172,7 +173,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         figures[j].push(...objets)
         // const { xmax, ymax, xmin, ymin } = fixeBordures(objets, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
         figures[j].push(texteParPosition(`Motif ${j + 1}`, (xmax + xmin) / 2, -1.5, 0, 'black', 0.8, 'milieu'))
-        const cadre = polygone(point(xmin - 1, -2), point(xmax + 2, -2), point(xmax + 2, ymax + 2), point(xmin - 1, ymax + 2))
+        const cadre = polygone(point(xmin - 2, -2), point(xmax + 2, -2), point(xmax + 2, ymax + 2), point(xmin - 2, ymax + 2))
         cadre.pointilles = 4
         figures[j].push(cadre)
 

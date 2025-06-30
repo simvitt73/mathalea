@@ -17,6 +17,7 @@ import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
 import { emoji } from '../../lib/2d/figures2d/Emojis'
 import { emojis } from '../../lib/2d/figures2d/listeEmojis'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 
 export const titre = 'Comprendre un algorithme itératif'
 export const interactifReady = true
@@ -49,7 +50,7 @@ export default class PaternNum0 extends Exercice {
     this.sup = 3
     this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Losange\n7 : Hexagone\n8: Cercle\n9: Balle de tennis\n10 : tortue\n11 : triangle\n12 : croix rouge\n13 : Mélange']
     this.sup3 = '13'
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Motif 42 (nombre)\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 4 précédentes']
+    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Motif 42 (nombre)\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
     this.sup4 = '6'
     this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
     this.sup5 = 1
@@ -80,7 +81,7 @@ export default class PaternNum0 extends Exercice {
         continue
       }
       const pat = popped
-      const pattern = pat.pattern
+      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
 
       //  patterns.push(pattern)
 
