@@ -116,13 +116,13 @@ export class Shape2D extends ObjetMathalea2D {
   }
 
   svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) ${this.scale.x !== 1 || this.scale.y !== 1 || coeff !== 20 ? `scale(${this.scale.x * coeff / 20},${this.scale.y * coeff / 20})` : ''} ${this.angle !== 0 ? `rotate(${-this.angle})` : ''}">${this.codeSvg}</g>`
+    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) ${this.scale.x !== 1 || this.scale.y !== 1 || coeff !== 20 ? `scale(${(this.scale.x * coeff / 20).toFixed(3)},${(this.scale.y * coeff / 20).toFixed(3)})` : ''} ${this.angle !== 0 ? `rotate(${(-this.angle).toFixed(2)})` : ''}">${this.codeSvg}</g>`
   }
 
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}${this.scale.x !== 1 ? `, xscale=${this.scale.x}` : ''}${this.scale.y !== 1 ? `, yscale=${this.scale.y}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}${this.scale.x !== 1 ? `, xscale=${(this.scale.x).toFixed(3)}` : ''}${this.scale.y !== 1 ? `, yscale=${(this.scale.y).toFixed(3)}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
     ${this.codeTikz}
     \\end{scope}`
   }
@@ -244,13 +244,13 @@ export class Figure2D extends Shape2D {
   }
 
   svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>`
+    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) scale(${(this.scale.x).toFixed(3)},${(this.scale.y).toFixed(3)}) rotate(${(-this.angle).toFixed(2)})">${this.codeSvg}</g>`
   }
 
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}, xscale=${this.scale.x.toFixed(3)}, yscale=${this.scale.y.toFixed(3)}, rotate around={${this.angle.toFixed(2)}:(0,0)}]
     ${this.codeTikz}
     \\end{scope}`
   }

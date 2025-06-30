@@ -48,6 +48,8 @@ export class VisualPattern3D {
       // si initialCells est un tableau de coordonnées, on les convertit en chaînes de caractères
       // en utilisant la méthode coordToKey
         this.cells = new Set((initialCells as Coord3d[]).map(VisualPattern3D.coordToKey))
+      } else if (initialCells.length === 0) {
+        this.cells = new Set()
       } else {
         throw new Error('initialCells must be an array of coordinates or strings')
       }
@@ -73,17 +75,17 @@ export class VisualPattern3D {
   }
 
   static coordToKey (coord: Coord3d): string {
-    return `${coord[0]},${coord[1]},${coord[2]}`
+    return `${coord[0]};${coord[1]};${coord[2]}`
   }
 
   static keyToCoord (key: string): Coord3d {
-    const [x, y, z] = key.split(',').map(Number)
+    const [x, y, z] = key.split(';').map(Number)
     return [x, y, z]
   }
 
   render3d (n: number) {
     let cells: Set<string> = this.cells
-    for (let i = 1; i < n; i++) {
+    for (let i = 0; i < n; i++) {
       const newPattern = new VisualPattern3D(cells)
       newPattern.iterate3d = this.iterate3d.bind(newPattern)
       cells = newPattern.iterate3d(n)

@@ -14,7 +14,7 @@ export type PatternRiche = {
   fonctionRatio?: (x: number) => Ratio,
   formule: string,
   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre',
-  pattern: VisualPattern,
+  pattern?: VisualPattern,
   iterate: (this: VisualPattern, n?:number) => Set<string>
 }
 export type PatternRiche3D = {
@@ -26,8 +26,16 @@ export type PatternRiche3D = {
   fonctionRatio?: (x: number) => Ratio,
   formule: string,
   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre',
-  pattern: VisualPattern3D,
+  pattern?: VisualPattern3D,
   iterate3d: (this: VisualPattern3D, angle: number) => Set<string>
+}
+export type PatternRicheRepetition = {
+  nbMotifMin: number,
+  shapes: ShapeName[],
+  fonctionShape: (x: number) => ShapeName,
+  pattern?: VisualPattern,
+  iterate: (this: VisualPattern, n?: number) => Set<string>
+
 }
 
 /**
@@ -71,17 +79,10 @@ const rangeCubes = function (coords: [number, number, number][]): [number, numbe
 const pattern1:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/5da32a25-8bdd-4072-bd76-5e94635ba57d/vp11_2.png?format=2500w',
   visualId: 11,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 2 * x + 1,
   formule: '2\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0],
-      [0, 1],
-      [1, 0],
-    ].map(el => [...el, 'carré'] as [number, number, ShapeName])
-  ),
   iterate: function (this: VisualPattern, n?: number): Set<string> {
     const newCells = new Set<string>()
     if (n === undefined) n = 1
@@ -98,15 +99,10 @@ const pattern1:PatternRiche = {
 const pattern2:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/54e5912a-d7ae-4d39-82ba-c0a3822ba19c/2020-09-26-09-37-38_orig+%281%29.jpg?format=2500w',
   visualId: 1,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x * x,
   formule: 'n^2',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     const newCells = new Set<string>()
     if (n === undefined) n = 1
@@ -122,15 +118,10 @@ const pattern2:PatternRiche = {
 const pattern3:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/bae949b2-d658-41ad-a0ab-ff08226865f3/vp10_2_orig.png?format=2500w',
   visualId: 10,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n -1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     const newCells = new Set<string>()
     if (n === undefined) n = 1
@@ -146,16 +137,10 @@ const pattern3:PatternRiche = {
 const pattern4:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/65bbb191-819f-42aa-b269-3c393e88a68b/8497466_orig+%281%29.png?format=2500w',
   visualId: 32,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x * x + x,
   formule: 'n^2 + n',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     const newCells = new Set<string>()
     for (let i = 0; i < n; i++) {
@@ -170,15 +155,10 @@ const pattern4:PatternRiche = {
 const pattern5:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/79dbcbbf-d2b5-4578-857e-fcdccb4fb8af/2023-03-22-10-30-31.png?format=2500w',
   visualId: 3,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (n:number) => n * (n + 1) / 2,
   formule: '\\dfrac{n\\times (n+1)}{2}',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     const newCells = new Set<string>()
     for (let i = 0; i < n; i++) {
@@ -195,19 +175,10 @@ const pattern5:PatternRiche = {
 const pattern6:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/272cb8f2-585b-4b90-aca5-a115fe8b555d/vp5_3.png?format=2500w',
   visualId: 4,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (n:number) => 4 * n + 1,
   formule: '4\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [1, 1],
-      [2, 2],
-      [0, 2],
-      [0, 0],
-      [2, 0]
-    ].map(el => [...el, 'carré'] as [number, number, ShapeName])
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -225,19 +196,10 @@ const pattern6:PatternRiche = {
 const pattern7:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a3f4ea08-cdcb-46c2-bcc8-bd6aa2722f96/720875_orig.png?format=2500w',
   visualId: 15,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (n:number) => 4 * n + 1,
   formule: '4\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [1, 1],
-      [1, 0],
-      [0, 1],
-      [1, 2],
-      [2, 1]
-    ].map(el => [...el, 'carré'] as [number, number, ShapeName])
-  ),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -257,15 +219,10 @@ const pattern7:PatternRiche = {
 const pattern8:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/bda4693c-4923-4c87-a3a1-06ef7762c45f/4203089_orig.png?format=2500w',
   visualId: 16,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x * x,
   formule: 'n^2',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     const newCells = new Set<string>()
     if (n === undefined) n = 1
@@ -282,19 +239,10 @@ const pattern8:PatternRiche = {
 const pattern9:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/09099fb7-f01e-49d4-a328-25507dde66e5/4982399.png?format=2500w',
   visualId: 101,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x ** 2 + 4,
   formule: 'n^2 + 4',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 1, 'carré'],
-      [2, 2, 'carré'],
-      [0, 2, 'carré'],
-      [2, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -314,17 +262,10 @@ const pattern9:PatternRiche = {
 const pattern10:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9f3f398b-13e6-45a1-8929-446af89cb1d6/2020-09-08-09-47-44_orig.png?format=2500w',
   visualId: 391,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x * x + 2 * x,
   formule: '(n+1)^2-1',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -342,22 +283,10 @@ const pattern10:PatternRiche = {
 const pattern11:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9ef9630a-170f-41ec-9b43-a698a57cfa0e/vp22_orig.png?format=2500w',
   visualId: 296,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 4 * x + 4,
   formule: '4\\times n + 4',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [0, 1, 'carré'],
-      [0, 2, 'carré'],
-      [2, 1, 'carré'],
-      [1, 2, 'carré'],
-      [2, 2, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -376,16 +305,10 @@ const pattern11:PatternRiche = {
 const pattern12:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/d2fc2e2a-14e2-4446-85c0-3ba743bb5adf/8815256_orig.png?format=2500w',
   visualId: 108,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x * x + 1,
   formule: 'n^2 + 1',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -404,17 +327,10 @@ const pattern12:PatternRiche = {
 const pattern13:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7fc51d33-c4af-4d94-9786-b7d75aab62a8/2163990_orig.png?format=2500w',
   visualId: 114,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 3 * x,
   formule: '3\\times n',
   type: 'linéaire',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [0, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -434,21 +350,10 @@ const pattern13:PatternRiche = {
 const pattern14:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/1098eb03-4083-40d7-9d63-c4cbc87f1093/682934_orig.png?format=2500w',
   visualId: 115,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 7 * x,
   formule: '7\\times n',
   type: 'linéaire',
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'carré'],
-      [1, 1, 'carré'],
-      [1, 2, 'carré'],
-      [0, 2, 'carré'],
-      [2, 2, 'carré'],
-      [2, 3, 'carré'],
-      [0, 3, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -476,21 +381,10 @@ const pattern14:PatternRiche = {
 const pattern15:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3792615-d769-4c6b-a0f5-5c4397fe5d1b/7970874_orig.png?format=2500w',
   visualId: 116,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 8 * x - 1,
   formule: '8\\times n - 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'carré'],
-      [1, 1, 'carré'],
-      [1, 2, 'carré'],
-      [0, 2, 'carré'],
-      [2, 2, 'carré'],
-      [2, 3, 'carré'],
-      [0, 3, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -523,15 +417,10 @@ const pattern15:PatternRiche = {
 const pattern16:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b9f7df36-66e8-452a-8619-06c1161736a3/2023-07-03_05-43-43.png?format=2500w',
   visualId: 128,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 4 * x - 3,
   formule: '4\\times n - 3',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -553,18 +442,10 @@ const pattern16:PatternRiche = {
 const pattern17:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a9b947a5-1a65-49cd-ab8d-ff824ffbf718/2023-07-03_04-23-55.png?format=2500w',
   visualId: 85,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 2 * (x * x + x),
   formule: '2\\times (n^2 +  n)',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -585,19 +466,10 @@ const pattern17:PatternRiche = {
 const pattern18: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/fbb334a6-f77e-402d-b438-c78f294ff6b3/2023-07-17_06-56-59.png?format=2500w',
   visualId: 93,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 2 + 2 * x * (1 + x),
   formule: '2\\times (n^2+2\\times n + 1)',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'carré'],
-      [1, 1, 'carré'],
-      [2, 1, 'carré'],
-      [1, 0, 'carré'],
-      [1, 2, 'carré'],
-      [1, 3, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -615,20 +487,10 @@ const pattern18: PatternRiche = {
 const pattern19: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9e7e0715-850c-4ce4-9b3c-7b9d5b93bd75/2023-07-06_00-51-38.png?format=2500w',
   visualId: 91,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x ** 2 + 4 * x + 2,
   formule: 'n^2+4\\times n + 2',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [1, 1, 'carré'],
-      [2, 1, 'carré'],
-      [3, 1, 'carré'],
-      [4, 1, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -650,16 +512,10 @@ const pattern19: PatternRiche = {
 const pattern20: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b78ea1f9-f4ff-4121-964a-cb0ff2be2afc/2023-07-06_01-18-35.png?format=2500w',
   visualId: 94,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x * (x + 1) / 2 + 2,
   formule: '\\dfrac{n\\times (n+1)}{2}+2',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -678,18 +534,10 @@ const pattern20: PatternRiche = {
 const pattern21: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/62fb6a8b-01d1-4d0c-8cac-7eeb30fbba41/4528553_orig.png?format=2500w',
   visualId: 165,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 2 * x + 3,
   formule: '2\\times n + 3',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'carré'],
-      [1, 1, 'carré'],
-      [1, 2, 'carré'],
-      [0, 1, 'carré'],
-      [2, 1, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -709,12 +557,6 @@ const pattern22: PatternRiche3D = {
   fonctionNb: (x:number) => (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{(n+1)\\times (n+2)}{2}',
   type: 'degré2',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0],
-      [0, 0, 1],
-      [1, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -744,10 +586,6 @@ const pattern23: PatternRiche3D = {
   fonctionNb: (x:number) => 6 * x - 5,
   formule: '6\\times n-5',
   type: 'affine',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -781,10 +619,6 @@ const pattern24: PatternRiche3D = {
   fonctionNb: (x:number) => (2 * x ** 3 + 3 * x ** 2 + x) / 6,
   formule: '\\dfrac{2\\times n^3 + 3\\times n^2 + n}{6}',
   type: 'degré3',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n:number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -813,10 +647,6 @@ const pattern25: PatternRiche3D = {
   fonctionNb: (x:number) => x ** 3,
   formule: 'n^3',
   type: 'degré3',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -848,10 +678,6 @@ const pattern26: PatternRiche3D = {
   fonctionNb: (x:number) => x ** 3 - (x - 1) ** 3,
   formule: '3\\times n^2 - 3\\times n + 1',
   type: 'degré2',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const demiPas = n / 2
@@ -892,10 +718,6 @@ const pattern27: PatternRiche3D = {
   fonctionNb: (x:number) => 5 * x - 4,
   formule: '5\\times n - 4',
   type: 'affine',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -932,10 +754,6 @@ const pattern28: PatternRiche3D = {
   fonctionNb: (x:number) => 2 * x ** 2 - x,
   formule: 'n\\times (2\\times n - 1)',
   type: 'degré2',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -967,16 +785,10 @@ const pattern28: PatternRiche3D = {
 const pattern29: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/5c72d74d-af6b-437e-a1a2-69495c67202d/2018-10-14-13-34-36_orig.png?format=2500w',
   visualId: 263,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 2 * x + 1,
   formule: '2\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'carré'],
-      [1, 0, 'carré'],
-      [1, 2, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -992,18 +804,10 @@ const pattern29: PatternRiche = {
 const pattern30: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3833797-d82a-4c4b-bff7-d22d877c000b/2018-11-18-11-34-08_orig.png?format=2500w',
   visualId: 266,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 3 * x + 2,
   formule: '3\\times n + 2',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [3, 0, 'carré'],
-      [4, 0, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1021,17 +825,10 @@ const pattern30: PatternRiche = {
 const pattern31: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/3b345e8a-ccab-4fb2-bec6-f21b650d79bc/2023-07-05_15-04-34.png?format=2500w',
   visualId: 256,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 3 * x + 1,
   formule: '3\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [1, 1, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1051,16 +848,10 @@ const pattern31: PatternRiche = {
 const pattern32: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/382218dd-df17-4747-8215-cbe3f950f453/p4_orig.png?format=2500w',
   visualId: 257,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x ** 2 + 4 * x - 2,
   formule: 'n^2 + 4\\times n - 2',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 1, 'carré'],
-      [2, 2, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1082,16 +873,10 @@ const pattern32: PatternRiche = {
 const pattern33: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/d9c26deb-510e-43fc-85c5-4573f5d60735/vp54_2_orig.png?format=2500w',
   visualId: 54,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => x + 1,
   formule: 'n+1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1105,18 +890,10 @@ const pattern33: PatternRiche = {
 const pattern34: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/1fc58a54-b378-407b-9bea-b9a136fca28f/4700362_orig.png?format=2500w',
   visualId: 72,
-  shapes: ['carré', 'carré'],
+  shapes: ['carré'],
   fonctionNb: (x:number) => 8 * x ** 2 + 4 * x + 1,
   formule: '8\\times n^2 + 4\\times n + 1',
   type: 'degré2',
-  pattern: new VisualPattern(
-    [
-      [-2, -2], [-2, 2], [2, -2], [2, 2],
-      [-1, -1], [-1, 0], [-1, 1],
-      [0, -1], [0, 0], [0, 1],
-      [1, -1], [1, 0], [1, 1]
-    ].map(([x, y]) => [x + 2, y + 2] as [number, number]).map(el => [el[0], el[1], 'carré'] as [number, number, ShapeName])
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1139,20 +916,12 @@ const pattern34: PatternRiche = {
 }
 
 const pattern35: PatternRiche = {
-  shapes: ['losange', 'losange'],
+  shapes: ['losange'],
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/fe162543-f853-4705-9964-6ceceb0959a3/9292613_orig.png?format=2500w',
   visualId: 75,
   fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [1, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1178,11 +947,6 @@ const pattern36: PatternRiche3D = {
   fonctionNb: (x:number) => (x * (x + 1) / 2) ** 2,
   formule: '\\left(\\dfrac{n\\times (n+1)}{2}\\right)^2',
   type: 'autre',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]
-  ),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1222,17 +986,7 @@ const pattern37: PatternRiche = {
   fonctionNb: (x:number) => x ** 2 + 2 * x + 4,
   formule: 'n^2+2\\times n+4',
   type: 'degré2',
-  shapes: ['soleil', 'soleil'],
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 1, 'carré'],
-      [2, 1, 'carré'],
-      [1, 2, 'carré'],
-      [2, 2, 'carré'],
-      [1, 3, 'carré']
-    ]),
+  shapes: ['soleil'],
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1254,14 +1008,7 @@ const pattern38: PatternRiche = {
   fonctionNb: (x:number) => x ** 2 + x + 2,
   formule: 'n^2+n+2',
   type: 'degré2',
-  shapes: ['carréRond', 'carréRond'],
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'carré'],
-      [1, 1, 'carré'],
-      [1, 2, 'carré'],
-      [0, 1, 'carré']
-    ]),
+  shapes: ['carréRond'],
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1282,11 +1029,7 @@ const pattern39: PatternRiche = {
   fonctionNb: (x:number) => x * x,
   formule: 'n^2',
   type: 'degré2',
-  shapes: ['losange', 'losange'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]),
+  shapes: ['losange'],
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1306,13 +1049,6 @@ const pattern40: PatternRiche3D = {
   fonctionNb: (x:number) => 2 * x + 2,
   formule: '2\\times n + 2',
   type: 'affine',
-  pattern: new VisualPattern3D(
-    [
-      [-1, 0, 0],
-      [0, 0, 0],
-      [1, 0, 0],
-      [-1, 0, 1]
-    ]),
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const cubes: [number, number, number][] = []
@@ -1342,15 +1078,7 @@ const pattern41: PatternRiche = {
   fonctionNb: (x:number) => (x + 2) * (x + 1) / 2 + 1,
   formule: '\\dfrac{(n+1)(n+2)}{2} + 1',
   type: 'degré2',
-  shapes: ['étoile', 'étoile'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré'],
-      [0, 2, 'carré'],
-      [1, 2, 'carré']
-    ]
-  ),
+  shapes: ['étoile'],
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1367,19 +1095,10 @@ const pattern41: PatternRiche = {
 const pattern42: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/048b9214-fee6-400a-a28c-aa420054c3c9/vp30_orig.png?format=2500w',
   visualId: 300,
-  shapes: ['chat', 'chat'],
+  shapes: ['chat'],
   fonctionNb: (x:number) => 2 * x * (x + 1) + 1,
   formule: '2\\times n\\times (n+1) + 1',
   type: 'degré3',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [2, 0, 'carré'],
-      [0, 2, 'carré'],
-      [2, 2, 'carré'],
-      [1, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1397,18 +1116,10 @@ const pattern42: PatternRiche = {
 const pattern43: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7a81a3ec-f14f-4d8e-b440-bd24f8f3a58f/vp46_orig.png?format=2500w',
   visualId: 307,
-  shapes: ['carréRond', 'carréRond'],
+  shapes: ['carréRond'],
   fonctionNb: (x:number) => 3 * x + 1,
   formule: '3\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 0, 'carré'],
-      [1, 1, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1426,20 +1137,10 @@ const pattern43: PatternRiche = {
 const pattern44: PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a4735ae7-f530-45ae-aef0-4b46fb6cefa1/vp47_orig.png?format=2500w',
   visualId: 308,
-  shapes: ['soleil', 'soleil'],
+  shapes: ['soleil'],
   fonctionNb: (x:number) => 4 * x + 2,
   formule: '4\\times n + 2',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré'],
-      [0, 2, 'carré'],
-      [1, 1, 'carré'],
-      [1, 2, 'carré'],
-      [2, 2, 'carré']
-    ]
-  ),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1460,16 +1161,7 @@ const pattern45: PatternRiche = {
   fonctionNb: (x:number) => x ** 2 + x + 3,
   formule: 'n^2+n+3',
   type: 'degré2',
-  shapes: ['carréRond', 'carréRond'],
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'carré'],
-      [1, 1, 'carré'],
-      [2, 1, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré']
-    ]
-  ),
+  shapes: ['carréRond'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1491,13 +1183,7 @@ const pattern46: PatternRiche = {
   fonctionNb: (x:number) => x ** 2 + x,
   formule: 'n^2+n',
   type: 'degré2',
-  shapes: ['hexagone', 'hexagone'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré']
-    ]
-  ),
+  shapes: ['hexagone'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1518,14 +1204,7 @@ const pattern47: PatternRiche = {
   fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'carré'],
-      [2, 1, 'carré'],
-      [1, 2, 'carré'],
-      [0, 1, 'carré']
-    ]),
-  shapes: ['balle', 'balle'],
+  shapes: ['balle'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1543,11 +1222,7 @@ const pattern48: PatternRiche = {
   fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n - 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]),
-  shapes: ['balle', 'balle'],
+  shapes: ['balle'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1565,14 +1240,7 @@ const pattern49: PatternRiche = {
   fonctionNb: (x:number) => 2 * x + 2,
   formule: '2\\times n + 2',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 1, 'carré']
-    ]),
-  shapes: ['hexagone', 'hexagone'],
+  shapes: ['hexagone'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1588,15 +1256,7 @@ const pattern50: PatternRiche = {
   fonctionNb: (x:number) => 3 * x + 2,
   formule: '3\\times n + 2',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'carré'],
-      [1, 0, 'carré'],
-      [1, 2, 'carré'],
-      [1, 1, 'carré'],
-      [2, 1, 'carré']
-    ]),
-  shapes: ['losange', 'losange'],
+  shapes: ['losange'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1615,13 +1275,7 @@ const pattern51: PatternRiche = {
   fonctionNb: (x:number) => 3 + x,
   formule: '3+n',
   type: 'affine',
-  shapes: ['chat', 'chat'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 1, 'carré']]),
+  shapes: ['chat'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1639,18 +1293,7 @@ const pattern52: PatternRiche = {
   fonctionNb: (x:number) => 4 * x + 4,
   formule: '4\\times n + 4',
   type: 'affine',
-  shapes: ['étoile', 'étoile'],
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'carré'],
-      [0, 2, 'carré'],
-      [2, 1, 'carré'],
-      [2, 2, 'carré'],
-      [1, 0, 'carré'],
-      [1, 3, 'carré'],
-      [1, 1, 'carré'],
-      [1, 2, 'carré']
-    ]),
+  shapes: ['étoile'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1671,12 +1314,7 @@ const pattern53: PatternRiche = {
   fonctionNb: (x:number) => 2 * x,
   formule: '2\\times n',
   type: 'linéaire',
-  shapes: ['étoile', 'étoile'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré']
-    ]),
+  shapes: ['cerise'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1692,15 +1330,7 @@ const pattern54: PatternRiche = {
   fonctionNb: (x:number) => 5 * x,
   formule: '5\\times n',
   type: 'linéaire',
-  shapes: ['soleil', 'soleil'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [3, 0, 'carré'],
-      [4, 0, 'carré']
-    ]),
+  shapes: ['peche'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1721,14 +1351,7 @@ const pattern55: PatternRiche = {
   fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
-  shapes: ['balle', 'balle'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [2, 1, 'carré']
-    ]),
+  shapes: ['banane'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1750,11 +1373,7 @@ const pattern56:PatternRiche = {
   fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n - 1',
   type: 'affine',
-  shapes: ['rond', 'rond'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]),
+  shapes: ['rond'],
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1773,11 +1392,6 @@ const pattern57: PatternRiche = {
   formule: '\\dfrac{n}{n^2+1}',
   type: 'degré2',
   shapes: ['carré', 'carréBleu'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carréBleu']
-    ], ['carré', 'carréBleu']),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1799,13 +1413,6 @@ const pattern58: PatternRiche = {
   formule: 'n^2 : 2n : 1',
   type: 'degré2',
   shapes: ['carréBleu', 'carréRond', 'rond'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carréBleu'],
-      [0, 1, 'carréRond'],
-      [1, 1, 'rond'],
-      [1, 0, 'carréRond']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1829,15 +1436,6 @@ const pattern59: PatternRiche = {
   formule: 'n : n+1 : 2n+1',
   type: 'affine',
   shapes: ['soleil', 'étoile', 'hexagone'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'soleil'],
-      [1, 0, 'étoile'],
-      [2, 0, 'étoile'],
-      [0, 1, 'hexagone'],
-      [1, 1, 'hexagone'],
-      [2, 1, 'hexagone']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1861,22 +1459,15 @@ const pattern60: PatternRiche = {
   formule: '\\dfrac{n}{2n+2}',
   type: 'affine',
   shapes: ['tortue', 'chat'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'tortue'],
-      [0, 1, 'chat'],
-      [1, 0, 'chat'],
-      [1, 1, 'chat']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
     for (let i = 0; i < n; i++) {
-      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[0]])) // tortue
-      newCells.add(VisualPattern.coordToKey([i, 1, this.shapes[1]])) // chat
+      newCells.add(VisualPattern.coordToKey([i * 2, 0, this.shapes[0], { scale: 2 }])) // tortue
+      newCells.add(VisualPattern.coordToKey([i * 2, 2, this.shapes[1], { scale: 2 }])) // chat
     }
-    newCells.add(VisualPattern.coordToKey([n, 0, this.shapes[1]])) // chat
-    newCells.add(VisualPattern.coordToKey([n, 1, this.shapes[1]])) // chat
+    newCells.add(VisualPattern.coordToKey([n * 2, 0, this.shapes[1], { scale: 2 }])) // chat
+    newCells.add(VisualPattern.coordToKey([n * 2, 2, this.shapes[1], { scale: 2 }])) // chat
     return newCells
   }
 }
@@ -1888,16 +1479,6 @@ const pattern61: PatternRiche = {
   formule: 'n^2+4n+2',
   type: 'degré2',
   shapes: ['carréBleu', 'hexagone'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carréBleu'],
-      [0, 1, 'carréBleu'],
-      [1, 0, 'carréBleu'],
-      [1, 1, 'carréBleu'],
-      [2, 1, 'hexagone'],
-      [2, 2, 'hexagone'],
-      [1, 2, 'hexagone']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1922,12 +1503,6 @@ const pattern62: PatternRiche = {
   formule: '3\\times n',
   type: 'linéaire',
   shapes: ['redCross', 'rond'],
-  pattern: new VisualPattern(
-    [
-      [1, 0, 'redCross'],
-      [0, 0, 'rond'],
-      [2, 0, 'rond']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1946,12 +1521,6 @@ const pattern63: PatternRiche = {
   formule: '2\\times n + 1',
   type: 'affine',
   shapes: ['hexagone', 'étoile'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'hexagone'],
-      [1, 0, 'étoile'],
-      [2, 0, 'hexagone']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1973,15 +1542,6 @@ const pattern64:PatternRiche = {
   fonctionFraction: (x:number) => new FractionEtendue(x, 4 * x + 1),
   formule: '4\\times n + 1',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [1, 1, 'carréRond'],
-      [1, 0, 'rond'],
-      [0, 1, 'rond'],
-      [1, 2, 'rond'],
-      [2, 1, 'rond']
-    ]
-  ),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2006,14 +1566,6 @@ const pattern65: PatternRiche = {
   fonctionNb: (x:number) => 5 * x + 2,
   fonctionRatio: (x:number) => new Ratio([4 * x + 2, x]),
   fonctionFraction: (x:number) => new FractionEtendue(4 * x + 2, 5 * x + 2),
-  pattern: new VisualPattern([
-    [1.25, 0, 'hexagone'],
-    [0, 0.433, 'hexagone'],
-    [1.5, 0.433, 'hexagone'],
-    [0, 1.299, 'hexagone'],
-    [1.5, 1.299, 'hexagone'],
-    [1.25, 1.732, 'hexagone']
-  ]),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2037,14 +1589,6 @@ const pattern66: PatternRiche = {
   fonctionFraction: (x:number) => new FractionEtendue(1 + 3 * (x - 1) * x, 1 + 3 * (x + 1) * x),
   type: 'degré2',
   shapes: ['hexagone', 'hexagoneJaune'],
-  pattern: new VisualPattern([
-    [1.25, 0, 'hexagone'],
-    [0, 0.433, 'hexagone'],
-    [1.5, 0.433, 'hexagone'],
-    [0, 1.299, 'hexagone'],
-    [1.5, 1.299, 'hexagone'],
-    [1.25, 1.732, 'hexagone']
-  ]),
   iterate: function (this: VisualPattern, n: number = 1): Set<string> {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2072,10 +1616,6 @@ const pattern67: PatternRiche = {
   formule: '\\dfrac{n\\times(n+1)}{2}',
   type: 'degré2',
   shapes: ['cloche', 'fleur'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'cloche']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2097,18 +1637,6 @@ const pattern68: PatternRiche = {
   formule: '(n+2)^2',
   type: 'degré2',
   shapes: ['carré', 'carréBleu'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [0, 1, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré'],
-      [2, 1, 'carré'],
-      [2, 2, 'carré'],
-      [1, 2, 'carré'],
-      [0, 2, 'carré'],
-      [1, 1, 'carréBleu']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2129,10 +1657,6 @@ const pattern69: PatternRiche = {
   formule: 'n^2',
   type: 'degré2',
   shapes: ['carréBleu', 'carré'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2152,10 +1676,6 @@ const pattern70: PatternRiche3D = {
   fonctionNb: (x:number) => x ** 2 * (x + 1) / 2,
   formule: '\\dfrac{n^2(n+1)}{2}',
   type: 'degré3',
-  pattern: new VisualPattern3D(
-    [
-      [0, 0, 0]
-    ]),
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2175,12 +1695,6 @@ const pattern71: PatternRiche3D = {
   fonctionNb: (x:number) => x * (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{n(n+1)(n+2)}{2}',
   type: 'degré3',
-  pattern: new VisualPattern3D(
-    [
-      [-0.5, -0.5, 0],
-      [0.5, -0.5, 0],
-      [-0.5, -0.5, 1]
-    ]),
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2202,10 +1716,6 @@ const pattern72: PatternRiche = {
   formule: 'n^2',
   type: 'degré2',
   shapes: ['triangle'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'triangle']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2225,17 +1735,6 @@ const pattern73: PatternRiche = {
   formule: '3\\times n + 5',
   type: 'affine',
   shapes: ['rond', 'carré', 'étoile'],
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'rond'],
-      [1, 0, 'carré'],
-      [1, 1, 'rond'],
-      [2, 1, 'rond'],
-      [0.5, 2, 'rond'],
-      [1.5, 2, 'rond'],
-      [1, 3, 'rond'],
-      [1, 4, 'étoile']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2259,13 +1758,6 @@ const pattern74: PatternRiche3D = {
   formule: '3n+1',
   type: 'affine',
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  pattern: new VisualPattern3D(
-    [
-      [0, -0.5, 0],
-      [1, -0.5, 0],
-      [-1, -0.5, 1],
-      [0, -0.5, 1]
-    ]),
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2287,12 +1779,6 @@ const pattern75: PatternRiche3D = {
   formule: '2n^3+n',
   type: 'degré3',
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
-  pattern: new VisualPattern3D(
-    [
-      [-1, -0.5, 0],
-      [0, -0.5, 0],
-      [1, -0.5, 0],
-    ]),
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2322,18 +1808,6 @@ const pattern76: PatternRiche = {
   formule: '5\\times n + 4',
   type: 'affine',
   shapes: ['licorne', 'dragon'],
-  pattern: new VisualPattern(
-    [
-      [2, 1, 'licorne'],
-      [0, 0, 'dragon'],
-      [1, 0.5, 'dragon'],
-      [1, 1.5, 'dragon'],
-      [2, 0, 'dragon'],
-      [4, 2, 'dragon'],
-      [3, 1.5, 'dragon'],
-      [4, 0, 'dragon'],
-      [3, 0.5, 'dragon']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2355,17 +1829,6 @@ const pattern77: PatternRiche = {
   formule: '(n+1)(n+3)',
   type: 'degré2',
   shapes: ['rectangleVert', 'rectangleBlanc'],
-  pattern: new VisualPattern(
-    [
-      [0, 1, 'rectangleVert'],
-      [0, 2, 'rectangleVert'],
-      [0, 3, 'rectangleVert'],
-      [0, 0, 'rectangleBlanc'],
-      [1, 0, 'rectangleBlanc'],
-      [1, 1, 'rectangleBlanc'],
-      [1, 2, 'rectangleBlanc'],
-      [1, 3, 'rectangleBlanc'],
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2386,10 +1849,6 @@ const pattern78: PatternRiche = {
   fonctionFraction: (x:number) => new FractionEtendue(3 * x ** 2 - 3 * x - 2, 1 + x * (x - 1) * 3),
   type: 'degré2',
   shapes: ['hexagone', 'hexagoneJaune'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'hexagone']
-    ]),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2418,12 +1877,6 @@ const pattern79: PatternRiche = {
   formule: '1+\\dfrac{n\\times(n+1)}{2}',
   type: 'degré2',
   shapes: ['pingouin'],
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'pingouin'],
-      [1, 0, 'pingouin']
-    ]
-  ),
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2444,12 +1897,6 @@ const pattern80: PatternRiche = {
   fonctionNb: (x:number) => 1 + 2 * x,
   formule: '1+2\\times n',
   type: 'affine',
-  pattern: new VisualPattern(
-    [
-      [0, 0, 'carré'],
-      [1, 0, 'carré'],
-      [2, 0, 'carré']
-    ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2470,15 +1917,6 @@ const pattern81: PatternRiche = {
   fonctionNb: (x:number) => 3 + 2 * x * (x + 1),
   formule: '3+2\\times n(n+1)',
   type: 'degré2',
-  pattern: new VisualPattern([
-    [0, 0, 'rond'],
-    [1, 0, 'rond'],
-    [2, 0, 'rond'],
-    [0, 1, 'rond'],
-    [2, 1, 'rond'],
-    [2, 2, 'rond'],
-    [1, 2, 'rond']
-  ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2503,19 +1941,6 @@ const pattern82: PatternRiche = {
   fonctionNb: (x:number) => 5 + 6 * x,
   type: 'affine',
   formule: '5+6\\times n',
-  pattern: new VisualPattern([
-    [1, 0, 'carréRond'],
-    [3, 0, 'carréRond'],
-    [1, 1, 'carréRond'],
-    [1, 1, 'carréRond'],
-    [1, 1, 'carréRond'],
-    [1, 1, 'carréRond'],
-    [1, 1, 'carréRond'],
-    [1, 1, 'carréRond'],
-    [1, 2, 'carréRond'],
-    [0, 3, 'carréRond'],
-    [0, 5, 'carréRond'],
-  ]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2540,6 +1965,336 @@ const pattern82: PatternRiche = {
   }
 
 }
+
+// chien, chat, tortue
+const pattern83: PatternRicheRepetition = {
+  shapes: ['chien', 'chat', 'tortue'],
+  nbMotifMin: 6,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 3 === 0) return 'chien'
+    if ((n - 1) % 3 === 1) return 'chat'
+    return 'tortue'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[(n - 1) % 3]]))
+    return newCells
+  }
+}
+
+// losange, hexagone
+const pattern84: PatternRicheRepetition = {
+  shapes: ['losange', 'hexagone'],
+  nbMotifMin: 4,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 2 === 0) return 'losange'
+    return 'hexagone'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[(n - 1) % 2]]))
+    return newCells
+  }
+}
+
+// fraise, banane, kiwi, citron
+const pattern85: PatternRicheRepetition = {
+  shapes: ['fraise', 'banane', 'kiwi', 'citron'],
+  nbMotifMin: 8,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 4 === 0) return 'fraise'
+    if ((n - 1) % 4 === 1) return 'banane'
+    if ((n - 1) % 4 === 2) return 'kiwi'
+    return 'citron'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[(n - 1) % 4]]))
+    return newCells
+  }
+}
+
+// rond, carré, carré, triangle, losange, hexagone
+const pattern86: PatternRicheRepetition = {
+  shapes: ['rond', 'carré', 'carré', 'triangle', 'losange', 'hexagone'],
+  nbMotifMin: 12,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 6 === 0) return 'rond'
+    if ((n - 1) % 6 === 1 || n % 6 === 2) return 'carré'
+    if ((n - 1) % 6 === 3) return 'triangle'
+    if ((n - 1) % 6 === 4) return 'losange'
+    return 'hexagone'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, ['rond', 'carré', 'carré', 'triangle', 'losange', 'hexagone'][(n - 1) % 6]]))
+    return newCells
+  }
+}
+
+// carré, triangle, hexagone, triangle, carré
+const pattern87: PatternRicheRepetition = {
+  shapes: ['carré', 'triangle', 'hexagone'],
+  nbMotifMin: 10,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 5 === 0) return 'carré'
+    if ((n - 1) % 5 === 1) return 'triangle'
+    if ((n - 1) % 5 === 2) return 'hexagone'
+    if ((n - 1) % 5 === 3) return 'triangle'
+    return 'carré'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    const modulo = (n - 1) % 5
+    newCells.add(VisualPattern.coordToKey([0, 0, modulo % 4 === 0 ? this.shapes[0] : modulo % 2 === 1 ? this.shapes[1] : this.shapes[2]]))
+    return newCells
+  }
+}
+
+// rond, triangle, hexagone, rond
+const pattern88: PatternRicheRepetition = {
+  shapes: ['rond', 'triangle', 'hexagone'],
+  nbMotifMin: 8,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 4 === 0) return 'rond'
+    if ((n - 1) % 4 === 1) return 'triangle'
+    if ((n - 1) % 4 === 2) return 'hexagone'
+    return 'rond'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    const modulo = (n - 1) % 4
+    newCells.add(VisualPattern.coordToKey([0, 0, (modulo % 4) % 3 === 0 ? this.shapes[0] : modulo % 4 === 1 ? this.shapes[1] : this.shapes[2]]))
+    return newCells
+  }
+}
+
+// raisin, pomme, pomme, orange
+const pattern89: PatternRicheRepetition = {
+  shapes: ['raisin', 'pomme', 'orange'],
+  nbMotifMin: 8,
+  fonctionShape: (n:number) => {
+    if ((n - 1) % 4 === 0) return 'raisin'
+    if ((n - 1) % 4 === 1) return 'pomme'
+    if ((n - 1) % 4 === 2) return 'pomme'
+    return 'orange'
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    const modulo = (n - 1) % 4
+    newCells.add(VisualPattern.coordToKey([0, 0, (modulo % 4) === 0 ? this.shapes[0] : modulo % 4 === 3 ? this.shapes[2] : this.shapes[1]]))
+    return newCells
+  }
+}
+
+const pattern90: PatternRiche = {
+  shapes: ['triangle'],
+  visualId: 100,
+  visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c407a52a-19ae-4f37-b0fa-fbbbe2a3b7fd/4403080_orig.png?format=2500w',
+  fonctionNb: (x:number) => (3 ** x - 1) / 2,
+  formule: '\\dfrac{3^n-1}{2}',
+  fonctionRatio: (x:number) => new Ratio([(3 ** (x - 1) - 1) / 2, 3 ** (x - 1)]),
+  fonctionFraction: (x:number) => new FractionEtendue((3 ** (x - 1) - 1) / 2, (3 ** x - 1) / 2),
+  type: 'autre',
+  pattern: new VisualPattern([
+    [0, 0, 'triangle', { scale: 3 }]
+  ]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    function partageTriangle (n:number, x: number, y: number, scale: number) {
+      if (n > 1) {
+        partageTriangle(n - 1, x, y, scale / 2)
+        partageTriangle(n - 1, x + 0.433 * scale, y, scale / 2)
+        partageTriangle(n - 1, x + 0.2165 * scale, y + 0.375 * scale, scale / 2)
+      } else {
+        newCells.add(VisualPattern.coordToKey([x, y, 'triangle', { scale }]))
+      }
+    }
+    partageTriangle(n, n, 1, 5)
+    return newCells
+  }
+}
+
+// allumettes en carrés
+const pattern91: PatternRiche = {
+  shapes: ['allumetteV', 'allumetteH'],
+  type: 'autre',
+  formule: '3\\times n+1',
+  fonctionNb: (x:number) => 3 * x + 1,
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 0.8, translate: [0, 0] }])) // allumette
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[1], { scale: 0.8, translate: [0.5, 0.45] }])) // allumette horizontale haute
+      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[1], { scale: 0.8, translate: [0.5, -0.45] }])) // allumette horizontale basse
+      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[0], { scale: 0.8, translate: [1, 0] }])) // allumette verticale à droite
+    }
+    return newCells
+  }
+}
+
+// allumettes en triangles
+const pattern92: PatternRiche = {
+  shapes: ['allumette60', 'allumette120', 'allumetteH'],
+  type: 'autre',
+  formule: '2\\times n+1',
+  fonctionNb: (x:number) => 2 * x + 1,
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 0.8, translate: [-0.45, 0] }])) // allumette
+    for (let i = 0; i < n; i++) {
+      if (i % 2 === 0) {
+        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[1], { scale: 0.8, translate: [0.1, 0] }])) // allumette120
+        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[2], { scale: 0.8, translate: [-0.2, -0.45] }])) // allumette horizontale basse
+      } else {
+        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[2], { scale: 0.8, translate: [-0.15, 0.45] }])) // allumette horizontale haute
+        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[0], { scale: 0.8, translate: [0.1, 0] }])) // allumettt60
+      }
+    }
+    return newCells
+  }
+}
+
+// allumettes en triangles
+const pattern93: PatternRiche = {
+  shapes: ['allumetteV', 'allumette120'],
+  type: 'autre',
+  formule: '2\\times n+1',
+  fonctionNb: (x:number) => 2 * x + 1,
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 0.8, translate: [0, 0] }])) // allumette
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([0.6 * i, 0, this.shapes[1], { scale: 0.8, translate: [0.3, 0] }])) // allumette120
+      newCells.add(VisualPattern.coordToKey([0.6 * i, 0, this.shapes[0], { scale: 0.8, translate: [0.6, 0] }])) // allumette horizontale basse
+    }
+    return newCells
+  }
+}
+
+const pattern94: PatternRiche = {
+  shapes: ['allumetteH', 'allumette60', 'allumette120'],
+  type: 'autre',
+  fonctionNb: (x:number) => 3 ** x,
+  formule: '3^n',
+  pattern: new VisualPattern([]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    function partageTriangle (n:number, x: number, y: number, scale: number) {
+      if (n > 1) {
+        partageTriangle(n - 1, x + 0.1, y, scale * 0.5)
+        partageTriangle(n - 1, x + 0.433 * scale, y, scale * 0.5)
+        partageTriangle(n - 1, x + 0.2165 * scale, y + 0.375 * scale, scale * 0.5)
+      } else {
+        newCells.add(VisualPattern.coordToKey([x, y, 'allumetteH', { scale: scale * 0.8 }]))
+        newCells.add(VisualPattern.coordToKey([x - 0.25 * scale, y + 0.4 * scale, 'allumette60', { scale: scale * 0.8 }]))
+        newCells.add(VisualPattern.coordToKey([x + 0.25 * scale, y + 0.4 * scale, 'allumette120', { scale: scale * 0.8 }]))
+      }
+    }
+    partageTriangle(n, n, 1, 5)
+    return newCells
+  }
+}
+
+const pattern95: PatternRiche = {
+  shapes: ['chien'],
+  type: 'linéaire',
+  formule: '2\\times n',
+  fonctionNb: (x:number) => 2 * x,
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i * 4, 0, this.shapes[0], { scale: 2 }])) // chien
+      newCells.add(VisualPattern.coordToKey([i * 4 + 2, 0, this.shapes[0], { scale: 2 }])) // chien
+    }
+    return newCells
+  }
+}
+
+const pattern96: PatternRiche = {
+  shapes: ['fraise', 'soleil'],
+  type: 'affine',
+  formule: '7+4\\times n',
+  fonctionNb: (x:number) => 7 + 4 * x,
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([n + 2, 2 * n, this.shapes[0]])) // fraise
+    for (let i = 1; i <= n; i++) {
+      newCells.add(VisualPattern.coordToKey([n + 2 + i, 2 * n, this.shapes[0]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2 - i, 2 * n, this.shapes[0]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n + i, this.shapes[0]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n - i, this.shapes[0]])) // fraise
+    }
+    for (let i = n + 1; i <= 2 * n; i++) {
+      newCells.add(VisualPattern.coordToKey([n + 2 + i, 2 * n, this.shapes[1]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2 - i, 2 * n, this.shapes[1]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n + i, this.shapes[1]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n - i, this.shapes[1]])) // fraise
+    }
+    return newCells
+  }
+}
+
+const pattern97: PatternRiche = {
+  shapes: ['chat', 'chien', 'fraise', 'cerise'],
+  type: 'affine',
+  formule: '4\\times n+4',
+  fonctionNb: (x:number) => 4 * x + 4,
+  fonctionFraction: (x:number) => new FractionEtendue(x + 1, 4 * x + 4),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    for (let i = 0; i < n + 1; i++) {
+      newCells.add(VisualPattern.coordToKey([n + 1, i, this.shapes[0]]))
+      newCells.add(VisualPattern.coordToKey([n + 1, n + 2 + i, this.shapes[2]]))
+
+      newCells.add(VisualPattern.coordToKey([n - i + 1, n + 1, this.shapes[3]]))
+      newCells.add(VisualPattern.coordToKey([n + 2 + i, n + 1, this.shapes[1]]))
+    }
+    return newCells
+  }
+}
+
+const pattern100: PatternRicheRepetition = {
+  shapes: ['cadeau', 'explosion'],
+  nbMotifMin: 10,
+  fonctionShape: (n:number) => {
+    return ['cadeau', 'explosion'][Number.isInteger(Math.sqrt(1 + 8 * n)) ? 0 : 1]
+  },
+  iterate: function (this: VisualPattern, n?: number) {
+    if (n === undefined) n = 0
+
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([0, 0, ['cadeau', 'explosion'][Number.isInteger(Math.sqrt(1 + 8 * n)) ? 0 : 1]])) // explosion ou cadeau
+    return newCells
+  }
+}
+
+export const patternsRepetition: PatternRicheRepetition[] = [
+  pattern83,
+  pattern84,
+  pattern85,
+  pattern86,
+  pattern87,
+  pattern88,
+  pattern89,
+  pattern100
+]
+
 const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern1,
   pattern2,
@@ -2622,7 +2377,15 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern79,
   pattern80,
   pattern81,
-  pattern82
+  pattern82,
+  pattern90,
+  pattern91,
+  pattern92,
+  pattern93,
+  pattern94,
+  pattern95,
+  pattern96,
+  pattern97
 ]
 /**
  * Liste des patterns prédéfinis, triés par type.
@@ -2633,7 +2396,7 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
  * - listePatternDegre2 : tous les patterns de degré 2
  * - listePatternDegre3 : tous les patterns de degré 3
  */
-const listePattern2d: PatternRiche[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern) as PatternRiche[]
+const listePattern2d: (PatternRiche)[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern) as PatternRiche[]
 const listePattern3d: PatternRiche3D[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern3D) as PatternRiche3D[]
 const listePatternAffine: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'affine')
 const listePatternLineaire: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'linéaire')
