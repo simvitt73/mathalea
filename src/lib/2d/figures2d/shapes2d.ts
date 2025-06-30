@@ -187,6 +187,37 @@ export const shapeHexagoneJaune = new Shape2D({
   name: 'hexagoneJaune'
 })
 
+export const shapePentagone = new Shape2D({
+  codeSvg: '<use href="#pentagone"></use>',
+  codeTikz: '\\pic at (0,0) {pentagone};',
+  width: 1,
+  height: 1,
+  opacite: 1,
+  name: 'pentagone'
+})
+
+export const pentagoneDef = new ObjetMathalea2D()
+pentagoneDef.bordures = [-0.5, -0.5, 0.5, 0.5]
+pentagoneDef.svg = function (coeff: number): string {
+  return `
+  <!-- Pentagone régulier -->
+  <defs>
+    <g id="pentagone">
+      <polygon points="0,-10 9.51,-3.09 5.88,8.09 -5.88,8.09 -9.51,-3.09"
+        fill="orange" stroke="black" stroke-width="0.5" />
+    </g>
+  </defs>`
+}
+pentagoneDef.tikz = function (): string {
+  return `
+  \\tikzset{
+   pentagone/.pic = {
+    \\draw[fill=orange, draw=black, line width=0.3pt]
+      (0,0.5) -- (0.475,0.154) -- (0.294,-0.404) -- (-0.294,-0.404) -- (-0.475,0.154) -- cycle;
+   }
+  }`.trim()
+}
+
 export const carreRondDef = new ObjetMathalea2D()
 carreRondDef.bordures = [-0.5, -0.5, 0.5, 0.5]
 carreRondDef.svg = function (coeff: number): string {
@@ -463,6 +494,7 @@ export const shapeNames: string[] = [
   'carréRond',
   'losange',
   'hexagone',
+  'pentagone',
   'rond',
   'balle',
   'triangle',
@@ -484,6 +516,7 @@ export const listeShapesDef: Record<ShapeName, ObjetMathalea2D > = {
   carréRond: carreRondDef,
   losange: losangeDef,
   hexagone: hexagoneDef,
+  pentagone: pentagoneDef,
   rond: rondDef,
   balle: balleDef,
   triangle: triangleEquilateralDef,
@@ -503,6 +536,7 @@ export const listeShapes2D: Record<ShapeName, Shape2D > = {
   carréRond: shapeCarreArrondi,
   losange: shapeLosange,
   hexagone: shapeHexagone,
+  pentagone: shapePentagone,
   rond: shapeRond,
   balle: shapeBalle,
   triangle: shapeTriangleEquilateral,

@@ -2486,6 +2486,7 @@ const pattern100: PatternRicheRepetition = {
   }
 }
 
+// triangle de Sierpinski avec des carrés
 const pattern101: PatternRiche = {
   shapes: ['carré'],
   numero: 101,
@@ -2494,22 +2495,84 @@ const pattern101: PatternRiche = {
   fonctionRatio: (x:number) => new Ratio([(3 ** (x - 1) - 1) / 2, 3 ** (x - 1)]),
   fonctionFraction: (x:number) => new FractionEtendue((3 ** (x - 1) - 1) / 2, (3 ** x - 1) / 2),
   type: 'autre',
-  pattern: new VisualPattern([
-    [0, 0, 'triangle', { scale: 3 }]
-  ]),
+  pattern: new VisualPattern([]),
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    function partageTriangle (n:number, x: number, y: number, scale: number) {
+    function partageCarré (n:number, x: number, y: number, scale: number) {
       if (n > 1) {
-        partageTriangle(n - 1, x, y, scale / 2)
-        partageTriangle(n - 1, x + scale, y, scale / 2)
-        partageTriangle(n - 1, x + scale, y + scale, scale / 2)
+        partageCarré(n - 1, x, y - scale / 4, scale / 2)
+        partageCarré(n - 1, x + scale * 0.5, y - scale / 4, scale / 2)
+        partageCarré(n - 1, x + scale * 0.25, y + scale / 4, scale / 2)
       } else {
-        newCells.add(VisualPattern.coordToKey([x, y, 'carre', { scale }]))
+        newCells.add(VisualPattern.coordToKey([x, y, 'carré', { scale }]))
       }
     }
-    partageTriangle(n, n, 1, 5)
+    partageCarré(n, 0, 2, 5)
+    return newCells
+  }
+}
+
+// Tapis de Serpinski
+const pattern102: PatternRiche = {
+  shapes: ['carré', 'carréBleu'],
+  numero: 101,
+  fonctionNb: (x:number) => (3 ** x - 1) / 2,
+  formule: '\\dfrac{3^n-1}{2}',
+  fonctionRatio: (x:number) => new Ratio([(3 ** (x - 1) - 1) / 2, 3 ** (x - 1)]),
+  fonctionFraction: (x:number) => new FractionEtendue((3 ** (x - 1) - 1) / 2, (3 ** x - 1) / 2),
+  type: 'autre',
+  pattern: new VisualPattern([]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    function evideCarré (n:number, x: number, y: number, scale: number) {
+      if (n > 1) {
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            if (!(i === 1 && j === 1)) {
+              evideCarré(n - 1, x + i * scale / 3, y + j * scale / 3, scale / 3)
+            }
+          }
+        }
+      } else {
+        newCells.add(VisualPattern.coordToKey([x + scale / 3, y + scale / 3, 'carréBleu', { scale }]))
+      }
+    }
+    evideCarré(n, 0, 2, 5)
+    return newCells
+  }
+}
+
+const pattern103: PatternRiche = {
+  shapes: ['pentagone'],
+  numero: 101,
+  fonctionNb: (x:number) => (3 ** x - 1) / 2,
+  formule: '\\dfrac{3^n-1}{2}',
+  fonctionRatio: (x:number) => new Ratio([(3 ** (x - 1) - 1) / 2, 3 ** (x - 1)]),
+  fonctionFraction: (x:number) => new FractionEtendue((3 ** (x - 1) - 1) / 2, (3 ** x - 1) / 2),
+  type: 'autre',
+  pattern: new VisualPattern([]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    function DecoupePenta (n:number, x: number, y: number, scale: number) {
+      // Facteur d'échelle pour coller parfaitement les pentagones
+      const phi = (1 + Math.sqrt(5)) / 2 // Nombre d'or
+      const apo = 0.809
+
+      const k = (1 / phi) ** 2
+      if (n > 1) {
+        for (let i = 0; i < 5; i++) {
+          const teta = (i * 2 + 0.5) * Math.PI / 5
+          DecoupePenta(n - 1, x + scale * k * apo * Math.cos(teta), y + scale * k * apo * Math.sin(teta), scale * k)
+        }
+      } else {
+        newCells.add(VisualPattern.coordToKey([x, y, 'pentagone', { scale }]))
+        // newCells.add(VisualPattern.coordToKey([x + scale / 3, y + scale / 3, 'carréBleu', { scale }]))
+      }
+    }
+    DecoupePenta(n, 0, 2, 6)
     return newCells
   }
 }
@@ -2618,7 +2681,9 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern97,
   pattern98,
   pattern99,
-  pattern101
+  pattern101,
+  pattern102,
+  pattern103
 ]
 /**
  * Liste des patterns prédéfinis, triés par type.
