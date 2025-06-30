@@ -65,7 +65,7 @@ export const shapeAllumette = new Shape2D({
 
 export const shapeAllumetteHorizontale = new Shape2D({
   codeSvg: '<use href="#allumette-verticale" transform="rotate(90)"></use>',
-  codeTikz: '\\pic at (0,0) rotate(90) {allumette-verticale};',
+  codeTikz: '\\pic[rotate=90] at (0,0) {allumette-verticale};',
   width: 0.2,
   height: 1,
   opacite: 1,
@@ -74,7 +74,7 @@ export const shapeAllumetteHorizontale = new Shape2D({
 
 export const shapeAllumette60 = new Shape2D({
   codeSvg: '<use href="#allumette-verticale" transform="rotate(30)"></use>',
-  codeTikz: '\\pic at (0,0) rotate(30) {allumette-verticale};',
+  codeTikz: '\\pic[rotate=-30] at (0,0) {allumette-verticale};',
   width: 0.2,
   height: 1,
   opacite: 1,
@@ -83,7 +83,7 @@ export const shapeAllumette60 = new Shape2D({
 
 export const shapeAllumette120 = new Shape2D({
   codeSvg: '<use href="#allumette-verticale" transform="rotate(-30)"></use>',
-  codeTikz: '\\pic at (0,0) rotate(-30) {allumette-verticale};',
+  codeTikz: '\\pic[rotate=30] at (0,0) {allumette-verticale};',
   width: 0.2,
   height: 1,
   opacite: 1,
@@ -107,12 +107,13 @@ allumetteDef.tikz = function (): string {
   \\tikzset{
    allumette-verticale/.pic = {
     % Tige
-    \\draw[fill=brown!30!yellow, draw=brown!80!black, line width=0.3pt] (-0.1,-0.45) rectangle (0.1,0.45);
+    \\draw[fill=brown!30!yellow, draw=brown!80!black, line width=0.3pt] (-0.05,-0.5) rectangle (0.05,0.4);
     % Tête
-    \\draw[fill=red, draw=red!70!black, line width=0.3pt] (0,0.5) circle (0.15);
+    \\draw[fill=red, draw=red!70!black, line width=0.3pt] (0,0.45) ellipse [x radius=0.075, y radius=0.1];
    }
   }`.trim()
 }
+
 export const shapeRectangleBlanc = new Shape2D({
   codeSvg: '<use href="#rectangle-blanc"></use>',
   codeTikz: '\\pic at (0,0) {rectangle-blanc};',

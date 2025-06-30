@@ -3,7 +3,7 @@ import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapesDef, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { listePatternsPreDef, type PatternRiche3D, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternsPreDef, type PatternRiche3D, type PatternRiche, patternsRepetition } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -24,8 +24,8 @@ export const refs = {
   'fr-ch': []
 }
 export const uuid = '4c9ca'
-
-const nbPatterns = listePatternsPreDef.length
+const listeOfAll = [...listePatternsPreDef, ...patternsRepetition].sort((a, b) => Number(a.numero) - Number(b.numero))
+const nbPatterns = listeOfAll.length
 
 /**
  * Dans le dossier src/lib/2d/patterns, on trouve un fichier patternsPreDef.ts
@@ -74,62 +74,89 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
     }
     if (liste == null || liste.length === 0) return
     for (let i = 0; i < liste.length; i++) {
-      const pat = listePatternsPreDef[liste[i] - 1]
+      const pat = listeOfAll[liste[i] - 1]
       if (pat == null) {
         texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
         continue
       }
-      const n43 = new Decimal(pat.fonctionNb(43)).toString()
-      const n43R = pat.fonctionRatio
-        ? pat.fonctionRatio(43).values.map((el) => new Decimal(el).toString()).join('~:~')
-        : null
-      const n43F = pat.fonctionFraction && pat.fonctionRatio
-        ? `\\dfrac{${(pat.fonctionRatio(43).values[0] ?? 0).toString()}}{${new Decimal(pat.fonctionNb(43)).toString()}}`
-        : null
-      texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule)}\\right]$ <br>`
-
-      const patternRiche = pat
-      if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
-      if (pattern instanceof VisualPattern3D) {
-        pattern.shapes = ['cube']
-        pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
+      if ('nbMotifMin' in pat) {
+        // On est en présence d'un motif répétitif
+        const objets: NestedObjetMathalea2dArray = []
+        for (const shape of pat.shapes) {
+          if (shape in listeShapesDef) {
+            objets.push(listeShapesDef[shape])
+          }
+          if (shape in emojis) {
+            objets.push(emoji(shape, emojis[shape]).shapeDef)
+          }
+        }
+        for (let j = 0; j <= pat.nbMotifMin; j++) {
+          const pattern = new VisualPattern([])
+          pattern.shapes = pat.shapes
+          pattern.iterate = pat.iterate
+          objets.push(pattern.render(j, j + 1, 0))
+        }
+        texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}:  <br>`
+        texte += mathalea2d(Object.assign(fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objets)
       } else {
-        pattern.shapes = (patternRiche as PatternRiche).shapes || shapeNames[randint(0, shapeNames.length - 1)] as ShapeName
-        pattern.iterate = (patternRiche as PatternRiche).iterate
-      }
+        const n43 = !('nbMotifMin' in pat)
+          ? new Decimal(pat.fonctionNb(43)).toString()
+          : null
+        const n43R = !('nbMotifMin' in pat)
+          ? pat.fonctionRatio
+            ? pat.fonctionRatio(43).values.map((el) => new Decimal(el).toString()).join('~:~')
+            : null
+          : null
+        const n43F = !('nbMotifMin' in pat)
+          ? pat.fonctionFraction && pat.fonctionRatio
+            ? `\\dfrac{${(pat.fonctionRatio(43).values[0] ?? 0).toString()}}{${new Decimal(pat.fonctionNb(43)).toString()}}`
+            : null
+          : null
 
-      const angle = Math.PI / 2.5
-      let yMax = 0
-      let yMin = 0
+        texte += `\n${texteEnCouleurEtGras(`Pattern ${liste[i]}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
 
-      const figures: NestedObjetMathalea2dArray[] = []
-      for (let j = 0; j < this.sup3; j++) {
-        figures[j] = []
-        let objets: NestedObjetMathalea2dArray = []
-        let ymin = Infinity
-        let ymax = -Infinity
-        let xmin = Infinity
-        let xmax = -Infinity
-        if (context.isHtml) {
-          for (let n = 0; n < pattern.shapes.length; n++) {
-            let name = pattern.shapes[n]
-            if (name in listeShapesDef) {
-              if (name === 'carré') {
-                const nom = String(choice(Object.keys(emojis)))
-                name = nom
-                pattern.shapes[n] = nom
-                figures[j].push(emoji(nom, emojis[nom]).shapeDef)
-              } else figures[j].push(listeShapesDef[name])
-            } else if (name in emojis) {
-              figures[j].push(emoji(name, emojis[name]).shapeDef)
-            } else {
-              if (Object.keys(emojis).includes(name)) {
-                figures[j].push(emoji(name, emojis[name]))
-              } else if (name === 'cube') {
-                const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`)
-                cubeIsoDef.svg = function (coeff: number): string {
-                  return `
+        const patternRiche = pat
+        if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
+        const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
+        if (pattern instanceof VisualPattern3D) {
+          pattern.shapes = ['cube']
+          pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
+        } else {
+          pattern.shapes = (patternRiche as PatternRiche).shapes || shapeNames[randint(0, shapeNames.length - 1)] as ShapeName
+          pattern.iterate = (patternRiche as PatternRiche).iterate
+        }
+
+        const angle = Math.PI / 2.5
+        let yMax = 0
+        let yMin = 0
+
+        const figures: NestedObjetMathalea2dArray[] = []
+        for (let j = 0; j < this.sup3; j++) {
+          figures[j] = []
+          let objets: NestedObjetMathalea2dArray = []
+          let ymin = Infinity
+          let ymax = -Infinity
+          let xmin = Infinity
+          let xmax = -Infinity
+          if (context.isHtml) {
+            for (let n = 0; n < pattern.shapes.length; n++) {
+              let name = pattern.shapes[n]
+              if (name in listeShapesDef) {
+                if (name === 'carré') {
+                  const nom = String(choice(Object.keys(emojis)))
+                  name = nom
+                  pattern.shapes[n] = nom
+                  figures[j].push(emoji(nom, emojis[nom]).shapeDef)
+                } else figures[j].push(listeShapesDef[name])
+              } else if (name in emojis) {
+                figures[j].push(emoji(name, emojis[name]).shapeDef)
+              } else {
+                if (Object.keys(emojis).includes(name)) {
+                  figures[j].push(emoji(name, emojis[name]))
+                } else if (name === 'cube') {
+                  const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`)
+                  cubeIsoDef.svg = function (coeff: number): string {
+                    return `
           <defs>
             <g id="cubeIsoQ${i}F${j}">
               ${faceTop(angle)}
@@ -137,50 +164,51 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
               ${faceRight(angle)}
             </g>
           </defs>`
+                  }
+                  figures[j].push(cubeIsoDef)
+                } else {
+                  console.warn(`Shape ${name} n'est pas dans listeShapesDef ou emojis et n'est pas un cube`)
                 }
-                figures[j].push(cubeIsoDef)
-              } else {
-                console.warn(`Shape ${name} n'est pas dans listeShapesDef ou emojis et n'est pas un cube`)
               }
             }
           }
-        }
-        if (pattern instanceof VisualPattern3D) {
-          if (context.isHtml) {
-            updateCubeIso(pattern, i, j, angle)
-            pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-            const cells = (pattern as VisualPattern3D).render3d(j + 1)
-            // Ajouter les SVG générés par svg() de chaque objet
-            cells.forEach(cell => {
-              const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
-              const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py)
-              obj.x = px
-              obj.y = -py
-              objets.push(obj)
-              ymin = Math.min(ymin, obj.y / 20)
-              ymax = Math.max(ymax, obj.y / 20)
-              xmin = Math.min(xmin, obj.x / 20)
-              xmax = Math.max(xmax, obj.x / 20)
-            })
+          if (pattern instanceof VisualPattern3D) {
+            if (context.isHtml) {
+              updateCubeIso(pattern, i, j, angle)
+              pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
+              const cells = (pattern as VisualPattern3D).render3d(j + 1)
+              // Ajouter les SVG générés par svg() de chaque objet
+              cells.forEach(cell => {
+                const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
+                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py)
+                obj.x = px
+                obj.y = -py
+                objets.push(obj)
+                ymin = Math.min(ymin, obj.y / 20)
+                ymax = Math.max(ymax, obj.y / 20)
+                xmin = Math.min(xmin, obj.x / 20)
+                xmax = Math.max(xmax, obj.x / 20)
+              })
+            } else {
+              objets = [cubeDef(`cubeIsoQ${i}F${j}`), ...pattern.render(j + 1, 0, 0, Math.PI / 6)]
+              ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
+            }
           } else {
-            objets = [cubeDef(`cubeIsoQ${i}F${j}`), ...pattern.render(j + 1, 0, 0, Math.PI / 6)]
+            objets = pattern.render(j + 1, 0, 0)
             ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
           }
-        } else {
-          objets = pattern.render(j + 1, 0, 0)
-          ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
-        }
-        figures[j].push(...objets)
-        // const { xmax, ymax, xmin, ymin } = fixeBordures(objets, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
-        figures[j].push(texteParPosition(`Motif ${j + 1}`, (xmax + xmin) / 2, -1.5, 0, 'black', 0.8, 'milieu'))
-        const cadre = polygone(point(xmin - 2, -2), point(xmax + 2, -2), point(xmax + 2, ymax + 2), point(xmin - 2, ymax + 2))
-        cadre.pointilles = 4
-        figures[j].push(cadre)
+          figures[j].push(...objets)
+          // const { xmax, ymax, xmin, ymin } = fixeBordures(objets, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
+          figures[j].push(texteParPosition(`Motif ${j + 1}`, (xmax + xmin) / 2, -1.5, 0, 'black', 0.8, 'milieu'))
+          const cadre = polygone(point(xmin - 2, -2), point(xmax + 2, -2), point(xmax + 2, ymax + 2), point(xmin - 2, ymax + 2))
+          cadre.pointilles = 4
+          figures[j].push(cadre)
 
-        yMax = Math.max(yMax, ymax)
-        yMin = Math.min(yMin, ymin)
+          yMax = Math.max(yMax, ymax)
+          yMin = Math.min(yMin, ymin)
+        }
+        texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { id: `Motif${i}F${index}`, pixelsParCm: 20, yMax, yMin, scale: 0.5, style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n') + '<br>'
       }
-      texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { id: `Motif${i}F${index}`, pixelsParCm: 20, yMax, yMin, scale: 0.5, style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n') + '<br>'
     }
     this.listeQuestions = [texte]
   }

@@ -7,6 +7,7 @@ import { Ratio } from '../../mathFonctions/Ratio'
 export type PatternRiche = {
   visualImg?: string,
   visualId?: number,
+  numero?: number,
   shapes: ShapeName[],
 
   fonctionNb: (x: number) => number,
@@ -20,6 +21,7 @@ export type PatternRiche = {
 export type PatternRiche3D = {
   visualImg?: string,
   visualId?: number,
+  numero?: number,
   shapeDefault: Shape3D,
   fonctionNb: (x: number) => number,
   fonctionFraction?: (x: number) => FractionEtendue,
@@ -30,8 +32,12 @@ export type PatternRiche3D = {
   iterate3d: (this: VisualPattern3D, angle: number) => Set<string>
 }
 export type PatternRicheRepetition = {
+  visualImg?: string,
+  visualId?: number,
   nbMotifMin: number,
   shapes: ShapeName[],
+  numero?: number,
+  formule?: string,
   fonctionShape: (x: number) => ShapeName,
   pattern?: VisualPattern,
   iterate: (this: VisualPattern, n?: number) => Set<string>
@@ -77,6 +83,7 @@ const rangeCubes = function (coords: [number, number, number][]): [number, numbe
 // Il faudra peut-être trouver un moyen de classer les patterns.
 
 const pattern1:PatternRiche = {
+  numero: 1,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/5da32a25-8bdd-4072-bd76-5e94635ba57d/vp11_2.png?format=2500w',
   visualId: 11,
   shapes: ['carré'],
@@ -97,6 +104,7 @@ const pattern1:PatternRiche = {
 }
 
 const pattern2:PatternRiche = {
+  numero: 2,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/54e5912a-d7ae-4d39-82ba-c0a3822ba19c/2020-09-26-09-37-38_orig+%281%29.jpg?format=2500w',
   visualId: 1,
   shapes: ['carré'],
@@ -118,6 +126,7 @@ const pattern2:PatternRiche = {
 const pattern3:PatternRiche = {
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/bae949b2-d658-41ad-a0ab-ff08226865f3/vp10_2_orig.png?format=2500w',
   visualId: 10,
+  numero: 3,
   shapes: ['carré'],
   fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n -1',
@@ -135,8 +144,10 @@ const pattern3:PatternRiche = {
 }
 
 const pattern4:PatternRiche = {
+  numero: 4,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/65bbb191-819f-42aa-b269-3c393e88a68b/8497466_orig+%281%29.png?format=2500w',
   visualId: 32,
+
   shapes: ['carré'],
   fonctionNb: (x:number) => x * x + x,
   formule: 'n^2 + n',
@@ -153,6 +164,7 @@ const pattern4:PatternRiche = {
 }
 
 const pattern5:PatternRiche = {
+  numero: 5,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/79dbcbbf-d2b5-4578-857e-fcdccb4fb8af/2023-03-22-10-30-31.png?format=2500w',
   visualId: 3,
   shapes: ['carré'],
@@ -173,6 +185,7 @@ const pattern5:PatternRiche = {
 }
 
 const pattern6:PatternRiche = {
+  numero: 6,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/272cb8f2-585b-4b90-aca5-a115fe8b555d/vp5_3.png?format=2500w',
   visualId: 4,
   shapes: ['carré'],
@@ -194,6 +207,7 @@ const pattern6:PatternRiche = {
 }
 
 const pattern7:PatternRiche = {
+  numero: 7,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a3f4ea08-cdcb-46c2-bcc8-bd6aa2722f96/720875_orig.png?format=2500w',
   visualId: 15,
   shapes: ['carré'],
@@ -217,6 +231,7 @@ const pattern7:PatternRiche = {
 }
 
 const pattern8:PatternRiche = {
+  numero: 8,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/bda4693c-4923-4c87-a3a1-06ef7762c45f/4203089_orig.png?format=2500w',
   visualId: 16,
   shapes: ['carré'],
@@ -237,6 +252,7 @@ const pattern8:PatternRiche = {
 }
 
 const pattern9:PatternRiche = {
+  numero: 9,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/09099fb7-f01e-49d4-a328-25507dde66e5/4982399.png?format=2500w',
   visualId: 101,
   shapes: ['carré'],
@@ -260,6 +276,7 @@ const pattern9:PatternRiche = {
 }
 
 const pattern10:PatternRiche = {
+  numero: 10,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9f3f398b-13e6-45a1-8929-446af89cb1d6/2020-09-08-09-47-44_orig.png?format=2500w',
   visualId: 391,
   shapes: ['carré'],
@@ -281,6 +298,7 @@ const pattern10:PatternRiche = {
 }
 
 const pattern11:PatternRiche = {
+  numero: 11,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9ef9630a-170f-41ec-9b43-a698a57cfa0e/vp22_orig.png?format=2500w',
   visualId: 296,
   shapes: ['carré'],
@@ -303,6 +321,7 @@ const pattern11:PatternRiche = {
 
 // J'ai decidé de décaler le rang du pattern sur l'image le rang 1 correspond à mon rang 2.
 const pattern12:PatternRiche = {
+  numero: 12,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/d2fc2e2a-14e2-4446-85c0-3ba743bb5adf/8815256_orig.png?format=2500w',
   visualId: 108,
   shapes: ['carré'],
@@ -325,6 +344,7 @@ const pattern12:PatternRiche = {
 
 // J'ai decidé de décaler le rang du pattern sur l'image le rang 1 correspond à mon rang 2.
 const pattern13:PatternRiche = {
+  numero: 13,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7fc51d33-c4af-4d94-9786-b7d75aab62a8/2163990_orig.png?format=2500w',
   visualId: 114,
   shapes: ['carré'],
@@ -348,6 +368,7 @@ const pattern13:PatternRiche = {
 }
 
 const pattern14:PatternRiche = {
+  numero: 14,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/1098eb03-4083-40d7-9d63-c4cbc87f1093/682934_orig.png?format=2500w',
   visualId: 115,
   shapes: ['carré'],
@@ -379,6 +400,7 @@ const pattern14:PatternRiche = {
 }
 
 const pattern15:PatternRiche = {
+  numero: 15,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3792615-d769-4c6b-a0f5-5c4397fe5d1b/7970874_orig.png?format=2500w',
   visualId: 116,
   shapes: ['carré'],
@@ -415,6 +437,7 @@ const pattern15:PatternRiche = {
 }
 
 const pattern16:PatternRiche = {
+  numero: 16,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b9f7df36-66e8-452a-8619-06c1161736a3/2023-07-03_05-43-43.png?format=2500w',
   visualId: 128,
   shapes: ['carré'],
@@ -440,6 +463,7 @@ const pattern16:PatternRiche = {
 }
 
 const pattern17:PatternRiche = {
+  numero: 17,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a9b947a5-1a65-49cd-ab8d-ff824ffbf718/2023-07-03_04-23-55.png?format=2500w',
   visualId: 85,
   shapes: ['carré'],
@@ -464,6 +488,7 @@ const pattern17:PatternRiche = {
 }
 
 const pattern18: PatternRiche = {
+  numero: 18,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/fbb334a6-f77e-402d-b438-c78f294ff6b3/2023-07-17_06-56-59.png?format=2500w',
   visualId: 93,
   shapes: ['carré'],
@@ -485,6 +510,7 @@ const pattern18: PatternRiche = {
 }
 
 const pattern19: PatternRiche = {
+  numero: 19,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/9e7e0715-850c-4ce4-9b3c-7b9d5b93bd75/2023-07-06_00-51-38.png?format=2500w',
   visualId: 91,
   shapes: ['carré'],
@@ -510,6 +536,7 @@ const pattern19: PatternRiche = {
 }
 
 const pattern20: PatternRiche = {
+  numero: 20,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b78ea1f9-f4ff-4121-964a-cb0ff2be2afc/2023-07-06_01-18-35.png?format=2500w',
   visualId: 94,
   shapes: ['carré'],
@@ -532,6 +559,7 @@ const pattern20: PatternRiche = {
 
 // J'ai transposé horizontalement pour prendre moins de place
 const pattern21: PatternRiche = {
+  numero: 21,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/62fb6a8b-01d1-4d0c-8cac-7eeb30fbba41/4528553_orig.png?format=2500w',
   visualId: 165,
   shapes: ['carré'],
@@ -553,6 +581,7 @@ const pattern21: PatternRiche = {
 }
 
 const pattern22: PatternRiche3D = {
+  numero: 22,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{(n+1)\\times (n+2)}{2}',
@@ -580,6 +609,7 @@ const pattern22: PatternRiche3D = {
 }
 
 const pattern23: PatternRiche3D = {
+  numero: 23,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/34b73461-9c26-4e8c-a979-82a32a319f1e/1188365_orig.png?format=2500w',
   visualId: 155,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
@@ -615,6 +645,7 @@ const pattern23: PatternRiche3D = {
 }
 
 const pattern24: PatternRiche3D = {
+  numero: 24,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => (2 * x ** 3 + 3 * x ** 2 + x) / 6,
   formule: '\\dfrac{2\\times n^3 + 3\\times n^2 + n}{6}',
@@ -643,6 +674,7 @@ const pattern24: PatternRiche3D = {
 }
 
 const pattern25: PatternRiche3D = {
+  numero: 25,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => x ** 3,
   formule: 'n^3',
@@ -672,6 +704,7 @@ const pattern25: PatternRiche3D = {
 }
 
 const pattern26: PatternRiche3D = {
+  numero: 26,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/4150fdf6-f9ee-47f8-bc47-d96b8455c073/4158599_orig.png?format=2500w',
   visualId: 28,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
@@ -712,6 +745,7 @@ const pattern26: PatternRiche3D = {
 }
 
 const pattern27: PatternRiche3D = {
+  numero: 27,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/17ccbdb3-2047-47f4-94cb-1ed0723982cd/8681279_orig.png?format=2500w',
   visualId: 46,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
@@ -747,6 +781,7 @@ const pattern27: PatternRiche3D = {
 }
 
 const pattern28: PatternRiche3D = {
+  numero: 28,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/af167f89-9c72-4ba5-b406-697f59d73412/9861425_orig.png?format=2500w',
   visualId: 52,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
@@ -783,6 +818,7 @@ const pattern28: PatternRiche3D = {
 }
 
 const pattern29: PatternRiche = {
+  numero: 29,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/5c72d74d-af6b-437e-a1a2-69495c67202d/2018-10-14-13-34-36_orig.png?format=2500w',
   visualId: 263,
   shapes: ['carré'],
@@ -802,6 +838,7 @@ const pattern29: PatternRiche = {
 }
 
 const pattern30: PatternRiche = {
+  numero: 30,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3833797-d82a-4c4b-bff7-d22d877c000b/2018-11-18-11-34-08_orig.png?format=2500w',
   visualId: 266,
   shapes: ['carré'],
@@ -823,6 +860,7 @@ const pattern30: PatternRiche = {
 }
 
 const pattern31: PatternRiche = {
+  numero: 31,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/3b345e8a-ccab-4fb2-bec6-f21b650d79bc/2023-07-05_15-04-34.png?format=2500w',
   visualId: 256,
   shapes: ['carré'],
@@ -846,6 +884,7 @@ const pattern31: PatternRiche = {
 }
 
 const pattern32: PatternRiche = {
+  numero: 32,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/382218dd-df17-4747-8215-cbe3f950f453/p4_orig.png?format=2500w',
   visualId: 257,
   shapes: ['carré'],
@@ -871,6 +910,7 @@ const pattern32: PatternRiche = {
 }
 
 const pattern33: PatternRiche = {
+  numero: 33,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/d9c26deb-510e-43fc-85c5-4573f5d60735/vp54_2_orig.png?format=2500w',
   visualId: 54,
   shapes: ['carré'],
@@ -888,6 +928,7 @@ const pattern33: PatternRiche = {
 }
 
 const pattern34: PatternRiche = {
+  numero: 34,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/1fc58a54-b378-407b-9bea-b9a136fca28f/4700362_orig.png?format=2500w',
   visualId: 72,
   shapes: ['carré'],
@@ -916,6 +957,7 @@ const pattern34: PatternRiche = {
 }
 
 const pattern35: PatternRiche = {
+  numero: 35,
   shapes: ['losange'],
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/fe162543-f853-4705-9964-6ceceb0959a3/9292613_orig.png?format=2500w',
   visualId: 75,
@@ -941,6 +983,7 @@ const pattern35: PatternRiche = {
 }
 
 const pattern36: PatternRiche3D = {
+  numero: 36,
   shapeDefault: shapeCubeIso(),
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7181e027-b3bc-4960-af21-07f38e5ebf03/9571721_orig.png?format=2500w',
   visualId: 79,
@@ -981,6 +1024,7 @@ const pattern36: PatternRiche3D = {
 }
 
 const pattern37: PatternRiche = {
+  numero: 37,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/e0ee90d8-a577-4ce3-877f-e4b52fcead83/2023-10-11_11-20-15.png?format=2500w',
   visualId: 254,
   fonctionNb: (x:number) => x ** 2 + 2 * x + 4,
@@ -1003,6 +1047,7 @@ const pattern37: PatternRiche = {
 }
 
 const pattern38: PatternRiche = {
+  numero: 38,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/24421acb-3211-41ba-8974-7b33abb8bb70/vp8_orig.png?format=2500w',
   visualId: 281,
   fonctionNb: (x:number) => x ** 2 + x + 2,
@@ -1024,6 +1069,7 @@ const pattern38: PatternRiche = {
 }
 
 const pattern39: PatternRiche = {
+  numero: 39,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/f817210e-0b89-42bb-8a37-dc3afa804f3a/vp10_orig.png?format=2500w',
   visualId: 283,
   fonctionNb: (x:number) => x * x,
@@ -1043,6 +1089,7 @@ const pattern39: PatternRiche = {
 }
 
 const pattern40: PatternRiche3D = {
+  numero: 40,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3f1ff49-ca30-47ab-8ee9-acb7e253aa87/vp11_orig.png?format=2500w',
   visualId: 284,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
@@ -1073,6 +1120,7 @@ const pattern40: PatternRiche3D = {
 }
 
 const pattern41: PatternRiche = {
+  numero: 41,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/58e493c4-91ae-408a-9eec-e5ac101bc5e0/vp24_orig.png?format=2500w',
   visualId: 298,
   fonctionNb: (x:number) => (x + 2) * (x + 1) / 2 + 1,
@@ -1093,6 +1141,7 @@ const pattern41: PatternRiche = {
 }
 
 const pattern42: PatternRiche = {
+  numero: 42,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/048b9214-fee6-400a-a28c-aa420054c3c9/vp30_orig.png?format=2500w',
   visualId: 300,
   shapes: ['chat'],
@@ -1114,6 +1163,7 @@ const pattern42: PatternRiche = {
 }
 
 const pattern43: PatternRiche = {
+  numero: 43,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7a81a3ec-f14f-4d8e-b440-bd24f8f3a58f/vp46_orig.png?format=2500w',
   visualId: 307,
   shapes: ['carréRond'],
@@ -1135,6 +1185,7 @@ const pattern43: PatternRiche = {
 }
 
 const pattern44: PatternRiche = {
+  numero: 44,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a4735ae7-f530-45ae-aef0-4b46fb6cefa1/vp47_orig.png?format=2500w',
   visualId: 308,
   shapes: ['soleil'],
@@ -1156,6 +1207,7 @@ const pattern44: PatternRiche = {
 }
 
 const pattern45: PatternRiche = {
+  numero: 45,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/78b879d4-b760-4bd2-8ad3-316bb5607126/vp50_orig.png?format=2500w',
   visualId: 311,
   fonctionNb: (x:number) => x ** 2 + x + 3,
@@ -1178,6 +1230,7 @@ const pattern45: PatternRiche = {
 }
 
 const pattern46: PatternRiche = {
+  numero: 46,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c894cc7a-f78b-401d-a6fb-0c8eabceb28c/vp55_orig.png?format=2500w',
   visualId: 316,
   fonctionNb: (x:number) => x ** 2 + x,
@@ -1201,6 +1254,7 @@ const pattern46: PatternRiche = {
 }
 
 const pattern47: PatternRiche = {
+  numero: 47,
   fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
@@ -1219,6 +1273,7 @@ const pattern47: PatternRiche = {
 }
 
 const pattern48: PatternRiche = {
+  numero: 48,
   fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n - 1',
   type: 'affine',
@@ -1237,6 +1292,7 @@ const pattern48: PatternRiche = {
 }
 
 const pattern49: PatternRiche = {
+  numero: 49,
   fonctionNb: (x:number) => 2 * x + 2,
   formule: '2\\times n + 2',
   type: 'affine',
@@ -1253,6 +1309,7 @@ const pattern49: PatternRiche = {
 }
 
 const pattern50: PatternRiche = {
+  numero: 50,
   fonctionNb: (x:number) => 3 * x + 2,
   formule: '3\\times n + 2',
   type: 'affine',
@@ -1272,6 +1329,7 @@ const pattern50: PatternRiche = {
 }
 
 const pattern51: PatternRiche = {
+  numero: 51,
   fonctionNb: (x:number) => 3 + x,
   formule: '3+n',
   type: 'affine',
@@ -1290,6 +1348,7 @@ const pattern51: PatternRiche = {
 }
 
 const pattern52: PatternRiche = {
+  numero: 52,
   fonctionNb: (x:number) => 4 * x + 4,
   formule: '4\\times n + 4',
   type: 'affine',
@@ -1311,6 +1370,7 @@ const pattern52: PatternRiche = {
 }
 
 const pattern53: PatternRiche = {
+  numero: 53,
   fonctionNb: (x:number) => 2 * x,
   formule: '2\\times n',
   type: 'linéaire',
@@ -1327,6 +1387,7 @@ const pattern53: PatternRiche = {
 }
 
 const pattern54: PatternRiche = {
+  numero: 54,
   fonctionNb: (x:number) => 5 * x,
   formule: '5\\times n',
   type: 'linéaire',
@@ -1348,6 +1409,7 @@ const pattern54: PatternRiche = {
 }
 
 const pattern55: PatternRiche = {
+  numero: 55,
   fonctionNb: (x:number) => 4 * x,
   formule: '4\\times n',
   type: 'linéaire',
@@ -1370,6 +1432,7 @@ const pattern55: PatternRiche = {
 }
 
 const pattern56:PatternRiche = {
+  numero: 56,
   fonctionNb: (x:number) => 2 * x - 1,
   formule: '2\\times n - 1',
   type: 'affine',
@@ -1387,6 +1450,7 @@ const pattern56:PatternRiche = {
 }
 
 const pattern57: PatternRiche = {
+  numero: 57,
   fonctionNb: (x:number) => x ** 2 + 1,
   fonctionFraction: (x:number) => new FractionEtendue(x, x ** 2 + 1),
   formule: '\\dfrac{n}{n^2+1}',
@@ -1407,6 +1471,7 @@ const pattern57: PatternRiche = {
 }
 
 const pattern58: PatternRiche = {
+  numero: 58,
   fonctionNb: (x:number) => x ** 2 + 2 * x + 1,
   fonctionFraction: (x:number) => new FractionEtendue(x ** 2, x ** 2 + 2 * x + 1),
   fonctionRatio: (x:number) => new Ratio([x ** 2, 2 * x, 1]),
@@ -1429,6 +1494,7 @@ const pattern58: PatternRiche = {
 }
 
 const pattern59: PatternRiche = {
+  numero: 59,
   fonctionNb: (x:number) => 4 * x + 2,
   fonctionFraction: (x:number) => new FractionEtendue(x, 4 * x + 2),
   // ratio: new Ratio([2 * x,
@@ -1453,6 +1519,7 @@ const pattern59: PatternRiche = {
 }
 
 const pattern60: PatternRiche = {
+  numero: 60,
   fonctionNb: (x:number) => 2 * x + 2,
   fonctionRatio: (x:number) => new Ratio([x, x + 2]),
   fonctionFraction: (x:number) => new FractionEtendue(x, 2 * x + 2),
@@ -1473,6 +1540,7 @@ const pattern60: PatternRiche = {
 }
 
 const pattern61: PatternRiche = {
+  numero: 61,
   fonctionNb: (x:number) => x ** 2 + 4 * x + 2,
   fonctionFraction: (x:number) => new FractionEtendue(x ** 2 + 2 * x + 1, x ** 2 + 4 * x + 2),
   fonctionRatio: (x:number) => new Ratio([x ** 2 + 2 * x + 1, 2 * x + 1]),
@@ -1497,6 +1565,7 @@ const pattern61: PatternRiche = {
 }
 
 const pattern62: PatternRiche = {
+  numero: 62,
   fonctionNb: (x:number) => 3 * x,
   fonctionRatio: (x:number) => new Ratio([x, 2 * x]),
   fonctionFraction: (x:number) => new FractionEtendue(x, 3 * x),
@@ -1515,6 +1584,7 @@ const pattern62: PatternRiche = {
   }
 }
 const pattern63: PatternRiche = {
+  numero: 63,
   fonctionNb: (x:number) => 2 * x + 1,
   fonctionRatio: (x:number) => new Ratio([x + 1, x]),
   fonctionFraction: (x:number) => new FractionEtendue(x + 1, 2 * x + 1),
@@ -1534,6 +1604,7 @@ const pattern63: PatternRiche = {
 }
 
 const pattern64:PatternRiche = {
+  numero: 64,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/a3f4ea08-cdcb-46c2-bcc8-bd6aa2722f96/720875_orig.png?format=2500w',
   visualId: 15,
   shapes: ['carréRond', 'rond'],
@@ -1558,6 +1629,7 @@ const pattern64:PatternRiche = {
   }
 }
 const pattern65: PatternRiche = {
+  numero: 65,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/762956a8-dadf-4c59-bcfe-5212a27e0ca9/vp44_2_orig+%281%29.png?format=2500w',
   visualId: 44,
   shapes: ['hexagone', 'hexagoneJaune'],
@@ -1583,6 +1655,7 @@ const pattern65: PatternRiche = {
 }
 
 const pattern66: PatternRiche = {
+  numero: 66,
   fonctionNb: (x:number) => 1 + 3 * (x + 1) * x,
   formule: '1+3\\times n(n+1)',
   fonctionRatio: (x:number) => new Ratio([1 + 3 * (x - 1) * x, 6 * x]),
@@ -1610,6 +1683,7 @@ const pattern66: PatternRiche = {
 }
 
 const pattern67: PatternRiche = {
+  numero: 67,
   fonctionNb: (x:number) => x * (x + 1) / 2,
   fonctionRatio: (x:number) => new Ratio([Math.floor(x / 2) ** 2, Math.floor(x / 2) * (Math.floor(x / 2) + 1)]),
   fonctionFraction: (x:number) => new FractionEtendue(Math.floor(x / 2) ** 2, Math.floor(x / 2) * (Math.floor(x / 2) + 1) + Math.floor(x / 2) ** 2),
@@ -1629,6 +1703,7 @@ const pattern67: PatternRiche = {
 }
 
 const pattern68: PatternRiche = {
+  numero: 68,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/90c1a0e4-f515-4f30-9c1c-6f3f9707669b/vp59_2_orig.png?format=2500w',
   visualId: 59,
   fonctionNb: (x:number) => (x + 2) ** 2,
@@ -1651,6 +1726,7 @@ const pattern68: PatternRiche = {
 }
 
 const pattern69: PatternRiche = {
+  numero: 69,
   fonctionNb: (x:number) => x ** 2,
   fonctionRatio: (x:number) => new Ratio([2 * x - 1, (x - 1) ** 2]),
   fonctionFraction: (x:number) => new FractionEtendue(2 * x - 1, x ** 2),
@@ -1670,6 +1746,7 @@ const pattern69: PatternRiche = {
   }
 }
 const pattern70: PatternRiche3D = {
+  numero: 70,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/ee8ed904-6443-4fb5-ad24-897fcc391710/2023-03-22-10-14-45_orig+%281%29.png?format=2500w',
   visualId: 39,
@@ -1678,38 +1755,58 @@ const pattern70: PatternRiche3D = {
   type: 'degré3',
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
+    const cubes: [number, number, number][] = []
     const newCells = new Set<string>()
     for (let i = 0; i < n; i++) {
       for (let k = n - 1; k >= 0; k--) {
         for (let j = 0; j < n - i; j++) {
-          newCells.add(VisualPattern3D.coordToKey([i - n / 2, k - n / 2, j]))
+          cubes.push([i - n / 2, k - n / 2, j])
         }
       }
+    }
+    const cubesSorted = rangeCubes(cubes)
+    for (const [x, y, z] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z])
+      if (newCells.has(key)) {
+        newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
+      }
+      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
     }
     return newCells
   }
 }
 
 const pattern71: PatternRiche3D = {
+  numero: 71,
   shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => x * (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{n(n+1)(n+2)}{2}',
   type: 'degré3',
   iterate3d: function (this: VisualPattern3D, n?: number) {
+    const cubes: [number, number, number][] = []
     if (n === undefined) n = 1
     const newCells = new Set<string>()
     for (let i = 0; i < n + 1; i++) {
       for (let k = n - 1; k >= 0; k--) {
         for (let j = 0; j < n + 1 - i; j++) {
-          newCells.add(VisualPattern3D.coordToKey([i - n / 2, k - n / 2, j]))
+          cubes.push([i - n / 2, k - n / 2, j])
         }
       }
+    }
+    const cubesSorted = rangeCubes(cubes)
+    for (const [x, y, z] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z])
+      if (newCells.has(key)) {
+        newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
+      }
+      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
     }
     return newCells
   }
 }
 
 const pattern72: PatternRiche = {
+  numero: 72,
   fonctionNb: (x:number) => x ** 2,
   fonctionRatio: (x:number) => new Ratio([(x + 1) * x / 2, x * (x - 1) / 2]),
   fonctionFraction: (x:number) => new FractionEtendue((x + 1) * x / 2, x ** 2),
@@ -1729,6 +1826,7 @@ const pattern72: PatternRiche = {
 }
 
 const pattern73: PatternRiche = {
+  numero: 73,
   fonctionNb: (x:number) => 3 * x + 5,
   fonctionRatio: (x:number) => new Ratio([3 * x + 3, 1, 1]),
   fonctionFraction: (x:number) => new FractionEtendue(3 * x + 3, 3 * x + 5),
@@ -1752,6 +1850,7 @@ const pattern73: PatternRiche = {
 }
 
 const pattern74: PatternRiche3D = {
+  numero: 74,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/05dbfae2-82ce-4106-a070-1ee0128ee99d/8840270_orig.png?format=2500w',
   visualId: 156,
   fonctionNb: (x:number) => 3 * x + 1,
@@ -1761,20 +1860,30 @@ const pattern74: PatternRiche3D = {
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
+    const cubes: [number, number, number][] = []
     for (let k = 0; k <= n; k++) {
       if (k !== n && k !== 0) {
-        newCells.add(VisualPattern3D.coordToKey([0, -0.5, k + n / 2]))
+        cubes.push([0, -0.5, k + n / 2])
         continue
       }
       for (let i = 0; i < n + 1; i++) {
-        if (k === 0) newCells.add(VisualPattern3D.coordToKey([i, -0.5, n / 2]))
-        else newCells.add(VisualPattern3D.coordToKey([i - n, -0.5, n + n / 2]))
+        if (k === 0) cubes.push([i, -0.5, n / 2])
+        else cubes.push([i - n, -0.5, n + n / 2])
       }
+    }
+    const cubesSorted = rangeCubes(cubes)
+    for (const [x, y, z] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z])
+      if (newCells.has(key)) {
+        newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
+      }
+      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
     }
     return newCells
   }
 }
 const pattern75: PatternRiche3D = {
+  numero: 75,
   fonctionNb: (x:number) => 2 * x ** 3 + x,
   formule: '2n^3+n',
   type: 'degré3',
@@ -1782,26 +1891,43 @@ const pattern75: PatternRiche3D = {
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    for (let k = 0; k < n; k++) {
-      for (let j = n - 1; j >= 0; j--) {
-        for (let i = 0; i < n + 1; i++) {
-          if (i !== n && k !== 0) {
-            newCells.add(VisualPattern3D.coordToKey([i - n, j - n / 2, k + n / 2]))
-            newCells.add(VisualPattern3D.coordToKey([i + 1, j - n / 2, k + n / 2]))
+    const cubes: [number, number, number][] = []
+    if (n === 1) {
+      cubes.push([0, 0, 0])
+      cubes.push([1, 0, 0])
+      cubes.push([2, 0, 0])
+    } else {
+      for (let k = 0; k < n; k++) {
+        for (let j = n - 1; j >= 0; j--) {
+          for (let i = -n; i < n + 1; i++) {
+            if (k === 0) {
+              cubes.push([i, j - n / 2, k + n / 2])
+            }
           }
-        }
-        for (let i = -n; i < n + 1; i++) {
-          if (k === 0) {
-            newCells.add(VisualPattern3D.coordToKey([i, j - n / 2, k + n / 2]))
+          for (let i = 0; i < n + 1; i++) {
+            if (i !== n && k !== 0) {
+              cubes.push([i - n, j - n / 2, k + n / 2])
+              cubes.push([i + 1, j - n / 2, k + n / 2])
+            }
           }
         }
       }
+    }
+
+    const cubesSorted = rangeCubes(cubes)
+    for (const [x, y, z] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z])
+      if (newCells.has(key)) {
+        newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
+      }
+      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
     }
     return newCells
   }
 }
 
 const pattern76: PatternRiche = {
+  numero: 76,
   fonctionNb: (x:number) => 5 * x + 4,
   fonctionRatio: (x:number) => new Ratio([x, 4 * x + 4]),
   fonctionFraction: (x:number) => new FractionEtendue(x, 5 * x + 4),
@@ -1823,6 +1949,7 @@ const pattern76: PatternRiche = {
 }
 
 const pattern77: PatternRiche = {
+  numero: 77,
   fonctionNb: (x:number) => (x + 1) * (x + 3),
   fonctionRatio: (x:number) => new Ratio([x + 2, x ** 2 + 3 * x + 2]),
   fonctionFraction: (x:number) => new FractionEtendue(x + 2, (x + 1) * (x + 3)),
@@ -1843,6 +1970,7 @@ const pattern77: PatternRiche = {
 }
 
 const pattern78: PatternRiche = {
+  numero: 78,
   fonctionNb: (x:number) => 1 + x * (x - 1) * 3,
   formule: '3\\times n^2-3\\times n-2',
   fonctionRatio: (x:number) => new Ratio([3 * x ** 2 - 3 * x - 2, x]),
@@ -1871,6 +1999,7 @@ const pattern78: PatternRiche = {
 }
 
 const pattern79: PatternRiche = {
+  numero: 79,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/b5a4fa70-e93a-4cda-a58a-46eab96e699d/vp8_2_orig.png?format=2500w',
   visualId: 8,
   fonctionNb: (x:number) => x * (x + 1) / 2 + 1,
@@ -1891,6 +2020,7 @@ const pattern79: PatternRiche = {
 }
 
 const pattern80: PatternRiche = {
+  numero: 80,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c7d48a0a-841b-4eb1-a4ee-b40bbfc6d880/vp7_2_orig.png?format=2500w',
   visualId: 7,
   shapes: ['carré', 'carré'],
@@ -1911,6 +2041,7 @@ const pattern80: PatternRiche = {
 }
 
 const pattern81: PatternRiche = {
+  numero: 81,
   shapes: ['rond'],
   visualId: 5,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/f96d2e80-0bd6-444b-9dc8-8abb96f5731c/vp5_2_orig.png?format=2500w',
@@ -1935,6 +2066,7 @@ const pattern81: PatternRiche = {
 }
 
 const pattern82: PatternRiche = {
+  numero: 82,
   shapes: ['carréRond'],
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/57dfb354-2e9f-4a19-92ea-34d33ae4caf7/2018-04-05-09-56-48_orig.png?format=2500w',
   visualId: 252,
@@ -1968,6 +2100,7 @@ const pattern82: PatternRiche = {
 
 // chien, chat, tortue
 const pattern83: PatternRicheRepetition = {
+  numero: 83,
   shapes: ['chien', 'chat', 'tortue'],
   nbMotifMin: 6,
   fonctionShape: (n:number) => {
@@ -1985,6 +2118,7 @@ const pattern83: PatternRicheRepetition = {
 
 // losange, hexagone
 const pattern84: PatternRicheRepetition = {
+  numero: 84,
   shapes: ['losange', 'hexagone'],
   nbMotifMin: 4,
   fonctionShape: (n:number) => {
@@ -2001,6 +2135,7 @@ const pattern84: PatternRicheRepetition = {
 
 // fraise, banane, kiwi, citron
 const pattern85: PatternRicheRepetition = {
+  numero: 85,
   shapes: ['fraise', 'banane', 'kiwi', 'citron'],
   nbMotifMin: 8,
   fonctionShape: (n:number) => {
@@ -2019,6 +2154,7 @@ const pattern85: PatternRicheRepetition = {
 
 // rond, carré, carré, triangle, losange, hexagone
 const pattern86: PatternRicheRepetition = {
+  numero: 86,
   shapes: ['rond', 'carré', 'carré', 'triangle', 'losange', 'hexagone'],
   nbMotifMin: 12,
   fonctionShape: (n:number) => {
@@ -2038,6 +2174,7 @@ const pattern86: PatternRicheRepetition = {
 
 // carré, triangle, hexagone, triangle, carré
 const pattern87: PatternRicheRepetition = {
+  numero: 87,
   shapes: ['carré', 'triangle', 'hexagone'],
   nbMotifMin: 10,
   fonctionShape: (n:number) => {
@@ -2058,6 +2195,7 @@ const pattern87: PatternRicheRepetition = {
 
 // rond, triangle, hexagone, rond
 const pattern88: PatternRicheRepetition = {
+  numero: 88,
   shapes: ['rond', 'triangle', 'hexagone'],
   nbMotifMin: 8,
   fonctionShape: (n:number) => {
@@ -2077,6 +2215,7 @@ const pattern88: PatternRicheRepetition = {
 
 // raisin, pomme, pomme, orange
 const pattern89: PatternRicheRepetition = {
+  numero: 89,
   shapes: ['raisin', 'pomme', 'orange'],
   nbMotifMin: 8,
   fonctionShape: (n:number) => {
@@ -2095,6 +2234,7 @@ const pattern89: PatternRicheRepetition = {
 }
 
 const pattern90: PatternRiche = {
+  numero: 90,
   shapes: ['triangle'],
   visualId: 100,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c407a52a-19ae-4f37-b0fa-fbbbe2a3b7fd/4403080_orig.png?format=2500w',
@@ -2125,6 +2265,7 @@ const pattern90: PatternRiche = {
 
 // allumettes en carrés
 const pattern91: PatternRiche = {
+  numero: 91,
   shapes: ['allumetteV', 'allumetteH'],
   type: 'autre',
   formule: '3\\times n+1',
@@ -2132,11 +2273,11 @@ const pattern91: PatternRiche = {
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 0.8, translate: [0, 0] }])) // allumette
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 1.6, translate: [0, 0] }])) // allumette
     for (let i = 0; i < n; i++) {
-      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[1], { scale: 0.8, translate: [0.5, 0.45] }])) // allumette horizontale haute
-      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[1], { scale: 0.8, translate: [0.5, -0.45] }])) // allumette horizontale basse
-      newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[0], { scale: 0.8, translate: [1, 0] }])) // allumette verticale à droite
+      newCells.add(VisualPattern.coordToKey([i * 2, 0, this.shapes[1], { scale: 1.6, translate: [1, 0.9] }])) // allumette horizontale haute
+      newCells.add(VisualPattern.coordToKey([i * 2, 0, this.shapes[1], { scale: 1.6, translate: [1, -0.9] }])) // allumette horizontale basse
+      newCells.add(VisualPattern.coordToKey([i * 2, 0, this.shapes[0], { scale: 1.6, translate: [2, 0] }])) // allumette verticale à droite
     }
     return newCells
   }
@@ -2144,6 +2285,7 @@ const pattern91: PatternRiche = {
 
 // allumettes en triangles
 const pattern92: PatternRiche = {
+  numero: 92,
   shapes: ['allumette60', 'allumette120', 'allumetteH'],
   type: 'autre',
   formule: '2\\times n+1',
@@ -2151,14 +2293,14 @@ const pattern92: PatternRiche = {
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 0.8, translate: [-0.45, 0] }])) // allumette
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 1.6, translate: [-0.9, 0] }])) // allumette
     for (let i = 0; i < n; i++) {
       if (i % 2 === 0) {
-        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[1], { scale: 0.8, translate: [0.1, 0] }])) // allumette120
-        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[2], { scale: 0.8, translate: [-0.2, -0.45] }])) // allumette horizontale basse
+        newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[1], { scale: 1.6, translate: [0.2, 0] }])) // allumette120
+        newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[2], { scale: 1.6, translate: [-0.3, -0.9] }])) // allumette horizontale basse
       } else {
-        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[2], { scale: 0.8, translate: [-0.15, 0.45] }])) // allumette horizontale haute
-        newCells.add(VisualPattern.coordToKey([0.5 * i, 0, this.shapes[0], { scale: 0.8, translate: [0.1, 0] }])) // allumettt60
+        newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[2], { scale: 1.6, translate: [-0.3, 0.9] }])) // allumette horizontale haute
+        newCells.add(VisualPattern.coordToKey([i, 0, this.shapes[0], { scale: 1.6, translate: [0.2, 0] }])) // allumettt60
       }
     }
     return newCells
@@ -2167,6 +2309,7 @@ const pattern92: PatternRiche = {
 
 // allumettes en triangles
 const pattern93: PatternRiche = {
+  numero: 93,
   shapes: ['allumetteV', 'allumette120'],
   type: 'autre',
   formule: '2\\times n+1',
@@ -2174,16 +2317,19 @@ const pattern93: PatternRiche = {
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 0.8, translate: [0, 0] }])) // allumette
+    newCells.add(VisualPattern.coordToKey([0, 0, this.shapes[0], { scale: 1.6, translate: [0, 0] }])) // allumette
     for (let i = 0; i < n; i++) {
-      newCells.add(VisualPattern.coordToKey([0.6 * i, 0, this.shapes[1], { scale: 0.8, translate: [0.3, 0] }])) // allumette120
-      newCells.add(VisualPattern.coordToKey([0.6 * i, 0, this.shapes[0], { scale: 0.8, translate: [0.6, 0] }])) // allumette horizontale basse
+      newCells.add(VisualPattern.coordToKey([1.2 * i, 0, this.shapes[1], { scale: 1.6, translate: [0.6, 0], rotate: 180 }])) // allumette120
+      newCells.add(VisualPattern.coordToKey([1.2 * i, 0, this.shapes[0], { scale: 1.6, translate: [1.2, 0] }])) // allumette horizontale basse
     }
     return newCells
   }
 }
 
 const pattern94: PatternRiche = {
+  numero: 94,
+  visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/385a9845-9d3f-49cf-90c8-ecfc3e10668c/2020-09-26-09-44-00_orig.png?format=2500w',
+  visualId: 6,
   shapes: ['allumetteH', 'allumette60', 'allumette120'],
   type: 'autre',
   fonctionNb: (x:number) => 3 ** x,
@@ -2195,20 +2341,21 @@ const pattern94: PatternRiche = {
     function partageTriangle (n:number, x: number, y: number, scale: number) {
       if (n > 1) {
         partageTriangle(n - 1, x + 0.1, y, scale * 0.5)
-        partageTriangle(n - 1, x + 0.433 * scale, y, scale * 0.5)
-        partageTriangle(n - 1, x + 0.2165 * scale, y + 0.375 * scale, scale * 0.5)
+        partageTriangle(n - 1, x + 0.866 * scale, y, scale * 0.5)
+        partageTriangle(n - 1, x + 0.433 * scale, y + 0.75 * scale, scale * 0.5)
       } else {
-        newCells.add(VisualPattern.coordToKey([x, y, 'allumetteH', { scale: scale * 0.8 }]))
-        newCells.add(VisualPattern.coordToKey([x - 0.25 * scale, y + 0.4 * scale, 'allumette60', { scale: scale * 0.8 }]))
-        newCells.add(VisualPattern.coordToKey([x + 0.25 * scale, y + 0.4 * scale, 'allumette120', { scale: scale * 0.8 }]))
+        newCells.add(VisualPattern.coordToKey([x, y, 'allumetteH', { scale: scale * 1.6 }]))
+        newCells.add(VisualPattern.coordToKey([x - 0.5 * scale, y + 0.8 * scale, 'allumette60', { scale: scale * 1.6 }]))
+        newCells.add(VisualPattern.coordToKey([x + 0.5 * scale, y + 0.8 * scale, 'allumette120', { scale: scale * 1.6 }]))
       }
     }
-    partageTriangle(n, n, 1, 5)
+    partageTriangle(n, n, 0, 3)
     return newCells
   }
 }
 
 const pattern95: PatternRiche = {
+  numero: 95,
   shapes: ['chien'],
   type: 'linéaire',
   formule: '2\\times n',
@@ -2225,6 +2372,7 @@ const pattern95: PatternRiche = {
 }
 
 const pattern96: PatternRiche = {
+  numero: 96,
   shapes: ['fraise', 'soleil'],
   type: 'affine',
   formule: '7+4\\times n',
@@ -2250,6 +2398,7 @@ const pattern96: PatternRiche = {
 }
 
 const pattern97: PatternRiche = {
+  numero: 97,
   shapes: ['chat', 'chien', 'fraise', 'cerise'],
   type: 'affine',
   formule: '4\\times n+4',
@@ -2268,18 +2417,99 @@ const pattern97: PatternRiche = {
     return newCells
   }
 }
+// flèche en allumettes
+const pattern98: PatternRiche = {
+  numero: 98,
+  visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/863acf91-20a3-4821-9e33-0dd6ceb3e3f0/vp52_2_orig.png?format=2500w',
+  visualId: 53,
+  shapes: ['allumetteV'],
+  type: 'autre',
+  fonctionNb: (x:number) => 3 * x + 3,
+  formule: '3\\times + 3',
+  pattern: new VisualPattern([]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([n * 2, 1, this.shapes[0], { scale: 2, rotate: 60 }]))
+    newCells.add(VisualPattern.coordToKey([n * 2, 0, this.shapes[0], { scale: 2, rotate: -60 }]))
+    newCells.add(VisualPattern.coordToKey([n * 2 - 1, 0.5, this.shapes[0], { scale: 2 }]))
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i * 2 - 1, 0.5, this.shapes[0], { scale: 2 }]))
+      newCells.add(VisualPattern.coordToKey([i * 2, 1.5, this.shapes[0], { scale: 2, rotate: 90 }]))
+      newCells.add(VisualPattern.coordToKey([i * 2, -0.5, this.shapes[0], { scale: 2, rotate: 90 }]))
+    }
+    return newCells
+  }
+}
+
+// flèche en allumettes
+const pattern99: PatternRiche = {
+  visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/38a70e2e-75f6-4395-b2d5-15b83aa73771/vp55_2.png?format=2500w',
+  visualId: 55,
+  numero: 99,
+  shapes: ['allumetteV'],
+  type: 'autre',
+  fonctionNb: (x:number) => 3 * x + 5,
+  formule: '3\\times + 5',
+  pattern: new VisualPattern([]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    newCells.add(VisualPattern.coordToKey([n * 2, -0.8, this.shapes[0], { scale: 2, rotate: -108 }]))
+    newCells.add(VisualPattern.coordToKey([n * 2, 1.8, this.shapes[0], { scale: 2, rotate: -72 }]))
+    newCells.add(VisualPattern.coordToKey([n * 2 + 1.6, -0.3, this.shapes[0], { scale: 2, rotate: -36 }]))
+    newCells.add(VisualPattern.coordToKey([n * 2 + 1.6, 1.2, this.shapes[0], { scale: 2, rotate: 36 }]))
+    newCells.add(VisualPattern.coordToKey([n * 2 - 1, 0.5, this.shapes[0], { scale: 2 }]))
+    for (let i = 0; i < n; i++) {
+      newCells.add(VisualPattern.coordToKey([i * 2 - 1, 0.5, this.shapes[0], { scale: 2, rotate: 180 }]))
+      newCells.add(VisualPattern.coordToKey([i * 2, 1.5, this.shapes[0], { scale: 2, rotate: 90 }]))
+      newCells.add(VisualPattern.coordToKey([i * 2, -0.5, this.shapes[0], { scale: 2, rotate: -90 }]))
+    }
+    return newCells
+  }
+}
 
 const pattern100: PatternRicheRepetition = {
+
   shapes: ['cadeau', 'explosion'],
   nbMotifMin: 10,
+  numero: 100,
   fonctionShape: (n:number) => {
-    return ['cadeau', 'explosion'][Number.isInteger(Math.sqrt(1 + 8 * n)) ? 0 : 1]
+    return ['cadeau', 'explosion'][Number.isInteger(Math.sqrt(9 + 8 * n)) ? 0 : 1]
   },
   iterate: function (this: VisualPattern, n?: number) {
     if (n === undefined) n = 0
 
     const newCells = new Set<string>()
-    newCells.add(VisualPattern.coordToKey([0, 0, ['cadeau', 'explosion'][Number.isInteger(Math.sqrt(1 + 8 * n)) ? 0 : 1]])) // explosion ou cadeau
+    newCells.add(VisualPattern.coordToKey([0, 0, ['cadeau', 'explosion'][Number.isInteger(Math.sqrt(9 + 8 * n)) ? 0 : 1]])) // explosion ou cadeau
+    return newCells
+  }
+}
+
+const pattern101: PatternRiche = {
+  shapes: ['carré'],
+  numero: 101,
+  fonctionNb: (x:number) => (3 ** x - 1) / 2,
+  formule: '\\dfrac{3^n-1}{2}',
+  fonctionRatio: (x:number) => new Ratio([(3 ** (x - 1) - 1) / 2, 3 ** (x - 1)]),
+  fonctionFraction: (x:number) => new FractionEtendue((3 ** (x - 1) - 1) / 2, (3 ** x - 1) / 2),
+  type: 'autre',
+  pattern: new VisualPattern([
+    [0, 0, 'triangle', { scale: 3 }]
+  ]),
+  iterate: function (this: VisualPattern, n) {
+    if (n === undefined) n = 1
+    const newCells = new Set<string>()
+    function partageTriangle (n:number, x: number, y: number, scale: number) {
+      if (n > 1) {
+        partageTriangle(n - 1, x, y, scale / 2)
+        partageTriangle(n - 1, x + scale, y, scale / 2)
+        partageTriangle(n - 1, x + scale, y + scale, scale / 2)
+      } else {
+        newCells.add(VisualPattern.coordToKey([x, y, 'carre', { scale }]))
+      }
+    }
+    partageTriangle(n, n, 1, 5)
     return newCells
   }
 }
@@ -2385,7 +2615,10 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern94,
   pattern95,
   pattern96,
-  pattern97
+  pattern97,
+  pattern98,
+  pattern99,
+  pattern101
 ]
 /**
  * Liste des patterns prédéfinis, triés par type.

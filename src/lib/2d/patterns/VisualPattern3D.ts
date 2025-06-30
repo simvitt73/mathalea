@@ -95,11 +95,9 @@ export class VisualPattern3D {
 
   render (n:number, dx: number, dy:number, angle:number): NestedObjetMathalea2dArray {
     let cells: Set<string> = this.cells
-    for (let i = 1; i < n; i++) {
-      const newPattern = new VisualPattern3D(cells)
-      newPattern.iterate3d = this.iterate3d.bind(newPattern)
-      cells = newPattern.iterate3d(n)
-    }
+    const newPattern = new VisualPattern3D(cells)
+    newPattern.iterate3d = this.iterate3d.bind(newPattern)
+    cells = newPattern.iterate3d(n)
     if (cells.size === 0) {
       return []
     }

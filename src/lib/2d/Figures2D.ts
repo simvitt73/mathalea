@@ -122,7 +122,7 @@ export class Shape2D extends ObjetMathalea2D {
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}${this.scale.x !== 1 ? `, xscale=${(this.scale.x).toFixed(3)}` : ''}${this.scale.y !== 1 ? `, yscale=${(this.scale.y).toFixed(3)}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(2)},${(this.y).toFixed(2)})}${this.scale.x !== 1 ? `, xscale=${(this.scale.x).toFixed(3)}` : ''}${this.scale.y !== 1 ? `, yscale=${(this.scale.y).toFixed(3)}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
     ${this.codeTikz}
     \\end{scope}`
   }
@@ -250,7 +250,7 @@ export class Figure2D extends Shape2D {
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}, xscale=${this.scale.x.toFixed(3)}, yscale=${this.scale.y.toFixed(3)}, rotate around={${this.angle.toFixed(2)}:(0,0)}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(2)},${(this.y).toFixed(2)})}, xscale=${this.scale.x.toFixed(3)}, yscale=${this.scale.y.toFixed(3)}, rotate around={${-this.angle.toFixed(2)}:(0,0)}]
     ${this.codeTikz}
     \\end{scope}`
   }
