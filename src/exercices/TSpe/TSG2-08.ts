@@ -31,7 +31,7 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    const typeQuestionsDisponibles = ['paralleles', 'secantes', 'nonCoplanaires'] // Liste des types de questions disponibles
+    const typeQuestionsDisponibles = ['secantes', 'paralleles', 'nonCoplanaires'] // Liste des types de questions disponibles
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -70,6 +70,7 @@ export default class NomExercice extends Exercice {
         zB = randint(-10, 10, [zA, 0])  // ordonnée du point B
       }
       if (listeTypeQuestions[i] === 'secantes') {
+        texte = 'coucou'
         vx = randint(-10, 10, [ux, xA, 0])
         vy = randint(-10, 10, [uy, yA, 0])
         vz = randint(-10, 10, [uz, zA, 0])
@@ -92,9 +93,9 @@ export default class NomExercice extends Exercice {
       const u1 = new FractionEtendue(vx, ux)  // On crée les fractions étendues pour les vecteurs directeurs
       const u2 = new FractionEtendue(vy, uy)  // On crée les fractions étendues pour les vecteurs directeurs
       const u3 = new FractionEtendue(vz, uz)  // On crée les fractions étendues pour les vecteurs directeurs
-      const u4 = new FractionEtendue(xB-xA,ux)  // On crée les fractions étendues pour les vecteurs directeurs
-      const u5 = new FractionEtendue(yB-yA,uy)  // On crée les fractions étendues pour les vecteurs directeurs
-      const u6 = new FractionEtendue(zB-zA,uz)  // On crée les fractions étendues pour les vecteurs directeurs
+      const u4 = new FractionEtendue(xB - xA, ux)  // On crée les fractions étendues pour les vecteurs directeurs
+      const u5 = new FractionEtendue(yB - yA, uy)  // On crée les fractions étendues pour les vecteurs directeurs
+      const u6 = new FractionEtendue(zB - zA, uz)  // On crée les fractions étendues pour les vecteurs directeurs
       const resultat1 = new FractionEtendue(ux * (yB - yA) - uy * (xB - xA), uy * vx - ux * vy) // Pour le calcul de colinéarité
       const resultat2 = new FractionEtendue(ux * (zB - zA) - uz * (xB - xA), uz * vx - ux * vz) // Pour le calcul de colinéarité
       const quotient1 = new FractionEtendue(ux * uy, (vx * uy) - (vy * ux)) // Pour la dernière ligne de calcul du quotient de la colinéarité
@@ -114,7 +115,7 @@ export default class NomExercice extends Exercice {
             t= ${u2.texFractionSimplifiee}s ${u5.simplifie().ecritureAlgebrique} \\\\
             t = ${u3.texFractionSimplifiee}s ${u6.simplifie().ecritureAlgebrique}
             \\end{cases}$`
-const bloc2 =`On cherche si les coordonnées des vecteurs sont proportionnelles  c\'est à dire s\'il existe un réel $\\lambda$ tel que $\\vec u=\\lambda \\vec v$.<br>
+      const bloc2 = `On cherche si les coordonnées des vecteurs sont proportionnelles  c'est à dire s'il existe un réel $\\lambda$ tel que $\\vec u=\\lambda \\vec v$.<br>
          $\\phantom{\\iff}\\vec u=\\lambda \\vec v$
           $\\quad\\iff \\begin{cases}${ux}= ${rienSi1(vx)}\\lambda\\\\${uy}= ${rienSi1(vy)}\\lambda\\\\${uz}=${rienSi1(vz)}\\lambda\\end{cases}$
           $\\quad\\iff \\begin{cases}\\lambda =${u1.simplifie().texFractionSimplifiee}\\\\\\lambda =${u2.simplifie().texFractionSimplifiee}\\\\
@@ -126,8 +127,7 @@ const bloc2 =`On cherche si les coordonnées des vecteurs sont proportionnelles 
         //* ****************************************************************************
         // */
         case 'nonCoplanaires':// Droites non-coplanaires
-
-          texte += `$(d):\\begin{cases}x=${reduireAxPlusB(ux, xA, 't', { ordreInverse: true })} \\\\y= ${rienSi0(yA)}  ${ecritureAlgebriqueSauf1(uy)}t\\quad(t\\in\\mathbb{R})\\\\z= ${rienSi0(zA)} ${ecritureAlgebriqueSauf1(uz)}t\\end{cases}$`
+          texte += ` $(d):\\begin{cases}x=${reduireAxPlusB(ux, xA, 't', { ordreInverse: true })} \\\\y= ${rienSi0(yA)}  ${ecritureAlgebriqueSauf1(uy)}t\\quad(t\\in\\mathbb{R})\\\\z= ${rienSi0(zA)} ${ecritureAlgebriqueSauf1(uz)}t\\end{cases}$`
           texte += `$\\quad\\quad(d'):\\begin{cases}x=${rienSi0(xB)}${ecritureAlgebriqueSauf1(vx)}s\\\\y= ${rienSi0(yB)}  ${ecritureAlgebriqueSauf1(vy)}s\\quad(s\\in\\mathbb{R})\\\\z= ${rienSi0(zB)} ${ecritureAlgebriqueSauf1(vz)}s\\end{cases}$`
           // On écrit les représentations paramétriques des droites (d) et (d')
           texte += `<br><br>${texteEnCouleurEtGras('Affirmation :')}  ${affirmation}`
@@ -141,7 +141,7 @@ const bloc2 =`On cherche si les coordonnées des vecteurs sont proportionnelles 
           texteCorr += `<br>On déduit de l'énoncé que le vecteur $\\vec u$ de coordonnées $\\vec u\\begin{pmatrix} ${ux}\\\\${uy}\\\\${uz}\\end{pmatrix}$ est un vecteur directeur de (d) `
           texteCorr += `et que $\\vec v$ de coordonnées $\\vec v\\begin{pmatrix} ${vx}\\\\${vy}\\\\${vz}\\end{pmatrix}$ est un vecteur directeur de (d'). <br>`
           // On teste la colinéarité des vecteurs directeurs
-          texteCorr +=bloc2
+          texteCorr += bloc2
           texteCorr += '<br>Le système n\'admet pas de solutions donc les vecteurs ne sont donc pas colinéaires. <br>'
           texteCorr += `<br>${texteGras('Les droites $(d)$ et $(d~\')$ ne sont pas parallèles.')}`
           // On teste si les droites sont sécantes ou non-coplanaires
@@ -174,15 +174,14 @@ const bloc2 =`On cherche si les coordonnées des vecteurs sont proportionnelles 
             \\end{cases}$`
           texteCorr += '<br>Les deux équations sont incompatibles donc le système n\'admet pas de solution.<br>'
           texteCorr += texteEnCouleurEtGras('Conclusion :<br>')
-          texteCorr += 'Donc les droites $(d)$ et $(d\')$ ne sont pas sécantes, elles sont donc non-coplanaires.<br>'
+          texteCorr += 'Donc les droites $(d)$ et $(d\')$ ont des vecteurs directeurs non colinéaires et ne sont pas sécantes, elles sont donc non-coplanaires.<br>'
           if (affirmation === 'Les droites $(d)$ et $(d~\')$ sont non coplanaires.') { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc vraie.') } else { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc fausse.') }
           break
           //* ****************************************************************************
           // SECANTES
           //* ****************************************************************************
           // */
-        case 'secantes':// Droites non-coplanaires
-
+        case 'secantes':// Droites sécantes
           texte += `$(d):\\begin{cases}x=${reduireAxPlusB(ux, xA, 't', { ordreInverse: true })} \\\\y= ${rienSi0(yA)}  ${ecritureAlgebriqueSauf1(uy)}t\\quad(t\\in\\mathbb{R})\\\\z= ${rienSi0(zA)} ${ecritureAlgebriqueSauf1(uz)}t\\end{cases}$`
           texte += `$\\quad\\quad(d'):\\begin{cases}x=${rienSi0(xB)}${ecritureAlgebriqueSauf1(vx)}s\\\\y= ${rienSi0(yB)}  ${ecritureAlgebriqueSauf1(vy)}s\\quad(s\\in\\mathbb{R})\\\\z= ${rienSi0(zB)} ${ecritureAlgebriqueSauf1(vz)}s\\end{cases}$`
           // On écrit les représentations paramétriques des droites (d) et (d')
@@ -232,7 +231,7 @@ const bloc2 =`On cherche si les coordonnées des vecteurs sont proportionnelles 
           texteCorr += `<br>$t =${u1.texFractionSimplifiee}\\times ${resultat2.simplifie().texFraction}${u4.simplifie().ecritureAlgebrique}$`
           texteCorr += `d'où $t =${alpha}$.`
 
-          texteCorr += `<br>Réciproquement, on vérifie que pour $t=${alpha}$ et $s=${-beta}$ les deux représentations donnent les coordonnées de leur point commun.<br>`
+          texteCorr += `<br>${texteGras('Réciproquement')}, on vérifie que pour $t=${alpha}$ et $s=${-beta}$ les deux représentations donnent les coordonnées de leur point commun.<br>`
           texteCorr += `$(d):\\begin{cases}x=${ux}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(xA)}\\\\ y=${uy}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(yA)}\\\\ z=${uz}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(zA)}\\end{cases}$`
           texteCorr += `$\\quad\\quad(d):\\begin{cases}x=${ux * alpha + xA}\\\\ y=${uy * alpha + yA}\\\\ z=${uz * alpha + zA}\\end{cases}$`
           texteCorr += `<br>$(d'):\\begin{cases}x=${vx}\\times ${ecritureParentheseSiNegatif(-beta)})${ecritureAlgebrique(xB)}\\\\ y=${vy}\\times ${ecritureAlgebrique(-beta)}${ecritureAlgebrique(yB)}\\\\ z=${vz}\\times ${ecritureAlgebrique(-beta)}${ecritureAlgebrique(zB)}\\end{cases}$`
@@ -273,37 +272,10 @@ const bloc2 =`On cherche si les coordonnées des vecteurs sont proportionnelles 
           texteCorr += '<br>Un point M de coordonnées $M(x,y,z)$ appartient aux deux droites si, et seulement si, ses coordonnées vérifient les représentations paramétriques des deux droites.'
           texteCorr += '<br>Ce qui est équivalent à résoudre le système suivant :'
           texteCorr += bloc1
-          texteCorr += `<br>En égalisant les lignes 1 et 2, et les lignes 1 et 3, cela ${texteGras('implique')} que $s$ doit vérifier le système :<br>`
-          texteCorr += `<br>$\\begin{cases}
-            ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique}=${u1.texFractionSimplifiee}s ${u5.simplifie().ecritureAlgebrique} \\\\\\\\
-            ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique} = ${u2.texFractionSimplifiee}s ${u6.simplifie().ecritureAlgebrique}
-            \\end{cases}$`
-          texteCorr += `$\\quad\\quad\\begin{cases}
-            \\left(${u1.texFractionSimplifiee}+${u2.oppose().texFractionSimplifiee}\\right)s =${u5.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique} \\\\\\\\
-            \\left(${u1.texFractionSimplifiee}+${u3.oppose().texFractionSimplifiee}\\right)s = ${u6.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique}
-            \\end{cases}$`
-
-          texteCorr += `$\\quad\\quad\\begin{cases}
-            ${u1.differenceFraction(u2).simplifie().texFraction}s =${u5.differenceFraction(u4).simplifie().texFraction} \\\\\\\\
-            ${u1.differenceFraction(u3).simplifie().texFraction}s = ${u6.differenceFraction(u4).simplifie().texFraction}
-            \\end{cases}$`
-          texteCorr += `<br><br>$\\begin{cases}
-           s =${u5.differenceFraction(u4).simplifie().texFraction} \\times ${quotient1.simplifie().texFraction} \\\\\\\\
-          s = ${u6.differenceFraction(u4).simplifie().texFraction} \\times ${quotient2.simplifie().texFraction} \\\\\\\\
-            \\end{cases}$`
-
-          texteCorr += `$\\quad\\quad\\begin{cases}
-          s =${resultat1.simplifie().texFraction} \\\\\\\\
-          s = ${resultat2.simplifie().texFraction}
-            \\end{cases}$`
-          texteCorr += '<br>Les deux équations sont incompatibles donc le système n\'admet pas de solution.<br>'
+          texteCorr += '<br>Les équations sont incompatibles donc le système n\'admet pas de solution.<br>'
           texteCorr += texteEnCouleurEtGras('Conclusion :<br>')
-          texteCorr += 'Donc les droites $(d)$ et $(d\')$ ne sont pas sécantes, elles sont donc non-coplanaires.<br>'
-          if (affirmation === 'Les droites $(d)$ et $(d~\')$ sont non coplanaires.') { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc vraie.') } else { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc fausse.') }
-          break
-        default: // On termine toujours par default qui ici correspond à 'type3':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
+          texteCorr += 'Donc les droites $(d)$ et $(d\')$ sont portées par des vecteurs colinéaires et ne sont pas sécantes, elles sont donc strictement parallèles.<br>'
+          if (affirmation === 'Les droites $(d)$ et $(d~\')$ sont parallèles.') { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc vraie.') } else { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc fausse.') }
           break
       }
       if (this.questionJamaisPosee(i)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
