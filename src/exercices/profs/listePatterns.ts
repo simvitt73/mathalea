@@ -47,8 +47,8 @@ export default class ListePatternsPreDef extends Exercice {
     this.nbQuestions = 1
     this.listePackages = ['twemojis']
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireTexte = ['Choix des patterns à afficher', 'nombres séparés par des tirets\n ou 100 pour la liste complète']
-    this.sup = '100' // liste des patterns à afficher
+    this.besoinFormulaireTexte = ['Choix des patterns à afficher', 'nombres séparés par des tirets\n ou 0 pour la liste complète']
+    this.sup = String(listeOfAll.length) // liste des patterns à afficher
     this.besoinFormulaire2Numerique = ['Nombre de patterns à afficher (0 pour toutes la liste)', nbPatterns]
     this.sup2 = nbPatterns
     this.besoinFormulaire3Numerique = ['Nombre de motifs par pattern', 6]
@@ -64,9 +64,9 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
   nouvelleVersion () {
     if (this.sup2 === 0) {
       this.sup2 = nbPatterns
-      this.sup = '100'
+      this.sup = String(listeOfAll.length + 1)
     }
-    const liste = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: nbPatterns, defaut: 100, melange: 100, nbQuestions: this.sup2, shuffle: false }).map(Number)
+    const liste = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: nbPatterns + 1, defaut: 1, melange: nbPatterns + 1, nbQuestions: 0, shuffle: false }).map(Number)
     let texte = ''
     if (!context.isHtml) {
       texte += `${Object.values(listeShapesDef).map(shape => shape.tikz()).join('\n')}\n`
