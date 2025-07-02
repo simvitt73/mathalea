@@ -70,7 +70,6 @@ export default class NomExercice extends Exercice {
         zB = randint(-10, 10, [zA, 0])  // ordonnée du point B
       }
       if (listeTypeQuestions[i] === 'secantes') {
-        texte = 'coucou'
         vx = randint(-10, 10, [ux, xA, 0])
         vy = randint(-10, 10, [uy, yA, 0])
         vz = randint(-10, 10, [uz, zA, 0])
@@ -111,9 +110,9 @@ export default class NomExercice extends Exercice {
             ${rienSi1(uz)}t = ${rienSi1(vz)}s ${ecritureAlgebrique(zB - zA)}
             \\end{cases}
           \\quad\\iff\\begin{cases}
-            t = ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique} \\\\
-            t= ${u2.texFractionSimplifiee}s ${u5.simplifie().ecritureAlgebrique} \\\\
-            t = ${u3.texFractionSimplifiee}s ${u6.simplifie().ecritureAlgebrique}
+            t = ${rienSi1(u1.simplifie())}s ${u4.simplifie().ecritureAlgebrique} \\\\
+            t= ${rienSi1(u2.simplifie())}s ${u5.simplifie().ecritureAlgebrique} \\\\
+            t = ${rienSi1(u3.simplifie())}s ${u6.simplifie().ecritureAlgebrique}
             \\end{cases}$`
       const bloc2 = `On cherche si les coordonnées des vecteurs sont proportionnelles  c'est à dire s'il existe un réel $\\lambda$ tel que $\\vec u=\\lambda \\vec v$.<br>
          $\\phantom{\\iff}\\vec u=\\lambda \\vec v$
