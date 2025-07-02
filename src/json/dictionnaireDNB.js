@@ -6103,4 +6103,45 @@ export const dictionnaireDNB = {
     tags: ['Fonctions', 'Tableur', 'Lecture graphique']
   },
 
+  dnb_2025_06_polynesie_1: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_2: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_3: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_4: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_5: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+
 }
