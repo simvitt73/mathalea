@@ -104,16 +104,15 @@ function generateur (type: 'secantes' | 'paralleles' | 'nonCoplanaires' = 'secan
       }
     }
     const u1 = new FractionEtendue(vx, ux)  // On crée les fractions étendues pour les vecteurs directeurs
-    const u2 = new FractionEtendue(vy, uy)  // On crée les fractions étendues pour les vecteurs directeurs
+    const u2 = new FractionEtendue(vy, uy) // On crée les fractions étendues pour les vecteurs directeurs
     const u3 = new FractionEtendue(vz, uz)  // On crée les fractions étendues pour les vecteurs directeurs
     const u4 = new FractionEtendue(xB - xA, ux)  // On crée les fractions étendues pour les vecteurs directeurs
     const u5 = new FractionEtendue(yB - yA, uy)  // On crée les fractions étendues pour les vecteurs directeurs
     const u6 = new FractionEtendue(zB - zA, uz)  // On crée les fractions étendues pour les vecteurs directeurs
-    const det0 = ux * vz - uz * vx // On calcule le dénominateur pour les vecteurs directeurs
     const det1 = vx * uy - ux * vy // On calcule le déterminant pour les vecteurs directeurs
     const det2 = vx * uz - ux * vz // On calcule le déterminant pour les vecteurs directeurs
-    const resultat1 = new FractionEtendue(ux * (yB - yA) - uy * (xB - xA), det0 !== 0 ? det0 : 1) // Pour le calcul de colinéarité si den === 0, alors on évite la division par 0
-    const resultat2 = new FractionEtendue(ux * (zB - zA) - uz * (xB - xA), det2 !== 0 ? det2 : 1) // Pour le calcul de colinéarité si den === 0, alors on évite la division par 0
+    const resultat1 = type !== 'paralleles' ? new FractionEtendue(ux * (yB - yA) - uy * (xB - xA), det1) : new FractionEtendue(1, 1) // Pour le calcul de colinéarité si den === 0, alors on évite la division par 0
+    const resultat2 = type !== 'paralleles' ? new FractionEtendue(ux * (zB - zA) - uz * (xB - xA), det2) : new FractionEtendue(1, 1) // Pour le calcul de colinéarité si den === 0, alors on évite la division par 0
     const quotient1 = new FractionEtendue(ux * uy, det1 !== 0 ? det1 : 1) // Pour la dernière ligne de calcul du quotient de la colinéarité
     const quotient2 = new FractionEtendue(ux * uz, det2 !== 0 ? det2 : 1) // Pour la dernière ligne de calcul du quotient de la colinéarité
 
@@ -144,8 +143,8 @@ function bloc2Alea ({ ux, vx, uy, vy, uz, vz, u1, u2, u3 }:{ ux: number, uy: num
   return `On cherche si les coordonnées des vecteurs sont proportionnelles  c'est à dire s'il existe un réel $\\lambda$ tel que $\\vec u=\\lambda \\vec v$.<br>
          $\\phantom{\\iff}\\vec u=\\lambda \\vec v$
           $\\quad\\iff \\begin{cases}${ux}= ${rienSi1(vx)}\\lambda\\\\${uy}= ${rienSi1(vy)}\\lambda\\\\${uz}=${rienSi1(vz)}\\lambda\\end{cases}$
-          $\\quad\\iff \\begin{cases}\\lambda =${u1.simplifie().texFractionSimplifiee}\\\\\\lambda =${u2.simplifie().texFractionSimplifiee}\\\\
-           \\lambda =${u3.texFractionSimplifiee}\\end{cases}$`
+          $\\quad\\iff \\begin{cases}\\lambda =${u1.inverse().texFractionSimplifiee}\\\\\\lambda =${u2.inverse().texFractionSimplifiee}\\\\
+           \\lambda =${u3.inverse().texFractionSimplifiee}\\end{cases}$`
 }
 /**
  * Stéphane Guyon
@@ -171,15 +170,13 @@ export default class NomExercice extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
-      const alpha = randint(-3, 3, 0) // Pour éviter les droites parallèles
-      const beta = randint(-3, 3, 0) // Pour éviter les droites parallèles
       const affirmation = this.sup
         ? 'Les droites $(d)$ et $(d~\')$ sont non coplanaires.'
         : choice(['Les droites $(d)$ et $(d~\')$ sont parallèles.',
           'Les droites $(d)$ et $(d~\')$ sont sécantes.',
           'Les droites $(d)$ et $(d~\')$ sont non coplanaires.']) // On choisit une affirmation aléatoire parmi les trois possibles
 
-      const { xA, yA, zA, ux, uy, uz, xB, yB, zB, vx, vy, vz, lambda, u1, u2, u3, u4, u5, u6, resultat1, resultat2, quotient1, quotient2 } = generateur(listeTypeQuestions[i], this.sup) // On génère les coordonnées des points A et B et les vecteurs directeurs u et v
+      const { xA, yA, zA, ux, uy, uz, xB, yB, zB, vx, vy, vz, u1, u2, u3, u4, u5, u6, resultat1, resultat2, quotient1, quotient2 } = generateur(listeTypeQuestions[i], this.sup) // On génère les coordonnées des points A et B et les vecteurs directeurs u et v
       const bloc1 = bloc1Alea({ xA, yA, zA, ux, uy, uz, xB, yB, zB, vx, vy, vz, u1, u2, u3, u4, u5, u6 }) // On génère le bloc 1 avec les coordonnées des points A et B et les vecteurs directeurs u et v
       const bloc2 = bloc2Alea({ ux, uy, uz, vx, vy, vz, u1, u2, u3 }) // On génère le bloc 2 avec les coordonnées des vecteurs directeurs u et v
 
@@ -213,25 +210,30 @@ export default class NomExercice extends Exercice {
           texteCorr += bloc1
           texteCorr += `<br>En égalisant les lignes 1 et 2, et les lignes 1 et 3, cela ${texteGras('implique')} que $s$ doit vérifier le système :<br>`
           texteCorr += `<br>$\\begin{cases}
-            ${u1.texFractionSimplifiee}s ${u4.texFractionSimplifiee}=${u2.texFractionSimplifiee}s ${u5.texFractionSimplifiee} \\\\\\\\
-            ${u1.texFractionSimplifiee}s ${u4.texFractionSimplifiee} = ${u3.texFractionSimplifiee}s ${u6.texFractionSimplifiee}
+            ${u1.texFractionSimplifiee}s ${u4.texFractionSimplifiee}=${u2.texFractionSimplifiee}s ${u5.texFractionSimplifiee} \\\\
+             \\addlinespace[7pt]
+         ${u1.texFractionSimplifiee}s ${u4.texFractionSimplifiee} = ${u3.texFractionSimplifiee}s ${u6.texFractionSimplifiee}
             \\end{cases}$`
           texteCorr += `$\\quad\\quad\\begin{cases}
-            \\left(${u1.texFractionSimplifiee}+${u2.oppose().texFractionSimplifiee}\\right)s =${u5.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique} \\\\\\\\
-            \\left(${u1.texFractionSimplifiee}+${u3.oppose().texFractionSimplifiee}\\right)s = ${u6.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique}
+            \\left(${u1.texFractionSimplifiee}+${u2.oppose().texFractionSimplifiee}\\right)s =${u5.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique} \\\\
+          \\addlinespace[7pt]
+          \\left(${u1.texFractionSimplifiee}+${u3.oppose().texFractionSimplifiee}\\right)s = ${u6.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique}
             \\end{cases}$`
 
           texteCorr += `$\\quad\\quad\\begin{cases}
-            ${u1.differenceFraction(u2).simplifie().texFraction}s =${u5.differenceFraction(u4).simplifie().texFraction} \\\\\\\\
+            ${u1.differenceFraction(u2).simplifie().texFraction}s =${u5.differenceFraction(u4).simplifie().texFraction} \\\\
+            \\addlinespace[7pt]
             ${u1.differenceFraction(u3).simplifie().texFraction}s = ${u6.differenceFraction(u4).simplifie().texFraction}
             \\end{cases}$`
           texteCorr += `<br><br>$\\begin{cases}
-           s =${u5.differenceFraction(u4).simplifie().texFraction} \\times ${quotient1.simplifie().texFraction} \\\\\\\\
-          s = ${u6.differenceFraction(u4).simplifie().texFraction} \\times ${quotient2.simplifie().texFraction} \\\\\\\\
+           s =${u5.differenceFraction(u4).simplifie().texFraction} \\times ${quotient1.simplifie().texFraction} \\\\
+           \\addlinespace[7pt]
+          s = ${u6.differenceFraction(u4).simplifie().texFraction} \\times ${quotient2.simplifie().texFraction} \\\\
             \\end{cases}$`
 
           texteCorr += `$\\quad\\quad\\begin{cases}
-          s =${resultat1.simplifie().texFraction} \\\\\\\\
+          s =${resultat1.simplifie().texFraction} \\\\
+             \\addlinespace[7pt]
           s = ${resultat2.simplifie().texFraction}
             \\end{cases}$`
           texteCorr += '<br>Les deux équations sont incompatibles donc le système n\'admet pas de solution.<br>'
@@ -243,7 +245,7 @@ export default class NomExercice extends Exercice {
           // SECANTES
           //* ****************************************************************************
           // */
-        case 'secantes':// Droites sécantes
+        case 'secantes':{ // Droites sécantes
           texte += `$(d):\\begin{cases}x=${reduireAxPlusB(ux, xA, 't', { ordreInverse: true })} \\\\y= ${rienSi0(yA)}  ${ecritureAlgebriqueSauf1(uy)}t\\quad(t\\in\\mathbb{R})\\\\z= ${rienSi0(zA)} ${ecritureAlgebriqueSauf1(uz)}t\\end{cases}$`
           texte += `$\\quad\\quad(d'):\\begin{cases}x=${rienSi0(xB)}${ecritureAlgebriqueSauf1(vx)}s\\\\y= ${rienSi0(yB)}  ${ecritureAlgebriqueSauf1(vy)}s\\quad(s\\in\\mathbb{R})\\\\z= ${rienSi0(zB)} ${ecritureAlgebriqueSauf1(vz)}s\\end{cases}$`
           // On écrit les représentations paramétriques des droites (d) et (d')
@@ -268,41 +270,47 @@ export default class NomExercice extends Exercice {
           texteCorr += bloc1
           texteCorr += `<br><br>En égalisant les lignes 1 et 2, et les lignes 1 et 3, cela ${texteGras('implique')} que $s$ doit vérifier le système :<br>`
           texteCorr += `<br>$\\begin{cases}
-            ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique}=${new FractionEtendue(vy, uy).texFractionSimplifiee}s ${u5.simplifie().ecritureAlgebrique} \\\\\\\\
-            ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique} = ${new FractionEtendue(vz, uz).texFractionSimplifiee}s ${u6.simplifie().ecritureAlgebrique}
+            ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique}=${new FractionEtendue(vy, uy).texFractionSimplifiee}s ${u5.simplifie().ecritureAlgebrique} \\\\
+           \\addlinespace[7pt]
+           ${u1.texFractionSimplifiee}s ${u4.simplifie().ecritureAlgebrique} = ${new FractionEtendue(vz, uz).texFractionSimplifiee}s ${u6.simplifie().ecritureAlgebrique}
             \\end{cases}$`
           texteCorr += `$\\quad\\quad\\begin{cases}
-            \\left(${u1.texFractionSimplifiee}+${u2.oppose().texFractionSimplifiee}\\right)s =${u5.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique} \\\\\\\\
-            \\left(${u1.texFractionSimplifiee}+${u3.oppose().texFractionSimplifiee}\\right)s = ${u6.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique}
+            \\left(${u1.texFractionSimplifiee}+${u2.oppose().texFractionSimplifiee}\\right)s =${u5.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique} \\\\
+          \\left(${u1.texFractionSimplifiee}+${u3.oppose().texFractionSimplifiee}\\right)s = ${u6.texFractionSimplifiee}${u4.oppose().simplifie().ecritureAlgebrique}
             \\end{cases}$`
 
           texteCorr += `$\\quad\\quad\\begin{cases}
-            ${u1.differenceFraction(u2).simplifie().texFraction}s =${u5.differenceFraction(u4).simplifie().texFraction} \\\\\\\\
-            ${u1.differenceFraction(u3).simplifie().texFraction}s = ${u6.differenceFraction(u4).simplifie().texFraction}
+            ${u1.differenceFraction(u2).simplifie().texFraction}s =${u5.differenceFraction(u4).simplifie().texFraction} \\\\
+            \\addlinespace[7pt]
+          ${u1.differenceFraction(u3).simplifie().texFraction}s = ${u6.differenceFraction(u4).simplifie().texFraction}
             \\end{cases}$`
           texteCorr += `<br><br>$\\begin{cases}
-           s =${u5.differenceFraction(u4).simplifie().texFraction} \\times ${quotient1.simplifie().texFraction} \\\\\\\\
-          s = ${u6.differenceFraction(u4).simplifie().texFraction} \\times ${quotient2.simplifie().texFraction} \\\\\\\\
+           s =${u5.differenceFraction(u4).simplifie().texFraction} \\times ${quotient1.simplifie().texFraction} \\\\
+         \\addlinespace[7pt]
+           s = ${u6.differenceFraction(u4).simplifie().texFraction} \\times ${quotient2.simplifie().texFraction} \\\\
             \\end{cases}$`
 
           texteCorr += `$\\quad\\quad\\begin{cases}
-          s =${resultat1.simplifie().texFraction} \\\\\\\\
-          s = ${resultat2.simplifie().texFraction}
+          s =${resultat1.simplifie().texFraction} \\\\
+         \\addlinespace[7pt]
+           s = ${resultat2.simplifie().texFraction}
             \\end{cases}$`
           texteCorr += '<br>En remplaçant la valeur de $s$ dans le sytème, on obtient :'
           texteCorr += `<br>$t =${u1.texFractionSimplifiee}\\times ${resultat2.simplifie().texFraction}${u4.simplifie().ecritureAlgebrique}$`
-          texteCorr += `d'où $t =${alpha}$.`
+          const t = u1.produitFraction(resultat2).sommeFraction(u4).valeurDecimale // On calcule la valeur de t
+          texteCorr += `d'où $t =${t}$.`
 
-          texteCorr += `<br>${texteGras('Réciproquement')}, on vérifie que pour $t=${alpha}$ et $s=${-beta}$ les deux représentations donnent les coordonnées de leur point commun.<br>`
-          texteCorr += `$(d):\\begin{cases}x=${ux}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(xA)}\\\\ y=${uy}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(yA)}\\\\ z=${uz}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(zA)}\\end{cases}$`
-          texteCorr += `$\\quad\\quad(d):\\begin{cases}x=${ux * alpha + xA}\\\\ y=${uy * alpha + yA}\\\\ z=${uz * alpha + zA}\\end{cases}$`
-          texteCorr += `<br>$(d'):\\begin{cases}x=${vx}\\times ${ecritureParentheseSiNegatif(-beta)})${ecritureAlgebrique(xB)}\\\\ y=${vy}\\times ${ecritureAlgebrique(-beta)}${ecritureAlgebrique(yB)}\\\\ z=${vz}\\times ${ecritureAlgebrique(-beta)}${ecritureAlgebrique(zB)}\\end{cases}$`
-          texteCorr += `$\\quad\\quad(d'):\\begin{cases}x=${vx * -beta + xB}\\\\ y=${vy * -beta + yB}\\\\ z=${vz * -beta + zB}\\end{cases}$`
-          texteCorr += `<br>On a montré que les droites $(d)$ et $(d')$ étaient sécantes au point de coordonnées $(${vx * -beta + xB}; ${vy * -beta + yB};${vz * -beta + zB})$.<br>`
+          texteCorr += `<br>${texteGras('Réciproquement')}, on vérifie que pour $t=${t}$ et $s=${resultat2.valeurDecimale}$ les deux représentations donnent les coordonnées de leur point commun.<br>`
+          texteCorr += `$(d):\\begin{cases}x=${ux}\\times ${ecritureParentheseSiNegatif(t)}${ecritureAlgebrique(xA)}\\\\ y=${uy}\\times ${ecritureParentheseSiNegatif(t)}${ecritureAlgebrique(yA)}\\\\ z=${uz}\\times ${ecritureParentheseSiNegatif(t)}${ecritureAlgebrique(zA)}\\end{cases}$`
+          texteCorr += `$\\quad\\quad(d):\\begin{cases}x=${ux * t + xA}\\\\ y=${uy * t + yA}\\\\ z=${uz * t + zA}\\end{cases}$`
+          texteCorr += `<br>$(d'):\\begin{cases}x=${vx}\\times ${ecritureParentheseSiNegatif(resultat2.valeurDecimale)})${ecritureAlgebrique(xB)}\\\\ y=${vy}\\times ${ecritureAlgebrique(resultat2.valeurDecimale)}${ecritureAlgebrique(yB)}\\\\ z=${vz}\\times ${ecritureAlgebrique(resultat2.valeurDecimale)}${ecritureAlgebrique(zB)}\\end{cases}$`
+          texteCorr += `$\\quad\\quad(d'):\\begin{cases}x=${vx * resultat2.valeurDecimale + xB}\\\\ y=${vy * resultat2.valeurDecimale + yB}\\\\ z=${vz * resultat2.valeurDecimale + zB}\\end{cases}$`
+          texteCorr += `<br>On a montré que les droites $(d)$ et $(d')$ étaient sécantes au point de coordonnées $(${vx * resultat2.valeurDecimale + xB}; ${vy * resultat2.valeurDecimale + yB};${vz * resultat2.valeurDecimale + zB})$.<br>`
 
           texteCorr += texteEnCouleurEtGras('Conclusion :<br>')
           texteCorr += 'Donc les droites $(d)$ et $(d\')$ ont des vecteurs directeurs non colinéaires et un point en commun. Elles sont donc sécantes.<br>'
           if (affirmation === 'Les droites $(d)$ et $(d~\')$ sont sécantes.') { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc vraie.') } else { texteCorr += texteEnCouleurEtGras('L\'affirmation est donc fausse.') }
+        }
           break
           //* ****************************************************************************
           // PARALLELES
@@ -326,7 +334,7 @@ export default class NomExercice extends Exercice {
           texteCorr += `et que $\\vec v$ de coordonnées $\\vec v\\begin{pmatrix} ${vx}\\\\${vy}\\\\${vz}\\end{pmatrix}$ est un vecteur directeur de (d'). <br>`
           // On teste la colinéarité des vecteurs directeurs
           texteCorr += bloc2
-          texteCorr += `<br>On peut conclure que $\\vec u =  ${lambda ?? ''} \\vec v$, les vecteurs sont alors colinéaires. <br>`
+          texteCorr += `<br>On peut conclure que $\\vec u =  ${u3.inverse().texFractionSimplifiee ?? ''} \\vec v$, les vecteurs sont alors colinéaires. <br>`
           texteCorr += `<br>${texteGras('Les droites $(d)$ et $(d~\')$ sont donc portées par des vecteurs de même direction.')}`
           // On teste si les droites sont sécantes ou non-coplanaires
           texteCorr += texteEnCouleurEtGras('<br>Étape 2 : Droites parallèles ou confondues ?')
