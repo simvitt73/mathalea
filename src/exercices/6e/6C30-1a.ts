@@ -9,8 +9,8 @@ import Exercice from '../Exercice'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { sp } from '../../lib/outils/outilString'
 import { bleuMathalea } from '../../lib/colors'
-import GlisseNombreElement from 'glisse-nombre'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { glisseNombreInteractif } from '../../lib/apps/glisse_nombre_interactif'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -34,13 +34,6 @@ export const uuid = 'fcf1b'
 export const refs = {
   'fr-fr': ['6C30-1a'],
   'fr-ch': []
-}
-
-/**
- * Définit le customElement glisse-nombre
- */
-if (customElements.get('glisse-nombre') === undefined) {
-  customElements.define('glisse-nombre', GlisseNombreElement)
 }
 
 function donneNomClasse (valeur: number): string[] {
@@ -154,10 +147,10 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
     })
 
     this.consigne = 'Compléter.'
-    if (context.isHtml && this.sup4) {
+    if (this.sup4) {
       this.consigne += '<br>Un glisse-nombre est à disposition pour répondre '
       this.consigne += this.nbQuestions === 1 ? 'à la question.' : 'aux questions.'
-      this.consigne += `<glisse-nombre number="${texNombre(20.25)}"/>`
+      this.consigne += glisseNombreInteractif({ number: 20.25 })
     } else { this.consigne = 'Compléter.' }
 
     const puissances = combinaisonListes(
@@ -279,8 +272,8 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           break
       }
 
-      if (context.isHtml && this.sup4) {
-        texteCorr += `<glisse-nombre number="${a}"  animation="${-b}"/>`
+      if (this.sup4) {
+        texteCorr += glisseNombreInteractif({ number: a, animation: -b })
       }
 
       if (context.isAmc) {
