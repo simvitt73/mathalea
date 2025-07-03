@@ -97,7 +97,7 @@ export default class CalculDeVolumes extends Exercice {
       [sp(1) + '\\text{mm}', sp(1) + '\\text{mm}^3', 'mm^3']
     ]
     let partieDecimale1, partieDecimale2, partieDecimale3
-    if (this.sup2) {
+    /*   if (this.sup2) {
       partieDecimale1 = new Decimal(randint(1, 9)).div(10).mul(randint(0, 1))
       partieDecimale2 = new Decimal(randint(1, 9)).div(10).mul(randint(0, 1))
       partieDecimale3 = new Decimal(randint(1, 9)).div(10).mul(randint(0, 1))
@@ -105,10 +105,19 @@ export default class CalculDeVolumes extends Exercice {
       partieDecimale1 = new Decimal(0)
       partieDecimale2 = new Decimal(0)
       partieDecimale3 = new Decimal(0)
-    }
+    } */
     for (let i = 0, texte, texteCorr, L, l, h, c, r, j, resultat, resultat2, resultat3, resultat4, volume, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       this.autoCorrection[i] = {}
       texte = 'Calculer le volume'
+      if (this.sup2) {
+        partieDecimale1 = new Decimal(randint(1, 9)).div(10).mul(randint(0, 1))
+        partieDecimale2 = new Decimal(randint(1, 9)).div(10).mul(randint(0, 1))
+        partieDecimale3 = new Decimal(randint(1, 9)).div(10).mul(randint(0, 1))
+      } else {
+        partieDecimale1 = new Decimal(0)
+        partieDecimale2 = new Decimal(0)
+        partieDecimale3 = new Decimal(0)
+      }
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
           c = new Decimal(randint(2, 20)).plus(partieDecimale1)
