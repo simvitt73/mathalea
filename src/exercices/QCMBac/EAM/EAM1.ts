@@ -1,62 +1,84 @@
-import { miseEnEvidence } from '../../../utils/miseEnEvidence'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
-export const uuid = 'fef5b'
+export const uuid = 'inv-double-aleatoire'
 export const refs = {
-  'fr-fr': ['EAM1'],
+  'fr-fr': ['a2699'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Amérique 05/22 : somme'
+export const titre = 'Inverse du multiple d\'un nombre'
 export const dateDePublication = '09/03/2025'
+
 /**
- * Ceci est un exo construit à partir d'une question de qcm de Bac.
- * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
- * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
- * Il est interactif et dispose d'un export AMC d'office
+ * Exercice QCM sur l'inverse d'un multiple d'un nombre, avec versions aléatoires.
+ * Inspiré d'un QCM de Bac.
+ * @author MathGPT
  */
-/**
- *
- * @author Stéphane Guyon
- *
- */
-export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
+function getRandomInt(arr: number[]) {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function getRandomElement<T>(arr: T[]) {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+const multiplicateurs = [
+  { nom: 'double', val: 2 },
+  { nom: 'triple', val: 3 },
+  { nom: 'quadruple', val: 4 },
+  { nom: 'quintuple', val: 5 }
+]
+const nombres = [2, 3, 4, 5, 7, 8, 9, 10]
+
+export default class InverseMultipleQcm extends ExerciceQcm {
   versionOriginale: () => void = () => {
+    this.enonce = 'L\'inverse du double de 5 est égal à :'
     this.reponses = [
-      '$x \\longmapsto x \\ln (x) - x$', // Réponse correcte (c)
-      '$x \\longmapsto \\ln (x)$', // Mauvaise réponse (a)
-      '$x \\longmapsto \\dfrac{1}{x}$', // Mauvaise réponse (b)
-      '$x \\longmapsto \\dfrac{\\ln (x)}{x}$' // Mauvaise réponse (d)
+      '$\\dfrac{2}{5}$', // Mauvaise réponse
+      '$\\dfrac{1}{10}$', // Bonne réponse
+      '$\\dfrac{5}{2}$', // Mauvaise réponse
+      '10' // Mauvaise réponse
+    ]
+    this.correction = 'Le double de 5 est $2 \\times 5 = 10$.<br>'
+    this.correction += 'L\'inverse de 10 est $\\dfrac{1}{10}$.<br>'
+    this.correction += `La bonne réponse est donc la réponse $${miseEnEvidence('\\dfrac{1}{10}')}$`
+  }
+
+  versionAleatoire: () => void = () => {
+    // Choix aléatoire du multiplicateur et du nombre
+    const multiplicateur = getRandomElement(multiplicateurs)
+    const nombre = getRandomInt(nombres)
+    const produit = multiplicateur.val * nombre
+    const bonneReponse = `$\\dfrac{1}{${produit}}$`
+
+    // Mauvaises réponses cohérentes
+    const mauvaises = [
+      `$\\dfrac{${multiplicateur.val}}{${nombre}}$`, // le multiple de l'inverse
+      `$\\dfrac{${nombre}}{${multiplicateur.val}}$`, // l'inverse du multiple
+      `${produit}` // le multiple lui-même
     ]
 
-    this.reponses = [
-      '$ -\\dfrac{1}{2} \\ln (3) $', // Réponse correcte (d)
-      '$ 1 - \\dfrac{1}{2} \\ln (3) $', // Mauvaise réponse (a)
-      '$ \\dfrac{1}{2} \\ln (3) $', // Mauvaise réponse (b)
-      '$ 3 \\ln (3) + \\dfrac{1}{2} $' // Mauvaise réponse (c)
-    ]
+    // Mélange des réponses
+    const allReponses = [bonneReponse, ...mauvaises].sort(() => Math.random() - 0.5)
 
-    this.enonce = 'Le réel $a$ est défini par '
-    this.enonce += '$a = \\ln (9) + \\ln \\left(\\dfrac{\\sqrt{3}}{3} \\right) + \\ln \\left(\\dfrac{1}{9} \\right).$<br>'
-    this.enonce += 'Quelle est la valeur de $a$ ?'
+    this.enonce = `L'inverse du ${multiplicateur.nom} de ${nombre} est égal à :`
+    this.reponses = allReponses
 
-    this.correction = 'On simplifie l\'expression de $a$ étape par étape :<br>'
-    this.correction += '$\\begin{aligned}'
-    this.correction += 'a &= \\ln (9) + \\ln \\left(\\dfrac{\\sqrt{3}}{3} \\right) + \\ln \\left(\\dfrac{1}{9} \\right) \\\\'
-    this.correction += '&= \\ln \\left(3^2 \\right) + \\ln \\left(\\sqrt{3} \\right) - \\ln (3) - \\ln \\left(3^2 \\right) \\\\'
-    this.correction += '&= 2 \\ln (3) + \\dfrac{1}{2} \\ln (3) - \\ln (3) - 2 \\ln (3) \\\\'
-    this.correction += '&= \\left(2 + \\dfrac{1}{2} - 1 - 2 \\right) \\ln (3) \\\\'
-    this.correction += '&= -\\dfrac{1}{2} \\ln (3)'
-    this.correction += '\\end{aligned}$<br>'
-    this.correction += `La bonne réponse est donc la réponse $${miseEnEvidence(' -\\dfrac{1}{2} \\ln (3) ')}$`
+    this.correction = `Le ${multiplicateur.nom} de ${nombre} est $${multiplicateur.val} \\times ${nombre} = ${produit}$.<br>`
+    this.correction += `L'inverse de ${produit} est $\\dfrac{1}{${produit}}$.<br>`
+    this.correction += `La bonne réponse est donc la réponse $${miseEnEvidence(`\\dfrac{1}{${produit}}`)}$`
   }
 
   constructor () {
     super()
     this.options = { vertical: true, ordered: false }
-    this.versionOriginale()
+    // Pour la version originale, décommente la ligne suivante :
+    // this.versionOriginale()
+    // Pour la version aléatoire, décommente la ligne suivante :
+    this.versionAleatoire()
   }
 }
