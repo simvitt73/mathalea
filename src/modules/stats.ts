@@ -5,10 +5,14 @@ import type { InterfaceParams } from '../lib/types'
 declare global {
   interface Window {
     _paq: any[];
+    logDebug: number;
   }
 }
 
-const activeStats = (document.location.hostname === 'coopmaths.fr')
+window.logDebug = window.logDebug || 0
+// pour pour pouvoir le déactiver en mode debug...
+// eslint-disable-next-line prefer-const
+let activeStats = (document.location.hostname === 'coopmaths.fr')
 
 if (activeStats) {
   const _paq = window._paq = window._paq || []
@@ -25,7 +29,7 @@ if (activeStats) {
 }
 
 const url = new URL(window.location.href)
-const debug = url.searchParams.get('log') === '3' ? 1 : 0
+const debug = url.searchParams.get('log') === '3' || window.logDebug !== 0 ? 1 : 0
 function log (message?: any, ...optionalParams: any[]) {
   if (debug) {
     console.info(message, ...optionalParams)
@@ -33,7 +37,7 @@ function log (message?: any, ...optionalParams: any[]) {
 }
 
 function logDebug (message?: any, ...optionalParams: any[]) {
-  if (debug > 1) log('DEBUG:', message, ...optionalParams)
+  if (debug > 1 || window.logDebug > 1) log('DEBUG:', message, ...optionalParams)
 }
 
 logDebug('Matomo loaded')
