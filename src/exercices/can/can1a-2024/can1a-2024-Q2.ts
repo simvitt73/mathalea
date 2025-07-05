@@ -19,8 +19,8 @@ export default class PointsCourbe extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.formatInteractif = 'qcm'
     this.canOfficielle = false
+    this.versionQcm = true
   }
 
   nouvelleVersion () {
@@ -52,7 +52,6 @@ export default class PointsCourbe extends Exercice {
     const affirmationVraie = ord === abs ** 2 + a
     this.reponse = affirmationVraie ? 'Vrai' : 'Faux'
     this.distracteurs = [affirmationVraie ? 'Faux' : 'Vrai']
-    this.formatInteractif = 'qcm'
 
     this.canEnonce = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
