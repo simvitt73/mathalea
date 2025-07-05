@@ -36,7 +36,7 @@ export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions)
         return `\\glissenombre[color=couleur_theme!10,animation=${options.animation},${options.showComma ? '' : 'nocomma,'}${options.showCalculus ? '' : 'calcul,'}]{${options.number}}`
       }
     }
-    return '' // La sortie LaTeX n'est pas encore gérée
+    return ''
   }
   let optionsString: string = ''
   if (options) {
