@@ -5,8 +5,8 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { balleDef, carreDef, carreRondDef, hexagoneDef, listeShapes2DNames, listeShapesDef, losangeDef, redCrossDef, rondDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternAffine, listePatternAutres, listePatternDegre2, listePatternDegre3, listePatternLineaire, listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
+import { listeShapesDef } from '../../lib/2d/figures2d/shapes2d'
+import { listePatternAffine, listePatternDegre2, listePatternDegre3, listePatternLineaire, listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
@@ -44,10 +44,8 @@ export default class PaternNum1 extends Exercice {
     this.comment = 'Cet exercice contient des patterns issus de l\'excellent site : https://www.visualpatterns.org/'
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire2Texte = ['Types de formules au menu (cumulatif)', 'Nombres séparés par des tirets\n1 : Linéaire\n2 : Affine\n3 : Quadratique\n4 : Cubique\n5 : Autre\n6 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de formules au menu (cumulatif)', 'Nombres séparés par des tirets\n1 : Linéaire\n2 : Affine\n3 : Quadratique\n4 : Cubique\n5 : Mélange']
     this.sup2 = '1-2'
-    this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Losange\n7 : Hexagone\n8: Cercle\n9: Balle de tennis\n10 : Mélange']
-    this.sup3 = '10'
     this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
     this.sup5 = 1
   }
@@ -60,7 +58,7 @@ export default class PaternNum1 extends Exercice {
       this.sup5 = 1
     }
     const listeSelection: (PatternRiche | PatternRiche3D)[] = []
-    const numbers = this.sup2.split('-').map(Number)
+    const numbers = new Set(gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: this.nbQuestions }).map(Number))
     for (const n of numbers) {
       switch (n) {
         case 1:
@@ -76,9 +74,6 @@ export default class PaternNum1 extends Exercice {
           listeSelection.push(...listePatternDegre3)
           break
         case 5:
-          listeSelection.push(...listePatternAutres)
-          break
-        case 6:
         default:
           listeSelection.push(...listePatternsPreDef)
           break
@@ -88,8 +83,6 @@ export default class PaternNum1 extends Exercice {
       ? [listePatternsPreDef[Number(this.sup5) - 1]]
       : shuffle(listeSelection)
     const nbFigures = Math.max(2, this.sup)
-    // const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
-    const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions }).map(Number)
     // const patterns : (VisualPattern | VisualPattern3D)[] = [] à voir si on le réactive pour apiGeom.
     for (let i = 0; i < this.nbQuestions;) {
       const objetsCorr: NestedObjetMathalea2dArray = []
@@ -100,8 +93,6 @@ export default class PaternNum1 extends Exercice {
       const pat = popped
       const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
 
-      //  patterns.push(pattern)
-
       if (pattern instanceof VisualPattern3D) {
         pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
@@ -109,88 +100,23 @@ export default class PaternNum1 extends Exercice {
       } else {
         const pat2D = pat as PatternRiche
         pattern.iterate = (pat as PatternRiche).iterate
-        if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
-          pattern.shapes = [listeShapes2DNames[formes[i]]]
-          switch (formes[i]) {
-            case 2:
-              pattern.shapes[0] = 'étoile'
-              pattern.shapes[1] = 'étoile'
-              objetsCorr.push(emoji('étoile', emojis['étoile']).shapeDef)
-              break
-            case 3:
-              pattern.shapes[0] = 'carréRond'
-              pattern.shapes[1] = 'carréRond'
-              objetsCorr.push(carreRondDef)
-              break
-            case 4:
-              pattern.shapes[0] = 'chat'
-              pattern.shapes[1] = 'chat'
-              objetsCorr.push(emoji('chat', emojis['chat']).shapeDef)
-              break
-            case 5:
-              pattern.shapes[0] = 'soleil'
-              pattern.shapes[1] = 'soleil'
-              objetsCorr.push(emoji('soleil', emojis['soleil']).shapeDef)
-              break
-            case 6:
-              pattern.shapes[0] = 'losange'
-              pattern.shapes[1] = 'losange'
-              objetsCorr.push(losangeDef)
-              break
-            case 7:
-              pattern.shapes[0] = 'hexagone'
-              pattern.shapes[1] = 'hexagone'
-              objetsCorr.push(hexagoneDef)
-              break
-            case 8:
-              pattern.shapes[0] = 'rond'
-              pattern.shapes[1] = 'rond'
-              objetsCorr.push(rondDef)
-              break
-            case 9:
-              pattern.shapes[0] = 'balle'
-              pattern.shapes[1] = 'balle'
-              objetsCorr.push(balleDef)
-              break
-            case 10:
-              pattern.shapes[0] = 'tortue'
-              pattern.shapes[1] = 'tortue'
-              objetsCorr.push(emoji('tortue', emojis['tortue']).shapeDef)
-              break
-            case 11:
-              pattern.shapes[0] = 'triangle'
-              pattern.shapes[1] = 'triangle'
-              objetsCorr.push(triangleEquilateralDef)
-              break
-            case 12:
-              pattern.shapes[0] = 'redCross'
-              pattern.shapes[1] = 'redCross'
-              objetsCorr.push(redCrossDef)
-              break
-            case 1:
-            default:
-              pattern.shapes[0] = 'carré'
-              pattern.shapes[1] = 'carré'
-              objetsCorr.push(carreDef)
-              break
-          }
+        pattern.shapes = pat2D.shapes || ['carré', 'carré']
+
+        if (pat2D.shapes[0] in listeShapesDef) objetsCorr.push(listeShapesDef[pat2D.shapes[0]])
+        else if (Object.keys(emojis).includes(pat2D.shapes[0])) {
+          const code = emojis[pat2D.shapes[0]]
+          objetsCorr.push(emoji(pat2D.shapes[0], code).shapeDef)
         } else {
-          if (pat2D.shapes[0] in listeShapesDef) {
-            objetsCorr.push(listeShapesDef[pat2D.shapes[0]])
-            if (pat2D.shapes[1] in listeShapesDef) {
-              if (pat2D.shapes[1] !== pat2D.shapes[0]) {
-                if (pat2D.shapes[1] in listeShapesDef) objetsCorr.push(listeShapesDef[pat2D.shapes[1]])
-                else if (Object.keys(emojis).includes(pat2D.shapes[1])) objetsCorr.push(emoji(pat2D.shapes[1], emojis[pat2D.shapes[1]]).shapeDef)
-              }
-            } else if (Object.keys(emojis).includes(pat2D.shapes[1])) {
-              const code = emojis[pat2D.shapes[1]]
-              objetsCorr.push(emoji(pat2D.shapes[1], code).shapeDef)
-            } else {
-              console.warn(`Shape ${pat2D.shapes[1]} n'est pas dans listeShapesDef ou emojis`)
-            }
-          } else if (Object.keys(emojis).includes(pat2D.shapes[0])) {
-            const code = emojis[pat2D.shapes[0]]
-            objetsCorr.push(emoji(pat2D.shapes[0], code).shapeDef)
+          console.warn(`Shape ${pat2D.shapes[0]} n'est pas dans listeShapesDef ou emojis`)
+        }
+        if (pat2D.shapes[1] && pat2D.shapes[1] !== pat2D.shapes[0]) {
+          if (pat2D.shapes[1] in listeShapesDef) objetsCorr.push(listeShapesDef[pat2D.shapes[1]])
+          else if (Object.keys(emojis).includes(pat2D.shapes[1])) {
+            const code = emojis[pat2D.shapes[1]]
+            objetsCorr.push(emoji(pat2D.shapes[1], code).shapeDef
+            )
+          } else {
+            console.warn(`Shape ${pat2D.shapes[1]} n'est pas dans listeShapesDef ou emojis`)
           }
         }
       }
@@ -208,63 +134,21 @@ export default class PaternNum1 extends Exercice {
           figures[j].push(cubeDef(`cubeIsoQ${i}F${j}`))
         } else {
           const pat2D = pat as PatternRiche
-          if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
-            switch (formes[i]) {
-              case 2:
-                figures[j].push(emoji('étoile', emojis['étoile']).shapeDef)
-                break
-              case 3:
-                figures[j].push(carreRondDef)
-                break
-              case 4:
-                figures[j].push(emoji('chat', emojis['chat']).shapeDef)
-                break
-              case 5:
-                figures[j].push(emoji('soleil', emojis['soleil']).shapeDef)
-                break
-              case 6:
-                figures[j].push(losangeDef)
-                break
-              case 7:
-                figures[j].push(hexagoneDef)
-                break
-              case 8:
-                figures[j].push(rondDef)
-                break
-              case 9:
-                figures[j].push(balleDef)
-                break
-              case 10:
-                figures[j].push(emoji('tortue', emojis['tortue']).shapeDef)
-                break
-              case 11:
-                figures[j].push(triangleEquilateralDef)
-                break
-              case 12:
-                figures[j].push(redCrossDef)
-                break
-              case 1:
-              default:
-                figures[j].push(carreDef)
-                break
-            }
+          if (pat2D.shapes[0] in listeShapesDef) figures[j].push(listeShapesDef[pat2D.shapes[0]])
+          else if (Object.keys(emojis).includes(pat2D.shapes[0])) {
+            const code = emojis[pat2D.shapes[0]]
+            figures[j].push(emoji(pat2D.shapes[0], code).shapeDef)
           } else {
-            if (pat2D.shapes[0] in listeShapesDef) figures[j].push(listeShapesDef[pat2D.shapes[0]])
-            else if (Object.keys(emojis).includes(pat2D.shapes[0])) {
-              const code = emojis[pat2D.shapes[0]]
-              figures[j].push(emoji(pat2D.shapes[0], code).shapeDef)
+            console.warn(`Shape ${pat2D.shapes[0]} n'est pas dans listeShapesDef ou emojis`)
+          }
+          if (pat2D.shapes[1] && pat2D.shapes[1] !== pat2D.shapes[0]) {
+            if (pat2D.shapes[1] in listeShapesDef) figures[j].push(listeShapesDef[pat2D.shapes[1]])
+            else if (Object.keys(emojis).includes(pat2D.shapes[1])) {
+              const code = emojis[pat2D.shapes[1]]
+              figures[j].push(emoji(pat2D.shapes[1], code).shapeDef
+              )
             } else {
-              console.warn(`Shape ${pat2D.shapes[0]} n'est pas dans listeShapesDef ou emojis`)
-            }
-            if (pat2D.shapes[1] !== pat2D.shapes[0]) {
-              if (pat2D.shapes[1] in listeShapesDef) figures[j].push(listeShapesDef[pat2D.shapes[1]])
-              else if (Object.keys(emojis).includes(pat2D.shapes[1])) {
-                const code = emojis[pat2D.shapes[1]]
-                figures[j].push(emoji(pat2D.shapes[1], code).shapeDef
-                )
-              } else {
-                console.warn(`Shape ${pat2D.shapes[1]} n'est pas dans listeShapesDef ou emojis`)
-              }
+              console.warn(`Shape ${pat2D.shapes[1]} n'est pas dans listeShapesDef ou emojis`)
             }
           }
         }

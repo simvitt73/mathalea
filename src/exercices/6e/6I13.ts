@@ -152,9 +152,10 @@ export default class PaternNum0 extends Exercice {
               break
             case 1:
             default:
-              pattern.shapes[0] = 'carré'
-              pattern.shapes[1] = 'carré'
-              objetsCorr.push(carreDef)
+              pattern.shapes[0] = pat2D.shapes[0] || 'carré'
+              pattern.shapes[1] = pat2D.shapes[1] || 'carré'
+              objetsCorr.push(listeShapesDef[pat2D.shapes[0]] || carreDef)
+              objetsCorr.push(listeShapesDef[pat2D.shapes[1]] || carreDef)
               break
           }
         } else {
@@ -213,7 +214,8 @@ export default class PaternNum0 extends Exercice {
                 break
               case 1:
               default:
-                figures[j].push(carreDef)
+                figures[i].push(listeShapesDef[pat2D.shapes[0]] || carreDef)
+                figures[i].push(listeShapesDef[pat2D.shapes[1]] || carreDef)
                 break
             }
           } else {
