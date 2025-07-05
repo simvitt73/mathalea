@@ -13,7 +13,8 @@ type GlisseNombreInteractifOptions = {
   addZeros?: boolean // pour afficher les zéros automatiquement (par défaut à true)
   animation?: number // pour désactiver le déplacement manuel et animer une multiplication
   showCalculus?: boolean // pour afficher ✕ ou ÷ 10, 100... (par défaut à true)
-  showComma?: boolean // pour afficher la virgule (par défaut à true)
+  showComma1?: boolean // pour afficher la virgule de la première ligne (par défaut à true)
+  showComma2?: boolean // pour afficher la virgule de la deuxième ligne (par défaut à true)
 }
 
 /**
@@ -23,7 +24,8 @@ type GlisseNombreInteractifOptions = {
  * @param options.addZeros - pour afficher les zéros automatiquement (par défaut à true)
  * @param options.animation - pour désactiver le déplacement manuel et animer une multiplication (par défaut à 0)
  * @param options.showCalculus - pour afficher ✕ ou ÷ 10, 100... (par défaut à true)
- * @param options.showComma - pour afficher la virgule (par défaut à true)
+ * @param options.showComma1 - pour afficher la virgule de la première ligne (par défaut à true)
+ * @param options.showComma2 - pour afficher la virgule de la deuxième ligne (par défaut à true)
  * @returns le code HTML du glisse-nombre interactif
  */
 export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions): string {
@@ -36,7 +38,8 @@ export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions)
     if (options.addZeros !== undefined) optionsString += `add-zeros="${options.addZeros}" `
     if (options.animation !== undefined) optionsString += `animation="${options.animation}" `
     if (options.showCalculus !== undefined) optionsString += `show-calculus="${options.showCalculus}" `
-    if (options.showComma !== undefined) optionsString += `show-comma="${options.showComma}" `
+    if (options.showComma1 !== undefined) optionsString += `show-comma="${options.showComma1}" `
+    if (options.showComma2 !== undefined) optionsString += `show-comma="${options.showComma2}" `
   }
   return `<glisse-nombre ${optionsString} ></glisse-nombre>`
 }
