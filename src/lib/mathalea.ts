@@ -710,8 +710,8 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         if (exercice.formatInteractif !== 'qcm') window.notify('Un exercice simple doit avoir un this.reponse sauf si c\'est un qcm', { exercice: JSON.stringify(exercice) })
       }
       if (exercice.formatInteractif !== 'fillInTheBlank') {
-        if (exercice.formatInteractif === 'qcm' || (exercice.distracteurs && exercice.distracteurs.length > 0 && exercice.versionQcm)) {
-          if (exercice.distracteurs && exercice.distracteurs.length > 0) {
+        if (exercice.formatInteractif === 'qcm' || (exercice.distracteurs.length > 0 && exercice.versionQcm)) {
+          if (exercice.distracteurs.length > 0) {
             exercice.autoCorrection[0] = {
               options: { radio: true },
               enonce: exercice.question,

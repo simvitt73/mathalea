@@ -20,6 +20,7 @@
   let sup3: boolean
   let sup4: boolean
   let sup5: boolean
+  let versionQcm: boolean
   let alea: string
   let correctionDetaillee: boolean
 
@@ -47,6 +48,7 @@
     sup3 = exercice.sup3 === 'false' ? false : exercice.sup3
     sup4 = exercice.sup4 === 'false' ? false : exercice.sup4
     sup5 = exercice.sup5 === 'false' ? false : exercice.sup5
+    versionQcm = exercice.versionQcm || false
     correctionDetaillee = exercice.correctionDetaillee
 
     if (Array.isArray(exercice.besoinFormulaireNumerique) && exercice.besoinFormulaireNumerique.length > 0) {
@@ -121,6 +123,7 @@
       sup3,
       sup4,
       sup5,
+      versionQcm,
       alea,
       correctionDetaillee
     })
@@ -667,6 +670,25 @@
           id="settings-correction-detaillee-{exerciceIndex}"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={correctionDetaillee}
+          on:change={dispatchNewSettings}
+        />
+      </div>
+    {/if}
+
+    {#if exercice.versionQcmDisponible}
+      <div class="container">
+        <label for="settings-version-qcm-{exerciceIndex}">
+          <span
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          >
+            Version QCM :
+          </span>
+        </label>
+        <input
+          type="checkbox"
+          id="settings-version-qcm-{exerciceIndex}"
+          class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
+          bind:checked={versionQcm}
           on:change={dispatchNewSettings}
         />
       </div>

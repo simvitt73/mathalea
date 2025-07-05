@@ -31,6 +31,7 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.versionQcmDisponible = true
 
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.besoinFormulaireNumerique = ['Multiplier ou diviser', 3, '1 : Multiplier\n2 : Diviser\n3 : Mélange']
@@ -68,6 +69,7 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     }
 
     this.question = `Calculer $${facteur}${operateurLaTeX} ${texNombre(d)}$.`
+    if (this.versionQcm) this.question = `$${facteur}${operateurLaTeX} ${texNombre(d)} =$`
     this.correction = `$${facteur}${operateurLaTeX} ${texNombre(d)}=${miseEnEvidence(texNombre(this.reponse))}$<br>`
 
     if (d === 0.1) {

@@ -304,6 +304,10 @@
       exercise.sup5 = event.detail.sup5
       interfaceParams.sup5 = mathaleaHandleSup(exercise.sup5)
     }
+    if (event.detail.versionQcm !== undefined) {
+      exercise.versionQcm = event.detail.versionQcm
+      interfaceParams.versionQcm = exercise.versionQcm ? '1' : '0'
+    }
     if (event.detail.alea !== undefined) {
       exercise.seed = event.detail.alea
       interfaceParams.alea = exercise.seed
