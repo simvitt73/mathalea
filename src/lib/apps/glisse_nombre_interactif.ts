@@ -28,6 +28,14 @@ type GlisseNombreInteractifOptions = {
  */
 export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions): string {
   if (!context.isHtml) {
+    if (options && options.number !== undefined) {
+      if (options.animation === undefined || (options.animation !== undefined && options.animation === 0)) {
+        return `\\glissenombre[${options.showComma ? '' : 'nocomma,'}]{${options.number}}`
+      }
+      if (options.animation !== undefined && options.animation !== 0) {
+        return `\\glissenombre[color=couleur_theme!10,animation=${options.animation},${options.showComma ? '' : 'nocomma,'}${options.showCalculus ? '' : 'calcul,'}]{${options.number}}`
+      }
+    }
     return '' // La sortie LaTeX n'est pas encore gérée
   }
   let optionsString: string = ''
