@@ -676,7 +676,7 @@ const GLISSE_NOMBRE_IN_PREAMBLE = `
     }{}%
     \\IfInteger{\\glissenombre@animation}{%
       \\ifglissenombre@calcul{%
-        \\luaexec{tex.sprint(string.format("\\\\node[above,font=\\\\tiny] at (1-\\\\%d.north) {$\\\\%s$};",7 - \\glissenombre@animation, operation(\\glissenombre@animation)))}%
+        \\luaexec{tex.sprint(string.format("\\\\node[above,font=\\\\tiny] at (1-\\%d.north) {$\\%s$};",7 - \\glissenombre@animation, operation(\\glissenombre@animation)))}%
       }{}%
     }{}%
   \\end{tblrtikzabove}%

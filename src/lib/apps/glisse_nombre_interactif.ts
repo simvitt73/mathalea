@@ -30,10 +30,10 @@ export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions)
   if (!context.isHtml) {
     if (options && options.number !== undefined) {
       if (options.animation === undefined || (options.animation !== undefined && options.animation === 0)) {
-        return `\\medskip\n\n\\glissenombre[${options.showComma ? '' : 'nocomma,'}]{${options.number}}`
+        return `\\medskip\\\\\n\\glissenombre[${options.showComma ? 'nocomma,' : ''}]{${options.number}}`
       }
       if (options.animation !== undefined && options.animation !== 0) {
-        return `\\medskip\n\n\\glissenombre[color=couleur_theme!10,animation=${options.animation},${options.showComma ? '' : 'nocomma,'}${options.showCalculus ? '' : 'calcul'}]{${options.number}}`
+        return `\\medskip\n\n\\glissenombre[color=couleur_theme!10,animation=${options.animation},${options.showComma ? 'nocomma,' : ''}${options.showCalculus ? '' : 'calcul'}]{${options.number}}`
       }
     }
     return ''

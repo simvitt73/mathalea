@@ -147,7 +147,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
     })
 
     this.consigne = 'Compléter.'
-    if (context.isHtml && this.sup4) {
+    if (this.sup4) {
       this.consigne += '<br>Un glisse-nombre est à disposition pour répondre '
       this.consigne += this.nbQuestions === 1 ? 'à la question.' : 'aux questions.'
       this.consigne += glisseNombreInteractif({ number: 20.25 })
