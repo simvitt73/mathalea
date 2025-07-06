@@ -28,6 +28,7 @@ import { checkForServerUpdate } from './components/version'
 import { showDialogForLimitedTime, showPopupAndWait } from './components/dialogs'
 import { propositionsQcm } from './interactif/qcm'
 import { formaterReponse } from './outils/ecritures'
+import ExerciceSimple from '../exercices/ExerciceSimple'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -314,7 +315,7 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
   if (param.sup3) exercice.sup3 = mathaleaHandleStringFromUrl(param.sup3)
   if (param.sup4) exercice.sup4 = mathaleaHandleStringFromUrl(param.sup4)
   if (param.sup5) exercice.sup5 = mathaleaHandleStringFromUrl(param.sup5)
-  if (param.versionQcm !== undefined) exercice.versionQcm = param.versionQcm === '1'
+  if (param.versionQcm !== undefined && exercice instanceof ExerciceSimple) exercice.versionQcm = param.versionQcm === '1'
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
   if (param.cols !== undefined && param.cols > 1) exercice.nbCols = param.cols
@@ -710,8 +711,8 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         if (exercice.formatInteractif !== 'qcm') window.notify('Un exercice simple doit avoir un this.reponse sauf si c\'est un qcm', { exercice: JSON.stringify(exercice) })
       }
       if (exercice.formatInteractif !== 'fillInTheBlank') {
-        if (exercice.formatInteractif === 'qcm' || (exercice.distracteurs.length > 0 && exercice.versionQcm)) {
-          if (exercice.distracteurs.length > 0) {
+        if (exercice.formatInteractif === 'qcm' || (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0 && exercice.versionQcm)) {
+          if (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0) {
             exercice.autoCorrection[0] = {
               options: { radio: true },
               enonce: exercice.question,

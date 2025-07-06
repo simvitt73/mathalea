@@ -31,6 +31,7 @@
   import type { InterfaceParams } from '../../../../../lib/types'
   import { get } from 'svelte/store'
   import { countMathField } from '../../countMathField'
+  import ExerciceSimple from '../../../../../exercices/ExerciceSimple'
 
   export let exercise: Exercice
   export let exerciseIndex: number
@@ -304,7 +305,7 @@
       exercise.sup5 = event.detail.sup5
       interfaceParams.sup5 = mathaleaHandleSup(exercise.sup5)
     }
-    if (event.detail.versionQcm !== undefined) {
+    if (event.detail.versionQcm !== undefined && exercise instanceof ExerciceSimple) {
       exercise.versionQcm = event.detail.versionQcm
       interfaceParams.versionQcm = exercise.versionQcm ? '1' : '0'
     }

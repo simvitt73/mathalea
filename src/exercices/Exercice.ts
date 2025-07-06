@@ -40,9 +40,6 @@ export default class Exercice {
   question?: string // Seulement pour les exercices de type simple
   reponse?: ReponseComplexe // Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
-  distracteurs: (string | number)[] // Seulement pour les exercices de type simple
-  versionQcmDisponible?: boolean // Pour les exercices de type simple, si des distracteurs sont définis, on peut proposer une version QCM
-  versionQcm?: boolean // Seulement pour les exercices de type simple, version QCM activée si 'true'
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???
   // On peut être amené à utiliser un Exercice non simple à une seule question dans une can, parce qu'il a 3 champs et une correction custom.
@@ -139,7 +136,6 @@ export default class Exercice {
     this.contenuCorrection = '' // Idem avec la correction
     this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.
     this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM.
-    this.distracteurs = [] // Liste des distracteurs pour les exercices de type simple.
 
     // ///////////////////////////////////////////////
     // Mise en forme de l'exercice

@@ -1,8 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte'
-  import type TypeExercice from '../../../../../../exercices/Exercice'
+  import type Exercice from '../../../../../../exercices/Exercice'
+  import ExerciceSimple from '../../../../../../exercices/ExerciceSimple'
 
-  export let exercice: TypeExercice
+  export let exercice: Exercice
   export let exerciceIndex: number
   export let isVisible: boolean = true
 
@@ -48,7 +49,7 @@
     sup3 = exercice.sup3 === 'false' ? false : exercice.sup3
     sup4 = exercice.sup4 === 'false' ? false : exercice.sup4
     sup5 = exercice.sup5 === 'false' ? false : exercice.sup5
-    versionQcm = exercice.versionQcm || false
+    versionQcm = exercice instanceof ExerciceSimple ? exercice.versionQcm || false : false
     correctionDetaillee = exercice.correctionDetaillee
 
     if (Array.isArray(exercice.besoinFormulaireNumerique) && exercice.besoinFormulaireNumerique.length > 0) {
@@ -675,7 +676,7 @@
       </div>
     {/if}
 
-    {#if exercice.versionQcmDisponible}
+    {#if exercice instanceof ExerciceSimple && exercice.versionQcmDisponible}
       <div class="container">
         <label for="settings-version-qcm-{exerciceIndex}">
           <span

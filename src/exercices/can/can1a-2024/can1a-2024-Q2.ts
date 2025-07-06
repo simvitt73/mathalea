@@ -1,8 +1,8 @@
-import Exercice from '../../Exercice'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un point sur une courbe'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -12,7 +12,7 @@ export const uuid = '5157a'
  * @author Gilles Mora
 
 */
-export default class PointsCourbe extends Exercice {
+export default class PointsCourbe extends ExerciceSimple {
   constructor () {
     super()
 

@@ -6,8 +6,8 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
 import { arrondi } from '../../../lib/outils/nombres'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can6C24'],
   'fr-ch': []
 }
-export default class MultiplierParPuissanceDixNeg extends Exercice {
+export default class MultiplierParPuissanceDixNeg extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
