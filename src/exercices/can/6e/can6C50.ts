@@ -35,7 +35,7 @@ export default class RelationUniteDixiemeCentiemeMillieme extends Exercice {
         a = choice([1, 10, 100, 1000])
         b = choice([10, 100, 1000])
         resultat = texNombre(a / b, 3)
-        this.question = `Écrire sous la forme d'un décimal ou d'un entier : $\\dfrac{${texNombre(a, 0)}}{${texNombre(b, 0)}}$`
+        this.question = `Écrire sous la forme d'un décimal ou d'un entier : $\\dfrac{${texNombre(a, 0)}}{${texNombre(b, 0)}}$.`
         this.correction = `$\\dfrac{${texNombre(a, 0)}}{${texNombre(b, 0)}} = ${miseEnEvidence(resultat)}$`
         this.reponse = resultat
         break
@@ -44,8 +44,11 @@ export default class RelationUniteDixiemeCentiemeMillieme extends Exercice {
         a = choice([10, 100, 1000])
         b = choice([10, 100, 1000])
         resultat = texNombre(a / b, 3)
-        this.question = `Écrire sous la forme d'un décimal ou d'un entier : $${texNombre(a, 0)}\\times\\dfrac{1}{${texNombre(b, 0)}}$`
-        this.correction = `$${texNombre(a, 0)}\\times\\dfrac{1}{${texNombre(b, 0)}} = ${miseEnEvidence(resultat)}$`
+        this.question = `Écrire sous la forme d'un décimal ou d'un entier : $${texNombre(a, 0)}\\times\\dfrac{1}{${texNombre(b, 0)}}$.`
+        this.correction = `$\\begin{aligned}
+        ${texNombre(a, 0)}\\times\\dfrac{1}{${texNombre(b, 0)}} &=   \\dfrac{${texNombre(a, 0)}}{${texNombre(b, 0)}}\\\\
+          ${texNombre(a, 0)}\\times\\dfrac{1}{${texNombre(b, 0)}}&=${miseEnEvidence(resultat)}
+        \\end{aligned}$`
         this.reponse = resultat
         break
     }

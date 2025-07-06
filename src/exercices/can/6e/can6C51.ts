@@ -42,7 +42,8 @@ export default class MultiplieFractionDPar10Par100Par1000 extends Exercice {
     this.correction = `$\\begin{aligned}
         ${texFractionFromString(a, den)} \\times ${texNombre(
                 b)} &= ${texFractionFromString(a * b, den)}\\\\
-                & = ${miseEnEvidence(texNombre((a / den) * b, 3))}
+                ${texFractionFromString(a, den)} \\times ${texNombre(
+                b)} & = ${miseEnEvidence(texNombre((a / den) * b, 3))}
                 \\end{aligned}$`
     this.reponse = resultat
 
