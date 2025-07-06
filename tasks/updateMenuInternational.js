@@ -237,6 +237,14 @@ async function readInfos (
                     }
                   }
                 }
+                const versionQcmRegex = /versionQcm(Disponible)*\s*=\s*true/
+                const versionQcmMatch = versionQcmRegex.exec(data)
+                if (versionQcmMatch) {
+                  infos.features.qcm = {
+                    isActive: true,
+                    type: ''
+                  }
+                }
                 infos.typeExercice = 'alea'
                 if (infos.id !== undefined) {
                   exercicesShuffled[infos.id] = { ...infos }
