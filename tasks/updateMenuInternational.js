@@ -55,6 +55,7 @@ async function readInfos (
           file !== 'deprecatedExercice.js' &&
           file !== 'MetaExerciceCan.ts' &&
           file !== 'Exercice.ts' &&
+          file !== 'ExerciceSimple.ts' &&
           file !== 'exerciseMethods.ts' &&
           file !== 'ExerciceQcm.ts' &&
           file !== 'ExerciceQcmA.ts' &&
