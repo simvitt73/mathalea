@@ -1,6 +1,6 @@
 import { paveLPH3d } from '../../../lib/3d/solides'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Volume de pavé droit par dénombrement de cubes unités'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6M11'],
   'fr-ch': []
 }
-export default class VolumePaveCubes extends Exercice {
+export default class VolumePaveCubes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

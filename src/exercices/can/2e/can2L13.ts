@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class DeveloppementDouble extends Exercice {
+export default class DeveloppementDouble extends ExerciceSimple {
   constructor () {
     super()
 
@@ -31,7 +31,7 @@ export default class DeveloppementDouble extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2, 3])) {
-      case 1 :// (ax+b)(cx+d) avec a et c =1
+      case 1:// (ax+b)(cx+d) avec a et c =1
         {
           const a = 1
           const b = randint(-10, 10, 0)
@@ -48,8 +48,9 @@ export default class DeveloppementDouble extends Exercice {
           this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
         }
         break
-      case 2 :// (ax+b)(cx+d) avec a et c différent de 1
-        { const a = randint(2, 4)
+      case 2:// (ax+b)(cx+d) avec a et c différent de 1
+        {
+          const a = randint(2, 4)
           const b = randint(-3, 3, 0)
           const c = randint(2, 4)
           const d = randint(-10, 10, [0, b, -b])
@@ -64,8 +65,9 @@ export default class DeveloppementDouble extends Exercice {
           this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
         }
         break
-      case 3 :// a^2-b^2
-        { const a = randint(1, 2)
+      case 3:// a^2-b^2
+        {
+          const a = randint(1, 2)
           const b = randint(-3, 3, 0)
           const c = randint(1, 2)
           const d = randint(-10, 10, [0, b])

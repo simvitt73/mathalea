@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { pgcd } from '../../../lib/outils/primalite'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can6C60'],
   'fr-ch': []
 }
-export default class SommeDiffEntierFraction extends Exercice {
+export default class SommeDiffEntierFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -46,11 +46,10 @@ export default class SommeDiffEntierFraction extends Exercice {
           this.correction = `On écrit l'entier sous la forme d'une fraction de dénominateur $${frac.den}$, soit $${entier}=  \\dfrac{${entier * frac.den}}{${frac.den}}$<br>
 $\\begin{aligned}
 ${entier} + ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} + ${frac.texFraction} \\\\
-&= ${miseEnEvidence(resultat.texFraction)}${
-      pgcd(resultat.num, resultat.den) !== 1
-        ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
-        : ''
-    }
+&= ${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1
+              ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
+              : ''
+            }
 \\end{aligned}$`
 
           if (this.interactif) {
@@ -76,11 +75,10 @@ ${entier} + ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} + 
           this.correction = `On écrit l'entier sous la forme d'une fraction de dénominateur $${frac.den}$, soit $${entier}=  \\dfrac{${entier * frac.den}}{${frac.den}}$<br>
 $\\begin{aligned}
 ${entier} - ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} - ${frac.texFraction} \\\\
-&= ${miseEnEvidence(resultat.texFraction)}${
-  pgcd(resultat.num, resultat.den) !== 1
-    ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
-    : ''
-}
+&= ${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1
+              ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
+              : ''
+            }
 \\end{aligned}$`
 
           if (this.interactif) {

@@ -2,7 +2,7 @@ import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can2C12'],
   'fr-ch': []
 }
-export default class TauxGlobal extends Exercice {
+export default class TauxGlobal extends ExerciceSimple {
   constructor () {
     super()
 
@@ -45,9 +45,9 @@ export default class TauxGlobal extends Exercice {
         b = randint(1, 9) * 10
         coeffG = (1 + a / 100) * (1 - b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 - a / 100) * (1 - b / 100))}$${sp(4)}`,
-`$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-`$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-`$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
  ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -74,9 +74,9 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         b = randint(1, 9) * 10
         coeffG = (1 + a / 100) * (1 + b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -96,9 +96,9 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         b = randint(1, 9) * 10
         coeffG = (1 - a / 100) * (1 - b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 - a / 100) * (1 - b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -118,9 +118,9 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         b = randint(1, 9) * 10
         coeffG = (1 - a / 100) * (1 + b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-  `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>

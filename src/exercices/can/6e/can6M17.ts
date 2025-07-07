@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer différence d\'aire par comptage'
 export const dateDePublication = '26/04/2024'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6M17'],
   'fr-ch': ['9GM1-11']
 }
-export default class DifferenceAireParComptageCan extends Exercice {
+export default class DifferenceAireParComptageCan extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1
@@ -87,15 +87,15 @@ export default class DifferenceAireParComptageCan extends Exercice {
       const fig1 = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5, style: 'display: inline-block' }, fixeBordures(objets, { rxmin: -0.1, rymin: -0.1, rxmax: 0.1, rymax: 0.1 })), objets)
       this.question = `L'aire du ${nomFigure} est : ${aireRectangle} u.a.<br>
        ${aireDiff <= aireTetris
-            ? 'Quelle est l\'aire de la zone non hachurée ?'
-            : 'Quele est l\'aire de la zone hachurée ?'}<br>
+          ? 'Quelle est l\'aire de la zone non hachurée ?'
+          : 'Quele est l\'aire de la zone hachurée ?'}<br>
       
             ${fig1}`
     } while (aireTetris < 10 || aireDiff < 3 || Math.abs(aireDiff - aireTetris) < 5)
     this.optionsChampTexte = { texteApres: ' u.a' }
     this.reponse = aire
     this.correction = `${aireDiff <= aireTetris
-            ? `L'aire de la zone non hachurée est $${aireRectangle}\\text{ u.a} - ${aireDiff}\\text{ u.a} = ${miseEnEvidence(aireTetris)}\\text{ u.a}$`
-            : `L'aire de la zone hachurée est $${aireRectangle}\\text{ u.a} - ${aireTetris}\\text{ u.a} = ${miseEnEvidence(aireDiff)}\\text{ u.a}$`}`
+      ? `L'aire de la zone non hachurée est $${aireRectangle}\\text{ u.a} - ${aireDiff}\\text{ u.a} = ${miseEnEvidence(aireTetris)}\\text{ u.a}$`
+      : `L'aire de la zone hachurée est $${aireRectangle}\\text{ u.a} - ${aireTetris}\\text{ u.a} = ${miseEnEvidence(aireDiff)}\\text{ u.a}$`}`
   }
 }

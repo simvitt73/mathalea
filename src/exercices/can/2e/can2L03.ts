@@ -1,6 +1,6 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can2L03'],
   'fr-ch': []
 }
-export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exercice {
+export default class CoordonneesPointIntersectionAxeAbscissesDroite extends ExerciceSimple {
   constructor () {
     super()
 

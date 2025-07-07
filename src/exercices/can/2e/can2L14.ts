@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class EquationsCarree extends Exercice {
+export default class EquationsCarree extends ExerciceSimple {
   constructor () {
     super()
 
@@ -33,7 +33,7 @@ export default class EquationsCarree extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 1, 2, 2, 3])) {
-      case 1 :// (x+a)^2=k k est un carré
+      case 1:// (x+a)^2=k k est un carré
         {
           const a = randint(-10, 10, 0)
           const k1 = randint(1, 10)
@@ -54,7 +54,7 @@ export default class EquationsCarree extends Exercice {
            `
         }
         break
-      case 2 :// (x+a)^2=k k non carré
+      case 2:// (x+a)^2=k k non carré
         {
           const a = randint(-10, 10, 0)
           const k = choice([2, 3, 5, 6, 7, 10, 11, 13, 15, 21])
@@ -73,7 +73,7 @@ export default class EquationsCarree extends Exercice {
          `
         }
         break
-      case 3 :// (x+a)^2=k k négatif
+      case 3:// (x+a)^2=k k négatif
         {
           const a = randint(-10, 10, 0)
           const k = randint(-10, -1)

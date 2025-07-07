@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence, texteGras } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -20,7 +20,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class ValeursDefPourcentage extends Exercice {
+export default class ValeursDefPourcentage extends ExerciceSimple {
   constructor () {
     super()
 

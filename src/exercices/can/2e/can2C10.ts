@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Passer du taux d’évolution au coefficient multiplicateur'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2C10'],
   'fr-ch': []
 }
-export default class TauxCoeff extends Exercice {
+export default class TauxCoeff extends ExerciceSimple {
   constructor () {
     super()
     this.optionsChampTexte = { texteApres: '.' }

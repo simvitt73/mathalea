@@ -4,7 +4,7 @@ import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const dateDeModifImportante = '26/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3F01'],
   'fr-ch': []
 }
-export default class ImageSpline extends Exercice {
+export default class ImageSpline extends ExerciceSimple {
   constructor () {
     super()
 

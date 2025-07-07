@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer la probabilité d’un évènement contraire'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can3S02', 'BP2FLUC16'],
   'fr-ch': []
 }
-export default class ProbaEvenementContraire extends Exercice {
+export default class ProbaEvenementContraire extends ExerciceSimple {
   constructor () {
     super()
 

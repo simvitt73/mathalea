@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can2L05'],
   'fr-ch': []
 }
-export default class SolutionInequation extends Exercice {
+export default class SolutionInequation extends ExerciceSimple {
   constructor () {
     super()
 
@@ -38,7 +38,7 @@ export default class SolutionInequation extends Exercice {
   nouvelleVersion () {
     let a, b, maFraction, n
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
-      case 1 :// cas a>0
+      case 1:// cas a>0
         a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
@@ -55,7 +55,7 @@ export default class SolutionInequation extends Exercice {
             Les solutions sont les nombres strictement supérieurs à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `]${-n};+\\infty[`
         break
-      case 2 :// cas a>0
+      case 2:// cas a>0
         a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
@@ -72,7 +72,7 @@ export default class SolutionInequation extends Exercice {
                     Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `[${-n};+\\infty[`
         break
-      case 3 :// cas a>0
+      case 3:// cas a>0
         a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
@@ -89,7 +89,7 @@ export default class SolutionInequation extends Exercice {
                       Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `]-\\infty;${-n}]`
         break
-      case 4 :// cas a>0
+      case 4:// cas a>0
         a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a

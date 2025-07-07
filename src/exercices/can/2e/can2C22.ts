@@ -4,7 +4,7 @@ import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une expression avec des valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2C22'],
   'fr-ch': []
 }
-export default class CalculExpAvecValeurs extends Exercice {
+export default class CalculExpAvecValeurs extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

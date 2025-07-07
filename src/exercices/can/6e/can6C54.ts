@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -17,7 +17,7 @@ export const refs = {
   'fr-fr': ['can6C54'],
   'fr-ch': []
 }
-export default class FractionsEgalesACompleter extends Exercice {
+export default class FractionsEgalesACompleter extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

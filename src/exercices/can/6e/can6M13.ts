@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Manipuler les conversions'
 export const dateDePublication = '11/10/2023'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can6M13'],
   'fr-ch': []
 }
-export default class CombienDeFois extends Exercice {
+export default class CombienDeFois extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class CombienDeFois extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 1, 2, 2, 3, 3, 4])) {
-      case 0:{
+      case 0: {
         const Choixprefixes = [[10, 'h'], [100, 'da'], [1000, ''], [10000, 'd']]
         const prefixes = choice(Choixprefixes)
         const unite = choice(['g', 'm', 'L'])
@@ -45,7 +45,7 @@ export default class CombienDeFois extends Exercice {
       }
         break
 
-      case 1:{
+      case 1: {
         const Choixprefixes = [[10, 'da'], [100, ''], [1000, 'd'], [10000, 'c']]
         const prefixes = choice(Choixprefixes)
         const unite = choice(['g', 'm', 'L'])
@@ -61,7 +61,7 @@ export default class CombienDeFois extends Exercice {
         this.canReponseACompleter = 'La réponse correcte à cette question est : <br>$\\ldots$'
       }
         break
-      case 2:{
+      case 2: {
         const Choixprefixes = [[10, ''], [100, 'd'], [1000, 'c'], [10000, 'm']]
         const prefixes = choice(Choixprefixes)
         const unite = choice(['g', 'm', 'L'])
@@ -78,7 +78,7 @@ export default class CombienDeFois extends Exercice {
       }
         break
 
-      case 3:{
+      case 3: {
         const Choixprefixes = [[10, 'd'], [100, 'c'], [1000, 'm']]
         const prefixes = choice(Choixprefixes)
         const unite = choice(['g', 'm', 'L'])
@@ -95,7 +95,7 @@ export default class CombienDeFois extends Exercice {
       }
         break
 
-      case 4:{
+      case 4: {
         const Choixprefixes = [[10, 'c'], [100, 'm']]
         const prefixes = choice(Choixprefixes)
         const unite = choice(['g', 'm', 'L'])

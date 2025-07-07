@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can6C61'],
   'fr-ch': []
 }
-export default class ProduitParDeduction extends Exercice {
+export default class ProduitParDeduction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

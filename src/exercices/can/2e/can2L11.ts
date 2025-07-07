@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2L11'],
   'fr-ch': []
 }
-export default class ExprimerVariable extends Exercice {
+export default class ExprimerVariable extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
@@ -31,7 +31,8 @@ export default class ExprimerVariable extends Exercice {
   }
 
   nouvelleVersion () {
-    { const a = randint(-9, 9, 0)
+    {
+      const a = randint(-9, 9, 0)
       const b = randint(-5, 9, [0, a, -a])
       const c = randint(-9, 9, 0)
       const var1 = choice(['x', 'z', 'a'])

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Déterminer un pourcentage de proportion'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can6P07'],
   'fr-ch': []
 }
-export default class PoucentageProportion extends Exercice {
+export default class PoucentageProportion extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -38,7 +38,7 @@ export default class PoucentageProportion extends Exercice {
     const listeCarac = [['filles', 'Elles'], ['garçons', 'Ils'], ['sportifs', 'Ils'], ['musiciens', 'Ils']]
     let a, b, c, n, d, carac, choix
     switch (randint(1, 2)) {
-      case 1 :
+      case 1:
         if (choice([true, false])) {
           a = choice([20, 40])
           b = choice([4, 8, 16])

@@ -5,7 +5,7 @@ import { pgcd } from '../../../lib/outils/primalite'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme ou une différence de fractions de même dénominateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can6C56'],
   'fr-ch': []
 }
-export default class SommeDiffFractionsMemeDen extends Exercice {
+export default class SommeDiffFractionsMemeDen extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

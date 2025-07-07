@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer le produit des solutions d’une équation produit nul'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export const refs = {
   'fr-fr': ['can3L05'],
   'fr-ch': []
 }
-export default class SolutionsEquationProduit extends Exercice {
+export default class SolutionsEquationProduit extends ExerciceSimple {
   constructor () {
     super()
 
@@ -29,7 +29,7 @@ export default class SolutionsEquationProduit extends Exercice {
     const b = randint(1, 10) // (x+a)(x+b)=0 avec a et b entiers
     const d = randint(1, 10, [b])
     switch (choice([1, 2, 3])) {
-      case 1 :
+      case 1:
         this.question = `Calculer le produit des solutions de l'équation $(x+${b})(x+${d})=0$.` //
         this.correction = 'On reconnaît une équation produit nul. <br>'
         this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
@@ -39,7 +39,7 @@ export default class SolutionsEquationProduit extends Exercice {
         this.correction += '<br>Le produit vaut donc : ' + `$(${-b})\\times (${-d})=${b * d}$.`
         this.reponse = b * d
         break
-      case 2 :
+      case 2:
         this.question = `Calculer le produit des solutions de l'équation $(x-${b})(x+${d})=0$.` //
         this.correction = 'On reconnaît une équation produit nul. <br>'
         this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
@@ -49,7 +49,7 @@ export default class SolutionsEquationProduit extends Exercice {
         this.correction += '<br>Le produit vaut donc :' + `$${b}\\times (${-d})=${-b * d}$.`
         this.reponse = b * (-d)
         break
-      case 3 :
+      case 3:
         this.question = `Calculer le produit des solutions de l'équation $(x-${b})(x-${d})=0$.` //
         this.correction = 'On reconnaît une équation produit nul. <br>'
         this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'

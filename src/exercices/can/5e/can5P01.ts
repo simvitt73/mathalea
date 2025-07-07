@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer un prix après une évolution en pourcentage'
 export const interactifReady = true
@@ -21,8 +21,8 @@ export const refs = {
   'fr-fr': ['can5P01'],
   'fr-ch': []
 }
-export default class PoucentageE extends Exercice {
-  constructor () {
+export default class PoucentageE extends ExerciceSimple {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class PoucentageE extends Exercice {
     this.optionsChampTexte = { texteApres: ' €' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, n
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //
       case 'a':

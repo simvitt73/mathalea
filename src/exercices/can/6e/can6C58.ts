@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme ou une différence de fractions à dénominateurs différents'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6C58'],
   'fr-ch': []
 }
-export default class SommeDiffFractionsCompatibles extends Exercice {
+export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -52,8 +52,8 @@ export default class SommeDiffFractionsCompatibles extends Exercice {
             den2 = randint(2, 7)
           } while (
             den2 === frac1.den ||
-        den2 % frac1.den === 0 ||
-        frac1.den % den2 === 0
+            den2 % frac1.den === 0 ||
+            frac1.den % den2 === 0
           )
 
           const num2 = randint(1, den2 - 1)
@@ -71,11 +71,10 @@ export default class SommeDiffFractionsCompatibles extends Exercice {
 $\\begin{aligned}
 ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${texNombre(p / frac1.den, 0)}}{${frac1.den}\\times ${texNombre(p / frac1.den, 0)}} + \\dfrac{${frac2.num}\\times ${texNombre(p / frac2.den, 0)}}{${frac2.den}\\times ${texNombre(p / frac2.den, 0)}} \\\\
 &= \\dfrac{${frac1.num * p / frac1.den}}{${resultat.den}} + \\dfrac{${frac2.num * p / frac2.den}}{${resultat.den}} \\\\[0.7em]
-&= ${miseEnEvidence(resultat.texFraction)}${
-      pgcd(resultat.num, resultat.den) !== 1
-        ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
-        : ''
-    }
+&= ${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1
+            ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
+            : ''
+          }
 \\end{aligned}$`
 
         if (this.interactif) {
@@ -94,8 +93,8 @@ ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${tex
             den2 = randint(2, 7)
           } while (
             den2 === frac1.den ||
-        den2 % frac1.den === 0 ||
-        frac1.den % den2 === 0
+            den2 % frac1.den === 0 ||
+            frac1.den % den2 === 0
           )
 
           const num2 = randint(1, den2 - 1)
@@ -114,11 +113,10 @@ ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${tex
 $\\begin{aligned}
 ${frac1.texFraction} - ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${texNombre(p / frac1.den, 0)}}{${frac1.den}\\times ${texNombre(p / frac1.den, 0)}} -\\dfrac{${frac2.num}\\times ${texNombre(p / frac2.den, 0)}}{${frac2.den}\\times ${texNombre(p / frac2.den, 0)}} \\\\
 &= \\dfrac{${frac1.num * p / frac1.den}}{${resultat.den}} - \\dfrac{${frac2.num * p / frac2.den}}{${resultat.den}} \\\\[0.7em]
-&= ${miseEnEvidence(resultat.texFraction)}${
-      pgcd(resultat.num, resultat.den) !== 1
-        ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
-        : ''
-    }
+&= ${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1
+            ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
+            : ''
+          }
 \\end{aligned}$`
 
         if (this.interactif) {

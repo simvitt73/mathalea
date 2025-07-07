@@ -3,7 +3,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can2G06'],
   'fr-ch': []
 }
-export default class CoeffDirecteurDroite extends Exercice {
+export default class CoeffDirecteurDroite extends ExerciceSimple {
   constructor () {
     super()
 

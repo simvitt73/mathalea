@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { signe } from '../../../lib/outils/nombres'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Développer avec la simple distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can4L05'],
   'fr-ch': []
 }
-export default class DeveloppementNiveau1 extends Exercice {
+export default class DeveloppementNiveau1 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

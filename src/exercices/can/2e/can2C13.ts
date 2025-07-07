@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer avec  des puissances'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2C13'],
   'fr-ch': []
 }
-export default class CalculPuissancesOperation extends Exercice {
+export default class CalculPuissancesOperation extends ExerciceSimple {
   constructor () {
     super()
 

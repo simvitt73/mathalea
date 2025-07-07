@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Établir une relation entre unité, dixième, centième et millième '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6C50'],
   'fr-ch': []
 }
-export default class RelationUniteDixiemeCentiemeMillieme extends Exercice {
+export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

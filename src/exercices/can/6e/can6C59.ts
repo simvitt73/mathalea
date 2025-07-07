@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { ppcm } from '../../../lib/outils/primalite'
 import type FractionEtendue from '../../../modules/FractionEtendue'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can6C59'],
   'fr-ch': []
 }
-export default class DenominateurCommun extends Exercice {
+export default class DenominateurCommun extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

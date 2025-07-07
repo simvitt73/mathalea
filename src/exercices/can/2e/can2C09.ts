@@ -6,7 +6,7 @@ import { milieu, point } from '../../../lib/2d/points'
 import { randint } from '../../../modules/outils'
 import { fraction } from '../../../modules/fractions'
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { codageSegments } from '../../../lib/2d/codages'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { pgcd } from '../../../lib/outils/primalite'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can2C09'],
   'fr-ch': []
 }
-export default class MilieuEntre1EtFraction extends Exercice {
+export default class MilieuEntre1EtFraction extends ExerciceSimple {
   constructor () {
     super()
 

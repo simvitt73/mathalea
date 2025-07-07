@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une image avec le second degré'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can2F01'],
   'fr-ch': []
 }
-export default class CalculImageSecondDegre extends Exercice {
+export default class CalculImageSecondDegre extends ExerciceSimple {
   constructor () {
     super()
 

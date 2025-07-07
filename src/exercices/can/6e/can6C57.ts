@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme ou une différence de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6C57'],
   'fr-ch': []
 }
-export default class SommeDiffFractionsCompatibles extends Exercice {
+export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -39,7 +39,7 @@ export default class SommeDiffFractionsCompatibles extends Exercice {
     let frac1: FractionEtendue
     let frac2: FractionEtendue
     let resultat: FractionEtendue
-    let p : number
+    let p: number
     switch (choice([1, 2])) {
       case 1: // addition
         do {
@@ -65,7 +65,7 @@ ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${tex
         break
 
       case 2: // soustraction
-      default :
+      default:
         do {
           frac1 = choice(obtenirListeFractionsIrreductibles())
           const den2 = frac1.den * randint(2, 5)

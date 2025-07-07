@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir en mètres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6M03'],
   'fr-ch': []
 }
-export default class ConvertirEnM extends Exercice {
+export default class ConvertirEnM extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

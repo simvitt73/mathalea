@@ -7,7 +7,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer une aire de carré, rectangle, triangle rectangle'
 export const dateDePublication = '25/04/2025'
 export const interactifReady = true
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can6M16'],
   'fr-ch': ['9GM1-12']
 }
-export default class AireUsuelleParComptageCan extends Exercice {
+export default class AireUsuelleParComptageCan extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1
