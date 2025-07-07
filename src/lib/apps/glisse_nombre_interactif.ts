@@ -38,8 +38,8 @@ export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions)
     if (options.addZeros !== undefined) optionsString += `add-zeros="${options.addZeros}" `
     if (options.animation !== undefined) optionsString += `animation="${options.animation}" `
     if (options.showCalculus !== undefined) optionsString += `show-calculus="${options.showCalculus}" `
-    if (options.showComma1 !== undefined) optionsString += `show-comma="${options.showComma1}" `
-    if (options.showComma2 !== undefined) optionsString += `show-comma="${options.showComma2}" `
+    if (options.showComma1 !== undefined) optionsString += `show-comma1="${options.showComma1}" `
+    if (options.showComma2 !== undefined) optionsString += `show-comma2="${options.showComma2}" `
   }
   return `<glisse-nombre ${optionsString} ></glisse-nombre>`
 }
