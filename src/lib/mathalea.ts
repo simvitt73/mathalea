@@ -713,7 +713,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif === 'qcm' || (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0 && exercice.versionQcm)) {
           if (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0) {
-            exercice.autoCorrection[0] = {
+            exercice.autoCorrection[i] = {
               options: { radio: true },
               enonce: exercice.question,
               propositions: [
@@ -726,7 +726,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
                 }))
               ]
             }
-            const qcm = propositionsQcm(exercice, 0)
+            const qcm = propositionsQcm(exercice, i)
             exercice.question += qcm.texte
           }
           exercice.listeQuestions.push(exercice.question || '')
