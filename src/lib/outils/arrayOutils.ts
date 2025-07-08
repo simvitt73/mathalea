@@ -443,3 +443,17 @@ export function getRandomSubarray<T> (arr: T[], size: number): T[] {
   // Return the last 'size' elements after shuffling
   return shuffled.slice(min)
 }
+
+/**
+ * Construit une liste d'index aléatoires basée sur la taille
+ * du tableau originel et le nombre d'index à prélever dans
+ * ce tableau.
+ * @param {number} originalArraySize taille du tableau d'origine
+ * @param {number} nbOfIndexes nombre d'index à choisir
+ * @returns {number[]} tableau d'index
+ * @author sylvain
+ */
+export function listOfRandomIndexes (originalArraySize: number, nbOfIndexes: number) {
+  const indexes = shuffle([...Array(originalArraySize).keys()])
+  return indexes.slice(0, nbOfIndexes)
+}
