@@ -1,10 +1,15 @@
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Calculer une expression avec des parenthèses'
-
 export const dateDePublication = '30/06/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const uuid = '5e37d'
@@ -13,8 +18,8 @@ export const refs = {
   'fr-ch': []
 }
 /**
- *
- * @author
+ * Exercice de calcul d'expressions avec des parenthèses sans autres priorités.
+ * @author Olivier Mimeau
 */
 export default class nomExercice extends Exercice {
   constructor () {
@@ -28,13 +33,15 @@ export default class nomExercice extends Exercice {
   nouvelleVersion () {
     const typeQuestionsDisponibles = ['deuxParenthesesseparees', 'deuxParenthesesimbriquees', 'UneParenthese']
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, listeOfCase: typeQuestionsDisponibles, nbQuestions: this.nbQuestions })
-
     // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const avecDivision = false // pas de division pour le moment
-
+    this.consigne = 'Calculer'
+    this.consigne += this.nbQuestions < 2 ? ' l\'expression suivante' : '  les expressions suivantes'
+    this.consigne += this.interactif ? '.' : ' en détaillant les étapes de calculs.'
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const lettre = lettreDepuisChiffre(i + 1)
       let texte = '' // texte de la question
+      let resultat = 0
       let texteCorr = ''
       let txtArbre :string = ''
       let tree :BinaryTree | undefined
@@ -91,17 +98,25 @@ export default class nomExercice extends Exercice {
       if (tree !== undefined) {
         verifiePositif(tree.root)
         texte += `$${lettre} = ${ecritExpression(tree.root)}$`
-        texteCorr += texte + '<br>'
+        texteCorr += `$${lettre} = ${ecritExpression(tree.root, true)}$<br>`
         if (tree.root !== null) {
           txtArbre = ''
+          let txtExpression: string | void | [string, boolean] = ''
           do {
             effectueUneEtape(tree.root)
-            txtArbre += `$${lettre} = ${ecritExpression(tree.root)}$<br>`
+            txtExpression = ecritExpression(tree.root, true)
+
+            if (typeof tree.root.value === 'number') {
+              txtArbre += `$${lettre} = ${miseEnEvidence(`${txtExpression}`)}$<br>`  // miseEnEvidence(`${txtExpression}`,'blue')
+            } else { txtArbre += `$${lettre} = ${txtExpression}$<br>` }
           } while ((typeof tree.root.value !== 'number'))
           texteCorr += `${txtArbre}<br>`
         }
+        resultat = evalueArbre(tree.root)
         tree = undefined
       }
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme', { texteAvant: `<br>$${lettre} = $` })
+      handleAnswers(this, i, { reponse: { value: resultat, options: { resultatSeulementEtNonOperation: true } } })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
@@ -136,28 +151,51 @@ class BinaryTree implements Iterable<number | oper> {
     yield * inOrderTraversal(this.root)
   }
 }
-
-function ecritExpression (node: TreeNode | null, cote: string = 'Centre', result:string = '', niveau:number = 0): void | string {
-  if (node === null) { return '' }
+// Fonction pour parcourir l'arbre binaire et construire l'expression  en LaTeX
+// avec la possibilité de mettre en évidence une étape de calcul en gras si etapeEnGras est vrai.
+// Le paramètre niveau permet de gérer les parenthèses dans l'expression.
+// Le paramètre stop permet de savoir si l'on doit arrêter la mise en évidence.
+// La fonction retourne une chaîne de caractères représentant l'expression en LaTeX
+// et un booléen indiquant que la mise en évidence a été effectuée
+function parcoursExpression (node: TreeNode | null, etapeEnGras:boolean = false, niveau:number = 0, stop:boolean = false): [string, boolean] {
+  if (node === null) { return ['', stop] }
   let rslt = ''
-
-  if ((cote !== 'Centre') && (typeof node.value !== 'number')) {
+  let rsltPrecedent = ''
+  let misEnEvidence = stop
+  let enGras = false
+  if (etapeEnGras && !stop) {
+    stop = (node.left !== null && node.right !== null &&
+     (typeof node.left.value === 'number') && (typeof node.right.value === 'number'))
+    enGras = stop
+    etapeEnGras = !stop
+  }
+  if ((niveau > 0) && (typeof node.value !== 'number')) {
     rslt += '('
   }
-  rslt += ecritExpression(node.left, 'Gauche', rslt, niveau)
+  [rsltPrecedent, misEnEvidence] = parcoursExpression(node.left, etapeEnGras, niveau + 1, misEnEvidence)
+  rslt += rsltPrecedent
   if (node.value === '*') { rslt += ' \\times' } else { rslt += `${node.value}` }
-  rslt += ecritExpression(node.right, 'Droite', rslt, niveau)
-  if ((cote !== 'Centre') && (typeof node.value !== 'number')) {
+  [rsltPrecedent, misEnEvidence] = parcoursExpression(node.right, etapeEnGras, niveau + 1, misEnEvidence)
+  rslt += rsltPrecedent
+  if ((niveau > 0) && (typeof node.value !== 'number')) {
     rslt += ')'
   }
-  return rslt
+  if (enGras) {
+    rslt = miseEnEvidence(`${rslt}`, 'blue')// pour indiquer calcul à faire
+  }
+  return [rslt, enGras]
 }
 
-function evalueArbre (node: TreeNode | null, unPas:boolean = true, stop:boolean = false): number {
+function ecritExpression (node: TreeNode | null, etapeEnGras:boolean = false): string {
+  const temp = parcoursExpression(node, etapeEnGras)
+  return temp[0]
+}
+
+function evalueArbre (node: TreeNode | null): number {
   if (node === null) { return 0 }
   let rslt = 0
-  const rsltGauche = evalueArbre(node.left, unPas, stop)
-  const rsltDroite = evalueArbre(node.right, unPas, stop)
+  const rsltGauche = evalueArbre(node.left)
+  const rsltDroite = evalueArbre(node.right)
   if ((typeof node.value !== 'number')) {
     switch (node.value) {
       case '+':
