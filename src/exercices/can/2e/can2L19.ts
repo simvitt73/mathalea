@@ -42,8 +42,8 @@ export default class ExprimerEnFonction extends ExerciceSimple {
   ${choixQ ? `${texteCentre('$a=\\dfrac{v^2}{R}$')}` : `${texteCentre('$v=\\sqrt{aR}$')}`}`
 
         this.question += choixQ
-          ? 'L\'expression permettant, à partir de cette formule, d\'exprimer la vitesse $v$ est :'
-          : 'L\'expression permettant, à partir de cette formule, d\'exprimer l\'accélération $a$ est :'
+          ? `L'expression permettant, à partir de cette formule, d'exprimer la vitesse $v$ est : ${this.interactif ? '' : ' $\\ldots$'}`
+          : `L'expression permettant, à partir de cette formule, d'exprimer l'accélération $a$ est : ${this.interactif ? '' : ' $\\ldots$'}`
         this.reponse = choixQ
           ? '$v=\\sqrt{aR}$'
           : '$a=\\dfrac{v^2}{R}$'
@@ -64,8 +64,8 @@ Puis on isole $a$ : $a = \\dfrac{v^2}{R}$.`
           ? `${texteCentre('$v=\\sqrt{\\dfrac{x}{y}}$')}`
           : `${texteCentre('$y=(1+vx)^2$')}`
         this.question += choixQ
-          ? 'L\'expression permettant, à partir de cette formule, d\'exprimer  $y$ est :'
-          : 'L\'expression permettant, à partir de cette formule, d\'exprimer $v$ est :'
+          ? `L'expression permettant, à partir de cette formule, d'exprimer  $y$ est : ${this.interactif ? '' : ' $\\ldots$'}`
+          : `L'expression permettant, à partir de cette formule, d'exprimer $v$ est : ${this.interactif ? '' : ' $\\ldots$'}`
         this.reponse = choixQ
           ? '$y=\\dfrac{x}{v^2}$'
           : '$v=\\dfrac{\\sqrt{y}-1}{x}$'
