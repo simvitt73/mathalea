@@ -38,7 +38,7 @@ export default class ExprimerEnFonction extends ExerciceSimple {
       case 1 :
         this.question = `Lorsqu’un point mobile suit une trajectoire circulaire de rayon $R$, 
   en mètre (m), son accélération centripète $a$ (en m/s²) 
-  et sa vitesse $v$ (en m/s) sont liés par la relation : <br>
+  et sa vitesse $v$ (en m/s) sont liées par la relation : <br>
   ${choixQ ? `${texteCentre('$a=\\dfrac{v^2}{R}$')}` : `${texteCentre('$v=\\sqrt{aR}$')}`}`
 
         this.question += choixQ
