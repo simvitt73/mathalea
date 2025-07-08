@@ -4,7 +4,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { balleDef, carreDef, carreRondDef, hexagoneDef, listeShapes2DNames, listeShapesDef, losangeDef, redCrossDef, rondDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
@@ -63,7 +63,7 @@ export default class PaternNum0 extends Exercice {
     if (this.sup5 < 1) {
       this.sup5 = 1
     }
-
+    // on ne conserve que les linéaires et les affines.
     const listePreDef = (this.nbQuestions === 1
       ? [listePatternsPreDef[Number(this.sup5) - 1]]
       : shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length)))
@@ -81,6 +81,13 @@ export default class PaternNum0 extends Exercice {
         continue
       }
       const pat = popped
+      const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
+      const b = pat.fonctionNb(1) - delta
+      const explain = pat.type === 'linéaire'
+        ? `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
+        Et que c'est aussi le nombre de formes à l'étape 1. Par conséquent, pour trouver le nombre de formes d'un motif il faut simplement multiplier par ${delta} le numéro du motif.`
+        : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
+        Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.`
       const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
 
       //  patterns.push(pattern)
@@ -300,23 +307,32 @@ exercice: this,
             )}
             `)
             listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
-            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>`)
+            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>
+            ${explain}`)
           }
             break
           case 4:{
-            const nbFormes = pat.fonctionNb(43)
+            const etape = randint(20, 80)
+            const nbFormes = pat.fonctionNb(etape)
             const nbTex = texNombre(nbFormes, 0)
-            listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $43$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nUn motif de cette série contient $${nbTex}$ ${pattern.shapes[0]}s. À quel numéro de motif cela correspond-il ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
-              objetReponse: { reponse: { value: nbTex } },
+              objetReponse: { reponse: { value: etape.toString() } },
               typeInteractivite: 'mathlive'
               }
             )}
             `)
-            listeCorrections.push(`Le motif $43$ contient $${miseEnEvidence(nbTex)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
-            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '43'))}$.<br>`)
+
+            const explain2 = pat.type === 'linéaire'
+              ? `On constate que le nombre de formes  augmente de $${delta}$ à chaque étape.<br>
+        Et que c'est aussi le nombre de formes à l'étape 1. Par conséquent, pour trouver le numéro d'un motif dont on connait le nombre de formes, il faut simplement diviser ce nombre par ${delta} pour trouver le numéro.`
+              : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
+        Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut ${b < 0 ? `ajouter ${-b}` : `retirer ${b}`} au nombre de formes puis diviser le résultat par ${delta} : <br>
+        $\\dfrac{${nbTex} ${b < 0 ? '+' : '-'} ${Math.abs(b)}}{${delta}}=${miseEnEvidence(etape)}$.`
+            listeCorrections.push(`C'est le motif numéro $${miseEnEvidence(etape.toString())}$ qui contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${pattern.shapes[0]}s.<br>
+            ${explain2}`)
           }
             break
           case 5:{
@@ -332,7 +348,8 @@ exercice: this,
             )}
             `)
             listeCorrections.push(`Le motif $100$ contient $${miseEnEvidence(nbTex)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
-            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>`)
+            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>
+            ${explain}`)
           }
             break
         }
