@@ -29,6 +29,7 @@ export default class TauxCoeff extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.versionQcmDisponible = true
   }
 
   nouvelleVersion () {
@@ -37,32 +38,31 @@ export default class TauxCoeff extends ExerciceSimple {
     switch (choice(['a', 'b', 'b'])) { //
       case 'a':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
-        this.question = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par `
-        if (!this.interactif) {
-          this.question += '.... '
-        }
+        this.question = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par : `
         this.correction = `Augmenter de $${taux}~\\%$ revient à multiplier par $1+\\dfrac{${taux}}{100}$.<br>
         Ainsi, le coefficient multiplicateur associé à une augmentation de $${taux}~\\%$ est $1+${texNombre(taux / 100)}$, soit $${texNombre(1 + taux / 100)}$.<br><br>
         Autre formulation : <br>Augmenter de $${taux}~\\%$ une valeur revient à en prendre $${texNombre(100 + taux)}~\\%$ car $100~\\% + ${taux} ~\\%=${texNombre(100 + taux)}~\\%$.<br>
         Ainsi, le coefficient multiplicateur associé à une augmentation de $${texNombre(taux)}~\\%$ est $\\dfrac{${texNombre(100 + taux)}}{100}$ soit $${miseEnEvidence(texNombre(1 + taux / 100))}$.`
-        this.reponse = arrondi(1 + taux / 100)
+        this.reponse = this.versionQcm ? `$${texNombre(1 + taux / 100, 4)}$` : arrondi(1 + taux / 100)
+        this.distracteurs = [`$${texNombre(1 - taux / 100, 4)}$`, `$${texNombre(taux / 100, 4)}$`, `$${texNombre(1 + taux / 1000, 4)}$`]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break
       case 'b':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
-        this.question = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par `
-        if (!this.interactif) {
-          this.question += '.... '
-        }
+        this.question = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par :`
         this.correction = `Diminuer de $${taux}~\\%$ revient à multiplier par $1-\\dfrac{${taux}}{100}$.<br>
         Ainsi, le coefficient multiplicateur associé à une réduction de $${taux}~\\%$ est est $1-${texNombre(taux / 100)}$, soit $${texNombre(1 - taux / 100)}$.<br><br>
         Autre formulation : <br>Diminuer de $${taux}~\\%$ une valeur revient à en prendre $${texNombre(100 - taux)}~\\%$ car $100~\\% - ${texNombre(taux)} ~\\%=${texNombre(100 - taux)}~\\%$.<br>
         Ainsi, le coefficient multiplicateur associé à une réduction de  $${taux}~\\%$ est $\\dfrac{${texNombre(100 - taux)}}{100}$ soit $${miseEnEvidence(texNombre(1 - taux / 100))}$.`
-        this.reponse = arrondi(1 - taux / 100)
+        this.reponse = this.versionQcm ? `$${texNombre(1 - taux / 100, 4)}$` : arrondi(1 - taux / 100)
+        this.distracteurs = [`$${texNombre(1 + taux / 1000, 4)}$`, `$${texNombre(taux / 100, 4)}$`, `$${texNombre(1 - taux / 1000, 4)}$`]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break
+    }
+    if (!this.interactif && !this.versionQcm) {
+      this.question += ' .... '
     }
   }
 }
