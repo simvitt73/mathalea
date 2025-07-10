@@ -713,6 +713,8 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif === 'qcm' || (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0 && exercice.versionQcm)) {
           if (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0) {
+            // On ne garde que 3 distracteurs distincts au hasard
+            exercice.distracteurs = [...new Set(exercice.distracteurs)].sort(() => Math.random() - 0.5).slice(0, 3)
             exercice.autoCorrection[i] = {
               options: { radio: true },
               enonce: exercice.question,
