@@ -222,11 +222,12 @@ export default class ConnaitreQuart extends Exercice {
           : (texteAvant + '\\ldots' + texteApres)
         texteCorr = texteAvant + miseEnEvidence(reponse) + texteApres
       }
-      handleAnswers(this, i, { reponse: { value: reponse, options: { fractionIdentique: true } } })
 
       if (this.questionJamaisPosee(i, typeQuestions[i + 1])) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
+        handleAnswers(this, i, { reponse: { value: reponse, options: { fractionIdentique: true } } })
+
         i++
       }
       cpt++

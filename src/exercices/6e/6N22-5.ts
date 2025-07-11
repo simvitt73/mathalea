@@ -197,29 +197,29 @@ export default class DecimaleAFractionnaire extends Exercice {
           texteCorr += texFractionFromString(5, miseEnEvidence(reponse)) + '$'
           break
       }
-      if (typeQuestions[i] < 7) {
-        if (this.sup !== 1) {
-          texte = 'Compléter par un nombre décimal : '
-        }
-        texte += texteCorr + (this.interactif
-          ? ('$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers))
-          : '\\ldots$')
-
-        handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
-        texteCorr += `${miseEnEvidence(reponse)}$`
-      } else {
-        if (this.sup !== 2) {
-          texte = 'Compléter  : ' + texte
-        }
-        handleAnswers(this, i, { champ1: { value: reponse } },
-          { formatInteractif: 'fillInTheBlank' }
-        )
-      }
-      if (this.sup !== 1 && this.sup !== 2) {
-        texte += '.'
-      }
 
       if (this.questionJamaisPosee(i, typeQuestions[i + 1])) {
+        if (typeQuestions[i] < 7) {
+          if (this.sup !== 1) {
+            texte = 'Compléter par un nombre décimal : '
+          }
+          texte += texteCorr + (this.interactif
+            ? ('$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers))
+            : '\\ldots$')
+
+          handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
+          texteCorr += `${miseEnEvidence(reponse)}$`
+        } else {
+          if (this.sup !== 2) {
+            texte = 'Compléter  : ' + texte
+          }
+          handleAnswers(this, i, { champ1: { value: reponse } },
+            { formatInteractif: 'fillInTheBlank' }
+          )
+        }
+        if (this.sup !== 1 && this.sup !== 2) {
+          texte += '.'
+        }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
