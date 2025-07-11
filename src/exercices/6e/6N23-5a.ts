@@ -13,6 +13,7 @@ import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import type { MathfieldElement } from 'mathlive'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { distance } from 'apigeom/src/elements/calculus/Coords'
 
 export const dateDePublication = '08/07/2025'
 export const titre = 'Donner du sens à la définition d\'un quotient'
@@ -30,25 +31,29 @@ export const refs = {
   'fr-fr': ['6N23-5a'],
   'fr-ch': ['']
 }
-/* type GoodAnswerItem =
-  | { label: string; x: number }
-  | { champ1: number; champ2: number }
-*/
+
 type GoodAnswerItem = { label: string; x: number }
 
-export default class DonnerSensDefinitionQuotientXXX extends Exercice {
-  goodAnswers!: [GoodAnswerItem, GoodAnswerItem, number, number][]
+export default class DonnerSensDefinitionQuotient extends Exercice {
+  goodAnswerQa!: [GoodAnswerItem, GoodAnswerItem][]
+  goodAnswerQb!: number[]
+  goodAnswerQc!: number[]
+
   figuresApiGeom!: Figure[]
   constructor () {
     super()
 
     this.nbQuestions = 5
     this.exoCustomResultat = true
+    this.besoinFormulaireNumerique = ['Solution finale', 3, '1 : Phrase\n2 : Égalité mathématique\n3 : Les deux']
+    this.sup = 3
   }
 
   nouvelleVersion () {
     this.figuresApiGeom = []
-    this.goodAnswers = []
+    this.goodAnswerQa = []
+    this.goodAnswerQb = []
+    this.goodAnswerQc = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -59,19 +64,12 @@ export default class DonnerSensDefinitionQuotientXXX extends Exercice {
       const label1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       const label2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
 
-      /*
-      this.goodAnswers[i] = [
+      this.goodAnswerQa[i] = [
         { label: label1, x: arrondi(num / den, 4) },
-        { label: label2, x: num },
-        { champ1: den, champ2: num }
+        { label: label2, x: num }
       ]
-        */
-      this.goodAnswers[i] = [
-        { label: label1, x: arrondi(num / den, 4) },
-        { label: label2, x: num },
-        den,
-        num
-      ]
+      this.goodAnswerQb[i] = den
+      this.goodAnswerQc[i] = num
 
       const fractionUtile = new FractionEtendue(num, den).texFraction
       const xMax = num + randint(0, 2)
@@ -79,7 +77,7 @@ export default class DonnerSensDefinitionQuotientXXX extends Exercice {
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       this.figuresApiGeom[i] = figure
-      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: 0, xMax, scale: xMax < 9 ? 1 : 0.5, stepBis: 1 / den, points: this.goodAnswers[i], snapGrid: false })
+      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: 0, xMax, scale: xMax < 9 ? 1 : 0.5, stepBis: 1 / den, points: this.goodAnswerQa[i], snapGrid: false })
       figureCorr.create('Point', { label: label1, x: arrondi(num / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
       figureCorr.create('Point', { label: miseEnEvidence(fractionUtile), x: arrondi(num / den, 4), y: -1.35, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0, shape: '' })
 
@@ -92,7 +90,8 @@ export default class DonnerSensDefinitionQuotientXXX extends Exercice {
         A = figureCorr2.create('Point', { isVisible: false, label: 'A', x: (bond + 1) * num / den, y: 1, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
         B = figureCorr2.create('Point', { isVisible: false, label: 'B', x: bond * num / den, y: 1, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
         C = figureCorr2.create('Point', { isVisible: false, label: 'C', x: bond * num / den + num / (2 * den), y: 0.5, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
-        longueurAC = figureCorr2.create('Distance', { point1: A, point2: C }).value
+        // longueurAC = figureCorr2.create('Distance', { point1: A, point2: C }).value
+        longueurAC = distance(A, C)
         // longueurAC = Math.sqrt((C.x - A.x) ^ 2 + (C.y - A.y) ^ 2)
         figureCorr2.create('ArcBy3PointsAndRadius', { center: C, start: A, end: B, radius: longueurAC, addBorders: false, color: orangeMathalea })
         figureCorr2.create('Point', { label: miseEnEvidence((bond + 1).toString()), x: C.x, y: C.y + longueurAC, labelDxInPixels: 0, shape: '' })
@@ -132,7 +131,15 @@ export default class DonnerSensDefinitionQuotientXXX extends Exercice {
         ? ajouteChampTexteMathLive(this, 2 * i + 100 + 1, KeyboardType.clavierNumbers) + '.'
         : '$\\ldots$'
 
-      texteCorr += numAlpha(2) + `On constate que le quotient $${fractionUtile}$  est le nombre qui, multiplié par $${miseEnEvidence(den)}$ donne  $${miseEnEvidence(num)}$.`
+      texteCorr += this.sup !== 2
+        ? numAlpha(2) + `On constate que le quotient $${fractionUtile}$  est le nombre qui, multiplié par $${miseEnEvidence(den)}$ donne  $${miseEnEvidence(num)}$`
+        : numAlpha(2) + `On constate que  $${fractionUtile}\\times${miseEnEvidence(den)}=${miseEnEvidence(num)}$`
+
+      if (this.sup !== 1 && this.sup !== 2) {
+        texteCorr += ` et donc que $${fractionUtile}\\times${miseEnEvidence(den)}=${miseEnEvidence(num)}$`
+      }
+
+      texteCorr += '.'
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -179,52 +186,52 @@ export default class DonnerSensDefinitionQuotientXXX extends Exercice {
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
-    const goodAnswer = this.goodAnswers[i]
+    const goodAnswerQa = this.goodAnswerQa[i]
+    const goodAnswerQb = this.goodAnswerQb[i]
+    const goodAnswerQc = this.goodAnswerQc[i]
 
-    for (let j = 0; j < goodAnswer.length; j++) {
-      if (j < 2) {
-        const label = goodAnswer[j].label
-        const x = goodAnswer[j].x
-        const { isValid, points } = figure.checkCoords({ checkOnlyAbscissa: true, label, x, y: 0 })
-        const point = points[0]
-        if (isValid) {
-          result.push('OK')
-          point.color = 'green'
-          point.colorLabel = 'green'
-          point.thickness = 3
-        } else {
-          result.push('KO')
-          if (point !== undefined) {
-            point.color = 'red'
-            point.colorLabel = 'red'
-            point.color = 'red'
-            point.thickness = 3
-          }
-        }
-      } else if (j === 2) {
-        // Champ réponse : Son nom est en dur, ne rien changer
-        const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${2 * i + 100}`) as MathfieldElement
-
-        // Sauvegarde de la réponse pour Capytale
-        // this.answers[`........................`] = mf.getValue()
-
-        // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
-        const saisie1 = mf.value
-
-        result.push(fonctionComparaison(saisie1, goodAnswer[2]).isOk ? 'OK' : 'KO')
+    for (let j = 0; j < goodAnswerQa.length; j++) {
+      const label = goodAnswerQa[j].label
+      const x = goodAnswerQa[j].x
+      const { isValid, points } = figure.checkCoords({ checkOnlyAbscissa: true, label, x, y: 0 })
+      const point = points[0]
+      if (isValid) {
+        result.push('OK')
+        point.color = 'green'
+        point.colorLabel = 'green'
+        point.thickness = 3
       } else {
-        // Champ réponse : Son nom est en dur, ne rien changer
-        const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${2 * i + 100 + 1}`) as MathfieldElement
-
-        // Sauvegarde de la réponse pour Capytale
-        // this.answers[`........................`] = mf.getValue()
-
-        // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
-        const saisie2 = mf.value
-
-        result.push(fonctionComparaison(saisie2, goodAnswer[3]).isOk ? 'OK' : 'KO')
+        result.push('KO')
+        if (point !== undefined) {
+          point.color = 'red'
+          point.colorLabel = 'red'
+          point.color = 'red'
+          point.thickness = 3
+        }
       }
     }
+
+    // Champ réponse : Son nom est en dur, ne rien changer
+    let mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${2 * i + 100}`) as MathfieldElement
+
+    // Sauvegarde de la réponse pour Capytale
+    // this.answers[`........................`] = mf.getValue()
+
+    // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
+    const saisie1 = mf.value
+
+    result.push(fonctionComparaison(saisie1, goodAnswerQb.toString()).isOk ? 'OK' : 'KO')
+    // Champ réponse : Son nom est en dur, ne rien changer
+    mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${2 * i + 100 + 1}`) as MathfieldElement
+
+    // Sauvegarde de la réponse pour Capytale
+    // this.answers[`........................`] = mf.getValue()
+
+    // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
+    const saisie2 = mf.value
+
+    result.push(fonctionComparaison(saisie2, goodAnswerQc.toString()).isOk ? 'OK' : 'KO')
+
     const divFeedback1 = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
 
     if (divFeedback1 != null) {
