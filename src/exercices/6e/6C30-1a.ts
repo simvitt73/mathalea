@@ -145,7 +145,7 @@ export default class DiviserDecimauxPar101001000 extends Exercice {
       this.consigne = 'Compléter.'
       this.consigne += '<br>Un glisse-nombre est à disposition pour répondre '
       this.consigne += this.nbQuestions === 1 ? 'à la question.' : 'aux questions.'
-      this.consigne += `<glisse-nombre number="${texNombre(20.25)}"/>`
+      this.consigne += glisseNombreInteractif({ number: 20.25 })
     } else { this.consigne = 'Compléter.' }
 
     const puissances = combinaisonListes(
