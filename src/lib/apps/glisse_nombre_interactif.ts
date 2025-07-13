@@ -15,6 +15,7 @@ type GlisseNombreInteractifOptions = {
   showCalculus?: boolean // pour afficher ✕ ou ÷ 10, 100... (par défaut à true)
   showComma1?: boolean // pour afficher la virgule de la première ligne (par défaut à true)
   showComma2?: boolean // pour afficher la virgule de la deuxième ligne (par défaut à true)
+  orientation?: 'horizontal' | 'vertical' // pour choisir l'orientation des entêtes (par défaut vertical)
 }
 
 /**
@@ -26,6 +27,7 @@ type GlisseNombreInteractifOptions = {
  * @param options.showCalculus - pour afficher ✕ ou ÷ 10, 100... (par défaut à true)
  * @param options.showComma1 - pour afficher la virgule de la première ligne (par défaut à true)
  * @param options.showComma2 - pour afficher la virgule de la deuxième ligne (par défaut à true)
+ * @param options.orientation - pour choisir l'orientation des entêtes
  * @returns le code HTML du glisse-nombre interactif
  */
 export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions): string {
@@ -40,6 +42,7 @@ export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions)
     if (options.showCalculus !== undefined) optionsString += `show-calculus="${options.showCalculus}" `
     if (options.showComma1 !== undefined) optionsString += `show-comma1="${options.showComma1}" `
     if (options.showComma2 !== undefined) optionsString += `show-comma2="${options.showComma2}" `
+    if (options.orientation !== undefined) optionsString += `orientation="${options.orientation}" `
   }
   return `<glisse-nombre ${optionsString} ></glisse-nombre>`
 }
