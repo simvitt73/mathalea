@@ -52,8 +52,8 @@ export default class Puissances extends ExerciceQcmA {
     \\end{aligned}$`
         this.reponses = [` $N=${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
       `$N=${a[1]}^{${k}}$`,
-      `$N=\\dfrac{1}{10^{${k}}}$`,
-       `$N=${a[1] * a[1] ** k}$`
+      `$N=10^{${k}}$`,
+       `$N=${a[0] ** n}\\times ${a[0] * a[1]}^{${k}}$`
         ]
       }
         break
