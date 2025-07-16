@@ -23,7 +23,8 @@ export const titre = 'Calculer avec un taux d\'évolution'
 
 export default class BaissePrix extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Un sac coûte $130$ euros. Le prix baisse de $10\\,\\%$. Le nouveau prix en euros est :'
+    this.enonce = `Un sac coûte $130$ euros. Le prix baisse de $10\\,\\%$. <br>
+    Le nouveau prix en euros est :`
     this.correction = ` Diminuer de $10\\,\\%$ revient à multiplier par $0,9$ (coefficient multiplicateur).<br>
  Ainsi, le nouveau prix est donné par :  $130 \\times \\left(1 - \\dfrac{10}{100}\\right) = 130 \\times (1 - 0,1) = ${miseEnEvidence('130 \\times 0,9')}$`
 
@@ -48,7 +49,8 @@ export default class BaissePrix extends ExerciceQcmA {
     const coefficientMultiplicateur = (100 - pourcentage) / 100
     const coefficientTexte = texNombre(coefficientMultiplicateur, 2)
 
-    this.enonce = `Un sac coûte $${texNombre(prixInitial)}$ euros. Le prix baisse de $${pourcentage}\\,\\%$. Le nouveau prix en euros est :`
+    this.enonce = `Un sac coûte $${texNombre(prixInitial)}$ euros. Le prix baisse de $${pourcentage}\\,\\%$. <br>
+    Le nouveau prix en euros est :`
 
     // Bonne réponse (plusieurs formes possibles)
     const bonnesReponses = [
