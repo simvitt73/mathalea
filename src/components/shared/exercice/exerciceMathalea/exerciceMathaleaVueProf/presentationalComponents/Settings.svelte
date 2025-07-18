@@ -133,7 +133,7 @@
 
 <div
   id="settings{exerciceIndex}"
-  class="relative bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isVisible
+  class="relative bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark z-20 {isVisible
     ? 'visible lg:w-1/4'
     : 'hidden lg:w-0'} flex flex-col duration-500"
 >
