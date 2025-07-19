@@ -175,7 +175,7 @@ export default class DenombrerCubes extends Exercice {
         figure = `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${q}" style="width: 400px; height: 400px;"></div>`
         sceneBuilders.push(sceneBuilder)
 
-        const sceneBuilder2 = new SceneViewer({ width: 400, height: 400, rigPosition: [longueur * 1.5, largeur / 2, -hauteur / 2], cameraDistance: 8, fov: 60 })
+        const sceneBuilder2 = new SceneViewer({ width: 400, height: 400, rigPosition: [longueur * 1.5 - 0.5, largeur / 2, -hauteur / 2], cameraDistance: 8, fov: 60, zoomLimits: { min: 5, max: 20 } })
         for (let i = 0; i < L.length; i++) {
           sceneBuilder2.addCubeTroisCouleursABox({
             position: [3 * L[i][0], L[i][2], -L[i][1]],

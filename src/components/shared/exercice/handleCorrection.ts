@@ -4,14 +4,18 @@ import { tick } from 'svelte'
 
 // Peut-être est à déplacer dans un fichier de fonctions utilitaires ?
 export function handleCorrectionAffichee () {
-  // On attend le tick Svelte pour s'assurer que le DOM est à jour
   tick().then(() => {
-    // Vérifie qu'au moins un élément de correction est dans le DOM
     if (document.querySelector('[id^="correction-exo"]')) {
-      const correctionsAffichees = new window.Event('correctionsAffichees', {
-        bubbles: true,
-      })
-      document.dispatchEvent(correctionsAffichees)
+      document.dispatchEvent(new window.Event('correctionsAffichees', { bubbles: true }))
+      return
     }
+    // Sinon, observe le DOM jusqu'à ce que l'élément apparaisse
+    const observer = new MutationObserver(() => {
+      if (document.querySelector('[id^="correction-exo"]')) {
+        document.dispatchEvent(new window.Event('correctionsAffichees', { bubbles: true }))
+        observer.disconnect()
+      }
+    })
+    observer.observe(document.body, { childList: true, subtree: true })
   })
 }

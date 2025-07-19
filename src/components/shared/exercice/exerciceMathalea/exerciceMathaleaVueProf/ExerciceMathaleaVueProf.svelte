@@ -254,9 +254,6 @@
       bubbles: true,
     });
     document.dispatchEvent(exercicesAffiches);
-  });
-
-  afterUpdate(() => {
     if (isCorrectionVisible) {
       handleCorrectionAffichee();
     }

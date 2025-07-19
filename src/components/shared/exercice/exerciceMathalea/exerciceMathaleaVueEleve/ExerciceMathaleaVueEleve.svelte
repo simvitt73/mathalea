@@ -55,7 +55,6 @@
   const exercicesAffiches = new window.Event('exercicesAffiches', {
     bubbles: true,
   });
-  document.dispatchEvent(exercicesAffiches);
 
   let headerExerciceProps: { title: string } = { title };
 
@@ -155,9 +154,7 @@
         if (exercise.interactifType === 'cliqueFigure' && !isCorrectVisible) {
           prepareExerciceCliqueFigure(exercise);
         }
-        if (isCorrectVisible) {
-          handleCorrectionAffichee();
-        }
+
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         try {
           if (
@@ -198,6 +195,9 @@
       }
     }
     document.dispatchEvent(exercicesAffiches);
+    if (isCorrectVisible) {
+      handleCorrectionAffichee();
+    }
   });
 
   async function newData() {

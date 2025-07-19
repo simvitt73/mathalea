@@ -39,6 +39,95 @@ export class Solide {
   setRotation (x: number, y: number, z: number): void {
     this.mesh.rotation.set(x, y, z)
   }
+
+  static prismePyramides ({
+    rayon = 1,
+    n = 6,
+    hauteurPrisme = 1,
+    hauteurTop = 1,
+    hauteurBottom = 1,
+    colorPrisme = '#4CC3D9',
+    colorTop = '#FFC65D',
+    colorBottom = '#7BC8A4',
+    position = [0, 0, 0],
+    wireframe = true
+  }: {
+    rayon?: number,
+    n?: number,
+    hauteurPrisme?: number,
+    hauteurTop?: number,
+    hauteurBottom?: number,
+    colorPrisme?: string,
+    colorTop?: string,
+    colorBottom?: string,
+    position?: [number, number, number]
+    wireframe?: boolean
+  }) {
+    // Génère les sommets du polygone de base
+    const baseTopPoints = Array.from({ length: n + 1 }, (_, i) => {
+      const angle = (2 * Math.PI * i) / n
+      return [
+        position[0] + rayon * Math.sin(angle),
+        position[1] + hauteurPrisme / 2,
+        position[2] + rayon * Math.cos(angle)
+      ]
+    })
+    const baseBottomPoints = Array.from({ length: n + 1 }, (_, i) => {
+      const angle = (2 * Math.PI * i) / n
+      return [
+        position[0] + rayon * Math.sin(angle),
+        position[1] - hauteurPrisme / 2,
+        position[2] + rayon * Math.cos(angle)
+      ]
+    })
+
+    // Génère les faces du prisme (simplifié, à adapter selon ton moteur)
+    // Ici, on utilise des a-entity ou a-mesh-line pour illustrer
+    // Pour un vrai mesh, il faudrait un composant custom ou loader un modèle
+
+    // Prisme
+    const prisme = `
+      <a-cylinder
+        position="${position.join(' ')}"
+        segments-height=1
+        radius="${rayon}"
+        height="${hauteurPrisme}"
+        material="color: ${colorPrisme}; wireframe: ${wireframe ? 'edges' : 'false'}"
+        segments-radial="${n}"
+        >
+      </a-cylinder>
+    `
+
+    // Pyramide top
+    const topApex = [position[0], position[1] + hauteurPrisme / 2 + hauteurTop, position[2]]
+    const topFaces = baseTopPoints.map((pt, i) => {
+      const nextPt = baseTopPoints[(i + 1) % n]
+      return `
+        <a-triangle
+          vertex-a="${pt.join(' ')}"
+          vertex-b="${nextPt.join(' ')}"
+          vertex-c="${topApex.join(' ')}"
+            material="color: ${colorTop}; wireframe: ${wireframe ? 'edges' : 'false'}">
+        </a-triangle>
+      `
+    }).join('\n')
+
+    // Pyramide bottom
+    const bottomApex = [position[0], position[1] - hauteurPrisme / 2 - hauteurBottom, position[2]]
+    const bottomFaces = baseBottomPoints.reverse().map((pt, i) => {
+      const nextPt = baseBottomPoints[(i + 1) % n]
+      return `
+        <a-triangle
+          vertex-a="${pt.join(' ')}"
+          vertex-b="${nextPt.join(' ')}"
+          vertex-c="${bottomApex.join(' ')}"
+            material="color: ${colorBottom}; wireframe: ${wireframe ? 'edges' : 'false'}">
+        </a-triangle>
+      `
+    }).join('\n')
+
+    return prisme + topFaces + bottomFaces
+  }
 }
 
 AFRAME.registerComponent('zoom-controls', {
@@ -94,6 +183,180 @@ AFRAME.registerComponent('zoom-controls', {
 
 // CORRIGÉ : Meilleur typage pour le composant custom-wire-sphere
 
+interface WirePyramidSchema {
+  radius: { type: 'number', default: number }
+  altitudeSommet: { type: 'number', default: number }
+  altitudeBase: { type: 'number', default: number }
+  baseNb: { type: 'number', default: number }
+  thickness: { type: 'number', default: number }
+  color: { type: 'string', default: string }
+  topOrBottom: { type: 'string', default: string }
+}
+export const customWirePyramid = AFRAME.registerComponent('custom-wire-pyramid', {
+  schema: {
+    radius: { type: 'number', default: 1 },
+    altitudeBase: { type: 'number', default: 0 },
+    altitudeSommet: { type: 'number', default: 1 },
+    baseNb: { type: 'number', default: 3 },
+    thickness: { type: 'number', default: 0.01 },
+    color: { type: 'string', default: 'black' },
+  } as WirePyramidSchema,
+  init: function () {
+    const THREE = AFRAME.THREE
+    const group = new THREE.Group()
+    const data = this.data as any  // Cast pour éviter les erreurs de type
+
+    const { radius, baseNb, thickness, color, altitudeSommet, altitudeBase } = data
+    const vertices: number[][] = []
+    vertices.push([0, altitudeSommet, 0])
+    for (let i = 0; i <= baseNb; i++) { // ici on double le sommet 0 pour pouvoir boucler le polygone de base donc on en a baseNb+1
+      const angle = 2 * Math.PI * i / baseNb
+      const x = radius * Math.cos(angle)
+      const z = radius * Math.sin(angle)
+      vertices.push([x, altitudeBase, z])
+    }
+    const pairsToConnect: number[][] = []
+    for (let i = 1; i <= baseNb; i++) {
+      pairsToConnect.push([0, i]) // seulement baseNb arêtes latérales
+      pairsToConnect.push([i, i + 1]) // et baseNb arêtes à la base
+    }
+    // création des arêtes
+
+    for (const [i1, i2] of pairsToConnect) {
+      const start = new THREE.Vector3(...vertices[i1])
+      const end = new THREE.Vector3(...vertices[i2])
+      const direction = new THREE.Vector3().subVectors(end, start)
+      const length = direction.length()
+      const geometry = new THREE.CylinderGeometry(thickness, thickness, length, 8)
+      const material = new THREE.MeshBasicMaterial({ color })
+      const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
+      const axis = new THREE.Vector3(0, 1, 0)
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(axis, direction.clone().normalize())
+      const cylinder = new THREE.Mesh(geometry, material)
+      cylinder.position.copy(mid)
+      cylinder.quaternion.copy(quaternion)
+      group.add(cylinder)
+    }
+    this.el.setObject3D('tubeEdges', group)
+  },
+  remove: function () {
+    this.el.removeObject3D('tubeEdges')
+  }
+})
+export const customWirePrism = AFRAME.registerComponent('custom-wire-prism', {
+  schema: {
+    radius: { type: 'number', default: 1 },
+    altitudeBase: { type: 'number', default: 0 },
+    altitudeSommet: { type: 'number', default: 1 },
+    baseNb: { type: 'number', default: 3 },
+    thickness: { type: 'number', default: 0.01 },
+    color: { type: 'string', default: 'black' },
+  } as WirePyramidSchema,
+  init: function () {
+    const THREE = AFRAME.THREE
+    const group = new THREE.Group()
+    const data = this.data as any  // Cast pour éviter les erreurs de type
+
+    const { radius, baseNb, thickness, color, altitudeSommet, altitudeBase } = data
+    const vertices: number[][] = []
+    for (let i = 0; i <= baseNb; i++) { // ici on double le sommet 0 pour pouvoir boucler le polygone de base
+      const angle = 2 * Math.PI * i / baseNb
+      const x = radius * Math.cos(angle)
+      const z = radius * Math.sin(angle)
+      vertices.push([x, altitudeBase, z], [x, altitudeSommet, z])
+    }
+    const pairsToConnect: number[][] = []
+    for (let i = 0; i < baseNb; i++) { // On ne fait que baseNb
+      pairsToConnect.push([i * 2, i * 2 + 1])
+      pairsToConnect.push([i * 2, (i + 1) * 2])
+      pairsToConnect.push([i * 2 + 1, (i + 1) * 2 + 1])
+    }
+    // création des arêtes
+
+    for (const [i1, i2] of pairsToConnect) {
+      const start = new THREE.Vector3(...vertices[i1])
+      const end = new THREE.Vector3(...vertices[i2])
+      const direction = new THREE.Vector3().subVectors(end, start)
+      const length = direction.length()
+      const geometry = new THREE.CylinderGeometry(thickness, thickness, length, 8)
+      const material = new THREE.MeshBasicMaterial({ color })
+      const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
+      const axis = new THREE.Vector3(0, 1, 0)
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(axis, direction.clone().normalize())
+      const cylinder = new THREE.Mesh(geometry, material)
+      cylinder.position.copy(mid)
+      cylinder.quaternion.copy(quaternion)
+      group.add(cylinder)
+    }
+    this.el.setObject3D('tubeEdges', group)
+  },
+  remove: function () {
+    this.el.removeObject3D('tubeEdges')
+  }
+})
+
+interface WireTrucatedPyramidSchema {
+  radiusBase: { type: 'number', default: number }
+  radiusTop: { type: 'number', default: number }
+  altitudeBase: { type: 'number', default: number }
+  altitudeTop: { type: 'number', default: number }
+  baseNb: { type: 'number', default: number }
+  thickness: { type: 'number', default: number }
+  color: { type: 'string', default: string }
+}
+export const customWireTruncatedPyramid = AFRAME.registerComponent('custom-wire-truncated-pyramid', {
+  schema: {
+    radiusBase: { type: 'number', default: 1 },
+    radiusTop: { type: 'number', default: 0.5 },
+    altitudeBase: { type: 'number', default: 0 },
+    altitudeTop: { type: 'number', default: 1 },
+    baseNb: { type: 'number', default: 3 },
+    thickness: { type: 'number', default: 0.01 },
+    color: { type: 'string', default: 'black' },
+  } as WireTrucatedPyramidSchema,
+  init: function () {
+    const THREE = AFRAME.THREE
+    const group = new THREE.Group()
+    const data = this.data as any  // Cast pour éviter les erreurs de type
+
+    const { radiusBase, radiusTop, baseNb, thickness, color, altitudeTop, altitudeBase } = data
+    const vertices: number[][] = []
+    for (let i = 0; i <= baseNb; i++) { // ici on double le sommet 0 pour pouvoir boucler le polygone de base
+      const angle = 2 * Math.PI * i / baseNb
+      const x = radiusBase * Math.cos(angle)
+      const z = radiusBase * Math.sin(angle)
+      vertices.push([x, altitudeBase, z], [x * radiusTop / radiusBase, altitudeTop, z * radiusTop / radiusBase])
+    }
+    // création des arêtes
+    const pairsToConnect: number[][] = []
+    for (let i = 0; i < baseNb; i++) { // On ne fait que baseNb
+      pairsToConnect.push([i * 2, i * 2 + 1])
+      pairsToConnect.push([i * 2, ((i + 1) * 2) % (2 * baseNb)])
+      pairsToConnect.push([i * 2 + 1, ((i + 1) * 2 + 1) % (2 * baseNb)])
+    }
+
+    for (const [i1, i2] of pairsToConnect) {
+      const start = new THREE.Vector3(...vertices[i1])
+      const end = new THREE.Vector3(...vertices[i2])
+      const direction = new THREE.Vector3().subVectors(end, start)
+      const length = direction.length()
+      const geometry = new THREE.CylinderGeometry(thickness, thickness, length, 8)
+      const material = new THREE.MeshBasicMaterial({ color })
+      const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
+      const axis = new THREE.Vector3(0, 1, 0)
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(axis, direction.clone().normalize())
+      const cylinder = new THREE.Mesh(geometry, material)
+      cylinder.position.copy(mid)
+      cylinder.quaternion.copy(quaternion)
+      group.add(cylinder)
+    }
+    this.el.setObject3D('tubeEdges', group)
+  },
+  remove: function () {
+    this.el.removeObject3D('tubeEdges')
+  }
+})
+
 interface WireSphereSchema {
   radius: { type: 'number', default: number }
   parallels: { type: 'number', default: number }
@@ -110,7 +373,6 @@ interface WireSphereSchema {
   greenwichColor: { type: 'color', default: string }
   greenwichThickness: { type: 'number', default: number }
 }
-
 export const customWireSphere = AFRAME.registerComponent('custom-wire-sphere', {
   schema: {
     radius: { type: 'number', default: 1 },

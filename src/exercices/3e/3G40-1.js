@@ -1,4 +1,5 @@
 import { SceneViewer } from '../../lib/3d/SceneViewer'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arcenciel } from '../../lib/outils/embellissements'
@@ -311,6 +312,7 @@ export default class ReperageSurLaTerre extends Exercice {
           exercice: this,
           question: i,
           typeInteractivite: 'mathlive',
+          classe: KeyboardType.geolocalisation,
           objetReponse: {
             reponse: { value: `${choix === 'latitude' ? Math.round(Math.abs(ville.latitude)) : Math.round(Math.abs(ville.longitude))}°${choix === 'latitude' ? (ville.latitude >= 0 ? 'N' : 'S') : (ville.longitude >= 0 ? 'E' : 'O')}` },
           }
@@ -326,7 +328,10 @@ export default class ReperageSurLaTerre extends Exercice {
       document.addEventListener('exercicesAffiches', () => {
         const parent = document.getElementById(`emplacementPourSceneViewer${sceneBuilder.id}`)
         if (parent !== null) {
-          sceneBuilder.showSceneAt(parent)
+          const aScene = parent.querySelector('a-scene')
+          if (aScene === null) {
+            sceneBuilder.showSceneAt(parent)
+          }
         }
       }, { once: true })
     } else {
