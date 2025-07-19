@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 
-Blockly.setLocale(En)
+Blockly.setLocale(En.default)
 
 export default class Pythagore2DBlockly extends Exercice {
   typeDeQuestion: string
