@@ -131,7 +131,10 @@ export function buildMathAleaURL (options: {
       url.addParam('order', global.order.join('-'))
     }
   } else {
-    url.addParam('title', global.title ?? 'Évaluation')
+    const title = global.title ?? 'Évaluation'
+    if (title !== '') {
+      url.addParam('title', title)
+    }
   }
   if (global.beta) {
     url.addParam('beta', '1')
