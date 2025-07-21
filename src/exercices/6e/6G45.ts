@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { fauxCubes, vraiCubes } from './_listePatrons'
 import { point } from '../../lib/2d/points'
-import { Polygone, polygone } from '../../lib/2d/polygones'
+import { BoiteBuilder, Polygone, polygone } from '../../lib/2d/polygones'
 
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -320,7 +320,7 @@ class UnPatron {
     return texte
   }
 
-  dessineMatrice (): Polygone[] {
+  dessineMatrice (): any[] {
     const [largeur, longueur] = [this.larg, this.long]
     const patronTemp = new UnPatron(largeur, longueur)
     patronTemp.matrice = this.matrice.map(ligne => [...ligne]) // copie de la matrice
@@ -354,7 +354,19 @@ class UnPatron {
         // ne fait rien
         break
     }
-    const leDessin: Polygone[] = []
+    const leDessin = []
+    for (let i = 0; i < patronTemp.long; i++) {
+      for (let j = 0; j < patronTemp.larg; j++) {
+        if (patronTemp.matrice[i][j] === 1) {
+          const face1 = new BoiteBuilder({ xMin: i * tailleCarre, yMin: j * tailleCarre, xMax: (i + 1) * tailleCarre, yMax: (j + 1) * tailleCarre })
+          // face1.addColor({ colorBackground: couleur1 })
+          // face1.addTextIn({ textIn: '1'/* , color: couleurTexte1 */ })
+          const laFace1 = face1.render()
+          leDessin.push(laFace1)
+        }
+      }
+    }
+    /* const leDessin: Polygone[] = []
     for (let i = 0; i < patronTemp.long; i++) {
       for (let j = 0; j < patronTemp.larg; j++) {
         if (patronTemp.matrice[i][j] === 1) {
@@ -366,7 +378,7 @@ class UnPatron {
           leDessin.push(rectanglePatron)
         }
       }
-    }
+    } */
     return leDessin
   }
 
