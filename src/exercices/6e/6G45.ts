@@ -2,14 +2,14 @@ import Exercice from '../Exercice'
 import { THREE } from '../../lib/3d/solidesThreeJs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { fauxCubes, vraiCubes } from './_listePatrons'
-import { point } from '../../lib/2d/points'
-import { BoiteBuilder, Polygone, polygone } from '../../lib/2d/polygones'
+import { cubesObj, fauxCubesObj, type objetFace } from './_listePatrons'
+import { BoiteBuilder, Polygone } from '../../lib/2d/polygones'
 
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { SceneViewer } from '../../lib/3d/SceneViewer'
+import { Latex2d, LatexParCoordonnees, TexteParPoint } from '../../lib/2d/textes'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -31,6 +31,11 @@ export default class choixPatron extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
+    // pour plus tard cubes Paves ...
+    // this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : patrons de cubes\n 2 : patrons de pavés droits']
+
+    this.besoinFormulaire2CaseACocher = ['3d dynamique', true]
+    this.sup2 = true
   }
 
   nouvelleVersion () {
@@ -49,8 +54,8 @@ export default class choixPatron extends Exercice {
     const typeQuestionsDisponibles = ['type1']// 'type2',, 'type3']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const listeTypeVraiPatrons = combinaisonListes(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'], this.nbQuestions)
-    const listeVraisPatrons: UnPatron[] = initListePatrons(vraiCubes)
-    const listeFauxPatrons: UnPatron[] = initListePatrons(fauxCubes)
+    const listeVraisPatrons: UnPatron[] = initListePatrons(cubesObj)
+    const listeFauxPatrons: UnPatron[] = initListePatrons(fauxCubesObj)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -62,6 +67,7 @@ export default class choixPatron extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'type1':{
           texte = ''// `Question ${i + 1} de type 1<br>`
+          // texte += `listeVraisPatrons :  ${listeVraisPatrons.length} <br>`
           const patron1 = listeVraisPatrons[Number(listeTypeVraiPatrons[i]) - 1]
           const dessin1 = patron1.dessineMatrice()
           /* texte += mathalea2d(Object.assign({
@@ -73,10 +79,12 @@ export default class choixPatron extends Exercice {
           const dessin2 = patron2.dessineMatrice()
 
           const patron3 = listeFauxPatrons[randint(0, listeFauxPatrons.length - 1, numPatron2)]
+          // texte += `Patron3 :  ${patron3.ecritMatrice()} <br>`
           const dessin3 = patron3.dessineMatrice()
 
           const taille = choice([5, 7])
           const patron4 = faitUnPatronAuPif(taille)
+          // texte += `Patron4 :  ${patron4.ecritMatrice()} <br>`
           const dessin4 = patron4.dessineMatrice()
 
           const figPatronOk = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, dessin1)
@@ -88,8 +96,6 @@ export default class choixPatron extends Exercice {
           const figPatronFaux2AMC = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoomAMC, id: `cliquefigure2Ex${this.numeroExercice}Q${i}` }, dessin3)
           const figPatronFaux3AMC = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoomAMC, id: `cliquefigure3Ex${this.numeroExercice}Q${i}` }, dessin4)
           const figCorr = dessin1
-          // texte += '<br>'
-          //          const figures = shuffle([figPatronOk, figPatronFaux1, figPatronFaux2, figPatronFaux3])
 
           this.autoCorrection[i] = {}
           // setCliqueFigure({})
@@ -126,20 +132,21 @@ export default class choixPatron extends Exercice {
               texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
             }
             texteCorr = ''// 'Le dessin n°1 donnera un cube' // `Correction ${i + 1} de type 1`
-            texteCorr += context.isHtml
+            texteCorr += mathalea2d({ style: '', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `figure0Ex${this.numeroExercice}Q${i}` }, figCorr)
+            texteCorr += context.isHtml && this.sup2
               ? `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${i}Correction" style="width: 400px; height: 400px;"></div>`
               : mathalea2d({ style: '', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `figure0Ex${this.numeroExercice}Q${i}` }, figCorr)
-            if (context.isHtml) {
+            /* if (context.isHtml && this.sup2) {
               sceneBuildersCorrection[i] = this.affichePatron3D(choice([patron1, patron2, patron3, patron4]).matrice)
-            }
+            } */
           }
         }
           break
         case 'type2':
           texte = `Question ${i + 1} de type 2`
+
           texteCorr = `Correction ${i + 1} de type 2`
           break
-
         case 'type3':
           texte = `Question ${i + 1} de type 3`
           texteCorr = `Correction ${i + 1} de type 3`
@@ -227,7 +234,7 @@ export default class choixPatron extends Exercice {
     }
   }
 
-  affichePatron3D (matrice: number[][], idPrefix = 'patron3d'): { viewer: SceneViewer, tree: FaceNode } {
+  affichePatron3D (matrice: objetFace[][], idPrefix = 'patron3d'): { viewer: SceneViewer, tree: FaceNode } {
     const pivot = findPivot(matrice)
     const viewer = new SceneViewer({ width: 400, height: 400, id: idPrefix, rigPosition: [pivot.x, 1, pivot.y], detectCollision: true })
     const taille = 1.5
@@ -245,14 +252,14 @@ export default class choixPatron extends Exercice {
 }
 const tailleCarre = 1
 
-const initMatrice = (largeur: number, longueur: number, digit: number = 0): number[][] =>
-  Array.from({ length: longueur }, () => Array(largeur).fill(digit))
+// const initMatrice = (largeur: number, longueur: number, digit:number = 0, face:boolean = false): objetFace[][] =>
+//  Array.from({ length: longueur }, () => Array(largeur).fill({ numero: digit, isFace: face }))
 
-function initListePatrons (listeMatrices:(number[][])[]): UnPatron[] {
+function initListePatrons (listeMatrices:(objetFace[][])[]): UnPatron[] {
   const listePatrons: UnPatron[] = []
   for (const uneMatrice of listeMatrices) {
     const patron = new UnPatron(uneMatrice[0].length, uneMatrice.length)
-    patron.initMatrice(uneMatrice[0].length, uneMatrice.length, 0)
+    // patron.initMatrice(uneMatrice[0].length, uneMatrice.length, 0)
     patron.matrice = uneMatrice.map(ligne => [...ligne]) // copie de la matrice
     listePatrons.push(patron)
   }
@@ -267,19 +274,18 @@ function faitUnPatronAuPif (taille:number): UnPatron {
 }
 
 class UnPatron {
-  matrice: number[][] = []
+  matrice: objetFace[][] = []
   constructor (
     largeur: number,
-    longueur: number, digit: number = 0
+    longueur: number, digit: number = 0, face:boolean = false
   ) {
-    this.matrice = initMatrice(largeur, longueur, digit)
-  }
-  /* for (let l = 0; l < longueur; l++) {
+    for (let l = 0; l < longueur; l++) {
       this.matrice[l] = []
       for (let k = 0; k < largeur; k++) {
-        this.matrice[l][k] = digit// l * largeur + k // digit
+        this.matrice[l][k] = { numero: digit, isFace: face }// l * largeur + k // digit
       }
-    } */
+    }
+  }
 
   get larg (): number {
     return this.matrice.reduce((max, row) => Math.max(max, row.length), 0)
@@ -289,18 +295,21 @@ class UnPatron {
     return this.matrice.length
   }
 
-  initMatrice (largeur: number, longueur: number, digit: number = 0): void {
+  /* initMatrice = (largeur: number, longueur: number, digit:number = 0, face:boolean = false): objetFace[][] =>
+    Array.from({ length: longueur }, () => Array(largeur).fill({ numero: digit, isFace: face })) */
+
+  initMatrice (largeur: number, longueur: number, digit:number = 0, face:boolean = false):void {
     for (let l = 0; l < longueur; l++) {
       this.matrice[l] = []
       for (let k = 0; k < largeur; k++) {
-        this.matrice[l][k] = digit// l * largeur + k // digit
+        this.matrice[l][k] = { numero: digit, isFace: face }
       }
     }
   }
 
-  setcell (x:number, y:number, value:number): void {
+  setcell (x:number, y:number, value:number, face:boolean): void {
     if (y < this.long && x < this.larg) {
-      this.matrice[y][x] = value
+      this.matrice[y][x] = { numero: value, isFace: face }
     }
   }
 
@@ -310,21 +319,32 @@ class UnPatron {
 
   ecritMatrice (): string {
     let texte = '[<br>' // numbers.length
-    const Longueur = this.matrice.length
+    // bollean vers valeurs 0,1
+    const valeursBooleennes = this.matrice.map(row =>
+      row.map(element => element.isFace ? 1 : 0)
+    )
+    //
+    texte += valeursBooleennes
+      .map(row => `[${row.join(', ')}]`)
+      .join(',<br>')
+    texte += ']<br>'
+    return texte
+
+    /*  const Longueur = this.matrice.length
     for (let l = 0; l < Longueur; l++) {
       texte += `[${this.matrice[l].join(', ')}]<br>`
     }
     const lastIndex = texte.lastIndexOf('<br>')
     texte = texte.substring(0, lastIndex) + ']' + texte.substring(lastIndex + 4)
 
-    return texte
+    return texte */
   }
 
   dessineMatrice (): any[] {
     const [largeur, longueur] = [this.larg, this.long]
     const patronTemp = new UnPatron(largeur, longueur)
     patronTemp.matrice = this.matrice.map(ligne => [...ligne]) // copie de la matrice
-    let transfo = choice([1, 2, 3, 0])
+    let transfo = choice([1, 2, 3, 3, 0])
     switch (transfo) {
       case 1:
         patronTemp.symetrieMatriceH()
@@ -354,10 +374,10 @@ class UnPatron {
         // ne fait rien
         break
     }
-    const leDessin = []
+    const leDessin :(Polygone | (Latex2d | LatexParCoordonnees | TexteParPoint | Polygone)[])[] = []
     for (let i = 0; i < patronTemp.long; i++) {
       for (let j = 0; j < patronTemp.larg; j++) {
-        if (patronTemp.matrice[i][j] === 1) {
+        if (patronTemp.matrice[i][j].isFace) {
           const face1 = new BoiteBuilder({ xMin: i * tailleCarre, yMin: j * tailleCarre, xMax: (i + 1) * tailleCarre, yMax: (j + 1) * tailleCarre })
           // face1.addColor({ colorBackground: couleur1 })
           // face1.addTextIn({ textIn: '1'/* , color: couleurTexte1 */ })
@@ -366,94 +386,81 @@ class UnPatron {
         }
       }
     }
-    /* const leDessin: Polygone[] = []
-    for (let i = 0; i < patronTemp.long; i++) {
-      for (let j = 0; j < patronTemp.larg; j++) {
-        if (patronTemp.matrice[i][j] === 1) {
-          const A = point(i * tailleCarre, j * tailleCarre)
-          const B = point(i * tailleCarre, (j + 1) * tailleCarre)
-          const C = point((i + 1) * tailleCarre, (j + 1) * tailleCarre)
-          const D = point((i + 1) * tailleCarre, j * tailleCarre)
-          const rectanglePatron = polygone([A, B, C, D], 'black')
-          leDessin.push(rectanglePatron)
-        }
-      }
-    } */
     return leDessin
   }
 
   symetrieMatriceH (): void {  // symetrie horizontale
     // inverse les lignes
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(largeur, longueur, 4)
+    const matriceTemp = new UnPatron(largeur, longueur) // objetFace[][] = this.initMatrice(largeur, longueur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
-        matriceTemp[longueur - 1 - l][k] = this.matrice[l][k]
+        matriceTemp.matrice[longueur - 1 - l][k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = matriceTemp.matrice
   }
 
   symetrieMatriceV (): void { // symetrie verticale
     // inverse les colonnes
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(largeur, longueur, 4)
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(largeur, longueur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
-        matriceTemp[l][largeur - 1 - k] = this.matrice[l][k]
+        matriceTemp.matrice[l][largeur - 1 - k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = matriceTemp.matrice
   }
 
   symetrieMatriceD (): void { // symetrie diagonale (ex Transpose la matrice)
     // inverse les lignes et les colonnes
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(longueur, largeur, 4)
+    const matriceTemp = new UnPatron(longueur, largeur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
       //  matriceTemp[largeur - 1 - k][longueur - 1 - l] = this.matrice[l][k]
-        matriceTemp[k][l] = this.matrice[l][k]
+        matriceTemp.matrice[k][l] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = matriceTemp.matrice
   }
 
   rotationMatrice90p (): void { // rotation de 90°
     const [largeur, longueur] = [this.larg, this.long]
     if (largeur === longueur) {
-      const matriceTemp: number[][] = initMatrice(longueur, largeur, 4)
+      const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
       for (let l = 0; l < longueur; l++) {
         for (let k = 0; k < largeur; k++) {
-          matriceTemp[largeur - k - 1][l] = this.matrice[l][k]
+          matriceTemp.matrice[largeur - k - 1][l] = this.matrice[l][k]
         }
       }
-      this.matrice = matriceTemp
+      this.matrice = matriceTemp.matrice
     }
   }
 
   rotationMatrice90n (): void { // rotation de 90° autre sens
     const [largeur, longueur] = [this.larg, this.long]
     if (largeur === longueur) {
-      const matriceTemp: number[][] = initMatrice(longueur, largeur, 4)
+      const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
       for (let l = 0; l < longueur; l++) {
         for (let k = 0; k < largeur; k++) {
-          matriceTemp[k][longueur - l - 1] = this.matrice[l][k]
+          matriceTemp.matrice[k][longueur - l - 1] = this.matrice[l][k]
         }
       }
-      this.matrice = matriceTemp
+      this.matrice = matriceTemp.matrice
     }
   }
 
   rotationMatrice180 (): void { // rotation de 180°
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(largeur, longueur, 4)
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(largeur, longueur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
-        matriceTemp[longueur - 1 - l][largeur - 1 - k] = this.matrice[l][k]
+        matriceTemp.matrice[longueur - 1 - l][largeur - 1 - k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = matriceTemp.matrice
   }
 }
 
@@ -526,7 +533,7 @@ class SerieCouples {
     const couplesLongueur = bMax - bMin + 1
     this._matrice.initMatrice(couplesLargeur, couplesLongueur)
     for (const [a, b] of this._couples) {
-      this._matrice.setcell(a - aMin, bMax - b, 1)
+      this._matrice.setcell(a - aMin, bMax - b, 1, true)
     }
   }
 }
@@ -539,7 +546,7 @@ type FaceNode = {
   directionFromParent?: 'T' | 'B' | 'L' | 'R'
 }
 
-function getVoisins (matrice: number[][], x: number, y: number) {
+function getVoisins (matrice: objetFace[][], x: number, y: number) {
   const dirs = [
     { dx: 0, dy: -1, dir: 'T' },
     { dx: 0, dy: 1, dir: 'B' },
@@ -547,17 +554,17 @@ function getVoisins (matrice: number[][], x: number, y: number) {
     { dx: 1, dy: 0, dir: 'R' }
   ] as const
   return dirs
-    .filter(({ dx, dy }) => matrice[y + dy]?.[x + dx] === 1)
+    .filter(({ dx, dy }) => matrice[y + dy]?.[x + dx].isFace)
     .map(({ dx, dy, dir }) => ({ x: x + dx, y: y + dy, dir }))
 }
 
 // 1. Trouver la face pivot (celle avec le plus de voisins)
-function findPivot (matrice: number[][]) {
+function findPivot (matrice: objetFace[][]) {
   let maxVoisins = -1
   let pivot = { x: 0, y: 0 }
   for (let y = 0; y < matrice.length; y++) {
     for (let x = 0; x < matrice[0].length; x++) {
-      if (matrice[y][x] === 1) {
+      if (matrice[y][x].isFace) {
         const voisins = getVoisins(matrice, x, y)
         if (voisins.length > maxVoisins) {
           maxVoisins = voisins.length
@@ -570,7 +577,7 @@ function findPivot (matrice: number[][]) {
 }
 
 // 2. Construire l’arbre des faces
-function buildFaceTree (matrice: number[][], x: number, y: number, parent?: FaceNode, directionFromParent?: 'T' | 'B' | 'L' | 'R', visited = new Set<string>()): FaceNode {
+function buildFaceTree (matrice: objetFace[][], x: number, y: number, parent?: FaceNode, directionFromParent?: 'T' | 'B' | 'L' | 'R', visited = new Set<string>()): FaceNode {
   const key = `${x},${y}`
   if (visited.has(key)) return null as any
   visited.add(key)
