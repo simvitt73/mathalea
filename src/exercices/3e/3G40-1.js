@@ -1,5 +1,6 @@
 import { SceneViewer } from '../../lib/3d/SceneViewer'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arcenciel } from '../../lib/outils/embellissements'
@@ -170,7 +171,7 @@ listeVilles.forEach(ville => {
   ville.pointRadius = 0.02
   ville.labelColor = arcenciel(randint(0, 10))
   ville.labelSize = 0.5
-  ville.font = 'sourcecodepro'
+  ville.font = 'images/custom-msdf.json'
   ville.transparent = true
 })
 
@@ -210,6 +211,12 @@ export default class ReperageSurLaTerre extends Exercice {
 
     const villes = choisirNVillesAssezLointaines(this.nbQuestions)
     if (this.sup && context.isHtml) {
+      // nettoyage de la scène précédente
+      const previousScene = document.querySelector('#emplacementPourSceneViewerscene-Ex0Q0')
+      if (previousScene) {
+        previousScene.innerHTML = ''
+      }
+
       const sceneBuilder = new SceneViewer({ width: 400, height: 400, id: `Ex${this.numeroExercice}Q0`, withEarth: true, withSky: true, rigPosition: [0, 3, 0], zoomLimits: { min: 8, max: 12 }, cameraDistance: 10, fov: 60, rigRotation: [0, 0, 0] }) // Même si il y a plusieurs question, il n'y a qu'une seule scène
       // Création de la scène 3D
       sceneBuilder.addCustomWireSphere({
@@ -236,7 +243,7 @@ export default class ReperageSurLaTerre extends Exercice {
       }, {
         pointColor: '#FF0000',
         pointRadius: 0.02,
-        font: 'images/Arial Bold-msdf.json',
+        font: 'images/custom-msdf.json',
         labelColor: '#FFFFFF',
         transparent: true  // NOUVEAU : Forcer la transparence
       }))
@@ -259,7 +266,7 @@ export default class ReperageSurLaTerre extends Exercice {
         pointRadius: 0.02,
         labelColor: '#FFFFFF',
         labelSize: 0.3,
-        font: 'images/Arial Bold-msdf.json',
+        font: 'images/custom-msdf.json',
         transparent: true  // NOUVEAU : Transparence pour chaque point
       }),
       Object.assign({
@@ -271,7 +278,7 @@ export default class ReperageSurLaTerre extends Exercice {
         pointRadius: 0.02,
         labelColor: '#FFFFFF',
         labelSize: 0.3,
-        font: 'images/Arial Bold-msdf.json',
+        font: 'images/custom-msdf.json',
         transparent: true  // NOUVEAU : Transparence pour chaque point
       })]
       ).flat(1)
@@ -291,7 +298,7 @@ export default class ReperageSurLaTerre extends Exercice {
         sphereRadius: 4,
         points: villes,
         defaultLabelSize: 0.2,
-        defaultFont: 'monoid',
+        defaultFont: 'images/custom-msdf.json',
         transparent: true  // NOUVEAU : Transparence globale
       })
 
@@ -311,11 +318,12 @@ export default class ReperageSurLaTerre extends Exercice {
         const question = `Quelle est la ${choix} de ${ville.label} ?` + ajouteQuestionMathlive({
           exercice: this,
           question: i,
-          typeInteractivite: 'mathlive',
+          typeInteractivite: 'remplisLesBlancs',
+          content: '%{champ1}°%{champ2}',
           classe: KeyboardType.geolocalisation,
           objetReponse: {
-            reponse: { value: `${choix === 'latitude' ? Math.round(Math.abs(ville.latitude)) : Math.round(Math.abs(ville.longitude))}°${choix === 'latitude' ? (ville.latitude >= 0 ? 'N' : 'S') : (ville.longitude >= 0 ? 'E' : 'O')}` },
-          }
+            champ1: { value: `${choix === 'latitude' ? Math.round(Math.abs(ville.latitude)) : Math.round(Math.abs(ville.longitude))}`, compare: approximatelyCompare, options: { tolerance: 1 } }, champ2: { value: `${choix === 'latitude' ? (ville.latitude >= 0 ? 'N' : 'S') : (ville.longitude >= 0 ? 'E' : 'O')}`, compare: approximatelyCompare, options: { tolerance: 1 } }
+          },
         })
         const correction = `La ${choix} de ${ville.label} est d'environ ${choix === 'latitude'
         ? `${Math.round(Math.abs(ville.latitude))}°${ville.latitude >= 0 ? 'N' : 'S'}`
