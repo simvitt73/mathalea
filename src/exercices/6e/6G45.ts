@@ -463,29 +463,25 @@ class UnPatron {
   }
 
   rotationMatrice90p (): void { // rotation de 90°
-    const [largeur, longueur] = [this.larg, this.long]
-    if (largeur === longueur) {
-      const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
-      for (let l = 0; l < longueur; l++) {
-        for (let k = 0; k < largeur; k++) {
-          matriceTemp.matrice[largeur - k - 1][l] = this.matrice[l][k]
-        }
+    const [largeur, longueur] = [this.long, this.larg]
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
+    for (let l = 0; l < longueur; l++) {
+      for (let k = 0; k < largeur; k++) {
+        matriceTemp.matrice[l][largeur - k - 1] = this.matrice[k][l]
       }
-      this.matrice = arrayClone(matriceTemp.matrice)
     }
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   rotationMatrice90n (): void { // rotation de 90° autre sens
-    const [largeur, longueur] = [this.larg, this.long]
-    if (largeur === longueur) {
-      const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
-      for (let l = 0; l < longueur; l++) {
-        for (let k = 0; k < largeur; k++) {
-          matriceTemp.matrice[k][longueur - l - 1] = this.matrice[l][k]
-        }
+    const [largeur, longueur] = [this.long, this.larg]
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
+    for (let l = 0; l < longueur; l++) {
+      for (let k = 0; k < largeur; k++) {
+        matriceTemp.matrice[longueur - l - 1][k] = this.matrice[k][l]
       }
-      this.matrice = arrayClone(matriceTemp.matrice)
     }
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   rotationMatrice180 (): void { // rotation de 180°
