@@ -1,7 +1,7 @@
 import Exercice from '../Exercice'
 import { THREE } from '../../lib/3d/solidesThreeJs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { arrayClone, choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { cubesObj, fauxCubesObj, type objetFace } from './_listePatrons'
 import { BoiteBuilder, Polygone } from '../../lib/2d/polygones'
 
@@ -76,7 +76,9 @@ export default class choixPatron extends Exercice {
           const taillePatronAuPif = choice([5, 7])
           figPatrons.push(faitUnPatronAuPif(taillePatronAuPif))
           for (let k = 0; k < 4; k++) {
-            figPatrons[0].braceMatrice()
+            console.log(`matrice figPatron[${k}] avant braceMatrice() : \n${figPatrons[k].ecritMatrice()}`)
+            figPatrons[k].braceMatrice()
+            console.log(`matrice figPatron[${k}] après braceMatrice() : \n${figPatrons[k].ecritMatrice()}`)
           }
           // const figPatronOk = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, dessin1)
           // const figPatronFaux1 = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure1Ex${this.numeroExercice}Q${i}` }, dessin2)
@@ -337,22 +339,22 @@ class UnPatron {
   }
 
   ecritMatrice (): string {
-    let texte = '[<br>' // numbers.length
+    let texte = '[\n' // numbers.length
     // bollean vers valeurs 0,1
     const valeursBooleennes = this.matrice.map(row =>
       row.map(element => element.isFace ? 1 : 0)
     )
     texte += valeursBooleennes
       .map(row => `[${row.join(', ')}]`)
-      .join(',<br>')
-    texte += ']<br>'
+      .join(',\n')
+    texte += ']\n'
     return texte
   }
 
   braceMatrice ():void {
     const [largeur, longueur] = [this.larg, this.long]
     const patronTemp = new UnPatron(largeur, longueur)
-    patronTemp.matrice = this.matrice.map(ligne => [...ligne]) // copie de la matrice
+    patronTemp.matrice = arrayClone(this.matrice) // copie de la matrice
     let transfo = choice([1, 2, 3, 3, 0])
     switch (transfo) {
       case 1:
@@ -368,6 +370,7 @@ class UnPatron {
         // ne fait rien
         break
     }
+    console.log(`matrice de patronTemp après symétrie ${transfo} :\n${patronTemp.ecritMatrice()}`)
     transfo = choice([1, 1, 2, 3, 3, 3, 3, 0])
     switch (transfo) {
       case 1:
@@ -383,7 +386,8 @@ class UnPatron {
         // ne fait rien
         break
     }
-    this.matrice = patronTemp.matrice
+    console.log(`matrice de patronTemp après rotation ${transfo} :\n${patronTemp.ecritMatrice()}`)
+    this.matrice = arrayClone(patronTemp.matrice)
   }
 
   ecritFacesQuiSeSuperposent (): string {
@@ -430,7 +434,7 @@ class UnPatron {
         matriceTemp.matrice[longueur - 1 - l][k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp.matrice
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   symetrieMatriceV (): void { // symetrie verticale
@@ -442,7 +446,7 @@ class UnPatron {
         matriceTemp.matrice[l][largeur - 1 - k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp.matrice
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   symetrieMatriceD (): void { // symetrie diagonale (ex Transpose la matrice)
@@ -455,7 +459,7 @@ class UnPatron {
         matriceTemp.matrice[k][l] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp.matrice
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   rotationMatrice90p (): void { // rotation de 90°
@@ -467,7 +471,7 @@ class UnPatron {
           matriceTemp.matrice[largeur - k - 1][l] = this.matrice[l][k]
         }
       }
-      this.matrice = matriceTemp.matrice
+      this.matrice = arrayClone(matriceTemp.matrice)
     }
   }
 
@@ -480,7 +484,7 @@ class UnPatron {
           matriceTemp.matrice[k][longueur - l - 1] = this.matrice[l][k]
         }
       }
-      this.matrice = matriceTemp.matrice
+      this.matrice = arrayClone(matriceTemp.matrice)
     }
   }
 
@@ -492,7 +496,7 @@ class UnPatron {
         matriceTemp.matrice[longueur - 1 - l][largeur - 1 - k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp.matrice
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 }
 
