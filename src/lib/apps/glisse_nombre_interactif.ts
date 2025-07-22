@@ -15,6 +15,7 @@ type GlisseNombreInteractifOptions = {
   showCalculus?: boolean // pour afficher ✕ ou ÷ 10, 100... (par défaut à true)
   showComma1?: boolean // pour afficher la virgule de la première ligne (par défaut à true)
   showComma2?: boolean // pour afficher la virgule de la deuxième ligne (par défaut à true)
+  initialPower?: number // pour choisir la colonne de départ des calculs (par défaut à 0)
   removeLeftZeros?: boolean // pour ne pas afficher les zéros à gauche du premier chiffre non nul par exemple n'afficher que le chiffre des centièmes dans 0,01 (par défaut à false)
 }
 
@@ -28,6 +29,7 @@ type GlisseNombreInteractifOptions = {
  * @param options.showComma1 - pour afficher la virgule de la première ligne (par défaut à true)
  * @param options.showComma2 - pour afficher la virgule de la deuxième ligne (par défaut à true)
  * @param options.removeLeftZeros - pour ne pas afficher les zéros à gauche du premier chiffre non nul pour par exemple n'afficher que le chiffre des centièmes dans 0,01 (par défaut à false)
+ * @param options.initialPower - pour choisir la colonne de départ des calculs (par défaut à 0)
  * @returns le code HTML du glisse-nombre interactif
  */
 export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions): string {
@@ -43,6 +45,7 @@ export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions)
     if (options.showComma1 !== undefined) optionsString += `show-comma1="${options.showComma1}" `
     if (options.showComma2 !== undefined) optionsString += `show-comma2="${options.showComma2}" `
     if (options.removeLeftZeros !== undefined) optionsString += `remove-left-zeros="${options.removeLeftZeros}" `
+    if (options.initialPower !== undefined) optionsString += `initial-power="${options.initialPower}" `
   }
   return `<div class="block"><glisse-nombre ${optionsString} ></glisse-nombre></div>`
 }
