@@ -28,7 +28,7 @@ export const refs = {
  * @author Olivier Mimeau
 */
 export default class choixPatron extends Exercice {
-  listeMatrices: objetFace[][][]
+  listeMatrices: objetFace[][][][]
   constructor () {
     super()
     this.nbQuestions = 1
@@ -126,11 +126,12 @@ export default class choixPatron extends Exercice {
 
           // const figures =  [figPatronOkAMC, figPatronFaux1AMC, figPatronFaux2AMC, figPatronFaux3AMC]
           const figuresMelanges = [figPatronOkAMC, figPatronFaux1AMC, figPatronFaux2AMC, figPatronFaux3AMC]
+          this.listeMatrices[i] = []
           for (let k = 0; k < 4; k++) {
             figuresMelanges[k] = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure${OrdreAffichage[k]}Ex${this.numeroExercice}Q${i}` },
               figPatrons[OrdreAffichage[k]].dessineMatrice(k + 1))
             OrdrepatronAffiche[OrdreAffichage[k]] = k
-            this.listeMatrices.push(figPatrons[OrdreAffichage[k]].matrice)
+            this.listeMatrices[i].push(figPatrons[OrdreAffichage[k]].matrice)
           }
 
           if (!context.isAmc) {
@@ -181,7 +182,7 @@ export default class choixPatron extends Exercice {
             const id = `emplacementPourSceneViewerEx${exo.numeroExercice}Q${question}Correction`
             const emplacementPourCorrection = document.getElementById(id)
             if (emplacementPourCorrection) {
-              const { viewer, tree } = affichePatron3D(exo.listeMatrices[OrdreAffichage[0]], `patron3dEx${exo.numeroExercice}Q${question}`)
+              const { viewer, tree } = affichePatron3D(this.listeMatrices[question][OrdreAffichage[OrdrepatronAffiche[0]]], `patron3dEx${exo.numeroExercice}Q${question}`)
               ajouteListeners(exo.numeroExercice ?? 0, question, viewer, tree, true)
             }
           })
