@@ -1,15 +1,15 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { abs } from '../../../lib/outils/nombres'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
-import ExerciceQcmA from '../../ExerciceQcmA'
-export const dateDePublication = '06/07/2025'
+import { choice } from '../../lib/outils/arrayOutils'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { randint } from '../../modules/outils'
+import ExerciceQcmA from '../ExerciceQcmA'
+export const dateDePublication = '23/07/2025'
 export const uuid = 'e1e6d'
 
 export const refs = {
-  'fr-fr': ['can2C24a'],
+  'fr-fr': ['1A-C10-1'],
   'fr-ch': []
 }
 export const interactifReady = true

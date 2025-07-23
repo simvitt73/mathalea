@@ -48,7 +48,7 @@ export default class TrouverpDroite extends ExerciceSimple {
     if (yB === yA) {
       this.distracteurs = ['$1$',
         '$-1$',
-       `$${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}$`]
+       `${xB - xA === 1 || xB - xA === -1 ? `$${yB}$` : `$${xB - xA}$`}`]
       this.correction = `Comme $y_{${nomA}}=y_{${nomB}}$, la droite $(${nomA}${nomB})$ est horizontale, son coefficient directeur est nul.<br>
     Ainsi, $m=${miseEnEvidence('0')}$`
     } else {

@@ -1,5 +1,5 @@
 import TauxGlobal from '../can/2e/can2C12'
-export const titre = 'Déterminer une évolution globale (2)'
+export const titre = 'Déterminer une évolution globale (3)'
 export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'

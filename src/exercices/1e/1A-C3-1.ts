@@ -1,20 +1,20 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
-import ExerciceQcmA from '../../ExerciceQcmA'
-export const dateDePublication = '06/07/2025'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { randint } from '../../modules/outils'
+import ExerciceQcmA from '../ExerciceQcmA'
+export const dateDePublication = '23/07/2025'
 export const uuid = '6682b'
 
 export const refs = {
-  'fr-fr': ['can2C23a'],
+  'fr-fr': ['1A-C3-1'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances'
+export const titre = 'Calculer avec des puissances (1)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'On considère le nombre $N=\\dfrac{10^7}{5^2}$. On a :'

@@ -6,15 +6,15 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '2137a'
 export const refs = {
-  'fr-fr': ['1A-C6-1'],
+  'fr-fr': ['1A-C3'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Trouver  l\'égalité correcte'
-export const dateDePublication = '18/07/2025'
+export const titre = 'Trouver  l\'égalité correcte (puissances)'
+export const dateDePublication = '23/07/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
  *
