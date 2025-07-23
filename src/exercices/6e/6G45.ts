@@ -127,19 +127,19 @@ export default class choixPatron extends Exercice {
             ordered: false,
             lastChoice: 4
           }
+          setCliqueFigure(this.autoCorrection[i])
 
           // const figures =  [figPatronOkAMC, figPatronFaux1AMC, figPatronFaux2AMC, figPatronFaux3AMC]
           const figuresMelanges = [figPatronOkAMC, figPatronFaux1AMC, figPatronFaux2AMC, figPatronFaux3AMC]
           this.listeMatrices[i] = []
           for (let k = 0; k < 4; k++) {
             const fig = figPatrons[indexPatronAffiche[k]].dessineMatrice({ numeroterFaces: false, numeroDessin: k })
-            figuresMelanges[k] = mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure${ordreAffichage[k]}Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig)),
+            figuresMelanges[k] = mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure${indexPatronAffiche[k]}Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig)),
               fig)
             this.listeMatrices[i].push(figPatrons[indexPatronAffiche[k]].matrice)
           }
 
           if (!context.isAmc) {
-            setCliqueFigure(this.autoCorrection[i])
             texte += figuresMelanges.join('') + '<br><br>'
             if (this.interactif && context.isHtml) {
               texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
@@ -150,11 +150,11 @@ export default class choixPatron extends Exercice {
             texteCorr += `- Le dessin ${ordreAffichage[1] + 1} poséde des faces qui vont se superposer :<br>`
             const fig1 = figPatrons[indexPatronAffiche[ordreAffichage[1]]].dessineMatrice({ numeroterFaces: true, numeroDessin: ordreAffichage[1] })
             texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig1)), fig1) + '<br>'
-            texteCorr += figPatrons[ordreAffichage[1]].ecritFacesQuiSeSuperposent() + '<br><br>'
+            texteCorr += figPatrons[indexPatronAffiche[ordreAffichage[1]]].ecritFacesQuiSeSuperposent() + '<br><br>'
             texteCorr += `- Le dessin ${ordreAffichage[2] + 1} poséde des faces qui vont se superposer :<br>`
             const fig2 = figPatrons[indexPatronAffiche[ordreAffichage[2]]].dessineMatrice({ numeroterFaces: true, numeroDessin: ordreAffichage[2] })
             texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig2)), fig2) + '<br>'
-            texteCorr += figPatrons[ordreAffichage[indexPatronAffiche[2]]].ecritFacesQuiSeSuperposent() + '<br><br>'
+            texteCorr += figPatrons[indexPatronAffiche[ordreAffichage[2]]].ecritFacesQuiSeSuperposent() + '<br><br>'
             texteCorr += `Le dessin ${ordreAffichage[0] + 1} posséde 6 faces qui ne vont pas se superposer en le pliant, c'est donc le dessin d'un patron.<br>`
             const fig3 = figPatrons[indexPatronAffiche[ordreAffichage[0]]].dessineMatrice({ numeroterFaces: true, numeroDessin: ordreAffichage[0] })
             texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig3), fig3))
@@ -178,11 +178,12 @@ export default class choixPatron extends Exercice {
         if (!this.interactif) {
           const exo = this
           const question = i
+          const index = indexPatronAffiche[0]
           document.addEventListener('correctionsAffichees', () => {
             const id = `emplacementPourSceneViewerEx${exo.numeroExercice}Q${question}Correction`
             const emplacementPourCorrection = document.getElementById(id)
             if (emplacementPourCorrection) {
-              const { viewer, tree } = affichePatron3D(this.listeMatrices[question][ordreAffichage[0]], `patron3dEx${exo.numeroExercice}Q${question}`)
+              const { viewer, tree } = affichePatron3D(this.listeMatrices[question][index], `patron3dEx${exo.numeroExercice}Q${question}`)
               ajouteListeners(exo.numeroExercice ?? 0, question, viewer, tree, true)
             }
           })
