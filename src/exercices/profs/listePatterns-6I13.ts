@@ -3,12 +3,11 @@ import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapesDef, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { listePatternsPreDef, type PatternRiche3D, type PatternRiche, patternsRepetition } from '../../lib/2d/patterns/patternsPreDef'
+import { type PatternRiche3D, type PatternRiche, listePatternAffineOuLineaire } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
@@ -16,47 +15,39 @@ import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
 import Decimal from 'decimal.js'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { isNumber } from 'mathjs'
+import { bleuMathalea } from '../../lib/colors'
 
-export const titre = 'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'
+export const titre = 'Liste des patterns disponibles pour l\'exercice 6I13'
+export const dateDePublication = '23/07/2025'
 
 export const refs = {
-  'fr-fr': ['P023'],
+  'fr-fr': ['P023-6I13'],
   'fr-ch': []
 }
-export const uuid = '4c9ca'
-const listeOfAll = [...listePatternsPreDef, ...patternsRepetition].sort((a, b) => Number(a.numero) - Number(b.numero))
+export const uuid = '71ff5'
 
 /**
- * Dans le dossier src/lib/2d/patterns, on trouve un fichier patternsPreDef.ts
- * qui contient une liste de patterns stockés dans Mathaléa.
- * Ce fichier exporte une liste de patternsRiches.
- * Les patternsRiches sont des objets qui contiennent les propriétés suivantes:
- * shapeDefault: la fonction qui renvoie la Shape2D des éléments du pattern
- * fonction: la fonction qui permet de calculer le nombre d'éléments du pattern au rang x
-* formule: la formule latex qui permet de calculer ce nombre en fonction du rang n
-*   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre'
-*   pattern: Un PatternNumerique initialisé avec ses cellules de rang 1
- *  iterate: la fonction qui permet de fabriquer les cellules au rang n
- * @author Jean-Claude Lhote
+ * Affiche les patterns propres à l'exercice 6I13
+ * @author Eric Elter (sur la base de listePatterns de Jean-Claude Lhote)
 
  */
-export default class ListePatternsPreDef extends Exercice {
+export default class ListePatternsPreDef6I13 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.listePackages = ['twemojis']
+    this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
     this.nbQuestionsModifiable = false
     this.besoinFormulaire3Numerique = ['Nombre de motifs par pattern', 6]
     this.sup3 = 4
-    this.comment = `Affiche la liste des patterns stockés dans Mathaléa avec leurs numéros de référence.<br>
-Vous pouvez choisir d'afficher un ou plusieurs patterns en indiquant leur numéro de référence dans le formulaire.<br>
-Le nombre de motifs par pattern (3 par défaut) est aussi modifiable dans le formulaire.<br>
-Le nombre de patterns à afficher est aussi modifiable dans le formulaire.<br>
-Le nombre donné entre parenthèses est le nombre d'éléments au rang 43 de chaque pattern.<br>
-L'expression donnée entre crochets est la formule qui permet de calculer le nombre d'éléments au rang n de chaque pattern.<br>`
+    this.comment = `Cette page affiche la liste des patterns disponibles dans 6I13 avec leur numéro de référence et pour information, le nombre d'éléments 
+    pour le motif 43 ainsi que le nombre d'éléments au rang n de chaque pattern.<br>`
   }
 
   nouvelleVersion () {
+    const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
+    const listeOfAll :(PatternRiche | PatternRiche3D)[] = [...listePatternReference]
+
     let texte = ''
     if (!context.isHtml) {
       texte += `${Object.values(listeShapesDef).map(shape => shape.tikz()).join('\n')}\n`
@@ -69,21 +60,26 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
         continue
       }
-      if ('nbMotifMin' in pat) {
+
+      if ('nbMotifMin' in pat && isNumber(pat.nbMotifMin)) {
         // On est en présence d'un motif répétitif
         const objets: NestedObjetMathalea2dArray = []
-        for (const shape of pat.shapes) {
-          if (shape in listeShapesDef) {
-            objets.push(listeShapesDef[shape])
-          }
-          if (shape in emojis) {
-            objets.push(emoji(shape, emojis[shape]).shapeDef)
+        if ('shapes' in pat) {
+          for (const shape of pat.shapes) {
+            if (shape in listeShapesDef) {
+              objets.push(listeShapesDef[shape])
+            }
+            if (shape in emojis) {
+              objets.push(emoji(shape, emojis[shape]).shapeDef)
+            }
           }
         }
+
         for (let j = 0; j <= pat.nbMotifMin; j++) {
           const pattern = new VisualPattern([])
-          pattern.shapes = pat.shapes
-          pattern.iterate = pat.iterate
+
+          if ('shapes' in pat) pattern.shapes = pat.shapes
+          if ('iterate' in pat) pattern.iterate = pat.iterate
           objets.push(pattern.render(j, j + 1, 0))
         }
         texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:  <br>`
@@ -92,7 +88,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         const n43 = !('nbMotifMin' in pat)
           ? new Decimal(pat.fonctionNb(43)).toString()
           : null
-        const n43R = !('nbMotifMin' in pat)
+        /*  const n43R = !('nbMotifMin' in pat)
           ? pat.fonctionRatio
             ? pat.fonctionRatio(43).values.map((el) => new Decimal(el).toString()).join('~:~')
             : null
@@ -102,11 +98,12 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
             ? `\\dfrac{${(pat.fonctionRatio(43).values[0] ?? 0).toString()}}{${new Decimal(pat.fonctionNb(43)).toString()}}`
             : null
           : null
-
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
+        */
+        // texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
+        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:<br> Pour le motif 43, il y a ${n43} ${'shapes' in pat ? pat.shapes + 's' : 'cubes'}.<br>`
+        texte += `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, il y a $${miseEnEvidence(pat.formule, bleuMathalea)}$ éléments.<br>`
 
         const patternRiche = pat
-        if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
         const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
         if (pattern instanceof VisualPattern3D) {
           pattern.shapes = ['cube']
@@ -189,7 +186,6 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
             ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
           }
           figures[j].push(...objets)
-          // const { xmax, ymax, xmin, ymin } = fixeBordures(objets, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
           figures[j].push(texteParPosition(`Motif ${j + 1}`, (xmax + xmin) / 2, -1.5, 0, 'black', 0.8, 'milieu'))
           const cadre = polygone(point(xmin - 2, -2), point(xmax + 2, -2), point(xmax + 2, ymax + 2), point(xmin - 2, ymax + 2))
           cadre.pointilles = 4

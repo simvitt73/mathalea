@@ -204,6 +204,75 @@ export function nouveauTableauPriveDunElement<T> (array: T[], index: number) {
 }
 
 /**
+ * Remplace toutes les occurrences d'une valeur dans un tableau par une autre.
+ *
+ * @template T - Type des éléments du tableau (string ou number).
+ * @param {T[]} arr - Le tableau original dans lequel effectuer le remplacement.
+ * @param {T} search - La valeur à rechercher dans le tableau.
+ * @param {T} replace - La valeur de remplacement à insérer à la place de `search`.
+ * @returns {T[]} Un nouveau tableau avec les valeurs remplacées.
+ * @author Eric Elter
+ * @example
+ * remplaceDansTableau(['a', 'b', 'a'], 'a', 'z'); // ['z', 'b', 'z']
+ *
+ * @example
+ * remplaceDansTableau([1, 2, 3, 2], 2, 99); // [1, 99, 3, 99]
+ */
+export function remplaceDansTableau<T extends string | number> (
+  arr: T[],
+  search: T,
+  replace: T
+): T[] {
+  return arr.map(item => item === search ? replace : item)
+}
+
+/**
+ * Complète un tableau de nombres uniques dans une plage donnée jusqu'à atteindre nbQuestions,
+ * en ajoutant des nombres aléatoires qui ne sont pas déjà présents dans le tableau.
+ *
+ * @param {number[]} tableau - Le tableau actuel de nombres uniques.
+ * @param {number} nbQuestions - Le nombre total de valeurs souhaitées.
+ * @param {number} valeurMax - La valeur maximale autorisée (minimum = 1).
+ * @returns {number[]} Un nouveau tableau complété, sans doublons, avec des valeurs entre 1 et valeurMax.
+ * @author Eric Elter
+ *
+ * @throws {Error} Si nbQuestions est supérieur à valeurMax.
+ *
+ * @example
+ * completerNombresUniques([1, 3, 5], 5, 10); // [1, 3, 5, 8, 2] (par exemple)
+ */
+export function completerNombresUniques (
+  tableau: number[],
+  nbQuestions: number,
+  valeurMax: number
+): number[] {
+  if (nbQuestions > valeurMax) {
+    throw new Error(`Impossible de générer ${nbQuestions} valeurs uniques entre 1 et ${valeurMax}.`)
+  }
+
+  if (tableau.length >= nbQuestions) {
+    return tableau.slice(0, nbQuestions)
+  }
+
+  const existants = new Set(tableau)
+
+  // Générer les valeurs manquantes
+  let valeursManquantes: number[] = []
+  for (let i = 1; i <= valeurMax; i++) {
+    if (!existants.has(i)) {
+      valeursManquantes.push(i)
+    }
+  }
+
+  valeursManquantes = shuffle(valeursManquantes)
+
+  const nombreAAjouter = nbQuestions - tableau.length
+  const ajouts = valeursManquantes.slice(0, nombreAAjouter)
+
+  return [...tableau, ...ajouts]
+}
+
+/**
  * Retourne un élément au hasard de la liste sans appartenir à une liste donnée
  * @param {liste}
  * @param {listeAEviter}

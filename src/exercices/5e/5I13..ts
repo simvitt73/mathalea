@@ -1,82 +1,116 @@
 import { polygone } from '../../lib/2d/polygones'
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { completerNombresUniques, compteOccurences, enleveDoublonNum, remplaceDansTableau, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { listeShapesDef } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
-// import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
 import { emoji } from '../../lib/2d/figures2d/Emojis'
 import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { range1 } from '../../lib/outils/nombres'
 
-export const titre = 'Comprendre un algorithme itératif'
+export const titre = 'Identifier la structure d\'un motif (itératif)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// Gestion de la date de publication initiale
-export const dateDePublication = '10/06/2025'
+export const dateDeModifImportante = '23/07/2025'
 
 /**
- * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes ${['e','a','é','i','o','u','y','è','ê'].includes(pattern.shapes[0][0]) ? 'd\'':'de'}${pattern.shapes[0]} du motif suivant.
+ * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.
  * Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.
  * Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (modif par Eric Elter au niveau des paramètres notamment)
  */
-export const uuid = '328b3'
+export const uuid = 'f8b5e'
 
 export const refs = {
-  'fr-fr': ['6I13'],
+  'fr-fr': ['5I13'],
   'fr-ch': []
 }
 
-export default class PaternNum0 extends Exercice {
+export default class PatternIteratif extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.comment = `Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.\n
- Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.\n
- Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
-    this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
-    this.sup = 3
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
-    this.sup4 = '6'
-    this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
-    this.sup5 = 1
+    this.comment = ` Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.<br>
+ Cet exercice contient des patterns issus de l'excellent site : <a href="https://www.visualpatterns.org/" target="_blank" style="color: blue">https://www.visualpatterns.org/</a>.<br>
+ Cet exercice propose d'étudier les premiers termes d'une série de motifs afin de répondre à différentes questions possibles.<br>
+Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br>
+Grâce au deuxième paramètre, on peut choisir les questions à poser.<br>
+Grâce au troisième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.
+    `
+    this.besoinFormulaireNumerique = ['Nombre de figures par question', 3, 'Deux figures\nTrois Figures\nQuatre Figures']
+    this.sup = 2
+
+    this.besoinFormulaire2Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets :',
+        '1 : Motif suivant à dessiner',
+        '2 : Motif suivant (nombre)',
+        '3 : Motif 10 (nombre)',
+        '4 : Numéro du motif',
+        '5 : Motif 100 (nombre)',
+        '6 : Une question au hasard parmi les 5 précédentes',
+        '7 : Ensemble des 5 premières propositions'
+      ].join('\n')
+    ]
+    this.sup2 = '7'
+
+    const maxNumPattern = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1)).length
+    this.besoinFormulaire3Texte = [
+      'Numéro de pattern :', [
+        'Nombres séparés par des tirets :',
+        `* Numéros entre 1 et ${maxNumPattern}`,
+        '* Mettre 0 pour laisser le hasard choisir '
+      ].join('\n')
+    ]
+    this.sup3 = '0'
+    this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
   }
 
   nouvelleVersion (): void {
-    if (this.sup5 > listePatternAffineOuLineaire.length) {
-      this.sup5 = listePatternAffineOuLineaire.length
-    }
-    if (this.sup5 < 1) {
-      this.sup5 = 1
-    }
-    if (this.nbQuestions > 25) this.nbQuestions = 25
-    // on ne conserve que les linéaires et les affines.
-    const listePreDef = (this.nbQuestions === 1
-      ? [listePatternAffineOuLineaire[Number(this.sup5) - 1]]
-      : shuffle(listePatternAffineOuLineaire.slice(0, this.sup2 ?? listePatternAffineOuLineaire.length)))
-      .filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2' && p.type !== 'fractal')
-    const nbFigures = Math.max(2, this.sup)
-    const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
+    // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
+    const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
+
+    let listePattern = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3,
+      min: 0,
+      max: listePatternReference.length,
+      melange: 0,
+      defaut: 0,
+      exclus: [0]
+    }).map(Number)
+    listePattern = enleveDoublonNum(listePattern, 0)
+    listePattern = completerNombresUniques(listePattern, this.nbQuestions, listePatternReference.length)
+
+    const listePreDef = shuffle(listePattern.map(i => listePatternReference[i - 1]))
+    const nbFigures = contraindreValeur(2, 4, this.sup + 1, 4)
+
+    let typesQuestionsInitiales = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 6, defaut: 1, melange: 7, nbQuestions: 5, shuffle: false }).map(Number)
+    typesQuestionsInitiales = enleveDoublonNum(typesQuestionsInitiales)
+    if (typesQuestionsInitiales.length === 6) typesQuestionsInitiales = range1(5)
+    let typesQuestions
     let indexInteractif = 0
-    for (let i = 0; i < this.nbQuestions;) {
+    for (let i = 0; i < Math.min(listePatternReference.length, this.nbQuestions);) {
+      if (compteOccurences(typesQuestionsInitiales, 6) > 0) {
+        typesQuestions = remplaceDansTableau(typesQuestionsInitiales, 6, randint(1, 5, typesQuestionsInitiales))
+        typesQuestions = enleveDoublonNum(typesQuestions)
+      } else typesQuestions = typesQuestionsInitiales
+
       const objetsCorr: NestedObjetMathalea2dArray = []
-      const popped = listePreDef.pop()
-      if (!popped) {
-        continue
-      }
-      const pat = popped
+      const pat = listePreDef[i]
       const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
       const b = pat.fonctionNb(1) - delta
       const explain = pat.type === 'linéaire'
@@ -85,9 +119,6 @@ export default class PaternNum0 extends Exercice {
         : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
         Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.`
       const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
-
-      //  patterns.push(pattern)
-
       if (pattern instanceof VisualPattern3D) {
         pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
@@ -171,6 +202,7 @@ export default class PaternNum0 extends Exercice {
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
       const deMotif = (['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de ') + pattern.shapes[0] + 's'
+
       for (const q of typesQuestions) {
         switch (q) {
           case 1:
@@ -255,13 +287,13 @@ exercice: this,
         }
       }
       texte += listeQuestions.length === 1
-        ? listeQuestions[0]
+        ? '<br>' + listeQuestions[0]
         : createList({
           items: listeQuestions,
           style: 'alpha',
         })
       texteCorr += listeCorrections.length === 1
-        ? listeCorrections[0]
+        ? '<br>' + listeCorrections[0]
         : createList({
           items: listeCorrections,
           style: 'alpha',
