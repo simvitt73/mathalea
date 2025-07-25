@@ -346,7 +346,15 @@ export function exerciceInteractif (
         break
       }
       case 'cliqueFigure':
-        resultat = verifQuestionCliqueFigure(exercice, i)
+        if ('callback' in exercice && typeof exercice.callback === 'function') {
+          resultat = verifQuestionCliqueFigure(
+            exercice,
+            i,
+            exercice.callback as (exercice: Exercice, i: number) => void
+          )
+        } else {
+          resultat = verifQuestionCliqueFigure(exercice, i)
+        }
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         break
       default:
@@ -470,7 +478,14 @@ export function prepareExerciceCliqueFigure (exercice: Exercice) {
   }
 }
 
-function verifQuestionCliqueFigure (exercice: Exercice, i: number) {
+// callback est une fonction facultative qui sera appelée avant de vérifier la question
+// elle permet de faire des actions avant la vérification, comme par exemple mettre à jour la correction affichée (voir 6G45)
+function verifQuestionCliqueFigure (exercice: Exercice, i: number, callback?: (exercice:Exercice, i: number) => void): string {
+  // si il y a une callback, on l'appelle
+  if (callback != null) {
+    callback(exercice, i)
+  }
+  // suite du code habituel de verifQuestionCliqueFigure
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
   // On ajoute le div pour le feedback

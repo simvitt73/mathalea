@@ -1,15 +1,14 @@
 import Exercice from '../Exercice'
-import { THREE } from '../../lib/3d/solidesThreeJs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { fauxCubes, vraiCubes } from './_listePatrons'
-import { point } from '../../lib/2d/points'
-import { Polygone, polygone } from '../../lib/2d/polygones'
+import { arrayClone, choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { BoiteBuilder } from '../../lib/2d/polygones'
 
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
-import { SceneViewer } from '../../lib/3d/SceneViewer'
+import { setCliqueFigure, type MathaleaSVG } from '../../lib/interactif/gestionInteractif'
+import { texteParPosition } from '../../lib/2d/textes'
+import type { objetFace } from '../../lib/3d/utilsPatrons'
+import { affichePatron3D, ajouteListeners, cubesObj, fauxCubesObj } from '../../lib/3d/utilsPatrons'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -23,20 +22,49 @@ export const refs = {
   'fr-fr': ['6G45'],
   'fr-ch': []
 }
+
+function retrouveMatrices (liste: objetFace[][][]): { indexVraiPatron: number, indexPas6Faces: number, indexFauxPatrons: { index: number, collision: [number, number][] }[] } {
+  const indexVraiPatron = liste.findIndex(matrice => {
+    return matrice.flat().filter(face => face.isFace).length === 6 &&
+      matrice.flat().filter(face => face.collision !== undefined).length === 0
+  })
+  const indexPas6Faces = liste.findIndex(matrice => {
+    return matrice.flat().filter(face => face.isFace).length !== 6
+  })
+  const indexFauxPatrons = liste.map((matrice, index) => {
+    const collisions = matrice.flat().reduce((acc, face) => {
+      if (face.collision !== undefined) {
+        acc.push([index, face.collision])
+      }
+      return acc
+    }, [] as [number, number][])
+    return { index, collision: collisions }
+  }).filter(item => item.collision.length > 0)
+  if (indexFauxPatrons.length === 0) {
+    throw new Error('Aucun faux patron trouvé dans la liste fournie.') // ça ne doit jamais arrivé.
+  }
+  return { indexVraiPatron, indexPas6Faces, indexFauxPatrons }
+}
+
 /**
  * Choisir le bon patron parmi ceux proposés
  * @author Olivier Mimeau
 */
 export default class choixPatron extends Exercice {
+  listeMatrices: objetFace[][][][]
   constructor () {
     super()
     this.nbQuestions = 1
+    // pour plus tard cubes Paves ...
+    // this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : patrons de cubes\n 2 : patrons de pavés droits']
+
+    this.besoinFormulaire2CaseACocher = ['3d dynamique', true]
+    this.sup2 = true
+    this.listeMatrices = []
   }
 
   nouvelleVersion () {
-    const sceneBuildersCorrection: { viewer: SceneViewer, tree: FaceNode }[] = []
-    const stopBlinkers: (() => void)[] = []
-    this.figures = [[], [], [], []]
+    this.figures = []
     this.consigne = 'Parmi les dessins suivants, lequel est un patron de cube ? <br>'// 'Consigne'
     this.consigne += (this.interactif) ? 'Cliquer sur' : context.vue !== 'diap' && !context.isAmc ? 'Entourer' : 'Choisir' /// Penser ici à AMC aussi.
     this.consigne += ' la bonne figure.'
@@ -44,108 +72,133 @@ export default class choixPatron extends Exercice {
     // xmin: -1, xmax: 6, ymin: -1, scale: 0.4
     const zoom = 0.4 // scale: 0.4
     const zoomAMC = 0.3 // si 0.4 c'est trop proche de la taille de la case à cocher
-    const xymin = -0.5
-    const xymax = 6.5
     const typeQuestionsDisponibles = ['type1']// 'type2',, 'type3']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const listeTypeVraiPatrons = combinaisonListes(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'], this.nbQuestions)
-    const listeVraisPatrons: UnPatron[] = initListePatrons(vraiCubes)
-    const listeFauxPatrons: UnPatron[] = initListePatrons(fauxCubes)
+    const listeVraisPatrons: UnPatron[] = initListePatrons(cubesObj)
+    const listeFauxPatrons: UnPatron[] = initListePatrons(fauxCubesObj)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
-      this.figures[i] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: true },
-        { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: false },
-        { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: false },
-        { id: `cliquefigure3Ex${this.numeroExercice}Q${i}`, solution: false }
-      ]
+
+      const indexMelangés = shuffle([0, 1, 2, 3])
+      const patronsOriginaux:UnPatron[] = []
+      const patronsAffiches:UnPatron[] = []
+      this.listeMatrices[i] = []
+
       switch (listeTypeQuestions[i]) {
         case 'type1':{
           texte = ''// `Question ${i + 1} de type 1<br>`
-          const patron1 = listeVraisPatrons[Number(listeTypeVraiPatrons[i]) - 1]
-          const dessin1 = patron1.dessineMatrice()
-          /* texte += mathalea2d(Object.assign({
-            scale: 0.5,
-            zoom
-          }, fixeBordures(dessin1)), dessin1) */
-          const numPatron2 = randint(0, listeVraisPatrons.length - 1)
-          const patron2 = listeFauxPatrons[randint(0, numPatron2)]
-          const dessin2 = patron2.dessineMatrice()
-
-          const patron3 = listeFauxPatrons[randint(0, listeFauxPatrons.length - 1, numPatron2)]
-          const dessin3 = patron3.dessineMatrice()
-
-          const taille = choice([5, 7])
-          const patron4 = faitUnPatronAuPif(taille)
-          const dessin4 = patron4.dessineMatrice()
-
-          const figPatronOk = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, dessin1)
-          const figPatronFaux1 = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure1Ex${this.numeroExercice}Q${i}` }, dessin2)
-          const figPatronFaux2 = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure2Ex${this.numeroExercice}Q${i}` }, dessin3)
-          const figPatronFaux3 = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `cliquefigure3Ex${this.numeroExercice}Q${i}` }, dessin4)
-          const figPatronOkAMC = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoomAMC, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, dessin1)
-          const figPatronFaux1AMC = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoomAMC, id: `cliquefigure1Ex${this.numeroExercice}Q${i}` }, dessin2)
-          const figPatronFaux2AMC = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoomAMC, id: `cliquefigure2Ex${this.numeroExercice}Q${i}` }, dessin3)
-          const figPatronFaux3AMC = mathalea2d({ style: 'display: inline-block', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoomAMC, id: `cliquefigure3Ex${this.numeroExercice}Q${i}` }, dessin4)
-          const figCorr = dessin1
-          // texte += '<br>'
-          //          const figures = shuffle([figPatronOk, figPatronFaux1, figPatronFaux2, figPatronFaux3])
+          // texte += `listeVraisPatrons :  ${listeVraisPatrons.length} <br>`
+          patronsOriginaux.push(listeVraisPatrons[Number(listeTypeVraiPatrons[i]) - 1])
+          const numPatron2 = randint(0, listeFauxPatrons.length - 1)
+          patronsOriginaux.push(listeFauxPatrons[randint(0, numPatron2)])
+          patronsOriginaux.push(listeFauxPatrons[randint(0, listeFauxPatrons.length - 1, numPatron2)])
+          const taillePatronAuPif = choice([5, 7])
+          patronsOriginaux.push(faitUnPatronAuPif(taillePatronAuPif))
+          for (let k = 0; k < 4; k++) {
+            patronsOriginaux[k].braceMatrice()
+            patronsAffiches[k] = patronsOriginaux[indexMelangés[k]]
+            this.listeMatrices[i][k] = patronsOriginaux[indexMelangés[k]].matrice
+          }
+          const indexVraiPatron = retrouveMatrices(this.listeMatrices[i]).indexVraiPatron
+          const indexPas6Faces = retrouveMatrices(this.listeMatrices[i]).indexPas6Faces
+          const indexFauxPatrons = retrouveMatrices(this.listeMatrices[i]).indexFauxPatrons
+          const fig0 = patronsAffiches[0].dessineMatrice({ numeroterFaces: false, numeroDessin: 0 })
+          const fig1 = patronsAffiches[1].dessineMatrice({ numeroterFaces: false, numeroDessin: 1 })
+          const fig2 = patronsAffiches[2].dessineMatrice({ numeroterFaces: false, numeroDessin: 2 })
+          const fig3 = patronsAffiches[3].dessineMatrice({ numeroterFaces: false, numeroDessin: 3 })
+          const fig0AMC = mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoomAMC, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig0)),
+            fig0)
+          const fig1AMC = mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoomAMC, id: `cliquefigure1Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig1)),
+            fig1)
+          const fig2AMC = mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoomAMC, id: `cliquefigure2Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig2)),
+            fig2)
+          const fig3AMC = mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoomAMC, id: `cliquefigure3Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig3)),
+            fig3)
 
           this.autoCorrection[i] = {}
-          // setCliqueFigure({})
-          setCliqueFigure(this.autoCorrection[i])
+
           this.autoCorrection[i].enonce = this.consigne + texte
           this.autoCorrection[i].propositions = [
             {
-              texte: figPatronOkAMC,
-              statut: true
+              texte: fig0AMC,
+              statut: indexVraiPatron === 0
             },
             {
-              texte: figPatronFaux1AMC,
-              statut: false
+              texte: fig1AMC,
+              statut: indexVraiPatron === 1
             },
             {
-              texte: figPatronFaux2AMC,
-              statut: false
+              texte: fig2AMC,
+              statut: indexVraiPatron === 2
             },
             {
-              texte: figPatronFaux3AMC,
-              statut: false
+              texte: fig3AMC,
+              statut: indexVraiPatron === 3
             }
           ]
           this.autoCorrection[i].options = {
-            ordered: false,
+            ordered: true,
             lastChoice: 4
           }
-
-          // const figures = [figPatronOk, figPatronFaux1, figPatronFaux2, figPatronFaux3]
-          const figures = shuffle([figPatronOk, figPatronFaux1, figPatronFaux2, figPatronFaux3])
+          setCliqueFigure(this.autoCorrection[i])
+          this.figures[i] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: indexVraiPatron === 0 },
+            { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: indexVraiPatron === 1 },
+            { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: indexVraiPatron === 2 },
+            { id: `cliquefigure3Ex${this.numeroExercice}Q${i}`, solution: indexVraiPatron === 3 }
+          ]
+          // const figures =  [figPatronOkAMC, figPatronFaux1AMC, figPatronFaux2AMC, figPatronFaux3AMC]
+          const figuresEnonce = [fig0AMC, fig1AMC, fig2AMC, fig3AMC]
           if (!context.isAmc) {
-            texte += figures.join('')
+            texte += figuresEnonce.join('') + '<br><br>'
             if (this.interactif && context.isHtml) {
               texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
             }
-            texteCorr = ''// 'Le dessin n°1 donnera un cube' // `Correction ${i + 1} de type 1`
-            texteCorr += context.isHtml
-              ? `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${i}Correction" style="width: 400px; height: 400px;"></div>`
-              : mathalea2d({ style: '', xmin: xymin, xmax: xymax, ymin: xymin, scale: zoom, id: `figure0Ex${this.numeroExercice}Q${i}` }, figCorr)
-            if (context.isHtml) {
-              sceneBuildersCorrection[i] = this.affichePatron3D(choice([patron1, patron2, patron3, patron4]).matrice)
+
+            texteCorr = 'Procédons par élimination:<br>'
+            texteCorr += `- Le dessin ${indexPas6Faces + 1} contient ${taillePatronAuPif} faces au lieu de 6 faces.<br><br>`
+            texteCorr += `- Le dessin ${indexFauxPatrons[0].index + 1} poséde des faces qui vont se superposer :<br>`
+            const fig1 = patronsAffiches[indexFauxPatrons[0].index].dessineMatrice({ numeroterFaces: true, numeroDessin: indexFauxPatrons[0].index })
+            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig1)), fig1) + '<br>'
+            texteCorr += patronsAffiches[indexFauxPatrons[0].index].ecritFacesQuiSeSuperposent() + '<br><br>'
+            texteCorr += `- Le dessin ${indexFauxPatrons[1].index + 1} poséde des faces qui vont se superposer :<br>`
+            const fig2 = patronsAffiches[indexFauxPatrons[1].index].dessineMatrice({ numeroterFaces: true, numeroDessin: indexFauxPatrons[1].index })
+            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig2)), fig2) + '<br>'
+            texteCorr += patronsAffiches[indexFauxPatrons[1].index].ecritFacesQuiSeSuperposent() + '<br><br>'
+            texteCorr += `Le dessin ${indexVraiPatron + 1} posséde 6 faces qui ne vont pas se superposer en le pliant, c'est donc le dessin d'un patron.<br>`
+            const fig3 = patronsAffiches[indexVraiPatron].dessineMatrice({ numeroterFaces: true, numeroDessin: indexVraiPatron })
+            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig3), fig3))
+            if (context.isHtml && this.sup2) {
+              texteCorr += `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${i}Correction" style="width: 400px; height: 400px; display: block;"></div>`
             }
           }
         }
           break
         case 'type2':
           texte = `Question ${i + 1} de type 2`
+
           texteCorr = `Correction ${i + 1} de type 2`
           break
-
         case 'type3':
           texte = `Question ${i + 1} de type 3`
           texteCorr = `Correction ${i + 1} de type 3`
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
+        if (!this.interactif) {
+          const exo = this
+          const question = i
+          const index = retrouveMatrices(this.listeMatrices[i]).indexVraiPatron
+          document.addEventListener('correctionsAffichees', () => {
+            const id = `emplacementPourSceneViewerEx${exo.numeroExercice}Q${question}Correction`
+            const emplacementPourCorrection = document.getElementById(id)
+            if (emplacementPourCorrection) {
+              const { viewer, tree } = affichePatron3D(this.listeMatrices[question][index], `patron3dEx${exo.numeroExercice}Q${question}`)
+              ajouteListeners(exo.numeroExercice ?? 0, question, viewer, tree, true)
+            }
+          })
+        }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr ?? ''
         i++
@@ -153,106 +206,37 @@ export default class choixPatron extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (sceneBuildersCorrection.length > 0) {
-      document.addEventListener('correctionsAffichees', () => {
-        for (let i = 0; i < sceneBuildersCorrection.length; i++) {
-          const blinkColors = [
-            '#ff0000', // rouge vif
-            '#00ff00', // vert fluo
-            '#0000ff', // bleu électrique
-            '#ffff00', // jaune pétant
-            '#ff00ff', // magenta
-            '#00ffff', // cyan
-            '#ff8800', // orange vif
-            '#ff0080', // rose flashy
-            '#00ff88', // vert menthe
-            '#8800ff'  // violet flashy
-          ]
-          const emplacementCorrection = document.getElementById(`emplacementPourSceneViewerEx${this.numeroExercice}Q${i}Correction`)
-          if (emplacementCorrection) {
-            sceneBuildersCorrection[i].viewer.showSceneAt(emplacementCorrection)
-            sceneBuildersCorrection[i].viewer.addHtmlButton({
-              id: `btnPlierEx${this.numeroExercice}Q${i}`,
-              text: 'Plier',
-              onClick: () => {
-                animePliage(sceneBuildersCorrection[i].tree, this.numeroExercice, i, () => {
-                  const scene = document.querySelector('a-scene')
-                  if (scene) {
-                    scene.dispatchEvent(new CustomEvent('pliageTermine', {
-                      detail: { numExercice: this.numeroExercice, numQuestion: i }
-                    }))
-                  }
-                })
-              }
-            })
-            sceneBuildersCorrection[i].viewer.addHtmlButton({
-              id: `btnDeplierEx${this.numeroExercice}Q${i}`,
-              text: 'Déplier',
-              style: { left: '120px' },
-              onClick: () => animeDepliage(
-                sceneBuildersCorrection[i].tree,
-                this.numeroExercice,
-                i,
-                () => { stopBlinkers.forEach(stop => stop()) },
-                4000
-              )
-            })
-            const scene = emplacementCorrection.querySelector('a-scene')
-            if (scene) {
-              scene.addEventListener('pliageTermine', () => {
-                const boxes = Array.from(emplacementCorrection.querySelectorAll('a-box'))
-                for (let i = 0; i < boxes.length; i++) {
-                  for (let j = i + 1; j < boxes.length; j++) {
-                    const boxA = boxes[i]
-                    const boxB = boxes[j]
-                    const a = boxA.object3D
-                    const b = boxB.object3D
-                    const boxA3 = new THREE.Box3().setFromObject(a)
-                    const boxB3 = new THREE.Box3().setFromObject(b)
-                    const intersection = boxA3.clone().intersect(boxB3)
-                    const size = new THREE.Vector3()
-                    intersection.getSize(size)
-                    const volume = size.x * size.y * size.z
-                    if (volume > 0.005) {
-                      stopBlinkers.push(blinkABox(boxA, blinkColors[i % blinkColors.length]))
-                      stopBlinkers.push(blinkABox(boxB, blinkColors[i % blinkColors.length]))
-                    }
-                  }
-                }
-              })
-            }
-          }
-        }
-      }, { once: true })
+  }
+
+  callback (exercice: Exercice, i: number): void {
+    if ('listeMatrices' in exercice && Array.isArray(exercice.listeMatrices) && exercice.listeMatrices.length >= i) {
+      // On commence par trouver l'élément cliqué... enfin son index.
+      // Trouver tous les SVG dont l'id correspond au format 'cliquefigure{n}Ex{exercice.numeroExercice}Q{i}'
+      const figElements = Array.from(document.querySelectorAll<MathaleaSVG>(
+        `[id^="cliquefigure"][id$="Ex${exercice.numeroExercice}Q${i}"]`
+      )).filter(el => {
+        // Vérifie que l'id correspond exactement au format voulu (un seul chiffre pour n)
+        const regex = new RegExp(`^cliquefigure\\dEx${exercice.numeroExercice}Q${i}$`)
+        return regex.test(el.id)
+      })
+
+      const indexClique = Array.from(figElements as MathaleaSVG[]).findIndex((el: MathaleaSVG) => Boolean(el.etat))
+      const { viewer, tree } = affichePatron3D(exercice.listeMatrices[i][indexClique], `patron3dEx${exercice.numeroExercice}Q${i}`)
+      ajouteListeners(exercice.numeroExercice ?? 0, i, viewer, tree)
     }
   }
-
-  affichePatron3D (matrice: number[][], idPrefix = 'patron3d'): { viewer: SceneViewer, tree: FaceNode } {
-    const pivot = findPivot(matrice)
-    const viewer = new SceneViewer({ width: 400, height: 400, id: idPrefix, rigPosition: [pivot.x, 1, pivot.y], detectCollision: true })
-    const taille = 1.5
-    const tree = buildFaceTree(matrice, pivot.x, pivot.y)
-    const facePositions = getAbsolutePositions(tree, taille, [pivot.x, 0, pivot.y], new Map<string, [number, number, number]>())
-    const pivotsPositions = getPivotPositions(tree, taille, facePositions, new Map<string, [number, number, number]>())
-
-    addFaceRecursive(viewer, tree, taille, facePositions, pivotsPositions)
-
-    viewer.addAmbientLight({ color: '#ffffff', intensity: 0.6 })
-    viewer.addDirectionnalLight({ position: [2, 5, 2], color: '#ffffff', intensity: 0.8 })
-    // Retourne aussi l'arbre pour l'animation
-    return { viewer, tree }
-  }
 }
+
 const tailleCarre = 1
 
-const initMatrice = (largeur: number, longueur: number, digit: number = 0): number[][] =>
-  Array.from({ length: longueur }, () => Array(largeur).fill(digit))
+// const initMatrice = (largeur: number, longueur: number, digit:number = 0, face:boolean = false): objetFace[][] =>
+//  Array.from({ length: longueur }, () => Array(largeur).fill({ numero: digit, isFace: face }))
 
-function initListePatrons (listeMatrices:(number[][])[]): UnPatron[] {
+function initListePatrons (listeMatrices:(objetFace[][])[]): UnPatron[] {
   const listePatrons: UnPatron[] = []
   for (const uneMatrice of listeMatrices) {
     const patron = new UnPatron(uneMatrice[0].length, uneMatrice.length)
-    patron.initMatrice(uneMatrice[0].length, uneMatrice.length, 0)
+    // patron.initMatrice(uneMatrice[0].length, uneMatrice.length, 0)
     patron.matrice = uneMatrice.map(ligne => [...ligne]) // copie de la matrice
     listePatrons.push(patron)
   }
@@ -267,19 +251,18 @@ function faitUnPatronAuPif (taille:number): UnPatron {
 }
 
 class UnPatron {
-  matrice: number[][] = []
+  matrice: objetFace[][] = []
   constructor (
     largeur: number,
-    longueur: number, digit: number = 0
+    longueur: number, digit: number = 0, face:boolean = false
   ) {
-    this.matrice = initMatrice(largeur, longueur, digit)
-  }
-  /* for (let l = 0; l < longueur; l++) {
+    for (let l = 0; l < longueur; l++) {
       this.matrice[l] = []
       for (let k = 0; k < largeur; k++) {
-        this.matrice[l][k] = digit// l * largeur + k // digit
+        this.matrice[l][k] = { numero: digit, isFace: face }// l * largeur + k // digit
       }
-    } */
+    }
+  }
 
   get larg (): number {
     return this.matrice.reduce((max, row) => Math.max(max, row.length), 0)
@@ -289,18 +272,21 @@ class UnPatron {
     return this.matrice.length
   }
 
-  initMatrice (largeur: number, longueur: number, digit: number = 0): void {
+  /* initMatrice = (largeur: number, longueur: number, digit:number = 0, face:boolean = false): objetFace[][] =>
+    Array.from({ length: longueur }, () => Array(largeur).fill({ numero: digit, isFace: face })) */
+
+  initMatrice (largeur: number, longueur: number, digit:number = 0, face:boolean = false):void {
     for (let l = 0; l < longueur; l++) {
       this.matrice[l] = []
       for (let k = 0; k < largeur; k++) {
-        this.matrice[l][k] = digit// l * largeur + k // digit
+        this.matrice[l][k] = { numero: digit, isFace: face }
       }
     }
   }
 
-  setcell (x:number, y:number, value:number): void {
+  setcell (x:number, y:number, value:number, face:boolean): void {
     if (y < this.long && x < this.larg) {
-      this.matrice[y][x] = value
+      this.matrice[y][x] = { numero: value, isFace: face }
     }
   }
 
@@ -309,22 +295,23 @@ class UnPatron {
   }
 
   ecritMatrice (): string {
-    let texte = '[<br>' // numbers.length
-    const Longueur = this.matrice.length
-    for (let l = 0; l < Longueur; l++) {
-      texte += `[${this.matrice[l].join(', ')}]<br>`
-    }
-    const lastIndex = texte.lastIndexOf('<br>')
-    texte = texte.substring(0, lastIndex) + ']' + texte.substring(lastIndex + 4)
-
+    let texte = '[\n' // numbers.length
+    // bollean vers valeurs 0,1
+    const valeursBooleennes = this.matrice.map(row =>
+      row.map(element => element.isFace ? 1 : 0)
+    )
+    texte += valeursBooleennes
+      .map(row => `[${row.join(', ')}]`)
+      .join(',\n')
+    texte += ']\n'
     return texte
   }
 
-  dessineMatrice (): Polygone[] {
+  braceMatrice ():void {
     const [largeur, longueur] = [this.larg, this.long]
     const patronTemp = new UnPatron(largeur, longueur)
-    patronTemp.matrice = this.matrice.map(ligne => [...ligne]) // copie de la matrice
-    let transfo = choice([1, 2, 3, 0])
+    patronTemp.matrice = arrayClone(this.matrice) // copie de la matrice
+    let transfo = choice([1, 2, 3, 3, 0])
     switch (transfo) {
       case 1:
         patronTemp.symetrieMatriceH()
@@ -354,94 +341,115 @@ class UnPatron {
         // ne fait rien
         break
     }
-    const leDessin: Polygone[] = []
-    for (let i = 0; i < patronTemp.long; i++) {
-      for (let j = 0; j < patronTemp.larg; j++) {
-        if (patronTemp.matrice[i][j] === 1) {
-          const A = point(i * tailleCarre, j * tailleCarre)
-          const B = point(i * tailleCarre, (j + 1) * tailleCarre)
-          const C = point((i + 1) * tailleCarre, (j + 1) * tailleCarre)
-          const D = point((i + 1) * tailleCarre, j * tailleCarre)
-          const rectanglePatron = polygone([A, B, C, D], 'black')
-          leDessin.push(rectanglePatron)
+    this.matrice = arrayClone(patronTemp.matrice)
+  }
+
+  ecritFacesQuiSeSuperposent (): string {
+    let texte:string = ''
+    for (let i = 0; i < this.long; i++) {
+      for (let j = 0; j < this.larg; j++) {
+        if (this.matrice[i][j].isFace && this.matrice[i][j].collision) {
+          texte += ` Les faces ${this.matrice[i][j].numero} et  ${this.matrice[i][j].collision} vont se superposer.`
         }
       }
     }
+    return texte
+  }
+
+  dessineMatrice ({ numeroterFaces, numeroDessin }: { numeroterFaces?: boolean, numeroDessin?: number }): any[] {
+    const correction = numeroterFaces ?? false
+
+    const leDessin :NestedObjetMathalea2dArray = []
+    for (let i = 0; i < this.long; i++) {
+      for (let j = 0; j < this.larg; j++) {
+        if (this.matrice[i][j].isFace) {
+          const face1 = new BoiteBuilder({ xMin: i * tailleCarre, yMin: j * tailleCarre, xMax: (i + 1) * tailleCarre, yMax: (j + 1) * tailleCarre })
+          if (correction) {
+            // face1.addColor({ colorBackground: 'gray' }) // 'gray''blue'
+            face1.addTextIn({ textIn: `${this.matrice[i][j].numero}`/* , color: couleurTexte1 */ })
+          }
+          const laFace1 = face1.render()
+          leDessin.push(laFace1)
+        }
+      }
+    }
+    const { xmin, xmax } = fixeBordures(leDessin)
+    if (numeroDessin !== undefined && typeof numeroDessin === 'number') {
+      const Numdessin = texteParPosition(`Dessin ${numeroDessin + 1}`, (xmin + xmax) / 2, -0.5, 0, 'black', 1, 'milieu', false, 1)
+      leDessin.push(Numdessin)
+    }
+
     return leDessin
   }
 
   symetrieMatriceH (): void {  // symetrie horizontale
     // inverse les lignes
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(largeur, longueur, 4)
+    const matriceTemp = new UnPatron(largeur, longueur) // objetFace[][] = this.initMatrice(largeur, longueur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
-        matriceTemp[longueur - 1 - l][k] = this.matrice[l][k]
+        matriceTemp.matrice[longueur - 1 - l][k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   symetrieMatriceV (): void { // symetrie verticale
     // inverse les colonnes
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(largeur, longueur, 4)
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(largeur, longueur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
-        matriceTemp[l][largeur - 1 - k] = this.matrice[l][k]
+        matriceTemp.matrice[l][largeur - 1 - k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   symetrieMatriceD (): void { // symetrie diagonale (ex Transpose la matrice)
     // inverse les lignes et les colonnes
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(longueur, largeur, 4)
+    const matriceTemp = new UnPatron(longueur, largeur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
       //  matriceTemp[largeur - 1 - k][longueur - 1 - l] = this.matrice[l][k]
-        matriceTemp[k][l] = this.matrice[l][k]
+        matriceTemp.matrice[k][l] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   rotationMatrice90p (): void { // rotation de 90°
-    const [largeur, longueur] = [this.larg, this.long]
-    if (largeur === longueur) {
-      const matriceTemp: number[][] = initMatrice(longueur, largeur, 4)
-      for (let l = 0; l < longueur; l++) {
-        for (let k = 0; k < largeur; k++) {
-          matriceTemp[largeur - k - 1][l] = this.matrice[l][k]
-        }
+    const [largeur, longueur] = [this.long, this.larg]
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
+    for (let l = 0; l < longueur; l++) {
+      for (let k = 0; k < largeur; k++) {
+        matriceTemp.matrice[l][largeur - k - 1] = this.matrice[k][l]
       }
-      this.matrice = matriceTemp
     }
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   rotationMatrice90n (): void { // rotation de 90° autre sens
-    const [largeur, longueur] = [this.larg, this.long]
-    if (largeur === longueur) {
-      const matriceTemp: number[][] = initMatrice(longueur, largeur, 4)
-      for (let l = 0; l < longueur; l++) {
-        for (let k = 0; k < largeur; k++) {
-          matriceTemp[k][longueur - l - 1] = this.matrice[l][k]
-        }
+    const [largeur, longueur] = [this.long, this.larg]
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
+    for (let l = 0; l < longueur; l++) {
+      for (let k = 0; k < largeur; k++) {
+        matriceTemp.matrice[longueur - l - 1][k] = this.matrice[k][l]
       }
-      this.matrice = matriceTemp
     }
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 
   rotationMatrice180 (): void { // rotation de 180°
     const [largeur, longueur] = [this.larg, this.long]
-    const matriceTemp: number[][] = initMatrice(largeur, longueur, 4)
+    const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(largeur, longueur, 4)
     for (let l = 0; l < longueur; l++) {
       for (let k = 0; k < largeur; k++) {
-        matriceTemp[longueur - 1 - l][largeur - 1 - k] = this.matrice[l][k]
+        matriceTemp.matrice[longueur - 1 - l][largeur - 1 - k] = this.matrice[l][k]
       }
     }
-    this.matrice = matriceTemp
+    this.matrice = arrayClone(matriceTemp.matrice)
   }
 }
 
@@ -514,288 +522,7 @@ class SerieCouples {
     const couplesLongueur = bMax - bMin + 1
     this._matrice.initMatrice(couplesLargeur, couplesLongueur)
     for (const [a, b] of this._couples) {
-      this._matrice.setcell(a - aMin, bMax - b, 1)
+      this._matrice.setcell(a - aMin, bMax - b, 1, true)
     }
   }
-}
-
-type FaceNode = {
-  x: number
-  y: number
-  parent?: FaceNode
-  children: FaceNode[]
-  directionFromParent?: 'T' | 'B' | 'L' | 'R'
-}
-
-function getVoisins (matrice: number[][], x: number, y: number) {
-  const dirs = [
-    { dx: 0, dy: -1, dir: 'T' },
-    { dx: 0, dy: 1, dir: 'B' },
-    { dx: -1, dy: 0, dir: 'L' },
-    { dx: 1, dy: 0, dir: 'R' }
-  ] as const
-  return dirs
-    .filter(({ dx, dy }) => matrice[y + dy]?.[x + dx] === 1)
-    .map(({ dx, dy, dir }) => ({ x: x + dx, y: y + dy, dir }))
-}
-
-// 1. Trouver la face pivot (celle avec le plus de voisins)
-function findPivot (matrice: number[][]) {
-  let maxVoisins = -1
-  let pivot = { x: 0, y: 0 }
-  for (let y = 0; y < matrice.length; y++) {
-    for (let x = 0; x < matrice[0].length; x++) {
-      if (matrice[y][x] === 1) {
-        const voisins = getVoisins(matrice, x, y)
-        if (voisins.length > maxVoisins) {
-          maxVoisins = voisins.length
-          pivot = { x, y }
-        }
-      }
-    }
-  }
-  return pivot
-}
-
-// 2. Construire l’arbre des faces
-function buildFaceTree (matrice: number[][], x: number, y: number, parent?: FaceNode, directionFromParent?: 'T' | 'B' | 'L' | 'R', visited = new Set<string>()): FaceNode {
-  const key = `${x},${y}`
-  if (visited.has(key)) return null as any
-  visited.add(key)
-  const node: FaceNode = { x, y, parent, children: [], directionFromParent }
-  for (const voisin of getVoisins(matrice, x, y)) {
-    if (!visited.has(`${voisin.x},${voisin.y}`)) {
-      // Ajoute ce log :
-      if (Math.abs(voisin.x - x) + Math.abs(voisin.y - y) !== 1) {
-        console.warn(`Parent (${x},${y}) et enfant (${voisin.x},${voisin.y}) ne sont pas adjacents !`)
-      }
-      const child = buildFaceTree(matrice, voisin.x, voisin.y, node, voisin.dir, visited)
-      if (child) node.children.push(child)
-    }
-  }
-  return node
-}
-
-// 3. Générer la structure A-Frame récursive
-function addFaceRecursive (
-  viewer: SceneViewer,
-  node: FaceNode,
-  taille: number,
-  facePositions: Map<string, [number, number, number]>,
-  pivotPositions: Map<string, [number, number, number]>,
-  parentEntityId?: string,
-  faceCount: { value: number } = { value: 0 }
-) {
-  const EPSILON = 0.002 // taille du gap entre les faces pour faire joli
-  const boxWidth = taille - 2 * EPSILON
-  const boxDepth = taille - 2 * EPSILON
-
-  const couleurs = [
-    '#3498db', // bleu doux
-    '#2ecc71', // vert frais
-    '#e67e22', // orange pastel
-    '#9b59b6', // violet doux
-    '#f1c40f', // jaune doux
-    '#5dade2'  // bleu clair
-  ]
-  const colorIndex = faceCount.value % couleurs.length
-  faceCount.value++
-  const couleur = couleurs[colorIndex]
-  const faceId = `face_${node.x}_${node.y}`
-  const entityId = `entity_${node.x}_${node.y}`
-  let entity = ''
-
-  const key = `${node.x},${node.y}`
-  const faceAbsPos = facePositions.get(key) ?? [0, 0, 0]
-  const pivotAbsPos = pivotPositions.get(key) ?? [0, 0, 0]
-  const parentPivotAbsPos = node.parent ? pivotPositions.get(`${node.parent.x},${node.parent.y}`) ?? [0, 0, 0] : [0, 0, 0]
-
-  if (node.parent && node.directionFromParent) {
-    // Position du pivot relatif au pivot parent
-    const pivotRelPos: [number, number, number] = [
-      pivotAbsPos[0] - parentPivotAbsPos[0],
-      pivotAbsPos[1] - parentPivotAbsPos[1],
-      pivotAbsPos[2] - parentPivotAbsPos[2]
-    ]
-    // Position de la face dans son pivot
-    const facePos: [number, number, number] = [
-      faceAbsPos[0] - pivotAbsPos[0],
-      faceAbsPos[1] - pivotAbsPos[1],
-      faceAbsPos[2] - pivotAbsPos[2]
-    ]
-    entity += `<a-entity id="${entityId}" position="${pivotRelPos.join(' ')}" rotation="0 0 0">`
-    entity += `<a-box id="${faceId}" position="${facePos.join(' ')}" width="${boxWidth}" height="0.01" depth="${boxDepth}" color="${couleur}"></a-box>`
-  } else {
-    // Racine
-    entity += `<a-entity id="${entityId}" position="${faceAbsPos.join(' ')}" rotation="0 0 0">`
-    entity += `<a-box id="${faceId}" position="0 0 0" width="${boxWidth}" height="0.01" depth="${boxDepth}" color="${couleur}"></a-box>`
-  }
-
-  for (const child of node.children) {
-    entity += addFaceRecursive(viewer, child, taille, facePositions, pivotPositions, entityId, faceCount)
-  }
-  entity += '</a-entity>'
-
-  if (!parentEntityId) {
-    viewer.addMesh(entity)
-  }
-  return parentEntityId ? entity : ''
-}
-
-function animePliage (node: FaceNode, numExercice = 0, numQuestion = 0, onComplete?: () => void, duration = 4000) {
-  let pending = 0
-  function recurse (n: FaceNode) {
-    if (n.parent && n.directionFromParent) {
-      const entityId = `entity_${n.x}_${n.y}`
-      let rot = '0 0 0'
-      switch (n.directionFromParent) {
-        case 'T': rot = '90 0 0'; break
-        case 'B': rot = '-90 0 0'; break
-        case 'L': rot = '0 0 -90'; break
-        case 'R': rot = '0 0 90'; break
-      }
-      const entity = document.getElementById(entityId)
-      if (entity) {
-        entity.removeAttribute('animation__fold')
-        entity.setAttribute(
-          'animation__fold',
-          `property: rotation; to: ${rot}; dur: ${duration}; easing: easeInOutQuad`
-        )
-        pending++
-        entity.addEventListener('animationcomplete', function handler (e) {
-          const customEvent = e as CustomEvent
-          if (customEvent.detail && customEvent.detail.name === 'animation__fold') {
-            entity.removeEventListener('animationcomplete', handler)
-            pending--
-            if (pending === 0 && onComplete) onComplete()
-          }
-        })
-      }
-    }
-    for (const child of n.children) recurse(child)
-  }
-  recurse(node)
-  // Gestion des boutons
-  if (!node.parent) {
-    const btnPlier = document.getElementById(`btnPlierEx${numExercice}Q${numQuestion}`)
-    const btnDeplier = document.getElementById(`btnDeplierEx${numExercice}Q${numQuestion}`)
-    if (btnPlier) btnPlier.setAttribute('disabled', 'true')
-    if (btnDeplier) btnDeplier.removeAttribute('disabled')
-  }
-}
-
-function animeDepliage (
-  node: FaceNode,
-  numExercice = 0,
-  numQuestion = 0,
-  onComplete?: () => void,
-  duration = 4000
-) {
-  let pending = 0
-  function recurse (n: FaceNode) {
-    if (n.parent && n.directionFromParent) {
-      const entityId = `entity_${n.x}_${n.y}`
-      const rot = '0 0 0'
-      const entity = document.getElementById(entityId)
-      if (entity) {
-        entity.removeAttribute('animation__unfold')
-        entity.setAttribute(
-          'animation__unfold',
-          `property: rotation; to: ${rot}; dur: ${duration}; easing: easeInOutQuad`
-        )
-        pending++
-        entity.addEventListener('animationcomplete', function handler (e) {
-          const customEvent = e as CustomEvent
-          if (customEvent.detail && customEvent.detail.name === 'animation__unfold') {
-            entity.removeEventListener('animationcomplete', handler)
-            pending--
-            if (pending === 0 && onComplete) onComplete()
-          }
-        })
-      }
-    }
-    for (const child of n.children) recurse(child)
-  }
-  recurse(node)
-  // Gestion des boutons
-  if (!node.parent) {
-    const btnPlier = document.getElementById(`btnPlierEx${numExercice}Q${numQuestion}`)
-    const btnDeplier = document.getElementById(`btnDeplierEx${numExercice}Q${numQuestion}`)
-    if (btnDeplier) btnDeplier.setAttribute('disabled', 'true')
-    if (btnPlier) btnPlier.removeAttribute('disabled')
-  }
-}
-const EPSILON = 0.001 // ou 0.005 selon le rendu souhaité
-
-function getAbsolutePositions (tree: FaceNode, taille: number, pos: [number, number, number] = [0, 0, 0], positions = new Map<string, [number, number, number]>()) {
-  const key = `${tree.x},${tree.y}`
-  positions.set(key, pos)
-  for (const child of tree.children) {
-    let offset: [number, number, number] = [0, 0, 0]
-    switch (child.directionFromParent) {
-      case 'T': offset = [0, 0, -(taille + EPSILON)]; break
-      case 'B': offset = [0, 0, taille + EPSILON]; break
-      case 'L': offset = [-(taille + EPSILON), 0, 0]; break
-      case 'R': offset = [taille + EPSILON, 0, 0]; break
-    }
-    getAbsolutePositions(child, taille, [
-      pos[0] + offset[0],
-      pos[1] + offset[1],
-      pos[2] + offset[2]
-    ], positions)
-  }
-  return positions
-}
-
-function getPivotPositions (
-  node: FaceNode,
-  taille: number,
-  facePositions: Map<string, [number, number, number]>,
-  pivotPositions: Map<string, [number, number, number]>
-) {
-  const key = `${node.x},${node.y}`
-  const faceAbsPos = facePositions.get(key) ?? [0, 0, 0]
-  let pivotAbsPos: [number, number, number]
-  if (!node.parent) {
-    pivotAbsPos = faceAbsPos
-  } else {
-    const parentKey = `${node.parent.x},${node.parent.y}`
-    const parentFaceAbsPos = facePositions.get(parentKey) ?? [0, 0, 0]
-    pivotAbsPos = [
-      (parentFaceAbsPos[0] + faceAbsPos[0]) / 2,
-      (parentFaceAbsPos[1] + faceAbsPos[1]) / 2,
-      (parentFaceAbsPos[2] + faceAbsPos[2]) / 2
-    ]
-  }
-  pivotPositions.set(key, pivotAbsPos)
-  for (const child of node.children) {
-    getPivotPositions(child, taille, facePositions, pivotPositions)
-  }
-  return pivotPositions
-}
-/**
- *
- * @param box La fonction qui fait clignoter les faces
- * @param color
- * @param times
- * @param interval
- * @returns
- */
-function blinkABox (box: Element, color = '#ff0000', times = 26, interval = 200) {
-  let count = 0
-  let stopped = false
-  const originalColor = String(box.getAttribute('color'))
-  function stop () {
-    stopped = true
-    box.setAttribute('color', originalColor)
-  }
-  const blink = () => {
-    if (stopped) return
-    box.setAttribute('color', count % 2 === 0 ? color : '#ffffff')
-    count++
-    if (count < times * 2) setTimeout(blink, interval)
-    else box.setAttribute('color', originalColor)
-  }
-  blink()
-  return stop
 }

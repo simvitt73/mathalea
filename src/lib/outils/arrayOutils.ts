@@ -526,3 +526,48 @@ export function listOfRandomIndexes (originalArraySize: number, nbOfIndexes: num
   const indexes = shuffle([...Array(originalArraySize).keys()])
   return indexes.slice(0, nbOfIndexes)
 }
+
+export // Fonction utilitaire pour cloner récursivement un objet simple
+function arrayCloneObject (obj: any): any {
+  const clonedObj: any = {}
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key]
+      if (Array.isArray(value)) {
+        clonedObj[key] = arrayClone(value)
+      } else if (value && typeof value === 'object') {
+        clonedObj[key] = arrayCloneObject(value)
+      } else {
+        clonedObj[key] = value
+      }
+    }
+  }
+  return clonedObj
+}
+
+export function arrayClone (originalArray: any[]): any[] {
+  return originalArray.map(item => {
+    if (Array.isArray(item)) {
+      return arrayClone(item)
+    } else if (item && typeof item === 'object') {
+      // Clone récursif pour les objets simples
+      const clonedObj: any = {}
+      for (const key in item) {
+        if (Object.prototype.hasOwnProperty.call(item, key)) {
+          const value = item[key]
+          if (Array.isArray(value)) {
+            clonedObj[key] = arrayClone(value)
+          } else if (value && typeof value === 'object') {
+            clonedObj[key] = arrayCloneObject(value)
+          } else {
+            clonedObj[key] = value
+          }
+        }
+      }
+      return clonedObj
+    } else {
+      // Primitives (number, string, boolean, null, undefined)
+      return item
+    }
+  })
+}
