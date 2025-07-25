@@ -73,7 +73,7 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
             `$${fx1 + fx2}$`,
             `$${(x1 + b) + (x2 + b)}$`,
             `$${x1 * x2}$`,
-            `$${-fx1 + fx2}$`
+            `$${a * (x1 * x2) + b}$`
         ]
         this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
         this.canReponseACompleter = `$${nomF}(${x1})\\times ${nomF}(${x2})=\\ldots$`
@@ -95,7 +95,8 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
             `$${fx1 * fx2}$`,
             `$${(x1 + b) * (x2 + b)}$`,
             `$${x1 + x2}$`,
-            `$${fx1 - fx2}$`
+            `$${a * (x1 + x2) + b}$`
+
         ]
         this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
         this.canReponseACompleter = `$${nomF}(${x1})+${nomF}(${x2})=\\ldots$`
