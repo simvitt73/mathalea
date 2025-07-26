@@ -39,7 +39,7 @@ export default class SolutionInequation extends ExerciceSimple {
   nouvelleVersion () {
     let a, b, maFraction, n
 
-    switch (choice([1])) { //
+    switch (randint(1, 8)) { //
       case 1:// cas a>0
       { a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])

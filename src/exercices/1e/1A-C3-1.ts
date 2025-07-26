@@ -36,48 +36,23 @@ export default class Puissances extends ExerciceQcmA {
   }
 
   versionAleatoire = () => {
-    switch (choice([1, 2])) {
-      case 1: {
-        const a = choice([[5, 2], [2, 5]])
-        const n = randint(2, 4)
-        const k = randint(2, 3)
-        this.enonce = `
+    const a = choice([[5, 2], [2, 5], [5, 3], [5, 3], [2, 3], [3, 2]])
+    const n = randint(2, 4)
+    const k = randint(2, 3)
+    this.enonce = `
         On considère le nombre $N=\\dfrac{${(a[0] * a[1])}^${n + k}}{${a[0]}^${n}}$. On a :<br>`
-        this.correction = `$\\begin{aligned}
+    this.correction = `$\\begin{aligned}
     N&=\\dfrac{${(a[0] * a[1])}^${n + k}}{${a[0]}^${n}}\\\\
     &=\\dfrac{${a[0]}^${n + k}\\times ${a[1]}^${n + k} }{${a[0]}^${n}}\\\\
     &=${a[1]}^${n + k}\\times ${a[0]}^{${k}}\\\\
     &=${a[1] * a[0]}^${k}\\times ${a[1]}^{${n}}\\\\
     &=${miseEnEvidence(`${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}`)}
     \\end{aligned}$`
-        this.reponses = [` $N=${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
+    this.reponses = [` $N=${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
       `$N=${a[1]}^{${k}}$`,
-      `$N=10^{${k}}$`,
+      `$N=${(a[0] * a[1])}^{${k}}$`,
        `$N=${a[0] ** n}\\times ${a[0] * a[1]}^{${k}}$`
-        ]
-      }
-        break
-      case 2:
-      default: {
-        const a = randint(2, 3)
-        const k = randint(2, 3)
-        const n = randint(2, 4)
-        const p = randint(6, 8)
-        this.enonce = `On considère le nombre $N=\\dfrac{${a ** k}^{${n + p}}}{${a}^${n}}$. On a :<br>`
-        this.correction = `$\\begin{aligned}
-   N&=\\dfrac{${a ** k}^{${n + p}}}{${a}^${n}}\\\\
-    &=\\dfrac{\\left(${a}^${k}\\right)^{${n + p}}}{${a}^${n}}\\\\
-    &=\\dfrac{${a}^{${k * (n + p)}}}{${a}^${n}}\\\\
-      &=${miseEnEvidence(`${a}^{${k * (n + p) - n}}`)}
-    \\end{aligned}$`
-        this.reponses = [` $N=${a}^{${k * (n + p) - n}}$`,
-      `$N=${a ** k}^${p}$`,
-      `$N=${texNombre(a ** p)}$`,
-       `$N=${a ** (k - 1)}^${p}$`
-        ]
-      }
-        break
-    }
+    ]
   }
 
   constructor () {

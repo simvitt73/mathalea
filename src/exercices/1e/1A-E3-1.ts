@@ -1,4 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
@@ -29,29 +30,29 @@ export default class TauxEvolution extends ExerciceQcmA {
 
     this.reponses = [
       `Une ${evo} de $${texNombre(Math.round(abs(taux)))}\\ \\%$`,
-            `Une ${evo} est de $${texNombre(Math.round(abs(tauxInverse)))}\\ \\%$`,
-      `Une ${evo} est de $${texNombre(abs(diffBrute))}\\ \\%$`,
-      `Une ${evo} est de $${abs(distracteur)} \\%$`
+            `Une ${evo}  de $${texNombre(Math.round(abs(tauxInverse)))}\\, \\%$`,
+      `Une ${evo}  de $${texNombre(abs(diffBrute))}\\, \\%$`,
+      `Une ${evo}  de $${abs(distracteur)}\\, \\%$`
     ]
 
     this.enonce = `Une grandeur passe de $${texNombre(valeurInitiale)}$ à $${texNombre(valeurFinale)}$.<br>
-    Quel est le taux d'évolution (en pourcentage)?`
+    L'évolution est :`
 
     this.correction = `Le taux d'évolution $t$ est donné par la formule :<br>
-    $t = \\dfrac{\\text{valeur finale} - \\text{valeur initiale}}{\\text{valeur initiale}} \\times 100$<br>
+    $t = \\dfrac{\\text{valeur finale} - \\text{valeur initiale}}{\\text{valeur initiale}}$<br><br>
     Ici :
-    $t=\\dfrac{${texNombre(valeurFinale)} - ${texNombre(valeurInitiale)}}{${texNombre(valeurInitiale)}} \\times 100 = ${texNombre(taux)}\\ \\%$<br>
-    Le taux d'évolution est donc de $${texNombre(taux)} \\%$.`
-    this.reponse = ` $${texNombre(Math.round(abs(taux)))}\\ \\%$`
+    $t=\\dfrac{${texNombre(valeurFinale)} - ${texNombre(valeurInitiale)}}{${texNombre(valeurInitiale)}}  = ${texNombre(taux / 100, 4)}$<br>
+    Le taux d'évolution est donc de $${miseEnEvidence(texNombre(taux))} \\,\\%$.`
+    this.reponse = ` $${texNombre(Math.round(abs(taux)))}\\, \\%$`
   }
 
   versionOriginale: () => void = () => {
     this.appliquerLesValeurs(80, 100, 'augmentation', 3, 2)
     this.reponses = [
-      'Le taux d\'évolution est de $25\\ \\%$.',
-      'Le taux d\'évolution est de $-20\\ \\%$.',
-      'Le taux d\'évolution est de $20\\ \\%$.',
-      'Le taux d\'évolution est de $-0.2\\ \\%$.'
+      'Une augmentation  de $25\\, \\%$',
+      'Une diminution de $-20\\, \\%$',
+      'Une augmentation $20\\, \\%$',
+      'Une diminution de $-0.2\\, \\%$'
     ]
   }
 

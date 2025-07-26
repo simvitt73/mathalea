@@ -53,7 +53,7 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
     // Texte pour le nombre d'augmentations
     const texteNombre = nombreAugmentations === 2 ? 'deux' : 'trois'
 
-    this.enonce = `Le prix d'un article est noté $P$. Il connaît ${texteNombre} augmentations de $${pourcentage}\\,\\%$. <br>Le prix après ces augmentations est :`
+    this.enonce = `Le prix d'un article est noté $P$. Il connaît ${texteNombre} augmentations successives de $${pourcentage}\\,\\%$. <br>Le prix après ces augmentations est :`
 
     // Bonne réponse (plusieurs formes possibles)
     const bonnesReponses = [

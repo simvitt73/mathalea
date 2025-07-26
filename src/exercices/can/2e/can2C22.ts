@@ -60,9 +60,6 @@ export default class CalculExpAvecValeurs extends ExerciceSimple {
           this.question = `
 On considère la relation  $F=a+\\dfrac{b}{cd}$.<br>
 Lorsque $a=${a.texFraction}$, $b=${b}$, $c=${c}$ et $d=${d.texFractionSimplifiee}$, la valeur de $F$ est égale à : `
-          if (!this.interactif) {
-            this.question += '\\ldots'
-          }
 
           this.correction = `On remplace $a$, $b$, $c$ et $d$ par les valeurs données : <br>
 $\\begin{aligned}
@@ -112,10 +109,6 @@ Calculer $F$ lorsque  $a=${a.texFraction}$, $b=${b}$, $c=${c}$ et $d=${d.texFrac
 On considère la relation $F=\\dfrac{a}{b}+cd$.<br>
 Lorsque $a=${a}$, $b=${b.texFraction}$, $c=${c}$ et $d=${d.texFraction}$, la valeur de $F$ est égale à : `
 
-          if (!this.interactif) {
-            this.question += '\\ldots'
-          }
-
           this.correction = `On remplace $a$, $b$, $c$ et $d$ par les valeurs données :<br>
 $\\begin{aligned}
 F &= \\dfrac{${a}}{${b.texFraction}} ${ecritureAlgebrique(c)} \\times ${d.texFraction} \\\\
@@ -136,13 +129,14 @@ Calculer $F$ lorsque $a=${a}$, $b=${b.texFraction}$, $c=${c}$ et $d=${d.texFract
           const erreur3 = new FractionEtendue((a + c) * d.num, b.num * d.den)
 
           this.distracteurs = [
-            dist1.texFractionSimplifiee,
-            dist2.texFractionSimplifiee,
-            erreur3.texFractionSimplifiee
+            `$${dist1.texFractionSimplifiee}$`,
+          `$${dist2.texFractionSimplifiee}$`,
+            `$${erreur3.texFractionSimplifiee}$`
           ]
         }
 
         break
     }
+    if (!this.interactif && !this.versionQcm) { this.question += ' $\\ldots$' }
   }
 }

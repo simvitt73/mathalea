@@ -2,6 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import ExerciceSimple from '../../ExerciceSimple'
 import { texteCentre } from '../../../lib/format/miseEnPage'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Exprimer une variable en fonction des autres'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -52,10 +53,10 @@ export default class ExprimerEnFonction extends ExerciceSimple {
           : ['$a=v^2R$', '$a=\\dfrac{v}{\\sqrt{R}}$', '$a=\\dfrac{R}{v^2}$']
 
         this.correction = choixQ
-          ? 'Puisque $a=\\dfrac{v^2}{R}$, alors $v^2 = a \\times R$, soit $v = \\sqrt{aR}$.'
+          ? `Puisque $a=\\dfrac{v^2}{R}$, alors $v^2 = a \\times R$. <br>Comme $a \\times R\\geqslant 0$, $${miseEnEvidence('v = \\sqrt{aR}')}$.`
           : `On part de la formule $v = \\sqrt{aR}$.<br>
 On élève les deux membres au carré : $v^2 = aR$<br>
-Puis on isole $a$ : $a = \\dfrac{v^2}{R}$.`
+Puis on isole $a$ : $${miseEnEvidence('a = \\dfrac{v^2}{R}')}$.`
         break
       case 2 :
       default:
@@ -75,12 +76,12 @@ Puis on isole $a$ : $a = \\dfrac{v^2}{R}$.`
         if (choixQ) {
           this.correction = `On part de la relation : $v = \\sqrt{\\dfrac{x}{y}}$<br>
 On élève les deux membres au carré : $v^2 = \\dfrac{x}{y}$<br>
-Puis on isole $y$ : $y = \\dfrac{x}{v^2}$.`
+Puis on isole $y$ : $${miseEnEvidence('y = \\dfrac{x}{v^2}')}$.`
         } else {
           this.correction = `On part de la formule : $y = (1 + vx)^2$<br>
-On prend la racine carrée des deux membres : $\\sqrt{y} = 1 + vx$<br>
+Comme les deux membres sont positifs, on peut prendre la racine carrée  : $\\sqrt{y} = 1 + vx$<br>
 On isole $v$ : $vx = \\sqrt{y} - 1$<br>
-Donc : $v = \\dfrac{\\sqrt{y} - 1}{x}$.`
+Donc : $${miseEnEvidence('v = \\dfrac{\\sqrt{y} - 1}{x}')}$.`
         }
 
         break
