@@ -13,7 +13,7 @@ import renderScratch from './renderScratch'
 import { decrypt, isCrypted } from './components/urls'
 import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
-import { handleAnswers, setReponse, type MathaleaSVG, type Valeur } from './interactif/gestionInteractif'
+import { handleAnswers, isAnswerValueType, setReponse, type AnswerValueType, type MathaleaSVG, type ReponseComplexe, type Valeur } from './interactif/gestionInteractif'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
@@ -29,6 +29,7 @@ import { showDialogForLimitedTime, showPopupAndWait } from './components/dialogs
 import { propositionsQcm } from './interactif/qcm'
 import { formaterReponse } from './outils/ecritures'
 import ExerciceSimple from '../exercices/ExerciceSimple'
+import { shuffle } from './outils/arrayOutils'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -713,8 +714,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif === 'qcm' || (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0 && exercice.versionQcm)) {
           if (exercice instanceof ExerciceSimple && exercice.distracteurs.length > 0) {
-            // On ne garde que 3 distracteurs distincts au hasard
-            exercice.distracteurs = [...new Set(exercice.distracteurs)].sort(() => Math.random() - 0.5).slice(0, 3)
+            exercice.distracteurs = getDistracteurs(exercice)
             exercice.autoCorrection[i] = {
               options: { radio: true },
               enonce: exercice.question,
@@ -761,6 +761,39 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       cptSecours++
     }
   }
+}
+
+export function getDistracteurs (exerciceSimple: ExerciceSimple): (string | number)[] {
+  const distracteursUniques = [...new Set(exerciceSimple.distracteurs)]
+  const distracteursNonSolutions = distracteursUniques.filter((distracteur) => {
+    const reponse: ReponseComplexe | undefined = exerciceSimple.reponse
+    if (reponse == null) {
+      return true // Si pas de réponse, on garde tous les distracteurs
+    }
+    let value: AnswerValueType | undefined
+    if (isAnswerValueType(reponse)) {
+      value = reponse
+    } else { // Si reponse n'est pas un AnswerValueType, alors c'est un Valeur dont on va récupérer le AnswerValueType
+      const reponseReponse = reponse.reponse
+      if (reponseReponse !== undefined) value = reponseReponse.value
+    }
+    if (value === undefined) { // Si pas de valeur, on garde tous les distracteurs
+      return true
+    }
+    if (Array.isArray(value)) {
+      return !value.some((v) => {
+        if (v instanceof FractionEtendue) {
+          return v.texFraction !== distracteur.toString()
+        }
+        return distracteur.toString() !== v.toString()
+      })
+    }
+    if (value instanceof FractionEtendue) {
+      return value.texFraction !== distracteur.toString()
+    }
+    return distracteur.toString() !== value.toString()
+  })
+  return shuffle(distracteursNonSolutions).slice(0, 3)
 }
 
 /**
