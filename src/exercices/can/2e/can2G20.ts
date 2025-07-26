@@ -40,34 +40,58 @@ export default class EquationDroite extends ExerciceSimple {
   nouvelleVersion () {
     const xA = 0
     const yA = randint(1, 4)
-    const xB = randint(-4, 4, 0)
+    const xB = randint(-5, 5, 0)
     const yB = randint(0, 4)
+
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const A = point(xA, yA)
     const B = point(xB, yB)
-    const Bx = point(B.x, A.y)
-    const sABx = segment(A, Bx)
-    const sBBx = segment(B, Bx)
+
+    // Pour l'affichage du coefficient directeur, on utilise toujours le point le plus à gauche
+    let pointRef, pointCible
+    if (xA < xB) {
+    // A est à gauche, B est à droite
+      pointRef = A
+      pointCible = B
+    } else {
+    // B est à gauche, A est à droite
+      pointRef = B
+      pointCible = A
+    }
+
+    const pointHorizontal = point(pointCible.x, pointRef.y)
+    const sHorizontal = segment(pointRef, pointHorizontal)
+    const sVertical = segment(pointCible, pointHorizontal)
+
+    // On utilise toujours xB - xA et yB - yA pour la fraction (cohérent avec l'équation finale)
     const maFraction = new FractionEtendue(yB - yA, xB - xA)
-    sBBx.epaisseur = 2
-    sBBx.pointilles = 5
-    sABx.epaisseur = 2
-    sABx.pointilles = 5
+
+    sVertical.epaisseur = 2
+    sVertical.pointilles = 5
+    sHorizontal.epaisseur = 2
+    sHorizontal.pointilles = 5
+
     const lA = latex2d('A', xA, yA + 0.5, { letterSize: 'scriptsize' })
-    const traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
+    const traceA = tracePoint(A, 'black')
     const lB = latex2d('B', xB, yB + 0.5, { letterSize: 'scriptsize' })
-    const lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, { color: 'red', letterSize: 'scriptsize' })
-    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, { color: 'blue', letterSize: 'scriptsize' })
-    const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
+
+    // Labels pour les déplacements (on affiche la valeur absolue si nécessaire)
+    const deltaX = pointCible.x - pointRef.x
+    const deltaY = pointCible.y - pointRef.y
+    const lHorizontal = latex2d(`${deltaX}`, milieu(pointRef, pointHorizontal).x, pointRef.y + 0.3, { color: 'red', letterSize: 'scriptsize' })
+    const lVertical = latex2d(`${deltaY}`, pointCible.x + 0.5, milieu(pointCible, pointHorizontal).y, { color: 'blue', letterSize: 'scriptsize' })
+
+    const traceB = tracePoint(B, 'black')
     const d = droite(A, B, '', 'blue')
     d.epaisseur = 2
     traceA.taille = 3
     traceA.epaisseur = 2
     traceB.taille = 3
     traceB.epaisseur = 2
-    const xmin = -5
+
+    const xmin = -6
     const ymin = -1
-    const xmax = 5
+    const xmax = 6
     const ymax = 5
     const r1 = repere({
       xMin: xmin,
@@ -93,45 +117,52 @@ export default class EquationDroite extends ExerciceSimple {
       grilleSecondaireXMin: xmin - 0.1,
       grilleSecondaireXMax: xmax + 0.1
     })
-    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
-    const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+
+    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, traceB, o)
+    const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sHorizontal, sVertical, lHorizontal, lVertical)
 
     this.question = this.versionQcm ? '' : 'Donner l\'équation réduite de la droite.<br>'
     this.question += `${objet}`
     this.question += this.versionQcm ? '<br>L\'équation réduite de cette droite est : ' : ''
+
     if (yB === yA) {
-      this.reponse = this.versionQcm ? `$y= ${yA}$` : [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]
+      this.reponse = this.versionQcm ? `$y= ${yA}$` : [`y=${yA}`, `y=0x + ${yA}`, `y=0 \\cdot x + ${yA}`]
       this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=0$.<br>
-          Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${yA}`)}$.
-       `
-      this.distracteurs = [`$y=x + ${yA}$`,
-                `$x=${yA}$`,
-              `$y=${rienSi1(yA)}x$`]
+        Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${yA}`)}$.`
+      this.distracteurs = [
+      `$y=x + ${yA}$`,
+      `$x=${yA}$`,
+      `$y=${rienSi1(yA)}x$`
+      ]
     } else {
+    // On utilise toujours le déplacement affiché graphiquement pour la correction
       this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
-    $m=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.
-<br>`
-      if ((yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.` }
-      if ((yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=-x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.` }
-      if ((yB - yA) / xB !== -1 && (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.` }
-      this.correction += `<br>
-          ${objetC}<br>  `
-      if (yB - yA === xB - xA) {
-        this.reponse = this.versionQcm ? `$y= x + ${yA}$` : [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]
-        this.distracteurs = [`$y= -x  ${ecritureAlgebrique(yA)}$`,
-                `$y=${yA}$`,
-              `$y= ${-yA}x  ${ecritureAlgebrique(yA)}$`]
-      } else if (yB - yA === -xB + xA) {
-        this.reponse = this.versionQcm ? `$y= -x + ${yA}$` : [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]
-        this.distracteurs = [`$y= x  ${ecritureAlgebrique(yA)}$`,
-                `$y=${yA}$`,
-              `$y= ${yA}x  ${ecritureAlgebrique(yA)}$`]
+$m=\\dfrac{${miseEnEvidence(deltaY, 'blue')}}{${miseEnEvidence(deltaX, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.<br>`
+
+      if ((yB - yA) / (xB - xA) === 1) {
+        this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.`
+      } else if ((yB - yA) / (xB - xA) === -1) {
+        this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=-x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.`
       } else {
-        this.reponse = this.versionQcm ? `$y= ${maFraction.texFractionSimplifiee}x + ${yA}$` : [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]
-        this.distracteurs = [`$y= ${maFraction.multiplieEntier(-1).texFractionSimplifiee}x + ${yA}$`,
-                `$y=${yA}$`,
-              `$y= ${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}x  ${ecritureAlgebrique(yA)}$`]
+        this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.`
       }
+      this.correction += `<br>${objetC}<br>`
+
+      // Les réponses sont toujours basées sur la vraie équation y = mx + p où m = (yB-yA)/(xB-xA) et p = yA
+      this.reponse = this.versionQcm
+        ? `$y= ${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : ` ${ecritureAlgebrique(yA)}`}$`
+        : [
+        `y=${maFraction.texFraction}x${ecritureAlgebrique(yA)}`,
+        `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
+        `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`
+          ]
+
+      // Distracteurs basés sur des erreurs classiques
+      this.distracteurs = [
+      `$y= ${maFraction.multiplieEntier(-1).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
+      `$y=${yA}$`, // Droite horizontale (erreur)
+      `$y= ${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$` // Fraction inversée
+      ]
     }
 
     this.canEnonce = this.question

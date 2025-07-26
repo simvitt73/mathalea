@@ -106,7 +106,7 @@ export default class ImageSpline extends ExerciceSimple {
     this.reponse = theSpline.y[antecedent]
     this.distracteurs = [
                   `$${theSpline.x[antecedent]}$`,
-                  '$\\emptyset$',
+                  `L\'image de $${theSpline.x[antecedent]}$ n'existe pas`,
                   `$${theSpline.y[0]}$`
     ]
     if (this.versionQcm) {

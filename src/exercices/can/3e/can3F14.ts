@@ -4,12 +4,12 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer un produit ou une somme d\'images par une fonction affine'
+export const titre = 'Calculer un produit, une somme ou une différence d\'images par une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDePublication = '24/07/2025'
+export const dateDePublication = '26/07/2025'
 /**
  * @author Gilles Mora
   *
@@ -33,7 +33,7 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
   }
 
   nouvelleVersion () {
-    const typeOperation = choice([1, 2]) // 1 = produit, 2 = somme
+    const typeOperation = choice([3]) // 1 = produit, 2 = somme 3=différence
 
     // Paramètres selon le type d'opération
     let a, b
@@ -100,6 +100,29 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
         ]
         this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
         this.canReponseACompleter = `$${nomF}(${x1})+${nomF}(${x2})=\\ldots$`
+        break
+
+      case 3: // difference
+      default:
+        if (this.versionQcm) {
+          this.question += `$${nomF}(${x1})-${nomF}(${x2})$ est égal à :`
+        } else {
+          this.question += `$${nomF}(${x1})-${nomF}(${x2})=$`
+        }
+        // Construction de la correction
+        this.correction = `On a : $${nomF}(${x1})=${a === 1 ? '' : `${a}\\times`} ${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(b)}=${fx1}$ et $${nomF}(${x2})=${a === 1 ? '' : `${a}\\times`} ${ecritureParentheseSiNegatif(x2)}${ecritureAlgebrique(b)}=${fx2}$.<br>
+    On en déduit que $${nomF}(${x1})-${nomF}(${x2})=${fx1}${ecritureAlgebrique(-fx2)}=${miseEnEvidence(fx1 - fx2)}$.`
+
+        this.reponse = this.versionQcm ? `$${fx1 - fx2}$` : fx1 - fx2
+        this.distracteurs = [
+            `$${fx1 + fx2}$`,
+            `$${(x1 - b) * (x2 - b)}$`,
+            `$${x1 - x2}$`,
+            `$${a * (x1 - x2) + b}$`
+
+        ]
+        this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
+        this.canReponseACompleter = `$${nomF}(${x1})-${nomF}(${x2})=\\ldots$`
         break
     }
     if (!this.interactif && !this.versionQcm) { this.question += ' $\\ldots$' }
