@@ -124,7 +124,7 @@ export default class CalculImageSecondDegre extends ExerciceSimple {
           &=${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}\\\\
           &=${miseEnEvidence((a * x + b) * (c * x + d))}
           \\end{aligned}$<br>`
-          this.reponse = (a * x + b) * (c * x + d)
+          this.reponse = this.versionQcm ? `$${(a * x + b) * (c * x + d)}$` : `${(a * x + b) * (c * x + d)}`
           this.correction += texteEnCouleur(` Mentalement : <br>
           On commence par "calculer" la première parenthèse :  $${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$.<br>
            Puis la deuxième : $${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>

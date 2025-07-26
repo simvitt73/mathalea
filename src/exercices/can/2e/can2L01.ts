@@ -31,7 +31,7 @@ export default class EquationPlusMoinsX2PlusAEgalB extends ExerciceSimple {
   nouvelleVersion () {
     const a = randint(1, 20)
     const b = randint(1, 20)
-    switch (choice(['a'])) { //, 'b', 'c', 'd'
+    switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':
         this.question = ` Combien de solutions réelles possède l'équation  $-x^2+${a}=${b}$ ?<br>`
         if (a - b > 0) {
