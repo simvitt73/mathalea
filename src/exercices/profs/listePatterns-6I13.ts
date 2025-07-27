@@ -163,7 +163,7 @@ export default class ListePatternsPreDef6I13 extends Exercice {
             if (context.isHtml) {
               updateCubeIso(pattern, i, j, angle)
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-              const cells = (pattern as VisualPattern3D).render3d(j + 1)
+              const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
               // Ajouter les SVG générés par svg() de chaque objet
               cells.forEach(cell => {
                 const scale = cell[3]?.scale ?? 1

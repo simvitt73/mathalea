@@ -10,7 +10,7 @@ import { listePatternAffine, listePatternDegre2, listePatternDegre3, listePatter
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
+import { cubeDef, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
 import { emoji } from '../../lib/2d/figures2d/Emojis'
@@ -90,10 +90,10 @@ export default class PaternNum1 extends Exercice {
         continue
       }
       const pat = popped
-      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
+      const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], prefixId: `Ex${this.numeroExercice}Q${i}`, shapes: pat.shapes, type: 'iso' }) : new VisualPattern([])
 
-      if (pattern instanceof VisualPattern3D) {
-        pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
+      if ('iterate3d' in pattern) {
+        pattern.shape = shapeCubeIso()
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
         objetsCorr.push(cubeDef(`cubeIsoQ${i}F0`))
       } else {
@@ -129,7 +129,7 @@ export default class PaternNum1 extends Exercice {
       const figures: NestedObjetMathalea2dArray[] = []
       for (let j = 0; j < nbFigures; j++) {
         figures[j] = []
-        if (pattern instanceof VisualPattern3D) {
+        if ('iterate3d' in pattern) {
           figures[j].push(cubeDef(`cubeIsoQ${i}F${j}`))
         } else {
           const pat2D = pat as PatternRiche
@@ -148,11 +148,14 @@ export default class PaternNum1 extends Exercice {
         let ymin = Infinity
         let xmax = -Infinity
         let ymax = -Infinity
-        if (pattern instanceof VisualPattern3D) {
+        if ('iterate3d' in pattern) {
           if (context.isHtml) {
             updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
+            if (pattern.shape == null) {
+              pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 0, 0, { fillStyle: '#ffffff', strokeStyle: '#000000', lineWidth: 1, opacite: 1, scale: 1 })
+            }
             pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-            const cells = (pattern as VisualPattern3D).render3d(j + 1)
+            const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
             // Ajouter les SVG générés par svg() de chaque objet
             cells.forEach(cell => {
               const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)

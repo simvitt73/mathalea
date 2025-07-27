@@ -297,7 +297,7 @@ export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMod
         svgGroups.forEach(group => group.remove())
 
         // Recalculer chaque polygone avec pattern.render(j, angle)
-        const cells = (pattern as VisualPattern3D).render3d(j + 1)
+        const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
         // Ajouter les SVG générés par svg() de chaque objet
         cells.forEach(cell => {
           const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)

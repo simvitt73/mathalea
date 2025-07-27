@@ -1,5 +1,4 @@
 import { listeShapes2DInfos, type Shape2DInfo, type ShapeName } from '../figures2d/shapes2d'
-import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
 import { VisualPattern } from './VisualPattern'
 import { VisualPattern3D } from './VisualPattern3D'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -23,7 +22,7 @@ export type PatternRiche3D = {
   visualImg?: string,
   visualId?: number,
   numero: number,
-  shapeDefault: Shape3D,
+  shapes: string[],
   fonctionNb: (x: number) => number,
   fonctionFraction?: (x: number) => FractionEtendue,
   fonctionRatio?: (x: number) => Ratio,
@@ -51,27 +50,27 @@ export type PatternRicheRepetition = {
  * On trie d'abord par z croissant (du bas vers le haut), puis par y croissant (de gauche à droite),
  * puis par x croissant (de l'arrière vers l'avant).
  */
-const rangeCubes = function (coords: [number, number, number, number?][]): [number, number, number, number ?][] {
+const rangeCubes = function (coords: [number, number, number, string][]): [number, number, number, string][] {
   // Regrouper par z croissant
-  const byZ = new Map<number, [number, number, number, number][]>()
+  const byZ = new Map<number, [number, number, number, string][]>()
   for (const coord of coords) {
     const z = coord[2]
     if (!byZ.has(z)) byZ.set(z, [])
     const [x, y, zCoord, w] = coord
-    byZ.get(z)!.push([x, y, zCoord, w !== undefined ? w : 1]) // On ne garde que les 3 premières coordonnées, w est forcé à number
+    byZ.get(z)!.push([x, y, zCoord, w !== undefined ? w : 'cube-trois-couleurs-tube-edges']) // On ne garde que les 3 premières coordonnées, w est forcé à number
   }
-  const result: [number, number, number, number][] = []
+  const result: [number, number, number, string][] = []
   const zs = Array.from(byZ.keys()).sort((a, b) => a - b)
   for (const z of zs) {
     const groupZ = byZ.get(z)!
     // Regrouper par y décroissant dans chaque z
-    const byY = new Map<number, [number, number, number, number][]>()
+    const byY = new Map<number, [number, number, number, string][]>()
     for (const coord of groupZ) {
       const y = coord[1]
       if (!byY.has(y)) {
         byY.set(y, [])
       }
-      const w = coord[3] !== undefined ? coord[3] : 1 // On force w à number
+      const w = coord[3] !== undefined ? coord[3] : 'cube-trois-couleurs-tube-edges' // On force w à number
       byY.get(y)!.push([coord[0], y, z, w]) // On garde les 3 premières coordonnées, w est forcé à number
     }
     const ys = Array.from(byY.keys()).sort((a, b) => b - a)
@@ -587,27 +586,27 @@ const pattern21: PatternRiche = {
 
 const pattern22: PatternRiche3D = {
   numero: 22,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
+  shapes: ['cube-trois-couleurs-tube-edges'],
   fonctionNb: (x:number) => (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{(n+1)\\times (n+2)}{2}',
   type: 'degré2',
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
 
     for (let i = -Math.round(n / 2); i < n + Math.round(n / 2); i++) {
       for (let j = 0; j <= n - i - Math.round(n / 2); j++) {
-        cubes.push([i, 0, j])
+        cubes.push([i, 0, j, 'cube-trois-couleurs-tube-edges'])
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -617,33 +616,33 @@ const pattern23: PatternRiche3D = {
   numero: 23,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/34b73461-9c26-4e8c-a979-82a32a319f1e/1188365_orig.png?format=2500w',
   visualId: 155,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => 6 * x - 5,
   formule: '6\\times n-5',
   type: 'affine',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let i = -n + 0.5; i <= n - 1.5; i += 1) {
-      cubes.push([i, -0.5, n - 1])
+      cubes.push([i, -0.5, n - 1, 'cube-trois-couleurs-tube-edges'])
     }
 
     for (let i = -n + 0.5; i <= n - 1.5; i += 1) {
-      cubes.push([-0.5, i, n - 1])
+      cubes.push([-0.5, i, n - 1, 'cube-trois-couleurs-tube-edges'])
     }
 
     for (let i = 0; i <= 2 * n - 2; i++) {
-      cubes.push([-0.5, -0.5, i])
+      cubes.push([-0.5, -0.5, i, 'cube-trois-couleurs-tube-edges'])
     }
 
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -651,28 +650,28 @@ const pattern23: PatternRiche3D = {
 
 const pattern24: PatternRiche3D = {
   numero: 24,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => (2 * x ** 3 + 3 * x ** 2 + x) / 6,
   formule: '\\dfrac{2\\times n^3 + 3\\times n^2 + n}{6}',
   type: 'degré3',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n:number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let z = 0; z < n; z++) {
       for (let y = 0; y < n - z; y++) {
         for (let x = 0; x < n - z; x++) {
-          cubes.push([x - 1, n - y - 2, z])
+          cubes.push([x - 1, n - y - 2, z, 'cube-trois-couleurs-tube-edges'])
         }
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -680,29 +679,29 @@ const pattern24: PatternRiche3D = {
 
 const pattern25: PatternRiche3D = {
   numero: 25,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => x ** 3,
   formule: 'n^3',
   type: 'degré3',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     const demiPas = n / 2
     for (let z = 0; z < n; z++) {
       for (let y = 0 - demiPas; y < n - demiPas; y++) {
         for (let x = 0 - demiPas; x < n - demiPas; x++) {
-          cubes.push([x, y, z])
+          cubes.push([x, y, z, 'cube-trois-couleurs-tube-edges'])
         }
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -712,38 +711,38 @@ const pattern26: PatternRiche3D = {
   numero: 26,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/4150fdf6-f9ee-47f8-bc47-d96b8455c073/4158599_orig.png?format=2500w',
   visualId: 28,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => x ** 3 - (x - 1) ** 3,
   formule: '3\\times n^2 - 3\\times n + 1',
   type: 'degré2',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const demiPas = n / 2
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let z = 0; z < n; z++) {
       if (z === 0) {
         for (let y = 0; y < n; y++) {
           for (let x = 0; x < n; x++) {
-            cubes.push([x - demiPas, y - demiPas, z])
+            cubes.push([x - demiPas, y - demiPas, z, 'cube-trois-couleurs-tube-edges'])
           }
         }
       } else {
         for (let y = 0; y < n; y++) {
-          cubes.push([0 - demiPas, y - demiPas, z]) // Ajouter la première colonne de chaque ligne
+          cubes.push([0 - demiPas, y - demiPas, z, 'cube-trois-couleurs-tube-edges']) // Ajouter la première colonne de chaque ligne
         }
         for (let x = 0; x < n; x++) {
-          cubes.push([x - demiPas, n - 1 - demiPas, z])
+          cubes.push([x - demiPas, n - 1 - demiPas, z, 'cube-trois-couleurs-tube-edges'])
         }
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -753,33 +752,33 @@ const pattern27: PatternRiche3D = {
   numero: 27,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/17ccbdb3-2047-47f4-94cb-1ed0723982cd/8681279_orig.png?format=2500w',
   visualId: 46,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => 5 * x - 4,
   formule: '5\\times n - 4',
   type: 'affine',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let z = 0; z < n; z++) {
       if (z === 0) {
         for (let y = -n + 1; y <= n - 1; y++) {
-          cubes.push([0, y, 0])
+          cubes.push([0, y, 0, 'cube-trois-couleurs-tube-edges'])
         }
         for (let x = -n + 1; x <= n - 1; x++) {
-          cubes.push([x, 0, 0])
+          cubes.push([x, 0, 0, 'cube-trois-couleurs-tube-edges'])
         }
       } else {
-        cubes.push([0, 0, z])
+        cubes.push([0, 0, z, 'cube-trois-couleurs-tube-edges'])
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -789,34 +788,34 @@ const pattern28: PatternRiche3D = {
   numero: 28,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/af167f89-9c72-4ba5-b406-697f59d73412/9861425_orig.png?format=2500w',
   visualId: 52,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
 
   fonctionNb: (x:number) => 2 * x ** 2 - x,
   formule: 'n\\times (2\\times n - 1)',
   type: 'degré2',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let z = 0; z < n; z++) {
       if (z < n - 1) {
         for (let y = n - z - 1; y >= z - n + 1; y--) {
-          cubes.push([-0.5, y - 0.5, z])
+          cubes.push([-0.5, y - 0.5, z, 'cube-trois-couleurs-tube-edges'])
         }
         for (let x = z - n + 1; x <= n - z - 1; x++) {
-          cubes.push([x - 0.5, -0.5, z])
+          cubes.push([x - 0.5, -0.5, z, 'cube-trois-couleurs-tube-edges'])
         }
       } else {
-        cubes.push([-0.5, -0.5, z])
+        cubes.push([-0.5, -0.5, z, 'cube-trois-couleurs-tube-edges'])
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -989,12 +988,12 @@ const pattern35: PatternRiche = {
 
 const pattern36: PatternRiche3D = {
   numero: 36,
-  shapeDefault: shapeCubeIso(),
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/7181e027-b3bc-4960-af21-07f38e5ebf03/9571721_orig.png?format=2500w',
   visualId: 79,
   fonctionNb: (x:number) => (x * (x + 1) / 2) ** 2,
   formule: '\\left(\\dfrac{n\\times (n+1)}{2}\\right)^2',
   type: 'autre',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -1005,24 +1004,24 @@ const pattern36: PatternRiche3D = {
       }
       return h
     }
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let arete = n; arete > 0; arete--) {
       const etage = n - arete
       for (let x = 0; x < arete; x++) {
         for (let y = 0; y < arete; y++) {
           for (let z = 0; z < arete; z++) {
-            cubes.push([x, n - y, z + altitude(n, etage)])
+            cubes.push([x, n - y, z + altitude(n, etage), 'cube-trois-couleurs-tube-edges'])
           }
         }
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -1097,28 +1096,28 @@ const pattern40: PatternRiche3D = {
   numero: 40,
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/c3f1ff49-ca30-47ab-8ee9-acb7e253aa87/vp11_orig.png?format=2500w',
   visualId: 284,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => 2 * x + 2,
   formule: '2\\times n + 2',
   type: 'affine',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n) {
     if (n === undefined) n = 1
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let z = 0; z <= n; z++) {
-      cubes.push([-1, 0, z])
-      if (z > 0 && z < n) cubes.push([1, 0, z])
+      cubes.push([-1, 0, z, 'cube-trois-couleurs-tube-edges'])
+      if (z > 0 && z < n) cubes.push([1, 0, z, 'cube-trois-couleurs-tube-edges'])
     }
-    cubes.push([0, 0, 0])
-    cubes.push([1, 0, 0])
+    cubes.push([0, 0, 0, 'cube-trois-couleurs-tube-edges'])
+    cubes.push([1, 0, 0, 'cube-trois-couleurs-tube-edges'])
     const newCells = new Set<string>()
 
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -1763,30 +1762,30 @@ const pattern69: PatternRiche = {
 }
 const pattern70: PatternRiche3D = {
   numero: 70,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   visualImg: 'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/ee8ed904-6443-4fb5-ad24-897fcc391710/2023-03-22-10-14-45_orig+%281%29.png?format=2500w',
   visualId: 39,
   fonctionNb: (x:number) => x ** 2 * (x + 1) / 2,
   formule: '\\dfrac{n^2(n+1)}{2}',
   type: 'degré3',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     const newCells = new Set<string>()
     for (let i = 0; i < n; i++) {
       for (let k = n - 1; k >= 0; k--) {
         for (let j = 0; j < n - i; j++) {
-          cubes.push([i - n / 2, k - n / 2, j])
+          cubes.push([i - n / 2, k - n / 2, j, 'cube-trois-couleurs-tube-edges'])
         }
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -1794,28 +1793,28 @@ const pattern70: PatternRiche3D = {
 
 const pattern71: PatternRiche3D = {
   numero: 71,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => x * (x + 1) * (x + 2) / 2,
   formule: '\\dfrac{n(n+1)(n+2)}{2}',
   type: 'degré3',
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n?: number) {
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     if (n === undefined) n = 1
     const newCells = new Set<string>()
     for (let i = 0; i < n + 1; i++) {
       for (let k = n - 1; k >= 0; k--) {
         for (let j = 0; j < n + 1 - i; j++) {
-          cubes.push([i - n / 2, k - n / 2, j])
+          cubes.push([i - n / 2, k - n / 2, j, 'cube-trois-couleurs-tube-edges'])
         }
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -1874,28 +1873,28 @@ const pattern74: PatternRiche3D = {
   fonctionNb: (x:number) => 3 * x + 1,
   formule: '3\\times n+1',
   type: 'affine',
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     for (let k = 0; k <= n; k++) {
       if (k !== n && k !== 0) {
-        cubes.push([0, -0.5, k + n / 2])
+        cubes.push([0, -0.5, k + n / 2, 'cube-trois-couleurs-tube-edges'])
         continue
       }
       for (let i = 0; i < n + 1; i++) {
-        if (k === 0) cubes.push([i, -0.5, n / 2])
-        else cubes.push([i - n, -0.5, n + n / 2])
+        if (k === 0) cubes.push([i, -0.5, n / 2, 'cube-trois-couleurs-tube-edges'])
+        else cubes.push([i - n, -0.5, n + n / 2, 'cube-trois-couleurs-tube-edges'])
       }
     }
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -1905,27 +1904,27 @@ const pattern75: PatternRiche3D = {
   fonctionNb: (x:number) => 2 * x ** 3 + x,
   formule: '2n^3+n',
   type: 'degré3',
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
+  shapes: ['cube-trois-couleurs-tube-edges'],
   iterate3d: function (this: VisualPattern3D, n?: number) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    const cubes: [number, number, number][] = []
+    const cubes: [number, number, number, string][] = []
     if (n === 1) {
-      cubes.push([0, 0, 0])
-      cubes.push([1, 0, 0])
-      cubes.push([2, 0, 0])
+      cubes.push([0, 0, 0, 'cube-trois-couleurs-tube-edges'])
+      cubes.push([1, 0, 0, 'cube-trois-couleurs-tube-edges'])
+      cubes.push([2, 0, 0, 'cube-trois-couleurs-tube-edges'])
     } else {
       for (let k = 0; k < n; k++) {
         for (let j = n - 1; j >= 0; j--) {
           for (let i = -n; i < n + 1; i++) {
             if (k === 0) {
-              cubes.push([i, j - n / 2, k + n / 2])
+              cubes.push([i, j - n / 2, k + n / 2, 'cube-trois-couleurs-tube-edges'])
             }
           }
           for (let i = 0; i < n + 1; i++) {
             if (i !== n && k !== 0) {
-              cubes.push([i - n, j - n / 2, k + n / 2])
-              cubes.push([i + 1, j - n / 2, k + n / 2])
+              cubes.push([i - n, j - n / 2, k + n / 2, 'cube-trois-couleurs-tube-edges'])
+              cubes.push([i + 1, j - n / 2, k + n / 2, 'cube-trois-couleurs-tube-edges'])
             }
           }
         }
@@ -1933,12 +1932,12 @@ const pattern75: PatternRiche3D = {
     }
 
     const cubesSorted = rangeCubes(cubes)
-    for (const [x, y, z] of cubesSorted) {
-      const key = VisualPattern3D.coordToKey([x, y, z])
+    for (const [x, y, z, s] of cubesSorted) {
+      const key = VisualPattern3D.coordToKey([x, y, z, s])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z]))
+      newCells.add(VisualPattern3D.coordToKey([x, y, z, s]))
     }
     return newCells
   }
@@ -2644,12 +2643,11 @@ const pattern104: PatternRiche = {
 /*
 const pattern105: PatternRiche3D = {
   numero: 105,
-  shapeDefault: shapeCubeIso('cubeIso', 0, 0),
   fonctionNb: (x:number) => 2 ** x,
   formule: '2^n',
   type: 'fractal',
 
-  iterate3d: function (this: VisualPattern3D, n) {
+  iterate3d: function (this: VisualPattern3DIso, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
     const cubes: [number, number, number, number][] = [] // Commence avec un cube à l'origine
@@ -2672,11 +2670,11 @@ const pattern105: PatternRiche3D = {
 
     const sortedCubes = rangeCubes(cubes)
     for (const [x, y, z, scale] of sortedCubes) {
-      const key = VisualPattern3D.coordToKey([x, y, z, { scale: scale ?? 1 }])
+      const key = VisualPattern3DIso.coordToKey([x, y, z, { scale: scale ?? 1 }])
       if (newCells.has(key)) {
         newCells.delete(key) // Supprimer la cellule si elle existe déjà car en 3d il peut y avoir des superpositions et c'est la dernière qui doit être dessinée.
       }
-      newCells.add(VisualPattern3D.coordToKey([x, y, z, { scale: scale ?? 1 }]))
+      newCells.add(VisualPattern3DIso.coordToKey([x, y, z, { scale: scale ?? 1 }]))
     }
     return newCells
   }
@@ -2803,7 +2801,7 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
  * - listePatternDegre3 : tous les patterns de degré 3
  */
 const listePattern2d: PatternRiche[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern) as PatternRiche[]
-const listePattern3d: PatternRiche3D[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern3D) as PatternRiche3D[]
+const listePattern3d: PatternRiche3D[] = listePatternsPreDef.filter((p) => 'iterate3d' in p && typeof p.iterate3d === 'function') as PatternRiche3D[]
 const listePatternAffine: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'affine')
 const listePatternLineaire: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'linéaire')
 const listePatternDegre2: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'degré2')
