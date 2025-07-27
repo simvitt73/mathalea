@@ -1,24 +1,23 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Manipuler les conversions'
-export const dateDePublication = '11/10/2023'
+export const titre = 'Manipuler les conversions de longueurs'
+export const dateDePublication = '27/07/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 
 /**
- * @author Gilles Mora
- * Créé le 05/10/2023
+ * @author Eric Elter (d'après can6M13 de Gilles Mora)
 
  */
-export const uuid = '59144'
+export const uuid = '9d3f3'
 
 export const refs = {
-  'fr-fr': ['can6M13'],
+  'fr-fr': ['can6M13a'],
   'fr-ch': []
 }
-export default class CombienDeFois extends ExerciceSimple {
+export default class CombienDeFoisMetres extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1
@@ -27,7 +26,7 @@ export default class CombienDeFois extends ExerciceSimple {
   }
 
   nouvelleVersion () {
-    const unite = choice(['g', 'm', 'L'])
+    const unite = 'm'
     const choix = choice([true, false])
     this.optionsChampTexte = { texteApres: 'fois' }
     this.canReponseACompleter = 'La réponse correcte à cette question est : <br>$\\ldots$'
