@@ -3,7 +3,7 @@ import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapes2DInfos, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { listePatternsPreDef, type PatternRiche3D, type PatternRiche, patternsRepetition } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternsPreDef, type PatternRiche3D, type PatternRiche, listePatternsRepetition, listePatternsFor6I13, type PatternRicheRepetition, listePatternsFor6I131, listePattern3d, listePatternRatio } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -24,7 +24,6 @@ export const refs = {
   'fr-ch': []
 }
 export const uuid = '4c9ca'
-const listeOfAll = [...listePatternsPreDef, ...patternsRepetition].sort((a, b) => Number(a.numero) - Number(b.numero))
 
 /**
  * Dans le dossier src/lib/2d/patterns, on trouve un fichier patternsPreDef.ts
@@ -46,6 +45,8 @@ export default class ListePatternsPreDef extends Exercice {
     this.nbQuestions = 1
     this.listePackages = ['twemojis']
     this.nbQuestionsModifiable = false
+    this.besoinFormulaireNumerique = ['Liste restreinte pour la référence', 6, '1 : 6I13\n2 : 6I13-1\n3 : 6I13-2\n4 : 6I14\n5 : 5L10-5\n6 : 5P12-2']
+    this.sup = 1
     this.besoinFormulaire3Numerique = ['Nombre de motifs par pattern', 6]
     this.sup3 = 4
     this.comment = `Affiche la liste des patterns stockés dans Mathaléa avec leurs numéros de référence.<br>
@@ -57,14 +58,35 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
   }
 
   nouvelleVersion () {
+    let listePatterns: (PatternRiche | PatternRicheRepetition | PatternRiche3D)[] = []
+    switch (this.sup) {
+      case 1:
+        listePatterns = listePatternsFor6I13
+        break
+      case 2:
+        listePatterns = listePatternsFor6I131
+        break
+      case 3:
+        listePatterns = listePattern3d
+        break
+      case 4:
+        listePatterns = listePatternsRepetition
+        break
+      case 5:
+        listePatterns = listePatternsPreDef
+        break
+      case 6:
+        listePatterns = listePatternRatio
+        break
+    }
     let texte = ''
     if (!context.isHtml) {
       texte += `${Object.values(listeShapes2DInfos).map(shape => shape.shapeDef.tikz()).join('\n')}\n`
       texte += `${Object.entries(listeEmojisInfos).map(([nom, infos]) => emoji(nom, infos.unicode).shapeDef.tikz()).join('\n')}\n`
     }
-    if (listeOfAll == null || listeOfAll.length === 0) return
-    for (let i = 0; i < listeOfAll.length; i++) {
-      const pat = listeOfAll[i]
+    if (listePatterns == null || listePatterns.length === 0) return
+    for (let i = 0; i < listePatterns.length; i++) {
+      const pat = listePatterns[i]
       if (pat == null) {
         texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
         continue
@@ -107,7 +129,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
 
         const patternRiche = pat
         if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-        const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: pat.shapes, prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
+        const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: pat.shapes, prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
         if ('iterate3d' in pattern) {
           pattern.shapes = ['cube']
           pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
