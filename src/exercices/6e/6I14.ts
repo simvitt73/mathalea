@@ -5,7 +5,7 @@ import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
-import { patternsRepetition, type PatternRicheRepetition } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternsRepetition, type PatternRicheRepetition } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texteParPosition } from '../../lib/2d/textes'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
@@ -49,16 +49,16 @@ export default class PaternRepetitif extends Exercice {
   }
 
   nouvelleVersion (): void {
-    if (this.sup5 > patternsRepetition.length) {
-      this.sup5 = patternsRepetition.length
+    if (this.sup5 > listePatternsRepetition.length) {
+      this.sup5 = listePatternsRepetition.length
     }
     if (this.sup5 < 1) {
       this.sup5 = 1
     }
 
     const listePreDef = this.nbQuestions === 1
-      ? [patternsRepetition[Number(this.sup5) - 1]]
-      : shuffle(patternsRepetition)
+      ? [listePatternsRepetition[Number(this.sup5) - 1]]
+      : shuffle(listePatternsRepetition)
     const formeAdd = this.sup ? 1 : 0
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: 4, shuffle: false }).map(Number)))
     let indexInteractif = 0

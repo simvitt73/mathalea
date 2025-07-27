@@ -2681,7 +2681,7 @@ const pattern105: PatternRiche3D = {
 
 }
 */
-export const patternsRepetition: PatternRicheRepetition[] = [
+const listePatternsRepetition: PatternRicheRepetition[] = [
   pattern83,
   pattern84,
   pattern85,
@@ -2690,7 +2690,7 @@ export const patternsRepetition: PatternRicheRepetition[] = [
   pattern88,
   pattern89,
   pattern100
-]
+].sort((a, b) => Number(a.numero) - Number(b.numero))
 
 const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern1,
@@ -2789,8 +2789,7 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
   pattern102,
   pattern103,
   pattern104
-
-]
+].sort((a, b) => Number(a.numero) - Number(b.numero))
 /**
  * Liste des patterns prédéfinis, triés par type.
  * - listePattern2d : tous les patterns 2D
@@ -2800,17 +2799,19 @@ const listePatternsPreDef: (PatternRiche | PatternRiche3D)[] = [
  * - listePatternDegre2 : tous les patterns de degré 2
  * - listePatternDegre3 : tous les patterns de degré 3
  */
-const listePattern2d: PatternRiche[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern) as PatternRiche[]
-const listePattern3d: PatternRiche3D[] = listePatternsPreDef.filter((p) => 'iterate3d' in p && typeof p.iterate3d === 'function') as PatternRiche3D[]
-const listePatternAffine: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'affine')
-const listePatternLineaire: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'linéaire')
-const listePatternDegre2: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'degré2')
-const listePatternDegre3: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'degré3')
-const listePattern2dAffine: PatternRiche[] = listePattern2d.filter((p) => p instanceof VisualPattern && p.type === 'affine')
-const listePattern2dLineaire: PatternRiche[] = listePattern2d.filter((p) => p instanceof VisualPattern && p.type === 'linéaire')
-const listePatternAutres: (PatternRiche | PatternRiche3D)[] = listePattern2d.filter((p) => p.type === 'autre')
-const listePatternRatio: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.fonctionRatio != null)
-const listePatternFraction: PatternRiche[] = listePattern2d.filter((p) => p.fonctionFraction != null)
-const listePatternAffineOuLineaire: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'affine' || p.type === 'linéaire')
+const listePattern2d: PatternRiche[] = listePatternsPreDef.filter((p) => p instanceof VisualPattern).sort((a, b) => Number(a.numero) - Number(b.numero)) as PatternRiche[]
+const listePattern3d: PatternRiche3D[] = listePatternsPreDef.filter((p) => 'iterate3d' in p && typeof p.iterate3d === 'function').sort((a, b) => Number(a.numero) - Number(b.numero)) as PatternRiche3D[]
+const listePatternAffine: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'affine').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternLineaire: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'linéaire').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternDegre2: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'degré2').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternDegre3: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'degré3').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePattern2dAffine: PatternRiche[] = listePattern2d.filter((p) => p instanceof VisualPattern && p.type === 'affine').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePattern2dLineaire: PatternRiche[] = listePattern2d.filter((p) => p instanceof VisualPattern && p.type === 'linéaire').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternAutres: (PatternRiche | PatternRiche3D)[] = listePattern2d.filter((p) => p.type === 'autre').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternRatio: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.fonctionRatio != null).sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternFraction: PatternRiche[] = listePattern2d.filter((p) => p.fonctionFraction != null).sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternAffineOuLineaire: (PatternRiche | PatternRiche3D)[] = listePatternsPreDef.filter((p) => p.type === 'affine' || p.type === 'linéaire').sort((a, b) => Number(a.numero) - Number(b.numero))
 
-export { listePatternAffineOuLineaire, listePatternsPreDef, listePatternAutres, listePattern2d, listePattern3d, listePatternAffine, listePatternLineaire, listePatternDegre2, listePatternDegre3, listePattern2dAffine, listePattern2dLineaire, listePatternRatio, listePatternFraction }
+const listePatternsFor6I13 = listePatternsPreDef.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2' && p.type !== 'fractal').sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternsFor6I131 = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1)).sort((a, b) => Number(a.numero) - Number(b.numero))
+export { listePatternsRepetition, listePatternsFor6I13, listePatternsFor6I131, listePatternAffineOuLineaire, listePatternsPreDef, listePatternAutres, listePattern2d, listePattern3d, listePatternAffine, listePatternLineaire, listePatternDegre2, listePatternDegre3, listePattern2dAffine, listePattern2dLineaire, listePatternRatio, listePatternFraction }
