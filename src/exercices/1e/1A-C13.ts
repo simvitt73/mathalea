@@ -1,5 +1,5 @@
 import ExprimerEnFonction from '../can/2e/can2L19'
-export const titre = 'Exprimer une variable en fonction des autres'
+export const titre = 'Exprimer une variable en fonction des autres (formules)'
 export const dateDePublication = '23/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
