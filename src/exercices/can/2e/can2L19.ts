@@ -3,7 +3,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { texteCentre } from '../../../lib/format/miseEnPage'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-export const titre = 'Exprimer une variable en fonction des autres'
+export const titre = 'Exprimer une variable en fonction des autres (formules)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

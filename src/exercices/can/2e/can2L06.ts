@@ -9,7 +9,7 @@ export const titre = 'Développer avec les égalités remarquables'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '25/10/2021'
-export const dateModiImportante = '12/07/2025'
+export const dateDeModifImportante = '12/07/2025'
 /**
  * utilisation des égalités remarquables pour développer
  * @author Gilles Mora, Nicolas Talabardon (création des distracteurs, finalisation de la version QCM et quelques mises en forme)
