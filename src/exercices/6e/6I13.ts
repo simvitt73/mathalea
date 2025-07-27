@@ -12,7 +12,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
+import { cubeDef, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
 import { emoji } from '../../lib/2d/figures2d/Emojis'
@@ -84,7 +84,7 @@ export default class PaternNum0 extends Exercice {
         Et que c'est aussi le nombre de formes à l'étape 1. Par conséquent, pour trouver le nombre de formes d'un motif il faut simplement multiplier par ${delta} le numéro du motif.`
         : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
         Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.`
-      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
+      const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', prefixId: `Ex${this.numeroExercice}Q${i}`, shapes: ['cube'] }) : new VisualPattern([])
 
       //  patterns.push(pattern)
       const figureCorr = []
@@ -93,7 +93,7 @@ export default class PaternNum0 extends Exercice {
       let xmax = -Infinity
       let ymax = -Infinity
       if (pattern instanceof VisualPattern3D) {
-        pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
+        pattern.shape = shapeCubeIso()
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
         objetsCorr.push(cubeDef(`cubeIsoQ${i}F${nbFigures}`))
 
@@ -102,7 +102,7 @@ export default class PaternNum0 extends Exercice {
           updateCubeIso({ pattern, i, j: nbFigures, angle, inCorrectionMode: true })
           pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${nbFigures}"></use>`
           // Ajouter les SVG générés par svg() de chaque objet
-          const cells = (pattern as VisualPattern3D).render3d(nbFigures)
+          const cells = (pattern as VisualPattern3D).update3DCells(nbFigures)
           cells.forEach(cell => {
             const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
             const obj = shapeCubeIso(`cubeIsoQ${i}F${nbFigures}`, px, py)
@@ -170,8 +170,8 @@ export default class PaternNum0 extends Exercice {
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
             updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
-            pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-            const cells = (pattern as VisualPattern3D).render3d(j + 1)
+            if (pattern.shape) pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
+            const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
             // Ajouter les SVG générés par svg() de chaque objet
             cells.forEach(cell => {
               const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)

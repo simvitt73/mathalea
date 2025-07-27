@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../..
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { listeShapesDef } from '../../lib/2d/figures2d/shapes2d'
+import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -15,7 +15,7 @@ import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
 import { emoji } from '../../lib/2d/figures2d/Emojis'
-import { emojis } from '../../lib/2d/figures2d/listeEmojis'
+import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { range1 } from '../../lib/outils/nombres'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -123,9 +123,9 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
       const objetsCorr: NestedObjetMathalea2dArray = []
       const pat = listePreDef[i]
-      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
-      if (pattern instanceof VisualPattern3D) {
-        pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
+      const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: ['cube'], prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
+      if ('iterate3d' in pattern) {
+        pattern.shape = shapeCubeIso() as Shape3D
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
         objetsCorr.push(cubeDef(`cubeIsoQ${i}F0`))
       } else {
@@ -133,10 +133,10 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         pattern.iterate = (pat as PatternRiche).iterate
         pattern.shapes = pat2D.shapes || ['carré', 'carré']
         for (const shape of pattern.shapes) {
-          if (shape in listeShapesDef) {
-            objetsCorr.push(listeShapesDef[shape])
-          } else if (shape in emojis) {
-            objetsCorr.push(emoji(shape, emojis[shape]).shapeDef)
+          if (shape in listeShapes2DInfos) {
+            objetsCorr.push(listeShapes2DInfos[shape].shapeDef)
+          } else if (shape in listeEmojisInfos) {
+            objetsCorr.push(emoji(shape, listeEmojisInfos[shape].unicode).shapeDef)
           } else {
             throw new Error(`Shape ${shape} not found in listeShapesDef or emojis.`)
           }
@@ -156,10 +156,10 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           figures[j].push(cubeDef(`cubeIsoQ${i}F${j}`))
         } else {
           for (const shape of pattern.shapes) {
-            if (shape in listeShapesDef) {
-              figures[j].push(listeShapesDef[shape])
-            } else if (shape in emojis) {
-              figures[j].push(emoji(shape, emojis[shape]).shapeDef)
+            if (shape in listeShapes2DInfos) {
+              figures[j].push(listeShapes2DInfos[shape].shapeDef)
+            } else if (shape in listeEmojisInfos) {
+              figures[j].push(emoji(shape, listeEmojisInfos[shape].unicode).shapeDef)
             } else {
               throw new Error(`Shape ${shape} not found in listeShapesDef or emojis.`)
             }
@@ -170,11 +170,12 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         let ymin = Infinity
         let xmax = -Infinity
         let ymax = -Infinity
-        if (pattern instanceof VisualPattern3D) {
+        if ('iterate3d' in pattern) {
+          pattern.shape = shapeCubeIso('cubeIso')
           if (context.isHtml) {
-            updateCubeIso(pattern, i, j, angle)
+            updateCubeIso({ pattern, i, j, angle })
             pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-            const cells = (pattern as VisualPattern3D).render3d(j + 1)
+            const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
             // Ajouter les SVG générés par svg() de chaque objet
             cells.forEach(cell => {
               const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)

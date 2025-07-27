@@ -107,8 +107,8 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
 
         const patternRiche = pat
         if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-        const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
-        if (pattern instanceof VisualPattern3D) {
+        const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: pat.shapes, prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
+        if ('iterate3d' in pattern) {
           pattern.shapes = ['cube']
           pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
         } else {
@@ -144,7 +144,10 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
                 if (Object.keys(listeEmojisInfos).includes(name)) {
                   figures[j].push(emoji(name, listeEmojisInfos[name].unicode))
                 } else if (name === 'cube') {
-                  const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`, (pattern as VisualPattern3D).shape.scale ?? 1)
+                  if ((pattern as VisualPattern3D).shape == null) {
+                    (pattern as VisualPattern3D).shape = shapeCubeIso()
+                  }
+                  const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`, 1)
                   cubeIsoDef.svg = function (coeff: number): string {
                     return `
           <defs>
@@ -162,23 +165,25 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
               }
             }
           }
-          if (pattern instanceof VisualPattern3D) {
+          if ('iterate3d' in pattern) {
+            if (pattern.shape == null) {
+              pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 0, 0, { fillStyle: '#ffffff', strokeStyle: '#000000', lineWidth: 1, opacite: 1, scale: 1 })
+            }
             if (context.isHtml) {
               updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-              const cells = (pattern as VisualPattern3D).render3d(j + 1)
+              const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
               // Ajouter les SVG générés par svg() de chaque objet
               cells.forEach(cell => {
-                const scale = cell[3]?.scale ?? 1
                 const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
-                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale })
+                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale: 1 })
                 obj.x = px / 20
                 obj.y = -py / 20
                 objets.push(obj)
-                ymin = Math.min(ymin, obj.y * scale)
-                ymax = Math.max(ymax, (obj.y + 1) * scale)
-                xmin = Math.min(xmin, obj.x * scale)
-                xmax = Math.max(xmax, (obj.x + 1) * scale)
+                ymin = Math.min(ymin, obj.y)
+                ymax = Math.max(ymax, (obj.y + 1))
+                xmin = Math.min(xmin, obj.x)
+                xmax = Math.max(xmax, (obj.x + 1))
               })
             } else {
               objets = [cubeDef(`cubeIsoQ${i}F${j}`), ...pattern.render(j + 1, 0, 0, Math.PI / 6)]

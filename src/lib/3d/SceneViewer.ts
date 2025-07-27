@@ -8,26 +8,31 @@ const defaultHeight = 400
 const defaultFov = 60
 const defaultZoomLimits = { min: 2, max: 20 }
 
-function ensureSceneViewerStyle () {
+function ensureSceneViewerStyle ({ width, height, fullScreenButton }: { width?: number, height?: number, fullScreenButton?: boolean } = {}): void {
   if (!document.getElementById('scene-viewer-style')) {
     const style = document.createElement('style')
     style.id = 'scene-viewer-style'
     style.textContent = `
-       [data-scene-viewer] {
+    ${fullScreenButton
+? ''
+    : '[data-scene-viewer] a-enter-vr-button, [data-scene-viewer] .a-enter-vr-button { display: none !important; }'
+    }
+  [data-scene-viewer] {
     cursor: grab;
     user-select: none;
     position: relative;
-    width: 600px;
-    height: 400px;
+    width: ${width || defaultWidth}px;
+    height: ${height || defaultHeight}px;
   }
   [data-scene-viewer] a-scene, [data-scene-viewer] canvas {
     width: 100% !important;
     height: 100% !important;
-    min-height: 400px !important;
+    min-height: ${height || defaultHeight}px !important;
   }
   [data-scene-viewer]:active {
     cursor: grabbing;
-  }`
+  }
+`
     document.head.appendChild(style)
   }
 }
@@ -44,17 +49,18 @@ export class SceneViewer {
   private zoomLimits
   private rigPosition: [number, number, number]
   private cameraDistance: number
-  private rigRotation: [number, number, number]
+  private rigRotationX: number = 0
+  private rigRotationY: number = 0
   private fov: number = 60
   private withEarth: boolean = false
   private withSky: boolean = false
+  private backgroundColor: string | null = null
 
   // Ajoute ces propriétés d'instance :
-  private rigRotationY = 0
-  private rigRotationX = 0
   private currentDistance = 8 // valeur par défaut, ou initialisée dans le constructeur
   private containerElement: HTMLElement | null = null
   private detectCollision = false
+  public fullScreenButton: boolean = false
 
   constructor (options: {
     width?: number,
@@ -64,10 +70,13 @@ export class SceneViewer {
     rigPosition?: [number, number, number],
     cameraDistance?: number,
     fov?: number,
-    rigRotation?: [number, number, number],
+    rigRotationX?: number,
+    rigRotationY?: number,
     withEarth?: boolean,
     withSky?: boolean,
     detectCollision?: boolean,
+    backgroundColor?: string | null
+    fullScreenButton?: boolean
   } = {}) {
     this.detectCollision = options.detectCollision ?? false
     this.width = options?.width || defaultWidth
@@ -76,16 +85,19 @@ export class SceneViewer {
     this.zoomLimits = options?.zoomLimits || defaultZoomLimits
     this.rigPosition = options?.rigPosition || defaultRigPosition
     this.cameraDistance = options?.cameraDistance || defaultCameraDistance
-    this.rigRotation = options?.rigRotation || [this.rigRotationX ?? 0, this.rigRotationY ?? 0, this.currentDistance ?? 8]
+    this.rigRotationX = options?.rigRotationX || 0
+    this.rigRotationY = options?.rigRotationY || 0
     this.fov = options?.fov || defaultFov
     this.withEarth = options?.withEarth ?? false
     this.withSky = options?.withSky ?? false
+    this.backgroundColor = options?.backgroundColor ?? null
+    this.fullScreenButton = options?.fullScreenButton ?? false
     this.currentDistance = Math.sqrt(
       this.rigPosition[0] ** 2 +
        this.rigPosition[1] ** 2 +
       (this.cameraDistance - this.rigPosition[2]) ** 2
     )
-    ensureSceneViewerStyle()
+    ensureSceneViewerStyle({ width: this.width, height: this.height, fullScreenButton: this.fullScreenButton })
 
     // Création du container DOM caché    <div id="${this.id}" style="width: ${this.width}px; height: ${this.height}px;" class="scene-container" data-scene-viewer>
     this.containerElement = document.createElement('div')
@@ -114,8 +126,8 @@ export class SceneViewer {
     const sceneContent = this.sceneElements.join('\n')
 
     return `
-      <a-scene embedded 
-           style="width: 100%; height: 100%;" 
+     <a-scene embedded
+           style="width: 100%; height: 100%;"
            vr-mode-ui="enabled: false"
            device-orientation-permission-ui="enabled: false">
 
@@ -144,9 +156,9 @@ export class SceneViewer {
         ${this.withSky
 ? `    <!-- SKY ELEMENT -->
       <a-sky src="#sky"></a-sky>`
-: '<a-sky color="#ECECEC"></a-sky>'}
+: this.backgroundColor ? `<a-sky color="${this.backgroundColor}"></a-sky>` : ''}
 
-   <a-entity id="cameraRig-${this.id}" position="${this.rigPosition.join(' ')}" rotation="0 0 0">
+   <a-entity id="cameraRig-${this.id}" position="${this.rigPosition.join(' ')}" rotation="${this.rigRotationX} ${this.rigRotationY} 0">
         <a-camera 
               position="0 0 ${this.cameraDistance}" 
               fov="${this.fov}"
@@ -160,7 +172,19 @@ export class SceneViewer {
     `
   }
 
+  public setRigPosition (pos: [number, number, number]) {
+    this.rigPosition = [...pos]
+    const aScene = this.containerElement?.querySelector('a-scene')
+    // Met à jour la position du rig dans la scène si elle existe déjà
+    const cameraRig = aScene?.querySelector(`#cameraRig-${this.id}`) as any
+    const camera = aScene?.querySelector('a-camera') as any
+    if (cameraRig && camera) {
+      this.updateCameraRig(cameraRig, camera)
+    }
+  }
+
   private updateCameraRig (cameraRig: any, camera: any): void {
+    cameraRig.setAttribute('position', this.rigPosition.join(' '))
     cameraRig.setAttribute('rotation', `${this.rigRotationX} ${this.rigRotationY} 0`)
     camera.setAttribute('position', `0 0 ${this.currentDistance}`)
     if (camera.object3D && camera.object3D.position) {
@@ -204,8 +228,6 @@ export class SceneViewer {
     )
 
     // Remplace les variables locales par les propriétés d'instance :
-    this.rigRotationY = 0
-    this.rigRotationX = 0
     this.currentDistance = initialDistance
 
     // NOUVEAU : Détecter le plein écran
@@ -1209,7 +1231,7 @@ export class SceneViewer {
     this.sceneElements.push(`
       <a-entity position="${posStr}" 
                 rotation="${rotStr}"
-                ${componentName}="${propsStr}"></a-entity>
+                ${String(componentName)}="${propsStr}"></a-entity>
     `)
   }
 

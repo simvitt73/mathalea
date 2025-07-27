@@ -488,7 +488,7 @@ AFRAME.registerComponent('cube-trois-couleurs', {
     size: { type: 'number', default: 1 },
     color1: { type: 'color', default: '#ff0000' },
     color2: { type: 'color', default: '#00ff00' },
-    color3: { type: 'color', default: '#0000ff' }
+    color3: { type: 'color', default: '#fbff83ff' }
   },
   init: function () {
     const data = this.data
@@ -582,6 +582,164 @@ AFRAME.registerComponent('cube-tube-edges', {
   }
 })
 
+AFRAME.registerComponent('cube-trois-couleurs-tube-edges', {
+  schema: {
+    size: { type: 'number', default: 1 },
+    color1: { type: 'color', default: '#ff0000' },
+    color2: { type: 'color', default: '#00ff00' },
+    color3: { type: 'color', default: '#fbff83' },
+    edgeColor: { type: 'color', default: '#000' },
+    edgeThickness: { type: 'number', default: 0.03 }
+  },
+  init: function () {
+    const data = this.data
+    // Cube trois couleurs
+    const geometry = new THREE.BoxGeometry(data.size, data.size, data.size)
+    const materials = [
+      new THREE.MeshStandardMaterial({ color: data.color1 }),
+      new THREE.MeshStandardMaterial({ color: data.color1 }),
+      new THREE.MeshStandardMaterial({ color: data.color2 }),
+      new THREE.MeshStandardMaterial({ color: data.color2 }),
+      new THREE.MeshStandardMaterial({ color: data.color3 }),
+      new THREE.MeshStandardMaterial({ color: data.color3 })
+    ]
+    const mesh = new THREE.Mesh(geometry, materials)
+    this.el.setObject3D('mesh', mesh)
+
+    // Arêtes tubulaires
+    const group = new THREE.Group()
+    const s = data.size / 2
+    const vertices = [
+      [s, s, s], [s, s, -s], [s, -s, s], [s, -s, -s],
+      [-s, s, s], [-s, s, -s], [-s, -s, s], [-s, -s, -s]
+    ]
+    const edges = [
+      [0, 1], [0, 2], [0, 4],
+      [1, 3], [1, 5],
+      [2, 3], [2, 6],
+      [3, 7],
+      [4, 5], [4, 6],
+      [5, 7],
+      [6, 7]
+    ]
+    for (const [i1, i2] of edges) {
+      const start = new THREE.Vector3(...vertices[i1])
+      const end = new THREE.Vector3(...vertices[i2])
+      const direction = new THREE.Vector3().subVectors(end, start)
+      const length = direction.length()
+      const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
+      const axis = new THREE.Vector3(0, 1, 0)
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(axis, direction.clone().normalize())
+      const geometry = new THREE.CylinderGeometry(data.edgeThickness, data.edgeThickness, length, 8)
+      const material = new THREE.MeshBasicMaterial({ color: data.edgeColor })
+      const cylinder = new THREE.Mesh(geometry, material)
+      cylinder.position.copy(mid)
+      cylinder.quaternion.copy(quaternion)
+      group.add(cylinder)
+    }
+    this.el.setObject3D('tubeEdges', group)
+  },
+  update: function () {
+    this.remove()
+    this.init()
+  },
+  remove: function () {
+    this.el.removeObject3D('mesh')
+    this.el.removeObject3D('tubeEdges')
+  }
+})
+
+AFRAME.registerComponent('wire-pyramid-faces', {
+  schema: {
+    radius: { type: 'number', default: 0.7 },
+    altitudeBase: { type: 'number', default: 0 },
+    altitudeSommet: { type: 'number', default: 1 },
+    baseNb: { type: 'number', default: 3 },
+    thickness: { type: 'number', default: 0.01 },
+    color: { type: 'string', default: 'black' },
+    faceColor: { type: 'color', default: '#ffcc00' },
+    opacity: { type: 'number', default: 0.7 }
+  },
+  init: function () {
+    const group = new THREE.Group()
+    const data = this.data
+
+    // --- Faces opaques ---
+    const geometry = new THREE.BufferGeometry()
+    const vertices: number[] = []
+    const base: THREEType.Vector3[] = []
+    const apex = new THREE.Vector3(0, data.altitudeSommet, 0)
+    for (let i = 0; i < data.baseNb; i++) {
+      const angle = 2 * Math.PI * i / data.baseNb
+      const x = data.radius * Math.cos(angle)
+      const z = data.radius * Math.sin(angle)
+      base.push(new THREE.Vector3(x, data.altitudeBase, z))
+    }
+    // Faces latérales
+    for (let i = 0; i < data.baseNb; i++) {
+      const a = base[i]
+      const b = base[(i + 1) % data.baseNb]
+      vertices.push(
+        a.x, a.y, a.z,
+        b.x, b.y, b.z,
+        apex.x, apex.y, apex.z
+      )
+    }
+    // Base (optionnel, ici toujours présente)
+    for (let i = 1; i < data.baseNb - 1; i++) {
+      vertices.push(
+        base[0].x, base[0].y, base[0].z,
+        base[i].x, base[i].y, base[i].z,
+        base[i + 1].x, base[i + 1].y, base[i + 1].z
+      )
+    }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+    geometry.computeVertexNormals()
+    const mat = new THREE.MeshLambertMaterial({
+      color: data.faceColor,
+      transparent: true,
+      opacity: data.opacity,
+      side: THREE.DoubleSide
+    })
+    const mesh = new THREE.Mesh(geometry, mat)
+    group.add(mesh)
+
+    // --- Arêtes filaires (reprend la logique de custom-wire-pyramid) ---
+    const verticesWire: number[][] = []
+    verticesWire.push([0, data.altitudeSommet, 0])
+    for (let i = 0; i <= data.baseNb; i++) {
+      const angle = 2 * Math.PI * i / data.baseNb
+      const x = data.radius * Math.cos(angle)
+      const z = data.radius * Math.sin(angle)
+      verticesWire.push([x, data.altitudeBase, z])
+    }
+    const pairsToConnect: number[][] = []
+    for (let i = 1; i <= data.baseNb; i++) {
+      pairsToConnect.push([0, i])
+      pairsToConnect.push([i, i + 1])
+    }
+    for (const [i1, i2] of pairsToConnect) {
+      const start = new THREE.Vector3(...verticesWire[i1])
+      const end = new THREE.Vector3(...verticesWire[i2])
+      const direction = new THREE.Vector3().subVectors(end, start)
+      const length = direction.length()
+      const geometry = new THREE.CylinderGeometry(data.thickness, data.thickness, length, 8)
+      const material = new THREE.MeshBasicMaterial({ color: data.color })
+      const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
+      const axis = new THREE.Vector3(0, 1, 0)
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(axis, direction.clone().normalize())
+      const cylinder = new THREE.Mesh(geometry, material)
+      cylinder.position.copy(mid)
+      cylinder.quaternion.copy(quaternion)
+      group.add(cylinder)
+    }
+
+    this.el.setObject3D('mesh', group)
+  },
+  remove: function () {
+    this.el.removeObject3D('mesh')
+  }
+})
 // Three.js pur pour créer un prisme polygonal utilisable dans une scène Three.js en perspective avec arêtes cachées en pointillés.
 
 export function createPrismGeometry (
@@ -815,3 +973,6 @@ export function createEdgesFromGeometry (
   if (dashed && line.computeLineDistances) line.computeLineDistances()
   return line
 }
+
+export const AframeRegisteredComponent = ['cube-trois-couleurs', 'cube-edges', 'cube-tube-edges', 'cube-trois-couleurs-tube-edges', 'custom-wire-sphere', 'custom-wire-pyramid', 'custom-wire-prism', 'custom-wire-truncated-pyramid', 'geographic-label', 'billboard', 'zoom-controls', 'wire-pyramid-faces'] as const
+export type AframeRegisteredComponentsType = Partial<typeof AframeRegisteredComponent>
