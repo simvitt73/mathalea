@@ -49,7 +49,7 @@ $f_2$ est une fonction affine avec $m=\\dfrac{1}{2}$ et $p=-\\left(1+\\dfrac{1}{
 
   versionAleatoire = () => {
     const cas = randint(1, 4)
-
+    const cours = 'On cherche si les fonctions $f$ peuvent s\'écrire sous la forme $f(x)=mx+p$.<br>'
     switch (cas) {
       case 1: // Toutes ces fonctions sont affines
         {
@@ -59,8 +59,9 @@ $f_2$ est une fonction affine avec $m=\\dfrac{1}{2}$ et $p=-\\left(1+\\dfrac{1}{
           const c1 = randint(2, 4)
 
           const a2 = randint(1, 3)
-          const b2 = randint(2, 5)
+
           const num2 = randint(4, 12)
+          const b2 = num2 + choice([-1, 1])
 
           const a3 = choice([1, 3])
           const b3 = choice([1, 2])
@@ -72,19 +73,19 @@ $f_2$ est une fonction affine avec $m=\\dfrac{1}{2}$ et $p=-\\left(1+\\dfrac{1}{
 
         On peut affirmer que :`
 
-          this.correction = `En développant, on obtient :<br> 
+          this.correction = cours + ` $\\bullet$ En développant, on obtient :<br> 
         $\\begin{aligned}
         f_1(x)&=${a1}x^2-(${a1}x+${b1})(x-${c1})\\\\
         &=${a1}x^2-(${a1}x^2-${a1 * c1}x+${b1}x-${b1 * c1})\\\\
         &=${a1}x^2-${a1}x^2+${a1 * c1}x-${b1}x+${b1 * c1}\\\\
         &=${a1 * c1 - b1}x+${b1 * c1}
         \\end{aligned}$<br>
-        On retrouve une forme $mx+p$, donc $f_1$ est une fonction affine.<br><br>
+        On retrouve une forme $mx+p$, donc $f_1$ est une fonction affine.<br>
         
-        $f_2(x)=\\dfrac{${a2 * b2}x+${num2}}{${b2}}=${a2}x+\\dfrac{${num2}}{${b2}}$<br>
-        $f_2$ est une fonction affine.<br><br>
+         $\\bullet$ $f_2(x)=\\dfrac{${a2 * b2}x+${num2}}{${b2}}=${a2}x+\\dfrac{${num2}}{${b2}}$<br>
+        $f_2$ est une fonction affine.<br>
 
-        $f_3(x)=\\dfrac{${a3}-\\dfrac{${b3}}{${c3}}x}{${texNombre(denom3, 1)}}=-\\dfrac{${b3}}{${texNombre(c3 * denom3, 1)}}x+\\dfrac{${a3}}{${texNombre(denom3, 1)}}$<br>
+        $\\bullet$ $f_3(x)=\\dfrac{${a3}-\\dfrac{${b3}}{${c3}}x}{${texNombre(denom3, 1)}}=-\\dfrac{${b3}}{${texNombre(c3 * denom3, 1)}}x+\\dfrac{${a3}}{${texNombre(denom3, 1)}}$<br>
         $f_3$ est une fonction affine.<br>
 ${texteEnCouleurEtGras('Toutes ces fonctions sont affines.')}`
           this.reponses = [
@@ -112,13 +113,13 @@ ${texteEnCouleurEtGras('Toutes ces fonctions sont affines.')}`
 
         On peut affirmer que :`
 
-          this.correction = `$f_1(x)=\\dfrac{${a1}x+${b1}}{x}=${a1}+\\dfrac{${b1}}{x}$<br>
-        Après simplification, cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br><br>
+          this.correction = cours + ` $\\bullet$ $f_1(x)=\\dfrac{${a1}x+${b1}}{x}=${a1}+\\dfrac{${b1}}{x}$<br>
+        Après simplification, cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br>
         
-        $f_2(x)=${a2}\\sqrt{x}-${c1}$<br>
-        Cette fonction contient un terme en $\\sqrt{x}$, elle n'est donc pas affine.<br><br>
+         $\\bullet$ $f_2(x)=${a2}\\sqrt{x}-${c1}$<br>
+        Cette fonction contient un terme en $\\sqrt{x}$, elle n'est donc pas affine.<br>
 
-        $f_3(x)=\\dfrac{${a3}}{x}+${b3}$<br>
+        $\\bullet$ $f_3(x)=\\dfrac{${a3}}{x}+${b3}$<br>
         Cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br>
 ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
           this.reponses = [
@@ -148,20 +149,20 @@ ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
 
         On peut affirmer que :`
 
-          this.correction = `En développant, on obtient :<br> 
+          this.correction = cours + ` $\\bullet$ En développant, on obtient :<br> 
         $\\begin{aligned}
         f_1(x)&=x^2-(x+${b1})(x-${c1})\\\\
         &=x^2-(x^2-${c1}x+${b1}x-${b1 * c1})\\\\
         &=x^2-x^2+${c1}x-${b1}x+${b1 * c1}\\\\
         &=${c1 - b1}x+${b1 * c1}
         \\end{aligned}$<br>
-        On retrouve une forme $mx+p$, donc $f_1$ est une fonction affine.<br><br>
+        On retrouve une forme $mx+p$, donc $f_1$ est une fonction affine.<br>
         
-        $f_2(x)=${a2}\\sqrt{x}+${b2}$<br>
+         $\\bullet$ $f_2(x)=${a2}\\sqrt{x}+${b2}$<br>
         Cette fonction contient un terme en $\\sqrt{x}$, elle n'est donc pas affine.<br>
 
-        $f_3(x)=\\dfrac{${a3}}{x}-${b3}$<br>
-        Cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br><br>
+         $\\bullet$ $f_3(x)=\\dfrac{${a3}}{x}-${b3}$<br>
+        Cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br>
         ${texteEnCouleurEtGras('Uniquement la fonction $f_1$ est affine.')}`
           this.reponses = [
             'Uniquement la fonction $f_1$ est affine',
@@ -191,19 +192,19 @@ ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
 
         On peut affirmer que :`
 
-          this.correction = `$f_1(x)=${a1}x^2+${b1}$<br>
-        Cette fonction contient un terme en $x^2$, elle n'est donc pas affine.<br><br>
+          this.correction = cours + ` $\\bullet$ $f_1(x)=${a1}x^2+${b1}$<br>
+        Cette fonction contient un terme en $x^2$, elle n'est donc pas affine.<br>
         
-        En développant, on obtient :<br> 
+         $\\bullet$ En développant, on obtient :<br> 
         $\\begin{aligned}
         f_2(x)&=${a2}x^2-${a2}(x-${b2})(x+${c2})\\\\
         &=${a2}x^2-${a2}(x^2+${c2}x-${b2}x-${b2 * c2})\\\\
         &=${a2}x^2-${a2}x^2-${a2 * c2}x+${a2 * b2}x+${a2 * b2 * c2}\\\\
         &=${a2 * (b2 - c2)}x+${a2 * b2 * c2}
         \\end{aligned}$<br>
-        On retrouve une forme $mx+p$, donc $f_2$ est une fonction affine.<br><br>
+        On retrouve une forme $mx+p$, donc $f_2$ est une fonction affine.<br>
 
-        $f_3(x)=\\dfrac{${a3}+${b3}x}{${texNombre(c3, 2)}}=\\dfrac{${b3}}{${texNombre(c3, 2)}}x+\\dfrac{${a3}}{${texNombre(c3, 2)}}$<br>
+       $\\bullet$  $f_3(x)=\\dfrac{${a3}+${b3}x}{${texNombre(c3, 2)}}=\\dfrac{${b3}}{${texNombre(c3, 2)}}x+\\dfrac{${a3}}{${texNombre(c3, 2)}}$<br>
         On retrouve une forme $mx+p$, donc $f_3$ est une fonction affine.<br>
         ${texteEnCouleurEtGras('Uniquement les fonctions $f_2$ et $f_3$ sont affines.')}`
 
