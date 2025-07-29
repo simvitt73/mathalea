@@ -10,7 +10,7 @@ import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { range } from '../../lib/outils/nombres'
 import type { SceneViewer } from '../../lib/3d/SceneViewer'
 import { listePattern3d } from '../../lib/2d/patterns/patternsPreDef'
-import { AframeRegisteredComponent } from '../../lib/3d/solidesThreeJs'
+import { AframeRegisteredComponent } from '../../lib/3d/solidesAFrame'
 import { context } from '../../modules/context'
 
 export const titre = 'Comprendre un algorithme itératif'

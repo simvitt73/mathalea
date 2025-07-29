@@ -1,5 +1,5 @@
 import { SceneViewer } from '../../3d/SceneViewer'
-import { AframeRegisteredComponent } from '../../3d/solidesThreeJs'
+import { AframeRegisteredComponent } from '../../3d/solidesAFrame'
 import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
 

@@ -1,5 +1,5 @@
 import { SceneViewer } from './SceneViewer'
-import { THREE } from './solidesThreeJs'
+import { THREE } from './threeInstance'
 
 export type FaceNode = {
   x: number

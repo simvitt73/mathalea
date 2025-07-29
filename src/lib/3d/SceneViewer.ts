@@ -1,5 +1,4 @@
-import { cleanup } from '@testing-library/svelte'
-import './solidesThreeJs'
+import './solidesAFrame'
 
 const defaultRigPosition: [number, number, number] = [0, 0, 0]
 const defaultCameraDistance = 8
@@ -1437,7 +1436,9 @@ export class SceneViewer {
   }
 
   public destroy () {
-    cleanup()
+    if (this.containerElement && (this.containerElement as any).__sceneCleanup) {
+      (this.containerElement as any).__sceneCleanup()
+    }
     if (this.containerElement && this.containerElement.parentNode) {
       this.containerElement.parentNode.removeChild(this.containerElement)
     }
