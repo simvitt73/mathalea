@@ -5,7 +5,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-export const dateDeModifImportante = '28/07/2025'
+export const dateDePublication = '28/07/2025'
 
 /**
  * @author Eric Elter
