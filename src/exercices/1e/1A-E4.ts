@@ -48,9 +48,9 @@ export default class Automatismes extends ExerciceQcmA {
 
     this.enonce = `Une ${evo1} de $${abs(p1)}$ % suivie d'une ${evo2} de $${abs(p2)}$ % équivaut à `
     this.correction = 'A partir des évolutions en pourcentage, on déduit les coefficients multiplicateurs : <br>'
-    if (p1 > 0) { this.correction += `On note $CM_1 = 1 + \\dfrac{${p1}}{100}=${texNombre((100 + p1) / 100)}$` } else { this.correction += `et $CM_1  = 1 - \\dfrac{${abs(p1)}}{100}=${texNombre((100 + p1) / 100)}$.` }
-    if (p2 > 0) { this.correction += `<br>On note $CM_2 = 1 + \\dfrac{${p2}}{100}=${texNombre((100 + p2) / 100)}$` } else { this.correction += ` et $CM_2 = 1 - \\dfrac{${abs(p2)}}{100}=${texNombre((100 + p2) / 100)}$.<br>` }
-    this.correction += ` Le coefficient multiplicateur global est :  $CM = CM_1 \\times CM_2 = ${texNombre((100 + p1) / 100)} \\times ${texNombre((100 + p2) / 100)} = ${texNombre((100 + p) / 100)}$<br>`
+    if (p1 > 0) { this.correction += `On note $CM_1 = 1 + \\dfrac{${p1}}{100}=${texNombre((100 + p1) / 100)}$` } else { this.correction += `On note  $CM_1  = 1 - \\dfrac{${abs(p1)}}{100}=${texNombre((100 + p1) / 100)}$` }
+    if (p2 > 0) { this.correction += ` et $CM_2 = 1 + \\dfrac{${p2}}{100}=${texNombre((100 + p2) / 100)}$.` } else { this.correction += ` et  $CM_2 = 1 - \\dfrac{${abs(p2)}}{100}=${texNombre((100 + p2) / 100)}$.<br>` }
+    this.correction += `<br> Le coefficient multiplicateur global est :  $CM = CM_1 \\times CM_2 = ${texNombre((100 + p1) / 100)} \\times ${texNombre((100 + p2) / 100)} = ${texNombre((100 + p) / 100)}$<br>`
     this.correction += `qui correspond au coefficient multiplicateur global. <br>Or, multiplier par $${texNombre((100 + p) / 100)}$ revient à avoir une ${evo} de $${texNombre(abs(p))}\\%$<br>`
     this.correction += `L'évolution globale est donc de $${texNombre(p)}$ %.<br>`
     this.reponse = ` ${p} %`
