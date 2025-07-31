@@ -4,6 +4,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { SceneViewer } from '../../../lib/3d/SceneViewer'
 import { paveLPH3d } from '../../../lib/3d/solides'
 import { context } from '../../../modules/context'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Volume de pavé droit par dénombrement de cubes unités'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,6 +28,7 @@ export default class VolumePaveCubes extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.besoinFormulaireCaseACocher = ['3D dynamique', false]
+    this.nbQuestions = 1
     this.sup = false
   }
 
@@ -78,7 +80,7 @@ export default class VolumePaveCubes extends ExerciceSimple {
     }
     this.question += 'Ce pavé droit est composé de cubes identiques. En prenant comme unité l\'un de ces cubes, quel est le volume de ce pavé droit ?<br>'
     this.reponse = L * l * h
-    this.correction = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${this.reponse}$`
+    this.correction = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${miseEnEvidence(this.reponse)}$ cubes`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dots$ unités'
   }
