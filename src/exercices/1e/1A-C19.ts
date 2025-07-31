@@ -54,7 +54,7 @@ export default class Auto1C19 extends ExerciceQcmA {
         const n = randint(70, 99)
         const fac = new Decimal(p).mul(n).add(abo)
         this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
-                    Un abonnement annuel et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
+                    un abonnement annuel et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
                     Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}$ m$^3$.<br>
                   Le prix de l'abonnement est donné par le calcul :`
 
@@ -76,7 +76,7 @@ export default class Auto1C19 extends ExerciceQcmA {
           const n = randint(70, 99)
           const fac = new Decimal(p).mul(n).add(abo)
           this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
-                    Un abonnement annuel de $${texNombre(abo, 2)}$ € et un prix par mètre cube consommé. <br>
+                    un abonnement annuel de $${texNombre(abo, 2, true)}$ € et un prix par mètre cube consommé. <br>
                     Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}$ m$^3$.<br>
                   Le prix du mètre cube consommé est donné par le calcul :`
 
@@ -98,7 +98,7 @@ export default class Auto1C19 extends ExerciceQcmA {
         const n = randint(70, 99)
         const fac = new Decimal(p).mul(n).add(abo)
         this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
-                  Un abonnement annuel de $${texNombre(abo, 2)}$ € et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
+                  un abonnement annuel de $${texNombre(abo, 2, true)}$ € et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
                     Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour sa consommation annuelle.<br>
                   Le nombre de mètres cubes consommés est donné par le calcul :`
 
