@@ -80,7 +80,7 @@ export default class MedianeQCM extends ExerciceQcmA {
       `$${texNombre(distracteur2)}$`,
     ]
 
-    this.enonce = `Déterminer la médiane de la série suivante :<br>
+    this.enonce = `La médiane de cette série est :<br>
     ${valeurs.join(' ; ')}`
     this.correction = `La série triée est :<br>${serieClassee.join(' ; ')}`
     this.reponse = `$${texNombre(mediane)}$`
