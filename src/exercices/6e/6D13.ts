@@ -12,6 +12,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { minToHoraire } from '../../lib/outils/dateEtHoraires'
 import Exercice from '../Exercice'
 import { arrondi } from '../../lib/outils/nombres'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
@@ -66,12 +67,12 @@ export default class ConversionHeuresMinutesOuMinutesEtSecondes extends Exercice
           texteCorr = texteEnCouleur(`
     Mentalement : <br>
 On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
-Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$${sp(1)}h${sp(1)}$${d % 60}$${sp(1)}min.`) + '<br>'
+Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$${sp(1)}h${sp(1)}$${d % 60}$${sp(1)}min.`, bleuMathalea) + '<br>'
         } else {
           texteCorr = texteEnCouleur(`
            Mentalement : <br>
       On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
-      Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$s $= ${Math.floor(d / 60)}$${sp(1)}min${sp(1)}$${d % 60}$${sp(1)}s.`) + '<br>'
+      Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$s $= ${Math.floor(d / 60)}$${sp(1)}min${sp(1)}$${d % 60}$${sp(1)}s.`, bleuMathalea) + '<br>'
         }
         this.listeCanEnonces.push(this.canEnonce)
         this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -99,7 +100,6 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error trop compliqué à typer
                   propositions: [{
                     texte: texteCorr,
                     statut: '',
@@ -117,7 +117,6 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error trop compliqué à typer
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -142,7 +141,6 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error trop compliqué à typer
                   propositions: [{
                     texte: texteCorr,
                     statut: '',
@@ -160,7 +158,6 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error trop compliqué à typer
                   propositions: [{
                     texte: '',
                     statut: '',
