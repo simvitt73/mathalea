@@ -4,7 +4,6 @@ import type { Page } from 'playwright'
 import { runTest } from '../../helpers/run'
 
 async function testV (page: Page) {
-    return true // @todo remove this line when the test is implemented
   // Mock the api call before navigating
   await page.route(`http://localhost:${process.env.CI ? '80' : '5173'}/parent`, async route => {
     await route.fulfill({

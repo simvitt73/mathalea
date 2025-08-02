@@ -175,7 +175,11 @@ span.listeDeroulante ul li * {
 
   // API JS pour récupérer la valeur sélectionnée
   get value () {
-    return this._listeDeroulante?.reponse
+    return this._listeDeroulante?.reponse ?? ''
+  }
+
+  set value (val) {
+    if (this._listeDeroulante) { this._listeDeroulante.select(this._listeDeroulante.choices.findIndex(el => el.value === val) + this._listeDeroulante._offset) }
   }
 }
 

@@ -93,7 +93,7 @@ class ListeDeroulante {
   givenChoices?: AllChoicesType // Je ne vois pas pourquoi on aurait ça...
   private _kbIndex: number = -1 // L'index du choix sélectionné au clavier
   changed: boolean = false // Passe à true dès qu'on a fait une sélection (ou dès le départ si le choix initial est sélectionnable)
-  private readonly _offset: number = 0 // Décalage éventuel d'index entre le tableau de choix fourni et celui qu'on manipule (0 ou 1 suivant que le premier choix est sélectionnable ou pas)
+  readonly _offset: number = 0 // Décalage éventuel d'index entre le tableau de choix fourni et celui qu'on manipule (0 ou 1 suivant que le premier choix est sélectionnable ou pas)
   reponse: string = ''
 
   private _elts: HTMLLIElement[] = [] // Liste des elts contenant les choix (les &lt;li&gt;)

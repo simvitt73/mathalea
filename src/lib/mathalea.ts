@@ -1022,7 +1022,7 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
       const p = new Promise<Boolean>((resolve) => {
         waitForElement(`[id$='${answer}']`).then((eles) => {
           eles.forEach((ele) => {
-            if (ele.tagName === 'SELECT') {
+            if (ele.tagName === 'LISTE-DEROULANTE') {
               // La réponse correspond à un select
               (ele as HTMLSelectElement).value = answers[answer]
               const time = window.performance.now()

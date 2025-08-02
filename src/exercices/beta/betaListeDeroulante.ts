@@ -16,8 +16,8 @@ export const refs = {
   'fr-ch': []
 }
 const choix = [
-  'Choisir un élément',
-  'Un texte',
+  { label: 'Choisir un élément', value: '' },
+  { label: 'Un texte', value: 'unTexte' },
   { label: 'Un label', value: 'unLabel' },
   { latex: '\\dfrac{1+\\sqrt{5}}{2}', value: 'phi' },
   { image: 'images/balancoire_trebuchet.png', value: 'balançoire' },
@@ -42,7 +42,7 @@ export default class BetaListeDeroulante extends Exercice {
     // Voilà ce qu'il faut pour mettre une liste déroulante interactive.
     // Attention, il n'y a pas de version latex ou html non intéractive.
     // Il faudra prévoir une autre version pour ça.
-    const enonce = `Choisir l'expression mathématique<br>${choixDeroulant(this, 0, choix, 'position', '', false)}`
+    const enonce = `Choisir l'expression mathématique<br>${choixDeroulant(this, 0, choix, false)}`
 
     const texteCorrection = 'Vous avez choisi : <span id=\'choixEffectué\'></span>.' // Je mets un span vide ici pour y déposer le choix de l'utilisateur après correction.
     handleAnswers(this, 0, { reponse: { value: 'phi' } }, { formatInteractif: 'listeDeroulante' })

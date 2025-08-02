@@ -64,7 +64,7 @@ export function verifQuestionListeDeroulante (exercice: Exercice, i:number) {
 export function choixDeroulant (exercice: Exercice, i:number, choix: AllChoicesType, choix0?: boolean, style?: string) {
   if (!exercice.interactif || !context.isHtml) return ''
 
-  choix0 = choix0 ? Boolean(choix0) : false
+  choix0 = choix0 !== undefined ? Boolean(choix0) : false
   style = style ? ` style="${style}"` : ''
   if (context.isHtml && exercice?.autoCorrection[i]?.reponse?.param?.formatInteractif !== 'listeDeroulante') {
     if (exercice?.autoCorrection == null) exercice.autoCorrection = []

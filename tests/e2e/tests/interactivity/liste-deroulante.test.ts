@@ -18,7 +18,6 @@ async function test (page: Page) {
   const value = await page.evaluate(() => {
     const el = document.querySelector('liste-deroulante')
     // Cast to HTMLInputElement or appropriate type to access 'value'
-    console.log(el, (el as HTMLInputElement).value)
     return (el as HTMLInputElement | null)?.value
   })
   expect(value).toBe('aucune') // adapte selon la value attendue

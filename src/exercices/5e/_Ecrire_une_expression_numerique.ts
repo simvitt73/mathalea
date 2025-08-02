@@ -96,7 +96,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
       expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
-      const expNom = this.litteral ? String(resultats[6]).split(' ')[1] : resultats[5] // Le split, c'est pour virer le déterminant.
+      const expNom = this.litteral ? String(resultats[6]) : resultats[5] // Le split, c'est pour virer le déterminant.
       switch (this.version) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
@@ -253,14 +253,15 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               }
           } else {
             texte += sp(10) + choixDeroulant(this, i, [
-              { label: 'Ce calcul est ', value: '' },
+              { label: '?', value: '' },
               ...shuffle([
-                { label: 'une somme', value: 'somme' },
-                { label: 'une différence', value: 'différence' },
-                { label: 'un produit', value: 'produit' },
-                { label: 'un quotient', value: 'quotient' }
+                { label: 'somme', value: 'somme' },
+                { label: 'différence', value: 'différence' },
+                { label: 'produit', value: 'produit' },
+                { label: 'quotient', value: 'quotient' }
               ])
             ])
+            console.log(expNom)
             handleAnswers(this, i, { reponse: { value: expNom } }, { formatInteractif: 'listeDeroulante' })
           }
         }
