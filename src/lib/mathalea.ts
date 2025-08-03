@@ -732,6 +732,11 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             exercice.question += qcm.texte
           }
           exercice.listeQuestions.push(exercice.question || '')
+        } else if (exercice.formatInteractif === 'listeDeroulante') {
+          const n = exercice.numeroExercice
+          exercice.question = exercice.question?.replace(`id="ex${n}Q0"`, `id="ex${n}Q${i}"`)
+          exercice.question = exercice.question?.replace(`CheckEx${n}Q0"`, `CheckEx${n}Q${i}"`)
+          exercice.listeQuestions.push(exercice.question ?? '')
         } else {
           exercice.listeQuestions.push(
             exercice.question + ajouteChampTexteMathLive(exercice, i, String(exercice.formatChampTexte), exercice.optionsChampTexte || {})
