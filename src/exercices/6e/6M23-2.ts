@@ -86,7 +86,14 @@ export default class ConvertirM2EnDm2 extends Exercice {
       [[4, 3], 10]
     ]
 
-    const choixListeDeroulante = ['un millier', 'une centaine', 'une dizaine', 'un dixième', 'un centième', 'un millième']
+    const choixListeDeroulante = [
+      { label: 'un millier', value: 'un millier' },
+      { label: 'une centaine', value: 'une centaine' },
+      { label: 'une dizaine', value: 'une dizaine' },
+      { label: 'un dixième', value: 'un dixième' },
+      { label: 'un centième', value: 'un centième' },
+      { label: 'un millième', value: 'un millième' }
+    ]
     const pairesMetriques: string[][] = [
       ['m', 'dm'],
       ['dm', 'm'],
@@ -116,7 +123,7 @@ export default class ConvertirM2EnDm2 extends Exercice {
             texte += ' est égal à '
             texteCorr = texte
             texte += this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante, 'une proposition')
+              ? choixDeroulant(this, i, choixListeDeroulante)
               : '$\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots$ '
             texte += `de $1~${pairesMetriques[listeConversions[cpt] - 1][1]}^2$.`
             reponse = listeConversions[cpt] % 2 === 1 ? 'une centaine' : 'un centième'
