@@ -180,7 +180,7 @@ export default class Auto1AE2c extends ExerciceQcmA {
           this.correction = `Pour ${verbe[0]} de $${taux}\\,\\%$, on applique un coefficient multiplicateur de $${operateur}${tauxDecimal} = ${coeffMultiplicateur}$.<br>
         Donc $${miseEnEvidence(bonneReponseRetenue)}$.`
         } else {
-          this.correction = `On obtient $V(n+1)$ en ${verbe[1]}  $N(n)$  de $${taux}\\,\\%$ de $N(n)$.<br>
+          this.correction = `On obtient $N(n+1)$ en ${verbe[1]}  $N(n)$  de $${taux}\\,\\%$ de $N(n)$.<br>
         On a donc : $${miseEnEvidence(bonneReponseRetenue)}$.`
         }
         this.reponses = [`$${bonneReponseRetenue}$`,
