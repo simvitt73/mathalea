@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils'
+import { texteGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import { nombreElementsDifferents } from '../ExerciceQcm'
@@ -92,7 +92,8 @@ export default class MedianeQCM extends ExerciceQcmA {
     this.correction = `La série triée dans l'ordre croissant est : ${serieClassee.join('  ;  ')}.`
     this.correction += `<br>La série comporte $${effectif}$ valeurs, qui est `
     if (effectif % 2 === 0) {
-      this.correction += `un nombre pair, donc la médiane est la moyenne des termes de rang $${rang}$ et $${rang + 1}$.<br>
+      this.correction += `un nombre pair, donc une médiane est une valeur ${texteGras('strictement')} comprise entre les termes de rang $${rang}$ et $${rang + 1}$
+      , soit entre $${serieClassee[rang - 1]}$ et $${serieClassee[rang]}$. <br>Prenons la moyenne de ces deux valeurs :<br>
        $\\dfrac{${texNombre(serieClassee[rang - 1])} + ${texNombre(serieClassee[rang])}}{2} = ${texNombre(mediane)}$.<br>`
     } else { this.correction += `un nombre impair,  donc la médiane est le terme de rang $${rang}$.<br>` }
     this.correction += `La médiane est donc $${texNombre(mediane)}$.`
