@@ -27,7 +27,8 @@ export default class Auto1AC16 extends ExerciceQcmA {
     this.enonce = `L'ensemble des solutions dans $\\mathbb{R}$ de l'inéquation
     $2(x-3)(x+1) > 0$ est :`
 
-    this.correction = `L'équation $x+3=0$ a pour solution $x=-3$.<br>
+    this.correction = `$(x-3)(x+1)$ est un produit de deux fonctions affines.<br>
+    L'équation $x+3=0$ a pour solution $x=-3$.<br>
         L'équation $x+1=0$ a pour solution $x=-1$.<br>
         Le tableau de signe du produit $2(x-3)(x+1)$ est : <br>` + tableauDeVariation({
         tabInit: [
@@ -82,7 +83,8 @@ export default class Auto1AC16 extends ExerciceQcmA {
       ligneProduit = ['Line', 30, '', 0, '-', 20, 'z', 5, '+', 20, 'z', 20, '-', 20]
     }
 
-    let correction = `L'équation ${b === 0 ? `$${a}x=0$` : `$x${ecritureAlgebrique(-b)}=0$`} a pour solution $x=${b}$.<br>
+    let correction = `${b === 0 ? `$${rienSi1(a)}x(x${ecritureAlgebrique(-c)})$` : `$(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)})$`} est un produit de deux fonctions affines.<br>
+      L'équation ${b === 0 ? `$${a}x=0$` : `$x${ecritureAlgebrique(-b)}=0$`} a pour solution $x=${b}$.<br>
         L'équation $x${ecritureAlgebrique(-c)}=0$ a pour solution $x=${c}$.<br>
         Le tableau de signe du produit  ${b === 0 ? `$${rienSi1(a)}x(x${ecritureAlgebrique(-c)})$` : `$${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)})$`} est : <br>` + tableauDeVariation({
         tabInit: [
