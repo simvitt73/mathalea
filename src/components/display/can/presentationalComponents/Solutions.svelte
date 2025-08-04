@@ -45,7 +45,6 @@
   });
 
   function formatAnswer(question: string, answer: string) {
-    console.log(question);
     if (!answer) return 'aucune';
     if (question.includes('checkbox')) return answer; // Pour les QCM
     if (question.includes('<liste-deroulante')) return answer; // Pour les listeDeroulante

@@ -56,6 +56,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
   }
 
   nouvelleVersion () {
+    this.sup3 = Math.max(2, this.sup3) // On ne peut pas afficher moins de 2 motifs
     let listePatterns: (PatternRiche | PatternRicheRepetition | PatternRiche3D)[] = []
     switch (this.sup) {
       case 1:

@@ -59,7 +59,7 @@ export default class ExerciceLabyrintheChemin extends Exercice {
       }
       texteCorr = 'Le bus part du lieu : ' + parcours.villeParCoord[startCol][0] + ' et arrive au lieu : ' + parcours.villeParCoord[endCol][nbL - 1] + '.<br>'
       texteCorr += 'Le bus suit le chemin suivant :<br>'
-      texteCorr += parcours.path.map(p => `(${parcours.villeParCoord[p[0]][p[1]]})`).join(' → ') + '<br>'
+      texteCorr += parcours.path.map(p => `${parcours.villeParCoord[p[0]][p[1]]}`).join(' → ') + '<br>'
       texteCorr += 'Voici une solution possible des instructions pour le trajet du bus :<br>'
       createSolutionStr(parcours.edges).forEach((instruction, index) => {
         const parts = instruction.split('-')
@@ -314,8 +314,8 @@ ou
     colsEnd: number,
     parcours: { path: number[][]; edges: { from: number[]; to: number[]; }[]; villeParCoord: string[][] }
   ): string {
-    const svgWidth = (cols - 1) * 100 + 50 + 50
-    const svgHeight = (rows) * 100
+    const svgWidth = cols * 100
+    const svgHeight = rows * 100
     const start :[number, number] = [colsStart, rowsStart]
     const orientation = { angle: 0 }
     const end : [number, number] = [colsEnd, rowsEnd]
@@ -341,7 +341,7 @@ ou
       line.setAttribute('y2', String(endY))
       line.setAttribute('stroke', 'red')
       line.setAttribute('stroke-width', '2')
-      line.setAttribute('marker-end', 'url(#arrowhead)')
+      line.setAttribute('marker-end', `url(#arrowhead${id})`)
       svg.appendChild(line)
     }
 
@@ -442,7 +442,7 @@ ou
       return false
     }
 
-    async function avancer () {
+    function avancer () {
       const debug = 0
       if (orientation.angle === 0) {
         const bg = moveDir(1, 0) // droite
@@ -457,10 +457,9 @@ ou
         const bg = moveDir(0, -1) // haut
         if (bg && debug) ajouterBlocALaSuite('move_forward')
       }
-      await new Promise(resolve => setTimeout(resolve, 100))
     }
 
-    async function tourner (num : number) {
+    function tourner (num : number) {
       const debug = 0
       // num = 1 → droite, -1 → gauche
       if (num === 1) {
@@ -474,7 +473,6 @@ ou
         if (debug) ajouterBlocALaSuite('turn_left')
       }
       rotate(orientation.angle)
-      await new Promise(resolve => setTimeout(resolve, 100))
     }
 
     function rotate (angle :number) {
@@ -614,6 +612,14 @@ ou
         orientation.angle = 0 // Réinitialiser l'orientation
         btn?.querySelector('#robot')?.setAttribute('transform', `translate(${px}, ${py}) rotate(${orientation.angle}) scale(${scale})`)
       }
+      const btn2 = document.getElementById(id)?.querySelector('#message-correct')
+      if (btn2) {
+        (btn2 as HTMLElement).style.display = 'none'
+      }
+      const btn3 = document.getElementById(id)?.querySelector('#message-faux')
+      if (btn3) {
+        (btn3 as HTMLElement).style.display = 'none'
+      }
     }
 
     // Reset workspace (supprime tous les blocs)
@@ -652,11 +658,81 @@ ou
       } catch (e) {
         console.error(e)
       }
+      const btn = document.getElementById(id)?.querySelector('#message-encours')
+      if (btn) {
+        (btn as HTMLElement).style.display = 'none'
+      }
       if (checkIfSolution()) {
-        const btn = document.getElementById(id)?.querySelector('#message')
+        const btn = document.getElementById(id)?.querySelector('#message-correct')
         if (btn) {
           (btn as HTMLElement).style.display = 'block'
         }
+      } else {
+        const btn = document.getElementById(id)?.querySelector('#message-faux')
+        if (btn) {
+          (btn as HTMLElement).style.display = 'block'
+        }
+      }
+    }
+
+    async function runCodeWithDelay () {
+      const workspace = retrieveWorkspace(`blocklyDiv${id}`)
+      if (!workspace) {
+        return
+      }
+
+      // Important : initialiser le générateur
+      javascriptGenerator.init(workspace)
+      const blocks = workspace.getTopBlocks(true)
+      const startBlock = blocks.find(b => b.type === 'start')
+      if (!startBlock) {
+        alert('Ajoutez un bloc "Démarrer"')
+        return
+      }
+      let code = javascriptGenerator.blockToCode(startBlock)
+      if (Array.isArray(code)) {
+        code = code[0]
+      }
+      const btnCorrect = document.getElementById(id)?.querySelector<HTMLElement>('#message-correct')
+      if (btnCorrect) {
+        btnCorrect.style.display = 'none'
+      }
+      const btnFaux = document.getElementById(id)?.querySelector<HTMLElement>('#message-faux')
+      if (btnFaux) {
+        btnFaux.style.display = 'none'
+      }
+      const btnEncours = document.getElementById(id)?.querySelector<HTMLElement>('#message-encours')
+      if (btnEncours) {
+        btnEncours.style.display = 'block'
+      }
+      try {
+        const delayMs = 1000 // délai en millisecondes entre chaque ligne
+
+        // Découpe du code ligne par ligne et insertion d'un sleep
+        const lines = code.split('\n').filter(line => line.trim() !== '')
+        const delayedCode = lines
+          .map(line => `  ${line}\n  await sleep(${delayMs});`)
+          .join('\n')
+
+        const asyncWrapper = `(async () => {
+          const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+        ${delayedCode}
+        })()`
+
+        // console.log('Exécution du code :', asyncWrapper)
+
+        // eslint-disable-next-line no-eval
+        await eval(asyncWrapper)
+      } catch (e) {
+        console.error(e)
+      }
+      if (btnEncours) {
+        btnEncours.style.display = 'none'
+      }
+      if (checkIfSolution()) {
+        if (btnCorrect) btnCorrect.style.display = 'block'
+      } else {
+        if (btnFaux) btnFaux.style.display = 'block'
       }
     }
 
@@ -769,6 +845,7 @@ ou
         btn.querySelector('#resetWorkspace')?.addEventListener('click', resetWorkspace)
         btn.querySelector('#showSolution')?.addEventListener('click', createSolution)
         btn.querySelector('#runCode')?.addEventListener('click', runCode)
+        btn.querySelector('#runCodeWithDelay')?.addEventListener('click', runCodeWithDelay)
         createBlockLy()
         btn._eventsBound = true // marquer comme attaché
       }
@@ -786,11 +863,11 @@ ou
     // Ajout du marqueur de flèche
     const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
     defs.innerHTML = `
-     <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+     <marker id="arrowhead${id}" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 6 6">
   <path d="M 0 0 L 6 3 L 0 6 L 2 3 Z" fill="red" />
 </marker>
     `
-    svg.appendChild(defs)
+    svg.insertBefore(defs, svg.firstChild)
     svg.setAttribute('class', 'mathalea2d')
     svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
     svg.setAttribute('style', 'display: inline-block')
@@ -803,9 +880,9 @@ ou
     ${svgString}<br>
     
   <!-- <button id="btn-av">⇒</button>
-  <button id="btn-left">↪</button>
-  <button id="btn-right">↩</button>
-  <button id="generate">🔁 Recommencer</button> -->
+  <button id="btn-left" class="px-6 py-2.5 ml-6">↪</button>
+  <button id="btn-right" class="px-6 py-2.5 ml-6">↩</button>
+  <button id="generate" class="px-6 py-2.5 ml-6">🔁 Recommencer</button> -->
   </div>
   <xml id="toolbox" style="display: none">
   <category name="Déplacement">
@@ -821,15 +898,27 @@ ou
   </category>
   </xml>
 
-  <div id="blocklyDiv${id}" style="height:300px;width:100%"></div>
   <div>
-  ${!this.interactif ? '<button id="runCode">▶️ Exécuter</button>' : '<button id="runCode" style="display:none">▶️ Exécuter</button>'}
-  <button id="resetWorkspace">♻️ Reinit programme</button>
-  <button id="resetRobot">🔁 Reinit bus</button>
-  ${this.interactif ? '<button id="showSolution">💡 Show solution</button>' : ''}
-  <div id="message" style="display: none; margin: 10px 0px 0px 10px; font-weight: bold; color: green; font-size: 1.2em;">
-  🎉 Bravo, le bus est bien arrivée !
+  <button id="runCode" class="px-6 py-2.5" style="display:none">▶️ Exécuter</button>
+  <button id="runCodeWithDelay" class="px-6 py-2.5" ${this.interactif ? 'style="display:none"' : ''}>▶️ Exécuter (pas à pas) </button>
+  <button id="resetWorkspace" class="px-6 py-2.5" ${this.interactif ? 'style="display:none"' : ''}>♻️ Reinit programme</button>
+  <button id="resetRobot" class="px-6 py-2.5" ${this.interactif ? 'style="display:none"' : ''}>🔁 Reinit bus</button>
+  <button id="showSolution" class="px-6 py-2.5" style="display:none">💡 Show solution</button>
+  <div id="message-correct" style="display: none; margin: 10px 10px 10px 10px; font-weight: bold; color: green; font-size: 1.2em;">
+  🎉 Bravo, le bus est bien arrivé !
   </div>
+  <div id="message-faux" style="display: none; margin: 10px 10px 10px 10px; font-weight: bold; color: red; font-size: 1.2em;">
+   ❌ Attention, le bus n'est pas arrivé à sa destination finale!
+  </div>
+  <style>
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  </style>
+  <div id="message-encours" style="animation: blink 1s step-start infinite;display: none; margin: 10px 10px 10px 10px; font-weight: bold; font-size: 1.2em;">
+  En cours d'exécution...
+  </div>
+  <div id="blocklyDiv${id}" style="height:300px;width:100%"></div>
   </div>
   </div>
 `
@@ -840,7 +929,6 @@ ou
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
     const id : string = `${this.numeroExercice}_${i}`
-
     const ws = retrieveWorkspace(`blocklyDiv${id}`)
     if (ws) {
       const jsonStr = exportBlocklyJSONUltraLight(ws)
@@ -849,22 +937,23 @@ ou
       // Blockly.serialization.workspaces.load(json, ws)
     }
 
-    const btn = document.getElementById(id) as HTMLElement
-    (btn.querySelector('#runCode') as HTMLElement)?.click()
-
     const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
-
+    const divFeedback = document.querySelector<HTMLElement>(`#feedbackEx${this.numeroExercice}Q${i}`)
     if (spanResultat) spanResultat.innerHTML = ''
-    const message = btn.querySelector('#message') as HTMLElement
-    if (message.style.display !== 'none') {
-      result = 'OK'
-      if (spanResultat) spanResultat.innerHTML = '😎'
-    } else {
-      if (spanResultat) spanResultat.innerHTML = '☹️'
-      if (divFeedback) {
-        divFeedback.innerHTML = 'Le bus n\'est pas arrivée à destination';
-        (divFeedback as HTMLElement).style.display = 'block'
+
+    const btn = document.getElementById(id)
+    if (btn) {
+      (btn.querySelector<HTMLElement>('#runCode'))?.click()
+      const message = btn.querySelector<HTMLElement>('#message-correct')
+      if (message?.style.display !== 'none') {
+        result = 'OK'
+        if (spanResultat) spanResultat.innerHTML = '😎'
+      } else {
+        if (spanResultat) spanResultat.innerHTML = '☹️'
+        if (divFeedback) {
+          divFeedback.innerHTML = 'Le bus n\'est pas arrivé à destination'
+          divFeedback.style.display = 'block'
+        }
       }
     }
     return result

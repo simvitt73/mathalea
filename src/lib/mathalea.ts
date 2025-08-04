@@ -30,22 +30,24 @@ import { propositionsQcm } from './interactif/qcm'
 import { formaterReponse } from './outils/ecritures'
 import ExerciceSimple from '../exercices/ExerciceSimple'
 import { shuffle } from './outils/arrayOutils'
+import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
-function getExerciceByUuid (root: object, targetUUID: string): object | null {
+function getExerciceByUuid (
+  root: { [key: string]: any },
+  targetUUID: string
+): object | null {
   if ('uuid' in root) {
     if (root.uuid === targetUUID) {
       return root
     }
   }
   for (const child in root) {
-    if (child in root) {
-      if (typeof root[child] !== 'object') continue
-      const foundObject = getExerciceByUuid(root[child], targetUUID)
-      if (foundObject) {
-        return foundObject
-      }
+    if (typeof root[child] !== 'object') continue
+    const foundObject = getExerciceByUuid(root[child], targetUUID)
+    if (foundObject) {
+      return foundObject
     }
   }
 
@@ -1029,7 +1031,7 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
           eles.forEach((ele) => {
             if (ele.tagName === 'LISTE-DEROULANTE') {
               // La réponse correspond à un select
-              (ele as HTMLSelectElement).value = answers[answer]
+              (ele as ListeDeroulanteElement).value = answers[answer]
               const time = window.performance.now()
               log(`duration ${answer}: ${(time - starttime)}`)
               resolve(true)

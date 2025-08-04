@@ -43,6 +43,7 @@ export default class ListePatternsPreDef6I13 extends Exercice {
   }
 
   nouvelleVersion () {
+    this.sup3 = Math.max(2, this.sup3) // On ne peut pas afficher moins de 2 motifs
     const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
     const listeOfAll :(PatternRiche | PatternRiche3D)[] = [...listePatternReference]
 

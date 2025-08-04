@@ -94,6 +94,7 @@ span.listeDeroulante ul li {
   background: #F0FFFF;
   margin: 0;
   padding: 2px 5px;
+  box-sizing: border-box;
   box-shadow: 0 0 0 0;
   white-space: nowrap;
 }

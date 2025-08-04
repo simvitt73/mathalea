@@ -5,7 +5,7 @@
     exercicesParams,
     isMenuNeededForExercises,
   } from '../../../../../lib/stores/generalStore';
-  import { statsTracker } from '../../../../../modules/stats';
+  import { statsTracker } from '../../../../../modules/statsUtils';
   import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte';
   import type TypeExercice from '../../../../../exercices/Exercice';
   import seedrandom from 'seedrandom';
