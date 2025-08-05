@@ -377,6 +377,9 @@ export class Polygone extends ObjetMathalea2D {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
     switch (this.pointilles) {
       case 1:
         this.style += ' stroke-dasharray="6 10" '
