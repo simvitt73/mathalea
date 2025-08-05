@@ -5,6 +5,7 @@ import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ppcm } from '../../lib/outils/primalite'
 
 export const uuid = '2ab24'
 export const refs = {
@@ -33,24 +34,25 @@ export default class Auto1C19b extends ExerciceQcmA {
     const fracFevrier = frac1.produitFraction(frac2) // 1/3 × 1/4 = 1/12 du crédit en février
     const totalRembourse = frac1.sommeFraction(fracFevrier) // 1/3 + 1/12 = 4/12 + 1/12 = 5/12
     const reponse = totalRembourse.entierMoinsFraction(1) // 1 - 5/12 = 7/12
+    // Mise au même dénominateur avec le ppcm
+    const denomCommun = ppcm(frac1.den, fracFevrier.den)
+    const frac1Equiv = new FractionEtendue(frac1.num * (denomCommun / frac1.den), denomCommun)
+    const fracFevrierEquiv = new FractionEtendue(fracFevrier.num * (denomCommun / fracFevrier.den), denomCommun)
 
     this.enonce = `Une personne doit rembourser un crédit de $${texNombre(credit, 0)}$ en trois mois.<br>
         En janvier, elle rembourse $${frac1.texFraction}$ du crédit et en février elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
         En mars elle doit rembourser :`
 
     this.correction = `
-        **Calcul du remboursement de février :**<br>
+       
         En février, elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
-        Montant remboursé en février = $${frac2.texFraction} \\times ${frac1.texFraction} = ${fracFevrier.texFractionSimplifiee}$ du crédit total.<br><br>
+        Elle rembourse donc $${frac2.texFraction} \\times ${frac1.texFraction} = ${fracFevrier.texFractionSimplifiee}$ du crédit total.<br>
         
-        **Calcul du total remboursé en janvier et février :**<br>
-        Total remboursé = $${frac1.texFraction} + ${fracFevrier.texFractionSimplifiee} = ${frac1.texFraction} + ${fracFevrier.texFraction}$<br>
-        Pour additionner ces fractions, on met au même dénominateur :<br>
-        $${frac1.texFraction} = \\dfrac{${frac1.n * fracFevrier.d}}{${frac1.d * fracFevrier.d}}$ et $${fracFevrier.texFraction} = \\dfrac{${fracFevrier.n * frac1.d}}{${fracFevrier.d * frac1.d}}$<br>
-        Total = $\\dfrac{${frac1.n * fracFevrier.d + fracFevrier.n * frac1.d}}{${frac1.d * fracFevrier.d}} = ${totalRembourse.texFractionSimplifiee}$<br><br>
         
-        **Calcul du remboursement de mars :**<br>
-        Reste à rembourser = $1 - ${totalRembourse.texFractionSimplifiee} = \\dfrac{${totalRembourse.d}}{${totalRembourse.d}} - \\dfrac{${totalRembourse.n}}{${totalRembourse.d}} = \\dfrac{${totalRembourse.d - totalRembourse.n}}{${totalRembourse.d}} = ${reponse.texFractionSimplifiee}$ du crédit.
+        Au total, en janvier et février, elle aura remboursé : $${frac1.texFraction} + ${fracFevrier.texFraction}=${frac1Equiv.texFraction} + ${fracFevrierEquiv.texFraction} = ${totalRembourse.texFractionSimplifiee}$ du crédit. <br>
+        
+       
+        Il lui restera à rembourser en mars : $1 - ${totalRembourse.texFractionSimplifiee} = ${miseEnEvidence(reponse.texFractionSimplifiee)}$ du crédit.
         `
 
     this.reponses = [
@@ -71,7 +73,6 @@ export default class Auto1C19b extends ExerciceQcmA {
       [2, 5, 1, 4], // 2/5 * (1 + 1/4) = 2/5 * 5/4 = 1/2 < 1 ✓
       [2, 5, 1, 6], // 2/5 * (1 + 1/6) = 2/5 * 7/6 = 7/15 < 1 ✓
       [3, 5, 1, 6], // 3/5 * (1 + 1/6) = 3/5 * 7/6 = 7/10 < 1 ✓
-      [1, 5, 1, 2], // 1/5 * (1 + 1/2) = 1/5 * 3/2 = 3/10 < 1 ✓
       [3, 5, 1, 8], // 3/5 * (1 + 1/8) = 3/5 * 9/8 = 27/40 < 1 ✓
       [4, 5, 1, 10], // 4/5 * (1 + 1/10) = 4/5 * 11/10 = 22/25 < 1 ✓
       [1, 3, 1, 4], // 1/3 * (1 + 1/4) = 1/3 * 5/4 = 5/12 < 1 ✓
@@ -106,7 +107,10 @@ export default class Auto1C19b extends ExerciceQcmA {
     const totalRembourse = frac1.sommeFraction(fracFevrier)
     const reponse = totalRembourse.entierMoinsFraction(1)
     const credit = randint(12, 25) * 100
-
+    // Mise au même dénominateur avec le ppcm
+    const denomCommun = ppcm(frac1.den, fracFevrier.den)
+    const frac1Equiv = new FractionEtendue(frac1.num * (denomCommun / frac1.den), denomCommun)
+    const fracFevrierEquiv = new FractionEtendue(fracFevrier.num * (denomCommun / fracFevrier.den), denomCommun)
     this.enonce = `Une personne doit rembourser un crédit de $${texNombre(credit, 0)}$ en trois mois.<br>
         En janvier, elle rembourse $${frac1.texFraction}$ du crédit et en février elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
         En mars elle doit rembourser :`
@@ -117,8 +121,7 @@ export default class Auto1C19b extends ExerciceQcmA {
         Elle rembourse donc $${frac2.texFraction} \\times ${frac1.texFraction} = ${fracFevrier.texFractionSimplifiee}$ du crédit total.<br>
         
         
-        Au total, en janvier et février, elle aura remboursé : $${frac1.texFraction} + ${fracFevrier.texFractionSimplifiee}
-        = ${totalRembourse.texFractionSimplifiee}$ du crédit. <br>
+        Au total, en janvier et février, elle aura remboursé :  $${frac1.texFraction} + ${fracFevrier.texFraction}=${frac1Equiv.texFraction} + ${fracFevrierEquiv.texFraction} = ${totalRembourse.texFractionSimplifiee}$ du crédit. <br>
         
        
         Il lui restera à rembourser en mars : $1 - ${totalRembourse.texFractionSimplifiee} = ${miseEnEvidence(reponse.texFractionSimplifiee)}$ du crédit.
