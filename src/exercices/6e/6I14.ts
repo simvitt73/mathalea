@@ -68,33 +68,22 @@ export default class PaternRepetitif extends Exercice {
           nbElements = randint(longueurSerie * 2 + 1, longueurSerie * 4 - 1, longueurSerie * 3)
           shapes = selectedShapes.slice(0, longueurSerie)
           break
-        case 3:{
+        case 3: {
           longueurSerie = randint(3, 6)
           const demiSerie = Math.ceil(longueurSerie / 2)
-          if (demiSerie % 2 === 0) {
-            shapes = selectedShapes.slice(0, demiSerie)
-            shapes.push(...shapes.slice(0, demiSerie).reverse())
-          } else {
-            shapes = selectedShapes.slice(0, demiSerie)
-            shapes.push(...shapes.slice(0, demiSerie - 1).reverse())
-          }
+          shapes = selectedShapes.slice(0, demiSerie)
+          shapes.push(...shapes.slice(0, longueurSerie - demiSerie).reverse())
           nbElements = randint(longueurSerie * 2, longueurSerie * 3)
+          break
         }
+        case 4: {
+          longueurSerie = randint(5, 8)
+          const demiSerie = Math.ceil(longueurSerie / 2)
+          shapes = selectedShapes.slice(0, demiSerie)
+          shapes.push(...shapes.slice(0, longueurSerie - demiSerie).reverse())
+          nbElements = randint(longueurSerie * 2, longueurSerie * 3)
           break
-        case 4:
-          {
-            longueurSerie = randint(5, 8)
-            const demiSerie = Math.ceil(longueurSerie / 2)
-            if (demiSerie % 2 === 0) {
-              shapes = selectedShapes.slice(0, demiSerie)
-              shapes.push(...shapes.slice(0, demiSerie).reverse())
-            } else {
-              shapes = selectedShapes.slice(0, demiSerie)
-              shapes.push(...shapes.slice(0, demiSerie - 1).reverse())
-            }
-            nbElements = randint(longueurSerie * 2, longueurSerie * 3)
-          }
-          break
+        }
         case 5:
         default:
           longueurSousSerie1 = randint(4, 5)
@@ -146,7 +135,7 @@ export default class PaternRepetitif extends Exercice {
           case 2:{
             listeQuestions.push(`\nQuelle est la longueur ${texteEnCouleurEtGras('minimale', 'black')} du motif répété ?<br>${ajouteQuestionMathlive(
             {
-exercice: this,
+              exercice: this,
               question: i * typesQuestions.length + indexQuestion++,
               objetReponse: { reponse: { value: longueurSerie } },
               typeInteractivite: 'mathlive',
@@ -179,7 +168,7 @@ exercice: this,
           case 4:
             listeQuestions.push(`\nQuelle sera la forme numéro $42$ de la série (donner juste le nom sans article) ?<br>${ajouteQuestionMathlive(
             {
-exercice: this,
+              exercice: this,
               question: indexInteractif++,
               objetReponse: { reponse: { value: listeShapes2DInfos[shapes[42 % longueurSerie]].nomSingulier } },
               typeInteractivite: 'texte'

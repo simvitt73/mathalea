@@ -558,8 +558,11 @@ ou
       if (ws) {
         ws.dispose() // Dispose the existing workspace if it exists
       }
+
+      const mediaPath = `${import.meta.env.BASE_URL}blockly/media/`
+
       workspace = Blockly.inject(`blocklyDiv${id}`, {
-        media: './node_modules/blockly/media/',
+        media: mediaPath,
         toolbox: toolboxElement,
         sounds: false,
         zoom: {
