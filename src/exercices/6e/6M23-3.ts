@@ -5,6 +5,7 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Connaître les multiples égalités d\'une unité de volume'
 export const interactifReady = true
@@ -48,7 +49,7 @@ export default class EgalitessUnitesVolumes extends Exercice {
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup2
     }).map(Number)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 
@@ -84,10 +85,10 @@ export default class EgalitessUnitesVolumes extends Exercice {
       let texte = `$1$ ${unite}$^2$ =  1 ${unite} $\\times$ `
       let texteCorr = texte
 
-      const choix = choice([true, false])
+      let choix = choice([true, false])
       if (choix) {
         texte += this.interactif
-          ? choixDeroulant(this, 6 * i, choixListeDeroulantePourCoefficient)
+          ? choixDeroulant(this, 4 * i, choixListeDeroulantePourCoefficient)
           : '$\\ldots\\ldots\\ldots$'
         texte += ` ${unite} `
         this.listeReponses[i].push('1')
@@ -95,54 +96,84 @@ export default class EgalitessUnitesVolumes extends Exercice {
       } else {
         texte += ' $1$ '
         texte += this.interactif
-          ? choixDeroulant(this, 6 * i, choixListeDeroulantePourUnite)
+          ? choixDeroulant(this, 4 * i, choixListeDeroulantePourUnite)
           : '$\\ldots\\ldots\\ldots$'
         this.listeReponses[i].push(unite)
         texteCorr += `$1$ ${texteEnCouleurEtGras(unite)} `
       }
       texte += ' = '
+      texteCorr += ' = '
 
-      choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
-      texte += this.interactif
-        ? choixDeroulant(this, 6 * i + 1, choixListeDeroulantePourCoefficient)
-        : '$\\ldots\\ldots\\ldots$'
+      choix = choice([true, false])
+      if (choix) {
+        choix = choice([true, false])
+        if (choix) {
+          texte += this.interactif
+            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourCoefficient)
+            : '$\\ldots\\ldots\\ldots$'
+          texte += ` ${sousUnite} `
+          this.listeReponses[i].push('10')
+          texteCorr += `${texteEnCouleurEtGras('10')} ${sousUnite}`
+        } else {
+          texte += ' 10 '
+          texte += this.interactif
+            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourUnite)
+            : '$\\ldots\\ldots\\ldots$'
+          this.listeReponses[i].push(sousUnite)
+          texteCorr += `10 ${texteEnCouleurEtGras(sousUnite)} `
+        }
+        texte += `$\\times$ 10 ${sousUnite} `
+        texteCorr += `$\\times$ 10 ${sousUnite} `
+      } else {
+        texte += `10 ${sousUnite} $\\times$  `
+        texteCorr += `10 ${sousUnite} $\\times$  `
+        choix = choice([true, false])
+        if (choix) {
+          texte += this.interactif
+            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourCoefficient)
+            : '$\\ldots\\ldots\\ldots$'
+          texte += ` ${sousUnite} `
+          this.listeReponses[i].push('10')
+          texteCorr += `${texteEnCouleurEtGras('10')} ${sousUnite}`
+        } else {
+          texte += ' 10 '
+          texte += this.interactif
+            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourUnite)
+            : '$\\ldots\\ldots\\ldots$'
+          this.listeReponses[i].push(sousUnite)
+          texteCorr += `10 ${texteEnCouleurEtGras(sousUnite)} `
+        }
+      }
+      texte += ' = '
+      texteCorr += ' = '
+
+      choix = choice([true, false])
       this.listeReponses[i].push('10')
-
-      texte += ` ${sousUnite} $\\times$ `
-
-      choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
-      texte += this.interactif
-        ? choixDeroulant(this, 6 * i + 2, choixListeDeroulantePourCoefficient)
-        : '$\\ldots\\ldots\\ldots$'
-      this.listeReponses[i].push('10')
-
-      texte += ` ${sousUnite} = `
-
-      choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
-      texte += this.interactif
-        ? choixDeroulant(this, 6 * i + 3, choixListeDeroulantePourCoefficient)
-        : '$\\ldots\\ldots\\ldots$'
-      this.listeReponses[i].push('10')
-
-      texte += ' $\\times$ '
-
-      choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
-      texte += this.interactif
-        ? choixDeroulant(this, 6 * i + 4, choixListeDeroulantePourCoefficient)
-        : '$\\ldots\\ldots\\ldots$'
-      this.listeReponses[i].push('10')
+      if (choix) {
+        texte += this.interactif
+          ? choixDeroulant(this, 4 * i + 2, choixListeDeroulantePourCoefficient)
+          : '$\\ldots\\ldots\\ldots$'
+        texte += '$\\times$ 10 '
+        texteCorr += `${texteEnCouleurEtGras('10')} $\\times$ 10`
+      } else {
+        texte += ' 10 $\\times$ '
+        texte += this.interactif
+          ? choixDeroulant(this, 4 * i + 2, choixListeDeroulantePourUnite)
+          : '$\\ldots\\ldots\\ldots$'
+        texteCorr += `10 $\\times$ ${texteEnCouleurEtGras('10')}`
+      }
 
       texte += ` ${sousUnite}$^2$ = `
+      texteCorr += ` ${sousUnite}$^2$ = `
 
       choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
       texte += this.interactif
-        ? choixDeroulant(this, 6 * i + 5, choixListeDeroulantePourCoefficient)
+        ? choixDeroulant(this, 4 * i + 3, choixListeDeroulantePourCoefficient)
         : '$\\ldots\\ldots\\ldots$'
       this.listeReponses[i].push('100')
 
       texte += ` ${sousUnite}$^2$`
-
-      texteCorr += ` = ${texteEnCouleurEtGras('10')} ${sousUnite} $\\times$ ${texteEnCouleurEtGras('10')} ${sousUnite} = ${texteEnCouleurEtGras('10')} $\\times$ ${texteEnCouleurEtGras('10')} ${sousUnite}$^2$ = ${texteEnCouleurEtGras('100')} ${sousUnite}$^2$`
+      texteCorr += `${texteEnCouleurEtGras('100')} ${sousUnite}$^2$`
 
       if (this.questionJamaisPosee(i, unite)) {
         texte += ajouteFeedback(this, i)
@@ -152,33 +183,31 @@ export default class EgalitessUnitesVolumes extends Exercice {
       }
       cpt++
     }
-    this.nbQuestions = this.listeQuestions.length
-    this.autoCorrection.length = this.listeQuestions.length
+
     listeQuestionsToContenu(this)
   }
 
   correctionInteractive = (i: number) => {
     const select = []
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${6 * i}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${6 * i + 1}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${6 * i + 2}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${6 * i + 3}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${6 * i + 4}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${6 * i + 5}`) as HTMLSelectElement)
+    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i}`) as HTMLSelectElement)
+    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i + 1}`) as HTMLSelectElement)
+    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i + 2}`) as HTMLSelectElement)
+    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i + 3}`) as HTMLSelectElement)
 
     let isOk = true
-    for (let j = 0; j < 6; j++) {
+    for (let j = 0; j < 4; j++) {
       isOk &&= select[j].value === this.listeReponses[i][j]
     }
 
-    const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${6 * i + 5}`)
+    // const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${4 * i + 3}`)
+    const spanReponseLigne = document.querySelector(`li#exercice${this.numeroExercice}Q${i}`)
 
-    if (spanReponseLigne == null) window.notify(`Pas trouvé le spanReponseLigne dans 5M21 pour i=${i}`, {})
+    if (spanReponseLigne == null) window.notify(`Pas trouvé le spanReponseLigne li#exercice${this.numeroExercice}Q${i}`, {})
     if (spanReponseLigne) {
       if (isOk) {
-        spanReponseLigne.innerHTML = '😎'
+        spanReponseLigne.innerHTML += sp(2) + '😎'
       } else {
-        spanReponseLigne.innerHTML = '☹️'
+        spanReponseLigne.innerHTML += sp(2) + '☹️'
       }
     }
 
