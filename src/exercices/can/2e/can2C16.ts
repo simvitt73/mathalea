@@ -185,7 +185,7 @@ export default class ProgrammeCalcul2 extends ExerciceSimple {
 
         this.distracteurs = [
     `$${new FractionEtendue(1, a + b).oppose().texFractionSimplifiee}$`,
-    `$${a + b}$`,
+    `$${-a - b}$`,
     `$${new FractionEtendue(a + b, a * b).texFractionSimplifiee}$` //
         ]
         break

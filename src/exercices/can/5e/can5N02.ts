@@ -48,7 +48,7 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
           \\end{aligned}$`
 
         this.distracteurs = [
-                  `$A=${texNombre(a + b * 0.01, 4)}$`,
+                  `$A=${texNombre(a * 0.1 + b * 0.001, 5)}$`,
                   `$A=${texNombre(a * 0.01 + b * 0.01, 4)}$`,
                   `$A=${texNombre((a + b) * 0.001, 4)}$`
         ]
@@ -72,7 +72,7 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
     \\end{aligned}$`
 
         this.distracteurs = [
-    `$A=${texNombre(b + c * 0.001, 4)}$`,
+    `$A=${texNombre(b * 0.01 + c * 0.0001, 6)}$`,
     `$A=${texNombre(b * 0.001 + c * 0.001, 4)}$`,
     `$A=${texNombre((b + c) * 0.0001, 4)}$`
         ]
