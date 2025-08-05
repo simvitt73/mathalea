@@ -308,7 +308,7 @@ export default class Auto1AF5a extends ExerciceQcmA {
     this.enonce += 'Le tableau de signes de la fonction $f$ définies par $f(x)=g(x)\\times h(x)$ sur $\\mathbb{R}$ est  : '
 
     this.reponses = [
-    `BR${tableauSignesFonction(fProduit,
+    `${tableauSignesFonction(fProduit,
       -10,
       10,
       {
@@ -319,7 +319,7 @@ export default class Auto1AF5a extends ExerciceQcmA {
           { antVal: 10, antTex: '+\\infty' }
         ]
       })}`,
-     `Dist1${tableauSignesFonction(fDist1,
+     `${tableauSignesFonction(fDist1,
       -10,
       10,
       {
@@ -331,7 +331,7 @@ export default class Auto1AF5a extends ExerciceQcmA {
         ]
       })}`,
 
-   `Dist2${tableauSignesFonction(fDist2,
+   `${tableauSignesFonction(fDist2,
       -10,
       10,
       {
@@ -342,7 +342,7 @@ export default class Auto1AF5a extends ExerciceQcmA {
           { antVal: 10, antTex: '+\\infty' }
         ]
       })}`,
-   `Dist3${tableauSignesFonction(fDist3,
+   `${tableauSignesFonction(fDist3,
       -10,
       10,
       {
