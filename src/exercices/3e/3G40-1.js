@@ -190,6 +190,8 @@ function choisirNVillesAssezLointaines (n) {
   return villes
 }
 export default class ReperageSurLaTerre extends Exercice {
+  destroyers = []
+
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['3D dynamique', true]
@@ -197,7 +199,17 @@ export default class ReperageSurLaTerre extends Exercice {
     this.nbQuestions = 4
   }
 
+  destroy () {
+    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+  }
+
   nouvelleVersion () {
+    // MGu quand l'exercice est modifié, on détruit les anciens listeners
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+
     const correctionTexte = (choix, ville) => `   En effet, la ${choix === 'latitude' ? 'latitude' : 'longitude'} est la ${choix === 'latitude' ? 'première' : 'deuxième'} coordonnée GPS, soit $${choix === 'latitude'
         ? `${texNombre(ville.latitude, 3)}\\approx ${texNombre(ville.latitude, 0)}`
         : `${texNombre(ville.longitude, 3)}\\approx ${texNombre(ville.longitude, 0)}`}$.<br>
@@ -211,12 +223,6 @@ export default class ReperageSurLaTerre extends Exercice {
 
     const villes = choisirNVillesAssezLointaines(this.nbQuestions)
     if (this.sup && context.isHtml) {
-      // nettoyage de la scène précédente
-      const previousScene = document.querySelector('#emplacementPourSceneViewerscene-Ex0Q0')
-      if (previousScene) {
-        previousScene.innerHTML = ''
-      }
-
       const sceneBuilder = new SceneViewer({ width: 400, height: 400, id: `Ex${this.numeroExercice}Q0`, withEarth: true, withSky: true, rigPosition: [0, 3, 0], zoomLimits: { min: 8, max: 12 }, cameraDistance: 10, fov: 60, rigRotation: [0, 0, 0] }) // Même si il y a plusieurs question, il n'y a qu'une seule scène
       // Création de la scène 3D
       sceneBuilder.addCustomWireSphere({
@@ -333,7 +339,7 @@ export default class ReperageSurLaTerre extends Exercice {
         this.listeQuestions.push(question)
         this.listeCorrections.push(correction)
       }
-      document.addEventListener('exercicesAffiches', () => {
+      function setup () {
         const parent = document.getElementById(`emplacementPourSceneViewer${sceneBuilder.id}`)
         if (parent !== null) {
           const aScene = parent.querySelector('a-scene')
@@ -341,7 +347,12 @@ export default class ReperageSurLaTerre extends Exercice {
             sceneBuilder.showSceneAt(parent)
           }
         }
-      }, { once: true })
+      }
+      function removeListener () {
+        document.removeEventListener('exercicesAffiches', setup)
+      }
+      document.addEventListener('exercicesAffiches', setup)
+      this.destroyers.push(removeListener)
     } else {
       this.consigne = 'Cet exercice est interactif et nécessite un affichage HTML. (version modifiée pour la version pdf)'
       for (let i = 0; i < this.nbQuestions; i++) {

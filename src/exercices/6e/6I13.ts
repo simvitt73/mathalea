@@ -38,6 +38,8 @@ export const refs = {
 }
 
 export default class PaternNum0 extends Exercice {
+  destroyers: (() => void)[] = []
+
   constructor () {
     super()
     this.nbQuestions = 3
@@ -52,7 +54,16 @@ export default class PaternNum0 extends Exercice {
     this.sup5 = 1
   }
 
+  destroy () {
+    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+  }
+
   nouvelleVersion (): void {
+    // MGu quand l'exercice est modifié, on détruit les anciens listeners
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
     if (this.sup5 > listePatternAffineOuLineaire.length) {
       this.sup5 = listePatternAffineOuLineaire.length
     }
@@ -97,7 +108,8 @@ export default class PaternNum0 extends Exercice {
 
         const angle = Math.PI / 6
         if (context.isHtml) {
-          updateCubeIso({ pattern, i, j: nbFigures, angle, inCorrectionMode: true })
+          const listeners = updateCubeIso({ pattern, i, j: nbFigures, angle, inCorrectionMode: true })
+          if (listeners) this.destroyers.push(listeners)
           pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${nbFigures}"></use>`
           // Ajouter les SVG générés par svg() de chaque objet
           const cells = (pattern as VisualPattern3D).update3DCells(nbFigures)
@@ -163,7 +175,8 @@ export default class PaternNum0 extends Exercice {
         let ymax = -Infinity
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
-            updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
+            const listeners = updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
+            if (listeners) this.destroyers.push(listeners)
             if (pattern.shape) pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
             const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
             // Ajouter les SVG générés par svg() de chaque objet
@@ -211,7 +224,7 @@ export default class PaternNum0 extends Exercice {
 
             listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} dans le motif $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
             {
-exercice: this,
+              exercice: this,
               question: indexInteractif++,
               objetReponse: { reponse: { value: nbTex } },
               typeInteractivite: 'mathlive'

@@ -205,6 +205,7 @@
     log('ondestroy' + exercise.id);
     // Détruit l'objet exercice pour libérer la mémoire
     exercise.reinit(); // MGu nécessaire pour supprimer les listeners
+    exercise.destroy();
     for (const prop of Object.keys(exercise)) {
       Reflect.deleteProperty(exercise, prop);
     }

@@ -261,7 +261,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                 { label: 'quotient', value: 'quotient' }
               ])
             ])
-            console.log(expNom)
             handleAnswers(this, i, { reponse: { value: expNom } }, { formatInteractif: 'listeDeroulante' })
           }
         }

@@ -562,7 +562,21 @@ ou
         media: './node_modules/blockly/media/',
         toolbox: toolboxElement,
         sounds: false,
+        zoom: {
+          controls: true,
+          wheel: true,
+          startScale: 0.8,
+          maxScale: 2.5,
+          minScale: 0.3,
+          scaleSpeed: 1.2,
+          pinch: false,
+        }
       })
+      // Après injection, on masque le bouton "reset"
+      const zoomControls = document.querySelector(`#blocklyDiv${id} .blocklyZoomReset`)
+      if (zoomControls) {
+        (zoomControls as HTMLElement).style.display = 'none'
+      }
       workspace.idkey = `blocklyDiv${id}` // Set the id for later retrieval
 
       // Charger le bloc de démarrage

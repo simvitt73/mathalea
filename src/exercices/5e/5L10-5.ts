@@ -36,6 +36,8 @@ export const refs = {
 }
 
 export default class PaternNum1 extends Exercice {
+  destroyers: (() => void)[] = []
+
   constructor () {
     super()
     this.nbQuestions = 3
@@ -48,7 +50,16 @@ export default class PaternNum1 extends Exercice {
     this.sup5 = 1
   }
 
+  destroy () {
+    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+  }
+
   nouvelleVersion (): void {
+    // MGu quand l'exercice est modifié, on détruit les anciens listeners
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
     if (this.sup5 > listePatternsPreDef.length) {
       this.sup5 = listePatternsPreDef.length
     }
@@ -138,7 +149,8 @@ export default class PaternNum1 extends Exercice {
         let ymax = -Infinity
         if ('iterate3d' in pattern) {
           if (context.isHtml) {
-            updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
+            const listeners = updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
+            if (listeners) this.destroyers.push(listeners)
             if (pattern.shape == null) {
               pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 0, 0, { fillStyle: '#ffffff', strokeStyle: '#000000', lineWidth: 1, opacite: 1, scale: 1 })
             }
