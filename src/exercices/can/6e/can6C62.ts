@@ -89,7 +89,7 @@ export default class ComplementADixCentMille extends ExerciceSimple {
 
           // Aller à 1000
           const etapeVers1000 = 1000 - valeurCourante
-          diagramme += ` \\xrightarrow{+${etapeVers1000}} 1000$.`
+          diagramme += ` \\xrightarrow{+${etapeVers1000}} ${texNombre(1000)}$.`
 
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br><br>
