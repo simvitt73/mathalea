@@ -48,7 +48,7 @@ export default class EgalitessUnitesVolumes extends Exercice {
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup2
+      saisie: this.sup
     }).map(Number)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 
@@ -65,10 +65,10 @@ export default class EgalitessUnitesVolumes extends Exercice {
         { label: '1', value: '1' }
       ],
       [
-        { label: '1 mm', value: 'mm' },
-        { label: '1 cm', value: 'cm' },
-        { label: '1 dm', value: 'dm' },
-        { label: '1 m', value: 'm' }
+        { label: 'mm', value: 'mm' },
+        { label: 'cm', value: 'cm' },
+        { label: 'dm', value: 'dm' },
+        { label: 'm', value: 'm' }
       ]
     ]
     let choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
@@ -152,7 +152,8 @@ export default class EgalitessUnitesVolumes extends Exercice {
       }
       cpt++
     }
-
+    this.nbQuestions = this.listeQuestions.length
+    this.autoCorrection.length = this.listeQuestions.length
     listeQuestionsToContenu(this)
   }
 
