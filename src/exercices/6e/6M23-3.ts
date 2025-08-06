@@ -185,6 +185,10 @@ export default class EgalitessUnitesVolumes extends Exercice {
     }
 
     listeQuestionsToContenu(this)
+    // MGU : parfois pas assez de questions par rapport à la demande donc on corrige
+    this.nbQuestions = this.listeQuestions.length
+    // Même si ca sert à rien ici car custom
+    this.autoCorrection.length = this.nbQuestions * 4
   }
 
   correctionInteractive = (i: number) => {
