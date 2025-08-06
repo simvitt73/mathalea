@@ -14,6 +14,7 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Problème de la chèvre dans son enclos'
+export const interactifReady = false
 
 export const dateDePublication = '03/08/2025'
 
@@ -25,15 +26,16 @@ export const dateDePublication = '03/08/2025'
 export const uuid = '29c3c'
 
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['6G54'],
   'fr-ch': []
 }
 export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
   constructor () {
     super()
+    this.comment = 'Cet exercice n\'est pas interactif, il s\'agit d\'un problème de géométrie plane classique à faire sur papier.'
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Types de question', 'Nombres séparés par des tirets\n1 : Cabane au coin de l\'enclos\n2 : Cabane sur un côté de l\'enclos\n3 : Cabane au milieu de l\'enclos\n4 : Mélange']
-    this.sup = '3'
+    this.besoinFormulaireTexte = ['Types de question', 'Nombres séparés par des tirets\n1 : Cabane au coin de l\'enclos\n2 : Cabane sur un côté de l\'enclos\n3 : Cabane sans contact avec l\'enclos\n4 : Mélange']
+    this.sup = '1'
   }
 
   nouvelleVersion () {
@@ -276,7 +278,6 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             const isTouchCDByLeft = cabD.y + longueurRestanteGauche > largeurEnclos
             const isTouchCDByRight = cabA.y + longueurRestanteDroite > largeurEnclos
             const isTouchRightLeft = longueurCordelette > largeurCabane + longueurCabane
-            if (isTouchCDByRight || isTouchCDByLeft) alert('On touche en haut')
             // On commence par le dessous de la cabane
             let M: Point
             let N: Point
