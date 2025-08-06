@@ -146,8 +146,7 @@ export class VisualPattern3D {
         position: [position[0], position[2], -position[1]], // on inverse Y et Z pour correspondre à la convention de Three.js
         componentName,
         componentProps: {
-          size: 1,
-          opacity: 1
+          size: 1
         },
       })
     }
