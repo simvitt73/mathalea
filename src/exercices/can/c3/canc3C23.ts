@@ -6,7 +6,7 @@ import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-export const titre = 'Déterminer le complément à 10/100/1000'
+export const titre = 'Déterminer le complément à 10, 100, 1000'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
