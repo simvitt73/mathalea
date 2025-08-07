@@ -86,7 +86,7 @@ export default class PoucentageProportion extends ExerciceSimple {
         this.question += this.versionQcm ? `Le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix est :` : ` Quel est le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix ?`
 
         this.optionsChampTexte = { texteAvant: '<br>', texteApres: '$\\%$' }
-        this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
+        this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est de $${b}$ euros sur un total de $${a}$ euros.<br>
           Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombre(b / a)}= ${miseEnEvidence(texNombre((b / a) * 100))}\\,\\%$.
           `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
