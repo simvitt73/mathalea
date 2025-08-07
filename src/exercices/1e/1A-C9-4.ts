@@ -14,10 +14,10 @@ export const interactifType = 'mathLive'
 export const uuid = 'b49c5'
 
 export const refs = {
-  'fr-fr': ['1A-C17-2'],
+  'fr-fr': ['1A-C9-4'],
   'fr-ch': []
 }
-export default class Auto1AC17b extends CalculCompose {
+export default class Auto1AC9d extends CalculCompose {
   constructor () {
     super()
     this.versionQcm = true

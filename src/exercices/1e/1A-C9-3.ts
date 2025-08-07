@@ -14,10 +14,10 @@ export const interactifType = 'mathLive'
 export const uuid = 'aa40c'
 
 export const refs = {
-  'fr-fr': ['1A-C17'],
+  'fr-fr': ['1A-C9-3'],
   'fr-ch': []
 }
-export default class Auto1AC17 extends DeveloppementNiveau1 {
+export default class Auto1AC9c extends DeveloppementNiveau1 {
   constructor () {
     super()
     this.versionQcm = true
