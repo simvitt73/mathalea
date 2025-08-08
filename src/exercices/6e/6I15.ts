@@ -32,6 +32,8 @@ export const refs = {
   'fr-ch': []
 }
 export default class ExerciceLabyrintheChemin extends Exercice {
+  destroyers: (() => void)[] = []
+
   constructor () {
     super()
     this.nbQuestions = 2
@@ -41,7 +43,16 @@ export default class ExerciceLabyrintheChemin extends Exercice {
     this.sup2 = 4
   }
 
-  nouvelleVersion () {
+  destroy () {
+    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+  }
+
+  nouvelleVersion (): void {
+    // MGu quand l'exercice est modifié, on détruit les anciens listeners
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
     for (let q = 0, cpt = 0, texte, texteCorr : string; q < this.nbQuestions && cpt < 50; cpt++) {
       const nbL = this.sup === 1 ? randint(2, 5) : Math.min(Math.max(2, this.sup), 5)
       const nbC = this.sup === 1 ? randint(3, 5) : Math.min(Math.max(3, this.sup2), 5)
@@ -324,6 +335,26 @@ ou
     const path = parcours.path
     const villeParCoord = parcours.villeParCoord
 
+    function resizeBlockly (event: Event) {
+      if (event instanceof CustomEvent && event.detail.uuid !== uuid) {
+        return
+      }
+      const workspace = retrieveWorkspace(`blocklyDiv${id}`)
+      if (workspace) {
+        const blocklyDiv = document.getElementById(`blocklyDiv${id}`)
+        if (blocklyDiv) {
+          if (blocklyDiv.offsetParent !== null) {
+            Blockly.svgResize(workspace as Blockly.WorkspaceSvg)
+          }
+        }
+      }
+    }
+
+    function destroyerListener () {
+      document.removeEventListener('questionDisplay', resizeBlockly)
+    }
+    this.destroyers.push(destroyerListener)
+
     function drawArrow (svg: SVGSVGElement, x1 :number, y1: number, x2: number, y2: number) {
       const rx = 40; const ry = 20
       const dx = x2 - x1
@@ -586,6 +617,8 @@ ou
       Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(startXml), workspace)
       // window.Blockly = Blockly // Expose Blockly globally for debugging
       Blockly.ContextMenuRegistry.registry.reset() // supprime le menu contextuel
+
+      document.addEventListener('questionDisplay', resizeBlockly)
     }
 
     function ajouterBlocALaSuite (type : string) {
