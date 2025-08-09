@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites'
-import { Point, point, TracePoint, tracePoint } from '../../lib/2d/points'
+import { point, TracePoint, tracePoint } from '../../lib/2d/points'
 import { papierPointe } from '../../lib/2d/reperes'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { symetrieAxiale } from '../../lib/2d/transformations'
@@ -187,7 +187,8 @@ export default class CompleterParSymetrie6e extends Exercice {
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
-      texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
+      texteCorr = `Il faut ajouter au minimum ${pointsEnPlusCorr.length} points (en rouge sur la figure) afin que la figure soit symétrique par rapport à l'axe.
+      ${mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])}`
 
       if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
         if (context.isAmc) {
