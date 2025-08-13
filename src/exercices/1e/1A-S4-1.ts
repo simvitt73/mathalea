@@ -103,10 +103,10 @@ export default class MedianeQCM extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.appliquerLesValeurs(4, [3, 8, 5, 2], 2, 4, [2, 3, 5, 8]) // valeurs originales
     this.reponses = [
-      'L\'évolution est de - 25 %,',
-      'L\'évolution est de - 50 %,',
-      'L\'évolution est de + 25 %,',
-      'L\'évolution est de + 75 %.']
+      '4',
+      '6,5',
+      '5',
+      '8']
   }
 
   versionAleatoire: () => void = () => {
