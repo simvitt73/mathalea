@@ -16,13 +16,9 @@ export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'Soit $n$ un entier non nul. A quelle expression est égale $\\dfrac{1}{\\left(-1\\right)^{n}}$ ?'
     this.correction = 'Soit $n\\in \\mathbb{N}$.<br>$\\begin{aligned} \\left(-1\\right)^{n+2}&=\\left(-1\\right)^{2}\\times \\left(-1\\right)^{n} \\\\    &=1\\times \\left(-1\\right)^{n} \\\\    &= \\left(-1\\right)^{n}    \\end{aligned}$<br>'
-     this.correction += ' <br>Procédons par disjonction des cas :<br>'
-    this.correction += '$~~\\bullet~~$Si $n$ est pair, $\\dfrac{1}{\\left(-1\\right)^{n}}=1$ et $\\left(-1\\right)^{n}=1$<br>'
-    this.correction += 'donc $\\dfrac{1}{\\left(-1\\right)^{n}}=\\left(-1\\right)^{n}$.<br>'
-    this.correction += '$~~\\bullet~~$ Si $n$ est impair, $\\dfrac{1}{\\left(-1\\right)^{n}}=-1$ et $\\left(-1\\right)^{n}=-1$<br>'
-    this.correction += 'donc $\\dfrac{1}{\\left(-1\\right)^{n}}=\\left(-1\\right)^{n}$.<br>'
-     this.correction += 'en conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+2}=\\dfrac{1}{\\left(-1\\right)^{n}}=\\left(-1\\right)^{n}$.'
-     this.reponses = [
+     this.correction += '$\\begin{aligned}\\text{or, }\\dfrac{1}{\\left(-1\\right)^{n}}&=\\dfrac{1^n}{\\left(-1\\right)^{n}}\\\\&=\\left(\\dfrac{1}{-1}\\right)^{n}\\\\&=\\left(-1\\right)^{n}\\\\\\end{aligned}.$<br>'
+    this.correction += 'En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+2}=\\dfrac{1}{\\left(-1\\right)^{n}}$.'
+    this.reponses = [
       '$\\left(-1\\right)^{n} $',
       '$\\left(-1\\right)^{n+1}$ ',
       '$-\\left(-1\\right)^{n} $',
@@ -38,13 +34,11 @@ export default class Puissances extends ExerciceQcmA {
       this.correction = `Soit $n\\in \\mathbb{N}.$<br> $\\begin{aligned}\\left(-1\\right)^{n+${k}}&=\\left(-1\\right)^{n}\\times \\left(-1\\right)^${k}\\\\
       &=\\left(-1\\right)^{n}
     \\end{aligned}$<br>
-    donc $\\dfrac{1}{\\left(-1\\right)^{n+${k}}}=\\dfrac{1}{\\left(-1\\right)^{n}}$.
-    <br>Procédons par disjonction des cas :<br>
-    $~~\\bullet~~$Si $n$ est pair, $\\dfrac{1}{\\left(-1\\right)^{n}}=1$ et $\\left(-1\\right)^{n}=1$<br>
-    donc $\\dfrac{1}{\\left(-1\\right)^{n}}=\\left(-1\\right)^{n}$.<br>
-    $~~\\bullet~~$ Si $n$ est impair, $\\dfrac{1}{\\left(-1\\right)^{n}}=-1$ et $\\left(-1\\right)^{n}=-1$<br>
-    donc $\\dfrac{1}{\\left(-1\\right)^{n}}=\\left(-1\\right)^{n}$.<br>
-    en conséquence, pour tout entier $n$, on a $\\dfrac{1}{\\left(-1\\right)^{n}}=\\left(-1\\right)^{n}$.
+   $\\begin{aligned}\\text{or, }\\dfrac{1}{\\left(-1\\right)^{n}}&=\\dfrac{1^n}{\\left(-1\\right)^{n}}\\\\
+      &=\\left(\\dfrac{1}{-1}\\right)^{n}\\\\
+      &=\\left(-1\\right)^{n}.\\\\
+    \\end{aligned}$<br>
+    En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+${k}}=\\dfrac{1}{\\left(-1\\right)^{n}}$.
     `
       this.reponses = [
         '$\\left(-1\\right)^{n} $',
@@ -56,12 +50,8 @@ export default class Puissances extends ExerciceQcmA {
       this.correction = `Soit $n\\in \\mathbb{N}.$<br>$\\begin{aligned}\\left(-1\\right)^{n+${k}}&=\\left(-1\\right)^${k}\\times \\left(-1\\right)^{n} \\\\
       &=-\\left(-1\\right)^{n}
     \\end{aligned}$<br>
-     <br>Procédons par disjonction des cas :<br>
-    $~~\\bullet~~$Si $n$ est pair, $\\dfrac{1}{\\left(-1\\right)^{n}}=1$ et $\\left(-1\\right)^{n}=1$<br>
-    donc $-\\dfrac{1}{\\left(-1\\right)^{n}}=-\\left(-1\\right)^{n}$.<br>
-    $~~\\bullet~~$ Si $n$ est impair, $\\dfrac{1}{\\left(-1\\right)^{n}}=-1$ et $\\left(-1\\right)^{n}=-1$<br>
-    donc $-\\dfrac{1}{\\left(-1\\right)^{n}}=-\\left(-1\\right)^{n}$.<br>
-     en conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+${k}}=-\\dfrac{1}{\\left(-1\\right)^{n}}=-\\left(-1\\right)^{n}$.`
+     
+     En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+${k}}=-\\dfrac{1}{\\left(-1\\right)^{n}}=-\\left(-1\\right)^{n}$.`
       this.reponses = [
         '$-\\left(-1\\right)^{n}$ ',
         '$\\left(-1\\right)^{n} $',
