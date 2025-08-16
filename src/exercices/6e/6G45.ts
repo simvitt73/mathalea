@@ -8,7 +8,9 @@ import { context } from '../../modules/context'
 import { setCliqueFigure, type MathaleaSVG } from '../../lib/interactif/gestionInteractif'
 import { texteParPosition } from '../../lib/2d/textes'
 import type { objetFace } from '../../lib/3d/utilsPatrons'
-import { affichePatron3D, ajouteListeners, cubesObj, fauxCubesObj } from '../../lib/3d/utilsPatrons'
+import { cubesObj, fauxCubesObj } from '../../lib/3d/utilsPatrons'
+import { generateContent3D, onCorrectionsAffichees } from '../../lib/3d/3d_dynamique/patrons3d'
+import { ajouteCanvas3d, type Elements3DDescription, type GroupDescription } from '../../lib/3d/3d_dynamique/Canvas3DElement'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -52,6 +54,8 @@ function retrouveMatrices (liste: objetFace[][][]): { indexVraiPatron: number, i
 */
 export default class choixPatron extends Exercice {
   listeMatrices: objetFace[][][][]
+  listeners: (() => void)[]
+
   constructor () {
     super()
     this.nbQuestions = 1
@@ -61,6 +65,7 @@ export default class choixPatron extends Exercice {
     this.besoinFormulaire2CaseACocher = ['3d dynamique', true]
     this.sup2 = true
     this.listeMatrices = []
+    this.listeners = []
   }
 
   nouvelleVersion () {
@@ -160,18 +165,15 @@ export default class choixPatron extends Exercice {
             texteCorr += `- Le dessin ${indexPas6Faces + 1} contient ${taillePatronAuPif} faces au lieu de 6 faces.<br><br>`
             texteCorr += `- Le dessin ${indexFauxPatrons[0].index + 1} poséde des faces qui vont se superposer :<br>`
             const fig1 = patronsAffiches[indexFauxPatrons[0].index].dessineMatrice({ numeroterFaces: true, numeroDessin: indexFauxPatrons[0].index })
-            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig1)), fig1) + '<br>'
+            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `correction0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig1)), fig1) + '<br>'
             texteCorr += patronsAffiches[indexFauxPatrons[0].index].ecritFacesQuiSeSuperposent() + '<br><br>'
             texteCorr += `- Le dessin ${indexFauxPatrons[1].index + 1} poséde des faces qui vont se superposer :<br>`
             const fig2 = patronsAffiches[indexFauxPatrons[1].index].dessineMatrice({ numeroterFaces: true, numeroDessin: indexFauxPatrons[1].index })
-            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig2)), fig2) + '<br>'
+            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `correction1Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig2)), fig2) + '<br>'
             texteCorr += patronsAffiches[indexFauxPatrons[1].index].ecritFacesQuiSeSuperposent() + '<br><br>'
             texteCorr += `Le dessin ${indexVraiPatron + 1} posséde 6 faces qui ne vont pas se superposer en le pliant, c'est donc le dessin d'un patron.<br>`
             const fig3 = patronsAffiches[indexVraiPatron].dessineMatrice({ numeroterFaces: true, numeroDessin: indexVraiPatron })
-            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig3), fig3))
-            if (context.isHtml && this.sup2) {
-              texteCorr += `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${i}Correction" style="width: 400px; height: 400px; display: block;"></div>`
-            }
+            texteCorr += mathalea2d(Object.assign({ style: 'display: inline-block', scale: zoom, id: `correction2Ex${this.numeroExercice}Q${i}` }, fixeBordures(fig3)), fig3) + '<br><br>'
           }
         }
           break
@@ -186,17 +188,35 @@ export default class choixPatron extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
-        if (!this.interactif) {
-          const exo = this
-          const question = i
-          const index = retrouveMatrices(this.listeMatrices[i]).indexVraiPatron
-          document.addEventListener('correctionsAffichees', () => {
-            const id = `emplacementPourSceneViewerEx${exo.numeroExercice}Q${question}Correction`
-            const emplacementPourCorrection = document.getElementById(id)
-            if (emplacementPourCorrection) {
-              const { viewer, tree } = affichePatron3D(this.listeMatrices[question][index], `patron3dEx${exo.numeroExercice}Q${question}`)
-              ajouteListeners(exo.numeroExercice ?? 0, question, viewer, tree, true)
+        if (context.isHtml && this.sup2) {
+          // On insère directement le canvas-3d pour la correction
+          const indexVraiPatron = retrouveMatrices(this.listeMatrices[i]).indexVraiPatron
+          const content = generateContent3D(this.listeMatrices[i][indexVraiPatron], `patron3dEx${this.numeroExercice}Q${i}`)
+          const objects: Elements3DDescription[] = [
+            content as GroupDescription,
+            { type: 'ambientLight' as const, color: 0xffffff },
+            { type: 'directionalLight' as const, color: 0xffffff, position: [8, 8, 8] },
+            {
+              type: 'canvas3dButton',
+              id: `btnPlier-Ex${this.numeroExercice}Q${i}`,
+              text: 'Plier',
+              position: { left: '10px', bottom: '10px' },
+              onClick: `pliage-Ex${this.numeroExercice}Q${i}` // id = identifiant unique du canvas
+            },
+            {
+              type: 'canvas3dButton',
+              id: `btnDeplier-Ex${this.numeroExercice}Q${i}`,
+              text: 'Déplier',
+              position: { left: '90px', bottom: '10px' },
+              onClick: `depliage-Ex${this.numeroExercice}Q${i}`
             }
+          ]
+          const content3d = { objects, autoCenterZoomMargin: 1 }
+          texteCorr += ajouteCanvas3d({
+            id: `canvas3dEx${this.numeroExercice}Q${i}`,
+            content: content3d,
+            width: 300,
+            height: 300
           })
         }
         this.listeQuestions[i] = texte
@@ -206,6 +226,9 @@ export default class choixPatron extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
+    // Ce onCorrectionAffichees est dédié à la gestion du pliage/dépliage de patrons3d : il n'est pas à utiliser dans un autre contexte.
+    // On pourra éventuellement remplacer 'correctionsAffichees' par 'exercicesAffiches' si les patrons sont dans l'énoncé et pas dans la correction.
+    document.addEventListener('correctionsAffichees', onCorrectionsAffichees, { once: true }) // listener auto-détruit à la première utilisation
   }
 
   callback (exercice: Exercice, i: number): void {
@@ -220,9 +243,42 @@ export default class choixPatron extends Exercice {
         return regex.test(el.id)
       })
 
-      const indexClique = Array.from(figElements as MathaleaSVG[]).findIndex((el: MathaleaSVG) => Boolean(el.etat))
-      const { viewer, tree } = affichePatron3D(exercice.listeMatrices[i][indexClique], `patron3dEx${exercice.numeroExercice}Q${i}`)
-      ajouteListeners(exercice.numeroExercice ?? 0, i, viewer, tree)
+      let indexClique = Array.from(figElements as MathaleaSVG[]).findIndex((el: MathaleaSVG) => Boolean(el.etat))
+      if (indexClique === -1 && Array.isArray(exercice.autoCorrection[i].propositions)) {
+        indexClique = retrouveMatrices(exercice.listeMatrices[i]).indexVraiPatron
+      }
+      const content = generateContent3D(exercice.listeMatrices[i][indexClique], `patron3dEx${exercice.numeroExercice}Q${i}`)
+      const objects: Elements3DDescription[] = [
+        content as GroupDescription,
+        { type: 'ambientLight' as const, color: 0xffffff },
+        { type: 'directionalLight' as const, color: 0xffffff, position: [8, 8, 8] },
+        {
+          type: 'canvas3dButton',
+          id: `btnPlier-Ex${exercice.numeroExercice}Q${i}`,
+          text: 'Plier',
+          position: { left: '10px', bottom: '10px' },
+          onClick: `pliage-Ex${exercice.numeroExercice}Q${i}` // id = identifiant unique du canvas
+        },
+        {
+          type: 'canvas3dButton',
+          id: `btnDeplier-Ex${exercice.numeroExercice}Q${i}`,
+          text: 'Déplier',
+          position: { left: '90px', bottom: '10px' },
+          onClick: `depliage-Ex${exercice.numeroExercice}Q${i}`
+        }
+      ]
+      const content3d = { objects, autoCenterZoomMargin: 1.2 }
+
+      const nouveauCanvas = ajouteCanvas3d({
+        id: `canvas3dEx${exercice.numeroExercice}Q${i}`,
+        content: content3d, // généré avec la matrice du patron cliqué
+        width: 300,
+        height: 300
+      })
+      exercice.listeCorrections[i] = exercice.listeCorrections[i].replace(
+        /<canvas-3d[^>]*>.*?<\/canvas-3d>/s,
+        nouveauCanvas
+      )
     }
   }
 }

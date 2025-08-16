@@ -1,89 +1,89 @@
 <script lang="ts">
-  import Question from './Question.svelte';
-  import Pagination from './Pagination.svelte';
-  import NavigationButtons from './NavigationButtons.svelte';
-  import { canOptions } from '../../../../lib/stores/canStore';
-  import { afterUpdate, onMount } from 'svelte';
-  import { mathaleaRenderDiv } from '../../../../lib/mathalea';
-  import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte';
+  import Question from './Question.svelte'
+  import Pagination from './Pagination.svelte'
+  import NavigationButtons from './NavigationButtons.svelte'
+  import { canOptions } from '../../../../lib/stores/canStore'
+  import { afterUpdate, onMount } from 'svelte'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte'
 
-  let current: number = 0;
-  export let questions: string[];
-  export let consignes: string[];
-  export let corrections: string[];
-  export let consignesCorrections: string[];
-  export let answers: string[];
-  export let resultsByQuestion: boolean[];
-  export let time: string;
-  export let score: string;
-  const numberOfQuestions: number = questions.length;
-  const solutionDisplayed: boolean[] = new Array(numberOfQuestions).fill(false);
+  let current: number = 0
+  export let questions: string[]
+  export let consignes: string[]
+  export let corrections: string[]
+  export let consignesCorrections: string[]
+  export let answers: string[]
+  export let resultsByQuestion: boolean[]
+  export let time: string
+  export let score: string
+  const numberOfQuestions: number = questions.length
+  const solutionDisplayed: boolean[] = new Array(numberOfQuestions).fill(false)
 
-  let displayCorrection = true;
+  let displayCorrection = true
 
   onMount(() => {
     const questionContent = document.getElementById(
-      'can-solutions'
-    ) as HTMLDivElement;
+      'can-solutions',
+    ) as HTMLDivElement
     if (questionContent) {
-      mathaleaRenderDiv(questionContent);
+      mathaleaRenderDiv(questionContent)
     }
-  });
+  })
 
   afterUpdate(() => {
     const answersContents = document.querySelectorAll(
-      '[id^="answer-container"]'
-    );
+      '[id^="answer-container"]',
+    )
     for (let i = 0; i < answersContents.length; i++) {
-      const content = answersContents[i] as HTMLDivElement;
-      mathaleaRenderDiv(content);
+      const content = answersContents[i] as HTMLDivElement
+      mathaleaRenderDiv(content)
     }
     const exercicesAffiches = new window.Event('exercicesAffiches', {
       bubbles: true,
-    });
-    document.dispatchEvent(exercicesAffiches);
-  });
+    })
+    document.dispatchEvent(exercicesAffiches)
+  })
 
   function formatAnswer(question: string, answer: string) {
-    if (!answer) return 'aucune';
-    if (question.includes('checkbox')) return answer; // Pour les QCM
-    if (question.includes('<liste-deroulante')) return answer; // Pour les listeDeroulante
+    if (!answer) return 'aucune'
+    if (question.includes('checkbox')) return answer // Pour les QCM
+    if (question.includes('<liste-deroulante')) return answer // Pour les listeDeroulante
     if (question.includes('interactive-clock'))
-      return `$${answer.split('h')[0]}$ h $${answer.split('h')[1]}$`; // Pour les horloges interactives
+      return `$${answer.split('h')[0]}$ h $${answer.split('h')[1]}$` // Pour les horloges interactives
     if (question.includes('<input') && question.includes('champTexteEx'))
-      return answer; // Pour les champTexte
-    if (question.includes('apigeomEx')) return answer; // Pour le "Voir figure" des figures apigeom
-    if (question.includes('divDragAndDropEx')) return answer; // Pour les drag and drop
-    return '$' + cleanFillInTheBlanks(answer, false) + '$';
+      return answer // Pour les champTexte
+    if (question.includes('apigeomEx')) return answer // Pour le "Voir figure" des figures apigeom
+    if (question.includes('divDragAndDropEx')) return answer // Pour les drag and drop
+    return '$' + cleanFillInTheBlanks(answer, false) + '$'
   }
 
   function removeMathField(text: string, removeDollar: boolean = true) {
-    if (typeof text !== 'string') return '';
+    if (typeof text !== 'string') return ''
     if (text.includes('placeholder'))
-      return cleanFillInTheBlanks(text, removeDollar); // Pour les fillInTheBlanks
-    if (text.includes('interactive-clock')) return removeInteractiveClock(text); // Pour les horloges interactives
-    if (text.includes('<select')) return cleanSelect(text); // Pour les listeDeroulante
-    const regex = /<math-field[^>]*>[^]*?<\/math-field>/g;
-    return text.replace(regex, ' ... ');
+      return cleanFillInTheBlanks(text, removeDollar) // Pour les fillInTheBlanks
+    if (text.includes('interactive-clock')) return removeInteractiveClock(text) // Pour les horloges interactives
+    if (text.includes('<select')) return cleanSelect(text) // Pour les listeDeroulante
+    const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
+    return text.replace(regex, ' ... ')
   }
 
   function cleanSelect(text: string) {
-    const regex = /<select[^>]*>[^]*?<\/select>/g;
-    return text.replace(regex, '');
+    const regex = /<select[^>]*>[^]*?<\/select>/g
+    return text.replace(regex, '')
   }
 
   function cleanFillInTheBlanks(text: string, removeDollar: boolean = true) {
-    if (typeof text !== 'string') return '';
-    if (removeDollar) text = text.replace(/\$/g, '');
+    if (typeof text !== 'string') return ''
+    if (removeDollar) text = text.replace(/\$/g, '')
     return text
       .replace(/\\placeholder(\[[^\]]*\])+/g, '')
-      .replace(/\{\}/g, '{...}');
+      .replace(/\{\}/g, '{...}')
   }
 
   function removeInteractiveClock(text: string) {
-    if (typeof text !== 'string') return '';
-    const regex = /<interactive-clock[^>]*\/>/g;
-    return text.replace(regex, '');
+    if (typeof text !== 'string') return ''
+    const regex = /<interactive-clock[^>]*\/>/g
+    return text.replace(regex, '')
   }
 </script>
 
@@ -196,7 +196,7 @@
                 <button
                   type="button"
                   on:click={() => {
-                    solutionDisplayed[i] = !solutionDisplayed[i];
+                    solutionDisplayed[i] = !solutionDisplayed[i]
                   }}
                 >
                   <i

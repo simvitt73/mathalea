@@ -1,6 +1,6 @@
-import { ObjetMathalea2D, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { point } from '../2d/points'
-import { polygone } from '../2d/polygones'
+import { ObjetMathalea2D, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
+import { point } from '../../2d/points'
+import { polygone } from '../../2d/polygones'
 
 /**
  * @author Erwan Duplessis et Jean-Claude Lhote

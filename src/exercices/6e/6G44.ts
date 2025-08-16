@@ -2,25 +2,25 @@ import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   homothetie3d,
   translation3d
-} from '../../lib/3d/tranformations'
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import {
   prisme3d,
   pyramide3d,
   pyramideTronquee3d
-} from '../../lib/3d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   Point3d,
   point3d,
   polygone3d, vecteur3d
-} from '../../lib/3d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { SceneViewerThreeJs } from '../../lib/3d/SceneViewerThreeJs'
-import { createPrismGeometry, createPyramidGeometry, createTruncatedPyramidGeometry } from '../../lib/3d/solidesThreeJs'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { createPyramidWithWireframe, createTruncatedPyramidWithWireframe, createWireframeUnion, createPrismWithWireframe } from '../../lib/3d/3d_dynamique/solidesThreeJs'
+import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
 export const dateDePublication = '7/11/2021'
@@ -54,7 +54,6 @@ export default class NombreDeFacesEtDAretes extends Exercice {
   }
 
   nouvelleVersion () {
-    const sceneBuilders: SceneViewerThreeJs[] = []
     if (this.version === 3) {
       this.sup = 3
     }
@@ -80,6 +79,7 @@ export default class NombreDeFacesEtDAretes extends Exercice {
     }
     typeDeQuestion = shuffle(typeDeQuestion)
     for (let j = 0, choix; j < this.nbQuestions;) {
+      const objects = []
       choix = typeDeQuestion[j]
       context.anglePerspective = 20
       const objets = []
@@ -107,30 +107,18 @@ export default class NombreDeFacesEtDAretes extends Exercice {
       switch (choix) {
         case 1: // Prisme + 2 pyramides -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPrismGeometry(n, 3, -0.5, 0.5, false, false),
-              createPyramidGeometry(n, 3, 0.5, 2, false),
-              createPyramidGeometry(n, 3, -0.5, -2, false)
+              createPrismWithWireframe(n, 3, -0.5, 0.5, false, false),
+              createPyramidWithWireframe(n, 3, 0.5, 2, false),
+              createPyramidWithWireframe(n, 3, -0.5, -2, false)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
               corps.base2.c2d[i].isVisible = false
             }
             objets.push(...corps.c2d, ...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 3 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors le prisme et les deux pyramides possèdent aussi $${n}$ faces.<br>Ce solide est donc constitué de $3\\times ${n}$ faces, soit $${3 * n}$ faces.`
@@ -138,30 +126,18 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 2: // Prisme + 2 pyramides -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPrismGeometry(n, 3, -0.5, 0.5, false, false),
-              createPyramidGeometry(n, 3, 0.5, 2, false),
-              createPyramidGeometry(n, 3, -0.5, -2, false)
+              createPrismWithWireframe(n, 3, -0.5, 0.5, false, false),
+              createPyramidWithWireframe(n, 3, 0.5, 2, false),
+              createPyramidWithWireframe(n, 3, -0.5, -2, false)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
               corps.base2.c2d[i].isVisible = false
             }
             objets.push(...corps.c2d, ...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 3 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors le prisme et les deux pyramides possèdent aussi $${n}$ faces.<br>Ce solide est donc constitué de $3\\times ${n}$ faces, soit $${3 * n}$ faces.`
@@ -170,28 +146,16 @@ export default class NombreDeFacesEtDAretes extends Exercice {
 
         case 3: // Prisme + 1 pyramide au dessus -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPrismGeometry(n, 3, -0.5, 0.5, true, false),
-              createPyramidGeometry(n, 3, 0.5, 2),
+              createPrismWithWireframe(n, 3, -0.5, 0.5, true, false),
+              createPyramidWithWireframe(n, 3, 0.5, 2),
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
             }
             objets.push(...corps.c2d, ...chapeau1.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -1,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 2 * n + 1
           this.correction = `Comme le prisme a $${n}$ faces latérales, alors la pyramide en a $${n}$ aussi.<br>Si on ajoute la face du dessous, ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
@@ -199,28 +163,16 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 4: // Prisme + 1 pyramide au dessus -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPrismGeometry(n, 3, -0.5, 0.5, true, false),
-              createPyramidGeometry(n, 3, 0.5, 2)
+              createPrismWithWireframe(n, 3, -0.5, 0.5, true, false),
+              createPyramidWithWireframe(n, 3, 0.5, 2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
             }
             objets.push(...corps.c2d, ...chapeau1.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -1,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 4 * n
           this.correction = `Comme le prisme a $${n}$ arêtes latérales, alors la pyramide en a $${n}$ aussi.<br>En ajoutant les arêtes des deux bases du prisme, soit $2\\times ${n}$ arêtes, on obtient donc $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
@@ -228,25 +180,16 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 5: // Prisme + 1 pyramide en dessous -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPrismGeometry(n, 3, -0.5, 0.5, false, true),
-              createPyramidGeometry(n, 3, -0.5, -2)
+              createPrismWithWireframe(n, 3, -0.5, 0.5, false, true),
+              createPyramidWithWireframe(n, 3, -0.5, -2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
+            for (let i = 0; i < n; i++) {
+              corps.base1.c2d[i].isVisible = false
+            }
             objets.push(...corps.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 3.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 2 * n + 1
           this.correction = `Comme le prisme a $${n}$ faces latérales, alors la pyramide en a $${n}$ aussi.<br>Si on ajoute la face du dessus, ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
@@ -254,51 +197,27 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 6: // Prisme + 1 pyramide en dessous -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPrismGeometry(n, 3, -0.5, 0.5, false, true),
-              createPyramidGeometry(n, 3, -0.5, -2)
+              createPrismWithWireframe(n, 3, -0.5, 0.5, false, true),
+              createPyramidWithWireframe(n, 3, -0.5, -2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             objets.push(...corps.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 3.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 4 * n
           this.correction = `Comme le prisme a $${n}$ arêtes latérales, alors la pyramide en a $${n}$ aussi.<br>En ajoutant les arêtes des deux bases du prisme, soit $2\\times ${n}$ arêtes, on obtient donc $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break
         case 7: // 2 pyramides -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPyramidGeometry(n, 3, 0, 3),
-              createPyramidGeometry(n, 3, 0, -2)
+              createPyramidWithWireframe(n, 3, 0, 3),
+              createPyramidWithWireframe(n, 3, 0, -2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
             //  objets.push(...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
 
           this.reponse = 2 * n
@@ -307,40 +226,24 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 8: // 2 pyramides -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPyramidGeometry(n, 3, 0, 3),
-              createPyramidGeometry(n, 3, 0, -2)
+              createPyramidWithWireframe(n, 3, 0, 3),
+              createPyramidWithWireframe(n, 3, 0, -2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 3 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors elles ont aussi $${n}$ arêtes latérales auxquelles on ajoute les $${n}$ arêtes de la base commune aux deux pyramide.<br>On obtient donc $3\\times ${n}$ arêtes, soit $${3 * n}$ arêtes.`
           break
         case 9: // 2 tronc de pyramides -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPyramidGeometry(n, 3, 0, 1.5, false),
-              createPyramidGeometry(n, 3, 0, -1, false)
+              createPyramidWithWireframe(n, 3, 0, 1.5, false),
+              createPyramidWithWireframe(n, 3, 0, -1, false)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i + 2 * n].pointilles = 2
@@ -350,14 +253,6 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               }
             }
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 2 * n + 2
           this.correction = `Les deux pyramides tronquées ont une base commune à $${n}$ sommets, elles ont donc $${n}$ faces latérales chacune auxquelles il faut ajouter les deux faces parallèles du dessus et du dessous.<br>Ce solide est donc constitué de $2\\times ${n}+2$ faces, soit $${2 * n + 2}$ faces.`
@@ -365,15 +260,11 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 10: // 2 tronc de pyramides -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPyramidGeometry(n, 3, 0, 1.5, false),
-              createPyramidGeometry(n, 3, 0, -1, false)
+              createPyramidWithWireframe(n, 3, 0, 1.5, false),
+              createPyramidWithWireframe(n, 3, 0, -1, false)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i + 2 * n].pointilles = 2
@@ -383,30 +274,17 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               }
             }
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 5 * n
           this.correction = `Les deux pyramides tronquées ont une base commune à $${n}$ sommets.<br>Donc elles ont aussi $${n}$ arêtes latérales chacune.<br>Il faut ajouter les $${n}$ arêtes de la base commune aux deux pyramides.<br>Enfin on ajoute les ${n} arêtes de la face du dessus et les ${n} arêtes de la face du dessous.<br>Au total, il y a $5\\times ${n}$ arêtes, soit $${5 * n}$ arêtes.`
           break
         case 11: // 1 tronc de pyramides au dessus et 1 pyramide en dessous -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPyramidGeometry(n, 3, 0, 2, false),
-              createTruncatedPyramidGeometry(n, 3, 1, 0, -1, false, true)
+              createPyramidWithWireframe(n, 3, 0, 2, false),
+              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -1, false, true)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau1.c2d[i].pointilles = 2
@@ -415,14 +293,6 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               }
             }
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 2 * n + 1
           this.correction = `Le solide est composé d'une pyramide à $${n}$ faces latérales et d'un tronc de pyramide<br>qui possède autant de faces latérales plus une face au dessus<br>Ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
@@ -430,16 +300,11 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         case 12: // 1 tronc de pyramide au dessus et 1 pyramide en dessous -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createPyramidGeometry(n, 3, 0, 2, false),
-              createTruncatedPyramidGeometry(n, 3, 1, 0, -1, false, true)
+              createPyramidWithWireframe(n, 3, 0, 2, false),
+              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -1, false, true)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau1.c2d[i].pointilles = 2
@@ -448,30 +313,17 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               }
             }
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 4 * n
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break
         case 13: // 1 tronc de pyramides en dessous et 1 pyramide au dessus -> faces ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createTruncatedPyramidGeometry(n, 3, 1, 0, -2, false, true),
-              createPyramidGeometry(n, 3, 0, 2)
+              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -2, false, true),
+              createPyramidWithWireframe(n, 3, 0, 2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i].pointilles = 2
@@ -481,14 +333,6 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               chapeau2.c2d[i + 2 * n].pointilles = 2
             }
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 2 * n + 1
           this.correction = `Le solide est composé d'une pyramide à $${n}$ faces latérales et d'un tronc de pyramide<br>qui possède autant de faces latérales plus une face au dessus<br>Ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
@@ -496,15 +340,11 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           break
         default: // 1 tronc de pyramide en dessous et 1 pyramide au dessus -> arêtes ?
           if (this.sup2 && context.isHtml) {
-            const sceneBuilder = new SceneViewerThreeJs()
             const geometries = [
-              createTruncatedPyramidGeometry(n, 3, 1, 0, -2, false, true),
-              createPyramidGeometry(n, 3, 0, 2)
+              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -2, false, true),
+              createPyramidWithWireframe(n, 3, 0, 2)
             ]
-            sceneBuilder.addWireframeUnion(geometries)
-            sceneBuilders.push(sceneBuilder)
-            const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-            this.question = `${vue}<br>`
+            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i].pointilles = 2
@@ -514,18 +354,18 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               chapeau2.c2d[i + 2 * n].pointilles = 2
             }
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-            this.question = mathalea2d({
-              xmin: -6,
-              ymin: -2.5,
-              xmax: 6,
-              ymax: 4.5,
-              scale: 0.5,
-              style: 'margin: auto'
-            }, objets)
           }
           this.reponse = 4 * n
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break
+      }
+      // fin du switch de sélexction des solides
+
+      if (objects.length > 0) {
+        const content = { objects: objects as any, autoCenterZoomMargin: 1 }
+        this.question = ajouteCanvas3d({ id: `canvas3d-Ex${this.numeroExercice}Q${j}`, content, width: 400, height: 400 })
+      } else {
+        this.question = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
       }
       if (choix % 2 === 1) {
         this.question += '<br>Quel est le nombre de faces de ce solide ?'
@@ -533,25 +373,13 @@ export default class NombreDeFacesEtDAretes extends Exercice {
         this.question += '<br>Quel est le nombre d\'arêtes de ce solide ?'
       }
       if (this.questionJamaisPosee(j, choix, n)) {
-        setReponse(this, j, this.reponse)
+        handleAnswers(this, j, { reponse: { value: this.reponse } })
         this.question += ajouteChampTexteMathLive(this, j, '')
-        this.listeQuestions[j] = this.question
+        this.listeQuestions[j] = this.question ?? ''
         this.listeCorrections[j] = this.correction
         j++
       }
     }
     listeQuestionsToContenuSansNumero(this)
-    if (this.sup2) {
-      if (sceneBuilders.length > 0) {
-        document.addEventListener('exercicesAffiches', () => {
-          for (let i = 0; i < sceneBuilders.length; i++) {
-            const emplacement = document.getElementById(`emplacementPourSceneViewer${sceneBuilders[i].id}`)
-            if (emplacement) {
-              sceneBuilders[i].showSceneAt(emplacement)
-            }
-          }
-        }, { once: true })
-      }
-    }
   }
 }

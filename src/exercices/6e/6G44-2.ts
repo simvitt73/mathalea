@@ -2,16 +2,16 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   homothetie3d,
   translation3d
-} from '../../lib/3d/tranformations'
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import {
   cone3d,
   cylindre3d, prisme3d,
   pyramide3d
-} from '../../lib/3d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   point3d,
   polygone3d, vecteur3d
-} from '../../lib/3d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'

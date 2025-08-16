@@ -1,5 +1,5 @@
-import { ObjetMathalea2D, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
-import { segment } from '../2d/segmentsVecteurs'
+import { ObjetMathalea2D, colorToLatexOrHTML, fixeBordures } from '../../../modules/2dGeneralites'
+import { segment } from '../../2d/segmentsVecteurs'
 import { Point3d, Vecteur3d, point3d, vecteur3d, Polygone3d, Droite3d, polygone3d, droite3d, arete3d } from './elements'
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
 

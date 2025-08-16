@@ -3,7 +3,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { cube } from '../../lib/3d/CubeIso'
+import { cube } from '../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { context } from '../../modules/context'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
 export const dateDePublication = '06/10/2022'

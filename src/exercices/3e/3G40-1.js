@@ -1,4 +1,4 @@
-import { SceneViewer } from '../../lib/3d/SceneViewer'
+import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
@@ -167,10 +167,11 @@ const listeVilles = [
 
 // Ajout des propriétés communes à toutes les villes
 listeVilles.forEach(ville => {
-  ville.pointColor = '#FF0000'
+  ville.pointColor = '#000000'
   ville.pointRadius = 0.02
   ville.labelColor = arcenciel(randint(0, 10))
   ville.labelSize = 0.5
+  ville.labelOffset = 0.2
   ville.font = 'images/custom-msdf.json'
   ville.transparent = true
 })
@@ -189,6 +190,68 @@ function choisirNVillesAssezLointaines (n) {
   }
   return villes
 }
+
+function buildSceneContent (villes, points, points2) {
+  return {
+    objects: [
+      // voie lactée
+      {
+        type: 'skySphere',
+        image: 'images/2k_stars_milky_way.jpg',
+        radius: 200
+      },
+      // Terre (sphère)
+      {
+        type: 'realisticEarthSphere',
+        position: [0, 0, 0],
+        radius: 4,
+        segmentsWidth: 64,
+        segmentsHeight: 32,
+        greenwichAlignment: -90
+      },
+      {
+        type: 'customWireSphere',
+        position: [0, 0, 0],
+        radius: 4,
+        parallels: 17,
+        meridians: 36,
+        segments: 64,
+        parallelColor: '#cccccc',
+        meridianColor: '#cccc00',
+        showEquator: true,
+        equatorColor: '#ff0000',
+        showGreenwich: true,
+        greenwichColor: '#00ff00'
+      },
+      // Lumières
+      { type: 'ambientLight', color: 0xffffff, intensity: 1.2 },
+      { type: 'directionalLight', color: 0xffffff, intensity: 1.5, position: [0, 10, 100] },
+      { type: 'directionalLight', color: 0xffffff, intensity: 1.5, position: [0, 10, -100] },
+      // Points des villes
+      ...villes.map(ville => ({
+        type: 'geoPoint',
+        latitude: ville.latitude,
+        longitude: ville.longitude,
+        spherePosition: [0, 0, 0], // <-- corrige ici
+        sphereRadius: 4,
+        label: ville.label,
+        labelOffset: ville.labelOffset,
+        pointColor: ville.pointColor,
+        pointRadius: ville.pointRadius,
+        labelColor: ville.labelColor,
+        labelSize: ville.labelSize,
+        font: ville.font,
+        transparent: ville.transparent
+      })),
+      // Graduations de l'équateur (longitudes)
+      ...points,
+      // Graduations des méridiens (latitudes)
+      ...points2
+    ],
+    autoCenterZoomMargin: 0.7
+  }
+}
+
 export default class ReperageSurLaTerre extends Exercice {
   destroyers = []
 
@@ -223,100 +286,38 @@ export default class ReperageSurLaTerre extends Exercice {
 
     const villes = choisirNVillesAssezLointaines(this.nbQuestions)
     if (this.sup && context.isHtml) {
-      const sceneBuilder = new SceneViewer({ width: 400, height: 400, id: `Ex${this.numeroExercice}Q0`, withEarth: true, withSky: true, rigPosition: [0, 3, 0], zoomLimits: { min: 8, max: 12 }, cameraDistance: 10, fov: 60, rigRotation: [0, 0, 0] }) // Même si il y a plusieurs question, il n'y a qu'une seule scène
-      // Création de la scène 3D
-      sceneBuilder.addCustomWireSphere({
-        position: [0, 3, 0],
-        radius: 4.02,
-        parallels: 18,
-        meridians: 72,
-        /* parallelColor: 'black', // Parallèles bleu ciel
-          meridianColor: 'purple', // Méridiens gris-ble */
-        showEquator: true,
-        equatorColor: '#DC143C',
-        equatorThickness: 0.01,       // Équateur plus épais
-        showGreenwich: true,
-        greenwichColor: '#008000',
-        greenwichThickness: 0.01     // Greenwich épais
-
-      })
       // Les longitudes
-      const points = rangeMinMax(-17, 18, [0]).map(el => Object.assign({
+      const longitudes = rangeMinMax(-17, 18, [0]).map(el => el * 10)
+      const points = longitudes.map(lon => ({
+        type: 'geoPoint',
         latitude: 0,
-        longitude: el * 10,
-        label: `${el >= 0 ? `${el * 10}°E` : `${-el * 10}°O`}`,
-        pointColor: '#FF0000'
-      }, {
-        pointColor: '#FF0000',
-        pointRadius: 0.02,
-        font: 'images/custom-msdf.json',
-        labelColor: '#FFFFFF',
-        transparent: true  // NOUVEAU : Forcer la transparence
+        longitude: lon,
+        spherePosition: [0, 0, 0],
+        sphereRadius: 4,
+        pointRadius: 0.001,
+        pointColor: '#FFD700',
+        label: `${lon}°`, // <-- Affiche la longitude
+        labelColor: '#FFD700',
+        labelSize: 0.3
       }))
 
-      sceneBuilder.addGeographicPoints({
-        spherePosition: [0, 3, 0],
-        sphereRadius: 4,
-        defaultLabelSize: 0.3,
-        points,
-        transparent: true  // NOUVEAU : Transparence globale
-      })
-
       // Les latitudes
-      const points2 = rangeMinMax(-8, 8, [0]).map(el => [Object.assign({
-        latitude: el * 10,
+      const latitudes = rangeMinMax(-8, 8, [0]).map(el => el * 10)
+      const points2 = latitudes.map(lat => ({
+        type: 'geoPoint',
+        latitude: lat,
         longitude: 0,
-        label: `${el >= 0 ? `${el * 10}°N` : `${-el * 10}°S`}`
-      }, {
-        pointColor: '#FF0000',
-        pointRadius: 0.02,
-        labelColor: '#FFFFFF',
-        labelSize: 0.3,
-        font: 'images/custom-msdf.json',
-        transparent: true  // NOUVEAU : Transparence pour chaque point
-      }),
-      Object.assign({
-        latitude: el * 10,
-        longitude: 180,
-        label: `${el >= 0 ? `${el * 10}°N` : `${-el * 10}°S`}`
-      }, {
-        pointColor: '#FF0000',
-        pointRadius: 0.02,
-        labelColor: '#FFFFFF',
-        labelSize: 0.3,
-        font: 'images/custom-msdf.json',
-        transparent: true  // NOUVEAU : Transparence pour chaque point
-      })]
-      ).flat(1)
-
-      sceneBuilder.addGeographicPoints({
-        spherePosition: [0, 3, 0],
+        spherePosition: [0, 0, 0],
         sphereRadius: 4,
-        points: points2,
-        defaultLabelSize: 0.3,
-        transparent: true  // NOUVEAU : Transparence globale
-      })
-
-      // Villes avec transparence
-
-      sceneBuilder.addGeographicPoints({
-        spherePosition: [0, 3, 0],
-        sphereRadius: 4,
-        points: villes,
-        defaultLabelSize: 0.2,
-        defaultFont: 'images/custom-msdf.json',
-        transparent: true  // NOUVEAU : Transparence globale
-      })
-
-      sceneBuilder.addRealisticEarthSphere({
-        position: [0, 3, 0],
-        radius: 4,
-        greenwichAlignment: -90,
-      })
-
-      const vue = `<div id="emplacementPourSceneViewer${sceneBuilder.id}" style="width: 400px; height: 400px;"></div>`
-
-      this.consigne = vue
+        pointRadius: 0.001,
+        pointColor: '#FFD700',
+        label: `${lat}°`, // <-- Affiche la latitude
+        labelColor: '#FFD700',
+        labelSize: 0.3
+      }))
+      const content = buildSceneContent(villes, points, points2)
+      const canvasId = `canvas3d-geo-${Math.random().toString(36).slice(2, 8)}`
+      this.consigne = ajouteCanvas3d({ id: canvasId, content, width: 500, height: 500, className: 'canvas3d-geo' })
 
       for (let i = 0; i < this.nbQuestions; i++) {
         const ville = villes[i]
@@ -339,20 +340,6 @@ export default class ReperageSurLaTerre extends Exercice {
         this.listeQuestions.push(question)
         this.listeCorrections.push(correction)
       }
-      function setup () {
-        const parent = document.getElementById(`emplacementPourSceneViewer${sceneBuilder.id}`)
-        if (parent !== null) {
-          const aScene = parent.querySelector('a-scene')
-          if (aScene === null) {
-            sceneBuilder.showSceneAt(parent)
-          }
-        }
-      }
-      function removeListener () {
-        document.removeEventListener('exercicesAffiches', setup)
-      }
-      document.addEventListener('exercicesAffiches', setup)
-      this.destroyers.push(removeListener)
     } else {
       this.consigne = 'Cet exercice est interactif et nécessite un affichage HTML. (version modifiée pour la version pdf)'
       for (let i = 0; i < this.nbQuestions; i++) {

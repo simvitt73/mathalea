@@ -4,20 +4,20 @@ import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import { rotation3d } from '../../lib/3d/tranformations'
+import { rotation3d } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import {
   cone3d,
   cylindre3d,
   prisme3d,
   pyramide3d
-} from '../../lib/3d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   arc3d,
   arete3d, droite3d,
   Point3d,
   point3d,
   polygone3d, vecteur3d
-} from '../../lib/3d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { context } from '../../modules/context'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'

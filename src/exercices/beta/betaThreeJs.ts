@@ -1,11 +1,11 @@
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { SceneViewerThreeJs } from '../../lib/3d/SceneViewerThreeJs'
-import { THREE } from '../../lib/3d/threeInstance'
-import { convertAFrameComponentToThreeJsOptions } from '../../lib/3d/convertisseurAframeThreeJs'
+import { SceneViewerThreeJs } from '../../lib/3d/3d_dynamique/SceneViewerThreeJs'
+import type * as THREE from 'three'
+import { convertAFrameComponentToThreeJsOptions } from '../../lib/3d/3d_dynamique/convertisseurAframeThreeJs'
 
 export const uuid = 'threejs'
-export const titre = 'La Terre vue du ciel !'
+export const titre = 'Déplace les cubes!'
 export const refs = {
   'fr-fr': [],
   'fr-ch': []
