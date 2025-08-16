@@ -35,7 +35,6 @@ export default class BetaThreeJs extends Exercice {
     document.addEventListener('exercicesAffiches', () => {
       const parent = document.getElementById('div1')
       if (parent !== null) {
-        console.log('div1 trouvé')
         parent.appendChild(multiView.canvas)
         multiView.setObjects(0, [new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial({ color: 0xff0000 }))])
         multiView.setObjects(1, [new THREE.Mesh(new THREE.SphereGeometry(), new THREE.MeshStandardMaterial({ color: 0x00ff00 }))])
