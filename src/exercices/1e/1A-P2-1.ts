@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Lire les probabilités dans un arbre pondéré'
+export const titre = 'Utiliser un arbre pour calculer une probabilité. '
 export default class Puissances extends ExerciceQcmA {
     versionOriginale: () => void = () => {
         let objets = []
