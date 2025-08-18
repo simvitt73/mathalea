@@ -1,5 +1,13 @@
-import { createColoredCube, createCustomWireSphere, createEdgesFromGeometry, createGeoPoint, createGeoPoints, createRealisticEarthSphere, createSkySphere } from './solidesThreeJs'
-import { THREE, OrbitControls, type Object3DJSON } from './threeInstance'
+import {
+  createColoredCube,
+  createCustomWireSphere,
+  createEdgesFromGeometry,
+  createGeoPoint,
+  createGeoPoints,
+  createRealisticEarthSphere,
+  createSkySphere,
+} from './solidesThreeJs'
+import { OrbitControls, THREE, type Object3DJSON } from './threeInstance'
 
 class Canvas3dElement extends HTMLElement {
   private background: number = 0xeeeeee
@@ -19,18 +27,18 @@ class Canvas3dElement extends HTMLElement {
 
   private _imgClickHandler?: (ev: MouseEvent) => void
 
-  set objects (objs: THREE.Object3D[]) {
+  set objects(objs: THREE.Object3D[]) {
     this._objects = objs
     if (this.scene) {
       this.setObjects(objs)
     }
   }
 
-  get objects () {
+  get objects() {
     return this._objects
   }
 
-  connectedCallback () {
+  connectedCallback() {
     this.style.display = 'inline-block'
     this.width = parseInt(this.getAttribute('width') || '') || 500
     this.height = parseInt(this.getAttribute('height') || '') || 300
@@ -43,7 +51,12 @@ class Canvas3dElement extends HTMLElement {
       const defaultTarget = new THREE.Vector3(0, 0, 0)
       this._cameraPosition = defaultPosition.clone()
       this._cameraTarget = defaultTarget.clone()
-      this.camera = new THREE.PerspectiveCamera(35, this.width / this.height, 0.1, 1000)
+      this.camera = new THREE.PerspectiveCamera(
+        35,
+        this.width / this.height,
+        0.1,
+        1000,
+      )
       this.camera.position.copy(this._cameraPosition)
       this.camera.lookAt(this._cameraTarget)
     }
@@ -54,205 +67,223 @@ class Canvas3dElement extends HTMLElement {
         const contentDescription = JSON.parse(decodeURIComponent(contentAttr))
         const margin = contentDescription.autoCenterZoomMargin ?? 1.2 // 1.2 par défaut
 
-        const objects = contentDescription.objects.map((desc: any) => {
-          if (desc.type === 'geoPoint') {
-            return createGeoPoint(desc)
-          }
-          if (desc.type === 'geoPoints') {
-            return createGeoPoints(desc)
-          }
-          if (desc.type === 'cube') {
-            return createColoredCube(desc.pos, desc.size, {
-              edges: desc.edges,
-              edgesColor: desc.edgesColor,
-              edgesOpacity: desc.edgesOpacity,
-              colors: desc.colors ?? DEFAULT_CUBE_COLORS
-            })
-          }
-          if (desc.type === 'bufferGeometry') {
-            if (desc.geometry.type === 'BufferGeometry') {
-              // JSON de BufferGeometry
-              const loader = new THREE.BufferGeometryLoader()
-              const geometry = loader.parse(desc.geometry)
-              // Création du group filaire à la main (comme dans createPrismWithWireframe)
-              const group = new THREE.Group()
-
-              // Mesh (faces pleines, transparentes)
-              const mesh = new THREE.Mesh(
-                geometry,
-                new THREE.MeshPhongMaterial({
-                  color: 0xffffff,
-                  transparent: true,
-                  opacity: 0.5,
-                  polygonOffset: true,
-                  polygonOffsetFactor: 1,
-                  polygonOffsetUnits: 1
-                })
-              )
-              group.add(mesh)
-
-              // Arêtes cachées (pointillés)
-              const edgesDashed = new THREE.EdgesGeometry(geometry)
-              const dashedMaterial = new THREE.LineDashedMaterial({
-                color: 0x888888,
-                dashSize: 0.08,
-                gapSize: 0.04,
-                linewidth: 1,
-                transparent: true,
-                opacity: 0.7,
-                depthTest: true
+        const objects = contentDescription.objects
+          .map((desc: any) => {
+            if (desc.type === 'geoPoint') {
+              return createGeoPoint(desc)
+            }
+            if (desc.type === 'geoPoints') {
+              return createGeoPoints(desc)
+            }
+            if (desc.type === 'cube') {
+              return createColoredCube(desc.pos, desc.size, {
+                edges: desc.edges,
+                edgesColor: desc.edgesColor,
+                edgesOpacity: desc.edgesOpacity,
+                colors: desc.colors ?? DEFAULT_CUBE_COLORS,
               })
-              const dashedLines = new THREE.LineSegments(edgesDashed, dashedMaterial)
-              dashedLines.computeLineDistances()
-              group.add(dashedLines)
+            }
+            if (desc.type === 'bufferGeometry') {
+              if (desc.geometry.type === 'BufferGeometry') {
+                // JSON de BufferGeometry
+                const loader = new THREE.BufferGeometryLoader()
+                const geometry = loader.parse(desc.geometry)
+                // Création du group filaire à la main (comme dans createPrismWithWireframe)
+                const group = new THREE.Group()
 
-              // Arêtes visibles (traits pleins)
-              const edgesSolid = new THREE.EdgesGeometry(geometry)
-              const solidMaterial = new THREE.LineBasicMaterial({
-                color: 0x000000,
-                linewidth: 2,
-                transparent: false,
-                depthTest: true
-              })
-              const solidLines = new THREE.LineSegments(edgesSolid, solidMaterial)
-              group.add(solidLines)
+                // Mesh (faces pleines, transparentes)
+                const mesh = new THREE.Mesh(
+                  geometry,
+                  new THREE.MeshPhongMaterial({
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.5,
+                    polygonOffset: true,
+                    polygonOffsetFactor: 1,
+                    polygonOffsetUnits: 1,
+                  }),
+                )
+                group.add(mesh)
 
-              return group
-            } else if (Array.isArray(desc.geometry.geometries)) {
-              const loader = new THREE.BufferGeometryLoader()
-              // On ne garde que les BufferGeometry (ignore EdgesGeometry)
-              const bufferGeometries = desc.geometry.geometries
-                .filter((g: any) => g.type === 'BufferGeometry')
-                .map((g: any) => loader.parse(g))
-              // Fusionne si plusieurs géométries, sinon prend la seule
-              let geometry: THREE.BufferGeometry
-              if (bufferGeometries.length === 1) {
-                geometry = bufferGeometries[0]
-              } else {
-                // Nécessite BufferGeometryUtils
-                geometry = (THREE as any).BufferGeometryUtils.mergeGeometries(bufferGeometries, true)
-              }
-              // Création du group filaire à la main (comme dans createPrismWithWireframe)
-              const group = new THREE.Group()
-
-              // Mesh (faces pleines, transparentes)
-              const mesh = new THREE.Mesh(
-                geometry,
-                new THREE.MeshPhongMaterial({
-                  color: 0x222222,
+                // Arêtes cachées (pointillés)
+                const edgesDashed = new THREE.EdgesGeometry(geometry)
+                const dashedMaterial = new THREE.LineDashedMaterial({
+                  color: 0x888888,
+                  dashSize: 0.08,
+                  gapSize: 0.04,
+                  linewidth: 1,
                   transparent: true,
-                  opacity: 0.5,
-                  polygonOffset: true,
-                  polygonOffsetFactor: 1,
-                  polygonOffsetUnits: 1,
+                  opacity: 0.7,
+                  depthTest: true,
                 })
+                const dashedLines = new THREE.LineSegments(
+                  edgesDashed,
+                  dashedMaterial,
+                )
+                dashedLines.computeLineDistances()
+                group.add(dashedLines)
+
+                // Arêtes visibles (traits pleins)
+                const edgesSolid = new THREE.EdgesGeometry(geometry)
+                const solidMaterial = new THREE.LineBasicMaterial({
+                  color: 0x000000,
+                  linewidth: 2,
+                  transparent: false,
+                  depthTest: true,
+                })
+                const solidLines = new THREE.LineSegments(
+                  edgesSolid,
+                  solidMaterial,
+                )
+                group.add(solidLines)
+
+                return group
+              } else if (Array.isArray(desc.geometry.geometries)) {
+                const loader = new THREE.BufferGeometryLoader()
+                // On ne garde que les BufferGeometry (ignore EdgesGeometry)
+                const bufferGeometries = desc.geometry.geometries
+                  .filter((g: any) => g.type === 'BufferGeometry')
+                  .map((g: any) => loader.parse(g))
+                // Fusionne si plusieurs géométries, sinon prend la seule
+                let geometry: THREE.BufferGeometry
+                if (bufferGeometries.length === 1) {
+                  geometry = bufferGeometries[0]
+                } else {
+                  // Nécessite BufferGeometryUtils
+                  geometry = (THREE as any).BufferGeometryUtils.mergeGeometries(
+                    bufferGeometries,
+                    true,
+                  )
+                }
+                // Création du group filaire à la main (comme dans createPrismWithWireframe)
+                const group = new THREE.Group()
+
+                // Mesh (faces pleines, transparentes)
+                const mesh = new THREE.Mesh(
+                  geometry,
+                  new THREE.MeshPhongMaterial({
+                    color: 0x222222,
+                    transparent: true,
+                    opacity: 0.5,
+                    polygonOffset: true,
+                    polygonOffsetFactor: 1,
+                    polygonOffsetUnits: 1,
+                  }),
+                )
+                this.applyPolygonOffset(mesh)
+                mesh.renderOrder = 0
+                group.add(mesh)
+
+                // Arêtes cachées (pointillés)
+                const edgesDashed = createEdgesFromGeometry(geometry, true)
+                edgesDashed.renderOrder = 1
+                const edgesSolid = createEdgesFromGeometry(geometry, false)
+                edgesSolid.renderOrder = 2
+                group.add(edgesDashed)
+                group.add(edgesSolid)
+
+                return group
+              }
+            }
+            if (desc.type === 'realisticEarthSphere') {
+              return createRealisticEarthSphere({
+                ...desc,
+                onTextureLoaded: () => {
+                  // Quand la texture est chargée, on refait le rendu statique
+                  this.renderStaticImage()
+                },
+              })
+            }
+
+            if (desc.type === 'customWireSphere') {
+              return createCustomWireSphere(desc)
+            }
+            if (desc.type === 'geoPoint') {
+              return createGeoPoint(desc)
+            }
+            if (desc.type === 'ambientLight') {
+              return new THREE.AmbientLight(
+                desc.color ?? 0xffffff,
+                desc.intensity ?? 1,
               )
-              this.applyPolygonOffset(mesh)
-              mesh.renderOrder = 0
-              group.add(mesh)
-
-              // Arêtes cachées (pointillés)
-              const edgesDashed = createEdgesFromGeometry(geometry, true)
-              edgesDashed.renderOrder = 1
-              const edgesSolid = createEdgesFromGeometry(geometry, false)
-              edgesSolid.renderOrder = 2
-              group.add(edgesDashed)
-              group.add(edgesSolid)
-
+            }
+            if (desc.type === 'directionalLight') {
+              const light = new THREE.DirectionalLight(
+                desc.color ?? 0xffffff,
+                desc.intensity ?? 1,
+              )
+              if (desc.position)
+                light.position.set(
+                  ...(desc.position as [number, number, number]),
+                )
+              return light
+            }
+            if (desc.type === 'skySphere') {
+              const sky = createSkySphere({
+                ...desc,
+                onTextureLoaded: () => {},
+              })
+              ;(sky as any).isSkySphere = true
+              return sky
+            }
+            if (desc.type === 'group') {
+              const loader = new THREE.ObjectLoader()
+              const group = loader.parse(desc.object)
               return group
             }
-          }
-          if (desc.type === 'realisticEarthSphere') {
-            return createRealisticEarthSphere({
-              ...desc,
-              onTextureLoaded: () => {
-                // Quand la texture est chargée, on refait le rendu statique
-                this.renderStaticImage()
+            if (desc.type === 'canvas3dButton') {
+              const btn = document.createElement('button')
+              btn.id = desc.id
+              btn.textContent = desc.text
+              applyDefaultMathaleaButtonStyle(btn)
+              btn.type = 'button'
+              btn.style.cursor = 'pointer'
+              if (desc.position) Object.assign(btn.style, desc.position)
+              if (desc.style) Object.assign(btn.style, desc.style)
+              btn.style.zIndex = '20'
+              btn.style.pointerEvents = 'auto'
+
+              // Event custom
+              const handler = () => {
+                this.dispatchEvent(
+                  new CustomEvent(desc.onClick, {
+                    bubbles: true,
+                    composed: true,
+                  }),
+                )
               }
-            })
-          }
+              btn.addEventListener('click', handler)
 
-          if (desc.type === 'customWireSphere') {
-            return createCustomWireSphere(desc)
-          }
-          if (desc.type === 'geoPoint') {
-            return createGeoPoint(desc)
-          }
-          if (desc.type === 'ambientLight') {
-            return new THREE.AmbientLight(desc.color ?? 0xffffff, desc.intensity ?? 1)
-          }
-          if (desc.type === 'directionalLight') {
-            const light = new THREE.DirectionalLight(desc.color ?? 0xffffff, desc.intensity ?? 1)
-            if (desc.position) light.position.set(...desc.position as [number, number, number])
-            return light
-          }
-          if (desc.type === 'skySphere') {
-            const sky = createSkySphere({
-              ...desc,
-              onTextureLoaded: () => {}
-            })
-               ;(sky as any).isSkySphere = true
-            return sky
-          }
-          if (desc.type === 'group') {
-            const loader = new THREE.ObjectLoader()
-            const group = loader.parse(desc.object)
-            return group
-          }
-          if (desc.type === 'canvas3dButton') {
-            const btn = document.createElement('button')
-            btn.id = desc.id
-            btn.textContent = desc.text
-            btn.type = 'button'
-            btn.style.position = 'absolute'
-            btn.style.top = '5px'
-            btn.style.right = '5px'
-            btn.style.zIndex = '20'
-            btn.style.background = '#fff'
-            btn.style.border = '1px solid #888'
-            btn.style.borderRadius = '6px'
-            btn.style.width = '48px'
-            btn.style.height = '48px'
-            btn.style.display = 'flex'
-            btn.style.alignItems = 'center'
-            btn.style.justifyContent = 'center'
-            btn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'
-            btn.style.cursor = 'pointer'
-            if (desc.position) Object.assign(btn.style, desc.position)
-            if (desc.style) Object.assign(btn.style, desc.style)
-            btn.style.zIndex = '20'
-            btn.style.pointerEvents = 'auto'
-
-            // Event custom
-            const handler = () => {
-              this.dispatchEvent(new CustomEvent(desc.onClick, { bubbles: true, composed: true }))
+              // Ajout dans l'overlay
+              let overlay = this.querySelector(
+                '.canvas-threejs-overlay',
+              ) as HTMLDivElement
+              if (!overlay) {
+                overlay = document.createElement('div')
+                overlay.className = 'canvas-threejs-overlay'
+                overlay.style.position = 'absolute'
+                overlay.style.top = '0'
+                overlay.style.left = '0'
+                overlay.style.width = '100%'
+                overlay.style.height = '100%'
+                overlay.style.pointerEvents = 'none'
+                overlay.style.zIndex = '10'
+                this.appendChild(overlay)
+              }
+              overlay.appendChild(btn)
+              return null
             }
-            btn.addEventListener('click', handler)
-
-            // Ajout dans l'overlay
-            let overlay = this.querySelector('.canvas-threejs-overlay') as HTMLDivElement
-            if (!overlay) {
-              overlay = document.createElement('div')
-              overlay.className = 'canvas-threejs-overlay'
-              overlay.style.position = 'absolute'
-              overlay.style.top = '0'
-              overlay.style.left = '0'
-              overlay.style.width = '100%'
-              overlay.style.height = '100%'
-              overlay.style.pointerEvents = 'none'
-              overlay.style.zIndex = '10'
-              this.appendChild(overlay)
-            }
-            overlay.appendChild(btn)
+            // ...autres types
             return null
-          }
-          // ...autres types
-          return null
-        }).filter(Boolean)
+          })
+          .filter(Boolean)
+
         this.objects = objects
         this.setObjects(objects)
         this.autoCenterZoom(objects, margin)
-        const overlay = this.querySelector('.canvas-threejs-overlay') as HTMLDivElement
+        const overlay = this.querySelector(
+          '.canvas-threejs-overlay',
+        ) as HTMLDivElement
         if (overlay) {
           overlay.style.display = 'none'
         }
@@ -284,15 +315,16 @@ class Canvas3dElement extends HTMLElement {
     // Création unique du bouton
     if (!this._fullscreenBtn) {
       this._fullscreenBtn = document.createElement('button')
-      this._fullscreenBtn.innerHTML = '<i class="bx bx-fullscreen text-lg text-gray-700 hover:text-blue-500 transition-colors"></i>'
+      this._fullscreenBtn.innerHTML =
+        '<i class="bx bx-fullscreen text-lg text-gray-700 hover:text-blue-500 transition-colors"></i>'
       this._fullscreenBtn.title = 'Plein écran'
       this._fullscreenBtn.style.position = 'absolute'
       this._fullscreenBtn.style.top = '5px'
       this._fullscreenBtn.style.right = '5px'
       this._fullscreenBtn.style.zIndex = '10'
       this._fullscreenBtn.style.pointerEvents = 'auto'
-      this._fullscreenBtn.style.background = '#fff'           // Fond blanc opaque
-      this._fullscreenBtn.style.border = '1px solid #888'     // Bordure grise
+      this._fullscreenBtn.style.background = '#fff' // Fond blanc opaque
+      this._fullscreenBtn.style.border = '1px solid #888' // Bordure grise
       this._fullscreenBtn.style.borderRadius = '6px'
       this._fullscreenBtn.style.width = '48px'
       this._fullscreenBtn.style.height = '48px'
@@ -306,11 +338,11 @@ class Canvas3dElement extends HTMLElement {
       this._fullscreenBtn.onclick = () => this.enterFullscreen()
       this.appendChild(this._fullscreenBtn)
     }
-    // Rendu initial
+
     this.renderStaticImage()
   }
 
-  disconnectedCallback () {
+  disconnectedCallback() {
     if (this._imgElement && this._imgClickHandler) {
       this._imgElement.removeEventListener('click', this._imgClickHandler)
       this._imgClickHandler = undefined
@@ -319,7 +351,7 @@ class Canvas3dElement extends HTMLElement {
     this.destroyRenderer()
   }
 
-  private renderStaticImage () {
+  private renderStaticImage() {
     const width = this.width
     const height = this.height
     // Crée un renderer temporaire
@@ -328,7 +360,12 @@ class Canvas3dElement extends HTMLElement {
     canvas.height = height
     canvas.style.width = width + 'px'
     canvas.style.height = height + 'px'
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true })
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      preserveDrawingBuffer: true,
+    })
     if (this.renderer && this.background) {
       this.setBackground(this.background)
     }
@@ -336,8 +373,7 @@ class Canvas3dElement extends HTMLElement {
     const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000)
     camera.position.copy(this._cameraPosition)
     camera.lookAt(this._cameraTarget)
-    // Ajoute les objets
-    this._objects.forEach(obj => scene.add(obj))
+    this._objects.forEach((obj) => scene.add(obj))
     renderer.setSize(width, height, false)
     renderer.render(scene, camera)
     const dataUrl = canvas.toDataURL('image/png')
@@ -354,11 +390,13 @@ class Canvas3dElement extends HTMLElement {
       this._imgElement.height = height
       this._imgElement.src = dataUrl
     } else {
-      console.error('Il n\'y a pas de this._imgElement alors qu\'on est dans renderStaticImage')
+      console.error(
+        "Il n'y a pas de this._imgElement alors qu'on est dans renderStaticImage",
+      )
     }
   }
 
-  private enterFullscreen () {
+  private enterFullscreen() {
     // Masque l'image et le bouton
     if (this._imgElement && this._fullscreenBtn) {
       this._imgElement.style.display = 'none'
@@ -366,7 +404,11 @@ class Canvas3dElement extends HTMLElement {
     }
 
     // Détection mobile simple (largeur < 800px ou userAgent)
-    const isMobile = window.innerWidth < 800 || /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)
+    const isMobile =
+      window.innerWidth < 800 ||
+      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(
+        navigator.userAgent,
+      )
 
     if (isMobile) {
       // Canvas plein écran natif sur mobile
@@ -387,7 +429,7 @@ class Canvas3dElement extends HTMLElement {
       if (canvas.requestFullscreen) {
         canvas.requestFullscreen()
       } else if ((canvas as any).webkitRequestFullscreen) {
-        (canvas as any).webkitRequestFullscreen()
+        ;(canvas as any).webkitRequestFullscreen()
       }
 
       // Ajoute le bouton de sortie
@@ -408,12 +450,17 @@ class Canvas3dElement extends HTMLElement {
       exitBtn.style.justifyContent = 'center'
       exitBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'
       exitBtn.style.cursor = 'pointer'
-      exitBtn.innerHTML = '<i class="bx bx-exit-fullscreen text-lg text-gray-700 hover:text-blue-500 transition-colors"></i>'
+      exitBtn.innerHTML =
+        '<i class="bx bx-exit-fullscreen text-lg text-gray-700 hover:text-blue-500 transition-colors"></i>'
       exitBtn.title = 'Quitter le plein écran'
       document.body.appendChild(exitBtn)
 
       // Crée le renderer et la scène
-      this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false })
+      this.renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+      })
       if (this.renderer && this.background) {
         this.setBackground(this.background)
       }
@@ -424,7 +471,7 @@ class Canvas3dElement extends HTMLElement {
       this.controls = new OrbitControls(this.camera, canvas)
       this.controls.target.copy(this._cameraTarget)
       this.controls.update()
-      this._objects.forEach(obj => this.scene!.add(obj))
+      this._objects.forEach((obj) => this.scene!.add(obj))
       this.renderer.setSize(width, height, false)
       this.startAnimationLoop()
 
@@ -462,17 +509,20 @@ class Canvas3dElement extends HTMLElement {
       exitBtn.onclick = exit
 
       // Quitte le plein écran si l'utilisateur utilise le geste natif
-      document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-          exit()
-        }
-      }, { once: true })
+      document.addEventListener(
+        'fullscreenchange',
+        () => {
+          if (!document.fullscreenElement) {
+            exit()
+          }
+        },
+        { once: true },
+      )
 
       return
     }
 
     // --- Comportement desktop inchangé ---
-    // ...existing code for desktop fullscreen...
     // Ajout du bouton dans enterFullscreen()
     const exitBtn = document.createElement('button')
     exitBtn.type = 'button'
@@ -492,7 +542,8 @@ class Canvas3dElement extends HTMLElement {
     exitBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'
     exitBtn.style.cursor = 'pointer'
 
-    exitBtn.innerHTML = '<i class="bx bx-exit-fullscreen text-lg text-gray-700 hover:text-blue-500 transition-colors"></i>'
+    exitBtn.innerHTML =
+      '<i class="bx bx-exit-fullscreen text-lg text-gray-700 hover:text-blue-500 transition-colors"></i>'
     exitBtn.title = 'Quitter le plein écran'
     exitBtn.style.zIndex = '6000'
 
@@ -514,7 +565,9 @@ class Canvas3dElement extends HTMLElement {
     canvas.style.height = '100%'
     canvas.style.zIndex = '5000'
     document.body.appendChild(canvas)
-    const overlay = this.querySelector('.canvas-threejs-overlay') as HTMLDivElement
+    const overlay = this.querySelector(
+      '.canvas-threejs-overlay',
+    ) as HTMLDivElement
     if (overlay) {
       overlay.style.position = 'fixed'
       overlay.style.display = 'block'
@@ -525,14 +578,18 @@ class Canvas3dElement extends HTMLElement {
       overlay.style.zIndex = '6000' // supérieur au canvas
       overlay.style.pointerEvents = 'none' // sauf pour les boutons
       // Pour chaque bouton dans l'overlay
-      overlay.querySelectorAll('button').forEach(btn => {
+      overlay.querySelectorAll('button').forEach((btn) => {
         btn.style.zIndex = '6010'
         btn.style.pointerEvents = 'auto'
       })
     }
 
     // Crée le renderer et la scène
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false })
+    this.renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+    })
     if (this.renderer && this.background) {
       this.setBackground(this.background)
     }
@@ -543,7 +600,7 @@ class Canvas3dElement extends HTMLElement {
     this.controls = new OrbitControls(this.camera, canvas)
     this.controls.target.copy(this._cameraTarget)
     this.controls.update()
-    this._objects.forEach(obj => this.scene!.add(obj))
+    this._objects.forEach((obj) => this.scene!.add(obj))
     this.renderer.setSize(width, height, false)
 
     // Animation
@@ -563,7 +620,7 @@ class Canvas3dElement extends HTMLElement {
         overlay.style.height = '100%'
         overlay.style.zIndex = '10'
         overlay.style.pointerEvents = 'none'
-        overlay.querySelectorAll('button').forEach(btn => {
+        overlay.querySelectorAll('button').forEach((btn) => {
           btn.style.zIndex = '20'
           btn.style.pointerEvents = 'auto'
         })
@@ -591,14 +648,14 @@ class Canvas3dElement extends HTMLElement {
     }
   }
 
-  private setObjects (objects: THREE.Object3D[]) {
+  private setObjects(objects: THREE.Object3D[]) {
     if (!this.scene) return
     this.scene.clear()
-    objects.forEach(obj => this.scene!.add(obj))
+    objects.forEach((obj) => this.scene!.add(obj))
     this.renderer?.render(this.scene, this.camera!)
   }
 
-  private startAnimationLoop () {
+  private startAnimationLoop() {
     if (this._animationFrameId) return
     const loop = () => {
       this.renderer?.render(this.scene!, this.camera!)
@@ -617,15 +674,17 @@ class Canvas3dElement extends HTMLElement {
     loop()
   }
 
-  private stopAnimationLoop () {
+  private stopAnimationLoop() {
     if (this._animationFrameId) {
       cancelAnimationFrame(this._animationFrameId)
       this._animationFrameId = null
     }
   }
 
-  private applyPolygonOffset (mesh: THREE.Mesh) {
-    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
+  private applyPolygonOffset(mesh: THREE.Mesh) {
+    const materials = Array.isArray(mesh.material)
+      ? mesh.material
+      : [mesh.material]
     for (const mat of materials) {
       mat.polygonOffset = true
       mat.polygonOffsetFactor = 1
@@ -633,13 +692,15 @@ class Canvas3dElement extends HTMLElement {
     }
   }
 
-  autoCenterZoom (objects: THREE.Object3D[], margin: number = 1.2) {
+  autoCenterZoom(objects: THREE.Object3D[], margin: number = 1.2) {
     const objs = objects
-      .filter(obj => !(obj as any).isSkySphere)
-      .filter(obj => obj.type !== 'DirectionalLight' && obj.type !== 'AmbientLight')
+      .filter((obj) => !(obj as any).isSkySphere)
+      .filter(
+        (obj) => obj.type !== 'DirectionalLight' && obj.type !== 'AmbientLight',
+      )
 
     const box = new THREE.Box3()
-    objs.forEach(obj => {
+    objs.forEach((obj) => {
       if (obj instanceof THREE.Object3D) {
         const objBox = new THREE.Box3().setFromObject(obj)
         box.union(objBox)
@@ -666,7 +727,11 @@ class Canvas3dElement extends HTMLElement {
       const distanceV = dy / (2 * Math.tan(fovRad / 2))
       const distanceH = dx / (2 * Math.tan(fovHorizontalRad / 2))
       const distance = margin * Math.max(distanceV, distanceH, dz)
-      const newPosition = new THREE.Vector3(center.x + distance, center.y + distance, center.z + distance)
+      const newPosition = new THREE.Vector3(
+        center.x + distance,
+        center.y + distance,
+        center.z + distance,
+      )
       this._cameraPosition.copy(newPosition) // <-- MAJ la position de référence
       this.camera.position.copy(newPosition)
     }
@@ -680,7 +745,7 @@ class Canvas3dElement extends HTMLElement {
     }
   }
 
-  private destroyRenderer () {
+  private destroyRenderer() {
     this.stopAnimationLoop()
     if (this.renderer) {
       this.renderer.dispose()
@@ -694,18 +759,20 @@ class Canvas3dElement extends HTMLElement {
     this.controls = null
   }
 
-  setBackground (color: string | number) {
+  setBackground(color: string | number) {
     if (this.renderer) {
       this.renderer.setClearColor(color)
     }
   }
 
-  private removeDynamicButtonListeners () {
+  private removeDynamicButtonListeners() {
     // Sélectionne tous les boutons dynamiques dans l'overlay
-    const overlay = this.querySelector('.canvas-threejs-overlay') as HTMLDivElement
+    const overlay = this.querySelector(
+      '.canvas-threejs-overlay',
+    ) as HTMLDivElement
     if (overlay) {
       const buttons = overlay.querySelectorAll('button')
-      buttons.forEach(btn => {
+      buttons.forEach((btn) => {
         // Clone le bouton pour supprimer tous les listeners
         const clone = btn.cloneNode(true) as HTMLButtonElement
         overlay.replaceChild(clone, btn)
@@ -778,28 +845,28 @@ export interface BufferGeometryDescription {
   type: 'bufferGeometry'
   geometry:
     | {
-      type: 'BufferGeometry'
-      [key: string]: any // JSON exporté par BufferGeometry.toJSON()
-    }
-    | {
-      geometries: Array<{
         type: 'BufferGeometry'
-        [key: string]: any
-      }>
-      [key: string]: any // Peut contenir d'autres propriétés (materials, object, etc.)
-    }
+        [key: string]: any // JSON exporté par BufferGeometry.toJSON()
+      }
     | {
-      type: 'Object'
-      geometries: Array<any>
-      materials?: Array<any>
-      object?: any
-      [key: string]: any
-    }
+        geometries: Array<{
+          type: 'BufferGeometry'
+          [key: string]: any
+        }>
+        [key: string]: any // Peut contenir d'autres propriétés (materials, object, etc.)
+      }
+    | {
+        type: 'Object'
+        geometries: Array<any>
+        materials?: Array<any>
+        object?: any
+        [key: string]: any
+      }
 }
 
 export type LineSegmentsDescription = {
-  type: 'lineSegments',
-  geometry: THREE.LineSegments,
+  type: 'lineSegments'
+  geometry: THREE.LineSegments
 }
 
 export interface GroupDescription {
@@ -811,7 +878,7 @@ export interface Canvas3dButtonDescription {
   type: 'canvas3dButton'
   id: string
   text: string
-  position?: { top?: string, left?: string, right?: string, bottom?: string }
+  position?: { top?: string; left?: string; right?: string; bottom?: string }
   style?: Partial<CSSStyleDeclaration>
   onClick: string // nom de l'event custom à déclencher
 }
@@ -827,19 +894,25 @@ export type Elements3DDescription =
   | AmbientLightDescription
   | DirectionalLightDescription
   | Canvas3dButtonDescription
-  // ...autres types
+// ...autres types
 
-export function ajouteCanvas3d ({
+export function ajouteCanvas3d({
   id,
   content,
   width = 200,
-  height = 200
+  height = 200,
 }: {
-  id: string,
-  content: { objects: Elements3DDescription[], autoCenterZoomMargin?: number },
-  width: number,
+  id: string
+  content: { objects: Elements3DDescription[]; autoCenterZoomMargin?: number }
+  width: number
   height: number
 }): string {
   const contentJson = encodeURIComponent(JSON.stringify(content))
   return `<canvas-3d id="${id}" content='${contentJson}' width="${width}" height="${height}"></canvas-3d>`
+}
+
+function applyDefaultMathaleaButtonStyle(btn: HTMLButtonElement) {
+  btn.className =
+    'inline-flex px-6 py-2.5 ml-6 bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest hover:shadow-lg focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest active:shadow-lg transition duration-150 ease-in-out'
+  btn.setAttribute('type', 'button')
 }

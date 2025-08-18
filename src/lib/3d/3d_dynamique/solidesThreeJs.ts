@@ -1,14 +1,14 @@
 import { range } from '../../outils/nombres'
-import { THREE, BufferGeometryUtils } from './threeInstance'
+import { BufferGeometryUtils, Text, THREE } from './threeInstance'
 
 // Three.js pur pour créer un prisme polygonal utilisable dans une scène Three.js en perspective avec arêtes cachées en pointillés.
-export function createPrismGeometry (
+export function createPrismGeometry(
   sides: number,
   radius: number,
   bottom: number,
   top: number,
   withBottomBase = false,
-  withTopBase = false
+  withTopBase = false,
 ): THREE.BufferGeometry {
   const geometry = new THREE.BufferGeometry()
   const vertices: number[] = []
@@ -28,9 +28,15 @@ export function createPrismGeometry (
   if (withBottomBase) {
     for (let i = 1; i < sides - 1; i++) {
       vertices.push(
-        base[0].x, base[0].y, base[0].z,
-        base[i + 1].x, base[i + 1].y, base[i + 1].z,
-        base[i].x, base[i].y, base[i].z
+        base[0].x,
+        base[0].y,
+        base[0].z,
+        base[i + 1].x,
+        base[i + 1].y,
+        base[i + 1].z,
+        base[i].x,
+        base[i].y,
+        base[i].z,
       )
     }
   }
@@ -39,9 +45,15 @@ export function createPrismGeometry (
   if (withTopBase) {
     for (let i = 1; i < sides - 1; i++) {
       vertices.push(
-        topBase[0].x, topBase[0].y, topBase[0].z,
-        topBase[i].x, topBase[i].y, topBase[i].z,
-        topBase[i + 1].x, topBase[i + 1].y, topBase[i + 1].z
+        topBase[0].x,
+        topBase[0].y,
+        topBase[0].z,
+        topBase[i].x,
+        topBase[i].y,
+        topBase[i].z,
+        topBase[i + 1].x,
+        topBase[i + 1].y,
+        topBase[i + 1].z,
       )
     }
   }
@@ -54,30 +66,25 @@ export function createPrismGeometry (
     const d = topBase[i]
 
     // Premier triangle
-    vertices.push(
-      a.x, a.y, a.z,
-      b.x, b.y, b.z,
-      d.x, d.y, d.z
-    )
+    vertices.push(a.x, a.y, a.z, b.x, b.y, b.z, d.x, d.y, d.z)
     // Second triangle
-    vertices.push(
-      b.x, b.y, b.z,
-      c.x, c.y, c.z,
-      d.x, d.y, d.z
-    )
+    vertices.push(b.x, b.y, b.z, c.x, c.y, c.z, d.x, d.y, d.z)
   }
 
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+  geometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(vertices, 3),
+  )
   geometry.computeVertexNormals()
   return geometry
 }
 
-export function createPyramidGeometry (
+export function createPyramidGeometry(
   sides: number,
   radius: number,
   bottom: number,
   top: number,
-  withBase = false // <-- nouveau paramètre, false par défaut
+  withBase = false, // <-- nouveau paramètre, false par défaut
 ): THREE.BufferGeometry {
   const geometry = new THREE.BufferGeometry()
   const vertices: number[] = []
@@ -95,9 +102,15 @@ export function createPyramidGeometry (
   if (withBase) {
     for (let i = 1; i < sides - 1; i++) {
       vertices.push(
-        base[0].x, base[0].y, base[0].z,
-        base[i + 1].x, base[i + 1].y, base[i + 1].z,
-        base[i].x, base[i].y, base[i].z
+        base[0].x,
+        base[0].y,
+        base[0].z,
+        base[i + 1].x,
+        base[i + 1].y,
+        base[i + 1].z,
+        base[i].x,
+        base[i].y,
+        base[i].z,
       )
     }
   }
@@ -106,26 +119,25 @@ export function createPyramidGeometry (
   for (let i = 0; i < sides; i++) {
     const a = base[i]
     const b = base[(i + 1) % sides]
-    vertices.push(
-      a.x, a.y, a.z,
-      b.x, b.y, b.z,
-      apex.x, apex.y, apex.z
-    )
+    vertices.push(a.x, a.y, a.z, b.x, b.y, b.z, apex.x, apex.y, apex.z)
   }
 
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+  geometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(vertices, 3),
+  )
   geometry.computeVertexNormals()
   return geometry
 }
 
-export function createTruncatedPyramidGeometry (
+export function createTruncatedPyramidGeometry(
   sides: number,
   bottomRadius: number,
   topRadius: number,
   bottom: number,
   top: number,
   withBottomBase = false,
-  withTopBase = false
+  withTopBase = false,
 ): THREE.BufferGeometry {
   const geometry = new THREE.BufferGeometry()
   const vertices: number[] = []
@@ -134,26 +146,35 @@ export function createTruncatedPyramidGeometry (
 
   for (let i = 0; i < sides; i++) {
     const theta = (i / sides) * Math.PI * 2
-    bottomVerts.push(new THREE.Vector3(
-      bottomRadius * Math.cos(theta),
-      bottom,
-      bottomRadius * Math.sin(theta)
-    ))
-    topVerts.push(new THREE.Vector3(
-      topRadius * Math.cos(theta),
-      top,
-      topRadius * Math.sin(theta)
-    ))
+    bottomVerts.push(
+      new THREE.Vector3(
+        bottomRadius * Math.cos(theta),
+        bottom,
+        bottomRadius * Math.sin(theta),
+      ),
+    )
+    topVerts.push(
+      new THREE.Vector3(
+        topRadius * Math.cos(theta),
+        top,
+        topRadius * Math.sin(theta),
+      ),
+    )
   }
 
   // Bottom face (triangulation) si demandé
   if (withBottomBase) {
     for (let i = 1; i < sides - 1; i++) {
       vertices.push(
-        bottomVerts[0].x, bottomVerts[0].y, bottomVerts[0].z,
-        bottomVerts[i + 1].x, bottomVerts[i + 1].y, bottomVerts[i + 1].z,
-        bottomVerts[i].x, bottomVerts[i].y, bottomVerts[i].z
-
+        bottomVerts[0].x,
+        bottomVerts[0].y,
+        bottomVerts[0].z,
+        bottomVerts[i + 1].x,
+        bottomVerts[i + 1].y,
+        bottomVerts[i + 1].z,
+        bottomVerts[i].x,
+        bottomVerts[i].y,
+        bottomVerts[i].z,
       )
     }
   }
@@ -162,9 +183,15 @@ export function createTruncatedPyramidGeometry (
   if (withTopBase) {
     for (let i = 1; i < sides - 1; i++) {
       vertices.push(
-        topVerts[0].x, topVerts[0].y, topVerts[0].z,
-        topVerts[i].x, topVerts[i].y, topVerts[i].z,
-        topVerts[i + 1].x, topVerts[i + 1].y, topVerts[i + 1].z
+        topVerts[0].x,
+        topVerts[0].y,
+        topVerts[0].z,
+        topVerts[i].x,
+        topVerts[i].y,
+        topVerts[i].z,
+        topVerts[i + 1].x,
+        topVerts[i + 1].y,
+        topVerts[i + 1].z,
       )
     }
   }
@@ -177,34 +204,29 @@ export function createTruncatedPyramidGeometry (
     const d = topVerts[i]
 
     // Premier triangle
-    vertices.push(
-      a.x, a.y, a.z,
-      b.x, b.y, b.z,
-      d.x, d.y, d.z
-    )
+    vertices.push(a.x, a.y, a.z, b.x, b.y, b.z, d.x, d.y, d.z)
     // Second triangle
-    vertices.push(
-      b.x, b.y, b.z,
-      c.x, c.y, c.z,
-      d.x, d.y, d.z
-    )
+    vertices.push(b.x, b.y, b.z, c.x, c.y, c.z, d.x, d.y, d.z)
   }
 
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+  geometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(vertices, 3),
+  )
   geometry.computeVertexNormals()
   return geometry
 }
-export function createMeshFromGeometry (
+export function createMeshFromGeometry(
   geometry: THREE.BufferGeometry,
-  material?: THREE.Material | THREE.Material[]
+  material?: THREE.Material | THREE.Material[],
 ): THREE.Mesh {
   const mat = material ?? new THREE.MeshStandardMaterial({ color: '#fff' })
   return new THREE.Mesh(geometry, mat)
 }
 
-export function createEdgesFromGeometry (
+export function createEdgesFromGeometry(
   geometry: THREE.BufferGeometry,
-  dashed = false
+  dashed = false,
 ): THREE.LineSegments {
   const edges = new THREE.EdgesGeometry(geometry)
   let material: THREE.Material
@@ -215,14 +237,14 @@ export function createEdgesFromGeometry (
       gapSize: 0.025,
       depthTest: false,
       transparent: true,
-      opacity: 0.5 // ou 0.5 si tu veux atténuer les pointillés
+      opacity: 0.5, // ou 0.5 si tu veux atténuer les pointillés
     })
   } else {
     material = new THREE.LineBasicMaterial({
       color: 0x000000,
       depthTest: true,
       transparent: true,
-      opacity: 1
+      opacity: 1,
     })
   }
   const line = new THREE.LineSegments(edges, material)
@@ -239,7 +261,7 @@ const coloredCubeMeshTemplate = (() => {
     new THREE.MeshPhongMaterial({ color: 'green' }),
     new THREE.MeshPhongMaterial({ color: 'green' }),
     new THREE.MeshPhongMaterial({ color: 'blue' }),
-    new THREE.MeshPhongMaterial({ color: 'blue' })
+    new THREE.MeshPhongMaterial({ color: 'blue' }),
   ]
   const mesh = new THREE.Mesh(geometry, materials)
   return mesh
@@ -254,13 +276,13 @@ const coloredCubeWithEdgesTemplate = (() => {
     new THREE.MeshPhongMaterial({ color: 'green' }),
     new THREE.MeshPhongMaterial({ color: 'green' }),
     new THREE.MeshPhongMaterial({ color: 'blue' }),
-    new THREE.MeshPhongMaterial({ color: 'blue' })
+    new THREE.MeshPhongMaterial({ color: 'blue' }),
   ]
   const mesh = new THREE.Mesh(geometry, materials)
   const edges = new THREE.EdgesGeometry(geometry)
   const line = new THREE.LineSegments(
     edges,
-    new THREE.LineBasicMaterial({ color: 0x000000 })
+    new THREE.LineBasicMaterial({ color: 0x000000 }),
   )
   const group = new THREE.Group()
   group.add(mesh)
@@ -268,25 +290,27 @@ const coloredCubeWithEdgesTemplate = (() => {
   return group
 })()
 
-export function createColoredCube (
+export function createColoredCube(
   position: [number, number, number],
   size = 1,
   options?: {
-    edges?: boolean,           // true pour ajouter les arêtes
-    edgesColor?: number,       // couleur des arêtes (ex: 0x000000)
-    edgesOpacity?: number,      // opacité des arêtes (ex: 1)
+    edges?: boolean // true pour ajouter les arêtes
+    edgesColor?: number // couleur des arêtes (ex: 0x000000)
+    edgesOpacity?: number // opacité des arêtes (ex: 1)
     colors: number[]
-  }
+  },
 ): THREE.Group | THREE.Mesh {
-  const colors = range(6).map(n => (options?.colors ?? [0xffffff])[n % (options?.colors?.length ?? 1)])
+  const colors = range(6).map(
+    (n) => (options?.colors ?? [0xffffff])[n % (options?.colors?.length ?? 1)],
+  )
   const geometry = new THREE.BoxGeometry(size, size, size)
   const materials = [
-    new THREE.MeshPhongMaterial({ color: colors[0] }),   // +X
-    new THREE.MeshPhongMaterial({ color: colors[1] }),   // -X
+    new THREE.MeshPhongMaterial({ color: colors[0] }), // +X
+    new THREE.MeshPhongMaterial({ color: colors[1] }), // -X
     new THREE.MeshPhongMaterial({ color: colors[2] }), // +Y
     new THREE.MeshPhongMaterial({ color: colors[3] }), // -Y
-    new THREE.MeshPhongMaterial({ color: colors[4] }),  // +Z
-    new THREE.MeshPhongMaterial({ color: colors[5] })   // -Z
+    new THREE.MeshPhongMaterial({ color: colors[4] }), // +Z
+    new THREE.MeshPhongMaterial({ color: colors[5] }), // -Z
   ]
   const mesh = new THREE.Mesh(geometry, materials)
   mesh.position.set(...position)
@@ -298,8 +322,8 @@ export function createColoredCube (
       new THREE.LineBasicMaterial({
         color: options.edgesColor ?? 0x000000,
         opacity: options.edgesOpacity ?? 1,
-        transparent: (options.edgesOpacity ?? 1) < 1
-      })
+        transparent: (options.edgesOpacity ?? 1) < 1,
+      }),
     )
     line.position.copy(mesh.position)
     // On regroupe mesh et edges dans un Group
@@ -312,25 +336,27 @@ export function createColoredCube (
   }
 }
 
-export function createColoredCubeInstance (
+export function createColoredCubeInstance(
   position: [number, number, number],
   size = 1,
   withEdges = false,
-  colors: number[]
+  colors: number[],
 ): THREE.Group | THREE.Mesh {
-  const template = withEdges ? coloredCubeWithEdgesTemplate : coloredCubeMeshTemplate
+  const template = withEdges
+    ? coloredCubeWithEdgesTemplate
+    : coloredCubeMeshTemplate
   const clone = template.clone(true)
   clone.position.set(...position)
   clone.scale.set(size, size, size)
   return clone
 }
 
-export function createRealisticEarthSphere (desc: {
-  position?: [number, number, number],
-  radius?: number,
-  greenwichAlignment?: number,
-  segmentsWidth?: number,
-  segmentsHeight?: number,
+export function createRealisticEarthSphere(desc: {
+  position?: [number, number, number]
+  radius?: number
+  greenwichAlignment?: number
+  segmentsWidth?: number
+  segmentsHeight?: number
   onTextureLoaded?: () => void // optionnel, pour forcer un render
 }): THREE.Mesh {
   const DIFFUSE_MAP = 'images/earth_day_4096.jpg'
@@ -339,7 +365,7 @@ export function createRealisticEarthSphere (desc: {
   const geometry = new THREE.SphereGeometry(
     desc.radius ?? 1,
     desc.segmentsWidth ?? 64,
-    desc.segmentsHeight ?? 32
+    desc.segmentsHeight ?? 32,
   )
 
   const loader = new THREE.TextureLoader()
@@ -354,7 +380,8 @@ export function createRealisticEarthSphere (desc: {
 
   const mesh = new THREE.Mesh(geometry, material)
   if (desc.position) mesh.position.set(...desc.position)
-  if (desc.greenwichAlignment) mesh.rotation.y = THREE.MathUtils.degToRad(desc.greenwichAlignment)
+  if (desc.greenwichAlignment)
+    mesh.rotation.y = THREE.MathUtils.degToRad(desc.greenwichAlignment)
 
   // Charge la texture diffuse
   loader.load(DIFFUSE_MAP, (diffuse) => {
@@ -374,19 +401,20 @@ export function createRealisticEarthSphere (desc: {
   return mesh
 }
 
-export function createGeoPoint (desc: {
-  spherePosition?: [number, number, number],
-  sphereRadius?: number,
-  latitude: number,
-  longitude: number,
-  altitude?: number,
-  pointRadius?: number,
-  pointColor?: string | number,
-  label?: string,
-  labelColor?: string,
-  labelOffset?: number,
-  labelSize?: number,
-  font?: string,
+export function createGeoPoint(desc: {
+  spherePosition?: [number, number, number]
+  sphereRadius?: number
+  latitude: number
+  longitude: number
+  altitude?: number
+  pointRadius?: number
+  pointColor?: string | number
+  label?: string
+  labelColor?: string
+  labelOffset?: number
+  labelSize?: number
+  font?: string // chemin vers le .json MSDF
+  fontTexture?: string // chemin vers le .png MSDF
   transparent?: boolean
 }): THREE.Group {
   // Valeurs par défaut
@@ -396,13 +424,18 @@ export function createGeoPoint (desc: {
   const lonRad = (desc.longitude * Math.PI) / 180
 
   // Calcul coordonnées sphériques
-  const x = spherePos[0] + r * Math.cos(latRad) * Math.sin(lonRad)
-  const y = spherePos[1] + r * Math.sin(latRad)
-  const z = spherePos[2] + r * Math.cos(latRad) * Math.cos(lonRad)
+  const [x, y, z] = sphericalToCartesian(
+    desc.latitude,
+    desc.longitude,
+    r,
+    spherePos,
+  )
 
   // Création du point (petite sphère)
   const geometry = new THREE.SphereGeometry(desc.pointRadius ?? 0.03, 16, 16)
-  const material = new THREE.MeshPhongMaterial({ color: desc.pointColor ?? 0xff0000 })
+  const material = new THREE.MeshPhongMaterial({
+    color: desc.pointColor ?? 0xff0000,
+  })
   const point = new THREE.Mesh(geometry, material)
   point.position.set(x, y, z)
 
@@ -411,106 +444,98 @@ export function createGeoPoint (desc: {
 
   // Ajout du label si demandé
   if (desc.label) {
-    const labelR = r + (desc.labelOffset ?? 0.05)
-    const [labelX, labelY, labelZ] = sphericalToCartesian(desc.latitude - 2, desc.longitude, labelR, spherePos)
+    const textMesh = new Text()
+    // Label position avec offset
+    // Normal à la sphère au point du label
+    const normal = new THREE.Vector3(x, y, z).normalize()
+    const labelOffset = desc.labelOffset ?? 0.05
+    const labelPos = normal.clone().multiplyScalar(r + labelOffset)
 
-    // Utilise un Sprite pour le label (simple et toujours lisible)
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')!
-    const fontSize = (desc.labelSize ?? 0.5) * 32
-    const font = 'images/custom-msdf.json'
-    ctx.font = `${fontSize}px ${font}`
-    ctx.fillStyle = desc.labelColor ?? '#ffffff'
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
+    // Appliquer
+    textMesh.position.copy(labelPos)
+    textMesh.text = desc.label
+    textMesh.fontSize = desc.labelSize ?? 0.5
+    textMesh.color = desc.labelColor ?? '#ffffff'
+    textMesh.anchorX = 'center'
+    textMesh.anchorY = 'middle'
+    textMesh.font = desc.font ?? 'fonts/Arial Rounded Bold.ttf'
+    const euler = new THREE.Euler(0, lonRad, 0, 'YXZ')
+    euler.x = -latRad // rotation latitude
+    textMesh.setRotationFromEuler(euler)
 
-    // Mesure la largeur du texte pour ajuster la taille du canvas
-    const textWidth = ctx.measureText(desc.label).width
-    canvas.width = textWidth + 16
-    canvas.height = fontSize + 8
-
-    // Redéfinir les propriétés après avoir changé la taille du canvas
-    ctx.font = `${fontSize}px ${font}`
-    ctx.fillStyle = desc.labelColor ?? '#ffffff'
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.fillText(desc.label, canvas.width / 2, canvas.height / 2)
-
-    const texture = new THREE.CanvasTexture(canvas)
-    const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: desc.transparent ?? true })
-    const sprite = new THREE.Sprite(spriteMaterial)
-    sprite.position.set(labelX, labelY, labelZ)
-    sprite.scale.set((desc.labelSize ?? 0.5), (desc.labelSize ?? 0.5), 1)
-    group.add(sprite)
+    textMesh.sync()
+    group.add(textMesh)
   }
 
   return group
 }
-
-export function createGeoPoints (desc: {
-  spherePosition?: [number, number, number],
-  sphereRadius?: number,
+export function createGeoPoints(desc: {
+  spherePosition?: [number, number, number]
+  sphereRadius?: number
   points: Array<{
-    latitude: number,
-    longitude: number,
-    altitude?: number,
-    pointRadius?: number,
-    pointColor?: string | number,
-    label?: string,
-    labelColor?: string,
-    labelOffset?: number,
-    labelSize?: number,
-    font?: string,
+    latitude: number
+    longitude: number
+    altitude?: number
+    pointRadius?: number
+    pointColor?: string | number
+    label?: string
+    labelColor?: string
+    labelOffset?: number
+    labelSize?: number
+    font?: string
     transparent?: boolean
   }>
 }): THREE.Group {
   const group = new THREE.Group()
-  desc.points.forEach(pointDesc => {
-    group.add(createGeoPoint({
-      spherePosition: desc.spherePosition,
-      sphereRadius: desc.sphereRadius,
-      ...pointDesc
-    }))
+  desc.points.forEach((pointDesc) => {
+    group.add(
+      createGeoPoint({
+        spherePosition: desc.spherePosition,
+        sphereRadius: desc.sphereRadius,
+        ...pointDesc,
+      }),
+    )
   })
   return group
 }
 
-function sphericalToCartesian (
+function sphericalToCartesian(
   latitude: number,
   longitude: number,
   radius: number,
-  center: [number, number, number]
+  center: [number, number, number],
 ): [number, number, number] {
   const latRad = (latitude * Math.PI) / 180
   const lonRad = (longitude * Math.PI) / 180
   return [
     center[0] + radius * Math.cos(latRad) * Math.sin(lonRad),
     center[1] + radius * Math.sin(latRad),
-    center[2] + radius * Math.cos(latRad) * Math.cos(lonRad)
+    center[2] + radius * Math.cos(latRad) * Math.cos(lonRad),
   ]
 }
 
 /**
  * Crée une sphère filaire personnalisée (parallèles, méridiens, équateur, Greenwich)
  */
-export function createCustomWireSphere (desc: {
-  position?: [number, number, number],
-  radius?: number,
-  parallels?: number,
-  meridians?: number,
-  segments?: number,
-  parallelColor?: string | number,
-  meridianColor?: string | number,
-  showParallels?: boolean,
-  showMeridians?: boolean,
-  showEquator?: boolean,
-  equatorColor?: string | number,
-  equatorThickness?: number,
-  showGreenwich?: boolean,
-  greenwichColor?: string | number,
-  greenwichThickness?: number,
-} = {}): THREE.Group {
+export function createCustomWireSphere(
+  desc: {
+    position?: [number, number, number]
+    radius?: number
+    parallels?: number
+    meridians?: number
+    segments?: number
+    parallelColor?: string | number
+    meridianColor?: string | number
+    showParallels?: boolean
+    showMeridians?: boolean
+    showEquator?: boolean
+    equatorColor?: string | number
+    equatorThickness?: number
+    showGreenwich?: boolean
+    greenwichColor?: string | number
+    greenwichThickness?: number
+  } = {},
+): THREE.Group {
   const {
     position = [0, 0, 0],
     radius = 1,
@@ -535,13 +560,20 @@ export function createCustomWireSphere (desc: {
   // Parallèles (hors équateur)
   if (showParallels) {
     for (let i = 1; i <= parallels; i++) {
-      const phi = Math.PI * i / (parallels + 1)
+      const phi = (Math.PI * i) / (parallels + 1)
       const circle = new THREE.EllipseCurve(
-        0, 0, radius * Math.sin(phi), radius * Math.sin(phi), 0, 2 * Math.PI, false, 0
+        0,
+        0,
+        radius * Math.sin(phi),
+        radius * Math.sin(phi),
+        0,
+        2 * Math.PI,
+        false,
+        0,
       )
       const points = circle.getPoints(segments)
       const geometry = new THREE.BufferGeometry().setFromPoints(
-        points.map(p => new THREE.Vector3(p.x, radius * Math.cos(phi), p.y))
+        points.map((p) => new THREE.Vector3(p.x, radius * Math.cos(phi), p.y)),
       )
       const material = new THREE.LineBasicMaterial({ color: parallelColor })
       const line = new THREE.LineLoop(geometry, material)
@@ -552,10 +584,10 @@ export function createCustomWireSphere (desc: {
   // Méridiens
   if (showMeridians) {
     for (let i = 0; i < meridians; i++) {
-      const theta = 2 * Math.PI * i / meridians
+      const theta = (2 * Math.PI * i) / meridians
       const points: THREE.Vector3[] = []
       for (let j = 0; j <= segments; j++) {
-        const phi = Math.PI * j / segments
+        const phi = (Math.PI * j) / segments
         const x = radius * Math.sin(phi) * Math.sin(theta)
         const y = radius * Math.cos(phi)
         const z = radius * Math.sin(phi) * Math.cos(theta)
@@ -570,12 +602,24 @@ export function createCustomWireSphere (desc: {
 
   // Équateur
   if (showEquator) {
-    const circle = new THREE.EllipseCurve(0, 0, radius, radius, 0, 2 * Math.PI, false, 0)
+    const circle = new THREE.EllipseCurve(
+      0,
+      0,
+      radius,
+      radius,
+      0,
+      2 * Math.PI,
+      false,
+      0,
+    )
     const points = circle.getPoints(segments)
     const geometry = new THREE.BufferGeometry().setFromPoints(
-      points.map(p => new THREE.Vector3(p.x, 0, p.y))
+      points.map((p) => new THREE.Vector3(p.x, 0, p.y)),
     )
-    const material = new THREE.LineBasicMaterial({ color: equatorColor, linewidth: equatorThickness ? Math.max(1, equatorThickness * 10) : 2 })
+    const material = new THREE.LineBasicMaterial({
+      color: equatorColor,
+      linewidth: equatorThickness ? Math.max(1, equatorThickness * 10) : 2,
+    })
     const line = new THREE.LineLoop(geometry, material)
     group.add(line)
   }
@@ -584,14 +628,17 @@ export function createCustomWireSphere (desc: {
   if (showGreenwich) {
     const points: THREE.Vector3[] = []
     for (let j = 0; j <= segments; j++) {
-      const phi = Math.PI * j / segments
+      const phi = (Math.PI * j) / segments
       const x = 0
       const y = radius * Math.cos(phi)
       const z = radius * Math.sin(phi)
       points.push(new THREE.Vector3(x, y, z))
     }
     const geometry = new THREE.BufferGeometry().setFromPoints(points)
-    const material = new THREE.LineBasicMaterial({ color: greenwichColor, linewidth: greenwichThickness ? Math.max(1, greenwichThickness * 10) : 2 })
+    const material = new THREE.LineBasicMaterial({
+      color: greenwichColor,
+      linewidth: greenwichThickness ? Math.max(1, greenwichThickness * 10) : 2,
+    })
     const line = new THREE.Line(geometry, material)
     group.add(line)
   }
@@ -599,9 +646,9 @@ export function createCustomWireSphere (desc: {
   return group
 }
 
-export function createSkySphere (desc: {
-  radius?: number,
-  image: string,
+export function createSkySphere(desc: {
+  radius?: number
+  image: string
   onTextureLoaded?: (mesh: THREE.Mesh) => void
 }): THREE.Mesh {
   const geometry = new THREE.SphereGeometry(desc.radius ?? 200, 64, 32)
@@ -623,33 +670,35 @@ export function createSkySphere (desc: {
  * @returns Une BufferGeometry fusionnée
  */
 
-export function createWireframeUnion (
+export function createWireframeUnion(
   items: (THREE.BufferGeometry | THREE.Object3D)[],
   options?: {
-    meshOpacity?: number,
-    meshColor?: THREE.ColorRepresentation,
-    dashedColor?: THREE.ColorRepresentation,
+    meshOpacity?: number
+    meshColor?: THREE.ColorRepresentation
+    dashedColor?: THREE.ColorRepresentation
     solidColor?: THREE.ColorRepresentation
-  }
+  },
 ): THREE.Group {
   // 1. Récupère toutes les BufferGeometry récursivement
   const geometries: THREE.BufferGeometry[] = []
 
-  function collectGeometries (obj: THREE.BufferGeometry | THREE.Object3D) {
+  function collectGeometries(obj: THREE.BufferGeometry | THREE.Object3D) {
     if (
       obj instanceof THREE.BufferGeometry &&
-    !(obj instanceof THREE.EdgesGeometry)
+      !(obj instanceof THREE.EdgesGeometry)
     ) {
       geometries.push(obj)
-    } else if ((obj as THREE.Mesh).geometry instanceof THREE.BufferGeometry &&
-             !((obj as THREE.Mesh).geometry instanceof THREE.EdgesGeometry)) {
+    } else if (
+      (obj as THREE.Mesh).geometry instanceof THREE.BufferGeometry &&
+      !((obj as THREE.Mesh).geometry instanceof THREE.EdgesGeometry)
+    ) {
       geometries.push((obj as THREE.Mesh).geometry)
     } else if (obj instanceof THREE.Group || obj instanceof THREE.Object3D) {
-      obj.children.forEach(child => collectGeometries(child))
+      obj.children.forEach((child) => collectGeometries(child))
     }
   }
 
-  items.forEach(item => collectGeometries(item))
+  items.forEach((item) => collectGeometries(item))
 
   if (geometries.length === 0) {
     throw new Error('Aucune BufferGeometry trouvée pour la fusion')
@@ -675,16 +724,22 @@ export function createWireframeUnion (
 
   for (let i = 0; i < pos.count; i += 3) {
     // Calcul de la normale du triangle (A, B, C)
-    const ax = pos.getX(i); const ay = pos.getY(i); const az = pos.getZ(i)
-    const bx = pos.getX(i + 1); const by = pos.getY(i + 1); const bz = pos.getZ(i + 1)
-    const cx = pos.getX(i + 2); const cy = pos.getY(i + 2); const cz = pos.getZ(i + 2)
+    const ax = pos.getX(i)
+    const ay = pos.getY(i)
+    const az = pos.getZ(i)
+    const bx = pos.getX(i + 1)
+    const by = pos.getY(i + 1)
+    const bz = pos.getZ(i + 1)
+    const cx = pos.getX(i + 2)
+    const cy = pos.getY(i + 2)
+    const cz = pos.getZ(i + 2)
     const ab = new THREE.Vector3(bx - ax, by - ay, bz - az)
     const ac = new THREE.Vector3(cx - ax, cy - ay, cz - az)
     const normal = new THREE.Vector3().crossVectors(ab, ac).normalize()
     const center = new THREE.Vector3(
       (ax + bx + cx) / 3,
       (ay + by + cy) / 3,
-      (az + bz + cz) / 3
+      (az + bz + cz) / 3,
     )
     const toBarycenter = barycenter.clone().sub(center).normalize()
     if (normal.dot(toBarycenter) > 0) {
@@ -706,7 +761,7 @@ export function createWireframeUnion (
       polygonOffset: true,
       polygonOffsetFactor: 1,
       polygonOffsetUnits: 1,
-    })
+    }),
   )
   group.add(mesh)
 
@@ -719,7 +774,7 @@ export function createWireframeUnion (
     linewidth: 1,
     transparent: true,
     opacity: 0.7,
-    depthTest: true
+    depthTest: true,
   })
   const dashedLines = new THREE.LineSegments(edgesDashed, dashedMaterial)
   dashedLines.computeLineDistances()
@@ -731,26 +786,33 @@ export function createWireframeUnion (
     color: options?.solidColor ?? 0x000000,
     linewidth: 2,
     transparent: false,
-    depthTest: true
+    depthTest: true,
   })
   const solidLines = new THREE.LineSegments(edgesSolid, solidMaterial)
   group.add(solidLines)
 
   return group
 }
-export function createPrismWithWireframe (
+export function createPrismWithWireframe(
   sides: number,
   radius: number,
   bottom: number,
   top: number,
   withBottomBase = false,
   withTopBase = false,
-  meshOpacity = 0.5
+  meshOpacity = 0.5,
 ): THREE.Group {
   const group = new THREE.Group()
 
   // 1. Mesh (faces pleines, légèrement transparentes)
-  const geometry = createPrismGeometry(sides, radius, bottom, top, withBottomBase, withTopBase)
+  const geometry = createPrismGeometry(
+    sides,
+    radius,
+    bottom,
+    top,
+    withBottomBase,
+    withTopBase,
+  )
   const mesh = new THREE.Mesh(
     geometry,
     new THREE.MeshPhongMaterial({
@@ -759,8 +821,8 @@ export function createPrismWithWireframe (
       opacity: meshOpacity,
       polygonOffset: true,
       polygonOffsetFactor: 1,
-      polygonOffsetUnits: 1
-    })
+      polygonOffsetUnits: 1,
+    }),
   )
   group.add(mesh)
 
@@ -773,7 +835,7 @@ export function createPrismWithWireframe (
     linewidth: 1,
     transparent: true,
     opacity: 0.7,
-    depthTest: true
+    depthTest: true,
   })
   const dashedLines = new THREE.LineSegments(edgesDashed, dashedMaterial)
   dashedLines.computeLineDistances()
@@ -785,7 +847,7 @@ export function createPrismWithWireframe (
     color: 0x000000,
     linewidth: 2,
     transparent: false,
-    depthTest: true
+    depthTest: true,
   })
   const solidLines = new THREE.LineSegments(edgesSolid, solidMaterial)
   group.add(solidLines)
@@ -793,13 +855,13 @@ export function createPrismWithWireframe (
   return group
 }
 
-export function createPyramidWithWireframe (
+export function createPyramidWithWireframe(
   sides: number,
   radius: number,
   bottom: number,
   top: number,
   withBase = false,
-  meshOpacity = 0.5
+  meshOpacity = 0.5,
 ): THREE.Group {
   const group = new THREE.Group()
 
@@ -814,8 +876,8 @@ export function createPyramidWithWireframe (
       opacity: meshOpacity,
       polygonOffset: true,
       polygonOffsetFactor: 1,
-      polygonOffsetUnits: 1
-    })
+      polygonOffsetUnits: 1,
+    }),
   )
   group.add(mesh)
 
@@ -828,7 +890,7 @@ export function createPyramidWithWireframe (
     linewidth: 1,
     transparent: true,
     opacity: 0.7,
-    depthTest: true
+    depthTest: true,
   })
   const dashedLines = new THREE.LineSegments(edgesDashed, dashedMaterial)
   dashedLines.computeLineDistances()
@@ -840,7 +902,7 @@ export function createPyramidWithWireframe (
     color: 0x000000,
     linewidth: 2,
     transparent: false,
-    depthTest: true
+    depthTest: true,
   })
   const solidLines = new THREE.LineSegments(edgesSolid, solidMaterial)
   group.add(solidLines)
@@ -848,7 +910,7 @@ export function createPyramidWithWireframe (
   return group
 }
 
-export function createTruncatedPyramidWithWireframe (
+export function createTruncatedPyramidWithWireframe(
   sides: number,
   bottomRadius: number,
   topRadius: number,
@@ -856,13 +918,19 @@ export function createTruncatedPyramidWithWireframe (
   top: number,
   withBottomBase = false,
   withTopBase = false,
-  meshOpacity = 0.5
+  meshOpacity = 0.5,
 ): THREE.Group {
   const group = new THREE.Group()
 
   // 1. Mesh (faces pleines, légèrement transparentes)
   const geometry = createTruncatedPyramidGeometry(
-    sides, bottomRadius, topRadius, bottom, top, withBottomBase, withTopBase
+    sides,
+    bottomRadius,
+    topRadius,
+    bottom,
+    top,
+    withBottomBase,
+    withTopBase,
   )
   const mesh = new THREE.Mesh(
     geometry,
@@ -872,8 +940,8 @@ export function createTruncatedPyramidWithWireframe (
       opacity: meshOpacity,
       polygonOffset: true,
       polygonOffsetFactor: 1,
-      polygonOffsetUnits: 1
-    })
+      polygonOffsetUnits: 1,
+    }),
   )
   group.add(mesh)
 
@@ -886,7 +954,7 @@ export function createTruncatedPyramidWithWireframe (
     linewidth: 1,
     transparent: true,
     opacity: 0.7,
-    depthTest: true
+    depthTest: true,
   })
   const dashedLines = new THREE.LineSegments(edgesDashed, dashedMaterial)
   dashedLines.computeLineDistances()
@@ -898,7 +966,7 @@ export function createTruncatedPyramidWithWireframe (
     color: 0x000000,
     linewidth: 2,
     transparent: false,
-    depthTest: true
+    depthTest: true,
   })
   const solidLines = new THREE.LineSegments(edgesSolid, solidMaterial)
   group.add(solidLines)
