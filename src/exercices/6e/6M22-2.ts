@@ -2,15 +2,15 @@ import { arc } from '../../lib/2d/cercle'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { arrondi } from '../../lib/outils/nombres'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +36,7 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
-    this.besoinFormulaire2Texte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de figures', 'Nombres séparés par des tirets :\n1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
 
     this.sup = 3 // 1 : périmètre, 2 : aire, 3 : périmètres et aires
     this.sup2 = 4

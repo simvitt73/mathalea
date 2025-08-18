@@ -32,9 +32,9 @@ export default class AireParComptage extends Exercice {
     super()
     this.comment = `Une version course aux nombres de cet exercice est disponible sous la référence can6M14 pour l'aire et can6M15 pour le périmètre. Dans les versions can, il n'y a qu'une figure.<br>
     Les figures sont générées aléatoirement à partir d'une aire choisie. Les possiblités sont nombreuses, mais aucune vérification n'a été faite afin d'éviter les doublons.`
-    this.besoinFormulaireTexte = ['Aire maximale', 'Nombres séparés par des tirets\n1 : Inférieure à 10\n2 : Inférieure à 20\n3 : Inférieure à 30\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Aire maximale', 'Nombres séparés par des tirets :\n1 : Inférieure à 10\n2 : Inférieure à 20\n3 : Inférieure à 30\n4 : Mélange']
     this.besoinFormulaire2Numerique = ['Mesures demandées', 3, '1 : Aire\n2 : Périmètre\n3 : Aire et périmètre']
-    this.besoinFormulaire3Texte = ['Unités', 'Nombres séparés par des tirets\n1 : u.l / u.a\n2 : cm / cm²\n3 : m / m²\n4 : Mélange']
+    this.besoinFormulaire3Texte = ['Unités', 'Nombres séparés par des tirets :\n1 : u.l / u.a\n2 : cm / cm²\n3 : m / m²\n4 : Mélange']
     this.sup = '4'
     this.sup2 = 1
     this.sup3 = '2'

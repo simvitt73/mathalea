@@ -1,19 +1,19 @@
-import { polygone } from '../../lib/2d/polygones'
-import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternAffine, listePatternDegre2, listePatternDegre3, listePatternLineaire, listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
-import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { texteParPosition } from '../../lib/2d/textes'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { cubeDef, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
-import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 
 export const titre = 'Définir une expression littérale à partir d\'un modèle figuratif'
 export const interactifReady = true
@@ -44,7 +44,7 @@ export default class PaternNum1 extends Exercice {
     this.comment = 'Cet exercice contient des modèles issus de l\'excellent site : https://www.visualpatterns.org/'
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire2Texte = ['Types de formules au menu (cumulatif)', 'Nombres séparés par des tirets\n1 : Linéaire\n2 : Affine\n3 : Quadratique\n4 : Cubique\n5 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de formules au menu (cumulatif)', 'Nombres séparés par des tirets :\n1 : Linéaire\n2 : Affine\n3 : Quadratique\n4 : Cubique\n5 : Mélange']
     this.sup2 = '1-2'
     this.besoinFormulaire5Numerique = ['Numéro de modèle (uniquement si 1 seule question)', 100,]
     this.sup5 = 1

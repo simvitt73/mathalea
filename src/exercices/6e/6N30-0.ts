@@ -1,22 +1,22 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { point, tracePoint } from '../../lib/2d/points'
 import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenu,
+    randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
@@ -44,7 +44,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
     this.sup2 = false
     this.besoinFormulaireTexte = [
       'Types de pas de graduations',
-      'Nombres séparés par des tirets\n1 : Le pas secondaire vaut 0.5 ou 0.1\n2 : Le pas secondaire vaut 1.5, 2.5, 0.2 ou 0.3\n3 : Un peu plus difficile\n4 : Le pas principal est complexe\n5 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Le pas secondaire vaut 0.5 ou 0.1\n2 : Le pas secondaire vaut 1.5, 2.5, 0.2 ou 0.3\n3 : Un peu plus difficile\n4 : Le pas principal est complexe\n5 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Zéro visible']
     this.correctionDetailleeDisponible = true

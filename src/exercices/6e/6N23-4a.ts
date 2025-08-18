@@ -1,16 +1,16 @@
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import FractionEtendue from '../../modules/FractionEtendue'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de fraction décimale (ou inversement)'
 export const amcReady = true
@@ -36,7 +36,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     super()
 
     this.nbQuestions = 5
-    this.besoinFormulaireTexte = ['Type des fractions décimales', 'Nombres séparés par des tirets\n1 : Du genre 128/10\n2 : Du genre 8+5/100+7/100\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Type des fractions décimales', 'Nombres séparés par des tirets :\n1 : Du genre 128/10\n2 : Du genre 8+5/100+7/100\n3 : Mélange']
     this.besoinFormulaire2Numerique = ['Type de questions', 2, '1 : Du nombre décimal à la fraction décimale\n2 : De fractions décimales au nombre décimal']
     this.sup = 3
   }

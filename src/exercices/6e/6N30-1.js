@@ -1,13 +1,13 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des subdivisions',
-      'Nombres séparés par des tirets\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
     ]
     this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
     this.nbQuestions = 3

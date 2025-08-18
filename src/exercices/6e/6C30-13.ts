@@ -1,11 +1,11 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathlive'
@@ -30,7 +30,7 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
       'Choix de la fraction',
-      'Nombres sépares par des tirets\n1 : 1/10\n2 : 1/100\n3 : 1/1 000\n4 : Mélange'
+      'Nombres sépares par des tirets :\n1 : 1/10\n2 : 1/100\n3 : 1/1 000\n4 : Mélange'
     ]
 
     this.besoinFormulaire2Numerique = [

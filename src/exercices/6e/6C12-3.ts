@@ -1,14 +1,14 @@
+import { texteGras } from '../../lib/format/style'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { jourAuHasard, nomDuMois } from '../../lib/outils/dateEtHoraires'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { texteGras } from '../../lib/format/style'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMult'
@@ -34,7 +34,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Choix de la formulation :', 2, '1 : Coche les informations qui servent à sa résolution.\n2 : Coche les informations qui NE servent PAS à sa résolution.']
-    this.besoinFormulaire2Texte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Livres\n2 : Haricots\n3 : Villages de montagne\n4 : Manga\n5 : Film\n6 : Vélo\n7 : Taille\n8 : Gare\n9 : Livreur\n10 : Cargo\n11 : Tous les problèmes\n']
+    this.besoinFormulaire2Texte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : Livres\n2 : Haricots\n3 : Villages de montagne\n4 : Manga\n5 : Film\n6 : Vélo\n7 : Taille\n8 : Gare\n9 : Livreur\n10 : Cargo\n11 : Tous les problèmes\n']
     this.besoinFormulaire3CaseACocher = ['Certains problèmes peuvent être insolubles']
     this.sup = 1
     this.sup2 = 11

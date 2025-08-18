@@ -1,14 +1,14 @@
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
@@ -40,7 +40,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     super()
 
     this.nbQuestions = 5
-    this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets :\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange']
     this.sup = 6
   }
 

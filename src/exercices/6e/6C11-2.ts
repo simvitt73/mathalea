@@ -1,9 +1,13 @@
+import { max, min, mod } from 'mathjs'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
-  choice,
-  combinaisonListes,
-  combinaisonListes2,
-  enleveElement,
-  enleveElementNo
+    choice,
+    combinaisonListes,
+    combinaisonListes2,
+    enleveElement,
+    enleveElementNo
 } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -11,14 +15,10 @@ import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
-  contraindreValeur,
-  listeQuestionsToContenu,
-  randint
+    contraindreValeur,
+    listeQuestionsToContenu,
+    randint
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { max, min, mod } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
 
 export const titre =
@@ -49,7 +49,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des mots à enlever',
-      "Nombres séparés par des tirets\nAu maximum, seuls les deux premiers entiers non nuls différents seront retenus.\n0 : Pour enlever aucun mot\n1 : Pour enlever 'dividende' du choix des mots\n2 : Pour enlever 'diviseur' du choix des mots\n3 : Pour enlever 'quotient' du choix des mots\n4 : Pour enlever 'reste' du choix des mots"
+      "Nombres séparés par des tirets :\nAu maximum, seuls les deux premiers entiers non nuls différents seront retenus.\n0 : Pour enlever aucun mot\n1 : Pour enlever 'dividende' du choix des mots\n2 : Pour enlever 'diviseur' du choix des mots\n3 : Pour enlever 'quotient' du choix des mots\n4 : Pour enlever 'reste' du choix des mots"
     ]
     this.besoinFormulaire2Numerique = [
       'Choix sur les mots à trouver',

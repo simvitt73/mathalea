@@ -1,15 +1,15 @@
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import choisirExpressionNumerique from './_choisirExpressionNumerique'
-import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
+import choisirExpressionNumerique from './_choisirExpressionNumerique'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -31,7 +31,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
     this.sup3 = true // Si présence ou pas du signe "fois"
     this.sup4 = 6
     this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
-    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
+    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets :\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
     this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
   }
 

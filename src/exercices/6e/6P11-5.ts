@@ -1,13 +1,13 @@
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { AddTabPropMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { AddTabPropMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Compléter un tableau de proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
@@ -282,10 +282,10 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
     this.nbQuestions = 6
     this.besoinFormulaireCaseACocher = ['calculs entiers', true]
     this.sup = true
-    this.besoinFormulaire3Texte = ['Types de tableaux', 'Nombres séparés par des tirets\n1 : Première ligne imposée\n2 : Cases à remplir sur ligne 1 ou 2\n3 : Mélange']
+    this.besoinFormulaire3Texte = ['Types de tableaux', 'Nombres séparés par des tirets :\n1 : Première ligne imposée\n2 : Cases à remplir sur ligne 1 ou 2\n3 : Mélange']
     this.sup3 = '1'
 
-    this.besoinFormulaire2Texte = ['Type de combinaisons', 'Nombres séparés par des tirets\n1 : Faciles\n2 : Moyennes\n3 : Difficiles\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de combinaisons', 'Nombres séparés par des tirets :\n1 : Faciles\n2 : Moyennes\n3 : Difficiles\n4 : Mélange']
     this.sup2 = '1'
     this.besoinFormulaire4CaseACocher = ['Deux premières colonnes imposées', true]
     this.sup4 = true

@@ -1,19 +1,19 @@
-import { choice, combinaisonListes2, enleveDoublonNum } from '../../lib/outils/arrayOutils'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { max } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fraction } from '../../modules/fractions'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes2, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { sp } from '../../lib/outils/outilString'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Donner l\'écriture (décimale, en fraction décimale ou en pourcentage) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
@@ -46,8 +46,8 @@ export default class SommeFractionsDecimales extends Exercice {
     super()
 
     this.nbQuestions = 6
-    this.besoinFormulaireTexte = ['Type des calculs', 'Nombres séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
-    this.besoinFormulaire2Texte = ['Forme de la solution', 'Nombres séparés par des tirets\n1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Un pourcentage\n4 : Les trois']
+    this.besoinFormulaireTexte = ['Type des calculs', 'Nombres séparés par des tirets :\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Forme de la solution', 'Nombres séparés par des tirets :\n1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Un pourcentage\n4 : Les trois']
     this.sup = '7'
     this.sup2 = 4
 

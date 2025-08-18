@@ -1,12 +1,12 @@
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { texNombre } from '../../lib/outils/texNombre'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Connaitre les liens entre les unités de numération'
@@ -76,7 +76,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     this.nbQuestions = 5
     this.besoinFormulaireTexte = [
       'Choix des unités de numération',
-      'Au moins deux nombres séparés par des tirets\n' +
+      'Au moins deux nombres séparés par des tirets :\n' +
   '1 : Milliers\n' +
   '2 : Centaines\n' +
   '3 : Dizaines\n' +

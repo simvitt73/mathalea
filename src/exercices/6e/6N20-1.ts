@@ -1,19 +1,19 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { fraction } from '../../modules/fractions'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
-import { consecutiveCompare } from '../../lib/interactif/comparisonFunctions'
-import { ajouterAide } from '../../lib/outils/enrichissements'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { consecutiveCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ajouterAide } from '../../lib/outils/enrichissements'
+import { fraction } from '../../modules/fractions'
+import { getDynamicFractionDiagram } from './6N20-2'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
@@ -49,8 +49,8 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     this.sup3 = true
     this.sup4 = true
     this.besoinFormulaire2Texte = this.lycee
-      ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9\n10: mélange']
-      : ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
+      ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets :\nDe 2 à 9\n10: mélange']
+      : ['Dénominateurs à choisir', 'Nombres séparés par des tirets :\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
     this.besoinFormulaire3CaseACocher = ['Brouillon interactif']
     this.besoinFormulaire4CaseACocher = ['Correction avec nombre mixte']
     this.spacingCorr = 2.5

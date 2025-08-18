@@ -1,15 +1,15 @@
+import Decimal from 'decimal.js'
+import { texPrix } from '../../lib/format/style'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre une situation de proportionnalité'
 export const interactifReady = true
@@ -30,7 +30,7 @@ export const refs = {
 export default class ProportionnalitePasProportionnalite extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec \'je ne sais pas\' dans le QCM']
 
     context.isHtml ? this.spacing = 2 : this.spacing = 1.4

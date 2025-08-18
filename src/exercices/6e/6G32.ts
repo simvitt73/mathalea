@@ -7,14 +7,14 @@ import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, symetrieAxiale } from '../../lib/2d/transformations'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
@@ -39,7 +39,7 @@ export const interactifType = 'mathLive'
 export default class SymetrieAxialeProprietes extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Longueur d\'un seul segment\n2 : Longueur d\'un segment parmi d\'autres\n3 : Alignement de points\n4 : Angle\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Longueur d\'un seul segment\n2 : Longueur d\'un segment parmi d\'autres\n3 : Alignement de points\n4 : Angle\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Justification demandée']
 
     this.spacing = 2

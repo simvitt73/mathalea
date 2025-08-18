@@ -1,18 +1,18 @@
+import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
@@ -68,7 +68,7 @@ export default class LireFacePaveDroit extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Nombre de faces à trouver (entre 1 et 6)', 6]
-    this.besoinFormulaire2Texte = ['Faces à exclure du choix', 'Nombres séparés par des tirets\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure']
+    this.besoinFormulaire2Texte = ['Faces à exclure du choix', 'Nombres séparés par des tirets :\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure']
     this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique']
     this.besoinFormulaire4Numerique = ['Nombre de réponses dans le QCM (entre 2 et 6)', 6]
     this.nbQuestions = 1

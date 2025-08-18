@@ -1,11 +1,11 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { choice } from '../../lib/outils/arrayOutils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Effectuer addition de deux entiers'
@@ -35,7 +35,7 @@ export default class ExerciceTablesAdditions extends Exercice {
     this.spacing = 2
 
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Calculer la somme\n2: Calculer un terme manquant\n3: Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1: Calculer la somme\n2: Calculer un terme manquant\n3: Mélange']
   }
 
   nouvelleVersion () {

@@ -1,17 +1,17 @@
+import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-  texFractionFromString,
-  simplificationDeFractionAvecEtapes,
-  texFractionReduite
+    simplificationDeFractionAvecEtapes,
+    texFractionFromString,
+    texFractionReduite
 } from '../../lib/outils/deprecatedFractions'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { context } from '../../modules/context'
-import { createList } from '../../lib/format/lists'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
 
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { fraction } from '../../modules/fractions'
@@ -35,7 +35,7 @@ export const refs = {
 export default class FonctionsProbabilite2 extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets :\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
     this.nbQuestions = 2
 
     context.isHtml ? this.spacing = 2 : this.spacing = 2

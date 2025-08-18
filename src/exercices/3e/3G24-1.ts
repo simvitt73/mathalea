@@ -1,25 +1,25 @@
 import { angleOriente, codageAngle, CodageAngleDroit, codageAngleDroit, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
 import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
+import { droite } from '../../lib/2d/droites'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { NommePolygone, nommePolygone, Polygone } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur, Segment, } from '../../lib/2d/segmentsVecteurs'
+import { longueur, segment, Segment, vecteur, } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { triangle2points2angles, triangle2points2longueurs } from '../../lib/2d/triangle'
-import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d, Vide2d, vide2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { labelPoint } from '../../lib/2d/textes'
-import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { arrondi } from '../../lib/outils/nombres'
-import { droite } from '../../lib/2d/droites'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
+import { arrondi } from '../../lib/outils/nombres'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d, Vide2d, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'listeDeroulante'// 'mathLive'
@@ -49,7 +49,7 @@ export default class TrianglesSemblables extends Exercice {
     this.nbQuestions = 1
     if (context.isHtml) this.spacing = 3
     this.sup = 1
-    this.besoinFormulaireTexte = ['Types de questions ', 'Nombres séparés par des tirets\n1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués\n5 : Démontrer semblables avec des configurations type Thalès']
+    this.besoinFormulaireTexte = ['Types de questions ', 'Nombres séparés par des tirets :\n1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués\n5 : Démontrer semblables avec des configurations type Thalès']
   }
 
   nouvelleVersion () {

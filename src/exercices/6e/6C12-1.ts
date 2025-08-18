@@ -1,15 +1,15 @@
+import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, enleveElementNo } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, range, rangeMinMax, troncature } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
 import { texNombre3 } from '../../lib/outils/texNombre'
-import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes de prix avec des aliments mettant en jeu diverses opérations'
@@ -40,7 +40,7 @@ export const refs = {
 export default class QuestionsMasses extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n']
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des questions']
     this.besoinFormulaire3CaseACocher = ['Prix unitaire entier']
     this.besoinFormulaire4Numerique = ['Choix AMC', 3, '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n']

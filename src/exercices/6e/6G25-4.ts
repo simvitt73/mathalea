@@ -1,17 +1,17 @@
+import type { Figure2D } from '../../lib/2d/Figures2D'
+import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
+import { point } from '../../lib/2d/points'
 import { Segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { homothetie, translation } from '../../lib/2d/transformations'
+import { orangeMathalea } from '../../lib/colors'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
 import Exercice from '../Exercice'
-import { homothetie, translation } from '../../lib/2d/transformations'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { orangeMathalea } from '../../lib/colors'
-import type { Figure2D } from '../../lib/2d/Figures2D'
-import { point } from '../../lib/2d/points'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Reconnaitre des figures symétriques'
 export const interactifReady = true
@@ -35,7 +35,7 @@ export default class NbAxesDeSymetrie extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets :\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
     this.sup = '6'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 3

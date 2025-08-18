@@ -1,16 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
+import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiMoins, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs, signe } from '../../lib/outils/nombres'
+import { pgcd } from '../../lib/outils/primalite'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { abs, signe } from '../../lib/outils/nombres'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { pgcd } from '../../lib/outils/primalite'
 
 export const titre = 'Calculer la dérivée d\'une fonction avec exponentielle'
 export const dateDePublication = '06/08/2025'
@@ -33,7 +33,7 @@ export default class DeriveeExp extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : a*e^x+bx+c\n2 : e^u avec u affine\n3 :  e^u avec u poly second degré\n4 : u*e^x\n5 : (ax+b)*e^mx\n6 : (m*e^x)/(ax+b) ou  (m*e^x)/(ax^2+b) \n7 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : a*e^x+bx+c\n2 : e^u avec u affine\n3 :  e^u avec u poly second degré\n4 : u*e^x\n5 : (ax+b)*e^mx\n6 : (m*e^x)/(ax+b) ou  (m*e^x)/(ax^2+b) \n7 : Mélange']
     this.sup = '7'
     this.spacing = 1.5
     this.spacingCorr = 1.5

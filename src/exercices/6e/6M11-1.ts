@@ -4,16 +4,16 @@ import { point, pointAdistance } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer périmètre et/ou aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
@@ -37,7 +37,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
     super()
     this.besoinFormulaireTexte = [
       'Type de figures',
-      'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
     ]
     this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
     this.besoinFormulaire3CaseACocher = ['Avec figures']

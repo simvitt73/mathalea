@@ -1,15 +1,15 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils'
+import figureApigeom from '../../lib/figureApigeom'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fractionCliquable } from '../../modules/2dinteractif'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import { fractionCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { getDynamicFractionDiagram } from './6N20-2'
-import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Écrire un nombre entier sous la forme d\'une fraction'
 export const interactifReady = true
@@ -37,8 +37,8 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
     this.nbColsCorr = 2
     this.sup = '2-3-4-5-6-7-8-9-10-11'
     this.sup2 = '1-2-3-4-5'
-    this.besoinFormulaireTexte = ['Dénominateurs', 'Nombres séparés par des tirets\n(de 2 à 11 par défaut)']
-    this.besoinFormulaire2Texte = ['Nombres entiers', 'Nombres séparés par des tirets\n(de 1 à 5 par défaut)']
+    this.besoinFormulaireTexte = ['Dénominateurs', 'Nombres séparés par des tirets :\n(de 2 à 11 par défaut)']
+    this.besoinFormulaire2Texte = ['Nombres entiers', 'Nombres séparés par des tirets :\n(de 1 à 5 par défaut)']
     this.besoinFormulaire3CaseACocher = ['Brouillon interactif', false]
     this.correctionDetailleeDisponible = true
   }

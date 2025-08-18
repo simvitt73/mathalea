@@ -1,18 +1,18 @@
-import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
+import Decimal from 'decimal.js'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import Grandeur from '../../modules/Grandeur'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
@@ -42,7 +42,7 @@ export default class CalculDeVolumes extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
     this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
-    this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n3 : Mélange']
+    this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets :\n1 : Cubes\n2 : Pavés droits\n3 : Mélange']
 
     this.nbQuestions = 4
 

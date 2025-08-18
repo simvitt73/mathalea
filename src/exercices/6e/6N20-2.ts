@@ -1,19 +1,19 @@
-import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { ComputeEngine } from '@cortex-js/compute-engine'
-import type { MathfieldElement } from 'mathlive'
-import figureApigeom from '../../lib/figureApigeom'
 import Figure from 'apigeom'
-import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFractionDiagram'
+import erase from 'apigeom/src/assets/svg/erase.svg'
 import minus from 'apigeom/src/assets/svg/minus.svg'
 import plus from 'apigeom/src/assets/svg/plus.svg'
-import erase from 'apigeom/src/assets/svg/erase.svg'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFractionDiagram'
 import TextByPosition from 'apigeom/src/elements/text/TextByPosition'
+import type { MathfieldElement } from 'mathlive'
+import figureApigeom from '../../lib/figureApigeom'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -52,7 +52,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Dénominateurs à choisir',
-      'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange'
+      'Nombres séparés par des tirets :\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange'
     ]
     this.exoCustomResultat = true // Permet de mettre chaque question sur 2 points
     this.besoinFormulaire2CaseACocher = ['Brouillon interactif']

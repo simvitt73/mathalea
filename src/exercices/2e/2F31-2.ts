@@ -5,9 +5,9 @@ import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenu,
+    randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -30,7 +30,7 @@ export default class EncadrerAvecFctRef extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des questions ',
-      'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange'
+      'Nombres séparés par des tirets :\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Pas d\'inégalités doubles']
     this.nbQuestions = 3

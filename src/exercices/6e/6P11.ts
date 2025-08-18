@@ -1,21 +1,21 @@
-import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { texPrix } from '../../lib/format/style'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texteExposant } from '../../lib/outils/ecritures'
+import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
-  arrondi,
-  nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDansLaPartieEntiere,
-  nombreDeChiffresDe,
-  rangeMinMax
+    arrondi,
+    nombreDeChiffresDansLaPartieDecimale,
+    nombreDeChiffresDansLaPartieEntiere,
+    nombreDeChiffresDe,
+    rangeMinMax
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
 export const interactifReady = true
@@ -872,7 +872,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
 
     this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
     this.sup = false
-    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Distance\n4 : Échelle\n5 : Surface\n6 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Achat\n2 : Recette\n3 : Distance\n4 : Échelle\n5 : Surface\n6 : Mélange']
     this.sup2 = 7
   }
 

@@ -29,10 +29,10 @@ export const refs = {
 export default class AireParComptage extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de surface', 'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de surface', 'Nombres séparés par des tirets :\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec des fractions de carreaux', false]
     this.besoinFormulaire3Numerique = ['Choixe de l\'unité d\'aire', 4, '1 : Le carreau entier\n2 : Le demi carreau rectangulaire\n3 : Le demi carreau triangulaire\n4 : Le quart de carreau']
-    this.besoinFormulaire4Texte = ['Unités', 'Nombres séparés par des tirets\n1 : u.a\n2 : cm²\n3 : m²\n4 : Mélange']
+    this.besoinFormulaire4Texte = ['Unités', 'Nombres séparés par des tirets :\n1 : u.a\n2 : cm²\n3 : m²\n4 : Mélange']
     this.sup = '4'
     this.sup2 = false
     this.sup3 = 1

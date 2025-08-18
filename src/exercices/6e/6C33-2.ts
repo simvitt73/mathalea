@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
 import { prenom } from '../../lib/outils/Personne'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
 import engine from '../../lib/interactif/comparisonFunctions'
+import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -31,7 +31,7 @@ export default class ExpressionsDepuisCalculs extends Exercice {
     this.sup2 = '2'
     this.sup3 = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.besoinFormulaire2Texte = ['Nombre d\'opérations de 2 à 4', 'nombres séparés par des tirets']
+    this.besoinFormulaire2Texte = ['Nombre d\'opérations de 2 à 4', 'nombres séparés par des tirets :']
     this.besoinFormulaire3CaseACocher = ['Sans parenthèses inutiles', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
