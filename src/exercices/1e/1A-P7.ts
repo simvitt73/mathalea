@@ -84,7 +84,7 @@ export default class Puissances extends ExerciceQcmA {
         this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
         this.enonce += '$p_C(A)=\\ldots$'
         this.correction = `On sait que $ P_C(A)=\\dfrac{P(A \\cap C)}{P(C)}$<br>
-        On commence par calculer, avec le formule des probabilités totales :<br>
+        D'après la formule des probabilités totales :<br>
          $\\begin{aligned}P(C)&=p(A\\cap C)+p(\\bar A \\cap C)\\\\
          &=P(A)\\times P_A(C)+P(\\bar A)\\times P_{\\bar A}(C)\\\\
          &=${texNombre(0.3)}\\times ${texNombre(0.6)}+${texNombre(0.7)}\\times ${texNombre(0.4)}\\\\
@@ -188,7 +188,7 @@ export default class Puissances extends ExerciceQcmA {
       
        
         this.correction = `On sait que $ P_C(A)=\\dfrac{P(A \\cap C)}{P(C)}$<br>
-        On commence par calculer, avec le formule des probabilités totales :<br>
+        D'après la formule des probabilités totales :<br>
          $\\begin{aligned}P(C)&=p(A\\cap C)+p(\\bar A \\cap C)\\\\
          &=P(A)\\times P_A(C)+P(\\bar A)\\times P_{\\bar A}(C)\\\\
          &=${pA.texFractionSimplifiee}\\times ${pAC.texFractionSimplifiee}+${pA.entierMoinsFraction(1).texFractionSimplifiee}\\times ${pBC.texFractionSimplifiee}\\\\
@@ -201,7 +201,7 @@ export default class Puissances extends ExerciceQcmA {
     &=\\dfrac{${pC1.texFractionSimplifiee}}{${pC.texFractionSimplifiee}}\\\\
     &=${Reponse.texFractionSimplifiee}\\\\
      \\end{aligned}$`
-// --- Distracteurs sûrs, distincts et ≠ bonne réponse --- Merci mon ami Chat GPT pour cette astuce :
+// --- Distracteurs sûrs, distincts et ≠ bonne réponse --- Merci mon ami Chat GPT pour cette astuce, devenue trop lourde car j'ai viré un distracteur....
 const denom = Math.max(1, Reponse.denIrred); // garde-fou
 const correct = Reponse.numIrred;
 
@@ -241,7 +241,8 @@ const distracteur2 = new FractionEtendue(n2, denom);
             `$${Reponse.texFractionSimplifiee} $`,
             `$${distracteur1.texFractionSimplifiee}$ `,
             `$${pC1.texFractionSimplifiee} $`,
-            `$${distracteur2.texFractionSimplifiee}$`
+            `$${pAC.texFractionSimplifiee} $`,
+            
         ]
     }
 
