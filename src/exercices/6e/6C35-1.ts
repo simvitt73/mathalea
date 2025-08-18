@@ -1,13 +1,13 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import { premierAvec } from '../../lib/outils/primalite'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import { premierAvec } from '../../lib/outils/primalite'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const titre = 'Modéliser des problèmes niveau 2'
 export const interactifReady = true
@@ -545,9 +545,9 @@ export default class ModelisationProblemes extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Compléter le schéma\n2 : Compléter l\'énoncé\n3 : Compléter le schéma et l\'énoncé\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets :\n1 : Compléter le schéma\n2 : Compléter l\'énoncé\n3 : Compléter le schéma et l\'énoncé\n4 : Mélange']
     this.sup = '4'
-    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Calcul de partie manquante avec comparaison\n2 : Somme de trois parties\n3 : Partie manquante d\'une somme\n4 : Quotient (avec reste) d\'un produit de deux nombre\n5 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets :\n1 : Calcul de partie manquante avec comparaison\n2 : Somme de trois parties\n3 : Partie manquante d\'une somme\n4 : Quotient (avec reste) d\'un produit de deux nombre\n5 : Mélange']
     this.sup2 = '5'
   }
 

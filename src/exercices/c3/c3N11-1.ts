@@ -21,7 +21,7 @@ class ReperageEntierC3 extends ReperageEntiersOuDecimaux {
     this.nbQuestions = 4
     this.besoinFormulaireTexte = [
       'Niveaux de difficulté ',
-      'Nombres séparés par des tirets\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange']
+      'Nombres séparés par des tirets :\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange']
     this.sup3 = false
   }
 }

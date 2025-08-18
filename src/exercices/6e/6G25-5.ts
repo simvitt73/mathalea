@@ -1,15 +1,15 @@
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
-import { choice } from '../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
-import Exercice from '../Exercice'
-import { homothetie, projectionOrtho, rotation } from '../../lib/2d/transformations'
-import { point } from '../../lib/2d/points'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { droite } from '../../lib/2d/droites'
+import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
+import { point } from '../../lib/2d/points'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
+import { homothetie, projectionOrtho, rotation } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Dire si deux figures sont symétriques par rapport à une droite'
 export const interactifReady = true
@@ -34,7 +34,7 @@ export default class NbAxesDeSymetrie extends Exercice {
     super()
     this.nbQuestions = 3
     this.sup = '1'
-    this.besoinFormulaireTexte = ['Type d\'axes', 'Nombres séparés par des tirets\n1 : Plutôt vertical\n2 : Plutôt horizontal\n3 : Plutôt oblique\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type d\'axes', 'Nombres séparés par des tirets :\n1 : Plutôt vertical\n2 : Plutôt horizontal\n3 : Plutôt oblique\n4 : Mélange']
     this.besoinFormulaire4CaseACocher = ['Grandes figures', true]
     this.sup4 = true
   }

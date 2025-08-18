@@ -1,18 +1,18 @@
-import Exercice from '../Exercice'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils'
-import { prenom } from '../../lib/outils/Personne'
 import { ComputeEngine } from '@cortex-js/compute-engine'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import engine, { exprCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lister } from '../../lib/outils/ecritures'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
+import { prenom } from '../../lib/outils/Personne'
 import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
+import {
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenu,
+    randint
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -34,7 +34,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.nbQuestions = 1
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets', '2 : 2 opérations successives\n3 : 3 opérations successives\n4 : 4 opérations successives\n5 : Mélange']
+    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets :', '2 : 2 opérations successives\n3 : 3 opérations successives\n4 : 4 opérations successives\n5 : Mélange']
     this.besoinFormulaire3CaseACocher = ['Sans parenthèses inutiles', false]
     this.sup2 = 4
     this.sup3 = false

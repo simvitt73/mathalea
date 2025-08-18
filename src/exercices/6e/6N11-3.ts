@@ -1,11 +1,11 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Encadrer un entier'
 export const interactifType = 'mathLive'
@@ -89,8 +89,8 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
     this.nbQuestions = 3
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.besoinFormulaireTexte = ['Type de question', 'Nombres séparés par des tirets\n1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples de 10\n3 : Encadrer entre deux multiples de 100\n4 : Encadrer entre deux multiples de 10, forcément consécutifs\n5 : Encadrer entre deux multiples de 100, forcément consécutifs\n6 : Mélange']
-    this.besoinFormulaire2Texte = ['Difficulté', 'Nombres séparés par des tirets\n1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question', 'Nombres séparés par des tirets :\n1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples de 10\n3 : Encadrer entre deux multiples de 100\n4 : Encadrer entre deux multiples de 10, forcément consécutifs\n5 : Encadrer entre deux multiples de 100, forcément consécutifs\n6 : Mélange']
+    this.besoinFormulaire2Texte = ['Difficulté', 'Nombres séparés par des tirets :\n1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
     this.besoinFormulaire3Numerique = ['Énoncé', 2, '1 : Multiple\n2 : Dizaine, centaine']
   }
 

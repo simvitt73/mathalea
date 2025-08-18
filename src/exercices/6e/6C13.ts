@@ -1,13 +1,13 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { numAlpha } from '../../lib/outils/outilString'
 import {
-  listeQuestionsToContenuSansNumero,
-  randint,
-  gestionnaireFormulaireTexte
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenuSansNumero,
+    randint
 } from '../../modules/outils'
 import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
 
 export const titre = 'Traduire des phrases en calculs et réciproquement'
@@ -32,7 +32,7 @@ export default class VocabulaireEtOperations extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions',
-      'Nombres séparés par des tirets\n1 : Phrase -> Calcul\n2 : Calcul -> Phrase\n3 : Phrase -> Calcul + résultat\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Phrase -> Calcul\n2 : Calcul -> Phrase\n3 : Phrase -> Calcul + résultat\n4 : Mélange'
     ]
     this.besoinFormulaire3Texte = ['Opérations', '1 : Somme\n2 : Différence\n3 : Produit\n4 : Quotient\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Décimaux', false]

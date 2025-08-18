@@ -1,24 +1,24 @@
 import {
-  shuffle2tableaux
+    shuffle2tableaux
 } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
-  contraindreValeur,
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
+    contraindreValeur,
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenu,
+    randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import Decimal from 'decimal.js'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
@@ -63,7 +63,7 @@ export default class RecomposerEntierC3 extends Exercice {
     ]
     this.besoinFormulaire3Texte = [
       'Type de questions',
-      'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Mélange'
     ]
     this.besoinFormulaire4Texte = [
       'Nombre de chiffres de la partie décimale',

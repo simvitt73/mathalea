@@ -2,25 +2,25 @@ import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { listeDeProblemesAdditifsTout } from '../../lib/problems/problemesAdditifs/problemesAdditifsTout/problemesAdditifsTout'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import Exercice from '../Exercice'
 import { listeDeProblemesAdditifsPart } from '../../lib/problems/problemesAdditifs/problemesAdditifsPart/problemesAdditifsPart'
+import { listeDeProblemesAdditifsTout } from '../../lib/problems/problemesAdditifs/problemesAdditifsTout/problemesAdditifsTout'
 import { listeDeProblemesMultiplicatifs } from '../../lib/problems/problemesMultiplicatifs/problemeMultiplicatifsTout/problemesMultiplicatifsTout'
 import { listeDeProblemesMultiplicatifsParts } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsPart/problemesMultiplicatifsPart'
+import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import Exercice from '../Exercice'
 // import { listeDeProblemesPartageAvecResteRetire } from '../../lib/problems/problemesMultiplicatifs/ProblemesPartageAvecResteRetire/promblemePartageAvecResteRetire'
 // import { listeDeProblemesMultiplicatifsComplexes } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsComplexes/problemesMultiplicatifsComplexes'
-import { listeDeProblemesCompAddEcart } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddEcart/problemesCompAddEcart'
-import { listeDeProblemesCompAddGdeQuantite } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddGdeQuantite/problemesCompAddGdeQuantite'
-import { listeDeProblemesCompAddPteQuantite } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddPteQuantite/problemesCompAddPteQuantite'
-import { listeDeProblemesTransfoApres } from '../../lib/problems/problemesTransformations/problemesTransfoApres/problemesTransfoApres'
-import { listeDeProblemesTransfoTransfo } from '../../lib/problems/problemesTransformations/problemesTransfoTransfo/problemesTransofTransfo'
-import { listeDeProblemesTransfoAvant } from '../../lib/problems/problemesTransformations/problemesTransfoAvant/problemesTransfoAvant'
-import { listeDeProblemesMultiplicatifsNbParts } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsNbParts/problemesMultiplcatifsNbParts'
-import { listeDeProblemesCompMulTout } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulTout/problemeCompMulTout'
 import { listeDeProblemesCompMulNbParts } from '../../lib/problems/problemeComparaisonMultiplicative/problemeCompMulNbParts/problemeCompMulNbParts'
 import { listeDeProblemesCompMulGdeQuantite } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulGdeQuantite/problemeCompMulGdeQuantite'
 import { listeDeProblemesCompMulPteQuantite } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulPteQuantite/problemeCompMulPteQuantite'
+import { listeDeProblemesCompMulTout } from '../../lib/problems/problemeComparaisonMultiplicative/problemesCompMulTout/problemeCompMulTout'
+import { listeDeProblemesCompAddEcart } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddEcart/problemesCompAddEcart'
+import { listeDeProblemesCompAddGdeQuantite } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddGdeQuantite/problemesCompAddGdeQuantite'
+import { listeDeProblemesCompAddPteQuantite } from '../../lib/problems/problemesComparaisonAdditive/problemesCompAddPteQuantite/problemesCompAddPteQuantite'
+import { listeDeProblemesMultiplicatifsNbParts } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsNbParts/problemesMultiplcatifsNbParts'
+import { listeDeProblemesTransfoApres } from '../../lib/problems/problemesTransformations/problemesTransfoApres/problemesTransfoApres'
+import { listeDeProblemesTransfoAvant } from '../../lib/problems/problemesTransformations/problemesTransfoAvant/problemesTransfoAvant'
+import { listeDeProblemesTransfoTransfo } from '../../lib/problems/problemesTransformations/problemesTransfoTransfo/problemesTransofTransfo'
 
 export const dateDePublication = '06/06/2025'
 export const interactifType = 'mathLive'
@@ -40,7 +40,7 @@ export default class ProblemesVaries extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.besoinFormulaireTexte = ['Types de problèmes', `Nombres séparés par des tirets\n
+    this.besoinFormulaireTexte = ['Types de problèmes', `Nombres séparés par des tirets :\n
 1 : Additif recherche du tout (fait)\n
 2 : Additif recherche d'une partie (à compléter)\n
 3 : Transformation recherche avant \n

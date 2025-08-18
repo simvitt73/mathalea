@@ -1,13 +1,13 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '23/10/2024'
 
@@ -36,7 +36,7 @@ export default class MultiplierPar001Bis extends Exercice {
     this.sup = false
     this.sup2 = 4
     this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Nombre à retrouver\n2 : 0,1 ou 0,01 ou 0,001 à retrouver\n3 : Résultat à retrouver\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Nombre à retrouver\n2 : 0,1 ou 0,01 ou 0,001 à retrouver\n3 : Résultat à retrouver\n4 : Mélange']
   }
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice

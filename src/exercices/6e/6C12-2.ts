@@ -1,14 +1,14 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomM } from '../../lib/outils/Personne'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Operation from '../../modules/operations'
 import { texNombre } from '../../lib/outils/texNombre'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Operation from '../../modules/operations'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes utilisant la division euclidienne'
@@ -33,7 +33,7 @@ export const refs = {
 export default class QuestionsDivisionsEuclidiennes extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Bouquets de fleurs\n2 : Boîtes d\'oeufs\n3 : Trésor de pirates\n4 : Jour de semaine\n5 : Séjour au ski\n6 : Places de cinéma\n7 : Collier de perles\n8 : Timbres dans un album\n9 : Pirates et capitaine\n10 : Places assises\n11 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : Bouquets de fleurs\n2 : Boîtes d\'oeufs\n3 : Trésor de pirates\n4 : Jour de semaine\n5 : Séjour au ski\n6 : Places de cinéma\n7 : Collier de perles\n8 : Timbres dans un album\n9 : Pirates et capitaine\n10 : Places assises\n11 : Mélange']
 
     this.nbQuestions = 4
     this.sup = 11

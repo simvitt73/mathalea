@@ -1,24 +1,24 @@
 import {
-  canvasEnonceCorrection,
-  empilementCubes,
+    canvasEnonceCorrection,
+    empilementCubes,
 } from '../../lib/3d/3d_dynamique/empilementsCube'
 import {
-  createCubesProjections,
-  projectionCubesIso2d,
+    createCubesProjections,
+    projectionCubesIso2d,
 } from '../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import {
-  choice,
-  compteOccurences,
-  enleveDoublonNum,
-  shuffle,
+    choice,
+    compteOccurences,
+    enleveDoublonNum,
+    shuffle,
 } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenu,
+    randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
@@ -49,7 +49,7 @@ export default class VuesEmpilementCubes extends Exercice {
     ]
     this.besoinFormulaire2Texte = [
       'Vues possibles dans les questions ',
-      'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles',
+      'Nombres séparés par des tirets :\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles',
     ]
     // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
     this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]

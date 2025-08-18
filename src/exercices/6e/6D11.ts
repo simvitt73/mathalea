@@ -1,10 +1,10 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import Hms from '../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Hms from '../../modules/Hms'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Additionner des durées'
@@ -29,7 +29,7 @@ export const refs = {
 export default class SommeDeDurees extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Niveau de difficulté', 'Nombres séparés par des tirets\n1 : Additions minutes-secondes sans conversion\n2 : Additions heures-minutes avec potentielle conversion\n3 : Additions heures-minutes-secondes sans conversion\n4 : Additions minutes-secondes avec potentielle conversion\n5 : Additions heures-minutes-secondes avec potentielle conversion\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Niveau de difficulté', 'Nombres séparés par des tirets :\n1 : Additions minutes-secondes sans conversion\n2 : Additions heures-minutes avec potentielle conversion\n3 : Additions heures-minutes-secondes sans conversion\n4 : Additions minutes-secondes avec potentielle conversion\n5 : Additions heures-minutes-secondes avec potentielle conversion\n6 : Mélange']
     this.consigne = this.nbQuestions > 1 ? 'Compléter les égalités suivantes.' : 'Compléter l\'égalité suivante.'
     this.sup = '1-2' // 2 niveaux de difficultés
     this.spacing = 2

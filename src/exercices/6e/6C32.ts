@@ -1,15 +1,15 @@
+import { texPrix } from '../../lib/format/style'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
-import { texPrix } from '../../lib/format/style'
 import { arrondi, range1 } from '../../lib/outils/nombres'
+import { prenom } from '../../lib/outils/Personne'
+import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
-import { prenom } from '../../lib/outils/Personne'
 
 export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
@@ -297,7 +297,7 @@ export default class ProblemeCourse extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Calculs faciles']
-    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Somme de deux prix\n2 : plusieurs produits au même prix\n3 : Un produit à l\'unité et un autre au poids\n4 : Deux produits au poids\n 5 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets :\n1 : Somme de deux prix\n2 : plusieurs produits au même prix\n3 : Un produit à l\'unité et un autre au poids\n4 : Deux produits au poids\n 5 : Mélange']
     this.spacing = 2
     this.spacingCorr = 2
     // Modification de l'exercice pour avoir plusieurs question. On peut revenir à la version initiale en décommentant. Jean-Claude Lhote

@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
 import { choice } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export default class nomExercice extends Exercice {
     super()
     this.consigne = 'Calculer en détaillant les étapes de calculs.'
     this.nbQuestions = 6 // nombre de questions
-    this.besoinFormulaireTexte = ['Types d\'expression', 'Nombres séparés par des tirets\n1 : Deux Parenthèses séparées\n2 : Deux parenthèses imbriquées\n3: Une seule parenthèse']
+    this.besoinFormulaireTexte = ['Types d\'expression', 'Nombres séparés par des tirets :\n1 : Deux Parenthèses séparées\n2 : Deux parenthèses imbriquées\n3: Une seule parenthèse']
     this.sup = '1-2-3'
     this.besoinFormulaire2Numerique = ['Résulat maximum', 10000] // 10000 car listeNombresPremiersStrictJusqua renvoie un tableau de premiers inférieurs à 10000
     this.sup2 = 200

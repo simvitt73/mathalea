@@ -1,16 +1,16 @@
-import { combinaisonListes, combinaisonListesSansChangerOrdre, getRandomSubarray } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { createList } from '../../lib/format/lists'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes, combinaisonListesSansChangerOrdre, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { BoiteBuilder } from '../../lib/2d/polygones'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Comprendre un algorithme répétitif'
 export const interactifReady = true
@@ -37,11 +37,11 @@ export default class PaternRepetitif extends Exercice {
     super()
     this.nbQuestions = 3
     this.comment = `Étudier une série d'éléments figuratifs afin d'identifier un pattern et être capable d'interpoler l'élément de rang quelconque.\n
- Les patterns (angliscisme utilisé dans certains documents de référence) sont des motifs figuratifs ou numériques répétitifs qui évoluent selon une règle définie.\n
- Cet exercice contient des patterns figuratifs créés par Jean-Claude Lhote d'après une idée de Sophie Roubin`
-    this.besoinFormulaireTexte = ['Types de pattern', 'Nombres séparés par des tirets\n1: Pattern court sans symétrie\n2 : Pattern long sans symétrie\n3 : Pattern court avec symétrie\n4 : Pattern long avec symétrie \n5 : Pattern complexe avec sous-série\n6 : Mélange']
+ <br>Les patterns (angliscisme utilisé dans certains documents de référence) sont des motifs figuratifs ou numériques répétitifs qui évoluent selon une règle définie.\n
+ <br>Cet exercice contient des patterns figuratifs créés par Jean-Claude Lhote, d'après une idée de Sophie Roubin`
+    this.besoinFormulaireTexte = ['Types de pattern', 'Nombres séparés par des tirets\n1 : Pattern court sans symétrie\n2 : Pattern long sans symétrie\n3 : Pattern court avec symétrie\n4 : Pattern long avec symétrie\n5 : Pattern complexe avec sous-série\n6 : Mélange']
     this.sup = '1'
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : élément suivant dans une liste\n2 : Longueur du pattern\n3 : élément de rang quelconque\n4 : Mélange']
+    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Élément suivant dans une liste\n2 : Longueur du pattern\n3 : Élément de rang quelconque\n4 : Mélange']
     this.sup4 = '2-1'
   }
 
@@ -127,7 +127,7 @@ export default class PaternRepetitif extends Exercice {
               propositions: listeProps.map((s) => Object.assign({}, { texte: s, statut: s === laBonneProp })),
             }
             unQcm = propositionsQcm(this, i * typesQuestions.length + indexQuestion++)
-            listeQuestions.push(`\nQuelle est le prochain pictogramme de cette suite ?<br>${unQcm.texte}`)
+            listeQuestions.push(`\nQuel est le prochain pictogramme de cette suite ?<br>${unQcm.texte}`)
             objetsCorr.push(listeShapes2DInfos[shapes[nbElements % longueurSerie]].shapeDef, listeShapes2DInfos[shapes[nbElements % longueurSerie]].shape2D)
             listeCorrections.push(`Voici le motif $${nbElements + 1}$ :<br>
               ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -0.2, rymin: -1, rxmax: 0.2, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}`)
@@ -158,7 +158,7 @@ export default class PaternRepetitif extends Exercice {
               propositions: listeProps.map((s) => Object.assign({}, { texte: s, statut: s === laBonneProp })),
             }
             unQcm = propositionsQcm(this, i * typesQuestions.length + indexQuestion++)
-            listeQuestions.push(`\nQuelle sera l'élément numéro $${numeroTresLoin + 1}$ de la série ?<br>${unQcm.texte}`)
+            listeQuestions.push(`\nQuel sera l'élément numéro $${numeroTresLoin + 1}$ de la série ?<br>${unQcm.texte}`)
             objetsCorr.push(listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].shapeDef, listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].shape2D)
             listeCorrections.push(`Voici l'élément $${numeroTresLoin + 1}$ :<br>
               ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -0.2, rymin: -1, rxmax: 0.2, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}<br>

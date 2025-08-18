@@ -5,21 +5,21 @@ import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionCC, pointIntersectionDD, pointSurCercle, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texTexte } from '../../lib/format/texTexte'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texTexte } from '../../lib/format/texTexte'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer périmètre et aire de figures composées'
 export const interactifReady = true
@@ -68,7 +68,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Types de figures',
-      'Nombres séparés par des tirets\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-disque\n5 : Rectangle & disque \n6 : Rectangle & demi-disque & triangle\n7 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-disque\n5 : Rectangle & disque \n6 : Rectangle & demi-disque & triangle\n7 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
     this.besoinFormulaire3Numerique = ['Choix de la précision (pour les valeurs approchées)', 2, '1 : À l\'unité\n 2 : Au dixième']

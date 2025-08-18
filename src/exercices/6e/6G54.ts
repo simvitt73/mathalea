@@ -2,7 +2,7 @@ import { angleOriente } from '../../lib/2d/angles'
 import { Arc, arc, cercle } from '../../lib/2d/cercle'
 import { afficheCoteSegment, placeLatexSurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionLC, pointIntersectionDD, pointSurSegment, tracePoint, pointIntersectionCC } from '../../lib/2d/points'
+import { Point, point, pointIntersectionCC, pointIntersectionDD, pointIntersectionLC, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { BoiteBuilder, polygone } from '../../lib/2d/polygones'
 import { cordelette, segment } from '../../lib/2d/segmentsVecteurs'
@@ -13,7 +13,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGe
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Problème de la chèvre dans son enclos'
+export const titre = 'Résoudre des problèmes mettant en jeu des distances à un point'
 export const interactifReady = false
 
 export const dateDePublication = '03/08/2025'
@@ -34,7 +34,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
     super()
     this.comment = 'Cet exercice n\'est pas interactif, il s\'agit d\'un problème de géométrie plane classique à faire sur papier.'
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Types de question', 'Nombres séparés par des tirets\n1 : Cabane au coin de l\'enclos\n2 : Cabane sur un côté de l\'enclos\n3 : Cabane sans contact avec l\'enclos\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Types de question', 'Nombres séparés par des tirets :\n1 : Cabane au coin de l\'enclos\n2 : Cabane sur un côté de l\'enclos\n3 : Cabane sans contact avec l\'enclos\n4 : Mélange']
     this.sup = '1'
   }
 

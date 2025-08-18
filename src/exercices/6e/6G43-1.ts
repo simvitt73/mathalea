@@ -8,7 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '08/08/2025'
-export const titre = 'Comparer les voulumes de deux empilements de cubes'
+export const titre = 'Comparer les volumes de deux empilements de cubes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'

@@ -3,17 +3,17 @@ import { Polygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteExposant } from '../../lib/outils/ecritures'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 // import Grandeur from '../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const dateDePublication = '09/04/2022'
 export const dateDeModifImportante = '27/03/2024'
@@ -351,10 +351,10 @@ function prepareProblemeAire (objetsEnonce: ObjetMathalea2D[], rectangles: Recta
 export default class ProblemesAiresRectangles extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7)', 'Nombres séparés par des tirets']
+    this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7)', 'Nombres séparés par des tirets :']
     this.besoinFormulaire2Numerique = ['Difficulté', 2, '1 : Facile\n2 : Moins facile']
     this.besoinFormulaire3CaseACocher = ['Longueurs entières', true]
-    this.besoinFormulaire4Texte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Longueur finale\n2 : Aire intermédiaire']
+    this.besoinFormulaire4Texte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : Longueur finale\n2 : Aire intermédiaire']
     this.consigne = "Trouver la mesure désignée par un point d'interrogation."
     this.nbQuestions = 1
 

@@ -25,7 +25,7 @@ export default class Reglages6M10a extends ExercicePerimetresEtAires {
     this.besoinFormulaire4CaseACocher = false
     this.besoinFormulaireTexte = [
       'Type de figures',
-      'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
     ]
     this.sup5 = 1
     this.besoinFormulaire5Numerique = false

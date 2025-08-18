@@ -1,8 +1,8 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
 
 export const amcReady = true
@@ -31,7 +31,7 @@ export default class DiviserPar101001000 extends Exercice {
     super()
     this.besoinFormulaireCaseACocher = ['Le dividende est un nombre entier', false]
     this.besoinFormulaire2CaseACocher = ['Trois décimales maximum', true]
-    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : 10, 100 ou 1 000 à retrouver\n4 : Mélange']
+    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : 10, 100 ou 1 000 à retrouver\n4 : Mélange']
 
     this.nbQuestions = 4 // Ici le nombre de questions
     this.consigne = 'Compléter les pointillés.'

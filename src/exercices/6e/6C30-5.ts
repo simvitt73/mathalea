@@ -1,10 +1,10 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '20/02/2021'
@@ -31,7 +31,7 @@ export default class MultiplierPar001 extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : Fraction décimale à retrouver\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : Fraction décimale à retrouver\n4 : Mélange']
 
     this.nbQuestions = 4 // Ici le nombre de questions
 

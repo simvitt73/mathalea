@@ -1,14 +1,14 @@
 import { grille, seyes } from '../../lib/2d/reperes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Operation from '../../modules/operations'
-import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { context } from '../../modules/context'
+import Operation from '../../modules/operations'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDeModifImportante = '15/02/2025'
 export const amcReady = true
@@ -42,7 +42,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
     this.nbQuestions = 5
 
-    this.besoinFormulaireTexte = ['Types de calculs', 'Nombres séparés par des tirets\n1 : abcde + fgh\n2 : abc0 - efg\n3 : 1abc - def\n4 : abc * d0e (tables de 2 à 5)\n5 : abc * de (tables de 5 à 9)\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Types de calculs', 'Nombres séparés par des tirets :\n1 : abcde + fgh\n2 : abc0 - efg\n3 : 1abc - def\n4 : abc * d0e (tables de 2 à 5)\n5 : abc * de (tables de 5 à 9)\n6 : Mélange']
     this.besoinFormulaire2Numerique = [
       'Type de cahier',
       3,

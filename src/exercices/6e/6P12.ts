@@ -1,13 +1,13 @@
-import { miseEnCouleur, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnCouleur, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
 export const dateDePublication = '11/08/2021'
@@ -496,7 +496,7 @@ export default class ProportionnaliteParCoefDeProportionnalite extends Exercice 
     this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
     this.sup = false
     this.sup2 = 7
-    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
   }
 
   nouvelleVersion () {

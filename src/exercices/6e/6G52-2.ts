@@ -1,25 +1,24 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import {
-
-  droite,
-  droiteParPointEtParallele,
-  droiteParPointEtPente,
-  droiteParPointEtPerpendiculaire,
-  labelOnLine
+    droite,
+    droiteParPointEtParallele,
+    droiteParPointEtPente,
+    droiteParPointEtPerpendiculaire,
+    labelOnLine
 } from '../../lib/2d/droites'
 import { point, pointIntersectionDD } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
-  listeQuestionsToContenu,
-  randint,
-  contraindreValeur,
-  gestionnaireFormulaireTexte
+    contraindreValeur,
+    gestionnaireFormulaireTexte,
+    listeQuestionsToContenu,
+    randint
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '22/11/2020'
 export const amcReady = true
@@ -39,7 +38,7 @@ export const refs = {
 export default class ProprietesParallelesPerpendiculaires extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de raisonnement', 'Nombres séparés par des tirets :\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
     this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
     this.comment = 'Il se peut que l\'exercice vous propose moins de questions que le nombre demandé par manque de possibiilités d\'exercices différents. Pour augmenter cette possibilité, choisissez d\'autres types de raisonnement.'

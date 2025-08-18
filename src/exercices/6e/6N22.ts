@@ -1,15 +1,15 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fractionCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer des calculs simples avec des fractions'
 export const dateDePublication = '20/11/21'
@@ -33,7 +33,7 @@ export default class FractionsCalculsSimples extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Avec un schéma']
-    this.besoinFormulaire2Texte = ['Type d\'opérations', 'Nombres séparés par des tirets\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange']
+    this.besoinFormulaire2Texte = ['Type d\'opérations', 'Nombres séparés par des tirets :\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange']
 
     this.consigne = 'Calculer.'
     this.sup = true

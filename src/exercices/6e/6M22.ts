@@ -22,7 +22,7 @@ export default class Reglages6M22 extends ExercicePerimetresEtAires {
     this.exo = 'OnlyDisk'
     this.besoinFormulaireTexte = [
       'Types de figures',
-      'Nombres séparés par des tirets\n4 : Disque\n5 : Demi-disque\n6 : Mélange'
+      'Nombres séparés par des tirets :\n4 : Disque\n5 : Demi-disque\n6 : Mélange'
     ]
   }
 }

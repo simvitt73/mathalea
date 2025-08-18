@@ -25,7 +25,7 @@ class ReperageEntier extends ReperageEntiersOuDecimaux {
     this.sup2 = false
     this.besoinFormulaireTexte = [
       'Types de pas de graduations',
-      'Nombres séparés par des tirets\n1 : Entiers consécutifs\n2 : Le pas secondaire vaut 2, 3, 4 ou 5\n3 : Le pas secondaire vaut 2, 3, 6, 25 ou 50\n4 : Le pas principal est moins simple\n5 : Mélange']
+      'Nombres séparés par des tirets :\n1 : Entiers consécutifs\n2 : Le pas secondaire vaut 2, 3, 4 ou 5\n3 : Le pas secondaire vaut 2, 3, 6, 25 ou 50\n4 : Le pas principal est moins simple\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false

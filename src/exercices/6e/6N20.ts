@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+import { getDynamicFractionDiagram } from './6N20-2'
 
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1)'
 export const interactifReady = true
@@ -32,8 +32,8 @@ export default class ExerciceFractionsDecomposer extends Exercice {
     this.sup = '2-3-4-5-6-7-8-9-10-11'
     this.sup2 = '1-2-3'
     this.sup3 = true
-    this.besoinFormulaireTexte = ['Dénominateurs', 'Nombres séparés par des tirets\n(de 2 à 11 par défaut)']
-    this.besoinFormulaire2Texte = ['Parties entières', 'Nombres séparés par des tirets\n(de 1 à 3 par défaut)']
+    this.besoinFormulaireTexte = ['Dénominateurs', 'Nombres séparés par des tirets :\n(de 2 à 11 par défaut)']
+    this.besoinFormulaire2Texte = ['Parties entières', 'Nombres séparés par des tirets :\n(de 1 à 3 par défaut)']
     this.besoinFormulaire3CaseACocher = ['Brouillon interactif']
   }
 

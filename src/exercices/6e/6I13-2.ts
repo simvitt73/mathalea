@@ -1,14 +1,14 @@
-import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { createList } from '../../lib/format/lists'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { listePattern3d } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { range } from '../../lib/outils/nombres'
-import { listePattern3d } from '../../lib/2d/patterns/patternsPreDef'
 import { context } from '../../modules/context'
 
 export const titre = 'Comprendre un algorithme itératif'
@@ -41,7 +41,7 @@ export default class PaternNum0 extends Exercice {
  Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
+    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
     this.sup4 = '6'
   }
 

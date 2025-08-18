@@ -3,13 +3,13 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'AMCHybride'
@@ -219,6 +219,6 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.besoinFormulaireTexte = ['Cas à traiter ', 'Nombres séparés par des tirets\n1 : Nom de l\'angle\n2 : Sommet de l\'angle\n3 : Côté de l\'angle\n4 : Rien de cela\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Cas à traiter ', 'Nombres séparés par des tirets :\n1 : Nom de l\'angle\n2 : Sommet de l\'angle\n3 : Côté de l\'angle\n4 : Rien de cela\n5 : Mélange']
   }
 }
