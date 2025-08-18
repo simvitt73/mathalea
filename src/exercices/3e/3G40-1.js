@@ -1,9 +1,9 @@
 import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
+import { sphericalToCartesian } from '../../lib/3d/3d_dynamique/solidesThreeJs'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { arcenciel } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': [],
 }
 
-const listeVilles = [
+const baseVilles = [
   { latitude: 40.7128, longitude: -74.006, label: 'New York' },
   { latitude: -33.8688, longitude: 151.2093, label: 'Sydney' },
   { latitude: 39.9042, longitude: 116.4074, label: 'Pékin' },
@@ -166,36 +166,52 @@ const listeVilles = [
   { latitude: -27.5954, longitude: -48.548, label: 'Florianopolis' },
 ]
 
-// Ajout des propriétés communes à toutes les villes
-listeVilles.forEach((ville) => {
-  ville.pointColor = '#000000'
-  ville.pointRadius = 0.02
-  ville.labelColor = arcenciel(randint(0, 10))
-  ville.labelSize = 0.2
-  ville.labelOffset = 0.2
-  ville.font = 'fonts/Arial Rounded Bold.ttf'
-  ville.transparent = true
-})
-
 function choisirNVillesAssezLointaines(n) {
   const villes = []
-  let cpt = 0
-  for (let i = 0; i < n && cpt < 100; ) {
-    const ville = choice(listeVilles)
-    if (
-      !villes.some(
-        (v) =>
-          Math.abs(v.latitude - ville.latitude) < 10 &&
-          Math.abs(v.longitude - ville.longitude) < 10,
+  let latBasse, latHaute, longOuest, longEst
+  do {
+    villes.length = 0
+    latBasse = randint(-40, 0)
+    latHaute = latBasse + 70
+    longOuest = randint(-180, 100)
+    longEst = longOuest + 80
+    const listeVilles = baseVilles.filter((ville) => {
+      return (
+        ville.latitude >= latBasse &&
+        ville.latitude <= latHaute &&
+        ville.longitude >= longOuest &&
+        ville.longitude <= longEst
       )
-    ) {
-      villes.push(ville)
-      i++
-    } else {
-      cpt++
+    })
+    // Ajout des propriétés communes à toutes les villes
+    listeVilles.forEach((ville) => {
+      ville.pointColor = 'xffffff'
+      ville.pointRadius = 0.04
+      ville.labelColor = '0xffffff'
+      ville.labelSize = 0.2
+      ville.labelOffset = 0.05
+      ville.font = 'fonts/Arial Rounded Bold.ttf'
+      ville.transparent = true
+    })
+
+    let cpt = 0
+    for (let i = 0; i < n && cpt < 100; ) {
+      const ville = choice(listeVilles)
+      if (
+        !villes.some(
+          (v) =>
+            Math.abs(v.latitude - ville.latitude) < 10 &&
+            Math.abs(v.longitude - ville.longitude) < 10,
+        )
+      ) {
+        villes.push(ville)
+        i++
+      } else {
+        cpt++
+      }
     }
-  }
-  return villes
+  } while (villes.length < n)
+  return { villes, latBasse, latHaute, longOuest, longEst }
 }
 
 function buildSceneContent(villes, points, points2, points3) {
@@ -317,8 +333,27 @@ export default class ReperageSurLaTerre extends Exercice {
               : "à l'ouest"
         }.`
 
-    const villes = choisirNVillesAssezLointaines(this.nbQuestions)
+    const { villes, latBasse, latHaute, longOuest, longEst } =
+      choisirNVillesAssezLointaines(this.nbQuestions)
+    console.log(longOuest, longEst, latBasse, latHaute)
     if (this.sup && context.isHtml) {
+      // Calcul du centre géographique
+      const latCenter = (latBasse + latHaute) / 2
+      const longCenter = (longOuest + longEst) / 2
+      const radius = 4
+      const [x, y, z] = sphericalToCartesian(
+        latCenter,
+        longCenter,
+        radius,
+        [0, 0, 0],
+      )
+
+      // Position de la caméra  2x plus loin sur la même direction
+      const cameraDistance = 4
+      const camX = cameraDistance * x
+      const camY = cameraDistance * y
+      const camZ = cameraDistance * z
+
       // Les longitudes
       const longitudes = rangeMinMax(-17, 18, [0]).map((el) => el * 10)
       const points = longitudes.map((lon) => ({
@@ -361,6 +396,9 @@ export default class ReperageSurLaTerre extends Exercice {
         labelSize: 0.15,
       }))
       const content = buildSceneContent(villes, points, points2, points3)
+      // Ajout de la position et de la cible de la caméra
+      content.cameraPosition = [camX, camY, camZ]
+      content.cameraTarget = [0, 0, 0]
       const canvasId = `canvas3d-geo-${Math.random().toString(36).slice(2, 8)}`
       this.consigne = ajouteCanvas3d({
         id: canvasId,

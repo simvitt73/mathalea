@@ -444,6 +444,12 @@ export function createGeoPoint(desc: {
 
   // Ajout du label si demandé
   if (desc.label) {
+    const [x, y, z] = sphericalToCartesian(
+      desc.latitude - 3,
+      desc.longitude,
+      r,
+      spherePos,
+    )
     const textMesh = new Text()
     // Label position avec offset
     // Normal à la sphère au point du label
@@ -499,7 +505,7 @@ export function createGeoPoints(desc: {
   return group
 }
 
-function sphericalToCartesian(
+export function sphericalToCartesian(
   latitude: number,
   longitude: number,
   radius: number,

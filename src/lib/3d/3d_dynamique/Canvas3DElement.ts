@@ -7,7 +7,7 @@ import {
   createRealisticEarthSphere,
   createSkySphere,
 } from './solidesThreeJs'
-import { OrbitControls, THREE, type Object3DJSON } from './threeInstance'
+import { OrbitControls, Text, THREE, type Object3DJSON } from './threeInstance'
 
 class Canvas3dElement extends HTMLElement {
   private background: number = 0xeeeeee
@@ -65,8 +65,22 @@ class Canvas3dElement extends HTMLElement {
     if (contentAttr) {
       try {
         const contentDescription = JSON.parse(decodeURIComponent(contentAttr))
+        this._contentDescription = contentDescription
         const margin = contentDescription.autoCenterZoomMargin ?? 1.2 // 1.2 par défaut
-
+        if (Array.isArray(contentDescription.cameraPosition)) {
+          const pos = contentDescription.cameraPosition
+          this._cameraPosition.set(pos[0], pos[1], pos[2])
+          if (this.camera) this.camera.position.set(pos[0], pos[1], pos[2])
+        }
+        if (Array.isArray(contentDescription.cameraTarget)) {
+          const tgt = contentDescription.cameraTarget
+          this._cameraTarget.set(tgt[0], tgt[1], tgt[2])
+          if (this.camera) this.camera.lookAt(tgt[0], tgt[1], tgt[2])
+          if (this.controls) {
+            this.controls.target.set(tgt[0], tgt[1], tgt[2])
+            this.controls.update()
+          }
+        }
         const objects = contentDescription.objects
           .map((desc: any) => {
             if (desc.type === 'geoPoint') {
@@ -278,9 +292,16 @@ class Canvas3dElement extends HTMLElement {
           })
           .filter(Boolean)
 
-        this.objects = objects
+        this._objects = objects
         this.setObjects(objects)
-        this.autoCenterZoom(objects, margin)
+        if (
+          !(
+            Array.isArray(this._contentDescription?.cameraPosition) ||
+            Array.isArray(this._contentDescription?.cameraTarget)
+          )
+        ) {
+          this.autoCenterZoom(objects, margin)
+        }
         const overlay = this.querySelector(
           '.canvas-threejs-overlay',
         ) as HTMLDivElement
@@ -339,7 +360,24 @@ class Canvas3dElement extends HTMLElement {
       this.appendChild(this._fullscreenBtn)
     }
 
-    this.renderStaticImage()
+    const textMeshes = getAllTroikaTextMeshes(this._objects)
+    if (textMeshes.length > 0) {
+      let readyCount = 0
+      textMeshes.forEach((textMesh) => {
+        textMesh.addEventListener(
+          'synccomplete',
+          () => {
+            readyCount++
+            if (readyCount === textMeshes.length) {
+              this.renderStaticImage()
+            }
+          },
+          { once: true },
+        )
+      })
+    } else {
+      this.renderStaticImage()
+    }
   }
 
   disconnectedCallback() {
@@ -915,4 +953,14 @@ function applyDefaultMathaleaButtonStyle(btn: HTMLButtonElement) {
   btn.className =
     'inline-flex px-6 py-2.5 ml-6 bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest hover:shadow-lg focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest active:shadow-lg transition duration-150 ease-in-out'
   btn.setAttribute('type', 'button')
+}
+
+function getAllTroikaTextMeshes(objects: THREE.Object3D[]): any[] {
+  const texts: any[] = []
+  objects.forEach((obj) => {
+    obj.traverse((child) => {
+      if (child instanceof Text) texts.push(child)
+    })
+  })
+  return texts
 }
