@@ -1,4 +1,4 @@
-import { ObjetMathalea2D, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
+import { ObjetMathalea2D, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { point } from '../../2d/points'
 import { polygone } from '../../2d/polygones'
 
@@ -12,7 +12,7 @@ import { polygone } from '../../2d/polygones'
  */
 
 export class Cube extends ObjetMathalea2D {
-  constructor (x: number, y: number, z: number, alpha: number, beta: number, colorD: string, colorT: string, colorG: string) {
+  constructor(x: number, y: number, z: number, alpha: number, beta: number, colorD: string, colorT: string, colorG: string) {
     super()
     this.x = x
     this.y = y
@@ -26,7 +26,7 @@ export class Cube extends ObjetMathalea2D {
     this.lstPoints = []
     this.lstPolygone = []
 
-    function proj (x: number, y: number, z: number, alpha: number, beta: number) {
+    function proj(x: number, y: number, z: number, alpha: number, beta: number) {
       const cosa = Math.cos(alpha * Math.PI / 180)
       const sina = Math.sin(alpha * Math.PI / 180)
       const cosb = Math.cos(beta * Math.PI / 180)
@@ -58,8 +58,66 @@ export class Cube extends ObjetMathalea2D {
   }
 }
 
-export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, {
+export function cube(x = 0, y = 0, z = 0, alpha = 45, beta = -35, {
   colorD = 'green', colorT = 'white', colorG = 'gray'
 } = {}) {
   return new Cube(x, y, z, alpha, beta, colorD, colorG, colorT)
 }
+
+/**
+ * Crée les projections isométriques de cubes.
+ * @param L - Liste des cubes à projeter
+ * @param largeur - Largeur de la projection
+ * @param longueur - Longueur de la projection
+ * @param hauteur - Hauteur de la projection
+ * @returns Les objets 2D et les paramètres de la projection
+ */
+export function createCubesProjections(L: number[][], largeur: number, longueur: number, hauteur: number) {
+  // Projection 1
+  const { objets: objetsEnonce, params: paramsEnonce } = projectionCubesIso2d(L, 10, -40, false)
+  // Projection 2
+  const { objets: objetsEnonce2, params: paramsEnonce2 } = projectionCubesIso2d(L, 35, -20, false)
+  // Correction (projection 2, cubes déplacés)
+  const { objets: objetsCorrection, params: paramsCorrection } = projectionCubesIso2d(L, 35, -20, true)
+
+
+  const figure = mathalea2d(paramsEnonce, objetsEnonce) +
+    mathalea2d(paramsEnonce2, objetsEnonce2)
+  const figureCorrection = mathalea2d(paramsCorrection, objetsCorrection)
+  return { figure, figureCorrection }
+}
+
+/**
+ * Génère les objets 2D et les paramètres pour une projection isométrique de cubes.
+ */
+export function projectionCubesIso2d(
+  L: number[][],
+  alpha: number,
+  beta: number,
+  eclate: boolean,
+  colors: { colorD?: string, colorT?: string, colorG?: string } = { colorD: 'green', colorT: 'white', colorG: 'gray' }
+) {
+  const objets = []
+  for (let i = 0; i < L.length; i++) {
+    objets.push(...cube(L[i][0] * (eclate ? 3 : 1), L[i][1], L[i][2], alpha, beta, {
+      colorD: colors.colorD ?? 'green',
+      colorT: colors.colorT ?? 'white',
+      colorG: colors.colorG ?? 'gray'
+    }).c2d)
+  }
+  const cosa = Math.cos(alpha * Math.PI / 180)
+  const sina = Math.sin(alpha * Math.PI / 180)
+  const cosb = Math.cos(beta * Math.PI / 180)
+  const sinb = Math.sin(beta * Math.PI / 180)
+  const params = Object.assign(
+    {
+      pixelsParCm: 20,
+      scale: 0.6,
+      mainlevee: false,
+      style: 'display: inline-block'
+    },
+    fixeBordures(objets)
+  )
+  return { objets, params }
+}
+

@@ -1,11 +1,11 @@
-import { ajouteCanvas3d, type Elements3DDescription } from '../../lib/3d/3d_dynamique/Canvas3DElement'
+import { canvasEnonceCorrection, empilementCubes } from '../../lib/3d/3d_dynamique/empilementsCube'
+import { createCubesProjections, projectionCubesIso2d } from '../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { createCubesProjections, cubesToSceneContent, cubesToSceneContentCorr, ProjectionCubesIso2d } from './6G43'
 
 export const dateDePublication = '08/08/2025'
 export const titre = 'Comparer les voulumes de deux empilements de cubes'
@@ -24,38 +24,6 @@ export const uuid = '5f117'
 export const refs = {
   'fr-fr': ['6G43-1'],
   'fr-ch': []
-}
-// fonction copiée de 6G43 pour ne pas importer Three.js 2 fois
-function empilementCubes(long: number, larg: number, hmax: number) {
-  const tabHauteurs = new Array(larg)
-  for (let i = 0; i < larg; i++) {
-    tabHauteurs[i] = new Array(long)
-  }
-  // premiere ligne
-  for (let i = 0; i < larg; i++) {
-    tabHauteurs[i][0] = randint(0, 1)
-  }
-  // deuxième ligne et suivantes
-  for (let i = 0; i < larg; i++) {
-    for (let j = 1; j < long; j++) {
-      tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(1, 2), hmax)
-    }
-  }
-  // Vérification Dernière Ligne : ne pas être vide.
-  for (let i = 0; i < larg; i++) {
-    tabHauteurs[i][long - 1] = Math.max(2, tabHauteurs[i][long - 1])
-  }
-  // Ajoute les cubes dans un tableau une dimension
-  // il faut trier les cubes : x décroissant puis y décroissant, puis z croissant
-  const lstCoordonneesCubes = []
-  for (let i = larg - 1; i > -1; i--) {
-    for (let j = long - 1; j > -1; j--) {
-      for (let k = 0; k < tabHauteurs[i][j]; k++) {
-        lstCoordonneesCubes.push([i, j, k])
-      }
-    }
-  }
-  return lstCoordonneesCubes
 }
 
 function trouvePave(volume: number): [number, number, number] {
@@ -112,60 +80,26 @@ export default class DenombrerCubes extends Exercice {
         }
       }
 
-      if (this.sup3 && context.isHtml) {
-        texte += 'Un empilement de cubes et un pavé deoit sont représentés ci-dessous.<br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
-        const objects1 = cubesToSceneContent(L1)
-        const objects1Corr = cubesToSceneContentCorr(L1)
-        const objects2Corr = cubesToSceneContentCorr(L2)
-        // const L2 = empilementCubes(longueur, largeur, hauteur) as [number, number, number][]// crée un autre empilement aléatoire
+      if (this.sup3 && context.isHtml) { // 3d dynamique avec Canvas3DElement
+        texte += 'Un empilement de cubes et un pavé droit sont représentés ci-dessous.<br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
+        const { canvasEnonce, canvasCorrection } = canvasEnonceCorrection(L1, `scene3dEx${this.numeroExercice}Q${q}-1`)
+        const { canvasEnonce: canvasEnonce2, canvasCorrection: canvasCorrection2 } = canvasEnonceCorrection(L2, `scene3dEx${this.numeroExercice}Q${q}-2`)
+        texte += canvasEnonce
+        texte += canvasEnonce2
+        texteCorr += canvasCorrection
+        texteCorr += canvasCorrection2
 
-        const content1 = {
-          objects: [
-            ...objects1,
-            { type: 'ambientLight' as const, color: 0xffffff, intensity: 0.8 },
-            { type: 'directionalLight' as const, color: 0xffffff, intensity: 1.2, position: [5, 5, 5] }
-          ] as Elements3DDescription[],
-          autoCenterZoomMargin: 1.2
-        }
-        const content2 = {
-          objects: [
-            ...L2.map(cube => Object.assign({ type: 'cube' }, { pos: cube, size: 1, edges: true })),
-            { type: 'ambientLight' as const, color: 0xffffff, intensity: 0.8 },
-            { type: 'directionalLight' as const, color: 0xffffff, intensity: 1.2, position: [5, 5, 5] }
-          ] as Elements3DDescription[],
-          autoCenterZoomMargin: 1.2
-        }
-        const content1Corr = {
-          objects: [
-            ...objects1Corr,
-            { type: 'ambientLight' as const, color: 0xffffff, intensity: 0.8 },
-            { type: 'directionalLight' as const, color: 0xffffff, intensity: 1.2, position: [5, 5, 5] }
-          ] as Elements3DDescription[],
-          autoCenterZoomMargin: 1.2
-        }
-        const content2Corr = {
-          objects: [
-            ...objects2Corr,
-            { type: 'ambientLight' as const, color: 0xffffff, intensity: 0.8 },
-            { type: 'directionalLight' as const, color: 0xffffff, intensity: 1.2, position: [5, 5, 5] }
-          ] as Elements3DDescription[],
-          autoCenterZoomMargin: 1.2
-        }
-
-        texte += ajouteCanvas3d({ id: `tas1-Ex${this.numeroExercice}Q${q}-1`, content: content1, width: 200, height: 200 })
-        texte += ajouteCanvas3d({ id: `tas2-Ex${this.numeroExercice}Q${q}-2`, content: content2, width: 200, height: 200 })
-
-        texteCorr += ajouteCanvas3d({ id: `tas1-Ex${this.numeroExercice}Q${q}-1`, content: content1Corr, width: 200, height: 200 })
-        texteCorr += ajouteCanvas3d({ id: `tas2-Ex${this.numeroExercice}Q${q}-2`, content: content2Corr, width: 200, height: 200 })
-
-      } else {
+      } else { // 3d Iso avec Mathalea2d
         texte += 'Ci-dessous, un empilement de cubes est représenté sous deux angles différents et un pavé droit est représenté à côté.<br>'
         const { figure, figureCorrection } = createCubesProjections(L1, largeur, longueur, hauteur)
-        const { objets: pave, params } = ProjectionCubesIso2d(L2, 35, -20, false)
+        const { objets: pave, params } = projectionCubesIso2d(L2, 35, -20, false)
+        const { objets: objets2, params: params2 } = projectionCubesIso2d(L2, 35, -20, true)
         params.xmin -= 2
+        params2.xmin -= 2
         texte += figure + mathalea2d(params, pave)
-        texteCorr += figureCorrection
+        texteCorr += figureCorrection + mathalea2d(params2, objets2)
       }
+
       texte += '<br>Quel est celui qui a le plus petit volume (en nombre de cubes identiques) ?'
       if (context.isHtml && this.sup3) {
         texte += '<br>Les petits cubes sont tous identiques. Le zoom peut changer d\'un solide à l\'autre.'
