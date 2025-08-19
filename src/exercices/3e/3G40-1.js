@@ -335,7 +335,6 @@ export default class ReperageSurLaTerre extends Exercice {
 
     const { villes, latBasse, latHaute, longOuest, longEst } =
       choisirNVillesAssezLointaines(this.nbQuestions)
-    console.log(longOuest, longEst, latBasse, latHaute)
     if (this.sup && context.isHtml) {
       // Calcul du centre géographique
       const latCenter = (latBasse + latHaute) / 2

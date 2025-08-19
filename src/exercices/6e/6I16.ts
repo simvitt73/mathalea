@@ -178,7 +178,6 @@ export default class ExerciceTableur extends Exercice {
             const step = steps[i]
             const value = btn.getA1NotationValue(`${alphabet.charAt(i + 1)}1`)
             const formula = btn.getA1NotationFormula(`${alphabet.charAt(i + 1)}1`)
-            // console.log(`value de ${alphabet.charAt(i + 1)}1 :`, value)
             if (value !== step.result || (formula && formula.indexOf('=') !== 0) || (formula && /[A-Z]/.test(formula) === false)) {
               if (value !== step.result) {
                 allMessages.push(`La cellule ${alphabet.charAt(i + 1)}1 est incorrecte : résultat incorrect`)
@@ -298,7 +297,6 @@ function transformationsOper (steps :{
  *
  * const resultat = programmeCalcul([1, 2, 3, 4]);
  *
- * console.log(resultat);
  *
  * {
  *   ops: [3, 1, 4, 2], // ordre : × puis + puis ÷ puis −
