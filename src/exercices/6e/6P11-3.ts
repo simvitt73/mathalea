@@ -1,11 +1,11 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes de type : ... fois plus ou ... fois moins'
 export const interactifReady = true
@@ -34,8 +34,8 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières\n2 : Une décimale\n3 : Deux décimales']
     this.besoinFormulaire2Texte = ['Type de questions',
       `Nombres séparés par des tirets :
-  1 : fois moins que
-  2 : fois plus que
+  1 : Fois moins que
+  2 : Fois plus que
   3 : Mélange`
     ]
   }
@@ -73,7 +73,7 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
           }
           texteCorr = `$${texPrix(resu)}$ € $\\times ${f}$ = $${texPrix(value)}$ € <br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texPrix(value))}$ €.`)
+          texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(value))}$ €.`
           if (context.isAmc) setReponse(this, i, value)
           else handleAnswers(this, i, { reponse: { value: texPrix(value) } })
           break
@@ -84,29 +84,35 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
           }
           texteCorr = `$${texPrix(value)}$ € $\\div ${f}$ = $${texPrix(resu)}$ € <br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texPrix(resu))}$ €.`)
+          texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(resu))}$ €.`
           if (context.isAmc) setReponse(this, i, resu)
           else handleAnswers(this, i, { reponse: { value: texPrix(resu) } })
           break
         }
         case 'foisMoinsQue': {
-          texte = `${f} fois moins que $${texPrix(value)}$  €, c'est ?`
+          texte = `${f} fois moins que $${texPrix(value)}$  €, c'est `
           if (this.interactif && !context.isAmc) {
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
+          } else {
+            texte += '$\\ldots\\ldots$ €'
           }
+          texte+='.'
           texteCorr = `$${texPrix(value)}$ € $\\div ${f}$ = $${texPrix(resu)}$ € <br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texPrix(resu))}$ €.`)
+          texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(resu))}$ €.`
           if (context.isAmc) setReponse(this, i, resu)
           else handleAnswers(this, i, { reponse: { value: texPrix(resu) } })
           break
         }
         case 'foisPlusQue': {
-          texte = `${f} fois plus que $${texPrix(resu)}$  €, c'est ?`
+          texte = `${f} fois plus que $${texPrix(resu)}$  €, c'est `
           if (this.interactif && !context.isAmc) {
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
+          } else {
+            texte += '$\\ldots\\ldots$ €'
           }
+          texte+='.'
           texteCorr = `$${texPrix(resu)}$ € $\\times ${f}$ = $${texPrix(value)}$ € <br>`
-          texteCorr += 'Donc le résultat est ' + texteEnCouleur(`$${miseEnEvidence(texPrix(value))}$ €.`)
+          texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(value))}$ €.`
           handleAnswers(this, i, { reponse: { value: texPrix(value) } })
           break
         }
