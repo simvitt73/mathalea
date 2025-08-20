@@ -16,28 +16,11 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec les suites arithmétiques et géométriques'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Soit $a$ un nombre réel non nul et $n$ un entier non nul. A quelle expression est égale $a^{3n}(a^n)^2$ ?'
-    this.correction = 'On applique la propriété du quotient des puissances d\'un réel : <br>'
-    this.correction += 'Soit n et p deux entiers et a un réel :  $\\dfrac{a^n}{a^p}=a^{n-p}$<br>'
-    this.correction += 'On applique la propriété du produit des puissances d\'un réel : <br>'
-    this.correction += 'Soient n et p deux entiers et a un réel :  $a^n\\times a^p=a^{n+p}$<br>'
-    this.correction += 'et du produit de puissances : <br>'
-    this.correction += 'Soient n et p deux entiers et a un réel :  $\\left(a^{n}\\right)^p=a^{np}$<br>'
-    this.correction += '$\\begin{aligned} a^{3n}(a^n)^2&=a^{3n}\\times a^{3n}\\\\    &=a^{5n}    \\end{aligned}$<br>'
-    this.reponses = [
-      '$a^{5n}$',
-      '$a^{6n}$',
-      '$a^{3n^2}$',
-      '$a^{6n^2}$',
-    ]
-  }
-
-  versionAleatoire = () => {
-    const r = randint(-5, 5,[-1,0,1])
-    const p = randint(1, 5)
-     const up = randint(-5, 5,[-1,0,1])
-    const n = randint(15, 30)
-    this.enonce = `Soit $(u_n)$ la suite arithmétique de premier rang  $u_${p}=${up}$ et de raison $${r}$.<br>
+    const r = -2
+    const p = 1
+     const up = 5
+    const n = 8
+    this.enonce = `Soient $(u_n)$ la suite arithmétique de premier rang  $u_${p}=${up}$ et de raison $${r}$.<br>
     $u_{${n}}=\\ldots$`
     this.correction = `Soit $p\\in \\mathbb{N}$ et $r\\in\\mathbb{R}$.<br>
     On sait que le terme de rang $n$ d'une suite arithmétique $(u_n)$ de premier terme $u_p$ et de rasion $r$ s'écrit $u_n=u_p + (n-p)r$.<br>
@@ -49,10 +32,34 @@ export default class Puissances extends ExerciceQcmA {
     &=${up+(n-p)*r}
     \\end{aligned}$`
     this.reponses = [
-      `${texNombre(up+(n-p)*r)}`,
-     `${texNombre(up+n*r)}`,
-      `${texNombre(r+(n-p)*up)}`,
-       `${texNombre(up+(n-p+1)*r)}`,
+      `$${texNombre(up+(n-p)*r)}$`,
+     `$${texNombre(up+n*r)}$`,
+      `$${texNombre(up+(n-p-1)*r)}$`,
+       `$${texNombre(up-(n-p)*r)}$`,
+    ]
+  }
+
+  versionAleatoire = () => {
+    const r = randint(-5, 5,[-1,0,1])
+    const p = randint(2, 5)
+     const up = randint(-5, 5,[-1,0,1])
+    const n = randint(15, 30)
+    this.enonce = `Soient $(u_n)$ la suite arithmétique de premier rang  $u_${p}=${up}$ et de raison $${r}$.<br>
+    $u_{${n}}=\\ldots$`
+    this.correction = `Soit $p\\in \\mathbb{N}$ et $r\\in\\mathbb{R}$.<br>
+    On sait que le terme de rang $n$ d'une suite arithmétique $(u_n)$ de premier terme $u_p$ et de rasion $r$ s'écrit $u_n=u_p + (n-p)r$.<br>
+    Il vient donc, en appliquant les valeurs de l'énoncé :<br>
+    $\\begin{aligned}
+    u_{${n}}&=u_{${p}} + (${n}-${p})\\times${ecritureParentheseSiNegatif(r)}\\\\
+    &=${up}+ ${n-p}\\times${ecritureParentheseSiNegatif(r)}\\\\
+     &=${up} ${ecritureAlgebrique((n-p)*r)}\\\\
+    &=${up+(n-p)*r}
+    \\end{aligned}$`
+    this.reponses = [
+      `$${texNombre(up+(n-p)*r)}$`,
+     `$${texNombre(up+n*r)}$`,
+      `$${texNombre(up-(n-p)*r)}$`,
+       `$${texNombre(up+(n-p+1)*r)}$`,
     ]
   }
 
