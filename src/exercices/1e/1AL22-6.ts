@@ -1,8 +1,8 @@
 import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-    ecritureAlgebrique,
-    ecritureParentheseSiNegatif
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'

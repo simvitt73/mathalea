@@ -1,13 +1,13 @@
 import {
-    shuffle2tableaux
+  shuffle2tableaux
 } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
-    contraindreValeur,
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

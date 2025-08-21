@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 
-function trouvePave(volume: number): [number, number, number] {
+function trouvePave (volume: number): [number, number, number] {
   // Trouve un pavé dont le volume est proche de volume
   let divisors: number[] = []
   let volumeCible = 0
@@ -49,7 +49,7 @@ function trouvePave(volume: number): [number, number, number] {
 }
 
 export default class DenombrerCubes extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaire2Numerique = ["Taille de l'empilement", 3, 'De taille 3\nDe taille 4\nDe taille 5']
     this.besoinFormulaire3CaseACocher = ['3D dynamique', false]
@@ -59,7 +59,7 @@ export default class DenombrerCubes extends Exercice {
     // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const longueur = 2 + parseInt(this.sup2) // longueur de l'empilement
     const largeur = longueur // largeur de l'empilement
     const hauteur = Math.min(longueur, 4) // hauteur de l'empilement
@@ -74,7 +74,6 @@ export default class DenombrerCubes extends Exercice {
       for (let i = larg - 1; i > -1; i--) {
         for (let j = long - 1; j > -1; j--) {
           for (let k = 0; k < haut; k++) {
-
             L2.push([i, j, k])
           }
         }
@@ -88,7 +87,6 @@ export default class DenombrerCubes extends Exercice {
         texte += canvasEnonce2
         texteCorr += canvasCorrection
         texteCorr += canvasCorrection2
-
       } else { // 3d Iso avec Mathalea2d
         texte += 'Ci-dessous, un empilement de cubes est représenté sous deux angles différents et un pavé droit est représenté à côté.<br>'
         const { figure, figureCorrection } = createCubesProjections(L1, largeur, longueur, hauteur)
@@ -106,7 +104,6 @@ export default class DenombrerCubes extends Exercice {
       }
       texteCorr += `<br>Le premier solide est un empilement de ${volume1} cubes.<br>`
       texteCorr += `Le deuxième solide est un pavé droit de dimensions $${larg} \\times ${long} \\times ${haut}$, son volume est de $${larg * long * haut}$.<br>`
-
 
       if (this.questionJamaisPosee(q, JSON.stringify(L1) + JSON.stringify(L2))) {
         this.listeQuestions[q] = texte

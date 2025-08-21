@@ -13,8 +13,8 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'

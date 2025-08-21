@@ -3,10 +3,10 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-    ecritureAlgebrique,
-    ecritureParentheseSiMoins,
-    ecritureParentheseSiNegatif,
-    reduireAxPlusB, reduirePolynomeDegre3
+  ecritureAlgebrique,
+  ecritureParentheseSiMoins,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB, reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'

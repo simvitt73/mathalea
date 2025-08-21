@@ -3,14 +3,14 @@ import { arc, cercle } from '../../lib/2d/cercle'
 import { afficheLongueurSegment, codageSegments, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
-    Point,
-    point,
-    pointAdistance,
-    pointIntersectionCC,
-    pointIntersectionLC,
-    pointSurCercle,
-    pointSurSegment,
-    tracePoint
+  Point,
+  point,
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionLC,
+  pointSurCercle,
+  pointSurSegment,
+  tracePoint
 } from '../../lib/2d/points'
 import { Polygone, polygone, polygoneRegulier } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'

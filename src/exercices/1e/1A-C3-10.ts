@@ -17,7 +17,7 @@ export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'Soit $n$ un entier non nul.<br> À quelle expression est égale $\\dfrac{1}{\\left(-1\\right)^{n}}$ ?'
     this.correction = 'Soit $n\\in \\mathbb{N}$.<br>$\\begin{aligned} \\left(-1\\right)^{n+2}&=\\left(-1\\right)^{2}\\times \\left(-1\\right)^{n} \\\\    &=1\\times \\left(-1\\right)^{n} \\\\    &= \\left(-1\\right)^{n}    \\end{aligned}$<br>'
-     this.correction += '$\\begin{aligned}\\text{or, }\\dfrac{1}{\\left(-1\\right)^{n}}&=\\dfrac{1^n}{\\left(-1\\right)^{n}}\\\\&=\\left(\\dfrac{1}{-1}\\right)^{n}\\\\&=\\left(-1\\right)^{n}\\\\\\end{aligned}.$<br>'
+    this.correction += '$\\begin{aligned}\\text{or, }\\dfrac{1}{\\left(-1\\right)^{n}}&=\\dfrac{1^n}{\\left(-1\\right)^{n}}\\\\&=\\left(\\dfrac{1}{-1}\\right)^{n}\\\\&=\\left(-1\\right)^{n}\\\\\\end{aligned}.$<br>'
     this.correction += 'En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+2}=\\dfrac{1}{\\left(-1\\right)^{n}}$.'
     this.reponses = [
       '$\\left(-1\\right)^{n} $',

@@ -1,26 +1,26 @@
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
+import { createPrismWithWireframe, createPyramidWithWireframe, createTruncatedPyramidWithWireframe, createWireframeUnion } from '../../lib/3d/3d_dynamique/solidesThreeJs'
 import {
-  homothetie3d,
-  translation3d
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+  Point3d,
+  point3d,
+  polygone3d, vecteur3d
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import {
   prisme3d,
   pyramide3d,
   pyramideTronquee3d
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
-  Point3d,
-  point3d,
-  polygone3d, vecteur3d
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { createPyramidWithWireframe, createTruncatedPyramidWithWireframe, createWireframeUnion, createPrismWithWireframe } from '../../lib/3d/3d_dynamique/solidesThreeJs'
-import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
+  homothetie3d,
+  translation3d
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
 export const dateDePublication = '7/11/2021'

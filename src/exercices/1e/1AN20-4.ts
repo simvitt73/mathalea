@@ -1,10 +1,10 @@
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import {
-    ecritureAlgebrique,
-    ecritureAlgebriqueSauf1,
-    egalOuApprox,
-    reduireAxPlusB,
-    reduirePolynomeDegre3
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  egalOuApprox,
+  reduireAxPlusB,
+  reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'

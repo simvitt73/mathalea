@@ -96,7 +96,7 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
           } else {
             texte += '$\\ldots\\ldots$ €'
           }
-          texte+='.'
+          texte += '.'
           texteCorr = `$${texPrix(value)}$ € $\\div ${f}$ = $${texPrix(resu)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(resu))}$ €.`
           if (context.isAmc) setReponse(this, i, resu)
@@ -110,7 +110,7 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
           } else {
             texte += '$\\ldots\\ldots$ €'
           }
-          texte+='.'
+          texte += '.'
           texteCorr = `$${texPrix(resu)}$ € $\\times ${f}$ = $${texPrix(value)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(value))}$ €.`
           handleAnswers(this, i, { reponse: { value: texPrix(value) } })

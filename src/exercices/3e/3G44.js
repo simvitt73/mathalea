@@ -2,20 +2,20 @@ import { tracePoint } from '../../lib/2d/points'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import {
-    droite3d, point3d,
-    polygone3d, vecteur3d
+  droite3d, point3d,
+  polygone3d, vecteur3d
 } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import {
-    cone3d,
-    cube3d,
-    cylindre3d,
-    pave3d,
-    pyramide3d, sphere3d
+  cone3d,
+  cube3d,
+  cylindre3d,
+  pave3d,
+  pyramide3d, sphere3d
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
-    CodageAngleDroit3D,
-    rotation3d,
-    translation3d
+  CodageAngleDroit3D,
+  rotation3d,
+  translation3d
 } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

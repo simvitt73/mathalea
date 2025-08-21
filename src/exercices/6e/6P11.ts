@@ -4,11 +4,11 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texteExposant } from '../../lib/outils/ecritures'
 import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
-    arrondi,
-    nombreDeChiffresDansLaPartieDecimale,
-    nombreDeChiffresDansLaPartieEntiere,
-    nombreDeChiffresDe,
-    rangeMinMax
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDe,
+  rangeMinMax
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'

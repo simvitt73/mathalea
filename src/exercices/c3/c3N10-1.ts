@@ -1,10 +1,10 @@
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
-    contraindreValeur,
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

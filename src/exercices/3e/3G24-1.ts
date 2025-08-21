@@ -8,7 +8,7 @@ import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { triangle2points2angles, triangle2points2longueurs } from '../../lib/2d/triangle'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'

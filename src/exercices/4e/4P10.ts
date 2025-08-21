@@ -11,9 +11,9 @@ import { prenom, prenomF } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
