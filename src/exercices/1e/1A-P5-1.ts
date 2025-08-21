@@ -16,11 +16,11 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec des puissances (10)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-     let objets = []
+    let objets = []
     const rationnel = true
-    let pA = 0.4
-    let pAC = 0.6
-    let pBC = 0.3
+    const pA = 0.4
+    const pAC = 0.6
+    const pBC = 0.3
     const omega = new Arbre({
       racine: true,
       rationnel,
@@ -79,7 +79,6 @@ export default class Puissances extends ExerciceQcmA {
     let distracteur3 : number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-   
     this.enonce = 'On donne l\'arbre de probabilités ci-dessous :'
     this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
     this.enonce += '$p(C)=\\ldots$'

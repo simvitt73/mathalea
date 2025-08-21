@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': ['9ES7-6']
 }
 export default class DenombrerCubes extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
     this.besoinFormulaire4Numerique = ['Volume', 2, '1 : Volume en cubes\n2 : Volume en cm³\n']
@@ -45,7 +45,7 @@ export default class DenombrerCubes extends Exercice {
     // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles: number[] = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:
@@ -72,10 +72,10 @@ export default class DenombrerCubes extends Exercice {
 
       if (!this.sup3 || !context.isHtml) { // 3d Iso avec Mathalea2d
         texte = 'Un empilement de cubes est représenté ci-dessous sous deux angles différents. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
-          ; ({ figure, figureCorrection } = createCubesProjections(L, largeur, longueur, hauteur))
+        ; ({ figure, figureCorrection } = createCubesProjections(L, largeur, longueur, hauteur))
       } else { // 3d dynamique avec Canvas3DElement
         texte = 'Un empilement de cubes est représenté ci-dessous (on peut faire tourner l\'empilement en plein écran). <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
-          ; ({ canvasEnonce: figure, canvasCorrection: figureCorrection } = canvasEnonceCorrection(L, `scene3dEx${this.numeroExercice}Q${q}`))
+        ; ({ canvasEnonce: figure, canvasCorrection: figureCorrection } = canvasEnonceCorrection(L, `scene3dEx${this.numeroExercice}Q${q}`))
       }
       // début de l'exercice
       texte += unitesCubes

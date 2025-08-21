@@ -5,9 +5,9 @@ import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

@@ -7,12 +7,6 @@
     "javascript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
-  "[typescript]": {
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
-},
-  "[javascript]": {
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
-},
     "javascript.preferences.importModuleSpecifierEnding": "minimal",
     "vitest.disableWorkspaceWarning": true,
     "editor.codeActionsOnSave": {
@@ -36,5 +30,6 @@
                 "cmd": "pnpm exec prettier --plugin=prettier-plugin-svelte --write ${file}"
             }
         ]
-    }
+    },
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
 }

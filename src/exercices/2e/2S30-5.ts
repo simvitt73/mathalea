@@ -1,17 +1,17 @@
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-    simplificationDeFractionAvecEtapes,
-    texFractionFromString,
-    texFractionReduite
+  simplificationDeFractionAvecEtapes,
+  texFractionFromString,
+  texFractionReduite
 } from '../../lib/outils/deprecatedFractions'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { fraction } from '../../modules/fractions'

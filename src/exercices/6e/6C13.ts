@@ -3,9 +3,9 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { numAlpha } from '../../lib/outils/outilString'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenuSansNumero,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+  randint
 } from '../../modules/outils'
 import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique'
 import Exercice from '../Exercice'

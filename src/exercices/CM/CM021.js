@@ -1,9 +1,9 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi, range1 } from '../../lib/outils/nombres'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

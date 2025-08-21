@@ -12,9 +12,9 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'

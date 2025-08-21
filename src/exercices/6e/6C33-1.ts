@@ -1,16 +1,16 @@
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import engine, { exprCompare } from '../../lib/interactif/comparisonFunctions'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'; // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'; // fonctions de mise en place des éléments interactifs
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lister } from '../../lib/outils/ecritures'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
 import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true

@@ -61,7 +61,7 @@ export default class MedianeMoyenneQCM extends ExerciceQcmA {
       b2 = a2
 
       b3 = moyenneA * 3 - b1 - b2 + 1
-      
+
       if (b3 === a3) {
         b3 += 1 // On s'assure que b3 est différent de a3
       }
@@ -79,7 +79,7 @@ export default class MedianeMoyenneQCM extends ExerciceQcmA {
       b2 = randint(Math.floor(b1 + 1), Math.floor(b1 + 4), a2)
 
       b3 = moyenneA * 3 - b1 - b2 + 1
-      
+
       medianeA = a2
       medianeB = b2
       this.reponses = [
@@ -95,7 +95,6 @@ export default class MedianeMoyenneQCM extends ExerciceQcmA {
       medianeB = b2
 
       b3 = moyenneA * 3 - b1 - b2
-      
 
       medianeA = a2
 
@@ -125,7 +124,7 @@ Laquelle des ces 4 propositions est vraie ?`
     this.correction += `<br>et sa médiane, qui est la valeur centrale de la série classée : $\\mathrm{m_A}=${medianeA}$ .<br>
     On calcule la moyenne de la série B :`
 
-     this.correction += `$\\overline{x}_B=\\dfrac{${texNombre(b1)} + ${texNombre(b2)} + ${texNombre(Number(b3))}}{3} = ${moyB.texFraction} $`
+    this.correction += `$\\overline{x}_B=\\dfrac{${texNombre(b1)} + ${texNombre(b2)} + ${texNombre(Number(b3))}}{3} = ${moyB.texFraction} $`
     if (Number.isInteger(moyenneB)) {
       this.correction += ` $= ${moyB.texFractionSimplifiee}$`
     }

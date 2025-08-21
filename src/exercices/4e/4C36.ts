@@ -5,9 +5,9 @@ import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { prenomPronom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true

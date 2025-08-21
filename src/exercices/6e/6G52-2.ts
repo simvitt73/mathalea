@@ -1,10 +1,10 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import {
-    droite,
-    droiteParPointEtParallele,
-    droiteParPointEtPente,
-    droiteParPointEtPerpendiculaire,
-    labelOnLine
+  droite,
+  droiteParPointEtParallele,
+  droiteParPointEtPente,
+  droiteParPointEtPerpendiculaire,
+  labelOnLine
 } from '../../lib/2d/droites'
 import { point, pointIntersectionDD } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
@@ -13,10 +13,10 @@ import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
-    contraindreValeur,
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

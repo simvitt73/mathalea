@@ -5,11 +5,11 @@ import { context } from '../../modules/context'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs'
 import {
-    gestionnaireFormulaireTexte,
-    itemize,
-    listeQuestionsToContenu,
-    randint,
-    texEnumerate
+  gestionnaireFormulaireTexte,
+  itemize,
+  listeQuestionsToContenu,
+  randint,
+  texEnumerate
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

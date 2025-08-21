@@ -3,11 +3,11 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
-    choice,
-    combinaisonListes,
-    combinaisonListes2,
-    enleveElement,
-    enleveElementNo
+  choice,
+  combinaisonListes,
+  combinaisonListes2,
+  enleveElement,
+  enleveElementNo
 } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -15,9 +15,9 @@ import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
-    contraindreValeur,
-    listeQuestionsToContenu,
-    randint
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 

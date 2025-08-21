@@ -1,24 +1,24 @@
 import {
-    canvasEnonceCorrection,
-    empilementCubes,
+  canvasEnonceCorrection,
+  empilementCubes,
 } from '../../lib/3d/3d_dynamique/empilementsCube'
 import {
-    createCubesProjections,
-    projectionCubesIso2d,
+  createCubesProjections,
+  projectionCubesIso2d,
 } from '../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import {
-    choice,
-    compteOccurences,
-    enleveDoublonNum,
-    shuffle,
+  choice,
+  compteOccurences,
+  enleveDoublonNum,
+  shuffle,
 } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
@@ -41,7 +41,7 @@ export const refs = {
   'fr-ch': [],
 }
 export default class VuesEmpilementCubes extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = [
       'Longueur, largeur et hauteur sous la forme abc',
@@ -63,9 +63,7 @@ export default class VuesEmpilementCubes extends Exercice {
     this.nbQuestions = 2
   }
 
-  nouvelleVersion() {
-    let objetsEnonce, objetsCorrection
-
+  nouvelleVersion () {
     const dimensionsTab = gestionnaireFormulaireTexte({
       max: 999,
       defaut: 1,
@@ -97,13 +95,13 @@ export default class VuesEmpilementCubes extends Exercice {
         shuffle: false,
       })
 
-      if (compteOccurences(listeVuesPossibles, 7) > 0)
+      if (compteOccurences(listeVuesPossibles, 7) > 0) {
         listeVuesPossibles = shuffle([
           randint(1, 2),
           randint(3, 4),
           randint(5, 6),
         ])
-      else {
+      } else {
         listeVuesPossibles = enleveDoublonNum(listeVuesPossibles)
         listeVuesPossibles = shuffle(listeVuesPossibles)
       }
@@ -111,9 +109,6 @@ export default class VuesEmpilementCubes extends Exercice {
         if (!listeVuesPossibles.includes(ee)) listeVuesPossibles.push(ee)
       }
       listeVuesPossibles = listeVuesPossibles.map((x) => x - 1)
-
-      objetsEnonce = []
-      objetsCorrection = []
 
       texte = ''
       texteCorr = ''
@@ -149,12 +144,7 @@ export default class VuesEmpilementCubes extends Exercice {
         // 3d iso avec mathalea2d (2 vues)
         texte +=
           'Voici un solide composé par un empilement de cubes, présenté de deux façons différentes. <br>'
-        const { figure, figureCorrection } = createCubesProjections(
-          L,
-          largeur,
-          longueur,
-          hauteur,
-        )
+        const { figure } = createCubesProjections(L, largeur, longueur, hauteur)
 
         texte += figure + '<br>'
       } else {
@@ -162,7 +152,7 @@ export default class VuesEmpilementCubes extends Exercice {
         texte += 'Voici un solide composé par un empilement de cubes.<br>'
         const { canvasEnonce } = canvasEnonceCorrection(
           L,
-          `SceneEx${this.numeroExercice}Q${q}`,
+          `SceneEx${this.numeroExercice}Q${q}`
         )
         texte += canvasEnonce + '<br>'
       }

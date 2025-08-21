@@ -1,6 +1,6 @@
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 import FonctionsLineaires from './3F20'

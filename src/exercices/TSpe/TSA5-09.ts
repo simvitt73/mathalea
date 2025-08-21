@@ -6,17 +6,17 @@ import Exercice from '../Exercice'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-    ecritureParentheseSiNegatif,
-    reduireAxPlusB,
-    reduirePolynomeDegre3,
-    rienSi1
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
-    gestionnaireFormulaireTexte,
-    listeQuestionsToContenu,
-    randint
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
 } from '../../modules/outils'
 
 export const titre = "Domaine de définition d'une fonction logarithme"
