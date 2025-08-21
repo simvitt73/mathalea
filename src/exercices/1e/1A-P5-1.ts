@@ -74,9 +74,8 @@ export default class Puissances extends ExerciceQcmA {
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
     const Reponse = pA * pAC + (1 - pA) * pBC
-    const distracteur1 = Reponse + randint(-1, 1, 0) * randint(5, 30) / 100
-    let distracteur2 : number
-    let distracteur3 : number
+   
+    
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
     this.enonce = 'On donne l\'arbre de probabilités ci-dessous :'
