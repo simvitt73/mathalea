@@ -151,6 +151,4 @@ Laquelle des ces 4 propositions est vraie ?`
     this.versionAleatoire()
   }
 }
-function texFraction (b3: number) {
-  throw new Error('Function not implemented.')
-}
+
