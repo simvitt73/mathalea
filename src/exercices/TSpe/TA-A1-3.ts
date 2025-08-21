@@ -15,7 +15,7 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec des puissances (3)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Soit $a$ un nombre réel non nul et $n$ un entier non nul. A quelle expression est égale $\\left(a^2\\right)^{n}$ ?'
+    this.enonce = 'Soit $a$ un nombre réel non nul et $n$ un entier non nul. À quelle expression est égale $\\left(a^2\\right)^{n}$ ?'
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a $\\left(a^{n}\\right)^{p}=a^{np}$<br>
     $\\left(a^2\\right)^{n}$= a^{2n}$`
@@ -31,7 +31,7 @@ export default class Puissances extends ExerciceQcmA {
 
   versionAleatoire = () => {
     const k = randint(2, 6)
-    this.enonce = `Soient $a$ un nombre réel non nul et $n$ un entier.  A quelle expression est égale $a^{${k}^{n}}$ ?`
+    this.enonce = `Soient $a$ un nombre réel non nul et $n$ un entier.  À quelle expression est égale $a^{${k}^{n}}$ ?`
     this.correction = `$\\begin{aligned}
         a^${k}^n&= a^{${k}n}<br>`
     this.reponses = [`$a^{${k}^{n}}$`,

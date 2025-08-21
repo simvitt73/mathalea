@@ -1,6 +1,3 @@
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { Arbre } from '../../modules/arbres'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '10/08/2025'
@@ -22,7 +19,7 @@ export default class Puissances extends ExerciceQcmA {
 
         this.enonce = 'Soit $x$ un réel non nul.<br>'
 
-        this.enonce += `A quelle expression est égale $\\dfrac{4x^2}{\\dfrac{2}{x^2}}$?`
+        this.enonce += `À quelle expression est égale $\\dfrac{4x^2}{\\dfrac{2}{x^2}}$?`
               this.correction = `On peut simplifier l'expression : <br>$\\begin{aligned}
         \\dfrac{4x^2}{\\dfrac{2}{x^2}}&=4x^2 \\times \\dfrac{x^2}{2}\\\\
         &=\\dfrac{4x^4}{2}\\\\
@@ -44,7 +41,7 @@ export default class Puissances extends ExerciceQcmA {
         const k = randint(2, 5)
         this.enonce = 'Soit $x$ un réel non nul.<br>'
 
-        this.enonce += `A quelle expression est égale $\\dfrac{${k*a}x^{${n}}}{\\dfrac{${a}}{x^${p}}}$?`
+        this.enonce += `À quelle expression est égale $\\dfrac{${k*a}x^{${n}}}{\\dfrac{${a}}{x^${p}}}$?`
               this.correction = `On peut simplifier l'expression : <br>
               $\\begin{aligned}
        \\dfrac{${k*a}x^{${n}}}{\\dfrac{${a}}{x^${p}}}&=${k*a}x^{${n}} \\times \\dfrac{x^${p}}{${a}}\\\\

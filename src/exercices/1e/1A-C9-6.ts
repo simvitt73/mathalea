@@ -20,7 +20,7 @@ export default class Puissances extends ExerciceQcmA {
 
         this.enonce = 'Soit $x$ un réel non nul.<br>'
 
-        this.enonce += `A quelle expression est égale $\\dfrac12-\\dfrac{x+1}{x}$?`
+        this.enonce += `À quelle expression est égale $\\dfrac12-\\dfrac{x+1}{x}$?`
               this.correction = `On peut simplifier l'expression : <br>$\\begin{aligned}
         \\dfrac12-\\dfrac{x+1}{x}&=\\dfrac12-\\dfrac{x}{x}-\\dfrac{1}{x}\\\\
         &=\\dfrac12-1-\\dfrac{1}{x}\\\\
@@ -44,7 +44,7 @@ export default class Puissances extends ExerciceQcmA {
         const b = randint(2, 5)
         this.enonce = 'Soit $x$ un réel non nul.<br>'
 
-        this.enonce += `A quelle expression est égale $\\dfrac{1}{${n}}-\\dfrac{${reduireAxPlusB(a,b)}}{x}$ ?`
+        this.enonce += `À quelle expression est égale $\\dfrac{1}{${n}}-\\dfrac{${reduireAxPlusB(a,b)}}{x}$ ?`
               this.correction = `On met l'expression au même dénominateur : <br>$\\begin{aligned}
         \\dfrac{1}{${n}}-\\dfrac{${reduireAxPlusB(a,b)}}{x}&=\\dfrac{x-${n}\\times \\left(${reduireAxPlusB(a,b)}\\right)}{${n}x}\\\\
         &=\\dfrac{x ${ecritureAlgebriqueSauf1(-a*n)}x ${ecritureAlgebriqueSauf1(-b*n)}}{${n}x}\\\\

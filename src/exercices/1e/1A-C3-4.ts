@@ -16,7 +16,7 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec des puissances (4)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Soient $a$ et $b$ deux nombres réels non nuls. A quelle expression est égale $a^2\\times b^3$ ?'
+    this.enonce = 'Soient $a$ et $b$ deux nombres réels non nuls. À quelle expression est égale $a^2\\times b^3$ ?'
     this.correction = 'a^2\\times b^3= a^2\\times b^2 \\times b = (ab)^2 \\times b$'
     miseEnEvidence('$(ab)^2 \\times b$')
 
@@ -31,7 +31,7 @@ export default class Puissances extends ExerciceQcmA {
   versionAleatoire = () => {
     const n = randint(2, 4)
     const k = randint(n + 1, 6)
-    this.enonce = `Soient $a$ et $b$ deux nombres réels non nuls.  A quelle expression est égale $a^${n}\\times b^${k}$ ?`
+    this.enonce = `Soient $a$ et $b$ deux nombres réels non nuls.  À quelle expression est égale $a^${n}\\times b^${k}$ ?`
     this.correction = `$\\begin{aligned}
         a^${n}\\times b^${k}&= a^${n}\\times b^${n}\\times b^${k - n}\\\\
         &=${miseEnEvidence(`\\left(ab\\right)^${n}\\times b^${k - n}`)}\\end{aligned}$<br>`
