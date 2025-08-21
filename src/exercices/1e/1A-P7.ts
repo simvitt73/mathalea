@@ -1,6 +1,6 @@
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { Arbre, texProba } from '../../modules/arbres'
+import { Arbre } from '../../modules/arbres'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
