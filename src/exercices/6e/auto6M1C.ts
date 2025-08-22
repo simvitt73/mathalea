@@ -15,7 +15,7 @@ export const dateDeModifImportante = '28/07/2025' // Rajout du paramètre this.s
 export const uuid = 'c57cf'
 
 export const refs = {
-  'fr-fr': ['6M1Cauto'],
+  'fr-fr': ['auto6M1C'],
   'fr-2016': ['6N34'],
   'fr-ch': ['10GM3-9']
 }

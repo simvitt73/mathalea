@@ -23,7 +23,7 @@ export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unit
 export const uuid = '83be9'
 
 export const refs = {
-  'fr-fr': ['6M2Cauto-1'],
+  'fr-fr': ['auto6M2C-1'],
   'fr-2016': ['6M10-2'],
   'fr-ch': ['9GM1-17']
 }

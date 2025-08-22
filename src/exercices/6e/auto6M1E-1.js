@@ -33,7 +33,7 @@ export const dateDePublication = '27/11/2022'
 export const uuid = '5563e'
 
 export const refs = {
-  'fr-fr': ['6M1Eauto-1'],
+  'fr-fr': ['auto6M1E-1'],
   'fr-2016': ['6M11-3'],
   'fr-ch': ['9GM1-1']
 }

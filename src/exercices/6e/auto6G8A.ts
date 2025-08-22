@@ -41,7 +41,7 @@ export const amcType = 'qcmMono'
  */
 
 export const refs = {
-  'fr-fr': ['6G8Aauto'],
+  'fr-fr': ['auto6G8A'],
   'fr-2016': ['6G44-1'],
   'fr-ch': ['9ES7-8', '10ES1-1', '11ES1-1']
 }

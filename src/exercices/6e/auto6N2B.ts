@@ -28,7 +28,7 @@ export const dateDePublication = '12/05/2025' // Ajout de paramètres
 export const uuid = '47fed'
 
 export const refs = {
-  'fr-fr': ['6N2Bauto'],
+  'fr-fr': ['auto6N2B'],
   'fr-2016': ['6N23-4a'],
   'fr-ch': ['9NO10-14']
 }

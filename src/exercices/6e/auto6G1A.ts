@@ -29,7 +29,7 @@ export const interactifType = 'custom'
 export const uuid = '3dbda'
 
 export const refs = {
-  'fr-fr': ['6G1Aauto'],
+  'fr-fr': ['auto6G1A'],
   'fr-2016': ['6G10-5'],
   'fr-ch': ['9ES1-7']
 }

@@ -35,7 +35,7 @@ function texFraction (numerateur: number | string, denominateur: number | string
 export const uuid = '1acf7'
 
 export const refs = {
-  'fr-fr': ['6N2Bauto-1'],
+  'fr-fr': ['auto6N2B-1'],
   'fr-2016': ['6N23-1'],
   'fr-ch': ['9NO10-11']
 }

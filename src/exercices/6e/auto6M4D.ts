@@ -18,7 +18,7 @@ export const interactifType = 'listeDeroulante'
 export const uuid = '0cf13'
 
 export const refs = {
-  'fr-fr': ['6M4Dauto'],
+  'fr-fr': ['auto6M4D'],
   'fr-2016': ['6D10-2'],
   'fr-ch': ['']
 }
