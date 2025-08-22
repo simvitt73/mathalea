@@ -1,13 +1,13 @@
+import { texPrix } from '../../lib/format/style'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { texPrix } from '../../lib/format/style'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-2016': ['6N33-3', 'BP2AutoB6'],
   'fr-ch': ['9NO15-2']
 }
-export default class AppliquerUnPourcentage extends Exercice {
+export default class AppliquerUnPourcentage6N3Q extends Exercice {
   onlyMoney = false
   constructor () {
     super()
