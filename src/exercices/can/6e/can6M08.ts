@@ -20,7 +20,7 @@ export const amcType = 'qcmMono'
 export const uuid = 'bae27'
 
 export const refs = {
-  'fr-fr': ['can6M08'],
+  'fr-fr': ['can6M08','6M2C-flash1'],
   'fr-ch': []
 }
 export default class QuestionDAires extends Exercice {

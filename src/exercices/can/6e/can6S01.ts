@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '1957a'
 
 export const refs = {
-  'fr-fr': ['can6S01'],
+  'fr-fr': ['can6S01','auto6P1A-flash1'],
   'fr-ch': []
 }
 export default class LectureDiagrammeBarre extends ExerciceSimple {

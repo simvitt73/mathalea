@@ -19,7 +19,7 @@ export const dateDeModifImportante = '12/10/2024'
 export const uuid = 'aa22e'
 
 export const refs = {
-  'fr-fr': ['can6N17'],
+  'fr-fr': ['can6N17','6N1H-flash2'],
   'fr-ch': []
 }
 export default class AbscisseDroiteDecimaux extends ExerciceSimple {

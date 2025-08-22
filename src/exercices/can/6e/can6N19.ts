@@ -18,7 +18,7 @@ export const dateDePublication = '02/11/2024'
 export const uuid = '3a8f8'
 
 export const refs = {
-  'fr-fr': ['can6N19'],
+  'fr-fr': ['can6N19','6N1B-flash2'],
   'fr-ch': []
 }
 export default class decomposerDecimal extends Exercice {

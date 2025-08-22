@@ -16,7 +16,7 @@ export const dateDePublication = '14/08/2022'
 export const uuid = '41030'
 
 export const refs = {
-  'fr-fr': ['can6N15'],
+  'fr-fr': ['can6N15','6N1C-flash1'],
   'fr-ch': []
 }
 export default class EcrirePetitsNombresEntiersCan extends EcrirePetitsNombresEntiers {

@@ -18,7 +18,7 @@ export const dateDeModifImportante = '03/07/2025'
 export const uuid = '31096'
 
 export const refs = {
-  'fr-fr': ['can6C26'],
+  'fr-fr': ['can6C26','6N2B-flash2'],
   'fr-ch': []
 }
 export default class Multiplier extends ExerciceSimple {

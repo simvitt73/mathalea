@@ -17,7 +17,7 @@ export const amcType = 'qcmMono'
 export const uuid = 'ac56a'
 
 export const refs = {
-  'fr-fr': ['can6M02'],
+  'fr-fr': ['can6M02','CM1M1C-flash1'],
   'fr-ch': []
 }
 export default class LaBonneUnite extends Exercice {

@@ -16,7 +16,7 @@ export const dateDePublication = '15/11/2022'
 export const uuid = 'fb422'
 
 export const refs = {
-  'fr-fr': ['can6P06'],
+  'fr-fr': ['can6P06','6N3O-flash1'],
   'fr-ch': []
 }
 export default class CalculerUnPourcentageCAN extends CalculerUnPourcentage {

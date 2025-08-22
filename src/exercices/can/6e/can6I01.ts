@@ -47,7 +47,7 @@ export type NoteLaCouleurParams = {
 export const uuid = '667d1'
 
 export const refs = {
-  'fr-fr': ['can6I01'],
+  'fr-fr': ['can6I01','6I1B-flash1'],
   'fr-ch': []
 }
 export default class CanNoteLaCouleur6 extends Exercice {

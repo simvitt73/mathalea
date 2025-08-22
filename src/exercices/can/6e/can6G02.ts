@@ -13,7 +13,7 @@ export const titre = 'Compter les cubes'
 export const uuid = '76b93'
 
 export const refs = {
-  'fr-fr': ['can6G02'],
+  'fr-fr': ['can6G02','6G8A-flash1'],
   'fr-ch': []
 }
 export default class CompterLesCubesManquant extends DenombrerCubes {

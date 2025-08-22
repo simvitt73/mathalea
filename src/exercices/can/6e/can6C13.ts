@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c3e17'
 
 export const refs = {
-  'fr-fr': ['can6C13'],
+  'fr-fr': ['can6C13','6N2A-flash1'],
   'fr-ch': []
 }
 export default class FSomme2Decimaux extends ExerciceSimple {

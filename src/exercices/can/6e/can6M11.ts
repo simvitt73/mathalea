@@ -24,7 +24,7 @@ export const dateDePublication = '04/07/2022'
 export const uuid = 'e332d'
 
 export const refs = {
-  'fr-fr': ['can6M11'],
+  'fr-fr': ['can6M11','6M3C-flash1'],
   'fr-ch': [],
 }
 export default class VolumePaveCubes extends ExerciceSimple {

@@ -24,7 +24,7 @@ export const dateDePublication = '13/02/2023'
 export const uuid = '1cee6'
 
 export const refs = {
-  'fr-fr': ['can6C46'],
+  'fr-fr': ['can6C46','6N3K-flash1'],
   'fr-ch': []
 }
 export default class ProblemeResteFraction extends ExerciceSimple {

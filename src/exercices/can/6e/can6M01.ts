@@ -17,7 +17,7 @@ export const amcType = 'qcmMono'
 export const uuid = '79035'
 
 export const refs = {
-  'fr-fr': ['can6M01'],
+  'fr-fr': ['can6M01','CM1M1H-flash1'],
   'fr-ch': []
 }
 export default class QuestionDePerimetres extends Exercice {

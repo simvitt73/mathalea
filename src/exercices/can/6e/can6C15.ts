@@ -19,7 +19,7 @@ export const amcType = 'AMCHybride'
 export const uuid = '84b48'
 
 export const refs = {
-  'fr-fr': ['can6C15'],
+  'fr-fr': ['can6C15','6N3C-flash1'],
   'fr-ch': []
 }
 export default class FractionCommeFacteurManquant extends ExerciceSimple {

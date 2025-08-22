@@ -14,7 +14,7 @@ export const dateDePublication = '03/07/2025'
 export const uuid = '39c09'
 
 export const refs = {
-  'fr-fr': ['can6C54'],
+  'fr-fr': ['can6C54','6N3H-flash1'],
   'fr-ch': []
 }
 export default class FractionsEgalesACompleter extends ExerciceSimple {

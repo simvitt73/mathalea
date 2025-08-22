@@ -24,7 +24,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0861b'
 
 export const refs = {
-  'fr-fr': ['canc3D02'],
+  'fr-fr': ['canc3D02','6M4B-flash1'],
   'fr-ch': []
 }
 export default class LireUneDuree extends ExerciceSimple {

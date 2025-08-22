@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'd30d1'
 
 export const refs = {
-  'fr-fr': ['can6G04'],
+  'fr-fr': ['can6G04','6M1E-flash1'],
   'fr-ch': []
 }
 export default class ProblemesDeLongueurs extends ExerciceSimple {

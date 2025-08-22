@@ -28,7 +28,7 @@ export const amcType = 'AMCNum'
 export const uuid = '85dfb'
 
 export const refs = {
-  'fr-fr': ['can6G07'],
+  'fr-fr': ['can6G07','6G7B-flash2'],
   'fr-ch': []
 }
 export default class CompleterParSymetrieCan extends Exercice {

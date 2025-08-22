@@ -23,7 +23,7 @@ export const amcType = 'AMCNum'
 export const uuid = '08764'
 
 export const refs = {
-  'fr-fr': ['can6M12'],
+  'fr-fr': ['can6M12','CM1M1I-flash2'],
   'fr-ch': []
 }
 export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {

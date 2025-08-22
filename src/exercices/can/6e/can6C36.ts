@@ -16,7 +16,7 @@ export const dateDeModifImportante = '03/07/2025'
 export const uuid = '6e1de'
 
 export const refs = {
-  'fr-fr': ['can6C36'],
+  'fr-fr': ['can6C36','6N2A-flash7'],
   'fr-ch': []
 }
 export default class PetitsProblemeReste2 extends ExerciceSimple {

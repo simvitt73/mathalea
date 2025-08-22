@@ -17,7 +17,7 @@ export const dateDePublication = '01/08/2021'
 export const uuid = 'b0f1a'
 
 export const refs = {
-  'fr-fr': ['can6P03'],
+  'fr-fr': ['can6P03','6P3C-flash2'],
   'fr-ch': []
 }
 export default class QuestionDeVitesse extends ExerciceSimple {

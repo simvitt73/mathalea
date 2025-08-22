@@ -19,7 +19,7 @@ export const dateDePublication = '05/03/2022' // La date de publication initiale
 export const uuid = 'dcf22'
 
 export const refs = {
-  'fr-fr': ['can6N14'],
+  'fr-fr': ['can6N14','6N1B-flash1'],
   'fr-ch': []
 }
 export default class DeterminerLeNombre extends Exercice {

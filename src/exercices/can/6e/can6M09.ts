@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'd5c88'
 
 export const refs = {
-  'fr-fr': ['can6M09'],
+  'fr-fr': ['can6M09','CM1M1I-flash1'],
   'fr-ch': []
 }
 export default class PerimetreCarreRectangle extends ExerciceSimple {

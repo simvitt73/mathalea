@@ -17,7 +17,7 @@ export const dateDePublication = '31/10/2024'
 export const uuid = 'ab2fc'
 
 export const refs = {
-  'fr-fr': ['can6C49'],
+  'fr-fr': ['can6C49','6N2A-flash9'],
   'fr-ch': []
 }
 export default class egaliteCompleter extends Exercice {

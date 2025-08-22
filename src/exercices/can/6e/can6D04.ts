@@ -14,7 +14,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'd34e5'
 
 export const refs = {
-  'fr-fr': ['can6D04'],
+  'fr-fr': ['can6D04','6M4C-flash3'],
   'fr-ch': []
 }
 export default class ConvertirMinutesHeures extends ConversionHeuresMinutesOuMinutesEtSecondes {

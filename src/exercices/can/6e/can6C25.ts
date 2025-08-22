@@ -19,7 +19,7 @@ export const dateDePublication = '18/10/2021'
 export const uuid = '81a00'
 
 export const refs = {
-  'fr-fr': ['can6C25'],
+  'fr-fr': ['can6C25','6N2H-flash2'],
   'fr-ch': []
 }
 export default class RecherchePrix extends ExerciceSimple {

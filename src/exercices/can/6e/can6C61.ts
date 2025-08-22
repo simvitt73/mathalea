@@ -15,7 +15,7 @@ export const dateDePublication = '06/07/2025'
 export const uuid = 'a3046'
 
 export const refs = {
-  'fr-fr': ['can6C61'],
+  'fr-fr': ['can6C61','6N2D-flash1'],
   'fr-ch': []
 }
 export default class ProduitParDeduction extends ExerciceSimple {

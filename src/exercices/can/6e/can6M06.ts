@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'e52ba'
 
 export const refs = {
-  'fr-fr': ['can6M06'],
+  'fr-fr': ['can6M06','CM1M1H-flash2'],
   'fr-ch': []
 }
 export default class Perimetre extends ExerciceSimple {

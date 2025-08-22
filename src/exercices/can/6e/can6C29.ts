@@ -20,7 +20,7 @@ export const amcReady = true
 export const uuid = 'c9168'
 
 export const refs = {
-  'fr-fr': ['can6C29'],
+  'fr-fr': ['can6C29','6N2K-flash2'],
   'fr-ch': []
 }
 export default class Partage extends ExerciceSimple {

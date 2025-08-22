@@ -20,7 +20,7 @@ export const dateDePublication = '06/07/2025'
 export const uuid = 'dd7d1'
 
 export const refs = {
-  'fr-fr': ['can6C60'],
+  'fr-fr': ['can6C60','6N3K-flash5'],
   'fr-ch': []
 }
 export default class SommeDiffEntierFraction extends ExerciceSimple {

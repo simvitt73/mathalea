@@ -21,7 +21,7 @@ export const dateDeModifImportante = '12/10/2024'
 export const uuid = '34d01'
 
 export const refs = {
-  'fr-fr': ['can6N07'],
+  'fr-fr': ['can6N07','6N1H-flash1'],
   'fr-ch': []
 }
 export default class LireAbscisseDecimaleDeFraction extends ExerciceSimple {

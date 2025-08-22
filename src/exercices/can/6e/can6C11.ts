@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 export const uuid = '50fc4'
 
 export const refs = {
-  'fr-fr': ['can6C11'],
+  'fr-fr': ['can6C11','6N2E-flash2'],
   'fr-ch': []
 }
 export default class DoubleOuTripleDecimal extends ExerciceSimple {
