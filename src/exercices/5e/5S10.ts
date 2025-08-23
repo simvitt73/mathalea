@@ -1,4 +1,4 @@
-import OrganiserDonneesDepuisTexte from '../6e/6S11'
+import OrganiserDonneesDepuisTexte from '../6e/CM2D1A, CM2D1B'
 export const titre = 'Organiser des données dans un tableau'
 export const interactifReady = false
 export const uuid = '60eb8'

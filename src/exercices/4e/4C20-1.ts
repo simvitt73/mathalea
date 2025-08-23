@@ -1,4 +1,4 @@
-import ExerciceComparerQuatreFractions from '../5e/5N14-2'
+import ExerciceComparerQuatreFractions from '../5e/6N3I-3-2'
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 export const interactifReady = false
 export const dateDePublication = '14/08/2021'

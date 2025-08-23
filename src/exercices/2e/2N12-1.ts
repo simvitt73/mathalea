@@ -1,4 +1,4 @@
-import EncadrerFractionEntre2Entiers from '../6e/6N20-1'
+import EncadrerFractionEntre2Entiers from '../6e/auto6N2B-6-1'
 export const titre = 'Encadrer une fraction entre deux nombres entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'

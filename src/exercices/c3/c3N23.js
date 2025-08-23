@@ -1,4 +1,4 @@
-import LireUneAbscisseAvecZoom from '../6e/6N23-3'
+import LireUneAbscisseAvecZoom from '../6e/auto6N2B-4-3'
 export const titre = 'Lire abscisse décimale avec zoom'
 export const amcReady = true
 export const amcType = 'AMCHybride'

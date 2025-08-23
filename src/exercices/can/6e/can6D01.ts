@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
 export const uuid = '1db82'
 
 export const refs = {
-  'fr-fr': ['can6D01'],
+  'fr-fr': ['can6D01', '6M4C-flash1'],
   'fr-ch': []
 }
 export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple {

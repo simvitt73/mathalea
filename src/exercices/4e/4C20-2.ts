@@ -1,4 +1,4 @@
-import EqResolvantesThales from '../5e/5N14-3'
+import EqResolvantesThales from '../5e/6N3I-3-3'
 
 export const titre = 'Fractions égales et égalité des produits en croix 4e'
 export const amcReady = true

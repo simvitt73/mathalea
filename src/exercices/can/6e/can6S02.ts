@@ -1,9 +1,9 @@
-import { randint } from '../../../modules/outils'
-import ExerciceSimple from '../../ExerciceSimple'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Enrichir son vocabulaire sur les probabilités'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = '2a91a'
 
 export const refs = {
-  'fr-fr': ['can6S02'],
+  'fr-fr': ['can6S02', '6P2A-flash1'],
   'fr-ch': []
 }
 export default class ChancesSurEtProbabilites extends ExerciceSimple {

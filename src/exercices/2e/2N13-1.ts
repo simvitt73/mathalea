@@ -1,4 +1,4 @@
-import ArrondirUneValeur6e from '../6e/6N31-3'
+import ArrondirUneValeur6e from '../6e/6N1I-3'
 export const titre = 'Arrondir une valeur'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,4 +1,4 @@
-import CalculDeVolumes from '../6e/6M30'
+import CalculDeVolumes from '../6e/5M20-1'
 export const titre = 'Calculer des volumes'
 export const amcReady = true
 export const amcType = 'AMCHybride'

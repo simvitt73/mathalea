@@ -1,4 +1,4 @@
-import ReperageEntiersOuDecimaux from '../6e/6N30-0'
+import ReperageEntiersOuDecimaux from '../6e/6N1H-0'
 export const titre = 'Repérer des entiers sur une droite graduée'
 export const uuid = '14b84'
 export const refs = {
