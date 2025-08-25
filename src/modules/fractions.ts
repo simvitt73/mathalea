@@ -110,7 +110,7 @@ export function fraction (a: number, b: number | undefined): FractionEtendue {
   }
 }
 
-export function denominateurEnLettre (den: number, pluriel: string): string {
+export function denominateurEnLettre (den: number, pluriel: boolean): string {
   let denEnLettre
   switch (den) {
     case 2:
