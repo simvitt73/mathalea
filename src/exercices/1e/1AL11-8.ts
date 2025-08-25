@@ -45,7 +45,7 @@ export default class SommeSuite extends ExerciceSimple {
       this.reponse = (n + 1) * (u0 + u0 + n * r) / 2
       this.correction = `$S = ${u0} + (${u0} + ${r}) + (${u0} + 2 \\times ${r}) + (${u0} + 3 \\times ${r}) + ... + (${u0} + ${n} \\times ${r})$`
     this.correction += `<br>$S = (\\underbrace{${u0} + ${u0} + ${u0} + ... + ${u0}}_{${n + 1}\\times${u0}}) + ${r} \\times (1 + 2 + 3 + ... + ${n})$`
-    this.correction += '<br> Or, on sait d\'après le cours que : $1 + 2 + 3 + ... + n = \\dfrac{n(n+1)}{2}$.'
+    this.correction += '<br> Or, on sait d\'après le cours que : $1 + 2 + 3 + ... + n = \\dfrac{n(n+1)}{2}$'
     this.correction += `<br>$S = ${n + 1} \\times ${u0} + ${r} \\times \\dfrac{${n} \\times ${n + 1}}{2}$`
     this.correction += `<br>$S = ${texNombre(this.reponse)}$`
     this.correction += `<br><br>${texteGras('Autre méthode')} : on reconnait la somme des $${n + 1}$ premiers termes d'une suite arithmétique de premier terme $${u0}$ et de raison $${r}$.`
