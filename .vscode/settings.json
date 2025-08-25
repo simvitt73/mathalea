@@ -1,35 +1,24 @@
 {
-    "cSpell.words": [
-        "defaut",
-        "reponse"
-    ],
-    "genieai.openai.model": "gpt-3.5-turbo",
-    "javascript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.importModuleSpecifierEnding": "minimal",
-    "javascript.preferences.importModuleSpecifierEnding": "minimal",
-    "vitest.disableWorkspaceWarning": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "always",
-        "source.fixAll.eslint": "always"
-    },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "svelte"
-    ],
-    "eslint.format.enable": true,
-    "editor.formatOnSave": true,
-    "svelte.plugin.svelte3.disable": false,
-    "emeraldwalk.runonsave": {
-        "commands": [
-            {
-                "match": "\\.svelte$",
-                "cmd": "pnpm exec prettier --plugin=prettier-plugin-svelte --write ${file}"
-            }
-        ]
-    },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "cSpell.words": ["defaut", "reponse"],
+  "genieai.openai.model": "gpt-3.5-turbo",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "javascript.preferences.importModuleSpecifierEnding": "minimal",
+  "vitest.disableWorkspaceWarning": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.fixAll.eslint": "always"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "svelte"
+  ],
+  "svelte.plugin.svelte3.disable": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.codeActionsOnSave.rules": null
 }
