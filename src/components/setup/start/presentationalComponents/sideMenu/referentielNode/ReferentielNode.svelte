@@ -39,9 +39,15 @@
    */
   function themeTitle(themeCode: string) {
     if (themes.has(themeCode)) {
-      return [' : ', themes.get(themeCode).get('titre')].join('')
+      return [
+        themeCodeisSubthemeCode(levelTitle) ? '' : ' : ',
+        themes.get(themeCode).get('titre')
+      ].join('')
     } else if (themesCH.has(themeCode)) {
-      return [' : ', themesCH.get(themeCode).get('titre')].join('')
+      return [
+        themeCodeisSubthemeCode(levelTitle) ? '' : ' : ',
+        themesCH.get(themeCode).get('titre')
+      ].join('')
     } else {
       return ''
     }
@@ -225,8 +231,12 @@
       class=" {nestedLevelCount === 1 ? 'text-xl' : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
-      {codeToLevelTitle(levelTitle)}
-      <span class="font-normal">{themeTitle(levelTitle)}</span>
+      {#if !themeCodeisSubthemeCode(levelTitle)}
+        {codeToLevelTitle(levelTitle)}
+      {/if}
+      <span class={themeCodeisSubthemeCode(levelTitle) ? 'font-normal text-sm' : 'font-normal '}
+        >{themeTitle(levelTitle)}</span
+      >
     </div>
     <div>
       <!-- Suivant que c'est le premier niveau (nestedLevelCount = 1) ou pas, on a un affichage différent :
