@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { combinaisonListes, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Connaître la définition d\'une unité d\'aire'
 export const interactifReady = true
@@ -156,7 +156,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
               texteFixe.push(` est l'aire d'un carré de $1$ ${unite} de côté.`)
               this.listeReponses[i] = [unite + '2']
               choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[3])])
-              texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est ${texteEnCouleurEtGras('l\'aire')} d'un carré de $1$ ${unite} de côté.`
+              texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est l'aire d'un carré de $1$ ${unite} de côté.`
               break
           }
           texte = texteFixe[0]
@@ -248,7 +248,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
               choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[3])])
               choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[0])])
               choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[1])])
-              texteCorr = `1 ${texteEnCouleurEtGras(unite)}$^2$ est ${texteEnCouleurEtGras('l\'aire')} d'un ${texteEnCouleurEtGras('carré')} de $1$ ${unite} de côté.`
+              texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est ${texteEnCouleurEtGras('l\'aire')} d'un ${texteEnCouleurEtGras('carré')} de $1$ ${unite} de côté.`
               break
           }
 

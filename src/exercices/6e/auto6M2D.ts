@@ -1,19 +1,19 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-export const titre = 'Connaître les multiples égalités d\'une unité de volume'
+export const titre = 'Connaître les multiples égalités d\'une unité d\'aire'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '04/08/2025'
 
 /**
- * Connaître les multiples égalités d'une unité de volume
+ * Connaître les multiples égalités d'une unité d'aire
  * @author Eric Elter
 
  */
@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': ['']
 }
 
-export default class EgalitessUnitesVolumes extends Exercice {
+export default class EgalitesUnitesAires extends Exercice {
   listeReponses: string[][]
   constructor () {
     super()
