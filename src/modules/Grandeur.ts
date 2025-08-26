@@ -238,7 +238,7 @@ function isVitesseUnit (u: string) {
 }
 
 function isDureeUnit (u: string) {
-  return u === 'hhmmss' || u === 'hdec' || u === 'mindec'
+  return u === 'hhmmss' || u === 'hdec' || u === 'mindec' || u === 'sec'
 }
 
 // vitesse base = m/s
@@ -258,12 +258,14 @@ function toSecondsDuree (value: Decimal, unit: string): Decimal {
   if (unit === 'hhmmss') return value // convention: value already in seconds
   if (unit === 'hdec') return value.times(3600)
   if (unit === 'mindec') return value.times(60)
+  if (unit === 'sec') return value // already in seconds
   throw new Error(`Unité de durée inconnue: ${unit}`)
 }
 function fromSecondsDuree (seconds: Decimal, unit: string): Decimal {
   if (unit === 'hhmmss') return seconds // stockée en secondes
   if (unit === 'hdec') return seconds.div(3600)
   if (unit === 'mindec') return seconds.div(60)
+  if (unit === 'sec') return seconds // already in seconds
   throw new Error(`Unité de durée inconnue: ${unit}`)
 }
 

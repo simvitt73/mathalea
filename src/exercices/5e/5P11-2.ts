@@ -14,7 +14,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'cv001'
 export const refs = {
-  'fr-ch': ['5M10-1']
+  'fr-ch': ['11FA11-3'],
+  'fr-fr': ['5P11-2']
 }
 
 /**
@@ -28,7 +29,7 @@ export default class ConvertirVitesse extends Exercice {
     this.sup = 1 // Type de conversion (1: m/s→km/h, 2: km/h→m/s, 3: mélange)
     this.sup2 = false // Nombres décimaux
     this.besoinFormulaireNumerique = ['Type de conversions', 3, '1 : m/s vers km/h\n2 : km/h vers m/s\n3 : Mélange']
-    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux', false]
+    this.besoinFormulaire2CaseACocher = ['Valeurs plus simples', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }

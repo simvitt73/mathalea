@@ -14,7 +14,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '31e61'
 export const refs = {
-  'fr-ch': ['10GM3-5s', '10GM3-6s']
+  'fr-fr' : ['6D14'],
+  'fr-ch': ['10GM3-6']
 }
 
 /**
@@ -27,7 +28,7 @@ export default class ConvertirDuree extends Exercice {
     this.nbQuestions = 5
     this.sup = 1 // Type de conversion 
     this.sup2 = false // Quart ou demi-heures seulement
-    this.besoinFormulaireNumerique = ['Type de conversions', 6, '1 : heures-minutes-secondes vers heures décimales\n2 : heures-minutes-secondes vers minutes décimales\n3 : heures décimales vers heures-minutes-secondes\n4 : minutes décimales vers heures-minutes-secondes\n5 : heures ↔ minutes décimales\n6 : Mélange']
+    this.besoinFormulaireNumerique = ['Type de conversions', 6, '1 : heures-minutes-secondes vers heures décimales\n2 : heures-minutes-secondes vers minutes décimales\n3 : heures décimales vers heures-minutes-secondes\n4 : minutes décimales vers heures-minutes-secondes\n5 : heures ↔ minutes décimales\n6: heures vers secondes\n7 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Quarts et demi-heures seulement', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
@@ -44,7 +45,8 @@ export default class ConvertirDuree extends Exercice {
       case 3: typesDeQuestionsDisponibles = [3]; break // hdec → hhmmss
       case 4: typesDeQuestionsDisponibles = [4]; break // mindec → hhmmss
       case 5: typesDeQuestionsDisponibles = [5, 6]; break // hdec ↔ mindec
-      default: typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]; break // Mélange
+      case 6: typesDeQuestionsDisponibles = [7]; break // hdec → sec
+      default: typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]; break // Mélange
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -87,6 +89,10 @@ export default class ConvertirDuree extends Exercice {
         case 6: // mindec → hdec
           uniteDepart = 'mindec'
           uniteArrivee = 'hdec'
+          break
+        case 7: // hdec → sec
+          uniteDepart = 'hdec'
+          uniteArrivee = 'sec'
           break
         default:
           uniteDepart = 'hhmmss'
@@ -191,6 +197,7 @@ export default class ConvertirDuree extends Exercice {
         case 'hhmmss': uniteAffichageDepart = 'heures minutes secondes'; break
         case 'hdec': uniteAffichageDepart = 'heures'; break
         case 'mindec': uniteAffichageDepart = 'minutes'; break
+        case 'sec': uniteAffichageDepart = 'secondes'; break
         default: uniteAffichageDepart = 'hh:mm:ss'; break
       }
       
@@ -198,6 +205,7 @@ export default class ConvertirDuree extends Exercice {
         case 'hhmmss': uniteAffichageArrivee = 'format heures minutes secondes'; break
         case 'hdec': uniteAffichageArrivee = 'heures'; break
         case 'mindec': uniteAffichageArrivee = 'minutes'; break
+        case 'sec': uniteAffichageArrivee = 'secondes'; break
         default: uniteAffichageArrivee = 'heures'; break
       }
       
@@ -461,6 +469,12 @@ export default class ConvertirDuree extends Exercice {
         const egalite6 = estApproximation ? '\\approx' : '='
         texteCorr += `$${texNombre(valeurDepart as number, 2)}\\text{\\,min} = ${texNombre(valeurDepart as number, 2)} \\div 60 \\text{\\,h}${egalite6} ${texNombre(reponse as number, 2)}\\text{\\,h}$`
         break
+        
+      case 7: // hdec → sec
+        texteCorr = `Pour convertir des heures en secondes, on multiplie par 3600 (car $1\\text{\\,h} = 3600\\text{\\,s}$).<br><br>`
+        const egalite7 = estApproximation ? '\\approx' : '='
+        texteCorr += `$${texNombre(valeurDepart as number, 2)}\\text{\\,h} = ${texNombre(valeurDepart as number, 2)} \\times 3600 \\text{\\,s}${egalite7} ${texNombre(reponse as number, 2)}\\text{\\,s}$`
+        break
     }
     
     return texteCorr
@@ -480,7 +494,8 @@ export default class ConvertirDuree extends Exercice {
     } else {
       // valeurDepart est un nombre, ajouter l'unité appropriée
       const uniteTexte = uniteDepart === 'hdec' ? '\\text{\\,h}' : 
-                        uniteDepart === 'mindec' ? '\\text{\\,min}' : ''
+                        uniteDepart === 'mindec' ? '\\text{\\,min}' : 
+                        uniteDepart === 'sec' ? '\\text{\\,s}' : ''
       texteCorr += `${texNombre(valeurDepart, 2)}${uniteTexte} `
     }
     
@@ -497,7 +512,8 @@ export default class ConvertirDuree extends Exercice {
     } else {
       // reponse est un nombre, ajouter l'unité appropriée
       const uniteTexte = uniteArrivee === 'hdec' ? '\\text{\\,h}' : 
-                        uniteArrivee === 'mindec' ? '\\text{\\,min}' : ''
+                        uniteArrivee === 'mindec' ? '\\text{\\,min}' : 
+                        uniteArrivee === 'sec' ? '\\text{\\,s}' : ''
       texteCorr += `${egalite} ${miseEnEvidence(texNombre(reponse, 2)+uniteTexte)}`
     }
     
