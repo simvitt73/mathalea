@@ -1,6 +1,6 @@
 import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternsFor6N4B, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { point } from '../../lib/2d/points'
@@ -71,11 +71,11 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.sup2 = '7'
 
     this.besoinFormulaire3Numerique = [
-      'Numéro du motif (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ', 100
+      'Numéro du motif (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ', listePatternsFor6N4B.length
     ]
     this.sup3 = '0'
 
-    const maxNumPattern = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1)).length
+    const maxNumPattern = listePatternsFor6N4B.length
     this.besoinFormulaire4Texte = [
       'Numéro de pattern', [
         'Nombres séparés par des tirets :',
@@ -99,7 +99,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.destroyers.forEach(destroy => destroy())
     this.destroyers.length = 0
     // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
-    const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
+    const listePatternReference = listePatternsFor6N4B
 
     let listePattern = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -215,9 +215,9 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
-      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'un', nomPluriel: 'formes' }
+      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'de ', nomPluriel: 'cubes' }
 
-      // const deMotif = (['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de ') + pattern.shapes[0] + 's'
+      const deMotif = infosShape.articleCourt + infosShape.nomPluriel
 
       let complementCorrection = true
       const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
