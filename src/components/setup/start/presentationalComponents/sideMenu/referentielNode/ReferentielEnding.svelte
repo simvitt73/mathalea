@@ -1,5 +1,5 @@
 <script lang="ts">
-  import katex from 'katex/dist/katex'
+  import katex from 'katex'
   import { onDestroy } from 'svelte'
   import {
     isExerciceItemInReferentiel,
