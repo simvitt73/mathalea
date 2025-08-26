@@ -1,7 +1,7 @@
-import { describe, test, expect, beforeEach, vi } from 'vitest'
-import QuestionsMasses from '../../src/exercices/6e/6C12-1'
-import { verifQuestionMathLive } from '../../src/lib/interactif/mathLive'
 import seedrandom from 'seedrandom'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import QuestionsMasses from '../../src/exercices/6e/6N5-2'
+import { verifQuestionMathLive } from '../../src/lib/interactif/mathLive'
 
 // Mock avant l'import
 vi.mock('../../src/lib/renderScratch', () => ({
