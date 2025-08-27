@@ -40,11 +40,12 @@ export const dateDePublication = '18/07/2025'
 
 export const uuid = 'f57fe'
 export const refs = {
-  'fr-fr': ['6G45'],
+  'fr-fr': ['CM2G5C-1'],
+  'fr-2016': ['6G45'],
   'fr-ch': [],
 }
 
-function retrouveMatrices (liste: objetFace[][][]): {
+function retrouveMatrices(liste: objetFace[][][]): {
   indexVraiPatron: number
   indexPas6Faces: number
   indexFauxPatrons: { index: number; collision: [number, number][] }[]
@@ -67,7 +68,7 @@ function retrouveMatrices (liste: objetFace[][][]): {
           }
           return acc
         },
-        [] as [number, number][]
+        [] as [number, number][],
       )
       return { index, collision: collisions }
     })
@@ -86,7 +87,7 @@ export default class choixPatron extends Exercice {
   listeMatrices: objetFace[][][][]
   listeners: (() => void)[]
 
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     // pour plus tard cubes Paves ...
@@ -98,7 +99,7 @@ export default class choixPatron extends Exercice {
     this.listeners = []
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.figures = []
     this.consigne =
       'Parmi les dessins suivants, lequel est un patron de cube ? <br>' // 'Consigne'
@@ -115,15 +116,15 @@ export default class choixPatron extends Exercice {
     const typeQuestionsDisponibles = ['type1'] // 'type2',, 'type3']
     const listeTypeQuestions = combinaisonListes(
       typeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
     const listeTypeVraiPatrons = combinaisonListes(
       ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'],
-      this.nbQuestions
+      this.nbQuestions,
     )
     const listeVraisPatrons: UnPatron[] = initListePatrons(cubesObj)
     const listeFauxPatrons: UnPatron[] = initListePatrons(fauxCubesObj)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
 
@@ -138,14 +139,14 @@ export default class choixPatron extends Exercice {
             texte = '' // `Question ${i + 1} de type 1<br>`
             // texte += `listeVraisPatrons :  ${listeVraisPatrons.length} <br>`
             patronsOriginaux.push(
-              listeVraisPatrons[Number(listeTypeVraiPatrons[i]) - 1]
+              listeVraisPatrons[Number(listeTypeVraiPatrons[i]) - 1],
             )
             const numPatron2 = randint(0, listeFauxPatrons.length - 1)
             patronsOriginaux.push(listeFauxPatrons[randint(0, numPatron2)])
             patronsOriginaux.push(
               listeFauxPatrons[
                 randint(0, listeFauxPatrons.length - 1, numPatron2)
-              ]
+              ],
             )
             const taillePatronAuPif = choice([5, 7])
             patronsOriginaux.push(faitUnPatronAuPif(taillePatronAuPif))
@@ -156,13 +157,13 @@ export default class choixPatron extends Exercice {
                 patronsOriginaux[indexMelangés[k]].matrice
             }
             const indexVraiPatron = retrouveMatrices(
-              this.listeMatrices[i]
+              this.listeMatrices[i],
             ).indexVraiPatron
             const indexPas6Faces = retrouveMatrices(
-              this.listeMatrices[i]
+              this.listeMatrices[i],
             ).indexPas6Faces
             const indexFauxPatrons = retrouveMatrices(
-              this.listeMatrices[i]
+              this.listeMatrices[i],
             ).indexFauxPatrons
             const fig0 = patronsAffiches[0].dessineMatrice({
               numeroterFaces: false,
@@ -187,9 +188,9 @@ export default class choixPatron extends Exercice {
                   scale: zoomAMC,
                   id: `cliquefigure0Ex${this.numeroExercice}Q${i}`,
                 },
-                fixeBordures(fig0)
+                fixeBordures(fig0),
               ),
-              fig0
+              fig0,
             )
             const fig1AMC = mathalea2d(
               Object.assign(
@@ -198,9 +199,9 @@ export default class choixPatron extends Exercice {
                   scale: zoomAMC,
                   id: `cliquefigure1Ex${this.numeroExercice}Q${i}`,
                 },
-                fixeBordures(fig1)
+                fixeBordures(fig1),
               ),
-              fig1
+              fig1,
             )
             const fig2AMC = mathalea2d(
               Object.assign(
@@ -209,9 +210,9 @@ export default class choixPatron extends Exercice {
                   scale: zoomAMC,
                   id: `cliquefigure2Ex${this.numeroExercice}Q${i}`,
                 },
-                fixeBordures(fig2)
+                fixeBordures(fig2),
               ),
-              fig2
+              fig2,
             )
             const fig3AMC = mathalea2d(
               Object.assign(
@@ -220,9 +221,9 @@ export default class choixPatron extends Exercice {
                   scale: zoomAMC,
                   id: `cliquefigure3Ex${this.numeroExercice}Q${i}`,
                 },
-                fixeBordures(fig3)
+                fixeBordures(fig3),
               ),
-              fig3
+              fig3,
             )
 
             this.autoCorrection[i] = {}
@@ -294,9 +295,9 @@ export default class choixPatron extends Exercice {
                       scale: zoom,
                       id: `correction0Ex${this.numeroExercice}Q${i}`,
                     },
-                    fixeBordures(fig1)
+                    fixeBordures(fig1),
                   ),
-                  fig1
+                  fig1,
                 ) + '<br>'
               texteCorr +=
                 patronsAffiches[
@@ -317,9 +318,9 @@ export default class choixPatron extends Exercice {
                       scale: zoom,
                       id: `correction1Ex${this.numeroExercice}Q${i}`,
                     },
-                    fixeBordures(fig2)
+                    fixeBordures(fig2),
                   ),
-                  fig2
+                  fig2,
                 ) + '<br>'
               texteCorr +=
                 patronsAffiches[
@@ -338,9 +339,9 @@ export default class choixPatron extends Exercice {
                       scale: zoom,
                       id: `correction2Ex${this.numeroExercice}Q${i}`,
                     },
-                    fixeBordures(fig3)
+                    fixeBordures(fig3),
                   ),
-                  fig3
+                  fig3,
                 ) + '<br><br>'
             }
           }
@@ -359,11 +360,11 @@ export default class choixPatron extends Exercice {
         if (context.isHtml && this.sup2) {
           // On insère directement le canvas-3d pour la correction
           const indexVraiPatron = retrouveMatrices(
-            this.listeMatrices[i]
+            this.listeMatrices[i],
           ).indexVraiPatron
           const content = generateContent3D(
             this.listeMatrices[i][indexVraiPatron],
-            `patron3dEx${this.numeroExercice}Q${i}`
+            `patron3dEx${this.numeroExercice}Q${i}`,
           )
           const objects: Elements3DDescription[] = [
             content as GroupDescription,
@@ -410,7 +411,7 @@ export default class choixPatron extends Exercice {
     }) // listener auto-détruit à la première utilisation
   }
 
-  callback (exercice: Exercice, i: number): void {
+  callback(exercice: Exercice, i: number): void {
     if (
       'listeMatrices' in exercice &&
       Array.isArray(exercice.listeMatrices) &&
@@ -420,30 +421,30 @@ export default class choixPatron extends Exercice {
       // Trouver tous les SVG dont l'id correspond au format 'cliquefigure{n}Ex{exercice.numeroExercice}Q{i}'
       const figElements = Array.from(
         document.querySelectorAll<MathaleaSVG>(
-          `[id^="cliquefigure"][id$="Ex${exercice.numeroExercice}Q${i}"]`
-        )
+          `[id^="cliquefigure"][id$="Ex${exercice.numeroExercice}Q${i}"]`,
+        ),
       ).filter((el) => {
         // Vérifie que l'id correspond exactement au format voulu (un seul chiffre pour n)
         const regex = new RegExp(
-          `^cliquefigure\\dEx${exercice.numeroExercice}Q${i}$`
+          `^cliquefigure\\dEx${exercice.numeroExercice}Q${i}$`,
         )
         return regex.test(el.id)
       })
 
       let indexClique = Array.from(figElements as MathaleaSVG[]).findIndex(
-        (el: MathaleaSVG) => Boolean(el.etat)
+        (el: MathaleaSVG) => Boolean(el.etat),
       )
       if (
         indexClique === -1 &&
         Array.isArray(exercice.autoCorrection[i].propositions)
       ) {
         indexClique = retrouveMatrices(
-          exercice.listeMatrices[i]
+          exercice.listeMatrices[i],
         ).indexVraiPatron
       }
       const content = generateContent3D(
         exercice.listeMatrices[i][indexClique],
-        `patron3dEx${exercice.numeroExercice}Q${i}`
+        `patron3dEx${exercice.numeroExercice}Q${i}`,
       )
       const objects: Elements3DDescription[] = [
         content as GroupDescription,
@@ -478,7 +479,7 @@ export default class choixPatron extends Exercice {
       })
       exercice.listeCorrections[i] = exercice.listeCorrections[i].replace(
         /<canvas-3d[^>]*>.*?<\/canvas-3d>/s,
-        nouveauCanvas
+        nouveauCanvas,
       )
     }
   }
@@ -489,7 +490,7 @@ const tailleCarre = 1
 // const initMatrice = (largeur: number, longueur: number, digit:number = 0, face:boolean = false): objetFace[][] =>
 //  Array.from({ length: longueur }, () => Array(largeur).fill({ numero: digit, isFace: face }))
 
-function initListePatrons (listeMatrices: objetFace[][][]): UnPatron[] {
+function initListePatrons(listeMatrices: objetFace[][][]): UnPatron[] {
   const listePatrons: UnPatron[] = []
   for (const uneMatrice of listeMatrices) {
     const patron = new UnPatron(uneMatrice[0].length, uneMatrice.length)
@@ -500,7 +501,7 @@ function initListePatrons (listeMatrices: objetFace[][][]): UnPatron[] {
   return listePatrons
 }
 
-function faitUnPatronAuPif (taille: number): UnPatron {
+function faitUnPatronAuPif(taille: number): UnPatron {
   const tempcouples: SerieCouples = new SerieCouples()
   tempcouples.faitUnPatron(taille)
   tempcouples.faitUnPatronMatrice()
@@ -509,11 +510,11 @@ function faitUnPatronAuPif (taille: number): UnPatron {
 
 class UnPatron {
   matrice: objetFace[][] = []
-  constructor (
+  constructor(
     largeur: number,
     longueur: number,
     digit: number = 0,
-    face: boolean = false
+    face: boolean = false,
   ) {
     for (let l = 0; l < longueur; l++) {
       this.matrice[l] = []
@@ -523,22 +524,22 @@ class UnPatron {
     }
   }
 
-  get larg (): number {
+  get larg(): number {
     return this.matrice.reduce((max, row) => Math.max(max, row.length), 0)
   }
 
-  get long (): number {
+  get long(): number {
     return this.matrice.length
   }
 
   /* initMatrice = (largeur: number, longueur: number, digit:number = 0, face:boolean = false): objetFace[][] =>
     Array.from({ length: longueur }, () => Array(largeur).fill({ numero: digit, isFace: face })) */
 
-  initMatrice (
+  initMatrice(
     largeur: number,
     longueur: number,
     digit: number = 0,
-    face: boolean = false
+    face: boolean = false,
   ): void {
     for (let l = 0; l < longueur; l++) {
       this.matrice[l] = []
@@ -548,28 +549,28 @@ class UnPatron {
     }
   }
 
-  setcell (x: number, y: number, value: number, face: boolean): void {
+  setcell(x: number, y: number, value: number, face: boolean): void {
     if (y < this.long && x < this.larg) {
       this.matrice[y][x] = { numero: value, isFace: face }
     }
   }
 
-  dimensions (): [number, number] {
+  dimensions(): [number, number] {
     return [this.larg, this.long]
   }
 
-  ecritMatrice (): string {
+  ecritMatrice(): string {
     let texte = '[\n' // numbers.length
     // bollean vers valeurs 0,1
     const valeursBooleennes = this.matrice.map((row) =>
-      row.map((element) => (element.isFace ? 1 : 0))
+      row.map((element) => (element.isFace ? 1 : 0)),
     )
     texte += valeursBooleennes.map((row) => `[${row.join(', ')}]`).join(',\n')
     texte += ']\n'
     return texte
   }
 
-  braceMatrice (): void {
+  braceMatrice(): void {
     const [largeur, longueur] = [this.larg, this.long]
     const patronTemp = new UnPatron(largeur, longueur)
     patronTemp.matrice = arrayClone(this.matrice) // copie de la matrice
@@ -606,7 +607,7 @@ class UnPatron {
     this.matrice = arrayClone(patronTemp.matrice)
   }
 
-  ecritFacesQuiSeSuperposent (): string {
+  ecritFacesQuiSeSuperposent(): string {
     let texte: string = ''
     for (let i = 0; i < this.long; i++) {
       for (let j = 0; j < this.larg; j++) {
@@ -618,7 +619,7 @@ class UnPatron {
     return texte
   }
 
-  dessineMatrice ({
+  dessineMatrice({
     numeroterFaces,
     numeroDessin,
   }: {
@@ -659,7 +660,7 @@ class UnPatron {
         1,
         'milieu',
         false,
-        1
+        1,
       )
       leDessin.push(Numdessin)
     }
@@ -667,7 +668,7 @@ class UnPatron {
     return leDessin
   }
 
-  symetrieMatriceH (): void {
+  symetrieMatriceH(): void {
     // symetrie horizontale
     // inverse les lignes
     const [largeur, longueur] = [this.larg, this.long]
@@ -680,7 +681,7 @@ class UnPatron {
     this.matrice = arrayClone(matriceTemp.matrice)
   }
 
-  symetrieMatriceV (): void {
+  symetrieMatriceV(): void {
     // symetrie verticale
     // inverse les colonnes
     const [largeur, longueur] = [this.larg, this.long]
@@ -693,7 +694,7 @@ class UnPatron {
     this.matrice = arrayClone(matriceTemp.matrice)
   }
 
-  symetrieMatriceD (): void {
+  symetrieMatriceD(): void {
     // symetrie diagonale (ex Transpose la matrice)
     // inverse les lignes et les colonnes
     const [largeur, longueur] = [this.larg, this.long]
@@ -707,7 +708,7 @@ class UnPatron {
     this.matrice = arrayClone(matriceTemp.matrice)
   }
 
-  rotationMatrice90p (): void {
+  rotationMatrice90p(): void {
     // rotation de 90°
     const [largeur, longueur] = [this.long, this.larg]
     const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
@@ -719,7 +720,7 @@ class UnPatron {
     this.matrice = arrayClone(matriceTemp.matrice)
   }
 
-  rotationMatrice90n (): void {
+  rotationMatrice90n(): void {
     // rotation de 90° autre sens
     const [largeur, longueur] = [this.long, this.larg]
     const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(longueur, largeur, 4)
@@ -731,7 +732,7 @@ class UnPatron {
     this.matrice = arrayClone(matriceTemp.matrice)
   }
 
-  rotationMatrice180 (): void {
+  rotationMatrice180(): void {
     // rotation de 180°
     const [largeur, longueur] = [this.larg, this.long]
     const matriceTemp = new UnPatron(largeur, longueur) // : objetFace[][] = this.initMatrice(largeur, longueur, 4)
@@ -750,34 +751,34 @@ type couple = [number, number]
 class SerieCouples {
   private _couples: couple[] = []
   private _matrice: UnPatron = new UnPatron(0, 0)
-  constructor () {
+  constructor() {
     this._couples = [
       [0, 0],
       [1, 0],
     ]
   }
 
-  get couples (): couple[] {
+  get couples(): couple[] {
     return this._couples
   }
 
-  get matrice (): UnPatron {
+  get matrice(): UnPatron {
     return this._matrice
   }
 
-  set couples (value: couple[]) {
+  set couples(value: couple[]) {
     // ne fait rien
   }
 
-  ecritCouples (): string {
+  ecritCouples(): string {
     return this._couples.map(([a, b]) => `[${a}, ${b}]`).join('; ')
   }
 
-  ecritlongueur (): number {
+  ecritlongueur(): number {
     return this._couples.length
   }
 
-  faitUnPatron (long: number = 6): void {
+  faitUnPatron(long: number = 6): void {
     const sens = [-1, 1]
     const longDejaEcrite = this._couples.length
     for (let l = 0; l < long - longDejaEcrite; l++) {
@@ -789,7 +790,7 @@ class SerieCouples {
           if (
             !this._couples.some(
               ([x, y]) =>
-                x === a + k && (y === b || y === b + 1 || y === b - 1)
+                x === a + k && (y === b || y === b + 1 || y === b - 1),
             )
           ) {
             couplesPossibles.push([a + k, b])
@@ -799,7 +800,7 @@ class SerieCouples {
           if (
             !this._couples.some(
               ([x, y]) =>
-                y === b + k && (x === a || x === a + 1 || x === a - 1)
+                y === b + k && (x === a || x === a + 1 || x === a - 1),
             )
           ) {
             couplesPossibles.push([a, b + k])
@@ -807,12 +808,12 @@ class SerieCouples {
         }
       }
       this._couples.push(
-        couplesPossibles[randint(0, couplesPossibles.length - 1)]
+        couplesPossibles[randint(0, couplesPossibles.length - 1)],
       )
     }
   }
 
-  faitUnPatronMatrice (): void {
+  faitUnPatronMatrice(): void {
     let aMin = 0
     let bMin = 0
     let aMax = 0
