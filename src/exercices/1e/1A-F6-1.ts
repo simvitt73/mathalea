@@ -14,10 +14,10 @@ export const interactifType = 'mathLive'
 export const uuid = '4a79c'
 
 export const refs = {
-  'fr-fr': ['1A-F7-1'],
+  'fr-fr': ['1A-F6-1'],
   'fr-ch': []
 }
-export default class Auto1AF7a extends CoeffDirecteurDroite {
+export default class Auto1AF6a extends CoeffDirecteurDroite {
   constructor () {
     super()
     this.versionQcm = true

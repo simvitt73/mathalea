@@ -14,7 +14,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
  */
 export const uuid = '5b9d0'
 export const refs = {
-  'fr-fr': ['1A-F7-2'],
+  'fr-fr': ['1A-F6-3'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -24,7 +24,7 @@ export const amcType = 'qcmMono'
 export const titre = 'Déterminer le coefficient directeur d\'une droite à partir de sa représentation graphique'
 export const dateDePublication = '10/07/2025'
 
-export default class Auto1AF7b extends ExerciceQcmA {
+export default class Auto1AF6c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const xA = 0
     const yA = 3

@@ -14,10 +14,10 @@ export const interactifType = 'mathLive'
 export const uuid = '10a62'
 
 export const refs = {
-  'fr-fr': ['1A-F7'],
+  'fr-fr': ['1A-F6-4'],
   'fr-ch': []
 }
-export default class Auto1AF6 extends TrouverpDroite {
+export default class Auto1AF6d extends TrouverpDroite {
   constructor () {
     super()
     this.versionQcm = true
