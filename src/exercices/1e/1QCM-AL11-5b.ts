@@ -31,7 +31,7 @@ ${k}\\times r&=u_{${p + k}}-u_{${p}}\\\\
 r&=\\dfrac{${up + k * r}-${up}}{${k}}\\\\
 r&=${r}
 \\end{aligned}$.<br>
- ${texteEnCouleur(`La raison est donc r=${r}.`)} `
+ ${texteEnCouleur(`La raison est donc ${r}.`)} `
     this.reponses = [
       '$2$',
       '$50$',

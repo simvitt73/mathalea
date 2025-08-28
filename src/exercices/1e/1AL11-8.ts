@@ -53,14 +53,12 @@ export default class SommeSuite extends ExerciceSimple {
     this.correction += `<br><br>${texteGras('Autre méthode')} : on reconnait la somme des $${n + 1}$ premiers termes d'une suite arithmétique de premier terme $${u0}$ et de raison $${r}$.`
     this.correction += '<br>Donc d\'après le cours :'
     this.correction += `<br>$S=(\\text{nombre de termes})\\times\\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}=${n + 1}\\times\\dfrac{${u0} + ${u0 + n * r}}{2}=${miseEnEvidence(texNombre(this.reponse))}$.`
-    const solution = (n + 1) * (u0 + u0 + n * r) / 2
     const distracteur1 = (n + 1) * (u0 + u0 + n * r)
     const distracteur2 = (n + 1) * (u0 + u0 + n * r) / 2 + randint(-3, 3, [0, -1, 1])
     const distracteur3 = Math.floor(n * (u0 + u0 + n * r) / 2)
     const distracteur4 = (n - 1) * (u0 + u0 + n * r)
     const distracteur5 = (n + 1) * (u0 + u0 + n * r) / 2 + randint(-3, 3, [0, -1, 1])
     this.distracteurs = [
-      `$${texNombre(solution)}$`,
       `$${texNombre(distracteur1)}$`,
       `$${texNombre(distracteur3)}$`,
       `$${texNombre(distracteur2)}$`,
