@@ -217,7 +217,7 @@
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
       : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-2'}
-    {unfold && nestedLevelCount !== 1
+    {unfold && nestedLevelCount !== 1 && !themeCodeisSubthemeCode(levelTitle)
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
       : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
     {Object.keys(subset).length === 0 ? 'opacity-10' : 'opacity-100 cursor-pointer'}"
@@ -228,14 +228,20 @@
   >
     <div
       id={'titre-liste-' + indexBase + '-content'}
-      class=" {nestedLevelCount === 1 ? 'text-xl' : 'text-base'}"
+      class=" {nestedLevelCount === 1
+        ? 'text-xl'
+        : themeCodeisSubthemeCode(levelTitle)
+          ? 'text-base leading-none py-2'
+          : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
       {#if !themeCodeisSubthemeCode(levelTitle)}
         {codeToLevelTitle(levelTitle)}
       {/if}
-      <span class={themeCodeisSubthemeCode(levelTitle) ? 'font-normal text-sm' : 'font-normal '}
-        >{themeTitle(levelTitle)}</span
+      <span
+        class={themeCodeisSubthemeCode(levelTitle)
+          ? 'font-normal text-sm leading-[80%]'
+          : 'font-normal '}>{themeTitle(levelTitle)}</span
       >
     </div>
     <div>
@@ -265,7 +271,7 @@
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
-                class={i === items.length - 1 ? 'pb-7' : ''}
+                class={i === items.length - 1 ? 'pb-1' : ''}
               />
             {:else}
               <svelte:self

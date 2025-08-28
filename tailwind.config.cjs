@@ -18,9 +18,11 @@ const flipclass = plugin(function ({ addUtilities }) {
 })
 const config = {
   darkMode: 'class',
-  content: ['./src/**/*.{html,js,svelte,ts}',
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
     './node_modules/tw-elements/dist/js/**/*.js',
-    './node_modules/glisse-nombre/src/**/*.{html,js,svelte,ts}'],
+    './node_modules/glisse-nombre/src/**/*.{html,js,svelte,ts}'
+  ],
   safelist: [
     {
       pattern: /grid-cols-./,
@@ -75,6 +77,7 @@ const config = {
           canvas: {
             DEFAULT: '#ffffff', // Anciennement '#EDEDF0'
             dark: '#f6f6f6',
+            darkish: '#f1f1f1',
             darkest: '#e9e9e9',
             moredark: '#c8c8c8'
           },
