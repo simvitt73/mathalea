@@ -16,13 +16,13 @@ import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const uuid = '01875'
-export const titre = "Calculer une mesure d'angle avec la bissectrice"
+export const titre = "Donner une mesure d'angle à l'aide de la bissectrice"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '27/08/2025'
 
 export const refs = {
-  'fr-fr': ['6G5A-1'],
+  'fr-fr': ['6G5A'],
   'fr-2016': [],
   'fr-ch': [],
 }
@@ -122,7 +122,7 @@ export default class QuestionBissectrice extends Exercice {
           reponse: { value: `${alpha}^\\circ`, options: { unite: true } },
         })
         texteCorr = `La demi-droite $\\left[${B}${I}\\right)$ est la bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>
-        Par définition de la bissectrice, elle partage cet angle en deux angles égaux.<br>
+        Par définition de la bissectrice, elle partage cet angle en deux angles de même mesure.<br>
         Donc : $\\widehat{${A}${B}${I}} = \\dfrac{${alpha2}^\\circ}{2} = ${miseEnEvidence(`${alpha}^\\circ`)}$.`
       } else {
         if (avecFigure) {
@@ -160,7 +160,7 @@ export default class QuestionBissectrice extends Exercice {
           reponse: { value: `${alpha2}^\\circ`, options: { unite: true } },
         })
         texteCorr = `La demi-droite $\\left[${B}${I}\\right)$ est la bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>
-        Par définition de la bissectrice, elle partage cet angle en deux angles égaux.<br>
+        Par définition de la bissectrice, elle partage cet angle en deux angles de même mesure.<br>
         Donc : $\\widehat{${A}${B}${C}} = 2 \\times ${alpha}^\\circ = ${miseEnEvidence(`${alpha2}^\\circ`)}$.`
       }
       if (this.questionJamaisPosee(i, alpha)) {
