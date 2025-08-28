@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9e8ae'
 
 export const refs = {
-  'fr-fr': ['1QCM-AL11-8b'],
+  'fr-fr': ['1QCM-AL11-8c'],
   'fr-ch': []
 }
 export default class Auto1ASN4 extends SommeSuite {
