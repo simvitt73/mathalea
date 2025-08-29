@@ -1,22 +1,25 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '25/08/2025'
-export const uuid = '61d27'
+export const uuid = '5cf1f'
 /**
  * Author Stéphane Guyon
  */
 export const refs = {
   'fr-fr': ['1QCM-AL11-5b'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer la raison d\'une suite arithmétique'
+export const titre = "Calculer la raison d'une suite arithmétique"
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const p = 10
@@ -35,12 +38,7 @@ r&=\\dfrac{${up + k * r}-${up}}{${k}}\\\\
 r&=${r}
 \\end{aligned}$.<br>
  ${texteEnCouleur(`La raison est donc ${r}.`)} `
-    this.reponses = [
-      '$2$',
-      '$50$',
-      '$25$',
-      '$5$',
-    ]
+    this.reponses = ['$2$', '$50$', '$25$', '$5$']
   }
 
   versionAleatoire = () => {
@@ -64,14 +62,14 @@ La raison est donc $${miseEnEvidence(`r=${r}.`)}$ `
     const distracteur = new FractionEtendue(k * r, k + 1)
 
     this.reponses = [
-     `$${r}$`,
-     ` $${p}$`,
-     `$${-r}$`,
-     `$${distracteur.texFractionSimplifiee}$`
+      `$${r}$`,
+      ` $${p}$`,
+      `$${-r}$`,
+      `$${distracteur.texFractionSimplifiee}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionAleatoire()
