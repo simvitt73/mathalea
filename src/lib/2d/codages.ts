@@ -221,23 +221,9 @@ export class CodageBissectrice extends ObjetMathalea2D {
       1,
     )
     this.objets = [a1, a2]
+    const bordures = fixeBordures([a1, a2])
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
-  /*
-  this.svg = function (coeff) {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    return (
-      a1.svg(coeff) +
-      '\n' +
-      a2.svg(coeff) +
-      '\n'
-    )
-  }
-  this.tikz = function () {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, lieu, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    return a1.tikz() + '\n' + a2.tikz() + '\n'
-  } */
 }
 
 /**

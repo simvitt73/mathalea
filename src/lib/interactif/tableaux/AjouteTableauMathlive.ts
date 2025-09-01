@@ -1,5 +1,6 @@
-import './tableauMathlive.scss'
 import { notify } from '../../../bugsnag'
+import { buildDataKeyboardFromStyle } from '../claviers/keyboard'
+import './tableauMathlive.scss'
 export interface Icell {
   texte: string
   latex: boolean
@@ -91,10 +92,13 @@ function appendCell({
         element.setAttribute('data-space', 'true')
       }
       element.classList.add('tableauMathlive')
-      for (const classe of classes.split(' ')) {
+
+      const classeString = buildDataKeyboardFromStyle(classes).join(' ')
+      /*  for (const classe of classes.split(' ')) {
         // if (classe === 'clavierDeBase') element.setAttribute('data-keyboard', 'numbersOperations')
         // else if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
-        if (classe === 'clavierDeBaseAvecFraction')
+        if (classe === 'angles') element.setAttribute('data-keyboard', 'angles')
+        else if (classe === 'clavierDeBaseAvecFraction')
           element.setAttribute('data-keyboard', 'numbers basicOperations')
         else if (classe === 'clavierDeBaseAvecVariable')
           element.setAttribute(
@@ -105,6 +109,8 @@ function appendCell({
           element.setAttribute('data-keyboard', 'numbers2 basicOperations')
         else element.setAttribute('data-keyboard', 'numbersOperations')
       }
+        */
+      element.setAttribute('data-keyboard', classeString)
       element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
       element.setAttribute('virtual-keyboard-mode', 'manual')
       cell.appendChild(element)

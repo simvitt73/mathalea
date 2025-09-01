@@ -4,6 +4,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
+import { texNombre } from '../../lib/outils/texNombre'
 import { addSheet, MySpreadsheetElement } from '../../lib/tableur/MySpreadSheet'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -123,7 +124,7 @@ export default class ExerciceTableur extends Exercice {
     const messages: string[][] = []
     for (let n = 0; n < 5; n++) {
       messages[n] = []
-      const a1 = randint(1, 100)
+      const a1 = randint(1, 10)
       testSheet.setCellValue(0, 0, a1) // A1
       const resultats = [1, 2, 3].map((i) =>
         parseFloat(testSheet.getCellValue(i, 0)),
@@ -154,7 +155,7 @@ export default class ExerciceTableur extends Exercice {
         const computed = parseFloat(testSheet.getCellValue(i, 0))
         if (Math.abs(computed - result) > 1e-9) {
           messages[n].push(
-            `Pour un nombre de départ égal à ${a1}, la cellule ${String.fromCharCode(65 + i)}1 devrait contenir ${result} mais elle contient ${computed}.<br>`,
+            `Pour un nombre de départ égal à ${a1}, la cellule ${String.fromCharCode(65 + i)}1 devrait contenir ${texNombre(result, 2)} mais elle contient ${texNombre(computed, 2)}.<br>`,
           )
         }
       }
