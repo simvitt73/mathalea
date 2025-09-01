@@ -24,14 +24,16 @@ export const dateDePublication = '28/08/2025'
  */
 export default class OrdonnerCroissant extends ExerciceQcmA {
   // S'occupe de passser les données originales à la fonction appliquerLesValeurs
-// Fonction pour déterminer la conversion intermédiaire d'une fraction
+  // Fonction pour déterminer la conversion intermédiaire d'une fraction
   private obtenirConversionIntermediaire(tex: string, val: number): string {
     // Extraire le numérateur et dénominateur de la fraction LaTeX
-    const match = tex.match(/\\dfrac\{(\d+)\}\{(\d+)\}/)
+    // Gérer les cas avec accolades doubles ou espaces dans les nombres
+    const match = tex.match(/\\dfrac\{(\d+)\}\{(?:\{?([0-9\s]+)\}?)\}/)
     if (!match) return '' // Pas une fraction
     
     const numerateur = parseInt(match[1])
-    const denominateur = parseInt(match[2])
+    const denominateurStr = match[2].replace(/\s/g, '') // Enlever les espaces
+    const denominateur = parseInt(denominateurStr)
     
     // Vérifier si on peut convertir facilement vers /100
     if (denominateur === 25) {
@@ -51,16 +53,17 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
     
     // Si c'est déjà un nombre décimal, pas besoin de conversion
     if (tex.includes(',')) {
-      return `$${nom} = ${tex}$<br>`
+      return `$${nom} = ${tex}$<br><br>`
     }
     
     // Si c'est une fraction, chercher une conversion intermédiaire
     const conversionIntermediaire = this.obtenirConversionIntermediaire(tex, val)
     
     if (conversionIntermediaire) {
-      return `$${nom} = ${tex} = ${conversionIntermediaire}${valeurDecimale}$<br>`
+      return `$${nom} = ${tex} = ${conversionIntermediaire}${valeurDecimale}$<br><br>`
     } else {
-      return `$${nom} = ${tex} = ${valeurDecimale}$<br>`
+      // Pour toutes les autres fractions (y compris /1000), afficher directement la valeur décimale
+      return `$${nom} = ${tex} = ${valeurDecimale}$<br><br>`
     }
   }
    versionOriginale: () => void = () => {
@@ -82,7 +85,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
     ]
   }
 
-  versionAleatoire: () => void = () => { // GÃ©nÃ©rateur de triplets de nombres avec leurs comparaisons
+  versionAleatoire: () => void = () => { // Générateur de triplets de nombres avec leurs comparaisons
     const triplets = [
       // Triplet 1: fraction simple, fraction/100, décimal
       {
@@ -116,7 +119,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       },
       // Triplet 6: fraction/1000, fraction simple, décimal
       {
-        a: { tex: `\\dfrac{333}{${texNombre(1000)}}`, val: 0.333, desc: 'fraction sur 1000' },
+        a: { tex: `\\dfrac{333}{1000}`, val: 0.333, desc: 'fraction sur 1000' },
         b: { tex: '\\dfrac{3}{10}', val: 0.3, desc: 'fraction simple' },
         c: { tex: '0,33', val: 0.33, desc: 'décimal' }
       },
@@ -134,7 +137,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       },
       // Triplet 9
       {
-        a: { tex: `\\dfrac{125}{${texNombre(1000)}}`, val: 0.125, desc: 'fraction sur 1000' },
+        a: { tex: `\\dfrac{125}{1000}`, val: 0.125, desc: 'fraction sur 1000' },
         b: { tex: '0,13', val: 0.13, desc: 'décimal' },
         c: { tex: '\\dfrac{3}{25}', val: 0.12, desc: 'fraction simple' }
       },
@@ -164,7 +167,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       },
       // Triplet 14
       {
-        a: { tex: `\\dfrac{167}{{${texNombre(1000)}}}`, val: 0.167, desc: 'fraction sur 1000' },
+        a: { tex: `\\dfrac{167}{1000}`, val: 0.167, desc: 'fraction sur 1000' },
         b: { tex: '\\dfrac{1}{5}', val: 0.2, desc: 'fraction simple' },
         c: { tex: '0,16', val: 0.16, desc: 'décimal' }
       },
@@ -178,7 +181,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       {
         a: { tex: '\\dfrac{4}{5}', val: 0.8, desc: 'fraction simple' },
         b: { tex: '0,82', val: 0.82, desc: 'décimal' },
-        c: { tex: `\\dfrac{835}{{${texNombre(1000)}}}`, val: 0.835, desc: 'fraction sur 1000' }
+        c: { tex: `\\dfrac{835}{1000}`, val: 0.835, desc: 'fraction sur 1000' }
       },
       // Triplet 17
       {
@@ -200,13 +203,13 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       },
       // Triplet 20
       {
-        a: { tex: `\\dfrac{275}{{${texNombre(1000)}}}`, val: 0.275, desc: 'fraction sur 1000' },
+        a: { tex: `\\dfrac{275}{1000}`, val: 0.275, desc: 'fraction sur 1000' },
         b: { tex: '0,27', val: 0.27, desc: 'décimal' },
         c: { tex: '\\dfrac{7}{25}', val: 0.28, desc: 'fraction simple' }
       }
     ]
 
-    // SÃ©lection alÃ©atoire d'un triplet
+    // Sélection aléatoire d'un triplet
     const triplet = choice(triplets)
     const { a, b, c } = triplet
 
@@ -219,10 +222,10 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
     
     nombres.sort((x, y) => x.val - y.val)
     
-    // Construction des rÃ©ponses
+    // Construction des réponses
     const ordreCorrect = nombres.map(n => n.nom).join(' < ')
     
-    // GÃ©nÃ©rer d'autres ordres possibles
+    // Générer d'autres ordres possibles
     const autresOrdres = [
       'A < B < C',
       'A < C < B', 
@@ -232,7 +235,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       'C < B < A'
     ].filter(ordre => ordre !== ordreCorrect)
     
-    // SÃ©lectionner 3 ordres incorrects
+    // Sélectionner 3 ordres incorrects
     const reponsesFausses = []
     for (let i = 0; i < 3 && i < autresOrdres.length; i++) {
       reponsesFausses.push(autresOrdres[i])
@@ -241,7 +244,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
     this.enonce = `Voici trois nombres.<br>$A = ${a.tex}$ ${sp(4)} $B = ${b.tex}$ ${sp(4)} $C = ${c.tex}$<br>
     Le classement par ordre croissant de ces trois nombres est :`
     
-    // Construction de la correction avec conversion en dÃ©cimaux
+    // Construction de la correction avec conversion en décimaux
     let correctionTexte = 'Pour comparer ces trois nombres, on les écrit sous forme décimale :<br>'
     
     correctionTexte += this.construireLigneCorrection('A', a.tex, a.val)
@@ -266,6 +269,6 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
     super()
     this.versionAleatoire()
      this.spacing = 1.5
-     this.spacingCorr=1.5
+     this.spacingCorr=1
   }
 }
