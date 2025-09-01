@@ -42,7 +42,6 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
   constructor() {
     super()
     this.nbQuestions = 1
-    this.sup = false
     this.besoinFormulaire2CaseACocher = ['Ne pas montrer de schéma']
     this.sup2 = false
   }
@@ -65,15 +64,15 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       listeDeNomsDePolygones.push(nom)
       let sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
-      sommets = this.sup ? ['T', 'U', 'V'] : shuffle(sommets)
+      sommets = this.seed === 'myriade' ? ['T', 'U', 'V'] : shuffle(sommets)
       sommets.push(nom[3]) // milieu
       const A = point(0, 0, sommets[0], 'left')
 
-      const ac = this.sup ? 60 : randint(35, 45)
-      const lBC = this.sup ? 4.4 : randint(35, 45, ac) / 10
-      const lAB = this.sup ? 4.3 : randint(46, 60) / 10
+      const ac = this.seed === 'myriade' ? 60 : randint(35, 45)
+      const lBC = this.seed === 'myriade' ? 4.4 : randint(35, 45, ac) / 10
+      const lAB = this.seed === 'myriade' ? 4.3 : randint(46, 60) / 10
       const lAC = ac / 10
-      const B = this.sup
+      const B = this.seed === 'myriade'
         ? pointAdistance(A, lAB, 140, sommets[1])
         : pointAdistance(A, lAB, randint(-45, 45), sommets[1])
       B.positionLabel = 'right'
@@ -83,7 +82,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
         cA,
         cB,
         sommets[2],
-        this.sup ? 2 : 1,
+        this.seed === 'myriade' ? 2 : 1,
       ) as Point
       C.positionLabel = 'above'
       const CC = point(
@@ -127,7 +126,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       }
       texteCorr +=
         "Pour cette construction, nous avons utilisé le compas la règle graduée et l'équerre.<br>L'animation ci-dessous montre une façon de procéder sans équerre.<br>"
-      const [aIEP, bIEP, cIEP] = this.sup
+      const [aIEP, bIEP, cIEP] = this.seed === 'myriade'
         ? IEP.triangle3longueurs('VTU', lAC, lBC, lAB)
         : IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC)
       IEP.cercleCirconscrit(aIEP, bIEP, cIEP)
