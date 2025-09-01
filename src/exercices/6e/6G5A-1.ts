@@ -8,8 +8,10 @@ import {
 } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -40,7 +42,7 @@ export default class QuestionBissectrice extends Exercice {
     ]
     this.besoinFormulaire2Texte = [
       'Niveau de difficulté',
-      'Nombres séparés par des tirets :\n1 : nombres entiers\n2 : nombres entiers avec demis\n3 : nombres décimaux simples\n4 : mélange',
+      'Nombres séparés par des tirets :\n1 : Moitiés de nombres entiers pairs\n2 : Moitié de nombres entiers pairs ou impairs\n3 : Moitié de nombres décimaux\n4 : mélange',
     ]
     this.besoinFormulaire4CaseACocher = ['Avec figure', false]
 
@@ -125,12 +127,14 @@ export default class QuestionBissectrice extends Exercice {
             latex: true,
             color: 'black',
             gras: false,
+            style: `gray;`,
           })
           ligne1Corr.push({
             texte: `${texNombre(alpha, 1)}^\\circ`,
             latex: true,
             color: 'black',
             gras: false,
+            style: `gray;`,
           })
 
           ligne2.push({
@@ -140,13 +144,10 @@ export default class QuestionBissectrice extends Exercice {
             color: 'black',
           })
           ligne2Corr.push({
-            texte: `${texNombre(alpha / 2, 1)}^\\circ`,
+            texte: miseEnEvidence(`${texNombre(alpha / 2, 1)}^\\circ`),
             latex: true,
             color: orangeMathalea,
             gras: false,
-            style: {
-              backgroudColor: orangeMathalea,
-            },
           })
         } else {
           ligne2.push({
@@ -154,6 +155,7 @@ export default class QuestionBissectrice extends Exercice {
             latex: true,
             color: 'black',
             gras: false,
+            style: `gray;`,
           })
           ligne1.push({
             texte: '',
@@ -162,7 +164,7 @@ export default class QuestionBissectrice extends Exercice {
             color: 'black',
           })
           ligne1Corr.push({
-            texte: `${texNombre(alpha, 1)}^\\circ`,
+            texte: miseEnEvidence(`${texNombre(alpha, 1)}^\\circ`),
             latex: true,
             color: 'black',
             gras: false,
@@ -172,6 +174,7 @@ export default class QuestionBissectrice extends Exercice {
             latex: true,
             color: 'black',
             gras: false,
+            style: `gray;`,
           })
         }
       }
@@ -244,9 +247,10 @@ export default class QuestionBissectrice extends Exercice {
       let texte =
         'Compléter le tableau.<br>' +
         `$${I}$ est un point de la demi-droite $\\left[${B}${minuscule}\\right)$, bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>` +
-        tableau.output
-
-      let texteCorr = tableauCorr.output + '<br>'
+        (context.isHtml ? tableau.output : tableau.latexOutput)
+      let texteCorr = context.isHtml
+        ? tableauCorr.output
+        : tableauCorr.latexOutput
 
       if (this.questionJamaisPosee(i, alphas.join('-'))) {
         this.listeQuestions.push(texte)
