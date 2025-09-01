@@ -12,7 +12,7 @@ export const uuid = '5cf1f'
  * Author Stéphane Guyon
  */
 export const refs = {
-  'fr-fr': ['1QCM-AL11-5b'],
+  'fr-fr': ['1AL11-5QCM'],
   'fr-ch': [],
 }
 export const interactifReady = true
