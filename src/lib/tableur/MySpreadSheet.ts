@@ -146,7 +146,6 @@ export class MySpreadsheetElement extends HTMLElement {
 
   disconnectedCallback() {
     if (this._spreadsheet) {
-      this._spreadsheet.destroy()
       this._spreadsheet = null
     }
     // Retire le listener personnalisé
