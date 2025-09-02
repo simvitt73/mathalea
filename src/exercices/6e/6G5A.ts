@@ -37,11 +37,11 @@ export default class QuestionBissectrice extends Exercice {
 
     this.besoinFormulaireTexte = [
       'types de questions',
-      'Nombres séparés par des tirets :\n1 : utilisation directe\n2 : utilisation indirecte\n3 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Utilisation directe\n2 : Utilisation indirecte\n3 : Mélange',
     ]
     this.besoinFormulaire2Texte = [
       'Niveau de difficulté',
-      'Nombres séparés par des tirets :\n1 : multiples de 10\n2 : nombres pairs\n3 : nombres quelconques\n4 : mélange',
+      'Nombres séparés par des tirets :\n1 : Multiples de 10\n2 : Nombres pairs\n3 : Nombres quelconques\n4 : Mélange',
     ]
     this.besoinFormulaire4CaseACocher = ['Avec figure', false]
     this.sup = '3'
