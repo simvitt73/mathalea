@@ -34,7 +34,7 @@ export const refs = {
 export default class QuestionBissectrice extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 1
+    this.nbQuestions = 3
 
     this.besoinFormulaireTexte = [
       'Niveau de difficulté',

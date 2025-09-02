@@ -555,14 +555,15 @@ export const triangleIsocele2Longueurs = function (
   //
   if (NOM.length === 3) {
     A.nom = NOM[0]
-    B.nom = NOM[1]
-    C.nom = NOM[2]
+    B.nom = NOM[2]
+    C.nom = NOM[1]
   }
   this.pointCreer(A, options)
   // this.regleRotation(droite(A,B).angleAvecHorizontale, options)
   // this.regleMontrer(A, options)
   this.regleSegment(A, C, options)
   this.compasMontrer(A, options)
+  this.pointCreer(C, options)
   this.compasEcarterAvecRegle(AB, options)
   this.compasTracerArcCentrePoint(A, B, options)
   this.compasTracerArcCentrePoint(C, B, options)

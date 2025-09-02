@@ -34,7 +34,7 @@ export const refs = {
 export default class QuestionBissectrice extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 1
+    this.nbQuestions = 3
 
     this.besoinFormulaireTexte = [
       'types de questions',
@@ -44,10 +44,9 @@ export default class QuestionBissectrice extends Exercice {
       'Niveau de difficulté',
       'Nombres séparés par des tirets :\n1 : Moitiés de nombres entiers pairs\n2 : Moitié de nombres entiers pairs ou impairs\n3 : Moitié de nombres décimaux\n4 : mélange',
     ]
-    this.besoinFormulaire4CaseACocher = ['Avec figure', false]
 
     this.sup = '3'
-    this.sup2 = '1'
+    this.sup2 = '4'
   }
 
   nouvelleVersion(): void {

@@ -49,13 +49,13 @@ export const refs = {
 export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 1
+    this.nbQuestions = 3
     this.besoinFormulaireTexte = [
       'types de triangles',
-      '1 : isocèle\n2 : équilatéral\n3 : rectangle\n4 : mélange',
+      '1 : Isocèle\n2 : Équilatéral\n3 : Rectangle\n4 : Mélange',
     ]
-    this.sup = '1'
-    this.besoinFormulaire2CaseACocher = ['Ne pas montrer de schéma', false]
+    this.sup = '4'
+    this.besoinFormulaire2CaseACocher = ['Ne pas montrer de schéma', true]
     this.sup2 = false
     this.besoinFormulaire3CaseACocher = ['longueurs entières', true]
     this.sup3 = true
