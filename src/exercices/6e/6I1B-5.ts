@@ -51,11 +51,11 @@ export default class ExerciceTableur extends Exercice {
       "Type d'opérations",
       [
         'Nombres séparés par des tirets  :',
-        '1 : addition',
-        '2 : soustraction',
-        '3 : multiplication',
-        '4 : division',
-        '5 : mélange',
+        '1 : Addition',
+        '2 : Soustraction',
+        '3 : Multiplication',
+        '4 : Division',
+        '5 : Mélange',
       ].join('\n'),
     ]
     this.sup = 3

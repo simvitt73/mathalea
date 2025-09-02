@@ -38,7 +38,7 @@ export default class QuestionBissectrice extends Exercice {
 
     this.besoinFormulaireTexte = [
       'types de questions',
-      'Nombres séparés par des tirets :\n1 : utilisation directe\n2 : utilisation indirecte\n3 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Utilisation directe\n2 : Utilisation indirecte\n3 : Mélange',
     ]
     this.besoinFormulaire2Texte = [
       'Niveau de difficulté',
