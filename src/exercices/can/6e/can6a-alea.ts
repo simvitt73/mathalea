@@ -8,6 +8,7 @@ import {
 import { gestionnaireFormulaireTexte } from '../../../modules/outils'
 
 import Decimal from 'decimal.js'
+import seedrandom from 'seedrandom'
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import {
   mathaleaGenerateSeed,
@@ -323,6 +324,8 @@ export default class can6eAll extends Exercice {
           const q2 = exports // new exports.default()
           exercice.interactif ? (q2.interactif = true) : (q2.interactif = false)
           q2.numeroExercice = exercice.numeroExercice
+          q2.seed = exercice.seed
+          seedrandom(q2.seed, { global: true })
           q2.nouvelleVersion()
           const k = i
           if (q2.listeQuestions.length === 0) {

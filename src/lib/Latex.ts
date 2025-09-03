@@ -354,7 +354,7 @@ class Latex {
           content += "% Cet exercice n'est pas disponible au format LaTeX"
         } else {
           content += '\n\\needspace{10\\baselineskip}'
-          content += '\n\\begin{exercice}[Lignes=0,Interieur]\n'
+          content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
           if (withQrcode) {
             content += `\\begin{wrapfigure}{r}{2cm}
 \\centering
@@ -372,7 +372,7 @@ Correction
         }
       } else {
         content += '\n\\needspace{10\\baselineskip}'
-        content += '\n\\begin{exercice}[Lignes=0,Interieur]\n'
+        content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
         content += testIfLoaded(
           [
             ...exercice.listeQuestions,
@@ -555,7 +555,7 @@ Correction
     currentUrl.port = ''
     currentUrl.protocol = 'https:'
     currentUrl.searchParams.set('v', 'eleve')
-    contents.preamble = `% @see : ${currentUrl.href.replaceAll('%','\\%')}`
+    contents.preamble = `% @see : ${currentUrl.href.replaceAll('%', '\\%')}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
     contents.preamble += '\n\\usepackage{xcolor}'
@@ -573,7 +573,7 @@ Correction
 
     contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
     contents.preamble += '\n\\setlength{\\headheight}{18pt}'
-    contents.preamble += `\n\\fancyhead[R]{\\href{${currentUrl.href.replaceAll('%','\\%')}}{Mathaléa}}`
+    contents.preamble += `\n\\fancyhead[R]{\\href{${currentUrl.href.replaceAll('%', '\\%')}}{Mathaléa}}`
     contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
     contents.preamble += `\n\\fancyfoot[R]{%
 \\begin{tikzpicture}[remember picture,overlay]
