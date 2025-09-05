@@ -1,8 +1,12 @@
 <script lang="ts">
-  import Diaporama from './setup/diaporama/Diaporama.svelte'
-  import Eleve from './display/eleve/Eleve.svelte'
-  import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
-  import Latex from './setup/latex/Latex.svelte'
+  import { onDestroy, onMount } from 'svelte'
+  import { checkBrowserVersion } from '../lib/components/browserVersion'
+  import { fetchServerVersion } from '../lib/components/version'
+  import {
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from '../lib/mathalea'
+  import { canOptions } from '../lib/stores/canStore'
   import {
     darkMode,
     exercicesParams,
@@ -10,30 +14,25 @@
     globalOptions,
     isInIframe,
   } from '../lib/stores/generalStore'
+  import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
+  import { vendor } from '../lib/stores/vendorStore'
+  import type { CanSolutionsMode } from '../lib/types/can'
   import { context } from '../modules/context'
   import {
     ElementButtonInstrumenpoche,
     ElementInstrumenpoche,
   } from '../modules/ElementInstrumenpoche'
+  import Can from './display/can/Can.svelte'
+  import Eleve from './display/eleve/Eleve.svelte'
+  import Alacarte from './setup/alacarte/Alacarte.svelte'
   import Amc from './setup/amc/Amc.svelte'
   import Anki from './setup/anki/Anki.svelte'
+  import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
+  import Diaporama from './setup/diaporama/Diaporama.svelte'
+  import Latex from './setup/latex/Latex.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
-  import { onMount } from 'svelte'
-  import {
-    mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from '../lib/mathalea'
-  import Can from './display/can/Can.svelte'
-  import { canOptions } from '../lib/stores/canStore'
-  import type { CanSolutionsMode } from '../lib/types/can'
-  import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
-  import Alacarte from './setup/alacarte/Alacarte.svelte'
-  import { fetchServerVersion } from '../lib/components/version'
   import Popup from './shared/modal/Popup.svelte'
-  import { checkBrowserVersion } from '../lib/components/browserVersion'
-  import { vendor } from '../lib/stores/vendorStore'
-  import { convertVueType } from '../lib/types'
 
   let isInitialUrlHandled = false
 
@@ -46,13 +45,18 @@
   }
 
   onMount(() => {
-    handleInitialUrl()
+    updateParams()
+    addEventListener('popstate', updateParams)
 
     const version = checkBrowserVersion()
     if (version.popupMessage.length > 0) {
       showPopup = true
       popupMessage = version.popupMessage
     }
+  })
+
+  onDestroy(() => {
+    removeEventListener('popstate', updateParams)
   })
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -107,8 +111,12 @@
     $canOptions.isInteractive = canIsInteractive === 'true'
   }
 
-  $: {
-    if (isInitialUrlHandled) {
+  function updateParams() {
+    const urlView = url.searchParams.get('v') ?? ''
+    const viewHasChanged = urlView !== $globalOptions.v
+    if (!isInitialUrlHandled || viewHasChanged) {
+      handleInitialUrl()
+    } else {
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     }
     context.isDiaporama = $globalOptions.v === 'diaporama'
