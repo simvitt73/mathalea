@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
+  import type { Unsubscriber } from 'svelte/store'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
   import { mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea'
@@ -32,6 +33,7 @@
 
   let showPopup = false
   let popupMessage = ''
+  let globalOptionsUnsubscriber: Unsubscriber
 
   function handlePopupClose() {
     // console.log('Popup has been closed');
@@ -39,8 +41,14 @@
   }
 
   onMount(() => {
-    updateParams()
-    addEventListener('popstate', updateParams)
+    updateUrl()
+    updateContext()
+    updateVendor()
+    globalOptionsUnsubscriber = globalOptions.subscribe(() => {
+      updateContext()
+      updateVendor()
+    })
+    addEventListener('popstate', updateUrl)
 
     const version = checkBrowserVersion()
     if (version.popupMessage.length > 0) {
@@ -51,6 +59,7 @@
 
   onDestroy(() => {
     removeEventListener('popstate', updateParams)
+    globalOptionsUnsubscriber()
   })
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
