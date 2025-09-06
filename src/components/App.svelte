@@ -2,14 +2,10 @@
   import { onDestroy, onMount } from 'svelte'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
-  import {
-    mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from '../lib/mathalea'
+  import { mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea'
   import { canOptions } from '../lib/stores/canStore'
   import {
     darkMode,
-    exercicesParams,
     freezeUrl,
     globalOptions,
     isInIframe,
@@ -33,8 +29,6 @@
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
   import Popup from './shared/modal/Popup.svelte'
-
-  let isInitialUrlHandled = false
 
   let showPopup = false
   let popupMessage = ''
@@ -112,13 +106,20 @@
   }
 
   function updateParams() {
-    const urlView = url.searchParams.get('v') ?? ''
-    const viewHasChanged = urlView !== $globalOptions.v
-    if (!isInitialUrlHandled || viewHasChanged) {
-      handleInitialUrl()
-    } else {
-      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    updateUrl()
+    updateContext()
+    updateVendor()
+  }
+
+  function updateUrl() {
+    updateReferentielLocaleFromURL()
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+    if (JSON.stringify(globalOptions) !== JSON.stringify(urlOptions)) {
+      globalOptions.set(urlOptions)
     }
+  }
+
+  function updateContext() {
     context.isDiaporama = $globalOptions.v === 'diaporama'
     if ($globalOptions.v === 'latex') {
       context.isHtml = false
@@ -137,6 +138,15 @@
     } else {
       context.isAmc = false
     }
+    context.vue = ''
+    if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
+    if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
+    if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
+    // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
+    context.isInEditor = false
+  }
+
+  function updateVendor() {
     // initialisation du vendor pour l'intégration de la bannière dans la vue élève
     if ($globalOptions.v === 'myriade') {
       $vendor.product = {
@@ -150,21 +160,6 @@
         logoPath: 'assets/images/vendors/bordas/indices-bordas-logo.png',
       }
     }
-    context.vue = ''
-    if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
-    if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
-    if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
-    // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
-    context.isInEditor = false
-  }
-
-  function handleInitialUrl() {
-    updateReferentielLocaleFromURL()
-    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    globalOptions.update(() => {
-      return urlOptions
-    })
-    isInitialUrlHandled = true
   }
 
   function isDevMode() {
