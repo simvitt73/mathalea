@@ -105,7 +105,7 @@
           <div
             class="flex flex-col justify-center items-center xl:w-4/5 w-11/12 h-full
           bg-cover bg-no-repeat bg-center"
-            style="background-image: url('public/images/carousel/{slide.background}');"
+            style="background-image: url('images/carousel/{slide.background}');"
           >
             <div
               class="relative w-full h-full
