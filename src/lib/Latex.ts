@@ -129,10 +129,11 @@ class Latex {
         contentCorr: '',
       }
     if (latexFileInfos.style === 'ProfMaquetteQrcode')
-      return {
-        content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
-        contentCorr: '',
-      }
+      latexFileInfos.qrcodeOption = 'AvecQrcode'
+    return {
+      content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
+      contentCorr: '',
+    }
     let content = ''
     let contentCorr = ''
     this.loadExercicesWithVersion(indiceVersion)
@@ -492,6 +493,7 @@ class Latex {
               'AbortError',
             )
           }
+          latexFileInfos.qrcodeOption = 'AvecQrcode'
           const contentVersion = this.getContentForAVersionProfMaquette(
             i,
             latexFileInfos,
