@@ -20,6 +20,7 @@ import {
   showDialogForLimitedTime,
   showPopupAndWait,
 } from './components/dialogs'
+import { isStatic, isSvelte } from './components/exercisesUtils'
 import { resizeContent } from './components/sizeTools'
 import { delay } from './components/time'
 import { decrypt, isCrypted } from './components/urls'
@@ -1439,6 +1440,9 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
 export async function getExercisesFromExercicesParams() {
   const exercises = []
   for (const paramsExercice of get(exercicesParams)) {
+    if (isStatic(paramsExercice.uuid) || isSvelte(paramsExercice.uuid)) {
+      continue
+    }
     const exercise: TypeExercice = await mathaleaLoadExerciceFromUuid(
       paramsExercice.uuid,
     )

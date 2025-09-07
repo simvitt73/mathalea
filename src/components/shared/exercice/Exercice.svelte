@@ -1,8 +1,7 @@
 <script lang="ts">
   import { SvelteComponent, onMount } from 'svelte'
   import Exercice from '../../../exercices/Exercice'
-  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
-  import { isStatic } from '../../../lib/components/exercisesUtils'
+  import { isStatic, isSvelte } from '../../../lib/components/exercisesUtils'
   import {
     getSvelteComponent,
     mathaleaHandleParamOfOneExercice,
@@ -42,11 +41,6 @@
       exerciseType = await getExerciseType(exercise)
     }
   })
-
-  function isSvelte(uuid: string) {
-    const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
-    return urlExercice && urlExercice.includes('.svelte')
-  }
 
   async function getExercise(
     paramsExercice: InterfaceParams,
