@@ -1,23 +1,24 @@
 <script lang="ts">
+  import { SvelteComponent, onMount } from 'svelte'
+  import Exercice from '../../../exercices/Exercice'
+  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
+  import { isStatic } from '../../../lib/components/exercisesUtils'
   import {
+    getSvelteComponent,
     mathaleaHandleParamOfOneExercice,
     mathaleaLoadExerciceFromUuid,
-    getSvelteComponent,
   } from '../../../lib/mathalea'
-  import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../lib/types'
-  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
-  import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
-  import Exercice from '../../../exercices/Exercice'
-  import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
-  import { isStatic } from '../../../lib/components/exercisesUtils'
+  import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
+  import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
+  export let toggleSidenav: (open: boolean) => void
 
   type ExerciseType =
     | 'mathaleaVueProf'
@@ -104,6 +105,7 @@
     exerciseIndex="{indiceExercice}"
     {indiceLastExercice}
     {isCorrectionVisible}
+    {toggleSidenav}
     on:exerciseRemoved
   />
 {:else if exerciseType === 'mathaleaVueProf'}
@@ -113,6 +115,7 @@
     exerciseIndex="{indiceExercice}"
     {indiceLastExercice}
     {isCorrectionVisible}
+    {toggleSidenav}
     on:exerciseRemoved
   />
 {/if}
