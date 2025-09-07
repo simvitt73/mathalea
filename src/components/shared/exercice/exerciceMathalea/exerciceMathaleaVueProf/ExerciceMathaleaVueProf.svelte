@@ -360,7 +360,6 @@
       interfaceParams === undefined ||
       exercise.uuid !== interfaceParams.uuid
     ) {
-      mathaleaUpdateUrlFromExercicesParams()
       return
     }
     if (

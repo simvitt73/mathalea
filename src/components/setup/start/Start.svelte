@@ -274,7 +274,6 @@
   function trash() {
     exercicesParams.set([])
     toggleSidenav(true)
-    mathaleaUpdateUrlFromExercicesParams()
   }
 
   function setFullScreen(isFullScreen: boolean) {

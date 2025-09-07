@@ -3,10 +3,14 @@
   import type { Unsubscriber } from 'svelte/store'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
-  import { mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea'
+  import {
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from '../lib/mathalea'
   import { canOptions } from '../lib/stores/canStore'
   import {
     darkMode,
+    exercicesParams,
     freezeUrl,
     globalOptions,
     isInIframe,
@@ -34,6 +38,7 @@
   let showPopup = false
   let popupMessage = ''
   let globalOptionsUnsubscriber: Unsubscriber
+  let exercicesParamsUnsubscriber: Unsubscriber
 
   function handlePopupClose() {
     // console.log('Popup has been closed');
@@ -41,14 +46,14 @@
   }
 
   onMount(() => {
-    updateUrl()
-    updateContext()
-    updateVendor()
+    updateParams()
+    addEventListener('popstate', updateParams)
     globalOptionsUnsubscriber = globalOptions.subscribe(() => {
-      updateContext()
-      updateVendor()
+      mathaleaUpdateUrlFromExercicesParams()
     })
-    addEventListener('popstate', updateUrl)
+    exercicesParamsUnsubscriber = exercicesParams.subscribe(() => {
+      mathaleaUpdateUrlFromExercicesParams()
+    })
 
     const version = checkBrowserVersion()
     if (version.popupMessage.length > 0) {
@@ -60,6 +65,7 @@
   onDestroy(() => {
     removeEventListener('popstate', updateParams)
     globalOptionsUnsubscriber()
+    exercicesParamsUnsubscriber()
   })
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -115,15 +121,15 @@
   }
 
   function updateParams() {
-    updateUrl()
+    updateParamsFromUrl()
     updateContext()
     updateVendor()
   }
 
-  function updateUrl() {
+  function updateParamsFromUrl() {
     updateReferentielLocaleFromURL()
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    if (JSON.stringify(globalOptions) !== JSON.stringify(urlOptions)) {
+    if (JSON.stringify($globalOptions) !== JSON.stringify(urlOptions)) {
       globalOptions.set(urlOptions)
     }
   }

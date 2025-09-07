@@ -740,7 +740,16 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     return {}
   }
 
-  exercicesParams.set(newExercisesParams.filter((e) => e.uuid || e.id))
+  const newExercisesParamsFiltered = newExercisesParams.filter(
+    (e) => e.uuid || e.id,
+  )
+
+  if (
+    JSON.stringify(get(exercicesParams)) !==
+    JSON.stringify(newExercisesParamsFiltered)
+  ) {
+    exercicesParams.set(newExercisesParamsFiltered)
+  }
 
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
