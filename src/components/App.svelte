@@ -49,6 +49,8 @@
     updateParams()
     addEventListener('popstate', updateParams)
     globalOptionsUnsubscriber = globalOptions.subscribe(() => {
+      updateContext()
+      updateVendor()
       mathaleaUpdateUrlFromExercicesParams()
     })
     exercicesParamsUnsubscriber = exercicesParams.subscribe(() => {
