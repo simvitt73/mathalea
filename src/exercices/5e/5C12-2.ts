@@ -32,6 +32,47 @@ export const refs = {
   'fr-2016': ['6C33-2'],
   'fr-ch': ['9NO6-8', '10NO6-6'],
 }
+
+export function rediger(
+  expression1: string,
+  signe: string,
+  expression2: string,
+): string {
+  if (isNaN(Number(expression2))) expression2 = `( ${expression2} )`
+  return `(${expression1}) ${signe} ${expression2}`
+}
+
+export function checkValue(
+  nombreCible: number,
+  nombresUtilises: number[],
+  resultat: number[],
+): boolean {
+  if (nombreCible < 2) {
+    return false
+  }
+  if (Math.floor(nombreCible) !== nombreCible) {
+    return false
+  }
+  if (nombresUtilises.includes(nombreCible)) {
+    return false
+  }
+  for (let i = 0; i < resultat.length; i++) {
+    if (Math.floor(resultat[i]) !== resultat[i]) {
+      return false
+    }
+    if (resultat[i] < 2) {
+      return false
+    }
+    if (nombreCible === resultat[i]) {
+      return false
+    }
+    if (nombresUtilises.includes(resultat[i])) {
+      return false
+    }
+  }
+  return true
+}
+
 export default class ExpressionsDepuisCalculs extends Exercice {
   constructor() {
     super()
@@ -51,9 +92,6 @@ export default class ExpressionsDepuisCalculs extends Exercice {
 
   nouvelleVersion() {
     const avecDivision = !!this.sup
-
-    // const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
-    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const nbOps = gestionnaireFormulaireTexte({
       defaut: 2,
       saisie: this.sup2,
@@ -237,45 +275,5 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6em
       }
     }
     listeQuestionsToContenu(this)
-
-    function rediger(
-      expression1: string,
-      signe: string,
-      expression2: string,
-    ): string {
-      if (isNaN(Number(expression2))) expression2 = `( ${expression2} )`
-      return `(${expression1}) ${signe} ${expression2}`
-    }
-
-    function checkValue(
-      nombreCible: number,
-      nombresUtilises: number[],
-      resultat: number[],
-    ): boolean {
-      if (nombreCible < 2) {
-        return false
-      }
-      if (Math.floor(nombreCible) !== nombreCible) {
-        return false
-      }
-      if (nombresUtilises.includes(nombreCible)) {
-        return false
-      }
-      for (let i = 0; i < resultat.length; i++) {
-        if (Math.floor(resultat[i]) !== resultat[i]) {
-          return false
-        }
-        if (resultat[i] < 2) {
-          return false
-        }
-        if (nombreCible === resultat[i]) {
-          return false
-        }
-        if (nombresUtilises.includes(resultat[i])) {
-          return false
-        }
-      }
-      return true
-    }
   }
 }
