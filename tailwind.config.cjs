@@ -3,29 +3,31 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const flipclass = plugin(function ({ addUtilities }) {
   addUtilities({
     '.flip-rotate-y-180': {
-      transform: 'rotateY(180deg)'
+      transform: 'rotateY(180deg)',
     },
     '.preserve-3d': {
-      transformStyle: 'preserve-3d'
+      transformStyle: 'preserve-3d',
     },
     '.perspective': {
-      perspective: '1000px'
+      perspective: '1000px',
     },
     '.backface-hidden': {
-      backfaceVisibility: 'hidden'
-    }
+      backfaceVisibility: 'hidden',
+    },
   })
 })
 const config = {
   darkMode: 'class',
-  content: ['./src/**/*.{html,js,svelte,ts}',
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
     './node_modules/tw-elements/dist/js/**/*.js',
-    './node_modules/glisse-nombre/src/**/*.{html,js,svelte,ts}'],
+    './node_modules/glisse-nombre/src/**/*.{html,js,svelte,ts}',
+  ],
   safelist: [
     {
       pattern: /grid-cols-./,
-      variants: ['lg', 'md']
-    }
+      variants: ['lg', 'md'],
+    },
   ],
   theme: {
     extend: {
@@ -47,11 +49,11 @@ const config = {
         27: 'repeat(27, minmax(0, 1fr))',
         28: 'repeat(28, minmax(0, 1fr))',
         29: 'repeat(29, minmax(0, 1fr))',
-        30: 'repeat(30, minmax(0, 1fr))'
+        30: 'repeat(30, minmax(0, 1fr))',
       },
       scale: {
         175: '1.75',
-        200: '2.00'
+        200: '2.00',
       },
       colors: {
         coopmaths: {
@@ -76,14 +78,14 @@ const config = {
             DEFAULT: '#ffffff', // Anciennement '#EDEDF0'
             dark: '#f6f6f6',
             darkest: '#e9e9e9',
-            moredark: '#c8c8c8'
+            moredark: '#c8c8c8',
           },
           corpus: {
             DEFAULT: '#1F2429',
             light: '#45505b',
             lightest: '#6a7c8d',
             dark: '#191d21',
-            darkest: '#131619'
+            darkest: '#131619',
           },
           action: {
             DEFAULT: '#F15929',
@@ -99,7 +101,7 @@ const config = {
             600: '#f79b7f',
             700: '#f58b69',
             800: '#f47a54',
-            900: '#f26a3e'
+            900: '#f26a3e',
           },
           warn: {
             DEFAULT: '#80D925',
@@ -118,15 +120,15 @@ const config = {
             800: '#8edd4b',
             900: '#6ebc1f',
             1000: '#5da119',
-            1100: '#4d8613'
+            1100: '#4d8613',
           },
           struct: {
             DEFAULT: '#216D9A',
             light: '#2c93cf',
             lightest: '#5faedd',
             dark: '#1a577b',
-            darkest: '#14415c'
-          }
+            darkest: '#14415c',
+          },
         },
         coopmathsdark: {
           DEFAULT: '#F15929',
@@ -151,36 +153,36 @@ const config = {
             dark: '#3a3d4e',
             darkest: '#4b4f66',
             moredark: '#68688c',
-            light: '#9fa3b8'
+            light: '#9fa3b8',
           },
           corpus: {
             DEFAULT: '#b0b0b0',
             light: '#c8c8c8',
             lightest: '#dfdfdf',
             dark: '#7b7b7b',
-            darkest: '#464646'
+            darkest: '#464646',
           },
           action: {
             DEFAULT: '#ffb86c',
             light: '#ffc689',
             lightest: '#ffd4a7',
             dark: '#ff9523',
-            darkest: '#da7100'
+            darkest: '#da7100',
           },
           warn: {
             DEFAULT: '#ff79c6',
             light: '#ff94d1',
             lightest: '#ffafdd',
             dark: '#ff2ea6',
-            darkest: '#e20082'
+            darkest: '#e20082',
           },
           struct: {
             DEFAULT: '#bd93f9',
             light: '#c49efa',
             lightest: '#caa9fa',
             dark: '#a66df7',
-            darkest: '#8f48f5'
-          }
+            darkest: '#8f48f5',
+          },
         },
         coopmathsBlue: {
           DEFAULT: '#F15929',
@@ -205,50 +207,54 @@ const config = {
             dark: '#3a3d4e',
             darkest: '#4b4f66',
             moredark: '#68688c',
-            light: '#9fa3b8'
+            light: '#9fa3b8',
           },
           corpus: {
             DEFAULT: '#b0b0b0',
             light: '#c8c8c8',
             lightest: '#dfdfdf',
             dark: '#7b7b7b',
-            darkest: '#464646'
+            darkest: '#464646',
           },
           action: {
             DEFAULT: '#ffb86c',
             light: '#ffc689',
             lightest: '#ffd4a7',
             dark: '#ff9523',
-            darkest: '#da7100'
+            darkest: '#da7100',
           },
           warn: {
             DEFAULT: '#ff79c6',
             light: '#ff94d1',
             lightest: '#ffafdd',
             dark: '#ff2ea6',
-            darkest: '#e20082'
+            darkest: '#e20082',
           },
           struct: {
             DEFAULT: '#bd93f9',
             light: '#c49efa',
             lightest: '#caa9fa',
             dark: '#a66df7',
-            darkest: '#8f48f5'
-          }
-        }
+            darkest: '#8f48f5',
+          },
+        },
       },
       fontFamily: {
         sans: ['"Source Sans Pro"', ...defaultTheme.fontFamily.sans],
         logo9: 'jelleebold',
-        mono: ['"Source Code Pro"', ...defaultTheme.fontFamily.mono]
+        mono: ['"Source Code Pro"', ...defaultTheme.fontFamily.mono],
       },
       transitionProperty: {
-        width: 'width'
-      }
-    }
+        width: 'width',
+      },
+      cursor: {
+        pause: 'url(images/carousel/pauseIcon.png), auto',
+        'pause-circle': 'url(images/carousel/pauseCircleIcon.png), auto',
+      },
+    },
   },
   variants: {
-    display: ['group-hover']
+    display: ['group-hover'],
   },
   daisyui: {
     themes: [
@@ -262,10 +268,10 @@ const config = {
           info: '#bd93f9',
           success: '#36D399',
           warning: '#FBBD23',
-          error: '#F87272'
-        }
-      }
-    ]
+          error: '#F87272',
+        },
+      },
+    ],
   },
   plugins: [
     require('tw-elements/dist/plugin.cjs'),
@@ -284,17 +290,17 @@ const config = {
 
           /* Safari and Chrome */
           '&::-webkit-scrollbar': {
-            display: 'none'
-          }
-        }
+            display: 'none',
+          },
+        },
       })
     }),
-    flipclass
+    flipclass,
   ],
   rules: {
     // require() Require statement not part of import statement.
-    '@typescript-eslint/no-var-requires': 0
-  }
+    '@typescript-eslint/no-var-requires': 0,
+  },
 }
 
 module.exports = config

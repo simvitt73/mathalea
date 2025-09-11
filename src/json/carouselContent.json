@@ -19,7 +19,8 @@
       "title": "Nouveauté",
       "message": "La 3D est arrivée dans MathALÉA\u00a0!",
       "image": "cube3d.gif",
-      "link": "https://coopmaths.fr/alea/?uuid=5f115&id=6G8A-1&n=3&d=10&s=1&s2=1&s3=true&s4=1&i=1&cd=1&alea=WSYf&v=eleve&es=0111001"
+      "link": "https://coopmaths.fr/alea/?uuid=5f115&id=6G8A-1&n=3&d=10&s=1&s2=1&s3=true&s4=1&i=1&cd=1&alea=WSYf&v=eleve&es=0111001",
+      "buttonTitle": "Voir un exemple"
     },
     {
       "background": "carousel05.jpg",

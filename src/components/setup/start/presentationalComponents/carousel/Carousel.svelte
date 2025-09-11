@@ -90,7 +90,7 @@
 {#if carouselContent.slides && carouselContent.slides.length !== 0}
   <div class="h-[90%]">
     <div
-      class="carousel w-full h-full"
+      class="carousel w-full h-full cursor-pause-circle"
       on:mouseenter="{handleMouseEnter}"
       on:mouseleave="{handleMouseLeave}"
       role="region"
@@ -172,7 +172,9 @@
               {#if slide.link && slide.link.length !== 0}
                 <div class="absolute bottom-6 right-6">
                   <ButtonTextAction
-                    text="En savoir plus"
+                    text="{slide.buttonTitle && slide.buttonTitle.length !== 0
+                      ? slide.buttonTitle
+                      : 'En savoir plus'}"
                     class="inline-flex items-center py-1 px-3 rounded-md font-normal"
                     on:click="{() => {
                       const w = window.open(
