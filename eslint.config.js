@@ -1,4 +1,4 @@
-import { neostandard } from 'neostandard'
+import neostandard from 'neostandard'
 export default [
   ...neostandard({ ts: true }),
   {
@@ -9,10 +9,7 @@ export default [
       'space-before-function-paren': ['error', 'never'],
       'comma-dangle': ['error', 'always-multiline'],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
-      'no-multiple-empty-lines': [
-        'error',
-        { max: 1, maxEOF: 1, maxBOF: 1 }
-      ],
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }],
     },
   },
 ]
