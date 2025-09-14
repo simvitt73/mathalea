@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '27/10/2021'
 /**
- * Clone de 6N30-2 pour les 2nde
+ * Clone de 6N1H-2 pour les 2nde
  *
  * @author Jean-Claude Lhote et Rémi Angot
  */
