@@ -4,24 +4,24 @@
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
   import {
-    mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
+      mathaleaUpdateExercicesParamsFromUrl,
+      mathaleaUpdateUrlFromExercicesParams,
   } from '../lib/mathalea'
   import { canOptions } from '../lib/stores/canStore'
   import {
-    darkMode,
-    exercicesParams,
-    freezeUrl,
-    globalOptions,
-    isInIframe,
+      darkMode,
+      exercicesParams,
+      freezeUrl,
+      globalOptions,
+      isInIframe,
   } from '../lib/stores/generalStore'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import { vendor } from '../lib/stores/vendorStore'
   import type { CanSolutionsMode } from '../lib/types/can'
   import { context } from '../modules/context'
   import {
-    ElementButtonInstrumenpoche,
-    ElementInstrumenpoche,
+      ElementButtonInstrumenpoche,
+      ElementInstrumenpoche,
   } from '../modules/ElementInstrumenpoche'
   import Can from './display/can/Can.svelte'
   import Eleve from './display/eleve/Eleve.svelte'
@@ -31,6 +31,7 @@
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Diaporama from './setup/diaporama/Diaporama.svelte'
   import Latex from './setup/latex/Latex.svelte'
+  import Pdf from './setup/latex/Pdf.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
   import Popup from './shared/modal/Popup.svelte'
@@ -138,7 +139,7 @@
 
   function updateContext() {
     context.isDiaporama = $globalOptions.v === 'diaporama'
-    if ($globalOptions.v === 'latex') {
+    if ($globalOptions.v === 'latex' || $globalOptions.v === 'pdf') {
       context.isHtml = false
     } else {
       context.isHtml = true
@@ -214,6 +215,8 @@
     <Moodle />
   {:else if $globalOptions.v === 'anki'}
     <Anki />
+  {:else if $globalOptions.v === 'pdf'}
+    <Pdf />
   {:else if $globalOptions.v !== undefined}
     <Start />
   {/if}

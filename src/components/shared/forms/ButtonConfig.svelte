@@ -4,6 +4,7 @@
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
+  export let callback: () => void
 
   let selectedExos: string[] = [] // exos sélectionnés pour appliquer config globale
   let globalConfig = {
@@ -21,6 +22,7 @@
     const dialog = document.getElementById('configLatex') as HTMLDialogElement
     if (dialog.open) {
       dialog.close()
+      callback()
     } else {
       dialog.showModal()
     }

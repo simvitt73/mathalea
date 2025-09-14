@@ -382,11 +382,19 @@ class Latex {
         } else {
           content += '\n\\needspace{10\\baselineskip}'
           if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
-            content += `\n\\begin{exercice}[Ajout={\\node[anchor=north east, inner sep=2pt] 
+            content += `\n\\begin{exercice}[${
+              latexFileInfos.titleOption === 'AvecTitre'
+                ? `Titre=${latexFileInfos.titleOption}, `
+                : ''
+            }Ajout={\\node[anchor=north east, inner sep=2pt] 
         at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
           } else {
-            content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
+            content += `\n\\begin{exercice}${
+              latexFileInfos.titleOption === 'AvecTitre'
+                ? `[Titre=${latexFileInfos.titleOption}]`
+                : ''
+            }%[Lignes=5,Interieur]\n`
           }
           content += exercice.content
           content += '\n\\end{exercice}\n'
@@ -397,11 +405,19 @@ class Latex {
       } else {
         content += '\n\\needspace{10\\baselineskip}'
         if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
-          content += `\n\\begin{exercice}[Ajout={\\node[anchor=north east, inner sep=2pt] 
+          content += `\n\\begin{exercice}[${
+            latexFileInfos.titleOption === 'AvecTitre'
+              ? `Titre=${exercice.titre}, `
+              : ''
+          }Ajout={\\node[anchor=north east, inner sep=2pt]
         at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
         } else {
-          content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
+          content += `\n\\begin{exercice}${
+            latexFileInfos.titleOption === 'AvecTitre'
+              ? `[Titre=${exercice.titre}]`
+              : ''
+          }%[Lignes=5,Interieur]\n`
         }
         content += testIfLoaded(
           [
@@ -417,7 +433,7 @@ class Latex {
           (exercice.introduction.length > 40 || exercice.consigne.length > 40)
         ) {
           // il faut un espace pour le QRCODE
-          content += `\n\\vspace{1cm}`
+          content += `\n\\vspace{2cm}`
         }
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
