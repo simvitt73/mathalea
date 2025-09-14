@@ -40,14 +40,20 @@
   function themeTitle(themeCode: string) {
     if (themes.has(themeCode)) {
       return [
-        themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])
+        themeCodeisSubthemeCode(
+          levelTitle,
+          Array.from(levelTitle.replace('auto', ''))[0],
+        )
           ? ''
           : ' : ',
         themes.get(themeCode).get('titre'),
       ].join('')
     } else if (themesCH.has(themeCode)) {
       return [
-        themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])
+        themeCodeisSubthemeCode(
+          levelTitle,
+          Array.from(levelTitle.replace('auto', ''))[0],
+        )
           ? ''
           : ' : ',
         themesCH.get(themeCode).get('titre'),
@@ -204,7 +210,10 @@
     // console.log('levelTitle: ', levelTitle)
     if (
       (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') ||
-      themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])
+      themeCodeisSubthemeCode(
+        levelTitle,
+        Array.from(levelTitle.replace('auto', ''))[0],
+      )
     ) {
       unfold = true
     }
@@ -241,7 +250,10 @@
       : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-2'}
     {unfold &&
     nestedLevelCount !== 1 &&
-    !themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])
+    !themeCodeisSubthemeCode(
+      levelTitle,
+      Array.from(levelTitle.replace('auto', ''))[0],
+    )
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
       : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
     {Object.keys(subset).length === 0
@@ -256,16 +268,22 @@
       id="{'titre-liste-' + indexBase + '-content'}"
       class=" {nestedLevelCount === 1
         ? 'text-xl'
-        : themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])
+        : themeCodeisSubthemeCode(
+              levelTitle,
+              Array.from(levelTitle.replace('auto', ''))[0],
+            )
           ? 'text-base leading-none py-2'
           : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
-      {#if !themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])}
+      {#if !themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle.replace('auto', ''))[0])}
         {codeToLevelTitle(levelTitle)}
       {/if}
       <span
-        class="{themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle)[0])
+        class="{themeCodeisSubthemeCode(
+          levelTitle,
+          Array.from(levelTitle.replace('auto', ''))[0],
+        )
           ? 'font-normal text-sm leading-[80%]'
           : 'font-normal '}">{themeTitle(levelTitle)}</span
       >
