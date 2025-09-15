@@ -10,6 +10,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine from '../../lib/interactif/comparisonFunctions'
 import {
   parseExpression,
@@ -254,7 +255,7 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
       const tirage = nombres.slice(0, nbOps[i] + 1)
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
 Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
-Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecEgal)}`
       handleAnswers(this, i, {
         reponse: {
           value: redaction,
