@@ -32,7 +32,7 @@ export default class ProblemesAvecOperationsEnUneLigne extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 4
-    this.sup = 3
+    this.sup = '12'
     this.besoinFormulaireTexte = [
       'Type de problèmes',
       `Nombres séparés par des tirets :
@@ -59,9 +59,10 @@ export default class ProblemesAvecOperationsEnUneLigne extends Exercice {
       "Donner l'enchaînement de calculs sur une ligne qui permet de résoudre "
     this.consigne +=
       this.nbQuestions > 1 ? 'les problèmes suivants.' : 'le problème suivant.'
-    if (this.sup2)
+    if (this.sup2) {
       this.consigne +=
         '<br>Calculer cet enchaînement et donner la réponse numérique de ce problème.'
+    }
     const typesDeQuestions = gestionnaireFormulaireTexte({
       max: 11,
       defaut: 12,
@@ -311,8 +312,6 @@ export default class ProblemesAvecOperationsEnUneLigne extends Exercice {
         case 7: {
           const nbAmis = choice([2, 4, 5])
           const garcons = randint(1, nbAmis - 1)
-          const prenomsGars = prenomM(garcons, true)
-          const prenomsFilles = prenomF(nbAmis - garcons, true)
 
           let prenoms = ([] as string[]).concat(
             ...prenomM(garcons, true),
