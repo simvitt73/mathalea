@@ -1,19 +1,11 @@
 <script lang="ts">
   import Latex, { type LatexFileInfos } from '../../../lib/Latex'
-  import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
+  import FormConfigGlobal from './FormConfigGlobal.svelte'
+  import FormConfigIndividual from './FormConfigIndividual.svelte'
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
   export let callback: () => void
-
-  let selectedExos: string[] = [] // exos sélectionnés pour appliquer config globale
-  let globalConfig = {
-    labels: '',
-    itemsep: { enabled: false, value: 1 },
-    cols: { enabled: false, value: 1 },
-    cols_corr: { enabled: false, value: 1 },
-    blocrep: { enabled: false, nbligs: 5, nbcols: 1 }
-  }
 
   /**
    * Affiche ou ferme si déjà ouvert le code Latex dans une boite de dialogue
@@ -28,59 +20,6 @@
     }
   }
 
-  function applyGlobalConfig() {
-    latexFileInfos.exos = latexFileInfos.exos || {}
-    for (const idx of selectedExos) {
-      const exoConfig: any = {
-      }
-
-      if (globalConfig.labels !== ''  && globalConfig.labels !== undefined) {
-        exoConfig.labels = globalConfig.labels
-      }
-
-      if (globalConfig.itemsep.enabled) {
-        exoConfig.itemsep = globalConfig.itemsep.value
-      }
-
-      if (globalConfig.cols?.enabled) {
-        exoConfig.cols = globalConfig.cols.value
-      }
-
-      if (globalConfig.cols_corr?.enabled) {
-        exoConfig.cols_corr = globalConfig.cols_corr.value
-      }
-
-      if (globalConfig.blocrep?.enabled) {
-        exoConfig.blocrep = {
-          nbligs: globalConfig.blocrep.nbligs,
-          nbcols: globalConfig.blocrep.nbcols
-        }
-      }
-      latexFileInfos.exos[idx] = {
-        ...latexFileInfos.exos[idx],
-        ...exoConfig
-      }
-    }
-  }
-
-  function resetExo(idx: string) {
-    if (latexFileInfos.exos) {
-      delete latexFileInfos.exos[idx]
-    }
-  }
-
-  function cancelAllChanges() {
-    // Réinitialise toutes les configurations des exercices
-    latexFileInfos.exos = {};
-    selectedExos = [];
-    globalConfig = {
-      labels: '',
-      itemsep: { enabled: false, value: 1 },
-      cols: { enabled: false, value: 1 },
-      cols_corr: { enabled: false, value: 1 },
-      blocrep: { enabled: false, nbligs: 5, nbcols: 1 }
-    };
-  }
 </script>
 
 
@@ -122,310 +61,23 @@
     </div>
 
     <!-- Config globale -->
-    <section class="mb-6 border rounded-lg p-4 bg-gray-50 mx-auto">
-      <h3 class="text-lg font-semibold mb-3 text-center">Configuration globale des exercices</h3>
-      <div class="flex flex-col gap-3 items-start">
-        <div class="flex flex-col w-full text-left">
-          Numérotation des questions
-          <select bind:value={globalConfig.labels} class="mt-1 border rounded px-2 py-1 w-40">
-            <option value="">(aucune)</option>
-            <option value="\alph*)">a, b, c, ...</option>
-            <option value="\Alph*)">A, B, C, ...</option>
-            <option value="\roman*)">i, ii, iii, ...</option>
-            <option value="\Roman*)">I, II, III, ...</option>
-            <option value="\arabic*)">1, 2, 3, ...</option>
-          </select>
-        </div>
-
-        <div class="flex flex-col w-full text-left">
-          Espace entre les questions
-          <div class="flex flex-row items-center gap-2">
-            <input 
-              type="checkbox" 
-              bind:checked={globalConfig.itemsep.enabled} 
-              class="h-4 w-4"
-            />  
-            <input type="number" class:opacity-50={!globalConfig.itemsep.enabled} class:cursor-not-allowed={!globalConfig.itemsep.enabled} class:pointer-events-none={!globalConfig.itemsep.enabled} min="1" max="50" bind:value={globalConfig.itemsep.value} 
-                class="mt-1 border rounded px-2 py-1 w-24" />
-          </div>
-        </div>
-      
-        <div class="flex flex-col w-full text-left">
-          Nombre de colonnes pour l'exercice
-          <div class="flex flex-row items-center gap-2">
-            <input 
-              type="checkbox" 
-              bind:checked={globalConfig.cols.enabled} 
-              class="h-4 w-4"
-            />          
-            <input class:opacity-50={!globalConfig.cols.enabled} class:cursor-not-allowed={!globalConfig.cols.enabled} class:pointer-events-none={!globalConfig.cols.enabled} type="number" min="1" max="5" bind:value={globalConfig.cols.value} 
-                class="mt-1 border rounded px-2 py-1 w-24" /> 
-          </div>
-        </div>
-
-        <div class="flex flex-col w-full text-left">
-          Nombre de colonnes pour la correction
-          <div class="flex flex-row items-center gap-2">
-            <input 
-              type="checkbox" 
-              bind:checked={globalConfig.cols_corr.enabled} 
-              class="h-4 w-4"
-            />          
-            <input class:opacity-50={!globalConfig.cols_corr.enabled} class:cursor-not-allowed={!globalConfig.cols_corr.enabled} class:pointer-events-none={!globalConfig.cols_corr.enabled} type="number" min="1" max="5" bind:value={globalConfig.cols_corr.value} 
-                class="mt-1 border rounded px-2 py-1 w-24" /> 
-          </div>
-        </div>
-
-        <fieldset class="flex flex-col gap-4 w-full">
-          <legend class="text-left font-medium">Bloc réponse</legend>
-
-          <!-- Checkbox activation -->
-          <label class="flex flex-row items-center gap-2">
-            <input 
-              type="checkbox" 
-              bind:checked={globalConfig.blocrep.enabled} 
-              class="h-4 w-4"
-            />
-            <span>Activer le bloc réponse</span>
-          </label>
-
-          <!-- Zone inputs (grisée si désactivée) -->
-          <div class:opacity-50={!globalConfig.blocrep.enabled} class:cursor-not-allowed={!globalConfig.blocrep.enabled} class:pointer-events-none={!globalConfig.blocrep.enabled}>
-            <label class="flex flex-row items-center gap-2 w-full">
-              <span class="w-32 text-left">Nb de lignes</span>
-              <input 
-                type="number" 
-                min="1" 
-                bind:value={globalConfig.blocrep.nbligs} 
-                class="border rounded px-2 py-1 w-20" 
-              />
-            </label>
-
-            <label class="flex flex-row items-center gap-2 w-full mt-2">
-              <span class="w-32 text-left">Nb de colonnes</span>
-              <input 
-                type="number" 
-                min="1" 
-                bind:value={globalConfig.blocrep.nbcols} 
-                class="border rounded px-2 py-1 w-20" 
-              />
-            </label>
-          </div>
-        </fieldset>
-
-        <label class="flex flex-col w-full">
-          Appliquer aux exercices :
-          <select multiple bind:value={selectedExos} 
-                  class="mt-1 border rounded px-2 py-1 h-24 w-full">
-            {#each latex.getExercices() as exo}
-              <option value={exo.index}>{exo.index} - {exo.titre}</option>
-            {/each}
-          </select>
-        </label>
-      </div>
-      <!-- boutons d'action -->
-      <!-- Conteneur des boutons -->
-      <div class="pt-4 flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-start">
-        <button
-          type="button"
-          on:click={applyGlobalConfig}
-          class="px-3 py-1 rounded bg-green-600 text-white hover:bg-green-500"
-        >
-          Appliquer
-        </button>
-
-        <button
-          type="button"
-          class="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
-          on:click={cancelAllChanges}
-        >
-          Annuler les changements
-        </button>
-
-        <ButtonCompileLatexToPDF
-          class="px-4 py-2 rounded-lg pt-2 flex gap-3 bg-coopmaths-action"
-          {latex}
-          {latexFileInfos}
-          id="1"
-        />
-      </div>
-    </section>
+    <FormConfigGlobal
+      bind:latexFileInfos
+      {latex}
+    />
 
 
-    <section class="mb-6 border rounded-lg p-4 bg-gray-50 mx-auto">
-      <h3 class="text-lg font-semibold mb-3">Configuration individuelle des exercices</h3>
-          {#each latex.getExercices() as exo}
-            <fieldset style="margin-top:1rem; border-radius:0.5rem; padding:0.5rem; border:1px solid #ccc;">
-              <legend>Exo : {exo.index}</legend>
-              <legend>Titre: {exo.titre}</legend>
-              <legend>Uuid:{exo.uuid}</legend>
-              <label class="flex flex-col text-left">
-                Numération des questions
-                <select class="w-40" value={latexFileInfos.exos?.[exo.index]?.labels} on:change={(e) => {
-                  // Crée l'objet exo si inexistant
-                  latexFileInfos.exos = latexFileInfos.exos || {}
-                  latexFileInfos.exos[exo.index] = latexFileInfos.exos[exo.index] || {}
-                  // @ts-ignore
-                  const select = e.target.value
-                  latexFileInfos.exos[exo.index].labels = select || undefined
-                }}>
-                  <option value="">(aucune)</option>
-                  <option value="\alph*)">\alph* : a, b, c, ...</option>
-                  <option value="\Alph*)">\Alph* : A, B, C, ...</option>
-                  <option value="\roman*)">\roman* : i, ii, iii, ...</option>
-                  <option value="\Roman*)">\Roman* : I, II, III, ...</option>
-                  <option value="\arabic*)">\arabic* : 1, 2, 3, ...</option>
-                </select>
-              </label>
-              <label class="flex flex-col text-left">
-                Espace entre les questions
-                <input
-                  type="number"
-                  class="mt-1 border rounded px-2 py-1 w-24"
-                  min="0"
-                  max="50"
-                  on:input={e => {
-                    latexFileInfos.exos = latexFileInfos.exos || {};
-                    latexFileInfos.exos[exo.index] = latexFileInfos.exos[exo.index] || {};
-                    // Récupère la valeur tapée
-                    // @ts-ignore
-                    let val = e.target.value
-                    if (val === ''){
-                      delete latexFileInfos.exos[exo.index].itemsep
-                    } else {
-                      // Force les bornes
-                      val = Number(val)
-                      if (val < 0) val = 0
-                      if (val > 50) val = 50
-                      if (latexFileInfos.exos[exo.index] !== undefined) {
-                        latexFileInfos.exos[exo.index].itemsep = val
-                      }
-                    }
-                  }}
-                  value={latexFileInfos.exos?.[exo.index]?.itemsep ?? ''}
-                />
-              </label>
-              <label class="flex flex-col text-left">
-                Nombre de colonnes pour l'exercice
-                <input
-                  type="number"
-                  class="mt-1 border rounded px-2 py-1 w-24"
-                  min="1"
-                  max="5"
-                  on:input={e => {
-                    latexFileInfos.exos = latexFileInfos.exos || {};
-                    latexFileInfos.exos[exo.index] = latexFileInfos.exos[exo.index] || {};
-                    // Récupère la valeur tapée
-                    // @ts-ignore
-                    let val = e.target.value
-                    if (val === ''){
-                      delete latexFileInfos.exos[exo.index].cols
-                    } else {
-                      // Force les bornes
-                      val = Number(val)
-                      if (val < 1) val = 1
-                      if (val > 5) val = 5
-                      if (latexFileInfos.exos[exo.index] !== undefined) {
-                        latexFileInfos.exos[exo.index].cols = val
-                      }
-                    }
-                  }}
-                  value={latexFileInfos.exos?.[exo.index]?.cols ?? ''}
-                />
-              </label>
-              <label class="flex flex-col text-left">
-                Nombre de colonnes pour la correction
-                <input
-                  type="number"
-                  class="mt-1 border rounded px-2 py-1 w-24"
-                  min="1"
-                  max="5"
-                  on:input={e => {
-                    latexFileInfos.exos = latexFileInfos.exos || {};
-                    latexFileInfos.exos[exo.index] = latexFileInfos.exos[exo.index] || {};
-                    // Récupère la valeur tapée
-                    // @ts-ignore
-                    let val = e.target.value
-                    if (val === ''){
-                      delete latexFileInfos.exos[exo.index].cols_corr
-                    } else {
-                      val = Number(val)
-                      // Force les bornes
-                      if (val < 1) val = 1
-                      if (val > 5) val = 5
-                      if (latexFileInfos.exos[exo.index] !== undefined) {
-                        latexFileInfos.exos[exo.index].cols_corr = val
-                      }
-                    }
-                  }}
-                  value={latexFileInfos.exos?.[exo.index]?.cols_corr ?? ''}
-                />
-              </label>
-              <fieldset>
-                <legend class="flex flex-col text-left">Bloc réponse</legend>
-                <label class="flex flex-col text-left">
-                  Nb de lignes
-                  <input
-                    type="number"
-                    class="mt-1 border rounded px-2 py-1 w-24"
-                    on:input={e => {
-                      latexFileInfos.exos = latexFileInfos.exos || {};
-                      latexFileInfos.exos[exo.index] = latexFileInfos.exos[exo.index] || {};
-                      latexFileInfos.exos[exo.index].blocrep = latexFileInfos.exos[exo.index].blocrep || { nbligs: 1, nbcols: 1 };  
-
-                      // @ts-ignore
-                      let val = e.target.value
-                      if (val === ''){
-                        delete latexFileInfos.exos[exo.index].blocrep
-                      } else {
-                        // Force les bornes
-                        val = Number(val)
-                        if (val < 1) val = 1
-                        if (val > 20) val = 20
-                        if (latexFileInfos.exos[exo.index].blocrep !== undefined) {
-                          // @ts-ignore
-                          latexFileInfos.exos[exo.index].blocrep.nbligs = val
-                        }
-                      }
-                    }}
-                    value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbligs ?? ''}
-                  />
-                </label>
-                <label class="flex flex-col text-left">
-                  Nb de colonnes
-                  <input type="number"
-                  class="mt-1 border rounded px-2 py-1 w-24"
-                  on:input={e => {
-                      latexFileInfos.exos = latexFileInfos.exos || {};
-                      latexFileInfos.exos[exo.index] = latexFileInfos.exos[exo.index] || {};
-                      latexFileInfos.exos[exo.index].blocrep = latexFileInfos.exos[exo.index].blocrep || { nbligs: 1, nbcols: 1 };
-                      // @ts-ignore
-                      let val = e.target.value
-                      if (val === ''){
-                        delete latexFileInfos.exos[exo.index].blocrep
-                      } else {
-                        // Force les bornes
-                        val = Number(val)
-                        if (val < 1) val = 1
-                        if (val > 20) val = 20
-                        if (latexFileInfos.exos[exo.index].blocrep !== undefined) {
-                          // @ts-ignore
-                          latexFileInfos.exos[exo.index].blocrep.nbcols = val
-                        }
-                      }
-                    }}
-                    value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbcols ?? ''}
-                  />
-              </fieldset>
-            </fieldset>
-          {/each}
-      </section>
+    <!-- Config individuelle -->
+    <FormConfigIndividual
+      bind:latexFileInfos
+      {latex}
+    />
     
-      <!-- Card JSON -->
-      <div class="w-full mt-6 p-4 border rounded-2xl shadow bg-gray-50">
-        <h2 class="text-lg font-bold mb-3">Aperçu JSON</h2>
-        <pre class="bg-gray-900 text-green-200 p-3 text-left rounded-lg text-sm overflow-x-auto max-h-80">{JSON.stringify(latexFileInfos.exos || {}, null, 2)}
-        </pre>
-      </div>
-  </div>
+    <!-- Card JSON -->
+    <div class="w-full mt-6 p-4 border rounded-2xl shadow bg-gray-50">
+      <h2 class="text-lg font-bold mb-3">Aperçu JSON</h2>
+      <pre class="bg-gray-900 text-green-200 p-3 text-left rounded-lg text-sm overflow-x-auto max-h-80">{JSON.stringify(latexFileInfos.exos || {}, null, 2)}
+      </pre>
+    </div>
+  
 </dialog>
