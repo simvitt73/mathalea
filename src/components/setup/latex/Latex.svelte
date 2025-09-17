@@ -527,8 +527,8 @@
               {/await}
             </div>
           </SimpleCard>
-           <SimpleCard title="{'Basculer la vue PDF'}" icon="{'bx-download'}">
-            <div>Je souhaite basculer sur la vue PDF.</div>
+           <SimpleCard title="{'Basculer vers la vue PDF'}" icon="{'bx-download'}">
+            <div>Je souhaite basculer vers la vue PDF.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"

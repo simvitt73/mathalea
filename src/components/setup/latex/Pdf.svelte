@@ -10,17 +10,22 @@
   } from '../../../lib/Latex'
   import {
       mathaleaGetExercicesFromParams,
+      mathaleaGoToView,
   } from '../../../lib/mathalea.js'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import Footer from '../../Footer.svelte'
+  import ButtonCompileLatexToPdf from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import FormConfigGlobal from '../../shared/forms/FormConfigGlobal.svelte'
+  import FormConfigIndividual from '../../shared/forms/FormConfigIndividual.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
   import PdfResult from './PdfResult.svelte'
 
-  let pdfParam = ''
+  
   let showAdvanced = false; // toggle pour les paramètres avancés
 
 
@@ -50,7 +55,9 @@
     ...decoded     // ⚡ écrase les valeurs par défaut si présente
   }
 
-  url.searchParams.set('pdfParam', encodeBase64(latexFileInfos))
+  let pdfParam = encodeBase64(latexFileInfos)
+
+  url.searchParams.set('pdfParam', pdfParam)
 
   const imgStylePartialUrls = {
     Coopmaths: 'images/exports/export-coopmaths',
@@ -68,6 +75,7 @@
   let isExerciceStaticInTheList = false
   let picsWanted: boolean
   let promise: Promise<void>
+  let activeTab : "general" | "advanced" | "global" = "general"
   
 
   const latex = new Latex()
@@ -170,17 +178,20 @@
           // les blocrep sont déjà des sous-objets clonés quand tu les modifies
         }
       }
-      pdfParam = encodeBase64(latexFileInfos)
-      url.searchParams.set('pdfParam', pdfParam)
-      history.replaceState(null, "", url)  // change l’URL sans recharger
+      const newPdfParam = encodeBase64(latexFileInfos)
+      if (newPdfParam !== pdfParam) {
+        pdfParam = newPdfParam
+         url.searchParams.set('pdfParam', pdfParam)
+         history.replaceState(null, "", url)  // change l’URL sans recharger
 
-      promise = updateLatexWithAbortController().catch((err) => {
-        if (err.name === 'AbortError') {
-          log('Promise Aborted')
-        } else {
-          log('Promise Rejected')
-        }
-      })
+         promise = updateLatexWithAbortController().catch((err) => {
+            if (err.name === 'AbortError') {
+              log('Promise Aborted')
+            } else {
+              log('Promise Rejected')
+            }
+          })
+      }
     }
   }
 
@@ -229,141 +240,205 @@
     handleLanguage="{() => {}}"
     locale="{$referentielLocale}"
   />
-
-  <section
-    class="px-4 py-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-  >
-
+  <section class="px-4 py-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <!-- Titre toujours en pleine largeur -->
     <h1
-      class="text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
+      class="w-full text-center md:text-left text-coopmaths-struct 
+             dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold mb-6"
     >
       Visualisation du PDF     
-         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral"
-          data-tip="Changer les paramètres du PDF"
-          type="button"
-          on:click="{() => {
-            showAdvanced = !showAdvanced
-          }}"
-        >
-          <i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-slider"
-          ></i>
-        </button>
-    </h1>
-    {#if showAdvanced}
-    <div
-      class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
-    >
-      <div
-        class="flex flex-col w-full md:flex-row justify-between rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
+      <button
+        class="mx-2 tooltip tooltip-left tooltip-neutral"
+        data-tip="Changer les paramètres du PDF"
+        type="button"
+        on:click="{() => { showAdvanced = !showAdvanced }}"
       >
-        <div class="flex flex-col py-4 pl-16 w-2/3">
-          <FormConfigSection
-            {latex}
-            bind:latexFileInfos
-            {promise}
-          />
-        </div>
-        <!-- Carousel de vignette pour les aperçus -->
-        <div class="flex justify-center w-full md:w-1/3">
-          <div
-            id="carouselExampleSlidesOnly"
-            class="relative w-2/3 md:w-full"
-            data-te-carousel-init
-            data-te-ride="carousel"
-          >
-            <div
-              class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest 
+                 dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest 
+                 bx bx-slider"
+        ></i>
+      </button>
+    </h1>
+
+    <!-- Grille responsive uniquement pour le contenu -->
+    <div class="{showAdvanced ? 'grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 items-stretch' : ''}">
+      
+      {#if showAdvanced}
+        <!-- Colonne configuration -->
+        <div class="flex flex-col space-y-8">
+          
+          <!-- Barre d’onglets -->
+          <div class="flex space-x-4 border-b border-gray-600 mb-4">
+            <button
+              class="pb-2 px-2 -mb-px text-sm font-medium transition-colors duration-200"
+              class:text-blue-500={activeTab === "general"}
+              class:border-b-2={activeTab === "general"}
+              class:border-blue-500={activeTab === "general"}
+              class:text-gray-400={activeTab !== "general"}
+              class:hover:text-gray-200={activeTab !== "general"}
+              on:click={() => (activeTab = "general")}
             >
-              <!-- first item -->
-              <div
-                class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item
-                data-te-carousel-active
+              Général
+            </button>
+            <button
+              class="pb-2 px-2 -mb-px text-sm font-medium transition-colors duration-200"
+              class:text-blue-500={activeTab === "global"}
+              class:border-b-2={activeTab === "global"}
+              class:border-blue-500={activeTab === "global"}
+              class:text-gray-400={activeTab !== "global"}
+              class:hover:text-gray-200={activeTab !== "global"}
+              on:click={() => (activeTab = "global")}
               >
-                <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
-                  alt="{latexFileInfos.style} image-1"
-                  class="block h-auto w-full rounded-r-lg"
-                />
-              </div>
-              <!-- second item -->
+              Global
+            </button>
+
+            <button
+              class="pb-2 px-2 -mb-px text-sm font-medium transition-colors duration-200"
+              class:text-blue-500={activeTab === "advanced"}
+              class:border-b-2={activeTab === "advanced"}
+              class:border-blue-500={activeTab === "advanced"}
+              class:text-gray-400={activeTab !== "advanced"}
+              class:hover:text-gray-200={activeTab !== "advanced"}
+              on:click={() => (activeTab = "advanced")}
+            >
+              Avancé
+            </button>
+          </div>
+
+          <!-- les onglets -->
+          {#if activeTab === "general"}
+          <div class="mb-6 border rounded-lg p-4 bg-gray-50 mx-auto h-[70vh] overflow-y-auto">
+            <div
+              class="mb-4 flex flex-col md:flex-row w-full justify-between rounded-lg 
+                    bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),
+                    0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                    dark:bg-coopmathsdark-canvas-dark"
+            >
+            <div class="flex flex-col py-4 pl-16 w-2/3">
+            <FormConfigSection
+              {latex}
+              bind:latexFileInfos
+              {promise}
+            />
+            </div>
+            <!-- Carousel de vignette pour les aperçus -->
+            <div class="flex justify-center w-full md:w-1/3">
               <div
-                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item
+                id="carouselExampleSlidesOnly"
+                class="relative w-2/3 md:w-full"
+                data-te-carousel-init
+                data-te-ride="carousel"
               >
-                <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
-                  alt="{latexFileInfos.style} image-2"
-                  class="block h-auto w-full rounded-r-lg"
-                />
+                <div
+                  class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
+                >
+                  <!-- first item -->
+                  <div
+                    class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
+                    data-te-carousel-item
+                    data-te-carousel-active
+                  >
+                    <img
+                      src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
+                      alt="{latexFileInfos.style} image-1"
+                      class="block h-auto w-full rounded-r-lg max-w-[200px]"
+                    />
+                  </div>
+                  <!-- second item -->
+                  <div
+                    class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
+                    data-te-carousel-item
+                  >
+                    <img
+                      src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
+                      alt="{latexFileInfos.style} image-2"
+                      class="block h-auto w-full rounded-r-lg"
+                    />
+                  </div>
+                </div>
               </div>
+            </div> <!-- fin carousel -->
+          </div>
+
+          <SimpleCard icon="{''}" title="{'Éléments de titres'}" class="mb-4">
+            <input type="text" placeholder="Titre" bind:value="{latexFileInfos.title}" />
+            <input type="text" placeholder="Référence" bind:value="{latexFileInfos.reference}" />
+            <input type="text" placeholder="Sous-titre" bind:value="{latexFileInfos.subtitle}" />
+          </SimpleCard>
+
+          <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}" class="mb-4">
+            <input type="number" min="1" max="20" bind:value="{latexFileInfos.nbVersions}" />
+          </SimpleCard>
+
+          <SimpleCard title="{''}" icon="{''}" class="mb-4">
+            <ButtonTextAction
+                class="px-2 py-1 rounded-md"
+                id="vueLatex"
+                on:click="{() => {
+                  mathaleaGoToView('latex')
+                }}"
+                text="Basculer vers la vue Latex"
+              />
+
+            <ButtonCompileLatexToPdf
+              class="px-4 rounded-lg flex gap-3 bg-coopmaths-action justify-center hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest text-white"
+              {latex}
+              {latexFileInfos}
+              id="1"
+            />
+          </SimpleCard>
+        </div>
+        {/if}
+        {#if activeTab === "global"}
+           <div
+            class="flex flex-col md:flex-row w-full justify-between rounded-lg 
+                  bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),
+                  0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                  dark:bg-coopmathsdark-canvas-dark"
+          >
+          <div class="mb-6 border rounded-lg p-4 bg-gray-50 mx-auto h-[70vh] overflow-y-auto">
+            <FormConfigGlobal
+                bind:latexFileInfos
+                {latex}
+              />
             </div>
           </div>
-        </div>
+        {/if}
+        {#if activeTab === "advanced"}
+          <div
+              class="flex flex-col md:flex-row w-full justify-between rounded-lg 
+                    bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),
+                    0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                    dark:bg-coopmathsdark-canvas-dark"
+            >
+            <div class="mb-6 border rounded-lg p-4 bg-gray-50 mx-auto h-[70vh] overflow-y-auto">
+              <FormConfigIndividual
+                bind:latexFileInfos
+                {latex}
+              />
+            </div>
+          </div>
+        {/if}
       </div>
-
-      <SimpleCard icon="{''}" title="{'Éléments de titres'}">
-        <div class="flex flex-col w-full justify-start items-start space-y-2">
-          <input
-            type="text"
-            id="export-latex-titre-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Can'
-              ? 'Course aux nombres'
-              : 'Titre'}"
-            bind:value="{latexFileInfos.title}"
-          />
-          <input
-            type="text"
-            id="export-latex-reference-input"
-            class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
-            latexFileInfos.style === 'ProfMaquetteQrcode' ||
-            latexFileInfos.style === 'ProfMaquette'
-              ? 'Référence'
-              : 'Haut de page gauche'}"
-            bind:value="{latexFileInfos.reference}"
-            disabled="{latexFileInfos.style === 'Can'}"
-          />
-          <input
-            type="text"
-            id="export-latex-soustitre-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
-            latexFileInfos.style === 'ProfMaquetteQrcode' ||
-            latexFileInfos.style === 'ProfMaquette'
-              ? 'Sous-titre / Chapitre'
-              : 'Pied de page droit'}"
-            bind:value="{latexFileInfos.subtitle}"
-            disabled="{latexFileInfos.style === 'Can'}"
-          />
-        </div>
-      </SimpleCard>
-      <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}">
-        <input
-          type="number"
-          id="export-latex-nb-versions-input"
-          class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          name="numberOfVersions"
-          maxlength="2"
-          min="1"
-          max="20"
-          bind:value="{latexFileInfos.nbVersions}"
-        />
-      </SimpleCard>
-    </div>
-    {/if}
-    <div
-      class="shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus w-full overflow-y-auto overflow-x-scroll text-xs h-[70vh]">
-      {#await promise}
-        <p>Chargement en cours...</p>
-      {:then}
-        <PdfResult {latex} {latexFileInfos} />
-      {/await}
+       {/if}
+      <!-- Colonne rendu PDF -->
+      <div 
+        class="shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark 
+              text-coopmaths-corpus dark:text-coopmathsdark-corpus 
+              w-full overflow-y-auto overflow-x-scroll text-xs 
+              min-h-[70vh]
+              {showAdvanced ? 'col-span-1 md:col-span-1 xl:col-span-2 h-full' : 'h-[70vh]'}"
+      >
+        {#await promise}
+          <p>Chargement en cours...</p>
+        {:then}
+          <PdfResult {latex} {latexFileInfos} />
+        {/await}
+      </div>
     </div>
   </section>
+
   <footer>
     <Footer />
   </footer>
