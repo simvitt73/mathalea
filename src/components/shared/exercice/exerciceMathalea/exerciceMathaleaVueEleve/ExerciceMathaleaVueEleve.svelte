@@ -300,6 +300,7 @@
           l[exercise.numeroExercice as number].bestScore = bestScore
           return l
         })
+        console.info(`Les deux seeds devraient être les même : ${exercise.seed} et ${$exercicesParams[exercise.numeroExercice].alea}`)
         resultsByExercice.update((l: InterfaceResultExercice[]) => {
           l[exercise.numeroExercice as number] = {
             uuid: exercise.uuid,
