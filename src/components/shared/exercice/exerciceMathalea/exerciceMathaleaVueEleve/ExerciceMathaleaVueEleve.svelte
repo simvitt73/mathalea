@@ -235,6 +235,7 @@
   async function updateDisplay() {
     log('updateDisplay')
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+    console.info(`Chargement de la seed : ${exercise.seed}`)
     seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple')
       mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
