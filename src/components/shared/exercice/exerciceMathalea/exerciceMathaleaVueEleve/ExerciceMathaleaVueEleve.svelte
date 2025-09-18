@@ -234,11 +234,12 @@
 
   async function updateDisplay() {
     log('updateDisplay')
-    if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
-    console.info(`Chargement de la seed : ${exercise.seed}`)
-    seedrandom(exercise.seed, { global: true })
-    if (exercise.typeExercice === 'simple')
+    if (exercise.typeExercice === 'simple') {
+      if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      console.info(`Chargement de la seed : ${exercise.seed}`)
+      seedrandom(exercise.seed, { global: true })
       mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
+    }
     exercise.interactif = isInteractif
     if ($exercicesParams[exerciseIndex] != null) {
       // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
@@ -267,6 +268,9 @@
       exercise.typeExercice !== 'simple' &&
       typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
+      if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      console.info(`Chargement de la seed : ${exercise.seed}`)
+      seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -300,7 +304,9 @@
           l[exercise.numeroExercice as number].bestScore = bestScore
           return l
         })
-        console.info(`Les deux seeds devraient être les même : ${exercise.seed} et ${$exercicesParams[exercise.numeroExercice].alea}`)
+        console.info(
+          `Les deux seeds devraient être les même : ${exercise.seed} et ${$exercicesParams[exercise.numeroExercice].alea}`,
+        )
         resultsByExercice.update((l: InterfaceResultExercice[]) => {
           l[exercise.numeroExercice as number] = {
             uuid: exercise.uuid,
