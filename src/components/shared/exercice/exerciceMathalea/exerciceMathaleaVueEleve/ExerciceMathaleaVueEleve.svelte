@@ -4,26 +4,26 @@
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-    exerciceInteractif,
-    prepareExerciceCliqueFigure,
+      exerciceInteractif,
+      prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
   import {
-    mathaleaGenerateSeed,
-    mathaleaHandleExerciceSimple,
-    mathaleaRenderDiv,
-    mathaleaUpdateUrlFromExercicesParams,
-    mathaleaWriteStudentPreviousAnswers,
+      mathaleaGenerateSeed,
+      mathaleaHandleExerciceSimple,
+      mathaleaRenderDiv,
+      mathaleaUpdateUrlFromExercicesParams,
+      mathaleaWriteStudentPreviousAnswers,
   } from '../../../../../lib/mathalea'
   import {
-    exercicesParams,
-    globalOptions,
-    isMenuNeededForExercises,
-    resultsByExercice,
+      exercicesParams,
+      globalOptions,
+      isMenuNeededForExercises,
+      resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
-    InterfaceParams,
-    InterfaceResultExercice,
+      InterfaceParams,
+      InterfaceResultExercice,
   } from '../../../../../lib/types'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
@@ -296,6 +296,22 @@
         buttonScore,
       )
       const isThisTryBetter = numberOfPoints >= previousBestScore
+      if (buttonScore.dataset.capytaleLoadAnswers === '1' && previousBestScore !== numberOfPoints) {
+        // ICI les réponses ont été chargées par Capytale et
+        //  le score ne peut pas être inferieur à best score,
+        //  car c'est de la restitution de la meilleure copie
+        // donc si on est ici dans ce IF, c'est un bug du moteur à faire vite remonter
+        window.notify(
+          `Le score de l'exercice ${exercise.numeroExercice} est incorrect, passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
+          {
+            exo: exercise,
+            globalOptions: $globalOptions,
+            exercicesParams: $exercicesParams,
+            resultsByExercice: $resultsByExercice,
+          },
+        )
+      }
+
       let bestScore = previousBestScore
       // On ne met à jour resultsByExercice que si le score est meilleur
       if (isThisTryBetter) {
