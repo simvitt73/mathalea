@@ -11,7 +11,8 @@ import type { Expression } from 'mathlive'
   LatexDictionaryEntry,
   ParseLatexOptions,
   Parser
-} from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'*/
+} from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
+ */
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { areSameArray } from '../outils/arrayOutils'
