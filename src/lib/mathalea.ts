@@ -1403,7 +1403,9 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
                 resolve(true)
               } else if (ele.id.includes('check')) {
                 // La réponse correspond à une case à cocher qui doit être cochée
-                ;(ele as HTMLInputElement).checked = answers[answer] === '1'
+                if (answers[answer] === '1') {
+                  ;(ele as HTMLInputElement).checked = true
+                }
                 const time = window.performance.now()
                 log(`duration ${answer}: ${time - starttime}`)
                 resolve(true)
