@@ -56,7 +56,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     this.besoinFormulaire2Numerique = [
       'Type de questions',
       2,
-      '1 : Du nombre décimal à la fraction décimale\n2 : De fractions décimales au nombre décimal',
+      '1 : Du nombre décimal à la fraction décimale\n2 : De la fraction décimale au nombre décimal',
     ]
     this.sup = 3
   }
