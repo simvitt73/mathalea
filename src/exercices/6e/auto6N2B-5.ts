@@ -31,7 +31,8 @@ export const refs = {
 export default class TrouverFractionDecimaleEgale extends Exercice {
   constructor() {
     super()
-    this.comment = '12 questions sont possibles au maximum si le numérateur est égal à 1.'
+    this.comment =
+      '12 questions sont possibles au maximum si le numérateur est égal à 1.'
     this.consigne = 'Compléter.'
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
@@ -98,21 +99,22 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
       nbQuestions: 50,
     })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const numerateur = choixNumerateur[cpt] === 1 ? 1 : randint(1, 9)
       if (
         this.questionJamaisPosee(
           i,
           nombreCherche[cpt],
           sensEgalite[cpt],
           choixDenominateur[cpt],
+          numerateur,
         )
       ) {
         // Si la question n'a jamais été posée, on en crée une autre
         let texte = ''
         let texteCorr = ''
-        const numerateur = choixNumerateur[cpt] === 1 ? 1 : randint(1, 9)
         const denominateur = 10 ** parseInt(choixDenominateur[cpt].toString())
-        const valeurDecimale = 
-        numerateur * (10 ** -parseInt(choixDenominateur[cpt].toString()))
+        const valeurDecimale =
+          numerateur * 10 ** -parseInt(choixDenominateur[cpt].toString())
         if (sensEgalite[cpt] === 1) {
           if (nombreCherche[cpt] === 1) {
             texte = remplisLesBlancs(
@@ -182,7 +184,7 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
         this.listeCorrections[i] = texteCorr
         i++
       }
-      
+
       cpt++
     }
     listeQuestionsToContenu(this)
