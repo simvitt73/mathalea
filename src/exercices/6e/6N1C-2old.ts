@@ -6,9 +6,9 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
+    fixeBordures,
+    mathalea2d,
+    type NestedObjetMathalea2dArray,
 } from '../../modules/2dGeneralites'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
@@ -27,28 +27,28 @@ export const amcType = 'AMCOpen'
  * Relecture : Novembre 2021 par EE
  * Correction : Problème de score 19/10/22 par Rémi ANGOT
  */
-export const uuid = '4000d'
+export const uuid = '4f2a3'
 
+// déréférencé car inutile
 export const refs = {
-  'fr-fr': ['6N1C-2'],
-  'fr-2016': ['6N11-2'],
-  'fr-ch': ['9NO2-2'],
-}
+    'fr-fr': [],
+    'fr-ch': [],
+  }
+
 export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
   pointsNonSolutions: PointCliquable[][]
   pointsSolutions: PointCliquable[][]
   constructor() {
     super()
-
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
-      5,
-      '1 : Ordre de grandeur : centaines\n2 : Ordre de grandeur : milliers\n3 : Ordre de grandeur : dizaines de mille\n4 : Ordre de grandeur : centaines de mille\n5 : Mélange',
-    ];
+      4,
+      '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : Ordre de grandeur : centaines de mille\n4 : Mélange',
+    ]
 
     this.nbQuestions = 5
 
-    this.sup = 2
+    this.sup = 1
     this.pointsNonSolutions = []
     this.pointsSolutions = []
   }
@@ -65,8 +65,8 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
     this.pointsNonSolutions = []
     this.pointsSolutions = []
 
-    if (this.sup === 5) {
-      typesDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+    if (this.sup === 4) {
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
       typesDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
     }
@@ -112,22 +112,17 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         propositions: [{ texte: '', statut: 4, feedback: '' }],
       }
       switch (typesDeQuestions[i]) {
-        case 1: // Niveau 0 : Centaines (ajout Mireille, septembre 2025)
-        abs0 = randint(1, 9) * 100; // Ex: 200, 500, etc.
-        pas1 = 100; // 1 unité sur la droite = 100
-        break;
- 
-        case 2: // Placer des entiers sur un axe (milliers)
+        case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
           pas1 = 1000
           break
 
-        case 3: // Placer des entiers sur un axe (dizaines de mille)
+        case 2: // Placer des entiers sur un axe (dizaines de mille)
           abs0 = randint(5, 15) * 10000
           pas1 = 10000
           break
 
-        case 4: // Placer des entiers sur un axe (centaines de mille)
+        case 3: // Placer des entiers sur un axe (centaines de mille)
         default:
           abs0 = randint(35, 85) * 100000
           pas1 = 100000
