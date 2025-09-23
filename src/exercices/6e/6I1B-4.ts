@@ -25,7 +25,7 @@ export const interactifType = 'custom'
 /*
  * Programmer des calculs sur tableur : New programme de 6eme 2025
  * @author Mickael Guironnet
- * revisité par Jean-Claude Lhote (intoduction du custom élément sheet-element)
+ * revisité par Jean-Claude Lhote (intoduction du custom élément sheet-element) et modification de la librairie utilisée.
  */
 
 export const uuid = 'ae07c'
@@ -350,6 +350,9 @@ export default class ExerciceTableur extends Exercice {
       return result
     }
     if (sheetElement && sheetElement.isMounted()) {
+      this.answers[`sheet-Ex${this.numeroExercice}Q${i}`] = JSON.stringify(
+        sheetElement.getData(),
+      )
       const spanResultat = document.querySelector(
         `#resultatCheckEx${this.numeroExercice}Q${i}`,
       )

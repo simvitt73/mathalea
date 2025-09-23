@@ -1244,7 +1244,29 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
   const promiseAnswers: Promise<Boolean>[] = []
   const starttime = window.performance.now()
   for (const answer in answers) {
-    if (
+    if (answer.includes('sheet')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer)
+          .then(() => {
+            // La réponse correspond à une figure apigeom
+            const sheetElement = document.getElementById(
+              answer,
+            ) as MySpreadsheetElement
+            if (sheetElement != null) {
+              sheetElement.setData(JSON.parse(answers[answer]))
+            }
+            const time = window.performance.now()
+            log(`duration ${answer}: ${time - starttime}`)
+            resolve(true)
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (
       answer.includes('apigeom') ||
       answers[answer].includes('apiGeomVersion')
     ) {
