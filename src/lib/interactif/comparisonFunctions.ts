@@ -170,12 +170,53 @@ function cleanComas(str: string): string {
   return replaceThinSpaces(replaceUnescapedCommas(str.replaceAll(/\{,}/g, '.')))
 }
 
-/**
+/** Ancien cleanSpaces
  * Nettoie la saisie des espaces
  * @param {string} str
- */
+ 
 function cleanSpaces(str: string): string {
   return str.replaceAll(/\s/g, '').replaceAll(/\\,/g, '')
+}
+*/
+
+/**
+ * Supprime tous les espaces "classiques" et les espaces LaTeX d'une chaîne.
+ *
+ * Espaces supprimés :
+ * - Espaces standards (espace, tab, retour ligne, etc.)
+ * - `~` (espace insécable LaTeX)
+ * - `\,` (petit espace LaTeX)
+ * - `\:` (espace moyen LaTeX)
+ * - `\;` (espace large LaTeX)
+ * - `\!` (espace négatif LaTeX)
+ * - `\quad` (espace quad LaTeX)
+ * - `\qquad` (espace double quad LaTeX)
+ *
+ * @param {string} str - La chaîne à nettoyer.
+ * @returns {string} La chaîne sans aucun espace ni commande d'espacement LaTeX.
+ *
+ * @example
+ * removeLatexSpaces("Hello ~ world\\, test \\: math \\quad fini");
+ * // → "Helloworldtestmathfini"
+ *
+ * @author Eric Elter
+ */
+function cleanSpaces(str: string): string {
+  const patterns = [
+    /\s/g, // espaces normaux (tab, retour ligne…)
+    /~/g, // espace insécable (~)
+    /\\,/g, // petit espace \,
+    /\\:/g, // espace moyen \:
+    /\\;/g, // espace large \;
+    /\\!/g, // espace négatif \!
+    /\\quad/g, // espace quad
+    /\\qquad/g, // espace double quad
+  ]
+
+  for (const regex of patterns) {
+    str = str.replace(regex, '')
+  }
+  return str
 }
 
 /**
