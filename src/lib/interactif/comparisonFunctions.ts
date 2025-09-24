@@ -1724,6 +1724,60 @@ export function expressionDeveloppeeEtNonReduiteCompare(
 }
 
 /**
+ * Vérifie si une chaîne est en notation scientifique LaTeX valide.
+ * Gère les formes "a\\times10^{b}" et "10^{b}\\timesa".
+ * Retourne un objet avec isOk et feedback.
+ * @author Eric Elter
+ */
+/**
+ * Vérifie si une chaîne est en notation scientifique LaTeX valide.
+ * Gère les formes "a\\times10^b" et "10^b\\timesa" avec ou sans accolades.
+ * Retourne un objet avec isOk et feedback.
+ * @author Eric Elter
+ */
+function isScientific(str: string): { isOk: boolean; feedback: string } {
+  // Regex 1 : a\times10^b ou a\times10^{b}
+  const regex1 = /^(-?\d+(?:\.\d+)?)\\times10\^{?(-?\d+)}?$/
+  // Regex 2 : 10^b\timesa ou 10^{b}\timesa
+  const regex2 = /^10\^{?(-?\d+)}?\\times(-?\d+(?:\.\d+)?)$/
+
+  let base: number | null = null
+  let exponent: number | null = null
+
+  if (regex1.test(str)) {
+    const match = str.match(regex1)!
+    base = Number(match[1])
+    exponent = Number(match[2])
+  } else if (regex2.test(str)) {
+    const match = str.match(regex2)!
+    exponent = Number(match[1])
+    base = Number(match[2])
+  } else {
+    return {
+      isOk: false,
+      feedback: 'Format incorrect : utilisez a\\times10^b ou 10^b\\timesa.',
+    }
+  }
+
+  if (isNaN(base) || isNaN(exponent)) {
+    return {
+      isOk: false,
+      feedback: "La mantisse ou l'exposant n'est pas un nombre valide.",
+    }
+  }
+
+  if (Math.abs(base) < 1) {
+    return { isOk: false, feedback: 'La mantisse doit être ≥ 1.' }
+  }
+
+  if (Math.abs(base) >= 10) {
+    return { isOk: false, feedback: 'La mantisse doit être < 10.' }
+  }
+
+  return { isOk: true, feedback: 'La notation est correcte.' }
+}
+
+/**
  * Comparaison de nombres en notation scientifique
  * @param {string} input
  * @param {string} goodAnswer
@@ -1782,6 +1836,12 @@ function scientifiqueCompare(input: string, goodAnswer: string): ResultType {
       isOk: false,
       feedback:
         "La réponse fournie est bien égale à celle attendue mais la réponse fournie n'est pas en notation scientifique.",
+    }
+  if (isScientific(saisieClean).isOk)
+    return {
+      isOk: false,
+      feedback:
+        "La réponse fournie est bien en notation scientifique mais la réponse fournie n'est pas égale à celle attendue.",
     }
   return {
     isOk: false,
