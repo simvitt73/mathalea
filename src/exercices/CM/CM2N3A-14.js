@@ -1,6 +1,9 @@
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+
 import Exercice from '../Exercice'
 
 export const titre = 'Trouver le complément à 100'
@@ -46,7 +49,7 @@ export default class ComplementA100 extends Exercice {
     ) {
       a = randint(11, 89)
       this.sup === 1 ? texte = `$100-${a}=$` : texte = `$${a}+...=100$`
-      this.sup === 1 ? texteCorr = `$100-${a}=${100 - a}$` : texteCorr = `$${a}+ ${100 - a}=100$`
+      this.sup === 1 ? texteCorr = `$100-${a}=${miseEnEvidence(texNombre(100 - a))}$` : texteCorr = `$${a}+ ${miseEnEvidence(texNombre(100 - a))}=100$`
       setReponse(this, i, 100 - a)
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 
