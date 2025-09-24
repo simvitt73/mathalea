@@ -2817,7 +2817,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
     if (node.numericValue !== null) {
       if (listeNombresEnonce.length === 0) {
         if (numbers.includes(Math.abs(Number(node.value)))) {
-          // abs obligatoire car sinon, poir 5-3, il tente de chercher -3.
+          // abs obligatoire car sinon, pour 5-3, il tente de chercher -3.
           nombresEnDoublon = true
           return 'Au moins un nombre en doublon'
         }
@@ -2853,6 +2853,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
             divideCount++
             break
           case 'Subtract':
+          case 'Negate':
             subtractCount++
             break
           default:
@@ -2893,7 +2894,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
     return {
       isOk: false,
       feedback:
-        "L'expression de doit contenir que des additions, des soustractions, des multiplications, des divisions ou des parenthèses.",
+        "L'expression doit contenir que des additions, des soustractions, des multiplications, des divisions ou des parenthèses.",
     }
   if (
     quatreOperationsObligatoires &&
