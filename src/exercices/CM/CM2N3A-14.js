@@ -25,6 +25,13 @@ export default class ComplementA100 extends Exercice {
   constructor() {
     super()
 
+    this.besoinFormulaireNumerique = [
+      'Type d\'écriture',
+      2,
+      `   1 : 100 - n = ...
+    2 : n + ... = 100`,
+    ]
+    this.sup = 1
     this.consigne = 'Calculer.'
 
     this.nbCols = 2
@@ -35,11 +42,11 @@ export default class ComplementA100 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
+      
     ) {
       a = randint(11, 89)
-      texte = `$100-${a}=$`
-      texteCorr = `$100-${a}=${100 - a}$`
+      this.sup === 1 ? texte = `$100-${a}=$` : texte = `$${a}+...=100$`
+      this.sup === 1 ? texteCorr = `$100-${a}=${100 - a}$` : texteCorr = `$${a}+ ${100 - a}=100$`
       setReponse(this, i, 100 - a)
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 
