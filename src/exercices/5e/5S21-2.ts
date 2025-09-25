@@ -3,8 +3,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Personne } from '../../lib/outils/Personne'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
-    simplificationDeFractionAvecEtapes,
-    texFractionFromString,
+  simplificationDeFractionAvecEtapes,
+  texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
 import { range } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
@@ -27,7 +27,7 @@ export const interactifType = 'mathLive'
 export const uuid = '2dd47'
 
 export const refs = {
-  'fr-fr': ['BP2FLUC13', '5S21-2'],
+  'fr-fr': ['5S21-2', 'BP2FLUC13'],
   'fr-2016': ['5S21', 'BP2FLUC13'],
   'fr-ch': ['11NO2-6'],
 }

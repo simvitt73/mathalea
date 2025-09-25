@@ -28,9 +28,8 @@ export const interactifType = 'mathLive'
 export const uuid = '69e1f'
 
 export const refs = {
-  'fr-fr': ['BP2FLUC13', '6P2B-1'],
-  'fr-2016': ['5S21', 'BP2FLUC13'],
-  'fr-ch': ['11NO2-6'],
+  'fr-fr': ['6P2B-1'],
+  'fr-ch': [''],
 }
 export default class FonctionsProbabilite1 extends Exercice {
   niveau: number
