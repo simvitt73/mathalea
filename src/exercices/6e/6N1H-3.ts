@@ -44,7 +44,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
     ]
 
     this.besoinFormulaire2CaseACocher = [
-      'Enoncé avec "nombre mixte"',
+      'Enoncé avec « nombre mixte »',
       false,
     ]
 
