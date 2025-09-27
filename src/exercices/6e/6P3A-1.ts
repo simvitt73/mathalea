@@ -429,7 +429,7 @@ const situations = [
   },
   {
     enonce:
-      'Un jeu-vidéo coûte $80$ € à sa sortie, puis $10$ min de moins chaque mois.',
+      'Un jeu-vidéo coûte $80$ € à sa sortie, puis $10$ € de moins chaque mois.',
     grandeurs: ['nombre de mois', 'prix'],
     unites: ['mois', '€'],
     estProportionnel: false,
