@@ -2138,7 +2138,8 @@ export class Repere extends ObjetMathalea2D {
               `${stringNombre(x, precisionLabelX)}`,
               x * xUnite,
               ordonneeAxe * yUnite - xLabelEcart + 0.1,
-              { letterSize: 'scriptsize', opacity: 0.8, color: 'black' },
+              // { letterSize: 'scriptsize', opacity: 0.8, color: 'black' }, // EE : Commenté car sinon taille abscisse !== taille ordonnée
+              { letterSize: 'small', opacity: 0.8, color: 'black' },
             )
             //   l.isVisible = false
             this.objets.push(l)
@@ -2149,7 +2150,8 @@ export class Repere extends ObjetMathalea2D {
               x.texte,
               x.valeur * xUnite,
               ordonneeAxe * yUnite - xLabelEcart + 0.1,
-              { letterSize: 'footnotesize', color: 'black', opacity: 0.8 },
+              // { letterSize: 'footnotesize', color: 'black', opacity: 0.8 },  // EE : Commenté car sinon taille abscisse !== taille ordonnée
+              { letterSize: 'small', color: 'black', opacity: 0.8 },
             )
             //  l.isVisible = false
             this.objets.push(l)
