@@ -2139,7 +2139,7 @@ export class Repere extends ObjetMathalea2D {
               x * xUnite,
               ordonneeAxe * yUnite - xLabelEcart + 0.1,
               // { letterSize: 'scriptsize', opacity: 0.8, color: 'black' }, // EE : Commenté car sinon taille abscisse !== taille ordonnée
-              { letterSize: 'small', opacity: 0.8, color: 'black' },
+              { letterSize: 'scriptsize', opacity: 0.8, color: 'black' },
             )
             //   l.isVisible = false
             this.objets.push(l)
@@ -2151,7 +2151,7 @@ export class Repere extends ObjetMathalea2D {
               x.valeur * xUnite,
               ordonneeAxe * yUnite - xLabelEcart + 0.1,
               // { letterSize: 'footnotesize', color: 'black', opacity: 0.8 },  // EE : Commenté car sinon taille abscisse !== taille ordonnée
-              { letterSize: 'small', color: 'black', opacity: 0.8 },
+              { letterSize: 'scriptsize', color: 'black', opacity: 0.8 },
             )
             //  l.isVisible = false
             this.objets.push(l)
@@ -2176,7 +2176,8 @@ export class Repere extends ObjetMathalea2D {
               `${stringNombre(y, precisionLabelY)}`,
               abscisseAxe * xUnite - yLabelEcart,
               y * yUnite + 0.1,
-              { letterSize: 'small', opacity: 0.8, color: 'black' },
+              // { letterSize: 'small', opacity: 0.8, color: 'black' },
+              { letterSize: 'scriptsize', opacity: 0.8, color: 'black' },
             )
             //  l.isVisible = false
             this.objets.push(l)
@@ -2187,7 +2188,8 @@ export class Repere extends ObjetMathalea2D {
               y.texte,
               abscisseAxe * xUnite - yLabelEcart,
               y.valeur * yUnite + 0.1,
-              { letterSize: 'small', opacity: 0.8, color: 'black' },
+              /// { letterSize: 'small', opacity: 0.8, color: 'black' },
+              { letterSize: 'scriptsize', opacity: 0.8, color: 'black' },
             )
             //     l.isVisible = false
             this.objets.push(l)
