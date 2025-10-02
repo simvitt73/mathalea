@@ -259,7 +259,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
 
     this.enonce = `${deuxColonnes(
       `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
-        On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>
+        On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>
        `,
       `${graphique}`,
     )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
@@ -297,7 +297,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
 
     this.enonce = `${deuxColonnes(
       `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
-        On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>`,
+        On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>`,
       `${graphique}`,
     )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
     this.correction = this.genererCorrection(
