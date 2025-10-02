@@ -613,7 +613,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
@@ -755,7 +755,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
           if (this.interactif) {
@@ -851,7 +851,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           texte += `ont pour angles respectifs $\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$ = 90°, $\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$ et $\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.`
           if (this.interactif) {
@@ -1077,7 +1077,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
           if (this.interactif) {
