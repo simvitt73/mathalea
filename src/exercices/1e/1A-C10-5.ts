@@ -220,7 +220,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       if (val > 0) {
         // Pour 1/x < a avec a > 0 : ]-∞,0[ ∪ ]1/a,+∞[
         const intervalleCorrect = `]-\\infty\\,;\\,0[ \\cup ${estInegStrict ? '\\left]' : '\\left['}${borne}\\,;\\,+\\infty\\right[`
-        const intervalleIncorrect = `]-\\infty\\,;\\,0[ \\cup ${estInegStrict ? '\\left[' : '\\left]'}${borne}\\,;\\,+\\infty\\right[`
+        const intervalleIncorrect = `]-\\infty\\,;\\,0[ \\cup ${estInegStrict ? '\\left[' : '\\left]'}${val}\\,;\\,+\\infty\\right[`
         return [
           `$S = ${intervalleCorrect}$`,
           `$S = ${intervalleIncorrect}$`,
