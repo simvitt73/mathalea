@@ -1,16 +1,16 @@
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texNombre } from '../../lib/outils/texNombre'
+import { sp } from '../../lib/outils/outilString'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const dateDeModifImportante = '21/04/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -96,7 +96,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
     this.interactifType = this.sup4 ? 'qcm' : 'mathLive'
 
     for (
-      let i = 0, a, b, c, d, k, s, ordreDesFractions, texte, texteCorr, estPremiereFractionPlusGrandDenominateur;
+      let i = 0, a, b, c, d, k, s, ordreDesFractions, texte, texteCorr;
       i < this.nbQuestions;
 
     ) {
@@ -118,16 +118,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         k = randint(2, this.sup)
       } else k = 1
 
-       // Décision aléatoire : est-ce que la première fraction aura le plus grand dénominateur ?
-       estPremiereFractionPlusGrandDenominateur = randint(1, 2) === 1
-
-       if (estPremiereFractionPlusGrandDenominateur) {
-         d = randint(2, 9)
-         b = d * k
-       } else {
-         b = randint(2, 9)
-         d = b * k
-       }
+      d = b * k
 
       if (listeTypeDeQuestions[i] === '-') {
         c =
