@@ -143,7 +143,6 @@ export default class Exercice {
 
   besoinFormulaire5Texte: boolean | [string, string]
   besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
-  mg32Editable: boolean
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   lastCallback: string // La dernière signature de listeArguments afin de comparaison : permet d'éviter un nouvelleVersionWrapper inutile
   examen?: string // Pour les exercices statiques
@@ -241,10 +240,6 @@ export default class Exercice {
     // ///////////////////////////////////////////////
     // Exercice avec des dépendances particulières
     // ///////////////////////////////////////////////
-    // this.typeExercice = 'MG32' // Pour charger MathGraph32.
-    this.mg32Editable = false // Les figures MG32 ne sont pas interactives par défaut.
-    // this.dimensionsDivMg32 = [500, 450] // Dimensions du SVG créé par MathGraph32.
-
     // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
     // this.typeExercice = 'dnb' // Ce n'est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
     // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
