@@ -65,6 +65,7 @@ export type OptionsComparaisonType = {
   developpementEgal?: boolean
   egaliteExpression?: boolean
   calculFormel?: boolean
+  expressionNumerique?: boolean
   noUselessParen?: boolean
   nonReponseAcceptee?: boolean
   pluriels?: boolean
@@ -826,6 +827,7 @@ export function fonctionComparaison(
     nombreAvecEspace,
     egaliteExpression,
     calculFormel, // Documenté
+    expressionNumerique,
     nonReponseAcceptee,
     variable,
     entier,
@@ -872,6 +874,7 @@ export function fonctionComparaison(
     nombreAvecEspace: false,
     egaliteExpression: false,
     calculFormel: false,
+    expressionNumerique: false,
     nonReponseAcceptee: false,
     variable: 'x',
     entier: false,
@@ -922,6 +925,7 @@ export function fonctionComparaison(
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
+  if (expressionNumerique) return expressionNumeriqueCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet)
     return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
   if (suiteDeNombres || suiteRangeeDeNombres)
@@ -1880,17 +1884,18 @@ function texteAvecCasseCompare(input: string, goodAnswer: string): ResultType {
   // Ligne ci-dessous utile si la réponse est P(A\cap B) comme dans 1P10-1
   input = input.replace(/\\lparen\s*/g, '(').replace(/\\rparen/g, ')')
 
+  goodAnswer = goodAnswer.replace(/\\lparen\s*/g, '(').replace(/\\rparen/g, ')')
+
   let localInput = cleaner(input)
   const localGoodAnswer = cleaner(goodAnswer)
   const clean = generateCleaner(['espaceNormal', 'doubleEspaces'])
   localInput = clean(localInput)
 
-  const isOk = localGoodAnswer === localInput
-  // Cette commande ci-dessous est mauvaise. Je la laisse pour expliquer pourquoi elle est mauvaise.
+  // Cette commande ci-dessous est mauvaise Je la laisse pour expliquer pourquoi elle est mauvaise.
   // Autant, elle serait utile pour comparer 'aucun' et 'Aucun'
   // mais elle ne le serait plus pour comparer [AB] et [ab] ce qui serait dommage.
   // return { isOk: input.toLowerCase() === goodAnswer.toLowerCase() }
-  return { isOk }
+  return { isOk: localGoodAnswer === localInput }
 }
 
 /**
@@ -1948,6 +1953,15 @@ export function texteSansCasseCompare(
   const localInput = input.toLowerCase()
   const localGoodAnswer = goodAnswer.toLowerCase()
   return texteAvecCasseCompare(localInput, localGoodAnswer)
+}
+
+export function expressionNumeriqueCompare(
+  input: string,
+  goodAnswer: string,
+): ResultType {
+  const goodAnswerParsed = engine.parse(goodAnswer, { canonical: true }) // Important ce canonical à true
+  const inputParsed = engine.parse(input, { canonical: true })
+  return { isOk: goodAnswerParsed.isSame(inputParsed) }
 }
 
 /**
