@@ -1,21 +1,34 @@
+import {
+  create,
+  erfDependencies,
+  expDependencies,
+  piDependencies,
+  sqrtDependencies,
+} from 'mathjs'
 import { courbe, integrale } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { aleaVariables } from '../../modules/outilsMathjs'
-import { all, create, sqrt } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const titre = 'Calculer des probabilités avec la loi normale'
-const math = create(all)
+
+const math = create({
+  erfDependencies,
+  sqrtDependencies,
+  piDependencies,
+  expDependencies,
+})
+
 /**
  * Calculs de probas
  * @author Maxime Nguyen
@@ -132,8 +145,8 @@ export default class CalculsLoiNormale extends Exercice {
           bornec = bornea
           borned = borneb
           resultat =
-            0.5 * math.erf(variables.b / sqrt(2)) -
-            0.5 * math.erf(variables.a / sqrt(2))
+            0.5 * math.erf(variables.b / math.sqrt(2)) -
+            0.5 * math.erf(variables.a / math.sqrt(2))
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
           texte =
@@ -147,12 +160,12 @@ export default class CalculsLoiNormale extends Exercice {
           )
           if (variables.b < 0) {
             resultatB = texNombre(
-              0.5 + 0.5 * math.erf(-variables.b / sqrt(2)),
+              0.5 + 0.5 * math.erf(-variables.b / math.sqrt(2)),
               3,
             )
             if (variables.a < 0) {
               resultatA = texNombre(
-                0.5 + 0.5 * math.erf(-variables.a / sqrt(2)),
+                0.5 + 0.5 * math.erf(-variables.a / math.sqrt(2)),
                 3,
               )
               calculstep.push(
@@ -167,7 +180,7 @@ export default class CalculsLoiNormale extends Exercice {
               calculstep.push(` &\\approx ${resultatA} - ${resultatB} &&`)
             } else {
               resultatA = texNombre(
-                0.5 + 0.5 * math.erf(variables.a / sqrt(2)),
+                0.5 + 0.5 * math.erf(variables.a / math.sqrt(2)),
                 3,
               )
               calculstep.push(
@@ -180,11 +193,11 @@ export default class CalculsLoiNormale extends Exercice {
             }
           } else if (variables.a < 0) {
             resultatA = texNombre(
-              0.5 + 0.5 * math.erf(-variables.a / sqrt(2)),
+              0.5 + 0.5 * math.erf(-variables.a / math.sqrt(2)),
               3,
             )
             resultatB = texNombre(
-              0.5 + 0.5 * math.erf(variables.b / sqrt(2)),
+              0.5 + 0.5 * math.erf(variables.b / math.sqrt(2)),
               3,
             )
             calculstep.push(
@@ -196,11 +209,11 @@ export default class CalculsLoiNormale extends Exercice {
             calculstep.push(` &\\approx  ${resultatB} - (1 - ${resultatA}) &&`)
           } else {
             resultatA = texNombre(
-              0.5 + 0.5 * math.erf(variables.a / sqrt(2)),
+              0.5 + 0.5 * math.erf(variables.a / math.sqrt(2)),
               3,
             )
             resultatB = texNombre(
-              0.5 + 0.5 * math.erf(variables.b / sqrt(2)),
+              0.5 + 0.5 * math.erf(variables.b / math.sqrt(2)),
               3,
             )
             calculstep.push(`&\\approx  ${resultatB} - ${resultatA} &&`)
