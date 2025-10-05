@@ -67,6 +67,9 @@ export default class ExerciceInequation1 extends Exercice {
         ? 'les inéquations suivantes'
         : "l'inéquation suivante") +
       '.'
+    if (this.interactif) {
+      this.consigne += "<p>On donnera la réponse sous forme d'un intervalle.</p>"
+    }
     let listeTypeDeQuestions
 
     switch (this.sup2.toString()) {
