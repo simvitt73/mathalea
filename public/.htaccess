@@ -48,6 +48,11 @@
     Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
   </FilesMatch>
 
+  # Pour version.txt : ne pas mettre en cache
+  <FilesMatch "^version\.txt$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+  </FilesMatch>
+
   # Pour les assets : 1 an et immuable — utilisé pour les fichiers compilés avec un hash dans leur nom.
   <FilesMatch "\.(?:css|js|jpg|jpeg|png|gif|svg|ico|webp|woff|woff2|ttf|eot|otf|map)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
