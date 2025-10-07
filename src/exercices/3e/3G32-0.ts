@@ -497,10 +497,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, absC + sensH * (absS + 1)),
-              ymin: min(-sensV, ordA + sensV),
-              xmax: max(-sensH, absC + sensH * (absS + 1)),
-              ymax: max(-sensV, ordA + sensV),
+              xmin: Math.min(-sensH, absC + sensH * (absS + 1)),
+              ymin: Math.min(-sensV, ordA + sensV),
+              xmax: Math.max(-sensH, absC + sensH * (absS + 1)),
+              ymax: Math.max(-sensV, ordA + sensV),
               pixelsParCm: 20,
               scale: 0.5,
             },
@@ -724,9 +724,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
               "(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)<br>"
             texte += mathalea2d(
               {
-                xmin: min(-sensH, ordA + sensH),
+                xmin: Math.min(-sensH, ordA + sensH),
                 ymin: -1,
-                xmax: max(-sensH, ordA + sensH),
+                xmax: Math.max(-sensH, ordA + sensH),
                 ymax: absS + 1,
                 pixelsParCm: 20,
                 scale: 0.5,
@@ -920,9 +920,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, ordA + sensH),
+              xmin: Math.min(-sensH, ordA + sensH),
               ymin: -1,
-              xmax: max(-sensH, ordA + sensH),
+              xmax: Math.max(-sensH, ordA + sensH),
               ymax: absS + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -1002,9 +1002,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
               "(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)<br>"
             enonceAMC += mathalea2d(
               {
-                xmin: min(-sensH, absC + sensH),
+                xmin: Math.min(-sensH, absC + sensH),
                 ymin: -1,
-                xmax: max(-sensH, absC + sensH),
+                xmax: Math.max(-sensH, absC + sensH),
                 ymax: ordA + 1,
                 pixelsParCm: 20,
                 scale: 0.5,
@@ -1288,9 +1288,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
             "<br>Arrondir les résultats au mètre près. (On supposera le point d'observation au niveau de l'eau)"
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, absC + sensH),
+              xmin: Math.min(-sensH, absC + sensH),
               ymin: -1,
-              xmax: max(-sensH, absC + sensH),
+              xmax: Math.max(-sensH, absC + sensH),
               ymax: ordA + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -1402,9 +1402,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}$ m.<br>`
           texte += mathalea2d(
             {
-              xmin: min(-sensH, absS + sensH),
+              xmin: Math.min(-sensH, absS + sensH),
               ymin: -1,
-              xmax: max(-sensH, absS + sensH),
+              xmax: Math.max(-sensH, absS + sensH),
               ymax: ordA + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -1684,9 +1684,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, absS + sensH),
+              xmin: Math.min(-sensH, absS + sensH),
               ymin: -1,
-              xmax: max(-sensH, absS + sensH),
+              xmax: Math.max(-sensH, absS + sensH),
               ymax: ordA + 1,
               pixelsParCm: 20,
               scale: 0.5,
