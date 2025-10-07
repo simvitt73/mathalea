@@ -103,7 +103,7 @@ export default class nomExercice extends Exercice {
         'La matrice $B$ a ' + texteligne[1] + 'et ' + textecolonne[1] + '. '
       if (nbcolonnes[0] === nblignes[1]) {
         const produit = matrices[0].multiply(matrices[1])
-        let produitprint = produit.toTex()
+        const produitprint = produit.toTex()
         texteCorr += `<br><br> Le produit $A \\times B$ est possible et c'est une matrice qui a ${nblignes[0]} lignes et ${nbcolonnes[1]} colonnes. `
         texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{blue}{${matricesprint[1]}}& =\\textcolor{blue}{B} \\\\ \\textcolor{red}{A} = &\\textcolor{red}{${matricesprint[0]}} & ${produitprint} & = AB \\end{array} $`
 
@@ -138,7 +138,7 @@ export default class nomExercice extends Exercice {
       }
       if (nbcolonnes[1] === nblignes[0]) {
         const produit = matrices[1].multiply(matrices[0])
-        let produitprint = produit.toTex()
+        const produitprint = produit.toTex()
         texteCorr += `<br><br> Le produit $B \\times A$ est possible et c'est une matrice qui a ${nblignes[1]} lignes et ${nbcolonnes[0]} colonnes. `
         texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{red}{${matricesprint[0]}}& =\\textcolor{red}{A} \\\\ \\textcolor{blue}{B} = &\\textcolor{blue}{${matricesprint[1]}} & ${produitprint} & = BA \\end{array} $`
 

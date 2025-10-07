@@ -15,6 +15,7 @@ import {
 } from 'mathjs'
 
 import { rangeMinMax } from '../outils/nombres'
+
 const config = {
   epsilon: 1e-12,
   matrix: 'Array',
@@ -23,6 +24,7 @@ const config = {
   predictable: false,
   randomSeed: null,
 }
+
 const math = create(
   {
     addDependencies,
@@ -42,7 +44,8 @@ const math = create(
 )
 
 /**
- *  Classe MatriceCarree
+ *
+ * Classe MatriceCarree
  *  Cette classe a été crée à une époque où nous n'utilisions pas encore la librairie mathjs !
  *  Vous avez le choix d'utiliser ce code ou d'utiliser mathjs et toutes ses possibilités de calcul matriciel
  * Générateur de Matrice :
@@ -69,7 +72,9 @@ const math = create(
  */
 export class Matrice {
   constructor(table) {
-    this._data = Array.isArray(table) ? table : zeros(table, table).valueOf()
+    this._data = Array.isArray(table)
+      ? table
+      : math.zeros(table, table).valueOf()
     this.dim = this._data.length
   }
 
@@ -84,12 +89,13 @@ export class Matrice {
   }
 
   /**
-   * Extraction d'une sous-matrice (ou d'un élément)
+   * Extraction d'une sous-matrice ou un element
    * @param {Array|number} lignes indices de lignes à garder
    * @param {Array|number} colonnes indices de colonnes à garder
    */
   subset(lignes, colonnes) {
-    return matrice(math.subset(this._data, math.index(lignes, colonnes)))
+    const sub = math.subset(this._data, math.index(lignes, colonnes))
+    return typeof sub === 'number' ? sub : matrice(sub)
   }
 
   // ✅ Récupérer un élément spécifique
@@ -108,7 +114,7 @@ export class Matrice {
     const produit = math.multiply(this._data, vData)
 
     // Si le résultat n'est pas une matrice (ex: scalaire), on retourne tel quel
-    if (!Array.isArray(produit[0])) return produit
+    if (!Array.isArray(produit)) return produit
 
     // Sinon on retourne une nouvelle instance de Matrice
     return matrice(produit)
@@ -154,7 +160,11 @@ export class Matrice {
 }
 
 export function matrice(table) {
-  if (Array.isArray(table) || typeof table === 'number')
+  if (Array.isArray(table) || typeof table === 'number') {
     return new Matrice(table)
-  else if (table._data != null) return new Matrice(table._data)
+  } else if (table._data != null) {
+    return new Matrice(table._data)
+  }
+  // on doit jamais arriver ici normalement
+  throw new Error('Invalid argument for matrice()')
 }

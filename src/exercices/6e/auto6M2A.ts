@@ -16,24 +16,23 @@ import {
   rotation,
   translation,
 } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
 import {
-  mathalea2d,
   colorToLatexOrHTML,
+  mathalea2d,
   type NestedObjetMathalea2dArray,
 } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
-import { min, max } from 'mathjs'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { context } from '../../modules/context'
-import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '08/06/2022'
 export const dateDeModifImportante = '22/01/2025'
@@ -270,10 +269,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             objets.push(poly, rect)
             texte = mathalea2d(
               {
-                xmin: min(P.x, R.x) - 0.5,
-                ymin: min(F.y, H.y) - 0.5,
-                xmax: max(J.x, L.x) + 0.5,
-                ymax: max(M.y, O.y) + 0.5,
+                xmin: Math.min(P.x, R.x) - 0.5,
+                ymin: Math.min(F.y, H.y) - 0.5,
+                xmax: Math.max(J.x, L.x) + 0.5,
+                ymax: Math.max(M.y, O.y) + 0.5,
                 pixelsParCm: 30,
                 scale: 0.7,
                 mainlevee: false,

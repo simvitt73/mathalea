@@ -5,6 +5,7 @@ import {
   piDependencies,
   sqrtDependencies,
 } from 'mathjs'
+
 import { courbe, integrale } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { setReponse } from '../../lib/interactif/gestionInteractif'

@@ -19,6 +19,22 @@ import {
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { projectionOrtho } from '../../lib/2d/transformations'
+import {
+  Arete3d,
+  arete3d,
+  demicercle3d,
+  Point3d,
+  point3d,
+  Vecteur3d,
+  vecteur3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import {
+  CodageAngleDroit3D,
+  rotationV3d,
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   arrondi,
@@ -32,32 +48,15 @@ import {
   sp,
 } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import {
-  CodageAngleDroit3D,
-  rotationV3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
-import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  Arete3d,
-  arete3d,
-  demicercle3d,
-  Point3d,
-  point3d,
-  Vecteur3d,
-  vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Grandeur from '../../modules/Grandeur'
-import { max, min } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie"
@@ -316,10 +315,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
             '<br>' +
             mathalea2d(
               {
-                xmin: min(-sensH, absC + sensH * (absS + 1)),
-                ymin: min(-sensV, ordA + sensV),
-                xmax: max(-sensH, absC + sensH * (absS + 1)),
-                ymax: max(-sensV, ordA + sensV),
+                xmin: Math.min(-sensH, absC + sensH * (absS + 1)),
+                ymin: Math.min(-sensV, ordA + sensV),
+                xmax: Math.max(-sensH, absC + sensH * (absS + 1)),
+                ymax: Math.max(-sensV, ordA + sensV),
                 pixelsParCm: 20,
                 scale: 0.5,
               },

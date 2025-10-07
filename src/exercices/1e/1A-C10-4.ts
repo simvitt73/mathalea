@@ -23,10 +23,11 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Résoudre une inéquation du type $x^2<a$ ou $x^2>a$ (solutions sous forme d\'intervalles)'
+export const titre =
+  "Résoudre une inéquation du type $x^2<a$ ou $x^2>a$ (solutions sous forme d'intervalles)"
 export default class Auto1AC10d extends ExerciceQcmA {
   // Méthode utilitaire pour créer les éléments graphiques communs
-private creerElementsGraphiques(
+  private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
@@ -188,8 +189,12 @@ private creerElementsGraphiques(
   ) {
     if (typeInequation === 'inf') {
       // Pour x² < a ou x² ≤ a : intervalle ]-√a, √a[ ou [-√a, √a]
-      const crochets = estInegStrict ? `]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[` : `[-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}]`
-      const valIncorrects = estInegStrict ? `]-${texNombre(val/2,1)}\\,;\\,${texNombre(val/2,1)}[` : `[-${texNombre(val/2,1)}\\,;\\,${texNombre(val/2,1)}]`
+      const crochets = estInegStrict
+        ? `]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[`
+        : `[-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}]`
+      const valIncorrects = estInegStrict
+        ? `]-${texNombre(val / 2, 1)}\\,;\\,${texNombre(val / 2, 1)}[`
+        : `[-${texNombre(val / 2, 1)}\\,;\\,${texNombre(val / 2, 1)}]`
 
       return [
         `$S = ${crochets}$`,
@@ -199,12 +204,12 @@ private creerElementsGraphiques(
       ]
     } else {
       // Pour x² > a ou x² ≥ a : réunion d'intervalles ]-∞,-√a[ ∪ ]√a,+∞[ ou ]-∞,-√a] ∪ [√a,+∞[
-      const intervalleCorrect = estInegStrict 
+      const intervalleCorrect = estInegStrict
         ? `]-\\infty\\,;\\,-\\sqrt{${val}}[ \\cup ]\\sqrt{${val}}\\,;\\,+\\infty[`
         : `]-\\infty\\,;\\,-\\sqrt{${val}}] \\cup [\\sqrt{${val}}\\,;\\,+\\infty[`
       const valIncorrect = estInegStrict
-        ? `]-\\infty\\,;\\,-${texNombre(val/2,1)}[ \\cup ]${texNombre(val/2,1)}\\,;\\,+\\infty[`
-        : `]-\\infty\\,;\\,-${texNombre(val/2,1)}] \\cup [${texNombre(val/2,1)}\\,;\\,+\\infty[`
+        ? `]-\\infty\\,;\\,-${texNombre(val / 2, 1)}[ \\cup ]${texNombre(val / 2, 1)}\\,;\\,+\\infty[`
+        : `]-\\infty\\,;\\,-${texNombre(val / 2, 1)}] \\cup [${texNombre(val / 2, 1)}\\,;\\,+\\infty[`
 
       return [
         `$S = ${intervalleCorrect}$`,
@@ -239,6 +244,7 @@ private creerElementsGraphiques(
             ${graphiqueC}<br>
             On en déduit que l'ensemble des solutions de l'inéquation $(I)$ est : ${texteEnCouleurEtGras(reponseCorrecte)}.`
   }
+
   versionOriginale: () => void = () => {
     // Version originale : x² ≥ 10
     const val = 10
@@ -259,7 +265,9 @@ private creerElementsGraphiques(
         On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>
        `,
       `${graphique}`,
-    )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
+    )} 
+    
+    L'ensemble des solutions $S$ de cette inéquation est :`
     this.correction = this.genererCorrection(
       val,
       estInegStrict,
@@ -269,6 +277,7 @@ private creerElementsGraphiques(
     )
     this.reponses = reponses
   }
+
   versionAleatoire = () => {
     const typeInequation = choice(['inf', 'sup'] as const)
     const estInegStrict = choice([true, false])
@@ -295,7 +304,9 @@ private creerElementsGraphiques(
       `On a représenté la parabole d'équation $y=x^2$. <br><br>
         On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInégalité} ${val}$.<br><br>`,
       `${graphique}`,
-    )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
+    )}
+    
+    L'ensemble des solutions $S$ de cette inéquation est :`
     this.correction = this.genererCorrection(
       val,
       estInegStrict,

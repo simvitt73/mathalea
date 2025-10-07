@@ -1,4 +1,3 @@
-import { abs } from 'mathjs'
 import EquationSecondDegre from '../../modules/EquationSecondDegre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
@@ -46,6 +45,7 @@ class PolynomeFactorisable {
       .produit(facteurSansRacineRationnelle)
       .reduire()
   }
+
   static creerPolynome(
     racines: (number | FractionEtendue)[],
     coeffDominant: number | FractionEtendue,
@@ -113,10 +113,10 @@ class PolynomeFactorisable {
         degreCourant++
       }
     }
-    if (typeCoeff == 'entier') {
+    if (typeCoeff === 'entier') {
       const denominators = racines.map((r) => r.den)
       let mult = ppcmListe(denominators)
-      if (mult == 1) {
+      if (mult === 1) {
         mult = randint(-3, 3, [0])
       }
       coeffDominant = new FractionEtendue(mult, 1)
@@ -127,7 +127,7 @@ class PolynomeFactorisable {
       ).simplifie()
     }
     if (!completementFactorisable) {
-      let b = randint(-1, 1)
+      const b = randint(-1, 1)
       partieSansRacineRationnelle = new PolynomePlusieursVariables([
         new MonomePlusieursVariables(new FractionEtendue(1, 1), {
           variables: ['x'],
@@ -138,13 +138,16 @@ class PolynomeFactorisable {
           exposants: [1],
         }),
         new MonomePlusieursVariables(
-          new FractionEtendue(randint(0 + abs(b), 2 - abs(b), [0]), 1),
+          new FractionEtendue(
+            randint(0 + Math.abs(b), 2 - Math.abs(b), [0]),
+            1,
+          ),
           { variables: ['x'], exposants: [0] },
         ),
       ])
     }
     if (typeRacines === 'reelles' && completementFactorisable) {
-      let c = randint(-2, -1)
+      const c = randint(-2, -1)
       partieSansRacineRationnelle = new PolynomePlusieursVariables([
         new MonomePlusieursVariables(new FractionEtendue(1, 1), {
           variables: ['x'],
@@ -166,6 +169,7 @@ class PolynomeFactorisable {
       partieSansRacineRationnelle,
     )
   }
+
   toLatex(factorise: boolean = false): string {
     if (!factorise) {
       return this.polynome.toString()
