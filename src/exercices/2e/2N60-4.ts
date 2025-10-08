@@ -49,7 +49,7 @@ export default class ExerciceInequation1 extends Exercice {
     this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
     this.besoinFormulaire2Texte = [
       "Type d'inéquations",
-      '1 : ax≤b ou x+a≤b\n2 : ax+b≤c\n3 : ax+b≤cx+d\n4 : Les 2 types précédents',
+      '1 : ax≤b ou x+a≤b\n2 : ax+b≤c ou ax+b≤0\n3 : ax+b≤cx+d\n4 : Mélange',
     ]
 
     this.spacing = 1.5
@@ -75,7 +75,15 @@ export default class ExerciceInequation1 extends Exercice {
         "<p>On donnera la réponse sous forme d'un intervalle.</p>"
     }
 
-    let listeTypeDeQuestions = []
+    type Question = 'ax≤b' | 'x+b≤c' | 'ax+b≤c' | 'ax+b≤0' | 'ax+b≤cx+d'
+    const typeQuestionsPermis: Question[] = [
+      'ax≤b',
+      'x+b≤c',
+      'ax+b≤c',
+      'ax+b≤0', // pourquoi ce cas là est-il géré à part bien que non proposé explicitement à l'utilisateur
+      'ax+b≤cx+d',
+    ]
+    let listeTypeDeQuestions: Question[] = []
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -88,18 +96,16 @@ export default class ExerciceInequation1 extends Exercice {
     for (let index = 0; index < this.nbQuestions; index++) {
       switch (typeDeQuestions[index]) {
         case 1:
-          listeTypeDeQuestions.push(choice(['ax≤b', 'x+b≤c']))
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(2)))
           break
         case 2:
-          listeTypeDeQuestions.push('ax+b≤c')
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(2, 4)))
           break
         case 3:
-          listeTypeDeQuestions.push('ax+b≤cx+d')
+          listeTypeDeQuestions.push(typeQuestionsPermis[4])
           break
         case 4:
-          listeTypeDeQuestions.push(
-            choice(['ax+b≤0', 'ax+b≤c', 'ax≤b', 'x+b≤c', 'ax+b≤cx+d']),
-          )
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis))
           break
       }
     }
