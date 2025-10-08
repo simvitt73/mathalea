@@ -1,3 +1,9 @@
+# --- Force le https ---
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 # --- Cache public LiteSpeed (si disponible sur l'hébergeur) ---
 <IfModule LiteSpeed>
   # Indique à LiteSpeed de mettre en cache le contenu public.
