@@ -208,6 +208,10 @@
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
     if (buttonScore) initButtonScore()
+    if (buttonScore.dataset.capytaleLoadAnswers === '1') {
+      // si les données on été chargées par Capytale, on remet à 0
+      buttonScore.dataset.capytaleLoadAnswers = '0'
+    }
     if (divScore) divScore.innerHTML = ''
     updateDisplay()
   }
