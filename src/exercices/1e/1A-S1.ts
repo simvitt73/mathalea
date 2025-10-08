@@ -18,6 +18,7 @@
  *
  * @author G.Marris
  * @date 26/09/2025
+ * @updated 08/10/2025 - Refactorisation selon architecture obligatoire (appliquerLesValeurs)
  */
 
 import { diagrammeCirculaire } from '../../lib/2d/diagrammes'
@@ -62,15 +63,27 @@ interface ContexteSituation {
   groupes: string[]
 }
 
+/**
+ * Données nécessaires pour construire l'exercice
+ * (utilisées par appliquerLesValeurs)
+ */
+interface DonneesExercice {
+  bonne: ProportionVisuelle
+  total: number
+  ctx: ContexteSituation
+  proportionsDistractrices: ProportionVisuelle[]
+}
+
 // ============================================================================
 // CLASSE PRINCIPALE DE L'EXERCICE
 // ============================================================================
 export default class Auto1AS1 extends ExerciceQcmA {
-  // ============================================================================
-  // CLASSIFICATION DES TYPES DE DIAGRAMMES (8 types exhaustifs)
-  // ============================================================================
+  // ==========================================================================
+  // 1. DONNÉES STATIQUES
+  // ==========================================================================
+
   /**
-   * TYPES DE DIAGRAMMES SELON LA COMPOSITION ANGULAIRE :
+   * CLASSIFICATION DES TYPES DE DIAGRAMMES (8 types exhaustifs)
    *
    * Classification par ordre décroissant des angles :
    * - Rentrant (R) : 180° < α < 360°
@@ -79,28 +92,24 @@ export default class Auto1AS1 extends ExerciceQcmA {
    * - Droit (D)    : α = 90°
    * - Aigu (A)     : 0° < α < 90°
    *
-   * ┌────────┬───┬───┬───┬───┬───┬──────────────────────────────────┐
-   * │ Type   │ R │ P │ O │ D │ A │ Description                      │
-   * ├────────┼───┼───┼───┼───┼───┼──────────────────────────────────┤
-   * │ Type 1 │ 1 │ 0 │ 1 │ 0 │ 1 │ Ex: 210°, 120°, 30°              │
-   * │ Type 2 │ 1 │ 0 │ 0 │ 1 │ 1 │ Ex: 225°, 90°, 45°               │
-   * │ Type 3 │ 1 │ 0 │ 0 │ 0 │ 2 │ Ex: 216°, 72°, 72°               │
-   * │ Type 4 │ 0 │ 1 │ 1 │ 0 │ 1 │ Ex: 180°, 120°, 60°              │
-   * │ Type 5 │ 0 │ 1 │ 0 │ 2 │ 0 │ Ex: 180°, 90°, 90°               │
-   * │ Type 6 │ 0 │ 0 │ 3 │ 0 │ 0 │ Ex: 120°, 120°, 120°             │
-   * │ Type 7 │ 0 │ 0 │ 2 │ 1 │ 0 │ Ex: 135°, 135°, 90°              │
-   * │ Type 8 │ 0 │ 0 │ 2 │ 0 │ 1 │ Ex: 144°, 144°, 72°              │
-   * └────────┴───┴───┴───┴───┴───┴──────────────────────────────────┘
+   * ┌────────┬───┬───┬───┬───┬───┬────────────────────────────────┐
+   * │ Type   │ R │ P │ O │ D │ A │ Description                    │
+   * ├────────┼───┼───┼───┼───┼───┼────────────────────────────────┤
+   * │ Type 1 │ 1 │ 0 │ 1 │ 0 │ 1 │ Ex: 210°, 120°, 30°            │
+   * │ Type 2 │ 1 │ 0 │ 0 │ 1 │ 1 │ Ex: 225°, 90°, 45°             │
+   * │ Type 3 │ 1 │ 0 │ 0 │ 0 │ 2 │ Ex: 216°, 72°, 72°             │
+   * │ Type 4 │ 0 │ 1 │ 1 │ 0 │ 1 │ Ex: 180°, 120°, 60°            │
+   * │ Type 5 │ 0 │ 1 │ 0 │ 2 │ 0 │ Ex: 180°, 90°, 90°             │
+   * │ Type 6 │ 0 │ 0 │ 3 │ 0 │ 0 │ Ex: 120°, 120°, 120°           │
+   * │ Type 7 │ 0 │ 0 │ 2 │ 1 │ 0 │ Ex: 135°, 135°, 90°            │
+   * │ Type 8 │ 0 │ 0 │ 2 │ 0 │ 1 │ Ex: 144°, 144°, 72°            │
+   * └────────┴───┴───┴───┴───┴───┴────────────────────────────────┘
    *
    * RÈGLES DE SÉLECTION DES DISTRACTEURS :
    * - Bonne réponse et distracteurs doivent être de types différents
    * - Type 4 : au plus 2 occurrences parmi les 4 propositions
    * - Autres types : au plus 1 occurrence parmi les 4 propositions
    */
-
-  // ============================================================================
-  // PROPORTIONS VISUELLES (configurations concrètes)
-  // ============================================================================      id: 6,
   private static readonly PROPORTIONS_VISUELLES: ProportionVisuelle[] = [
     // Type 1
     {
@@ -162,9 +171,6 @@ export default class Auto1AS1 extends ExerciceQcmA {
     },
   ]
 
-  // ==========================================================================
-  // CONTEXTES DE SITUATIONS
-  // ==========================================================================
   private static readonly CONTEXTES: ContexteSituation[] = [
     {
       sujet: 'employés dans une entreprise',
@@ -181,7 +187,7 @@ export default class Auto1AS1 extends ExerciceQcmA {
       groupes: ['adultes', 'enfants', 'seniors'],
     },
     {
-      sujet: 'votes lors d’une élection',
+      sujet: "votes lors d'une élection",
       unite: 'votes',
       groupes: ['candidat A', 'candidat B', 'candidat C'],
     },
@@ -241,10 +247,31 @@ export default class Auto1AS1 extends ExerciceQcmA {
       groupes: ['catégorie 1', 'catégorie 2', 'catégorie 3'],
     },
   ]
+
+  private static readonly MAX_TENTATIVES = 100
+
   // ==========================================================================
-  // MÉTHODE : Génération d'un diagramme circulaire (figure SVG)
+  // 2. MÉTHODES UTILITAIRES PRIVÉES
   // ==========================================================================
-  private fig = (effectifs: number[]): string => {
+
+  /**
+   * Calcule les effectifs à partir d'une proportion et d'un total
+   */
+  private calculerEffectifs(
+    proportion: ProportionVisuelle,
+    total: number,
+  ): [number, number, number] {
+    return [
+      proportion.fractions[0] * total,
+      proportion.fractions[1] * total,
+      proportion.fractions[2] * total,
+    ]
+  }
+
+  /**
+   * Génère une figure SVG d'un diagramme circulaire
+   */
+  private fig = (effectifs: [number, number, number]): string => {
     const r = 3
     const n = effectifs.length
     const labels = Array(n).fill('')
@@ -273,19 +300,9 @@ export default class Auto1AS1 extends ExerciceQcmA {
     )
   }
 
-  // ==========================================================================
-  // MÉTHODE : Calcul des effectifs
-  // ==========================================================================
-  private calculerEffectifs(
-    proportion: ProportionVisuelle,
-    total: number,
-  ): number[] {
-    return proportion.fractions.map((f) => total * f)
-  }
-
-  // ==========================================================================
-  // MÉTHODE : Détection des angles égaux
-  // ==========================================================================
+  /**
+   * Détecte si des angles sont égaux dans les fractions
+   */
   private detecterAnglesEgaux(
     fractions: [number, number, number],
   ): { nb: 2 | 3; valeur: number } | null {
@@ -302,9 +319,9 @@ export default class Auto1AS1 extends ExerciceQcmA {
     return null
   }
 
-  // ==========================================================================
-  // MÉTHODE : Génération de la description
-  // ==========================================================================
+  /**
+   * Génère la description textuelle des angles du diagramme
+   */
   private genererDescription(fractions: [number, number, number]): string {
     const angles = fractions.map((f) => Math.round(f * 360))
     const anglesEgaux = this.detecterAnglesEgaux(fractions)
@@ -363,17 +380,9 @@ export default class Auto1AS1 extends ExerciceQcmA {
     resultat += ` (respectivement de $${valeursAngles.join('°, ')}°$)`
     return resultat
   }
-  // ==========================================================================
-  // MÉTHODE : Construction du tableau de correction
-  // ==========================================================================
+
   /**
    * Construit le tableau de correction (effectifs → parts → angles)
-   *
-   * @param effectifs Tableau des 3 effectifs
-   * @param total Total des effectifs
-   * @param groupes Noms des 3 groupes
-   * @param fractions Fractions correspondantes [frac1, frac2, frac3]
-   * @returns Code HTML du tableau
    */
   private construireTableauCorrection(
     effectifs: [number, number, number],
@@ -411,112 +420,138 @@ export default class Auto1AS1 extends ExerciceQcmA {
       `\\text{${groupes[0]}}`,
       `\\text{${groupes[1]}}`,
       `\\text{${groupes[2]}}`,
-      `${eff1}`,
-      `${eff2}`,
-      `${eff3}`,
-      `${frac1NR}=${frac1Simpl}`,
-      `${frac2NR}=${frac2Simpl}`,
-      `${frac3NR}=${frac3Simpl}`,
-      `${frac1Simpl} \\times 360° = ${a1}°`,
-      `${frac2Simpl} \\times 360° = ${a2}°`,
-      `${frac3Simpl} \\times 360° = ${a3}°`,
+      eff1,
+      eff2,
+      eff3,
+      frac1NR === frac1Simpl ? frac1NR : `${frac1NR}=${frac1Simpl}`,
+      frac2NR === frac2Simpl ? frac2NR : `${frac2NR}=${frac2Simpl}`,
+      frac3NR === frac3Simpl ? frac3NR : `${frac3NR}=${frac3Simpl}`,
+      `${a1}°`,
+      `${a2}°`,
+      `${a3}°`,
     ]
 
-    return tableauColonneLigne(
-      entetesColonnes,
-      entetesLignes,
-      cellules,
-      1.6,
-      true,
-      0,
-      1,
-      false,
-      {},
-    )
+    return tableauColonneLigne(entetesColonnes, entetesLignes, cellules)
   }
+
   // ==========================================================================
-  // MÉTHODE : Version originale
+  // 3. CONSTRUCTEUR
   // ==========================================================================
+  constructor() {
+    super()
+    this.versionAleatoire()
+    this.ajouteQcmCorr = true
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
+  }
+
+  // ==========================================================================
+  // 4. VERSIONS (qui appellent appliquerLesValeurs())
+  // ==========================================================================
+
   versionOriginale: () => void = () => {
-    this.enonce =
-      `Sur $60$ personnes présentes à une exposition, on distingue trois groupes :` +
-      createList({
-        items: [
-          'groupe A : $30$ personnes ;',
-          'groupe B : $12$ personnes ;',
-          'groupe C : les autres.',
-        ],
-        style: 'fleches',
-      }) +
-      'Quel diagramme circulaire représente la situation ?'
+    // Définition de la bonne réponse (proportion type 4)
+    const bonne: ProportionVisuelle = {
+      fractions: [1 / 2, 1 / 5, 3 / 10],
+      totauxPossibles: [60],
+      typeId: 4,
+    }
 
-    this.reponses = [
-      this.fig([30, 12, 18]),
-      this.fig([20, 20, 20]),
-      this.fig([15, 15, 30]),
-      this.fig([24, 12, 24]),
+    // Contexte fixe
+    const ctx: ContexteSituation = {
+      sujet: 'élèves dans une classe',
+      unite: 'élèves',
+      groupes: ['groupe A', 'groupe B', 'groupe C'],
+    }
+
+    // Distracteurs fixes (types différents)
+    const proportionsDistractrices: ProportionVisuelle[] = [
+      { fractions: [1 / 3, 1 / 3, 1 / 3], totauxPossibles: [60], typeId: 6 }, // Type 6
+      { fractions: [1 / 4, 1 / 4, 1 / 2], totauxPossibles: [60], typeId: 5 }, // Type 5
+      { fractions: [2 / 5, 1 / 5, 2 / 5], totauxPossibles: [60], typeId: 8 }, // Type 8
     ]
 
-    const effectifs: [number, number, number] = [30, 12, 18]
-    const total = 60
-    const groupes: [string, string, string] = [
-      'groupe A',
-      'groupe B',
-      'groupe C',
-    ]
-    const fractions: [number, number, number] = [30 / 60, 12 / 60, 18 / 60]
+    this.appliquerLesValeurs({
+      bonne,
+      total: 60,
+      ctx,
+      proportionsDistractrices,
+    })
+  }
 
-    const tableau = this.construireTableauCorrection(
-      effectifs,
-      total,
-      groupes,
-      fractions,
+  versionAleatoire: () => void = () => {
+    for (let tentative = 0; tentative < Auto1AS1.MAX_TENTATIVES; tentative++) {
+      // Sélection de la bonne réponse
+      const bonne = choice(Auto1AS1.PROPORTIONS_VISUELLES)
+      const total = choice(bonne.totauxPossibles)
+
+      // Sélection des distracteurs selon les règles de types
+      let candidats = Auto1AS1.PROPORTIONS_VISUELLES.filter((p) => {
+        // Exclusions :
+        if (p === bonne) return false // Pas la bonne réponse
+        if (p.typeId === bonne.typeId) return false // Pas le même type
+        if (!p.totauxPossibles.includes(total)) return false // Total incompatible
+        return true
+      })
+
+      // Règle spéciale pour Type 4 : autoriser au plus 2 occurrences (bonne + 1 distracteur)
+      if (bonne.typeId === 4) {
+        const type4Candidats = candidats.filter((p) => p.typeId === 4)
+        const autresCandidats = candidats.filter((p) => p.typeId !== 4)
+        const type4Selectionne =
+          type4Candidats.length > 0 ? [choice(type4Candidats)] : []
+        candidats = [...type4Selectionne, ...autresCandidats]
+      }
+
+      // Sélection aléatoire de 3 distracteurs
+      const proportionsDistractrices = shuffle(candidats).slice(0, 3)
+
+      // Validation : on doit avoir exactement 3 distracteurs
+      if (proportionsDistractrices.length < 3) {
+        continue // Retenter
+      }
+
+      // Sélection du contexte
+      const ctx = choice(Auto1AS1.CONTEXTES)
+
+      // Si toutes les conditions sont satisfaites, appliquer les valeurs
+      this.appliquerLesValeurs({
+        bonne,
+        total,
+        ctx,
+        proportionsDistractrices,
+      })
+      return // Succès
+    }
+
+    // Fallback si aucune configuration valide trouvée
+    console.warn(
+      'Impossible de générer un exercice valide après ' +
+        Auto1AS1.MAX_TENTATIVES +
+        ' tentatives, utilisation de la version originale',
     )
-    const description = this.genererDescription(fractions)
-
-    this.correction =
-      `Les effectifs des groupes A, B et C sont respectivement $30$, $12$ et $18$.<br><br>` +
-      tableau +
-      `Le bon diagramme est le seul avec : ${description}.`
+    this.versionOriginale()
   }
 
   // ==========================================================================
-  // MÉTHODE : Version aléatoire
+  // 5. MÉTHODE CENTRALE : appliquerLesValeurs
   // ==========================================================================
-  versionAleatoire: () => void = () => {
-    // Sélection de la bonne réponse
-    const bonne = choice(Auto1AS1.PROPORTIONS_VISUELLES)
-    const total = choice(bonne.totauxPossibles)
+
+  /**
+   * Construit l'énoncé, la correction et les réponses à partir des données
+   * Cette méthode centralise TOUTE la logique de construction
+   */
+  private appliquerLesValeurs(donnees: DonneesExercice): void {
+    const { bonne, total, ctx, proportionsDistractrices } = donnees
+
+    // ========================================================================
+    // CALCUL DES EFFECTIFS
+    // ========================================================================
     const [eff1, eff2, eff3] = this.calculerEffectifs(bonne, total)
 
-    // Sélection des distracteurs
-    let candidats = Auto1AS1.PROPORTIONS_VISUELLES.filter((p) => {
-      if (p === bonne) return false
-      if (p.typeId === bonne.typeId) return false
-      if (!p.totauxPossibles.includes(total)) return false
-      return true
-    })
-
-    if (bonne.typeId === 4) {
-      const type4Candidats = candidats.filter((p) => p.typeId === 4)
-      const autresCandidats = candidats.filter((p) => p.typeId !== 4)
-      const type4Selectionne =
-        type4Candidats.length > 0 ? [choice(type4Candidats)] : []
-      candidats = [...type4Selectionne, ...autresCandidats]
-    }
-
-    const proportionsDistractrices = shuffle(candidats).slice(0, 3)
-
-    if (proportionsDistractrices.length < 3) {
-      console.warn('Pas assez de distracteurs disponibles')
-      this.versionOriginale()
-      return
-    }
-
-    // Sélection du contexte
-    const ctx = choice(Auto1AS1.CONTEXTES)
-
-    // Construction de l'énoncé
+    // ========================================================================
+    // CONSTRUCTION ÉNONCÉ
+    // ========================================================================
     this.enonce =
       `Sur $${total}$ ${ctx.sujet}, on distingue trois groupes :` +
       createList({
@@ -529,15 +564,19 @@ export default class Auto1AS1 extends ExerciceQcmA {
       }) +
       'Quel diagramme circulaire représente la situation ?'
 
-    // Construction des réponses
+    // ========================================================================
+    // CONSTRUCTION RÉPONSES
+    // ========================================================================
     this.reponses = [
-      this.fig([eff1, eff2, eff3]),
+      this.fig([eff1, eff2, eff3]), // Bonne réponse en premier
       ...proportionsDistractrices.map((p) =>
         this.fig(this.calculerEffectifs(p, total)),
       ),
     ]
 
-    // Construction de la correction (tableau et description)
+    // ========================================================================
+    // CONSTRUCTION CORRECTION
+    // ========================================================================
     const tableau = this.construireTableauCorrection(
       [eff1, eff2, eff3],
       total,
@@ -551,16 +590,5 @@ export default class Auto1AS1 extends ExerciceQcmA {
       `Les effectifs des $3$ groupes sont respectivement $${eff1}$, $${eff2}$ et $${total}-${eff1}-${eff2}=${eff3}$.<br><br>` +
       tableau +
       `Le bon diagramme est le seul avec : ${description}.`
-  }
-
-  // ==========================================================================
-  // CONSTRUCTEUR
-  // ==========================================================================
-  constructor() {
-    super()
-    this.versionAleatoire()
-    this.ajouteQcmCorr = true
-    this.spacing = 1.5
-    this.spacingCorr = 1.5
   }
 }
