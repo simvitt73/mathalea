@@ -646,7 +646,7 @@ export class Spline {
   }
 
   /**
-   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement consseillé)
+   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement conseillé)
    * Ne fonctionne pas si yMax ou yMin sont atteints entre deux noeuds
    */
   trouveMaxes(): { xMin: number; xMax: number; yMin: number; yMax: number } {
