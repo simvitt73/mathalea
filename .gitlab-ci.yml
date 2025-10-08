@@ -62,7 +62,7 @@ cache:
     - lualatex -v
     - apt-get update --allow-releaseinfo-change
     - apt-get install -y libasound2t64 libgbm1 libgtk-3-0 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 xdg-utils
-    - pnpm exec playwright install --with-deps chromium
+    - pnpm exec playwright install chromium
     - ls /root/.cache/ms-playwright/
     - pnpm add playwright@1.51.1 --save-dev
     - pnpm install
@@ -78,7 +78,7 @@ cache:
     - lualatex -v
     - apt-get update --allow-releaseinfo-change
       apt-get install -y libasound2t64 libgbm1 libgtk-3-0 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 xdg-utils
-    - pnpm exec playwright install --with-deps chromium
+    - pnpm exec playwright install chromium
     - ls /root/.cache/ms-playwright/
     - pnpm add playwright@1.51.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
