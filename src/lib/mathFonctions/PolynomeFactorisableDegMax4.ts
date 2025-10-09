@@ -225,5 +225,63 @@ class PolynomeFactorisable {
 
     return result || '0'
   }
+
+  /**
+   * Génère l'expression LaTeX de la forme factorisée avec une valeur substituée pour x
+   * @param x - La valeur à substituer (FractionEtendue ou number)
+   * @returns String LaTeX avec la substitution
+   */
+  toLatexFactoriseSubstitue(x: FractionEtendue | number): string {
+    const xFrac = x instanceof FractionEtendue ? x : new FractionEtendue(x, 1)
+
+    // Count multiplicities of roots
+    const rootCounts = new Map<
+      string,
+      { root: FractionEtendue; count: number }
+    >()
+    for (const root of this.racinesRationnelles) {
+      const rootFrac =
+        root instanceof FractionEtendue ? root : new FractionEtendue(root, 1)
+      const rootKey = rootFrac.toLatex()
+      if (rootCounts.has(rootKey)) {
+        rootCounts.get(rootKey)!.count++
+      } else {
+        rootCounts.set(rootKey, { root: rootFrac, count: 1 })
+      }
+    }
+
+    // Format coefficient dominant using rienSi1
+    const coeffStr = rienSi1(this.coeffDominant)
+
+    // Build factorized form with substitution
+    const factors: string[] = []
+
+    for (const { root, count } of rootCounts.values()) {
+      // Format as (value - root) without evaluating
+      const xStr = xFrac.texFractionSimplifiee
+      const rootAlgebraique = ecritureAlgebrique(root.oppose())
+
+      const factor = `\\left(${xStr}${rootAlgebraique}\\right)`
+
+      if (count === 1) {
+        factors.push(factor)
+      } else {
+        factors.push(`${factor}^{${count}}`)
+      }
+    }
+
+    // Combine coefficient and factors
+    let result = coeffStr + factors.join('')
+
+    // Handle non-rational factor if present
+    if (this.facteurSansRacineRationnelle.toString() !== '1') {
+      const valeurFacteur = this.facteurSansRacineRationnelle.evaluer({
+        x: xFrac,
+      })
+      result += `\\left(${valeurFacteur.texFractionSimplifiee}\\right)`
+    }
+
+    return result || '0'
+  }
 }
 export default PolynomeFactorisable

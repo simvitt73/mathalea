@@ -703,6 +703,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     '\\pstEllipse',
   )
   testIfLoaded(['\\makecell'], '\\usepackage{makecell}', contents)
+  testIfLoaded(['\\polylongdiv'], '\\usepackage{polynom}', contents)
   testIfLoaded(
     ['\\includegraphicsembedded'],
     '\\usepackage{luaimageembed}',
