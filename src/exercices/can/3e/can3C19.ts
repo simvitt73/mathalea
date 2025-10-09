@@ -29,7 +29,7 @@ export default class CalculComplexeFraction extends ExerciceSimple {
     this.versionQcmDisponible = true
     this.nbQuestions = 1
     this.spacingCorr = 2
-    this.formatInteractif = 'fractionEgale'
+   this.optionsDeComparaison = { fractionEgale: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
     this.optionsChampTexte = { texteAvant: '<br>$A=$' }
