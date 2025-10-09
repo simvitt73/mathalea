@@ -99,7 +99,7 @@
       on:mouseenter="{handleMouseEnter}"
       on:mouseleave="{handleMouseLeave}"
       role="region"
-      aria-label="Carroussel d'images"
+      aria-label="Caroussel d'images"
     >
       {#each carouselContent.slides as slide, i}
         <div
