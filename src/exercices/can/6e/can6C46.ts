@@ -35,7 +35,6 @@ export default class ProblemeResteFraction extends ExerciceSimple {
 
     this.optionsDeComparaison = { fractionEgale: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion() {
