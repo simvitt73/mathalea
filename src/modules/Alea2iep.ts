@@ -211,14 +211,18 @@ export default class Alea2iep {
   paralleleRegleEquerre2points3epoint = paralleleRegleEquerre2points3epoint
   perpendiculaireRegleEquerre2points3epoint =
     perpendiculaireRegleEquerre2points3epoint
+
   perpendiculaireRegleEquerreDroitePoint =
     perpendiculaireRegleEquerreDroitePoint
+
   perpendiculaireRegleEquerrePointSurLaDroite =
     perpendiculaireRegleEquerrePointSurLaDroite
+
   perpendiculaireCompasPointSurLaDroite = perpendiculaireCompasPointSurLaDroite
   perpendiculaireCompasPoint = perpendiculaireCompasPoint
   paralleleRegleEquerreDroitePointAvecDescription =
     paralleleRegleEquerreDroitePointAvecDescription
+
   paralleleAuCompasAvecDescription = paralleleAuCompasAvecDescription
   paralleleAuCompas = paralleleAuCompas
   mediatriceAuCompas = mediatriceAuCompas
@@ -246,6 +250,7 @@ export default class Alea2iep {
   homothetiePolygone = homothetiePolygone
   parallelogramme2sommetsConsecutifsCentre =
     parallelogramme2sommetsConsecutifsCentre
+
   triangleIsocele2Longueurs = triangleIsocele2Longueurs
 
   constructor() {
@@ -407,12 +412,23 @@ export default class Alea2iep {
   private async ensureInstrumenPocheElementsRegistered() {
     if (customElements.get('alea-instrumenpoche') === undefined) {
       try {
-        const { ElementInstrumenpoche, ElementButtonInstrumenpoche } = await import('./ElementInstrumenpoche')
-        customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-        customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+        const { ElementInstrumenpoche, ElementButtonInstrumenpoche } =
+          await import('./ElementInstrumenpoche')
+        if (customElements.get('alea-instrumenpoche') === undefined) {
+          // obliger à vérifier à nouveau car si c'est un appel concurrent,
+          //  le premier peut avoir enregistré les éléments
+          customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
+          customElements.define(
+            'alea-buttoninstrumenpoche',
+            ElementButtonInstrumenpoche,
+          )
+        }
       } catch (error) {
         // Ignore les erreurs de double enregistrement qui peuvent survenir lors de rechargements
-        if (error instanceof DOMException && error.name === 'NotSupportedError') {
+        if (
+          error instanceof DOMException &&
+          error.name === 'NotSupportedError'
+        ) {
           console.debug('Custom elements already registered:', error.message)
         } else {
           throw error
