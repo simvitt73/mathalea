@@ -4,6 +4,7 @@ import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import PolynomeFactorisable from '../../lib/mathFonctions/PolynomeFactorisableDegMax4'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
@@ -43,6 +44,7 @@ export default class ExerciceFactorisePoly extends Exercice {
     ]
     this.sup = 4
     this.sup2 = 5
+    this.nbQuestions = 3
     this.correctionDetailleeDisponible = true
   }
 
@@ -207,7 +209,7 @@ export default class ExerciceFactorisePoly extends Exercice {
         d'où $a=${coeffDom.texFractionSimplifiee}$.<br>`
       }
       texteCorr += `La forme factorisée de la fonction polynomiale est :<br>
-      $f(x) = ${polynomeFact.toLatex(true)}$.`
+      $f(x) = ${miseEnEvidence(polynomeFact.toLatex(true))}$.`
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
