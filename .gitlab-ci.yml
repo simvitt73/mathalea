@@ -17,13 +17,13 @@ variables:
   FF_USE_POD_ACTIVE_DEADLINE_SECONDS: 'false'
 
 stages:
-  - playwright-pdf
   - test
   - build-projet
   - playwright-testCanEleve
   - deploy-server
   - playwright-test
   - playwright-testLycee
+  - playwright-pdf
   - playwright-pdfDNB
   - playwright-pdfBAC
 
