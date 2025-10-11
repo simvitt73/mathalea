@@ -1,6 +1,7 @@
 import { min } from 'mathjs'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
@@ -172,8 +173,8 @@ export default class ExerciceFactorisePoly extends Exercice {
         texteCorr = `Effectuons la division euclidienne :<br><br>`
         texteCorr += dividende.afficherDivision(diviseur)
       }
-      texteCorr += `<br>Le quotient est $Q(x) = ${quotient.toString()}$ et le reste est $R(x) = ${reste.toString() === '' ? '0' : reste.toString()}$.<br>`
-      texteCorr += `Ainsi, $${dividende.toString()} = ${diviseur.toString(true)}\\times ${quotient.toString(true)} ${reste.toStringAlgebrique()}$.`
+      texteCorr += `<br>Le quotient est $${miseEnEvidence(`Q(x) = ${quotient.toString()}`)}$ et le reste est $${miseEnEvidence(`R(x) = ${reste.toString() === '' ? '0' : reste.toString()}`)}$.<br>`
+      texteCorr += `Remarquons que l'on a ainsi $${dividende.toString()} = ${diviseur.toString(true)}\\times ${quotient.toString(true)} ${reste.toStringAlgebrique()}$.`
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
