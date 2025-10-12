@@ -106,8 +106,8 @@ export default class NbAxesDeSymetrie extends Exercice {
         figures.push(figure)
       }
       texte += this.interactif
-        ? `Dire si l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} possède un centre de symétrie.<br>`
-        : `Placer le centre de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} si il existe.<br>`
+        ? `Dire si l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} possède${nbFigures > 1 ? 'nt' : ''} un centre de symétrie.<br>`
+        : `Placer le centre de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} s'il existe.<br>`
       const formes: Figure2D[] = []
       const scale = nbFigures === 1 ? 1 : nbFigures === 2 ? 0.9 : 0.8
       for (let j = 0; j < nbFigures; j++) {
