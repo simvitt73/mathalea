@@ -20,9 +20,15 @@ export const dateDePublication = '11/10/2025'
 export const uuid = '3b4d5'
 
 export const refs = {
-  'fr-fr': ['can3C20', '3AutoN03'],
+  'fr-fr': ['can3C20'],
   'fr-ch': [],
 }
+
+const listeDesDénominateursAEviter = [
+  11, 13, 17, 19, 22, 23, 29, 31, 33, 34, 37, 38, 41, 43, 44, 46, 47, 49, 51,
+  53, 55, 57, 59, 61, 62, 65, 66, 67, 69, 71, 73, 74, 77, 79, 82, 86, 87, 88,
+  91, 93, 94, 95, 97,
+]
 export default class DenominateurCommun2 extends ExerciceSimple {
   constructor() {
     super()
@@ -43,15 +49,16 @@ export default class DenominateurCommun2 extends ExerciceSimple {
     let frac2: FractionEtendue
     let resultat: number
     let attempts = 0
+    let sontPremiersEntreEux: boolean
     do {
-      const den1 = randint(4, 80)
-      const num1 = randint(1, den1 - 1)
+      const den1 = randint(4, 80, listeDesDénominateursAEviter)
+      const num1 = randint(1, den1 - 1, listeDesDénominateursAEviter)
       frac1 = fraction(num1, den1)
 
       let den2: number, num2: number
       do {
-        den2 = randint(4, 80)
-        num2 = randint(1, den2 - 1)
+        den2 = randint(4, 80, listeDesDénominateursAEviter)
+        num2 = randint(1, den2 - 1, listeDesDénominateursAEviter)
         frac2 = fraction(num2, den2)
       } while (frac2.den === frac1.den)
 
@@ -69,7 +76,12 @@ export default class DenominateurCommun2 extends ExerciceSimple {
         resultat = ppcm(frac1.denIrred, frac2.denIrred)
         break
       }
-    } while (resultat >= 100)
+      sontPremiersEntreEux = pgcd(frac1.denIrred, frac2.denIrred) === 1
+    } while (
+      (resultat >= 100 && !sontPremiersEntreEux) ||
+      listeDesDénominateursAEviter.includes(frac1.denIrred) ||
+      listeDesDénominateursAEviter.includes(frac2.denIrred)
+    ) // si ppcm >= 100, forcer fractions premières entre elles pour limiter le ppcm
     // réduire chaque fraction si possible
     const k1 = resultat / frac1.denIrred
     const k2 = resultat / frac2.denIrred
