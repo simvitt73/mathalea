@@ -9,18 +9,17 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora
- * Date de publication ???
- */
-export const uuid = 'd86be'
-export const dateDeModificationImportante = '12/10/2025' // ajout de versionQcmDisponible Jean-Claude Lhote
+ * @author Jean-Claude Lhote
+
+ * Date de publication
+*/
+export const uuid = 'd86bf'
 
 export const refs = {
-  'fr-fr': ['can3S03', 'BP2FLUC17', '3AutoP01'],
+  'fr-fr': ['can3S08', '3AutoP01-1'],
   'fr-ch': [],
 }
-export default class CalculsProbabilite2 extends ExerciceSimple {
+export default class CalculsProbabilite3 extends ExerciceSimple {
   constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
@@ -57,14 +56,71 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
     }
 
     // Choix des couleurs selon le scénario pour garder l'ancienne formulation
-    const couleur1 = formatDecimal ? 'bleue' : 'noire'
-    const couleur2 = formatDecimal ? 'rouge' : 'blanche'
-    const couleurDemandee = choix ? couleur1 : couleur2
+    const situations = [
+      {
+        start: 'On tire une boule au hasard dans une urne',
+        itemSing: 'boule',
+        itemPlur: 'boules',
+        lab1Sing: 'noire',
+        lab1Plur: 'noires',
+        lab2Sing: 'blanche',
+        lab2Plur: 'blanches',
+      },
+      {
+        start: 'On tire une carte au hasard dans un paquet',
+        itemSing: 'carte',
+        itemPlur: 'cartes',
+        lab1Sing: 'rouge',
+        lab1Plur: 'rouges',
+        lab2Sing: 'verte',
+        lab2Plur: 'vertes',
+      },
+      {
+        start: 'On prend au hasard un bonbon dans un bocal',
+        itemSing: 'bonbon',
+        itemPlur: 'bonbons',
+        lab1Sing: 'bleu',
+        lab1Plur: 'bleus',
+        lab2Sing: 'jaune',
+        lab2Plur: 'jaunes',
+      },
+      {
+        start: 'On choisit au hasard un ticket parmi',
+        itemSing: 'ticket',
+        itemPlur: 'tickets',
+        lab1Sing: 'gagnant',
+        lab1Plur: 'gagnants',
+        lab2Sing: 'perdant',
+        lab2Plur: 'perdants',
+      },
+      {
+        start: 'On tire au sort une bille dans un sac',
+        itemSing: 'bille',
+        itemPlur: 'billes',
+        lab1Sing: 'claire',
+        lab1Plur: 'claires',
+        lab2Sing: 'foncée',
+        lab2Plur: 'foncées',
+      },
+    ]
 
-    // Construction de l'énoncé
-    this.question = `On tire une boule au hasard dans une urne contenant $${a}$ boules ${couleur1} et $${b}$ boules ${couleur2}.<br>
+    const situ = choice(situations)
+    const label1Plur = situ.lab1Plur
+    const label2Plur = situ.lab2Plur
+    const label1Sing = situ.lab1Sing
+    const label2Sing = situ.lab2Sing
+    const itemSing = situ.itemSing
 
-             Quelle est la probabilité d'obtenir une boule ${couleurDemandee} ? <br>
+    const couleur1Plur = label1Plur
+    const couleur2Plur = label2Plur
+    const couleur1Sing = label1Sing
+    const couleur2Sing = label2Sing
+    const couleurDemandee = choix ? couleur1Sing : couleur2Sing
+
+    // Construction de l'énoncé (utilise les formes plurielles pour la description des quantités)
+    this.question = `${situ.start} contenant $${a}$ ${situ.itemPlur} ${couleur1Plur} et $${b}$ ${situ.itemPlur} ${couleur2Plur}.<br>
+
+             Quelle est la probabilité d'obtenir ${choix ? 'une' : 'une'} ${couleurDemandee} ${itemSing} ? <br>
 
              ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "(résultat sous  forme d'une fraction irréductible)"}`
     this.optionsChampTexte = { texteApres: '' }
