@@ -63,11 +63,11 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     coefficients: CoefficientsEquation
     coeffsDiscriminant: CoefficientsDiscriminant
   } {
-    const a = randint(-5, 5, 0)
-    const coefBm = randint(-2, 2, 0)
-    const coefBc = randint(-3, 3, 0)
-    const coefCm = randint(-2, 2, 0)
-    const coefCc = randint(-3, 3, 0)
+    const valeurAjustementDeltaA = randint(-5, 5, 0)
+    const coefficientDeMDansDeltaB = randint(-2, 2, 0)
+    const coefficientConstantDansDeltaB = randint(-3, 3, 0)
+    const coefficientDeMDansDeltaC = randint(-2, 2, 0)
+    const coefficientConstantDansDeltaC = randint(-3, 3, 0)
 
     let equation: string
     let coefficients: CoefficientsEquation
@@ -75,45 +75,61 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
 
     switch (typeQuestion) {
       case 1: // Coefficient de x² constant
-        equation = `${coefBm}mx${ecritureAlgebrique(a)}x^2${ecritureAlgebriqueSauf1(coefCm)}m${ecritureAlgebriqueSauf1(coefBc)}x${ecritureAlgebrique(coefCc)}`
+        equation = `${coefficientDeMDansDeltaB}mx${ecritureAlgebrique(valeurAjustementDeltaA)}x^2${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaC)}m${ecritureAlgebriqueSauf1(coefficientConstantDansDeltaB)}x${ecritureAlgebrique(coefficientConstantDansDeltaC)}`
         coefficients = {
-          a: `${a}`,
-          b: `${rienSi1(coefBm)}m${ecritureAlgebrique(coefBc)}`,
-          c: `${rienSi1(coefCm)}m${ecritureAlgebrique(coefCc)}`,
+          a: `${valeurAjustementDeltaA}`,
+          b: `${rienSi1(coefficientDeMDansDeltaB)}m${ecritureAlgebrique(coefficientConstantDansDeltaB)}`,
+          c: `${rienSi1(coefficientDeMDansDeltaC)}m${ecritureAlgebrique(coefficientConstantDansDeltaC)}`,
         }
         coeffsDiscriminant = {
-          coeffAA: coefBm * coefBm,
-          coeffBB: 2 * coefBm * coefBc - 4 * a * coefCm,
-          coeffCC: -4 * a * coefCc + coefBc * coefBc,
+          coeffAA: coefficientDeMDansDeltaB * coefficientDeMDansDeltaB,
+          coeffBB:
+            2 * coefficientDeMDansDeltaB * coefficientConstantDansDeltaB -
+            4 * valeurAjustementDeltaA * coefficientDeMDansDeltaC,
+          coeffCC:
+            -4 * valeurAjustementDeltaA * coefficientConstantDansDeltaC +
+            coefficientConstantDansDeltaB * coefficientConstantDansDeltaB,
         }
         break
 
       case 2: // Coefficient de x² avec a.m
-        equation = `${coefBm}mx${ecritureAlgebriqueSauf1(a)}mx^2${ecritureAlgebriqueSauf1(coefCm)}m${ecritureAlgebriqueSauf1(coefBc)}x${ecritureAlgebrique(coefCc)}`
+        equation = `${coefficientDeMDansDeltaB}mx${ecritureAlgebriqueSauf1(valeurAjustementDeltaA)}mx^2${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaC)}m${ecritureAlgebriqueSauf1(coefficientConstantDansDeltaB)}x${ecritureAlgebrique(coefficientConstantDansDeltaC)}`
         coefficients = {
-          a: `${rienSi1(a)}m`,
-          b: `${rienSi1(coefBm)}m${ecritureAlgebrique(coefBc)}`,
-          c: `${rienSi1(coefCm)}m${ecritureAlgebrique(coefCc)}`,
+          a: `${rienSi1(valeurAjustementDeltaA)}m`,
+          b: `${rienSi1(coefficientDeMDansDeltaB)}m${ecritureAlgebrique(coefficientConstantDansDeltaB)}`,
+          c: `${rienSi1(coefficientDeMDansDeltaC)}m${ecritureAlgebrique(coefficientConstantDansDeltaC)}`,
         }
         coeffsDiscriminant = {
-          coeffAA: coefBm * coefBm - 4 * a * coefCm,
-          coeffBB: 2 * coefBm * coefBc - 4 * a * coefCm,
-          coeffCC: coefBc * coefBc,
+          coeffAA:
+            coefficientDeMDansDeltaB * coefficientDeMDansDeltaB -
+            4 * valeurAjustementDeltaA * coefficientDeMDansDeltaC,
+          coeffBB:
+            2 * coefficientDeMDansDeltaB * coefficientConstantDansDeltaB -
+            4 * valeurAjustementDeltaA * coefficientDeMDansDeltaC,
+          coeffCC:
+            coefficientConstantDansDeltaB * coefficientConstantDansDeltaB,
         }
         break
 
       case 3: // Coefficient de x² en m+a
       default:
-        equation = `(m${ecritureAlgebriqueSauf1(a)})x^2${ecritureAlgebriqueSauf1(coefBm)}mx${ecritureAlgebriqueSauf1(coefCm)}m${ecritureAlgebriqueSauf1(coefBc)}x${ecritureAlgebrique(coefCc)}`
+        equation = `(m${ecritureAlgebriqueSauf1(valeurAjustementDeltaA)})x^2${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaB)}mx${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaC)}m${ecritureAlgebriqueSauf1(coefficientConstantDansDeltaB)}x${ecritureAlgebrique(coefficientConstantDansDeltaC)}`
         coefficients = {
-          a: `m${ecritureAlgebriqueSauf1(a)}`,
-          b: `${rienSi1(coefBm)}m${ecritureAlgebrique(coefBc)}`,
-          c: `${rienSi1(coefCm)}m${ecritureAlgebrique(coefCc)}`,
+          a: `m${ecritureAlgebriqueSauf1(valeurAjustementDeltaA)}`,
+          b: `${rienSi1(coefficientDeMDansDeltaB)}m${ecritureAlgebrique(coefficientConstantDansDeltaB)}`,
+          c: `${rienSi1(coefficientDeMDansDeltaC)}m${ecritureAlgebrique(coefficientConstantDansDeltaC)}`,
         }
         coeffsDiscriminant = {
-          coeffAA: coefBm * coefBm - 4 * coefCm,
-          coeffBB: 2 * coefBm * coefBc - 4 * coefCm * a - 4 * coefCc,
-          coeffCC: -4 * a * coefCc + coefBc * coefBc,
+          coeffAA:
+            coefficientDeMDansDeltaB * coefficientDeMDansDeltaB -
+            4 * coefficientDeMDansDeltaC,
+          coeffBB:
+            2 * coefficientDeMDansDeltaB * coefficientConstantDansDeltaB -
+            4 * coefficientDeMDansDeltaC * valeurAjustementDeltaA -
+            4 * coefficientConstantDansDeltaC,
+          coeffCC:
+            -4 * valeurAjustementDeltaA * coefficientConstantDansDeltaC +
+            coefficientConstantDansDeltaB * coefficientConstantDansDeltaB,
         }
         break
     }
@@ -335,7 +351,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
         coeffsDiscriminant,
       )
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, equation)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
