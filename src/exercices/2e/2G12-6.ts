@@ -1,21 +1,21 @@
-import Exercice from '../Exercice'
-import { point, tracePoint, Point, TracePoint } from '../../lib/2d/points'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { choice } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { Matrice } from '../../lib/mathFonctions/Matrice'
+import type { Matrix } from 'mathjs'
+import { point, Point, tracePoint, TracePoint } from '../../lib/2d/points'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { Matrice } from '../../lib/mathFonctions/Matrice'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
 } from '../../modules/2dGeneralites'
-import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
-import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { fraction } from '../../modules/fractions'
 import type FractionEtendue from '../../modules/FractionEtendue'
-import type { Matrix } from 'mathjs'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -302,7 +302,7 @@ export default class Reperage2e extends Exercice {
               `Coordonnées de $${el}$ : ${ajouteQuestionMathlive({
                 exercice: this,
                 question: i * this.sup3 + k,
-                typeInteractivite: 'remplisLesBlancs',
+                typeInteractivite: 'fillInTheBlank',
                 // objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
                 objetReponse: {
                   champ1: { value: x[i][k].texFractionSimplifiee },

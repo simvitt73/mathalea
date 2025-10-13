@@ -10,6 +10,7 @@ import type {
   clickFigures,
   ReponseComplexe,
 } from '../lib/interactif/gestionInteractif'
+import type { InteractivityType } from '../lib/types'
 import type Grandeur from '../modules/Grandeur'
 import {
   exportedApplyNewSeed,
@@ -17,6 +18,20 @@ import {
   exportedQuestionJamaisPosee,
   exportedReinit,
 } from './exerciseMethods'
+// Pour retro compatibilité avec setReponse
+export type OldFormatInteractifType =
+  | 'calcul'
+  | 'texte'
+  | 'tableauMathlive'
+  | 'Num'
+  | 'Den'
+  | 'fractionEgale'
+  | 'unites'
+  | 'intervalleStrict'
+  | 'intervalle'
+  | 'puissance'
+  | 'canonicalAdd'
+  | 'ignorerCasse'
 
 /**
  *
@@ -76,7 +91,7 @@ export default class Exercice {
 
   // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
   optionsDeComparaison?: Partial<OptionsComparaisonType>
-  formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
+  formatInteractif?: InteractivityType | OldFormatInteractifType // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
