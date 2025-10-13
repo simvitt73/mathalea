@@ -151,6 +151,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       this.figuresApiGeom[i].options.labelDyInPixels = 20
       this.figuresApiGeom[i].setToolbar({
         tools: [
+          'DRAG',
           'NAME_POINT',
           'POINT_ON',
           'POINT_INTERSECTION',
@@ -531,6 +532,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       isValid: true,
       message: '',
     }
+    const results = ['KO', 'KO']
     switch (typefigure) {
       case 'segment':
         resultat = checkSegment({
@@ -538,6 +540,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           point1: cords1,
           point2: cords2,
         })
+        if (resultat.isValid) results[0] = 'OK'
         resultat2 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords1.x,
@@ -552,6 +555,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
+        if (resultat2.isValid && resultat3.isValid) results[1] = 'OK'
         break
 
       case 'droite':
@@ -560,6 +564,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           point1: cords1,
           point2: cords2,
         })
+        if (resultat.isValid) results[0] = 'OK'
         resultat2 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords1.x,
@@ -574,7 +579,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
-
+        if (resultat2.isValid && resultat3.isValid) results[1] = 'OK'
         break
 
       case 'demidroite':
@@ -583,6 +588,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           point1: cords1,
           point2: cords2,
         })
+        if (resultat.isValid) results[0] = 'OK'
         resultat2 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords1.x,
@@ -597,7 +603,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
-
+        if (resultat2.isValid && resultat3.isValid) results[2] = 'OK'
         break
 
       case 'cercle':
@@ -609,6 +615,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
             (cords2.x - cords1.x) ** 2 + (cords2.y - cords1.y) ** 2,
           ),
         })
+        if (resultat.isValid) results[0] = 'OK'
         resultat2 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords1.x,
@@ -623,7 +630,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
-
+        if (resultat2.isValid && resultat3.isValid) results[1] = 'OK'
         break
 
       case 'triangle':
@@ -631,6 +638,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           figure: this.figuresApiGeom[i],
           points: [cords1, cords2, cords3],
         })
+        if (resultat.isValid) results[0] = 'OK'
         resultat2 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords1.x,
@@ -652,36 +660,31 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][2].label + "'",
           checkOnlyAbscissa: false,
         })
-
+        if (resultat2.isValid && resultat3.isValid && resultat4.isValid) results[1] = 'OK'
         break
 
       default:
         throw new Error('Type de question inconnu')
     }
-    if (
-      resultat.isValid &&
-      resultat2.isValid &&
-      resultat3.isValid &&
-      (typefigure !== 'triangle' || resultat4.isValid)
-    ) {
-      if (divFeedback) divFeedback.innerHTML = 'Bravo !'
+    if (results[0] === 'OK' && results[1] === 'OK') {
+      if (divFeedback){
+        divFeedback.innerHTML = 'Bravo !<br/>2/2'
+      } 
       this.figuresApiGeom[i].isDynamic = false
       this.figuresApiGeom[i].divButtons.style.display = 'none'
       this.figuresApiGeom[i].divUserMessage.style.display = 'none'
-      return ['OK', 'OK']
+      return results
     } else {
-      if (divFeedback)
-        divFeedback.innerHTML = [
-          resultat.message,
-          resultat2.message,
-          resultat3.message,
-          resultat4.message,
-        ].join('<br>')
+       if (divFeedback && results.includes('OK')) {
+         divFeedback.innerHTML = 'Figure incomplète<br/>1/2'
+       }
+       if (divFeedback && !results.includes('OK')) {
+         divFeedback.innerHTML = 'Figure incorrecte<br/>0/2'
+       }
       this.figuresApiGeom[i].isDynamic = false
       this.figuresApiGeom[i].divButtons.style.display = 'none'
       this.figuresApiGeom[i].divUserMessage.style.display = 'none'
-      if (resultat.isValid) return ['OK', 'KO']
-      return ['KO', 'KO']
+      return results
     }
   }
 }
