@@ -9,6 +9,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   # Indique à LiteSpeed de mettre en cache le contenu public.
   # LSCache respectera les en-têtes Cache-Control définis ci-dessous.
   CacheEnable public /
+  # Désactive le cache pour l’index (évite le HTML obsolète)
+  CacheDisable public /index.html
+  CacheDisable public /index.htm
 </IfModule>
 
 # --- Compression (gzip / brotli si le serveur le permet) ---

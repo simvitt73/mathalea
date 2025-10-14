@@ -18,7 +18,7 @@ export const uuid = '47142'
 
 export const refs = {
   'fr-fr': ['can3S01', 'BP2FLUC15', '3AutoP01-2'],
-  'fr-ch': [],
+  'fr-ch': ['3mP-5'],
 }
 export default class CalculProbaSimple extends ExerciceSimple {
   constructor() {

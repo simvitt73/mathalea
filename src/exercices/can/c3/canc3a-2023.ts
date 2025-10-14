@@ -27,7 +27,7 @@ export const uuid = '57239'
 
 export const refs = {
   'fr-fr': ['canc3a-2023'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**

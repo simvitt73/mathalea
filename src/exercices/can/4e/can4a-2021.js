@@ -53,7 +53,7 @@ export const uuid = '60563'
 
 export const refs = {
   'fr-fr': ['can4a-2021'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SujetCAN20214ieme extends Exercice {
   constructor() {

@@ -15,7 +15,7 @@ export const uuid = '51125'
 
 export const refs = {
   'fr-fr': ['1A-S4', '3AutoP03-1'],
-  'fr-ch': [],
+  'fr-ch': ['QCM9-1'],
 }
 export default class Auto1AS4 extends MoyenneStat {
   constructor() {

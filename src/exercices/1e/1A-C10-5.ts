@@ -14,7 +14,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '01/10/2025'
 export const dateDeModifImportante = '12/10/2025'
 export const uuid = '26802'
-// 
+//
 /**
  *
  * @author Gilles Mora + Claude ia pour la factorisation
@@ -22,7 +22,7 @@ export const uuid = '26802'
  */
 export const refs = {
   'fr-fr': ['1A-C10-5'],
-  'fr-ch': [],
+  'fr-ch': ['2mQCM-2'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -31,19 +31,27 @@ export const amcType = 'qcmMono'
 export const titre =
   'Résoudre une inéquation du type $\\dfrac{1}{x}<a$ ou $\\dfrac{1}{x}>a$ (avec ou sans courbe)'
 export default class Auto1AC10e extends ExerciceQcmA {
- private appliquerLesValeurs(
+  private appliquerLesValeurs(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ): void {
     // Détermination du signe d'inégalité
     const signeInégalité =
       typeInequation === 'inf'
-        ? estInegStrict ? '<' : ' \\leqslant '
-        : estInegStrict ? '>' : ' \\geqslant '
+        ? estInegStrict
+          ? '<'
+          : ' \\leqslant '
+        : estInegStrict
+          ? '>'
+          : ' \\geqslant '
 
     // Création des éléments graphiques
-    const elements = this.creerElementsGraphiques(val, estInegStrict, typeInequation)
+    const elements = this.creerElementsGraphiques(
+      val,
+      estInegStrict,
+      typeInequation,
+    )
     const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
     const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
 
@@ -54,7 +62,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       : `${deuxColonnes(
           `On a représenté l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br><br>
            On note $(I)$ l'inéquation, sur $\\mathbb{R}^*$, $\\dfrac{1}{x}${signeInégalité} ${val}$.<br><br>`,
-          `${graphique}<br>`
+          `${graphique}<br>`,
         )} L'ensemble des solutions $S$ de cette inéquation est :`
 
     // Correction
@@ -63,7 +71,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       estInegStrict,
       typeInequation,
       graphiqueC,
-      reponses[0]
+      reponses[0],
     )
 
     // Réponses
@@ -73,7 +81,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
   private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
     const O = point(0, 0)
@@ -150,7 +158,9 @@ export default class Auto1AC10e extends ExerciceQcmA {
 
     // Textes pour les labels
     const textes = [
-      latex2d(`y=${val}`, 4, yDroite > 0 ? 2 : -1, { letterSize: 'scriptsize' }),
+      latex2d(`y=${val}`, 4, yDroite > 0 ? 2 : -1, {
+        letterSize: 'scriptsize',
+      }),
       latex2d('y=\\dfrac{1}{x}', 1.2, 3, { letterSize: 'scriptsize' }),
     ]
 
@@ -159,13 +169,13 @@ export default class Auto1AC10e extends ExerciceQcmA {
       textes.push(
         latex2d(`\\dfrac{1}{${val}}`, borneReelle + 0.3, -0.8, {
           letterSize: 'scriptsize',
-        })
+        }),
       )
     } else {
       textes.push(
         latex2d(`-\\dfrac{1}{${Math.abs(val)}}`, borneReelle - 0.3, 0.9, {
           letterSize: 'scriptsize',
-        })
+        }),
       )
     }
 
@@ -218,7 +228,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       },
       r1,
       o,
-      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 })
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
     )
 
     // Graphique complet pour la correction
@@ -237,7 +247,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       o,
       sAAx,
       ...segmentsSolution,
-      ...textes
+      ...textes,
     )
 
     return { graphique, graphiqueC }
@@ -246,7 +256,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
   private formaterReponses(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ) {
     const borne =
       val > 0 ? `\\dfrac{1}{${val}}` : `-\\dfrac{1}{${Math.abs(val)}}`
@@ -303,14 +313,18 @@ export default class Auto1AC10e extends ExerciceQcmA {
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
     graphiqueC: any,
-    reponseCorrecte: string
+    reponseCorrecte: string,
   ) {
     const borne =
       val > 0 ? `\\dfrac{1}{${val}}` : `-\\dfrac{1}{${Math.abs(val)}}`
     const positionText =
       typeInequation === 'inf'
-        ? estInegStrict ? 'strictement en-dessous de' : ' sur ou sous '
-        : estInegStrict ? 'strictement au-dessus de' : ' sur ou au-dessus de '
+        ? estInegStrict
+          ? 'strictement en-dessous de'
+          : ' sur ou sous '
+        : estInegStrict
+          ? 'strictement au-dessus de'
+          : ' sur ou au-dessus de '
 
     return `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br>
@@ -323,9 +337,9 @@ export default class Auto1AC10e extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     // Version originale : 1/x ≥ 3
     this.appliquerLesValeurs(
-      3,      // val
-      false,  // estInegStrict
-      'sup'   // typeInequation
+      3, // val
+      false, // estInegStrict
+      'sup', // typeInequation
     )
   }
 
@@ -339,7 +353,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
 
   constructor() {
     super()
-   //this.options = { vertical: true, ordered: false }
+    //this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
     this.besoinFormulaire5CaseACocher = ['Sans la courbe']
   }

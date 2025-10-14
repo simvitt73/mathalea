@@ -22,7 +22,7 @@ import {
 } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -70,25 +70,23 @@ export default class NombreDeFacesEtDAretes extends Exercice {
     }
 
     let typeDeQuestion = []
-    const choixA = []
-    const choixB = []
     this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
-    for (let i = 0; i < 7; i++) {
-      choixA.push(i * 2 + 1)
-      choixB.push(i * 2 + 2)
-    }
-    const choix1 = shuffle(choixA)
-    const choix2 = shuffle(choixB)
+    const choix1 = combinaisonListes([1, 3, 5, 7, 9, 11, 13], this.nbQuestions)
+    const choix2 = combinaisonListes([2, 4, 6, 8, 10, 12, 14], this.nbQuestions)
+    const nbAretes: number[] = combinaisonListes(
+      [3, 4, 5, 6, 8],
+      this.nbQuestions,
+    )
     if (this.sup === 3) {
-      for (let i = 0; i < Math.ceil(this.nbQuestions / 2); i++) {
-        typeDeQuestion.push(choix1[i % 7], choix2[i % 7])
+      for (let i = 0; i < this.nbQuestions; i++) {
+        typeDeQuestion.push(choix1[i], choix2[i])
       }
     } else if (this.sup === 1) {
       typeDeQuestion = choix2.slice(0, this.nbQuestions)
     } else {
       typeDeQuestion = choix1.slice(0, this.nbQuestions)
     }
-    typeDeQuestion = shuffle(typeDeQuestion)
+
     for (let j = 0, choix; j < this.nbQuestions; ) {
       let question = 'Voici un solide :<br>'
       const objects = []
@@ -96,7 +94,7 @@ export default class NombreDeFacesEtDAretes extends Exercice {
       context.anglePerspective = 20
       const objets = []
       const points3D: Point3d[] = []
-      const n = randint(3, 8, 7)
+      const n = nbAretes[j]
       const rayon = 4
       const O = point3d(0, 0, 0)
       const k = vecteur3d(0, 0, 2)
@@ -433,7 +431,7 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes, soit $${miseEnEvidence(4 * n)}$ arêtes.`
           break
       }
-      // fin du switch de sélexction des solides
+      // fin du switch de sélection des solides
 
       if (objects.length > 0) {
         const content = { objects: objects as any, autoCenterZoomMargin: 1 }
