@@ -649,7 +649,11 @@ export function loadPackagesFromContent(contents: contentsType) {
     '\\newcolumntype{C}[1]{>{\\centering\\arraybackslash}p{#1cm}}',
     contents,
   )
-  testIfLoaded(['pattern'], '\\usetikzlibrary{patterns.meta}', contents)
+  testIfLoaded(
+    ['pattern'],
+    '\\usetikzlibrary{patterns,patterns.meta}',
+    contents,
+  )
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
   testIfLoaded(
     ['single arrow', 'ellipse,'],
