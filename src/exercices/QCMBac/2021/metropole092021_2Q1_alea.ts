@@ -13,7 +13,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'zert'
 export const refs = {
   'fr-fr': ['TSA2-QCM07'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

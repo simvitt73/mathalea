@@ -20,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['5R13', 'BP2AutoG3', '3AutoN02-1'],
-  'fr-ch': [],
+  'fr-ch': ['9NO7-13'],
 }
 
 /**
