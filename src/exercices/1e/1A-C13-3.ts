@@ -104,7 +104,7 @@ export default class Auto1AC11c extends ExerciceQcmA {
 
       case 4:
       default:
-        this.enonce = `On considère des réels $x$, $y$ et $u$ non nuls tels que $\\dfrac{${rienSi1(a)}x}{y}+${b}= \\dfrac{${rienSi1(c)}}{u}$.<br>
+        this.enonce = `On considère des réels $x$, $y$ et $u$ non nuls tels que $\\dfrac{${rienSi1(a)}x}{y}+${b}= \\dfrac{${c}}{u}$.<br>
             On peut affirmer que :`
 
         this.correction = `On isole $u$ dans le premier membre : <br>
