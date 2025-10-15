@@ -661,7 +661,12 @@ export function loadPackagesFromContent(contents: contentsType) {
     contents,
   )
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
-  testIfLoaded(['Stealth'], '\\usetikzlibrary{arrows.meta}', contents)
+  testIfLoaded(
+    ['-{Latex', '-{Stealth', '-{Triangle', '-{Bar'],
+    '\\usetikzlibrary{arrows.meta}',
+    contents,
+  )
+  testIfLoaded(['below=2mm of'], '\\usetikzlibrary{positioning}', contents)
   testIfLoaded(
     ['\\llbracket', '\\rrbracket'],
     '\\usepackage{stmaryrd}',

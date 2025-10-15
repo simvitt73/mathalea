@@ -23,7 +23,7 @@ export const uuid = '2d459'
 
 export const refs = {
   'fr-fr': ['can1F21'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-21'],
 }
 export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
   constructor() {

@@ -24,7 +24,7 @@ export const titre =
   'Lire des coordonnées en repère orthogonal, normé ou quelconque'
 export const refs = {
   'fr-fr': ['2G12-6'],
-  'fr-ch': [],
+  'fr-ch': ['9FA1-10', '10FA5-21'],
 }
 
 /**
@@ -303,7 +303,7 @@ export default class Reperage2e extends Exercice {
                 exercice: this,
                 question: i * this.sup3 + k,
                 typeInteractivite: 'fillInTheBlank',
-                // objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
+                // objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { nombreDecimalSeulement: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { nombreDecimalSeulement: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
                 objetReponse: {
                   champ1: { value: x[i][k].texFractionSimplifiee },
                   champ2: { value: y[i][k].texFractionSimplifiee },

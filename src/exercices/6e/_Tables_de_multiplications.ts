@@ -134,7 +134,7 @@ export default class TablesDeMultiplications extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: String(a * b),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       } else if (typeDeQuestion === 'a_trous') {
@@ -209,7 +209,7 @@ export default class TablesDeMultiplications extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: String(reponse),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       } else {
@@ -236,7 +236,7 @@ export default class TablesDeMultiplications extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: String(reponse),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       }

@@ -42,7 +42,7 @@ export const uuid = '29c3c'
 export const refs = {
   'fr-fr': ['6G2C'],
   'fr-2016': ['6G54'],
-  'fr-ch': [],
+  'fr-ch': ['9ES4-15'],
 }
 export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
   constructor() {
@@ -1436,7 +1436,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
       texte +=
         "Dans l'enclos rectangulaire représenté ci-dessous, on a attaché une chèvre à un piquet $(P)$ situé sur le mur d'une cabane rectangulaire, elle aussi.<br>"
       texte += `La corde qui limite les déplacements de la chèvre mesure $${longueurCordelette}\\,\\text{m}$.<br>`
-      texte += `${numAlpha(0)} Réprésenter le schéma de l'enclos en utilisant comme échelle : $1\\,\\text{cm}$ pour $1\\,\\text{m}$.<br>`
+      texte += `${numAlpha(0)} Représenter le schéma de l'enclos en utilisant comme échelle : $1\\,\\text{cm}$ pour $1\\,\\text{m}$.<br>`
       texte += `${numAlpha(1)} Délimiter et hachurer la zone de l'enclos dans laquelle peut brouter la chèvre.<br><br>`
 
       texte += mathalea2d(

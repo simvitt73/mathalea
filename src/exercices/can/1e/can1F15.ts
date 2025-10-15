@@ -23,7 +23,7 @@ export const uuid = '0e984'
 
 export const refs = {
   'fr-fr': ['can1F15'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
   constructor() {

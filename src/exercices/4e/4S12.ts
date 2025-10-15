@@ -55,7 +55,7 @@ export default class MoyenneEtMediane extends Exercice {
       handleAnswers(this, 0, {
         reponse: {
           value: arrondi(moyenne, 1),
-          options: { resultatSeulementEtNonOperation: true },
+          options: { nombreDecimalSeulement: true },
         },
       })
     }
@@ -91,7 +91,7 @@ export default class MoyenneEtMediane extends Exercice {
             handleAnswers(this, 1, {
               reponse: {
                 value: mediane,
-                options: { resultatSeulementEtNonOperation: true },
+                options: { nombreDecimalSeulement: true },
               },
             })
           }
@@ -99,7 +99,7 @@ export default class MoyenneEtMediane extends Exercice {
           handleAnswers(this, 1, {
             reponse: {
               value: mediane,
-              options: { resultatSeulementEtNonOperation: true },
+              options: { nombreDecimalSeulement: true },
             },
           })
         }

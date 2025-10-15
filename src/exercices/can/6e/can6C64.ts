@@ -1,12 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
-import {
-  miseEnEvidence,
-  texteEnCouleur,
-} from '../../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 
-import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Utiliser la division euclidienne'
 export const interactifReady = true
@@ -30,20 +25,20 @@ export default class ResteDivisionEuclidienne2 extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {
     let a, b, c, d, q, r
-    
-      q = randint(11, 15)
-      b = randint(8, 11)
-      r = randint(1, b - 1)
-      a = b * q + r
-      this.question = `   En utilisant l'égalité $${a}=(${b}\\times ${q})+${r}$, donner le reste de la division euclidienne de $${a}$ par $${b}$.`
-      this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${miseEnEvidence(r)}$.`
-      this.reponse = r
-  
+
+    q = randint(11, 15)
+    b = randint(8, 11)
+    r = randint(1, b - 1)
+    a = b * q + r
+    this.question = `   En utilisant l'égalité $${a}=(${b}\\times ${q})+${r}$, donner le reste de la division euclidienne de $${a}$ par $${b}$.`
+    this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${miseEnEvidence(r)}$.`
+    this.reponse = r
+
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

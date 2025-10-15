@@ -224,16 +224,6 @@ describe('fonctionComparaison', () => {
     )
   })
 
-  it("Vérifie le fonctionnement de l'option resultatSeulementEtNonOperation", () => {
-    const result = fonctionComparaison('2+2', '4', {
-      resultatSeulementEtNonOperation: true,
-    })
-    expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe(
-      'Résultat incorrect car une valeur numérique est attendue.',
-    )
-  })
-
   it("Vérifie le fonctionnement de l'option HMS", () => {
     const result = fonctionComparaison('1h30m', '1h30m', { HMS: true })
     expect(result.isOk).toBe(true)

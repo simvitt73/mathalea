@@ -30,7 +30,7 @@ export default class FractionSimpleDeQuantite extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.optionsChampTexte = { texteApres: ' L' }
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {
