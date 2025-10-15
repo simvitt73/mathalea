@@ -42,7 +42,7 @@ export const uuid = '29c3c'
 export const refs = {
   'fr-fr': ['6G2C'],
   'fr-2016': ['6G54'],
-  'fr-ch': [],
+  'fr-ch': ['9ES4-15'],
 }
 export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
   constructor() {

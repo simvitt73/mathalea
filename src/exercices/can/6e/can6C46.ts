@@ -25,7 +25,7 @@ export const uuid = '1cee6'
 
 export const refs = {
   'fr-fr': ['can6C46', '6N3K-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ProblemeResteFraction extends ExerciceSimple {
   constructor() {

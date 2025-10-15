@@ -20,7 +20,7 @@ export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
 export const uuid = '3391d'
 export const refs = {
   'fr-fr': ['1AN14-7'],
-  'fr-ch': [],
+  'fr-ch': ['3mA2-9', '4mAna-3'],
 }
 type TypeDeFonction = 'monome' | 'racine' | 'inv' | 'exp'
 

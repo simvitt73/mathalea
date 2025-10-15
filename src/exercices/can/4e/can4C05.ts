@@ -21,7 +21,7 @@ export const uuid = '1b4fe'
 
 export const refs = {
   'fr-fr': ['can4C05'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SommeFractionsCompatibles extends ExerciceSimple {
   constructor() {

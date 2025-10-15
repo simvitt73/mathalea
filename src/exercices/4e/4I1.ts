@@ -30,7 +30,7 @@ export const uuid = '33c9a'
 
 export const refs = {
   'fr-fr': ['4I1', '3AutoI01-1'],
-  'fr-ch': [],
+  'fr-ch': ['autres-16'],
 }
 export default class TracerAvecScratch extends Exercice {
   constructor() {

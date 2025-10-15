@@ -11,7 +11,7 @@ export const dateDePublication = '20/4/2025'
 export const uuid = '32fa3'
 export const refs = {
   'fr-fr': ['TSG1-03'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-19'],
 }
 function factorielle(num: number): number {
   if (num === 0 || num === 1) return 1
