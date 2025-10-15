@@ -98,7 +98,10 @@
     "2mEqCar": {},
     "2mFctPoly": {},
     "2mIneq": {},
-    "2mQCM": {}
+    "2mQCM": {},
+    "2mGeomVect": {},
+    "2mLogExp": {},
+    "2mTrigo": {}
   },
   "3e Collège": {
     "3mA1": {},
@@ -106,10 +109,16 @@
     "3mA3": {},
     "3mP1": {},
     "3mQCM": {},
-    "3mNC": {}
+    "3mNC": {},
+    "3mAlgLin": {}
   },
   "4e Collège": {
-    "4mA": {}
+    "4mAna": {},
+    "4mEqDif": {},
+    "4mAlgLin": {},
+    "4mInt": {},
+    "4mQCM": {},
+    "4mProbStat": {}
   },
   "Non classés": {
     "divers": {},

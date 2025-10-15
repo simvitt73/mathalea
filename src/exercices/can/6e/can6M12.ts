@@ -24,7 +24,7 @@ export const uuid = '08764'
 
 export const refs = {
   'fr-fr': ['can6M12', 'CM1M1I-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
   constructor() {

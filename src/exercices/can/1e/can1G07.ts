@@ -24,7 +24,7 @@ export const uuid = '14aa1'
 
 export const refs = {
   'fr-fr': ['can1G07'],
-  'fr-ch': [],
+  'fr-ch': ['3mAlgLin-4'],
 }
 export default class RechercheCoordonneesProdScal extends ExerciceSimple {
   constructor() {

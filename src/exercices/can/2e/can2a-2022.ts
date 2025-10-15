@@ -47,7 +47,7 @@ export const uuid = '2a4b1'
 
 export const refs = {
   'fr-fr': ['can2a-2022'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SujetCAN2022Seconde extends Exercice {
   constructor() {
