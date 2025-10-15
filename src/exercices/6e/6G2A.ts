@@ -166,7 +166,7 @@ export default class VocabulaireDuCercle extends Exercice {
       const O = point(0, 0, nomsDesPoints[0])
       const leCercle = cercle(O, 3)
       const A = pointAdistance(O, 3, nomsDesPoints[1])
-      this.consigne += `<br>Les points $${nomsDesPoints[0]}$, $${nomsDesPoints[3]}$ et $${nomsDesPoints[2]}$ sont alignés.`
+      texte += `Les points $${nomsDesPoints[3]}$, $${nomsDesPoints[0]}$ et $${nomsDesPoints[2]}$ sont alignés.`
       let B, C, D, E
       do {
         B = pointAdistance(O, 3, nomsDesPoints[2])
