@@ -523,7 +523,12 @@ export function prepareExerciceCliqueFigure(exercice: Exercice) {
             fig.addEventListener('mouseover', mouseOverSvgEffect)
             fig.addEventListener('mouseout', mouseOutSvgEffect)
             fig.addEventListener('click', mouseSvgClick)
-            fig.etat = false
+            if (fig.etat === true) {
+              // MGu : si l'état est true, c'est que ca a été coché par capytale
+              // il faudrait revoir le système de figure cliquable avec un customelement
+            } else {
+              fig.etat = false
+            }
             fig.style.margin = '10px'
             fig.style.border = '3px solid transparent'
             fig.hasMathaleaListener = true
