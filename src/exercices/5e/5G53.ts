@@ -37,8 +37,6 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 /**
  * @author Jean-Claude Lhote (Adapté par Eric Elter pour que les nouvelles fonctions 3d soient bien utilisées)
- * Créé le 3/11/2021
-
  */
 export const uuid = 'da6a4'
 
@@ -377,9 +375,9 @@ export default class NombreDeFacesEtDAretes extends Exercice {
         question += mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
       }
       if (choix % 2 === 1) {
-        question += '<br>Quel est le nombre de faces de ce solide ?'
+        question += 'Quel est le nombre de faces de ce solide ?'
       } else {
-        question += "<br>Quel est le nombre d'arêtes de ce solide ?"
+        question += "Quel est le nombre d'arêtes de ce solide ?"
       }
       if (this.questionJamaisPosee(j, choix, n)) {
         handleAnswers(this, j, { reponse: { value: reponse } })
