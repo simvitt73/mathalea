@@ -12,6 +12,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   # Désactive le cache pour l’index (évite le HTML obsolète)
   CacheDisable public /index.html
   CacheDisable public /index.htm
+  # Désactive LSCache pour /alea/static/ et tous ses sous-répertoires
+  CacheDisable public /alea/static/
+  CacheDisable public /static/
 </IfModule>
 
 # --- Compression (gzip / brotli si le serveur le permet) ---
@@ -62,10 +65,13 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
   </FilesMatch>
 
-  # Pour les assets : 1 an et immuable — utilisé pour les fichiers compilés avec un hash dans leur nom.
-  <FilesMatch "\.(?:css|js|jpg|jpeg|png|gif|svg|ico|webp|woff|woff2|ttf|eot|otf|map)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
-  </FilesMatch>
+  # Assets AVEC hash (-[A-Za-z0-9]{8,}) => long cache immutable
+  Header set Cache-Control "public, max-age=31536000, immutable" "expr=%{REQUEST_URI} =~ m#\.(?:css|js|jpg|jpeg|png|gif|svg|ico|webp|woff|woff2|ttf|eot|otf|map|tex)$#i && %{REQUEST_URI} =~ m#-[A-Za-z0-9]{8,}#"
+
+  # PNG et TEX SANS hash => revalidation systématique (toujours la dernière version)
+  Header unset Cache-Control "expr=%{REQUEST_URI} =~ m#\.(?:png|tex)$#i && %{REQUEST_URI} !~ m#-[A-Za-z0-9]{8,}#"
+  Header unset Expires "expr=%{REQUEST_URI} =~ m#\.(?:png|tex)$#i && %{REQUEST_URI} !~ m#-[A-Za-z0-9]{8,}#"
+  Header set Cache-Control "no-cache, must-revalidate, max-age=0" "expr=%{REQUEST_URI} =~ m#\.(?:png|tex)$#i && %{REQUEST_URI} !~ m#-[A-Za-z0-9]{8,}#"
 </IfModule>
 
 # --- En-têtes de sécurité / bonnes pratiques ---
