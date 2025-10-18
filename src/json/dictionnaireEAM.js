@@ -1,65 +1,65 @@
 export const dictionnaireEAM = {
-  eam_spécialité_2025_06_sujet0_1: {
+  eam_specialite_2025_06_sujet0_1: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '1',
     typeExercice: 'eam',
-    filiere: 'Spécialité',
+    filiere: 'Specialite',
     tags: [''],
   },
-  eam_spécialité_2025_06_sujet0_2: {
+  eam_specialite_2025_06_sujet0_2: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '2',
     typeExercice: 'eam',
-    filiere: 'Spécialité',
+    filiere: 'Specialite',
     tags: [''],
   },
-  eam_spécialité_2025_06_sujet0_3: {
+  eam_specialite_2025_06_sujet0_3: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '3',
     typeExercice: 'eam',
-    filiere: 'Spécialité',
+    filiere: 'Specialite',
     tags: [''],
   },
-  eam_spécifique_2025_06_sujet0_1: {
+  eam_specifique_2025_06_sujet0_1: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '1',
     typeExercice: 'eam',
-    filiere: 'Spécifique',
+    filiere: 'Specifique',
     tags: [''],
   },
-  eam_spécifique_2025_06_sujet0_2: {
+  eam_specifique_2025_06_sujet0_2: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '2',
     typeExercice: 'eam',
-    filiere: 'Spécifique',
+    filiere: 'Specifique',
     tags: [''],
   },
-  eam_spécifique_2025_06_sujet0_3: {
+  eam_specifique_2025_06_sujet0_3: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '3',
     typeExercice: 'eam',
-    filiere: 'Spécifique',
+    filiere: 'Specifique',
     tags: [''],
   },
-  eam_spécifique_2025_06_sujet0_4: {
+  eam_specifique_2025_06_sujet0_4: {
     annee: '2025',
     lieu: 'sujet0',
     mois: '06',
     numeroInitial: '4',
     typeExercice: 'eam',
-    filiere: 'Spécifique',
+    filiere: 'Specifique',
     tags: [''],
   },
   eam_technologique_2025_06_sujet0_1: {
