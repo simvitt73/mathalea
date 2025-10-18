@@ -39,5 +39,7 @@
   "Brevet": "Brevet des collèges par année - APMEP",
   "BrevetTags": "Brevet des collèges par thème - APMEP",
   "E3C": "E3C - Par année",
-  "E3CTags": "E3C - Par thème"
+  "E3CTags": "E3C - Par thème",
+  "Specialite" : "Spécialité",
+  "Specifique" : "Spécifique"
 }

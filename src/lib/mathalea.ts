@@ -319,7 +319,6 @@ export async function mathaleaGetExercicesFromParams(
 ): Promise<TypeExercice[]> {
   const exercices = []
   for (const param of params) {
-    alert(param.uuid)
     if (
       param.uuid.substring(0, 4) === 'crpe' ||
       param.uuid.substring(0, 4) === 'dnb_' ||
