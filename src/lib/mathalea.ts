@@ -973,7 +973,10 @@ export function mathaleaHandleExerciceSimple(
                 })),
               ],
             }
-            const qcm = propositionsQcm(exercice, i)
+            const qcm = propositionsQcm(exercice, i, {
+              style: 'margin:0 3px 0 3px;',
+              format: exercice.interactif ? 'case' : 'lettre',
+            })
             exercice.question += qcm.texte
           }
           exercice.listeQuestions.push(exercice.question || '')
