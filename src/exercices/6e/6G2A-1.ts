@@ -28,8 +28,9 @@ export default class RayonDiametreMilieu extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 4
-    this.besoinFormulaireTexte = [
+    this.besoinFormulaireNumerique = [
       'Type de questions',
+      3,
       '1: Avec rayon et diamètre\n2: Avec un milieu\n3: Mélange',
     ]
     this.sup = 1
@@ -37,9 +38,9 @@ export default class RayonDiametreMilieu extends Exercice {
 
   nouvelleVersion() {
     let typesDeQuestionsDisponibles
-    if (this.sup === '1') {
+    if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]
-    } else if (this.sup === '2') {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3, 4]
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
