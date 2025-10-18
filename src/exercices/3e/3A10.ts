@@ -108,7 +108,7 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
     ).map(Number)
 
     const nbChiffresMax = contraindreValeur(1, 5, this.sup3, 2)
-    const nbDiviseursMax = this.sup4
+    const nbDiviseursMax = Math.max(this.sup4, 2)
     let compteurVocabulaire = 0
     for (
       let i = 0,
