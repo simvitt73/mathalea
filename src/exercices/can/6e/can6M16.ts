@@ -1,7 +1,7 @@
 import { point } from '../../../lib/2d/points'
 import { carre, Polygone, polygone } from '../../../lib/2d/polygones'
 import { grille } from '../../../lib/2d/reperes'
-import { texteParPosition } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -57,7 +57,7 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const unite = ['u.a', 'cm²', 'm²'][
+    const unite = ['\\text{u.a}', '\\text{cm}^2', '\\text{m}^2'][
       contraindreValeur(1, 3, this.sup4, 2) - 1
     ]
     const objets: NestedObjetMathalea2dArray = []
@@ -152,11 +152,9 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
                 point(xmax - 2, ymax - 1.5),
               )
     uniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
-    const texteUniteAire = texteParPosition(
-      '1 ' + unite,
-      xmax - 1.5,
-      ymax - 2.5,
-    )
+    const texteUniteAire = latex2d('1 ' + unite, xmax - 1.5, ymax - 2.5, {
+      letterSize: 'scriptsize',
+    })
     objets.push(uniteAire, texteUniteAire, objet)
     if (this.sup2) {
       objets.push(grille(xmin, ymin, xmax, ymax, 'gray', 0.3, 0.5))
@@ -173,10 +171,10 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
       ),
       [grille(xmin, ymin, xmax, ymax, 'gray', 0.6, 1), ...objets],
     )
-    this.question = `<br>${figure}<br>Quelle est l'aire de la figure ci-dessus ?`
-    this.optionsChampTexte = { texteApres: unite }
+    this.question = `${figure}<br>Quelle est l'aire de la figure ci-dessus ?`
+    this.optionsChampTexte = { texteApres: `$${unite}$` }
     this.reponse = value
-    this.correction = `L'aire de cette figure est : $${miseEnEvidence(value[0])}\\text{ soit }${miseEnEvidence(String(aire))}$ ${unite}.`
+    this.correction = `L'aire de cette figure est : $${miseEnEvidence(value[0])}\\text{ soit }${miseEnEvidence(String(aire))}${unite}$.`
   }
 
   questionCarre(a: number): Polygone {
