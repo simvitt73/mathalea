@@ -10,6 +10,7 @@
 
 
 
+
 # MathALÉA
 
 MathALÉA est un générateur d'exercices de mathématiques qui suit le programme actuel de mathématiques en France.
@@ -38,8 +39,9 @@ De notre côté, on utilise pnpm, mais vous pouvez le remplacer par npm.
 
 ```
 pnpm install
-pnpm start
+pnpm dev
 ```
+
 
 ## Participer au développement
 
