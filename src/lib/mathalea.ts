@@ -324,6 +324,7 @@ export async function mathaleaGetExercicesFromParams(
       param.uuid.substring(0, 4) === 'dnb_' ||
       param.uuid.startsWith('dnbpro_') ||
       param.uuid.substring(0, 4) === 'e3c_' ||
+      param.uuid.startsWith('eam_') ||
       param.uuid.substring(0, 4) === 'bac_' ||
       param.uuid.startsWith('sti2d_') ||
       param.uuid.substring(0, 7) === 'evacom_' ||
@@ -340,7 +341,9 @@ export async function mathaleaGetExercicesFromParams(
         sujet === 'dnb' ||
         sujet === 'dnbpro' ||
         sujet === 'bac' ||
-        sujet === 'sti2d'
+        sujet === 'eam' ||
+        sujet === 'sti2d' ||
+        sujet === 'stl'
       ) {
         let response = await window.fetch(
           `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`,
@@ -399,6 +402,7 @@ export async function mathaleaGetExercicesFromParams(
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
       if (param.uuid.startsWith('sti2d_')) examen = 'STI2D'
+      if (param.uuid.startsWith('stl_')) examen = 'STL'
       if (param.uuid.substring(0, 7) === 'evacom_') examen = 'EVACOM'
       exercices.push({
         typeExercice: 'statique',
