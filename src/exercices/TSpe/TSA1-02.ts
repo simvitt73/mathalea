@@ -1,15 +1,15 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
+import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   texteEnCouleur,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
-import Trinome from '../../modules/Trinome'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { choice } from '../../lib/outils/arrayOutils'
-import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 
 export const titre = "Étude d'une suite $u_{n+1}=f(u_n)$ par récurrence"
 export const dateDePublication = '25/10/2024'
@@ -116,10 +116,11 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
       '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
 
     if (!context.isHtml) {
-      for (let text of [correction1, correction2, correction3]) {
-        text = text.replaceAll('forestgreen', 'black')
-      }
+      correction1 = correction1.replaceAll('forestgreen', 'black')
+      correction2 = correction2.replaceAll('forestgreen', 'black')
+      correction3 = correction3.replaceAll('forestgreen', 'black')
     }
+
     this.listeQuestions.push(...questions)
     this.listeCorrections.push(correction1, correction2, correction3)
 
