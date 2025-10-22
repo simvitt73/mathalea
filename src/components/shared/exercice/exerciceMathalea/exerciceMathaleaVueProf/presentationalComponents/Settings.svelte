@@ -176,24 +176,47 @@
     <h3 class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold">
       Paramètres
     </h3>
-    {#if exercice.nbQuestionsModifiable}
-      <div>
-        <span
+    <div class="w-full flex flex-row gap-x-4">
+      {#if exercice.nbQuestionsModifiable}
+        <div>
+          <span
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          >
+            Nombre de questions :
+          </span>
+          <input
+            type="number"
+            id="settings-nb-questions-{exerciceIndex}"
+            min="1"
+            max="100"
+            bind:value="{nbQuestions}"
+            on:change="{dispatchNewSettings}"
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          />
+        </div>
+      {/if}
+
+      <form
+        id="settings-form-formAlea-{exerciceIndex}"
+        name="settings-form-formAlea"
+        on:submit|preventDefault="{dispatchNewSettings}"
+      >
+        <label
           class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          for="settings-formAlea-{exerciceIndex}"
         >
-          Nombre de questions :
-        </span>
+          Série :
+        </label>
         <input
-          type="number"
-          id="settings-nb-questions-{exerciceIndex}"
-          min="1"
-          max="100"
-          bind:value="{nbQuestions}"
-          on:change="{dispatchNewSettings}"
           class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          name="settings-formAlea"
+          id="settings-formAlea-{exerciceIndex}"
+          type="text"
+          bind:value="{alea}"
+          on:input="{dispatchNewSettings}"
         />
-      </div>
-    {/if}
+      </form>
+    </div>
     {#if exercice.besoinFormulaireCaseACocher}
       <div class="container">
         <label
@@ -271,21 +294,22 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText1-{exerciceIndex}"
           >
-            {exercice.besoinFormulaireTexte[0]} :
+            <div>{exercice.besoinFormulaireTexte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaireTexte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaireTexte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText1"
-              id="settings-formText1-{exerciceIndex}"
-              type="text"
-              bind:value="{sup}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText1"
+            id="settings-formText1-{exerciceIndex}"
+            type="text"
+            bind:value="{sup}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -368,21 +392,22 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText2-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire2Texte[0]} :
+            <div>{exercice.besoinFormulaire2Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire2Texte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire2Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText2"
-              id="settings-formText2-{exerciceIndex}"
-              type="text"
-              bind:value="{sup2}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText2"
+            id="settings-formText2-{exerciceIndex}"
+            type="text"
+            bind:value="{sup2}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -465,21 +490,22 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText3-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire3Texte[0]} :
+            <div>{exercice.besoinFormulaire3Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire3Texte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire3Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText3"
-              id="settings-formText3-{exerciceIndex}"
-              type="text"
-              bind:value="{sup3}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText3"
+            id="settings-formText3-{exerciceIndex}"
+            type="text"
+            bind:value="{sup3}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -563,21 +589,22 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText4-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire4Texte[0]} :
+            <div>{exercice.besoinFormulaire4Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire4Texte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire4Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText4"
-              id="settings-formText4-{exerciceIndex}"
-              type="text"
-              bind:value="{sup4}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText4"
+            id="settings-formText4-{exerciceIndex}"
+            type="text"
+            bind:value="{sup4}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -661,10 +688,15 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText5-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire5Texte[0]} :
+            <div>{exercice.besoinFormulaire5Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire5Texte[1]}
+            </div>
           </label>
           <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
+            class="tooltip tooltip-top after:z-[500] w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
             data-tip="{exercice.besoinFormulaire5Texte[1]}"
           >
             <input
@@ -717,26 +749,7 @@
         />
       </div>
     {/if}
-    <form
-      id="settings-form-formAlea-{exerciceIndex}"
-      name="settings-form-formAlea"
-      on:submit|preventDefault="{dispatchNewSettings}"
-    >
-      <label
-        class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-        for="settings-formAlea-{exerciceIndex}"
-      >
-        Série :
-      </label>
-      <input
-        class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-        name="settings-formAlea"
-        id="settings-formAlea-{exerciceIndex}"
-        type="text"
-        bind:value="{alea}"
-        on:input="{dispatchNewSettings}"
-      />
-    </form>
+
     {#if exercice.comment !== undefined}
       <div class="flex flex-col justify-start items-start p-2">
         <button
