@@ -1916,18 +1916,18 @@ export function expressionNumeriqueCompare(
       return {
         isOk: false,
         feedback:
-          'Ce résultat pourrait être correct mais un calcul est attendu',
+          'Ce résultat pourrait être correct mais un calcul est attendu.',
       }
     } else
       return {
         isOk: false,
         feedback:
-          "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu",
+          "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu.",
       }
   return {
     isOk: false,
     feedback:
-      "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu",
+      "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu.",
   }
 }
 

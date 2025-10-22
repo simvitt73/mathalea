@@ -991,8 +991,8 @@ export function mathaleaHandleExerciceSimple(
             `id="ex${n}Q${i}"`,
           )
           exercice.question = exercice.question?.replace(
-            `CheckEx${n}Q0"`,
-            `CheckEx${n}Q${i}"`,
+            `checkEx${n}Q0"`,
+            `checkEx${n}Q${i}"`,
           )
           exercice.listeQuestions.push(exercice.question ?? '')
         } else {
