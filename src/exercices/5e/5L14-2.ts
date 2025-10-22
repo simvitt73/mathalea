@@ -46,6 +46,7 @@ export default class ExerciceSubstituer extends Exercice {
   constructor(difficulte = 1) {
     super()
     this.sup = difficulte
+    this.listeAvecNumerotation = false
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       2,
