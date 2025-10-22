@@ -128,8 +128,8 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         c = randint(1, 19, d) * (cNegatif ? -1 : 1)
       }
 
-      const f1 = new FractionEtendue(a, b)
-      const f2 = new FractionEtendue(c, d)
+      let f1 = new FractionEtendue(a, b)
+      let f2 = new FractionEtendue(c, d)
 
       if (listeTypeDeQuestions[i] === '+') {
         // une addition
@@ -293,7 +293,10 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           /*********************************************************************************/
         }
 
-        // On ne vérifie plus si a/b > c/d car on accepte les fractions négatives comme résultat
+        // S'il y a 0% de numérateur négatifs alors la 
+        if (this.sup5 === 0 && f2.superieurstrict(f1)) {
+          [f2, f1] = [f1, f2]
+        }
         texte = `$${f1.texFraction}-${f2.texFraction}$`
         const reponse = new FractionEtendue(a * k - c, d).toLatex()
 
