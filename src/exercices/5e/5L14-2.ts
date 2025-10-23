@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
-export const titre = 'Substituer par des nombres'
+export const titre = 'Calculer plusieurs expressions pour des valeurs données'
 export const dateDeModifImportante = '06/02/2024'
 
 /**
