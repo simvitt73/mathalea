@@ -5,11 +5,13 @@ import {
   type NestedObjetMathalea2dArray,
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { milieu, point, tracePoint } from '../2d/points'
+import { randFloat, randint } from '../../modules/outils'
+import { milieu, plot, point, tracePoint } from '../2d/points'
 import { pointAbstrait } from '../2d/points-abstraits'
-import { polygone } from '../2d/polygones'
+import { BoiteBuilder, polygone } from '../2d/polygones'
 import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
+import { shuffle } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
 
 /**
@@ -21,22 +23,34 @@ import { texNombre } from '../outils/texNombre'
  */
 export default class Stat {
   serie: number[]
+  serieTableau: [number, number][]
   constructor(serie: number[] | [number, number][]) {
     if (serie.length === 0) {
       throw new Error('La série ne peut pas être vide')
     }
     if (typeof serie[0] === 'number') {
-      this.serie = serie as number[]
+      this.serie = shuffle(serie as number[]) as number[]
+      this.serieTableau = []
+      for (const valeur of this.serieTriee()) {
+        const existing = this.serieTableau.find(([v]) => v === valeur)
+        if (existing) {
+          existing[1]++
+        } else {
+          this.serieTableau.push([valeur, 1])
+        }
+      }
     } else if (
       Array.isArray(serie[0]) &&
       (serie[0] as [number, number]).length === 2
     ) {
+      this.serieTableau = serie as [number, number][]
       this.serie = []
       for (const [valeur, frequence] of serie as [number, number][]) {
         for (let i = 0; i < frequence; i++) {
           this.serie.push(valeur)
         }
       }
+      this.serie = shuffle(this.serie)
     } else {
       throw new Error('Le format de la série est invalide')
     }
@@ -139,6 +153,269 @@ export default class Stat {
       legendeOn,
       valeursOn,
     })
+  }
+
+  listeSerie({
+    precision = 2,
+    separateur = '; ',
+    triee = false,
+    tableau = false,
+    motValeurs = 'Valeurs',
+  } = {}): string {
+    if (!tableau) {
+      return `${(triee ? this.serieTriee() : this.serie)
+        .map((n) => `$${texNombre(n, precision)}$`)
+        .join(separateur)}`
+    } else {
+      const nCols = this.serieTableau.length
+      const valuesRow = this.serieTableau
+        .map(([v]) => `${texNombre(v, precision)}`)
+        .join(' & ')
+      const effectsRow = this.serieTableau
+        .map(([, f]) => `${String(f)}`)
+        .join(' & ')
+      const cols = '|l|' + 'c|'.repeat(nCols)
+      return `$\\newcommand{\\arraystretch}{1.5}
+      \\begin{array}{${cols}}
+\\hline
+\\text{${motValeurs}} & ${valuesRow} \\\\ \\hline
+\\text{effectifs} & ${effectsRow} \\\\ \\hline
+\\end{array}$`
+    }
+  }
+
+  histogramme({
+    cumul = false,
+    croissance = true,
+    barres = true,
+    percentVsEffectifs = false,
+  } = {}) {
+    const precision = 2
+    // copier et trier selon croissance
+    const pairs: [number, number][] = [...this.serieTableau].sort((a, b) =>
+      croissance ? a[0] - b[0] : b[0] - a[0],
+    )
+
+    const total = pairs.reduce((s, [, f]) => s + f, 0)
+    // calcul des valeurs à tracer (effectifs ou pourcentages / cumul)
+    const ys: number[] = []
+    if (cumul) {
+      let acc = 0
+      for (const [, f] of pairs) {
+        acc += f
+        ys.push(percentVsEffectifs ? (acc / total) * 100 : acc)
+      }
+    } else {
+      for (const [, f] of pairs) {
+        ys.push(percentVsEffectifs ? (f / total) * 100 : f)
+      }
+    }
+
+    // labels (symbolic x coords) : utiliser texNombre pour formatage lisible
+    const labels = pairs.map(([v]) => texNombre(v, precision))
+    // construire la liste des coordinates pour pgfplots (symbolic x)
+    const coords = labels
+      .map((lab, i) => `(${lab},${Number(ys[i].toFixed(3))})`)
+      .join(' ')
+    const yName = percentVsEffectifs ? 'fréquences' : 'effectifs'
+    const ylabel = percentVsEffectifs ? 'Fréquences en \\%' : 'Effectifs'
+    const title = `${
+      barres
+        ? cumul
+          ? `Histogramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
+          : 'Histogramme'
+        : cumul
+          ? `Polygone des ${yName} cumulé${yName === 'fréquences' ? 'es' : 's'} (${croissance ? 'croissantes' : 'décroissantes'})`
+          : `Polygone des ${yName}`
+    } `
+    if (context.isHtml) {
+      const yMax = 8
+      const nbValeursDifferentes = this.serieTableau.length
+      const nbValeurs = this.serie.length
+      const echelleYCumul = nbValeurs < 15 ? 2 : nbValeurs < 30 ? 5 : 10
+      const echelleYPercent = 50
+      const effectifMax = Math.max(...ys)
+      const gridOpacity = 0.5
+      const topCadre = 8.7
+
+      const echelleY = effectifMax < 15 ? 2 : effectifMax < 30 ? 3 : 4
+      let yLabelsAndOrdinate: [number, number][] = []
+      if (percentVsEffectifs) {
+        yLabelsAndOrdinate = Array.from({ length: 3 }, (_, i) => [
+          i * 50,
+          (i * 25 * yMax) / echelleYPercent,
+        ])
+      } else {
+        if (cumul) {
+          yLabelsAndOrdinate = Array.from(
+            {
+              length: Math.ceil(nbValeurs / echelleYCumul) + 1,
+            },
+            (_, i) => [i * echelleYCumul, (i * 8 * echelleYCumul) / nbValeurs],
+          )
+        } else {
+          yLabelsAndOrdinate = Array.from({
+            length: Math.floor((effectifMax + 1) / echelleY),
+          }).map((_, i) => [i * echelleY, (i * 8 * echelleY) / effectifMax])
+        }
+      }
+
+      const cadre = new BoiteBuilder({
+        xMin: 0,
+        xMax: (nbValeursDifferentes + 1) * 2,
+        yMin: 0,
+        yMax: topCadre,
+      }).render()
+
+      const histo: NestedObjetMathalea2dArray = [cadre]
+      for (const [i, yPos] of yLabelsAndOrdinate) {
+        histo.push(
+          latex2d(`${texNombre(i, 0)}`, -0.5, yPos + 0.1, {
+            letterSize: 'scriptsize',
+          }),
+        )
+      }
+      for (const yLabel of yLabelsAndOrdinate) {
+        const line = segment(
+          point(0, yLabel[1]),
+          point((nbValeursDifferentes + 1) * 2, yLabel[1]),
+          'lightgray',
+        )
+        line.opacite = gridOpacity
+        histo.push(line)
+      }
+      let xPosNext = 0
+      let xPos = 0
+      let yPos = 0
+      let yPosNext = 0
+      for (let i = 0; i < pairs.length; i++) {
+        const valueAndEffectif = pairs[i]
+        xPos = (i + 1) * 2
+        xPosNext = (i + 2) * 2
+        yPos = cumul
+          ? percentVsEffectifs
+            ? (ys[i] * yMax) / 100
+            : (ys[i] * yMax) / nbValeurs
+          : percentVsEffectifs
+            ? (ys[i] * yMax) / 100
+            : (ys[i] * yMax) / effectifMax
+        if (i < pairs.length - 1) {
+          yPosNext = cumul
+            ? percentVsEffectifs
+              ? (ys[i + 1] * yMax) / 100
+              : (ys[i + 1] * yMax) / nbValeurs
+            : percentVsEffectifs
+              ? (ys[i + 1] * yMax) / 100
+              : (ys[i + 1] * yMax) / effectifMax
+        } else {
+          yPosNext = yPos
+        }
+        const verticalLine = segment(
+          point(xPos, 0),
+          point(xPos, topCadre),
+          'lightgray',
+        )
+        verticalLine.epaisseur = 1
+        verticalLine.opacite = gridOpacity
+
+        histo.push(verticalLine)
+        if (barres) {
+          const barre = new BoiteBuilder({
+            xMin: xPos - 0.5,
+            xMax: xPos + 0.5,
+            yMin: 0,
+            yMax: yPos,
+          })
+            .addColor({
+              color: 'blue',
+              colorBackground: '#9699FF',
+              backgroudOpacity: 1,
+            })
+            .render()
+
+          histo.push(barre)
+        } else {
+          if (i < pairs.length - 1) {
+            const line = segment(
+              point(xPos, yPos),
+              point(xPosNext, yPosNext),
+              'blue',
+            )
+            line.epaisseur = 2
+            line.opacite = 0.5
+            histo.push(line)
+          }
+        }
+        const bubble = plot(xPos, yPos, {
+          rayon: 0.15,
+          couleur: 'blue',
+          couleurDeRemplissage: 'blue',
+          opacite: 0.7,
+          opaciteDeRemplissage: 0.7,
+        })
+        const effectifTex = latex2d(
+          texNombre(ys[i], precision),
+          xPos,
+          yPos + 0.5,
+          { letterSize: 'scriptsize' },
+        )
+        const valTex = latex2d(
+          texNombre(valueAndEffectif[0], precision),
+          xPos,
+          -0.5,
+          {
+            letterSize: 'scriptsize',
+          },
+        )
+        histo.push(bubble, effectifTex, valTex)
+        const texLabel = latex2d(`\\text{${ylabel}}`, -1.5, topCadre / 2, {
+          letterSize: 'normalsize',
+          orientation: 90,
+          opacity: 0.7,
+        })
+        histo.push(texLabel)
+        const texteTitle = latex2d(
+          `\\text{${title}}`,
+          nbValeursDifferentes + 1,
+          topCadre + 0.5,
+          {
+            letterSize: 'normalsize',
+            opacity: 0.7,
+          },
+        )
+        histo.push(texteTitle)
+      }
+
+      return mathalea2d(
+        Object.assign({ style: 'display: inline-block' }, fixeBordures(histo)),
+        histo,
+      )
+    } else {
+      // choisir le style (barres ou polygone)
+      const addplot = barres
+        ? `\\addplot+[ybar, bar width=12pt, draw=black, fill=blue!40] coordinates { ${coords} };`
+        : `\\addplot+[sharp plot, thick, mark=*, mark options={fill=blue}] coordinates { ${coords} };`
+
+      return `\\begin{tikzpicture}
+  \\begin{axis}[
+    title={${title}},
+    ylabel={${ylabel}},
+    xlabel={Valeurs},
+    symbolic x coords={${labels.join(',')}},
+    xtick=data,
+    ymin=0,
+    enlarge x limits=0.15,
+    grid=major,
+    nodes near coords,
+    nodes near coords align={vertical},
+    every node near coord/.append style={font=\\scriptsize},
+    width=12cm,
+    height=6cm,
+  ]
+    ${addplot}
+  \\end{axis}
+\\end{tikzpicture}`
+    }
   }
 
   // Méthode statique pour obtenir les mêmes informations à partir d'un tableau
@@ -573,6 +850,223 @@ export default class Stat {
       )
     }
 
+    return serie
+  }
+
+  /**
+   * Génère une série de `n` valeurs, dont la moyenne est ≈ `mean` et l'étendue est ≈ `range`.
+   * Les valeurs sont comprises entre `mean - range/2` et `mean + range/2` (approximatif).
+   *
+   * @param mean - moyenne cible (par défaut 50)
+   * @param range - étendue cible (max - min) (par défaut 30)
+   * @param n - nombre de valeurs (par défaut 20)
+   * @param isInteger - si les valeurs doivent être entières (par défaut false)
+   * @returns série de nombres de longueur `n`, avec moyenne ≈ `mean` et étendue ≈ `range`
+   */
+  static createSerieFromMeanAndRange({
+    mean = 50,
+    range = 30,
+    n = 20,
+    isInteger = false,
+    precision = 2,
+  }: {
+    mean: number
+    range: number
+    n?: number
+    isInteger?: boolean
+    precision?: number
+  }): number[] {
+    if (n <= 0) throw new Error('n doit être supérieur à 0')
+    if (range < 0) throw new Error('range doit être positif')
+    if (mean < 0) throw new Error('mean doit être positif')
+
+    // calcul min/max cibles
+    const deltaNeg = randint(Math.round(range * 0.3), Math.round(range * 0.7))
+    const deltaPos = range - deltaNeg
+
+    let min = mean - deltaNeg
+    let max = mean + deltaPos
+
+    if (isInteger) {
+      min = Math.round(min)
+      max = Math.round(max)
+      if (min > max) {
+        const tmp = min
+        min = max
+        max = tmp
+      }
+    }
+
+    // Générer des quartiles cohérents (Q1, Q2, Q3)
+    let [q1, mediane, q3] = [
+      isInteger
+        ? randint(Math.floor(min), Math.floor(max))
+        : randFloat(min, max),
+      isInteger
+        ? randint(Math.floor(min), Math.floor(max))
+        : randFloat(min, max),
+      isInteger
+        ? randint(Math.floor(min), Math.floor(max))
+        : randFloat(min, max),
+    ].sort((a, b) => a - b)
+
+    // Répéter jusqu'à quartiles distincts
+    let safety = 0
+    while ((q1 === mediane || mediane === q3 || q1 === q3) && safety < 1000) {
+      ;[q1, mediane, q3] = [
+        isInteger
+          ? randint(Math.floor(min), Math.floor(max))
+          : randFloat(min, max, precision),
+        isInteger
+          ? randint(Math.floor(min), Math.floor(max))
+          : randFloat(min, max, precision),
+        isInteger
+          ? randint(Math.floor(min), Math.floor(max))
+          : randFloat(min, max, precision),
+      ].sort((a, b) => a - b)
+      safety++
+    }
+    if (safety >= 1000)
+      throw new Error('Impossible de générer des quartiles distincts')
+
+    // Construire exactement n valeurs (réparties par "tranches")
+    const serie: number[] = []
+    while (serie.length < n) {
+      if (serie.length < n) {
+        serie.push(
+          isInteger
+            ? randint(Math.floor(min), Math.floor(q1))
+            : randFloat(min, q1, precision),
+        )
+      }
+      if (serie.length < n) {
+        serie.push(
+          isInteger
+            ? randint(Math.floor(q1), Math.floor(mediane))
+            : randFloat(q1, mediane, precision),
+        )
+      }
+      if (serie.length < n) {
+        serie.push(
+          isInteger
+            ? randint(Math.floor(mediane), Math.floor(q3))
+            : randFloat(mediane, q3, precision),
+        )
+      }
+      if (serie.length < n) {
+        serie.push(
+          isInteger
+            ? randint(Math.floor(q3), Math.floor(max))
+            : randFloat(q3, max, precision),
+        )
+      }
+    }
+
+    // Tronquer si besoin (sécurité) et forcer extrêmes
+    const finalSerie = serie.slice(0, n)
+    finalSerie.sort((a, b) => a - b)
+    finalSerie[0] = isInteger ? Math.round(min) : min
+    finalSerie[n - 1] = isInteger ? Math.round(max) : max
+
+    // Ajuster la somme pour obtenir exactement la moyenne souhaitée
+    const requiredSum = mean * n
+    const currentSum = finalSerie.reduce((s, v) => s + v, 0)
+    let diff = requiredSum - currentSum
+
+    // diff doit être entier ; répartir ±1 sur les indices 1..n-2
+    diff = Math.round(diff)
+    const maxIterations = Math.abs(diff) * n + 1000
+    let iter = 0
+    // indices utilisables
+    const indices = []
+    for (let i = 1; i < n - 1; i++) indices.push(i)
+    while (diff !== 0 && iter < maxIterations) {
+      for (const idx of indices) {
+        if (diff === 0) break
+        if (diff > 0 && finalSerie[idx] < max) {
+          finalSerie[idx] = Math.min(max, finalSerie[idx] + 1)
+          diff--
+        } else if (diff < 0 && finalSerie[idx] > min) {
+          finalSerie[idx] = Math.max(min, finalSerie[idx] - 1)
+          diff++
+        }
+      }
+      iter++
+      // si on ne peut plus bouger (tous indices au max/min), sortir pour éviter boucle infinie
+      const canIncrease = indices.some((i) => finalSerie[i] < max)
+      const canDecrease = indices.some((i) => finalSerie[i] > min)
+      if ((diff > 0 && !canIncrease) || (diff < 0 && !canDecrease)) break
+    }
+    if (diff !== 0) {
+      // Si on n'a pas réussi à tout ajuster, avertir mais retourner la meilleure série
+      console.warn(
+        `Ajustement entier incomplet (restant=${diff}). Moyenne finale = ${finalSerie.reduce((a, b) => a + b, 0) / n}`,
+      )
+    }
+    let iterations = 0
+
+    if (!isInteger) {
+      const requiredSum = mean * n
+      const currentSum = finalSerie.reduce((s, v) => s + v, 0)
+      diff = requiredSum - currentSum
+      // flottants : pas à pas +/- step
+      const tolerance = 0.001
+      let remaining = diff
+      const step = 0.005
+      const maxIterations = 10000
+      let i = 1
+      let direction = 1
+      while (Math.abs(remaining) > tolerance && iterations < maxIterations) {
+        if (i === 0 || i === n - 1) {
+          direction = -direction
+          i += direction
+        }
+        if (remaining > 0) {
+          if (finalSerie[i] < max) {
+            finalSerie[i] += step
+            remaining -= step
+          }
+        } else {
+          if (finalSerie[i] > min) {
+            finalSerie[i] -= step
+            remaining += step
+          }
+        }
+        i += direction
+        if (i < 0 || i >= n) {
+          i = 1
+          direction = 1
+        }
+        iterations++
+      }
+      if (iterations >= maxIterations) {
+        console.warn(
+          `Ajustement flottant incomplet après ${maxIterations} itérations. Moyenne finale = ${finalSerie.reduce((a, b) => a + b, 0) / n}`,
+        )
+      }
+    }
+
+    // Tri, puis mélange pour retourner une série non triée
+    finalSerie.sort((a, b) => a - b)
+    return shuffle(finalSerie)
+  }
+
+  static createSerieFromValues(
+    values: number[],
+    n: number,
+  ): [number, number][] {
+    const objetSerie: Record<number, number> = {}
+    for (const val of values) {
+      objetSerie[val] = 0
+    }
+    for (let i = 0; i < n; i++) {
+      const val = values[randint(0, values.length - 1)]
+      objetSerie[val] += 1
+    }
+    const serie: [number, number][] = []
+    for (const key in objetSerie) {
+      serie.push([Number(key), objetSerie[key]])
+    }
     return serie
   }
 }
