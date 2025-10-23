@@ -22,14 +22,13 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre =
-  'Résoudre des problèmes grâce à des modélisations en barres'
+  'Résoudre des problèmes algébriques avec des balances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '3/06/2025'
 
 /**
- * Résoudre des problèmes grâce à des modélisations en barres.
  * @author Jean-Claude Lhote
  */
 export const uuid = '4e89d'
@@ -99,7 +98,7 @@ export default class ResoudreDesProblemes extends Exercice {
     this.spacingCorr = 2
     this.besoinFormulaireTexte = [
       'Niveaux de difficultés',
-      'Nombres séparés par des tirets\n1: soustraction\n2 : soustraction puis division\n3 multiplication puis soustraction\n4 : multiplication, soustraction puis division\n5 : Mélange',
+      'Nombres séparés par des tirets\n1: Soustraction\n2 : soustraction puis division\n3 multiplication puis soustraction\n4 : multiplication, soustraction puis division\n5 : Mélange',
     ]
     this.sup = '5'
     this.besoinFormulaire2CaseACocher = ['Masse décimale (unité kg)', false]
