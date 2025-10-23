@@ -1315,6 +1315,33 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
           })
       })
       promiseAnswers.push(p)
+    } else if (answer.includes('cliquePoint')) {
+      // "answers": {"cliquePointfigEx7Q0P60" : "svg[id$='Ex7Q0'] g:nth-of-type(61)"}
+      // On active le point 60 (61ème enfant) par exemple ici...
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement(answers[answer])
+          .then(() => {
+            // La réponse correspond à un cliquePoint
+            const ele = document.querySelector(answers[answer]) as MathaleaSVG
+            if (ele) {
+              const evt = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+              })
+              ele.dispatchEvent(evt)
+              const time = window.performance.now()
+              log(`duration ${answer}: ${time - starttime}`)
+              resolve(true)
+            }
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
     } else if (answer.includes('rectangleDND')) {
       const p = new Promise<Boolean>((resolve) => {
         waitForElement(`div#${answer.replace('DND', '')}`)
