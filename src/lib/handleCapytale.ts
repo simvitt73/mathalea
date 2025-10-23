@@ -1,4 +1,14 @@
+import { RPC } from '@mixer/postmessage-rpc'
+import { tick } from 'svelte'
+import { get } from 'svelte/store'
+
 import type { Activity, InterfaceResultExercice } from '../lib/types'
+import {
+  mathaleaGoToView,
+  mathaleaWriteStudentPreviousAnswers,
+} from './mathalea'
+
+import { canOptions as canOptionsStore } from './stores/canStore'
 import {
   capytaleMode,
   capytaleStudentAssignment,
@@ -6,13 +16,6 @@ import {
   globalOptions,
   resultsByExercice,
 } from './stores/generalStore'
-import {
-  mathaleaGoToView,
-  mathaleaWriteStudentPreviousAnswers,
-} from './mathalea'
-import { get } from 'svelte/store'
-import { RPC } from '@mixer/postmessage-rpc'
-import { canOptions as canOptionsStore } from './stores/canStore'
 import type { CanState } from './types/can'
 
 interface AssignmentData {
@@ -71,14 +74,18 @@ async function toolSetActivityParams({
     activity.globalOptions,
     activity.canOptions,
   ]
+
+  // On met à jour les paramètres globaux
+  // MGu il vaut mieux commencer par ce storer car il fixe la vue (CAN ou élève)
+  // Puis mettre à jour la liste des exercices exercicesParams
+  globalOptions.update((l) => {
+    Object.assign(l, newGlobalOptions)
+    return l
+  })
+
   // On met à jour les paramètres des exercices
   exercicesParams.update((l) => {
     Object.assign(l, newExercicesParams)
-    return l
-  })
-  // On met à jour les paramètres globaux
-  globalOptions.update((l) => {
-    Object.assign(l, newGlobalOptions)
     return l
   })
 
@@ -125,11 +132,8 @@ async function toolSetActivityParams({
         return l
       })
     } else {
+      // MGU mathaleaGoToView met à jour aussi globalOptions.v
       mathaleaGoToView('eleve')
-      globalOptions.update((l) => {
-        l.v = 'eleve'
-        return l
-      })
     }
   }
   if (mode === 'assignment') {
@@ -168,6 +172,8 @@ async function toolSetActivityParams({
     console.info('Réponses à charger', studentAssignment)
     if (!newCanOptions?.isChoosen) {
       // On charge les réponses de l'élève (si ce n'est pas la CAN)
+	  await waitForSvelteToBeStable() // on attend que les composants soient stables sinon AÏE!!!
+	  console.info('Prêt à charger', studentAssignment)
       for (const exercice of studentAssignment) {
         if (exercice == null) continue
         if (exercice != null && exercice.answers != null) {
@@ -244,6 +250,13 @@ async function toolSetActivityParams({
       })
     }
   }
+}
+
+export async function waitForSvelteToBeStable(delay = 500) {
+  // Attend la prochaine frame de mise à jour
+  await tick()
+  // Optionnel : petit délai pour que tous les rendus batchés se terminent
+  await new Promise((resolve) => setTimeout(resolve, delay))
 }
 
 export async function sendToCapytaleMathaleaHasChanged() {

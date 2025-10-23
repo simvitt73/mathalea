@@ -109,7 +109,6 @@ export default class QuestionBissectrice extends Exercice {
         Object.assign({}, fixeBordures(objets, { rymin: -2, rymax: 2 })),
         objets,
       )
-      texte += '<br>'
       texte += `Construire la bissectrice $\\left[${B}${I}\\right)$ de l'angle $\\widehat{${A}${B}${C}}$.<br>`
 
       texteCorr =
