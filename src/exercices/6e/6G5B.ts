@@ -1,4 +1,4 @@
-import { afficheMesureAngle, codageBissectrice } from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/codages'
 import { bissectrice, droite } from '../../lib/2d/droites'
 import { tracePointSurDroite } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
@@ -18,8 +18,6 @@ import Exercice from '../Exercice'
 
 export const uuid = 'd8433'
 export const titre = "Construire la bissectrice d'un angle"
-export const interactifReady = true
-export const interactifType = 'mathLive'
 export const dateDePublication = '01/09/2025'
 
 export const refs = {
@@ -41,6 +39,8 @@ export default class QuestionBissectrice extends Exercice {
       'Nombres séparés par des tirets :\n1 : Angle aigu\n2 : Angle obtus inférieur à 135°\n3 : Angle obtus supérieur ou égal à 135°\n4 : mélange',
     ]
     this.sup = '4'
+    this.besoinFormulaire2CaseACocher = ['Angles pairs', false]
+    this.sup2 = false
   }
 
   nouvelleVersion(): void {
@@ -58,11 +58,11 @@ export default class QuestionBissectrice extends Exercice {
       let texteCorr = ''
       let alpha: number
       if (niveauxDifficulte[i] === 1) {
-        alpha = randint(20, 90)
+        alpha = this.sup2 ? randint(10, 45) * 2 : randint(20, 90)
       } else if (niveauxDifficulte[i] === 2) {
-        alpha = randint(91, 134)
+        alpha = this.sup2 ? randint(46, 67) * 2 : randint(91, 134)
       } else {
-        alpha = randint(135, 160)
+        alpha = this.sup2 ? randint(68, 80) * 2 : randint(135, 160)
       }
       const lettres = choisitLettresDifferentes(4)
       const A = lettres[0]
@@ -72,7 +72,13 @@ export default class QuestionBissectrice extends Exercice {
 
       const pointA = pointAbstrait(5, 0, A, 'below')
       const pointB = pointAbstrait(0, 0, B, 'below left')
-      const pointC = rotation(pointA, pointB, alpha, C, 'above left')
+      const pointC = rotation(
+        pointA,
+        pointB,
+        alpha,
+        C,
+        getPositionFromAngle(alpha),
+      )
       const d1 = droite(pointB, pointA)
       const d2 = droite(pointB, pointC)
       const d3 = rotation(d1, pointB, alpha / 2)
@@ -97,7 +103,7 @@ export default class QuestionBissectrice extends Exercice {
         true,
         '|',
       )
-      const codBis = codageBissectrice(pointA, pointB, pointC, 'red', '|')
+
       const labels = labelPoint(pointA, pointB, pointC)
       const trace1 = tracePointSurDroite(pointA, d1)
       const trace2 = tracePointSurDroite(pointC, d2)
@@ -125,4 +131,14 @@ export default class QuestionBissectrice extends Exercice {
       cpt++
     }
   }
+}
+
+function getPositionFromAngle(alpha: number): string {
+  // Normalisation de l’angle entre 0 et 360
+  const a = ((alpha % 360) + 360) % 360
+
+  // si aucune position fournie → on la déduit de l’angle
+  if (a >= 0 && a < 90) return 'above left'
+  if (a >= 90 && a < 180) return 'above right'
+  return 'above' // fallback (par sécurité)
 }
