@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "calculer l'inverse d'une puissance de -1"
+export const titre = "Calculer l’inverse d’une puissance de $-1$"
 export default class Auto1AC3i extends ExerciceQcmA {
   private appliquerLesValeurs(k: number): void {
     this.enonce = `Soit $n$ un entier non nul.<br> À quelle expression est égale $\\dfrac{1}{\\left(-1\\right)^{n+${k}}}$ ?`
