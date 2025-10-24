@@ -6,7 +6,7 @@ import {
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randFloat, randint } from '../../modules/outils'
-import { milieu, plot, point, tracePoint } from '../2d/points'
+import { milieu, point, tracePoint } from '../2d/points'
 import { pointAbstrait } from '../2d/points-abstraits'
 import { BoiteBuilder, polygone } from '../2d/polygones'
 import { segment } from '../2d/segmentsVecteurs'
@@ -184,11 +184,14 @@ export default class Stat {
     }
   }
 
-  histogramme({
+  diagramme({
     cumul = false,
     croissance = true,
     barres = true,
     percentVsEffectifs = false,
+    isQualitative = true,
+    effectifsOn = false,
+    valuesOn = true,
   } = {}) {
     const precision = 2
     // copier et trier selon croissance
@@ -211,39 +214,55 @@ export default class Stat {
       }
     }
 
-    // labels (symbolic x coords) : utiliser texNombre pour formatage lisible
-    const labels = pairs.map(([v]) => texNombre(v, precision))
-    // construire la liste des coordinates pour pgfplots (symbolic x)
-    const coords = labels
-      .map((lab, i) => `(${lab},${Number(ys[i].toFixed(3))})`)
-      .join(' ')
+    // labels et positions x
+    const xs = pairs.map(([v]) => v)
+    const labelsTex = pairs.map(([v]) => texNombre(v, precision))
+
+    // construire coords selon qualitative / quantitative
+    let coords = ''
+    if (isQualitative) {
+      // utiliser labels symboliques
+      coords = labelsTex
+        .map((lab, i) => `(${lab},${Number(ys[i].toFixed(3))})`)
+        .join(' ')
+    } else {
+      // positions numériques respectant l'échelle
+      coords = xs
+        .map((x, i) => `(${Number(x.toFixed(6))},${Number(ys[i].toFixed(6))})`)
+        .join(' ')
+    }
+
     const yName = percentVsEffectifs ? 'fréquences' : 'effectifs'
     const ylabel = percentVsEffectifs ? 'Fréquences en \\%' : 'Effectifs'
     const title = `${
       barres
         ? cumul
-          ? `Histogramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
-          : 'Histogramme'
+          ? `diagramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
+          : 'Diagramme en bâtons'
         : cumul
           ? `Polygone des ${yName} cumulé${yName === 'fréquences' ? 'es' : 's'} (${croissance ? 'croissantes' : 'décroissantes'})`
           : `Polygone des ${yName}`
     } `
+
     if (context.isHtml) {
+      // code HTML existant inchangé
       const yMax = 8
       const nbValeursDifferentes = this.serieTableau.length
       const nbValeurs = this.serie.length
       const echelleYCumul = nbValeurs < 15 ? 2 : nbValeurs < 30 ? 5 : 10
-      const echelleYPercent = 50
+      const echelleYPercent = 25
       const effectifMax = Math.max(...ys)
       const gridOpacity = 0.5
       const topCadre = 8.7
+      const min = Math.min(...this.serie)
+      const max = Math.max(...this.serie)
 
       const echelleY = effectifMax < 15 ? 2 : effectifMax < 30 ? 3 : 4
       let yLabelsAndOrdinate: [number, number][] = []
       if (percentVsEffectifs) {
-        yLabelsAndOrdinate = Array.from({ length: 3 }, (_, i) => [
-          i * 50,
-          (i * 25 * yMax) / echelleYPercent,
+        yLabelsAndOrdinate = Array.from({ length: 5 }, (_, i) => [
+          i * 25,
+          (i * echelleYPercent * yMax) / 100,
         ])
       } else {
         if (cumul) {
@@ -262,7 +281,9 @@ export default class Stat {
 
       const cadre = new BoiteBuilder({
         xMin: 0,
-        xMax: (nbValeursDifferentes + 1) * 2,
+        xMax: isQualitative
+          ? (nbValeursDifferentes + 1) * 2
+          : (max - min) * 2 + 2,
         yMin: 0,
         yMax: topCadre,
       }).render()
@@ -290,8 +311,10 @@ export default class Stat {
       let yPosNext = 0
       for (let i = 0; i < pairs.length; i++) {
         const valueAndEffectif = pairs[i]
-        xPos = (i + 1) * 2
-        xPosNext = (i + 2) * 2
+        xPos = isQualitative ? (i + 1) * 2 : (valueAndEffectif[0] - min) * 2 + 1
+        xPosNext = isQualitative
+          ? (i + 2) * 2
+          : (pairs[i < pairs.length - 1 ? i + 1 : i][0] - min) * 2 + 1
         yPos = cumul
           ? percentVsEffectifs
             ? (ys[i] * yMax) / 100
@@ -321,8 +344,8 @@ export default class Stat {
         histo.push(verticalLine)
         if (barres) {
           const barre = new BoiteBuilder({
-            xMin: xPos - 0.5,
-            xMax: xPos + 0.5,
+            xMin: xPos - 0.2,
+            xMax: xPos + 0.2,
             yMin: 0,
             yMax: yPos,
           })
@@ -346,28 +369,26 @@ export default class Stat {
             histo.push(line)
           }
         }
-        const bubble = plot(xPos, yPos, {
-          rayon: 0.15,
-          couleur: 'blue',
-          couleurDeRemplissage: 'blue',
-          opacite: 0.7,
-          opaciteDeRemplissage: 0.7,
-        })
-        const effectifTex = latex2d(
-          texNombre(ys[i], precision),
-          xPos,
-          yPos + 0.5,
-          { letterSize: 'scriptsize' },
-        )
-        const valTex = latex2d(
-          texNombre(valueAndEffectif[0], precision),
-          xPos,
-          -0.5,
-          {
-            letterSize: 'scriptsize',
-          },
-        )
-        histo.push(bubble, effectifTex, valTex)
+        if (effectifsOn) {
+          const effectifTex = latex2d(
+            `${texNombre(ys[i], 0)}${percentVsEffectifs ? '\\%' : ''}`,
+            xPos,
+            yPos + 0.5,
+            { letterSize: 'scriptsize' },
+          )
+          histo.push(effectifTex)
+        }
+        if (valuesOn) {
+          const valTex = latex2d(
+            texNombre(valueAndEffectif[0], precision),
+            xPos,
+            -0.5,
+            {
+              letterSize: 'scriptsize',
+            },
+          )
+          histo.push(valTex)
+        }
         const texLabel = latex2d(`\\text{${ylabel}}`, -1.5, topCadre / 2, {
           letterSize: 'normalsize',
           orientation: 90,
@@ -393,24 +414,82 @@ export default class Stat {
     } else {
       // choisir le style (barres ou polygone)
       const addplot = barres
-        ? `\\addplot+[ybar, bar width=12pt, draw=black, fill=blue!40] coordinates { ${coords} };`
+        ? `\\addplot+[ybar, bar width=${(() => {
+            if (isQualitative) return '12pt'
+            // calculer un bar width adapté en unités x (pour axe numérique)
+            const xsSorted = xs.slice().sort((a, b) => a - b)
+            if (xsSorted.length < 2) return '12pt'
+            let minDiff = Infinity
+            for (let i = 0; i < xsSorted.length - 1; i++) {
+              minDiff = Math.min(minDiff, xsSorted[i + 1] - xsSorted[i])
+            }
+            // si minDiff est 0 (valeurs identiques), utiliser pt
+            if (!isFinite(minDiff) || minDiff === 0) return '12pt'
+            // bar width en unités x (60% du pas minimal)
+            return `${(minDiff * 0.6).toFixed(6)}`
+          })()}, draw=black, fill=blue!40] coordinates { ${coords} };`
         : `\\addplot+[sharp plot, thick, mark=*, mark options={fill=blue}] coordinates { ${coords} };`
+
+      // Options conditionnelles pour pgfplots selon les flags fournis
+      const axisOptionsArr: string[] = []
+      axisOptionsArr.push(`title={${title}}`)
+      axisOptionsArr.push(`ylabel={${ylabel}}`)
+      axisOptionsArr.push(`xlabel={Valeurs}`)
+      axisOptionsArr.push(`ymin=0`)
+      axisOptionsArr.push(`enlarge x limits=0.15`)
+      axisOptionsArr.push(`grid=major`)
+      axisOptionsArr.push(`width=12cm`)
+      axisOptionsArr.push(`height=6cm`)
+      // nodes near coords / formatage des effectifs
+      if (effectifsOn) {
+        if (percentVsEffectifs) {
+          axisOptionsArr.push(
+            'nodes near coords={\\pgfmathprintnumber[fixed,precision=0]{\\pgfplotspointmeta}\\%}',
+          )
+        } else {
+          axisOptionsArr.push('nodes near coords')
+        }
+        axisOptionsArr.push(
+          'nodes near coords align={vertical}',
+          'every node near coord/.append style={font=\\scriptsize}',
+        )
+      }
+      // gestion des valeurs sur l'axe des x
+      if (isQualitative) {
+        if (valuesOn) {
+          axisOptionsArr.push(
+            `symbolic x coords={${labelsTex.join(',')}}`,
+            'xtick=data',
+          )
+        } else {
+          axisOptionsArr.push(
+            'symbolic x coords={' + labelsTex.join(',') + '}',
+            'xtick=\\empty',
+          )
+        }
+      } else {
+        // axe quantitatif : positions numériques, xticks positionnés sur xs si valuesOn
+        const xmin = Math.min(...xs)
+        const xmax = Math.max(...xs)
+        axisOptionsArr.push(
+          `xmin=${Number((xmin - (xmax - xmin) * 0.05).toFixed(6))}`,
+        )
+        axisOptionsArr.push(
+          `xmax=${Number((xmax + (xmax - xmin) * 0.05).toFixed(6))}`,
+        )
+        if (valuesOn) {
+          const xticks = xs.map((v) => Number(v.toFixed(6))).join(',')
+          axisOptionsArr.push(`xtick={${xticks}}`)
+          const xticklabels = labelsTex.join(',')
+          axisOptionsArr.push(`xticklabels={${xticklabels}}`)
+        } else {
+          axisOptionsArr.push('xtick=\\empty')
+        }
+      }
 
       return `\\begin{tikzpicture}
   \\begin{axis}[
-    title={${title}},
-    ylabel={${ylabel}},
-    xlabel={Valeurs},
-    symbolic x coords={${labels.join(',')}},
-    xtick=data,
-    ymin=0,
-    enlarge x limits=0.15,
-    grid=major,
-    nodes near coords,
-    nodes near coords align={vertical},
-    every node near coord/.append style={font=\\scriptsize},
-    width=12cm,
-    height=6cm,
+    ${axisOptionsArr.join(',\n    ')}
   ]
     ${addplot}
   \\end{axis}
