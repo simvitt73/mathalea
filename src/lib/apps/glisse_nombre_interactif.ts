@@ -17,6 +17,7 @@ type GlisseNombreInteractifOptions = {
   showComma2?: boolean // pour afficher la virgule de la deuxième ligne (par défaut à true)
   initialPower?: number // pour choisir la colonne de départ des calculs (par défaut à 0)
   removeLeftZeros?: boolean // pour ne pas afficher les zéros à gauche du premier chiffre non nul par exemple n'afficher que le chiffre des centièmes dans 0,01 (par défaut à false)
+  styleCSS?: string // AJOUT : pour appliquer des styles CSS au conteneur (ex: 'transform: scale(0.7);')
 }
 
 /**
@@ -39,6 +40,7 @@ export function glisseNombreInteractif(
     return '' // La sortie LaTeX n'est pas encore gérée
   }
   let optionsString: string = ''
+  let styleString: string = '' // AJOUT : Chaîne pour contenir l'attribut style
   if (options) {
     if (options.number !== undefined)
       optionsString += `number="${options.number}" `
@@ -56,6 +58,9 @@ export function glisseNombreInteractif(
       optionsString += `remove-left-zeros="${options.removeLeftZeros}" `
     if (options.initialPower !== undefined)
       optionsString += `initial-power="${options.initialPower}" `
+    if (options.styleCSS !== undefined)
+      styleString += `style="${options.styleCSS}"` // Construction de l'attribut style
   }
-  return `<div class="block"><glisse-nombre ${optionsString} ></glisse-nombre></div>`
+
+  return `<div class="block" ${styleString}><glisse-nombre ${optionsString} ></glisse-nombre></div>` // L'attribut style est ajouté à la balise <div>
 }

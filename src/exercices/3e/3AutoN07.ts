@@ -1,4 +1,5 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
+import { glisseNombreInteractif } from '../../lib/apps/glisse_nombre_interactif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -44,20 +45,32 @@ export default class DecimalToScientifique extends ExerciceSimple {
 
     if (pileOuFace) {
       this.question = `Donne l'écriture scientifique de $${texNombre(nombre)}$.`
+      const glisseNumber1 = glisseNombreInteractif({
+        number: nombre,
+        showCalculus: false,
+        styleCSS: 'transform: scale(0.5); transform-origin: top left;',
+      })
+      this.question += glisseNumber1
       this.reponse = `$${texNombre(mantisse)} \\times 10^{${exposant}}$`
-      const glisseNumber = glisseNombre(nombre, -exposant)
+      const glisseNumber2 = glisseNombre(nombre, -exposant)
       this.correction = mathalea2d(
-        Object.assign({}, fixeBordures([glisseNumber])),
-        glisseNumber,
+        Object.assign({}, fixeBordures([glisseNumber2])),
+        glisseNumber2,
       )
       this.correction += `L'écriture scientifique de $${texNombre(nombre)}$ est $${miseEnEvidence(`${texNombre(mantisse)} \\times 10^{${exposant}}`)}$.`
     } else {
       this.question = `Donne l'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$`
+      const glisseNumber1 = glisseNombreInteractif({
+        number: mantisse,
+        showCalculus: false,
+        styleCSS: 'transform: scale(0.5); transform-origin: top left;',
+      })
+      this.question += glisseNumber1
       this.reponse = texNombre(nombre)
-      const glisseNumber = glisseNombre(mantisse, exposant)
+      const glisseNumber2 = glisseNombre(mantisse, exposant)
       this.correction = mathalea2d(
-        Object.assign({}, fixeBordures([glisseNumber])),
-        glisseNumber,
+        Object.assign({}, fixeBordures([glisseNumber2])),
+        glisseNumber2,
       )
       this.correction += `L'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$ est $${miseEnEvidence(texNombre(nombre))}$.`
     }
