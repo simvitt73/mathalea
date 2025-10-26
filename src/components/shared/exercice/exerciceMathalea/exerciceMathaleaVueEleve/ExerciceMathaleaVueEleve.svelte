@@ -229,7 +229,7 @@
     }
   }
 
-  const debug = false
+  let debug = false
   function log(str: string) {
     if (debug || window.logDebug > 1) {
       console.info(str)
