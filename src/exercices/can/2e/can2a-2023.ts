@@ -23,12 +23,12 @@ import { abs, arrondi, range1 } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { context } from '../../../modules/context'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { context } from '../../../modules/context'
+} from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

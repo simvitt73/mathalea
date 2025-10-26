@@ -1,12 +1,10 @@
 import { floor } from 'mathjs'
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { CodageAngleDroit, codageAngleDroit } from './angles'
 import { cercle } from './cercle'
 import { CodageMilieu } from './codages'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
 import {
   milieu,
@@ -17,10 +15,10 @@ import {
   pointIntersectionLC,
   pointSurSegment,
 } from './points'
+import type { PointAbstrait } from './points-abstraits'
 import { Polygone, polygone } from './polygones'
 import { longueur } from './segmentsVecteurs'
 import { projectionOrtho, rotation, similitude } from './transformations'
-import type { PointAbstrait } from './points-abstraits'
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H

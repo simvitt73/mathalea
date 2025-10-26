@@ -26,10 +26,11 @@ import {
   translation,
 } from '../../lib/2d/transformations'
 import { aireTriangle } from '../../lib/2d/triangle'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,

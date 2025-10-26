@@ -1,15 +1,12 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-  Vide2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { angleOriente, codageAngle, codageAngleDroit } from './angles'
 import { arc } from './cercle'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import {
   milieu,
   Point,
@@ -30,6 +27,7 @@ import {
   type LetterSizeType,
 } from './textes'
 import { rotation, similitude, translation } from './transformations'
+import { Vide2d } from './Vide2d'
 
 /**
  * Code le milieu d'un segment

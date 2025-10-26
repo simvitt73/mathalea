@@ -1,5 +1,6 @@
 import { afficheMesureAngle } from '../../lib/2d/codages'
 import { bissectrice, droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tracePointSurDroite } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
@@ -12,7 +13,7 @@ import {
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

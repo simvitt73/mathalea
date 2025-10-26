@@ -3,7 +3,7 @@ import { droiteGraduee } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, troncature } from '../../lib/outils/nombres'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

@@ -6,6 +6,7 @@ import {
 } from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/cercle'
 import { droite } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import {
   milieu,
   point,
@@ -30,10 +31,10 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import Grandeur from '../../../modules/Grandeur'
 import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

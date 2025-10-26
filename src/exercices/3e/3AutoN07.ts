@@ -1,10 +1,11 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 

@@ -1,6 +1,6 @@
 import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation'
-import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point } from './points'
 import { segment, vecteur } from './segmentsVecteurs'
 import { TexteParPoint, texteParPosition } from './textes'

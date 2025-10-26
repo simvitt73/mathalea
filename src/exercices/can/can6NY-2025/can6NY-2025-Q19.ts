@@ -1,13 +1,13 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import Decimal from 'decimal.js'
+import { droiteGraduee } from '../../../lib/2d/reperes'
 import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,12 +1,10 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString'
 import { nombreAvecEspace } from '../outils/texNombre'
 import { arc, cercle } from './cercle'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { milieu, point, pointSurSegment } from './points'
 import { grille } from './reperes'
 import { longueur, segment } from './segmentsVecteurs'

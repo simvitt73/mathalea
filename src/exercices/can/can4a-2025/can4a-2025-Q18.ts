@@ -1,11 +1,12 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
-import { point, pointIntersectionCC } from '../../../lib/2d/points'
 import { cercle } from '../../../lib/2d/cercle'
-import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { placeLatexSurSegment } from '../../../lib/2d/codages'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { point, pointIntersectionCC } from '../../../lib/2d/points'
+import { polygoneAvecNom } from '../../../lib/2d/polygones'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer une longueur dans un triangle'
 export const interactifReady = true

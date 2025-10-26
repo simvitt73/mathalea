@@ -3,9 +3,9 @@ import { droiteGraduee } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, troncature } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import Exercice from '../Exercice'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
 

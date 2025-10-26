@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
 import { carre } from '../../lib/2d/polygones'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
@@ -5,7 +6,7 @@ import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

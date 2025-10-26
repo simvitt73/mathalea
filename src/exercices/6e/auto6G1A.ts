@@ -12,11 +12,12 @@ import {
 import { grille, seyes } from '../../lib/2d/reperes'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

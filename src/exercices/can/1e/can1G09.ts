@@ -7,8 +7,8 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre =
   'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true

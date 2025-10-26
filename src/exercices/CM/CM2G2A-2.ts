@@ -11,11 +11,12 @@ import {
 import { grille, seyes } from '../../lib/2d/reperes'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

@@ -5,13 +5,13 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/outils/embellissements'
 import {
-    arrondi,
-    nombreDeChiffresDansLaPartieEntiere,
+  arrondi,
+  nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

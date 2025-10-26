@@ -1,16 +1,13 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-  xSVG,
-  ySVG,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { estentier, inferieurouegal } from '../../modules/outils'
 import type { Spline } from '../mathFonctions/Spline'
 import { tousDeMemeSigne } from '../outils/nombres'
 import { arc } from './cercle'
-import { Point, point, tracePoint } from './points'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
+import { point, tracePoint } from './points'
+import { PointAbstrait, pointAbstrait } from './points-abstraits'
 import {
   elimineBinomesXYIntermediairesAlignes,
   motifs,
@@ -21,7 +18,21 @@ import {
 import { Repere } from './reperes'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
-
+/**
+ * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
+ * @param x
+ * @param coeff
+ * @return {number}
+ */
+export const xSVG = (x: number, coeff: number) => Number((x * coeff).toFixed(1))
+/**
+ * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
+ * @param y
+ * @param coeff
+ * @return {number}
+ */
+export const ySVG = (y: number, coeff: number) =>
+  Number((-y * coeff).toFixed(1))
 export class LectureImage extends ObjetMathalea2D {
   x: number
   y: number
@@ -576,7 +587,7 @@ export class Courbe extends ObjetMathalea2D {
         axisYMax !== undefined ? axisYMax * 20 : this.ymax * this.yunite * 20
       ).toFixed(3)
 
-      let code = `\\addplot[color=${colorLatex},line width=${this.epaisseur / 2}pt,domain=${domainMin}:${domainMax},restrict y to domain=${
+      const code = `\\addplot[color=${colorLatex},line width=${this.epaisseur / 2}pt,domain=${domainMin}:${domainMax},restrict y to domain=${
         yDomainMin
       }:${yDomainMax},samples=${this.samples}] {${this.fLatex}};\n`
 
@@ -989,7 +1000,7 @@ export class IntegraleComptable extends ObjetMathalea2D {
     }
     // On joint les rectangles adjacents de même couleur
     let color: string[] = []
-    let sommetFinal: Point = point(0, 0)
+    let sommetFinal: PointAbstrait = pointAbstrait(0, 0)
     while (rectangles.length > 0) {
       const sommets = [
         rectangles[0].listePoints[0],
@@ -1056,10 +1067,12 @@ export class IntegraleComptable extends ObjetMathalea2D {
     ]
     this.aire = { negative: 0, positive: 0 }
     for (const objet of this.objets) {
-      if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
-        this.aire.negative += objet.aire
-      } else {
-        this.aire.positive += objet.aire
+      if (objet instanceof ObjetMathalea2D) {
+        if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
+          this.aire.negative += objet.aire
+        } else {
+          this.aire.positive += objet.aire
+        }
       }
     }
   }

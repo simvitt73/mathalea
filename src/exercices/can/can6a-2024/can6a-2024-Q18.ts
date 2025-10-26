@@ -1,16 +1,14 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { Grille } from '../../../lib/2d/reperes'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
+import { Grille } from '../../../lib/2d/reperes'
 import { texteParPoint } from '../../../lib/2d/textes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
 
 export const titre = "Déterminer l'aire  d'un trapèze rectangle en ua"
 export const interactifReady = true

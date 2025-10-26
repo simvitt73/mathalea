@@ -1,16 +1,14 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { Grille } from '../../../lib/2d/reperes'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { Grille } from '../../../lib/2d/reperes'
 import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Comparer deux aires'
 export const interactifReady = true

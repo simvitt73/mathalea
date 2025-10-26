@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Lire l'abscisse décimale d'un point sur une droite graduée"

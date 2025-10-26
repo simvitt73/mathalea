@@ -1,6 +1,6 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { texteSurSegment } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import {
   barycentre,
@@ -8,10 +8,11 @@ import {
   polygoneAvecNom,
 } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { texteSurSegment } from '../../../lib/2d/codages'
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Trouver la longueur d'un côté de triangle rectangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -16,15 +16,16 @@ import {
   similitude,
   translation,
 } from '../../lib/2d/transformations'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Nommer et coder des polygones'
 export const dateDeModifImportante = '10/01/2024'
 

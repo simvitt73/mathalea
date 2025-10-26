@@ -1,4 +1,5 @@
 import { codageSegment } from '../../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
@@ -13,8 +14,8 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

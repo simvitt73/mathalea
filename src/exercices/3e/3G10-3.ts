@@ -4,13 +4,13 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Construire l'image d'un point par une rotation avec cible auto-corrective"
 

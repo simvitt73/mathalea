@@ -32,8 +32,8 @@ import {
 } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
