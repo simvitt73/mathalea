@@ -6,7 +6,6 @@ import {
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { milieu, point, tracePoint } from '../2d/points'
-import { pointAbstrait } from '../2d/points-abstraits'
 import { BoiteBuilder, polygone } from '../2d/polygones'
 import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
@@ -103,7 +102,9 @@ export default class Stat {
     if (this.isQualitative) {
       throw new Error('Moyenne non définie : la série est qualitative')
     }
-    return Stat.moyenne(this.serie as number[])
+    const tableau = (this.serie as number[]).map(Number)
+    const somme = tableau.reduce((acc, val) => acc + val, 0)
+    return somme / tableau.length
   }
 
   variance(): number {
@@ -112,7 +113,7 @@ export default class Stat {
     }
     const moyenne = this.moyenne()
     const sommeDesCarres = (this.serie as number[]).reduce(
-      (acc, val) => acc + Math.pow((val as number) - moyenne, 2),
+      (acc, val) => acc + Math.pow(Number(val) - moyenne, 2),
       0,
     )
     return sommeDesCarres / (this.serie as number[]).length
@@ -129,9 +130,20 @@ export default class Stat {
     if (this.isQualitative) {
       throw new Error('Médiane non définie : la série est qualitative')
     }
-    const sorted = [...(this.serie as number[])].sort(
-      (a, b) => (a as number) - (b as number),
-    )
+    const sorted = [...(this.serie as number[])]
+      .map(Number)
+      .sort((a, b) => a - b)
+    const mid = Math.floor(sorted.length / 2)
+    if (sorted.length % 2 === 0) {
+      return (sorted[mid - 1] + sorted[mid]) / 2
+    } else {
+      return sorted[mid]
+    }
+  }
+
+  // helper pour calculer médiane d'un tableau numérique (intern)
+  private medianeArray(tableau: number[]): number {
+    const sorted = [...tableau].sort((a, b) => a - b)
     const mid = Math.floor(sorted.length / 2)
     if (sorted.length % 2 === 0) {
       return (sorted[mid - 1] + sorted[mid]) / 2
@@ -141,8 +153,6 @@ export default class Stat {
   }
 
   mode(): number[] {
-    // le mode peut avoir du sens pour des séries qualitatives aussi,
-    // mais la signature actuelle renvoie number[] : on garde le comportement existant pour les nombres.
     if (this.isQualitative) {
       throw new Error(
         'Mode (numérique) : la série est qualitative — utiliser this.serieTableau pour les modalités',
@@ -150,7 +160,8 @@ export default class Stat {
     }
     const frequencyMap: { [key: number]: number } = {}
     for (const num of this.serie as number[]) {
-      frequencyMap[num as number] = (frequencyMap[num as number] || 0) + 1
+      const k = Number(num)
+      frequencyMap[k] = (frequencyMap[k] || 0) + 1
     }
     const maxFrequency = Math.max(...Object.values(frequencyMap))
     return Object.keys(frequencyMap)
@@ -162,14 +173,14 @@ export default class Stat {
     if (this.isQualitative) {
       throw new Error('Min non défini : la série est qualitative')
     }
-    return Math.min(...(this.serie as number[]))
+    return Math.min(...(this.serie as number[]).map(Number))
   }
 
   max(): number {
     if (this.isQualitative) {
       throw new Error('Max non défini : la série est qualitative')
     }
-    return Math.max(...(this.serie as number[]))
+    return Math.max(...(this.serie as number[]).map(Number))
   }
 
   etendue(): number {
@@ -192,7 +203,19 @@ export default class Stat {
     if (this.isQualitative) {
       throw new Error('Quartiles non définis : la série est qualitative')
     }
-    return Stat.quartiles(this.serie as number[])
+    const values = [...(this.serie as number[])]
+      .map(Number)
+      .sort((a, b) => a - b)
+    const n = values.length
+    const mid = Math.floor(n / 2)
+    const lower = n % 2 === 0 ? values.slice(0, mid) : values.slice(0, mid)
+    const upper = n % 2 === 0 ? values.slice(mid) : values.slice(mid + 1)
+    const q1 = lower.length ? this.medianeArray(lower) : values[0]
+    const q2 = this.medianeArray(values)
+    const q3 = upper.length
+      ? this.medianeArray(upper)
+      : values[values.length - 1]
+    return { q1, q2, q3 }
   }
 
   serieTriee(): number[] {
@@ -201,7 +224,7 @@ export default class Stat {
         'Série triée (numérique) non disponible : la série est qualitative',
       )
     }
-    return Stat.serieTriee(this.serie as number[])
+    return [...(this.serie as number[])].map(Number).sort((a, b) => a - b)
   }
 
   /**
@@ -227,7 +250,43 @@ export default class Stat {
         'Boîte à moustache non applicable : la série est qualitative',
       )
     }
-    return Stat.boiteAMoustache(this.serie as number[])
+    const values = [...(this.serie as number[])]
+      .map(Number)
+      .sort((a, b) => a - b)
+    const n = values.length
+    const mid = Math.floor(n / 2)
+    const lower = n % 2 === 0 ? values.slice(0, mid) : values.slice(0, mid)
+    const upper = n % 2 === 0 ? values.slice(mid) : values.slice(mid + 1)
+    const q1 = lower.length ? this.medianeArray(lower) : values[0]
+    const q2 = this.medianeArray(values)
+    const q3 = upper.length
+      ? this.medianeArray(upper)
+      : values[values.length - 1]
+    const iqr = q3 - q1
+    const borneInferieure = q1 - 1.5 * iqr
+    const borneSuperieure = q3 + 1.5 * iqr
+    const moustacheInferieure =
+      values.find((v) => v >= borneInferieure) ?? values[0]
+    const moustacheSuperieure =
+      [...values].reverse().find((v) => v <= borneSuperieure) ??
+      values[values.length - 1]
+    const valeursAberrantes = values.filter(
+      (v) => v < moustacheInferieure || v > moustacheSuperieure,
+    )
+    return {
+      q1,
+      q2,
+      q3,
+      iqr,
+      borneInferieure,
+      borneSuperieure,
+      moustacheInferieure,
+      moustacheSuperieure,
+      valeursAberrantes,
+      min: values[0],
+      max: values[values.length - 1],
+      valeurs: values,
+    }
   }
 
   traceBoiteAMoustache({
@@ -236,19 +295,176 @@ export default class Stat {
     legendeOn = true,
     valeursOn = true,
     echelle = 1,
+  }: {
+    size?: number
+    height?: number
+    legendeOn?: boolean
+    valeursOn?: boolean
+    echelle?: number
   }): string {
     if (this.isQualitative) {
       throw new Error(
         'Trace boîte à moustache non applicable : la série est qualitative',
       )
     }
-    return Stat.traceBoiteAMoustache(this.serie as number[], {
-      size,
-      height,
-      echelle,
-      legendeOn,
-      valeursOn,
-    })
+
+    const boxplotData = this.boiteAMoustache()
+    const etendue = boxplotData.max - boxplotData.min
+    const scale = etendue / size
+
+    const extremiteDroite = point(-1, 0)
+    const extremiteGauche = point(size + 1, 0)
+    const minPoint = point(0, 0)
+    const maxPoint = point(size, 0)
+    const q1Point = point(
+      (size * (boxplotData.q1 - boxplotData.min)) / etendue,
+      0,
+    )
+    const q2Point = point(
+      (size * (boxplotData.q2 - boxplotData.min)) / etendue,
+      0,
+    )
+    const q3Point = point(
+      (size * (boxplotData.q3 - boxplotData.min)) / etendue,
+      0,
+    )
+    const minDownPoint = point(minPoint.x, echelle * 0.8)
+    const minUpPoint = point(minPoint.x, 2.4 * echelle)
+    const maxDownPoint = point(maxPoint.x, echelle * 0.8)
+    const maxUpPoint = point(maxPoint.x, 2.4 * echelle)
+    const minMiddlePoint = milieu(minDownPoint, minUpPoint)
+    const maxMiddlePoint = milieu(maxDownPoint, maxUpPoint)
+    const q1DownPoint = point(q1Point.x, echelle * 0.8)
+    const q1UpPoint = point(q1Point.x, 2.4 * echelle)
+    const q2DownPoint = point(q2Point.x, echelle * 0.8)
+    const q2UpPoint = point(q2Point.x, 2.4 * echelle)
+    const q3DownPoint = point(q3Point.x, echelle * 0.8)
+    const q3UpPoint = point(q3Point.x, 2.4 * echelle)
+    const q1MiddlePoint = milieu(q1DownPoint, q1UpPoint)
+    const q3MiddlePoint = milieu(q3DownPoint, q3UpPoint)
+    const lineMin = segment(minDownPoint, minUpPoint, 'blue')
+    const lineMax = segment(maxDownPoint, maxUpPoint, 'blue')
+    const lineQ2 = segment(q2DownPoint, q2UpPoint, 'blue')
+    const lineQ0Q1 = segment(minMiddlePoint, q1MiddlePoint, 'blue')
+    const lineQ3Q4 = segment(q3MiddlePoint, maxMiddlePoint, 'blue')
+    lineMin.epaisseur = 2
+    lineMax.epaisseur = 2
+    lineQ2.epaisseur = 2
+    lineQ0Q1.epaisseur = 2
+    lineQ3Q4.epaisseur = 2
+    const box = polygone(
+      [q1DownPoint, q1UpPoint, q3UpPoint, q3DownPoint],
+      'blue',
+    )
+    box.epaisseur = 2
+    box.couleurDeRemplissage = colorToLatexOrHTML('blue')
+    box.opaciteDeRemplissage = 0.15
+
+    const lineBase = segment(extremiteDroite, extremiteGauche)
+    lineBase.epaisseur = 1
+    lineBase.styleExtremites = '->'
+    lineBase.couleur = 'black'
+    const plots = tracePoint(q1Point, q2Point, q3Point, minPoint, maxPoint)
+    plots.taille = 2
+    plots.epaisseur = 2
+    plots.style = '.'
+    // Ajout des différents éléments à tracer
+    const objetsToTrace: NestedObjetMathalea2dArray = [
+      lineBase,
+      plots,
+      lineMin,
+      lineMax,
+      lineQ2,
+      lineQ0Q1,
+      lineQ3Q4,
+      box,
+    ]
+    // Ajout des étiquettes (valeurs numériques)
+    if (valeursOn) {
+      objetsToTrace.push(
+        latex2d(texNombre(boxplotData.min), minPoint.x, minPoint.y - 0.8, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(texNombre(boxplotData.q1), q1Point.x, q1Point.y - 0.8, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(texNombre(boxplotData.q2), q2Point.x, q2Point.y - 0.8, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(texNombre(boxplotData.q3), q3Point.x, q3Point.y - 0.8, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(texNombre(boxplotData.max), maxPoint.x, maxPoint.y - 0.8, {
+          letterSize: 'scriptsize',
+        }),
+      )
+    }
+    // Ajout des étiquettes (noms)
+    if (legendeOn) {
+      objetsToTrace.push(
+        latex2d('\\text{Min}', minPoint.x, minPoint.y - 1.6, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d('Q_1', q1Point.x, q1Point.y - 1.6, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d('\\text{Méd}', q2Point.x, q2Point.y - 1.6, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d('Q_3', q3Point.x, q3Point.y - 1.6, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d('\\text{Max}', maxPoint.x, maxPoint.y - 1.6, {
+          letterSize: 'scriptsize',
+        }),
+      )
+    }
+    if (context.isHtml) {
+      return mathalea2d(
+        Object.assign({}, fixeBordures(objetsToTrace)),
+        objetsToTrace,
+      )
+    } else {
+      return ` \\begin{tikzpicture}[every node/.style={inner sep=0pt,font=\\scriptsize},%
+      boxplot prepared/every whisker/.style={ultra thick}]
+    \\begin{axis}[
+        clip=false,
+        y=1cm,
+        ymin=-0.5cm,
+        xmin=${boxplotData.min - scale},
+        xmax=${boxplotData.max + scale},
+        height=${height}cm,
+        width=${size / 2}cm,
+        ytick=\\empty,
+        axis y line=left,
+        axis x line=middle,
+        xtick = \\empty,
+        y axis line style={draw=none},
+        enlarge y limits={abs=5mm},
+      ]
+      \\addplot+[
+        boxplot prepared ={
+            every box/.style={ultra thick,fill=blue!15},
+            every whisker/.style={ultra thick},
+            every median/.style={ultra thick},
+            lower whisker=${texNombre(boxplotData.moustacheInferieure, 2)},
+            lower quartile=${boxplotData.q1},
+            median=${boxplotData.q2},
+            upper quartile=${boxplotData.q3},
+            upper whisker=${texNombre(boxplotData.moustacheSuperieure, 2)},
+          },
+      ] coordinates {};
+      \\foreach \\x/\\name [count=\\xi from 0] in {${boxplotData.min}/Min,${boxplotData.q1}/Q1,${boxplotData.q2}/Méd,${boxplotData.q3}/Q3,${boxplotData.max}/Max} {
+          \\edef\\temp{\\noexpand\\fill (\\x,0) coordinate (a\\xi) circle (2pt);
+            ${valeursOn ? '\\noexpand\\node[below=2mm of a\\xi] {\\x};' : ''}
+            ${legendeOn ? '\\noexpand\\node[below=4mm of a\\xi]  {\\name};' : ''}
+          }
+          \\temp
+        }
+    \\end{axis}
+  \\end{tikzpicture}
+`
+    }
   }
 
   listeSerie({
@@ -640,295 +856,6 @@ export default class Stat {
     ${addplot}
   \\end{axis}
 \\end{tikzpicture}`
-    }
-  }
-
-  // Méthode statique pour obtenir les mêmes informations à partir d'un tableau
-  static boiteAMoustache(tableau: number[]) {
-    if (!tableau || tableau.length === 0) {
-      throw new Error('La série ne peut pas être vide')
-    }
-    const values = [...tableau].sort((a, b) => a - b)
-    const n = values.length
-    const mid = Math.floor(n / 2)
-
-    const lower = n % 2 === 0 ? values.slice(0, mid) : values.slice(0, mid)
-    const upper = n % 2 === 0 ? values.slice(mid) : values.slice(mid + 1)
-
-    const q1 = lower.length ? Stat.mediane(lower) : values[0]
-    const q2 = Stat.mediane(values)
-    const q3 = upper.length ? Stat.mediane(upper) : values[values.length - 1]
-
-    const iqr = q3 - q1
-    const borneInferieure = q1 - 1.5 * iqr
-    const borneSuperieure = q3 + 1.5 * iqr
-
-    // whiskers = valeurs extrêmes non-outliers
-    const moustacheInferieure =
-      values.find((v) => v >= borneInferieure) ?? values[0]
-    const moustacheSuperieure =
-      [...values].reverse().find((v) => v <= borneSuperieure) ??
-      values[values.length - 1]
-
-    const valeursAberrantes = values.filter(
-      (v) => v < moustacheInferieure || v > moustacheSuperieure,
-    )
-
-    return {
-      q1,
-      q2,
-      q3,
-      iqr,
-      borneInferieure,
-      borneSuperieure,
-      moustacheInferieure,
-      moustacheSuperieure,
-      valeursAberrantes,
-      min: values[0],
-      max: values[values.length - 1],
-      valeurs: values,
-    }
-  }
-
-  // Méthodes statiques
-  // ex : const moy = Stat.moyenne([1,2,3])
-  static moyenne(tableau: number[]): number {
-    const somme = tableau.reduce((acc, val) => acc + val, 0)
-    return somme / tableau.length
-  }
-
-  static variance(tableau: number[]): number {
-    const moyenne = Stat.moyenne(tableau)
-    const sommeDesCarres = tableau.reduce(
-      (acc, val) => acc + Math.pow(val - moyenne, 2),
-      0,
-    )
-    return sommeDesCarres / tableau.length
-  }
-
-  static ecartType(tableau: number[]): number {
-    return Math.sqrt(Stat.variance(tableau))
-  }
-
-  static mediane(tableau: number[]): number {
-    const sorted = [...tableau].sort((a, b) => a - b)
-    const mid = Math.floor(sorted.length / 2)
-    if (sorted.length % 2 === 0) {
-      return (sorted[mid - 1] + sorted[mid]) / 2
-    } else {
-      return sorted[mid]
-    }
-  }
-
-  static mode(tableau: number[]): number[] {
-    const frequencyMap: { [key: number]: number } = {}
-    for (const num of tableau) {
-      frequencyMap[num] = (frequencyMap[num] || 0) + 1
-    }
-    const maxFrequency = Math.max(...Object.values(frequencyMap))
-    return Object.keys(frequencyMap)
-      .filter((key) => frequencyMap[Number(key)] === maxFrequency)
-      .map(Number)
-  }
-
-  static min(tableau: number[]): number {
-    return Math.min(...tableau)
-  }
-
-  static max(tableau: number[]): number {
-    return Math.max(...tableau)
-  }
-
-  static etendue(tableau: number[]): number {
-    return Stat.max(tableau) - Stat.min(tableau)
-  }
-
-  static coefVariation(tableau: number[]): number {
-    return Stat.ecartType(tableau) / Stat.moyenne(tableau)
-  }
-
-  static quartiles(tableau: number[]): { q1: number; q2: number; q3: number } {
-    if (!tableau || tableau.length === 0) {
-      throw new Error('La série ne peut pas être vide')
-    }
-    const values = [...tableau].sort((a, b) => a - b)
-    const n = values.length
-    const mid = Math.floor(n / 2)
-
-    const lower = n % 2 === 0 ? values.slice(0, mid) : values.slice(0, mid)
-    const upper = n % 2 === 0 ? values.slice(mid) : values.slice(mid + 1)
-
-    const q1 = lower.length ? Stat.mediane(lower) : values[0]
-    const q2 = Stat.mediane(values)
-    const q3 = upper.length ? Stat.mediane(upper) : values[values.length - 1]
-
-    return { q1, q2, q3 }
-  }
-
-  static serieTriee(tableau: number[]): number[] {
-    return [...tableau].sort((a, b) => a - b)
-  }
-
-  static traceBoiteAMoustache(
-    tableau: number[],
-    { size = 10, height = 3, echelle = 1, legendeOn = true, valeursOn = true },
-  ): string {
-    const boxplotData = Stat.boiteAMoustache(tableau)
-    const etendue = boxplotData.max - boxplotData.min
-    const scale = etendue / size
-
-    const extremiteDroite = point(-1, 0)
-    const extremiteGauche = point(size + 1, 0)
-    const minPoint = point(0, 0)
-    const maxPoint = point(size, 0)
-    const q1Point = point(
-      (size * (boxplotData.q1 - boxplotData.min)) / etendue,
-      0,
-    )
-    const q2Point = point(
-      (size * (boxplotData.q2 - boxplotData.min)) / etendue,
-      0,
-    )
-    const q3Point = point(
-      (size * (boxplotData.q3 - boxplotData.min)) / etendue,
-      0,
-    )
-    const minDownPoint = pointAbstrait(minPoint.x, echelle * 0.8)
-    const minUpPoint = pointAbstrait(minPoint.x, 2.4 * echelle)
-    const maxDownPoint = pointAbstrait(maxPoint.x, echelle * 0.8)
-    const maxUpPoint = pointAbstrait(maxPoint.x, 2.4 * echelle)
-    const minMiddlePoint = milieu(minDownPoint, minUpPoint)
-    const maxMiddlePoint = milieu(maxDownPoint, maxUpPoint)
-    const q1DownPoint = pointAbstrait(q1Point.x, echelle * 0.8)
-    const q1UpPoint = pointAbstrait(q1Point.x, 2.4 * echelle)
-    const q2DownPoint = pointAbstrait(q2Point.x, echelle * 0.8)
-    const q2UpPoint = pointAbstrait(q2Point.x, 2.4 * echelle)
-    const q3DownPoint = pointAbstrait(q3Point.x, echelle * 0.8)
-    const q3UpPoint = pointAbstrait(q3Point.x, 2.4 * echelle)
-    const q1MiddlePoint = milieu(q1DownPoint, q1UpPoint)
-    const q3MiddlePoint = milieu(q3DownPoint, q3UpPoint)
-    const lineMin = segment(minDownPoint, minUpPoint, 'blue')
-    const lineMax = segment(maxDownPoint, maxUpPoint, 'blue')
-    const lineQ2 = segment(q2DownPoint, q2UpPoint, 'blue')
-    const lineQ0Q1 = segment(minMiddlePoint, q1MiddlePoint, 'blue')
-    const lineQ3Q4 = segment(q3MiddlePoint, maxMiddlePoint, 'blue')
-    lineMin.epaisseur = 2
-    lineMax.epaisseur = 2
-    lineQ2.epaisseur = 2
-    lineQ0Q1.epaisseur = 2
-    lineQ3Q4.epaisseur = 2
-    const box = polygone(
-      [q1DownPoint, q1UpPoint, q3UpPoint, q3DownPoint],
-      'blue',
-    )
-    box.epaisseur = 2
-    box.couleurDeRemplissage = colorToLatexOrHTML('blue')
-    box.opaciteDeRemplissage = 0.15
-
-    const lineBase = segment(extremiteDroite, extremiteGauche)
-    lineBase.epaisseur = 1
-    lineBase.styleExtremites = '->'
-    lineBase.couleur = 'black'
-    const plots = tracePoint(q1Point, q2Point, q3Point, minPoint, maxPoint)
-    plots.taille = 2
-    plots.epaisseur = 2
-    plots.style = '.'
-    // Ajout des différents éléments à tracer
-    const objetsToTrace: NestedObjetMathalea2dArray = [
-      lineBase,
-      plots,
-      lineMin,
-      lineMax,
-      lineQ2,
-      lineQ0Q1,
-      lineQ3Q4,
-      box,
-    ]
-    // Ajout des étiquettes (valeurs numériques)
-    if (valeursOn) {
-      objetsToTrace.push(
-        latex2d(texNombre(boxplotData.min), minPoint.x, minPoint.y - 0.8, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d(texNombre(boxplotData.q1), q1Point.x, q1Point.y - 0.8, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d(texNombre(boxplotData.q2), q2Point.x, q2Point.y - 0.8, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d(texNombre(boxplotData.q3), q3Point.x, q3Point.y - 0.8, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d(texNombre(boxplotData.max), maxPoint.x, maxPoint.y - 0.8, {
-          letterSize: 'scriptsize',
-        }),
-      )
-    }
-    // Ajout des étiquettes (noms)
-    if (legendeOn) {
-      objetsToTrace.push(
-        latex2d('\\text{Min}', minPoint.x, minPoint.y - 1.6, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d('Q_1', q1Point.x, q1Point.y - 1.6, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d('\\text{Méd}', q2Point.x, q2Point.y - 1.6, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d('Q_3', q3Point.x, q3Point.y - 1.6, {
-          letterSize: 'scriptsize',
-        }),
-        latex2d('\\text{Max}', maxPoint.x, maxPoint.y - 1.6, {
-          letterSize: 'scriptsize',
-        }),
-      )
-    }
-    if (context.isHtml) {
-      return mathalea2d(
-        Object.assign({}, fixeBordures(objetsToTrace)),
-        objetsToTrace,
-      )
-    } else {
-      return ` \\begin{tikzpicture}[every node/.style={inner sep=0pt,font=\\scriptsize},%
-      boxplot prepared/every whisker/.style={ultra thick}]
-    \\begin{axis}[
-        clip=false,
-        y=1cm,
-        ymin=-0.5cm,
-        xmin=${boxplotData.min - scale},
-        xmax=${boxplotData.max + scale},
-        height=${height}cm,
-        width=${size / 2}cm,
-        ytick=\\empty,
-        axis y line=left,
-        axis x line=middle,
-        xtick = \\empty,
-        y axis line style={draw=none},
-        enlarge y limits={abs=5mm},
-      ]
-      \\addplot+[
-        boxplot prepared ={
-            every box/.style={ultra thick,fill=blue!15},
-            every whisker/.style={ultra thick},
-            every median/.style={ultra thick},
-            lower whisker=${texNombre(boxplotData.moustacheInferieure, 2)},
-            lower quartile=${boxplotData.q1},
-            median=${boxplotData.q2},
-            upper quartile=${boxplotData.q3},
-            upper whisker=${texNombre(boxplotData.moustacheSuperieure, 2)},
-          },
-      ] coordinates {};
-      \\foreach \\x/\\name [count=\\xi from 0] in {${boxplotData.min}/Min,${boxplotData.q1}/Q1,${boxplotData.q2}/Méd,${boxplotData.q3}/Q3,${boxplotData.max}/Max} {
-          \\edef\\temp{\\noexpand\\fill (\\x,0) coordinate (a\\xi) circle (2pt);
-            ${valeursOn ? '\\noexpand\\node[below=2mm of a\\xi] {\\x};' : ''}
-            ${legendeOn ? '\\noexpand\\node[below=4mm of a\\xi]  {\\name};' : ''}
-          }
-          \\temp
-        }
-    \\end{axis}
-  \\end{tikzpicture}
-`
     }
   }
 }

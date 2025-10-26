@@ -869,7 +869,8 @@ export function creerSerieDeQuartiles({
   }
 
   // Vérification stricte : recalculer les quartiles et comparer
-  const qs = Stat.quartiles(serie)
+  const stat = new Stat(serie)
+  const qs = stat.quartiles()
   const eq = (a: number, b: number) =>
     isInteger ? a === b : Math.abs(a - b) < 1e-9
   if (!eq(qs.q1, q1) || !eq(qs.q2, mediane) || !eq(qs.q3, q3)) {
