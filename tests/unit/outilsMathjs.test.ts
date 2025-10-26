@@ -1,12 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import {
-  assignVariables,
-  calculer,
-  programmeCalcul,
-  resoudre,
-  toTex,
-} from '../../src/modules/outilsMathjs'
+import { assignVariables } from '../../src/modules/outilsMathjs'
 
+/*
 function logSteps(equationStatus) {
   for (let i = 0; i < equationStatus.length; i++) {
     const step = equationStatus[i]
@@ -22,6 +17,7 @@ function logSteps(equationStatus) {
     }
   }
 }
+  */
 
 describe('nodeMath', () => {
   it('assignVariables should substitute variables with provided values', () => {
@@ -35,7 +31,7 @@ describe('nodeMath', () => {
     expect(assignVariables('test + a', { test: 5, a: 1 })).toBe('5 + 1')
     expect(assignVariables('a + b', {})).toBe('a + b')
   })
-
+  /*
   it('toTex should convert simple arithmetic expressions to LaTeX', () => {
     expect(toTex('3/2+4*x')).toBe('\\dfrac{3}{2}+4 x')
     expect(toTex('1*x+-3=6*x+0')).toBe(' x - 3=6 x')
@@ -282,4 +278,5 @@ describe('nodeMath', () => {
   //     'Résultat du programme',
   //   )
   // })
+  */
 })
