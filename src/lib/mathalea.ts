@@ -1193,14 +1193,14 @@ export function mathaleaFormatExercice(texte = ' ') {
 
 export function mathaleaGoToView(destinationView: '' | VueType) {
   const originView = get(globalOptions).v ?? ''
-  const oldPart = '&v=' + originView
-  const newPart = destinationView === '' ? '' : '&v=' + destinationView
-  const urlString = window.location.href.replace(oldPart, newPart)
   previousView.set(originView)
-  globalOptions.update((l) => {
-    l.v = destinationView
-    return l
-  })
+  if (destinationView !== get(globalOptions).v) {
+    // on met à jour que si ncécessaire
+    globalOptions.update((l) => {
+      l.v = destinationView
+      return l
+    })
+  }
 }
 
 /**

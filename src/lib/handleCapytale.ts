@@ -2,6 +2,7 @@ import { RPC } from '@mixer/postmessage-rpc'
 import { tick } from 'svelte'
 import { get } from 'svelte/store'
 
+
 import type { Activity, InterfaceResultExercice } from '../lib/types'
 import {
   mathaleaGoToView,
@@ -75,11 +76,24 @@ async function toolSetActivityParams({
     activity.canOptions,
   ]
 
+  // il faut mettre à jour au plus la vue CAN ou élève avant de mettre à jour les storers
+  if (newCanOptions?.isChoosen && mode !== 'create') {
+    newGlobalOptions.v = 'can'
+  } else if (mode !== 'create') {
+    newGlobalOptions.v = 'eleve'
+  }
+
   // On met à jour les paramètres globaux
   // MGu il vaut mieux commencer par ce storer car il fixe la vue (CAN ou élève)
   // Puis mettre à jour la liste des exercices exercicesParams
   globalOptions.update((l) => {
     Object.assign(l, newGlobalOptions)
+    l.presMode = 'un_exo_par_page'
+    l.isDataRandom = true
+    l.isTitleDisplayed = true
+    if (l.v === 'eleve') {
+      l.isInteractiveFree = false
+    }
     return l
   })
 
@@ -172,8 +186,8 @@ async function toolSetActivityParams({
     console.info('Réponses à charger', studentAssignment)
     if (!newCanOptions?.isChoosen) {
       // On charge les réponses de l'élève (si ce n'est pas la CAN)
-	  await waitForSvelteToBeStable() // on attend que les composants soient stables sinon AÏE!!!
-	  console.info('Prêt à charger', studentAssignment)
+      await waitForSvelteToBeStable() // on attend que les composants soient stables sinon AÏE!!!
+      console.info('Prêt à charger', studentAssignment)
       for (const exercice of studentAssignment) {
         if (exercice == null) continue
         if (exercice != null && exercice.answers != null) {
