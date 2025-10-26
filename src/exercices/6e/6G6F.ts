@@ -5,6 +5,7 @@ import {
   texteSurSegment,
 } from '../../lib/2d/codages'
 import { Droite, mediatrice } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   Point,
   point,
@@ -18,9 +19,9 @@ import { labelPoint } from '../../lib/2d/textes'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -72,9 +73,10 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       const lBC = this.seed === 'myriade' ? 4.4 : randint(35, 45, ac) / 10
       const lAB = this.seed === 'myriade' ? 4.3 : randint(46, 60) / 10
       const lAC = ac / 10
-      const B = this.seed === 'myriade'
-        ? pointAdistance(A, lAB, 140, sommets[1])
-        : pointAdistance(A, lAB, randint(-45, 45), sommets[1])
+      const B =
+        this.seed === 'myriade'
+          ? pointAdistance(A, lAB, 140, sommets[1])
+          : pointAdistance(A, lAB, randint(-45, 45), sommets[1])
       B.positionLabel = 'right'
       const cA = cercle(A, lAC)
       const cB = cercle(B, lBC)
@@ -126,9 +128,10 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       }
       texteCorr +=
         "Pour cette construction, nous avons utilisé le compas la règle graduée et l'équerre.<br>L'animation ci-dessous montre une façon de procéder sans équerre.<br>"
-      const [aIEP, bIEP, cIEP] = this.seed === 'myriade'
-        ? IEP.triangle3longueurs('VTU', lAC, lBC, lAB)
-        : IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC)
+      const [aIEP, bIEP, cIEP] =
+        this.seed === 'myriade'
+          ? IEP.triangle3longueurs('VTU', lAC, lBC, lAB)
+          : IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC)
       IEP.cercleCirconscrit(aIEP, bIEP, cIEP)
       verif = ''
       const T = polygoneAvecNom(A, B, C)

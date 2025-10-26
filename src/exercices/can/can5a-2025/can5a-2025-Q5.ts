@@ -1,10 +1,11 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { DroiteGraduee, droiteGraduee } from '../../../lib/2d/reperes'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Abscisse d'un point"
 export const interactifReady = true

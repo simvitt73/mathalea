@@ -1,27 +1,28 @@
+import { angleOriente } from '../../lib/2d/angles'
+import { texteSurSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance } from '../../lib/2d/points'
+import { nommePolygone } from '../../lib/2d/polygones'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   shuffleLettres,
 } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { angleOriente } from '../../lib/2d/angles'
-import { texteSurSegment } from '../../lib/2d/codages'
-import { texNombre } from '../../lib/outils/texNombre'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
-import { nommePolygone } from '../../lib/2d/polygones'
-import { abs } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec les normes'

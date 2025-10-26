@@ -7,20 +7,20 @@ import {
   pointIntersectionDD,
   pointSurDroite,
 } from '../../lib/2d/points'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { translation2Points } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
+import Alea2iep from '../../modules/Alea2iep'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
-import Alea2iep from '../../modules/Alea2iep'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+} from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Transformer une figure par translation'
 
 export const dateDePublication = '16/05/2022'

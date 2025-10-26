@@ -1,12 +1,10 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { degToRad } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
 import MainLevee from './MainLevee'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point, point } from './points'
 import { PointAbstrait } from './points-abstraits'
 import { pattern } from './polygones'

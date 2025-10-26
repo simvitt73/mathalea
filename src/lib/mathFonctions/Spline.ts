@@ -3,15 +3,12 @@ import { polynomialRoot, round } from 'mathjs'
 import type Point from 'apigeom/src/elements/points/Point'
 import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { egal, randint } from '../../modules/outils'
+import { colorToLatexOrHTML } from '../2d/colorToLatexOrHtml'
 import { BezierPath } from '../2d/courbes'
+import { ObjetMathalea2D } from '../2d/ObjetMathalea2D'
 import { point, tracePoint } from '../2d/points'
-import type { Repere } from '../2d/reperes'
 import { choice } from '../outils/arrayOutils'
 import { rangeMinMax } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'

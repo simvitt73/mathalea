@@ -7,8 +7,8 @@ import {
 } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Grilles décimales'
 

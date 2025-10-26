@@ -1,4 +1,5 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { polyline } from '../../lib/2d/polygones'
 import { latex2d } from '../../lib/2d/textes'
@@ -12,17 +13,13 @@ import { range, range1 } from '../../lib/outils/nombres'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre =
-  'Résoudre des problèmes algébriques avec des balances'
+export const titre = 'Résoudre des problèmes algébriques avec des balances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

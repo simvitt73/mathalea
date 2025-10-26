@@ -1,5 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
 import { droite } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { pave } from '../../../lib/2d/projections3d'
@@ -19,9 +20,9 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

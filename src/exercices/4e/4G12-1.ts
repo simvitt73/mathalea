@@ -1,3 +1,4 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
 import {
   milieu,
@@ -16,21 +17,16 @@ import {
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
+import { vide2d, Vide2d } from '../../lib/2d/Vide2d'
+import { texcolors } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice, shuffle, shuffle3tableaux } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import {
-  contraindreValeur,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
-import { context } from '../../modules/context'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import {
   RotationAnimee,
   rotationAnimee,
@@ -39,14 +35,15 @@ import {
   TranslationAnimee,
   translationAnimee,
 } from '../../modules/2dAnimation'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  Vide2d,
-  vide2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '3/12/2021'
 export const dateDeModifImportante = '10/05/2025'

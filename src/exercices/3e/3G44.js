@@ -35,14 +35,14 @@ import {
 } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
 import {
   assombrirOuEclaircir,
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import Grandeur from '../../modules/Grandeur'
+} from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

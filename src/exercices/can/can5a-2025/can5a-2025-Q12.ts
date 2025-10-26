@@ -1,22 +1,23 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { texNombre } from '../../../lib/outils/texNombre'
+import { cercle } from '../../../lib/2d/cercle'
+import { placeLatexSurSegment } from '../../../lib/2d/codages'
 import { droite, droiteParPointEtPente } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import {
   point,
   pointIntersectionCC,
   pointIntersectionDD,
 } from '../../../lib/2d/points'
-import { rotation, symetrieAxiale } from '../../../lib/2d/transformations'
-import { cercle } from '../../../lib/2d/cercle'
 import { nommePolygone, polygone } from '../../../lib/2d/polygones'
-import { placeLatexSurSegment } from '../../../lib/2d/codages'
-import { context } from '../../../modules/context'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { rotation, symetrieAxiale } from '../../../lib/2d/transformations'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Symétrie axiale'
 export const interactifReady = true

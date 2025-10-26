@@ -1,5 +1,6 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -8,8 +9,8 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

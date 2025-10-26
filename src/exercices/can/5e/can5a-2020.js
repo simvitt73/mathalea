@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegment } from '../../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { traceBarre } from '../../../lib/2d/diagrammes'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
@@ -21,10 +22,10 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { fraction } from '../../../modules/fractions'
 import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

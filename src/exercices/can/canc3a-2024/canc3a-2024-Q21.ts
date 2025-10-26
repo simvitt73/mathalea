@@ -1,9 +1,10 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { DroiteGraduee } from '../../../lib/2d/reperes'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true

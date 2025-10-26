@@ -1,11 +1,9 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Plot, plot, point, tracePoint } from './points'
 import { segment } from './segmentsVecteurs'
 import {

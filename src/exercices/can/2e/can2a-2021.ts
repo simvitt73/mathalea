@@ -16,12 +16,12 @@ import {
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
+import { fraction } from '../../../modules/fractions'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
-import { context } from '../../../modules/context'
-import { fraction } from '../../../modules/fractions'
+} from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

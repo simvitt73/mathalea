@@ -1,10 +1,8 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import { colorToLatexOrHTML } from '../2d/colorToLatexOrHtml'
+import { fixeBordures } from '../2d/fixeBordures'
 import { milieu, point, tracePoint } from '../2d/points'
 import { BoiteBuilder, polygone } from '../2d/polygones'
 import { segment } from '../2d/segmentsVecteurs'

@@ -7,6 +7,7 @@ import { angleOriente, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   homothetie,
   similitude,
@@ -14,7 +15,7 @@ import {
 } from '../../lib/2d/transformations'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie

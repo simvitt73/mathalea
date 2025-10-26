@@ -1,17 +1,17 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
+import { repere } from '../../../lib/2d/reperes'
+import { texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   Spline,
   spline,
   type NoeudSpline,
 } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { texteParPosition } from '../../../lib/2d/textes'
-import { repere } from '../../../lib/2d/reperes'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer le signe d'une fonction graphiquement "
 export const interactifReady = true
