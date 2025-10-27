@@ -1,10 +1,10 @@
 import { inferieurouegal } from '../../modules/outils'
 import type { Spline } from '../mathFonctions/Spline'
+import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { tracePoint } from './points'
 import { pointAbstrait } from './points-abstraits'
 import { polyline } from './polygones'
-import type { Repere } from './reperes'
 
 /**
  * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
@@ -43,7 +43,7 @@ export class CourbeSpline extends ObjetMathalea2D {
       yUnite = 1,
       traceNoeuds = true,
     }: {
-      repere?: Repere
+      repere?: IRepere
       color?: string
       epaisseur?: number
       step?: boolean | number
@@ -187,7 +187,7 @@ export function courbeSpline(
     yUnite = 1,
     traceNoeuds = true,
   }: {
-    repere?: Repere
+    repere?: IRepere
     color?: string
     epaisseur?: number
     step?: boolean | number

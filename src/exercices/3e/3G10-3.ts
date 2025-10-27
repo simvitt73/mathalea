@@ -1,4 +1,4 @@
-import { arcPointPointAngle } from '../../lib/2d/cercle'
+import { arcPointPointAngle } from '../../lib/2d/Arc'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { point, tracePoint } from '../../lib/2d/points'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
@@ -44,7 +44,7 @@ export default class ConstruireRotationPoint3e extends Exercice {
     let result = [0, 0]
     let texteCorr = ''
     const nbpoints = parseInt(this.sup)
-    const celluleAlea = function (rang) {
+    const celluleAlea = function (rang: number) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
       const chiffre = Number(randint(1, rang)).toString()
       return lettre + chiffre

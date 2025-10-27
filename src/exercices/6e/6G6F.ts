@@ -1,4 +1,5 @@
-import { cercle, traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import {
   afficheLongueurSegment,
   codageMediatrice,
@@ -138,24 +139,6 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       const TT = polygoneAvecNom(A, B, CC)
       objetsEnonce.push(TT[0], TT[1])
       objetsCorrection.push(T[0], T[1])
-      const paramsEnonce = {
-        xmin: Math.min(A.x - 1, B.x - 1, CC.x - 1),
-        ymin: Math.min(A.y - 1, B.y - 1, CC.y - 1),
-        xmax: Math.max(A.x + 1, B.x + 1, CC.x + 1),
-        ymax: Math.max(A.y + 1, B.y + 1, CC.y + 1),
-        pixelsParCm: 30,
-        scale: 0.6,
-        mainlevee: true,
-        amplitude: 0.2,
-      }
-      const paramsCorrection = {
-        xmin: Math.min(A.x - 1, B.x - 1, C.x - 2),
-        ymin: Math.min(A.y - 1, B.y - 1, C.y - 2),
-        xmax: Math.max(A.x + 1, B.x + 1, C.x + 2),
-        ymax: Math.max(A.y + 1, B.y + 1, C.y + 2),
-        pixelsParCm: 30,
-        scale: 1,
-      }
 
       if (!this.sup2) {
         texte +=

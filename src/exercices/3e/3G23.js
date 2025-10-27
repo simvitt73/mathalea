@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { angleOriente } from '../../lib/2d/angles'
-import { arc } from '../../lib/2d/cercle'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import {
@@ -20,6 +19,7 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
+import { arc } from '../../lib/2d/Arc'
 import { grille } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'

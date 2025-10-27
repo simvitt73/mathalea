@@ -1,5 +1,4 @@
 import { angle, angleOriente } from '../../lib/2d/angles'
-import { arc } from '../../lib/2d/cercle'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
@@ -28,6 +27,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { arc } from '../../lib/2d/Arc'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 export const titre =

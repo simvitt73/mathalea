@@ -62,7 +62,7 @@ export default class LectureCoordonnees extends ExerciceSimple {
     })
 
     const A = point(a, b)
-    const o = texteParPosition('O', -0.2, -0.2, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.2, -0.2, 0, 'black', 1)
     const traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
     traceA.taille = 3
     traceA.epaisseur = 2

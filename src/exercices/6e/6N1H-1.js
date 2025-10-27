@@ -1,4 +1,4 @@
-import { droiteGraduee } from 'src/lib/2d/DroiteGraduee'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'

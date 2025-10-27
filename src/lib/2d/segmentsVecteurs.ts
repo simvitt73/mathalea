@@ -87,7 +87,7 @@ export class Vecteur {
     return -this.y * coeff
   }
 
-  representant(A: Point, color = 'black') {
+  representant(A: Point | PointAbstrait, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
     const s = segment(A, B, color, '->')
     s.tailleExtremites = 5

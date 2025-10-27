@@ -1,4 +1,4 @@
-import { arc } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance } from '../../lib/2d/points'

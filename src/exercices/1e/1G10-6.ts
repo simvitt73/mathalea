@@ -1,7 +1,8 @@
 import { angleOriente } from '../../lib/2d/angles'
 import { texteSurSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
+import { pointAdistance } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -97,7 +98,7 @@ export default class ProduitScalaireNormes extends Exercice {
         longueurAB,
         longueurAC,
       ])
-      const A = point(0, 0)
+      const A = pointAbstrait(0, 0)
       const B = pointAdistance(A, longueurAB, randint(-170, 170))
       const ABC = triangle2points2longueurs(A, B, longueurAC, longueurBC)
       const C = ABC.listePoints[2]

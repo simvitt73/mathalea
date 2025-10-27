@@ -1,5 +1,5 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { droiteGraduee } from 'src/lib/2d/DroiteGraduee'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import { labelPoint, latex2d } from '../../lib/2d/textes'

@@ -1,5 +1,5 @@
 import { pickRandom } from 'mathjs'
-import { arcPointPointAngle } from '../../lib/2d/cercle'
+import { arcPointPointAngle } from '../../lib/2d/Arc'
 import { texteSurArc } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'

@@ -1,4 +1,5 @@
-import { arc, cercleCentrePoint } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
+import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
 import { point, tracePoint } from '../../lib/2d/points'

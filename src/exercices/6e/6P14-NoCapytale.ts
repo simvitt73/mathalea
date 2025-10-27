@@ -1,7 +1,8 @@
 import { angleOriente, codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
+import { pointAdistance } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
@@ -111,7 +112,7 @@ class AgrandirReduireFigure extends Exercice {
           new FractionEtendue(3, 4),
         ]
         const choixAgrandissementOuReduction = randint(0, 6)
-        const A = point(0, 0)
+        const A = pointAbstrait(0, 0)
         const absB =
           choixAgrandissementOuReduction < 4
             ? randint(5, 11, [6, 9])

@@ -12,6 +12,7 @@ import {
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
@@ -142,7 +143,7 @@ export default class ConservationTransformation extends Exercice {
       objetsCorrectionOnly = []
       objetsEnonceEtCorr = []
       const lettres = choisitLettresDifferentes(5, 'O')
-      A = point(0, 0, lettres[0], 'below')
+      A = pointAbstrait(0, 0, lettres[0], 'below')
       B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), lettres[1])
       C = triangle2points2longueurs(
         A,
@@ -151,8 +152,8 @@ export default class ConservationTransformation extends Exercice {
         randint(30, 50) / 10,
       ).listePoints[2]
       C.nom = lettres[2]
-      D = point(0, 0)
-      E = point(0, 0)
+      D = pointAbstrait(0, 0)
+      E = pointAbstrait(0, 0)
       d1 = droiteParPointEtParallele(C, droite(A, B))
       poly = polygoneAvecNom(A, B, C) // pour bien placer les labels
       objetsEnonceEtCorr.push(
@@ -192,7 +193,7 @@ export default class ConservationTransformation extends Exercice {
           transformation = 'symétrie centrale'
           enonceTransformation = 'par la symétrie de centre $O$'
           do {
-            O = point(randint(25, 45) / 10, randint(35, 65) / 10, 'O')
+            O = pointAbstrait(randint(25, 45) / 10, randint(35, 65) / 10, 'O')
             imageA = rotation(A, O, 180, `${A.nom}'`)
             imageB = rotation(B, O, 180, `${B.nom}'`)
             imageC = rotation(C, O, 180, `${C.nom}'`)
@@ -217,8 +218,16 @@ export default class ConservationTransformation extends Exercice {
         case 'translation':
         default:
           transformation = 'translation'
-          D = point(B.x + 1, B.y + 8 + randint(-10, 10) / 10, lettres[3])
-          E = point(B.x + 8, B.y + 8 + randint(-20, 20) / 10, lettres[4])
+          D = pointAbstrait(
+            B.x + 1,
+            B.y + 8 + randint(-10, 10) / 10,
+            lettres[3],
+          )
+          E = pointAbstrait(
+            B.x + 8,
+            B.y + 8 + randint(-20, 20) / 10,
+            lettres[4],
+          )
           enonceTransformation = `par la translation qui transforme $${D.nom}$ en $${E.nom}$`
           imageA = translation2Points(A, D, E, `${A.nom}'`)
           imageB = translation2Points(B, D, E, `${B.nom}'`)

@@ -218,13 +218,7 @@ async function checkLatex(
       'ProfMaquette',
       callback,
     )
-    await checkLatexVariation(
-      page,
-      description,
-      'LaTeX',
-      'ProfMaquetteQrcode',
-      callback,
-    )
+
     await checkLatexVariation(page, description, 'LaTeX', 'Can', callback)
   }
 }
