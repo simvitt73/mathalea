@@ -16,6 +16,6 @@ export const refs = {
 export default class SymetrieAxiale5e extends Transformations {
   constructor() {
     super()
-    this.sup = choice(['1-2-3', '1-2-4', '2-3-4', '1-3-4'])
+    this.sup = choice(['1-2-3-4'])
   }
 }
