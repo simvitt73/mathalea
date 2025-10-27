@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { arc, cercle } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import { codageSegment, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'

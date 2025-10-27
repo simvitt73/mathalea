@@ -1,5 +1,6 @@
 import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { cercle, traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles'
 import {
   afficheLongueurSegment,

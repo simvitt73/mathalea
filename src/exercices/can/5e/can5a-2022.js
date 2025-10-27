@@ -4,7 +4,7 @@ import {
   codageAngleDroit,
   rapporteur,
 } from '../../../lib/2d/angles'
-import { arc } from '../../../lib/2d/cercle'
+import { arc } from '../../../lib/2d/Arc'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'

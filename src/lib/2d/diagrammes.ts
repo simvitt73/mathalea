@@ -2,15 +2,17 @@ import { max } from 'mathjs'
 import { texcolors } from '../format/style'
 import { combinaisonListes } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
+import { arc } from './Arc'
 import { axeY, labelY } from './AxeY'
-import { arc, cercle } from './cercle'
+import { cercle } from './cercle'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
+import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point, tracePoint } from './points'
 import type { PointAbstrait } from './points-abstraits'
 import { carre, motifs, Polygone, polygone, polyline } from './polygones'
-import { pointDansRepere, Repere } from './reperes'
+import { pointDansRepere } from './reperes'
 import { segment, vecteur } from './segmentsVecteurs'
 import {
   latexParPoint,
@@ -32,7 +34,7 @@ import { vide2d, type Vide2d } from './Vide2d'
 export class TraceGraphiqueCartesien extends ObjetMathalea2D {
   constructor(
     data: number[][],
-    repere: Repere,
+    repere: IRepere,
     {
       couleurDesPoints = 'red',
       couleurDuTrait = 'blue',
@@ -117,7 +119,7 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
 
 export function traceGraphiqueCartesien(
   data: number[][],
-  repere: Repere,
+  repere: IRepere,
   {
     couleurDesPoints = 'red',
     couleurDuTrait = 'blue',

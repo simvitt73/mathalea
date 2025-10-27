@@ -1,4 +1,4 @@
-import { arc } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
 import { codageSegment } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'

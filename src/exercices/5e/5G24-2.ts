@@ -1,7 +1,8 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
+import { pointAdistance } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, translation } from '../../lib/2d/transformations'
@@ -82,7 +83,7 @@ export default class TrianglesEgaux extends Exercice {
       l1 /= 10
       l2 /= 10
       l3 /= 10
-      const A = point(0, 0)
+      const A = pointAbstrait(0, 0)
       const B = pointAdistance(A, l1)
       const p1 = triangle2points2longueurs(A, B, l2, l3)
       const C = p1.listePoints[2]

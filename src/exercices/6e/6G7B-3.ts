@@ -1,4 +1,4 @@
-import { traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'

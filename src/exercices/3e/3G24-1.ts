@@ -8,7 +8,8 @@ import {
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
+import { pointAdistance } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { nommePolygone } from '../../lib/2d/polygones'
 import {
   longueur,
@@ -119,7 +120,7 @@ export default class TrianglesSemblables extends Exercice {
       l2 *= k / 10
       l3 *= k / 10
       const sign = choice([-1, 1]) // pour cas 5 (triangles emboités)
-      let A = point(0, 0)
+      let A = pointAbstrait(0, 0)
       let B = pointAdistance(A, l1, randint(0, 360))
       let p1 =
         typeQuestionsDisponibles[i] === 2

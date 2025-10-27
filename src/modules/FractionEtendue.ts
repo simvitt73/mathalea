@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { abs, gcd, lcm, max, min, multiply, round } from 'mathjs'
-import { arc, cercle } from '../lib/2d/cercle'
+import { arc } from '../lib/2d/Arc'
+import { cercle } from '../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { Point, point } from '../lib/2d/points'
 import { carre } from '../lib/2d/polygones'

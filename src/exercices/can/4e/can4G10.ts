@@ -13,6 +13,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import Exercice from '../../Exercice'
 export const titre = 'Déterminer si un triangle est rectangle'
 export const interactifReady = true
@@ -108,7 +109,7 @@ export default class TripletsPythagoriciensOuPas extends Exercice {
         0.5,
         true,
       )
-      const objets = [poly]
+      const objets: NestedObjetMathalea2dArray = [poly]
       objets.push(longueurCA, longueurAB, longueurBC)
       let texte = `Dans le triangle $${nom}$, `
       texte += `$${nom[0]}${nom[1]}=${triplet[0]}$${sp(1)}cm, $${nom[1]}${nom[2]}=${triplet[1]}$${sp(1)}cm et $${nom[0]}${nom[2]}=${triplet[2]}$.<br>Ce triangle est-il rectangle (La figure n'est pas forcément représentative) ?<br>`

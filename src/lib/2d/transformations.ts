@@ -1,6 +1,6 @@
 import { egal } from '../../modules/outils'
 import { degToRad } from '../mathFonctions/trigo'
-import { arc } from './cercle'
+import { arc } from './Arc'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, Mediatrice } from './droites'
 import { fixeBordures } from './fixeBordures'
