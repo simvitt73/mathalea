@@ -1,8 +1,8 @@
 import Decimal from 'decimal.js'
-import { base10VersBaseN } from '../exercices/PE/PEA13'
 import { fixeBordures } from '../lib/2d/fixeBordures'
 import { segment } from '../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../lib/2d/textes'
+import { base10VersBaseN } from '../lib/mathFonctions/baseConversions'
 import {
   nombreDeChiffresDansLaPartieEntiere,
   ordreDeGrandeur,

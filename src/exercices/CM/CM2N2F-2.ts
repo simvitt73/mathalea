@@ -1,4 +1,4 @@
-import { droiteGraduee } from '../../lib/2d/reperes'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

@@ -1,7 +1,7 @@
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { homothetie } from '../../../lib/2d/transformations'

@@ -1,5 +1,6 @@
+import { grille } from '../../../lib/2d/Grille'
 import { milieu, point } from '../../../lib/2d/points'
-import { grille, repere } from '../../../lib/2d/reperes'
+import { repere } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,

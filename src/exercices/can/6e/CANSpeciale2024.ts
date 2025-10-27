@@ -2,7 +2,6 @@ import { codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegments } from '../../../lib/2d/codages'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point } from '../../../lib/2d/points'
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
@@ -41,6 +40,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true

@@ -1,6 +1,6 @@
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { BoiteBuilder } from '../../../lib/2d/polygones'
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'

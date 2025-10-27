@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import Decimal from 'decimal.js'
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -50,7 +50,7 @@ export default class NombreAajouter extends ExerciceSimple {
         [1, `${texNombre(abs1)}`],
         [2, `${texNombre(abs2)}`],
       ],
-      pointListe: [[x1, '']],
+      pointListe: [[Number(x1), '']],
     })
     const nbIntervalles = 5
 

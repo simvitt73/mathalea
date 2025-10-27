@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
-import { base10VersBaseN } from './PEA13'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+import { base10VersBaseN } from './baseNVersBase10'
 export const titre = "Additions et soustractions dans d'autres bases"
 export const dateDePublication = '31/10/2021'
 

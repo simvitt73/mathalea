@@ -1,5 +1,5 @@
+import { grille } from '../../lib/2d/Grille'
 import { point, tracePoint } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'

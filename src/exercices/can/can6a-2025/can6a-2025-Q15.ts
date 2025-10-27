@@ -1,8 +1,8 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
-import { Grille } from '../../../lib/2d/reperes'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -35,7 +35,7 @@ export default class Can2025N6Q15 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const grille = new Grille(0, 0, 10, 5, 'gray', 1, 1)
+    const grillage = grille(0, 0, 10, 5, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(4, 1)
     const C = new Point(4, 4)
@@ -54,7 +54,7 @@ export default class Can2025N6Q15 extends ExerciceSimple {
     poly2.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const figureA = latex2d('\\text{A}', 2.5, 2.5, { letterSize: 'normalsize' })
     const figureB = latex2d('\\text{B}', 7, 2.5, { letterSize: 'normalsize' })
-    const objets = [grille, poly1, poly2, figureA, figureB]
+    const objets = [grillage, poly1, poly2, figureA, figureB]
     this.question = 'Quelle figure a le plus grand périmètre ? '
     this.question += mathalea2d(
       Object.assign({ scale: 0.5 }, fixeBordures(objets)),

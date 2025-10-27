@@ -5,6 +5,7 @@ import {
   droiteParPointEtParallele,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
+import { grille, seyes } from '../../lib/2d/Grille'
 import {
   Point,
   point,
@@ -12,7 +13,6 @@ import {
   pointSurDroite,
   tracePoint,
 } from '../../lib/2d/points'
-import { grille, seyes } from '../../lib/2d/reperes'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'

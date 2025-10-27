@@ -1,7 +1,7 @@
 import { cercleCentrePoint } from '../../../lib/2d/cercle'
+import { grille } from '../../../lib/2d/Grille'
 import { point, pointSurCercle } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'

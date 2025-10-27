@@ -1,4 +1,4 @@
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'

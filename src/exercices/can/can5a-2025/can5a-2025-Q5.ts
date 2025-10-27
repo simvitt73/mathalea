@@ -1,5 +1,5 @@
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { DroiteGraduee, droiteGraduee } from '../../../lib/2d/reperes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -50,7 +50,7 @@ export default class Can2025N5Q5 extends ExerciceCan {
         [0, String(min)],
         [2 * nbPas, String(max)],
       ],
-    }) as DroiteGraduee
+    })
     this.question = `${mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(d.objets!)), d.objets!)}
     Le point $B$ est repéré par le nombre`
     this.correction = `Pour trouver l'abscisse du point $B$, on commence par calculer la différence entre $${max}$ et $${min}$ : $${max}-${min}=${max - min}$.<br>

@@ -1,5 +1,5 @@
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { DroiteGraduee } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -33,7 +33,7 @@ export default class Can2025CM1Q26 extends ExerciceSimple {
 
     const x = this.canOfficielle ? 3 : randint(1, 7, 4)
     this.reponse = { reponse: { value: `\\frac{${x}}{4}` } } // this.reponse = String(x)
-    const drGrad = new DroiteGraduee({
+    const drGrad = droiteGraduee({
       Unite: 4,
       Min: a1,
       Max: a2,

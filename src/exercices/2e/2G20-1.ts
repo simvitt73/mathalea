@@ -1,5 +1,5 @@
+import { grille } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

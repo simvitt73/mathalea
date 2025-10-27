@@ -13,8 +13,8 @@ import {
   droiteParPointEtPerpendiculaire,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
+import { grille } from '../../lib/2d/Grille'
 import { point, Point, pointSurDroite, TracePoint } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import {
   labelPoint,
   latexParCoordonnees,

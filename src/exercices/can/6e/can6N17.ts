@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'

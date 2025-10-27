@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { texPrix } from '../../../lib/format/style'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {

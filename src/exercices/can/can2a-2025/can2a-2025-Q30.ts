@@ -1,5 +1,5 @@
+import { grille } from '../../../lib/2d/Grille'
 import { point, tracePoint } from '../../../lib/2d/points'
-import { grille } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,

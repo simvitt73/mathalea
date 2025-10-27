@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { grille } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/points'
 import { carre, polygone } from '../../lib/2d/polygones'
-import { grille } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'

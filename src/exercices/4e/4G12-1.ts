@@ -1,16 +1,10 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
-import {
-  milieu,
-  Point,
-  point,
-  TracePoint,
-  tracePoint,
-} from '../../lib/2d/points'
+import { grille } from '../../lib/2d/Grille'
+import { milieu, Point, point, tracePoint } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
-import { Grille, grille } from '../../lib/2d/reperes'
 import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { TexteParPointEchelle, texteParPointEchelle } from '../../lib/2d/textes'
+import { texteParPointEchelle } from '../../lib/2d/textes'
 import {
   homothetie,
   rotation,
@@ -402,7 +396,7 @@ const motifs = [
   ]),
 ]
 const noeuds: Point[] = []
-const maGrille: (TracePoint | Grille | TexteParPointEchelle)[] = []
+const maGrille: NestedObjetMathalea2dArray = []
 const labels = []
 maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
 for (let i = 0; i < 6; i++) {

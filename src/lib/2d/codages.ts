@@ -31,8 +31,8 @@ import { Vide2d } from './Vide2d'
 
 /**
  * Code le milieu d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {Point|PointAbstrait} A Première extrémité du segment
+ * @param {Point|PointAbstrait} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
@@ -44,7 +44,13 @@ import { Vide2d } from './Vide2d'
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageMilieu extends ObjetMathalea2D {
-  constructor(A: Point, B: Point, color = 'black', mark = '×', mil = true) {
+  constructor(
+    A: Point | PointAbstrait,
+    B: Point | PointAbstrait,
+    color = 'black',
+    mark = '×',
+    mil = true,
+  ) {
     super()
     if (longueur(A, B) < 0.1)
       window.notify(
@@ -90,8 +96,8 @@ export class CodageMilieu extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function codageMilieu(
-  A: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   color = 'black',
   mark = '×',
   mil = true,

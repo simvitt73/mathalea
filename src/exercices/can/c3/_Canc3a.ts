@@ -1,8 +1,9 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { milieu, plot, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,

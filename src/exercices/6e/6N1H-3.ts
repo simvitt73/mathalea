@@ -1,5 +1,5 @@
+import { droiteGraduee } from 'src/lib/2d/DroiteGraduee'
 import { point } from '../../lib/2d/points'
-import { droiteGraduee } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

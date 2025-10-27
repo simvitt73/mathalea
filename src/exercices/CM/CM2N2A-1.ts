@@ -1,6 +1,6 @@
 import Figure from 'apigeom'
 import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
-import { grille, seyes } from '../../lib/2d/reperes'
+import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

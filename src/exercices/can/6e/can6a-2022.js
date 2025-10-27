@@ -1,6 +1,5 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -19,6 +18,8 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import Decimal from 'decimal.js'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { grille } from '../../../lib/2d/Grille'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

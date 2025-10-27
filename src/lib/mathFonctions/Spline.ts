@@ -5,8 +5,8 @@ import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { egal, randint } from '../../modules/outils'
+import { BezierPath } from '../2d/BezierPath'
 import { colorToLatexOrHTML } from '../2d/colorToLatexOrHtml'
-import { BezierPath } from '../2d/courbes'
 import { ObjetMathalea2D } from '../2d/ObjetMathalea2D'
 import { point, tracePoint } from '../2d/points'
 import { choice } from '../outils/arrayOutils'
@@ -276,7 +276,11 @@ export class Spline {
             this.polys.push(
               new Polynome({
                 useFraction: true,
-                coeffs: (prodV instanceof Matrice ? prodV.toArray() : prodV)
+                coeffs: (
+                  (prodV instanceof Matrice
+                    ? prodV.toArray()
+                    : prodV) as number[]
+                )
                   .reverse()
                   .map((el) => Number(Number(el).toFixed(6))), // parti pris : on arrondit au millionnième pour les entiers qui s'ignorent (pour les 1/3 c'est rapé, mais c'est suffisamment précis)
               }),
@@ -402,9 +406,11 @@ export class Spline {
         // Algebrite n'aime pas beaucoup les coefficients decimaux...
         try {
           // si le polynome utilise des FractionEtendue, il faut les convertir au format mathjs pour polynomialRoot
+          const [coeff0, coeff1, coeff2, coeff3] =
+            polEquation.monomes.map(Number)
           const liste = polEquation.useFraction
-            ? polynomialRoot(...polEquation.monomes.map(Number))
-            : polynomialRoot(...polEquation.monomes.map(Number))
+            ? polynomialRoot(coeff0, coeff1, coeff2, coeff3)
+            : polynomialRoot(coeff0, coeff1, coeff2, coeff3)
           for (const valeur of liste) {
             let arr
             if (typeof valeur === 'number') {
@@ -416,7 +422,7 @@ export class Spline {
                 // module trop petit pour être complexe, c'est 0 !
                 arr = 0
               } else {
-                const argument = valeur.arg()
+                const argument = valeur.toPolar().phi
                 if (
                   Math.abs(argument) < 0.001 ||
                   Math.abs(Math.abs(argument) - Math.PI) < 0.001

@@ -5,7 +5,7 @@ import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
-import { droiteGraduee, repere } from '../../../lib/2d/reperes'
+import { repere } from '../../../lib/2d/reperes'
 import {
   demiDroite,
   segment,
@@ -42,6 +42,7 @@ import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Decimal from 'decimal.js'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import {
   handleAnswers,
   setReponse,

@@ -5,8 +5,10 @@ import {
   rapporteur,
 } from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/cercle'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import {
   milieu,
   point,
@@ -14,7 +16,6 @@ import {
   tracePoint,
 } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -1184,7 +1185,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
         case 27:
           a = grille(-2, -2, 9, 8, 'gray', 1, 1)
-
           b = randint(1, 8, 4)
           c = randint(1, 7)
           d = randint(0, 1)

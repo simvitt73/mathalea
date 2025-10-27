@@ -7,9 +7,9 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
+import { grille, seyes } from '../../lib/2d/Grille'
 import { point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
-import { grille, seyes } from '../../lib/2d/reperes'
 import {
   longueur,
   norme,
@@ -45,17 +45,15 @@ export const titre = 'Construire par symétrie...'
 function choisiPointDuBonCote(d: Droite, lieu = 'dessus') {
   if (d.b === 0) {
     // droite verticale
-    let x: number
-    let y: number
-    x = lieu === 'gauche' ? randint(-8, -1) : lieu === 'sur' ? 0 : randint(1, 8)
-    y = randint(-8, 8)
+    const x =
+      lieu === 'gauche' ? randint(-8, -1) : lieu === 'sur' ? 0 : randint(1, 8)
+    const y = randint(-8, 8)
     return point(x, y)
   } else if (d.a === 0) {
     // droite horizontale
-    let x: number
-    let y: number
-    y = lieu === 'dessus' ? randint(1, 8) : lieu === 'sur' ? 0 : randint(-8, -1)
-    x = randint(-8, 8)
+    const y =
+      lieu === 'dessus' ? randint(1, 8) : lieu === 'sur' ? 0 : randint(-8, -1)
+    const x = randint(-8, 8)
     return point(x, y)
   } else {
     // droite oblique

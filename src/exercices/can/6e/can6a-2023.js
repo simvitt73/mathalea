@@ -2,7 +2,6 @@ import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, plot, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
@@ -30,6 +29,8 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import Decimal from 'decimal.js'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { grille } from '../../../lib/2d/Grille'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

@@ -1,6 +1,7 @@
 import { angle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { grille, seyes } from '../../lib/2d/Grille'
 import {
   milieu,
   point,
@@ -8,7 +9,6 @@ import {
   pointSurDroite,
   tracePoint,
 } from '../../lib/2d/points'
-import { grille, seyes } from '../../lib/2d/reperes'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { vide2d } from '../../lib/2d/Vide2d'

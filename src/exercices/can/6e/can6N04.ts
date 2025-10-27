@@ -3,7 +3,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'

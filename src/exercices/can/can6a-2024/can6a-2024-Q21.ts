@@ -1,5 +1,5 @@
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { DroiteGraduee } from '../../../lib/2d/reperes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -36,7 +36,7 @@ export default class AbscisseEnDemis extends ExerciceSimple {
     const a2 = a1 + delta
     const x = a2 + 0.5
     this.reponse = { reponse: { value: `\\frac{${2 * a2 + 1}}{2}` } }
-    const drGrad = new DroiteGraduee({
+    const drGrad = droiteGraduee({
       Unite: 2,
       Min: a1 - 1,
       Max: a2 + 1,
