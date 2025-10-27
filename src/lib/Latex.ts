@@ -521,7 +521,7 @@ class Latex {
             i,
             latexFileInfos,
           )
-          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Numero= ,Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=false}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Numero= ,Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme={${latexFileInfos.title || 'Exercices'}},Code= ,Calculatrice=false}\n`
           contents.content += contentVersion
 
           contents.content += '\n\\end{Maquette}'
@@ -590,7 +590,8 @@ class Latex {
         )
       }
       if (latexFileInfos.style === 'Can') {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        const currentUrl = this.getURL()
+        contents.preamble = `% @see : ${currentUrl.href.replaceAll('%', '\\%')}\n\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
         contents.preamble +=
           '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
         contents.preamble += '\n\\newbool{correctionDisplay}'
@@ -602,7 +603,8 @@ class Latex {
         contents.intro += '\n\\pageDeGardeCan{nbEx}'
         contents.intro += '\n\\clearpage'
       } else {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        const currentUrl = this.getURL()
+        contents.preamble += `% @see : ${currentUrl.href.replaceAll('%', '\\%')}\n\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
         contents.preamble += `\\Theme[${latexFileInfos.style}]{nombres}{${latexFileInfos.title}}{${latexFileInfos.reference}}{${latexFileInfos.subtitle}}`
         contents.intro += '\n\\begin{document}\n'
       }
@@ -610,15 +612,27 @@ class Latex {
     return contents
   }
 
+  private getURL(): URL {
+    const currentUrl = new URL(window.location.href)
+    if (currentUrl.hostname === 'localhost') {
+      currentUrl.hostname = 'www.coopmaths.fr'
+      currentUrl.port = ''
+      currentUrl.protocol = 'https:'
+      if (!currentUrl.pathname.startsWith('/alea')) {
+        // garde la partie existante mais la préfixe
+        // ex: '/foo' -> '/alea/foo', '/alea' reste '/alea'
+        currentUrl.pathname = '/alea' + currentUrl.pathname
+      }
+    }
+    currentUrl.searchParams.set('v', 'eleve')
+    return currentUrl
+  }
+
   private loadPreambuleFromContents(
     contents: contentsType,
     latexFileInfos: LatexFileInfos,
   ) {
-    const currentUrl = new URL(window.location.href)
-    currentUrl.hostname = 'www.coopmaths.fr'
-    currentUrl.port = ''
-    currentUrl.protocol = 'https:'
-    currentUrl.searchParams.set('v', 'eleve')
+    const currentUrl = this.getURL()
     contents.preamble = `% @see : ${currentUrl.href.replaceAll('%', '\\%')}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
