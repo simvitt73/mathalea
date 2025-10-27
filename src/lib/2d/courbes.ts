@@ -1,9 +1,10 @@
 import { context } from '../../modules/context'
 import { estentier, inferieurouegal } from '../../modules/outils'
 import { tousDeMemeSigne } from '../outils/nombres'
-import { arc } from './cercle'
+import { arc } from './Arc'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
+import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point } from './points'
 import { PointAbstrait, pointAbstrait } from './points-abstraits'
@@ -14,7 +15,6 @@ import {
   polygone,
   polyline,
 } from './polygones'
-import { Repere } from './reperes'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 /**
@@ -467,7 +467,7 @@ export class Courbe extends ObjetMathalea2D {
       usePgfplots = false,
       fLatex,
     }: {
-      repere?: Repere
+      repere?: IRepere
       color?: string
       epaisseur?: number
       step?: boolean | number
@@ -488,11 +488,9 @@ export class Courbe extends ObjetMathalea2D {
     this.fLatex = fLatex
 
     if (repere == null) {
-      window.notify(
+      throw Error(
         'Erreur dans Courbe : Il faut préciser le repère dans lequel tracer la courbe',
-        { repere },
       )
-      repere = new Repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     }
     const xmin = xMin == null ? (xMin = repere.xMin ?? 0) : xMin
     const xmax = xMax == null ? (xMax = repere.xMax ?? 0) : xMax
@@ -665,7 +663,7 @@ export function courbe(
     usePgfplots = false,
     fLatex,
   }: {
-    repere?: Repere
+    repere?: IRepere
     color?: string
     epaisseur?: number
     step?: boolean | number
@@ -736,7 +734,7 @@ export class Integrale extends ObjetMathalea2D {
       opacite = 0.5,
       hachures = 0,
     }: {
-      repere?: Repere
+      repere?: IRepere
       color?: string
       epaisseur?: number
       couleurDeRemplissage?: string
@@ -873,7 +871,7 @@ export function integrale(
     opacite = 0.5,
     hachures = 0,
   }: {
-    repere?: Repere
+    repere?: IRepere
     color?: string
     epaisseur?: number
     couleurDeRemplissage?: string
@@ -1119,7 +1117,7 @@ export class CourbeInterpolee extends ObjetMathalea2D {
     }: {
       color?: string
       epaisseur?: number
-      repere?: Repere
+      repere?: IRepere
       xMin?: number
       xMax?: number
       step?: number
@@ -1207,7 +1205,7 @@ export function courbeInterpolee(
   }: {
     color?: string
     epaisseur?: number
-    repere?: Repere
+    repere?: IRepere
     xMin?: number
     xMax?: number
     step?: number
@@ -1235,9 +1233,9 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
     }: {
       color?: string
       epaisseur?: number
-      repere?: Repere
+      repere: IRepere
       step?: number
-    } = {},
+    },
   ) {
     super()
     this.courbes = []
@@ -1261,8 +1259,8 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
         xMax: fin,
         color,
         epaisseur,
-        xUnite: repere?.xUnite ?? 1,
-        yUnite: repere?.yUnite ?? 1,
+        xUnite: repere.xUnite ?? 1,
+        yUnite: repere.yUnite ?? 1,
         yMin: ymin,
         yMax: ymax,
       })
@@ -1308,9 +1306,9 @@ export function graphiqueInterpole(
   }: {
     color?: string
     epaisseur?: number
-    repere?: Repere
+    repere: IRepere
     step?: number
-  } = {},
+  },
 ) {
   return new GraphiqueInterpole(tableau, { color, epaisseur, repere, step })
 }

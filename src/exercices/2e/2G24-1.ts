@@ -1,6 +1,6 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
-import { Repere, repere } from '../../lib/2d/reperes'
+import { Repere } from '../../lib/2d/reperes'
 import {
   nomVecteurParPosition,
   Segment,
@@ -83,7 +83,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         )
         xB = xA + xABFraction.valeurDecimale
         yB = yA + yABFraction.valeurDecimale
-        r = repere({
+        r = new Repere({
           xUnite: 1,
           yUnite: 1,
           xMin: Math.min(-2, xA - 2, xB - 2, 2),
@@ -134,7 +134,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         yABFraction = new FractionEtendue(frac2[0], frac2[1])
         yB = randint(-4, 4, [0])
         yA = new FractionEtendue(yB * frac2[1] - frac2[0], frac2[1])
-        r = repere({
+        r = new Repere({
           xUnite: 1,
           yUnite: 1,
           xMin: Math.min(

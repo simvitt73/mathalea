@@ -117,3 +117,77 @@ export interface ILectureImage {
   svg?(coeff: number): string
   tikz?(): string
 }
+/**
+ * Interface minimale pour PointAbstrait
+ */
+export interface IPointAbstrait {
+  nom: string
+  x: number
+  y: number
+  positionLabel?: string
+  bordures?: [number, number, number, number]
+  typeObjet?: string
+
+  xSVG?(coeff: number): number
+  ySVG?(coeff: number): number
+}
+
+/**
+ * Interface minimale pour Point (étend IPointAbstrait)
+ */
+export interface IPoint extends IPointAbstrait {
+  estDansPolygone?(p: any): boolean
+  estDansTriangle?(A: IPoint, B: IPoint, C: IPoint): boolean
+  estDansPolygoneConvexe?(p: any): boolean
+  estDansQuadrilatere?(A: IPoint, B: IPoint, C: IPoint, D: IPoint): boolean
+  estSur?(objet: any): boolean
+  svg?(coeff: number): string
+  tikz?(): string
+}
+
+/**
+ * Interface minimale pour Plot
+ */
+export interface IPlot {
+  couleurDeRemplissage: string[]
+  rayon: number
+  x: number
+  y: number
+  opaciteDeRemplissage: number
+  bordures?: [number, number, number, number]
+
+  svg?(coeff: number): string
+  tikz?(): string
+}
+
+/**
+ * Interface minimale pour TracePoint
+ */
+export interface ITracePoint {
+  taille: number
+  tailleTikz: number
+  points: any[]
+  couleurDeRemplissage?: string[]
+  epaisseur?: number
+  opacite?: number
+  style?: string
+  bordures?: [number, number, number, number]
+
+  svg?(coeff: number): string
+  tikz?(): string
+}
+
+/**
+ * Interface minimale pour TracePointSurDroite
+ */
+export interface ITracePointSurDroite {
+  lieu: IPoint
+  taille: number
+  x: number
+  y: number
+  direction: IPoint
+  bordures?: [number, number, number, number]
+
+  svg?(coeff: number): string
+  tikz?(): string
+}

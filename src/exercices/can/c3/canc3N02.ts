@@ -35,7 +35,7 @@ export default class SuiteSurDroiteGraduee extends ExerciceSimple {
   nouvelleVersion() {
     const a = randint(1, 6) // choix de la table = écart entre deux graduations
     const c = Math.floor(randint(10, 40) / a) * a // premier nombre.
-    const maListe = []
+    const maListe: [number, string][] = []
     for (let i = 0; i < 3; i++) {
       maListe.push([c + a * i, texNombre(c + a * i)])
     }

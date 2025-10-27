@@ -1,4 +1,3 @@
-import { arcPointPointAngle } from '../../lib/2d/cercle'
 import { texteSurArc, texteSurSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
@@ -17,6 +16,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { arcPointPointAngle } from '../../lib/2d/Arc'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

@@ -1,5 +1,6 @@
 import { angleOriente } from '../../lib/2d/angles'
-import { Arc, arc, cercle } from '../../lib/2d/cercle'
+import { Arc, arc } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import { afficheCoteSegment, placeLatexSurSegment } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'

@@ -1,5 +1,5 @@
 import { courbe } from '../../../lib/2d/courbes'
-import { Repere, repere } from '../../../lib/2d/reperes'
+import { Repere } from '../../../lib/2d/reperes'
 import { latex2d, Latex2d, TexteParPoint } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -52,7 +52,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
           return a * x ** 2 + b
         }
         if (b > 0) {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -98,7 +98,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             ) + '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         } else {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -159,7 +159,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
           return a * x ** 2 + b
         }
         if (b > 0) {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -208,7 +208,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         } else {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
