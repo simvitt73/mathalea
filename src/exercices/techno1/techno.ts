@@ -3,7 +3,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 
-export const titre = 'Résoudre une équation de type $x^k = C$' // Ce titre est nécessaire et doit commencer par un verbe à l'infinitif
+export const titre = "Taux moyen d'évolution" // Ce titre est nécessaire et doit commencer par un verbe à l'infinitif
 
 // Les éléménts ci-dessous sont nécessaires pour la prise en compte d'un champ classique pour l'interactivité
 export const interactifReady = true
@@ -55,25 +55,36 @@ export default class NomExercice extends ExerciceSimple {
       obj +
       ` ` +
       typeEvol +
-      ` de $${x}\\,\\%$.<br> Quel est le taux moyen d'évolution par minute de` +
+      ` de $${x}\\,\\%$.<br> Quel est le taux moyen d'évolution par minute de ` +
       obj +
-      ` ?<br> Arrondir à $0,1 \\%$ près.<br>`
+      ` ?<br><br> Arrondir à $0,1 \\%$ près.<br>`
     const Cm = C ** (1 / k) // coeff mult moyen
     const tm = Cm - 1 // taux moyen
     const xm = tm * 100 // pourcentage moyen
     const xmArrondi1 = arrondi(xm, 1)
+    const tmArrondi1 = arrondi(tm, 3)
     this.question = texte1
     this.reponse = xmArrondi1
     this.optionsChampTexte = { texteApres: '%' }
     const textcmGlobal =
       coeffX > 0
-        ? `$C = 1 + \\dfrac{${x}}{100} = ${C}$.`
-        : `$C = 1 - \\dfrac{${x}}{100} = ${C}$.`
-    this.correction =
-      `Soit $t_m$ le taux moyen d'évolution par minute.<br> Le coefficient multiplicateur global ` +
-      textcmGlobal +
-      `<br>Dans $${n}$ heure(s) il y a $${n} \\times 60 = ${k}$ minutes, donc : <br> $(1+t_m)^{${k}}=${C}$<br> $\\iff 1+t_m= ${C}^{\\frac{1}{${k}}}$ car $t_m>0$<br> ` +
-      `$${xmArrondi1}$ %`
+        ? `$C = 1 + \\dfrac{${x}}{100} = ${C.toLocaleString('fr-FR')}$.`
+        : `$C = 1 - \\dfrac{${x}}{100} = ${C.toLocaleString('fr-FR')}$.`
+
+    let textCorr = `Soit $t_m$ le taux moyen d'évolution par minute.<br>`
+    textCorr += `Il s'agit d'une ${typeEvol}.`
+    textCorr +=
+      ` Donc, le coefficient multiplicateur global vaut ` + textcmGlobal
+    textCorr += `<br>Dans $${n}$ heure(s) il y a $${n} \\times 60 = ${k}$ minutes, donc on résout l'équation suivante d'inconnue $t_m$ : <br><br>`
+    textCorr += ` $\\qquad \\; \\; \\, (1+t_m)^{${k}}=C$<br>`
+    textCorr += ` $\\iff (1+t_m)^{${k}}=${C.toLocaleString('fr-FR')}$<br>`
+    textCorr += ` $\\iff 1+t_m= ${C.toLocaleString('fr-FR')}^{\\frac{1}{${k}}}$ car $1+t_m>0$<br> `
+    textCorr += ` $\\iff t_m= ${C.toLocaleString('fr-FR')}^{\\frac{1}{${k}}}-1$<br>`
+    textCorr += ` $\\iff t_m \\approx ${tmArrondi1.toLocaleString('fr-FR')}= \\dfrac{${xmArrondi1.toLocaleString('fr-FR')}}{100}$ <br>`
+    textCorr += `Donc le taux moyen d'évolution par minute de `
+    textCorr += obj
+    textCorr += ` est d'environ $${xmArrondi1.toLocaleString('fr-FR')} \\%$.`
+    this.correction = textCorr
 
     // Quel est le taux mensuel moyen d'évolution de`
 
