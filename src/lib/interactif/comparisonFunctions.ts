@@ -2236,7 +2236,7 @@ export function ensembleNombres(
  */
 function intervalsCompare(input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
-  const localInput = clean(input)
+  const localInput = clean(input).replaceAll('∪', '\\cup') // Indispensable pour gérer les copier-coller
   const localGoodAnswer = clean(goodAnswer)
   if (localGoodAnswer === '\\emptyset') {
     if (localInput === '\\emptyset' || localInput === '\\{\\}')
