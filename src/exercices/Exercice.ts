@@ -160,6 +160,7 @@ export default class Exercice {
   besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   lastCallback: string // La dernière signature de listeArguments afin de comparaison : permet d'éviter un nouvelleVersionWrapper inutile
+  checkSum?: string // Empreinte CRC32 des questions de l'exercice pour comparaison rapide
   examen?: string // Pour les exercices statiques
   mois?: string // Pour les exercices statiques
   annee?: string // Pour les exercices statiques

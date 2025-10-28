@@ -3,6 +3,7 @@ import CryptoJS from 'crypto-js'
 import type Decimal from 'decimal.js'
 import seedrandom from 'seedrandom'
 import FractionEtendue from '../modules/FractionEtendue'
+import { CRC32 } from '../modules/crc32'
 import type Exercice from './Exercice'
 type EventListener = (evt: Event) => void
 
@@ -35,6 +36,7 @@ export function exportedNouvelleVersionWrapper(
   this.reinit()
   seedrandom(this.seed, { global: true })
   this.nouvelleVersion(numeroExercice, numeroQuestion)
+  this.checkSum = CRC32.hexQuestions(this.listeQuestions)
 }
 
 export function exportedReinit(this: Exercice) {
@@ -47,6 +49,7 @@ export function exportedReinit(this: Exercice) {
   this.listeArguments = []
   this.autoCorrection = []
   this.distracteurs = []
+  this.checkSum = undefined
   if (this.figures) {
     // figure APIGEOM
     this.figures.forEach((fig) => {
