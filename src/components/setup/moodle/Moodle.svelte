@@ -145,7 +145,9 @@
       let paramUrl = ''
       for (const key of Object.keys(param)) {
         if (key === 'sup') {
-          paramUrl += `s\\=${param[key]}&`
+          // 28-10-2025 Ajout de encodeURIComponent pour gérer DéfiTable correctement
+          // A vérifier que ça ne casse pas d'autres choses
+          paramUrl += `s\\=${encodeURIComponent(param[key] || "")}&`
         } else if (key === 'sup2') {
           paramUrl += `s2\\=${param[key]}&`
         } else if (key === 'sup3') {
