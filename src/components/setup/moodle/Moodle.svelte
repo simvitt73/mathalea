@@ -1,17 +1,18 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
-  import Footer from '../../Footer.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import {
-    mathaleaGetExercicesFromParams,
-    mathaleaUpdateExercicesParamsFromUrl,
-  } from '../../../lib/mathalea'
+  import { onMount } from 'svelte'
+  import { Tab, initTE } from 'tw-elements'
   import type TypeExercice from '../../../exercices/Exercice'
+  import {
+      mathaleaGetExercicesFromParams,
+      mathaleaUpdateExercicesParamsFromUrl,
+  } from '../../../lib/mathalea'
+  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import Footer from '../../Footer.svelte'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import { referentielLocale } from '../../../lib/stores/languagesStore'
-  import { onMount } from 'svelte'
-  import { Tab, initTE } from 'tw-elements' // pour les tabs
+  import NavBar from '../../shared/header/NavBar.svelte'
+// pour les tabs
   import { saveAs } from 'file-saver'
   import JSZip from 'jszip'
 
@@ -155,6 +156,8 @@
           paramUrl += `s5\\=${param[key]}&`
         } else if (key === 'nbQuestions') {
           paramUrl += `n\\=${param[key]}&`
+        } else if (key === 'versionQcm') {
+          paramUrl += `qcm\\=${param[key]}&`
         } else if (key !== 'alea' && key !== 'id') {
           paramUrl += `${key}\\=${param[key]}&`
         }
