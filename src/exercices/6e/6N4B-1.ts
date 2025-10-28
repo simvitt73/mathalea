@@ -163,7 +163,7 @@ export default class PaternRepetitif extends Exercice {
           .translate(j * 1.2, 0)
         objets.push(shape)
       }
-      let texte = `Voici les ${nbElements} premièrs pictogrammes d'un motif répétitif.<br>`
+      let texte = `Voici les ${nbElements} premiers pictogrammes d'un motif répétitif.<br>`
       const laSerieEnImage = mathalea2d(
         Object.assign(
           fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }),
