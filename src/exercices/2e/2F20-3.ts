@@ -1,9 +1,10 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   antecedentInterpole,
   graphiqueInterpole,
   imageInterpolee,
 } from '../../lib/2d/courbes'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'

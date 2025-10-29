@@ -1,6 +1,7 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { point, pointAdistance } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'

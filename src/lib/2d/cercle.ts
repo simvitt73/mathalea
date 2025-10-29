@@ -4,7 +4,7 @@ import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point } from './points'
 import { PointAbstrait } from './points-abstraits'
 import { pattern } from './polygones'
-import { longueur } from './segmentsVecteurs'
+import { longueur } from './utilitairesGeometriques'
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r

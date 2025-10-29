@@ -1,3 +1,4 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheLongueurSegment, codageMilieu } from '../../lib/2d/codages'
@@ -8,10 +9,10 @@ import {
   pointAdistance,
   pointIntersectionDD,
   pointIntersectionLC,
-  tracePoint,
 } from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'

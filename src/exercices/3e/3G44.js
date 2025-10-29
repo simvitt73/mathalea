@@ -3,9 +3,10 @@ import {
   colorToLatexOrHTML,
 } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { tracePoint } from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   droite3d,
   point3d,

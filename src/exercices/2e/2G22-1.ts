@@ -4,11 +4,7 @@ import type VectorByPoints from 'apigeom/src/elements/vector/VectorByPoints'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { milieu, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import {
-  longueur,
-  nomVecteurParPosition,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+import { nomVecteurParPosition, vecteur } from '../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
   latex2d,
@@ -17,6 +13,7 @@ import {
   texteParPosition,
 } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {

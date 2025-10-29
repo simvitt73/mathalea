@@ -1,7 +1,7 @@
 import { codageSegments } from '../../../lib/2d/codages'
 import { courbeInterpolee } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import {
   demiDroite,
@@ -30,6 +30,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { grille } from '../../../lib/2d/Grille'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'

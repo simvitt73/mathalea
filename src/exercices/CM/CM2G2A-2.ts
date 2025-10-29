@@ -1,4 +1,5 @@
-import { angle, codageAngleDroit } from '../../lib/2d/angles'
+import { angle } from 'apigeom/src/elements/calculus/Coords'
+import { codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
@@ -7,9 +8,9 @@ import {
   point,
   pointIntersectionDD,
   pointSurDroite,
-  tracePoint,
 } from '../../lib/2d/points'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { shuffle } from '../../lib/outils/arrayOutils'

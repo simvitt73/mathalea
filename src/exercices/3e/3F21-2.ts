@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { courbe } from '../../lib/2d/courbes'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

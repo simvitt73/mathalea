@@ -2,7 +2,7 @@ import { inferieurouegal } from '../../modules/outils'
 import type { Spline } from '../mathFonctions/Spline'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { tracePoint } from './points'
+import { tracePoint } from './TracePoint'
 import { pointAbstrait } from './points-abstraits'
 import { polyline } from './polygones'
 

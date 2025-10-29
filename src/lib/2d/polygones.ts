@@ -11,7 +11,7 @@ import { codageSegments } from './codages'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
 import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
-import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
+import { segment, vecteur } from './segmentsVecteurs'
 import {
   Latex2d,
   LatexParCoordonnees,
@@ -22,6 +22,7 @@ import {
 } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
+import { longueur } from './utilitairesGeometriques'
 
 type BinomeXY = { x: number; y: number }
 type BinomesXY = BinomeXY[]
@@ -1075,15 +1076,12 @@ export function parallelogramme2points1hauteur(
   B.nom = nom[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(
-    H,
-    homothetie(
-      vecteur(A, B),
-      A,
-      randint(-5, 5, rangeMinMax(-2, 2)) / 10,
-    ) as Vecteur,
-    nom[3],
+  const pointHomothetie = homothetie(
+    B,
+    A,
+    randint(-5, 5, rangeMinMax(-2, 2)) / 10,
   )
+  const D = translation(H, vecteur(A, pointHomothetie as Point), nom[3])
   const C = translation(D, vecteur(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
 }

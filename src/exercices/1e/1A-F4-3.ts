@@ -18,19 +18,13 @@ export const refs = {
   'fr-fr': ['1A-F4-3'],
   'fr-ch': [],
 }
-type Noeud = {
-  x: number
-  y: number
-  deriveeGauche: number
-  deriveeDroit: number
-  isVisible: boolean
-}
+
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  "Déterminer le nombre de solutions de l\'équation $f(x)=0$ avec un graphique"
+  "Déterminer le nombre de solutions de l'équation $f(x)=0$ avec un graphique"
 export default class auto1AF4c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
@@ -95,7 +89,6 @@ export default class auto1AF4c extends ExerciceQcmA {
 
   versionAleatoire = () => {
     const cas = choice([1, 2, 3, 4])
-    const variante = choice([1, 2]) // Pour avoir deux fonctions différentes par cas
 
     switch (cas) {
       case 1: // cas 2 solutions négatives
@@ -106,9 +99,8 @@ export default class auto1AF4c extends ExerciceQcmA {
           const a = randint(-4, 4, [-1, 0, 1]) / 10
           const x1 = randint(-25, -19) / 10
           const x2 = randint(-9, -4) / 10
-          let fonc: (x: number) => number
 
-          fonc = (x: number) => a * (x - x1) * (x - x2) * (x - 2.5)
+          const fonc = (x: number) => a * (x - x1) * (x - x2) * (x - 2.5)
 
           const repere1 = repere({
             xMin: -4.05,
@@ -174,9 +166,8 @@ export default class auto1AF4c extends ExerciceQcmA {
           const a = randint(-3, 3, [-1, 0, 1]) / 10
           const x1 = randint(7, 15) / 10
           const x2 = randint(-15, -6) / 10
-          let fonc: (x: number) => number
 
-          fonc = (x: number) => a * (x - x1) * (x - x2) * (x + 3.5)
+          const fonc = (x: number) => a * (x - x1) * (x - x2) * (x + 3.5)
 
           const repere1 = repere({
             xMin: -4.05,
@@ -242,10 +233,8 @@ export default class auto1AF4c extends ExerciceQcmA {
 
           const a = randint(-1, 1, [0]) / 10
           const x1 = randint(7, 15) / 10
-          const x2 = randint(-15, -6) / 10
-          let fonc: (x: number) => number
 
-          fonc = (x: number) => a * (x - x1) * (x + 4.6) * (x + 3.8)
+          const fonc = (x: number) => a * (x - x1) * (x + 4.6) * (x + 3.8)
 
           const repere1 = repere({
             xMin: -4.05,
@@ -311,9 +300,8 @@ export default class auto1AF4c extends ExerciceQcmA {
           const a = randint(-1, 1, [0]) / 10
           const x1 = randint(23, 27) / 10
           const x2 = randint(-33, -38) / 10
-          let fonc: (x: number) => number
 
-          fonc = (x: number) => a * (x - x1) * (x - x2) * (x + 4)
+          const fonc = (x: number) => a * (x - x1) * (x - x2) * (x + 4)
           const repere1 = repere({
             xMin: -4.05,
             xMax: 3,

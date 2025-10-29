@@ -1,5 +1,4 @@
 import {
-  angleOriente,
   codageAngle,
   codageAngleDroit,
   markTypeArray,
@@ -11,12 +10,7 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAdistance } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { nommePolygone } from '../../lib/2d/polygones'
-import {
-  longueur,
-  segment,
-  Segment,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+import { segment, Segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import {
   homothetie,
@@ -28,6 +22,7 @@ import {
   triangle2points2angles,
   triangle2points2longueurs,
 } from '../../lib/2d/triangle'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie

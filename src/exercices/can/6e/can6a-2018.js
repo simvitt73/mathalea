@@ -331,7 +331,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 scale: 0.8,
                 style: 'margin: auto',
               },
-              texteParPosition('?', (8 * b) / a, 0.7, 'milieu', 'blue', 2),
+              texteParPosition('?', (8 * b) / a, 0.7, 0, 'blue', 2),
               droiteGraduee({
                 Unite: 8,
                 Min: 0,

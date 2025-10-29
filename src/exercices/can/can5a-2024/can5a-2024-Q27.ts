@@ -1,5 +1,6 @@
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { afficheLongueurSegment } from '../../../lib/2d/codages'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import {
   segment,
   segmentAvecExtremites,

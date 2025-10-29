@@ -14,12 +14,13 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { point, Point, pointSurDroite, TracePoint } from '../../lib/2d/points'
+import { point, Point, pointSurDroite } from '../../lib/2d/points'
 import {
   labelPoint,
   latexParCoordonnees,
   LatexParCoordonnees,
 } from '../../lib/2d/textes'
+import { TracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
 import type { Vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'

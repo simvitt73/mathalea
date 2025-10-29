@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { Repere } from '../../lib/2d/reperes'
 import {
   nomVecteurParPosition,

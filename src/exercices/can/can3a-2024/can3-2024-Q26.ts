@@ -1,6 +1,7 @@
+import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
 import { codageSegments } from '../../../lib/2d/codages'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, tracePointSurDroite } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

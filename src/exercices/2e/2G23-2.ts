@@ -1,15 +1,16 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import {
-  longueur,
   nomVecteurParPosition,
   segment,
   vecteur,
 } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

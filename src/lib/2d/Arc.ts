@@ -1,13 +1,13 @@
 import { degToRad } from '../mathFonctions/trigo'
-import { angleModulo, angleOriente } from './angles'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
+import type { IPointAbstrait } from './Interfaces'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { PointAbstrait, pointAbstrait } from './points-abstraits'
 import { pattern } from './polygones'
-import { longueur } from './segmentsVecteurs'
 import { rotation } from './transformations'
+import { angleModulo, angleOriente, longueur } from './utilitairesGeometriques'
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
@@ -48,13 +48,13 @@ export class Arc extends ObjetMathalea2D {
   rayon: number
   angleFin: number
   azimut: number
-  pointDepart: PointAbstrait
-  centre: PointAbstrait
-  pointFinal: PointAbstrait
+  pointDepart: IPointAbstrait
+  centre: IPointAbstrait
+  pointFinal: IPointAbstrait
   constructor(
-    M: PointAbstrait,
-    omega: PointAbstrait,
-    angle: PointAbstrait | number,
+    M: IPointAbstrait,
+    omega: IPointAbstrait,
+    angle: IPointAbstrait | number,
     rayons = false,
     couleurDeRemplissage = 'none',
     color = 'black',
@@ -79,7 +79,7 @@ export class Arc extends ObjetMathalea2D {
     this.epaisseur = 1
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
     this.angle =
-      angle instanceof PointAbstrait ? angleOriente(M, omega, angle) : angle
+      typeof angle === 'number' ? angle : angleOriente(M, omega, angle)
     const medX: number[] = []
     const medY: number[] = []
     for (let ee = 1; ee < 9; ee++) {
@@ -157,7 +157,7 @@ export class Arc extends ObjetMathalea2D {
             couleurDeRemplissage: this.couleurDeRemplissage[0],
             opaciteDeRemplissage: this.opaciteDeRemplissage,
           }) +
-          `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})"/>`
+          `<path d="M${this.pointDepart.x * coeff} ${this.pointDepart.y * coeff} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.x * coeff} ${this.pointFinal.y * coeff} L ${this.centre.x * coeff} ${this.centre.y * coeff} Z" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})"/>`
         )
       } else {
         if (
@@ -170,7 +170,7 @@ export class Arc extends ObjetMathalea2D {
           this.style += ` fill="${this.couleurDeRemplissage[0]}" `
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
-        return `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
+        return `<path d="M${this.pointDepart.x * coeff} ${this.pointDepart.y * coeff} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.x * coeff} ${this.pointFinal.y * coeff} L ${this.centre.x * coeff} ${this.centre.y * coeff} Z" stroke="${this.color[0]}" ${this.style}/>`
       }
     } else {
       this.style = ''
@@ -207,7 +207,7 @@ export class Arc extends ObjetMathalea2D {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
-      return `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
+      return `<path d="M${this.pointDepart.x * coeff} ${this.pointDepart.y * coeff} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.x * coeff} ${this.pointFinal.y * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
 
@@ -288,8 +288,8 @@ export class Arc extends ObjetMathalea2D {
     const mainLevee = MainLevee.create()
     if (mainLevee != null) {
       const code = mainLevee.arc(
-        this.centre.xSVG(coeff),
-        this.centre.ySVG(coeff),
+        this.centre.x * coeff,
+        this.centre.y * coeff,
         width,
         height,
         start > end ? end : start,
@@ -342,9 +342,9 @@ export class Arc extends ObjetMathalea2D {
 // JSDOC Validee par EE Juin 2022
 
 export function arc(
-  M: PointAbstrait,
-  Omega: PointAbstrait,
-  angle: PointAbstrait | number,
+  M: IPointAbstrait,
+  Omega: IPointAbstrait,
+  angle: IPointAbstrait | number,
   rayon = false,
   couleurDeRemplissage = 'none',
   color = 'black',

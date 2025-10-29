@@ -1,14 +1,10 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { tracePointSurDroite } from '../../lib/2d/TracePointSurDroite'
 import { cercle } from '../../lib/2d/cercle'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  milieu,
-  point,
-  pointSurSegment,
-  tracePoint,
-  tracePointSurDroite,
-} from '../../lib/2d/points'
+import { milieu, point, pointSurSegment } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'

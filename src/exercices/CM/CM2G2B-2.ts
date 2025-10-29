@@ -11,11 +11,13 @@ import {
   point,
   pointIntersectionDD,
   pointSurDroite,
-  tracePoint,
 } from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
@@ -153,8 +155,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           dC = droiteParPointEtPerpendiculaire(C, d)
           dD = droiteParPointEtPerpendiculaire(D, d)
           BB = rotation(A, B, 90)
-          CC = pointIntersectionDD(dC, d, 'M', 'below right')
-          DD = pointIntersectionDD(dD, d, 'N', 'above left')
+          CC = pointIntersectionDD(dC, d, 'M', 'below right') as PointAbstrait
+          DD = pointIntersectionDD(dD, d, 'N', 'above left') as PointAbstrait
           lC = arrondi(longueur(CC, A) * k, 1)
           lD = arrondi(longueur(DD, A) * k, 1)
           cB = codageAngleDroit(A, B, BB)
@@ -258,9 +260,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           dC = droiteParPointEtParallele(C, d)
           dD = droiteParPointEtParallele(D, d)
           p = droite(A, F)
-          CC = pointIntersectionDD(dC, p, 'M', 'above left')
-          DD = pointIntersectionDD(dD, p, 'N', 'above left')
-          EE = pointIntersectionDD(dE, p, 'O', 'above left')
+          CC = pointIntersectionDD(dC, p, 'M', 'above left') as PointAbstrait
+          DD = pointIntersectionDD(dD, p, 'N', 'above left') as PointAbstrait
+          EE = pointIntersectionDD(dE, p, 'O', 'above left') as PointAbstrait
           lC = arrondi(longueur(CC, A) * k, 1)
           lD = arrondi(longueur(DD, A) * k, 1)
           lE = arrondi(longueur(EE, A) * k, 1)

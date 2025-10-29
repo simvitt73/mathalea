@@ -1,4 +1,3 @@
-import { codageMediatrice } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
@@ -7,14 +6,10 @@ import {
   Mediatrice,
   mediatrice,
 } from '../../lib/2d/droites'
-import {
-  Point,
-  point,
-  pointIntersectionDD,
-  tracePoint,
-} from '../../lib/2d/points'
+import { Point, point, pointIntersectionDD } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../lib/2d/transformations'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -35,6 +30,7 @@ import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 
+import { codageMediatrice } from '../../lib/2d/codages'
 import type { Polygone } from '../../lib/2d/polygones'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -311,13 +307,13 @@ export default class PavageEtReflexion2d extends Exercice {
     let pt1, pt2
     if (d.pente < 0 && d.pente > -10) {
       pt1 = pointIntersectionDD(
-        d,
+        d as Droite,
         droiteHorizontaleParPoint(
           point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
         ),
       )
       pt2 = pointIntersectionDD(
-        d,
+        d as Droite,
         droiteVerticaleParPoint(
           point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1]),
         ),
@@ -360,13 +356,13 @@ export default class PavageEtReflexion2d extends Exercice {
       }
     } else if (d.pente >= 0 && d.pente < 10) {
       pt1 = pointIntersectionDD(
-        d,
+        d as Droite,
         droiteHorizontaleParPoint(
           point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
         ),
       )
       pt2 = pointIntersectionDD(
-        d,
+        d as Droite,
         droiteVerticaleParPoint(
           point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
         ),
@@ -405,7 +401,7 @@ export default class PavageEtReflexion2d extends Exercice {
     } else {
       // d est verticale
       pt1 = pointIntersectionDD(
-        d,
+        d as Droite,
         droiteHorizontaleParPoint(
           point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
         ),

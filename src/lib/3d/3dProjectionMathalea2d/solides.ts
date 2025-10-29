@@ -1,4 +1,6 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
+
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { context } from '../../../modules/context'
 import {
   assombrirOuEclaircir,
@@ -12,17 +14,22 @@ import {
   pointDepuisPointAbstrait,
   pointIntersectionDD,
   pointSurSegment,
-  tracePoint,
 } from '../../2d/points'
+import type { PointAbstrait } from '../../2d/points-abstraits'
 import {
   polygone,
   polygoneAvecNom,
   polyline,
   renommePolygone,
 } from '../../2d/polygones'
-import { longueur, norme, segment, vecteur } from '../../2d/segmentsVecteurs'
+import { norme, segment, vecteur } from '../../2d/segmentsVecteurs'
 import { labelPoint } from '../../2d/textes'
 import { translation } from '../../2d/transformations'
+import {
+  estDansPolygone,
+  estDansQuadrilatere,
+  longueur,
+} from '../../2d/utilitairesGeometriques'
 import { vide2d } from '../../2d/Vide2d'
 import { choisitLettresDifferentes } from '../../outils/aleatoires'
 import { arrondi } from '../../outils/nombres'
@@ -524,8 +531,10 @@ export class Sphere3d extends ObjetMathalea2D {
       )
       paralleles.listePoints3d.push(unDesParalleles[1])
       for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
-        paralleles.listePoints3d[j][ee].isVisible =
-          !paralleles.listePoints3d[j][ee].c2d.estDansPolygone(poly)
+        paralleles.listePoints3d[j][ee].isVisible = !estDansPolygone(
+          paralleles.listePoints3d[j][ee].c2d,
+          poly,
+        )
       }
       paralleles.ptCachePremier.push(point(0, 0))
       paralleles.indicePtCachePremier.push(0)
@@ -982,7 +991,10 @@ export class Sphere3d extends ObjetMathalea2D {
       // poly.isVisible = false
       while (
         ee < 2 &&
-        pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(poly)
+        estDansPolygone(
+          pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l),
+          poly,
+        )
       ) {
         ee += 0.01
       }
@@ -1421,7 +1433,7 @@ export class Cylindre3d extends ObjetMathalea2D {
       this.c2d.push(s)
 
       const ptAxe2 = translation(
-        this.centrebase2.c2d,
+        this.centrebase2.c2d as PointAbstrait,
         vecteur(
           translation(ptAxe1, vecteur(this.centrebase1.c2d, ptAxe1)),
           this.centrebase1.c2d,
@@ -1540,12 +1552,17 @@ export class Prisme3d extends ObjetMathalea2D {
     // On cherche les sommets cachés de this.base2
     let toutesLesAretesSontVisibles = true
     for (let i = 0; i < this.base1.listePoints.length; i++) {
-      const areteVisibleOuPas = pointSurSegment(
-        this.base1.listePoints[i].c2d,
-        this.base2.listePoints[i].c2d,
-        longueur(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d) /
-          50,
-      ).estDansPolygone(polygone(this.base1.listePoints2d))
+      const areteVisibleOuPas = estDansPolygone(
+        pointSurSegment(
+          this.base1.listePoints[i].c2d,
+          this.base2.listePoints[i].c2d,
+          longueur(
+            this.base1.listePoints[i].c2d,
+            this.base2.listePoints[i].c2d,
+          ) / 50,
+        ),
+        polygone(this.base1.listePoints2d),
+      )
       this.base2.listePoints[i].isVisible = !areteVisibleOuPas
       toutesLesAretesSontVisibles =
         !areteVisibleOuPas && toutesLesAretesSontVisibles
@@ -1758,7 +1775,7 @@ export class Pyramide3d extends ObjetMathalea2D {
         ])
         poly.isVisible = false
         sommetCache =
-          sommetCache || this.base.listePoints[i].c2d.estDansPolygone(poly)
+          sommetCache || estDansPolygone(this.base.listePoints[i].c2d, poly)
       }
       if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
         if (sommetCache)
@@ -1925,8 +1942,11 @@ export class Pyramide3d extends ObjetMathalea2D {
             )
             this.c2d.push(s)
             s = segment(
-              this.sommet.c2d,
-              translation(this.sommet.c2d, vecteur(ptBase, this.centre.c2d)),
+              this.sommet.c2d as PointAbstrait,
+              translation(
+                this.sommet.c2d as PointAbstrait,
+                vecteur(ptBase, this.centre.c2d),
+              ),
               this.colorAxe,
             )
             this.c2d.push(s)
@@ -1939,8 +1959,11 @@ export class Pyramide3d extends ObjetMathalea2D {
           const L = longueur(this.base.listePoints[0].c2d, this.centre.c2d)
           const h = 2 * norme(v)
           s = segment(
-            this.sommet.c2d,
-            translation(this.sommet.c2d, vecteur((L * v.x) / h, (L * v.y) / h)),
+            this.sommet.c2d as PointAbstrait,
+            translation(
+              this.sommet.c2d as PointAbstrait,
+              vecteur((L * v.x) / h, (L * v.y) / h),
+            ),
             this.colorAxe,
           )
           this.c2d.push(s)
@@ -2487,10 +2510,10 @@ export class Pave3d extends ObjetMathalea2D {
       return arrondi((dist1 + dist2 + dist3 + dist4) / 4, 5)
     }
 
-    E.isVisible = !E.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    F.isVisible = !F.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    G.isVisible = !G.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
-    H.isVisible = !H.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    E.isVisible = !estDansQuadrilatere(E.c2d, A.c2d, B.c2d, C.c2d, D.c2d)
+    F.isVisible = !estDansQuadrilatere(F.c2d, A.c2d, B.c2d, C.c2d, D.c2d)
+    G.isVisible = !estDansQuadrilatere(G.c2d, A.c2d, B.c2d, C.c2d, D.c2d)
+    H.isVisible = !estDansQuadrilatere(H.c2d, A.c2d, B.c2d, C.c2d, D.c2d)
     if (E.isVisible && F.isVisible && G.isVisible && H.isVisible) {
       const minimum = Math.min(
         distanceMoyenne4points(E),

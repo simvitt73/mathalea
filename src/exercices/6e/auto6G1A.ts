@@ -8,10 +8,10 @@ import {
   point,
   pointIntersectionDD,
   pointSurSegment,
-  tracePoint,
 } from '../../lib/2d/points'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'

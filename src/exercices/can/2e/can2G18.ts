@@ -70,7 +70,7 @@ export default class LectureGraphiqueVecteurRepere extends Exercice {
       AB = segment(A, B, 'blue', '->')
       AB.epaisseur = 2
       vAB = vecteur(A, B)
-      o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       nomvAB = vAB.representantNomme(A, `${vec}`, 1.5, 'blue')
       r1 = repere({
         xMin: xmin,

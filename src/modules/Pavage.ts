@@ -1,4 +1,4 @@
-import { Point, point, TracePoint, tracePoint } from '../lib/2d/points'
+import { Point, point } from '../lib/2d/points'
 import {
   barycentre,
   Polygone,
@@ -7,6 +7,7 @@ import {
 } from '../lib/2d/polygones'
 import { vecteur } from '../lib/2d/segmentsVecteurs'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
+import { tracePoint, type TracePoint } from '../lib/2d/TracePoint'
 import {
   homothetie,
   rotation,

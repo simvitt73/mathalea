@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'

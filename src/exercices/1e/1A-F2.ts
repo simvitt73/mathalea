@@ -4,7 +4,8 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { courbe } from '../../lib/2d/courbes'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { spline } from '../../lib/mathFonctions/Spline'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -33,6 +34,7 @@ export const amcType = 'qcmMono'
 export const titre =
   "Trouver les abscisses solutions d'une inéquation avec un graphique"
 export default class auto1AF2 extends ExerciceQcmA {
+  spline!: ReturnType<typeof spline>
   versionOriginale: () => void = () => {
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
 
@@ -265,7 +267,6 @@ export default class auto1AF2 extends ExerciceQcmA {
     })
 
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 2,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'black', taille: 3, style: '.', epaisseur: 2 },
@@ -364,7 +365,7 @@ Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map((nom
       ),
     )}`
 
-    this.enonce += `L\'inéquation $x\\times f(x) ${typeInequation} 0$ est vérifiée par :`
+    this.enonce += `L'inéquation $x\\times f(x) ${typeInequation} 0$ est vérifiée par :`
 
     // Explication pour la correction
     const explicationSigne =

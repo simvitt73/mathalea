@@ -6,20 +6,17 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { cercle } from '../../lib/2d/cercle'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Point, point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { Point, point, pointAdistance } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { cylindre } from '../../lib/2d/projections3d'
-import {
-  longueur,
-  Segment,
-  segment,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, Latex2d } from '../../lib/2d/textes'
 import { similitude, translation } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'

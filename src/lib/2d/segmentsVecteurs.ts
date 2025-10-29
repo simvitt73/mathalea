@@ -2,11 +2,10 @@ import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi } from '../outils/nombres'
-import { angleOriente } from './angles'
-import { Cercle } from './cercle'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite } from './droites'
 import { fixeBordures } from './fixeBordures'
+import type { IPointAbstrait } from './Interfaces'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import {
@@ -20,6 +19,7 @@ import {
 import { pointAbstrait, PointAbstrait } from './points-abstraits'
 import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
+import { angleOriente, pointEstSur } from './utilitairesGeometriques'
 
 /**
  * v = vecteur('V') // son nom
@@ -36,8 +36,8 @@ export class Vecteur {
   y: number
 
   constructor(
-    arg1: FractionEtendue | number | PointAbstrait | string,
-    arg2: FractionEtendue | number | PointAbstrait,
+    arg1: FractionEtendue | number | PointAbstrait | string | IPointAbstrait,
+    arg2: FractionEtendue | number | PointAbstrait | IPointAbstrait,
     nom = '',
   ) {
     if (arguments.length === 1) {
@@ -107,7 +107,7 @@ export class Vecteur {
       // angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
-    const N = translation(M, v)
+    const N = translation(v, M)
     return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
@@ -120,8 +120,8 @@ export class Vecteur {
  * @author Jean-Claude Lhote et Rémi Angot
  */
 export function vecteur(
-  arg1: FractionEtendue | number | PointAbstrait | string,
-  arg2: FractionEtendue | number | PointAbstrait,
+  arg1: FractionEtendue | number | PointAbstrait | string | IPointAbstrait,
+  arg2: FractionEtendue | number | PointAbstrait | IPointAbstrait,
   nom = '',
 ) {
   return new Vecteur(arg1, arg2, nom)
@@ -644,16 +644,16 @@ export class Segment extends ObjetMathalea2D {
       Math.abs(this.y1 - this.y2) < 0.01
     ) {
       const P1 = point(this.x1, this.y1)
-      return P1.estSur(objet)
+      return pointEstSur(P1, objet)
     }
 
     const ab = droite(this.extremite1, this.extremite2)
-    if (objet instanceof Cercle) {
+    if ('rayon' in objet) {
       const P1 = pointIntersectionLC(ab, objet, '', 1)
       const P2 = pointIntersectionLC(ab, objet, '', 2)
       return (
-        (P1 instanceof Point && P1.estSur(this)) ||
-        (P2 instanceof Point && P2.estSur(this))
+        (P1 instanceof Point && pointEstSur(P1, this)) ||
+        (P2 instanceof Point && pointEstSur(P2, this))
       )
     }
     let I: Point | boolean
@@ -664,14 +664,20 @@ export class Segment extends ObjetMathalea2D {
       I = pointIntersectionDD(ab, cd)
       if (typeof I === 'boolean') {
         I =
-          objet.extremite1.estSur(this) ||
-          objet.extremite2.estSur(this) ||
-          this.extremite1.estSur(segment(objet.extremite1, objet.extremite2)) ||
-          this.extremite2.estSur(segment(objet.extremite1, objet.extremite2))
+          pointEstSur(objet.extremite1, this) ||
+          pointEstSur(objet.extremite2, this) ||
+          pointEstSur(
+            this.extremite1,
+            segment(objet.extremite1, objet.extremite2),
+          ) ||
+          pointEstSur(
+            this.extremite2,
+            segment(objet.extremite1, objet.extremite2),
+          )
       }
     }
     if (typeof I === 'boolean') return I
-    return I.estSur(objet) && I.estSur(this)
+    return pointEstSur(I, objet) && pointEstSur(I, this)
   }
 }
 /**
@@ -756,24 +762,6 @@ export function demiDroite(
   extremites = false,
 ) {
   return new DemiDroite(A, B, color, extremites)
-}
-
-/**
- * Renvoie la distance de A à B
- * @param {PointAbstrait} A
- * @param {PointAbstrait} B
- * @param {number} [precision] Nombre de chiffres après la virgule.
- * (ne sert à rien car si le number correspondant à l'arrondi ne tombe pas sur un flottant convertible en bianire sans erreur, il y aura 18 chiffres significatifs dans le number retourné
- * C'est à la fonction d'affichage de limiter le nombre de chiffres
- * @author Rémi Angot
- */
-export function longueur(
-  A: PointAbstrait | Point3d,
-  B: PointAbstrait | Point3d,
-  precision = 2,
-) {
-  return arrondi(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), precision ?? 6)
-  // j chiffres après la virgule pour l'arrondi sachant que c'est à la fonction d'affichage de limiter le nombre de chiffres.
 }
 
 /**

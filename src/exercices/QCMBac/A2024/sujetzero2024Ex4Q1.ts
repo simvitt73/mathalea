@@ -1,5 +1,5 @@
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { tracePoint } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
 import {
   point3d,

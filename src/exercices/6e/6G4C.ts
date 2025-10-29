@@ -3,13 +3,9 @@ import { afficheMesureAngle } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { sensDeRotation } from '../../lib/2d/SensDeRotation'
 import { texteParPoint } from '../../lib/2d/textes'
-import {
-  homothetie,
-  rotation,
-  sensDeRotation,
-  similitude,
-} from '../../lib/2d/transformations'
+import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -132,7 +128,7 @@ export default class ConstruireUnAngle extends Exercice {
         'milieu',
         true,
       )
-      fleche = sensDeRotation(B, A, signe[i])
+      fleche = sensDeRotation(B, A, signe[i] as -1 | 1)
       s2 = segment(A, C)
       s2.styleExtremites = '|-'
       s2.tailleExtremites = 1.5

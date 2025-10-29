@@ -14,11 +14,11 @@ import {
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionLC,
-  tracePoint,
 } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'

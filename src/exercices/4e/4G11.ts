@@ -1,6 +1,6 @@
 import { codageSegment } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { Point, tracePoint } from '../../lib/2d/points'
+import { Point } from '../../lib/2d/points'
 import type { Polygone } from '../../lib/2d/polygones'
 import {
   Segment,
@@ -9,6 +9,7 @@ import {
   vecteur,
 } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { translation } from '../../lib/2d/transformations'
 import { texcolors } from '../../lib/format/style'
 import { shuffle } from '../../lib/outils/arrayOutils'

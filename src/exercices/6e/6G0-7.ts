@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { droite } from '../../lib/2d/droites'
-import { pointAdistance, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import { pointAdistance, pointSurDroite } from '../../lib/2d/points'
 import { labelPoint } from '../../lib/2d/textes'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

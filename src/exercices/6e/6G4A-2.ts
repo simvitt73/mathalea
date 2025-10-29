@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { codageAngle } from '../../lib/2d/angles'
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { point, pointAdistance } from '../../lib/2d/points'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
