@@ -8,7 +8,6 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
-import { texteExposant } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -122,7 +121,6 @@ export default class AireCarresRectanglesTriangles extends Exercice {
             codageSegments('//', 'blue', [A, B, C, D]),
             afficheLongueurSegment(B, A),
           )
-          // texte = `Calculer l'aire du carré en cm${texteExposant(2)}.`
           texte = "Calculer l'aire du carré."
 
           texteCorr += `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${miseEnEvidence(c * c)}~\\text{cm}^2$`
@@ -131,7 +129,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du carré de côté ${c}cm en cm${texteExposant(2)}`,
+              enonce: `Calculer l'aire du carré de côté $${c}\\text{ cm}$ en $\\text{cm}^2$`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -160,7 +158,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
             afficheLongueurSegment(F, E),
             afficheLongueurSegment(G, F),
           )
-          // texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}.`
+
           texte = "Calculer l'aire du rectangle."
           texteCorr += `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${miseEnEvidence(L * l)}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), {
@@ -168,7 +166,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du rectangle de longueur ${L}cm et de largeur ${l}cm en cm${texteExposant(2)}`,
+              enonce: `Calculer l'aire du rectangle de longueur $${L}\\text{ cm}$ et de largeur $${l}\\text{ cm}$ en $\\text{cm}^2$`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -200,7 +198,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${texteExposant(2)}`,
+              enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent $${a}\\text{ cm}$ et $${b}\\text{ cm}$ en $\\text{cm}^2$`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
