@@ -5,7 +5,7 @@
   "c_spell.words": ["defaut", "reponse"],
 
   // Actions à effectuer lors de la sauvegarde
-  "actions_on_save": {
+  "code_actions_on_save": {
     "source.fix_all": true,
     "organize_imports": true
   },
@@ -19,5 +19,17 @@
       "typescriptreact",
       "svelte"
     ]
+  },
+
+  // Configuration spécifique aux langages
+  "languages": {
+    "JavaScript": {
+      "import_module_specifier": "relative",
+      "import_module_specifier_ending": "minimal"
+    },
+    "TypeScript": {
+      "import_module_specifier": "relative",
+      "import_module_specifier_ending": "minimal"
+    }
   }
 }
