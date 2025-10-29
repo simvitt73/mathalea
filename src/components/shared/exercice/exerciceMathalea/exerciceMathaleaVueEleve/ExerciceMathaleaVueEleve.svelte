@@ -337,6 +337,7 @@
             numberOfPoints,
             numberOfQuestions,
             bestScore,
+            checkSum: exercise.checkSum,
           }
           return l
         })

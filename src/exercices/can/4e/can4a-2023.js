@@ -549,7 +549,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
             this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
-              '$\\ldots\\Aire[dm]{}$'
+              '$\\ldots\\text{dm}^2$'
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -563,7 +563,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             } else {
               texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
               this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
-                '$\\ldots\\Aire[m]{}$'
+                '$\\ldots\text{m}^2$'
             }
           }
           this.listeCanEnonces.push(texte)
@@ -1064,7 +1064,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
             }
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
-              '$\\ldots\\Aire[cm]{}$'
+              '$\\ldots\text{cm}^2$'
           }
 
           nbChamps = 1

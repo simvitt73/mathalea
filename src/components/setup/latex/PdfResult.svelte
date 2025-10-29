@@ -19,6 +19,7 @@
   let downloadFilename: string | null = null
   let clockAbled = false
   let errorMessage: string | null = null // 🟠 <-- nouvelle variable d’état
+  let errorLog = '' // 🔹 pour stocker le texte brut du serveur
 
   const original = 60 // secondes
   const timer = tweened(original)
@@ -40,6 +41,7 @@
   // 🟢 fonction de compilation
   export async function compileToPDF() {
     errorMessage = null // 🧹 reset erreur à chaque tentative
+    errorLog = '' // 🔹 reset log d’erreur
     const contents = await latex.getContents(latexFileInfos)
     if (contents.content === '') {
       pdfBlob = null
@@ -88,7 +90,13 @@
         body: formData,
         signal: AbortSignal.timeout(60 * 1000),
       })
-      if (res.status !== 200) throw new Error('Erreur compilation')
+      if (!res.ok) {
+        // Récupère le contenu d’erreur (même en 500)
+        errorLog = await res.text()
+        console.error('Réponse serveur:', res.status, errorLog)
+        throw new Error(`Erreur compilation (${res.status})`)
+      }
+      // if (res.status !== 200) throw new Error('Erreur compilation')
       const blob = await res.blob()
       await downloadAndExtractPDF(blob, generateFilename('document', 'pdf'))
     } catch (err) {
@@ -162,6 +170,16 @@
       class="m-2 p-2 text-center text-red-600 border border-red-400 bg-red-50 rounded"
     >
       ⚠️ Aucun PDF généré : {errorMessage}
+    </div>
+  {/if}
+
+  {#if errorLog}
+    <div
+      class="m-2 p-2 border border-gray-300 bg-gray-100 rounded text-left overflow-auto"
+    >
+      <pre class="text-xs text-gray-800 whitespace-pre-wrap">
+        {errorLog}
+      </pre>
     </div>
   {/if}
 </div>

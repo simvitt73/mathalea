@@ -1,6 +1,6 @@
 import { exercicesParams, globalOptions } from '../lib/stores/generalStore'
 import type { InterfaceParams } from '../lib/types'
-import { logDebug, log, getIntrus } from './statsUtils'
+import { getIntrus, log, logDebug } from './statsUtils'
 
 declare global {
   interface Window {
@@ -11,7 +11,7 @@ declare global {
 
 // pour pour pouvoir le déactiver en mode debug...
 // eslint-disable-next-line prefer-const
-let activeStats = document.location.hostname === 'coopmaths.fr'
+let activeStats = document.location.hostname !== 'localhost'
 
 if (activeStats) {
   const _paq = (window._paq = window._paq || [])

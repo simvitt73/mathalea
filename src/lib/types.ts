@@ -125,6 +125,7 @@ export interface InterfaceResultExercice {
   type?: 'mathalea' | 'static' | 'app'
   bestScore?: number
   duration?: number
+  checkSum?: string
   resultsByQuestion?: boolean[]
 }
 

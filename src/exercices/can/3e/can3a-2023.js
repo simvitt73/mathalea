@@ -578,7 +578,7 @@ export default class SujetCAN2023troisieme extends Exercice {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ m$^2$  $=$`)
-            this.listeCanReponsesACompleter.push('$\\ldots\\Aire[dm]{}$')
+            this.listeCanReponsesACompleter.push('$\\ldots\\text{dm}^2$')
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -593,7 +593,7 @@ export default class SujetCAN2023troisieme extends Exercice {
               texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ dm$^2$  $=$`)
-            this.listeCanReponsesACompleter.push('$\\ldots\\Aire[m]{}$')
+            this.listeCanReponsesACompleter.push('$\\ldots\text{m}^2$')
           }
 
           break

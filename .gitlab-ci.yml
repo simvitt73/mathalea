@@ -378,17 +378,22 @@ testExosModified:
   rules:
     - when: always
 
-bcommit:
+tests-unitaires:
   stage: build-projet
   script:
+    - npm install -g corepack@latest
+    - corepack enable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
     - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
     - echo "$CI_COMMIT_AUTHOR"
-    - apt-get update -y
-    - apt-get install -y wget iproute2
-    - wget -qO- ipinfo.io/ip
-    - ip addr show
+    - pnpm install
+    - pnpm run makeJson
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:unit
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:src
   rules:
     - when: always
   artifacts:
