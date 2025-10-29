@@ -379,9 +379,13 @@ testExosModified:
     - when: always
 
 tests-unitaires:
-  extends: .testCI
   stage: build-projet
   script:
+    - npm install -g corepack@latest
+    - corepack enable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
     - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
