@@ -1,5 +1,6 @@
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { codageAngleDroit } from '../../../lib/2d/angles'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { repere } from '../../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -737,7 +738,7 @@ export default class SujetCAN2022quatrieme extends Exercice {
           })
 
           A = point(a, b)
-          o = texteParPosition('O', -0.4, -0.6, 'milieu', 'black') //, context.isHtml ? 1 : 0.7
+          o = texteParPosition('O', -0.4, -0.6, 0, 'black') //, context.isHtml ? 1 : 0.7
           // o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
           lA = texteParPosition(
             'A',

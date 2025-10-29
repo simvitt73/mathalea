@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/points'
 import { texteParPositionEchelle } from '../../../lib/2d/textes'
 import { texteGras } from '../../../lib/format/style'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'

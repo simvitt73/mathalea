@@ -1,4 +1,4 @@
-import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import {
   afficheLongueurSegment,
   afficheMesureAngle,
@@ -6,9 +6,9 @@ import {
 } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { similitude } from '../../lib/2d/transformations'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { degToRad, radToDeg } from '../../lib/mathFonctions/trigo'

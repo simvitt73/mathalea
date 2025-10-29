@@ -1,7 +1,8 @@
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { courbe } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, plot, point, tracePoint } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import { pave } from '../../../lib/2d/projections3d'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -27,6 +28,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import Decimal from 'decimal.js'
+import { plot } from '../../../lib/2d/Plot'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
@@ -1390,7 +1392,7 @@ export default class SujetCAN2022Premiere extends Exercice {
                     new Arbre({
                       rationnel: false,
                       nom: '\\overline{B}',
-                      proba: new Decimal(1 - pBsachantA),
+                      proba: 1 - pBsachantA,
                     }),
                   ],
                 }),
@@ -1402,12 +1404,12 @@ export default class SujetCAN2022Premiere extends Exercice {
                     new Arbre({
                       rationnel: false,
                       nom: 'B',
-                      proba: new Decimal(pBsachantAbarre),
+                      proba: pBsachantAbarre,
                     }),
                     new Arbre({
                       rationnel: false,
                       nom: '\\overline{B}',
-                      proba: new Decimal(1 - pBsachantAbarre),
+                      proba: 1 - pBsachantAbarre,
                     }),
                   ],
                 }),

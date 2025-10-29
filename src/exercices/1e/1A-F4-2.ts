@@ -70,7 +70,6 @@ export default class AutoF4b extends ExerciceQcmA {
     })
 
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
@@ -196,7 +195,6 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       grilleXMax: bornes.xMax + 1.02,
     })
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },

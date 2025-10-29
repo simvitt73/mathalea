@@ -1,4 +1,4 @@
-import { angle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
@@ -9,7 +9,6 @@ import {
   point,
   pointAdistance,
   pointIntersectionLC,
-  tracePoint,
 } from '../../lib/2d/points'
 import {
   NommePolygone,
@@ -17,9 +16,11 @@ import {
   polygone,
   polygoneAvecNom,
 } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho } from '../../lib/2d/transformations'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   Arete3d,
   arete3d,

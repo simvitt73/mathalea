@@ -1,10 +1,11 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { milieu, Point, point, tracePoint } from '../../lib/2d/points'
+import { milieu, Point, point } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPointEchelle } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   homothetie,
   rotation,

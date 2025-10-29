@@ -1,4 +1,4 @@
-import { tracePoint } from '../../lib/2d/points'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { labelPoint } from '../../lib/2d/textes'
 import { arete3d, point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { degSin, degToRad } from '../../lib/mathFonctions/trigo'

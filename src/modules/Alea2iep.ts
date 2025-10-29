@@ -1,5 +1,4 @@
 // import iepLoadPromise from 'instrumenpoche'
-import { angleOriente } from '../lib/2d/angles'
 import { droite } from '../lib/2d/droites'
 import {
   milieu,
@@ -8,19 +7,14 @@ import {
   pointSurSegment,
 } from '../lib/2d/points'
 import { pointAbstrait, PointAbstrait } from '../lib/2d/points-abstraits'
-import {
-  longueur,
-  norme,
-  Segment,
-  segment,
-  vecteur,
-} from '../lib/2d/segmentsVecteurs'
+import { norme, Segment, segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import {
   homothetie,
   rotation,
   translation,
   translation2Points,
 } from '../lib/2d/transformations'
+import { angleOriente, longueur } from '../lib/2d/utilitairesGeometriques'
 import { context } from './context'
 import {
   bissectriceAuCompas,

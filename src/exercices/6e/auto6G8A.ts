@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { milieu, point, tracePoint } from '../../lib/2d/points'
+import { milieu, point } from '../../lib/2d/points'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../lib/2d/transformations'

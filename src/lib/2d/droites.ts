@@ -1,17 +1,15 @@
 import { context } from '../../modules/context'
 import { egal } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
-import { angleOriente } from './angles'
 import { traceCompas } from './Arc'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { milieu, Point, point, pointSurDroite, pointSurSegment } from './points'
-import { PointAbstrait } from './points-abstraits'
+import { pointAbstrait, PointAbstrait } from './points-abstraits'
 import {
   DemiDroite,
   demiDroite,
-  longueur,
   norme,
   segment,
   Vecteur,
@@ -25,12 +23,12 @@ import {
   type LetterSizeType,
 } from './textes'
 import {
-  homothetie,
   projectionOrtho,
   rotation,
   symetrieAxiale,
   translation,
 } from './transformations'
+import { angleOriente, longueur, pointEstSur } from './utilitairesGeometriques'
 import { vide2d } from './Vide2d'
 
 /**
@@ -1306,13 +1304,10 @@ export function positionLabelDroite(
       }
     }
   }
+  const scale = 0.5 / norme(vecteur(d.a, d.b))
   const position = translation(
-    point(xLab, yLab),
-    homothetie(
-      vecteur(d.a, d.b),
-      point(0, 0),
-      0.5 / norme(vecteur(d.a, d.b)),
-    ) as Vecteur,
+    pointAbstrait(xLab, yLab),
+    vecteur(d.a * scale, d.b * scale),
   )
   return position
 }
@@ -1731,11 +1726,11 @@ export class Bissectrice extends DemiDroite {
     const dMN = droite(M, N)
     const P = symetrieAxiale(O, dMN) as Point
     if (construction || detail) {
-      if (!M.estSur(segment(O, A))) {
+      if (!pointEstSur(M, segment(O, A))) {
         const sOM = segment(O, M, this.couleurConstruction)
         this.objets.push(sOM)
       }
-      if (!N.estSur(segment(O, B))) {
+      if (!pointEstSur(N, segment(O, B))) {
         const sON = segment(O, N, this.couleurConstruction)
         this.objets.push(sON)
       }

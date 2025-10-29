@@ -15,12 +15,13 @@ import {
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
-  tracePoint,
 } from '../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
-import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, similitude } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import {

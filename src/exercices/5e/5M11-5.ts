@@ -10,10 +10,10 @@ import {
   pointIntersectionCC,
   pointIntersectionDD,
   pointSurCercle,
-  tracePoint,
 } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { texTexte } from '../../lib/format/texTexte'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'

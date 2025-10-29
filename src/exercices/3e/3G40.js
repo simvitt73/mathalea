@@ -1,6 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { tracePoint } from '../../lib/2d/points'
 import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes'
 import {
   arete3d,

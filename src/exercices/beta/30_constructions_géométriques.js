@@ -1,5 +1,6 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { pointAdistance, tracePoint } from '../../lib/2d/points'
+import { pointAdistance } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { carre } from '../../lib/2d/polygones'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'

@@ -15,11 +15,11 @@ import {
   pointIntersectionLC,
   pointSurCercle,
   pointSurSegment,
-  tracePoint,
 } from '../../lib/2d/points'
 import { Polygone, polygone, polygoneRegulier } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, TexteParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { texTexte } from '../../lib/format/texTexte'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

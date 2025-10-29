@@ -15,8 +15,9 @@ import {
   pointIntersectionDD,
 } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'

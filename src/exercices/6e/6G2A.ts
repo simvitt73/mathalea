@@ -1,17 +1,14 @@
 import { clone } from 'mathjs'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { cercle } from '../../lib/2d/cercle'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  point,
-  pointAdistance,
-  pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
+import { point, pointAdistance, pointIntersectionLC } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

@@ -1,4 +1,5 @@
-import { point, tracePoint } from '../../../lib/2d/points'
+import { tracePoint } from '../../../lib/2d/TracePoint'
+import { point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

@@ -1,11 +1,14 @@
-import { angle, angleOriente } from '../../lib/2d/angles'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import {
+  angle,
+  angleOriente,
+  longueur,
+} from '../../lib/2d/utilitairesGeometriques'
 import { texteGras } from '../../lib/format/style'
 import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'

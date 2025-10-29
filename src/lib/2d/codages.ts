@@ -1,22 +1,16 @@
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { angleOriente, codageAngle, codageAngleDroit } from './angles'
+import { codageAngle, codageAngleDroit } from './angles'
 import { arc } from './Arc'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import {
-  milieu,
-  Point,
-  point,
-  pointSurSegment,
-  tracePointSurDroite,
-} from './points'
+import { milieu, Point, point, pointSurSegment } from './points'
 import { PointAbstrait } from './points-abstraits'
 import type { Polygone } from './polygones'
-import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
+import { Segment, segment, vecteur } from './segmentsVecteurs'
 import {
   Latex2d,
   latex2d,
@@ -26,7 +20,9 @@ import {
   texteParPoint,
   type LetterSizeType,
 } from './textes'
+import { tracePointSurDroite } from './TracePointSurDroite'
 import { rotation, similitude, translation } from './transformations'
+import { angleOriente, longueur } from './utilitairesGeometriques'
 import { Vide2d } from './Vide2d'
 
 /**

@@ -7,8 +7,9 @@ import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point, point, pointAdistance } from './points'
 import { pattern, polygone } from './polygones'
-import { longueur, segment, vecteur } from './segmentsVecteurs'
+import { segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, translation } from './transformations'
+import { longueur } from './utilitairesGeometriques'
 
 /**
  *

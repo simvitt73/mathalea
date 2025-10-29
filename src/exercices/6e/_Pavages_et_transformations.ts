@@ -17,7 +17,6 @@ import {
   point,
   pointIntersectionDD,
   pointSurDroite,
-  tracePoint,
 } from '../../lib/2d/points'
 import { barycentre, polygone } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -26,6 +25,7 @@ import {
   latexParCoordonnees,
   texteParPoint,
 } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

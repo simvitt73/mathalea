@@ -5,11 +5,6 @@ import { range1 } from '../../../outils/nombres'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { couverture } from './couvertures'
-import { distribution } from './distribution'
-import { gelHA } from './gelHydroalcolique'
-import { gourdes } from './gourdesEmbalees'
-import { repas } from './repas'
 /**
  * @author Jean-Claude Lhote
  */
@@ -113,11 +108,3 @@ export default class ProblemeMultiplicatifsComplexes extends Probleme {
     )
   }
 }
-
-export const listeDeProblemesMultiplicatifsComplexes = [
-  couverture,
-  distribution,
-  gelHA,
-  gourdes,
-  repas,
-]

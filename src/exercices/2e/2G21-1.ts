@@ -1,12 +1,14 @@
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { point, pointAdistance } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import {
   homothetie,
   similitude,
   translation,
 } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { translationAnimee } from '../../modules/2dAnimation'
 import Alea2iep from '../../modules/Alea2iep'

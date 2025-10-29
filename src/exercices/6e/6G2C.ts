@@ -1,4 +1,3 @@
-import { angleOriente } from '../../lib/2d/angles'
 import { Arc, arc } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheCoteSegment, placeLatexSurSegment } from '../../lib/2d/codages'
@@ -12,13 +11,14 @@ import {
   pointIntersectionDD,
   pointIntersectionLC,
   pointSurSegment,
-  tracePoint,
 } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { BoiteBuilder, polygone } from '../../lib/2d/polygones'
-import { cordelette, longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { cordelette, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { homothetie, rotation } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'

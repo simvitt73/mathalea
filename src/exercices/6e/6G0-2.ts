@@ -1,5 +1,5 @@
 import { Droite, droite } from '../../lib/2d/droites'
-import { Point, point, tracePointSurDroite } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/points'
 import {
   DemiDroite,
   demiDroite,
@@ -7,6 +7,7 @@ import {
   segment,
 } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePointSurDroite } from '../../lib/2d/TracePointSurDroite'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'

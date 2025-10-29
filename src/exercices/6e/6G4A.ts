@@ -1,4 +1,4 @@
-import { angleOriente, codageAngle } from '../../lib/2d/angles'
+import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
 import {
   Point,
@@ -9,6 +9,7 @@ import {
 import { polygoneAvecNom, polyline } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { angleOriente } from '../../lib/2d/utilitairesGeometriques'
 import { couleurTab } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'

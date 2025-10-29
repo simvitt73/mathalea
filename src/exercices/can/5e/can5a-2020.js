@@ -460,7 +460,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               'middle',
               true,
             ),
-            texteParPosition('B', 4, 1, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('B', 4, 1, 0, 'black', 1, 'middle', true),
           )
           reponse = new Decimal(a).mul(2)
           texte = 'La figure $B$ est un agrandissement de la figure $A$. <br>'

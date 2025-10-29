@@ -3,7 +3,7 @@ import { codageSegments } from '../../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { repere } from '../../../lib/2d/reperes'
 import {
@@ -16,6 +16,7 @@ import {
   latexParCoordonnees,
   texteParPosition,
 } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { rotation } from '../../../lib/2d/transformations'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -1838,7 +1839,7 @@ export default class SujetCAN2023troisieme extends Exercice {
             grilleSecondaireXMax: 5,
             //   labelPointTaille: context.isHtml ? 10 : 7
           })
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           A = point(xA, yA, 'A', 'above')
           B = point(xB, yB, 'B', 'below')
           C = point(xC, yC, 'C', 'below left')

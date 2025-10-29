@@ -4,10 +4,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { angleModulo } from '../lib/2d/angles'
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { point } from '../lib/2d/points'
+import { angleModulo } from '../lib/2d/utilitairesGeometriques'
 import { degToRad } from '../lib/mathFonctions/trigo'
 import { context } from './context'
 

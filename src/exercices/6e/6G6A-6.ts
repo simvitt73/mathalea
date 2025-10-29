@@ -8,13 +8,10 @@ import {
   pointIntersectionDD,
   pointSurSegment,
 } from '../../lib/2d/points'
-import {
-  longueur,
-  segment,
-  segmentAvecExtremites,
-} from '../../lib/2d/segmentsVecteurs'
+import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'

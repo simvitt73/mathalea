@@ -1,13 +1,9 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { codageSegments } from '../../lib/2d/codages'
 import { Droite, mediatrice } from '../../lib/2d/droites'
-import {
-  milieu,
-  point,
-  pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
+import { milieu, point, pointIntersectionLC } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'

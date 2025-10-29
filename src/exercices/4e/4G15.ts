@@ -4,7 +4,6 @@ import {
   point,
   pointAdistance,
   pointSurSegment,
-  tracePoint,
 } from '../../lib/2d/points'
 import {
   nommePolygone,
@@ -13,14 +12,16 @@ import {
   polygoneAvecNom,
   renommePolygone,
 } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   rotation,
   similitude,
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { vide2d } from '../../lib/2d/Vide2d'
 import {
   rotationAnimee,

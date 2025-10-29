@@ -1,5 +1,6 @@
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { milieu, point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'

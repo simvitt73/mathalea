@@ -5,9 +5,9 @@ import {
   type Forme,
 } from '../../lib/2d/figures2d/listeFigures2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { tracePoint } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { translation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'

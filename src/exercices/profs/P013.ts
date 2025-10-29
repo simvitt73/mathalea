@@ -1,6 +1,7 @@
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { courbeInterpolee } from '../../lib/2d/courbes'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'

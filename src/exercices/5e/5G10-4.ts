@@ -1,11 +1,13 @@
 import type { MathfieldElement } from 'mathlive'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { pointEstSur } from '../../lib/2d/utilitairesGeometriques'
 import { texcolors, texteGras } from '../../lib/format/style'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -294,7 +296,8 @@ export default class SymetrieAxialeConservation1 extends Exercice {
           case 'Triangle':
             choix = randint(0, 9) + randint(0, 1) * 12
             while (
-              points[index(choix)].estSur(
+              pointEstSur(
+                points[index(choix)],
                 droite(points[index(choix + 1)], points[index(choix + 2)]),
               )
             ) {
@@ -332,7 +335,8 @@ export default class SymetrieAxialeConservation1 extends Exercice {
           default:
             choix = randint(0, 9) + randint(0, 1) * 12
             while (
-              points[index(choix)].estSur(
+              pointEstSur(
+                points[index(choix)],
                 droite(points[index(choix + 1)], points[index(choix + 2)]),
               )
             ) {

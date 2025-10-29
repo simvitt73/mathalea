@@ -1,8 +1,4 @@
-import {
-  angleOriente,
-  codageAngle,
-  codageAngleDroit,
-} from '../../lib/2d/angles'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
 import { Droite, droite, mediatrice } from '../../lib/2d/droites'
 import {
@@ -12,7 +8,7 @@ import {
   pointSurSegment,
 } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import {
   affiniteOrtho,
@@ -20,6 +16,7 @@ import {
   similitude,
   translation2Points,
 } from '../../lib/2d/transformations'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/mathalea2d'
