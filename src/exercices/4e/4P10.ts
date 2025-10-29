@@ -5,7 +5,7 @@ import {
   quatriemeProportionnelle,
 } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouterAide, ajouterImage } from '../../lib/outils/enrichissements'
 import { arrondi } from '../../lib/outils/nombres'
@@ -308,18 +308,16 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(0) +
                 ' Calculer le ' +
                 ajouterAide(
-                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre-cube (m${texteExposant(3)}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(3)} = 1L.`,
+                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre-cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $1\\text{dm}^3$ = $1$L.`,
                   {
                     texteAvant: 'volume',
                     titreAide: 'Définition : Volume (grandeur physique)',
                   },
                 ) +
-                ` d'eau en m${texteExposant(
-                  3,
-                )} contenu dans cette piscine quand elle est pleine.<br>`
+                ` d'eau en $\\text{m}^3$ contenu dans cette piscine quand elle est pleine.<br>`
               texte +=
                 numAlpha(1) +
-                ` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de $${texNombre(1.162)}$ Wattheure, quelle est l'énergie consommée en kWh pour augmenter la température de la piscine de $${deltaT}$ degrés ?<br>`
+                ` Sachant que pour élever la température d'un litre d'eau de $1$ degré, il faut une énergie de $${texNombre(1.162)}$ Wattheure, quelle est l'énergie consommée en kWh pour augmenter la température de la piscine de $${deltaT}$ degrés ?<br>`
               texteCorr =
                 numAlpha(0) +
                 ` La base de ce prisme droit est un trapèze rectangle de petite base $${h2}$ cm, de grande base $${h1}$ cm et de hauteur $${L}$ m.<br>`
@@ -390,7 +388,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
                     titreAide: 'Définition : Volume (grandeur physique)',
                   },
                 ) +
-                ` en dm${texteExposant(3)} à $${texNombre(0.1)}$ près de ce tonneau.<br>`
+                ` en $\\text{dm}^3$ à $${texNombre(0.1)}$ près de ce tonneau.<br>`
               texte +=
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
@@ -1252,9 +1250,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             )}\\text{ m}^3\\text{/s}$.<br>`
           texte +=
             numAlpha(0) +
-            ` Calculer le volume d'eau en m${texteExposant(
-              3,
-            )} écoulé en $${duree}$ heures à ce débit.<br>`
+            ` Calculer le volume d'eau en $\\text{m}^3$ écoulé en $${duree}$ heures à ce débit.<br>`
           texte +=
             numAlpha(1) +
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${
