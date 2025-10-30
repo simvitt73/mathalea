@@ -318,7 +318,7 @@ export class Arc extends ObjetMathalea2D {
     if (mainLevee != null) {
       const code = mainLevee.arc(
         this.centre.x * coeff,
-        this.centre.y * coeff,
+        -this.centre.y * coeff,
         width,
         height,
         start > end ? end : start,
