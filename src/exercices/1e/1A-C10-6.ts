@@ -215,7 +215,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
   ) {
     const borne = val ** 2
     const borneIncorrecte1 = val
-    const borneIncorrecte2 = Math.floor(borne / 2)
+  
 
     if (typeInequation === 'inf') {
       const crochets = estInegStrict
