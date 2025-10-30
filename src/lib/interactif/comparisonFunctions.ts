@@ -1317,7 +1317,7 @@ function expressionDeveloppeeEtReduiteCompare(
     else
       return {
         isOk: false,
-        feedback: "L'expresssion fournie est incorrecte.",
+        feedback: 'La réponse fournie est incorrecte.',
       }
 
   if (nombreDecimalSeulement) {
