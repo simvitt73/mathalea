@@ -94,7 +94,7 @@ export function translation(
   color = 'black',
 ): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
   // Points (PointAbstrait ou Point)
-  if (O instanceof Point || O instanceof PointAbstrait || 'xSVG' in O) {
+  if (O instanceof Point || O instanceof PointAbstrait) {
     const x = O.x + vecteurTranslation.x
     const y = O.y + vecteurTranslation.y
     if (O instanceof Point) {
@@ -206,7 +206,7 @@ export function translation2Points(
   color = 'black',
 ): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
   // Points (PointAbstrait ou Point)
-  if ('xSVG' in O) {
+  if (O instanceof PointAbstrait || O instanceof Point) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
     if (O instanceof Point) {
@@ -320,7 +320,7 @@ export function rotation(
   positionLabel = 'above',
   color = 'black',
 ): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
-  if ('xSVG' in A) {
+  if (A instanceof Point || A instanceof PointAbstrait) {
     const x =
       O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
@@ -447,7 +447,7 @@ export function homothetie(
   color = 'black',
 ): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
   // Points (PointAbstrait ou Point)
-  if ('xSVG' in Objet) {
+  if (Objet instanceof Point || Objet instanceof PointAbstrait) {
     const x = O.x + k * (Objet.x - O.x)
     const y = O.y + k * (Objet.y - O.y)
     if (Objet instanceof Point) {
@@ -553,7 +553,7 @@ export function symetrieAxiale(
   const k = 1 / (a * a + b * b)
 
   // Points (PointAbstrait ou Point)
-  if (A instanceof Point || A instanceof PointAbstrait || 'xSVG' in A) {
+  if (A instanceof Point || A instanceof PointAbstrait) {
     if (a === 0) {
       x = A.x
       y = -(A.y + (2 * c) / b)
@@ -651,7 +651,7 @@ export function projectionOrtho(
   let x: number, y: number
 
   // Points (PointAbstrait ou Point)
-  if ('xSVG' in M) {
+  if (M instanceof Point || M instanceof PointAbstrait) {
     if (a === 0) {
       x = M.x
       y = -c / b
@@ -764,7 +764,7 @@ export function affiniteOrtho(
   let x: number, y: number
 
   // Points (PointAbstrait ou Point)
-  if ('xSVG' in A) {
+  if (A instanceof Point || A instanceof PointAbstrait) {
     if (a === 0) {
       x = A.x
       y = k * A.y + (c * (k - 1)) / b
@@ -903,7 +903,7 @@ export function similitude(
   color = 'black',
 ): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
   // Points (PointAbstrait ou Point)
-  if ('xSVG' in A) {
+  if (A instanceof Point || A instanceof PointAbstrait) {
     const ra = degToRad(a)
     const x =
       O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
