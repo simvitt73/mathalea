@@ -132,7 +132,7 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
 
              Quelle est la probabilité d'obtenir ${article} ${itemSing} ${couleurDemandee} ? <br>
 
-             ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "(résultat sous  forme d'une fraction irréductible)"}`
+             ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "On donnera le résultat sous forme d'une fraction irréductible."}`
     this.optionsChampTexte = { texteApres: '' }
 
     // Correction commune + partie spécifique selon format
@@ -143,7 +143,9 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
              =`
     if (!formatDecimal) {
       // fraction
-      this.correction += `${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction}  ${choix ? fraction(a, denom).texSimplificationAvecEtapes(false, orangeMathalea) : fraction(b, denom).texSimplificationAvecEtapes(false, orangeMathalea)}$`
+      const reponsepossible = `${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction}`
+      this.correction += `${fraction(a, denom).estIrreductible ? miseEnEvidence(reponsepossible) : reponsepossible}  ${choix ? fraction(a, denom).texSimplificationAvecEtapes(false, orangeMathalea) : fraction(b, denom).texSimplificationAvecEtapes(false, orangeMathalea)}$`
+
       this.reponse = choix
         ? `$${fraction(a, denom).texFractionSimplifiee}$`
         : `$${fraction(b, denom).texFractionSimplifiee}$`
