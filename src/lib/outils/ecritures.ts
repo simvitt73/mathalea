@@ -1,7 +1,6 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Decimal from 'decimal.js'
 import { equal, round } from 'mathjs'
-import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import Grandeur from '../../modules/Grandeur'
@@ -83,20 +82,21 @@ export function rienSi0(a: number | FractionEtendue | Decimal) {
 }
 
 /**
+ * @deprecated
  * Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
  * Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
  * @Example
- * // 'dm'+texteExposant(3)
+ * // 'dm'+texteExposant(3) -> Privilégier maintenant '$\\text{dm}^3$'
  * @author Rémi Angot
  */
-export function texteExposant(texte: string | number) {
+/* export function texteExposant(texte: string | number) {
   if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
     return `\\up{${texte}}`
   }
-}
+} */
 
 /**
  * Ajoute les parenthèses et le signe
