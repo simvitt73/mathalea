@@ -258,6 +258,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       )
 
       const tailleUnite = 20 / (data[tab].max - origine)
+      // const P=point
       const d = droiteGraduee({
         Min: origine,
         Max: data[tab].max,
@@ -270,6 +271,10 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           [num2 / den2, lettreIndiceeDepuisChiffre(i * 3 + 2)],
           [num3 / den3, lettreIndiceeDepuisChiffre(i * 3 + 3)],
         ],
+        pointTaille: 5,
+        pointStyle: '|',
+        pointOpacite: 0.8,
+        pointEpaisseur: 2,
       })
 
       texte +=
@@ -297,14 +302,32 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           [num2 / den2, lettreIndiceeDepuisChiffre(i * 3 + 2)],
           [num3 / den3, lettreIndiceeDepuisChiffre(i * 3 + 3)],
         ],
+        pointTaille: 5,
+        pointStyle: '|',
+        pointOpacite: 0.8,
+        pointEpaisseur: 2,
         labelListe: [
-          [num1 / den1, textFractionCorr(num1, den1, fractionsSimplifiees)],
-          [num2 / den2, textFractionCorr(num2, den2, fractionsSimplifiees)],
-          [num3 / den3, textFractionCorr(num3, den3, fractionsSimplifiees)],
+          [
+            num1 / den1,
+            miseEnEvidence(textFractionCorr(num1, den1, fractionsSimplifiees)),
+          ],
+          [
+            num2 / den2,
+            miseEnEvidence(textFractionCorr(num2, den2, fractionsSimplifiees)),
+          ],
+          [
+            num3 / den3,
+            miseEnEvidence(textFractionCorr(num3, den3, fractionsSimplifiees)),
+          ],
         ],
         labelDistance: 0.8,
         labelCustomDistance: 1.7,
       })
+      /*       @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
+       * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
+       * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
+       * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
+       * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe */
       let texteCorr = mathalea2d(
         {
           xmin: -0.2,
@@ -387,7 +410,8 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       }
 
       if (!motFractionnaire) {
-        texteCorr += '<br>'
+        // donner les ecritures décimales quand c'est possible
+        // texteCorr += '<br>'
         type PrepareReponseDecimale = { lettre: string; valeur: string }
         const listeReponseDecimale: PrepareReponseDecimale[] = []
         if (fraction1.multiplieEntier(100).estEntiere) {
@@ -419,18 +443,22 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           listeReponseDecimale.shift()
           if (listeReponseDecimale.length > 0) {
             if (listeReponseDecimale.length > 1) {
-              texteCorr += ecritAbscisse(
+              texteCorr +=
+                ' , ' +
+                ecritAbscisse(
+                  listeReponseDecimale[0].lettre,
+                  listeReponseDecimale[0].valeur,
+                  correctionNotationParentheses,
+                )
+              listeReponseDecimale.shift()
+            }
+            texteCorr +=
+              ' et ' +
+              ecritAbscisse(
                 listeReponseDecimale[0].lettre,
                 listeReponseDecimale[0].valeur,
                 correctionNotationParentheses,
               )
-              listeReponseDecimale.shift()
-            }
-            texteCorr += ecritAbscisse(
-              listeReponseDecimale[0].lettre,
-              listeReponseDecimale[0].valeur,
-              correctionNotationParentheses,
-            )
           }
           texteCorr += '.'
         }
@@ -545,7 +573,8 @@ function textCorrectionDetaillee(
     reponse += `Il y a $${PasPrincipal}$ intervalles dans une unité. `
     if (fractSimp.den !== PasPrincipal) {
       reponse += `En groupant ces intervalles par ${quotientier(PasPrincipal, fractSimp.den)}, `
-      reponse += `on obtient un pas de $\\dfrac{1}{${fractSimp.den}}$.<br>`
+      // , on obtient  3 groupements identiques pour faire une unité. Chaque groupement vaut donc 1/3.
+      reponse += `on obtient ${fractSimp.den} groupements identiques pour faire une unité. Chaque groupement vaut donc $\\dfrac{1}{${fractSimp.den}}$.<br>`
       reponse += `Pour aller de l'origine au point $${lettre}$, il y a $${expliciteNbPas(fractSimp.num, fractSimp.den)}$ groupements de  ${quotientier(PasPrincipal, fractSimp.den)} intervalles : $${fractSimp.num} \\times \\dfrac{1}{${fractSimp.den}}$ = `
     } else {
       reponse += ` donc le pas est de $\\dfrac{1}{${PasPrincipal}}$ car $${PasPrincipal} \\times \\dfrac{1}{${PasPrincipal}}$  = 1.<br>`
