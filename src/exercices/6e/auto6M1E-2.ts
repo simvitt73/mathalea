@@ -71,7 +71,7 @@ export default class PerimetresCalculMental extends Exercice {
         case 'carré':
           {
             const c = randint(2, 11) + randint(2, 9) / 10
-            texte = `Carré de côté $${texNombre(c)}$ cm`
+            texte = `Carré de côté $${texNombre(c)}~\\text{cm}$`
             texteCorr = '$\\mathcal{P}_\\text{carré} = 4 \\times c$'
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = 4 \\times ${texNombre(c)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = ${miseEnEvidence(texNombre(4 * c))}~\\text{cm}$`
@@ -91,7 +91,7 @@ export default class PerimetresCalculMental extends Exercice {
           {
             const l = randint(1, 3) + randint(1, 4) / 10
             const L = randint(5, 9) + randint(1, 4) / 10
-            texte = `Rectangle de longueur $${texNombre(L)}$ cm et de largeur $${texNombre(l)}$ cm`
+            texte = `Rectangle de longueur $${texNombre(L)}~\\text{cm}$ et de largeur $${texNombre(l)}~\\text{cm}$`
             texteCorr = '$\\mathcal{P}_\\text{rectangle} = 2 \\times (L + l)$'
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = 2 \\times (${texNombre(L)} + ${texNombre(l)})~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = 2 \\times ${texNombre(L + l)}~\\text{cm}$`
@@ -113,7 +113,7 @@ export default class PerimetresCalculMental extends Exercice {
         case 'cercleRayon':
           {
             const r = randint(2, 9)
-            texte = `Cercle de rayon $${texNombre(r)}$ cm`
+            texte = `Cercle de rayon $${texNombre(r)}~\\text{cm}$`
             texteCorr =
               '$\\mathcal{P}_\\text{cercle} = 2 \\times r \\times \\pi$'
             texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = 2 \\times ${texNombre(r)}~\\text{cm} \\times \\pi$`
@@ -130,14 +130,14 @@ export default class PerimetresCalculMental extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: `${2 * r}\\pi`,
-                options: { exclusifFactorisation: true },
+                options: { calculFormel: true },
               },
             })
           }
           break
         case 'cercleDiametre': {
           const d = randint(2, 9)
-          texte = `Cercle de diamètre $${texNombre(d)}$ cm`
+          texte = `Cercle de diamètre $${texNombre(d)}~\\text{cm}$`
           texteCorr = '$\\mathcal{P}_\\text{cercle} = d \\times \\pi$'
           texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = ${miseEnEvidence(`${texNombre(d)}\\pi`)}~\\text{cm}$`
           texteInteractif += ajouteChampTexteMathLive(
@@ -152,7 +152,7 @@ export default class PerimetresCalculMental extends Exercice {
           handleAnswers(this, i, {
             reponse: {
               value: `${d}\\pi`,
-              options: { exclusifFactorisation: true },
+              options: { calculFormel: true },
             },
           })
         }
