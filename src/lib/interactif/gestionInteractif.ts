@@ -61,8 +61,19 @@ export function isReponseComplexe(value: unknown): value is ReponseComplexe {
 
 // Ajout d'un type dédié pour les choix de QCM
 export type ChoixQcm = {
-  texte: string
-  statut?: boolean
+  texte: string // obligatoire
+  statut?: boolean | string | number // boolean pour les QCM interacif et string | number pour les QCM AMC
+  // Ci-dessous, utile que pour AMC
+  reponse?: {
+    texte?: string
+    valeur?: number
+    param?: {
+      digits?: number
+      decimals?: number
+      signe?: boolean
+      approx?: number
+    }
+  }
 }
 
 export function isClickFiguresArray(
