@@ -16,7 +16,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  "Déterminer la valeur manquante d'une série dont on connaît la moyenne."
+  "Déterminer la valeur manquante d'une série dont on connaît la moyenne"
 export const dateDePublication = '02/08/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

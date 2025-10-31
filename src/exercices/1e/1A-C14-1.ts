@@ -18,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "Déterminer le tableau de signes d'une fonction affine."
+export const titre = "Déterminer le tableau de signes d'une fonction affine"
 export const dateDePublication = '27/08/2025'
 
 export default class Auto1AC16a extends ExerciceQcmA {

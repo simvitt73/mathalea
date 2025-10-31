@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Développer une expression algébrique.'
+export const titre = 'Développer une expression algébrique'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'Soit $x$ un réel.<br>'
