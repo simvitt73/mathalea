@@ -28,7 +28,7 @@ export default class CalculLongueurThales extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteApres: 'cm' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
   }
 
   nouvelleVersion() {

@@ -806,7 +806,7 @@ export default class SujetCAN20215ieme extends Exercice {
               this,
               index,
               KeyboardType.clavierNumbers,
-              { texteApres: 'cm' },
+              { texteApres: '$\\text{ cm}$' },
             )
           }
           nbChamps = 1
@@ -825,7 +825,7 @@ export default class SujetCAN20215ieme extends Exercice {
                 this,
                 index,
                 KeyboardType.clavierNumbers,
-                { texteApres: 'cm$^2$' },
+                { texteApres: '$\\text{cm}^2$' },
               )
             } else {
               texte += ' $\\ldots\\text{ cm}^2$'
@@ -849,8 +849,8 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           if (choix === 'c') {
             reponse = a * 100
-            texte = `$${a}$ m$^2=$`
-            texteCorr = `$1$ m$^2= 100$ dm$^2$, donc $${a}$ m$^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
+            texte = `$${a}\\text{ m}^2=$`
+            texteCorr = `$1\\text{ m}^2= 100$ dm$^2$, donc $${a}\\text{ m}^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
@@ -866,7 +866,7 @@ export default class SujetCAN20215ieme extends Exercice {
           if (choix === 'd') {
             reponse = a / 100
             texte = `$${a}$ dm$^2=$`
-            texteCorr = `$1$ dm$^2= 0,01$ m$^2$, donc $${a}$ dm$^2=${a}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(a / 100))}$ m$^2$.`
+            texteCorr = `$1$ dm$^2= 0,01\\text{ m}^2$, donc $${a}$ dm$^2=${a}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(a / 100))}\\text{ m}^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
@@ -876,7 +876,7 @@ export default class SujetCAN20215ieme extends Exercice {
                 { texteApres: 'm$^2$' },
               )
             } else {
-              texte += '$\\ldots$ m$^2$'
+              texte += '$\\ldots\\text{ m}^2$'
             }
           }
 
@@ -1408,7 +1408,7 @@ export default class SujetCAN20215ieme extends Exercice {
                 this,
                 index,
                 KeyboardType.clavierNumbers,
-                { texteApres: 'cm' },
+                { texteApres: '$\\text{ cm}$' },
               )
             } else {
               texte += '<br>$CD=\\ldots\\text{ cm}$'
@@ -1457,7 +1457,7 @@ export default class SujetCAN20215ieme extends Exercice {
                 this,
                 index,
                 KeyboardType.clavierNumbers,
-                { texteApres: 'cm' },
+                { texteApres: '$\\text{ cm}$' },
               )
             } else {
               texte += '<br>$AE=\\ldots\\text{ cm}$'

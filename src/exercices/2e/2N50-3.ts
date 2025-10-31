@@ -131,12 +131,12 @@ export default class ModeliserEquations extends Exercice {
             const d = randint(15, c - 1) / 100
             c = c / 100
             texte = `  Une société de location de véhicules propose deux tarifs :<br>
-                $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par km parcouru ;<br>
-                $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d)}$ € par km parcouru ;<br>
+                $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par $\\text{km}$ parcouru ;<br>
+                $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d)}$ € par $\\text{km}$ parcouru ;<br>
           
-                       Pour quelle distance (arrondie au km près), les deux tarifs sont-ils égaux ?<br>
+                       Pour quelle distance (arrondie au $\\text{km}$ près), les deux tarifs sont-ils égaux ?<br>
                                       `
-            texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
+            texteCorr = `En notant $x$, le nombre de $\\text{km}$ parcourus, on a :<br>
                 $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
                 $\\bullet$  Avec le tarif B, le prix à payer est : $${reduireAxPlusB(d, b)}$ ;<br>
                           Les deux tarifs sont identiques lorsque : $${reduireAxPlusB(c, a)}=${reduireAxPlusB(d, b)}$.<br>

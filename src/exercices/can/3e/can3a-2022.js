@@ -281,7 +281,7 @@ export default class SujetCAN2022troisieme extends Exercice {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
             } else {
-              texte += '  $\\ldots$ m'
+              texte += '  $\\ldots\\text{ m}$'
             }
           } else {
             a = new Decimal(randint(1, 9)).div(10).plus(randint(1, 9))
@@ -846,9 +846,9 @@ export default class SujetCAN2022troisieme extends Exercice {
           b = new Decimal(60).div(a) // nombre de minutes de l'énoncé
           c = new Decimal(choice([30, 60, 90, 120]))
           reponse = c.div(a)
-          texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
+          texte = `Un véhicule se déplace à vitesse constante de $${c}\\text{ km/h}$. Combien de $\\text{km}$ parcourt-il en $${b}$ minutes ?`
           texteCorr = `Le véhicule parcourt $${texNombre(reponse, 0)}\\text{ km}$.<br>
-         En $${texNombre(b, 0)}$ minutes, il parcourt $${texNombre(a, 0)}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${texNombre(c, 0)}}{${texNombre(a, 0)}}=
+         En $${texNombre(b, 0)}$ minutes, il parcourt $${texNombre(a, 0)}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${texNombre(c, 0)}}{${texNombre(a, 0)}}=
           ${texNombre(reponse, 0)}\\text{ km}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

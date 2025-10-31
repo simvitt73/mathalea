@@ -137,7 +137,7 @@ $f(x) = ${texPrix(a)}x$ et $g(x) = ${texPrix(b)}x + ${texPrix(c)}$.`
       style: 'alpha',
     })
     const correction4 = listeCorrections4
-    const correction5 = `Le volume d'eau qui sera évacué pour réaliser la vidange est de :<br>$${L}\\times ${l}\\times ${texNombre(p, 1)}=${texNombre(L * l * p, 2)}$ m$^3$.`
+    const correction5 = `Le volume d'eau qui sera évacué pour réaliser la vidange est de :<br>$${L}\\times ${l}\\times ${texNombre(p, 1)}=${texNombre(L * l * p, 2)}\\text{ m}^3$.`
     const listeCorrections = createList({
       items: [
         listeCorrections1,

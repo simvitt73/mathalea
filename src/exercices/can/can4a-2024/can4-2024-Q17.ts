@@ -170,7 +170,10 @@ export default class NomExercice extends ExerciceSimple {
     if (!this.interactif) {
       this.question += '? $=\\ldots\\text{ cm}$'
     } else {
-      this.optionsChampTexte = { texteAvant: '? $=$', texteApres: 'cm' }
+      this.optionsChampTexte = {
+        texteAvant: '? $=$',
+        texteApres: '$\\text{ cm}$',
+      }
     }
   }
 }

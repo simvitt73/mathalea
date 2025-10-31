@@ -26,7 +26,10 @@ export default class NomExercice extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$AB=$' }
+    this.optionsChampTexte = {
+      texteApres: '$\\text{ cm}$',
+      texteAvant: '$AB=$',
+    }
 
     this.compare = functionCompare
     this.canOfficielle = false

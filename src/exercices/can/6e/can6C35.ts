@@ -164,7 +164,7 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canReponseACompleter = '$\\dots$ m'
         }
         if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
         }
 
         break

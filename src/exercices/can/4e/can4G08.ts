@@ -110,7 +110,9 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           })
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(this, i, ' ', { texteApres: 'cm$^2$' })
+            ajouteChampTexteMathLive(this, i, ' ', {
+              texteApres: '$\\text{cm}^2$',
+            })
           this.canEnonce = texte // 'Compléter'
           this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
           this.listeCanEnonces.push(this.canEnonce)
@@ -133,7 +135,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'cm' },
+              { texteApres: '$\\text{ cm}$' },
             )
           this.canEnonce = texte // 'Compléter'
           this.canReponseACompleter = '$\\ldots\\text{ cm}$'
@@ -157,7 +159,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'cm' },
+              { texteApres: '$\\text{ cm}$' },
             )
           this.canEnonce = texte // 'Compléter'
           this.canReponseACompleter = '$\\ldots\\text{ cm}$'
@@ -184,7 +186,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           )
           objets.push(
             texteParPosition(
-              `${texNombre(b)} m`,
+              `${stringNombre(b)} m`,
               milieu(A, D).x - 0.8,
               milieu(A, D).y,
             ),
@@ -204,7 +206,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               milieu(C, D).y + 0.5,
             ),
           )
-          texte = 'Quel est le périmètre de cette figure (en m) ?<br>'
+          texte = 'Quel est le périmètre de cette figure (en $\\text{m}) ?<br>'
           texte += mathalea2d(
             {
               xmin: -1,
@@ -230,10 +232,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'm' },
+              { texteApres: '$\\text{ m}$' },
             )
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ m'
+          this.canReponseACompleter = '$\\ldots\\text{ m}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
@@ -260,7 +262,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: 'cm$^2$' },
+                { texteApres: '$\\text{cm}^2$' },
               )
             this.canEnonce = texte // 'Compléter'
             this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
@@ -342,12 +344,12 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           )
           objets.push(
             texteParPosition(
-              `${texNombre(a)} m`,
+              `${stringNombre(a)} m`,
               milieu(B, C).x + 0.5,
               milieu(B, C).y + 0.5,
             ),
           )
-          texte = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. <br>
+          texte = ` L'aire du triangle $ABC$ est $${b}\\text{ m}^2$. <br>
         Donner la longueur $AC$.<br>`
           texte += mathalea2d(
             {
@@ -379,10 +381,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'm' },
+              { texteApres: '$\\text{ m}$' },
             )
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ m'
+          this.canReponseACompleter = '$\\ldots\\text{ m}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break

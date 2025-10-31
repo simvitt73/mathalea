@@ -218,11 +218,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           texte = `Si l'on parcourt $${a}\\text{ km}$ en $${b}$ min, la vitesse moyenne est de
              `
           if (b === 15) {
-            texteCorr = `$15$ min est le quart d'une heure. Donc la vitesse moyenne est $${a}\\times 4=${4 * a}$ km/h.`
+            texteCorr = `$15$ min est le quart d'une heure. Donc la vitesse moyenne est $${a}\\times 4=${4 * a}\\text{ km/h}$.`
 
             reponse = a * 4
           } else {
-            texteCorr = `$30$ min est la moitié d'une heure. Donc la vitesse moyenne est $${a}\\times 2=${2 * a}$ km/h.`
+            texteCorr = `$30$ min est la moitié d'une heure. Donc la vitesse moyenne est $${a}\\times 2=${2 * a}\\text{ km/h}$.`
 
             reponse = a * 2
           }
@@ -230,7 +230,7 @@ export default class SujetCAN2021Seconde extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'km/h'
           } else {
-            texte += '$\\ldots$ km/h'
+            texte += '$\\ldots\\text{ km/h}$'
           }
           nbChamps = 1
           break
@@ -428,18 +428,18 @@ export default class SujetCAN2021Seconde extends Exercice {
               a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
               reponse = a * 1000
-              texte = `$${texNombre(a, 1)}$ m$^3=$`
+              texte = `$${texNombre(a, 1)}\\text{ m}^3=$`
 
-              texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
+              texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 1)}\\text{ m}^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
             } else {
               a =
                 randint(11, 39, [10, 20, 30]) +
                 randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
               reponse = a * 1000
-              texte = `$${texNombre(a, 2)}$ m$^3=$`
+              texte = `$${texNombre(a, 2)}\\text{ m}^3=$`
 
-              texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
+              texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 2)}\\text{ m}^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
             }
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -849,7 +849,7 @@ export default class SujetCAN2021Seconde extends Exercice {
             if (choix === 'a') {
               a = choice([40, 60, 80, 100, 120])
               reponse = a / 4
-              texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+              texte = `Une voiture roule à la vitesse moyenne de $${a}\\text{ km/h}$.<br>
             Combien de kilomètres a-t-elle parcourus en $15$ minutes ?
         `
               texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la voiture aura parcouru $${a}\\div 4=${a / 4}\\text{ km}$.<br>
@@ -857,7 +857,7 @@ export default class SujetCAN2021Seconde extends Exercice {
             } else if (choix === 'b') {
               a = choice([60, 90, 120])
               reponse = a / 6
-              texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+              texte = `Une voiture roule à la vitesse moyenne de $${a}\\text{ km/h}$.<br>
                           Combien de kilomètres a-t-elle parcourus en $10$ minutes ?
                       `
               texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la voiture aura parcouru $${a}\\div 6=${a / 6}\\text{ km}$.
@@ -865,7 +865,7 @@ export default class SujetCAN2021Seconde extends Exercice {
             } else {
               a = choice([30, 60, 90, 120])
               reponse = a / 3
-              texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+              texte = `Une voiture roule à la vitesse moyenne de $${a}\\text{ km/h}$.<br>
                                         Combien de kilomètres a-t-elle parcourus en $20$ minutes ?
                                     `
               texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la voiture aura parcouru $${a}\\div 3=${a / 3}\\text{ km}$.

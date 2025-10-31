@@ -623,18 +623,18 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
             reponse = a * 1000
-            texte = `$${texNombre(a, 1)}$ m$^3=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
+            texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 1)}\\text{ m}^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
           } else {
             a =
               randint(11, 39, [10, 20, 30]) +
               randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
             reponse = a * 1000
-            texte = `$${texNombre(a, 2)}$ m$^3=$`
+            texte = `$${texNombre(a, 2)}\\text{ m}^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 2)}$ L`
+            texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 2)}\\text{ m}^3=${texNombre(a, 2)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 2)}$ L`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -677,7 +677,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = choice([40, 60, 80, 100, 120])
             const h = randint(1, 3)
             reponse = a * h + a / 4
-            texte = `Quelle est la distance parcourue en $${h}$ h $15$ min  à $${a}$ km/h ?
+            texte = `Quelle est la distance parcourue en $${h}$ h $15$ min  à $${a}\\text{ km/h}$ ?
         `
             texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la distance parcourue est  $${a}\\div 4=${a / 4}\\text{ km}$.<br>
             Donc en $${h}$ h $15$ min, la distance parcourue est $(${a * h}+${a / 4})\\text{ km}$, soit $${a * h + a / 4}\\text{ km}$.
@@ -686,7 +686,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = choice([60, 90, 120])
             const h = randint(1, 3)
             reponse = a * h + a / 6
-            texte = `Quelle est la distance parcourue en $${h}$ h $10$ min  à $${a}$ km/h ?
+            texte = `Quelle est la distance parcourue en $${h}$ h $10$ min  à $${a}\\text{ km/h}$ ?
                       `
             texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la distance parcourue est $${a}\\div 6=${a / 6}\\text{ km}$. <br>
             Donc en $${h}$ h $10$ min, la distance parcourue est $(${a * h}+${a / 6})\\text{ km}$, soit $${a * h + a / 6}\\text{ km}$.      `
@@ -694,7 +694,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = choice([30, 60, 90, 120])
             const h = randint(1, 3)
             reponse = a * h + a / 3
-            texte = `Quelle est la distance parcourue en $${h}$ h $20$ min  à $${a}$ km/h ?
+            texte = `Quelle est la distance parcourue en $${h}$ h $20$ min  à $${a}\\text{ km/h}$ ?
             `
             texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la distance parcourue est $${a}\\div 3=${a / 3}\\text{ km}$.<br>
             Donc en $${h}$ h $20$ min, la distance parcourue est $(${a * h}+${a / 3})\\text{ km}$, soit $${a * h + a / 3}\\text{ km}$.       `
@@ -848,7 +848,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             if (this.interactif) {
               texte += '<br>$BC=$'
               texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: 'cm',
+                texteApres: '$\\text{ cm}$',
               })
             }
             nbChamps = 1

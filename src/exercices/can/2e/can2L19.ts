@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '06/07/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
- export const dateDeModifImportante = '23/10/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '23/10/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -170,7 +170,7 @@ Puis en isolant  $F$, on obtient : $${miseEnEvidence('F = \\dfrac{9}{5}C + 32')}
         break
 
       case 4:
-        this.question = `Dans le vide, la distance $h$ (en m) parcourue par un corps en chute libre durant un temps $t$ (en s) est donnée par la formule : <br>`
+        this.question = `Dans le vide, la distance $h$ (en $\\text{m}) parcourue par un corps en chute libre durant un temps $t$ (en s) est donnée par la formule : <br>`
         this.question += texteCentre('$h=\\dfrac{1}{2}gt^2$')
         if (this.versionQcm) {
           this.question += `L'expression permettant, à partir de cette formule, d'exprimer $t$ est : `

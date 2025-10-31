@@ -71,7 +71,6 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
              Quelle est la probabilité d'obtenir une boule ${couleurDemandee} ? <br>
 
              ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "On donnera le résultat sous forme d'une fraction irréductible."}`
-    this.optionsChampTexte = { texteApres: '' }
 
     // Correction commune + partie spécifique selon format
     const correctionCommun = `Dans une situation d'équiprobabilité,

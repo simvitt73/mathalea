@@ -487,7 +487,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
               } else {
-                texte += '  $\\ldots$ m'
+                texte += '  $\\ldots\\text{ m}$'
               }
               this.listeCanEnonces.push('Compléter.')
               this.listeCanReponsesACompleter.push(

@@ -29,10 +29,10 @@ export default class Auto1C19 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
               Un abonnement annuel et $3{,}50$ € par mètre cube consommé. <br>
-              Une famille a payé une facture de $352{,}50$ € pour une consommation de $85$ m$^3$.<br>
+              Une famille a payé une facture de $352{,}50$ € pour une consommation de $85\\text{ m}^3$.<br>
             Le prix de l'abonnement est donné par le calcul :`
 
-    this.correction = `La facture s'élève à $352{,}50$ € pour une consommation de $85$ m$^3$.<br>
+    this.correction = `La facture s'élève à $352{,}50$ € pour une consommation de $85\\text{ m}^3$.<br>
                    En notant $a$ le montant de l'abonnement, on obtient : <br>
                    $\\begin{aligned}
                    a+3{,}50\\times 85 &=352{,}50\\\\
@@ -58,10 +58,10 @@ export default class Auto1C19 extends ExerciceQcmA {
           const fac = new Decimal(p).mul(n).add(abo)
           this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
                     un abonnement annuel et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
-                    Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}$ m$^3$.<br>
+                    Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
                   Le prix de l'abonnement est donné par le calcul :`
 
-          this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}$ m$^3$.<br>
+          this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
                          En notant $a$ le montant de l'abonnement, on obtient : <br>
                          $\\begin{aligned}
                          a+${texNombre(p, 2, true)}\\times ${n} &=${texNombre(fac, 3)}\\\\
@@ -86,10 +86,10 @@ export default class Auto1C19 extends ExerciceQcmA {
           const fac = new Decimal(p).mul(n).add(abo)
           this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
                     un abonnement annuel de $${texNombre(abo, 2, true)}$ € et un prix par mètre cube consommé. <br>
-                    Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}$ m$^3$.<br>
+                    Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
                   Le prix du mètre cube consommé est donné par le calcul :`
 
-          this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}$ m$^3$.<br>
+          this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
                          En notant $a$ le prix du mètre cube, on obtient : <br>
                          $\\begin{aligned}
                          ${texNombre(abo, 2)}+a\\times ${n} &=${texNombre(fac, 3)}\\\\

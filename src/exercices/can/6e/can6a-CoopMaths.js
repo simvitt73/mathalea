@@ -435,7 +435,7 @@ export default class CourseAuxNombres6e extends Exercice {
             this,
             q,
             KeyboardType.clavierDeBase,
-            { texteApres: 'm' },
+            { texteApres: '$\\text{ m}$' },
           )
           break
         case 'q23':
@@ -494,7 +494,7 @@ export default class CourseAuxNombres6e extends Exercice {
             this,
             q,
             KeyboardType.clavierDeBase,
-            { texteApres: 'km' },
+            { texteApres: '$\\text{ km}$' },
           )
           break
         case 'q28':

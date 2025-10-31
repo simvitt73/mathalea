@@ -37,9 +37,12 @@ export default class ChangerUnites extends ExerciceSimple {
     Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
     Ainsi  $${texNombre(2025)}\\text{ cm}=${miseEnEvidence(texNombre(2025 / 100, 2))}\\text{ m}$.  `
       if (!this.interactif) {
-        this.question += '$=\\ldots$ m'
+        this.question += '$=\\ldots\\text{ m}$'
       }
-      this.optionsChampTexte = { texteAvant: ' $=$', texteApres: ' m' }
+      this.optionsChampTexte = {
+        texteAvant: ' $=$',
+        texteApres: '$\\text{ m}$',
+      }
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = `$${texNombre(2025)}\\text{ cm}$  $=$  $~~\\ldots~~\\text{ m}$`
     } else {

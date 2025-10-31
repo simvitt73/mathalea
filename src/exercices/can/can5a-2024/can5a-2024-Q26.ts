@@ -50,11 +50,11 @@ export default class NomExercice extends ExerciceSimple {
       }
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ km'
+    this.canReponseACompleter = '$\\ldots\\text{ km}$'
     if (!this.interactif) {
-      this.question += '$\\ldots$ km'
+      this.question += '$\\ldots\\text{ km}$'
     } else {
-      this.optionsChampTexte = { texteApres: 'km' }
+      this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
     }
   }
 }

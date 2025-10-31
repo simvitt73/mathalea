@@ -34,7 +34,7 @@ export default class ProblemesDeVitesse extends ExerciceSimple {
     const b = 60 / a // nombre de minutes de l'énoncé
     const c = choice([30, 60, 90, 120])
     this.reponse = c / a
-    this.question = `Une voiture roule à $${c}$ km/h. <br>
+    this.question = `Une voiture roule à $${c}\\text{ km/h}$. <br>
     
     Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
     this.correction = `La voiture parcourt $${miseEnEvidence(c / a)}\\text{ km}$.`
@@ -42,7 +42,7 @@ export default class ProblemesDeVitesse extends ExerciceSimple {
       `<br> Mentalement : <br>
     On cherche combien de "$${b}$ minutes" il y a dans $1$ heure soit $60$ minutes. Il y en a $${a}$,
     car $${a}\\times ${b}=60$.<br>
-    Cela signifie qu'en $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
+    Cela signifie qu'en $${b}$ minutes, elle parcourt $${a}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
     ${c / a}\\text{ km}$.`,
       'blue',
     )

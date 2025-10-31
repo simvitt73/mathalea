@@ -366,7 +366,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             this,
             indiceInteractif,
             KeyboardType.clavierDeBase,
-            { texteApres: ' m' },
+            { texteApres: '$\\text{ m}$' },
           )
 
           texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600\\text{ m}$, quelle est la durée totale du film ?`
@@ -385,7 +385,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             reponse: { value: ((60 + min) * 30).toFixed(2) },
           })
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, '', {
-            texteApres: ' m',
+            texteApres: '$\\text{ m}$',
           })
 
           texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600\\text{ m}$ ?`

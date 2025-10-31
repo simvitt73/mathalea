@@ -852,7 +852,7 @@ export default class SujetCAN20213ieme extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
           } else {
-            texte += '(en m)'
+            texte += '(en $\\text{m})'
           }
           nbChamps = 1
           break

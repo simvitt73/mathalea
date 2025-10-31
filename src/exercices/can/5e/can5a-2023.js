@@ -539,17 +539,17 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           if (choice([true, false])) {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).mul(100)
-            texte = `$${texNombre(a, 1)}$ m$^2$  $=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^2$  $=$`
 
             texteCorr = `
-        Comme $1$ m$^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}$ m$^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
+        Comme $1\\text{ m}^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}\\text{ m}^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'dm$^2$'
             } else {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
-            this.listeCanEnonces.push(`$${texNombre(a, 1)}$ m$^2$  $=$`)
+            this.listeCanEnonces.push(`$${texNombre(a, 1)}\\text{ m}^2$  $=$`)
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
               '$\\ldots\\Aire[dm]{}$'
           } else {
@@ -558,12 +558,12 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte = `$${texNombre(a, 1)}$ dm$^2$  $=$`
 
             texteCorr = `
-        Comme $1$ dm$^2$ $=0,01$ m$^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(reponse, 3))}$ m$^2$. `
+        Comme $1$ dm$^2$ $=0,01\\text{ m}^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(reponse, 3))}\\text{ m}^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
             } else {
-              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              texte += context.isHtml ? '  $\\ldots\\text{ m}^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ dm$^2$  $=$`)
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =

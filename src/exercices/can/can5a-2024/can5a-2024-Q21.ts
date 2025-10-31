@@ -27,10 +27,10 @@ export default class NomExercice extends ExerciceSimple {
   nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 2500
-      this.question = '$25$ m$^2=$ '
-      this.correction = `$1$ m$^2= 100$ dm$^2$, donc $25$ m$^2=25\\times 100$ dm$^2=${miseEnEvidence(texNombre(2500))}$ dm$^2$`
+      this.question = '$25\\text{ m}^2=$ '
+      this.correction = `$1\\text{ m}^2= 100$ dm$^2$, donc $25\\text{ m}^2=25\\times 100$ dm$^2=${miseEnEvidence(texNombre(2500))}$ dm$^2$`
       this.canEnonce = 'Complète.'
-      this.canReponseACompleter = '$25$ m$^2=\\ldots$ dm$^2$'
+      this.canReponseACompleter = '$25\\text{ m}^2=\\ldots$ dm$^2$'
       if (!this.interactif) {
         this.question += ' $\\ldots$ dm$^2$'
       } else {
@@ -48,7 +48,7 @@ export default class NomExercice extends ExerciceSimple {
         if (!this.interactif) {
           this.question += ' $\\ldots\\text{ cm}^2$'
         } else {
-          this.optionsChampTexte = { texteApres: 'cm$^2$' }
+          this.optionsChampTexte = { texteApres: '$\\text{cm}^2$' }
         }
       }
       if (choix === 'b') {
@@ -65,10 +65,10 @@ export default class NomExercice extends ExerciceSimple {
       }
       if (choix === 'c') {
         this.reponse = a * 100
-        this.question = `$${a}$ m$^2=$`
-        this.correction = `$1$ m$^2= 100$ dm$^2$, donc $${a}$ m$^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
+        this.question = `$${a}\\text{ m}^2=$`
+        this.correction = `$1\\text{ m}^2= 100$ dm$^2$, donc $${a}\\text{ m}^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
         this.canEnonce = 'Complète.'
-        this.canReponseACompleter = `$${a}$ m$^2=\\ldots$ dm$^2$`
+        this.canReponseACompleter = `$${a}\\text{ m}^2=\\ldots$ dm$^2$`
         if (!this.interactif) {
           this.question += '$\\ldots$ dm$^2$'
         } else {
@@ -78,11 +78,11 @@ export default class NomExercice extends ExerciceSimple {
       if (choix === 'd') {
         this.reponse = a / 100
         this.question = `$${a}$ dm$^2=$`
-        this.correction = `$1$ dm$^2= 0,01$ m$^2$, donc $${a}$ dm$^2=${a}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(a / 100))}$ m$^2$.`
+        this.correction = `$1$ dm$^2= 0,01\\text{ m}^2$, donc $${a}$ dm$^2=${a}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(a / 100))}\\text{ m}^2$.`
         this.canEnonce = 'Complète.'
-        this.canReponseACompleter = `$${a}$ dm$^2=\\ldots$ m$^2$`
+        this.canReponseACompleter = `$${a}$ dm$^2=\\ldots\\text{ m}^2$`
         if (!this.interactif) {
-          this.question += '$\\ldots$ m$^2$'
+          this.question += '$\\ldots\\text{ m}^2$'
         } else {
           this.optionsChampTexte = { texteApres: 'm$^2$' }
         }

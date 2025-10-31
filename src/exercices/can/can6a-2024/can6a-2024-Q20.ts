@@ -19,7 +19,7 @@ export default class AbscisseEnDemis extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
 
-    this.optionsChampTexte = { texteApres: ' km' }
+    this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
     this.canOfficielle = false
   }
 
@@ -40,7 +40,7 @@ export default class AbscisseEnDemis extends ExerciceSimple {
     this.canEnonce = this.question
     this.question += `En $${String(h)}$ h $30$ min elle parcourt `
     if (!this.interactif) {
-      this.question += '$\\ldots\\ldots$ km'
+      this.question += '$\\ldots\\ldots\\text{ km}$'
     }
     this.canReponseACompleter = `En $${String(h)}$h$30$min, elle parcourt $\\ldots\\ldots\\text{ km}$.`
     this.reponse = String(distance)

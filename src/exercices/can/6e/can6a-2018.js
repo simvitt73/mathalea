@@ -1000,8 +1000,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
         case 28:
           a = randint(2, 9)
-          texte = `Complète : $${a}$ m$^3=$ `
-          texteCorr = `$1$ m$^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
+          texte = `Complète : $${a}\\text{ m}^3=$ `
+          texteCorr = `$1\\text{ m}^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}\\text{ m}^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1011,7 +1011,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += '$\\ldots$ L'
           }
           this.canEnonce = 'Complète. '
-          this.canReponseACompleter = `$${a}$ m$^3=\\ldots$ L`
+          this.canReponseACompleter = `$${a}\\text{ m}^3=\\ldots$ L`
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1

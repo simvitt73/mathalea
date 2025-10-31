@@ -248,7 +248,7 @@ export default class DivisionDecimale extends Exercice {
             this,
             i,
             KeyboardType.clavierNumbers,
-            { texteAvant: sp(10), texteApres: ' km' },
+            { texteAvant: sp(10), texteApres: '$\\text{ km}$' },
           )
           handleAnswers(this, i, {
             reponse: { value: q, options: { nombreDecimalSeulement: true } },

@@ -319,7 +319,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '  ') + 'm'
             } else {
-              texte += '  $\\ldots$ m'
+              texte += '  $\\ldots\\text{ m}$'
             }
           } else {
             a = randint(1, 9) + randint(1, 9) / 10

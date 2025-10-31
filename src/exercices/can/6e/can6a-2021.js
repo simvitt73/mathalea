@@ -350,7 +350,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           } else {
             texte += '$\\ldots\\text{ cm}$'
@@ -654,9 +654,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ km}$',
+              })
           } else {
-            texte += '$\\ldots$ km'
+            texte += '$\\ldots\\text{ km}$'
           }
 
           nbChamps = 1
@@ -679,7 +681,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ km}$',
+              })
           }
 
           nbChamps = 1
@@ -744,7 +748,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: 'cm',
+                texteApres: '$\\text{ cm}$',
               })
             } else {
               texte += '$\\ldots\\text{ cm}$'
@@ -762,7 +766,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 texteApres: 'm',
               })
             } else {
-              texte += '$\\ldots$ m'
+              texte += '$\\ldots\\text{ m}$'
             }
             texteCorr = `Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
             Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
@@ -832,7 +836,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ cm}$',
+              })
           } else {
             texte += '  $\\mathscr{P}=\\ldots\\text{ cm}$'
           }

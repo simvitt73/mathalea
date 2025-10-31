@@ -756,12 +756,12 @@ export default class SujetCAN2022Premiere extends Exercice {
             texte = `Si l'on parcourt $${b}\\text{ km}$ en ${a[0]} minutes, alors la vitesse moyenne est : `
             texteCorr = `${a[1]} minutes représentent $\\dfrac{1}{${a[3]}}$ heure.<br>
           Donc en $1$ heure, on parcourt $${b}\\times ${a[3]}=${b * a[3]}\\text{ km}$. <br>
-          La vitesse moyenne est donc $${b * a[3]}$ km/h. `
+          La vitesse moyenne est donc $${b * a[3]}\\text{ km/h}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'km/h'
             } else {
-              texte += ' $\\ldots$ km/h'
+              texte += ' $\\ldots\\text{ km/h}$'
             }
             nbChamps = 1
           }
@@ -1135,8 +1135,8 @@ export default class SujetCAN2022Premiere extends Exercice {
             if (choice([true, false])) {
               a = (randint(1, 12) * 10 + randint(1, 9)) / 10
               reponse = a * 1000
-              texte = ` $${texNombre(a, 1)}$ m$^3=$`
-              texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${texNombre(reponse, 0)}$ L.`
+              texte = ` $${texNombre(a, 1)}\\text{ m}^3=$`
+              texteCorr = `Comme $1\\text{ m}^3$= $1000$ L, $${texNombre(a, 1)}\\text{ m}^3=${texNombre(reponse, 0)}$ L.`
               setReponse(this, index, reponse.toFixed(0), {
                 formatInteractif: 'calcul',
               })
@@ -1149,14 +1149,14 @@ export default class SujetCAN2022Premiere extends Exercice {
               a = (randint(1, 12) * 10 + randint(1, 9)) / 10
               reponse = a / 1000
               texte = ` $${texNombre(a, 1)}$ L $=$`
-              texteCorr = `Comme $1$ L= $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${texNombre(reponse, 4)}$  m$^3$.`
+              texteCorr = `Comme $1$ L= $0,001\\text{ m}^3$, $${texNombre(a, 1)}$ L $=${texNombre(reponse, 4)}$  m$^3$.`
               setReponse(this, index, reponse.toFixed(4), {
                 formatInteractif: 'calcul',
               })
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, index, '') + ' m$^3$'
               } else {
-                texte += ' $\\ldots$ m$^3$'
+                texte += ' $\\ldots\\text{ m}^3$'
               }
             }
 
@@ -1473,7 +1473,8 @@ export default class SujetCAN2022Premiere extends Exercice {
                       L'aire est donc $ ${a}\\times ${a}=${a * a}\\text{ cm}^2$. `
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
+                texte +=
+                  ajouteChampTexteMathLive(this, index, '') + '$\\text{cm}^2$'
               }
             }
 

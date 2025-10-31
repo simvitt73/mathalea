@@ -140,7 +140,7 @@ export default class auto1AF2 extends ExerciceQcmA {
     // fixeBordures(objetsEnonce))
     this.correction = `L'inéquation est vérifiée lorsque $x$ et $f(x)$ sont de même signe, c'est-à-dire lorsque $x$ et $f(x)$ sont tous les deux positifs ou tous les deux négatifs.<br>
     Ici,  $x_A$ et $f(x_A)$ sont tous les deux négatifs. Aussi, $x_R$ et $f(x_R)$ sont tous les deux positifs.<br>
-    L'inéquation est donc vérifiée pour $${miseEnEvidence('x_A \\text { et } x_R')}$.`
+    L'inéquation est donc vérifiée pour $${miseEnEvidence('x_A \\text{ et } x_R')}$.`
 
     this.reponses = [
       '$x_A$ et $x_R$',

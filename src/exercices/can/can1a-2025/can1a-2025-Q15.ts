@@ -43,17 +43,17 @@ export default class Can2025N5Q15 extends ExerciceSimple {
           [2, 15],
         ])
     const a = kmMin[1]
-    const km = kmMin[0]
+    const $\\text{km}$ = kmMin[0]
     this.reponse = texNombre((km * 60) / a, 0)
     this.question = `${quidam} a couru $${km}\\text{ km}$ en $${a}$ minutes, sa vitesse moyenne est de   `
     if (!this.interactif) {
-      this.question += '$\\ldots$ km/h'
+      this.question += '$\\ldots\\text{ km/h}$'
     }
     this.correction = `$${a}\\times ${texNombre(60 / a, 0)}= 60$ min $=1$ h<br>
-    ${quidam} court $${texNombre(60 / a, 0)}$ fois plus de km en $1$ heure.<br>
+    ${quidam} court $${texNombre(60 / a, 0)}$ fois plus de $\\text{km}$ en $1$ heure.<br>
    $${km}\\times ${texNombre(60 / a, 0)}=${texNombre((km * 60) / a, 0)}$<br>
-   ${quidam} court à $${miseEnEvidence(`${texNombre((km * 60) / a, 0)}`)}$ km/h.`
+   ${quidam} court à $${miseEnEvidence(`${texNombre((km * 60) / a, 0)}`)}\\text{ km/h}$.`
     this.canEnonce = `${quidam} a couru $${km}\\text{ km}$ en $${a}$ minutes, sa vitesse moyenne est de   `
-    this.canReponseACompleter = '$\\ldots$ km/h'
+    this.canReponseACompleter = '$\\ldots\\text{ km/h}$'
   }
 }

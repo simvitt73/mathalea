@@ -133,7 +133,6 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
              Quelle est la probabilité d'obtenir ${article} ${itemSing} ${couleurDemandee} ? <br>
 
              ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "On donnera le résultat sous forme d'une fraction irréductible."}`
-    this.optionsChampTexte = { texteApres: '' }
 
     // Correction commune + partie spécifique selon format
     this.correction = `Dans une situation d'équiprobabilité,

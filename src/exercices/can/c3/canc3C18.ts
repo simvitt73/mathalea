@@ -60,8 +60,8 @@ Combien lui reste-t-il de $\\text{ km}$ à parcourir ?`
            $${a} -${b}=${this.reponse}$ <br>
           Le cycliste doit encore parcourir $${miseEnEvidence(this.reponse)}\\text{ km}$.`
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\ldots$ Km'
-          this.optionsChampTexte = { texteApres: 'Km' }
+          this.canReponseACompleter = '$\\ldots\\text{ km}$'
+          this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
         }
         break
       case 3:

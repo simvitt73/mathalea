@@ -43,7 +43,10 @@ export default class PetitsProblemeReste2 extends ExerciceSimple {
           this.correction = `Les $${nbre}$  morceaux de fil ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}\\text{ m}$.<br>
       Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}\\text{ m}$.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' }
+            this.optionsChampTexte = {
+              texteAvant: '<br>',
+              texteApres: '$\\text{ m}$',
+            }
           }
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ m'
@@ -62,7 +65,10 @@ Quelle longueur de tuyau lui reste-t-il ?`
           this.correction = `Les $${nbre}$  sections de tuyau ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}\\text{ m}$.<br>
       Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}\\text{ m}$.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' }
+            this.optionsChampTexte = {
+              texteAvant: '<br>',
+              texteApres: '$\\text{ m}$',
+            }
           }
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ m'

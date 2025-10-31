@@ -1197,20 +1197,22 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             c = choice([30, 60, 90, 120])
           }
           reponse = arrondi(c / a, 0)
-          texte = `Une voiture roule à $${c}$ km/h. <br>Combien de kilomètres
+          texte = `Une voiture roule à $${c}\\text{ km/h}$. <br>Combien de kilomètres
         parcourt-elle en $${b}$ min à cette vitesse ?`
           texteCorr = `En $1$ h la voiture parcourt $${c}\\text{ km}$.<br>
-       En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
+       En $${b}$ minutes, elle parcourt $${a}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
         ${miseEnEvidence(texNombre(c / a, 0))}\\text{ km}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ km}$',
+              })
           }
 
-          this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
+          this.listeCanEnonces.push(`Une voiture roule à $${c}\\text{ km/h}$.`)
           this.listeCanReponsesACompleter.push(
             `Elle parcourt $\\ldots\\text{ km}$ en $${b}$ min à cette vitesse.`,
           )
@@ -1233,7 +1235,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             e = randint(1, 3)
           }
           reponse = arrondi(d * c + (e * c) / a, 0)
-          texte = `Une voiture roule à  $${c}$ km/h.<br> Combien de kilomètres parcourt-elle
+          texte = `Une voiture roule à  $${c}\\text{ km/h}$.<br> Combien de kilomètres parcourt-elle
         en $${d}$ h et $${b * e}$ min à cette vitesse ?`
           texteCorr = `
         En $${d}$ h, elle parcourt $${d * c}\\text{ km}$.<br>
@@ -1244,9 +1246,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ km}$',
+              })
           }
-          this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
+          this.listeCanEnonces.push(`Une voiture roule à $${c}\\text{ km/h}$.`)
           this.listeCanReponsesACompleter.push(
             `Elle parcourt $\\ldots\\text{ km}$ en $${d}$ h et $${b * e}$ min à cette vitesse.`,
           )
@@ -1778,7 +1782,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push('$\\ldots\\text{ cm}$')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           }
           nbChamps = 1

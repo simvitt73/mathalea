@@ -62,7 +62,7 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
             this.question += '..... m'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}\\text{ cm}$ $= \\dots\\text{ m}$`
           this.correction = `$${texNombre(a)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100))}\\text{ m}$.`
@@ -84,7 +84,7 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
             this.question += ' .... km'
           }
 
-          this.optionsChampTexte = { texteApres: ' km' }
+          this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $= \\dots$ km`
           this.correction = `$${texNombre(a)}\\text{ m}$ $=${miseEnEvidence(texNombre(a / 1000))}$ km`
@@ -103,7 +103,7 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
             this.question += ' .... m'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}\\text{ km}$ $= \\dots\\text{ m}$`
           this.correction = `$${texNombre(a)}$ km$=${miseEnEvidence(texNombre(a * 1000))}\\text{ m}$`

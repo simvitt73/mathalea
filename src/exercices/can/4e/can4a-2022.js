@@ -289,7 +289,7 @@ export default class SujetCAN2022quatrieme extends Exercice {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm'
             } else {
-              texte += '  $\\ldots$ m'
+              texte += '  $\\ldots\\text{ m}$'
             }
           } else {
             a = randint(1, 9) + randint(1, 9) / 10
@@ -810,9 +810,9 @@ export default class SujetCAN2022quatrieme extends Exercice {
           b = arrondi(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
           reponse = c / a
-          texte = `Un véhicule roule à $${c}$ km/h. Quelle distance parcourt-il en $${b}$ minutes ?`
+          texte = `Un véhicule roule à $${c}\\text{ km/h}$. Quelle distance parcourt-il en $${b}$ minutes ?`
           texteCorr = `Le véhicule parcourt $${c / a}\\text{ km}$.<br>
-             En $${b}$ minutes, il parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
+             En $${b}$ minutes, il parcourt $${a}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
               ${c / a}\\text{ km}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

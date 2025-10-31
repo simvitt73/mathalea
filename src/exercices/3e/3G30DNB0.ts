@@ -224,7 +224,7 @@ On rappelle la volume de formule :
         $V = \\mathscr{A}_{ABC} \\times CF$<br>
         $V = \\dfrac{AC \\times BC}{2} \\times CF$<br>
         $V = \\dfrac{${texNombre(hauteur, 2)} \\times ${texNombre(base, 2)}}{2} \\times ${texNombre(profondeur, 1)}$<br>
-        $V = ${texNombre((hauteur * base * profondeur) / 2, 5)}$ m$^3$`,
+        $V = ${texNombre((hauteur * base * profondeur) / 2, 5)}\\text{ m}^3$`,
       ],
       style: 'nombres',
     })

@@ -36,7 +36,7 @@ export default class AgrandissementReduction extends ExerciceSimple {
 
         Par quelle valeur est multipliée son aire ?
         `
-        this.optionsChampTexte = { texteApres: '' }
+
         this.reponse = a * a
         this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${a}^2=${a ** 2}$.<br>
         `
@@ -48,7 +48,7 @@ export default class AgrandissementReduction extends ExerciceSimple {
 
         Par quelle valeur ont été multipliées les longueurs de ce quadrilatère ?
         `
-        this.optionsChampTexte = { texteApres: '' }
+
         this.reponse = a
         this.correction = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$, soit ici par $\\sqrt{${b}}=${a}$.<br>
         `

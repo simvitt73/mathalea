@@ -334,7 +334,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
             ng = np * cm
             pp = np * randint(40, 60)
             pg = cm * pp
-            texte = `${prenom()} peint une surface de $${stringNombre(pg, 0)}$ m$^2$ en $${ng}$ jours. Quelle surface serait peinte en $${np}$ ${np === 1 ? 'jour' : 'jours'} ? `
+            texte = `${prenom()} peint une surface de $${stringNombre(pg, 0)}\\text{ m}^2$ en $${ng}$ jours. Quelle surface serait peinte en $${np}$ ${np === 1 ? 'jour' : 'jours'} ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [
@@ -534,7 +534,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
               np / 5,
             ])
             pg = pu * ng
-            texte = `${prenom()} peint une surface de $${stringNombre(pp, 0)}$ m$^2$ en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
+            texte = `${prenom()} peint une surface de $${stringNombre(pp, 0)}\\text{ m}^2$ en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [
