@@ -219,7 +219,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
             },
             objets,
           )
-          texteCorr = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(a + b + c + d)}$ m.<br>`
+          texteCorr = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(a + b + c + d)}\\text{ m}$.<br>`
           reponse = a + b + c + d
           handleAnswers(this, i, {
             reponse: { value: reponse, compare: functionCompare },
@@ -365,7 +365,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           )
           texteCorr = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
-          $AC=\\dfrac{2\\times ${b}}{${a}}=${miseEnEvidence(new FractionEtendue(2 * b, a).simplifie().texFraction)}$ m.
+          $AC=\\dfrac{2\\times ${b}}{${a}}=${miseEnEvidence(new FractionEtendue(2 * b, a).simplifie().texFraction)}\\text{ m}$.
       <br>`
           reponse = (2 * b) / a
 

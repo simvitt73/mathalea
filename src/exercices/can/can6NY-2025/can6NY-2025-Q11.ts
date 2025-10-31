@@ -34,8 +34,8 @@ export default class ChangerUnites extends ExerciceSimple {
       this.question = `$${texNombre(2025)}\\text{ cm}$  `
 
       this.correction = `
-    Comme $1$ m $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01$ m.<br>
-    Ainsi  $${texNombre(2025)}\\text{ cm}=${miseEnEvidence(texNombre(2025 / 100, 2))}$ m.  `
+    Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
+    Ainsi  $${texNombre(2025)}\\text{ cm}=${miseEnEvidence(texNombre(2025 / 100, 2))}\\text{ m}$.  `
       if (!this.interactif) {
         this.question += '$=\\ldots$ m'
       }
@@ -44,14 +44,14 @@ export default class ChangerUnites extends ExerciceSimple {
       this.canReponseACompleter = `$${texNombre(2025)}\\text{ cm}$  $=$  $~~\\ldots~~$ m`
     } else {
       this.reponse = 202500
-      this.question = `$${texNombre(2025)}$ m   `
-      this.correction = ` Comme $1$ m $=100\\text{ cm}$,  alors $${texNombre(2025)}$ m$${sp()}=${sp()}${miseEnEvidence(texNombre(202500))}\\text{ cm}$.`
+      this.question = `$${texNombre(2025)}\\text{ m}$   `
+      this.correction = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  alors $${texNombre(2025)}$ m$${sp()}=${sp()}${miseEnEvidence(texNombre(202500))}\\text{ cm}$.`
       if (!this.interactif) {
         this.question += '$=\\ldots\\text{ cm}$'
       }
       this.optionsChampTexte = { texteAvant: ' $=$', texteApres: ' cm' }
       this.canEnonce = 'Compléter.'
-      this.canReponseACompleter = `$${texNombre(2025)}$ m  $=$  $\\ldots\\text{ cm}$`
+      this.canReponseACompleter = `$${texNombre(2025)}\\text{ m}$  $=$  $\\ldots\\text{ cm}$`
     }
   }
 }

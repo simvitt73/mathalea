@@ -845,8 +845,8 @@ export default class SujetCAN20213ieme extends Exercice {
           reponse = a * 60 * b + 30 * a
           texte = `Un véhicule se déplace à une vitesse de $${a}$ m/s.<br>
           Quelle distance parcourt-il en  $${b}$ min $30$ s ? `
-          texteCorr = `En $1$ minute, il parcourt $60\\times ${a}=${60 * a}$ m et en $30$ s, $${60 * a}\\div 2=${30 * a}$.<br>
-          En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}$ m.`
+          texteCorr = `En $1$ minute, il parcourt $60\\times ${a}=${60 * a}\\text{ m}$ et en $30$ s, $${60 * a}\\div 2=${30 * a}$.<br>
+          En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}\\text{ m}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

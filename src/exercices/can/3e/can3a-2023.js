@@ -2078,10 +2078,10 @@ export default class SujetCAN2023troisieme extends Exercice {
           a = randint(1, 6) * 1000
           b = choice([6, 12, 15, 20, 10])
           reponse = new Decimal(60 * a).div(1000 * b)
-          texte = `Zoé a parcouru $${texNombre(a)}$ m en $${b}$ minutes.<br>
+          texte = `Zoé a parcouru $${texNombre(a)}\\text{ m}$ en $${b}$ minutes.<br>
               Quelle est sa vitesse moyenne en km/h ?`
           texteCorr = `$1$ heure $=${texNombre(new Decimal(60).div(b))}\\times ${b}$ min. <br>
-              Donc en une heure, Zoé parcourt $${texNombre(new Decimal(60).div(b))}\\times ${texNombre(a)}$ m $= ${miseEnEvidence(texNombre(reponse * 1000, 0))}$ m, soit $${texNombre(reponse, 0)}$ km.<br>
+              Donc en une heure, Zoé parcourt $${texNombre(new Decimal(60).div(b))}\\times ${texNombre(a)}\\text{ m}$ $= ${miseEnEvidence(texNombre(reponse * 1000, 0))}\\text{ m}$, soit $${texNombre(reponse, 0)}\\text{ km}$.<br>
               Sa vitesse moyenne est donc $${miseEnEvidence(texNombre(reponse))}$ km/h.
               `
           this.listeCanEnonces.push(texte)

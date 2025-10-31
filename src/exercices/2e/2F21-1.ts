@@ -189,7 +189,7 @@ Avec la formule B, ${P} pourra faire au maximum $${new Decimal(T - c).div(d).flo
 
             texteCorr = createList({
               items: [
-                `   On ne peut pas faire plus de $${texNombre(km)}$ km durant le week-end, ainsi l'ensemble de 
+                `   On ne peut pas faire plus de $${texNombre(km)}\\text{ km}$ durant le week-end, ainsi l'ensemble de 
                   définition de la fonction $T$ est $[0\\,;\\,${km}]$.`,
                 ` Le tarif  comprend un forfait fixe et un tarif par km parcouru. <br>
           Ainsi, le montant de la location est  : 
@@ -202,7 +202,7 @@ x&=\\dfrac{${texNombre(new Decimal(prix).sub(a), 2)}}{${texNombre(c, 2)}}${sp(8)
 x&=${texNombre(d, 0)}
 \\end{aligned}$<br>
 L'équation a pour solution $${texNombre(d, 2)}$.<br>
-On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2)}$ €, le client a parcouru $${texNombre(d, 0)}$ km durant le week-end.`,
+On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2)}$ €, le client a parcouru $${texNombre(d, 0)}\\text{ km}$ durant le week-end.`,
               ],
               style: 'nombres',
             })
@@ -223,7 +223,7 @@ On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2
                 " Donner l'expression de $d(v)$ en fonction de $v$. ",
                 ` Calculer au mètre près, la distance de freinage de la voiture si elle roule à $${v}$ km/h.`,
                 ' La distance de freinage est-elle proportionnelle à la vitesse ?',
-                `  La distance de freinage de cette voiture a été de $${b}$ m. Quelle était sa vitesse en km/h arrondie à l'unité ? `,
+                `  La distance de freinage de cette voiture a été de $${b}\\text{ m}$. Quelle était sa vitesse en km/h arrondie à l'unité ? `,
               ],
               style: 'nombres',
             })
@@ -241,7 +241,7 @@ v^2&= ${texNombre(new Decimal(b).mul(a), 2)}\\\\
 v&= -\\sqrt{${texNombre(new Decimal(b).mul(a), 2)}} ${sp(8)} \\text{ou} ${sp(8)} v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}${sp(8)}\\text{(deux nombres ont pour carré } ${texNombre(new Decimal(b).mul(a), 2)} \\text{)}
 \\end{aligned}$<br>
 Puisque $v$ est un nombre positif, on en déduit $v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}\\simeq ${new Decimal(b).mul(a).sqrt().round()}$.<br>
-Lorsque la distance de freinage de la voiture est $${b}$ m, sa vitesse est alors d'environ $${new Decimal(b).mul(a).sqrt().round()}$ km/h.<br>
+Lorsque la distance de freinage de la voiture est $${b}\\text{ m}$, sa vitesse est alors d'environ $${new Decimal(b).mul(a).sqrt().round()}$ km/h.<br>
 `,
               ],
               style: 'nombres',

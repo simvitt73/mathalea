@@ -235,8 +235,8 @@ export default class CourseAuxNombresCM extends Exercice {
           b = randint(1, 2) * 10 + randint(1, 5)
           c = randint(1, 2) * 10 + randint(1, 9)
           d = personne()
-          texte = `${d.prenom} participe à une course par étapes. La première étape fait $${a}$ km, la deuxième fait $${b}$ km et la dernière fait $${c}$ km.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
-          texteCorr = `${d.prenom} a parcouru : $${a} + ${b} + ${c} = ${a + b + c}$ km.`
+          texte = `${d.prenom} participe à une course par étapes. La première étape fait $${a}\\text{ km}$, la deuxième fait $${b}\\text{ km}$ et la dernière fait $${c}\\text{ km}$.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
+          texteCorr = `${d.prenom} a parcouru : $${a} + ${b} + ${c} = ${a + b + c}\\text{ km}$.`
           setReponse(this, i, arrondi(a + b + c), {
             formatInteractif: 'calcul',
           })
@@ -400,7 +400,7 @@ export default class CourseAuxNombresCM extends Exercice {
           c = arrondi(a + b)
           switch (randint(1, 3)) {
             case 1:
-              texte = `On a soudé ensemble une barre de $${texNombre(a)}$ m et une autre de $${texNombre(b)}$ m.<br>Combien de mètres fait l'assemblage ?`
+              texte = `On a soudé ensemble une barre de $${texNombre(a)}\\text{ m}$ et une autre de $${texNombre(b)}\\text{ m}$.<br>Combien de mètres fait l'assemblage ?`
               texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(c)}$`
               break
             case 2:

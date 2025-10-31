@@ -215,7 +215,7 @@ export default class SujetCAN2021Seconde extends Exercice {
           a = randint(3, 15)
           b = choice([15, 30])
 
-          texte = `Si l'on parcourt $${a}$ km en $${b}$ min, la vitesse moyenne est de
+          texte = `Si l'on parcourt $${a}\\text{ km}$ en $${b}$ min, la vitesse moyenne est de
              `
           if (b === 15) {
             texteCorr = `$15$ min est le quart d'une heure. Donc la vitesse moyenne est $${a}\\times 4=${4 * a}$ km/h.`
@@ -852,7 +852,7 @@ export default class SujetCAN2021Seconde extends Exercice {
               texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
             Combien de kilomètres a-t-elle parcourus en $15$ minutes ?
         `
-              texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la voiture aura parcouru $${a}\\div 4=${a / 4}$ km.<br>
+              texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la voiture aura parcouru $${a}\\div 4=${a / 4}\\text{ km}$.<br>
             `
             } else if (choix === 'b') {
               a = choice([60, 90, 120])
@@ -860,7 +860,7 @@ export default class SujetCAN2021Seconde extends Exercice {
               texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
                           Combien de kilomètres a-t-elle parcourus en $10$ minutes ?
                       `
-              texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la voiture aura parcouru $${a}\\div 6=${a / 6}$ km.
+              texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la voiture aura parcouru $${a}\\div 6=${a / 6}\\text{ km}$.
                           `
             } else {
               a = choice([30, 60, 90, 120])
@@ -868,7 +868,7 @@ export default class SujetCAN2021Seconde extends Exercice {
               texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
                                         Combien de kilomètres a-t-elle parcourus en $20$ minutes ?
                                     `
-              texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la voiture aura parcouru $${a}\\div 3=${a / 3}$ km.
+              texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la voiture aura parcouru $${a}\\div 3=${a / 3}\\text{ km}$.
                                         `
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })

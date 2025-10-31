@@ -553,8 +553,8 @@ ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? "n'aura pas"
             .add(1)
           den = new Decimal(1).sub(cm)
           somme = new Decimal(u0).mul(num).div(den).round()
-          texte = `Désirant participer à une course de $${b}$ km, un cycliste prévoit l'entraînement suivant :<br>
-$\\bullet$  parcourir $${u0}$ km en première semaine ;<br>
+          texte = `Désirant participer à une course de $${b}\\text{ km}$, un cycliste prévoit l'entraînement suivant :<br>
+$\\bullet$  parcourir $${u0}\\text{ km}$ en première semaine ;<br>
 $\\bullet$  chaque semaine qui suit, augmenter la distance parcourue de $${p}\\,\\%$ par rapport à celle parcourue la semaine précédente.<br>
 On modélise la distance parcourue chaque semaine à l'entraînement par la suite $(d_n)$ où $d_n$ représente la distance en km parcourue pendant la $n$-ième semaine d'entraînement.
 <br>
@@ -593,7 +593,7 @@ $\\begin{array}{|l|}\n
               Ainsi, quel que soit $n \\geqslant 1$, $d_{n+1} = ${texNombre(cm, 2)} \\times d_n$.<br>
               On reconnaît la définition par récurrence d'une suite géométrique de raison $${texNombre(cm, 2)}$ et de premier terme $d_1=${u0}$.`,
               `Pour tout entier naturel $n \\geqslant 1$, $d_n=${u0}\\times ${texNombre(cm, 2)}^{n-1}$.`,
-              `La fonction $\\texttt{distance(${b})}$ renverra le nombre de semaines nécessaires pour atteindre une distance de $${b}$ km.<br>
+              `La fonction $\\texttt{distance(${b})}$ renverra le nombre de semaines nécessaires pour atteindre une distance de $${b}\\text{ km}$.<br>
 On obtient à l'aide de la calcultarice le tableau suivant : <br>
    $\\begin{array}{|c|c|c|}\n \\hline\n
             \n n&d_n   \\\\\n \\hline\n
@@ -601,7 +601,7 @@ On obtient à l'aide de la calcultarice le tableau suivant : <br>
             \n ${n1 + 1}&${texNombre(u1, 2)} > ${texNombre(b, 0)} \\\\\n \\hline\n
             \\end{array}\n$
             <br>On en déduit que l'algorithme retourne la valeur $${n1 + 1}$.<br>
-            C'est donc  la $${n1 + 1}$ ième semaine que la distance parcourue lors de l'entraînement dépasse  pour la première fois $${b}$ km.`,
+            C'est donc  la $${n1 + 1}$ ième semaine que la distance parcourue lors de l'entraînement dépasse  pour la première fois $${b}\\text{ km}$.`,
               `La distance totale parcourue par le cycliste pendant les $${n1 + 1}$ premières semaines d'entraînement est donnée par : $S_{${n1 + 1}}=d_1+d_2+\\ldots +d_{${n1 + 1}}$.<br>
             $S_{${n1 + 1}}$ est la somme des $${n1 + 1}$ premiers termes d'une suite géométrique de raison $${texNombre(cm, 2)}$ et de premier terme $d_1=${u0}$.<br>
              $\\begin{aligned}
@@ -610,7 +610,7 @@ S_{${n1 + 1}} &= d_1 + d_2 + \\dots + ${NomS}_{${n1 + 1}} \\\\
 &\\approx ${texNombre(somme, 0)}
 \\end{aligned}$<br>
 
-Au cours des $${n1 + 1}$ séances d'entraînement, le cycliste a parcouru au total $${texNombre(somme, 0)}$ km. `,
+Au cours des $${n1 + 1}$ séances d'entraînement, le cycliste a parcouru au total $${texNombre(somme, 0)}\\text{ km}$. `,
             ],
             style: 'nombres',
           })
@@ -671,7 +671,7 @@ On reconnaît la définition par récurrence d'une suite géométrique de raison
 Son premier terme est $h_0=${u0}$.`,
               `Pour tout entier naturel $n$, $h_n=${texNombre(u0, 0)}\\times ${texNombre(cm, 2)}^n$.`,
               `$h_{${n}}=${texNombre(u0, 0)}\\times (${texNombre(cm, 2)})^{${n}}\\simeq ${texNombre(cm.pow(n).mul(u0), 2)}$.<br>
-La balle rebondit à une hauteur de $${texNombre(cm.pow(n).mul(u0), 2)}$ m après $${n}$ rebonds.`,
+La balle rebondit à une hauteur de $${texNombre(cm.pow(n).mul(u0), 2)}\\text{ m}$ après $${n}$ rebonds.`,
               `On compléte les pointillés pour que cette fonction renvoie le nombre de rebonds à partir duquel la hauteur maximale de la balle sera inférieure ou égale à $${b}$ centimètres : <br>
    $\\begin{array}{|l|}\n
       \\hline\n

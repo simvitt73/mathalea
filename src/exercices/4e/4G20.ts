@@ -11,10 +11,7 @@ import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { RedactionPythagore } from './_pythagore'
@@ -23,6 +20,7 @@ import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCHybride'
@@ -352,6 +350,7 @@ export default class Pythagore2D extends Exercice {
                 type: 'AMCOpen',
                 propositions: [
                   {
+                    texte: '',
                     enonce: 'Calculer la longueur manquante.\\\\',
                     statut: 3,
                     pointilles: true,
@@ -368,7 +367,7 @@ export default class Pythagore2D extends Exercice {
                     multicolsEnd: true,
                     reponse: {
                       texte: texte + 'longueur arrondie à 0,1 cm : ',
-                      valeur: [reponse.toFixed(1)],
+                      valeur: [arrondi(reponse, 1)],
                       param: {
                         digits: Math.max(nombreDeChiffresDe(reponse), 2),
                         decimals: 1,

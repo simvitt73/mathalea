@@ -1,13 +1,13 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 export const titre = 'Lier calcul avec des puissances de 10 et les préfixes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -83,7 +83,7 @@ export default class ConversionsPuissancesDe10 extends Exercice {
               : ['\\text{km}', '\\text{m}']
           exposantReponse = listeDeSens[i] === 'div' ? n - 3 : n + 3
           correctionDetail = [
-            `Il faut $${texNombre(1000)}$ m pour 1 km, on va donc diviser par $${texNombre(1000)}$, c'est-à-dire multiplier par $10^{-3}$.<br>`,
+            `Il faut $${texNombre(1000)}\\text{ m}$ pour 1 km, on va donc diviser par $${texNombre(1000)}$, c'est-à-dire multiplier par $10^{-3}$.<br>`,
             `$1~\\text{km}=${texNombre(1000)}~\\text{km}$, on va donc multiplier par $${texNombre(1000)}$, c'est-à-dire multiplier par $10^{3}$.<br>`,
           ]
           break

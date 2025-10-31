@@ -144,7 +144,7 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           reponse1 = new Decimal(a).add(c)
           reponse2 = new Decimal(a).sub(c)
           this.reponse = choix1 ? reponse2 : reponse1
-          this.question = `${prenom1} mesure $${texNombre(a, 2, true)}$ m. Il mesure $${b}\\text{ cm}$ ${choix1 ? 'de plus' : ' de moins '}
+          this.question = `${prenom1} mesure $${texNombre(a, 2, true)}\\text{ m}$. Il mesure $${b}\\text{ cm}$ ${choix1 ? 'de plus' : ' de moins '}
               que ${prenom2}. <br>
 
               Quelle est la taille de ${prenom2} ?`
@@ -156,7 +156,7 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           reponse1 = new Decimal(a).add(c)
           reponse2 = new Decimal(a).sub(c)
           this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} mesure $${texNombre(a, 2, true)}$ m. ${prenom2} mesure $${b}\\text{ cm}$ ${choix1 ? 'de plus' : ' de moins '}
+          this.question = `${prenom1} mesure $${texNombre(a, 2, true)}\\text{ m}$. ${prenom2} mesure $${b}\\text{ cm}$ ${choix1 ? 'de plus' : ' de moins '}
                     que ${prenom1}. <br>
                     Quelle est la taille de ${prenom2} ?`
           this.correction = `${prenom2} mesure $${b}\\text{ cm}$ ${choix1 ? 'de plus' : ' de moins '} que ${prenom1} donc ${prenom2} mesure (${choix1 ? `$${texNombre(a, 2, true)}+${texNombre(c, 2, true)}$` : `$${texNombre(a, 2, true)}-${texNombre(c, 2, true)}$`}) m, soit  ${choix1 ? `$${texNombre(reponse1, 2, true)}$` : `$${miseEnEvidence(texNombre(reponse2, 2, true))}$`} m. `

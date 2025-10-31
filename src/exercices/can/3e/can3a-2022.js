@@ -274,9 +274,9 @@ export default class SujetCAN2022troisieme extends Exercice {
             texte = `$${a}\\text{ cm}$  $=$`
 
             texteCorr = `
-        Comme $1$ m $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01$ m.<br>
+        Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
         Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}\\text{ cm}=${texNombre(reponse, 2)}$ m.  `
+          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}\\text{ cm}=${texNombre(reponse, 2)}\\text{ m}$.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
@@ -286,8 +286,8 @@ export default class SujetCAN2022troisieme extends Exercice {
           } else {
             a = new Decimal(randint(1, 9)).div(10).plus(randint(1, 9))
             reponse = a.mul(100)
-            texte = `$${texNombre(a, 1)}$ m  $=$ `
-            texteCorr = ` Comme $1$ m $=100\\text{ cm}$,  pour passer des "m" au "cm", on multiplie par $100$.<br>
+            texte = `$${texNombre(a, 1)}\\text{ m}$  $=$ `
+            texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour passer des "m" au "cm", on multiplie par $100$.<br>
                 Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}\\text{ cm}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
@@ -847,9 +847,9 @@ export default class SujetCAN2022troisieme extends Exercice {
           c = new Decimal(choice([30, 60, 90, 120]))
           reponse = c.div(a)
           texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
-          texteCorr = `Le véhicule parcourt $${texNombre(reponse, 0)}$ km.<br>
+          texteCorr = `Le véhicule parcourt $${texNombre(reponse, 0)}\\text{ km}$.<br>
          En $${texNombre(b, 0)}$ minutes, il parcourt $${texNombre(a, 0)}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${texNombre(c, 0)}}{${texNombre(a, 0)}}=
-          ${texNombre(reponse, 0)}$ km.`
+          ${texNombre(reponse, 0)}\\text{ km}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'km'
