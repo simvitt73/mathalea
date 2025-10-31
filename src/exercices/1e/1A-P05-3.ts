@@ -16,7 +16,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer une probabilité conditionnelle.'
+export const titre = 'Déterminer une probabilité conditionnelle'
 export default class auto1AP3c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     let objets = []
