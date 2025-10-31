@@ -66,14 +66,107 @@ export type ChoixQcm = {
   // Ci-dessous, utile que pour AMC
   reponse?: {
     texte?: string
-    valeur?: number
+    valeur?: number | number[]
+    alignement?: string
     param?: {
       digits?: number
       decimals?: number
       signe?: boolean
       approx?: number
+      aussiCorrect?: number
     }
   }
+}
+
+export type UneProposition = {
+  texte?: string
+  statut?: number | boolean | string
+  sanscadre?: boolean | number
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
+  numQuestionVisible?: boolean
+  type?: string
+  feedback?: string
+  pointilles?: boolean | number
+  enonce?: string
+  propositions?: ChoixQcm[]
+  options?: {
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+    alignement?: boolean
+  }
+  reponse?: {
+    valeur?:
+      | ValeurNormalized
+      | ValeurNormalized[]
+      | number
+      | number[]
+      | FractionEtendue
+      | Decimal
+      | FractionEtendue[]
+      | Decimal[]
+      | string
+      | string[]
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+    alignement?: string
+  }
+}
+
+export type LegacyReponse = string | FractionEtendue | Decimal | number
+export type LegacyReponses = LegacyReponse[] | LegacyReponse
+export interface AutoCorrection {
+  enonce?: string
+  enonceAvant?: boolean
+  melange?: boolean
+  enonceAGauche?: boolean
+  enonceAvantUneFois?: boolean
+  enonceCentre?: boolean
+  enonceApresNumQuestion?: boolean
+  propositions?: UneProposition[]
+  reponse?: {
+    valeur?: ValeurNormalized
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+  }
+  options?: {
+    radio?: boolean
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+  }
+}
+
+export interface MathaleaSVG extends SVGSVGElement {
+  etat: boolean
+  hasMathaleaListener: boolean
 }
 
 export function isClickFiguresArray(
