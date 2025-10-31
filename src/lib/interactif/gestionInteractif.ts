@@ -203,14 +203,18 @@ export type ChoixQcm = {
   // Ci-dessous, utile que pour AMC
   enonce?: string
   feedback?: string
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
   reponse?: {
     texte?: string
-    valeur?: number
+    valeur?: number | number[]
+    alignement?: string
     param?: {
       digits?: number
       decimals?: number
       signe?: boolean
       approx?: number
+      aussiCorrect?: number
     }
   }
 }
@@ -243,6 +247,7 @@ export type UneProposition = {
     multicolsAll?: boolean
     numerotationEnonce?: boolean
     avecSymboleMult?: boolean
+    alignement?: boolean
   }
   reponse?: {
     valeur?:
