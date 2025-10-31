@@ -65,6 +65,7 @@ import {
   isIntegerInRange0to4,
   isIntegerInRange1to4,
 } from './types/integerInRange'
+import LabyrintheElement from 'labyrinthe'
 
 const ERROR_MESSAGE =
   'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
@@ -1434,6 +1435,25 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
                 console.info(cell, formula)
               }
               ele.style.pointerEvents = 'none' // Plus possible de modifier la feuille
+              resolve(true)
+            }
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.startsWith('labyrintheEx')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer)
+          .then(() => {
+            const labyrinthe = document.querySelector(`#${answer}`)
+            if (labyrinthe !== null && labyrinthe instanceof LabyrintheElement) {
+              labyrinthe.state = answers[answer]
+              const time = window.performance.now()
+              log(`duration ${answer}: ${time - starttime}`)
               resolve(true)
             }
           })
