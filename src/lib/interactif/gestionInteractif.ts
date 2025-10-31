@@ -198,8 +198,26 @@ export function isReponseComplexe(value: unknown): value is ReponseComplexe {
 
 // Ajout d'un type dédié pour les choix de QCM
 export type ChoixQcm = {
-  texte: string
-  statut?: boolean
+  texte: string // obligatoire
+  statut?: boolean | string | number // boolean pour les QCM interacif et string | number pour les QCM AMC
+  // Ci-dessous, utile que pour AMC
+  enonce?: string
+  feedback?: string
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
+  numQuestionVisible?: boolean
+  reponse?: {
+    texte?: string
+    valeur?: number | number[]
+    alignement?: string
+    param?: {
+      digits?: number
+      decimals?: number
+      signe?: boolean
+      approx?: number
+      aussiCorrect?: number
+    }
+  }
 }
 
 export type UneProposition = {
@@ -230,6 +248,7 @@ export type UneProposition = {
     multicolsAll?: boolean
     numerotationEnonce?: boolean
     avecSymboleMult?: boolean
+    alignement?: boolean
   }
   reponse?: {
     valeur?:
