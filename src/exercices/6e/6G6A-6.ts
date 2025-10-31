@@ -1,7 +1,5 @@
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { droite } from '../../lib/2d/droites'
 import {
   point,

@@ -74,4 +74,3 @@ Quel est le prix d'une boite ?`
     this.reponse = texNombre(data.nb1 * data.nbFois, 2)
   }
 }
-export const listeDeProblemesCompMulGdeQuantite = []

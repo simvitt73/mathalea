@@ -1,8 +1,6 @@
-import {
-  afficheCoteSegment,
-  codageCarre,
-  codageSegments,
-} from '../../lib/2d/codages'
+import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
+import { codageCarre } from '../../lib/2d/CodageCarre'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { point } from '../../lib/2d/points'
 import {
   nommePolygone,

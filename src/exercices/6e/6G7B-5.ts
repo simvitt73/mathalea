@@ -19,6 +19,7 @@ import { symetrieAnimee } from '../../modules/2dAnimation'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
@@ -391,14 +392,14 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
   nouvelleVersion(numeroExercice: number) {
     context.fenetreMathalea2d = [0, -0.1, 15, 10]
 
-    const objetsEnonce = []
+    const objetsEnonce: NestedObjetMathalea2dArray = []
     let paramsEnonce = {}
     let texte = ''
     let texteCorr = ''
     let typesDeQuestionsDisponibles
     const scaleFigure = 1
     // construction du pavage triangulaire
-    const triAngles: { tri: Polygone; gra: Point; n?: TexteParPoint }[] = [] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
+    const triAngles: { tri: Polygone; gra: Point; n: TexteParPoint }[] = [] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
     const images = []
     const A = point(0, 0, '')
     const B = point(1.2, 0, '')
@@ -408,30 +409,36 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
     triAngles[0] = {
       tri: polygone(A, B, C),
       gra: centreGraviteTriangle(A, B, C),
+      n: texteParPointEchelle('', A),
     }
     triAngles[1] = {
       tri: rotation(triAngles[0].tri, B, -60),
       gra: rotation(triAngles[0].gra, B, -60),
+      n: texteParPointEchelle('', A),
     }
     for (let i = 0; i < 7; i++) {
       if (i !== 0) {
         triAngles[i * 2] = {
           tri: translation(triAngles[(i - 1) * 2].tri, v),
           gra: translation(triAngles[(i - 1) * 2].gra, v),
+          n: texteParPointEchelle('', A),
         }
         triAngles[i * 2 + 1] = {
           tri: translation(triAngles[(i - 1) * 2 + 1].tri, v),
           gra: translation(triAngles[(i - 1) * 2 + 1].gra, v),
+          n: texteParPointEchelle('', A),
         }
       }
       for (let j = 1; j < 7; j++) {
         triAngles[i * 2 + j * 14] = {
           tri: translation(triAngles[i * 2 + (j - 1) * 14].tri, w),
           gra: translation(triAngles[i * 2 + (j - 1) * 14].gra, w),
+          n: texteParPointEchelle('', A),
         }
         triAngles[i * 2 + 1 + j * 14] = {
           tri: translation(triAngles[i * 2 + 1 + (j - 1) * 14].tri, w),
           gra: translation(triAngles[i * 2 + 1 + (j - 1) * 14].gra, w),
+          n: texteParPointEchelle('', A),
         }
       }
     }

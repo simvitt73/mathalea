@@ -1,6 +1,6 @@
 import { vecteur } from '../../../lib/2d/Vecteur'
-import { placeLatexSurSegment } from '../../../lib/2d/codages'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
 import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'

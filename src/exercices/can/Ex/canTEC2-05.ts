@@ -1,5 +1,5 @@
+import { Angle } from '../../../lib/mathFonctions/Angle'
 import {
-  Angle,
   angleOppose,
   angleSupplementaire,
   kCosOuKSin,

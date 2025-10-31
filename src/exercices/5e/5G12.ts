@@ -1,4 +1,4 @@
-import { codageMilieu } from '../../lib/2d/codages'
+import { codageMilieu } from '../../lib/2d/CodageMilieu'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Point } from '../../lib/2d/points'
 import type { PointAbstrait } from '../../lib/2d/points-abstraits'

@@ -1,15 +1,13 @@
-import {
-  codageAngle,
-  codageAngleDroit,
-  rapporteur,
-} from '../../../lib/2d/angles'
+import { codageAngle } from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/Arc'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
 import { milieu, point, pointSurSegment } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
+import { rapporteur } from '../../../lib/2d/Rapporteur'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -22,7 +20,7 @@ import {
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { angleModulo } from '../../../lib/mathFonctions/trigo'
+import { angleModulo } from '../../../lib/mathFonctions/Angle'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'

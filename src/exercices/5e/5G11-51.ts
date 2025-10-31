@@ -1,14 +1,14 @@
-import { tracePoint } from '../../lib/2d/TracePoint'
-import { vecteur } from '../../lib/2d/Vecteur'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { codageSegments } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { milieu, Point, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, translation } from '../../lib/2d/transformations'
+import { vecteur } from '../../lib/2d/Vecteur'
 import {
   handleAnswers,
   setReponse,

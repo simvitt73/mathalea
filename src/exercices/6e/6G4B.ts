@@ -1,5 +1,5 @@
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { demiDroite } from '../../lib/2d/DemiDroite'
-import { afficheMesureAngle } from '../../lib/2d/codages'
 import { point, pointSurSegment } from '../../lib/2d/points'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'

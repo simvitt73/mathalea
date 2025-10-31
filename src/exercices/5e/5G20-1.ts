@@ -1,8 +1,10 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheMesureAngle, placeLatexSurSegment } from '../../lib/2d/codages'
-import { Droite, droite, mediatrice } from '../../lib/2d/droites'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { Droite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import {
   Point,
   pointAdistance,
@@ -169,7 +171,7 @@ export default class VocabulaireDesTriangles extends Exercice {
             B,
             (-tQuel.a2 * randint(90, 110)) / 100,
           )
-          C = pointIntersectionDD(d1, d2) as Point
+          C = pointIntersectionDD(d1, d2)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -223,7 +225,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           )
           const d = mediatrice(A, C) as Droite
           const c = cercle(A, l1)
-          B = pointIntersectionLC(d, c, '', 1) as Point
+          B = pointIntersectionLC(d, c, '', 1)
           B.nom = nomTriangle[2]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -262,7 +264,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           )
           const dIso = mediatrice(A, C) as Droite
           const cIso = cercle(A, l1)
-          B = pointIntersectionLC(dIso, cIso, '', 1) as Point
+          B = pointIntersectionLC(dIso, cIso, '', 1)
           B.nom = nomTriangle[2]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -299,7 +301,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, tEqui.l1, randint(0, 360), nomTriangle[2])
           const dEqui = mediatrice(A, B) as Droite
           const cEqui = cercle(A, tEqui.l1)
-          C = pointIntersectionLC(dEqui, cEqui, '', 1) as Point
+          C = pointIntersectionLC(dEqui, cEqui, '', 1)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -331,7 +333,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, tEqui.l1, randint(0, 360), nomTriangle[2])
           const dEqui = mediatrice(A, B) as Droite
           const cEqui = cercle(A, tEqui.l1)
-          C = pointIntersectionLC(dEqui, cEqui, '', 1) as Point
+          C = pointIntersectionLC(dEqui, cEqui, '', 1)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -375,7 +377,7 @@ export default class VocabulaireDesTriangles extends Exercice {
         nomTriangle = tRect.getNom()
         A.nom = nomTriangle[1]
         B = pointAdistance(A, tRect.l1, randint(0, 10), nomTriangle[2])
-        C = similitude(A, B, 90, tRect.l2 / tRect.l1, nomTriangle[3]) as Point
+        C = similitude(A, B, 90, tRect.l2 / tRect.l1, nomTriangle[3])
         figureMainLevee.push(
           ...polygoneAvecNom(A, B, C),
           placeLatexSurSegment(`${texNombre(tRect.l1)}\\text{ cm}`, A, B, {
@@ -408,7 +410,7 @@ export default class VocabulaireDesTriangles extends Exercice {
         nomTriangle = tIsoRect.getNom()
         A.nom = nomTriangle[1]
         B = pointAdistance(A, tIsoRect.l1, randint(0, 10), nomTriangle[2])
-        C = rotation(A, B, 90, nomTriangle[3]) as Point
+        C = rotation(A, B, 90, nomTriangle[3])
         figureMainLevee.push(
           ...polygoneAvecNom(A, B, C),
           placeLatexSurSegment(`${texNombre(tIsoRect.l1)}\\text{ cm}`, A, B, {
@@ -444,7 +446,7 @@ export default class VocabulaireDesTriangles extends Exercice {
         nomTriangle = tIsoRect.getNom()
         A.nom = nomTriangle[1]
         B = pointAdistance(A, tIsoRect.l1, randint(0, 10), nomTriangle[2])
-        C = rotation(A, B, 90, nomTriangle[3]) as Point
+        C = rotation(A, B, 90, nomTriangle[3])
         figureMainLevee.push(
           ...polygoneAvecNom(A, B, C),
           placeLatexSurSegment(
@@ -491,7 +493,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, 10, randint(-30, 30), nomTriangle[2])
           const dIso = rotation(droite(A, B), A, tIso.a3)
           const dIso2 = rotation(droite(A, B), B, -tIso.a1)
-          C = pointIntersectionDD(dIso, dIso2) as Point
+          C = pointIntersectionDD(dIso, dIso2)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -537,7 +539,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, 10, randint(0, 360), nomTriangle[2])
           const dEqui = rotation(droite(A, B), A, 60 + randint(-3, 3, 0))
           const dEqui2 = rotation(droite(A, B), B, -60 + randint(-3, 3, 0))
-          C = pointIntersectionDD(dEqui, dEqui2) as Point
+          C = pointIntersectionDD(dEqui, dEqui2)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),

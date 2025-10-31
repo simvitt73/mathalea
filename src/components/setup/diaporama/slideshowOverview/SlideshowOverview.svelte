@@ -1,24 +1,24 @@
 <script lang="ts">
-  import type Exercice from '../../../../exercices/Exercice'
-  import type { InterfaceParams } from '../../../../lib/types'
-  import type { Serie, Slideshow } from '../types'
-  import SlideshowOverviewLeftPanel from './presentationalComponent/SlideshowOverviewLeftPanel.svelte'
-  import SlideshowOverviewMainPanel from './presentationalComponent/mainPanel/SlideshowOverviewMainPanel.svelte'
-  import ZoomButtons from '../../start/presentationalComponents/header/headerButtons/setupButtons/ZoomButtons.svelte'
   import { tick } from 'svelte'
+  import type { IExercice } from '../../../../exercices/Exercice.type'
   import {
     mathaleaGenerateSeed,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../../lib/mathalea'
   import {
-    globalOptions,
     darkMode,
     exercicesParams,
+    globalOptions,
   } from '../../../../lib/stores/generalStore'
+  import type { InterfaceParams } from '../../../../lib/types'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
+  import ZoomButtons from '../../start/presentationalComponents/header/headerButtons/setupButtons/ZoomButtons.svelte'
+  import type { Serie, Slideshow } from '../types'
+  import SlideshowOverviewLeftPanel from './presentationalComponent/SlideshowOverviewLeftPanel.svelte'
+  import SlideshowOverviewMainPanel from './presentationalComponent/mainPanel/SlideshowOverviewMainPanel.svelte'
 
-  export let exercises: Exercice[] = []
+  export let exercises: IExercice[] = []
   export let slideshow: Slideshow
   export let updateExercises: (
     updateSlidesContent?: boolean,

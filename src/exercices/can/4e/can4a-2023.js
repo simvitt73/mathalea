@@ -1,4 +1,5 @@
-import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngle } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point } from '../../../lib/2d/points'
@@ -43,6 +44,7 @@ import Hms from '../../../modules/Hms'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import { representationFraction } from '../../../modules/representationsFractions'
 
 export const titre = 'CAN 4e sujet 2023'
 export const interactifReady = true
@@ -620,7 +622,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           texte += context.isHtml
             ? mathalea2d(
                 params,
-                f.representation(
+                representationFraction(
+                  f,
                   0,
                   0,
                   2,

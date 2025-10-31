@@ -41,7 +41,7 @@ export function rotationV3d<T extends Point3d | Vecteur3d>(
 ): T {
   let V, p2
   const norme = math.norm(vecteur3D.matrice)
-  const unitaire = math.multiply(vecteur3D.matrice, 1 / norme)
+  const unitaire = math.multiply(vecteur3D.matrice, 1 / Number(norme))
   const u = unitaire._data[0]
   const v = unitaire._data[1]
   const w = unitaire._data[2]

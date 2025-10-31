@@ -1,8 +1,6 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import {
-  afficheCoteSegment,
-  afficheLongueurSegment,
-} from '../../lib/2d/codages'
+import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { point } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'

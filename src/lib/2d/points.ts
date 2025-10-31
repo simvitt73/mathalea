@@ -1,5 +1,5 @@
 import type { ICercle, IDroite, IPointAbstrait } from './Interfaces'
-import { PointAbstrait } from './points-abstraits'
+import { pointAbstrait, PointAbstrait } from './points-abstraits'
 
 /**
  * Retourne un entier aléatoire entre min et max (inclus)
@@ -35,10 +35,10 @@ export class Point extends PointAbstrait {}
  * @param {number} y ordonnée
  * @param {string} nom son nom qui apparaîtra
  * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
- * @return {Point}
+ * @return {PointAbstrait}
  */
 export function point(x: number, y: number, nom = '', positionLabel = 'above') {
-  return new Point(x, y, nom, positionLabel)
+  return new PointAbstrait(x, y, nom, positionLabel)
 }
 
 export function pointDepuisPointAbstrait(point: PointAbstrait) {
@@ -57,12 +57,12 @@ export function milieu(
   B: PointAbstrait,
   nom = '',
   positionLabel = 'above',
-): Point {
+): PointAbstrait {
   if (isNaN(longueur(A, B)))
     window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
-  return point(x, y, nom, positionLabel)
+  return pointAbstrait(x, y, nom, positionLabel)
 }
 
 /**
@@ -76,18 +76,19 @@ export function milieu(
  * @author Rémi Angot
  */
 export function pointSurSegment(
-  A: PointAbstrait,
-  B: PointAbstrait,
+  A: IPointAbstrait,
+  B: IPointAbstrait,
   l?: number,
   nom = '',
   positionLabel = 'above',
-): Point {
-  if (isNaN(longueur(A, B)))
+): PointAbstrait {
+  if (isNaN(longueur(A, B))) {
     window.notify('pointSurSegment : Quelque chose ne va pas avec les points', {
       A,
       B,
     })
-  if (longueur(A, B) === 0) return pointDepuisPointAbstrait(A)
+    return pointAbstrait(A.x, A.y, A.nom, A.positionLabel)
+  }
   if (l === undefined || typeof l === 'string') {
     l = (longueur(A, B) * randint(15, 85)) / 100
   }
@@ -96,7 +97,7 @@ export function pointSurSegment(
   const k = l / longueur(A, B)
   const x = A.x + k * (B.x - A.x)
   const y = A.y + k * (B.y - A.y)
-  return point(x, y, nom, positionLabel)
+  return pointAbstrait(x, y, nom, positionLabel)
 }
 
 /**
@@ -115,12 +116,12 @@ export function pointSurCercle(
   angle: number,
   nom: string,
   positionLabel = 'above',
-): Point {
+): PointAbstrait {
   if (typeof angle !== 'number') angle = randint(-180, 180)
   const angleRad = (angle * Math.PI) / 180
   const x = c.centre.x + c.rayon * Math.cos(angleRad)
   const y = c.centre.y + c.rayon * Math.sin(angleRad)
-  return point(x, y, nom, positionLabel)
+  return pointAbstrait(x, y, nom, positionLabel)
 }
 
 /**
@@ -137,11 +138,11 @@ export function pointSurDroite(
   x: number,
   nom = '',
   positionLabel = 'above',
-): Point {
+): PointAbstrait {
   // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
-  if (d.b === 0) return point(-d.c / d.a, x, nom, positionLabel)
-  else if (d.a === 0) return point(x, -d.c / d.b, nom, positionLabel)
-  else return point(x, (-d.c - d.a * x) / d.b, nom, positionLabel)
+  if (d.b === 0) return pointAbstrait(-d.c / d.a, x, nom, positionLabel)
+  else if (d.a === 0) return pointAbstrait(x, -d.c / d.b, nom, positionLabel)
+  else return pointAbstrait(x, (-d.c - d.a * x) / d.b, nom, positionLabel)
 }
 
 /**
@@ -158,11 +159,11 @@ export function pointIntersectionDD(
   f: IDroite,
   nom = '',
   positionLabel = 'above',
-): Point | false {
+): PointAbstrait {
   let x, y
   if (Math.abs(f.a * d.b - f.b * d.a) < 0.000001) {
     // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
-    return pointIntersectionNonTrouveEntre(d, f, point(0, 0))
+    return pointIntersectionNonTrouveEntre(d, f, point(50, 50))
   } else {
     y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a)
   }
@@ -173,7 +174,7 @@ export function pointIntersectionDD(
     // d n'est pas horizontale donc ...
     x = (-d.c - d.b * y) / d.a
   }
-  return point(x, y, nom, positionLabel)
+  return pointAbstrait(x, y, nom, positionLabel)
 }
 
 /**
@@ -217,7 +218,7 @@ export function pointAdistance(
   const x = A.x + d * (cos * dx - sin * dy)
   const y = A.y + d * (sin * dx + cos * dy)
 
-  return point(x, y, leNom, lePositionLabel)
+  return pointAbstrait(x, y, leNom, lePositionLabel)
 }
 
 /**
@@ -233,7 +234,7 @@ export function pointIntersectionLC(
   C: ICercle,
   nom = '',
   n = 1,
-): Point | false {
+): PointAbstrait {
   const O = C.centre
   const r = C.rayon
   const a = d.a
@@ -247,7 +248,7 @@ export function pointIntersectionLC(
     xi = -c / a
     xiPrime = xi
     Delta = 4 * (-xO * xO - (c * c) / (a * a) - (2 * xO * c) / a + r * r)
-    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, point(50, 50))
     else if (Math.abs(Delta) < 1e-10) {
       // un seul point d'intersection
       yi = yO + Math.sqrt(Delta) / 2
@@ -262,7 +263,7 @@ export function pointIntersectionLC(
     yi = -c / b
     yiPrime = yi
     Delta = 4 * (-yO * yO - (c * c) / (b * b) - (2 * yO * c) / b + r * r)
-    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, point(50, 50))
     else if (Math.abs(Delta) < 1e-10) {
       // un seul point d'intersection
       xi = xO + Math.sqrt(Delta) / 2
@@ -279,7 +280,7 @@ export function pointIntersectionLC(
       4 *
         (1 + (a / b) ** 2) *
         (xO * xO + yO * yO + (c / b) ** 2 + (2 * yO * c) / b - r * r)
-    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, point(50, 50))
     else if (Math.abs(Delta) < 1e-10) {
       // un seul point d'intersection
       delta = Math.sqrt(Delta)
@@ -304,15 +305,15 @@ export function pointIntersectionLC(
   }
   if (n === 1) {
     if (yiPrime > yi) {
-      return point(xiPrime, yiPrime, nom)
+      return pointAbstrait(xiPrime, yiPrime, nom)
     } else {
-      return point(xi, yi, nom)
+      return pointAbstrait(xi, yi, nom)
     }
   } else {
     if (yiPrime > yi) {
-      return point(xi, yi, nom)
+      return pointAbstrait(xi, yi, nom)
     } else {
-      return point(xiPrime, yiPrime, nom)
+      return pointAbstrait(xiPrime, yiPrime, nom)
     }
   }
 }
@@ -329,7 +330,7 @@ export function pointIntersectionCC(
   c2: ICercle,
   nom = '',
   n = 1,
-): Point | false {
+): Point {
   const O1 = c1.centre
   const O2 = c2.centre
   const r0 = c1.rayon
@@ -342,10 +343,10 @@ export function pointIntersectionCC(
   const dy = y1 - y0
   const d = Math.sqrt(dy * dy + dx * dx)
   if (d > r0 + r1) {
-    return pointIntersectionNonTrouveEntre(c1, c2, c1.centre)
+    return pointIntersectionNonTrouveEntre(c1, c2, point(50, 50))
   }
   if (d < Math.abs(r0 - r1)) {
-    return pointIntersectionNonTrouveEntre(c1, c2, c1.centre)
+    return pointIntersectionNonTrouveEntre(c1, c2, point(50, 50))
   }
   const a = (r0 * r0 - r1 * r1 + d * d) / (2.0 * d)
   const x2 = x0 + (dx * a) / d
@@ -359,15 +360,15 @@ export function pointIntersectionCC(
   const yiPrime = y2 - ry
   if (n === 1) {
     if (yiPrime > yi) {
-      return point(xiPrime, yiPrime, nom)
+      return pointAbstrait(xiPrime, yiPrime, nom)
     } else {
-      return point(xi, yi, nom)
+      return pointAbstrait(xi, yi, nom)
     }
   } else {
     if (yiPrime > yi) {
-      return point(xi, yi, nom)
+      return pointAbstrait(xi, yi, nom)
     } else {
-      return point(xiPrime, yiPrime, nom)
+      return pointAbstrait(xiPrime, yiPrime, nom)
     }
   }
 }
@@ -375,9 +376,27 @@ export function pointIntersectionCC(
 function pointIntersectionNonTrouveEntre(
   objet1: ICercle | IDroite,
   objet2: ICercle | IDroite,
-  valeurParDefaut: IPointAbstrait,
-): false {
-  // window.notify(`${objet1.nom} et ${objet2.nom} ne se coupent pas. Impossible de trouver leur intersection.`, { objet1, objet2 })
-  // return pointDepuisPointAbstrait(valeurParDefaut)
-  return false
+  valeurParDefaut: PointAbstrait,
+): PointAbstrait {
+  window.notify(
+    `${JSON.stringify(objet1)} et ${JSON.stringify(objet2)} ne se coupent pas. Impossible de trouver leur intersection.`,
+    { objet1, objet2 },
+  )
+  return pointAbstrait(valeurParDefaut.x, valeurParDefaut.y)
+}
+
+/**
+ * Vérifie si x est un point
+ * @param x
+ * @returns true si x est un point, false sinon
+ * @author Jean-Claude Lhote
+ */
+export function isPoint(x: unknown): x is Point {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    (x as any).typeObjet === 'point' &&
+    typeof (x as any).x === 'number' &&
+    typeof (x as any).y === 'number'
+  )
 }

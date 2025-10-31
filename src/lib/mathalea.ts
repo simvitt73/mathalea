@@ -3,8 +3,8 @@ import renderMathInElement from 'katex/contrib/auto-render'
 import 'katex/dist/katex.min.css'
 import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
-import type TypeExercice from '../exercices/Exercice'
 import Exercice from '../exercices/Exercice'
+import type { IExercice } from '../exercices/Exercice.type'
 import ExerciceSimple from '../exercices/ExerciceSimple'
 import referentielStaticCH from '../json/referentielStaticCH.json'
 import referentielStaticFR from '../json/referentielStaticFR.json'
@@ -27,15 +27,7 @@ import { decrypt, isCrypted } from './components/urls'
 import { checkForServerUpdate } from './components/version'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
-import {
-  handleAnswers,
-  isAnswerValueType,
-  setReponse,
-  type AnswerValueType,
-  type MathaleaSVG,
-  type ReponseComplexe,
-  type Valeur,
-} from './interactif/gestionInteractif'
+import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
 import { propositionsQcm } from './interactif/qcm'
 import { shuffle } from './outils/arrayOutils'
@@ -59,8 +51,13 @@ import {
 import type { MySpreadsheetElement } from './tableur/MySpreadSheet'
 import {
   convertVueType,
+  isAnswerValueType,
+  type AnswerValueType,
   type InterfaceGlobalOptions,
   type InterfaceParams,
+  type MathaleaSVG,
+  type ReponseComplexe,
+  type Valeur,
   type VueType,
 } from './types'
 import {
@@ -128,7 +125,7 @@ export async function getSvelteComponent(paramsExercice: InterfaceParams) {
  * Charge un svelte exercice depuis son uuid
  * Exemple : mathaleaLoadSvelteExerciceFromUuid('clavier')
  * @param {string} uuid
- * @returns {Promise<Exercice>} exercice
+ * @returns {Promise<IExercice>} exercice
  */
 export async function mathaleaLoadSvelteExerciceFromUuid(uuid: string) {
   const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
@@ -316,7 +313,7 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
  */
 export async function mathaleaGetExercicesFromParams(
   params: InterfaceParams[],
-): Promise<TypeExercice[]> {
+): Promise<IExercice[]> {
   const exercices = []
   for (const param of params) {
     if (
@@ -429,7 +426,7 @@ export async function mathaleaGetExercicesFromParams(
  * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice.
  */
 export function mathaleaHandleParamOfOneExercice(
-  exercice: TypeExercice,
+  exercice: IExercice,
   param: InterfaceParams,
 ) {
   exercice.uuid = param.uuid
@@ -464,7 +461,8 @@ export function mathaleaHandleSup(param: boolean | string | number): string {
     return param
   } else if (typeof param === 'number') {
     return param.toString()
-  } else if (typeof param === 'boolean') {
+  } else {
+    // if (typeof param === 'boolean')
     return param ? 'true' : 'false'
   }
 }
@@ -845,7 +843,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
  * Avec cette fonction, on permet la création de plusieurs questions.
  */
 export function mathaleaHandleExerciceSimple(
-  exercice: TypeExercice,
+  exercice: IExercice,
   isInteractif: boolean,
   numeroExercice?: number,
 ) {
@@ -1501,7 +1499,7 @@ export async function getExercisesFromExercicesParams() {
     if (isStatic(paramsExercice.uuid) || isSvelte(paramsExercice.uuid)) {
       continue
     }
-    const exercise: TypeExercice = await mathaleaLoadExerciceFromUuid(
+    const exercise: Exercice = await mathaleaLoadExerciceFromUuid(
       paramsExercice.uuid,
     )
     mathaleaHandleParamOfOneExercice(exercise, paramsExercice)

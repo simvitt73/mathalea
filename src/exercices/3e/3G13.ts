@@ -1,8 +1,8 @@
-import { texteSurArc, texteSurSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -17,6 +17,7 @@ import {
 import Exercice from '../Exercice'
 
 import { arcPointPointAngle } from '../../lib/2d/Arc'
+import { texteSurArc } from '../../lib/2d/TexteSurArc'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -136,16 +137,10 @@ export default class CalculsHomothetie extends Exercice {
 
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
-      const lettres = choisitLettresDifferentes(5, [
-        'P',
-        'Q',
-        'U',
-        'V',
-        'W',
-        'X',
-        'Y',
-        'Z',
-      ])
+      const lettres = choisitLettresDifferentes(
+        5,
+        ['P', 'Q', 'U', 'V', 'W', 'X', 'Y', 'Z'].join(''),
+      )
       const A = lettres[0]
       const hA = lettres[1]
       const O = lettres[2]
@@ -155,9 +150,10 @@ export default class CalculsHomothetie extends Exercice {
 
       const ks = new FractionEtendue(
         this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]),
+        1,
       )
 
-      let k = new FractionEtendue(1)
+      let k = new FractionEtendue(1, 1)
       do {
         k = new FractionEtendue(
           kNonDecimal
@@ -175,8 +171,8 @@ export default class CalculsHomothetie extends Exercice {
       const kpositif = k.valeurDecimale > 0
 
       const longueurEntiere = valeursSimples
-        ? new FractionEtendue(randint(1, 19))
-        : new FractionEtendue(randint(11, 99))
+        ? new FractionEtendue(randint(1, 19), 1)
+        : new FractionEtendue(randint(11, 99), 1)
 
       let OA = agrandissement
         ? longueurEntiere.entierDivise(10)

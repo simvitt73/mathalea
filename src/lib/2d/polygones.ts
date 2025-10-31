@@ -2,14 +2,13 @@ import earcut from 'earcut'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
-import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString'
-import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { vecteur } from './Vecteur'
-import { codageAngleDroit } from './angles'
-import { codageSegments } from './codages'
+import { codageAngleDroit } from './CodageAngleDroit'
+import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import type { IPointAbstrait } from './Interfaces'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { pattern } from './pattern'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
 import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
@@ -25,6 +24,7 @@ import {
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
 import { longueur } from './utilitairesGeometriques'
+import { vecteur } from './Vecteur'
 
 type BinomeXY = { x: number; y: number }
 type BinomesXY = BinomeXY[]
@@ -52,202 +52,6 @@ export function barycentre(p: Polygone, nom = '', positionLabel = 'above') {
   const x = sommex / nbsommets
   const y = sommey / nbsommets
   return new Point(x, y, nom, positionLabel)
-}
-
-/**
- * polyline(A,B,C,D,E) //Trace la ligne brisée ABCDE
- *
- * @author Rémi Angot
- */
-export class Polyline extends ObjetMathalea2D {
-  listePoints: PointAbstrait[]
-  listePoints3d: Point3d[]
-  nom: string
-  stringColor: string
-  constructor(
-    ...points:
-      | (PointAbstrait | Point3d)[]
-      | [(PointAbstrait | Point3d)[], string]
-  ) {
-    super()
-    this.epaisseur = 1
-    this.pointilles = 0
-    this.opacite = 1
-    if (Array.isArray(points[0])) {
-      // Si le premier argument est un tableau
-      this.listePoints = points[0].filter((el) => el instanceof PointAbstrait)
-      this.listePoints3d = points[0].filter((el) => el instanceof Point3d)
-      this.stringColor = String(points[1]) // alors le deuxième est un string
-      this.color = colorToLatexOrHTML(String(points[1]))
-    } else {
-      // On n'a que des points
-      this.listePoints = points.filter((el) => el instanceof PointAbstrait)
-      this.listePoints3d = points.filter((el) => el instanceof Point3d)
-      this.color = colorToLatexOrHTML('black')
-      this.stringColor = 'black'
-    }
-    let xmin = 1000
-    let xmax = -1000
-    let ymin = 1000
-    let ymax = -1000
-    for (const unPoint of this.listePoints) {
-      if (unPoint.typeObjet !== 'point')
-        window.notify('Polyline : argument invalide', { ...points })
-      xmin = Math.min(xmin, unPoint.x)
-      xmax = Math.max(xmax, unPoint.x)
-      ymin = Math.min(ymin, unPoint.y)
-      ymax = Math.max(ymax, unPoint.y)
-    }
-    this.bordures = [xmin, ymin, xmax, ymax]
-    this.nom = ''
-    if (this.listePoints.length < 15) {
-      // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
-      for (const point of this.listePoints) {
-        this.nom += point.nom
-      }
-      for (const point of this.listePoints3d) {
-        this.nom += point.label
-      }
-    }
-  }
-
-  svg(coeff: number) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-    switch (this.pointilles) {
-      case 1:
-        this.style += ' stroke-dasharray="6 10" '
-        break
-      case 2:
-        this.style += ' stroke-dasharray="6 3" '
-        break
-      case 3:
-        this.style += ' stroke-dasharray="3 2 6 2 " '
-        break
-      case 4:
-        this.style += ' stroke-dasharray="1 2" '
-        break
-      case 5:
-        this.style += ' stroke-dasharray="5 5" '
-        break
-    }
-
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    let binomeXY = ''
-    for (const point of this.listePoints) {
-      const X = point.xSVG(coeff)
-      const Y = point.ySVG(coeff)
-      binomeXY += `${X},${Y} `
-    }
-    for (const point of this.listePoints3d) {
-      const X = point.c2d.xSVG(coeff)
-      const Y = point.c2d.ySVG(coeff)
-      binomeXY += `${X},${Y} `
-    }
-    return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
-  }
-
-  tikz() {
-    const tableauOptions = []
-    if (this.color[1].length > 1 && this.color[1] !== 'black') {
-      tableauOptions.push(`color=${this.color[1]}`)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-    switch (this.pointilles) {
-      case 1:
-        tableauOptions.push(' dash dot ')
-        break
-      case 2:
-        tableauOptions.push(' densely dash dot dot ')
-        break
-      case 3:
-        tableauOptions.push(' dash dot dot ')
-        break
-      case 4:
-        tableauOptions.push(' dotted ')
-        break
-      case 5:
-        tableauOptions.push(' dashed ')
-        break
-    }
-
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-
-    let optionsDraw = ''
-    if (tableauOptions.length > 0) {
-      optionsDraw = '[' + tableauOptions.join(',') + ']'
-    }
-    let binomeXY = ''
-    for (const point of this.listePoints) {
-      binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
-    }
-    binomeXY = binomeXY.substr(0, binomeXY.length - 2)
-    return `\\draw${optionsDraw} ${binomeXY};`
-  }
-
-  svgml(coeff: number, amp: number) {
-    let code = ''
-    let s
-    for (let k = 1; k < this.listePoints.length; k++) {
-      s = segment(
-        this.listePoints[k - 1],
-        this.listePoints[k],
-        this.stringColor,
-      )
-      s.epaisseur = this.epaisseur
-      s.opacite = this.opacite
-      code += s.svgml(coeff, amp)
-    }
-    return code
-  }
-
-  tikzml(amp: number) {
-    const tableauOptions = []
-    if (this.color[1].length > 1 && this.color[1] !== 'black') {
-      tableauOptions.push(`color=${this.color[1]}`)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    tableauOptions.push(
-      `decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`,
-    )
-
-    let optionsDraw = ''
-    if (tableauOptions.length > 0) {
-      optionsDraw = '[' + tableauOptions.join(',') + ']'
-    }
-    let binomeXY = ''
-    for (const point of this.listePoints) {
-      binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
-    }
-    binomeXY = binomeXY.substr(0, binomeXY.length - 2)
-    return `\\draw${optionsDraw} ${binomeXY};`
-  }
-}
-
-/**
- * Trace une ligne brisée
- * @example polyline(A,B,C,D,E) // Trace la ligne brisée ABCDE en noir
- * @example polyline([A,B,C,D,E],'blue') // Trace la ligne brisée ABCDE en bleu
- * @example polyline([A,B,C,D,E],'#f15929') // Trace la ligne brisée ABCDE en orange (code couleur HTML : #f15929)
- * @returns Polyline
- * @author Rémi Angot
- */
-export function polyline(
-  ...args: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]
-) {
-  return new Polyline(...args)
 }
 
 /*
@@ -293,7 +97,11 @@ export class Polygone extends ObjetMathalea2D {
   _aire: number
   stringColor: string
   readonly perimetre: number
-  constructor(...points: PointAbstrait[] | [PointAbstrait[], string?]) {
+  constructor(
+    ...points:
+      | (PointAbstrait | IPointAbstrait)[]
+      | [(PointAbstrait | IPointAbstrait)[], string?]
+  ) {
     super()
     this.epaisseurDesHachures = 1
     this.distanceDesHachures = 10
@@ -308,7 +116,9 @@ export class Polygone extends ObjetMathalea2D {
     this.stringColor = 'black'
     if (Array.isArray(points[0])) {
       // Si le premier argument est un tableau
-      this.listePoints = points[0]
+      this.listePoints = points[0].map((el) =>
+        point(el.x, el.y, el.nom, el.positionLabel),
+      )
       if (points[1]) {
         this.color = colorToLatexOrHTML(String(points[1]))
         this.stringColor = String(points[1])
@@ -592,7 +402,9 @@ export class Polygone extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 export function polygone(
-  ...args: PointAbstrait[] | [PointAbstrait[], string?]
+  ...args:
+    | (PointAbstrait | IPointAbstrait)[]
+    | [(PointAbstrait | IPointAbstrait)[], string?]
 ) {
   return new Polygone(...args)
 }
@@ -1402,18 +1214,18 @@ export class Polyquad {
     ]
     const aire = this.carresOccupes.length + n
     let carresOccupes
-    let casesAdjacentesDispo
+    let casesAdjacentsDispo
     const tetris2 = new Polyquad(aire, this.xOrigine, this.yOrigine)
     do {
       carresOccupes = JSON.parse(JSON.stringify(this.carresOccupes))
-      casesAdjacentesDispo = JSON.parse(
+      casesAdjacentsDispo = JSON.parse(
         JSON.stringify(this.carresAdjacentsDispo),
       )
       cpt++
       while (carresOccupes.length < aire) {
-        const index = randint(0, casesAdjacentesDispo.length - 1) // On choisit une case adjacente disponible
-        const carreChoisi = casesAdjacentesDispo[index] // La voilà
-        casesAdjacentesDispo.splice(index, 1) // On supprime la case choisie des cases adjacentes disponibles
+        const index = randint(0, casesAdjacentsDispo.length - 1) // On choisit une case adjacente disponible
+        const carreChoisi = casesAdjacentsDispo[index] // La voilà
+        casesAdjacentsDispo.splice(index, 1) // On supprime la case choisie des cases adjacentes disponibles
         carresOccupes.push({ x: carreChoisi.x, y: carreChoisi.y }) // Elle devient une case occupée
         for (const caseAdj of casesAdjacentes) {
           const caseAdjDispo = {
@@ -1428,20 +1240,20 @@ export class Polyquad {
             ) == null
           ) {
             if (
-              casesAdjacentesDispo.find(
+              casesAdjacentsDispo.find(
                 (caseAdjDispoTrouvee: { x: number; y: number }) =>
                   caseAdjDispo.x === caseAdjDispoTrouvee.x &&
                   caseAdjDispo.y === caseAdjDispoTrouvee.y,
               ) == null
             ) {
-              casesAdjacentesDispo.push(caseAdjDispo)
+              casesAdjacentsDispo.push(caseAdjDispo)
             }
           }
         }
       }
       tetris2.carresOccupes = JSON.parse(JSON.stringify(carresOccupes))
       tetris2.carresAdjacentsDispo = JSON.parse(
-        JSON.stringify(casesAdjacentesDispo),
+        JSON.stringify(casesAdjacentsDispo),
       )
       tetris2.rectangle = tetris2.findRectangle()
       aireTotale =
@@ -1455,7 +1267,7 @@ export class Polyquad {
     } while (aireTotale - aireExt !== aire && cpt < 100)
     tetris2.carresOccupes = JSON.parse(JSON.stringify(carresOccupes))
     tetris2.carresAdjacentsDispo = JSON.parse(
-      JSON.stringify(casesAdjacentesDispo),
+      JSON.stringify(casesAdjacentsDispo),
     )
     tetris2.complexity = aireExt / aireTotale
 

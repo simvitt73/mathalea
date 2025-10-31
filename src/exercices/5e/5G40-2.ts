@@ -1,5 +1,5 @@
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { codageAngle } from '../../lib/2d/angles'
-import { codageSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { milieu, point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'

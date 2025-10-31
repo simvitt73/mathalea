@@ -1,11 +1,8 @@
-import {
-  afficheCoteSegment,
-  codageSegments,
-  texteSurSegment,
-} from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { point } from '../../../lib/2d/points'
 import { polygoneRegulier } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { homothetie } from '../../../lib/2d/transformations'
 import { texPrix } from '../../../lib/format/style'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -19,6 +16,7 @@ import {
 } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { afficheCoteSegment } from '../../../lib/2d/AfficheCoteSegment'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'

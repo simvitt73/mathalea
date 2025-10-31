@@ -1,4 +1,5 @@
-import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageAngle } from '../../../lib/2d/angles'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'

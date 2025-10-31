@@ -1,5 +1,6 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { codageSegments } from '../../lib/2d/codages'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { grille, seyes } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/points'
 import {

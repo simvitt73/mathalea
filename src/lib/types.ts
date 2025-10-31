@@ -1,5 +1,15 @@
+import type {
+  IExercice,
+  OldFormatInteractifType,
+} from '../exercices/Exercice.type'
 import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
+
+// Types pour gestionInteractif
+import type { IFractionEtendue } from '../modules/FractionEtendue.type'
+// import Grandeur from '../modules/Grandeur'
+import type Decimal from 'decimal.js'
+import Hms from '../modules/Hms'
 
 /*
 Code inspiré de Sylvain, merci!
@@ -259,6 +269,80 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   types: 'Types',
 }
 
+export type ResultType = { isOk: boolean; feedback?: string }
+export type OptionsComparaisonType = {
+  noFeedback?: boolean
+  expressionsForcementReduites?: boolean
+  avecSigneMultiplier?: boolean
+  avecFractions?: boolean
+  sansTrigo?: boolean
+  fractionIrreductible?: boolean
+  fractionSimplifiee?: boolean
+  fractionReduite?: boolean
+  fractionDecimale?: boolean
+  fractionEgale?: boolean
+  fractionIdentique?: boolean
+  nombreDecimalSeulement?: boolean
+  expressionNumerique?: boolean
+  additionSeulementEtNonResultat?: boolean
+  soustractionSeulementEtNonResultat?: boolean
+  multiplicationSeulementEtNonResultat?: boolean
+  divisionSeulementEtNonResultat?: boolean
+  ensembleDeNombres?: boolean
+  fonction?: boolean
+  kUplet?: boolean
+  seulementCertainesPuissances?: boolean
+  sansExposantUn?: boolean
+  suiteDeNombres?: boolean
+  suiteRangeeDeNombres?: boolean
+  factorisation?: boolean
+  exclusifFactorisation?: boolean
+  nbFacteursIdentiquesFactorisation?: boolean
+  unSeulFacteurLitteral?: boolean
+  HMS?: boolean
+  intervalle?: boolean
+  estDansIntervalle?: boolean
+  ecritureScientifique?: boolean
+  unite?: boolean
+  precisionUnite?: number
+  puissance?: boolean
+  texteAvecCasse?: boolean
+  texteSansCasse?: boolean
+  nombreAvecEspace?: boolean
+  developpementEgal?: boolean
+  egaliteExpression?: boolean
+  calculFormel?: boolean
+  noUselessParen?: boolean
+  nonReponseAcceptee?: boolean
+  pluriels?: boolean
+  multi?: boolean // options pour le drag and drop
+  ordered?: boolean // options pour le drag and drop
+  tolerance?: number
+  variable?: string
+  entier?: boolean
+  domaine?: [number, number]
+}
+export type CompareFunction = (
+  input: string,
+  goodAnswer: string,
+  options: OptionsComparaisonType,
+) => ResultType
+
+export type CleaningOperation =
+  | 'fractions'
+  | 'fractionsMemesNegatives'
+  | 'virgules'
+  | 'espaces'
+  | 'parentheses'
+  | 'puissances'
+  | 'divisions'
+  | 'latex'
+  | 'foisUn'
+  | 'unites'
+  | 'doubleEspaces'
+  | 'espaceNormal'
+  | 'mathrm'
+
 export type InteractivityType =
   | 'qcm'
   | 'mathlive'
@@ -271,3 +355,303 @@ export type InteractivityType =
   | 'custom'
 
 export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'
+
+/**
+ * Type pour les figures cliquables
+ */
+export type ClickFigures = Array<{ id: string; solution: boolean }>
+
+export type AnswerType = {
+  value: AnswerValueType
+  compare?: CompareFunction
+  options?: OptionsComparaisonType
+}
+
+export type AnswerNormalizedType = {
+  value: string | string[]
+  compare?: CompareFunction
+  options?: OptionsComparaisonType
+}
+
+/**
+ * Type pour une valeur de réponse avec ses options
+ */
+export interface Valeur {
+  bareme?: (listePoints: number[]) => [number, number]
+  feedback?: (saisies: Record<string, string>) => string
+  reponse?: AnswerType
+  champ1?: AnswerType
+  champ2?: AnswerType
+  champ3?: AnswerType
+  champ4?: AnswerType
+  champ5?: AnswerType
+  champ6?: AnswerType
+  rectangle1?: AnswerType
+  rectangle2?: AnswerType
+  rectangle3?: AnswerType
+  rectangle4?: AnswerType
+  rectangle5?: AnswerType
+  rectangle6?: AnswerType
+  rectangle7?: AnswerType
+  rectangle8?: AnswerType
+
+  // on va aller jusque 8 pour l'instant, si besoin on en ajoutera
+  L1C1?: AnswerType
+  L1C2?: AnswerType
+  L1C3?: AnswerType
+  L2C1?: AnswerType
+  L2C2?: AnswerType
+  L2C3?: AnswerType
+  L3C1?: AnswerType
+  L3C2?: AnswerType
+  L3C3?: AnswerType
+
+  // idem on en ajoutera si besoin
+  callback?: (
+    exercice: IExercice,
+    question: number,
+    variables: [string, AnswerType][],
+    bareme: (listePoints: number[]) => [number, number],
+  ) => {
+    isOk: boolean
+    feedback: string
+    score: { nbBonnesReponses: number; nbReponses: number }
+  }
+}
+
+/**
+ * Type pour une valeur normalisée (après traitement)
+ */
+export type ValeurNormalized =
+  | string
+  | number
+  | IFractionEtendue
+  | Decimal
+  | IGrandeur
+  | Hms
+
+/**
+ * Type guard pour vérifier si une valeur est de type Valeur
+ */
+export function isValeur(value: unknown): value is Valeur {
+  return typeof value === 'object' && value !== null
+}
+
+/**
+ * Détecte structurellement une FractionEtendue sans dépendance runtime.
+ * On considère qu'un objet avec une méthode sommeFraction est une FractionEtendue.
+ */
+export function isFractionEtendue(x: unknown): x is IFractionEtendue {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    typeof (x as any).sommeFraction === 'function'
+  )
+}
+
+/**
+ * Détecte structurellement une Grandeur sans dépendance runtime.
+ * On considère qu'un objet avec une propriété uniteDeReference est une Grandeur.
+ */
+export function isGrandeur(x: unknown): x is IGrandeur {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    typeof (x as any).uniteDeReference === 'string'
+  )
+}
+
+/**
+ * Détecte structurellement un Decimal sans utiliser instanceof.
+ * On vérifie la présence de quelques méthodes caractéristiques des instances Decimal.
+ */
+export function isDecimal(x: unknown): x is Decimal {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    typeof (x as any).toDP === 'function' &&
+    typeof (x as any).toFixed === 'function' &&
+    typeof (x as any).plus === 'function'
+  )
+}
+
+export interface IGrandeur {
+  readonly mesure: number
+  readonly mesureDecimal: Decimal
+  readonly unite: string
+  readonly puissanceUnite: number
+  readonly uniteDeReference: string
+  readonly prefixe: string
+  readonly puissancePrefixe: number
+  readonly latexUnit: string
+
+  convertirEn(uniteConversion: string): IGrandeur
+  estEgal(unite2: IGrandeur): boolean
+  estUneApproximation(unite2: IGrandeur, precision: number): boolean
+  toString(precision?: number): string
+  toTex(precision?: number): string
+  toHHMMSS(): string
+}
+
+export interface ReponseParams {
+  digits?: number
+  decimals?: number
+  signe?: boolean
+  exposantNbChiffres?: number
+  exposantSigne?: boolean
+  approx?: number | 'intervalleStrict'
+  aussiCorrect?: number | IFractionEtendue
+  digitsNum?: number
+  digitsDen?: number
+  basePuissance?: number
+  exposantPuissance?: number
+  baseNbChiffres?: number
+  milieuIntervalle?: number
+  formatInteractif?: InteractivityType | OldFormatInteractifType
+  precision?: number
+  scoreapprox?: number
+  vertical?: boolean
+  strict?: boolean
+  vhead?: boolean
+  tpoint?: string
+}
+
+export type AnswerValueType =
+  | string
+  | string[]
+  | number
+  | number[]
+  | IFractionEtendue
+  | Decimal
+  | IGrandeur
+  | Hms
+  | IGrandeur[]
+  | Hms[]
+  | Decimal[]
+  | IFractionEtendue[]
+
+export function isAnswerValueType(value: unknown): value is AnswerValueType {
+  return (
+    typeof value === 'string' ||
+    (Array.isArray(value) &&
+      value.every((value) => typeof value === 'string')) ||
+    typeof value === 'number' ||
+    (Array.isArray(value) &&
+      value.every((value) => typeof value === 'number')) ||
+    isFractionEtendue(value) ||
+    (Array.isArray(value) && value.every((v) => isFractionEtendue(v))) ||
+    isDecimal(value) ||
+    (Array.isArray(value) && value.every((v) => isDecimal(v))) ||
+    isGrandeur(value) ||
+    (Array.isArray(value) && value.every((v) => isGrandeur(v))) ||
+    value instanceof Hms ||
+    (Array.isArray(value) && value.every((value) => value instanceof Hms))
+  )
+}
+
+export type ReponseComplexe = AnswerValueType | Valeur
+
+export function isReponseComplexe(value: unknown): value is ReponseComplexe {
+  return isAnswerValueType(value) || isValeur(value)
+}
+
+export type ChoixQcm = {
+  texte: string
+  statut?: boolean
+}
+
+export type UneProposition = {
+  texte?: string
+  statut?: number | boolean | string
+  sanscadre?: boolean | number
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
+  numQuestionVisible?: boolean
+  type?: string
+  feedback?: string
+  pointilles?: boolean | number
+  enonce?: string
+  propositions?: ChoixQcm[]
+  options?: {
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+  }
+  reponse?: {
+    valeur?:
+      | ValeurNormalized
+      | ValeurNormalized[]
+      | number
+      | number[]
+      | IFractionEtendue
+      | Decimal
+      | IFractionEtendue[]
+      | Decimal[]
+      | string
+      | string[]
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+    alignement?: string
+  }
+}
+
+export type LegacyReponse = string | IFractionEtendue | Decimal | number
+export type LegacyReponses = LegacyReponse[] | LegacyReponse
+
+export interface AutoCorrection {
+  enonce?: string
+  enonceAvant?: boolean
+  melange?: boolean
+  enonceAGauche?: boolean
+  enonceAvantUneFois?: boolean
+  enonceCentre?: boolean
+  enonceApresNumQuestion?: boolean
+  propositions?: UneProposition[]
+  reponse?: {
+    valeur?: ValeurNormalized
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+  }
+  options?: {
+    radio?: boolean
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+  }
+}
+
+export interface MathaleaSVG extends SVGSVGElement {
+  etat: boolean
+  hasMathaleaListener: boolean
+}
+
+export type ResultOfExerciceInteractif = {
+  numberOfPoints: number
+  numberOfQuestions: number
+}

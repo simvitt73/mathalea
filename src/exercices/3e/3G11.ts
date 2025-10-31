@@ -1,6 +1,6 @@
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import { codageSegments } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'

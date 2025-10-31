@@ -9,6 +9,7 @@ import type {
   ISegment,
   IVecteur,
 } from './Interfaces'
+import type { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point, point } from './points'
 import { pointAbstrait, PointAbstrait } from './points-abstraits'
 import { Polygone, polygone } from './polygones'
@@ -77,6 +78,13 @@ export function translation(
   positionLabel?: string,
   color?: string,
 ): PointAbstrait
+export function translation(
+  O: ObjetMathalea2D,
+  v: IVecteur | Vecteur | PointAbstrait,
+  nom?: string,
+  positionLabel?: string,
+  color?: string,
+): ObjetMathalea2D
 
 // Implémentation (type union d'interfaces, garde par propriétés)
 export function translation(
@@ -87,12 +95,20 @@ export function translation(
     | IDroite
     | ISegment
     | IPolygone
-    | IVecteur,
+    | IVecteur
+    | ObjetMathalea2D,
   vecteurTranslation: IVecteur | Vecteur | PointAbstrait, // ← Renommer le paramètre
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
+):
+  | PointAbstrait
+  | Point
+  | Droite
+  | Segment
+  | Polygone
+  | Vecteur
+  | ObjetMathalea2D {
   // Points (PointAbstrait ou Point)
   if (O instanceof Point || O instanceof PointAbstrait) {
     const x = O.x + vecteurTranslation.x
@@ -109,7 +125,7 @@ export function translation(
     const p2: PointAbstrait[] = []
     for (let i = 0; i < O.listePoints.length; i++) {
       const pi = translation(
-        O.listePoints[i],
+        O.listePoints[i] as PointAbstrait,
         vecteurTranslation,
       ) as PointAbstrait
       pi.nom = O.listePoints[i].nom + "'"
@@ -127,15 +143,24 @@ export function translation(
 
   // Segment
   if ('extremite1' in O && 'extremite2' in O) {
-    const M = translation(O.extremite1, vecteurTranslation) as PointAbstrait
-    const N = translation(O.extremite2, vecteurTranslation) as PointAbstrait
+    const M = translation(
+      O.extremite1 as PointAbstrait,
+      vecteurTranslation,
+    ) as PointAbstrait
+    const N = translation(
+      O.extremite2 as PointAbstrait,
+      vecteurTranslation,
+    ) as PointAbstrait
     const s = segment(M, N, color)
     ;(s as any).styleExtremites = (O as any).styleExtremites
     return s
   }
 
-  // Vecteur: invariant par translation -> renvoyer un vecteur identique
-  return vecteur(O.x, O.y)
+  if ('norme' in O) {
+    // Vecteur: invariant par translation -> renvoyer un vecteur identique
+    return vecteur(O.x, O.y)
+  }
+  return O as unknown as ObjetMathalea2D
 }
 
 /**
@@ -439,7 +464,7 @@ export function homothetie(
 
 // Implémentation
 export function homothetie(
-  Objet: IPointAbstrait | IPoint | IDroite | ISegment | IPolygone | IVecteur,
+  objet: IPointAbstrait | IPoint | IDroite | ISegment | IPolygone | IVecteur,
   O: IPointAbstrait,
   k: number,
   nom = '',
@@ -447,10 +472,10 @@ export function homothetie(
   color = 'black',
 ): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
   // Points (PointAbstrait ou Point)
-  if (Objet instanceof Point || Objet instanceof PointAbstrait) {
-    const x = O.x + k * (Objet.x - O.x)
-    const y = O.y + k * (Objet.y - O.y)
-    if (Objet instanceof Point) {
+  if (objet instanceof Point || objet instanceof PointAbstrait) {
+    const x = O.x + k * (objet.x - O.x)
+    const y = O.y + k * (objet.y - O.y)
+    if (objet instanceof Point) {
       return point(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
@@ -458,34 +483,34 @@ export function homothetie(
   }
 
   // Polygone
-  if ('listePoints' in Objet) {
+  if ('listePoints' in objet) {
     const p2: PointAbstrait[] = []
-    for (let i = 0; i < Objet.listePoints.length; i++) {
-      p2[i] = homothetie(Objet.listePoints[i], O, k) as PointAbstrait
-      p2[i].nom = Objet.listePoints[i].nom + "'"
+    for (let i = 0; i < objet.listePoints.length; i++) {
+      p2[i] = homothetie(objet.listePoints[i], O, k) as PointAbstrait
+      p2[i].nom = objet.listePoints[i].nom + "'"
     }
     return polygone(p2, color)
   }
 
   // Droite
-  if ('pente' in Objet) {
-    const M = homothetie(point(Objet.x1, Objet.y1), O, k) as Point
-    const N = homothetie(point(Objet.x2, Objet.y2), O, k) as Point
+  if ('pente' in objet) {
+    const M = homothetie(point(objet.x1, objet.y1), O, k) as Point
+    const N = homothetie(point(objet.x2, objet.y2), O, k) as Point
     return droite(M, N, '', color)
   }
 
   // Segment
-  if ('extremite1' in Objet && 'extremite2' in Objet) {
-    const M = homothetie(Objet.extremite1, O, k) as PointAbstrait
-    const N = homothetie(Objet.extremite2, O, k) as PointAbstrait
+  if ('extremite1' in objet && 'extremite2' in objet) {
+    const M = homothetie(objet.extremite1, O, k) as PointAbstrait
+    const N = homothetie(objet.extremite2, O, k) as PointAbstrait
     const s = segment(M, N, color)
-    ;(s as any).styleExtremites = (Objet as any).styleExtremites
+    ;(s as any).styleExtremites = (objet as any).styleExtremites
     return s
   }
 
   // Vecteur
 
-  return vecteur(Objet.x * k, Objet.y * k)
+  return vecteur(objet.x * k, objet.y * k)
 }
 
 /**

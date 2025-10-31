@@ -1,4 +1,5 @@
-import { Droite, droite, mediatrice } from '../../lib/2d/droites'
+import { Droite, droite } from '../../lib/2d/droites'
+import { mediatrice } from '../../lib/2d/Mediatrice'
 import {
   milieu,
   point,

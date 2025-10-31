@@ -1,4 +1,4 @@
-import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'

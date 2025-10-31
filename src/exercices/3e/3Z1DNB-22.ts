@@ -1,6 +1,6 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { milieu, point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'

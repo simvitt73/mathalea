@@ -1,8 +1,10 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
 import { context } from '../../../modules/context'
 import { Droite, droite } from '../../2d/droites'
+import type { IVecteur } from '../../2d/Interfaces'
 import { Point, point } from '../../2d/points'
-import { Polygone, polygone, polyline } from '../../2d/polygones'
+import { Polygone, polygone } from '../../2d/polygones'
+import { polyline } from '../../2d/Polyline'
 import { Segment, segment } from '../../2d/segmentsVecteurs'
 import { vecteur } from '../../2d/Vecteur'
 import { arrondi } from '../../outils/nombres'
@@ -111,7 +113,7 @@ export class Vecteur3d {
   z: number = 0
   matrice: any
   norme: number
-  c2d: Vecteur
+  c2d: IVecteur
   representant: (A: Point3d) => Segment
   constructor(
     ...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]

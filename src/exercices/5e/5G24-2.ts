@@ -1,6 +1,6 @@
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { codageAngle } from '../../lib/2d/angles'
-import { codageSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAdistance } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'

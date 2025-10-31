@@ -7,7 +7,6 @@ import {
   pointAdistance,
   pointIntersectionCC,
 } from '../../../lib/2d/points'
-import type { PointAbstrait } from '../../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { longueur } from '../../../lib/2d/utilitairesGeometriques'
@@ -53,7 +52,7 @@ export default class Perimetre extends ExerciceSimple {
     const d = l - b - c + Math.floor(c)
     const c1 = cercle(C, d)
     const c2 = cercle(A, b)
-    const D = pointIntersectionCC(c1, c2, nom[3], 1) as PointAbstrait
+    const D = pointIntersectionCC(c1, c2, nom[3], 1)
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x, D.x) - 1.5
     const ymin = Math.min(A.y, B.y, C.y, D.y) - 1.5

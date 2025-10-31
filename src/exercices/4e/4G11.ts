@@ -1,4 +1,4 @@
-import { codageSegment } from '../../lib/2d/codages'
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Point } from '../../lib/2d/points'
 import type { Polygone } from '../../lib/2d/polygones'

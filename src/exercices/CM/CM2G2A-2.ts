@@ -1,6 +1,6 @@
 import { angle } from 'apigeom/src/elements/calculus/Coords'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { codageSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
 import {

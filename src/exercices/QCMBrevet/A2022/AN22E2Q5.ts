@@ -1,5 +1,5 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { afficheCoteSegment } from '../../../lib/2d/codages'
+import { afficheCoteSegment } from '../../../lib/2d/AfficheCoteSegment'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { segment } from '../../../lib/2d/segmentsVecteurs'

@@ -1,11 +1,10 @@
 import { arc } from '../../lib/2d/Arc'
-import { codageSegment } from '../../lib/2d/codages'
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import type { ISegment } from '../../lib/2d/Interfaces'
 import {
   milieu,
-  Point,
   point,
   pointIntersectionDD,
   pointSurSegment,
@@ -1000,10 +999,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               D,
               -(aleaPente - randint(50, 90) / 100),
             )
-            const E = pointIntersectionDD(d1, d2) as Point
-            const F = pointIntersectionDD(d2, d3) as Point
-            const G = pointIntersectionDD(d3, d4) as Point
-            const H = pointIntersectionDD(d4, d1) as Point
+            const E = pointIntersectionDD(d1, d2)
+            const F = pointIntersectionDD(d2, d3)
+            const G = pointIntersectionDD(d3, d4)
+            const H = pointIntersectionDD(d4, d1)
             const poly = polygone(E, F, G, H)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
             poly.opaciteDeRemplissage = 0.5

@@ -1,9 +1,5 @@
-import { tracePoint } from '../../lib/2d/TracePoint'
-import { vecteur } from '../../lib/2d/Vecteur'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import {
   distancePointDroite,
   droite,
@@ -17,6 +13,7 @@ import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   rotation,
   symetrieAxiale,
@@ -25,6 +22,7 @@ import {
 } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'

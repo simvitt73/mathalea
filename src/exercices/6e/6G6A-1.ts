@@ -1,11 +1,8 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { traceCompas } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
-import {
-  afficheLongueurSegment,
-  codageSegments,
-  texteSurSegment,
-} from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
   milieu,
@@ -18,6 +15,7 @@ import {
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
@@ -154,7 +152,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -197,7 +195,7 @@ export default class ConstruireUnTriangle extends Exercice {
           cA = cercle(A, lAC)
           dAB = droite(A, B)
           dBC = droiteParPointEtPerpendiculaire(B, dAB)
-          C = pointIntersectionLC(dBC, cA, sommets[2], 1) as Point
+          C = pointIntersectionLC(dBC, cA, sommets[2], 1)
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
             C.y + randint(-5, 5, 0) / 10,
@@ -269,7 +267,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -380,7 +378,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -487,7 +485,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -596,7 +594,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -706,7 +704,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,

@@ -1,5 +1,5 @@
 import { codageAngle } from '../../../lib/2d/angles'
-import { codageSegment } from '../../../lib/2d/codages'
+import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { milieu, point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'

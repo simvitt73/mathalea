@@ -7,93 +7,18 @@ import {
 } from '@cortex-js/compute-engine'
 import { number } from 'mathjs'
 import type { Expression } from 'mathlive'
-/* import type {
-  LatexDictionaryEntry,
-  ParseLatexOptions,
-  Parser
-} from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
- */
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { areSameArray } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
+import type {
+  CleaningOperation,
+  OptionsComparaisonType,
+  ResultType,
+} from '../types'
 
 const engine = new ComputeEngine()
 export default engine
-
-export type ResultType = { isOk: boolean; feedback?: string }
-export type OptionsComparaisonType = {
-  noFeedback?: boolean
-  expressionsForcementReduites?: boolean
-  avecSigneMultiplier?: boolean
-  avecFractions?: boolean
-  sansTrigo?: boolean
-  fractionIrreductible?: boolean
-  fractionSimplifiee?: boolean
-  fractionReduite?: boolean
-  fractionDecimale?: boolean
-  fractionEgale?: boolean
-  fractionIdentique?: boolean
-  nombreDecimalSeulement?: boolean
-  expressionNumerique?: boolean
-  additionSeulementEtNonResultat?: boolean
-  soustractionSeulementEtNonResultat?: boolean
-  multiplicationSeulementEtNonResultat?: boolean
-  divisionSeulementEtNonResultat?: boolean
-  ensembleDeNombres?: boolean
-  fonction?: boolean
-  kUplet?: boolean
-  seulementCertainesPuissances?: boolean
-  sansExposantUn?: boolean
-  suiteDeNombres?: boolean
-  suiteRangeeDeNombres?: boolean
-  factorisation?: boolean
-  exclusifFactorisation?: boolean
-  nbFacteursIdentiquesFactorisation?: boolean
-  unSeulFacteurLitteral?: boolean
-  HMS?: boolean
-  intervalle?: boolean
-  estDansIntervalle?: boolean
-  ecritureScientifique?: boolean
-  unite?: boolean
-  precisionUnite?: number
-  puissance?: boolean
-  texteAvecCasse?: boolean
-  texteSansCasse?: boolean
-  nombreAvecEspace?: boolean
-  developpementEgal?: boolean
-  egaliteExpression?: boolean
-  calculFormel?: boolean
-  noUselessParen?: boolean
-  nonReponseAcceptee?: boolean
-  pluriels?: boolean
-  multi?: boolean // options pour le drag and drop
-  ordered?: boolean // options pour le drag and drop
-  tolerance?: number
-  variable?: string
-  entier?: boolean
-  domaine?: [number, number]
-}
-export type CompareFunction = (
-  input: string,
-  goodAnswer: string,
-  options: OptionsComparaisonType,
-) => ResultType
-
-type CleaningOperation =
-  | 'fractions'
-  | 'fractionsMemesNegatives'
-  | 'virgules'
-  | 'espaces'
-  | 'parentheses'
-  | 'puissances'
-  | 'divisions'
-  | 'latex'
-  | 'foisUn'
-  | 'unites'
-  | 'doubleEspaces'
-  | 'espaceNormal'
-  | 'mathrm'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine

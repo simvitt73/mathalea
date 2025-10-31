@@ -1,6 +1,6 @@
 import { courbe, courbeInterpolee } from '../../lib/2d/courbes'
 import { point } from '../../lib/2d/points'
-import { polyline } from '../../lib/2d/polygones'
+import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'

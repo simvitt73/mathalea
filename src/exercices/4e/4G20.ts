@@ -1,5 +1,5 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation, similitude } from '../../lib/2d/transformations'

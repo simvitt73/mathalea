@@ -4,11 +4,47 @@ import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point, pointSurSegment } from './points'
 import { PointAbstrait } from './points-abstraits'
-import { rotation, similitude } from './transformations'
 import {
   angleOriente,
   estSecant as estSecantUtil,
 } from './utilitairesGeometriques'
+
+/**
+ * Rotation d'un point M autour d'un centre O d'un angle en degrés
+ */
+function rotationPoint(
+  M: PointAbstrait,
+  O: PointAbstrait,
+  angleDeg: number,
+): PointAbstrait {
+  const angleRad = (angleDeg * Math.PI) / 180
+  const cos = Math.cos(angleRad)
+  const sin = Math.sin(angleRad)
+  const dx = M.x - O.x
+  const dy = M.y - O.y
+  return point(O.x + dx * cos - dy * sin, O.y + dx * sin + dy * cos)
+}
+
+/**
+ * Similitude : rotation + homothétie
+ * Point M' = O + k * rotation(M - O, angle)
+ */
+function similitudePoint(
+  centre: PointAbstrait,
+  M: PointAbstrait,
+  angleDeg: number,
+  rapport: number,
+): PointAbstrait {
+  const angleRad = (angleDeg * Math.PI) / 180
+  const cos = Math.cos(angleRad)
+  const sin = Math.sin(angleRad)
+  const dx = M.x - centre.x
+  const dy = M.y - centre.y
+  return point(
+    centre.x + rapport * (dx * cos - dy * sin),
+    centre.y + rapport * (dx * sin + dy * cos),
+  )
+}
 
 /**
  * s = segment(A, B) //Segment d'extrémités A et B
@@ -332,8 +368,8 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '|') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = rotation(M, B, 90)
-        const B2 = rotation(M, B, -90)
+        const B1 = rotationPoint(M, B, 90)
+        const B2 = rotationPoint(M, B, -90)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
           coeff,
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${
@@ -343,8 +379,8 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '>') {
         // si ça termine par > on rajoute une flèche en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(B, M, 90, 0.7)
-        const B2 = similitude(B, M, -90, 0.7)
+        const B1 = similitudePoint(B, M, 90, 0.7)
+        const B2 = similitudePoint(B, M, -90, 0.7)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff,
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${
@@ -357,8 +393,8 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
         const M = pointSurSegment(B, A, -h / context.pixelsParCm)
-        const B1 = similitude(B, M, 90, 0.7)
-        const B2 = similitude(B, M, -90, 0.7)
+        const B1 = similitudePoint(B, M, 90, 0.7)
+        const B2 = similitudePoint(B, M, -90, 0.7)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff,
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${
@@ -371,45 +407,45 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '[') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(M, B, 90, 1)
-        const B2 = similitude(M, B, -90, 1)
-        const C1 = similitude(B, B1, -90, 0.3)
-        const C2 = similitude(B, B2, 90, 0.3)
+        const B1 = similitudePoint(M, B, 90, 1)
+        const B2 = similitudePoint(M, B, -90, 1)
+        const C1 = similitudePoint(B, B1, -90, 0.3)
+        const C2 = similitudePoint(B, B2, 90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       if (fin === ']') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(M, B, 90, 1)
-        const B2 = similitude(M, B, -90, 1)
-        const C1 = similitude(B, B1, 90, 0.3)
-        const C2 = similitude(B, B2, -90, 0.3)
+        const B1 = similitudePoint(M, B, 90, 1)
+        const B2 = similitudePoint(M, B, -90, 1)
+        const C1 = similitudePoint(B, B1, 90, 0.3)
+        const C2 = similitudePoint(B, B2, -90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       const debut = this.styleExtremites[0]
       if (debut === '[') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const B1 = similitude(M, A, 90, 1)
-        const B2 = similitude(M, A, -90, 1)
-        const C1 = similitude(A, B1, 90, 0.3)
-        const C2 = similitude(A, B2, -90, 0.3)
+        const B1 = similitudePoint(M, A, 90, 1)
+        const B2 = similitudePoint(M, A, -90, 1)
+        const C1 = similitudePoint(A, B1, 90, 0.3)
+        const C2 = similitudePoint(A, B2, -90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       if (debut === ']') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const B1 = similitude(M, A, 90, 1)
-        const B2 = similitude(M, A, -90, 1)
-        const C1 = similitude(A, B1, -90, 0.3)
-        const C2 = similitude(A, B2, 90, 0.3)
+        const B1 = similitudePoint(M, A, 90, 1)
+        const B2 = similitudePoint(M, A, -90, 1)
+        const C1 = similitudePoint(A, B1, -90, 0.3)
+        const C2 = similitudePoint(A, B2, 90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       if (debut === '<') {
         // si ça commence par < on rajoute une flèche en A
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = similitude(A, M, 90, 0.7)
-        const A2 = similitude(A, M, -90, 0.7)
+        const A1 = similitudePoint(A, M, 90, 0.7)
+        const A2 = similitudePoint(A, M, -90, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff,
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${
@@ -424,8 +460,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
         const M = pointSurSegment(A, B, -h / context.pixelsParCm)
-        const A1 = similitude(A, M, 90, 0.7)
-        const A2 = similitude(A, M, -90, 0.7)
+        const A1 = similitudePoint(A, M, 90, 0.7)
+        const A2 = similitudePoint(A, M, -90, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff,
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${
@@ -440,8 +476,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '|') {
         // si ça commence par | on le rajoute en A
         const N = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = rotation(N, A, 90)
-        const A2 = rotation(N, A, -90)
+        const A1 = rotationPoint(N, A, 90)
+        const A2 = rotationPoint(N, A, -90)
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
           coeff,
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${

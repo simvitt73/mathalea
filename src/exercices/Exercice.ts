@@ -1,37 +1,30 @@
 import type Figure from 'apigeom/src/Figure'
+import type Decimal from 'decimal.js'
 import {
   KeyboardType,
   type PartialKbType,
 } from '../lib/interactif/claviers/keyboard'
-import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
-import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type {
   AutoCorrection,
-  clickFigures,
+  ClickFigures,
+  InteractivityType,
+  OptionsComparaisonType,
   ReponseComplexe,
-} from '../lib/interactif/gestionInteractif'
-import type { InteractivityType } from '../lib/types'
+} from '../lib/types'
+import type { IFractionEtendue } from '../modules/FractionEtendue.type'
 import type Grandeur from '../modules/Grandeur'
+import type {
+  IDragAndDrop,
+  IExercice,
+  IExerciceSimple,
+  OldFormatInteractifType,
+} from './Exercice.type'
 import {
   exportedApplyNewSeed,
   exportedNouvelleVersionWrapper,
   exportedQuestionJamaisPosee,
   exportedReinit,
 } from './exerciseMethods'
-// Pour retro compatibilité avec setReponse
-export type OldFormatInteractifType =
-  | 'calcul'
-  | 'texte'
-  | 'tableauMathlive'
-  | 'Num'
-  | 'Den'
-  | 'fractionEgale'
-  | 'unites'
-  | 'intervalleStrict'
-  | 'intervalle'
-  | 'puissance'
-  | 'canonicalAdd'
-  | 'ignorerCasse'
 
 /**
  *
@@ -39,7 +32,7 @@ export type OldFormatInteractifType =
  *
  * @author Rémi Angot
  */
-export default class Exercice {
+export default class Exercice implements IExercice {
   titre: string
   id?: string
   uuid!: string
@@ -95,7 +88,7 @@ export default class Exercice {
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
-  figures?: Figure[] | clickFigures[]
+  figures?: Figure[] | ClickFigures[]
   amcReady?: boolean
   amcType?: string
   tableauSolutionsDuQcm?: object[]
@@ -169,7 +162,7 @@ export default class Exercice {
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
-  dragAndDrops?: DragAndDrop[]
+  dragAndDrops?: IDragAndDrop[]
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number
@@ -278,7 +271,9 @@ export default class Exercice {
     // Nécessaire pour éviter les fuites de mémoire des exercices HTML
   }
 
-  nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
+  nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(
+    this as IExercice,
+  )
 
   correctionInteractive?(i: number): string | string[]
 
@@ -286,9 +281,16 @@ export default class Exercice {
     console.info(numeroExercice)
   }
 
-  reinit = exportedReinit.bind(this as Exercice)
+  reinit = exportedReinit.bind(this as unknown as IExerciceSimple)
 
-  applyNewSeed = exportedApplyNewSeed.bind(this as Exercice)
+  applyNewSeed = exportedApplyNewSeed.bind(this as IExercice)
 
-  questionJamaisPosee = exportedQuestionJamaisPosee.bind(this as Exercice)
+  questionJamaisPosee = (
+    i: number,
+    ...args: (string | number | IFractionEtendue | Decimal)[]
+  ): boolean => {
+    return (
+      exportedQuestionJamaisPosee.bind(this as IExercice)(i, ...args) || false
+    )
+  }
 }

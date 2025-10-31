@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'

@@ -1,6 +1,6 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
 import {
@@ -18,6 +18,7 @@ import {
 } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'

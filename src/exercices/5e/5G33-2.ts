@@ -1,4 +1,4 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import {
   droite,
   droiteParPointEtParallele,

@@ -1,11 +1,12 @@
 import { floor } from 'mathjs'
 import { randint } from '../../modules/outils'
-import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { CodageAngleDroit, codageAngleDroit } from './angles'
 import { cercle } from './cercle'
-import { CodageMilieu } from './codages'
+import { CodageAngleDroit, codageAngleDroit } from './CodageAngleDroit'
+import { CodageMilieu } from './CodageMilieu'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { Droite, droite, mediatrice } from './droites'
+import { Droite, droite } from './droites'
+import { mediatrice } from './Mediatrice'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import {
   milieu,
   point,
@@ -69,9 +70,9 @@ export function triangle2points2longueurs(
   const c2 = cercle(B, l2)
   let C: PointAbstrait
   if (n === 1) {
-    C = pointIntersectionCC(c1, c2) as PointAbstrait
+    C = pointIntersectionCC(c1, c2)
   } else {
-    C = pointIntersectionCC(c1, c2, '', 2) as PointAbstrait
+    C = pointIntersectionCC(c1, c2, '', 2)
   }
   return polygone([A, B, C], color)
 }
@@ -101,7 +102,7 @@ export function triangle2points2angles(
   const c2 = rotation(b, B, a2)
   const dAc1 = droite(A, c1)
   const dBc2 = droite(B, c2)
-  const C = pointIntersectionDD(dAc1, dBc2, 'C') as PointAbstrait
+  const C = pointIntersectionDD(dAc1, dBc2, 'C')
   return polygone([A, B, C], color)
 }
 
@@ -162,8 +163,8 @@ export function triangle2points1angle1longueurOppose(
   const d = droite(A, B)
   const e = rotation(d, A, a)
   const c = cercle(B, l)
-  if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1) as PointAbstrait
-  else M = pointIntersectionLC(e, c, '', 2) as PointAbstrait
+  if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
+  else M = pointIntersectionLC(e, c, '', 2)
   return polygone([A, B, M], color)
 }
 
@@ -228,7 +229,7 @@ export function centreGraviteTriangle(
 ) {
   const d = medianeTriangle(B, A, C)
   const e = medianeTriangle(A, B, C)
-  const p = pointIntersectionDD(d, e) as PointAbstrait
+  const p = pointIntersectionDD(d, e)
   const x = p.x
   const y = p.y
   return new Point(x, y, nom, positionLabel)
@@ -384,7 +385,7 @@ export function orthoCentre(
 ) {
   const d = hauteurTriangle(B, A, C)
   const e = hauteurTriangle(A, B, C)
-  const p = pointIntersectionDD(d, e) as PointAbstrait
+  const p = pointIntersectionDD(d, e)
   const x = p.x
   const y = p.y
   return point(x, y, nom, positionLabel)
@@ -414,7 +415,7 @@ export function centreCercleCirconscrit(
 ) {
   const d = mediatrice(A, B)
   const e = mediatrice(B, C)
-  const p = pointIntersectionDD(d as Droite, e as Droite) as PointAbstrait
+  const p = pointIntersectionDD(d as Droite, e as Droite)
   const x = p.x
   const y = p.y
   return new Point(x, y, nom, positionLabel)

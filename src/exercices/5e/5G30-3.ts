@@ -1,4 +1,4 @@
-import { codageAngle, CodageAngleDroit } from '../../lib/2d/angles'
+import { codageAngle } from '../../lib/2d/angles'
 import {
   Droite,
   droite,
@@ -20,7 +20,8 @@ import {
 import Exercice from '../Exercice'
 
 import { number } from 'mathjs'
-import type { CodageAngle } from '../../lib/2d/codages'
+import type { CodageAngle } from '../../lib/2d/CodageAngle'
+import type { CodageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { demiDroite, type DemiDroite } from '../../lib/2d/DemiDroite'
 import type { TracePoint } from '../../lib/2d/TracePoint'
 import { bleuMathalea, vertMathalea } from '../../lib/colors'

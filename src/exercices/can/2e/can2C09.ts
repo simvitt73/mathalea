@@ -1,4 +1,4 @@
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { milieu, point } from '../../../lib/2d/points'
 import {
   segment,

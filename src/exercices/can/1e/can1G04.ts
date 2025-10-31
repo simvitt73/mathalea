@@ -1,8 +1,6 @@
 import Decimal from 'decimal.js'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../../lib/2d/codages'
+import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
+import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
 import { point, pointAdistance } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'

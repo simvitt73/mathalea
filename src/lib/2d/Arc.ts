@@ -1,5 +1,5 @@
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { Droite, droite, mediatrice } from './droites'
+import { droite } from './droites'
 import type { IPointAbstrait } from './Interfaces'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
@@ -422,7 +422,14 @@ export function arcPointPointAngle(
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d = mediatrice(M, N) as Droite
+  // Droite perpendiculaire à MN, passant par le milieu I de [MN]
+  const I = pointAbstrait((M.x + N.x) / 2, (M.y + N.y) / 2)
+  const vx = N.x - M.x
+  const vy = N.y - M.y
+  // Un point J sur la perpendiculaire en I (vecteur directeur perpendiculaire à MN : (-vy, vx))
+  // (pas besoin de normaliser, la construction par deux points suffit)
+  const J = pointAbstrait(I.x - vy, I.y + vx)
+  const d = droite(I, J)
   // Rotation de la droite (N, M) autour de N avec angle anglerot
   // = rotation des points N et M, puis construction de la droite
   const NRotate = rotationPoint(N, N, anglerot) // N reste fixe (centre de rotation)

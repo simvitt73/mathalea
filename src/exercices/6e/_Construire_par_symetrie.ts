@@ -1,4 +1,5 @@
-import { codageMediatrice, codageMilieu } from '../../lib/2d/codages'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { codageMilieu } from '../../lib/2d/CodageMilieu'
 import {
   dessousDessus,
   Droite,

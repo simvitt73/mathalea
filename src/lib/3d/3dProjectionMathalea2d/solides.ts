@@ -11,17 +11,12 @@ import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
 import {
   Point,
   point,
-  pointDepuisPointAbstrait,
   pointIntersectionDD,
   pointSurSegment,
 } from '../../2d/points'
-import type { PointAbstrait } from '../../2d/points-abstraits'
-import {
-  polygone,
-  polygoneAvecNom,
-  polyline,
-  renommePolygone,
-} from '../../2d/polygones'
+import { type PointAbstrait } from '../../2d/points-abstraits'
+import { polygone, polygoneAvecNom, renommePolygone } from '../../2d/polygones'
+import { polyline } from '../../2d/Polyline'
 import { segment } from '../../2d/segmentsVecteurs'
 import { labelPoint } from '../../2d/textes'
 import { translation } from '../../2d/transformations'
@@ -1625,11 +1620,7 @@ export class Prisme3d extends ObjetMathalea2D {
         this.base1.listePoints2d[ee].positionLabel =
           base.listePoints2d[ee].positionLabel ?? 'above'
       }
-      this.c2d.push(
-        labelPoint(
-          ...p.listePoints.map((point) => pointDepuisPointAbstrait(point)),
-        ),
-      )
+      this.c2d.push(labelPoint(...p.listePoints))
       p = polygone(this.base2.listePoints2d)
       const listeDeLettres2 = choisitLettresDifferentes(
         this.base1.listePoints.length,
@@ -1640,11 +1631,7 @@ export class Prisme3d extends ObjetMathalea2D {
         this.base2.listePoints2d[ee].positionLabel =
           positionLabels2?.[ee] ?? 'below'
       }
-      this.c2d.push(
-        labelPoint(
-          ...p.listePoints.map((point) => pointDepuisPointAbstrait(point)),
-        ),
-      )
+      this.c2d.push(labelPoint(...p.listePoints))
       this.nom = nomBase1 + (nomBase2 ?? '')
     }
   }
@@ -1996,11 +1983,7 @@ export class Pyramide3d extends ObjetMathalea2D {
         this.base.listePoints2d[ee].positionLabel =
           this.sommet.z > 0 ? 'below' : 'above'
       }
-      this.c2d.push(
-        labelPoint(
-          ...p.listePoints.map((point) => pointDepuisPointAbstrait(point)),
-        ),
-      )
+      this.c2d.push(labelPoint(...p.listePoints))
       this.c2d.push(labelPoint(this.sommet))
       this.nom = nomBase.join('') + this.sommet.label
     }

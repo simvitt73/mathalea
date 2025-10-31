@@ -1,6 +1,6 @@
 import { droite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
-import { polyline } from '../../lib/2d/polygones'
+import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint, texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'

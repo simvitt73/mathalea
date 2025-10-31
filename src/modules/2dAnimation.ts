@@ -6,9 +6,10 @@
  */
 
 import type { DemiDroite } from '../lib/2d/DemiDroite'
-import type { Droite, Mediatrice } from '../lib/2d/droites'
+import type { Droite } from '../lib/2d/droites'
 import { fixeBordures } from '../lib/2d/fixeBordures'
 import type { IDroite, IVecteur } from '../lib/2d/Interfaces'
+import type { Mediatrice } from '../lib/2d/Mediatrice'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import type { Point } from '../lib/2d/points'
 import type { PointAbstrait } from '../lib/2d/points-abstraits'
@@ -284,7 +285,17 @@ export class TranslationAnimee extends ObjetMathalea2D {
     this.v = v
     this.animation = animation
     const liste2 = this.liste.map((el) => translation(el, v as IVecteur))
-    const bordures = fixeBordures(this.liste.concat(liste2))
+    const bordures = fixeBordures(
+      this.liste.concat(
+        liste2 as
+          | (PointAbstrait | Droite | Segment | DemiDroite | Polygone)[]
+          | Point
+          | Droite
+          | Segment
+          | DemiDroite
+          | Polygone,
+      ),
+    )
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 

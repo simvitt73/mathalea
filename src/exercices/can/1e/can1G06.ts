@@ -1,10 +1,8 @@
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-  codageSegment,
-} from '../../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'

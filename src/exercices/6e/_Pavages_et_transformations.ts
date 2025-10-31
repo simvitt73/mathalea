@@ -1,6 +1,6 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
 import { arc } from '../../lib/2d/Arc'
-import { codageSegments } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import {
   assombrirOuEclaircir,
   colorToLatexOrHTML,
@@ -9,16 +9,15 @@ import {
   Droite,
   droiteHorizontaleParPoint,
   droiteVerticaleParPoint,
-  mediatrice,
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { mediatrice } from '../../lib/2d/Mediatrice'
 import {
   milieu,
   point,
   pointIntersectionDD,
   pointSurDroite,
 } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { barycentre, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
@@ -642,13 +641,13 @@ export default class PavagesEtTransformations extends Exercice {
           droiteHorizontaleParPoint(
             point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
           ),
-        ) as PointAbstrait
+        )
         pt2 = pointIntersectionDD(
           mediatrice1,
           droiteVerticaleParPoint(
             point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1]),
           ),
-        ) as PointAbstrait
+        )
         if (pt1.x > pt2.x) {
           objetsEnonce.push(
             latexParCoordonnees(
@@ -706,13 +705,13 @@ export default class PavagesEtTransformations extends Exercice {
           droiteHorizontaleParPoint(
             point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1]),
           ),
-        ) as PointAbstrait
+        )
         pt2 = pointIntersectionDD(
           mediatrice2,
           droiteVerticaleParPoint(
             point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1]),
           ),
-        ) as PointAbstrait
+        )
         if (pt1.x > pt2.x) {
           objetsEnonce.push(
             latexParCoordonnees(
@@ -795,7 +794,7 @@ export default class PavagesEtTransformations extends Exercice {
           droiteVerticaleParPoint(
             point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
           ),
-        ) as PointAbstrait
+        )
         objetsEnonce.push(
           latexParCoordonnees(
             '(d_3)',

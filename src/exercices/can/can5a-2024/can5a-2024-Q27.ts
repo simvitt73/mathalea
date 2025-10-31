@@ -1,11 +1,11 @@
-import { tracePoint } from '../../../lib/2d/TracePoint'
-import { afficheLongueurSegment } from '../../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
 import { milieu, point } from '../../../lib/2d/points'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'

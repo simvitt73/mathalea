@@ -1,6 +1,7 @@
 import { arc } from '../../lib/2d/Arc'
-import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'

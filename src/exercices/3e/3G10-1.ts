@@ -1,7 +1,6 @@
-import { tracePoint } from '../../lib/2d/TracePoint'
-import { vecteur } from '../../lib/2d/Vecteur'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
@@ -14,6 +13,8 @@ import { milieu, Point, point, pointSurDroite } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import {
   handleAnswers,
   setReponse,

@@ -1,4 +1,4 @@
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point } from '../../../lib/2d/points'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'

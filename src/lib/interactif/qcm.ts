@@ -1,4 +1,4 @@
-import type Exercice from '../../exercices/Exercice'
+import type { IExercice } from '../../exercices/Exercice.type'
 import { context } from '../../modules/context'
 import { messageFeedback } from '../../modules/messages'
 import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
@@ -14,7 +14,7 @@ import { afficheScore } from './afficheScore'
 import type { ButtonWithMathaleaListener } from './gestionCan'
 import type { UneProposition } from './gestionInteractif'
 
-export function verifQuestionQcm(exercice: Exercice, i: number) {
+export function verifQuestionQcm(exercice: IExercice, i: number) {
   let resultat
   // i est l'indice de la question
   let nbBonnesReponses = 0
@@ -130,7 +130,7 @@ export function verifQuestionQcm(exercice: Exercice, i: number) {
  * @returns {{texte: string, texteCorr: string}} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   options: { style: string; format: string } = { style: '', format: 'case' },
 ) {
@@ -354,7 +354,7 @@ export function propositionsQcm(
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function exerciceQcm(exercice: Exercice) {
+export function exerciceQcm(exercice: IExercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
     if (exercice.interactifType === 'qcm') {

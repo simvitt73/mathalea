@@ -3,8 +3,6 @@ import {
   Droite,
   droiteHorizontaleParPoint,
   droiteVerticaleParPoint,
-  Mediatrice,
-  mediatrice,
 } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -30,7 +28,8 @@ import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 
-import { codageMediatrice } from '../../lib/2d/codages'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import type { Mediatrice } from '../../lib/2d/Mediatrice'
 import type { Polygone } from '../../lib/2d/polygones'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

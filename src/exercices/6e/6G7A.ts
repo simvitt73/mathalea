@@ -2,9 +2,9 @@ import Figure from 'apigeom'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import type Line from 'apigeom/src/elements/lines/Line'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
-import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
-import { codageMilieu } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageMilieu } from '../../lib/2d/CodageMilieu'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
@@ -107,7 +107,7 @@ function deletePoints(points: { x: number; y: number }[], type: number) {
 class ConstrctionsSymetriquesPoints extends Exercice {
   figuresApiGeom!: Figure[]
   nbPoints!: number
-  antecedents!: object[][]
+  antecedents!: PointApigeom[][]
   labels!: string[][]
   d!: Line[]
   exoCustomResultat: boolean
@@ -252,8 +252,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {
-        symetriques[k] = symetrieAxiale(antecedents[k] as Point, d[i]) as Point
-        middle[k] = projectionOrtho(antecedents[k], d[i]) as Point
+        symetriques[k] = symetrieAxiale(antecedents[k], d[i])
+        middle[k] = projectionOrtho(antecedents[k], d[i])
         /*  const angleOffset = choice([-12, -10, -8, 8, 10, 12])
           const ext1 = rotation(symetriques[k], middle[k], 3 * angleOffset)
           const ext2 = rotation(symetriques[k], middle[k], -angleOffset)
@@ -277,10 +277,10 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       for (let k = 0; k < this.nbPoints; k++) {
         objets.push(new TracePoint(antecedents[k]))
         const sym = symetrieAxiale(
-          antecedents[k] as Point,
+          antecedents[k],
           d[i],
-          (antecedents[k] as Point).nom + "'",
-        ) as Point
+          antecedents[k].nom + "'",
+        )
         sym.positionLabel = positionneLabel(sym, antecedents[k])
         antecedents[k].positionLabel = positionneLabel(antecedents[k], sym)
         const egalite = codageMilieu(antecedents[k], sym, colors[k], marks[k])
@@ -386,9 +386,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         })
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
-          ;(this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[
-            i
-          ].create('Point', {
+          this.antecedents[i][k] = this.figuresApiGeom[i].create('Point', {
             x: antecedents[k].x,
             y: antecedents[k].y,
             isSelectable: true,
@@ -414,7 +412,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         if (this.sup2 === 2) {
           for (let k = 0; k < this.nbPoints; k++) {
             this.figuresApiGeom[i].create('LinePerpendicular', {
-              point: this.antecedents[i][k] as PointApigeom,
+              point: this.antecedents[i][k],
               line: this.d[i],
               isDashed: true,
               color: 'gray',
@@ -429,7 +427,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
                 x: middle[k].x,
                 y: middle[k].y,
               }),
-              point: this.antecedents[i][k] as PointApigeom,
+              point: this.antecedents[i][k],
               isDashed: true,
               color: 'gray',
             })
@@ -485,10 +483,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
-      const { x, y } = reflectOverLineCoord(
-        this.antecedents[i][k] as PointApigeom,
-        this.d[i],
-      )
+      const { x, y } = reflectOverLineCoord(this.antecedents[i][k], this.d[i])
       const elts = Array.from(this.figuresApiGeom[i].elements.values())
       const points = elts.filter(
         (e) =>
@@ -501,11 +496,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
             e.type === 'PointIntersectionCC'),
       ) as PointApigeom[]
       const matchPoint = points.find(
-        (p) => p.label === `${this.labels[i][k]}'`,
-      ) as PointApigeom
-      const sym = points.find(
-        (p) => egal(x, p.x, 0.001) && egal(y, p.y, 0.001),
-      ) as PointApigeom
+        (p: PointApigeom) => p.label === `${this.labels[i][k]}'`,
+      )
+      const sym = points.find((p) => egal(x, p.x, 0.001) && egal(y, p.y, 0.001))
       if (matchPoint != null) {
         if (egal(x, matchPoint.x, 0.001) && egal(y, matchPoint.y, 0.001)) {
           matchPoint.color = 'green'
@@ -516,7 +509,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           matchPoint.color = 'green'
           matchPoint.thickness = 2
           matchPoint.colorLabel = 'green'
-          feedback += `Il y a  bien un point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ mais ce n'est pas le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ !<br>`
+          feedback += `Il y a  bien un point nommé $${this.antecedents[i][k].label}'$ mais ce n'est pas le symétrique de $${this.antecedents[i][k].label}$ !<br>`
           resultat.push('KO')
         }
       } else {
@@ -524,9 +517,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           sym.color = 'green'
           sym.thickness = 2
           sym.colorLabel = 'red'
-          feedback += `Le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ est bien construit mais il n'est pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
+          feedback += `Le symétrique de $${this.antecedents[i][k].label}$ est bien construit mais il n'est pas nommé $${this.antecedents[i][k].label}'$ !<br>`
         } else {
-          feedback += `Il n'y a pas de point symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ et il n'y a pas de point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
+          feedback += `Il n'y a pas de point symétrique de $${this.antecedents[i][k].label}$ et il n'y a pas de point nommé $${this.antecedents[i][k].label}'$ !<br>`
         }
         resultat.push('KO')
       }

@@ -13,8 +13,8 @@ import {
   elimineBinomesXYIntermediairesAlignes,
   Polygone,
   polygone,
-  polyline,
 } from './polygones'
+import { polyline } from './Polyline'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 /**

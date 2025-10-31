@@ -1,14 +1,10 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { arc } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
-import {
-  afficheLongueurSegment,
-  codageSegments,
-  texteSurSegment,
-} from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
-  Point,
   point,
   pointAdistance,
   pointIntersectionCC,
@@ -18,7 +14,8 @@ import {
 } from '../../lib/2d/points'
 import { Polygone, polygone, polygoneRegulier } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint, TexteParPoint } from '../../lib/2d/textes'
+import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -257,14 +254,14 @@ export default class ExercicePerimetresEtAires extends Exercice {
               cercle(B, l),
               nomRectangle.charAt(2),
               1,
-            ) as Point
+            )
             C.positionLabel = 'above right'
             const D = pointIntersectionLC(
               droiteParPointEtPerpendiculaire(A, droite(A, B)),
               cercle(A, l),
               nomRectangle.charAt(3),
               1,
-            ) as Point
+            )
             D.positionLabel = 'above left'
             const figure = polygone(A, B, C, D)
 
@@ -352,7 +349,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
               cercle(A, b * zoom),
               cercle(B, c * zoom),
               nomTriangle.charAt(2),
-            ) as Point
+            )
             const figure = polygone(A, B, C)
             // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
             const xmin = Math.min(A.x) - 2
@@ -371,17 +368,13 @@ export default class ExercicePerimetresEtAires extends Exercice {
             }
             // On ajoute au texte de la correction, la figure de la correction
             const labels = labelPoint(A, B, C)
-            /* const segT = [
-              texteSurSegment(nomTriangle.charAt(1) + nomTriangle.charAt(2) + '=' + stringNombre(c, 1) + ' cm', C, B, 'black', 1),
-              texteSurSegment(nomTriangle.charAt(0) + nomTriangle.charAt(1) + '=' + stringNombre(a, 1) + ' cm', B, A, 'black', 1),
-              texteSurSegment(nomTriangle.charAt(2) + nomTriangle.charAt(0) + '=' + stringNombre(b, 1) + ' cm', A, C, 'black', 1)] as TexteParPoint[]
-            */
+
             const segT = [
               texteSurSegment(stringNombre(c, 1) + ' cm', C, B, 'black', 1),
               texteSurSegment(stringNombre(a, 1) + ' cm', B, A, 'black', 1),
               texteSurSegment(stringNombre(b, 1) + ' cm', A, C, 'black', 1),
-            ] as TexteParPoint[]
-            segT.forEach((element: TexteParPoint) => {
+            ]
+            segT.forEach((element) => {
               element.mathOn = false
               element.scale = 1
             })
@@ -468,7 +461,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
               B,
               'red',
               1,
-            ) as TexteParPoint
+            )
             segT.mathOn = false
             segT.scale = 1.5
             figure.epaisseur = 2
@@ -566,7 +559,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
               B,
               'red',
               1,
-            ) as TexteParPoint
+            )
             segT.mathOn = false
             segT.scale = 1.5
             figure.epaisseur = 2

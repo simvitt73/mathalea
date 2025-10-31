@@ -1,4 +1,5 @@
-import { afficheMesureAngle, codageSegments } from '../../../lib/2d/codages'
+import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { degTan } from '../../../lib/mathFonctions/trigo'

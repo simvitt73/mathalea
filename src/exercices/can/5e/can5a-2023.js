@@ -1,4 +1,5 @@
-import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngle } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point } from '../../../lib/2d/points'
@@ -35,6 +36,7 @@ import {
 } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Hms from '../../../modules/Hms'
+import { representationFraction } from '../../../modules/representationsFractions'
 
 export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
@@ -622,7 +624,8 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           texte += context.isHtml
             ? mathalea2d(
                 params,
-                f.representation(
+                representationFraction(
+                  f,
                   0,
                   0,
                   3,

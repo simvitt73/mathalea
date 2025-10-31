@@ -1,6 +1,6 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheLongueurSegment, texteSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
   milieu,
@@ -9,10 +9,10 @@ import {
   pointIntersectionCC,
   pointIntersectionLC,
 } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
@@ -236,7 +236,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             cercle(A, diagonale),
             nomPoly[2],
             1,
-          ) as PointAbstrait
+          )
           C.positionLabel = 'above right'
 
           D = pointIntersectionLC(
@@ -244,7 +244,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             cercle(B, diagonale),
             nomPoly[3],
             1,
-          ) as PointAbstrait
+          )
           D.positionLabel = 'above left'
           figure = polygone(A, B, C, D)
           break
@@ -292,9 +292,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           C.positionLabel = 'right'
           const cA = cercle(A, cote)
           const cB = cercle(C, cote)
-          B = pointIntersectionCC(cA, cB, nomPoly[1], 2) as PointAbstrait
+          B = pointIntersectionCC(cA, cB, nomPoly[1], 2)
           B.positionLabel = 'below'
-          D = pointIntersectionCC(cA, cB, nomPoly[3], 1) as PointAbstrait
+          D = pointIntersectionCC(cA, cB, nomPoly[3], 1)
           D.positionLabel = 'above'
           figure = polygone(A, B, C, D)
           break
@@ -338,14 +338,14 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             cercle(milieu(A, C), diagonale2 / 2),
             nomPoly[1],
             2,
-          ) as PointAbstrait
+          )
           B.positionLabel = 'below'
           D = pointIntersectionLC(
             droiteParPointEtPerpendiculaire(milieu(A, C), droite(A, C)),
             cercle(milieu(A, C), diagonale2 / 2),
             nomPoly[3],
             1,
-          ) as PointAbstrait
+          )
           D.positionLabel = 'above'
           figure = polygone(A, B, C, D)
           break
@@ -395,14 +395,14 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             cercle(C, cote2),
             nomPoly[3],
             1,
-          ) as PointAbstrait
+          )
           D.positionLabel = 'above'
           B = pointIntersectionCC(
             cercle(A, cote2),
             cercle(C, cote1),
             nomPoly[1],
             2,
-          ) as PointAbstrait
+          )
           B.positionLabel = 'below'
           figure = polygone(A, B, C, D)
           break

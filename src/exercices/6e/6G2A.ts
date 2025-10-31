@@ -1,7 +1,7 @@
 import { clone } from 'mathjs'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { cercle } from '../../lib/2d/cercle'
-import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance, pointIntersectionLC } from '../../lib/2d/points'

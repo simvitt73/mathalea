@@ -1,7 +1,7 @@
 import { point, Point } from '../../../lib/2d/points'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { Polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'

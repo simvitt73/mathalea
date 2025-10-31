@@ -1,7 +1,6 @@
-import { tracePoint } from '../../lib/2d/TracePoint'
-import { vecteur } from '../../lib/2d/Vecteur'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import {
   assombrirOuEclaircir,
   colorToLatexOrHTML,
@@ -18,7 +17,9 @@ import {
   latexParCoordonnees,
   texteParPositionEchelle,
 } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { translation } from '../../lib/2d/transformations'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {

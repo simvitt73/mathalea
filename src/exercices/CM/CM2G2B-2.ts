@@ -1,5 +1,5 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheCoteSegment } from '../../lib/2d/codages'
+import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import {
   droite,
   droiteParPointEtParallele,
@@ -12,7 +12,6 @@ import {
   pointIntersectionDD,
   pointSurDroite,
 } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -157,8 +156,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             dC = droiteParPointEtPerpendiculaire(C, d)
             dD = droiteParPointEtPerpendiculaire(D, d)
             BB = rotation(A, B, 90)
-            CC = pointIntersectionDD(dC, d, 'M', 'below right') as PointAbstrait
-            DD = pointIntersectionDD(dD, d, 'N', 'above left') as PointAbstrait
+            CC = pointIntersectionDD(dC, d, 'M', 'below right')
+            DD = pointIntersectionDD(dD, d, 'N', 'above left')
             if (longueur(CC, A) < 1 || longueur(DD, A) < 1) continue
             lC = arrondi(longueur(CC, A) * k, 1)
             lD = arrondi(longueur(DD, A) * k, 1)
@@ -263,9 +262,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             dC = droiteParPointEtParallele(C, d)
             dD = droiteParPointEtParallele(D, d)
             p = droite(A, F)
-            CC = pointIntersectionDD(dC, p, 'M', 'above left') as PointAbstrait
-            DD = pointIntersectionDD(dD, p, 'N', 'above left') as PointAbstrait
-            EE = pointIntersectionDD(dE, p, 'O', 'above left') as PointAbstrait
+            CC = pointIntersectionDD(dC, p, 'M', 'above left')
+            DD = pointIntersectionDD(dD, p, 'N', 'above left')
+            EE = pointIntersectionDD(dE, p, 'O', 'above left')
             if (
               longueur(CC, A) < 1 ||
               longueur(DD, A) < 1 ||
@@ -395,9 +394,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             dD = droiteParPointEtParallele(D, d)
             dC = droiteParPointEtPerpendiculaire(C, d)
             BB = rotation(A, B, 90)
-            CC = pointIntersectionDD(dC, d, 'M', 'below right') as PointAbstrait
-            DD = pointIntersectionDD(dD, dB, 'N', 'above left') as PointAbstrait
-            EE = pointIntersectionDD(dC, dE, 'O', 'above left') as PointAbstrait
+            CC = pointIntersectionDD(dC, d, 'M', 'below right')
+            DD = pointIntersectionDD(dD, dB, 'N', 'above left')
+            EE = pointIntersectionDD(dC, dE, 'O', 'above left')
             if (
               longueur(CC, A) < 1 ||
               longueur(DD, A) < 1 ||
@@ -405,7 +404,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             )
               continue
             longueurAEE = longueur(EE, A)
-            FF = pointIntersectionDD(dD, dC) as PointAbstrait
+            FF = pointIntersectionDD(dD, dC)
 
             lC = arrondi(longueur(CC, A) * k, 1)
             lD = arrondi(longueur(DD, A) * k, 1)

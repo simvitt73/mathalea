@@ -1,6 +1,8 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { codageSegments } from '../../lib/2d/codages'
-import { Droite, droite, mediatrice } from '../../lib/2d/droites'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { codageAngle } from '../../lib/2d/angles'
+import { Droite, droite } from '../../lib/2d/droites'
 import {
   point,
   pointAdistance,

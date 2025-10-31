@@ -1,3 +1,4 @@
+import { polyline } from '../../lib/2d/Polyline'
 import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
 import {
@@ -6,7 +7,7 @@ import {
   pointIntersectionDD,
   pointSurSegment,
 } from '../../lib/2d/points'
-import { polygoneAvecNom, polyline } from '../../lib/2d/polygones'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { angleOriente } from '../../lib/2d/utilitairesGeometriques'

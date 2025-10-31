@@ -1,6 +1,7 @@
-import { codageAngle, rapporteur } from '../../../lib/2d/angles'
+import { codageAngle } from '../../../lib/2d/angles'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point, pointSurSegment } from '../../../lib/2d/points'
+import { rapporteur } from '../../../lib/2d/Rapporteur'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

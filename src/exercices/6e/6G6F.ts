@@ -1,14 +1,11 @@
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { traceCompas } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
-import {
-  afficheLongueurSegment,
-  codageMediatrice,
-  texteSurSegment,
-} from '../../lib/2d/codages'
-import { Droite, mediatrice } from '../../lib/2d/droites'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { Droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { mediatrice } from '../../lib/2d/Mediatrice'
 import {
-  Point,
   point,
   pointAdistance,
   pointIntersectionCC,
@@ -17,6 +14,7 @@ import {
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -87,7 +85,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
         cB,
         sommets[2],
         this.seed === 'myriade' ? 2 : 1,
-      ) as Point
+      )
       C.positionLabel = 'above'
       const CC = point(
         C.x + randint(-5, 5, 0) / 10,
@@ -100,7 +98,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       const cod1 = codageMediatrice(B, A, 'red', '||')
       const cod2 = codageMediatrice(C, B, 'blue', 'O')
       const cod3 = codageMediatrice(A, C, 'green', '//')
-      const O = pointIntersectionDD(d1, d2, 'O') as Point
+      const O = pointIntersectionDD(d1, d2, 'O')
       O.positionLabel = 'above'
       const labO = labelPoint(O)
       const r = longueur(O, A)

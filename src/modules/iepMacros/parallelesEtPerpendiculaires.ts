@@ -150,7 +150,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (
   if (pointEstSur(C, droite(A, B))) {
     const H = rotation(C, C, 0)
     const dd = droiteParPointEtPerpendiculaire(C, d)
-    C = pointIntersectionLC(dd, cercle(H, 5.5)) as PointAbstrait
+    C = pointIntersectionLC(dd, cercle(H, 5.5))
     dist = 7.5
   } else {
     const H = projectionOrtho(C, d)
@@ -231,7 +231,7 @@ export const perpendiculaireRegleEquerreDroitePoint = function (
     const C = cercle(P, 6)
     const A = pointSurDroite(d, -10000)
     const B = pointSurDroite(d, 10000)
-    const pointIntersectionDC = pointIntersectionLC(d, C) as PointAbstrait
+    const pointIntersectionDC = pointIntersectionLC(d, C)
     let P3 = rotation(pointIntersectionDC, P, 90)
     if (P3.y < P.y) P3 = rotation(P3, P, 180)
     const alpha = angleOriente(point(10000, H.y), H, B)

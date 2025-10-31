@@ -1,5 +1,5 @@
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import { codageMediatrice } from '../../lib/2d/codages'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'

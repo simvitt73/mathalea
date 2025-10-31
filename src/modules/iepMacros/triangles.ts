@@ -126,7 +126,7 @@ export const triangleRectangleCoteHypotenuse = function (
   dBC.isVisible = false
   const cAC = cercle(A, AC)
   cAC.isVisible = false
-  const C = pointIntersectionLC(dBC, cAC) as PointAbstrait
+  const C = pointIntersectionLC(dBC, cAC)
   const c = homothetie(C, B, 1.2)
   let description = options.description ?? true
   if (ABC.length !== 3) {
@@ -213,7 +213,7 @@ export const triangleRectangle2Cotes = function (
   dBC.isVisible = false
   const cBC = cercle(B, BC)
   cBC.isVisible = false
-  const C = pointIntersectionLC(dBC, cBC) as PointAbstrait
+  const C = pointIntersectionLC(dBC, cBC)
   const c = homothetie(C, B, 1.2)
   let description = options.description ?? true
   if (ABC.length !== 3) {
@@ -306,7 +306,7 @@ export const triangle1longueur2angles = function (
   D.isVisible = false
   const d2 = rotation(droite(B, A), B, -a2)
   d2.isVisible = false
-  const C = pointIntersectionDD(d, d2) as PointAbstrait
+  const C = pointIntersectionDD(d, d2)
   let description = options.description ?? true
   const mesure = options.mesure ?? false
   if (NOM.length !== 3) {
@@ -550,7 +550,7 @@ export const triangleIsocele2Longueurs = function (
   const C = pointAdistance(A, AC, randint(-10, 10))
   const c1 = cercle(A, AB)
   const c2 = cercle(C, AB)
-  const B = pointIntersectionCC(c1, c2, 'C', 1) as PointAbstrait
+  const B = pointIntersectionCC(c1, c2, 'C', 1)
 
   //
   if (NOM.length === 3) {

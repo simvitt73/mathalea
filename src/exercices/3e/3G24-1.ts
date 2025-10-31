@@ -1,12 +1,9 @@
-import {
-  codageAngle,
-  codageAngleDroit,
-  markTypeArray,
-  MarqueAngle,
-} from '../../lib/2d/angles'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { pointAdistance } from '../../lib/2d/points'
 import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { nommePolygone } from '../../lib/2d/polygones'

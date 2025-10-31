@@ -4,6 +4,7 @@
   import { get } from 'svelte/store'
   import { notify } from '../../../bugsnag'
   import type Exercice from '../../../exercices/Exercice'
+  import type { IExercice } from '../../../exercices/Exercice.type'
   import {
     getExercisesFromExercicesParams,
     mathaleaFormatExercice,
@@ -136,7 +137,7 @@
     }
   }
 
-  function reroll(exercise: Exercice, idVue?: 0 | 1 | 2 | 3) {
+  function reroll(exercise: IExercice, idVue?: 0 | 1 | 2 | 3) {
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     const originalSeed = exercise.seed
     if (idVue !== undefined && idVue > 0)

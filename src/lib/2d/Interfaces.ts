@@ -4,6 +4,8 @@
  * pour éviter les dépendances circulaires runtime.
  */
 
+import type { ObjetMathalea2D } from './ObjetMathalea2D'
+
 /**
  * Interface minimale pour Repere
  */
@@ -344,4 +346,132 @@ export interface IPolygone {
   tikz?(): string
   svgml?(coeff: number, amp: number): string
   tikzml?(amp: number): string
+}
+
+export type CylindrePosition =
+  | 'DeboutVuDessus'
+  | 'baseAvantCoucheVuGauche'
+  | 'baseCoteCoucheVuDroite'
+
+export interface IPave extends ObjetMathalea2D {
+  svg(coeff: number): string
+  tikz(): string
+}
+
+export interface IEllipse extends ObjetMathalea2D {
+  centre: IPoint
+  rx: number
+  ry: number
+  couleurDeRemplissage: [string, string]
+  opaciteDeRemplissage: number
+
+  svg(coeff: number): string
+  tikz(): string
+  svgml(coeff: number, amp: number): string
+  tikzml(amp: number): string
+}
+
+export interface ISemiEllipse extends ObjetMathalea2D {
+  centre: IPoint
+  rx: number
+  ry: number
+  rayon: boolean
+  hachures: string | boolean
+  couleurDeRemplissage: [string, string]
+  opaciteDeRemplissage: number
+  couleurDesHachures: [string, string]
+  epaisseurDesHachures: number
+  distanceDesHachures: number
+  M: IPoint
+  N: IPoint
+  angle: number
+  large: number
+  sweep: number
+  anglesAxe: number
+
+  svg(coeff: number): string
+  tikz(): string
+  svgml(coeff: number, amp: number): string
+  tikzml(amp: number): string
+}
+
+export interface ICone extends ObjetMathalea2D {
+  sommet: IPoint
+  centre: IPoint
+  couleurDeRemplissage: string
+  opaciteDeRemplissage: number
+  stringColor: string
+
+  svg(coeff: number): string
+  tikz(): string
+}
+
+export interface ISphere2d extends ObjetMathalea2D {
+  centre: IPoint
+  couleurDeRemplissage: string
+  opaciteDeRemplissage: number
+
+  svg(coeff: number): string
+  tikz(): string
+}
+
+export interface ICylindre extends ObjetMathalea2D {
+  centre: IPoint
+  centre2: IPoint
+  couleurDeRemplissage: string
+  opaciteDeRemplissage: number
+  stringColor: string
+
+  svg(coeff: number): string
+  tikz(): string
+}
+
+// Objets 3D projetés (mapping vers les interfaces 2D)
+
+// Point 3D projeté en 2D
+export interface IPoint3d {
+  x: number
+  y: number
+  z: number
+  isVisible: boolean
+  label: string
+  typeObjet: string
+  c2d: IPoint
+}
+
+// Vecteur 3D projeté en 2D
+export interface IVecteur3d {
+  x: number
+  y: number
+  z: number
+  matrice: any
+  norme: number
+  c2d: IVecteur
+  representant: (A: IPoint3d) => ISegment
+}
+
+// Arête 3D projetée en 2D
+export interface IArete3d {
+  extremite1: IPoint3d
+  extremite2: IPoint3d
+  color: string
+  isVisible: boolean
+  c2d: ISegment
+}
+
+// Droite 3D projetée en 2D
+export interface IDroite3d {
+  directeur: IVecteur3d
+  origine: IPoint3d
+  point: unknown
+  c2d: IDroite
+}
+
+// Polygone 3D projeté en 2D
+export interface IPolygone3d {
+  listePoints: IPoint3d[]
+  color: string
+  listePoints2d: IPoint[]
+  aretes: IArete3d[]
+  c2d: ISegment[]
 }

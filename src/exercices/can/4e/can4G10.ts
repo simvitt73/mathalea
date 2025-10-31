@@ -1,4 +1,3 @@
-import { texteSurSegment } from '../../../lib/2d/codages'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import {
@@ -6,6 +5,7 @@ import {
   polygone,
   polygoneAvecNom,
 } from '../../../lib/2d/polygones'
+import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { rotation } from '../../../lib/2d/transformations'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
-import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import {
   milieu,

@@ -1,5 +1,5 @@
-import { placeLatexSurSegment } from '../../../lib/2d/codages'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
 import { latex2d } from '../../../lib/2d/textes'
 import {
   arete3d,

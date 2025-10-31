@@ -1,7 +1,7 @@
 import type { MathfieldElement } from 'mathlive'
-import type Exercice from '../../exercices/Exercice'
 import { sp } from '../outils/outilString'
 import { fonctionComparaison } from './comparisonFunctions'
+import type { IExercice } from '../../exercices/Exercice.type'
 
 // Un barème qui ne met qu'un point si tout est juste
 export function toutPourUnPoint(listePoints: number[]): [number, number] {
@@ -23,7 +23,7 @@ export function toutAUnPoint(listePoints: number[]) {
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
 export function verifQuestionMathLive(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   writeResult = true,
 ) {
