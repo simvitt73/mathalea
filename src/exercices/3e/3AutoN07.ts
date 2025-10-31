@@ -53,7 +53,7 @@ export default class DecimalToScientifique extends ExerciceSimple {
       )
       this.correction += `L'écriture scientifique de $${texNombre(nombre)}$ est $${miseEnEvidence(`${texNombre(mantisse)} \\times 10^{${exposant}}`)}$.`
     } else {
-      this.question = `Donner l'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$`
+      this.question = `Donner l'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$.`
       this.reponse = texNombre(nombre)
       const glisseNumber = glisseNombre(mantisse, exposant)
       this.correction = mathalea2d(

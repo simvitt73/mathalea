@@ -14,7 +14,6 @@ import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   quotientier,
-  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -24,9 +23,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '14/01/2025'
-
+export const dateDeModifImportante = '30/10/2025'
 /**
- *  :
+ *
  * Lire des abscisses sous forme de fractions avec possibilté d'avoir des fractions simplifiées
  * @author Olivier Mimeau d'après Jean-Claude Lhote 6N21-2
  */
@@ -48,24 +47,22 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       'Types de questions',
       'Nombres séparés par des tirets  :\n2 : Demis\n3 : Tiers\n4 : Quarts\n5 : Cinquièmes\n6 : Sixièmes\n7 : Septièmes\n8 : Huitièmes\n9 : Neuvièmes\n10: Dixièmes\n11: Onzièmes\n12 : Douzièmes\n13 : Mélange',
     ]
-    /* this.besoinFormulaire2CaseACocher = [
-      'Ajouter "sous forme fractionnaire" dans l\'énoncé',
-      true,
-    ]
+    /*  r
     this.besoinFormulaire3CaseACocher = [
       'Avec des fractions simplifiées (le cas échéant)',
       true,
     ]
     this.besoinFormulaire4CaseACocher = ['Avec des valeurs négatives', false] */
-    this.nbQuestions = 3
 
     // evitons les nombreuses cases a cocher
 
     this.besoinFormulaire2Texte = [
       'Options supplémentaires',
-      '0: Sans option\n1 : Ajouter "sous forme fractionnaire" dans l\'énoncé\n2 : Avec des fractions simplifiées (le cas échéant)\n3 : Avec des valeurs négatives\n4 : Correction détaillée\n5 : Utiliser la notation ()',
+      '0: Sans option\n1 : Ajouter "sous forme fractionnaire" dans l\'énoncé\n2 : Avec des fractions simplifiées (le cas échéant)\n3 : Avec des valeurs négatives\n4 : Correction détaillée\n5 : Utiliser la notation ( )\n6: Fractions non simplifiées sur l\'axe',
     ]
-    this.sup2 = '1-2-4'
+
+    this.nbQuestions = 3
+    this.sup2 = '1-2-4-6'
     this.spacingCorr = context.isHtml ? 2.5 : 4 // ecart pour les fractions
   }
 
@@ -97,8 +94,8 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       saisie: this.sup2,
       nbQuestions: 0,
       min: 0,
-      max: 5,
-      melange: 6,
+      max: 6,
+      melange: 7,
       defaut: 0,
     })
     const motFractionnaire = listeOptions.includes(1)
@@ -106,6 +103,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
     const valeursNegatives = listeOptions.includes(3)
     const correctionDetaillee = listeOptions.includes(4)
     const correctionNotationParentheses = listeOptions.includes(5)
+    const correctionFractionsNonSimplifiees = listeOptions.includes(6)
     const data: Record<
       number,
       { id: number; den: number[]; max: number; min: number }
@@ -290,6 +288,16 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           },
           d,
         )
+      // correctionFractionsNonSimplifiees
+      const label1 = correctionFractionsNonSimplifiees
+        ? fraction((num1 * data[tab].id) / den1, data[tab].id).texFraction
+        : textFractionCorr(num1, den1, fractionsSimplifiees)
+      const label2 = correctionFractionsNonSimplifiees
+        ? fraction((num2 * data[tab].id) / den2, data[tab].id).texFraction
+        : textFractionCorr(num2, den2, fractionsSimplifiees)
+      const label3 = correctionFractionsNonSimplifiees
+        ? fraction((num3 * data[tab].id) / den3, data[tab].id).texFraction
+        : textFractionCorr(num3, den3, fractionsSimplifiees)
       const dCorr = droiteGraduee({
         Min: origine,
         Max: data[tab].max,
@@ -307,27 +315,13 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
         pointOpacite: 0.8,
         pointEpaisseur: 2,
         labelListe: [
-          [
-            num1 / den1,
-            miseEnEvidence(textFractionCorr(num1, den1, fractionsSimplifiees)),
-          ],
-          [
-            num2 / den2,
-            miseEnEvidence(textFractionCorr(num2, den2, fractionsSimplifiees)),
-          ],
-          [
-            num3 / den3,
-            miseEnEvidence(textFractionCorr(num3, den3, fractionsSimplifiees)),
-          ],
+          [num1 / den1, miseEnEvidence(label1)],
+          [num2 / den2, miseEnEvidence(label2)],
+          [num3 / den3, miseEnEvidence(label3)],
         ],
         labelDistance: 0.8,
         labelCustomDistance: 1.7,
       })
-      /*       @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
-       * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
-       * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
-       * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
-       * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe */
       let texteCorr = mathalea2d(
         {
           xmin: -0.2,
@@ -347,26 +341,14 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       // correction textuelle
       if (correctionDetaillee) {
         texteCorr += textCorrectionDetaillee(
-          lettreIndiceeDepuisChiffre(i * 3 + 1),
+          [
+            lettreIndiceeDepuisChiffre(i * 3 + 1),
+            lettreIndiceeDepuisChiffre(i * 3 + 2),
+            lettreIndiceeDepuisChiffre(i * 3 + 3),
+          ],
           data[tab].id,
-          num1,
-          den1,
-          fractionsSimplifiees,
-          correctionNotationParentheses,
-        )
-        texteCorr += textCorrectionDetaillee(
-          lettreIndiceeDepuisChiffre(i * 3 + 2),
-          data[tab].id,
-          num2,
-          den2,
-          fractionsSimplifiees,
-          correctionNotationParentheses,
-        )
-        texteCorr += textCorrectionDetaillee(
-          lettreIndiceeDepuisChiffre(i * 3 + 3),
-          data[tab].id,
-          num3,
-          den3,
+          [num1, num2, num3],
+          [den1, den2, den3],
           fractionsSimplifiees,
           correctionNotationParentheses,
         )
@@ -408,7 +390,59 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
             correctionNotationParentheses,
           ) + '.'
       }
-
+      if (fractionsSimplifiees) {
+        // donner les ecritures avec fractions simplifiée quand c'est possible
+        // texteCorr += '<br>'
+        type PrepareReponseSimplifiee = { lettre: string; valeur: string }
+        const listeReponseSimplifiee: PrepareReponseSimplifiee[] = []
+        if (fraction1.simplifie().den !== data[tab].id) {
+          listeReponseSimplifiee.push({
+            lettre: lettreIndiceeDepuisChiffre(i * 3 + 1),
+            valeur: fraction1.simplifie().texFraction,
+          })
+        }
+        if (fraction2.simplifie().den !== data[tab].id) {
+          listeReponseSimplifiee.push({
+            lettre: lettreIndiceeDepuisChiffre(i * 3 + 2),
+            valeur: fraction2.simplifie().texFraction,
+          })
+        }
+        if (fraction3.simplifie().den !== data[tab].id) {
+          listeReponseSimplifiee.push({
+            lettre: lettreIndiceeDepuisChiffre(i * 3 + 3),
+            valeur: fraction3.simplifie().texFraction,
+          })
+        }
+        if (listeReponseSimplifiee.length > 0) {
+          texteCorr += 'On peut aussi écrire : '
+          texteCorr += ecritAbscisse(
+            listeReponseSimplifiee[0].lettre,
+            listeReponseSimplifiee[0].valeur,
+            correctionNotationParentheses,
+          )
+          listeReponseSimplifiee.shift()
+          if (listeReponseSimplifiee.length > 0) {
+            if (listeReponseSimplifiee.length > 1) {
+              texteCorr +=
+                ' , ' +
+                ecritAbscisse(
+                  listeReponseSimplifiee[0].lettre,
+                  listeReponseSimplifiee[0].valeur,
+                  correctionNotationParentheses,
+                )
+              listeReponseSimplifiee.shift()
+            }
+            texteCorr +=
+              ' et ' +
+              ecritAbscisse(
+                listeReponseSimplifiee[0].lettre,
+                listeReponseSimplifiee[0].valeur,
+                correctionNotationParentheses,
+              )
+          }
+          texteCorr += '.'
+        }
+      }
       if (!motFractionnaire) {
         // donner les ecritures décimales quand c'est possible
         // texteCorr += '<br>'
@@ -439,7 +473,6 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
             listeReponseDecimale[0].valeur,
             correctionNotationParentheses,
           )
-
           listeReponseDecimale.shift()
           if (listeReponseDecimale.length > 0) {
             if (listeReponseDecimale.length > 1) {
@@ -463,6 +496,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           texteCorr += '.'
         }
       }
+
       if (this.questionJamaisPosee(i, den1, num1, num2, num3)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
@@ -499,29 +533,27 @@ function trouveNumerateur(
     return false
   }
 
-  let trouve = false
-  let num = 0
-  let i = 0
-  while (!trouve && i < 10) {
-    num = randint(min * den, den * max)
-
-    // on veut éviter l'entier
-    let k = 0
-    while (isNombreEntier(num, den) && k < 5) {
-      num = randint(min * den, den * max)
-      k++
-    }
-
-    // on veut éviter d'être trop proche d'un autre point
+  const listeAPiocher = []
+  let trouve = true
+  for (let i = min * den; i <= max * den; i++) {
     trouve = true
-    for (const fraction of fractionsAEviter) {
-      if (Math.abs(fraction.num / fraction.den - num / den) < 2 / den) {
-        trouve = false
-        break
+    if (isNombreEntier(i, den)) {
+      trouve = false
+    } else {
+      for (const fraction of fractionsAEviter) {
+        if (
+          Math.abs(fraction.num / fraction.den - i / den) <
+          2 / fraction.den
+        ) {
+          trouve = false
+        }
       }
     }
-    i++
+    if (trouve) {
+      listeAPiocher.push(i)
+    }
   }
+  const num = choice(listeAPiocher) // randint(min * den, den * max, listeAEviter)
   return num
 }
 
@@ -550,6 +582,23 @@ function ecritAbscisse(
   return texte
 }
 
+function ecritAbscisseDétaillée(
+  point: string,
+  num: number,
+  den: number,
+  parentheses: boolean,
+  aussi: boolean = false,
+): string {
+  let texte = ''
+  texte += `L'abscisse du point $${point}$ est `
+  texte += aussi ? 'également ' : ''
+  texte += `$${miseEnEvidence(fraction(num, den).texFraction)}$`
+  texte += parentheses
+    ? ` et se note $${point} \\left( ${miseEnEvidence(fraction(num, den).texFraction)} \\right)$.`
+    : `.`
+  return texte
+}
+
 function expliciteNbPas(num: number, den: number): string {
   let texte = ''
   if (quotientier(num, den) > 0) {
@@ -560,34 +609,77 @@ function expliciteNbPas(num: number, den: number): string {
 }
 
 function textCorrectionDetaillee(
-  lettre: string,
+  lettre: string[],
   PasPrincipal: number,
-  num: number,
-  den: number,
+  num: number[],
+  den: number[],
   simplifier: boolean,
   parentheses: boolean,
 ): string {
   let reponse = ''
+  reponse += `Il y a $${PasPrincipal}$ intervalles dans une unité, donc le pas est de $\\dfrac{1}{${PasPrincipal}}$ car $${PasPrincipal} \\times \\dfrac{1}{${PasPrincipal}}$  = 1.<br>`
+  let mult = PasPrincipal / den[0]
+  reponse += `Pour aller de l'origine au point $${lettre[0]}$, il y a $${expliciteNbPas(num[0] * mult, PasPrincipal)}$ pas : `
+  reponse += `$${num[0] * mult} \\times \\dfrac{1}{${PasPrincipal}}$ = $${fraction(num[0] * mult, PasPrincipal).texFraction}$.`
+  reponse += `<br> `
+  reponse +=
+    ecritAbscisseDétaillée(
+      lettre[0],
+      num[0] * mult,
+      PasPrincipal,
+      parentheses,
+    ) + '<br>Pour les autres points on procède de la même façon.'
+  for (let i = 1; i < lettre.length; i++) {
+    mult = PasPrincipal / den[i]
+    reponse +=
+      `$~$` +
+      ecritAbscisseDétaillée(
+        lettre[i],
+        num[i] * mult,
+        PasPrincipal,
+        parentheses,
+      )
+  }
   if (simplifier) {
-    const fractSimp = fraction(num, den).simplifie()
-    reponse += `Il y a $${PasPrincipal}$ intervalles dans une unité. `
-    if (fractSimp.den !== PasPrincipal) {
-      reponse += `En groupant ces intervalles par ${quotientier(PasPrincipal, fractSimp.den)}, `
-      // , on obtient  3 groupements identiques pour faire une unité. Chaque groupement vaut donc 1/3.
-      reponse += `on obtient ${fractSimp.den} groupements identiques pour faire une unité. Chaque groupement vaut donc $\\dfrac{1}{${fractSimp.den}}$.<br>`
-      reponse += `Pour aller de l'origine au point $${lettre}$, il y a $${expliciteNbPas(fractSimp.num, fractSimp.den)}$ groupements de  ${quotientier(PasPrincipal, fractSimp.den)} intervalles : $${fractSimp.num} \\times \\dfrac{1}{${fractSimp.den}}$ = `
-    } else {
-      reponse += ` donc le pas est de $\\dfrac{1}{${PasPrincipal}}$ car $${PasPrincipal} \\times \\dfrac{1}{${PasPrincipal}}$  = 1.<br>`
-      reponse += `Pour aller de l'origine au point $${lettre}$, il y a $${expliciteNbPas(num, PasPrincipal)}$ pas : $${num} \\times \\dfrac{1}{${PasPrincipal}}$ = `
+    /*   type PointEtFraction = { point: string; num: number; den: number }
+    const pointEtFraction = new Array<PointEtFraction>()
+    for (let i = 0; i < lettre.length; i++) {
+      const fractSimp = fraction(num[i], den[i]).simplifie()
+      pointEtFraction.push({
+        point: lettre[i],
+        num: fractSimp.num,
+        den: fractSimp.den,
+      })
     }
-  } else {
-    reponse += `Il y a $${PasPrincipal}$ intervalles dans une unité, donc le pas est de $\\dfrac{1}{${PasPrincipal}}$ car $${PasPrincipal} \\times \\dfrac{1}{${PasPrincipal}}$  = 1.<br>`
-    reponse += `Pour aller de l'origine au point $${lettre}$, il y a $${expliciteNbPas(num, PasPrincipal)}$ pas : $${num} \\times \\dfrac{1}{${PasPrincipal}}$ = `
+    // tri par dénominateur croissant
+    pointEtFraction.sort((a, b) => a.den - b.den)
+    let denom = 0
+    for (let i = 0; i < pointEtFraction.length; i++) {
+      if (pointEtFraction[i].den !== PasPrincipal) {
+        if (denom !== pointEtFraction[i].den) {
+          reponse += `<br>En groupant ces intervalles par ${quotientier(PasPrincipal, pointEtFraction[i].den)}, `
+          reponse += `on obtient ${pointEtFraction[i].den} groupements identiques pour faire une unité. Chaque groupement vaut donc $\\dfrac{1}{${pointEtFraction[i].den}}$.<br>`
+          reponse += `Pour aller de l'origine au point $${pointEtFraction[i].point}$, il y a $${expliciteNbPas(pointEtFraction[i].num, pointEtFraction[i].den)}$ groupement`
+          reponse += pointEtFraction[i].num > 1 ? 's' : ''
+          reponse += ` de  ${quotientier(PasPrincipal, pointEtFraction[i].den)} intervalles : $${pointEtFraction[i].num} \\times \\dfrac{1}{${pointEtFraction[i].den}}$ = $${fraction(pointEtFraction[i].num, pointEtFraction[i].den).texFraction}$.`
+        }
+        if (denom !== pointEtFraction[i].den) {
+          reponse += ' <br>'
+        } else {
+          reponse += `$~$`
+        } // i > 0 ? `$~$` : ''}
+        reponse += ecritAbscisseDétaillée(
+          pointEtFraction[i].point,
+          pointEtFraction[i].num,
+          pointEtFraction[i].den,
+          parentheses,
+          true,
+        )
+
+        denom = pointEtFraction[i].den
+      }
+    } */
   }
-  reponse += `$${textFractionCorr(num, den, simplifier)}$.<br>L'abscisse du point $${lettre}$ est $${miseEnEvidence(textFractionCorr(num, den, simplifier))}$`
-  if (parentheses) {
-    reponse += ` et se note $${lettre} \\left( ${miseEnEvidence(textFractionCorr(num, den, simplifier))} \\right)$`
-  }
-  reponse += `.<br>`
+  reponse += `<br>`
   return reponse
 }

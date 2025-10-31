@@ -539,12 +539,6 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
         longueur(A, DD) < 1 ||
         (listeTypeDeQuestions[i] === 3 && longueurAEE < 1)
       ) // On refait une figure si les points d'intersection sont trop proches de A
-      console.log(
-        longueur(A, CC),
-        longueur(A, DD),
-        longueurAEE,
-        listeTypeDeQuestions[i],
-      )
 
       if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
       else g = vide2d()

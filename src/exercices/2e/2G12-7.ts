@@ -390,6 +390,7 @@ export default class BetaReperage2e extends Exercice {
     const divFeedback = document.querySelector(
       `#feedback${`Ex${this.numeroExercice}Q${i}`}`,
     )
+    let allPointsAreGood = true
     for (let j = 0; j < this.labelsPoints[i].length; j++) {
       const label = this.labelsPoints[i][j]
       const { isValid, message, points } = figure.checkCoords({
@@ -405,6 +406,7 @@ export default class BetaReperage2e extends Exercice {
         point.colorLabel = 'green'
         point.thickness = 3
       } else {
+        allPointsAreGood = false
         result.push('KO')
         if (point !== undefined) {
           point.color = 'red'
@@ -413,19 +415,12 @@ export default class BetaReperage2e extends Exercice {
           point.thickness = 3
         }
       }
-      if (divFeedback != null && message.length > 0) {
-        const p = document.createElement('p')
-        p.innerText = message
-        divFeedback.appendChild(p)
-      }
     }
     if (divFeedback != null) {
-      if (divFeedback?.innerHTML === '') {
+      if (allPointsAreGood) {
         divFeedback.innerHTML = '😎'
       } else {
-        const p = document.createElement('p')
-        p.innerText = '☹️'
-        divFeedback.insertBefore(p, divFeedback.firstChild)
+        divFeedback.innerHTML = '☹️'
       }
     }
     return result
