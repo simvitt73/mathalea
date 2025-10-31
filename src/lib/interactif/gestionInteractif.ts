@@ -201,6 +201,8 @@ export type ChoixQcm = {
   texte: string // obligatoire
   statut?: boolean | string | number // boolean pour les QCM interacif et string | number pour les QCM AMC
   // Ci-dessous, utile que pour AMC
+  enonce?: string
+  feedback?: string
   reponse?: {
     texte?: string
     valeur?: number
