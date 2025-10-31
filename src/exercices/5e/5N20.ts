@@ -293,9 +293,11 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           /*********************************************************************************/
         }
 
-        // S'il y a 0% de numérateur négatifs alors la 
+        // S'il y a 0% de numérateur négatifs alors on
+        // interchange f1 et f2 pour s'assurer que le résultat sera positif
         if (this.sup5 === 0 && f2.superieurstrict(f1)) {
           [f2, f1] = [f1, f2]
+          ;[a, b, c, d] = [c, d, a, b]
         }
         texte = `$${f1.texFraction}-${f2.texFraction}$`
         const reponse = new FractionEtendue(a * k - c, d).toLatex()
