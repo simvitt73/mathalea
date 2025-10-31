@@ -1,4 +1,3 @@
-import { expressionDeveloppeeEtNonReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -110,9 +109,19 @@ export default class ExerciceDevelopper extends Exercice {
       nbQuestions: this.nbQuestions,
       melange: 7,
     })
-    
+
     const signesK = combinaisonListes([1, -1], this.nbQuestions)
-    const signesabc = combinaisonListes([[1, -1, 1], [-1, -1, -1], [-1, 1, 1], [-1, 1, -1], [1, -1, 1], [1, -1, -1]], this.nbQuestions)
+    const signesabc = combinaisonListes(
+      [
+        [1, -1, 1],
+        [-1, -1, -1],
+        [-1, 1, 1],
+        [-1, 1, -1],
+        [1, -1, 1],
+        [1, -1, -1],
+      ],
+      this.nbQuestions,
+    )
 
     const couleurCorrection =
       this.sup2 === 1 ? ['#f15929', 'blue'] : ['blue', '#f15929']
@@ -217,8 +226,9 @@ export default class ExerciceDevelopper extends Exercice {
           "<br>Ce n'est pas demandé, ici, mais si on voulait réduire l'expression, on obtiendrait : <br>"
         handleAnswers(this, i, {
           reponse: {
-            value: reponse,
-            compare: expressionDeveloppeeEtNonReduiteCompare,
+            value: reponseDev,
+            options: { expressionsForcementReduites: false },
+            // compare: expressionDeveloppeeEtNonReduiteCompare,
           },
         })
       } else {

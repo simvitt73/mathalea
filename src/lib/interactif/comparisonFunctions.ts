@@ -884,6 +884,7 @@ export function fonctionComparaison(
   }
   // ici, on met tous les tests particuliers (HMS, intervalle)
   // if (HMS) return comparaisonExpressions(input, goodAnswer)
+  input = input.replaceAll('×', '\\times') // Indispensable pour ceux qui font du copier-coller
   if (HMS) return hmsCompare(input, goodAnswer)
   if (fonction)
     return functionCompare(input, goodAnswer, {

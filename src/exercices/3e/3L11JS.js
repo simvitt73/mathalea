@@ -52,7 +52,7 @@ export const refs = {
   'fr-fr': [],
   'fr-ch': [],
 }
-export default class ExerciceDevelopper extends Exercice {
+export default class ExerciceDevelopperEnJS extends Exercice {
   constructor() {
     super()
     this.sup = 3 // difficulté
