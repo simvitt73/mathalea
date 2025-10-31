@@ -14,7 +14,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  "Comparer la moyenne et l'écart-type d'une série rangée en classes."
+  "Comparer la moyenne et l'écart-type d'une série rangée en classes"
 export const dateDePublication = '05/08/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "Déterminer un quartile d'une série à faible effectif."
+export const titre = "Déterminer un quartile d'une série à faible effectif"
 export const dateDePublication = '01/08/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

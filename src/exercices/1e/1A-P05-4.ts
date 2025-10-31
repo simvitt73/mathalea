@@ -8,7 +8,7 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '939af'
 // Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-P3-1'],
+  'fr-fr': ['1A-P05-4'],
   'fr-ch': [],
 }
 export const interactifReady = true
@@ -76,9 +76,7 @@ export default class auto1AP3a extends ExerciceQcmA {
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
 
-    let distracteur2: number
-    let distracteur3: number
-    // Génère distracteur2 différent de distracteur1 et de la bonne réponse
+   
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
