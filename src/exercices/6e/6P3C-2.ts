@@ -393,7 +393,7 @@ function questionDistance(exo: Exercice, i: number) {
   const dureeR = couplePremiersEntreEux[indexN][1]
   const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le facteur de distance parcourue
   const texte =
-    `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}$ km en ${dureeQ} heures.
+    `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}\\text{ km}$ en ${dureeQ} heures.
   <br> Quelle distance va-t-il parcourir, à la même vitesse, en ${dureeR} heures ?` +
     ajouteChampTexteMathLive(exo, i, '', { texteApres: ' km' })
 
@@ -401,14 +401,14 @@ function questionDistance(exo: Exercice, i: number) {
     `Commençons par trouver quelle est la distance parcourue en 1h. <br>
   1 h, c'est ${texteEnCouleur(dureeQ)} fois moins que ${dureeQ} h.
    En 1 h, le ${liste[alea1].locomotion} parcourt donc une distance ${texteEnCouleur(dureeQ)} fois moins grande qu'en ${dureeQ} h.<br>` +
-    `$${stringNombre(liste[alea1].vitesse[alea2] * facteur * dureeQ)}$ km $\\div $ ${texteEnCouleur(dureeQ)} = ${stringNombre(liste[alea1].vitesse[alea2] * facteur)} km <br>` +
+    `$${stringNombre(liste[alea1].vitesse[alea2] * facteur * dureeQ)}\\text{ km}$ $\\div $ ${texteEnCouleur(dureeQ)} = ${stringNombre(liste[alea1].vitesse[alea2] * facteur)} km <br>` +
     texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
     ` en 1h, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km. <br>` +
     ` Cherchons maintenant la distance parcourue en ${dureeR} h. <br>` +
     ` ${dureeR} h, c'est ${texteEnCouleur(dureeR)} fois 1 h.` +
     ` Le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h.` +
-    `<br> ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km $\\times$ ${texteEnCouleur(dureeR)} = $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km <br>` +
-    `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km en ${dureeR} h.`
+    `<br> ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km $\\times$ ${texteEnCouleur(dureeR)} = $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}\\text{ km}$ <br>` +
+    `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}\\text{ km}$ en ${dureeR} h.`
   setReponse(exo, i, arrondi(liste[alea1].vitesse[alea2] * dureeR * facteur, 6))
   return {
     qtexte: texte,

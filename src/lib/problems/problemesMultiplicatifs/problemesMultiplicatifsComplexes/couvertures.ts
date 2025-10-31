@@ -20,7 +20,7 @@ export function couverture(decimal = false): Probleme {
   )
   probleme.correction = probleme.correction.replace(
     `$${data.part2}$ m`,
-    `$${miseEnEvidence(texNombre(part2EnM, 0))}$ m, soit ${miseEnEvidence(data.part2)} cm`,
+    `$${miseEnEvidence(texNombre(part2EnM, 0))}\\text{ m}$, soit ${miseEnEvidence(data.part2)} cm`,
   )
   return probleme
 }

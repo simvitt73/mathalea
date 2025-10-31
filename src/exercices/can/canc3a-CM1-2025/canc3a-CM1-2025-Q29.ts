@@ -28,11 +28,11 @@ export default class Can2025CM1Q29 extends ExerciceSimple {
   nouvelleVersion() {
     const a = this.canOfficielle ? 3 : randint(2, 29)
     this.reponse = texNombre(a * 100, 0)
-    this.question = `Complète : <br> $${a}$ m $=$ `
-    this.correction = ` $1$ m $=100\\text{ cm}$<br>
+    this.question = `Complète : <br> $${a}\\text{ m}$ $=$ `
+    this.correction = ` $1\\text{ m}$ $=100\\text{ cm}$<br>
       Ainsi, pour passer des "m" au "cm", on multiplie par $100$.<br>
         Comme $${a}\\times 100 =${texNombre(a * 100, 1)}$, alors $${a}$ m$=${miseEnEvidence(texNombre(a * 100, 1))}\\text{ cm}$. `
-    this.canReponseACompleter = ` $${a}$ m $=\\ldots\\text{ cm}$`
+    this.canReponseACompleter = ` $${a}\\text{ m}$ $=\\ldots\\text{ cm}$`
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: 'cm' }
     } else {

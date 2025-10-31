@@ -504,7 +504,7 @@ export default class SujetCAN2022Premiere extends Exercice {
             b = randint(2, 30)
             if (choice([true, false])) {
               texte = `$${texNombre(a, 1)}\\text{ cm}$ $=$`
-              texteCorr = `$1$ m $=10^6$ $\\mu$m, donc $1\\text{ cm}$ $=10^4 =${texNombre(10000, 0)}$ $\\mu$m.<br>
+              texteCorr = `$1\\text{ m}$ $=10^6$ $\\mu$m, donc $1\\text{ cm}$ $=10^4 =${texNombre(10000, 0)}$ $\\mu$m.<br>
             Ainsi, $${texNombre(a, 1)}\\text{ cm}$ $=${texNombre(a * 10000, 0)}$ $\\mu$m.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, index, '') + '$\\mu$m'
@@ -514,7 +514,7 @@ export default class SujetCAN2022Premiere extends Exercice {
               reponse = a.mul(10000)
             } else {
               texte = `$${texNombre(b, 1)}$ $\\mu$m $=$`
-              texteCorr = `$1$ $\\mu$m $=10^{-6}$ m, donc $1$ $\\mu$m  $=10^{-4}\\text{ cm}$  $=${texNombre(0.0001, 4)}\\text{ cm}$.<br>
+              texteCorr = `$1$ $\\mu$m $=10^{-6}\\text{ m}$, donc $1$ $\\mu$m  $=10^{-4}\\text{ cm}$  $=${texNombre(0.0001, 4)}\\text{ cm}$.<br>
             Ainsi, $${texNombre(b, 1)}$ $\\mu$m $=${texNombre(b / 10000, 5)}\\text{ cm}$.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
@@ -753,9 +753,9 @@ export default class SujetCAN2022Premiere extends Exercice {
             a = choice(listeChoix17)
             b = randint(1, 7) * 10
             const reponse = b * a[3]
-            texte = `Si l'on parcourt $${b}$ km en ${a[0]} minutes, alors la vitesse moyenne est : `
+            texte = `Si l'on parcourt $${b}\\text{ km}$ en ${a[0]} minutes, alors la vitesse moyenne est : `
             texteCorr = `${a[1]} minutes représentent $\\dfrac{1}{${a[3]}}$ heure.<br>
-          Donc en $1$ heure, on parcourt $${b}\\times ${a[3]}=${b * a[3]}$ km. <br>
+          Donc en $1$ heure, on parcourt $${b}\\times ${a[3]}=${b * a[3]}\\text{ km}$. <br>
           La vitesse moyenne est donc $${b * a[3]}$ km/h. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {

@@ -119,11 +119,11 @@ export default class ModeliseInequations extends Exercice {
       x&>\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}
       \\end{aligned}$<br>`
             if (Math.round((a - b) / (d - c)) === (a - b) / (d - c)) {
-              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(texNombre(Math.ceil((a - b) / (d - c)) + 1, 0))}$ km que le tarif B est plus intéressant que le tarif A.
+              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(texNombre(Math.ceil((a - b) / (d - c)) + 1, 0))}\\text{ km}$ que le tarif B est plus intéressant que le tarif A.
              `
               reponse = texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)
             } else {
-              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}$ km que le tarif B est plus intéressant que le tarif A.
+              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}\\text{ km}$ que le tarif B est plus intéressant que le tarif A.
                             `
               reponse = texNombre(Math.ceil((a - b) / (d - c)), 0)
             }
@@ -162,7 +162,7 @@ export default class ModeliseInequations extends Exercice {
             x&\\leqslant\\dfrac{${budget - b}}{${texNombre(a, 2)}}
     \\end{aligned}$<br>`
 
-            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}$ km pendant le mois avec son budget de $${budget}$ €.
+            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}\\text{ km}$ pendant le mois avec son budget de $${budget}$ €.
        `
             reponse = texNombre(Math.floor((budget - b) / a), 0)
 

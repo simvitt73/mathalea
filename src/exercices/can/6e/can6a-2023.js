@@ -1199,9 +1199,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = arrondi(c / a, 0)
           texte = `Une voiture roule à $${c}$ km/h. <br>Combien de kilomètres
         parcourt-elle en $${b}$ min à cette vitesse ?`
-          texteCorr = `En $1$ h la voiture parcourt $${c}$ km.<br>
+          texteCorr = `En $1$ h la voiture parcourt $${c}\\text{ km}$.<br>
        En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
-        ${miseEnEvidence(texNombre(c / a, 0))}$ km.`
+        ${miseEnEvidence(texNombre(c / a, 0))}\\text{ km}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -1212,7 +1212,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
           this.listeCanReponsesACompleter.push(
-            `Elle parcourt $\\ldots$ km en $${b}$ min à cette vitesse.`,
+            `Elle parcourt $\\ldots\\text{ km}$ en $${b}$ min à cette vitesse.`,
           )
           nbChamps = 1
 
@@ -1236,9 +1236,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Une voiture roule à  $${c}$ km/h.<br> Combien de kilomètres parcourt-elle
         en $${d}$ h et $${b * e}$ min à cette vitesse ?`
           texteCorr = `
-        En $${d}$ h, elle parcourt $${d * c}$ km.<br>
-       En $${b * e}$ min, elle parcourt $${texNombre((e * c) / a, 0)}$ km.<br>
-        Ainsi, en en $${d}$ h et $${b * e}$ min, elle parcourt donc $${miseEnEvidence(texNombre(d * c + (e * c) / a, 0))}$ km.`
+        En $${d}$ h, elle parcourt $${d * c}\\text{ km}$.<br>
+       En $${b * e}$ min, elle parcourt $${texNombre((e * c) / a, 0)}\\text{ km}$.<br>
+        Ainsi, en en $${d}$ h et $${b * e}$ min, elle parcourt donc $${miseEnEvidence(texNombre(d * c + (e * c) / a, 0))}\\text{ km}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -1248,7 +1248,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
           this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
           this.listeCanReponsesACompleter.push(
-            `Elle parcourt $\\ldots$ km en $${d}$ h et $${b * e}$ min à cette vitesse.`,
+            `Elle parcourt $\\ldots\\text{ km}$ en $${d}$ h et $${b * e}$ min à cette vitesse.`,
           )
           nbChamps = 1
           break

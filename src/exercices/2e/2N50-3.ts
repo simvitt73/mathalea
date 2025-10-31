@@ -1,17 +1,17 @@
+import { texteGras } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
-import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fraction } from '../../modules/fractions'
+import { itemize, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils'
 
 export const titre = "Modéliser une situation à l'aide d'une équation"
 export const dateDePublication = '16/12/2021'
@@ -153,13 +153,13 @@ export default class ModeliserEquations extends Exercice {
               texteCorr += ` ${sp(40)}$ \\begin{aligned}
                             x&= ${Math.round((b - a) / (c - d))}
                             \\end{aligned}$<br>
-                                            C'est pour une distance de $${Math.round((b - a) / (c - d))}$ km que les deux tarifs sont identiques.
+                                            C'est pour une distance de $${Math.round((b - a) / (c - d))}\\text{ km}$ que les deux tarifs sont identiques.
                `
             } else {
               texteCorr += ` ${sp(40)}$ \\begin{aligned}
                             x&\\simeq ${Math.round((b - a) / (c - d))}
                             \\end{aligned}$<br>
-                                         C'est pour une distance d'environ $${Math.round((b - a) / (c - d))}$ km que les deux tarifs sont identiques.
+                                         C'est pour une distance d'environ $${Math.round((b - a) / (c - d))}\\text{ km}$ que les deux tarifs sont identiques.
                                 `
             }
             variables.push(a, b, c, d)

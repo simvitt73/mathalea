@@ -1,7 +1,7 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Calculer une distance à partir d'une vitesse"
 export const interactifReady = true
@@ -42,7 +42,7 @@ export default class AbscisseEnDemis extends ExerciceSimple {
     if (!this.interactif) {
       this.question += '$\\ldots\\ldots$ km'
     }
-    this.canReponseACompleter = `En $${String(h)}$h$30$min, elle parcourt $\\ldots\\ldots$ km.`
+    this.canReponseACompleter = `En $${String(h)}$h$30$min, elle parcourt $\\ldots\\ldots\\text{ km}$.`
     this.reponse = String(distance)
     this.correction = `En $${String(h)}$h, elle parcourt $${String(h)}\\times ${String(vitesse)}\\text{ km}=${texNombre(h * vitesse, 0)}\\text{ km}$.<br>`
     this.correction += `En $30$ min, elle parcourt $${String(vitesse)}\\text{ km}\\div 2=${texNombre(vitesse / 2, 0)}\\text{ km}$.<br>`

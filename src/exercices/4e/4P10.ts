@@ -303,7 +303,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               L = l * 2 + randint(0, 4) * 2
               deltaT = randint(2, 5)
               texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de $${h1}\\text{ cm}$ et la profondeur à son extrémité sud est de $${h2}\\text{ cm}$.<br>`
-              texte += `D'une extrémité à l'autre, la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de $${l}$ m et sa longueur (Nord-Sud) est de $${L}$ m.<br>`
+              texte += `D'une extrémité à l'autre, la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de $${l}\\text{ m}$ et sa longueur (Nord-Sud) est de $${L}\\text{ m}$.<br>`
               texte +=
                 numAlpha(0) +
                 ' Calculer le ' +
@@ -320,7 +320,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 ` Sachant que pour élever la température d'un litre d'eau de $1$ degré, il faut une énergie de $${texNombre(1.162)}$ Wattheure, quelle est l'énergie consommée en kWh pour augmenter la température de la piscine de $${deltaT}$ degrés ?<br>`
               texteCorr =
                 numAlpha(0) +
-                ` La base de ce prisme droit est un trapèze rectangle de petite base $${h2}\\text{ cm}$, de grande base $${h1}\\text{ cm}$ et de hauteur $${L}$ m.<br>`
+                ` La base de ce prisme droit est un trapèze rectangle de petite base $${h2}\\text{ cm}$, de grande base $${h1}\\text{ cm}$ et de hauteur $${L}\\text{ m}$.<br>`
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`
               texteCorr += ` $=\\dfrac{\\left(${texNombre(
                 h1 / 100,
@@ -496,7 +496,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ` dans un jardin d'enfant. Le siège est situé à $${texNombre(
               distance,
               1,
-            )}$ m du pivot central de la balançoire (bras de levier).<br>`
+            )}\\text{ m}$ du pivot central de la balançoire (bras de levier).<br>`
           texte +=
             numAlpha(0) +
             ' Calculer le ' +
@@ -559,7 +559,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
           n2 = k * d1
           texte =
             numAlpha(0) +
-            ` Un bus de ville transporte en moyenne $${n1}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d1}$ km.<br> Calculer le ` +
+            ` Un bus de ville transporte en moyenne $${n1}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d1}\\text{ km}$.<br> Calculer le ` +
             ajouterAide(
               "Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L'unité est le voyageur.km qui correspond au déplacement d'un voyageur sur 1km.",
               {
@@ -570,7 +570,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ' moyen de voyageurs en voyageurs.km.<br> '
           texte +=
             numAlpha(1) +
-            ` Un autre bus de ville transporte en moyenne $${n2}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d2}$ km.<br> Montrer que le trafic de voyageurs est le même qu'à la question ` +
+            ` Un autre bus de ville transporte en moyenne $${n2}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d2}\\text{ km}$.<br> Montrer que le trafic de voyageurs est le même qu'à la question ` +
             numAlpha(0) +
             '.'
           texteCorr =
@@ -756,7 +756,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte +=
                 numAlpha(1) +
                 " L'éclair suivant tombe sur le paratonnerre situé sur le clocher de l'église du village voisin.<br>"
-              texte += `${quidam} sait que le clocher est situé à $${texNombre(distance)}$ m de sa position. Combien de temps se passe-t-il avant que ${quidam} n'entende le tonnerre ?`
+              texte += `${quidam} sait que le clocher est situé à $${texNombre(distance)}\\text{ m}$ de sa position. Combien de temps se passe-t-il avant que ${quidam} n'entende le tonnerre ?`
               texteCorr =
                 numAlpha(0) +
                 " Calculons la distance à laquelle le premier éclair est tombé en utilisant la vitesse du son (on considère que la vitesse de la lumière est telle que l'éclair est visible instantanément) :<br>"

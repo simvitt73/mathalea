@@ -398,14 +398,14 @@ Le premier versement a lieu le $25$ février $2024$.<br>`
             `${reduireAxPlusB(-b, temp, 'n')}`,
             `${temp}-${b}\\times n`,
           ]
-          texte = `Un randonneur se trouve  à $${texNombre(alt, 0)}$ m d'altitude.<br>
+          texte = `Un randonneur se trouve  à $${texNombre(alt, 0)}\\text{ m}$ d'altitude.<br>
           Sur son parcours, la température diminue de $${texNombre(b, 2)}$ degré Celsius lorsque l'altitude augmente de $1$ mètre.<br>
 Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           if (!this.sup2 || this.interactif) {
             texte += `L'évolution de la température est modélisée par une suite $(u_n)$, le terme $u_n$ est la température (en degrés Celsius) sur le parcours du randonneur à l'altitude $${texNombre(alt, 0)}+n$ mètres.<br>
             Exprimer pour tout entier $n$, le terme $v_{n}$ en fonction de $n$.`
           } else {
-            texte += `Modéliser l'évolution de la température sur le parcours du randonneur par une suite $(u_n)$ définie de manière explicite à partir de l'altitude de $${texNombre(alt, 0)}$ m.`
+            texte += `Modéliser l'évolution de la température sur le parcours du randonneur par une suite $(u_n)$ définie de manière explicite à partir de l'altitude de $${texNombre(alt, 0)}\\text{ m}$.`
           }
 
           if (this.interactif) {
@@ -471,7 +471,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           texte = `Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
           ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(b, 2)}$ € par km parcouru.<br>`
           if (!this.sup2 || this.interactif) {
-            texte += `Le prix payé par un client est modélisé par une suite $(u_n)$, le terme $u_n$ est le prix payé par ce client  pour $n$ km parcourus pendant le week-end.<br>
+            texte += `Le prix payé par un client est modélisé par une suite $(u_n)$, le terme $u_n$ est le prix payé par ce client  pour $n\\text{ km}$ parcourus pendant le week-end.<br>
             Exprimer pour tout entier $n$, le terme $u_{n}$ en fonction de $n$.`
           } else {
             texte +=
@@ -494,7 +494,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
               { formatInteractif: 'fillInTheBlank' },
             )
           }
-          texteCorr = `$u_n$ est le prix payé par un client pour $n$ km parcourus pendant le week-end.<br>
+          texteCorr = `$u_n$ est le prix payé par un client pour $n\\text{ km}$ parcourus pendant le week-end.<br>
           Ce prix comprend un forfait de $${a}$ € puis un tarif de  $${texNombre(b, 2, true)}$ € par km parcourus.
           Ainsi, la suite $(u_n)$ est définie pour tout entier naturel $n$ par : $u_n=${miseEnEvidence(`${texNombre(a, 0)}+${texNombre(b, 2)}n`)}$.`
           break

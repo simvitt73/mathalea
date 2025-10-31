@@ -1113,8 +1113,8 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             a = randint(2, 3)
             b = randint(9, 15) * 10
             c = randint(2, 4)
-            texte = `Un bus met $${a}$ heures pour faire $${b}$ km. <br>
-              Combien d'heures mettra-t-il pour faire $${b * c}$ km ?`
+            texte = `Un bus met $${a}$ heures pour faire $${b}\\text{ km}$. <br>
+              Combien d'heures mettra-t-il pour faire $${b * c}\\text{ km}$ ?`
             texteCorr = `Il mettra $${c}$ fois plus de temps, soit $${c}\\times ${a}=${miseEnEvidence(c * a)}$ heures. `
             reponse = c * a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })

@@ -244,8 +244,8 @@ export default class FractionDuneQuantite extends Exercice {
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `$${texFractionFromString(1, denIrred)}$ de $${texNombre(longueur / 100, 1)}$ représente $${texNombre(longueur / 100, 1)} \\div ${denIrred} = ${texNombre(longueur / 100 / denIrred, 3)}$.<br>`
-          texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombre(longueur / 100 / denIrred, 3)}=${miseEnEvidence(texNombre((numIrred * longueur) / 100 / denIrred, 3))}$ m.<br>`
-          texteCorr += `Le deuxième morceau mesure donc : $${texNombre(longueur / 100, 1)}-${texNombre((numIrred * longueur) / 100 / denIrred, 3)}=${miseEnEvidence(texNombre(longueur / 100 - (numIrred * longueur) / 100 / denIrred, 3))}$ m.`
+          texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombre(longueur / 100 / denIrred, 3)}=${miseEnEvidence(texNombre((numIrred * longueur) / 100 / denIrred, 3))}\\text{ m}$.<br>`
+          texteCorr += `Le deuxième morceau mesure donc : $${texNombre(longueur / 100, 1)}-${texNombre((numIrred * longueur) / 100 / denIrred, 3)}=${miseEnEvidence(texNombre(longueur / 100 - (numIrred * longueur) / 100 / denIrred, 3))}\\text{ m}$.`
 
           break
       }

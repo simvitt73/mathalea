@@ -42,10 +42,10 @@ export default class QuestionDeVitesse extends ExerciceSimple {
     this.correction = `$${a}\\times ${texNombre(b + 0.5)} = ${miseEnEvidence(this.reponse)}$`
     this.correction += texteEnCouleur(
       `<br> Mentalement : <br>
-    La voiture roule à une vitesse constante de $${a}$ km/h, cela signifie qu'elle parcourt $${a}$ km en $1$ heure.<br>
-    En $${b}$ heures, elle parcourt $${a}\\times ${b}=${a * b}$ km.<br>
-    En $30$ minutes, elle parcourt la moitié de $${a}$ km, soit $${a / 2}$ km.<br>
-    Au total, elle a parcouru $${a * b}+${a / 2} $, soit $${a * (b + 0.5)}$ km. `,
+    La voiture roule à une vitesse constante de $${a}$ km/h, cela signifie qu'elle parcourt $${a}\\text{ km}$ en $1$ heure.<br>
+    En $${b}$ heures, elle parcourt $${a}\\times ${b}=${a * b}\\text{ km}$.<br>
+    En $30$ minutes, elle parcourt la moitié de $${a}\\text{ km}$, soit $${a / 2}\\text{ km}$.<br>
+    Au total, elle a parcouru $${a * b}+${a / 2} $, soit $${a * (b + 0.5)}\\text{ km}$. `,
       bleuMathalea,
     )
     this.canEnonce = this.question

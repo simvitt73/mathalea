@@ -84,7 +84,7 @@ const situations = [
   [
     {
       enonce:
-        'Une voiture parcourt $150$ km en $2$ heures et $300$ km en $4$ heures.',
+        'Une voiture parcourt $150\\text{ km}$ en $2$ heures et $300\\text{ km}$ en $4$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: true,
@@ -92,12 +92,12 @@ const situations = [
     },
     {
       enonce:
-        'Une voiture parcourt $150$ km en $2$ heures et $250$ km en $4$ heures.',
+        'Une voiture parcourt $150\\text{ km}$ en $2$ heures et $250\\text{ km}$ en $4$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: false,
       commentaireCorrection:
-        'Si la distance était proportionnelle au temps, elle serait de $300$ km en $4$ heures.',
+        'Si la distance était proportionnelle au temps, elle serait de $300\\text{ km}$ en $4$ heures.',
     },
   ],
   [
@@ -227,7 +227,7 @@ const situations = [
   [
     {
       enonce:
-        'Une trottinette électrique parcourt $20$ km en $1$ heure puis $40$ km en $2$ heures.',
+        'Une trottinette électrique parcourt $20\\text{ km}$ en $1$ heure puis $40\\text{ km}$ en $2$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: true,
@@ -235,12 +235,12 @@ const situations = [
     },
     {
       enonce:
-        'Une trottinette électrique parcourt $20$ km en $1$ heure puis $50$ km en $2$ heures.',
+        'Une trottinette électrique parcourt $20\\text{ km}$ en $1$ heure puis $50\\text{ km}$ en $2$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: false,
       commentaireCorrection:
-        'Si la distance était proportionnelle au temps, elle serait de $40$ km en $2$ heures.',
+        'Si la distance était proportionnelle au temps, elle serait de $40\\text{ km}$ en $2$ heures.',
     },
   ],
   [

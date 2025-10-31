@@ -315,7 +315,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += `Pour cela, il remarque une souche notée $${lS}$ sur la rive opposée.<br>`
           texte += `Il a placé un cône sur sa rive en face de la souche, son emplacement est noté $${lC}$.<br>`
           texte += `Ensuite, il s'est éloigné de la berge en restant aligné avec la souche $${lS}$ et le cône $${lC}$ jusqu'à un endroit où il place un bâton noté $${lB}$.<br>`
-          texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $${lA}$.<br>`
+          texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}\\text{ m}$ jusqu'à son appareil de mesure noté $${lA}$.<br>`
           texte += `À l'aide de son appareil, il mesure l'angle $\\widehat{${lB}${lA}${lC}}$ noté $${alfa}$  et l'angle $\\widehat{${lB}${lA}${lS}}$ noté $${baita}$.`
           texte +=
             "<br>(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)"
@@ -686,8 +686,8 @@ export default class ProblemesTrigoLongueur extends Exercice {
             texteSurSegment(`${stringNombre(distance)} m`, C, R),
           )
           texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}^\\circ$.<br>`
-          texte += `Cet${objet[index][2]} ${objet[index][0]} est ${objet[index][3]} à une distance de $${texNombre(distance)}$ m de l'observateur.<br>`
-          texte += `L'œil de l'observateur est situé à $${texNombre(hauteur)}$ m du sol.`
+          texte += `Cet${objet[index][2]} ${objet[index][0]} est ${objet[index][3]} à une distance de $${texNombre(distance)}\\text{ m}$ de l'observateur.<br>`
+          texte += `L'œil de l'observateur est situé à $${texNombre(hauteur)}\\text{ m}$ du sol.`
           enonceInit = texte
           j = 0
           if (this.sup) {
@@ -970,7 +970,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += this.sup ? ' $h$.<br>' : '.<br>'
           texte += `Il jette l'ancre puis constate qu'il voit la falaise sous un angle de $${alpha}^\\circ$.<br>`
           texte += `Il se rapproche ensuite de la falaise jusqu'à la voir sous un angle de $${alpha + 5}^\\circ$.<br>`
-          texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}$ m.<br>`
+          texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}\\text{ m}$.<br>`
           enonceInit = texte
           if (this.sup) {
             enonceAMC =
@@ -1333,10 +1333,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte =
             "Un voyageur approche d'une montagne. Il aimerait en calculer la hauteur.<br>"
           texte += `Pour cela, il utilise un théodolite en un point $${lB}$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $${lA}$ de la montagne, le point $${lB}$ et la base de la montagne $${lS}$.<br>`
-          texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lC}$.<br>`
+          texte += `Il parcourt ensuite $${distance}\\text{ m}$ en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lC}$.<br>`
           texte +=
             "(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)<br>"
-          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}$ m.<br>`
+          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}\\text{ m}$.<br>`
           texte += mathalea2d(
             {
               xmin: Math.min(-sensH, absS + sensH),

@@ -1,11 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Convertir des dm en m et réciproquement'
 export const interactifReady = true
@@ -28,9 +28,9 @@ export default class NomExercice extends ExerciceSimple {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(7, 10).texFraction
       this.question = 'Complète : <br> $7$ dm $=$ '
-      this.correction = ` Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
+      this.correction = ` Comme $1\\text{ m}$ $=10$ dm, alors $1$ dm $=0,1\\text{ m}$.<br>
       Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
-        Comme $7\\div 10 =0,7$, alors $7$ dm$=${miseEnEvidence('0,7')}$ m. `
+        Comme $7\\div 10 =0,7$, alors $7$ dm$=${miseEnEvidence('0,7')}\\text{ m}$. `
       this.canReponseACompleter = ' $7$ dm $=\\ldots$ m'
       if (this.interactif) {
         this.optionsChampTexte = { texteApres: 'm' }
@@ -43,9 +43,9 @@ export default class NomExercice extends ExerciceSimple {
         this.reponse = new FractionEtendue(a, 10).texFraction
         this.question = `Complète : <br>$${a}$ dm $=$`
         this.correction = `
-         Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
+         Comme $1\\text{ m}$ $=10$ dm, alors $1$ dm $=0,1\\text{ m}$.<br>
         Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
-      Comme $${a}\\div 10 =${texNombre(a / 10, 1)}$, alors $${a}$ dm$=${miseEnEvidence(texNombre(a / 10, 1))}$ m.  `
+      Comme $${a}\\div 10 =${texNombre(a / 10, 1)}$, alors $${a}$ dm$=${miseEnEvidence(texNombre(a / 10, 1))}\\text{ m}$.  `
         this.canReponseACompleter = `$${a}$ dm $=\\ldots$ m`
         if (this.interactif) {
           this.optionsChampTexte = { texteApres: 'm' }
@@ -55,15 +55,15 @@ export default class NomExercice extends ExerciceSimple {
       } else {
         const a = randint(15, 60)
         this.reponse = String(a * 10)
-        this.question = `Complète : <br> $${texNombre(a, 0)}$ m $=$ `
+        this.question = `Complète : <br> $${texNombre(a, 0)}\\text{ m}$ $=$ `
         if (this.interactif) {
           this.optionsChampTexte = { texteApres: 'dm' }
         } else {
           this.question += `${context.isHtml ? '$\\ldots$ dm' : ''}`
         }
-        this.correction = ` Comme $1$ m $=10$ dm,  pour passer des "m" au "dm", on multiplie par $10$.<br>
+        this.correction = ` Comme $1\\text{ m}$ $=10$ dm,  pour passer des "m" au "dm", on multiplie par $10$.<br>
             Comme $${texNombre(a, 1)}\\times 10 =${texNombre(a * 10, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(a * 10, 0))}$ dm.`
-        this.canReponseACompleter = ` $${texNombre(a, 0)}$ m $= \\ldots$ dm`
+        this.canReponseACompleter = ` $${texNombre(a, 0)}\\text{ m}$ $= \\ldots$ dm`
       }
     }
     this.canEnonce = 'Complète.'

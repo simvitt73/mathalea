@@ -175,7 +175,7 @@ On dispose des informations suivantes :<br><br>
     ${createList({
       items: [
         `$AC = ${texNombre(hauteur, 2)}$ m;`,
-        `$AB = ${texNombre(hypo, 2)}$ m.`,
+        `$AB = ${texNombre(hypo, 2)}\\text{ m}$.`,
       ],
       style: 'fleches',
     })}`,
@@ -189,7 +189,7 @@ On dispose des informations suivantes :<br><br>
   )}`
     enonce += createList({
       items: [
-        `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}$ m.`,
+        `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}\\text{ m}$.`,
         `Le coût des travaux pour enlever la terre dépend de la mesure de l'angle $\\widehat{ABC}$.<br>
 Si la mesure de l'angle $\\widehat{ABC}$ est supérieure à $8,5°$, cela entraînera un surcoût des travaux (c'est-à-dire que les traveaux pour enlever la terre coûteront plus cher).<br>
 Est-ce le cas pour ce terrain ?`,
@@ -209,7 +209,7 @@ On rappelle la volume de formule :
         $${texNombre(hypo, 2)}^2 = ${texNombre(hauteur, 2)}^2 + BC^2$, soit : $${texNombre(hypo ** 2, 4)} = ${texNombre(hauteur ** 2, 4)} + BC^2$.<br>
         On en déduit : $BC^2 = ${texNombre(hypo ** 2, 4)} - ${texNombre(hauteur ** 2, 4)}=${texNombre(hypo ** 2 - hauteur ** 2, 4)}$<br>
         D'où $BC = \\sqrt{${texNombre(hypo ** 2 - hauteur ** 2, 4)}}= ${texNombre(base, 2)}$<br>
-        Donc $[CB]$ mesure bien $${texNombre(base, 2)}$ m.`,
+        Donc $[CB]$ mesure bien $${texNombre(base, 2)}\\text{ m}$.`,
         `On a dans le triangle $ABC$ rectangle en $C$ :<br>
         $\\sin(\\widehat{ABC}) = \\dfrac{AC}{AB}$.<br>
         $\\sin(\\widehat{ABC}) = \\dfrac{${texNombre(hauteur, 2)}}{${texNombre(hypo, 2)}}$<br>

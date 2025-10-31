@@ -1164,9 +1164,9 @@ export default class ClasseCan2023 {
           2,
         )
         sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h à vitesse constante. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
-        sortie.texteCorr = `En $1$ h, la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
+        sortie.texteCorr = `En $1$ h, la voiture parcourt $${vitesseCommune.vitesse}\\text{ km}$.<br>
         En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
-        ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}$ km.`
+        ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}\\text{ km}$.`
         sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
         break
       case 'seconde':
@@ -1177,9 +1177,9 @@ export default class ClasseCan2023 {
               (vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse,
           )
           sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h à vitesse constante.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
-          sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}$ km.<br>
-        En $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}$ km.<br>
-        Ainsi, en en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt donc $${miseEnEvidence(sortie.reponse)}$ km.`
+          sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}\\text{ km}$.<br>
+        En $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}\\text{ km}$.<br>
+        Ainsi, en en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt donc $${miseEnEvidence(sortie.reponse)}\\text{ km}$.`
           sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
         }
         break

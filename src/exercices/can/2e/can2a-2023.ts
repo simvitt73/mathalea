@@ -333,10 +333,10 @@ export default class SujetCAN2023Seconde extends Exercice {
             const nbre = choice([(3 * a) / 2, a + 1, a - 1, a / 2, k * a])
 
             reponse = nbre * prix1
-            texte = `$${a}$ m de ruban  coûtent $${texPrix(prix1 * a)}$ €, combien coûtent $${nbre}$ m de ruban ? `
+            texte = `$${a}\\text{ m}$ de ruban  coûtent $${texPrix(prix1 * a)}$ €, combien coûtent $${nbre}\\text{ m}$ de ruban ? `
 
-            texteCorr = `$${a}$ m de ruban  coûtent $${texPrix(prix1 * a)}$ €, donc $1$ m coûte $${texPrix(prix1)}$ €. <br>
-            Ainsi, $${nbre}$ m de ruban ${nbre === 1 ? 'coûte' : 'coûtent'} $${miseEnEvidence(texPrix(reponse))}$ €.`
+            texteCorr = `$${a}\\text{ m}$ de ruban  coûtent $${texPrix(prix1 * a)}$ €, donc $1\\text{ m}$ coûte $${texPrix(prix1)}$ €. <br>
+            Ainsi, $${nbre}\\text{ m}$ de ruban ${nbre === 1 ? 'coûte' : 'coûtent'} $${miseEnEvidence(texPrix(reponse))}$ €.`
 
             handleAnswers(this, index, {
               reponse: { value: reponse.toFixed(2) },

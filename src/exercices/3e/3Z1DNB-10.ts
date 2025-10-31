@@ -96,7 +96,7 @@ Donner l'expression de $f(x)$, puis celle de $g(x)$.`
 
 ${tableau.replace('\\begin{array}', '\\hspace{-1.5cm}\n\\begin{array}')}
 ${listeQuestions4}`
-    const question5 = `La piscine a la forme d'un pavé droit de longueur $${L}$ m, de largeur $${l}$ m et de profondeur $${texNombre(p, 2)}$ m.<br>
+    const question5 = `La piscine a la forme d'un pavé droit de longueur $${L}\\text{ m}$, de largeur $${l}\\text{ m}$ et de profondeur $${texNombre(p, 2)}\\text{ m}$.<br>
 En admettant qu'elle soit entièrement remplie, déterminer en m$^3$, le volume d'eau qui sera évacué pour réaliser la vidange.`
     const listeQuestions = createList({
       items: [
