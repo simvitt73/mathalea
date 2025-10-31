@@ -46,7 +46,7 @@ export default class Can2025N4Q18 extends ExerciceCan {
       ),
       objets,
     )
-    this.question += `Le périmètre de ce triangle est de $${a + b + c}$ cm.`
+    this.question += `Le périmètre de ce triangle est de $${a + b + c}\\text{ cm}$.`
     this.correction = `$AB=${a + b + c}\\text{ cm}-${a}\\text{ cm}-${b}\\text{ cm}=${miseEnEvidence(`${c}`)}\\text{ cm}$`
     this.canEnonce = this.question
     this.optionsChampTexte = { texteApres: ' cm' }

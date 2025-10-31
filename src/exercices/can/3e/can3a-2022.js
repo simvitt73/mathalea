@@ -271,12 +271,12 @@ export default class SujetCAN2022troisieme extends Exercice {
           if (choice([true, false])) {
             a = randint(1, 13) * 50
             reponse = new Decimal(a).div(100)
-            texte = `$${a}$ cm  $=$`
+            texte = `$${a}\\text{ cm}$  $=$`
 
             texteCorr = `
-        Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
+        Comme $1$ m $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01$ m.<br>
         Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}$ cm$=${texNombre(reponse, 2)}$ m.  `
+          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}\\text{ cm}=${texNombre(reponse, 2)}$ m.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
@@ -287,8 +287,8 @@ export default class SujetCAN2022troisieme extends Exercice {
             a = new Decimal(randint(1, 9)).div(10).plus(randint(1, 9))
             reponse = a.mul(100)
             texte = `$${texNombre(a, 1)}$ m  $=$ `
-            texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
+            texteCorr = ` Comme $1$ m $=100\\text{ cm}$,  pour passer des "m" au "cm", on multiplie par $100$.<br>
+                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}\\text{ cm}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
@@ -596,7 +596,7 @@ export default class SujetCAN2022troisieme extends Exercice {
             e,
           )
           texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
-          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
+          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}\\text{ cm}$.`
           texte += ' $AC= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -738,14 +738,14 @@ export default class SujetCAN2022troisieme extends Exercice {
             e,
           )
           texteCorr = `Le périmètre en cm est donné par :
-          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}$ cm`
+          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}\\text{ cm}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ' <br>$\\mathscr{P}= $'
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
           } else {
-            texte += ' $\\mathscr{P}=\\ldots $ cm'
+            texte += ' $\\mathscr{P}=\\ldots \\text{ cm}$'
           }
           nbChamps = 1
           break

@@ -104,7 +104,7 @@ export default class NomExercice extends ExerciceSimple {
     )
     if (this.canOfficielle) {
       this.reponse = l
-      this.question = `Le périmètre de ce rectangle est  $12$ cm.<br>
+      this.question = `Le périmètre de ce rectangle est  $12\\text{ cm}$.<br>
       Quelle est sa largeur ?<br>`
       this.question += mathalea2d(
         {
@@ -121,11 +121,11 @@ export default class NomExercice extends ExerciceSimple {
         objets1,
       )
 
-      this.correction = `Le demi-périmètre est $12\\div 2 = 6$ cm, la largeur du rectangle est donc égale à  $6-4=${miseEnEvidence(2)}$ cm.`
+      this.correction = `Le demi-périmètre est $12\\div 2 = 6\\text{ cm}$, la largeur du rectangle est donc égale à  $6-4=${miseEnEvidence(2)}\\text{ cm}$.`
     } else {
       if (choice([true, false])) {
         this.reponse = l
-        this.question = `Le périmètre de ce rectangle est  $${2 * L + 2 * l}$ cm.<br>
+        this.question = `Le périmètre de ce rectangle est  $${2 * L + 2 * l}\\text{ cm}$.<br>
       Quelle est sa largeur ?<br>`
         this.question += mathalea2d(
           {
@@ -142,10 +142,10 @@ export default class NomExercice extends ExerciceSimple {
           objets1,
         )
 
-        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}$ cm, la largeur du rectangle est donc égale à  $${L + l}-${L}=${miseEnEvidence(this.reponse)}$ cm.`
+        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}\\text{ cm}$, la largeur du rectangle est donc égale à  $${L + l}-${L}=${miseEnEvidence(this.reponse)}\\text{ cm}$.`
       } else {
         this.reponse = L
-        this.question = `Le périmètre de ce rectangle est  $${2 * L + 2 * l}$ cm.<br>
+        this.question = `Le périmètre de ce rectangle est  $${2 * L + 2 * l}\\text{ cm}$.<br>
     Quelle est sa longueur ?<br>`
         this.question += mathalea2d(
           {
@@ -162,7 +162,7 @@ export default class NomExercice extends ExerciceSimple {
           objets2,
         )
 
-        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}$ cm, la longueur du rectangle est donc égale à  $${L + l}-${l}=${miseEnEvidence(this.reponse)}$ cm.`
+        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}\\text{ cm}$, la longueur du rectangle est donc égale à  $${L + l}-${l}=${miseEnEvidence(this.reponse)}\\text{ cm}$.`
       }
     }
     this.canEnonce = this.question

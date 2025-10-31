@@ -122,7 +122,7 @@ export default class TracerTriangle2Angles extends Exercice {
 
       const p = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
-      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(loAC)}$ cm, $\\widehat{${
+      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(loAC)}\\text{ cm}$, $\\widehat{${
         p[1] + p[0] + p[2]
       }}=${angle1}^\\circ$ et $\\widehat{${
         p[0] + p[1] + p[2]
@@ -203,7 +203,7 @@ export default class TracerTriangle2Angles extends Exercice {
         texteCorr += '<br><br>'
       }
       if (!this.sup) {
-        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 2))}$ cm, $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 2))}$ cm`
+        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 2))}\\text{ cm}$, $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 2))}\\text{ cm}$`
         texteCorr += ` et $\\widehat{${
           p[1] + p[2] + p[0]
         }}=${180 - angle1 - angle2}^\\circ$.`

@@ -758,7 +758,7 @@ export default class TrianglesSemblables extends Exercice {
             { label: 'sont semblables', value: 'oui' },
             { label: 'ne sont pas semblables', value: 'non' },
           ]
-          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
+          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
             handleAnswers(
@@ -1080,7 +1080,7 @@ export default class TrianglesSemblables extends Exercice {
             { label: 'sont semblables', value: 'oui' },
             { label: 'ne sont pas semblables', value: 'non' },
           ]
-          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
+          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
             handleAnswers(

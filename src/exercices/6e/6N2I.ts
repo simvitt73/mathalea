@@ -1,16 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, range1, rangeMinMax } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre, texPrix } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { sp } from '../../lib/outils/outilString'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -198,7 +198,7 @@ export default class DivisionDecimale extends Exercice {
             precision: 4,
           })
           texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-          texteCorr += `<br>Chaque morceau mesurera $${texNombre(q)}$ m ${matiere}, soit $${miseEnEvidence(texNombre(arrondi(q * 100)))}$ cm.`
+          texteCorr += `<br>Chaque morceau mesurera $${texNombre(q)}$ m ${matiere}, soit $${miseEnEvidence(texNombre(arrondi(q * 100)))}\\text{ cm}$.`
           break
         }
         case 5: {

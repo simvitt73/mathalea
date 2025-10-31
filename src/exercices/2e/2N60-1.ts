@@ -413,7 +413,7 @@ export default class ModeliseInequations extends Exercice {
             )
 
             texte = ` On considère la figure ci-dessous (l'unité est le centimètre). <br>
-            Quelles sont les valeurs possibles de $x$ pour que le périmètre de la figure soit supérieur à $${P}$ cm.<br>
+            Quelles sont les valeurs possibles de $x$ pour que le périmètre de la figure soit supérieur à $${P}\\text{ cm}$.<br>
               `
             texte += mathalea2d(
               {
@@ -440,7 +440,7 @@ export default class ModeliseInequations extends Exercice {
             x&>\\dfrac{${P - 2 * b - 2 * a}}{4}`
             texteCorr += '\\end{aligned}$<br>'
 
-            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}$ cm pour que le périmètre de la figure soit supérieur à $${P}$ cm.
+            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}\\text{ cm}$ pour que le périmètre de la figure soit supérieur à $${P}\\text{ cm}$.
 
              `
             reponse = new FractionEtendue(P - 2 * b - 2 * a, 4).texFraction
@@ -531,7 +531,7 @@ export default class ModeliseInequations extends Exercice {
             )
 
             texte = ` On considère la figure ci-dessous sur laquelle les longueurs sont en cm. <br>
-            Quelles sont les valeurs possibles de $x$ pour que l'aire de cette  figure dépasse  $${Aire}$ cm$^2$ ?<br>
+            Quelles sont les valeurs possibles de $x$ pour que l'aire de cette  figure dépasse  $${Aire}\\text{ cm}^2$ ?<br>
             Résoudre ce problème en le modélisant par une inéquation.<br>
               `
             texte += mathalea2d(
@@ -562,13 +562,13 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             x&>\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}`
             texteCorr += '\\end{aligned}$<br>'
             if (pgcd(Aire - a ** 2, a + b / 2) === 1) {
-              texteCorr += `$x$ doit être supérieur à $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
+              texteCorr += `$x$ doit être supérieur à $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}\\text{ cm}$ pour que l'aire  de la figure dépasse $${Aire}\\text{ cm}^2$.
             `
 
               reponse = new FractionEtendue(Aire - a ** 2, a + b / 2)
                 .texFraction
             } else {
-              texteCorr += `Comme $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}=${f.texFraction}$, $x$ doit être supérieur à $${f.texFraction}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
+              texteCorr += `Comme $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}=${f.texFraction}$, $x$ doit être supérieur à $${f.texFraction}\\text{ cm}$ pour que l'aire  de la figure dépasse $${Aire}\\text{ cm}^2$.
              `
               reponse = f.texFraction
             }

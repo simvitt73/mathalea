@@ -304,7 +304,7 @@ function polyg(valeurEntiere: boolean, cd: boolean) {
   Divisons les deux membres par $${b}$ :<br>
   $x = \\dfrac{${texNombre(d - a, 1)}}{${b}} = ${texNombre(x)}$.<br>`,
   }
-  let enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et $${b}$ autres côtés de longueur égale.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
+  let enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}\\text{ cm}$ et $${b}$ autres côtés de longueur égale.<br>Son périmètre est $${texNombre(d)}\\text{ cm}$.<br>`
   enonce +=
     'Quelle est la longueur' +
     (context.isAmc ? ', en cm,' : '') +
@@ -312,7 +312,7 @@ function polyg(valeurEntiere: boolean, cd: boolean) {
   let intro = 'Posons $x$ la longueur des côtés de même longueur.<br>'
   intro += `Un ${polygones[b - 2]} possède $${b + 1}$ côtés, donc celui-ci possède $${b}$ côtés de longueur $x$.<br>`
   intro += "L'énoncé se traduit par l'équation suivante :<br>"
-  const conclusion = `<br>Les côtés de même longueur mesurent donc $${miseEnEvidence(texNombre(x))}$ cm.`
+  const conclusion = `<br>Les côtés de même longueur mesurent donc $${miseEnEvidence(texNombre(x))}\\text{ cm}$.`
   const figure = ''
   const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}${b} \\times ${texNombre(x)} + ${texNombre(a, 1)} &= ${texNombre(b * x, 1)} + ${texNombre(a, 1)}\\\\
   &= ${texNombre(d, 1)}\\\\

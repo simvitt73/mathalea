@@ -231,7 +231,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
             ng = np * cm
             pp = new Decimal(randint(11, 48)).mul(np).div(10)
             pg = pp.mul(cm)
-            texte = `$${np}$ objets occupent un volume de $${texNombre(pp, 1, false)}$ cm$^3$. Quel volume serait occupé par $${ng}$ de ces objets ? `
+            texte = `$${np}$ objets occupent un volume de $${texNombre(pp, 1, false)}\\text{ cm}^3$. Quel volume serait occupé par $${ng}$ de ces objets ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [

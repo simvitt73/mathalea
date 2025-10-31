@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir en mm'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,11 +28,11 @@ export default class Can2025CM2Q29 extends ExerciceSimple {
   nouvelleVersion() {
     const a = this.canOfficielle ? 54 : randint(51, 69, 60)
     this.reponse = texNombre(a * 10, 0)
-    this.question = `Complète : <br> $${a}$ cm $=$ `
-    this.correction = ` $1$ cm $=10$ mm<br>
+    this.question = `Complète : <br> $${a}\\text{ cm}$ $=$ `
+    this.correction = ` $1\\text{ cm}$ $=10$ mm<br>
       Ainsi, pour passer des "cm" au "mm", on multiplie par $10$.<br>
-        Comme $${a}\\times 10 =${texNombre(a * 10, 1)}$, alors $${a}$ cm$=${miseEnEvidence(texNombre(a * 10, 1))}$ mm. `
-    this.canReponseACompleter = ` $${a}$ cm $=\\ldots$ mm`
+        Comme $${a}\\times 10 =${texNombre(a * 10, 1)}$, alors $${a}\\text{ cm}=${miseEnEvidence(texNombre(a * 10, 1))}$ mm. `
+    this.canReponseACompleter = ` $${a}\\text{ cm}$ $=\\ldots$ mm`
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: 'mm' }
     } else {

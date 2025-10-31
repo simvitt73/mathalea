@@ -343,9 +343,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 9:
           a = randint(2, 9) * 2 + 1
           reponse = arrondi(a / 2, 1)
-          texte = `Un ruban mesure $${a}$ cm. On le coupe en $2$ morceaux de même longueur.<br>
+          texte = `Un ruban mesure $${a}\\text{ cm}$. On le coupe en $2$ morceaux de même longueur.<br>
             Un morceau mesure `
-          texteCorr = `Un morceau mesure : $${a}\\div 2=${miseEnEvidence(texNombre(reponse, 1))}$ cm.`
+          texteCorr = `Un morceau mesure : $${a}\\div 2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -749,13 +749,13 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             } else {
               texte += '$\\ldots\\text{ cm}$'
             }
-            texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}$ cm.
+            texteCorr = ` Comme $1$ m $=100\\text{ cm}$,  pour passer des "m" au "cm", on multiplie par $100$.<br>
+                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}\\text{ cm}$.
                         `
           } else {
             a = randint(1, 12) * choice([1, 10, 100])
             reponse = arrondi(a / 100, 2)
-            texte = `$${texNombre(a)}$ cm  =`
+            texte = `$${texNombre(a)}\\text{ cm}$  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
@@ -764,9 +764,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             } else {
               texte += '$\\ldots$ m'
             }
-            texteCorr = `Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
+            texteCorr = `Comme $1$ m $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01$ m.<br>
             Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
-              Comme  $${texNombre(a, 0)}\\div 100 =${texNombre(a / 100, 2)}$, alors $${texNombre(a, 0)}$ cm$=${miseEnEvidence(texNombre(a / 100, 2))}$ m.  `
+              Comme  $${texNombre(a, 0)}\\div 100 =${texNombre(a / 100, 2)}$, alors $${texNombre(a, 0)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100, 2))}$ m.  `
           }
 
           nbChamps = 1
@@ -827,7 +827,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             },
             objets,
           )
-          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${miseEnEvidence(texNombre(2 * a + b + c, 1))}$ cm.`
+          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${miseEnEvidence(texNombre(2 * a + b + c, 1))}\\text{ cm}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=

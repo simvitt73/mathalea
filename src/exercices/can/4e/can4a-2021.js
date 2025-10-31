@@ -639,7 +639,7 @@ export default class SujetCAN20214ieme extends Exercice {
               objets,
             )
             texteCorr = `$ABD$ est un triangle rectangle isocèle. Son aire est donc la moitié de celle du carré :<br>
-            $\\dfrac{${L}\\times ${L}}{2}=${miseEnEvidence(texNombre((L * L) / 2, 1))}$ cm$^2$
+            $\\dfrac{${L}\\times ${L}}{2}=${miseEnEvidence(texNombre((L * L) / 2, 1))}\\text{ cm}^2$
                            `
           } else {
             L = randint(2, 5)
@@ -689,7 +689,7 @@ export default class SujetCAN20214ieme extends Exercice {
               objets,
             )
             texteCorr = `$ABD$ est un triangle rectangle. Son aire est donc la moitié de celle du rectangle : <br>
-            $\\dfrac{${L}\\times ${l2}}{2}=${miseEnEvidence(texNombre((L * l2) / 2, 2))}$ cm$^2$
+            $\\dfrac{${L}\\times ${l2}}{2}=${miseEnEvidence(texNombre((L * l2) / 2, 2))}\\text{ cm}^2$
             `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

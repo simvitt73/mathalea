@@ -75,8 +75,8 @@ export default class RayonDiametreMilieu extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Diamètre
           {
-            texte = `Si le rayon d'un cercle mesure $${longueurSegment}$ cm, alors son diamètre mesure`
-            texteCorr = `Si le rayon d'un cercle mesure $${longueurSegment}$ cm alors son diamètre mesure $${longueurSegment * 2}$ cm.`
+            texte = `Si le rayon d'un cercle mesure $${longueurSegment}\\text{ cm}$, alors son diamètre mesure`
+            texteCorr = `Si le rayon d'un cercle mesure $${longueurSegment}\\text{ cm}$ alors son diamètre mesure $${longueurSegment * 2}\\text{ cm}$.`
             reponse = longueurSegment * 2
             const point1 = point(0, 0, lettre1, 'left')
             const point2 = rotation(
@@ -101,8 +101,8 @@ export default class RayonDiametreMilieu extends Exercice {
           break
         case 3: // La moitié à partir du segment
           {
-            texte = `Si $${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre3}=${longueurSegment * 2}$ cm, alors  $[${lettre2}${lettre1}]$ mesure`
-            texteCorr = `Si $${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre3}=${longueurSegment * 2}$ cm, alors  $[${lettre2}${lettre1}]$ mesure $${longueurSegment}$ cm.`
+            texte = `Si $${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre3}=${longueurSegment * 2}\\text{ cm}$, alors  $[${lettre2}${lettre1}]$ mesure`
+            texteCorr = `Si $${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre3}=${longueurSegment * 2}\\text{ cm}$, alors  $[${lettre2}${lettre1}]$ mesure $${longueurSegment}\\text{ cm}$.`
             reponse = longueurSegment
             const point1 = point(0, 0, lettre2, 'left')
             const point2 = rotation(
@@ -133,9 +133,9 @@ export default class RayonDiametreMilieu extends Exercice {
           break
         case 4: // Le segment à partir de sa moitié
           {
-            texte = `$${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre1}=${longueurSegment}$ cm, alors $[${lettre2}${lettre3}]$ mesure`
+            texte = `$${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre1}=${longueurSegment}\\text{ cm}$, alors $[${lettre2}${lettre3}]$ mesure`
             reponse = longueurSegment * 2
-            texteCorr = `$${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre1}=${longueurSegment}$ cm, alors $[${lettre2}${lettre3}]$ mesure $${longueurSegment * 2}$ cm.`
+            texteCorr = `$${lettre1}$ est le milieu de $[${lettre2}${lettre3}]$ et $${lettre2}${lettre1}=${longueurSegment}\\text{ cm}$, alors $[${lettre2}${lettre3}]$ mesure $${longueurSegment * 2}\\text{ cm}$.`
             const point1 = point(0, 0, lettre2, 'left')
             const point2 = rotation(
               point(6, 0),
@@ -172,8 +172,8 @@ export default class RayonDiametreMilieu extends Exercice {
         default:
           {
             // case 2 Rayon
-            texte = `Si le diamètre d'un cercle mesure $${longueurSegment * 2}$ cm, alors son rayon mesure`
-            texteCorr = `Si le diamètre d'un cercle mesure $${longueurSegment * 2}$ cm, alors son rayon mesure $${longueurSegment}$ cm.`
+            texte = `Si le diamètre d'un cercle mesure $${longueurSegment * 2}\\text{ cm}$, alors son rayon mesure`
+            texteCorr = `Si le diamètre d'un cercle mesure $${longueurSegment * 2}\\text{ cm}$, alors son rayon mesure $${longueurSegment}\\text{ cm}$.`
             reponse = longueurSegment
             const point1 = point(0, 0, lettre1, 'left')
             const point2 = rotation(

@@ -218,14 +218,14 @@ export default class CalculDAngle extends Exercice {
           ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
           angleABC = Math.round((Math.acos(ab / bc) * 180) / Math.PI)
           ac = bc * Math.sin(Math.acos(ab / bc))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$ et $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$.<br>`
           break
         case 'Asin':
           bc = randint(100, 150) / 10
           ac = randint(40, (bc - 2) * 10) / 10
           angleABC = Math.round((Math.asin(ac / bc) * 180) / Math.PI)
           ab = bc * Math.cos(Math.asin(ac / bc))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$ et $${nom[0] + nom[2]}=${texNombre2(ac)}\\text{ cm}$.<br>`
           break
         case 'Atan':
         default:
@@ -233,7 +233,7 @@ export default class CalculDAngle extends Exercice {
           ac = randint(40, 100) / 10
           angleABC = Math.round((Math.atan(ac / ab) * 180) / Math.PI)
           bc = ab / Math.cos(Math.atan(ac / ab))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$ et  $${nom[0] + nom[2]}=${texNombre2(ac)}\\text{ cm}$.<br>`
           break
       }
 

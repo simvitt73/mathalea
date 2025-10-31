@@ -233,7 +233,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
 
               correction = `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
                 lC,
-              )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
+              )}\\text{ cm}$ et $AN \\approx ${texNombre(lD)}\\text{ cm}$.<br>`
               correction +=
                 this.sup < 3
                   ? 'Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>'
@@ -352,9 +352,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
 
               correction = `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
                 lC,
-              )}$ cm, $AN \\approx ${texNombre(
+              )}\\text{ cm}$, $AN \\approx ${texNombre(
                 lD,
-              )}$ cm et $AO \\approx${texNombre(lE)}$ cm.<br>`
+              )}\\text{ cm}$ et $AO \\approx${texNombre(lE)}\\text{ cm}$.<br>`
             }
             Xmin = Math.floor(
               Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1,
@@ -506,9 +506,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
 
               correction += `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
                 lC,
-              )}$ cm, $AN \\approx ${texNombre(
+              )}\\text{ cm}$, $AN \\approx ${texNombre(
                 lD,
-              )}$ cm et $AO \\approx${texNombre(lE)}$ cm.<br><br>`
+              )}\\text{ cm}$ et $AO \\approx${texNombre(lE)}\\text{ cm}$.<br><br>`
             }
             correction += `Les angles droits en rouge se justifient par la propriété :<br> ${texteEnCouleur("Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre", 'red')}.<br>`
             correction += "Vérifier les angles droits à l'équerre.<br><br>"

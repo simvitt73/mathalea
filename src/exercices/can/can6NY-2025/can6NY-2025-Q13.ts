@@ -64,7 +64,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
     this.question = 'Quel est  le périmètre de ce triangle ?'
     this.reponse = 2 * a + b
     this.correction = `Le triangle est isocèle.<br>
-            Son périmètre est : $(2\\times ${texNombre(a)}$ cm) + $${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
+            Son périmètre est : $(2\\times ${texNombre(a)}\\text{ cm}$) + $${texNombre(b)}\\text{ cm}$ $=${miseEnEvidence(texNombre(2 * a + b))}\\text{ cm}$.`
 
     this.question +=
       '<br>' +

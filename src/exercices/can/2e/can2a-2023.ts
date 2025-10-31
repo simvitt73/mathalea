@@ -1432,10 +1432,10 @@ export default class SujetCAN2023Seconde extends Exercice {
           a = randint(5, 10)
           b = randint(1, 8) * 3
           reponse = (a * b) / 3
-          texte = `Volume d'une pyramide dont la base a une aire de $${a}$ cm$^2$ et de hauteur $${b}$ cm`
+          texte = `Volume d'une pyramide dont la base a une aire de $${a}\\text{ cm}^2$ et de hauteur $${b}\\text{ cm}$`
 
           texteCorr = ` Le volume d'une pyramide est $\\dfrac{1}{3}\\times \\text{aire de la base} \\times \\text{hauteur}$.<br>
-          Le volume de cette pyramide est donc : $\\dfrac{${a}\\times ${b}}{3}=${miseEnEvidence(texNombre(reponse, 0))}$ cm$^3$.`
+          Le volume de cette pyramide est donc : $\\dfrac{${a}\\times ${b}}{3}=${miseEnEvidence(texNombre(reponse, 0))}\\text{ cm}^3$.`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^3$'

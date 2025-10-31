@@ -80,7 +80,7 @@ export default class ProblemesDeLongueurs extends ExerciceSimple {
       s2,
     )
     this.question =
-      `Sachant que $FE=${c}$ cm et que $CB=DE$, déterminer $AB$.<br>
+      `Sachant que $FE=${c}\\text{ cm}$ et que $CB=DE$, déterminer $AB$.<br>
 
     ` +
       mathalea2d(
@@ -95,7 +95,7 @@ export default class ProblemesDeLongueurs extends ExerciceSimple {
         objets,
       )
     this.reponse = abc
-    this.correction = `Comme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}$ cm.`
+    this.correction = `Comme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}\\text{ cm}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

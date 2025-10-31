@@ -28,13 +28,13 @@ export default class NomExercice extends ExerciceSimple {
     let reponse: number
     if (this.canOfficielle) {
       reponse = 27
-      this.question = "Le volume d'un cube d'arête $3$ cm est : "
-      this.correction = `Le volume du cube est : $3^3=${miseEnEvidence(27)}$ cm$^3$`
+      this.question = "Le volume d'un cube d'arête $3\\text{ cm}$ est : "
+      this.correction = `Le volume du cube est : $3^3=${miseEnEvidence(27)}\\text{ cm}^3$`
     } else {
       const a = choice([0.2, 2, 3, 0.3, 4, 20, 30])
       reponse = a ** 3
-      this.question = `Le volume d'un cube d'arête $${texNombre(a, 1)}$ cm est : `
-      this.correction = `Le volume du cube est : $${texNombre(a, 1)}^3=${miseEnEvidence(texNombre(a ** 3, 3))}$ cm$^3$`
+      this.question = `Le volume d'un cube d'arête $${texNombre(a, 1)}\\text{ cm}$ est : `
+      this.correction = `Le volume du cube est : $${texNombre(a, 1)}^3=${miseEnEvidence(texNombre(a ** 3, 3))}\\text{ cm}^3$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}^3$'

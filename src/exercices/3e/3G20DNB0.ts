@@ -109,18 +109,18 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const enonce = `Sur la figure ci-dessous, on a :<br>
   ${createList({
     items: [
-      `$(\\mathscr{C})$ est un cercle de centre $${O}$ et de rayon $${texNombre(rayon, 2)}$ cm ;`,
+      `$(\\mathscr{C})$ est un cercle de centre $${O}$ et de rayon $${texNombre(rayon, 2)}\\text{ cm}$ ;`,
       `$[${A}${B}]$ est un diamètre de ce cercle et $${D}$ est un point du cercle ;`,
       `les points $${B}$, $${E}$, $${A}$ sont alignés, ainsi que les points $${D}$, $${F}$, $${A}$ ;`,
       `les droites $(${B}${D})$ et $(${E}${F})$ sont parallèles ;`,
-      `$${B}${D} = ${texNombre(BD, 2)}$ cm ; $${D}${A} = ${texNombre(DA, 2)}$ cm et $${A}${E} = ${texNombre(EF, 2)}$ cm.`,
+      `$${B}${D} = ${texNombre(BD, 2)}\\text{ cm}$ ; $${D}${A} = ${texNombre(DA, 2)}\\text{ cm}$ et $${A}${E} = ${texNombre(EF, 2)}\\text{ cm}$.`,
     ],
     style: 'fleches',
   })}`
 
     const listePrincipale = createList({
       items: [
-        `Justifier que le diamètre [${A}${B}] mesure $${texNombre(diametre, 2)}$ cm.`,
+        `Justifier que le diamètre [${A}${B}] mesure $${texNombre(diametre, 2)}\\text{ cm}$.`,
         `Démontrer que le triangle  $${A}${B}${D}$ est rectangle en $${D}$.`,
         `Calculer $${A}${F}$.`,
         createList({

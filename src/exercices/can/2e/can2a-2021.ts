@@ -619,7 +619,7 @@ export default class SujetCAN2021Seconde extends Exercice {
             )
             texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
           On obtient donc la longueur $EB$ en divisant par $${k}$ la longueur $AD$.<br>
-          $EB=\\dfrac{${d}}{${k}}=${c}$ cm.<br>`
+          $EB=\\dfrac{${d}}{${k}}=${c}\\text{ cm}$.<br>`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$EB=$'
@@ -812,10 +812,10 @@ export default class SujetCAN2021Seconde extends Exercice {
           a = randint(2, 10)
 
           reponse = 4 * a
-          texte = `Déterminer le périmètre d'un carré d'aire $${a ** 2}$ cm$^2$.
+          texte = `Déterminer le périmètre d'un carré d'aire $${a ** 2}\\text{ cm}^2$.
       `
-          texteCorr = `Si l'aire du carré est $${a ** 2}$ cm$^2$, la longueur de son côté est $\\sqrt{${a ** 2}}=${a}$ cm. <br>
-          On en déduit que le périmètre du carré est $4\\times ${a}=${4 * a}$ cm. `
+          texteCorr = `Si l'aire du carré est $${a ** 2}\\text{ cm}^2$, la longueur de son côté est $\\sqrt{${a ** 2}}=${a}\\text{ cm}$. <br>
+          On en déduit que le périmètre du carré est $4\\times ${a}=${4 * a}\\text{ cm}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -955,9 +955,9 @@ export default class SujetCAN2021Seconde extends Exercice {
           a = choice([1, 2, 3, 4, 10])
           reponse = a ** 3 / 100
           texte = `La masse volumique d'un solide  est de $10$ g/cm$^3$.<br>
-          Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}$ cm  ?
+          Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}\\text{ cm}$  ?
       `
-          texteCorr = `Le volume du cube est $${a}^3=${a ** 3}$ cm$^3$.<br>
+          texteCorr = `Le volume du cube est $${a}^3=${a ** 3}\\text{ cm}^3$.<br>
           Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100, 2)}$ kg.
 
           `

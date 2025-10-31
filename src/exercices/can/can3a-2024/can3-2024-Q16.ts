@@ -27,10 +27,10 @@ export default class NomExercice extends ExerciceSimple {
   nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 6
-      this.question = `Un carré a une aire de $36$ cm$^2$.<br>
+      this.question = `Un carré a une aire de $36\\text{ cm}^2$.<br>
       La longueur de l'un de ses côtés est :   `
       this.correction = `L'aire d'un carré est le carré de la longueur d'un côté. <br>
-      Ainsi, la longueur $c$ d'un de ses côtés est :   $c=\\sqrt{36}=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.
+      Ainsi, la longueur $c$ d'un de ses côtés est :   $c=\\sqrt{36}=${miseEnEvidence(texNombre(this.reponse, 0))}\\text{ cm}$.
      `
       this.optionsChampTexte = { texteApres: 'cm' }
       this.canEnonce = this.question
@@ -42,10 +42,10 @@ export default class NomExercice extends ExerciceSimple {
       if (choice([true, false])) {
         const a = randint(4, 12)
         this.reponse = a
-        this.question = `Un carré a une aire de $${a ** 2}$ cm$^2$.<br>
+        this.question = `Un carré a une aire de $${a ** 2}\\text{ cm}^2$.<br>
       La longueur d'un de ses côtés est :   `
         this.correction = `L'aire d'un carré est le carré de la longueur d'un côté. <br>
-      Ainsi, la longueur $c$ d'un de ses côtés est : $c=\\sqrt{${a ** 2}}=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.
+      Ainsi, la longueur $c$ d'un de ses côtés est : $c=\\sqrt{${a ** 2}}=${miseEnEvidence(texNombre(this.reponse, 0))}\\text{ cm}$.
      `
         this.optionsChampTexte = { texteApres: 'cm' }
         this.canEnonce = this.question
@@ -56,11 +56,11 @@ export default class NomExercice extends ExerciceSimple {
       } else {
         const a = randint(4, 12)
         this.reponse = a ** 2
-        this.question = `Un carré a un périmètre de $${a * 4}$ cm.<br>
+        this.question = `Un carré a un périmètre de $${a * 4}\\text{ cm}$.<br>
      Son aire est :   `
         this.correction = `L'aire d'un carré est le carré du côté. <br>
-      Le côté du carré est $\\dfrac{${4 * a}}{4}=${a}$ cm.<br>
-      Ainsi, son aire est : $${a}^2=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm$^2$.
+      Le côté du carré est $\\dfrac{${4 * a}}{4}=${a}\\text{ cm}$.<br>
+      Ainsi, son aire est : $${a}^2=${miseEnEvidence(texNombre(this.reponse, 0))}\\text{ cm}^2$.
      `
         this.optionsChampTexte = { texteApres: 'cm$^2$' }
         this.canEnonce = this.question

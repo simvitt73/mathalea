@@ -514,7 +514,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           propositions = shuffle([
             `$${b}$ m`,
             `$${b}$ dm`,
-            `$${b}$ cm`,
+            `$${b}\\text{ cm}$`,
             `$${b}$ mm`,
           ])
 
@@ -1681,7 +1681,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               )
 
             texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
-          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}$ cm.
+          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}\\text{ cm}$.
                   `
           } else {
             L = randint(3, 5) * 2 // Longueur grand rectngle
@@ -1769,7 +1769,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               )
 
             texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longueur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
-                    Elle est donc égale à $${l}\\div 2=${miseEnEvidence(texNombre(reponse, 1))}$ cm.
+                    Elle est donc égale à $${l}\\div 2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.
                             `
           }
 

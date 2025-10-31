@@ -80,7 +80,7 @@ export default class perimetreCalcul extends ExerciceSimple {
     this.reponse = texNombre(new Decimal(a).mul(4), 4)
     this.correction = `Il s'agit d'un carré. <br>
           Son périmètre est donc
-         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(this.reponse)}$ cm.`
+         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(this.reponse)}\\text{ cm}$.`
 
     if (this.interactif) {
       this.question += '<br>'

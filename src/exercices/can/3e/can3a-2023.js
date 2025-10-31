@@ -977,7 +977,7 @@ export default class SujetCAN2023troisieme extends Exercice {
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                 On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
-                Par conséquent, $AB=${miseEnEvidence(a[1])}$ cm.`
+                Par conséquent, $AB=${miseEnEvidence(a[1])}\\text{ cm}$.`
             this.listeCanEnonces.push(
               mathalea2d(
                 {
@@ -1040,7 +1040,7 @@ export default class SujetCAN2023troisieme extends Exercice {
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                   On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
-                  Par conséquent, $AC=${miseEnEvidence(a[0])}$ cm.`
+                  Par conséquent, $AC=${miseEnEvidence(a[0])}\\text{ cm}$.`
             this.listeCanEnonces.push(
               mathalea2d(
                 {
@@ -1103,7 +1103,7 @@ export default class SujetCAN2023troisieme extends Exercice {
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                     On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
-                    Par conséquent, $BC=${miseEnEvidence(a[2])}$ cm.`
+                    Par conséquent, $BC=${miseEnEvidence(a[2])}\\text{ cm}$.`
             this.listeCanEnonces.push(
               mathalea2d(
                 {

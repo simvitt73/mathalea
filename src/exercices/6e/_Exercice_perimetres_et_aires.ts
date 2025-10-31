@@ -398,7 +398,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
           } else {
             if (choice([true, false])) {
               texte +=
-                `d'un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}\\text{ cm}$, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
+                `d'un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}\\text{ cm}$, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}\\text{ cm}$\
    et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}\\text{ cm}$.` +
                 '<br>'
             } else {

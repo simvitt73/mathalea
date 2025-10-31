@@ -64,6 +64,6 @@ export default class Can2025N6Q17 extends ExerciceSimple {
       objets,
     )
     this.reponse = texNombre(l2, 0)
-    this.correction = `Chaque carreau a une longueur de $${l1}\\div 5 = ${texNombre(l1 / 5, 0)}$ cm, ainsi la longueur du segment est $6$ fois celle d'un carreau, soit $${miseEnEvidence(this.reponse)}$ cm.`
+    this.correction = `Chaque carreau a une longueur de $${l1}\\div 5 = ${texNombre(l1 / 5, 0)}\\text{ cm}$, ainsi la longueur du segment est $6$ fois celle d'un carreau, soit $${miseEnEvidence(this.reponse)}\\text{ cm}$.`
   }
 }

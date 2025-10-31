@@ -79,7 +79,7 @@ export default class LongueurPythagore extends ExerciceSimple {
             },
             objets,
           ) + '<br>'
-        this.correction = ` $${nom[0]}${nom[1]}=${b}$ cm.`
+        this.correction = ` $${nom[0]}${nom[1]}=${b}\\text{ cm}$.`
         this.reponse = b
         this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ` $${nom[0]}${nom[1]}=\\ldots\\text{ cm}$.`
@@ -103,7 +103,7 @@ export default class LongueurPythagore extends ExerciceSimple {
             },
             objets,
           ) + '<br>'
-        this.correction = ` $${nom[1]}${nom[2]}=${a}$ cm.`
+        this.correction = ` $${nom[1]}${nom[2]}=${a}\\text{ cm}$.`
         this.reponse = a
         this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ` $${nom[1]}${nom[2]}=\\ldots\\text{ cm}$.`
@@ -128,7 +128,7 @@ export default class LongueurPythagore extends ExerciceSimple {
             objets,
           ) + '<br>'
 
-        this.correction = ` $${nom[0]}${nom[2]}=${c}$ cm.`
+        this.correction = ` $${nom[0]}${nom[2]}=${c}\\text{ cm}$.`
         this.reponse = c
         this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ` $${nom[0]}${nom[2]}=\\ldots\\text{ cm}$.`
@@ -138,9 +138,9 @@ export default class LongueurPythagore extends ExerciceSimple {
     Les deux valeurs sur le graphique montrent que ce triangle est semblable au triangle rectangle $3$, $4$, $5$ (qui correspond à un triplet pythagoricien bien connu). <br>
     Pour obtenir ses longueurs, il suffit de multiplier les nombres $3$, $4$, $5$ par $${texNombre(triplet[0] / 3)}$.<br>
     On obtient ainsi les longueurs : <br>
-    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 3= ${texNombre(triplet[0])}$ cm ;<br>
-    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 4= ${texNombre(triplet[1])}$ cm ;<br>
-    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 5= ${texNombre(triplet[2])}$ cm ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 3= ${texNombre(triplet[0])}\\text{ cm}$ ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 4= ${texNombre(triplet[1])}\\text{ cm}$ ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 5= ${texNombre(triplet[2])}\\text{ cm}$ ;<br>
     On obtient la longueur manquante par déduction.`)
   }
 }

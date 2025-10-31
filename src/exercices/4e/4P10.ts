@@ -302,7 +302,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               l = 5 + randint(0, 5)
               L = l * 2 + randint(0, 4) * 2
               deltaT = randint(2, 5)
-              texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de $${h1}$ cm et la profondeur à son extrémité sud est de $${h2}$ cm.<br>`
+              texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de $${h1}\\text{ cm}$ et la profondeur à son extrémité sud est de $${h2}\\text{ cm}$.<br>`
               texte += `D'une extrémité à l'autre, la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de $${l}$ m et sa longueur (Nord-Sud) est de $${L}$ m.<br>`
               texte +=
                 numAlpha(0) +
@@ -320,7 +320,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 ` Sachant que pour élever la température d'un litre d'eau de $1$ degré, il faut une énergie de $${texNombre(1.162)}$ Wattheure, quelle est l'énergie consommée en kWh pour augmenter la température de la piscine de $${deltaT}$ degrés ?<br>`
               texteCorr =
                 numAlpha(0) +
-                ` La base de ce prisme droit est un trapèze rectangle de petite base $${h2}$ cm, de grande base $${h1}$ cm et de hauteur $${L}$ m.<br>`
+                ` La base de ce prisme droit est un trapèze rectangle de petite base $${h2}\\text{ cm}$, de grande base $${h1}\\text{ cm}$ et de hauteur $${L}$ m.<br>`
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`
               texteCorr += ` $=\\dfrac{\\left(${texNombre(
                 h1 / 100,
@@ -377,7 +377,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               index2 = randint(0, 5)
               r = randint(10, 15) * 2
               h = randint(0, 10) + r * 4
-              texte = `Un tonneau cylindrique a un rayon de $${r}$ cm et une hauteur de $${h}$ cm.<br>`
+              texte = `Un tonneau cylindrique a un rayon de $${r}\\text{ cm}$ et une hauteur de $${h}\\text{ cm}$.<br>`
               texte +=
                 numAlpha(0) +
                 ' Calculer le ' +
@@ -404,7 +404,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
-                ` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici, la base est un disque de rayon $${r}$ cm.<br>`
+                ` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici, la base est un disque de rayon $${r}\\text{ cm}$.<br>`
               texteCorr += `$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm}^2\\times${h}\\text{ cm}=${texNombre(
                 r * r * h,
               )}\\pi\\text{ cm}^3\\approx${texNombre(

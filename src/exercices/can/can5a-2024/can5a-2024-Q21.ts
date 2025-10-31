@@ -42,7 +42,7 @@ export default class NomExercice extends ExerciceSimple {
       if (choix === 'a') {
         this.reponse = a * 100
         this.question = `$${a}$ dm$^2=$`
-        this.correction = `$1$ dm$^2= 100$ cm$^2$, donc $${a}$ dm$^2=${a}\\times 100$ cm$^2=${miseEnEvidence(a * 100)}$ cm$^2$.`
+        this.correction = `$1$ dm$^2= 100\\text{ cm}^2$, donc $${a}$ dm$^2=${a}\\times 100\\text{ cm}^2=${miseEnEvidence(a * 100)}\\text{ cm}^2$.`
         this.canEnonce = 'Complète.'
         this.canReponseACompleter = `$${a}$ dm$^2=\\ldots\\text{ cm}^2$`
         if (!this.interactif) {
@@ -53,10 +53,10 @@ export default class NomExercice extends ExerciceSimple {
       }
       if (choix === 'b') {
         this.reponse = a / 100
-        this.question = `$${a}$ cm$^2=$`
-        this.correction = `$1$ cm$^2= 0,01$ dm$^2$, donc $${a}$ cm$^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
+        this.question = `$${a}\\text{ cm}^2=$`
+        this.correction = `$1\\text{ cm}^2= 0,01$ dm$^2$, donc $${a}\\text{ cm}^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
         this.canEnonce = 'Complète.'
-        this.canReponseACompleter = `$${a}$ cm$^2=\\ldots$ dm$^2$`
+        this.canReponseACompleter = `$${a}\\text{ cm}^2=\\ldots$ dm$^2$`
         if (!this.interactif) {
           this.question += '$\\ldots$ dm$^2$'
         } else {

@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de longueurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +30,7 @@ export default class Can2025CM12Q13 extends ExerciceSimple {
     const a = this.canOfficielle ? 10 : randint(1, 3) * 10
     const b = this.canOfficielle ? 3 : randint(2, 5)
     this.reponse = texNombre((a * b) / 10, 0)
-    this.question = `$${a}$ petites ficelles de longueur $${b}$ cm sont mises bout à bout.<br>
+    this.question = `$${a}$ petites ficelles de longueur $${b}\\text{ cm}$ sont mises bout à bout.<br>
     On obtient une longueur de  `
     if (!this.interactif) {
       this.question += '$\\ldots$ dm.'
@@ -38,9 +38,9 @@ export default class Can2025CM12Q13 extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' dm.' }
     this.correction = ` La longueur totale est donnée par le produit du nombre de petites ficelles par la longueur d'une petite ficelle. <br>
     $${a}\\times ${b}=${a * b}$<br>
-    La longueur totale est $${a * b}$ cm.<br>
-    Comme $1$ dm $=10$ cm, la longueur totale est $${miseEnEvidence(this.reponse)}$ dm.`
-    this.canEnonce = `$${a}$ petites ficelles de longueur $${b}$ cm sont mises bout à bout.`
+    La longueur totale est $${a * b}\\text{ cm}$.<br>
+    Comme $1$ dm $=10\\text{ cm}$, la longueur totale est $${miseEnEvidence(this.reponse)}$ dm.`
+    this.canEnonce = `$${a}$ petites ficelles de longueur $${b}\\text{ cm}$ sont mises bout à bout.`
     this.canReponseACompleter = 'On obtient une longueur de $\\ldots$ dm.'
   }
 }

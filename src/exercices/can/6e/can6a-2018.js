@@ -675,8 +675,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             objets,
           )
 
-          texteCorr = `Le rectangle est constitué de  $${j}$ carrés d'aire $1$ cm$^2$ et de $${j}$ rectangles d'aire $0,5$ cm$^2$.<br>
-            Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}$ cm$^2$.
+          texteCorr = `Le rectangle est constitué de  $${j}$ carrés d'aire $1\\text{ cm}^2$ et de $${j}$ rectangles d'aire $0,5\\text{ cm}^2$.<br>
+            Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}\\text{ cm}^2$.
             `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -943,7 +943,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
 
           texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
-          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}$ cm.
+          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}\\text{ cm}$.
                   `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

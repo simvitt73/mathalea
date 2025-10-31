@@ -46,31 +46,31 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
 
           this.optionsChampTexte = { texteApres: ' cm' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ m $=$ $\\dots$ cm`
-          this.correction = `$${texNombre(a)}$ m $=${miseEnEvidence(texNombre(a * 100))}$ cm`
+          this.canReponseACompleter = `$${texNombre(a)}$ m $=$ $\\dots\\text{ cm}$`
+          this.correction = `$${texNombre(a)}$ m $=${miseEnEvidence(texNombre(a * 100))}\\text{ cm}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1$ m $=100$ cm,  pour convertir des «${sp()}m ${sp()}» au «${sp()}cm ${sp()}», on multiplie par $100$.<br>
-            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}$ cm.  `,
+          Comme $1$ m $=100\\text{ cm}$,  pour convertir des «${sp()}m ${sp()}» au «${sp()}cm ${sp()}», on multiplie par $100$.<br>
+            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}\\text{ cm}$.  `,
             bleuMathalea,
           )
         } else {
           a = randint(1, 12) * 10
           resultat = a / 100
-          this.question = `$${texNombre(a)}$ cm  =`
+          this.question = `$${texNombre(a)}\\text{ cm}$  =`
           if (!this.interactif) {
             this.question += '..... m'
           }
 
           this.optionsChampTexte = { texteApres: ' m' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ cm $= \\dots$ m`
-          this.correction = `$${texNombre(a)}$ cm$=${miseEnEvidence(texNombre(a / 100))}$ m.`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ cm}$ $= \\dots$ m`
+          this.correction = `$${texNombre(a)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100))}$ m.`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
+          Comme $1$ m $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01$ m.<br>
           Ainsi pour convertir des «${sp()}cm ${sp()}» au «${sp()}m ${sp()}», on divise par $100$.<br>
-            Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.  `,
+            Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}\\text{ cm}=${texNombre(a / 100)}$ m.  `,
             bleuMathalea,
           )
         }

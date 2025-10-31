@@ -63,6 +63,6 @@ export default class Can2025CM1Q17 extends ExerciceSimple {
       objets,
     )
     this.reponse = texNombre(l2, 0)
-    this.correction = `Chaque carreau a une longueur de $${l1}\\div 3 = ${texNombre(l1 / 3, 0)}$ cm, ainsi la longueur du segment est  $${miseEnEvidence(this.reponse)}$ cm.`
+    this.correction = `Chaque carreau a une longueur de $${l1}\\div 3 = ${texNombre(l1 / 3, 0)}\\text{ cm}$, ainsi la longueur du segment est  $${miseEnEvidence(this.reponse)}\\text{ cm}$.`
   }
 }

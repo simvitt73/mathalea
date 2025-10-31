@@ -89,11 +89,11 @@ export default class longueursRectPerimetre extends ExerciceSimple {
     this.reponse = {
       reponse: { value: 2 * choix[0] + 2 * choix[1], compare: functionCompare },
     }
-    this.correction = `L'aire du rectangle est  $${aire}$ cm$^2$. Elle est égale au produit de la longueur par la largeur du rectangle.<br>
+    this.correction = `L'aire du rectangle est  $${aire}\\text{ cm}^2$. Elle est égale au produit de la longueur par la largeur du rectangle.<br>
            $${aire}\\div ${choix[0]}=${choix[1]}$<br>
-        La largeur du rectangle est donc : $${choix[1]}$ cm.<br>
-          $2\\times (${choix[0]}+${choix[1]})=${2 * choix[0] + 2 * choix[1]}$ cm.<br>
-          Le périmètre du rectangle est : $${miseEnEvidence(stringNombre(2 * choix[0] + 2 * choix[1], 0))}$ cm.<br>`
+        La largeur du rectangle est donc : $${choix[1]}\\text{ cm}$.<br>
+          $2\\times (${choix[0]}+${choix[1]})=${2 * choix[0] + 2 * choix[1]}\\text{ cm}$.<br>
+          Le périmètre du rectangle est : $${miseEnEvidence(stringNombre(2 * choix[0] + 2 * choix[1], 0))}\\text{ cm}$.<br>`
 
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}$'

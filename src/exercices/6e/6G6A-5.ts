@@ -52,7 +52,7 @@ export default class TracerTriangle2Angles extends Exercice {
       listeDeNomsDePolygones.push(p)
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(
         c,
-      )}$ cm, $\\widehat{${
+      )}\\text{ cm}$, $\\widehat{${
         p[1] + p[0] + p[2]
       }}=${angle1}^\\circ$ et $\\widehat{${
         p[0] + p[1] + p[2]
@@ -97,7 +97,7 @@ export default class TracerTriangle2Angles extends Exercice {
       if (this.sup) {
         texteCorr = ''
       } else {
-        texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}$ cm.`
+        texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}\\text{ cm}$ et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}\\text{ cm}$.`
       }
       const anim = new Alea2iep()
       anim.triangle1longueur2angles(p, c, angle1, angle2, {

@@ -980,7 +980,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
           reponse2 = arrondi(nb4 + nb5 / 100)
           nb4 = texNombre(nb4)
           texte += `${quidam}, un élève de ${nb2}, de $${nb3}$ ans, mesure $${nb4}$ m. `
-          texte += `${quidam2} a $${nb1 + 2}$ ans de plus que ${quidam} et mesure $${nb5}$ cm de plus.<br>`
+          texte += `${quidam2} a $${nb1 + 2}$ ans de plus que ${quidam} et mesure $${nb5}\\text{ cm}$ de plus.<br>`
 
           switch (choixVersion) {
             case 1:

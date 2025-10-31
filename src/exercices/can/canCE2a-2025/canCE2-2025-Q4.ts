@@ -1,7 +1,7 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceCan from '../../ExerciceCan'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
@@ -36,7 +36,7 @@ export default class Can2025CE2Q4 extends ExerciceCan {
     this.autoCorrection[0] = {
       propositions: [
         {
-          texte: `$${texNombre(a, 1)}$ cm`,
+          texte: `$${texNombre(a, 1)}\\text{ cm}$`,
           statut: b === 'cm',
         },
         {

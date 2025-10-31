@@ -114,7 +114,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     const ligne1 = `Le triangle $${nom1}$ est rectangle en $${nom1[1]}$,`
     const ligne2 = `le triangle $${triangle2}$ est rectangle en $${nom2[0]}$,`
     const ligne3 = `le triangle $${triangle3}$ est rectangle en $${nom3[0]}$,`
-    const ligne4 = `$${nom1[0]}${nom1[1]}= ${texNombre(ON, 1)}$ cm et $\\widehat{\\text{${nom1[1]}${nom1[0]}${nom1[2]}}} = ${texNombre(MON, 0)}^\\circ$.`
+    const ligne4 = `$${nom1[0]}${nom1[1]}= ${texNombre(ON, 1)}\\text{ cm}$ et $\\widehat{\\text{${nom1[1]}${nom1[0]}${nom1[2]}}} = ${texNombre(MON, 0)}^\\circ$.`
     const ligne5 = `$${nom2[0]}$ est un point du segment $[${nom1[0]}${nom1[2]}]$ et $${nom3[0]}$ est un point du segment $[${nom1[0]}${nom2[1]}]$.`
     const listeDonnees = createList({
       items: [ligne1, ligne2, ligne3, ligne4, ligne5],
@@ -127,9 +127,9 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
       { eleId: '', largeur1: 50, widthmincol1: '200px', widthmincol2: '200px' },
     )
     const question1 = `Calculer la mesure de la longueur $${nom1[1]}${nom1[2]}$. On donnera une valeur approchée au millimètre près.`
-    const question2 = `On donne $${nom2[0]}${nom2[1]} = ${texNombre(PQ, 2)}$ cm et $${nom1[0]}${nom2[1]} = ${texNombre(OQ, 2)}$ cm. Montrer que $${nom1[0]}${nom2[0]} = ${texNombre(ON, 2)}$ cm.`
+    const question2 = `On donne $${nom2[0]}${nom2[1]} = ${texNombre(PQ, 2)}\\text{ cm}$ et $${nom1[0]}${nom2[1]} = ${texNombre(OQ, 2)}\\text{ cm}$. Montrer que $${nom1[0]}${nom2[0]} = ${texNombre(ON, 2)}\\text{ cm}$.`
     const question3 = `Montrer que les triangles $${nom1}$ et $${triangle2}$ ne sont pas des triangles égaux.`
-    const question4 = `Sachant que le triangle $${triangle2}$ est un agrandissement du triangle $${triangle3}$ et que $${nom1[0]}${nom3[1]} = ${texNombre(OS, 2)}$ cm, calculer l'aire du triangle $${triangle3}$.`
+    const question4 = `Sachant que le triangle $${triangle2}$ est un agrandissement du triangle $${triangle3}$ et que $${nom1[0]}${nom3[1]} = ${texNombre(OS, 2)}\\text{ cm}$, calculer l'aire du triangle $${triangle3}$.`
     const listeQuestions = createList({
       items: [question1, question2, question3, question4],
       style: 'nombres',

@@ -309,12 +309,12 @@ export default class SujetCAN2022cinquieme extends Exercice {
           if (choice([true, false])) {
             a = randint(1, 13) * 50
             reponse = a / 100
-            texte = `$${a}$ cm  $=$`
+            texte = `$${a}\\text{ cm}$  $=$`
 
             texteCorr = `
-        Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
+        Comme $1$ m $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01$ m.<br>
         Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}$ cm$=${texNombre(a / 100, 2)}$ m.  `
+          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}\\text{ cm}=${texNombre(a / 100, 2)}$ m.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '  ') + 'm'
@@ -325,8 +325,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
             a = randint(1, 9) + randint(1, 9) / 10
             reponse = a * 100
             texte = `$${texNombre(a, 1)}$ m  $=$ `
-            texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
+            texteCorr = ` Comme $1$ m $=100\\text{ cm}$,  pour passer des "m" au "cm", on multiplie par $100$.<br>
+                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}\\text{ cm}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '  ') + 'cm'
@@ -685,10 +685,10 @@ export default class SujetCAN2022cinquieme extends Exercice {
           a = randint(9, 15)
           b = randint(2, 4)
           propositions = shuffle([
-            `$${texNombre(2 * a + 5 * b)}$ cm`,
-            `$${texNombre(2 * a + 8 * b)}$ cm`,
-            `$${texNombre(2 * a + 6 * b)}$ cm`,
-            `$${texNombre(2 * a + 3 * b)}$ cm`,
+            `$${texNombre(2 * a + 5 * b)}\\text{ cm}$`,
+            `$${texNombre(2 * a + 8 * b)}\\text{ cm}$`,
+            `$${texNombre(2 * a + 6 * b)}\\text{ cm}$`,
+            `$${texNombre(2 * a + 3 * b)}\\text{ cm}$`,
           ])
           A = point(0, 0, 'A', 'below')
           B = point(6, 0, 'B', 'below')
@@ -740,9 +740,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
             codage3,
             codage4,
           )
-          texteCorr = `La figure est constituée de deux longueurs de $${a}$ cm, d'une longueur de $${texNombre(2 * b, 0)}$ cm et de la longueur d'un demmi-cercle de rayon $${b}$ cm.<br>
+          texteCorr = `La figure est constituée de deux longueurs de $${a}\\text{ cm}$, d'une longueur de $${texNombre(2 * b, 0)}\\text{ cm}$ et de la longueur d'un demmi-cercle de rayon $${b}\\text{ cm}$.<br>
           Comme le périmètre d'un cercle est $2\\times \\pi \\times $ Rayon, le périmètre du demi-cercle est $ \\pi\\times $ Rayon, dont une valeur approchée est $3\\times $Rayon.<br>
-          Ainsi, un ordre de grandeur du périmètre de la figure est : $2\\times ${a}+${texNombre(2 * b, 0)}+3\\times ${b}=${texNombre(2 * a + 5 * b)}$ cm.`
+          Ainsi, un ordre de grandeur du périmètre de la figure est : $2\\times ${a}+${texNombre(2 * b, 0)}+3\\times ${b}=${texNombre(2 * a + 5 * b)}\\text{ cm}$.`
 
           setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), {
             formatInteractif: 'unites',
@@ -1268,7 +1268,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             ),
             labelPoint(H),
           )
-          texteCorr += `La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}$ cm`
+          texteCorr += `La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}\\text{ cm}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -1302,17 +1302,18 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           reponse = a * a
 
-          texte = `L'aire d'un disque de rayon $${a}$ cm est :
+          texte = `L'aire d'un disque de rayon $${a}\\text{ cm}$ est :
                 `
 
-          texteCorr = `L'aire d'un disque de rayon $${a}$ cm est : $\\pi\\times \\text{Rayon}^2=\\pi\\times ${a}^2=${a * a}\\pi$ cm$^2$.`
+          texteCorr = `L'aire d'un disque de rayon $${a}\\text{ cm}$ est : $\\pi\\times \\text{Rayon}^2=\\pi\\times ${a}^2=${a * a}\\pi\\text{ cm}^2$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
-              ajouteChampTexteMathLive(this, index, '  ') + '$\\pi$ cm$^2$'
+              ajouteChampTexteMathLive(this, index, '  ') +
+              '$\\pi\\text{ cm}^2$'
           } else {
-            texte += '$\\ldots \\pi$ cm$^2$'
+            texte += '$\\ldots \\pi\\text{ cm}^2$'
           }
           nbChamps = 1
           break

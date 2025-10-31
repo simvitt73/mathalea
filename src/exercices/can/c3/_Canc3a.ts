@@ -448,7 +448,7 @@ export default class ClasseCan2023 {
     const propositions = shuffle([
       context.isHtml ? `$${b}$ m` : `\\Lg[m]{${b}}`,
       context.isHtml ? `$${b}$ dm` : `\\Lg[dm]{${b}}`,
-      context.isHtml ? `$${b}$ cm` : `\\Lg[cm]{${b}}`,
+      context.isHtml ? `$${b}\\text{ cm}$` : `\\Lg[cm]{${b}}`,
       context.isHtml ? `$${b}$ mm` : `\\Lg[mm]{${b}}`,
     ])
     sortie.reponse = String(b)
@@ -1574,7 +1574,7 @@ Combien coûtent $2$ cahiers ?`
           objets,
         )
         sortie.texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
-Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm.`
+Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}\\text{ cm}$.`
         break
       case 'reduction':
         L = randint(3, 5) * 2 // Longueur grand rectngle
@@ -1658,7 +1658,7 @@ Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm
           objets,
         )
         sortie.texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longueur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
-Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
+Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}\\text{ cm}$.
                         `
         break
     }

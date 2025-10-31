@@ -71,7 +71,7 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const labels = labelPoint(A, B)
     this.reponse = texNombre((a * c) / b, 2)
     this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: 0 })), [s, s2, codages, ps, labels, l])}`
-    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>`
+    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}\\text{ cm}$.<br>`
     if (a === 1) {
       this.correction += `$\\begin{aligned}
    AB&= \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}\\\\

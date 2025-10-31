@@ -82,7 +82,7 @@ export default class AmeriqueNordJuin22Ex1Q5 extends ExerciceQcmA {
       objets,
     )
     this.enonce += '<br>Le volume de ce prisme droit est :'
-    this.correction = `La base de ce prisme est un triangle rectangle de $${l}$ cm et $${h}$ cm de côté.<br>
+    this.correction = `La base de ce prisme est un triangle rectangle de $${l}\\text{ cm}$ et $${h}\\text{ cm}$ de côté.<br>
     Son aire est : $\\dfrac{${l}\\times ${h}}{2}=\\dfrac{${l * h}}{2}=${texNombre((l * h) / 2, 1)}\\text{ cm}^2$.<br>
     Le volume du prisme est le produit de l'aire de la base par la hauteur, soit :<br>
     $${texNombre((l * h) / 2, 1)}\\times ${p}=${miseEnEvidence(`${volume}\\text{ cm}^3`)}$<br>

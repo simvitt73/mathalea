@@ -1632,7 +1632,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte = `Quel est le volume du pavé droit ci-dessous ?<br>
         ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale: 0.6 }, pav)}`
             reponse = L * l * h
-            texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}$ cm$^3$.`
+            texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}\\text{ cm}^3$.`
           } else {
             l = randint(2, 5)
             L = l
@@ -1641,7 +1641,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte = `Quel est le volume de ce cube ?<br>
           ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale: 0.6 }, pav)}`
             reponse = L * l * h
-            texteCorr = `Le volume de ce cube est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}$ cm$^3$.`
+            texteCorr = `Le volume de ce cube est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}\\text{ cm}^3$.`
           }
 
           texte += ajouteChampTexteMathLive(this, index, '', {

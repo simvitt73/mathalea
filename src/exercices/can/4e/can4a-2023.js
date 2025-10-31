@@ -993,7 +993,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               e,
             )
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
-          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
+          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}\\text{ cm}$.`
             texte += context.isHtml ? `${sp(4)}$AC= $` : ''
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
@@ -1059,7 +1059,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               e,
               f,
             )
-            texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}$ cm$^2$.`
+            texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}\\text{ cm}^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
@@ -1385,7 +1385,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             context.isHtml ? 1 : 0.7,
           )
           reponse = c
-          texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
+          texte = `Ce pavé droit a un volume de $${v}\\text{ cm}^3$.<br>
             Quelle est sa hauteur ? <br>`
           texte += mathalea2d(
             {

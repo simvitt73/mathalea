@@ -88,7 +88,7 @@ export default class VolumeCylindre extends ExerciceSimple {
       objets,
     )
     this.correction = `Le volume du cylindre est  : $\\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
-              Soit : $ ${aire}\\times ${h}=${miseEnEvidence(reponse)}$ cm$^3$.  `
+              Soit : $ ${aire}\\times ${h}=${miseEnEvidence(reponse)}\\text{ cm}^3$.  `
     this.question += '<br>Le volume de ce cylindre est '
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}^3$'

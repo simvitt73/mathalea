@@ -125,7 +125,7 @@ export default class NomExercice extends ExerciceSimple {
       objets,
     )
     // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
-    this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}-${Valeur[1]}x`)}$ cm.`
+    this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}-${Valeur[1]}x`)}\\text{ cm}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
     if (!this.interactif) {

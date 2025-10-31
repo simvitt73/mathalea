@@ -28,25 +28,26 @@ export default class NomExercice extends ExerciceSimple {
   nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '\\pi'
-      this.question = "L'aire exacte d'un disque  de diamètre $2$ cm est :"
+      this.question =
+        "L'aire exacte d'un disque  de diamètre $2\\text{ cm}$ est :"
       this.correction = `L'aire d'un disque de rayon $r$ est $\\pi\\times r^2$. <br>
-      Comme $r=1$, l'aire exacte d'un disque  de diamètre $2$ cm est : $${miseEnEvidence('\\pi')}$ cm$^2$.`
+      Comme $r=1$, l'aire exacte d'un disque  de diamètre $2\\text{ cm}$ est : $${miseEnEvidence('\\pi')}\\text{ cm}^2$.`
     } else {
       if (choice([true, false])) {
         const a = randint(2, 5)
         this.reponse = `${a ** 2}\\times \\pi`
-        this.question = `L'aire exacte d'un disque  de rayon $${a}$ cm est :`
+        this.question = `L'aire exacte d'un disque  de rayon $${a}\\text{ cm}$ est :`
         this.correction = `L'aire d'un disque de rayon $r$ est $\\pi\\times r^2$. <br>  
-      Comme $r=${a}$, l'aire exacte d'un disque  de rayon $${a}$ cm est : 
+      Comme $r=${a}$, l'aire exacte d'un disque  de rayon $${a}\\text{ cm}$ est : 
       $${miseEnEvidence(this.reponse)}
-      $ cm$^2$.`
+      \\text{ cm}^2$.`
       } else {
         const a = randint(2, 5)
         this.reponse = `${a ** 2}\\times \\pi`
-        this.question = `L'aire exacte d'un disque  de diamètre $${2 * a}$ cm est :`
+        this.question = `L'aire exacte d'un disque  de diamètre $${2 * a}\\text{ cm}$ est :`
         this.correction = `L'aire d'un disque de rayon $r$ est $\\pi\\times r^2$. <br>  
-       Comme $r=${a}$, l'aire exacte d'un disque  de diamètre $${2 * a}$ cm est : $${miseEnEvidence(this.reponse)}
-        $ cm$^2$.`
+       Comme $r=${a}$, l'aire exacte d'un disque  de diamètre $${2 * a}\\text{ cm}$ est : $${miseEnEvidence(this.reponse)}
+        \\text{ cm}^2$.`
       }
     }
     this.canEnonce = this.question

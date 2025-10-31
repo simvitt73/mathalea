@@ -900,7 +900,7 @@ export default class AgrandissementReduction extends Exercice {
         texteCorr += '$K=\\sqrt[3]{1-k^3}$.<br>'
         kprime = new Decimal(1).sub(h2.div(h1).pow(3)).cbrt()
         texteCorr += `Donc $K = \\sqrt[3]{1 - \\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3} \\approx ${texNombre(kprime, 5)}$.<br>`
-        texteCorr += `On en déduit que la hauteur de glace est approximativement : $${texNombre(kprime, 5)} \\times ${texNombre(h1, 1)}$ cm $\\approx ${texNombre(kprime.mul(h1), 4)}$ cm.<br>`
+        texteCorr += `On en déduit que la hauteur de glace est approximativement : $${texNombre(kprime, 5)} \\times ${texNombre(h1, 1)}\\text{ cm}$ $\\approx ${texNombre(kprime.mul(h1), 4)}\\text{ cm}$.<br>`
         texteCorr +=
           numAlpha(4) +
           ` L'épaisseur de chocolat est alors de : $${texNombre(h1, 1)}\\text{ cm}-${texNombre(kprime.mul(h1), 4)} \\text{ cm}\\approx ${texNombre(h1.sub(kprime.mul(h1)).mul(10), 2)}$ mm !`

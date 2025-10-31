@@ -1133,8 +1133,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(2, 10)
             b = a * 4
             reponse = new FractionEtendue(1, 2)
-            texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
-            Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
+            texte = `Soit une figure d'aire $${b}\\text{ cm}^2$.<br>
+            Après une réduction, on obtient une figure d'aire $${a}\\text{ cm}^2$.<br>
             Quel est le rapport de réduction ?`
 
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
@@ -1144,8 +1144,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(2, 10)
             b = a * 9
             reponse = new FractionEtendue(1, 3)
-            texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
-            Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
+            texte = `Soit une figure d'aire $${b}\\text{ cm}^2$.<br>
+            Après une réduction, on obtient une figure d'aire $${a}\\text{ cm}^2$.<br>
             Quel est le rapport de réduction ?`
 
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
@@ -1155,8 +1155,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(1, 5)
             b = a * 16
             reponse = new FractionEtendue(1, 4)
-            texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
-            Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
+            texte = `Soit une figure d'aire $${b}\\text{ cm}^2$.<br>
+            Après une réduction, on obtient une figure d'aire $${a}\\text{ cm}^2$.<br>
             Quel est le rapport de réduction ?`
 
             texteCorr = `Dans un/une agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>

@@ -428,7 +428,7 @@ export default class CourseAuxNombres6e extends Exercice {
         case 'q22':
           a = randint(11, 24) * 10 + randint(0, 9)
           resultat = arrondi(a / 100)
-          texte = `$${a}$ cm font combien de mètres ?`
+          texte = `$${a}\\text{ cm}$ font combien de mètres ?`
           texteCorr = `$${a}~\\text{cm} = ${texNombre(resultat)}~\\text{m}$`
           setReponse(this, q, resultat)
           texte += ajouteChampTexteMathLive(
@@ -461,7 +461,7 @@ export default class CourseAuxNombres6e extends Exercice {
         case 'q25':
           a = randint(0, 4)
           b = randint(hauteurs[a][1], hauteurs[a][2])
-          propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`])
+          propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}\\text{ cm}$`])
           texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]} (nombre et unité)<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
@@ -498,10 +498,10 @@ export default class CourseAuxNombres6e extends Exercice {
           b = randint(0, 1)
           texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
           if (b === 0) {
-            texteCorr = `Faux car $4\\times ${a}$ cm $\\neq 2\\times ${a}$ cm $+ 2\\times ${a + 1}$ cm.`
+            texteCorr = `Faux car $4\\times ${a}\\text{ cm}$ $\\neq 2\\times ${a}\\text{ cm}$ $+ 2\\times ${a + 1}\\text{ cm}$.`
             setReponse(this, q, 'F')
           } else {
-            texteCorr = `Vrai car $4\\times ${a}$ cm $= 2\\times ${a - 1}$ cm $+ 2\\times ${a + 1}$ cm $= ${4 * a}$ cm.`
+            texteCorr = `Vrai car $4\\times ${a}\\text{ cm}$ $= 2\\times ${a - 1}\\text{ cm}$ $+ 2\\times ${a + 1}\\text{ cm}$ $= ${4 * a}\\text{ cm}$.`
             setReponse(this, q, 'V')
           }
           texte += ajouteChampTexteMathLive(

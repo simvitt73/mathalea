@@ -646,7 +646,7 @@ export default class SujetCAN20213ieme extends Exercice {
             objets,
           )
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
-          Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi$ cm$^3$.  `
+          Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi\\text{ cm}^3$.  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + '$\\pi$cm$^3$'
@@ -864,9 +864,9 @@ export default class SujetCAN20213ieme extends Exercice {
           ])
           reponse = arrondi(a / 1000, 3)
           texte = `Complète.<br>
-         $${a}$ cm$^3 = $ `
-          texteCorr = `$1$ cm$^3 = 0,001 $dm$^3$ et $1$ dm$^3 = 1$ L.<br>
-          $${a}$ cm$^3 = ${a}\\times 0,001=${texNombre(reponse, 3)}$ L.`
+         $${a}\\text{ cm}^3 = $ `
+          texteCorr = `$1\\text{ cm}^3 = 0,001 $dm$^3$ et $1$ dm$^3 = 1$ L.<br>
+          $${a}\\text{ cm}^3 = ${a}\\times 0,001=${texNombre(reponse, 3)}$ L.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

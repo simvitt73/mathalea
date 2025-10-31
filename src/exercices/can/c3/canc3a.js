@@ -348,7 +348,7 @@ export default class CourseAuxNombresCM extends Exercice {
           c = arrondi(a + b)
           switch (randint(1, 3)) {
             case 1:
-              texte = `On a coupé $${texNombre(a)}$ cm d'une ficelle qui en faisait $${texNombre(c)}$.<br>Combien de centimètres en reste-t-il ?`
+              texte = `On a coupé $${texNombre(a)}\\text{ cm}$ d'une ficelle qui en faisait $${texNombre(c)}$.<br>Combien de centimètres en reste-t-il ?`
               texteCorr = `$${texNombre(c)}-${texNombre(a)}=${texNombre(b)}$`
               break
             case 2:
@@ -498,7 +498,7 @@ export default class CourseAuxNombresCM extends Exercice {
                 },
                 objets,
               )
-              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}$ cm $=${texNombre(a * b)}$ cm.`
+              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}\\text{ cm}$ $=${texNombre(a * b)}\\text{ cm}$.`
               break
             case 2:
               a = arrondi(randint(4, 5) + choice([0.1, 0.25, 0.5]))

@@ -567,7 +567,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             code4,
           )
           reponse = b / 2
-          texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
+          texte = `Le périmètre de cette figure est $${a + b}\\text{ cm}$. <br>
             `
           texte += mathalea2d(
             {
@@ -583,7 +583,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             },
             objets,
           )
-          texteCorr = `Puisque le périmètre du rectangle est $${a + b}$ cm, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${miseEnEvidence(texNombre(b / 2))}$ cm.`
+          texteCorr = `Puisque le périmètre du rectangle est $${a + b}\\text{ cm}$, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${miseEnEvidence(texNombre(b / 2))}\\text{ cm}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$\\text{?}=$'
@@ -986,7 +986,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           propositions = shuffle([
             `$${b}$ m`,
             `$${b}$ dm`,
-            `$${b}$ cm`,
+            `$${b}\\text{ cm}$`,
             `$${b}$ mm`,
           ])
 
@@ -1046,10 +1046,10 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           b = randint(3, 6) * a
 
           reponse = Math.round(1.5 * b)
-          texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm.<br>
+          texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}\\text{ cm}$.<br>
           $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de `
-          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}$ cm, donc les
-          $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${miseEnEvidence(reponse)}$ cm `
+          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}\\text{ cm}$, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}\\text{ cm}$, donc les
+          $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${miseEnEvidence(reponse)}\\text{ cm}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

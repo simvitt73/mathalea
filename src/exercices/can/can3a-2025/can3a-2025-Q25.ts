@@ -30,9 +30,9 @@ export default class PerimetreCercle extends ExerciceSimple {
     const r = this.canOfficielle ? 10 : randint(3, 12)
     const reponse = `${2 * r}\\times \\pi`
     this.reponse = reponse
-    this.question = `Valeur  exacte du périmètre du cercle de rayon $${r}$ cm`
+    this.question = `Valeur  exacte du périmètre du cercle de rayon $${r}\\text{ cm}$`
     this.correction = `Le périmètre d'un cercle de rayon $r$ est $2\\times \\pi\\times r$. <br>  
-         Comme $r=${r}$, la valeur  exacte du périmètre est : $${miseEnEvidence(reponse)}$ cm.`
+         Comme $r=${r}$, la valeur  exacte du périmètre est : $${miseEnEvidence(reponse)}\\text{ cm}$.`
 
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}$'

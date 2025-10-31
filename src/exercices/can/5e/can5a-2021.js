@@ -645,8 +645,8 @@ export default class SujetCAN20215ieme extends Exercice {
               },
               objets,
             )
-            texteCorr = `La figure est composée de $12$ segments de longueur $${a}$ cm.<br>
-              Le périmètre de cette figure est donc : $12\\times\\times ${a}=${miseEnEvidence(12 * a)}$ cm.   `
+            texteCorr = `La figure est composée de $12$ segments de longueur $${a}\\text{ cm}$.<br>
+              Le périmètre de cette figure est donc : $12\\times\\times ${a}=${miseEnEvidence(12 * a)}\\text{ cm}$.   `
           }
           if (choix === 'b') {
             b = randint(6, 10)
@@ -723,7 +723,7 @@ export default class SujetCAN20215ieme extends Exercice {
               objets,
             )
             texteCorr = `La figure est composée de $4$ segments de longueur $${a}$, de $2$ segments de longueur $${c}$ et d'un segment de longueur $${b}$.<br>
-            Le périmètre de cette figure est donc : $4\\times ${a}+2\\times ${c}+${b}=${miseEnEvidence(4 * a + 2 * c + b)}$ cm.   `
+            Le périmètre de cette figure est donc : $4\\times ${a}+2\\times ${c}+${b}=${miseEnEvidence(4 * a + 2 * c + b)}\\text{ cm}$.   `
           }
 
           if (choix === 'c') {
@@ -796,7 +796,7 @@ export default class SujetCAN20215ieme extends Exercice {
               objets,
             )
             texteCorr = `La figure est composée de $3$ segments de longueur $${c}$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
-                    Le périmètre de cette figure est donc : $3\\times ${c}+2\\times ${a}+${b}=${miseEnEvidence(3 * c + 2 * a + b)}$ cm.   `
+                    Le périmètre de cette figure est donc : $3\\times ${c}+2\\times ${a}+${b}=${miseEnEvidence(3 * c + 2 * a + b)}\\text{ cm}$.   `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -818,7 +818,7 @@ export default class SujetCAN20215ieme extends Exercice {
           if (choix === 'a') {
             reponse = a * 100
             texte = `$${a}$ dm$^2=$`
-            texteCorr = `$1$ dm$^2= 100$ cm$^2$, donc $${a}$ dm$^2=${a}\\times 100$ cm$^2=${miseEnEvidence(a * 100)}$ cm$^2$.`
+            texteCorr = `$1$ dm$^2= 100\\text{ cm}^2$, donc $${a}$ dm$^2=${a}\\times 100\\text{ cm}^2=${miseEnEvidence(a * 100)}\\text{ cm}^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
@@ -833,8 +833,8 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           if (choix === 'b') {
             reponse = a / 100
-            texte = `$${a}$ cm$^2=$`
-            texteCorr = `$1$ cm$^2= 0,01$ dm$^2$, donc $${a}$ cm$^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
+            texte = `$${a}\\text{ cm}^2=$`
+            texteCorr = `$1\\text{ cm}^2= 0,01$ dm$^2$, donc $${a}\\text{ cm}^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
@@ -1383,7 +1383,7 @@ export default class SujetCAN20215ieme extends Exercice {
               code5,
               labelPoint(A, C, D, E),
             )
-            texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}$ cm.<br>
+            texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}\\text{ cm}$.<br>
           `
             texte += mathalea2d(
               {
@@ -1399,7 +1399,7 @@ export default class SujetCAN20215ieme extends Exercice {
               },
               objets,
             )
-            texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}$ cm et de deux autres segments de même longueur.<br>
+            texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}\\text{ cm}$ et de deux autres segments de même longueur.<br>
           Ainsi, $CD=(${b}-2\\times ${a})\\div 2=${miseEnEvidence(texNombre((b - 2 * a) / 2))}$  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
@@ -1432,7 +1432,7 @@ export default class SujetCAN20215ieme extends Exercice {
               code5,
               labelPoint(A, C, D, E),
             )
-            texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}$ cm.<br>
+            texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}\\text{ cm}$.<br>
           `
             texte += mathalea2d(
               {
@@ -1448,7 +1448,7 @@ export default class SujetCAN20215ieme extends Exercice {
               },
               objets,
             )
-            texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}$ cm et de deux autres segments de même longueur.<br>
+            texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}\\text{ cm}$ et de deux autres segments de même longueur.<br>
           Ainsi, $AE=(${b}-2\\times ${a})\\div 2=${miseEnEvidence(texNombre((b - 2 * a) / 2))}$  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
@@ -1529,18 +1529,18 @@ export default class SujetCAN20215ieme extends Exercice {
           if (choice([true, false])) {
             a = randint(1, 4) * 4
 
-            texte = `Chaque face d'un cube a pour périmètre $${a}$ cm.<br>
+            texte = `Chaque face d'un cube a pour périmètre $${a}\\text{ cm}$.<br>
                     Quel est le volume de ce cube ?`
             texteCorr = `La longueur de l'arête du cube est $${a}\\div 4=${a / 4}$.<br>
-                    Le volume du cube est donc $${a / 4}^3=${miseEnEvidence(a ** 3 / 64)}$ cm$^3$.`
+                    Le volume du cube est donc $${a / 4}^3=${miseEnEvidence(a ** 3 / 64)}\\text{ cm}^3$.`
             reponse = (a / 4) ** 3
           } else {
             a = randint(1, 4)
 
-            texte = `Chaque face d'un cube a pour aire $${a ** 2}$ cm$^2$.<br>
+            texte = `Chaque face d'un cube a pour aire $${a ** 2}\\text{ cm}^2$.<br>
                       Quel est le volume de ce cube ?`
             texteCorr = `La longueur de l'arête du cube est $${a}$.<br>
-                      Le volume du cube est donc $${a}^3=${miseEnEvidence(a ** 3)}$ cm$^3$.`
+                      Le volume du cube est donc $${a}^3=${miseEnEvidence(a ** 3)}\\text{ cm}^3$.`
             reponse = a ** 3
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

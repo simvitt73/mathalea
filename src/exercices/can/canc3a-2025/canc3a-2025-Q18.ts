@@ -56,12 +56,12 @@ export default class Can2025CM2Q18 extends ExerciceSimple {
       ),
       objets,
     )
-    this.question += `Le périmètre de ce triangle équilatéral est de  $${perimetre}$ cm.<br>
+    this.question += `Le périmètre de ce triangle équilatéral est de  $${perimetre}\\text{ cm}$.<br>
     La longueur du côté est égale à `
     if (!this.interactif) {
       this.question += '$\\ldots\\text{ cm}$.'
     }
-    this.canEnonce = `Le périmètre de ce triangle équilatéral est de  $${perimetre}$ cm.<br>
+    this.canEnonce = `Le périmètre de ce triangle équilatéral est de  $${perimetre}\\text{ cm}$.<br>
     Complète. `
     this.canReponseACompleter = mathalea2d(
       Object.assign(
@@ -71,6 +71,6 @@ export default class Can2025CM2Q18 extends ExerciceSimple {
       objets,
     )
     this.reponse = texNombre(perimetre / 3, 0)
-    this.correction = `La longueur du côté du triangle équilatéral est  : $${perimetre}\\div 3= ${miseEnEvidence(this.reponse)}$ cm.`
+    this.correction = `La longueur du côté du triangle équilatéral est  : $${perimetre}\\div 3= ${miseEnEvidence(this.reponse)}\\text{ cm}$.`
   }
 }

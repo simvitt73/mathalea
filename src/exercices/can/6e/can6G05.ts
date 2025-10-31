@@ -80,7 +80,7 @@ export default class ProblemesDeLongueursInverse extends ExerciceSimple {
       s2,
     )
     this.question =
-      `Sachant que $AB=${a * b * c}$ cm et que $CB=DE$, déterminer $FE$.<br>
+      `Sachant que $AB=${a * b * c}\\text{ cm}$ et que $CB=DE$, déterminer $FE$.<br>
 
     ` +
       mathalea2d(
@@ -95,7 +95,7 @@ export default class ProblemesDeLongueursInverse extends ExerciceSimple {
         objets,
       )
     this.reponse = c
-    this.correction = `Comme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}$ cm.<br><br>Comme $DE=CB=${ac}$ cm et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}$ cm.`
+    this.correction = `Comme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}\\text{ cm}$.<br><br>Comme $DE=CB=${ac}\\text{ cm}$ et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}\\text{ cm}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -282,9 +282,9 @@ export default class ConservationTransformation extends Exercice {
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve les angles.<br>`
           texteCorr += `Donc l'angle $\\widehat{${A.nom}'${B.nom}'${C.nom}'}$ mesure lui aussi $${texNombre(Math.round(angle(A, B, C)))}$ °.<br><br>`
-          texteCorr += `Le segment [$${B.nom + C.nom}$] mesure $${texNombre(longueur(B, C, 1))}$ cm.<br>`
+          texteCorr += `Le segment [$${B.nom + C.nom}$] mesure $${texNombre(longueur(B, C, 1))}\\text{ cm}$.<br>`
           texteCorr += `Or, la ${transformation} conserve les longueurs.<br>`
-          texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
+          texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}\\text{ cm}$.<br>`
           break
       }
       texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de conservation de la ${transformation} et en justifiant ses démarches.<br>`
