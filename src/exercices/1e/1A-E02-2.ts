@@ -1,6 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 
 export const dateDePublication = '22/07/2025'
@@ -22,32 +23,7 @@ export const amcType = 'qcmMono'
 export const titre = "Retrouver le calcul d'un prix après une évolution"
 
 export default class BaissePrix extends ExerciceQcmA {
-  versionOriginale: () => void = () => {
-    this.enonce = `Un sac coûte $130$ euros. Le prix baisse de $10\\,\\%$. <br>
-    Le nouveau prix en euros est :`
-    this.correction = ` Diminuer de $10\\,\\%$ revient à multiplier par $0,9$ (coefficient multiplicateur).<br>
- Ainsi, le nouveau prix est donné par :  $130 \\times \\left(1 - \\dfrac{10}{100}\\right) = 130 \\times (1 - 0,1) = ${miseEnEvidence('130 \\times 0,9')}$`
-
-    this.reponses = [
-      '$130 \\times 0,9$',
-      '$130 \\times 0,1$',
-      '$130 \\times \\left(- \\dfrac{10}{100}\\right)$',
-      '$130 \\times \\left(1 + \\dfrac{10}{100}\\right)$',
-    ]
-  }
-
-  versionAleatoire = () => {
-    // Génération d'un pourcentage de baisse (multiples de 5 entre 5 et 50)
-    const pourcentagesBaisse = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
-    const pourcentage = choice(pourcentagesBaisse)
-
-    // Génération d'un prix (multiples de 10 entre 80 et 500)
-    const prix = [
-      80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 220, 240,
-      250, 260, 280, 300, 320, 340, 350, 360, 380, 400, 420, 450, 480, 500,
-    ]
-    const prixInitial = choice(prix)
-
+  private appliquerLesValeurs(prixInitial: number, pourcentage: number): void {
     // Calcul du coefficient multiplicateur
     const coefficientMultiplicateur = (100 - pourcentage) / 100
     const coefficientTexte = texNombre(coefficientMultiplicateur, 2)
@@ -57,44 +33,53 @@ export default class BaissePrix extends ExerciceQcmA {
 
     // Bonne réponse (plusieurs formes possibles)
     const bonnesReponses = [
-      `$${texNombre(prixInitial)} \\times ${coefficientTexte}$`,
-      `$${texNombre(prixInitial)} \\times \\left(1 - \\dfrac{${pourcentage}}{100}\\right)$`,
-      `$${texNombre(prixInitial)} \\times \\left(1 - ${texNombre(pourcentage / 100, 2)}\\right)$`,
+      {
+        reponse: `$${texNombre(prixInitial)} \\times ${coefficientTexte}$`,
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $${coefficientTexte}$ (coefficient multiplicateur).<br>
+Ainsi, le nouveau prix est donné par : $${miseEnEvidence(`${texNombre(prixInitial)} \\times ${coefficientTexte}`)}$.`,
+      },
+      {
+        reponse: `$${texNombre(prixInitial)} \\times \\left(1 - \\dfrac{${pourcentage}}{100}\\right)$`,
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $\\left(1 - \\dfrac{${pourcentage}}{100}\\right)$ (coefficient multiplicateur).<br>
+Ainsi, le nouveau prix est donné par : $${miseEnEvidence(`${texNombre(prixInitial)} \\times \\left(1 - \\dfrac{${pourcentage}}{100}\\right)`)}$.`,
+      },
+      {
+        reponse: `$${texNombre(prixInitial)} \\times \\left(1 - ${texNombre(pourcentage / 100, 2)}\\right)$`,
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $\\left(1 - ${texNombre(pourcentage / 100, 2)}\\right)$ (coefficient multiplicateur).<br>
+En effet, $${pourcentage}\\,\\% = \\dfrac{${pourcentage}}{100} = ${texNombre(pourcentage / 100, 2)}$.<br>
+Ainsi, le nouveau prix est donné par : $${miseEnEvidence(`${texNombre(prixInitial)} \\times \\left(1 - ${texNombre(pourcentage / 100, 2)}\\right)`)}$.`,
+      },
+      {
+        reponse: `$${texNombre(prixInitial)} \\times \\dfrac{${100 - pourcentage}}{100}$`,
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à conserver $${100 - pourcentage}\\,\\%$ du prix initial.<br>
+On multiplie donc par $\\dfrac{${100 - pourcentage}}{100}$.<br>
+Ainsi, le nouveau prix est donné par : $${miseEnEvidence(`${texNombre(prixInitial)} \\times \\dfrac{${100 - pourcentage}}{100}`)}$.`,
+      },
+      {
+        reponse: `$${texNombre(prixInitial / 10)} \\times \\dfrac{${100 - pourcentage}}{10}$`,
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à conserver $${100 - pourcentage}\\,\\%$ du prix initial.<br>
+On peut écrire le calcul : $${texNombre(prixInitial)} \\times \\dfrac{${100 - pourcentage}}{100} = ${texNombre(prixInitial / 10)} \\times 10 \\times \\dfrac{${100 - pourcentage}}{100} = ${texNombre(prixInitial / 10)} \\times \\dfrac{${100 - pourcentage}}{10}$.<br>
+Ainsi, le nouveau prix est donné par : $${miseEnEvidence(`${texNombre(prixInitial / 10)} \\times \\dfrac{${100 - pourcentage}}{10}`)}$.`,
+      },
     ]
-
-    // Si le coefficient a une forme décimale simple, on l'ajoute
-    if (pourcentage === 10) {
-      bonnesReponses.push(`$${texNombre(prixInitial)} \\times 0,9$`)
-    } else if (pourcentage === 20) {
-      bonnesReponses.push(`$${texNombre(prixInitial)} \\times 0,8$`)
-    } else if (pourcentage === 25) {
-      bonnesReponses.push(`$${texNombre(prixInitial)} \\times 0,75$`)
-    } else if (pourcentage === 30) {
-      bonnesReponses.push(`$${texNombre(prixInitial)} \\times 0,7$`)
-    } else if (pourcentage === 40) {
-      bonnesReponses.push(`$${texNombre(prixInitial)} \\times 0,6$`)
-    } else if (pourcentage === 50) {
-      bonnesReponses.push(`$${texNombre(prixInitial)} \\times 0,5$`)
-    }
 
     // Distracteurs classiques
     const distracteurs = [
-      `$${texNombre(prixInitial)} \\times ${texNombre(pourcentage / 100, 2)}$`, // Confusion : multiplier par le pourcentage de baisse
+      `${pourcentage === 50 ? `$${texNombre(prixInitial)} \\times \\dfrac{5}{100}$` : `$${texNombre(prixInitial)} \\times ${texNombre(pourcentage / 100, 2)}$`}`, // Confusion : multiplier par le pourcentage de baisse
       `$${texNombre(prixInitial)} \\times \\left(- \\dfrac{${pourcentage}}{100}\\right)$`, // Signe négatif mal placé
       `$${texNombre(prixInitial)} \\times \\left(1 + \\dfrac{${pourcentage}}{100}\\right)$`, // Confusion baisse/hausse
-      `$${texNombre(prixInitial)} \\times \\dfrac{${pourcentage}}{100}$`, // Juste le pourcentage
-      `$${texNombre(prixInitial)} \\times \\left(\\dfrac{100 - ${pourcentage}}{${pourcentage}}\\right)$`, // Formule inversée
+      `${pourcentage === 50 ? `$${texNombre(prixInitial)} \\times 0,2$` : `$${texNombre(prixInitial)} \\times \\dfrac{${pourcentage}}{100}$`}`, // Juste le pourcentage
+      `$${texNombre(prixInitial / 10)} \\times \\left(\\dfrac{100 - ${pourcentage}}{${pourcentage}}\\right)$`, // Formule inversée
       `$${texNombre(prixInitial)} \\times \\left(\\dfrac{${pourcentage}}{100 - ${pourcentage}}\\right)$`, // Autre formule fausse
       `$${texNombre(prixInitial)} \\times ${texNombre((100 + pourcentage) / 100, 2)}$`, // Confusion avec une hausse
-      `$${texNombre(prixInitial)} \\times 0,1$`, // Valeur fixe erronée
     ]
 
     // Sélection d'une bonne réponse
-    const bonneReponse = choice(bonnesReponses)
+    const bonneReponseObj = choice(bonnesReponses)
 
     // Sélection de 3 distracteurs distincts
     const distracteursFiltres = distracteurs.filter(
-      (rep) => rep !== bonneReponse,
+      (rep) => rep !== bonneReponseObj.reponse,
     )
     const troisDistracteurs: string[] = []
 
@@ -108,11 +93,27 @@ export default class BaissePrix extends ExerciceQcmA {
       distracteursFiltres.splice(index, 1)
     }
 
-    this.correction = `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $${texNombre(1 - pourcentage / 100, 2)}$ (coefficient multiplicateur).<br>
- Ainsi, le nouveau prix est donné par :  $${texNombre(prixInitial)} \\times \\left(1 - \\dfrac{${pourcentage}}{100}\\right) = ${texNombre(prixInitial)} \\times (1 - ${texNombre(pourcentage / 100, 2)}) = ${miseEnEvidence(bonneReponse.replace(/\$/g, ''))}$`
+    // Utilisation de la correction spécifique à la bonne réponse choisie
+    this.correction = bonneReponseObj.correction
 
     // Construction du tableau final avec exactement 4 réponses
-    this.reponses = [bonneReponse, ...troisDistracteurs]
+    this.reponses = [bonneReponseObj.reponse, ...troisDistracteurs]
+  }
+
+  versionOriginale: () => void = () => {
+    this.appliquerLesValeurs(130, 10)
+  }
+
+  versionAleatoire = () => {
+    // Génération d'un pourcentage de baisse (multiples de 5 entre 5 et 50)
+
+    const pourcentage = randint(2, 70)
+
+    // Génération d'un prix (multiples de 10 entre 80 et 500)
+
+    const prixInitial = randint(104, 299, 200)
+
+    this.appliquerLesValeurs(prixInitial, pourcentage)
   }
 
   constructor() {
