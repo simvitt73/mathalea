@@ -326,21 +326,21 @@ if (
   }
 } else {
   prefs.headless = false
-  // testRunAllLots('can')
-  // testRunAllLots('6e')
-  // testRunAllLots('5e')
-  // testRunAllLots('4e')
-  // testRunAllLots('3e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
-  // testRunAllLots('QCM')
-  // testRunAllLots('TEx')
-  // testRunAllLots('TSpe')
+  testRunAllLots('can')
+  testRunAllLots('6e')
+  testRunAllLots('5e')
+  testRunAllLots('4e')
+  testRunAllLots('3e')
+  testRunAllLots('2e')
+  testRunAllLots('1e')
+  testRunAllLots('QCM')
+  testRunAllLots('TEx')
+  testRunAllLots('TSpe')
   // testRunAllLots('techno1')
   // testRunAllLots('QCMBac')
   // testRunAllLots('QCMBrevet')
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  testRunAllLots('6e/6I16')
+  // testRunAllLots('6e/6I16')
 }

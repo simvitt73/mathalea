@@ -2,12 +2,8 @@
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
   import { Carousel, initTE } from 'tw-elements'
-  import type TypeExercice from '../../../exercices/Exercice'
-  import Latex, {
-    doesLatexNeedsPics,
-    type LatexFileInfos,
-    type latexFileType,
-  } from '../../../lib/Latex'
+  import type { IExercice } from '../../../exercices/Exercice.type'
+  import Latex, { type LatexFileInfos } from '../../../lib/Latex'
   import {
     mathaleaGetExercicesFromParams,
     mathaleaGoToView,
@@ -65,14 +61,8 @@
     ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
     Can: 'images/exports/export-can',
   }
-  let exercices: TypeExercice[]
-  let latexFile: latexFileType = {
-    contents: { preamble: '', intro: '', content: '', contentCorr: '' },
-    latexWithoutPreamble: '',
-    latexWithPreamble: '',
-  }
+  let exercices: IExercice[]
   let isExerciceStaticInTheList = false
-  let picsWanted: boolean
   let promise: Promise<void>
   let activeTab: 'general' | 'advanced' | 'global' = 'general'
 
@@ -93,8 +83,6 @@
       ),
     )
     isExerciceStaticInTheList = latex.isExerciceStaticInTheList()
-    latexFile.contents = await latex.getContents(latexFileInfos)
-    picsWanted = doesLatexNeedsPics(latexFile.contents)
   }
 
   async function updateLatexWithAbortController() {
@@ -138,7 +126,7 @@
     try {
       log('updateLatex')
       // await new Promise((resolve) => setTimeout(resolve, 10000))
-      latexFile = await latex.getFile(clone)
+      await latex.getFile(clone)
       log('fin updateLatex')
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
@@ -146,7 +134,6 @@
         throw error
       }
       console.error('Erreur lors de la création du code LaTeX :', error)
-      latexFile.latexWithoutPreamble = '% Erreur à signaler'
     }
   }
 
@@ -165,7 +152,7 @@
     }
   }
 
-  const debug = url.searchParams.get('log') === '5' || false
+  const debug = url.searchParams.get('log') === '5' || true
   function log(str: string) {
     if (debug) {
       console.info(str)
@@ -206,15 +193,14 @@
 
   onMount(async () => {
     initTE({ Carousel })
-    promise = initExercices()
-      .then(() => updateLatexWithAbortController())
-      .catch((err) => {
-        if (err.name === 'AbortError') {
-          log('Promise Aborted')
-        } else {
-          log('Promise Rejected')
-        }
-      })
+    await initExercices()
+    promise = updateLatexWithAbortController().catch((err) => {
+      if (err.name === 'AbortError') {
+        log('Promise Aborted')
+      } else {
+        log('Promise Rejected')
+      }
+    })
     document.addEventListener('updateAsyncEx', forceUpdate)
   })
 

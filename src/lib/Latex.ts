@@ -1,5 +1,5 @@
 import seedrandom from 'seedrandom'
-import TypeExercice from '../exercices/Exercice'
+import type { IExercice } from '../exercices/Exercice.type'
 import genericPreamble from '../lib/latex/preambule.tex?raw'
 import {
   loadFonts,
@@ -100,7 +100,7 @@ function testIfLoaded(
 }
 
 class Latex {
-  exercices: TypeExercice[]
+  exercices: IExercice[]
   constructor() {
     this.exercices = []
   }
@@ -117,7 +117,7 @@ class Latex {
     }))
   }
 
-  addExercices(exercices: TypeExercice[]) {
+  addExercices(exercices: IExercice[]) {
     this.exercices.push(...exercices)
   }
 
@@ -923,7 +923,7 @@ export function buildImagesUrlsList(
  * @author sylvain
  */
 
-export function getExosContentList(exercices: TypeExercice[]) {
+export function getExosContentList(exercices: IExercice[]) {
   const exosContentList: ExoContent[] = []
   for (const exo of exercices) {
     let data: ExoContent = {}
@@ -1013,7 +1013,7 @@ export function doesLatexNeedsPics(contents: {
   return imas.some((e) => e.length > 0)
 }
 
-export function makeImageFilesUrls(exercices: TypeExercice[]) {
+export function makeImageFilesUrls(exercices: IExercice[]) {
   const exosContentList = getExosContentList(exercices)
   const picsNames = getPicsNames(exosContentList)
   return buildImagesUrlsList(exosContentList, picsNames)
@@ -1054,7 +1054,7 @@ export function format(
   return formattedText
 }
 
-function getUrlFromExercice(ex: TypeExercice, version: number = 1): string {
+function getUrlFromExercice(ex: IExercice, version: number = 1): string {
   const url = new URL('https://coopmaths.fr/alea')
   url.searchParams.append('uuid', String(ex.uuid))
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)
