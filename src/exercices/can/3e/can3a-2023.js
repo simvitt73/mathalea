@@ -45,6 +45,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Decimal from 'decimal.js'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -570,17 +571,17 @@ export default class SujetCAN2023troisieme extends Exercice {
           if (choice([true, false])) {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).mul(100)
-            texte = `$${texNombre(a, 1)}$ m$^2$  $=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^2$  $=$`
 
             texteCorr = `
-        Comme $1$ m$^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}$ m$^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
+        Comme $1\\text{ m}^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}\\text{ m}^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + ' dm$^2$'
             } else {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
-            this.listeCanEnonces.push(`$${texNombre(a, 1)}$ m$^2$  $=$`)
+            this.listeCanEnonces.push(`$${texNombre(a, 1)}\\text{ m}^2$  $=$`)
             this.listeCanReponsesACompleter.push('$\\ldots\\text{dm}^2$')
           } else {
             a = new Decimal(randint(101, 199)).div(10)
@@ -588,12 +589,12 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte = `$${texNombre(a, 1)}$ dm$^2$  $=$`
 
             texteCorr = `
-        Comme $1$ dm$^2$ $=0,01$ m$^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(reponse, 3))}$ m$^2$. `
+        Comme $1$ dm$^2$ $=0,01\\text{ m}^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(reponse, 3))}\\text{ m}^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + ' m$^2$'
             } else {
-              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              texte += context.isHtml ? '  $\\ldots\\text{ m}^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ dm$^2$  $=$`)
             this.listeCanReponsesACompleter.push('$\\ldots\text{m}^2$')
@@ -1127,7 +1128,12 @@ export default class SujetCAN2023troisieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           } else {
             texte += ' $\\ldots\\text{ cm}$'
           }
@@ -2085,10 +2091,10 @@ export default class SujetCAN2023troisieme extends Exercice {
               Quelle est sa vitesse moyenne en km/h ?`
           texteCorr = `$1$ heure $=${texNombre(new Decimal(60).div(b))}\\times ${b}$ min. <br>
               Donc en une heure, Zoé parcourt $${texNombre(new Decimal(60).div(b))}\\times ${texNombre(a)}\\text{ m}$ $= ${miseEnEvidence(texNombre(reponse * 1000, 0))}\\text{ m}$, soit $${texNombre(reponse, 0)}\\text{ km}$.<br>
-              Sa vitesse moyenne est donc $${miseEnEvidence(texNombre(reponse))}$ km/h.
+              Sa vitesse moyenne est donc $${miseEnEvidence(texNombre(reponse))}\\text{ km/h}$.
               `
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots$ km/h')
+          this.listeCanReponsesACompleter.push('$\\ldots\\text{ km/h}$')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + 'km/h'

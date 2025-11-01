@@ -135,7 +135,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             texteCorr += 'On divise les deux membres par $2$.<br>'
           texteCorr += `$${perimetre - 2 * longueurConnue} ${miseEnEvidence('\\div 2')} = 2 ${coteInconnu} ${miseEnEvidence('\\div 2')}$<br>
             $${longueurInconnue} = ${coteInconnu}$<br><br>
-            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm$^2$.`)}<br>
+            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en $\\text{cm}^2$.`)}<br>
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
@@ -206,7 +206,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             ${texteGras(`Calcul de $${segment2}$ en cm.`)}<br>
             $${segment2} = ${a2} \\times ${equation.reponse}${b2 === 0 ? '' : ecritureAlgebrique(b2)}$<br>
             $${segment2} = ${largeur}$<br><br>
-            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm$^2$.`)}<br>
+            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en $\\text{cm}^2$.`)}<br>
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
@@ -217,7 +217,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
       }
       texte +=
         `Le périmètre de $${nomRectangle}$ mesure $${perimetre}\\text{ cm}$.<br>
-      Déterminer son aire en cm$^2$.` +
+      Déterminer son aire en $\\text{cm}^2$.` +
         ajouteChampTexteMathLive(this, i, 'inline')
       handleAnswers(this, i, { reponse: { value: reponse } })
       texte += mathalea2d(

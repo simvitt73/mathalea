@@ -485,9 +485,15 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           Ainsi  $${texNombre(2024)}\\text{ cm}=${miseEnEvidence(texNombre(2024 / 100, 2))}\\text{ m}$.  `
               setReponse(this, index, reponse)
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
+                texte +=
+                  ajouteChampTexteMathLive(
+                    this,
+                    index,
+                    KeyboardType.clavierNumbers,
+                    { texteApres: '' },
+                  ) + '$\\text{ m}$'
               } else {
-                texte += '  $\\ldots$ m'
+                texte += '  $\\ldots\\text{ m}$'
               }
               this.listeCanEnonces.push('Compléter.')
               this.listeCanReponsesACompleter.push(
@@ -496,10 +502,15 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             } else {
               reponse = 202400
               texte = `$${texNombre(2024)}\\text{ m}$  $=$ `
-              texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  alors $${texNombre(2024)}$ m$${sp()}=${sp()}${miseEnEvidence(texNombre(202400))}\\text{ cm}$.`
+              texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  alors $${texNombre(2024)}\\text{ m}=${miseEnEvidence(texNombre(202400))}\\text{ cm}$.`
               setReponse(this, index, reponse)
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: '$\\text{ cm}$' },
+                )
               } else {
                 texte += '  $\\ldots\\text{ cm}$'
               }

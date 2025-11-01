@@ -145,8 +145,8 @@ En s'aidant d'un tableau, calculer les pressions correspondant à des profondeur
           }
           vitesses.sort((a, b) => a - b)
           texte = `L'énergie cinétique dépend de la masse d'un objet et de sa vitesse.<br>
-On peut calculer l'Energie Cinétique $(E_c)$ en Joules à partir de la Masse $(m)$ en kg et de la Vitesse $(v)$ en m/s à l'aide de la formule $E_c = \\dfrac{1}{2}mv^2$.<br>
-En s'aidant d'un tableau, calculer les énergies cinétiques correspondant à des vitesses de ${lister(vitesses.map((t) => ` $${t}$ m/s`))} pour une masse de $${masse}$ kg.`
+On peut calculer l'Energie Cinétique $(E_c)$ en Joules à partir de la Masse $(m)$ en kg et de la Vitesse $(v)$ en $\\text{m/s}$ à l'aide de la formule $E_c = \\dfrac{1}{2}mv^2$.<br>
+En s'aidant d'un tableau, calculer les énergies cinétiques correspondant à des vitesses de ${lister(vitesses.map((t) => ` $${t}\\text{ m/s}$`))} pour une masse de $${masse}$ kg.`
           ligne1 = makeLine('\\text{Vitesse en m/s} (v)', vitesses)
           ligne2 = makeLine(
             '\\text{Energie Cinétique en J} (E_c)',

@@ -220,12 +220,12 @@ export default class FractionDuneQuantite extends Exercice {
           texte +=
             ajouteChampTexteMathLive(this, index, '  college6eme', {
               texteAvant: 'Morceau le plus long : ',
-              texteApres: ' m',
+              texteApres: '$\\text{ m}$',
             }) + '<br>'
           texte +=
             ajouteChampTexteMathLive(this, index + 1, '  college6eme', {
               texteAvant: 'Morceau le plus court : ',
-              texteApres: ' m',
+              texteApres: '$\\text{ m}$',
             }) + '<br>'
 
           setReponse(

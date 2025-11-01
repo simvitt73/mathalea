@@ -101,10 +101,10 @@ export default class ModeliseInequations extends Exercice {
             const d = randint(14, 19) / 100
 
             texte = `  Une société de location de véhicules particuliers propose deux tarifs :<br>
-              $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
-              $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>
-                      À partir de combien de km (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>`
-            texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
+              $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par $\\text{km}$ parcouru ;<br>
+              $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par $\\text{km}$ parcouru ;<br>
+                      À partir de combien de $\\text{km}$ (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>`
+            texteCorr = `En notant $x$, le nombre de $\\text{km}$ parcourus, on a :<br>
               $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
               $\\bullet$  Avec le tarif B, le prix à payer est : $${reduireAxPlusB(d, b)}$ ;<br>
                        Le tarif B est plus avantageux que le tarif A lorsque $x$ vérifie : $${reduireAxPlusB(d, b)} < ${reduireAxPlusB(c, a)}$.<br>
@@ -134,7 +134,7 @@ export default class ModeliseInequations extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: ' km' },
+                { texteApres: '$\\text{ km}$' },
               )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
@@ -148,13 +148,13 @@ export default class ModeliseInequations extends Exercice {
             const budget = randint(20, 35) * 10 //
 
             texte = ` Pour la location mensuelle d'un véhicule, une entreprise propose le tarif suivant :<br>
-            Forfait de $${b}$ € quel que soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
+            Forfait de $${b}$ € quel que soit le nombre de $\\text{km}$ parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
             
             ${quidam} loue une voiture à cette société. Elle a un budget de $${budget}$ € et ne veut pas le dépasser.<br>
-                      Quel nombre maximum de km (arrondi à l'unité) pourra-t-elle parcourir sans dépasser son budget  ?
+                      Quel nombre maximum de $\\text{km}$ (arrondi à l'unité) pourra-t-elle parcourir sans dépasser son budget  ?
                                    `
-            texteCorr = `En notant $x$, le nombre de km parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
-            Le budget de ${quidam} étant de  $${budget}$ €, le nombre de km $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
+            texteCorr = `En notant $x$, le nombre de $\\text{km}$ parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
+            Le budget de ${quidam} étant de  $${budget}$ €, le nombre de $\\text{km}$ $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
             $\\begin{aligned}
             ${reduireAxPlusB(a, b)}&\\leqslant${budget}\\\\
             ${texNombre(a, 2)}x+${b}-${miseEnEvidence(b)}&\\leqslant ${budget}x-${miseEnEvidence(b)}\\\\
@@ -172,7 +172,7 @@ export default class ModeliseInequations extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: ' km' },
+                { texteApres: '$\\text{ km}$' },
               )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }

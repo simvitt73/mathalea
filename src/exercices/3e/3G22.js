@@ -903,7 +903,7 @@ export default class AgrandissementReduction extends Exercice {
         texteCorr += `On en déduit que la hauteur de glace est approximativement : $${texNombre(kprime, 5)} \\times ${texNombre(h1, 1)}\\text{ cm}$ $\\approx ${texNombre(kprime.mul(h1), 4)}\\text{ cm}$.<br>`
         texteCorr +=
           numAlpha(4) +
-          ` L'épaisseur de chocolat est alors de : $${texNombre(h1, 1)}\\text{ cm}-${texNombre(kprime.mul(h1), 4)} \\text{ cm}\\approx ${texNombre(h1.sub(kprime.mul(h1)).mul(10), 2)}$ mm !`
+          ` L'épaisseur de chocolat est alors de : $${texNombre(h1, 1)}\\text{ cm}-${texNombre(kprime.mul(h1), 4)} \\text{ cm}\\approx ${texNombre(h1.sub(kprime.mul(h1)).mul(10), 2)}\\text{ mm}$ !`
         break
     }
 

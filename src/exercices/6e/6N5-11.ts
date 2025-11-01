@@ -355,7 +355,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           const nombreP = randint(3, 8)
           questionParametre = [5, min, longueur, nombreP]
           texte += `Avant l'arrivée du numérique, au cinéma, la pellicule était utilisée pour projeter des films.<br>
-                   Le format souvent utilisé était le format $35$ mm ce qui signifie que la pellicule faisait $35$ mm de largeur.<br>
+                   Le format souvent utilisé était le format $35\\text{ mm}$ ce qui signifie que la pellicule faisait $35\\text{ mm}$ de largeur.<br>
                    Avec $24$ images par seconde, une pellicule de film de $30$ mètres de long représente $1$ minute de projection.<br>
                    Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>
                    ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600\\text{ m}$, quelle est la longueur totale en mètres du film ?`
@@ -366,7 +366,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             this,
             indiceInteractif,
             KeyboardType.clavierDeBase,
-            { texteApres: ' m' },
+            { texteApres: '$\\text{ m}$' },
           )
 
           texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600\\text{ m}$, quelle est la durée totale du film ?`
@@ -385,7 +385,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             reponse: { value: ((60 + min) * 30).toFixed(2) },
           })
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, '', {
-            texteApres: ' m',
+            texteApres: '$\\text{ m}$',
           })
 
           texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600\\text{ m}$ ?`
@@ -396,7 +396,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             this,
             indiceInteractif + 3,
             KeyboardType.clavierDeBase,
-            { texteApres: ' pellicules entières de $600$ m' },
+            { texteApres: ' pellicules entières de $600\\text{ m}$' },
           )
 
           texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}\\text{ m}$, quelle est la durée de la pellicule ?`
@@ -441,7 +441,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             (60 + min) * 30 - Math.floor(((60 + min) * 30) / 600) * 600 !== 0
               ? ` (et $1$ bobine de  $${texNombre((60 + min) * 30 - Math.floor(((60 + min) * 30) / 600) * 600)}$ mètres).<br>`
               : '.<br>'
-          texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}$ m<br>
+          texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}\\text{ m}$<br>
                         Donc la durée de la pellicule est de $${miseEnEvidence(texNombre(Math.floor(longueur / 30)))}$ minutes.<br>
                         ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30) * 60)}$ secondes<br>
                         $${texNombre(Math.floor(longueur / 30) * 60)}${sp()}\\text{secondes} \\times 24${sp()}\\text{images} = ${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$<br>

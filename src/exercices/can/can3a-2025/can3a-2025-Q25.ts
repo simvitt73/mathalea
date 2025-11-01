@@ -23,7 +23,7 @@ export default class PerimetreCercle extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'cm' }
+    this.optionsChampTexte = { texteAvant: '<br>', texteApres: '$\\text{ cm}$' }
   }
 
   nouvelleVersion() {

@@ -541,10 +541,10 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           if (choice([true, false])) {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).mul(100)
-            texte = `$${texNombre(a, 1)}$ m$^2$  $=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^2$  $=$`
 
             texteCorr = `
-        Comme $1$ m$^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}$ m$^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
+        Comme $1\\text{ m}^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}\\text{ m}^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'dm$^2$'
@@ -559,12 +559,12 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             texte = `$${texNombre(a, 1)}$ dm$^2$  $=$`
 
             texteCorr = `
-        Comme $1$ dm$^2$ $=0,01$ m$^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(reponse, 3))}$ m$^2$. `
+        Comme $1$ dm$^2$ $=0,01\\text{ m}^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(reponse, 3))}\\text{ m}^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
             } else {
-              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              texte += context.isHtml ? '  $\\ldots\\text{ m}^2$' : ''
               this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
                 '$\\ldots\text{m}^2$'
             }
@@ -777,8 +777,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           if (choix === 'b') {
             reponse = new Decimal(a).mul(1000)
-            texte = `$${texNombre(a, 1)}$ m$^3$ $=$`
-            texteCorr = `$1$ m$^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}$ m$^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
+            texte = `$${texNombre(a, 1)}\\text{ m}^3$ $=$`
+            texteCorr = `$1\\text{ m}^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}\\text{ m}^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'L'
@@ -1000,7 +1000,12 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             texte += context.isHtml ? `${sp(4)}$AC= $` : ''
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '$\\text{ cm}$' },
+              )
             } else {
               texte += context.isHtml ? ' $\\ldots\\text{ cm}$' : ''
               this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
@@ -1065,7 +1070,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}\\text{ cm}^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
+              texte +=
+                ajouteChampTexteMathLive(this, index, '') + '$\\text{cm}^2$'
             }
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
               '$\\ldots\text{cm}^2$'
@@ -1414,7 +1420,12 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           texte += context.isHtml ? `${sp(4)}$AI= $` : ''
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           } else {
             texte += context.isHtml ? ' $\\ldots\\text{ cm}$' : ''
           }

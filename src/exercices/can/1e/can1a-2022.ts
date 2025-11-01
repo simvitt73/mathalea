@@ -29,6 +29,7 @@ import Exercice from '../../Exercice'
 
 import Decimal from 'decimal.js'
 import { plot } from '../../../lib/2d/Plot'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
@@ -423,14 +424,20 @@ export default class SujetCAN2022Premiere extends Exercice {
             const L = randint(2, 4)
             const h = randint(2, 6, [l, L])
             const pav = pave(L, l, h)
-            texte = ' Quel est le volume en cm$^3$ de ce  pavé droit ?<br>'
+            texte =
+              ' Quel est le volume en $\\text{cm}^3$ de ce  pavé droit ?<br>'
             texte += ` ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: l + 2, scale: 0.8 }, pav)}`
 
             const reponse = L * l * h
             texteCorr = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${reponse}\\text{ cm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + ' cm$^3$'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '$\\text{ cm}^3$' },
+              )
             }
             nbChamps = 1
           }
@@ -507,19 +514,29 @@ export default class SujetCAN2022Premiere extends Exercice {
               texteCorr = `$1\\text{ m}$ $=10^6$ $\\mu$m, donc $1\\text{ cm}$ $=10^4 =${texNombre(10000, 0)}$ $\\mu$m.<br>
             Ainsi, $${texNombre(a, 1)}\\text{ cm}$ $=${texNombre(a * 10000, 0)}$ $\\mu$m.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + '$\\mu$m'
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: ' $\\mu\\text{m}$' },
+                )
               } else {
-                texte += ' ..... $\\mu$m'
+                texte += ' $\\ldots \\mu\\text{m}$'
               }
               reponse = a.mul(10000)
             } else {
-              texte = `$${texNombre(b, 1)}$ $\\mu$m $=$`
-              texteCorr = `$1$ $\\mu$m $=10^{-6}\\text{ m}$, donc $1$ $\\mu$m  $=10^{-4}\\text{ cm}$  $=${texNombre(0.0001, 4)}\\text{ cm}$.<br>
-            Ainsi, $${texNombre(b, 1)}$ $\\mu$m $=${texNombre(b / 10000, 5)}\\text{ cm}$.`
+              texte = `$${texNombre(b, 1)}$ $\\mu\\text{m}=$`
+              texteCorr = `$1$ $\\mu\\text{m}=10^{-6}\\text{ m}$, donc $1$ $\\mu\\text{m}=10^{-4}\\text{ cm}=${texNombre(0.0001, 4)}\\text{ cm}$.<br>
+            Ainsi, $${texNombre(b, 1)}$ $\\mu\\text{m}$ $=${texNombre(b / 10000, 5)}\\text{ cm}$.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: ' $\\text{cm}$' },
+                )
               } else {
-                texte += ' ..... cm'
+                texte += ' $\\ldots\\text{ cm}$'
               }
               reponse = new Decimal(b).div(10000)
             }
@@ -756,12 +773,17 @@ export default class SujetCAN2022Premiere extends Exercice {
             texte = `Si l'on parcourt $${b}\\text{ km}$ en ${a[0]} minutes, alors la vitesse moyenne est : `
             texteCorr = `${a[1]} minutes représentent $\\dfrac{1}{${a[3]}}$ heure.<br>
           Donc en $1$ heure, on parcourt $${b}\\times ${a[3]}=${b * a[3]}\\text{ km}$. <br>
-          La vitesse moyenne est donc $${b * a[3]}$ km/h. `
+          La vitesse moyenne est donc $${b * a[3]}\\text{ km/h}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'km/h'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '$\\text{ km/h}$' },
+              )
             } else {
-              texte += ' $\\ldots$ km/h'
+              texte += ' $\\ldots\\text{ km/h}$'
             }
             nbChamps = 1
           }
@@ -1135,8 +1157,8 @@ export default class SujetCAN2022Premiere extends Exercice {
             if (choice([true, false])) {
               a = (randint(1, 12) * 10 + randint(1, 9)) / 10
               reponse = a * 1000
-              texte = ` $${texNombre(a, 1)}$ m$^3=$`
-              texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${texNombre(reponse, 0)}$ L.`
+              texte = ` $${texNombre(a, 1)}\\text{ m}^3=$`
+              texteCorr = `Comme $1\\text{ m}^3$= $1000$ L, $${texNombre(a, 1)}\\text{ m}^3=${texNombre(reponse, 0)}$ L.`
               setReponse(this, index, reponse.toFixed(0), {
                 formatInteractif: 'calcul',
               })
@@ -1149,14 +1171,19 @@ export default class SujetCAN2022Premiere extends Exercice {
               a = (randint(1, 12) * 10 + randint(1, 9)) / 10
               reponse = a / 1000
               texte = ` $${texNombre(a, 1)}$ L $=$`
-              texteCorr = `Comme $1$ L= $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${texNombre(reponse, 4)}$  m$^3$.`
+              texteCorr = `Comme $1$ L= $0,001\\text{ m}^3$, $${texNombre(a, 1)}$ L $=${texNombre(reponse, 4)}\\text{ m}^3$.`
               setReponse(this, index, reponse.toFixed(4), {
                 formatInteractif: 'calcul',
               })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + ' m$^3$'
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: '$\\text{ m}^3$' },
+                )
               } else {
-                texte += ' $\\ldots$ m$^3$'
+                texte += ' $\\ldots\\text{ m}^3$'
               }
             }
 
@@ -1461,7 +1488,12 @@ export default class SujetCAN2022Premiere extends Exercice {
           Le périmètre est donc $4\\times ${a}=${4 * a}\\text{ cm}$. `
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: '$\\text{ cm}$' },
+                )
               }
             } else {
               a = randint(2, 10)
@@ -1473,7 +1505,8 @@ export default class SujetCAN2022Premiere extends Exercice {
                       L'aire est donc $ ${a}\\times ${a}=${a * a}\\text{ cm}^2$. `
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
+                texte +=
+                  ajouteChampTexteMathLive(this, index, '') + '$\\text{cm}^2$'
               }
             }
 

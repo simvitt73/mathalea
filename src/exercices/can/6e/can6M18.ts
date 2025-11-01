@@ -4,7 +4,6 @@ import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
-import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -41,7 +40,7 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
           resultat = a * 100
           this.question = `$${texNombre(a)}\\text{ m}$  =`
           if (!this.interactif) {
-            this.question += ' ..... cm'
+            this.question += ' $\\ldots\\text{ cm}$'
           }
 
           this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
@@ -50,8 +49,8 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
           this.correction = `$${texNombre(a)}\\text{ m}$ $=${miseEnEvidence(texNombre(a * 100))}\\text{ cm}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour convertir des «${sp()}m ${sp()}» au «${sp()}cm ${sp()}», on multiplie par $100$.<br>
-            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}\\text{ cm}$.  `,
+          Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour convertir des $\\text{m}$ au $\\text{cm}$, on multiplie par $100$.<br>
+            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}\\text{ m}=${texNombre(a * 100)}\\text{ cm}$.  `,
             bleuMathalea,
           )
         } else {
@@ -59,17 +58,17 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
           resultat = a / 100
           this.question = `$${texNombre(a)}\\text{ cm}$  =`
           if (!this.interactif) {
-            this.question += '..... m'
+            this.question += ' $\\ldots\\text{ m}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}\\text{ cm}$ $= \\dots\\text{ m}$`
-          this.correction = `$${texNombre(a)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100))}\\text{ m}$.`
+          this.correction = `$${texNombre(a)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100))}\\text{ m}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
           Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
-          Ainsi pour convertir des «${sp()}cm ${sp()}» au «${sp()}m ${sp()}», on divise par $100$.<br>
+          Ainsi pour convertir des $\\text{cm}$ au $\\text{m}$, on divise par $100$.<br>
             Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}\\text{ cm}=${texNombre(a / 100)}\\text{ m}$.  `,
             bleuMathalea,
           )
@@ -81,18 +80,18 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
           resultat = a / 1000
           this.question = `$${texNombre(a)}\\text{ m}$  $=$ `
           if (!this.interactif) {
-            this.question += ' .... km'
+            this.question += ' $\\ldots\\text{ km}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' km' }
+          this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $= \\dots$ km`
-          this.correction = `$${texNombre(a)}\\text{ m}$ $=${miseEnEvidence(texNombre(a / 1000))}$ km`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $= \\dots\\text{ km}$`
+          this.correction = `$${texNombre(a)}\\text{ m}$ $=${miseEnEvidence(texNombre(a / 1000))}\\text{ km}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
           Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$, alors $1\\text{ m}$ $=0,001\\text{ km}$.<br>
-          Ainsi pour convertir des «${sp()}m ${sp()}» au «${sp()}km ${sp()}», on divise par $${texNombre(1000)}$.<br>
-            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ m$=${texNombre(a / 1000)}\\text{ km}$.`,
+          Ainsi pour convertir des $\\text{m}$ au $\\text{km}$, on divise par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}\\text{ m}=${texNombre(a / 1000)}\\text{ km}$.`,
             bleuMathalea,
           )
         } else {
@@ -100,17 +99,17 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
           resultat = a * 1000
           this.question = `$${texNombre(a)}\\text{ km}$ $=$`
           if (!this.interactif) {
-            this.question += ' .... m'
+            this.question += ' $\\ldots\\text{ m}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}\\text{ km}$ $= \\dots\\text{ m}$`
-          this.correction = `$${texNombre(a)}$ km$=${miseEnEvidence(texNombre(a * 1000))}\\text{ m}$`
+          this.correction = `$${texNombre(a)}\\text{ km}$$=${miseEnEvidence(texNombre(a * 1000))}\\text{ m}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$,  pour convertir des «${sp()}km ${sp()}» au «${sp()}m ${sp()}», on multiplie par $${texNombre(1000)}$.<br>
-            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}$ km$=${texNombre(a * 1000)}\\text{ m}$.`,
+          Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$,  pour convertir des $\\text{km}$ au $\\text{m}$, on multiplie par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}\\text{ km}$$=${texNombre(a * 1000)}\\text{ m}$.`,
             bleuMathalea,
           )
         }

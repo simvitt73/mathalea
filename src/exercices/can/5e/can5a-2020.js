@@ -487,7 +487,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           } else {
             texte += ' $\\ldots\\text{ cm}$'
@@ -769,8 +769,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = new Decimal(a1 * 2).add(b * 2)
 
           texte = ` Quel est le périmètre d'un rectangle $ABCD$ tel que :
-                $AB=${a}$ mm et $BC=${texNombre(b, 1)}\\text{ cm}$ ?<br>`
-          texteCorr = `$${a}$ mm $= ${texNombre(a1, 1)}\\text{ cm}$.<br>
+                $AB=${a}\\text{ mm}$ et $BC=${texNombre(b, 1)}\\text{ cm}$ ?<br>`
+          texteCorr = `$${a}\\text{ mm}$ $= ${texNombre(a1, 1)}\\text{ cm}$.<br>
                 Le périmètre de $ABCD$ est donc : $2\\times ${texNombre(a1, 1)} \\text{ cm}+ 2\\times ${texNombre(b, 1)} \\text{ cm}=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.`
 
           if (this.interactif) {
@@ -968,8 +968,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
           if (choix === 'c') {
             reponse = a * 1000
-            texte = `$${a}$ m$^3=$`
-            texteCorr = `$1$ m$^3= ${texNombre(1000)}$ dm$^3$, donc $${a}$ m$^3=${a}\\times ${texNombre(1000)}$ dm$^3=${miseEnEvidence(texNombre(a * 1000))}$ dm$^3$.`
+            texte = `$${a}\\text{ m}^3=$`
+            texteCorr = `$1\\text{ m}^3= ${texNombre(1000)}$ dm$^3$, donc $${a}\\text{ m}^3=${a}\\times ${texNombre(1000)}$ dm$^3=${miseEnEvidence(texNombre(a * 1000))}$ dm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
@@ -982,14 +982,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (choix === 'd') {
             reponse = a / 1000
             texte = `$${a}$ dm$^3=$`
-            texteCorr = `$1$ dm$^3= 0,001$ m$^3$, donc $${a}$ dm$^3=${a}\\times 0,001$ m$^3=${miseEnEvidence(texNombre(a / 1000))}$ m$^3$.`
+            texteCorr = `$1$ dm$^3= 0,001\\text{ m}^3$, donc $${a}$ dm$^3=${a}\\times 0,001\\text{ m}^3=${miseEnEvidence(texNombre(a / 1000))}\\text{ m}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'm$^3$',
               })
             } else {
-              texte += ' $\\ldots$ m$^3$'
+              texte += ' $\\ldots\\text{ m}^3$'
             }
           }
 

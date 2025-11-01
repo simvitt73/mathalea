@@ -647,7 +647,7 @@ function isocele(cd: boolean) {
     b = a + c
     d = 2 * a + b
   } while (b <= 0 || 2 * a <= b)
-  let enonce = `Un triangle isocèle a pour périmètre $${d}$ mm. `
+  let enonce = `Un triangle isocèle a pour périmètre $${d}\\text{ mm}$. `
   let intro = ''
   let conclusion = ''
   let equation = ''
@@ -655,10 +655,10 @@ function isocele(cd: boolean) {
   let figure: string
   if (c > 0) {
     // La base est le plus grand côté
-    enonce += `Sa base est plus longue de $${c}$ mm que chacun des côtés égaux.`
+    enonce += `Sa base est plus longue de $${c}\\text{ mm}$ que chacun des côtés égaux.`
   } else {
     // La base est plus petite que les autres côtés
-    enonce += `Sa base est plus courte de $${-c}$ mm que chacun des côtés égaux.`
+    enonce += `Sa base est plus courte de $${-c}\\text{ mm}$ que chacun des côtés égaux.`
   }
   if (choice([true, false])) {
     enonce +=
@@ -668,7 +668,7 @@ function isocele(cd: boolean) {
     intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
     equation = `2(x${ecritureAlgebrique(-c)})+x=${d}`
-    conclusion = `<br>La base de ce triangle isocèle mesure donc $${miseEnEvidence(b)}$ mm.`
+    conclusion = `<br>La base de ce triangle isocèle mesure donc $${miseEnEvidence(b)}\\text{ mm}$.`
     x = b
   } else {
     enonce +=
@@ -676,7 +676,7 @@ function isocele(cd: boolean) {
     intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
     equation = `2x+x${ecritureAlgebrique(c)}=${d}`
-    conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${miseEnEvidence(a)}$ mm.`
+    conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${miseEnEvidence(a)}\\text{ mm}$.`
     x = a
   }
   const resolution = {

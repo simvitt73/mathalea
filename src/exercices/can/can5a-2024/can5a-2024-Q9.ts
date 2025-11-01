@@ -29,13 +29,13 @@ export default class NomExercice extends ExerciceSimple {
       this.reponse = new FractionEtendue(7, 10).texFraction
       this.question = 'Complète : <br> $7$ dm $=$ '
       this.correction = ` Comme $1\\text{ m}$ $=10$ dm, alors $1$ dm $=0,1\\text{ m}$.<br>
-      Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
+      Ainsi, pour passer des $\\text{dm}$ au $\\text{m}$, on divise par $10$.<br>
         Comme $7\\div 10 =0,7$, alors $7$ dm$=${miseEnEvidence('0,7')}\\text{ m}$. `
-      this.canReponseACompleter = ' $7$ dm $=\\ldots$ m'
+      this.canReponseACompleter = ' $7$ dm $=\\ldots\\text{ m}$'
       if (this.interactif) {
-        this.optionsChampTexte = { texteApres: 'm' }
+        this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
       } else {
-        this.question += `${context.isHtml ? '$\\ldots$ m' : ''}`
+        this.question += `${context.isHtml ? '$\\ldots\\text{ m}$' : ''}`
       }
     } else {
       if (choice([true, false])) {
@@ -44,13 +44,13 @@ export default class NomExercice extends ExerciceSimple {
         this.question = `Complète : <br>$${a}$ dm $=$`
         this.correction = `
          Comme $1\\text{ m}$ $=10$ dm, alors $1$ dm $=0,1\\text{ m}$.<br>
-        Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
+        Ainsi, pour passer des $\\text{dm}$ au $\\text{m}$, on divise par $10$.<br>
       Comme $${a}\\div 10 =${texNombre(a / 10, 1)}$, alors $${a}$ dm$=${miseEnEvidence(texNombre(a / 10, 1))}\\text{ m}$.  `
         this.canReponseACompleter = `$${a}$ dm $=\\ldots\\text{ m}$`
         if (this.interactif) {
-          this.optionsChampTexte = { texteApres: 'm' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
         } else {
-          this.question += `${context.isHtml ? '$\\ldots$ m' : ''}`
+          this.question += `${context.isHtml ? '$\\ldots\\text{ m}$' : ''}`
         }
       } else {
         const a = randint(15, 60)
@@ -61,8 +61,8 @@ export default class NomExercice extends ExerciceSimple {
         } else {
           this.question += `${context.isHtml ? '$\\ldots$ dm' : ''}`
         }
-        this.correction = ` Comme $1\\text{ m}$ $=10$ dm,  pour passer des "m" au "dm", on multiplie par $10$.<br>
-            Comme $${texNombre(a, 1)}\\times 10 =${texNombre(a * 10, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(a * 10, 0))}$ dm.`
+        this.correction = ` Comme $1\\text{ m}$ $=10$ dm,  pour passer des $\\text{m}$ au $\\text{dm}$, on multiplie par $10$.<br>
+            Comme $${texNombre(a, 1)}\\times 10 =${texNombre(a * 10, 0)}$, alors $${texNombre(a, 2)}\\text{ m}=${miseEnEvidence(texNombre(a * 10, 0))}$ dm.`
         this.canReponseACompleter = ` $${texNombre(a, 0)}\\text{ m}$ $= \\ldots\\text{ dm}$`
       }
     }

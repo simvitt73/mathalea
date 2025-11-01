@@ -566,7 +566,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
                 objets,
               )
 
-            texte += `Sachant que l'aire de cette figure est $${texNombre(d)}$ m$^2$ et en utilisant les données du graphique, déterminer la  valeur exacte de $x$.<br>
+            texte += `Sachant que l'aire de cette figure est $${texNombre(d)}\\text{ m}^2$ et en utilisant les données du graphique, déterminer la  valeur exacte de $x$.<br>
          <br>`
             texteCorr = mathalea2d(
               {
@@ -583,7 +583,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
         Son aire est donc la somme des aires de ces deux figures. <br>
         $\\bullet~$ L' aire du rectangle $ABCD$ est : $${a}\\times (x+${c})=${reduireAxPlusB(a, a * c)}$ ;<br>
         $\\bullet~$ L' aire de triangle isocèle $DEC$ est : $\\dfrac{${b}\\times(x +${c})}{2}=${texFractionReduite(b, 2)}(x+${c})=${reduireAxPlusB(b / 2, (b * c) / 2)}$.<br>
-        L'aire de la figure étant $${texNombre(d)}$ m$^2$, on cherche $x$ tel que : <br>
+        L'aire de la figure étant $${texNombre(d)}\\text{ m}^2$, on cherche $x$ tel que : <br>
         $\\begin{aligned}
         (${reduireAxPlusB(a, a * c)})+(${reduireAxPlusB(b / 2, (b * c) / 2)})&=${texNombre(d)}\\\\
         ${reduireAxPlusB(a, a * c)}+${reduireAxPlusB(b / 2, (b * c) / 2)}&=${texNombre(d)}\\\\

@@ -127,7 +127,7 @@ const vitesses: [string, number, number, number][] = [
   ['dans une voiture', 15, 30, 5],
   ['en avion', 150, 250, 12],
   ['à pied', 2, 4, 5],
-] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h]
+] // [moyen de transport, vitesse min,vitesse max en $\\text{m/s}$,durée max en h]
 export default class ProblemesGrandeursComposees extends Exercice {
   constructor() {
     super()
@@ -633,7 +633,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               distance =
                 (vitesseMoy * 3.6 * vitesses[index1][3] * randint(5, 20)) / 10 // distance choisie pour question b
               // la duree en h pour la deuxième question est vitesses[index1][3] * randint(5, 20)) / 10, c'est donc un décimal avec au plus un chiffre après la virgule
-              // la distance en km de la deuxième question a au plus 2 chiffres après la virgule
+              // la distance en $\\text{km}$ de la deuxième question a au plus 2 chiffres après la virgule
               duree = randint(2, vitesses[index1][3])
               texte =
                 `${quidam} se déplace ${vitesses[index1][0]} à la ` +
@@ -1357,7 +1357,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
           } else texteCorr += '\\approx'
           if (nbheures !== 0) texteCorr += `${nbheures} \\text{ h }`
           if (nbminutes !== 0) texteCorr += `${nbminutes} \\text{ min }`
-          if (nbsecondes !== 0) texteCorr += `${nbsecondes} \\text { s}`
+          if (nbsecondes !== 0) texteCorr += `${nbsecondes} \\text{ s}`
           texteCorr += '$.'
 
           break

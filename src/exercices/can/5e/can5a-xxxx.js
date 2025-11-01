@@ -353,8 +353,8 @@ export default class CourseAuxNombres5e extends Exercice {
             texteCorr = `$${a}\\text{ cm}$ $= ${a} / 100$m $=${texNombre(resultat)}\\text{ m}$`
           } else {
             resultat = arrondi(a / 1000)
-            texte = `Convertir $${a}$ mm en m.`
-            texteCorr = `$${a}$ mm $= ${a} / 1000$m $=${texNombre(resultat)}\\text{ m}$`
+            texte = `Convertir $${a}\\text{ mm}$ en m.`
+            texteCorr = `$${a}\\text{ mm}$ $= ${a} / 1000$m $=${texNombre(resultat)}\\text{ m}$`
           }
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
@@ -405,7 +405,7 @@ export default class CourseAuxNombres5e extends Exercice {
           a = randint(3, 6) * 15
           b = randint(1, 3)
           resultat = arrondi(a * (b + 0.25))
-          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 20 min`
+          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en $\\text{km}$ parcourt-elle en ${b} h et 20 min`
           texteCorr = `$${a}\\times ${arrondi(b + 0.5)} = ${resultat}$`
           setReponse(this, i, new Grandeur(resultat, 'km'), {
             formatInteractif: 'unites',
@@ -491,7 +491,9 @@ export default class CourseAuxNombres5e extends Exercice {
           break
       }
       if (listeTypeQuestions[i] === 'q22') {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' m' })
+        texte += ajouteChampTexteMathLive(this, i, '', {
+          texteApres: '$\\text{ m}$',
+        })
       } else if (listeTypeQuestions[i] === 'q25') {
         texte += ajouteChampTexteMathLive(this, i, '', {
           texteApres: ` ${hauteurs[a][3]}`,

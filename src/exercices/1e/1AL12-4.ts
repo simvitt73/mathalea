@@ -467,9 +467,9 @@ En utilisant la calculatrice, on trouve $n=${n1}$.`,
           nbreS = randint(8, 20)
           choix = choice([true, false])
 
-          texte = `Aujourd'hui les chardons (une plante vivace) ont envahi $${u0}$ m$^2$ des champs d'une région.<br>
- Chaque semaine, la surface envahie augmente de $${texNombre(p, 0)}\\,\\%$ par le développement des racines, auquel s'ajoutent $${texNombre(k, 2)}$ m$^2$ suite à la dissémination des graines.<br>
-Pour tout entier naturel $n$, on note $${NomS}_n$ la surface envahie par les chardons, en m$^2$, après $n$ semaines ; on a donc $${NomS}_0 = ${u0}$ m$^2$.`
+          texte = `Aujourd'hui les chardons (une plante vivace) ont envahi $${u0}\\text{ m}^2$ des champs d'une région.<br>
+ Chaque semaine, la surface envahie augmente de $${texNombre(p, 0)}\\,\\%$ par le développement des racines, auquel s'ajoutent $${texNombre(k, 2)}\\text{ m}^2$ suite à la dissémination des graines.<br>
+Pour tout entier naturel $n$, on note $${NomS}_n$ la surface envahie par les chardons, en $\\text{ m}$$^2$, après $n$ semaines ; on a donc $${NomS}_0 = ${u0}\\text{ m}^2$.`
           texte += createList({
             items: [
               `Calculer $${NomS}_1$ et $${NomS}_2$.`,
@@ -524,7 +524,7 @@ Or $t_n = ${NomS}_n${ecritureAlgebrique(-b)}$ donc $${NomS}_n = ${texNombre(new 
 `,
                   `On a $${NomS}_{${nbreS}}=${texNombre(new Decimal(u0).sub(b), 1)}\\times ${texNombre(cm, 2)}^{${nbreS}}${ecritureAlgebrique(b)}
 \\simeq ${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)}$.<br>
-Au bout de $${nbreS}$ semaines, la surface envahie par les chardons est d'environ $${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)}$ m$^2$.<br>
+Au bout de $${nbreS}$ semaines, la surface envahie par les chardons est d'environ $${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)}\\text{ m}^2$.<br>
 Comme $${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)} ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? '<' : '>'} 2\\times ${texNombre(u0, 0)}$, la surface envahie par les chardons 
 ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? "n'aura pas" : 'aura'} doublé au bout de $${nbreS}$ semaines. `,
                 ],
@@ -556,13 +556,13 @@ ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? "n'aura pas"
           texte = `Désirant participer à une course de $${b}\\text{ km}$, un cycliste prévoit l'entraînement suivant :<br>
 $\\bullet$  parcourir $${u0}\\text{ km}$ en première semaine ;<br>
 $\\bullet$  chaque semaine qui suit, augmenter la distance parcourue de $${p}\\,\\%$ par rapport à celle parcourue la semaine précédente.<br>
-On modélise la distance parcourue chaque semaine à l'entraînement par la suite $(d_n)$ où $d_n$ représente la distance en km parcourue pendant la $n$-ième semaine d'entraînement.
+On modélise la distance parcourue chaque semaine à l'entraînement par la suite $(d_n)$ où $d_n$ représente la distance en $\\text{km}$ parcourue pendant la $n$-ième semaine d'entraînement.
 <br>
 On a ainsi $d_1 = ${u0}$.
 `
           texte += createList({
             items: [
-              'Calculer $d_3$. Arrondir le résultat au km près.',
+              'Calculer $d_3$. Arrondir le résultat au $\\text{km}$ près.',
               `Exprimer $d_{n+1}$ en fonction de $d_n$. <br>
                  En déduire la nature de la suite $(d_n)$. Justifier.`,
               'Exprimer, pour tout entier $n$ non nul, $d_n$ en fonction de $n$.',

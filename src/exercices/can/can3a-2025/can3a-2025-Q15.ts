@@ -30,7 +30,7 @@ export default class hypoténusePythagore extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
 
-    this.optionsChampTexte = { texteAvant: '', texteApres: 'cm.' }
+    this.optionsChampTexte = { texteAvant: '', texteApres: '$\\text{ cm}$' }
     this.canOfficielle = true
   }
 

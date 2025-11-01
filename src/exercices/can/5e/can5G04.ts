@@ -98,7 +98,10 @@ export default class longueursRectPerimetre extends ExerciceSimple {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}$'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$P=$' }
+      this.optionsChampTexte = {
+        texteApres: '$\\text{ cm}$',
+        texteAvant: '$P=$',
+      }
     }
   }
 }

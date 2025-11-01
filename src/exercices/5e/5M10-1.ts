@@ -214,7 +214,8 @@ export default class AireDeTriangles extends Exercice {
       })
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en cm$^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
+          enonce:
+            texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en $\\text{cm}^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
           propositions: [
             {
               texte: texteCorr,

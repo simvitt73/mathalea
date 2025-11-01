@@ -843,16 +843,22 @@ export default class SujetCAN20213ieme extends Exercice {
           a = choice([5, 10, 20, 30, 40])
           b = randint(1, 3)
           reponse = a * 60 * b + 30 * a
-          texte = `Un véhicule se déplace à une vitesse de $${a}$ m/s.<br>
+          texte = `Un véhicule se déplace à une vitesse de $${a}\\text{ m/s}$.<br>
           Quelle distance parcourt-il en  $${b}$ min $30$ s ? `
           texteCorr = `En $1$ minute, il parcourt $60\\times ${a}=${60 * a}\\text{ m}$ et en $30$ s, $${60 * a}\\div 2=${30 * a}$.<br>
           En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}\\text{ m}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '' },
+              ) + '$\\text{ m}$'
           } else {
-            texte += '(en m)'
+            texte += '(en $\\text{m})'
           }
           nbChamps = 1
           break

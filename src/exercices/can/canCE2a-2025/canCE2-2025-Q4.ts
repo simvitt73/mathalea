@@ -44,7 +44,7 @@ export default class Can2025CE2Q4 extends ExerciceCan {
           statut: b === 'm',
         },
         {
-          texte: `$${texNombre(a, 1)}$ km`,
+          texte: `$${texNombre(a, 1)}\\text{ km}$`,
           statut: b === 'km',
         },
       ],
@@ -64,8 +64,8 @@ export default class Can2025CE2Q4 extends ExerciceCan {
         .replace(
           'du',
           'Un',
-        )} est un rectangle dont les côtés mesurent en moyenne environ $${texNombre(a / 4, 2)}$ ${b}.<br>
-    Donc son périmètre est proche de $${texNombre(a, 1)}$ ${b}.`
+        )} est un rectangle dont les côtés mesurent en moyenne environ $${texNombre(a / 4, 2)}\\text{ ${b}}$.<br>
+    Donc son périmètre est proche de $${texNombre(a, 1)}\\text{ ${b}}$.`
     this.canReponseACompleter = monQcm.texte
   }
 

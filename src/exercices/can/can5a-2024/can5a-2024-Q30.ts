@@ -144,7 +144,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: 'cm$^2$' }
+      this.optionsChampTexte = { texteApres: '$\\text{cm}^2$' }
     } else {
       this.question += sp(5) + ' $\\ldots \\text{ cm}^2$'
     }

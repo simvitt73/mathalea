@@ -302,8 +302,8 @@ export default class DesChocolatsDansDesBoites extends Exercice {
       'La pyramide :<br>' +
       createList({
         items: [
-          `La pyramide a une base carrée de côté $${texNombre(basePyramide, 1)}\\text{ cm}$, l'aire de sa base est donc en cm$^2$ : $${texNombre(basePyramide, 1)}\\times ${texNombre(basePyramide, 1)} = ${texNombre(basePyramide ** 2, 2)}$cm$^2$.`,
-          `Son volume en cm$^3$ est : $\\dfrac{\\text{aire de la base}\\times\\text{hauteur}}{3}=\\dfrac{${texNombre(basePyramide ** 2, 2)}\\times ${hauteurPyramide}}{3}${egalOuApprox(volumePyramide, 1)}${texNombre(volumePyramide, 1)}\\text{ cm}^3$.`,
+          `La pyramide a une base carrée de côté $${texNombre(basePyramide, 1)}\\text{ cm}$, l'aire de sa base est donc en $\\text{cm}^2$ : $${texNombre(basePyramide, 1)}\\times ${texNombre(basePyramide, 1)} = ${texNombre(basePyramide ** 2, 2)}$cm$^2$.`,
+          `Son volume en $\\text{cm}^3$ est : $\\dfrac{\\text{aire de la base}\\times\\text{hauteur}}{3}=\\dfrac{${texNombre(basePyramide ** 2, 2)}\\times ${hauteurPyramide}}{3}${egalOuApprox(volumePyramide, 1)}${texNombre(volumePyramide, 1)}\\text{ cm}^3$.`,
           `Le volume de la pyramide est d'environ $${texNombre(volumePyramide, 1)}\\text{ cm}^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}\\text{ cm}^3$.`,
           `Le volume non occupé par les truffes est d'environ $${texNombre(volumePyramide, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePyramide - volumeTotalTruffe, 1)}\\text{ cm}^3$`,
           paveQuiConvient
@@ -317,7 +317,7 @@ export default class DesChocolatsDansDesBoites extends Exercice {
       'Le pavé droit :<br>' +
       createList({
         items: [
-          `Le pavé droit a pour volume en cm$^3$ de : $${texNombre(largeurPave, 1)}\\times ${texNombre(longueurPave, 1)} \\times ${texNombre(hauteurPave, 1)}=${texNombre(volumePave, 3)}$.`,
+          `Le pavé droit a pour volume en $\\text{cm}^3$ de : $${texNombre(largeurPave, 1)}\\times ${texNombre(longueurPave, 1)} \\times ${texNombre(hauteurPave, 1)}=${texNombre(volumePave, 3)}$.`,
           `Le volume du pavé droit est de $${texNombre(volumePave, 1)}\\text{ cm}^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}\\text{ cm}^3$.`,
           `Le volume non occupé par les truffes est d'environ $${texNombre(volumePave, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePave - volumeTotalTruffe, 1)}\\text{ cm}^3$.`,
           paveQuiConvient
@@ -330,7 +330,7 @@ export default class DesChocolatsDansDesBoites extends Exercice {
 
     correctionQuestion2 += createList({
       items: [
-        `Une truffe est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}\\text{ cm}$, donc de rayon $${texNombre(diametreTruffes / 2, 2)}\\text{ cm}$ et son voulme en cm$^3$ est : $\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3$.`,
+        `Une truffe est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}\\text{ cm}$, donc de rayon $${texNombre(diametreTruffes / 2, 2)}\\text{ cm}$ et son voulme en $\\text{cm}^3$ est : $\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3$.`,
         `Le volume occupé par $${nbTruffesParBoite}$ truffes est donc de : $${nbTruffesParBoite}\\times\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3=\\dfrac{${texNombre(nbTruffesParBoite * 4 * (diametreTruffes / 2) ** 3, 4)}}{3}\\pi$ soit environ $${texNombre((nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3) / 3, 1)}$cm$^3$.`,
         sousListe1,
         sousListe2,

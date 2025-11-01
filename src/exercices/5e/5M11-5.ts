@@ -1113,7 +1113,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 reponse: {
                   valeur: [Math.floor(aireReponses[0])],
                   texte:
-                    'Aire en cm$^2$ ' +
+                    'Aire en $\\text{cm}^2$ ' +
                     (typesDeQuestions[i] > 3
                       ? "(valeur approchée à l'unité)"
                       : '') +

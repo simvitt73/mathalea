@@ -32,7 +32,7 @@ export default class NomExercice extends ExerciceSimple {
       this.correction = `L'aire d'un carré est le carré de la longueur d'un côté. <br>
       Ainsi, la longueur $c$ d'un de ses côtés est :   $c=\\sqrt{36}=${miseEnEvidence(texNombre(this.reponse, 0))}\\text{ cm}$.
      `
-      this.optionsChampTexte = { texteApres: 'cm' }
+      this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
       this.canEnonce = this.question
       this.canReponseACompleter = '$\\ldots\\text{ cm}$'
       if (!this.interactif) {
@@ -47,7 +47,7 @@ export default class NomExercice extends ExerciceSimple {
         this.correction = `L'aire d'un carré est le carré de la longueur d'un côté. <br>
       Ainsi, la longueur $c$ d'un de ses côtés est : $c=\\sqrt{${a ** 2}}=${miseEnEvidence(texNombre(this.reponse, 0))}\\text{ cm}$.
      `
-        this.optionsChampTexte = { texteApres: 'cm' }
+        this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\ldots\\text{ cm}$'
         if (!this.interactif) {
@@ -62,7 +62,7 @@ export default class NomExercice extends ExerciceSimple {
       Le côté du carré est $\\dfrac{${4 * a}}{4}=${a}\\text{ cm}$.<br>
       Ainsi, son aire est : $${a}^2=${miseEnEvidence(texNombre(this.reponse, 0))}\\text{ cm}^2$.
      `
-        this.optionsChampTexte = { texteApres: 'cm$^2$' }
+        this.optionsChampTexte = { texteApres: '$\\text{cm}^2$' }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
         if (!this.interactif) {

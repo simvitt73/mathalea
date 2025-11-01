@@ -108,7 +108,7 @@ La présidente du club veut offrir des petits sachets cadeaux tous identiques co
   La piscine a la forme d'un pavé droit représenté ci-dessous.<br><br>
 ${deuxColonnesResp(
   `Elle est remplie aux $${fracR.texFractionSimplifiee}$ du volume.<br>
-  1 m$^3$ d'eau coûte $${texNombre(prixM3, 2, true)}$ €.<br>
+ $1\\text{ m}^3$ d'eau coûte $${texNombre(prixM3, 2, true)}$ €.<br>
   Combien coûte le remplissage de la piscine ?`,
   mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets),
   {

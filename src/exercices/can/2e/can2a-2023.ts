@@ -314,7 +314,7 @@ export default class SujetCAN2023Seconde extends Exercice {
 
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index)
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -671,32 +671,38 @@ export default class SujetCAN2023Seconde extends Exercice {
           if (choice([true, false])) {
             a = (randint(1, 12) * 10 + randint(1, 9)) / 10
             reponse = a * 1000
-            texte = ` $${texNombre(a, 1)}$ m$^3$`
-            texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
+            texte = ` $${texNombre(a, 1)}\\text{ m}^3$`
+            texteCorr = `Comme $1\\text{ m}^3$= $1000$ L, $${texNombre(a, 1)}\\text{ m}^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'L'
             } else {
               texte += ' $=\\ldots$ L'
             }
-            this.canEnonce = ` $${texNombre(a, 1)}$ m$^3$`
+            this.canEnonce = ` $${texNombre(a, 1)}\\text{ m}^3$`
             this.canReponseACompleter = '$\\ldots\\ldots$ L'
           } else {
             a = (randint(1, 12) * 10 + randint(1, 9)) / 10
             reponse = a / 1000
             texte = ` $${texNombre(a, 1)}$ L`
-            texteCorr = `Comme $1$ L = $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${miseEnEvidence(texNombre(reponse, 4))}$  m$^3$.`
+            texteCorr = `Comme $1$ L = $0,001\\text{ m}^3$, $${texNombre(a, 1)}$ L $=${miseEnEvidence(texNombre(reponse, 4))}$  m$^3$.`
             handleAnswers(this, index, {
               reponse: { value: reponse.toFixed(4) },
             })
             if (this.interactif) {
               texte +=
-                ' $=$' + ajouteChampTexteMathLive(this, index, '') + ' m$^3$'
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: '$\\text{ m}^3$' },
+                )
             } else {
-              texte += ' $=\\ldots$ m$^3$'
+              texte += ' $=\\ldots\\text{ m}^3$'
             }
             this.canEnonce = ` $${texNombre(a, 1)}$ L`
-            this.canReponseACompleter = '$\\ldots\\ldots$ m$^3$'
+            this.canReponseACompleter = '$\\ldots\\ldots\\text{ m}^3$'
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -803,27 +809,32 @@ export default class SujetCAN2023Seconde extends Exercice {
           if (choice([true, false])) {
             reponse = a * 8
 
-            texte = `On double les longueurs des côtés d'un cube de volume $${a}$ m$^3$.<br>
+            texte = `On double les longueurs des côtés d'un cube de volume $${a}\\text{ m}^3$.<br>
           Quel est le volume du cube agrandi ?
           `
             texteCorr = `Si les longueurs sont multipliées par $2$, le volume est multiplié par $2^3=8$.<br>
-          Ainsi, le cube agrandit a un volume de $${miseEnEvidence(texNombre(reponse))}$ m$^3$. `
+          Ainsi, le cube agrandit a un volume de $${miseEnEvidence(texNombre(reponse))}\\text{ m}^3$. `
             this.canEnonce = texte
-            this.canReponseACompleter = '$\\ldots$ m$^3$'
+            this.canReponseACompleter = '$\\ldots\\text{ m}^3$'
           } else {
             reponse = a * 4
 
-            texte = `On double les longueurs des côtés d'un carré d'aire $${a}$ m$^2$.<br>
+            texte = `On double les longueurs des côtés d'un carré d'aire $${a}\\text{ m}^2$.<br>
             Quelle est l'aire du carré agrandi ?
             `
             texteCorr = `Si les longueurs sont multipliées par $2$, l'aire  est multipliée par $2^2=4$.<br>
-            Ainsi, le carré agrandit a une aire de $${miseEnEvidence(texNombre(reponse))}$ m$^2$. `
+            Ainsi, le carré agrandit a une aire de $${miseEnEvidence(texNombre(reponse))}\\text{ m}^2$. `
             this.canEnonce = texte
-            this.canReponseACompleter = '$\\ldots$ m$^2$'
+            this.canReponseACompleter = '$\\ldots\\text{ m}^2$'
           }
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ m}^2$' },
+            )
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -1438,7 +1449,12 @@ export default class SujetCAN2023Seconde extends Exercice {
           Le volume de cette pyramide est donc : $\\dfrac{${a}\\times ${b}}{3}=${miseEnEvidence(texNombre(reponse, 0))}\\text{ cm}^3$.`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^3$'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}^3$' },
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots\\text{ cm}^3$'

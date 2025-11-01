@@ -541,17 +541,17 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           if (choice([true, false])) {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).mul(100)
-            texte = `$${texNombre(a, 1)}$ m$^2$  $=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^2$  $=$`
 
             texteCorr = `
-        Comme $1$ m$^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}$ m$^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
+        Comme $1\\text{ m}^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}\\text{ m}^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'dm$^2$'
             } else {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
-            this.listeCanEnonces.push(`$${texNombre(a, 1)}$ m$^2$  $=$`)
+            this.listeCanEnonces.push(`$${texNombre(a, 1)}\\text{ m}^2$  $=$`)
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
               '$\\ldots\\Aire[dm]{}$'
           } else {
@@ -560,12 +560,12 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte = `$${texNombre(a, 1)}$ dm$^2$  $=$`
 
             texteCorr = `
-        Comme $1$ dm$^2$ $=0,01$ m$^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(reponse, 3))}$ m$^2$. `
+        Comme $1$ dm$^2$ $=0,01\\text{ m}^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(reponse, 3))}\\text{ m}^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
             } else {
-              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              texte += context.isHtml ? '  $\\ldots\\text{ m}^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ dm$^2$  $=$`)
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
@@ -1556,7 +1556,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             b = randint(10, 22) * 100
 
             texte = `Un avion parcourt $${texNombre(b)}\\text{ km}$ en $3$ h. <br>
-            Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
+            Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}\\text{ km}$` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}\\text{ km}$.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}\\text{ km}$,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}\\text{ km}$. `
             handleAnswers(this, index, {
@@ -1575,9 +1575,9 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             b = choice([900, 1200, 1500, 1800, 2100, 2400])
 
             texte = `Un avion parcourt $${texNombre(b)}\\text{ km}$ en $3$ h. <br>
-            Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
+            Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}\\text{ km}$` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}\\text{ km}$, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}\\text{ km}$. <br>
-            Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
+            Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}\\text{ km}$`
             handleAnswers(this, index, {
               reponse: {
                 value: new Hms({ hour: 3, minute: 30 }).toString(),

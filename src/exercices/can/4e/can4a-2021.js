@@ -3,6 +3,7 @@ import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -428,7 +429,7 @@ export default class SujetCAN20214ieme extends Exercice {
         case 13:
           L = randint(8, 12)
           a = arrondi(L * randint(2, 7))
-          texte = `Un rectangle a une aire de $${a}$ m$^2$ et sa longueur mesure $${L}\\text{ m}$.<br>
+          texte = `Un rectangle a une aire de $${a}\\text{ m}^2$ et sa longueur mesure $${L}\\text{ m}$.<br>
             Détermine sa largeur.`
           texteCorr = `L'aire d'un rectangle est obtenue  par le produit de sa longueur par sa largeur. <br>
           On obtient donc sa largeur
@@ -485,13 +486,18 @@ export default class SujetCAN20214ieme extends Exercice {
           b = arrondi(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
           reponse = arrondi(c / a)
-          texte = `Une voiture roule à $${c}$ km/h. Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
+          texte = `Une voiture roule à $${c}\\text{ km/h}$. Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
           texteCorr = `La voiture parcourt $${arrondi(c / a)}\\text{ km}$.<br>
-         En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
+         En $${b}$ minutes, elle parcourt $${a}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
           ${miseEnEvidence(arrondi(c / a))}\\text{ km}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'km'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ km}$' },
+            )
           }
           nbChamps = 1
           break
@@ -694,7 +700,8 @@ export default class SujetCAN20214ieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
+            texte +=
+              ajouteChampTexteMathLive(this, index, '') + '$\\text{cm}^2$'
           }
           nbChamps = 1
           break
@@ -775,8 +782,8 @@ export default class SujetCAN20214ieme extends Exercice {
         case 25:
           a = arrondi(randint(1, 12) + randint(1, 9) / 10)
           reponse = arrondi(a * 1000)
-          texte = ` $${texNombre(a)}$ m$^3=$`
-          texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a)}$ m$^3=${miseEnEvidence(a * 1000)}$ L.`
+          texte = ` $${texNombre(a)}\\text{ m}^3=$`
+          texteCorr = `Comme $1\\text{ m}^3$= $1000$ L, $${texNombre(a)}\\text{ m}^3=${miseEnEvidence(a * 1000)}$ L.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + 'L'
@@ -967,7 +974,12 @@ export default class SujetCAN20214ieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           } else {
             texte += ' $\\ldots\\text{ cm}$'
           }

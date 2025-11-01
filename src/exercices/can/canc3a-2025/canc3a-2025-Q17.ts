@@ -29,7 +29,7 @@ export default class Can2025CM2Q17 extends ExerciceSimple {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: 'cm ' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 

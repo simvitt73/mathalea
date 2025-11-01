@@ -414,7 +414,7 @@ const situations = [
   ],
   [
     {
-      enonce: 'Avec $4$ litres de peinture, on couvre $20$ m$^2$.',
+      enonce: 'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
       unites: ['L', 'm$^2$'],
       estProportionnel: true,
@@ -422,7 +422,7 @@ const situations = [
     },
     {
       enonce:
-        'Avec $4$ litres de peinture, on couvre $20$ m$^2$. Avec $5$ litres, on couvre $25$ m$^2$.',
+        'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$. Avec $5$ litres, on couvre $25\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
       unites: ['L', 'm$^2$'],
       estProportionnel: true,
@@ -430,12 +430,12 @@ const situations = [
     },
     {
       enonce:
-        'Avec $4$ litres de peinture, on couvre $20$ m$^2$. Avec $5$ litres, on couvre $30$ m$^2$.',
+        'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$. Avec $5$ litres, on couvre $30\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
       unites: ['L', 'm$^2$'],
       estProportionnel: false,
       commentaireCorrection:
-        'Si la surface était proportionnelle au volume, on couvrirait $25$ m$^2$ avec $5$ litres de peinture.',
+        'Si la surface était proportionnelle au volume, on couvrirait $25\\text{ m}^2$ avec $5$ litres de peinture.',
     },
   ],
   [

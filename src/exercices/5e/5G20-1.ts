@@ -283,9 +283,9 @@ export default class VocabulaireDesTriangles extends Exercice {
               letterSize: 'normalsize',
             }),
           )
-          texte = `${tIso.getNom()} est un triangle tel que ${tIso.getLongueurs()[0]} $= ${tIso.l1 * 10}$ mm ; `
+          texte = `${tIso.getNom()} est un triangle tel que ${tIso.getLongueurs()[0]} $= ${tIso.l1 * 10}\\text{ mm}$ ; `
           texte += `${tIso.getLongueurs()[1]} $= ${texNombre(tIso.l2)}\\text{ cm}$ et ${tIso.getLongueurs()[2]} $= ${texNombre(tIso.l3)}\\text{ cm}$.`
-          texteCorr = `${tIso.getLongueurs()[0]} $= ${texNombre(tIso.l1 * 10)}$ mm $= ${texNombre(tIso.l1)}\\text{ cm}$ = ${tIso.getLongueurs()[1]}, ${tIso.getNom()} a donc deux côtés égaux, c'est un triangle ${texteEnCouleurEtGras('isocèle')} en ${tIso.getSommets()[1]}.`
+          texteCorr = `${tIso.getLongueurs()[0]} $= ${texNombre(tIso.l1 * 10)}\\text{ mm}$ $= ${texNombre(tIso.l1)}\\text{ cm}$ = ${tIso.getLongueurs()[1]}, ${tIso.getNom()} a donc deux côtés égaux, c'est un triangle ${texteEnCouleurEtGras('isocèle')} en ${tIso.getSommets()[1]}.`
         }
         break
 
@@ -360,8 +360,8 @@ export default class VocabulaireDesTriangles extends Exercice {
           )
 
           texte = `${nomTriangle} est un triangle tel que ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}\\text{ cm}$ ; `
-          texte += `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}$ mm et ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}$ dm.`
-          texteCorr = `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}$ mm $= ${tEqui.l2}\\text{ cm}$.`
+          texte += `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}\\text{ mm}$ et ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}$ dm.`
+          texteCorr = `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}\\text{ mm}$ $= ${tEqui.l2}\\text{ cm}$.`
           texteCorr += `<br> ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}$ dm $= ${texNombre(tEqui.l3)}\\text{ cm}$.`
           texteCorr += `<br> ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}\\text{ cm}$.`
           texteCorr += `<br> Les longueurs des trois côtés du triangle ${nomTriangle} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
@@ -462,18 +462,18 @@ export default class VocabulaireDesTriangles extends Exercice {
           }),
           codageAngleDroit(A, B, C, 'black', 2),
         )
-        texte = `${nomTriangle} est un triangle tel que ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}$ mm ; `
+        texte = `${nomTriangle} est un triangle tel que ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}\\text{ mm}$ ; `
         texte += `${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l2)}\\text{ cm}$`
         texte += ' et '
         if (this.classe === 6) {
           texte += `qui a un angle droit en ${tIsoRect.getSommets()[1]}.`
           texteCorr = `Le triangle ${nomTriangle} a un angle droit en ${tIsoRect.getSommets()[1]} donc ${nomTriangle} est rectangle en ${tIsoRect.getSommets()[1]}.`
-          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${tIsoRect.l1 * 10}$ mm $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
+          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${tIsoRect.l1 * 10}\\text{ mm}$ $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
           texteCorr += `<br> Le triangle ${nomTriangle} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${tIsoRect.getSommets()[1]}.`
         } else {
           texte += `${tIsoRect.getAngles()[0]} $= ${tIsoRect.a1}^\\circ$.`
           texteCorr = `L'angle ${tIsoRect.getAngles()[0]} du triangle ${nomTriangle} est un angle droit donc ${nomTriangle} est rectangle en ${tIsoRect.getSommets()[1]}.`
-          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}$ mm $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
+          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}\\text{ mm}$ $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
           texteCorr += `<br> Le triangle ${nomTriangle} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${tIsoRect.getSommets()[1]}.`
         }
         break
