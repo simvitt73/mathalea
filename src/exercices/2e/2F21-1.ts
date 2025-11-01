@@ -170,7 +170,7 @@ Avec la formule B, ${P} pourra faire au maximum $${new Decimal(T - c).div(d).flo
           {
             const a = randint(80, 120) // forfait
             const c = new Decimal(randint(41, 65, [50, 60])).div(100) // prix /km
-            const $\\text{km}$ = randint(7, 10) * 100 // $\\text{km}$ max
+            const km = randint(7, 10) * 100 // $\\text{km}$ max
             const d = randint(50, 400) // nbre km
             const prix = new Decimal(c).mul(d).add(a) // prix payé
 
