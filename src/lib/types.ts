@@ -419,16 +419,49 @@ export interface Valeur {
   }
 }
 
+export interface ValeurNormalized {
+  bareme?: (listePoints: number[]) => [number, number]
+  feedback?: (saisies: Record<string, string>) => string
+  reponse?: AnswerNormalizedType
+  champ1?: AnswerNormalizedType
+  champ2?: AnswerNormalizedType
+  champ3?: AnswerNormalizedType
+  champ4?: AnswerNormalizedType
+  champ5?: AnswerNormalizedType
+  champ6?: AnswerNormalizedType
+  rectangle1?: AnswerNormalizedType
+  rectangle2?: AnswerNormalizedType
+  rectangle3?: AnswerNormalizedType
+  rectangle4?: AnswerNormalizedType
+  rectangle5?: AnswerNormalizedType
+  rectangle6?: AnswerNormalizedType
+  rectangle7?: AnswerNormalizedType
+  rectangle8?: AnswerNormalizedType
+
+  L1C1?: AnswerNormalizedType
+  L1C2?: AnswerNormalizedType
+  L1C3?: AnswerNormalizedType
+  L2C1?: AnswerNormalizedType
+  L2C2?: AnswerNormalizedType
+  L2C3?: AnswerNormalizedType
+  L3C1?: AnswerNormalizedType
+  L3C2?: AnswerNormalizedType
+  L3C3?: AnswerNormalizedType
+  callback?: (
+    exercice: IExercice,
+    question: number,
+    variables: [string, AnswerNormalizedType][],
+    bareme: (listePoints: number[]) => [number, number],
+  ) => {
+    isOk: boolean
+    feedback: string
+    score: { nbBonnesReponses: number; nbReponses: number }
+  }
+}
+
 /**
  * Type pour une valeur normalisée (après traitement)
  */
-export type ValeurNormalized =
-  | string
-  | number
-  | IFractionEtendue
-  | Decimal
-  | IGrandeur
-  | Hms
 
 /**
  * Type guard pour vérifier si une valeur est de type Valeur

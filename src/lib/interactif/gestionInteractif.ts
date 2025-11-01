@@ -722,7 +722,7 @@ export function setReponse(
             params,
           )
         }
-        const value = []
+        const value: string[] = []
         for (let i = 0; i < reponses.length; i++) {
           laReponseDemandee = reponses[i]
           if (typeof laReponseDemandee === 'string') {
@@ -740,7 +740,7 @@ export function setReponse(
           } else if (laReponseDemandee instanceof Decimal) {
             laReponseDemandee = laReponseDemandee.toString()
           }
-          value.push(laReponseDemandee)
+          value.push(laReponseDemandee as string)
         }
 
         return handleAnswers(
