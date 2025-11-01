@@ -52,7 +52,7 @@ export default class NomExercice extends ExerciceSimple {
     const x = randint(10, 80) // pourcentage BP ?
     const coeffX = randint(-1, 1, [0]) // baisse ou augmentation
     const C = 1 + (coeffX * x) / 100 // coeff mult global
-    const typeEvolVerbe = coeffX < 0 ? 'baisse' : 'augmentation' // pour l'enoncé
+    const typeEvolVerbe = coeffX < 0 ? 'baisse' : 'augmente' // pour l'enoncé
     const typeEvolNom = coeffX < 0 ? 'baisse' : 'augmentation' // pour l'enoncé
     let texte1 = `Au bout de $${n}$ `
     texte1 += n > 1 ? 'heures, ' : 'heure, '
@@ -77,8 +77,8 @@ export default class NomExercice extends ExerciceSimple {
     }
     const textcmGlobal =
       coeffX > 0
-        ? `$C = 1 + \\dfrac{${x}}{100} = ${C.toLocaleString('fr-FR')}$.`
-        : `$C = 1 - \\dfrac{${x}}{100} = ${C.toLocaleString('fr-FR')}$.`
+        ? `$C = 1 + \\dfrac{${x}}{100} = ${texNombre(C)}$.`
+        : `$C = 1 - \\dfrac{${x}}{100} = ${texNombre(C)}$.`
 
     let textCorr = `Soit $t_m$ le taux moyen d'évolution par minute.<br>`
     textCorr += `Il s'agit d'une ${typeEvolNom}.`
@@ -86,9 +86,9 @@ export default class NomExercice extends ExerciceSimple {
       ` Donc, le coefficient multiplicateur global vaut ` + textcmGlobal
     textCorr += `<br>Dans $${n}$ ${n > 1 ? 'heures' : 'heure'}, il y a ${n === 1 ? '$60$' : `$${n} \\times 60$` + ' minutes ' + `$= ${k}$`} minutes, donc on résout l'équation suivante d'inconnue $t_m$ : <br><br>`
     textCorr += ` $\\qquad \\; \\; \\, (1+t_m)^{${k}}=C$<br>`
-    textCorr += ` $\\iff (1+t_m)^{${k}}=${C.toLocaleString('fr-FR')}$<br>`
-    textCorr += ` $\\iff 1+t_m= ${C.toLocaleString('fr-FR')}^{\\frac{1}{${k}}}$ car $1+t_m>0$<br> `
-    textCorr += ` $\\iff t_m= ${C.toLocaleString('fr-FR')}^{\\frac{1}{${k}}}-1$<br>`
+    textCorr += ` $\\iff (1+t_m)^{${k}}=${texNombre(C)}$<br>`
+    textCorr += ` $\\iff 1+t_m= ${texNombre(C)}^{\\frac{1}{${k}}}$ car $1+t_m>0$<br> `
+    textCorr += ` $\\iff t_m= ${texNombre(C)}^{\\frac{1}{${k}}}-1$<br>`
     textCorr += ` $\\iff t_m \\approx ${texNombre(tmArrondi1)}= ${xmArrondi1 < 0 ? '-' : ''}\\dfrac{${texNombre(abs(xmArrondi1))}}{100}$ <br>`
     textCorr += `Donc le taux moyen d'évolution par minute de `
     textCorr += obj
