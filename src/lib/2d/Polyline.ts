@@ -33,7 +33,10 @@ export class Polyline extends ObjetMathalea2D {
     let pts: any[] = []
     let colorArg: string | undefined
 
-    if (args.length === 1 && Array.isArray(args[0])) {
+    if (
+      (args.length === 1 && Array.isArray(args[0])) ||
+      (args.length === 2 && Array.isArray(args[0]))
+    ) {
       // new Polyline([A, B, C]) ou new Polyline([A, B, C], 'red')
       pts = args[0]
       if (typeof args[1] === 'string') colorArg = args[1]
