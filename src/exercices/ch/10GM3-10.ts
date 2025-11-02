@@ -1,3 +1,4 @@
+import { arrondi } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -443,7 +444,7 @@ export default class ConvertirDuree extends Exercice {
 
           handleAnswers(this, champIndex, {
             reponse: {
-              value: heures,
+              value: arrondi(heures, 2),
               options: {
                 nombreDecimalSeulement: true,
               },
@@ -469,7 +470,7 @@ export default class ConvertirDuree extends Exercice {
         } else {
           handleAnswers(this, champIndex, {
             reponse: {
-              value: reponse as number,
+              value: arrondi(reponse as number, 2),
               options: {
                 nombreDecimalSeulement: true,
               },
