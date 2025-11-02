@@ -582,10 +582,10 @@ export function isAnswerValueType(value: unknown): value is AnswerValueType {
   )
 }
 
-export type ReponseComplexe = AnswerValueType | Valeur
+export type ReponseComplexe = Valeur
 
 export function isReponseComplexe(value: unknown): value is ReponseComplexe {
-  return isAnswerValueType(value) || isValeur(value)
+  return isValeur(value)
 }
 
 // Ajout d'un type dédié pour les choix de QCM

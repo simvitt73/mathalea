@@ -6,7 +6,7 @@ import { fraction } from '../../modules/fractions'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { egal } from '../../modules/outils'
-import type { ReponseComplexe } from '../types'
+import type { AnswerValueType } from '../types'
 import { miseEnEvidence } from './embellissements'
 import { arrondi } from './nombres'
 import { lettreDepuisChiffre } from './outilString'
@@ -836,7 +836,7 @@ export function simpleDeveloppementAvecDoubleX({
  * @param a La valeur à formater
  * @returns {string} La valeur formatée pour l'affichage
  */
-export function formaterReponse(a: ReponseComplexe | undefined) {
+export function formaterReponse(a: AnswerValueType): string {
   if (Array.isArray(a)) {
     return formaterReponse(a[0])
   }

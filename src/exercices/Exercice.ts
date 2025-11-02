@@ -5,11 +5,12 @@ import {
   type PartialKbType,
 } from '../lib/interactif/claviers/keyboard'
 import type {
+  AnswerValueType,
   AutoCorrection,
   ClickFigures,
   InteractivityType,
   OptionsComparaisonType,
-  ReponseComplexe,
+  Valeur,
 } from '../lib/types'
 import type { IFractionEtendue } from '../modules/FractionEtendue.type'
 import type Grandeur from '../modules/Grandeur'
@@ -58,7 +59,7 @@ export default class Exercice implements IExercice {
   listeCanLiees: number[][] = []
   listeCanNumerosLies: number[] = []
   question?: string // Seulement pour les exercices de type simple
-  reponse?: ReponseComplexe // Seulement pour les exercices de type simple
+  reponse?: AnswerValueType | Valeur // Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???

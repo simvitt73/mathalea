@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import renderMathInElement from 'katex/contrib/auto-render'
 import 'katex/dist/katex.min.css'
+import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
 import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
 import Exercice from '../exercices/Exercice'
@@ -52,11 +53,11 @@ import type { MySpreadsheetElement } from './tableur/MySpreadSheet'
 import {
   convertVueType,
   isAnswerValueType,
+  isValeur,
   type AnswerValueType,
   type InterfaceGlobalOptions,
   type InterfaceParams,
   type MathaleaSVG,
-  type ReponseComplexe,
   type Valeur,
   type VueType,
 } from './types'
@@ -65,8 +66,6 @@ import {
   isIntegerInRange0to4,
   isIntegerInRange1to4,
 } from './types/integerInRange'
-import { Labyrinthe } from 'labyrinthe'
-import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
 
 const ERROR_MESSAGE =
   'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
@@ -933,7 +932,7 @@ export function mathaleaHandleExerciceSimple(
             formatInteractif: exercice.formatInteractif ?? 'mathlive',
           }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
         } else if (
-          exercice.reponse instanceof Object &&
+          isValeur(exercice.reponse) &&
           exercice.reponse.reponse != null &&
           exercice.reponse.reponse.value != null &&
           typeof exercice.reponse.reponse.value === 'string'
@@ -963,19 +962,24 @@ export function mathaleaHandleExerciceSimple(
             exercice.distracteurs.length > 0
           ) {
             exercice.distracteurs = getDistracteurs(exercice)
-            exercice.autoCorrection[i] = {
-              options: { radio: true },
-              enonce: exercice.question,
-              propositions: [
-                {
-                  texte: formaterReponse(exercice.reponse),
-                  statut: true,
-                },
-                ...exercice.distracteurs.map((distracteur) => ({
-                  texte: formaterReponse(distracteur),
-                  statut: false,
-                })),
-              ],
+            if (
+              typeof exercice.reponse === 'string' ||
+              typeof exercice.reponse === 'number'
+            ) {
+              exercice.autoCorrection[i] = {
+                options: { radio: true },
+                enonce: exercice.question,
+                propositions: [
+                  {
+                    texte: formaterReponse(exercice.reponse ?? ''),
+                    statut: true,
+                  },
+                  ...exercice.distracteurs.map((distracteur) => ({
+                    texte: formaterReponse(distracteur),
+                    statut: false,
+                  })),
+                ],
+              }
             }
             const qcm = propositionsQcm(exercice, i, {
               style: 'margin:0 3px 0 3px;',
@@ -1032,12 +1036,17 @@ export function mathaleaHandleExerciceSimple(
             formatInteractif: 'fillInTheBlank',
           })
         } else {
-          handleAnswers(
-            exercice,
-            i,
-            { champ1: { value: exercice.reponse ?? '' } },
-            { formatInteractif: 'fillInTheBlank' },
-          )
+          if (
+            typeof exercice.reponse === 'string' ||
+            typeof exercice.reponse === 'number'
+          ) {
+            handleAnswers(
+              exercice,
+              i,
+              { champ1: { value: exercice.reponse ?? '' } },
+              { formatInteractif: 'fillInTheBlank' },
+            )
+          }
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
@@ -1061,7 +1070,7 @@ export function getDistracteurs(
 ): (string | number)[] {
   const distracteursUniques = [...new Set(exerciceSimple.distracteurs)]
   const distracteursNonSolutions = distracteursUniques.filter((distracteur) => {
-    const reponse: ReponseComplexe | undefined = exerciceSimple.reponse
+    const reponse: AnswerValueType | Valeur | undefined = exerciceSimple.reponse
     if (reponse == null) {
       return true // Si pas de réponse, on garde tous les distracteurs
     }
@@ -1450,9 +1459,11 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
       const p = new Promise<Boolean>((resolve) => {
         waitForElement('#' + answer)
           .then(() => {
-            const labyrinthe = document.querySelector(`#${answer}`) as LabyrintheElement
-            if (labyrinthe !== null ) {
-              labyrinthe.state = answers[answer] 
+            const labyrinthe = document.querySelector(
+              `#${answer}`,
+            ) as LabyrintheElement
+            if (labyrinthe !== null) {
+              labyrinthe.state = answers[answer]
               const time = window.performance.now()
               log(`duration ${answer}: ${time - starttime}`)
               resolve(true)

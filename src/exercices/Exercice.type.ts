@@ -1,12 +1,13 @@
 import type Figure from 'apigeom/src/Figure'
 import type { PartialKbType } from '../lib/interactif/claviers/keyboard'
 import type {
+  AnswerValueType,
   AutoCorrection,
   ClickFigures,
   IGrandeur,
   InteractivityType,
   OptionsComparaisonType,
-  ReponseComplexe,
+  Valeur,
 } from '../lib/types'
 
 // Pour retro compatibilité avec setReponse
@@ -49,7 +50,7 @@ export interface IExercice {
   listeCanLiees: number[][]
   listeCanNumerosLies: number[]
   question?: string
-  reponse?: ReponseComplexe
+  reponse?: AnswerValueType | Valeur
   correction?: string
   canOfficielle?: boolean
   canEnonce?: string
