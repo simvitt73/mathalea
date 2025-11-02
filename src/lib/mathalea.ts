@@ -65,7 +65,7 @@ import {
   isIntegerInRange0to4,
   isIntegerInRange1to4,
 } from './types/integerInRange'
-import LabyrintheElement from 'labyrinthe'
+import { Labyrinthe } from 'labyrinthe'
 
 const ERROR_MESSAGE =
   'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
@@ -1450,8 +1450,8 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
         waitForElement('#' + answer)
           .then(() => {
             const labyrinthe = document.querySelector(`#${answer}`)
-            if (labyrinthe !== null && labyrinthe instanceof LabyrintheElement) {
-              labyrinthe.state = answers[answer]
+            if (labyrinthe !== null ) {
+              // labyrinthe.state = answers[answer] ToFix
               const time = window.performance.now()
               log(`duration ${answer}: ${time - starttime}`)
               resolve(true)
