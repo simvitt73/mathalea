@@ -2,18 +2,22 @@ import Exercice from '../Exercice'
 import { Labyrinthe, mountLabyrintheElement } from 'labyrinthe'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
+import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
 
 /**
  * @author Rémi Angot
  */
 export default class ExerciceLabyrinthe extends Exercice {
   labyrinthe!: Labyrinthe
-  labyrintheElement!: HTMLElement
+  labyrintheElement!: LabyrintheElement
   cols = 6
   rows = 6
   orientation?: 'horizontal' | 'vertical'
   goodAnswers: string[] = []
   badAnswers: string[] = []
+  win?: boolean
+  correctClicks?: number
+  totalGood?: number
   constructor() {
     super()
     this.nbQuestions = 1
@@ -95,16 +99,47 @@ export default class ExerciceLabyrinthe extends Exercice {
           `#containerLabyrintheCorrectionEx${this.numeroExercice}Q${0}`,
         )
         if (container) {
-          container.innerHTML = ''
-          this.labyrintheElement = await mountLabyrintheElement(
-            this.labyrinthe,
-            container,
+          if (!this.labyrintheElement?.isConnected) {
+            container.innerHTML = ''
+            this.labyrintheElement = await mountLabyrintheElement(
+              this.labyrinthe,
+              container,
+            )
+          }
+          this.labyrintheElement.id = `labyrintheEx${this.numeroExercice}`
+          if (!this.interactif) {
+            this.labyrintheElement.disabled = true
+          }
+          this.labyrintheElement.addEventListener(
+            'labyrinthe:gameend',
+            (e: Event) => {
+              const btnScore = document.querySelector(
+                `#buttonScoreEx${this.numeroExercice}`,
+              )
+              const { win, correctClicks, totalGood } = (e as CustomEvent)
+                .detail as {
+                win: boolean
+                correctClicks: number
+                totalGood: number
+              }
+              this.win = win
+              this.correctClicks = correctClicks
+              this.totalGood = totalGood
+              ;(btnScore as HTMLButtonElement)?.click()
+            },
           )
         }
         if (containerCorrection) {
-          mountLabyrintheElement(this.labyrinthe, containerCorrection)
+          containerCorrection.innerHTML = ''
+          const elementCorrection = await mountLabyrintheElement(
+            this.labyrinthe,
+            containerCorrection,
+          )
+          elementCorrection.showCorrection()
         }
+      })
 
+      setTimeout(() => {
         // Gestion particulière du bouton score
         const btnScore = document.querySelector(
           `#buttonScoreEx${this.numeroExercice}`,
@@ -112,10 +147,7 @@ export default class ExerciceLabyrinthe extends Exercice {
         if (btnScore) {
           ;(btnScore as HTMLButtonElement).style.display = 'none'
         }
-        this.labyrintheElement.addEventListener('labyrinthe:gameend', () => {
-          ;(btnScore as HTMLButtonElement)?.click()
-        })
-      })
+      }, 500)
     } else {
       texte = `\n\n\\bigskip\n${this.labyrinthe.generateLatex()}`
       texteCorr = this.labyrinthe.generateLatexCorrection()
@@ -137,37 +169,26 @@ export default class ExerciceLabyrinthe extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     this.answers[`labyrintheEx${this.numeroExercice}Q${i}`] =
-      this.labyrinthe.serializeState()
+      this.labyrintheElement.state
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,
     )
-
-    this.labyrintheElement.addEventListener(
-      'labyrinthe:gameend',
-      (e: Event) => {
-        const [win, correctClicks, totalGood] = (e as CustomEvent).detail as {
-          win: boolean
-          correctClicks: number
-          totalGood: number
-        }
-        const isValid = win
-        if (divFeedback != null) {
-          if (isValid) {
-            divFeedback.innerHTML = 'Bravo !'
-            return ['OK', 'OK', 'OK', 'OK']
-          }
-          const ratio = correctClicks / totalGood
-          if (ratio <= 0.25) {
-            return ['KO', 'KO', 'KO', 'KO']
-          } else if (ratio <= 0.5) {
-            return ['OK', 'KO', 'KO', 'KO']
-          } else if (ratio <= 0.75) {
-            return ['OK', 'OK', 'KO', 'KO']
-          }
-          return ['OK', 'OK', 'KO', 'KO']
-        }
-        throw new Error('Feedback not found')
-      },
-    )
+    const isValid = this.win
+    if (divFeedback != null) {
+      if (isValid) {
+        divFeedback.innerHTML = 'Bravo !'
+        return ['OK', 'OK', 'OK', 'OK']
+      }
+      const ratio = (this.correctClicks ?? 0) / (this.totalGood ?? 1)
+      if (ratio <= 0.25) {
+        return ['KO', 'KO', 'KO', 'KO']
+      } else if (ratio <= 0.5) {
+        return ['OK', 'KO', 'KO', 'KO']
+      } else if (ratio <= 0.75) {
+        return ['OK', 'OK', 'KO', 'KO']
+      }
+      return ['OK', 'OK', 'KO', 'KO']
+    }
+    throw new Error('Feedback not found')
   }
 }
