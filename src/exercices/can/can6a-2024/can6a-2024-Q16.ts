@@ -22,7 +22,7 @@ export default class PourcentageFacile extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion() {
+   nouvelleVersion() {
     let p: number
     let distance: number
     let unite: string
@@ -47,12 +47,16 @@ export default class PourcentageFacile extends ExerciceSimple {
     this.question = `$${texNombre(p, 0)}\\,\\%$ de $${texNombre(distance, 0)}\\text{ ${unite}}$`
     this.canEnonce = this.question
     this.canReponseACompleter = `$\\ldots\\text{ ${unite}}$`
-    this.correction = `Prendre $${String(p)}\\,\\%$ d'une quantité revient à la diviser par $${ratios[p][1]}$. <br>
-    En effet, $\\dfrac{${num}}{${den}}=${String(p)}\\,\\%$.<br>`
+    this.correction = `On a $\\dfrac{${num}}{${den}}=${String(p)}\\,\\%$.<br>
+   
+  `
     if (p === 25 || p === 50) {
-      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$, soit  $${texNombre(distance, 0)}\\text{ ${unite}}\\div ${den}=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
+      this.correction += ` Ainsi, prendre $${String(p)}\\,\\%$ d'une quantité revient à la diviser par $${ratios[p][1]}$. <br>
+      Donc, on divise $${texNombre(distance, 0)}$ par $${den}$, soit  $${texNombre(distance, 0)}\\text{ ${unite}}\\div ${den}=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
     } else {
-      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ et on multiplie par $${num}$, soit $${texNombre(distance, 0)}\\text{ ${unite}}\\div ${den} \\times ${num}=${texNombre(distance / den, 0)}\\text{ ${unite}}\\times ${num}=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
+      this.correction += `
+      Ainsi, prendre $${String(p)}\\,\\%$ d'une quantité revient à diviser par $${ratios[p][1]}$ puis multiplier par $${num}$. <br>
+      Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ et on multiplie par $${num}$, soit $${texNombre(distance, 0)}\\text{ ${unite}}\\div ${den} \\times ${num}=${texNombre(distance / den, 0)}\\text{ ${unite}}\\times ${num}=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
     }
   }
 }
