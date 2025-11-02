@@ -2,8 +2,7 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { pattern } from './pattern'
-import { Point } from './points'
-import { PointAbstrait } from './points-abstraits'
+import { Point, PointAbstrait } from './PointAbstrait'
 import { longueur } from './utilitairesGeometriques'
 
 /**

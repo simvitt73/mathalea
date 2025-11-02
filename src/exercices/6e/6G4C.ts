@@ -1,7 +1,7 @@
 import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { cibleCouronne } from '../../lib/2d/cibles'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { sensDeRotation } from '../../lib/2d/SensDeRotation'
 import { texteParPoint } from '../../lib/2d/textes'

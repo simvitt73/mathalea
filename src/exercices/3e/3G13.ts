@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'

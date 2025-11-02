@@ -1,6 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   barycentre,
   polygone,

@@ -1,10 +1,12 @@
-import { Angle } from '../../../lib/mathFonctions/Angle'
 import {
+  Angle,
   angleOppose,
   angleSupplementaire,
+} from '../../../lib/mathFonctions/Angle'
+import {
   kCosOuKSin,
   parenthesesSiNegatifStrigArray,
-} from '../../../lib/mathFonctions/trigo'
+} from '../../../lib/mathFonctions/radToDeg'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'

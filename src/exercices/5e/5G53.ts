@@ -7,20 +7,18 @@ import {
   createWireframeUnion,
 } from '../../lib/3d/3d_dynamique/solidesThreeJs'
 import {
+  homothetie3d,
   Point3d,
   point3d,
   polygone3d,
+  translation3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import {
   prisme3d,
   pyramide3d,
   pyramideTronquee3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  homothetie3d,
-  translation3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'

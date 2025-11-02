@@ -1,11 +1,6 @@
 import { Droite, droite } from '../../lib/2d/droites'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import {
-  milieu,
-  point,
-  pointAdistance,
-  pointSurSegment,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   nommePolygone,
   Polygone,
@@ -22,6 +17,11 @@ import {
   translation,
 } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointAdistance,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
 import {

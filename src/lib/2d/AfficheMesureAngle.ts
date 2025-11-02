@@ -1,11 +1,11 @@
 import { context } from '../../modules/context'
 import { arc } from './Arc'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { latexParCoordonnees } from './textes'
 import { rotation } from './transformations'
 import { angleOriente } from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Affiche la mesure de l'angle ABC arrondie au degré près

@@ -1,9 +1,10 @@
 import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { courbe } from '../../../lib/2d/courbes'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   simplificationDeFractionAvecEtapes,

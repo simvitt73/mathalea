@@ -1,6 +1,6 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
-import { rectangle1Point2Longueurs } from '../../lib/2d/polygones'
+import { point } from '../../lib/2d/PointAbstrait'
+import { rectangle1Point2Longueurs } from '../../lib/2d/polygonesParticuliers'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

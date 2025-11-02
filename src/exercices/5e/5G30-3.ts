@@ -5,10 +5,11 @@ import {
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
-import { Point, point, pointSurDroite } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, translation2Points } from '../../lib/2d/transformations'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -21,7 +22,7 @@ import Exercice from '../Exercice'
 
 import { number } from 'mathjs'
 import type { CodageAngle } from '../../lib/2d/CodageAngle'
-import type { CodageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { CodageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { demiDroite, type DemiDroite } from '../../lib/2d/DemiDroite'
 import type { TracePoint } from '../../lib/2d/TracePoint'
 import { bleuMathalea, vertMathalea } from '../../lib/colors'

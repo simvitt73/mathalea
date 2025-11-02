@@ -5,11 +5,11 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { droite } from './droites'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { pointSurSegment } from './points'
-import { PointAbstrait } from './points-abstraits'
+import { PointAbstrait } from './PointAbstrait'
 import { latex2d, tailleDeNbVersLatex, texteParPoint } from './textes'
 import { rotation } from './transformations'
 import { angleOriente } from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Code un angle

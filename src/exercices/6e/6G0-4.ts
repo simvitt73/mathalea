@@ -1,6 +1,6 @@
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { vide2d } from '../../lib/2d/Vide2d'

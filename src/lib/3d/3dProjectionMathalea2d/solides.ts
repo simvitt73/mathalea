@@ -8,13 +8,7 @@ import {
 } from '../../2d/colorToLatexOrHtml'
 import { distancePointDroite, droite } from '../../2d/droites'
 import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
-import {
-  Point,
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../2d/points'
-import { type PointAbstrait } from '../../2d/points-abstraits'
+import { Point, point, type PointAbstrait } from '../../2d/PointAbstrait'
 import { polygone, polygoneAvecNom, renommePolygone } from '../../2d/polygones'
 import { polyline } from '../../2d/Polyline'
 import { segment } from '../../2d/segmentsVecteurs'
@@ -26,6 +20,7 @@ import {
   longueur,
   norme,
 } from '../../2d/utilitairesGeometriques'
+import { pointIntersectionDD, pointSurSegment } from '../../2d/utilitairesPoint'
 import { vecteur } from '../../2d/Vecteur'
 import { vide2d } from '../../2d/Vide2d'
 import { choisitLettresDifferentes } from '../../outils/aleatoires'
@@ -38,11 +33,13 @@ import {
   cercle3d,
   demicercle3d,
   droite3d,
+  homothetie3d,
   point3d,
   polygone3d,
+  rotation3d,
+  translation3d,
   vecteur3d,
-} from './elements'
-import { homothetie3d, rotation3d, translation3d } from './tranformations'
+} from './elementsEtTransformations3d'
 
 export const math = { matrix, multiply, norm, cross, dot }
 /*
@@ -367,7 +364,7 @@ export const math = { matrix, multiply, norm, cross, dot }
 export class Sphere3d extends ObjetMathalea2D {
   constructor(
     centre: Point3d,
-    rayon: Vecteur3d,
+    rayon: Vecteur3d | number,
     colorEquateur = 'red',
     colorEnveloppe = 'blue',
     nbParalleles = 0,
@@ -381,7 +378,7 @@ export class Sphere3d extends ObjetMathalea2D {
   ) {
     super()
     this.centre = centre
-    this.rayon = rayon
+    this.rayon = typeof rayon === 'number' ? rayon : rayon.norme
     this.objets = []
     this.colorEquateur = colorEquateur
     this.colorEnveloppe = colorEnveloppe
@@ -1043,7 +1040,7 @@ export class Sphere3d extends ObjetMathalea2D {
 
 export function sphere3d(
   centre: Point3d,
-  rayon: Vecteur3d,
+  rayon: Vecteur3d | number,
   colorEquateur = 'red',
   colorEnveloppe = 'blue',
   nbParalleles = 0,

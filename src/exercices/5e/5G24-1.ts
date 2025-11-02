@@ -1,12 +1,12 @@
 import { codageSegment } from '../../lib/2d/CodageSegment'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { codageAngle } from '../../lib/2d/angles'
-import { pointAdistance } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import {
   choixDeroulant,

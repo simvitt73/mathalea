@@ -1,6 +1,7 @@
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { similitude } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
 import Alea2iep from '../../modules/Alea2iep'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'

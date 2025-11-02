@@ -2,12 +2,12 @@ import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, pointSurSegment } from './points'
-import { PointAbstrait } from './points-abstraits'
+import { point, PointAbstrait } from './PointAbstrait'
 import {
   angleOriente,
   estSecant as estSecantUtil,
 } from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Rotation d'un point M autour d'un centre O d'un angle en degrés
@@ -182,6 +182,12 @@ export class Segment extends ObjetMathalea2D {
             this.extremite2,
             5,
           )
+    if (this.longueur < 1e-8) {
+      window.notify(
+        "Création d'un segment de longueur nulle, les opérations géométriques peuvent être erronées",
+        { x1: this.x1, y1: this.y1, x2: this.x2, y2: this.y2 },
+      )
+    }
   }
 
   svg(coeff: number) {
@@ -362,6 +368,8 @@ export class Segment extends ObjetMathalea2D {
     let code = ''
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
+    // On ne peut pas coder des extrémités si le segment est de longueur nulle
+    if (this.longueur < 1e-8) return code // éviter les divisions par zéro
     const h = this.tailleExtremites
     if (this.styleExtremites.length > 1) {
       const fin = this.styleExtremites.slice(-1)

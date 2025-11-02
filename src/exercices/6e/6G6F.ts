@@ -5,17 +5,17 @@ import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { Droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import {
-  point,
-  pointAdistance,
-  pointIntersectionCC,
-  pointIntersectionDD,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../lib/2d/utilitairesPoint'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'

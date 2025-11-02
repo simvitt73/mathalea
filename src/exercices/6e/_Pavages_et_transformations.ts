@@ -12,13 +12,9 @@ import {
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import {
-  milieu,
-  point,
-  pointIntersectionDD,
-  pointSurDroite,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { barycentre, polygone } from '../../lib/2d/polygones'
+import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
@@ -27,6 +23,11 @@ import {
 } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import {
+  milieu,
+  pointIntersectionDD,
+  pointSurDroite,
+} from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -1269,7 +1270,7 @@ export default class PavagesEtTransformations extends Exercice {
                 origine1,
                 point(tabfigB[iB2][0], tabfigB[iB2][1]),
               )
-              vecteur1 = vector1.representant(origine1)
+              vecteur1 = representant(vector1, origine1)
               vecteur1.color = colorToLatexOrHTML(
                 context.isAmc ? 'black' : 'green',
               )
@@ -1342,7 +1343,7 @@ export default class PavagesEtTransformations extends Exercice {
                 origine2,
                 point(tabfigA[iA1][0], tabfigA[iA1][1]),
               )
-              vecteur2 = vector2.representant(origine2)
+              vecteur2 = representant(vector2, origine2)
               vecteur2.color = colorToLatexOrHTML(
                 context.isAmc ? 'black' : 'red',
               )
@@ -1416,7 +1417,7 @@ export default class PavagesEtTransformations extends Exercice {
                 origine3,
                 point(tabfigA[iB3][0], tabfigA[iB3][1]),
               )
-              vecteur3 = vector3.representant(origine3)
+              vecteur3 = representant(vector3, origine3)
               vecteur3.color = colorToLatexOrHTML(
                 context.isAmc ? 'black' : 'blue',
               )
@@ -1523,13 +1524,13 @@ export default class PavagesEtTransformations extends Exercice {
           context.isAmc ? 'black' : 'blue',
         )
         quad3.opaciteDeRemplissage = 0.3
-        rayon11 = vector1.representant(point(xa, ya))
+        rayon11 = representant(vector1, point(xa, ya))
         rayon11.color = colorToLatexOrHTML(context.isAmc ? 'black' : 'green')
         rayon11.epaisseur = 2
-        rayon21 = vector2.representant(point(xb, yb))
+        rayon21 = representant(vector2, point(xb, yb))
         rayon21.color = colorToLatexOrHTML(context.isAmc ? 'black' : 'red')
         rayon21.epaisseur = 2
-        rayon31 = vector3.representant(point(xc, yc))
+        rayon31 = representant(vector3, point(xc, yc))
         rayon31.color = colorToLatexOrHTML(context.isAmc ? 'black' : 'blue')
         rayon31.epaisseur = 2
         objetsCorrection.push(quad1, quad2, quad3, rayon11, rayon21, rayon31)

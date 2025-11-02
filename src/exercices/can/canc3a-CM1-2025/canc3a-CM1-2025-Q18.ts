@@ -1,4 +1,4 @@
-import { point, Point } from '../../../lib/2d/points'
+import { point, Point } from '../../../lib/2d/PointAbstrait'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'

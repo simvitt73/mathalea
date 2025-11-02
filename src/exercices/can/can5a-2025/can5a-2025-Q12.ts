@@ -2,15 +2,15 @@ import { cercle } from '../../../lib/2d/cercle'
 import { droite, droiteParPointEtPente } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
-import {
-  point,
-  pointIntersectionCC,
-  pointIntersectionDD,
-} from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { rotation, symetrieAxiale } from '../../../lib/2d/transformations'
+import {
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'

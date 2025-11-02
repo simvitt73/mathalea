@@ -1,5 +1,5 @@
 import { grille } from '../../../lib/2d/Grille'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

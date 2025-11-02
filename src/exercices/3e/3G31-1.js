@@ -2,7 +2,7 @@ import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { codageAngle } from '../../lib/2d/angles'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { labelPoint } from '../../lib/2d/textes'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
@@ -10,7 +10,6 @@ import { similitude } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { degToRad, radToDeg } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
@@ -19,6 +18,20 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+
+/**
+ * Convertit un angle en degrés vers des radians
+ */
+function degToRad(deg) {
+  return (deg * Math.PI) / 180
+}
+
+/**
+ * Convertit un angle en radians vers des degrés
+ */
+function radToDeg(rad) {
+  return (rad * 180) / Math.PI
+}
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -320,7 +333,6 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 {
                   texte: '',
                   statut: '',
-                  // multicolsBegin: true,
                   reponse: {
                     texte:
                       numAlpha(0) +
@@ -368,7 +380,6 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 {
                   texte: '',
                   statut: '',
-                  // multicolsEnd: true,
                   reponse: {
                     texte:
                       numAlpha(2) +

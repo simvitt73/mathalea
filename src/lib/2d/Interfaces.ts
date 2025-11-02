@@ -475,3 +475,40 @@ export interface IPolygone3d {
   aretes: IArete3d[]
   c2d: ISegment[]
 }
+
+type Coord3d = [number, number, number, string]
+export interface IVisualPattern3D {
+  shape?: IShape3D
+  shapes: string[]
+  prefixId?: string
+  type: 'iso' | 'full3D'
+  cells: Set<string>
+
+  hasCell(x: number, y: number, z: number, shape: string): boolean
+  iterate3d(n: number): Set<string>
+  update3DCells(n: number): Coord3d[]
+  getShapeOfCell(cell: string): string
+  render3d(n: number): string
+  render(n: number, dx: number, dy: number, angle: number): ObjetMathalea2D[]
+  print(): string
+}
+export interface IShape3D {
+  shapeId: string
+  codeSvg: string
+  codeTikz: string
+  x: number
+  y: number
+  angle: number
+  scale: number
+  width: number // largeur en cm
+  height: number // hauteur en cm
+  pixelsParCm: number
+  bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
+  opacite: number
+
+  svg(coeff: number): string
+  tikz(): string
+  updateBordures(): void
+  dilate(factor: number): void
+  clone(x: number, y: number, z: number, angle: number): IShape3D
+}

@@ -1,6 +1,6 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import { latex2d } from '../../lib/2d/textes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'

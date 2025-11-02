@@ -1,8 +1,8 @@
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu, Point } from './points'
-import { PointAbstrait } from './points-abstraits'
+import { Point, PointAbstrait } from './PointAbstrait'
 import { segment, Segment } from './segmentsVecteurs'
 import { TexteParPoint } from './textes'
+import { milieu } from './utilitairesPoint'
 
 /**
  * Code un segment

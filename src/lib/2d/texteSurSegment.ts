@@ -2,12 +2,12 @@ import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { placeLatexSurSegment } from './placeLatexSurSegment'
-import { milieu, pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPoint } from './textes'
 import { rotation } from './transformations'
 import { longueur } from './utilitairesGeometriques'
+import { milieu, pointSurSegment } from './utilitairesPoint'
 
 /**
  * texteSurSegment('mon texte',A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon en dessous, ou alors horizontalement

@@ -1,4 +1,4 @@
-import { point } from '../lib/2d/points'
+import { point } from '../lib/2d/PointAbstrait'
 import { segment } from '../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'

@@ -1,4 +1,4 @@
-import { PointAbstrait } from './points-abstraits'
+import { PointAbstrait } from './PointAbstrait'
 // import { segment } from './segmentsVecteurs'
 import { Latex2d, latex2d, type LetterSizeType } from './textes'
 

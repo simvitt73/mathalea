@@ -4,11 +4,11 @@ import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu, pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
 import { longueur } from './utilitairesGeometriques'
+import { milieu, pointSurSegment } from './utilitairesPoint'
 
 /**
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas

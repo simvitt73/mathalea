@@ -3,10 +3,10 @@ import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { rotation } from './transformations'
 import { longueur } from './utilitairesGeometriques'
+import { milieu } from './utilitairesPoint'
 
 /**
  * Code la médiatrice d'un segment

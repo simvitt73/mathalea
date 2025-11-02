@@ -14,7 +14,7 @@ import {
 } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { texteParPosition } from '../../lib/2d/textes'

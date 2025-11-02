@@ -29,6 +29,11 @@ const perimetres: [number, 'cm' | 'm' | 'km', string][] = [
 
 */
 export default class Can2025CE2Q4 extends ExerciceCan {
+  constructor() {
+    super()
+    this.formatInteractif = 'qcm'
+  }
+
   enonce(a?: number, b?: 'cm' | 'm' | 'km', c?: string) {
     if (a == null || b == null || c == null) {
       ;[a, b, c] = choice(perimetres)
@@ -50,7 +55,6 @@ export default class Can2025CE2Q4 extends ExerciceCan {
       ],
       options: { vertical: true },
     }
-    this.formatInteractif = 'qcm'
     this.consigne = `Le périmètre ${c} est proche de :`
     const monQcm = propositionsQcm(this, 0)
     this.canEnonce = 'Coche la bonne réponse.<br>' + this.consigne

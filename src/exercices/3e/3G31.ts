@@ -1,12 +1,13 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
-import { milieu, Point, point, pointIntersectionDD } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu, pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -16,11 +17,9 @@ import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const interactifReady = true

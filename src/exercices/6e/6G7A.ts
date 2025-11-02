@@ -14,7 +14,7 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { point, Point, pointSurDroite } from '../../lib/2d/points'
+import { point, Point } from '../../lib/2d/PointAbstrait'
 import {
   labelPoint,
   latexParCoordonnees,
@@ -22,6 +22,7 @@ import {
 } from '../../lib/2d/textes'
 import { TracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
+import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import type { Vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'
 import {

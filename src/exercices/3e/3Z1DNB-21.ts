@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import {

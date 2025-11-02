@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { Latex2d, latexParPoint, texteParPosition } from '../../lib/2d/textes'

@@ -4,11 +4,12 @@ import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { DemiDroite, demiDroite } from './DemiDroite'
 import { droite } from './droites'
-import { Point, pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
+import { Point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { rotation, symetrieAxiale } from './transformations'
 import { angleOriente, longueur, pointEstSur } from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Trace la bissectrice d'un angle, en laissant éventuellement apparents les traits de construction au compas

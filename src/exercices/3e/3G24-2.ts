@@ -1,6 +1,6 @@
-import { pointAdistance } from '../../lib/2d/points'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 // import { angle, angleOriente, MarqueAngle, MarqueAngleDroit } from '../../lib/2d/angles'
 import { angleOriente } from '../../lib/2d/utilitairesGeometriques'
 // import { afficheLongueurSegment, texteSurSegment, placeLatexSurSegment } from '../../lib/2d/codages'
@@ -18,7 +18,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/mathalea2d'
 
 import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
-import { PointAbstrait, pointAbstrait } from '../../lib/2d/points-abstraits'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs

@@ -1,13 +1,12 @@
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
-import {
-  Point,
-  point,
-  pointAdistance,
-  pointIntersectionDD,
-} from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import {
+  pointAdistance,
+  pointIntersectionDD,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'

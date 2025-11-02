@@ -1,7 +1,7 @@
 import { context } from '../../../modules/context'
+import type { IVisualPattern3D } from '../Interfaces'
 import { ObjetMathalea2D } from '../ObjetMathalea2D'
 import { VisualPattern } from '../patterns/VisualPattern'
-import type { VisualPattern3D } from '../patterns/VisualPattern3D'
 // Fonction dupliquée de ../Figures2D.ts pour éviter les dépendances circulaires
 function rotatedBoundingBoxWithCenter(
   xmin: number,
@@ -274,7 +274,7 @@ export function updateCubeIso({
   newScale,
   inCorrectionMode,
 }: {
-  pattern: VisualPattern3D
+  pattern: IVisualPattern3D
   i: number
   j: number
   angle: number
@@ -340,7 +340,7 @@ export function updateCubeIso({
     svgGroups.forEach((group) => group.remove())
 
     // Recalculer chaque polygone avec pattern.render(j, angle)
-    const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
+    const cells = (pattern as IVisualPattern3D).update3DCells(j + 1)
     // Ajouter les SVG générés par svg() de chaque objet
     cells.forEach((cell) => {
       const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)

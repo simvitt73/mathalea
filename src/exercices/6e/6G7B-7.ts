@@ -4,11 +4,12 @@ import {
   droiteHorizontaleParPoint,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionDD } from '../../lib/2d/points'
+import { Point, point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../lib/2d/transformations'
+import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
@@ -29,8 +30,9 @@ import { Pavage, pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
-import type { Mediatrice } from '../../lib/2d/Mediatrice'
+import { mediatrice, type Mediatrice } from '../../lib/2d/Mediatrice'
 import type { Polygone } from '../../lib/2d/polygones'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre =
@@ -53,6 +55,9 @@ export const refs = {
   'fr-2016': ['6G25-3'],
   'fr-ch': ['9ES6-20'],
 }
+
+const longueur = (A: PointAbstrait, B: PointAbstrait) =>
+  Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2)
 
 type FenetreType = {
   xmin: number
@@ -269,6 +274,7 @@ export default class PavageEtReflexion2d extends Exercice {
         ) {
           index2 = choice(indicesSimilaires, lastChoice)
           B = monpavage.barycentres[index2]
+          if (longueur(A, B) === 0) continue
           d = mediatrice(A, B, '', 'red') // l'axe sera la droite passant par ces deux points si ça fonctionne
           if (Math.abs(d.pente) < 0.1) {
             continue
@@ -304,7 +310,7 @@ export default class PavageEtReflexion2d extends Exercice {
 
     objets.push(d) // la droite d est trouvée
     let pt1, pt2
-    if (d.pente < 0 && d.pente > -10) {
+    if (Math.abs(d.pente) > 0.1 && Math.abs(d.pente) < 10) {
       pt1 = pointIntersectionDD(
         d as Droite,
         droiteHorizontaleParPoint(
@@ -317,7 +323,7 @@ export default class PavageEtReflexion2d extends Exercice {
           point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1]),
         ),
       )
-      if (!(pt1 instanceof Point) || !(pt2 instanceof Point)) {
+      if (!(pt1 instanceof PointAbstrait) || !(pt2 instanceof PointAbstrait)) {
         window.notify("pt1 ou pt2 n'est pas un point", { pt1, pt2 })
         return
       }
@@ -494,7 +500,7 @@ export default class PavageEtReflexion2d extends Exercice {
         P2.epaisseur = 2
         objetsCorrection.push(
           tracePoint(A, B),
-          segment(A, B, couleurs[i]),
+          longueur(A, B) === 0 ? vide2d() : segment(A, B, couleurs[i]),
           P1,
           P2,
         )
@@ -506,7 +512,7 @@ export default class PavageEtReflexion2d extends Exercice {
           )
           objetsCorrection.push(P3)
         }
-        if (A !== B)
+        if (longueur(A, B) !== 0)
           objetsCorrection.push(codageMediatrice(A, B, couleurs[i], codes[i]))
       }
     }

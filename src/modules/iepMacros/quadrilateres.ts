@@ -1,7 +1,8 @@
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { rotation } from '../../lib/2d/transformations'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import type { IAlea2iep } from '../Alea2iep.types'
 import { randint } from '../outils'
 

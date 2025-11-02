@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   NommePolygone,
   Polygone,

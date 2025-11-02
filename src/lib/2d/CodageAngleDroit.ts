@@ -3,12 +3,12 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import type { IPointAbstrait } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { polygone } from './polygones'
 import { polyline } from './Polyline'
 import { rotation } from './transformations'
 import { angleOriente } from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Code un angle droit
@@ -36,6 +36,8 @@ import { angleOriente } from './utilitairesGeometriques'
  */
 // JSDOC Validee par EE Juin 2022
 
+const longueur = (A: IPointAbstrait, B: IPointAbstrait) =>
+  Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
 export class CodageAngleDroit extends ObjetMathalea2D {
   sommet: IPointAbstrait
   depart: IPointAbstrait
@@ -64,34 +66,53 @@ export class CodageAngleDroit extends ObjetMathalea2D {
     this.color = colorToLatexOrHTML(color)
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    const a = pointSurSegment(
-      this.sommet,
-      this.depart,
-      (this.taille * 20) / context.pixelsParCm,
-    )
-    const b = pointSurSegment(
-      this.sommet,
-      this.arrivee,
-      (this.taille * 20) / context.pixelsParCm,
-    )
-    let o
-    if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
-      o = rotation(this.sommet, a, -90)
+    let bordures: { xmin: number; xmax: number; ymin: number; ymax: number }
+    if (longueur(O, A) < 1e-8 || longueur(O, B) < 1e-8) {
+      window.notify(
+        "Création d'un codage d'angle droit avec un côté de longueur nulle, le codage peut être erroné",
+        { A, O, B },
+      )
+      this.sommet = O
+      this.depart = O
+      this.arrivee = O
+      bordures = { xmin: O.x, xmax: O.x, ymin: O.y, ymax: O.y }
     } else {
-      o = rotation(this.sommet, a, 90)
+      const a = pointSurSegment(
+        this.sommet,
+        this.depart,
+        (this.taille * 20) / context.pixelsParCm,
+      )
+      const b = pointSurSegment(
+        this.sommet,
+        this.arrivee,
+        (this.taille * 20) / context.pixelsParCm,
+      )
+      let o
+      if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
+        o = rotation(this.sommet, a, -90)
+      } else {
+        o = rotation(this.sommet, a, 90)
+      }
+      bordures = fixeBordures([a, b, o], {
+        rxmin: 0,
+        rxmax: 0,
+        rymin: 0,
+        rymax: 0,
+      })
     }
-    const bordures = fixeBordures([a, b, o], {
-      rxmin: 0,
-      rxmax: 0,
-      rymin: 0,
-      rymax: 0,
-    })
+
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
     this.epaisseur = epaisseur
     this.opacite = opacite
   }
 
   svg(coeff: number) {
+    if (
+      longueur(this.sommet, this.depart) < 1e-8 ||
+      longueur(this.sommet, this.arrivee) < 1e-8
+    ) {
+      return ''
+    }
     const a = pointSurSegment(
       this.sommet,
       this.depart,
@@ -123,6 +144,12 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   }
 
   tikz() {
+    if (
+      longueur(this.sommet, this.depart) < 1e-8 ||
+      longueur(this.sommet, this.arrivee) < 1e-8
+    ) {
+      return ''
+    }
     const a = pointSurSegment(
       this.sommet,
       this.depart,

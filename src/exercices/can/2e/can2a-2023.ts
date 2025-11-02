@@ -1,14 +1,15 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { demiDroite } from '../../../lib/2d/DemiDroite'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { courbeInterpolee } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {

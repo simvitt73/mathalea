@@ -1,6 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegment } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'

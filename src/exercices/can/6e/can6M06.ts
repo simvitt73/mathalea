@@ -1,15 +1,15 @@
 import Decimal from 'decimal.js'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { cercle } from '../../../lib/2d/cercle'
-import {
-  milieu,
-  point,
-  pointAdistance,
-  pointIntersectionCC,
-} from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { longueur } from '../../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointAdistance,
+  pointIntersectionCC,
+} from '../../../lib/2d/utilitairesPoint'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'

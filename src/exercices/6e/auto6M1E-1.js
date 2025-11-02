@@ -2,9 +2,13 @@ import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
-import { point, pointAdistance, pointIntersectionCC } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import {
+  pointAdistance,
+  pointIntersectionCC,
+} from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

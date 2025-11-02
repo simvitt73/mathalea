@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPoint } from '../../lib/2d/textes'

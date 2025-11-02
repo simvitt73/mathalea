@@ -4,17 +4,16 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegment } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  Point,
-  point,
-  pointIntersectionCC,
-  pointIntersectionDD,
-  pointSurCercle,
-} from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import {
+  pointIntersectionCC,
+  pointIntersectionDD,
+  pointSurCercle,
+} from '../../lib/2d/utilitairesPoint'
 import { texTexte } from '../../lib/format/texTexte'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'

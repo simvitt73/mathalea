@@ -1,5 +1,5 @@
 import type { ICercle, IDroite, IPointAbstrait } from './Interfaces'
-import { pointAbstrait, PointAbstrait } from './points-abstraits'
+import { point, Point, pointAbstrait, PointAbstrait } from './PointAbstrait'
 
 /**
  * Retourne un entier aléatoire entre min et max (inclus)
@@ -18,32 +18,6 @@ const randint = (min: number, max: number): number =>
  */
 const longueur = (A: IPointAbstrait, B: IPointAbstrait): number =>
   Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
-
-/**
- * A = point('A') //son nom
- * A = point(x,y) //ses coordonnées
- * A = point(x,y,'A') //ses coordonnées et son nom
- * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
- * @author Rémi Angot
- * @class
- */
-export class Point extends PointAbstrait {}
-
-/**
- * Crée un objet Point ayant les propriétés suivantes :
- * @param {number} x abscisse
- * @param {number} y ordonnée
- * @param {string} nom son nom qui apparaîtra
- * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
- * @return {PointAbstrait}
- */
-export function point(x: number, y: number, nom = '', positionLabel = 'above') {
-  return new PointAbstrait(x, y, nom, positionLabel)
-}
-
-export function pointDepuisPointAbstrait(point: PointAbstrait) {
-  return new Point(point.x, point.y, point.nom, point.positionLabel)
-}
 
 /**
  * M = milieu(A,B) //M est le milieu de [AB]

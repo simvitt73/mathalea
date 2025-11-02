@@ -1,11 +1,9 @@
 import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
 import { codageCarre } from '../../lib/2d/CodageCarre'
 import { codageSegments } from '../../lib/2d/CodageSegment'
-import { point } from '../../lib/2d/points'
-import {
-  nommePolygone,
-  polygoneRegulierParCentreEtRayon,
-} from '../../lib/2d/polygones'
+import { point } from '../../lib/2d/PointAbstrait'
+import { nommePolygone } from '../../lib/2d/polygones'
+import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygonesParticuliers'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

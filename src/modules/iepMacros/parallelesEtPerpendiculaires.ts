@@ -5,13 +5,8 @@ import {
   droiteParPointEtParallele,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
-import {
-  point,
-  pointIntersectionLC,
-  pointSurDroite,
-  pointSurSegment,
-} from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   homothetie,
   projectionOrtho,
@@ -25,6 +20,11 @@ import {
   longueur,
   pointEstSur,
 } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionLC,
+  pointSurDroite,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import type {
   IAlea2iep,

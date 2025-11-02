@@ -1,6 +1,6 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   segment,
   segmentAvecExtremites,

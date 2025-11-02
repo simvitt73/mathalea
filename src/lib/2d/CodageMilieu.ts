@@ -2,10 +2,11 @@ import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { droite } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, milieu } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
+import { Point } from './PointAbstrait'
 import { tracePointSurDroite } from './TracePointSurDroite'
 import { longueur } from './utilitairesGeometriques'
+import { milieu } from './utilitairesPoint'
 
 /**
  * Code le milieu d'un segment

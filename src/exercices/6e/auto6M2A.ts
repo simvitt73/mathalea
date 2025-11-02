@@ -3,13 +3,8 @@ import { codageSegment } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import type { ISegment } from '../../lib/2d/Interfaces'
-import {
-  milieu,
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
@@ -23,6 +18,11 @@ import {
   estDansTriangle,
   longueur,
 } from '../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

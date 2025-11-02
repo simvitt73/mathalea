@@ -6,11 +6,12 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { pattern } from './pattern'
-import { Point, point, pointAdistance } from './points'
+import { Point, point } from './PointAbstrait'
 import { polygone } from './polygones'
 import { segment } from './segmentsVecteurs'
 import { homothetie, rotation, translation } from './transformations'
 import { longueur } from './utilitairesGeometriques'
+import { pointAdistance } from './utilitairesPoint'
 import { vecteur } from './Vecteur'
 
 /**

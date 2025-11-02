@@ -1,12 +1,13 @@
 import { context } from '../../modules/context'
-import type { Point3d } from '../3d/3dProjectionMathalea2d/elements'
+import type { Point3d } from '../3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { cercle } from './cercle'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { plot } from './Plot'
-import { Point, point } from './points'
-import type { PointAbstrait } from './points-abstraits'
-import { carre, Polygone } from './polygones'
+import type { PointAbstrait } from './PointAbstrait'
+import { Point, point } from './PointAbstrait'
+import { Polygone } from './polygones'
+import { carre } from './polygonesParticuliers'
 import { segment } from './segmentsVecteurs'
 
 /**

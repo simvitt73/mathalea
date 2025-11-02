@@ -7,14 +7,13 @@ import {
   demicercle3d,
   droite3d,
   point3d,
-  vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
   rotation3d,
   rotationV3d,
   sensDeRotation3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+  vecteur3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'

@@ -662,14 +662,19 @@ export type UneProposition = {
   }
 }
 
-export type LegacyReponse = string | IFractionEtendue | Decimal | number
+export type LegacyReponse =
+  | string
+  | IFractionEtendue
+  | Decimal
+  | number
+  | IGrandeur
 export type LegacyReponses = LegacyReponse[] | LegacyReponse
 
 export interface AutoCorrection {
   enonce?: string
   enonceAvant?: boolean
   melange?: boolean
-  enonceAGauche?: boolean
+  enonceAGauche?: boolean | [number, number]
   enonceAvantUneFois?: boolean
   enonceCentre?: boolean
   enonceApresNumQuestion?: boolean

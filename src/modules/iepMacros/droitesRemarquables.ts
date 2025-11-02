@@ -1,9 +1,9 @@
 import { droite } from '../../lib/2d/droites'
-import { milieu, pointSurSegment } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { projectionOrtho, rotation } from '../../lib/2d/transformations'
-import { centreCercleCirconscrit } from '../../lib/2d/triangle'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu, pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { centreCercleCirconscrit } from '../../lib/2d/utilitairesTriangle'
 import type {
   IAlea2iep,
   OptionsCompas,

@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { papierPointe } from '../../lib/2d/reperes'
 import { TracePoint } from '../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../lib/2d/transformations'

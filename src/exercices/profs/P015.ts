@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { infoMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import Alea2iep from '../../modules/Alea2iep'

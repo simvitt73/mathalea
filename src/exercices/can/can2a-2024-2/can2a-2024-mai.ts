@@ -1,11 +1,12 @@
 import { grille } from '../../../lib/2d/Grille'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'

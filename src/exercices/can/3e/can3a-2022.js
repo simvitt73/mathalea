@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import {
   handleAnswers,
   setReponse,

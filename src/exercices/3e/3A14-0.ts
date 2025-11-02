@@ -1,13 +1,13 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import {
   point3d,
   polygone3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { pave3d, pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'

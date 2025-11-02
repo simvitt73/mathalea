@@ -5,7 +5,7 @@ import {
   point3d,
   polygone3d,
   vecteur3d,
-} from '../../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcm from '../../ExerciceQcm'

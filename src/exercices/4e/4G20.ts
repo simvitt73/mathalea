@@ -1,6 +1,6 @@
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'

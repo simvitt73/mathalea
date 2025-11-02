@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { tracePoint } from '../../lib/2d/TracePoint'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import {

@@ -267,6 +267,7 @@ async function testRunAllLots(filter: string) {
       pauseOnError: false,
       silent: false,
       debug: false,
+      headless: prefs.headless,
     })
   }
 }
@@ -325,7 +326,6 @@ if (
     })
   }
 } else {
-  prefs.headless = false
   testRunAllLots('can')
   testRunAllLots('6e')
   testRunAllLots('5e')

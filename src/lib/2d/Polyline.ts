@@ -2,7 +2,7 @@ import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import type { IPoint3d } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { PointAbstrait } from './points-abstraits'
+import { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 
 /**

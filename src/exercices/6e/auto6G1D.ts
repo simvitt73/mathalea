@@ -2,15 +2,15 @@ import { codageAngle } from '../../lib/2d/angles'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   barycentre,
-  carre,
   NommePolygone,
   nommePolygone,
   Polygone,
   polygone,
 } from '../../lib/2d/polygones'
+import { carre } from '../../lib/2d/polygonesParticuliers'
 import {
   homothetie,
   rotation,

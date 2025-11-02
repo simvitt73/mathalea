@@ -1,7 +1,6 @@
-import { vecteur } from '../../lib/2d/Vecteur'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { TexteParPoint, texteParPointEchelle } from '../../lib/2d/textes'
 import {
@@ -9,7 +8,8 @@ import {
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
-import { centreGraviteTriangle } from '../../lib/2d/triangle'
+import { centreGraviteTriangle } from '../../lib/2d/utilitairesTriangle'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'

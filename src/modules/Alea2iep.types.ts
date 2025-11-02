@@ -1,4 +1,4 @@
-import type { PointAbstrait } from '../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../lib/2d/PointAbstrait'
 
 export type OptionsIep = {
   id?: string

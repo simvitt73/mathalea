@@ -1,7 +1,7 @@
 import type { Matrix } from 'mathjs'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, Point } from '../../lib/2d/points'
+import { point, Point } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import type { TracePoint } from '../../lib/2d/TracePoint'

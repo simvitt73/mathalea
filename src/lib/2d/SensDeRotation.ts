@@ -3,7 +3,7 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import type { IPointAbstrait } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import type { Point } from './points'
+import type { Point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { rotation, similitude } from './transformations'
 

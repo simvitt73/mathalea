@@ -1,10 +1,11 @@
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'

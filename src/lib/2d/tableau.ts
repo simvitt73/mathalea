@@ -5,12 +5,13 @@ import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMat
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu, point, Point } from './points'
+import { point, Point } from './PointAbstrait'
 import { polygone } from './polygones'
 import { Polyline, polyline } from './Polyline'
 import { Segment, segment } from './segmentsVecteurs'
 import './tableau2x2.scss'
 import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
+import { milieu } from './utilitairesPoint'
 
 export type StyledText = {
   texte: string

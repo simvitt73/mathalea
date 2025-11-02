@@ -3,8 +3,7 @@ import { egal } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, point, pointSurDroite, pointSurSegment } from './points'
-import { pointAbstrait, PointAbstrait } from './points-abstraits'
+import { Point, point, pointAbstrait, PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import {
   Latex2d,
@@ -15,6 +14,7 @@ import {
 } from './textes'
 import { projectionOrtho, translation } from './transformations'
 import { angleOriente, longueur, norme } from './utilitairesGeometriques'
+import { pointSurDroite, pointSurSegment } from './utilitairesPoint'
 import { Vecteur, vecteur } from './Vecteur'
 import { vide2d } from './Vide2d'
 

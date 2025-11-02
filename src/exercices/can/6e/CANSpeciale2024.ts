@@ -1,13 +1,14 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
   latexParCoordonnees,
   texteParPosition,
 } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import {
   handleAnswers,
   setReponse,

@@ -7,14 +7,10 @@ import { fixeBordures } from './fixeBordures'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { motifs } from './pattern'
-import { point } from './points'
-import { PointAbstrait, pointAbstrait } from './points-abstraits'
-import {
-  elimineBinomesXYIntermediairesAlignes,
-  Polygone,
-  polygone,
-} from './polygones'
+import { point, PointAbstrait, pointAbstrait } from './PointAbstrait'
+import { Polygone, polygone } from './polygones'
 import { polyline } from './Polyline'
+import { elimineBinomesXYIntermediairesAlignes } from './Polyquad'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 /**

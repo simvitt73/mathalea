@@ -1,5 +1,4 @@
 import { egal } from '../../modules/outils'
-import { degToRad } from '../mathFonctions/trigo'
 import { Droite, droite } from './droites'
 import type {
   IDroite,
@@ -10,11 +9,17 @@ import type {
   IVecteur,
 } from './Interfaces'
 import type { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, point } from './points'
-import { pointAbstrait, PointAbstrait } from './points-abstraits'
+import { Point, point, pointAbstrait, PointAbstrait } from './PointAbstrait'
 import { Polygone, polygone } from './polygones'
 import { Segment, segment } from './segmentsVecteurs'
 import { Vecteur, vecteur } from './Vecteur'
+
+/**
+ * Convertit un angle en degrés vers des radians
+ */
+function degToRad(deg: number): number {
+  return (deg * Math.PI) / 180
+}
 
 /**
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v

@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { codageSegments } from '../../lib/2d/CodageSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
-import { point } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'

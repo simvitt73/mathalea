@@ -5,7 +5,7 @@ import {
   courbeInterpolee,
 } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
@@ -367,7 +367,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const TexteX = latex2d('\\text{Temps (en s)}', 9, -0.7, {
               letterSize: 'scriptsize',
             })
-            const TexteY = latex2d('\\text{Hauter (en $\\text{m})}', 1, 7, {
+            const TexteY = latex2d('\\text{Hauteur (en m)}', 1, 7, {
               letterSize: 'scriptsize',
             })
             const r1 = repere({

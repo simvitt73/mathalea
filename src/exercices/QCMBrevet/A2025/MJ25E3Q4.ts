@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { labelPoint } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'

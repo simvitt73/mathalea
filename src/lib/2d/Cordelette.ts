@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { pointAbstrait, type PointAbstrait } from './points-abstraits'
+import { pointAbstrait, type PointAbstrait } from './PointAbstrait'
 
 export class Cordelette extends ObjetMathalea2D {
   amplitude: number

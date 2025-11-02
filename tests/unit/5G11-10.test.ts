@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import ConstrctionsSymetrieCentralePoints from '../../src/exercices/5e/5G11-10'
-import { isPoint } from '../../src/lib/2d/points'
+import { isPoint } from '../../src/lib/2d/utilitairesPoint'
 
 // Mock avant l'import
 vi.mock('../../src/lib/renderScratch', () => ({

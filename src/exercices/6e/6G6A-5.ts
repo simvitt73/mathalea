@@ -1,12 +1,12 @@
 import { droite } from '../../lib/2d/droites'
-import {
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Alea2iep from '../../modules/Alea2iep'

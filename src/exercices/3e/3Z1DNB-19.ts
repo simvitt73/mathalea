@@ -1,6 +1,6 @@
 import { cercle } from '../../lib/2d/cercle'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { texteParPosition } from '../../lib/2d/textes'

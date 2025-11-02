@@ -4,7 +4,7 @@ import { stringNombre } from '../outils/texNombre'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Plot, plot } from './Plot'
-import { point } from './points'
+import { point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { latex2d, texteParPosition } from './textes'
 

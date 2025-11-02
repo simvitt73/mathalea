@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { Segment } from './segmentsVecteurs'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**  Trace la demi-droite d'origine A passant par B
  * @param {PointAbstrait} A Origine de la droite

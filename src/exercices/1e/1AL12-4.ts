@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { createList } from '../../lib/format/lists'

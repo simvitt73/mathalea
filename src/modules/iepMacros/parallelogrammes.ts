@@ -5,14 +5,14 @@
  */
 
 import { droite } from '../../lib/2d/droites'
-import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import {
   homothetie,
   similitude,
   translation2Points,
 } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import type { IAlea2iep } from '../Alea2iep.types'
 
 /**

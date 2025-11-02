@@ -4,19 +4,20 @@ import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/PointAbstrait'
+import { Polygone, polygone } from '../../lib/2d/polygones'
+import { polygoneRegulier } from '../../lib/2d/polygonesParticuliers'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
-  point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionLC,
   pointSurCercle,
   pointSurSegment,
-} from '../../lib/2d/points'
-import { Polygone, polygone, polygoneRegulier } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
-import { texteSurSegment } from '../../lib/2d/texteSurSegment'
-import { tracePoint } from '../../lib/2d/TracePoint'
+} from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'

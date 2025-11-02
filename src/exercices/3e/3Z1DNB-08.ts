@@ -1,7 +1,7 @@
 import { lectureAntecedent } from '../../lib/2d/courbes'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'

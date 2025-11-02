@@ -1,6 +1,6 @@
 import { codageSegment } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { Point } from '../../lib/2d/points'
+import { Point } from '../../lib/2d/PointAbstrait'
 import type { Polygone } from '../../lib/2d/polygones'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -14,6 +14,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
+import { representant } from '../../lib/2d/representantVecteur'
 import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
@@ -304,7 +305,7 @@ export default class PavageEtTranslation2d extends Exercice {
           console.error('v est null')
           return
         }
-        d = v.representant(A)
+        d = representant(v, A)
         d.color = colorToLatexOrHTML(texcolors(i))
         t = this.nbQuestions * 3
         P1 = monpavage.polygones[couples[i][0] - 1]

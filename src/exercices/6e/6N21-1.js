@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

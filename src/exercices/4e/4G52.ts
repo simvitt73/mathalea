@@ -1,17 +1,31 @@
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { labelPoint } from '../../lib/2d/textes'
-import { arete3d, point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { degSin, degToRad } from '../../lib/mathFonctions/trigo'
+import {
+  arete3d,
+  point3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+
+/**
+ * Convertit un angle en degrés vers des radians
+ */
+function degToRad(deg: number): number {
+  return (deg * Math.PI) / 180
+}
+
+/**
+ * Calcule le sinus d'un angle en degrés
+ */
+function degSin(deg: number): number {
+  return Math.sin(degToRad(deg))
+}
 
 export const titre = 'Se repérer sur un pavé droit'
 export const amcReady = true

@@ -4,7 +4,7 @@ import type { IPointAbstrait } from './Interfaces'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { pattern } from './pattern'
-import { PointAbstrait, pointAbstrait } from './points-abstraits'
+import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { angleModulo, angleOriente, longueur } from './utilitairesGeometriques'
 
 /**

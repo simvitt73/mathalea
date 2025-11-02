@@ -1,13 +1,13 @@
-import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   antecedentInterpole,
   graphiqueInterpole,
   imageInterpolee,
 } from '../../lib/2d/courbes'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

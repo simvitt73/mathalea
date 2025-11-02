@@ -1,7 +1,7 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'

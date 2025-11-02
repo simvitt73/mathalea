@@ -3,19 +3,20 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
   point,
-  pointAdistance,
-  pointIntersectionDD,
-  pointSurDroite,
-} from '../../lib/2d/points'
-import {
   pointAbstrait,
   type PointAbstrait,
-} from '../../lib/2d/points-abstraits'
+} from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { translation2Points } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import {
+  pointAdistance,
+  pointIntersectionDD,
+  pointSurDroite,
+} from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Alea2iep from '../../modules/Alea2iep'
@@ -100,7 +101,7 @@ export default class nomExercice extends Exercice {
       const imagePoly = polygoneAvecNom(imageA, imageB, imageC)
 
       objetsEnonceEtCorr.push(
-        vecteur(D, E).representant(D),
+        representant(vecteur(D, E), D),
         afficheLongueurSegment(D, E),
         labelPoint(D, E),
       )

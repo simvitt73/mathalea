@@ -9,7 +9,7 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point, pointSurDroite } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
@@ -21,12 +21,13 @@ import {
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
-import { aireTriangle } from '../../lib/2d/triangle'
 import {
   longueur,
   norme,
   pointEstSur,
 } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
+import { aireTriangle } from '../../lib/2d/utilitairesTriangle'
 import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

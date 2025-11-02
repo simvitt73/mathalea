@@ -1,7 +1,7 @@
 import { traceCompas } from '../../lib/2d/Arc'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMilieu } from '../../lib/2d/CodageMilieu'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'

@@ -1,5 +1,5 @@
 import { grille } from '../../../lib/2d/Grille'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   segment,
   segmentAvecExtremites,

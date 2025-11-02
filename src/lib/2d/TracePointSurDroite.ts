@@ -1,11 +1,11 @@
 import { context } from '../../modules/context'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu, point, pointSurSegment } from './points'
-import { PointAbstrait } from './points-abstraits'
+import { point, PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
 import { longueur } from './utilitairesGeometriques'
+import { milieu, pointSurSegment } from './utilitairesPoint'
 
 /**
  * P=tracePointSurDroite(A,d) //Ajoute un trait perpendiculaire à d supposée tracée marquant la posiion du point A

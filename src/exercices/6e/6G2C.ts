@@ -1,5 +1,6 @@
 import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
 import { Arc, arc } from '../../lib/2d/Arc'
+import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import { cercle } from '../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { cordelette } from '../../lib/2d/Cordelette'
@@ -9,18 +10,21 @@ import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import {
   Point,
   point,
-  pointIntersectionCC,
-  pointIntersectionDD,
-  pointIntersectionLC,
-  pointSurSegment,
-} from '../../lib/2d/points'
-import { PointAbstrait, pointAbstrait } from '../../lib/2d/points-abstraits'
-import { BoiteBuilder, polygone } from '../../lib/2d/polygones'
+  PointAbstrait,
+  pointAbstrait,
+} from '../../lib/2d/PointAbstrait'
+import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionCC,
+  pointIntersectionDD,
+  pointIntersectionLC,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'

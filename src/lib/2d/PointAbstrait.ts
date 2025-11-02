@@ -72,3 +72,26 @@ export function isPointAbstrait(objet: any): objet is PointAbstrait {
 export function isPointsAbstraits(objets: any[]): objets is PointAbstrait[] {
   return objets.every(isPointAbstrait)
 }
+/**
+ * A = point('A') //son nom
+ * A = point(x,y) //ses coordonnées
+ * A = point(x,y,'A') //ses coordonnées et son nom
+ * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
+ * @deprecated Utiliser PointAbstrait à la place
+ * @author Rémi Angot
+ * @class
+ */
+export class Point extends PointAbstrait {}
+
+/**
+ * Crée un objet Point ayant les propriétés suivantes :
+ * @param {number} x abscisse
+ * @param {number} y ordonnée
+ * @param {string} nom son nom qui apparaîtra
+ * @deprecated Utiliser pointAbstrait à la place
+ * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @return {PointAbstrait}
+ */
+export function point(x: number, y: number, nom = '', positionLabel = 'above') {
+  return new PointAbstrait(x, y, nom, positionLabel)
+}

@@ -2,7 +2,7 @@ import { cercle } from '../../../lib/2d/cercle'
 
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { polyline } from '../../../lib/2d/Polyline'
 import { latex2d } from '../../../lib/2d/textes'

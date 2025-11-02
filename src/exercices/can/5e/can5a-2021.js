@@ -1,10 +1,11 @@
 import { codageAngle } from '../../../lib/2d/angles'
 import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

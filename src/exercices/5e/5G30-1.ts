@@ -1,13 +1,13 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { droite, droiteParPointEtParallele } from '../../lib/2d/droites'
-import {
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {

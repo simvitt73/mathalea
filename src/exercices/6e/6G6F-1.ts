@@ -4,17 +4,16 @@ import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { mediatrice } from '../../lib/2d/Mediatrice'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { cercle } from '../../lib/2d/cercle'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import {
-  Point,
-  point,
-  pointIntersectionCC,
-  pointIntersectionDD,
-} from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../lib/2d/utilitairesPoint'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'

@@ -2,10 +2,11 @@ import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { droite } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, milieu, point, pointSurSegment } from './points'
+import { Point, point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPoint } from './textes'
 import { rotation } from './transformations'
+import { milieu, pointSurSegment } from './utilitairesPoint'
 
 /**
  * texteSurArc(texte, A, B, angle) // Écrit un texte au milieu de l'arc AB, au dessus si A est le point le plus à gauche sinon au dessous

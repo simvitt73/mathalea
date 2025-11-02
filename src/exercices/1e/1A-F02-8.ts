@@ -4,7 +4,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { courbe } from '../../lib/2d/courbes'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { spline } from '../../lib/mathFonctions/Spline'

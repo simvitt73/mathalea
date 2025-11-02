@@ -8,11 +8,14 @@ import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
+  CodageAngleDroit3D,
   droite3d,
   point3d,
   polygone3d,
+  rotation3d,
+  translation3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import {
   cone3d,
   cube3d,
@@ -21,11 +24,7 @@ import {
   pyramide3d,
   sphere3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  CodageAngleDroit3D,
-  rotation3d,
-  translation3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'

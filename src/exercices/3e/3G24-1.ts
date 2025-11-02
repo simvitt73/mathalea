@@ -4,8 +4,7 @@ import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import { pointAdistance } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { segment, Segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -18,8 +17,9 @@ import {
 import {
   triangle2points2angles,
   triangle2points2longueurs,
-} from '../../lib/2d/triangle'
+} from '../../lib/2d/triangles'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'

@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/points'
-import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
+import { point } from '../../lib/2d/PointAbstrait'
+import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygonesParticuliers'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import {
   latexParCoordonnees,

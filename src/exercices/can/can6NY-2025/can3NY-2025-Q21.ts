@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'

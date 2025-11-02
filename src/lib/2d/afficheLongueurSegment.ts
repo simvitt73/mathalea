@@ -1,11 +1,11 @@
 import { context } from '../../modules/context'
 import { stringNombre } from '../outils/texNombre'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu, pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPoint } from './textes'
 import { rotation } from './transformations'
+import { milieu, pointSurSegment } from './utilitairesPoint'
 
 /**
  * Affiche la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous.

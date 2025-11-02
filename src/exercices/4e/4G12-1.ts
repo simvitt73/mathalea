@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { milieu, Point, point } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPointEchelle } from '../../lib/2d/textes'
@@ -12,6 +12,7 @@ import {
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
 import { vide2d, Vide2d } from '../../lib/2d/Vide2d'
 import { texcolors } from '../../lib/format/style'

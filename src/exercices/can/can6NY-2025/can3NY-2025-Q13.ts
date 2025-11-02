@@ -5,9 +5,10 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Trouver une longuer'
 export const interactifReady = true

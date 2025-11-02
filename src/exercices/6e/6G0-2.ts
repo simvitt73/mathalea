@@ -1,6 +1,6 @@
 import { demiDroite, type DemiDroite } from '../../lib/2d/DemiDroite'
 import { Droite, droite } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePointSurDroite } from '../../lib/2d/TracePointSurDroite'

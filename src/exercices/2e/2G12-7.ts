@@ -1,6 +1,6 @@
 import Figure from 'apigeom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { similitude } from '../../lib/2d/transformations'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import figureApigeom from '../../lib/figureApigeom'

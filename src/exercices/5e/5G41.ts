@@ -8,19 +8,19 @@ import { codageSegments } from '../../lib/2d/CodageSegment'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  milieu,
-  point,
-  pointAdistance,
-  pointIntersectionCC,
-  pointIntersectionDD,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import {

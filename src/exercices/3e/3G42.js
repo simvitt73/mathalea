@@ -2,7 +2,7 @@ import Decimal from 'decimal.js'
 import {
   point3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import {
   cylindre3d,
   sphere3d,

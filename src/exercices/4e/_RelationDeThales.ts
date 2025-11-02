@@ -1,14 +1,14 @@
-import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import {
   angle,
   angleOriente,
   longueur,
 } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
 import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'

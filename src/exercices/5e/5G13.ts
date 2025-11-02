@@ -8,9 +8,9 @@ import {
   positionLabelDroite,
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { point, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -20,8 +20,9 @@ import {
   translation,
   translation2Points,
 } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -233,7 +234,7 @@ export default class ConservationTransformation extends Exercice {
           imageB = translation2Points(B, D, E, `${B.nom}'`)
           imageC = translation2Points(C, D, E, `${C.nom}'`)
           objetsEnonceEtCorr.push(
-            vecteur(D, E).representant(D),
+            representant(vecteur(D, E), D),
             tracePoint(D, E),
             labelPoint(D, E),
           )

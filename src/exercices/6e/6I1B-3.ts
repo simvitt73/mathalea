@@ -1,9 +1,9 @@
 // on importe les fonctions nécessaires.
-import { tracePoint } from '../../lib/2d/TracePoint'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { texteGras } from '../../lib/format/style'
 import {
   combinaisonListesSansChangerOrdre,

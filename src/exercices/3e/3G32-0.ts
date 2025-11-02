@@ -3,13 +3,7 @@ import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
-import {
-  milieu,
-  Point,
-  point,
-  pointAdistance,
-  pointIntersectionLC,
-} from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import {
   NommePolygone,
   Polygone,
@@ -23,19 +17,22 @@ import { tracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
+  milieu,
+  pointAdistance,
+  pointIntersectionLC,
+} from '../../lib/2d/utilitairesPoint'
+import {
   Arete3d,
   arete3d,
+  CodageAngleDroit3D,
   demicercle3d,
   Point3d,
   point3d,
+  rotationV3d,
   Vecteur3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  CodageAngleDroit3D,
-  rotationV3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import {
   handleAnswers,
   setReponse,
@@ -118,7 +115,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
   }
 
   nouvelleVersion() {
-    let listeDeNomsDePolygones
+    let listeDeNomsDePolygones: string[] = []
     const objet = [
       ['arbre', 'un', '', 'situé'],
       ['immeuble', 'un', '', 'situé'],
@@ -188,7 +185,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
         absS,
         numH,
         AB,
-        BA,
         propositionsAMC,
         enonceAMC,
         enonceInit,
@@ -258,7 +254,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
           B = point(0, 0, lB)
           AB = lA + lB
-          BA = lB + lA
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
           absC = sensH * randint(5, 9)
           C = point(
@@ -996,7 +991,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}h=$`,
                 })
               AB = lS + lC
-              BA = lC + lS
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: `${AB}\\times(\\tan(${baitaInteractif})`,
@@ -1010,7 +1004,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}h=$`,
                 })
               AB = lB + lC
-              BA = lC + lB
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: `${AB}\\times\\tan(${alfaInteractif})`,
@@ -1042,7 +1035,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}${lS}${lC}=$`,
                 })
               AB = lS + lB
-              BA = lB + lS
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: [

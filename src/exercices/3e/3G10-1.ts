@@ -9,11 +9,13 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { milieu, Point, point, pointSurDroite } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
+import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { milieu, pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import {
   handleAnswers,
@@ -950,15 +952,15 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsEnonce.push(
                 tracePoint(A, O, pointO),
                 labelPoint(A, O, pointO),
-                vecteur(pointO, O).representant(pointO),
+                representant(vecteur(pointO, O), pointO),
               )
               objetsCorrection.push(
                 tracePoint(A, O, pointO),
                 labelPoint(A, O, pointO),
                 tracePoint(Aprime, '#f15929'),
                 labelPoint(Aprime, '#f15929'),
-                vecteur(pointO, O).representant(A, couleurs[i]),
-                vecteur(pointO, O).representant(pointO, couleurs[i]),
+                representant(vecteur(pointO, O), A, couleurs[i]),
+                representant(vecteur(pointO, O), pointO, couleurs[i]),
               )
               xP[8] = xA
               yP[8] = yA
@@ -966,15 +968,15 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsEnonce.push(
                 tracePoint(B, A, pointO),
                 labelPoint(B, A, pointO),
-                vecteur(pointO, A).representant(pointO),
+                representant(vecteur(pointO, A), pointO),
               )
               objetsCorrection.push(
                 tracePoint(B, A, pointO),
                 labelPoint(B, A, pointO),
                 tracePoint(Bprime, '#f15929'),
                 labelPoint(Bprime, '#f15929'),
-                vecteur(pointO, A).representant(B, couleurs[i]),
-                vecteur(pointO, A).representant(pointO, couleurs[i]),
+                representant(vecteur(pointO, A), B, couleurs[i]),
+                representant(vecteur(pointO, A), pointO, couleurs[i]),
               )
               xP[8] = xB
               yP[8] = yB
@@ -982,15 +984,15 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsEnonce.push(
                 tracePoint(C, B, pointO),
                 labelPoint(C, B, pointO),
-                vecteur(pointO, B).representant(pointO),
+                representant(vecteur(pointO, B), pointO),
               )
               objetsCorrection.push(
                 tracePoint(C, B, pointO),
                 labelPoint(C, B, pointO),
                 tracePoint(Cprime, '#f15929'),
                 labelPoint(Cprime, '#f15929'),
-                vecteur(pointO, B).representant(C, couleurs[i]),
-                vecteur(pointO, B).representant(pointO, couleurs[i]),
+                representant(vecteur(pointO, B), C, couleurs[i]),
+                representant(vecteur(pointO, B), pointO, couleurs[i]),
               )
               xP[8] = xC
               yP[8] = yC

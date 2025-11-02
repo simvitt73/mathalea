@@ -1,5 +1,6 @@
 import { droite, Droite } from '../../lib/2d/droites'
-import { milieu, Point } from '../../lib/2d/points'
+import { Point } from '../../lib/2d/PointAbstrait'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { Vecteur } from '../../lib/2d/Vecteur'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'

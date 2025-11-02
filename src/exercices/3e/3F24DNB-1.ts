@@ -1,7 +1,7 @@
 import { courbe } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { labelPoint, latex2d } from '../../lib/2d/textes'

@@ -5,7 +5,7 @@ import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { demiDroite } from '../../../lib/2d/DemiDroite'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { repere } from '../../../lib/2d/reperes'
 import {
@@ -19,6 +19,7 @@ import {
 } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { rotation } from '../../../lib/2d/transformations'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {

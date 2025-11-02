@@ -1,20 +1,20 @@
 /* eslint-disable camelcase */
 import { codageSegments } from '../../lib/2d/CodageSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { droite } from '../../lib/2d/droites'
-import {
-  milieu,
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
-import { aireTriangle } from '../../lib/2d/triangle'
 import { angleOriente } from '../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
+import { aireTriangle } from '../../lib/2d/utilitairesTriangle'
 import { texteGras } from '../../lib/format/style'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'

@@ -1,10 +1,11 @@
 import { cercle } from '../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { milieu, point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import {
   handleAnswers,

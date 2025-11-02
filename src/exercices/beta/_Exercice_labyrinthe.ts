@@ -1,8 +1,8 @@
-import Exercice from '../Exercice'
 import { Labyrinthe, mountLabyrintheElement } from 'labyrinthe'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { context } from '../../modules/context'
 import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 /**
  * @author Rémi Angot
@@ -15,7 +15,7 @@ export default class ExerciceLabyrinthe extends Exercice {
   orientation?: 'horizontal' | 'vertical'
   goodAnswers: string[] = []
   badAnswers: string[] = []
-  
+
   constructor() {
     super()
     this.nbQuestions = 1
@@ -30,14 +30,14 @@ export default class ExerciceLabyrinthe extends Exercice {
     this.init()
     this.goodAnswers = []
     this.badAnswers = []
-        
+
     this.labyrinthe = new Labyrinthe({
       seed: this.seed,
       rows: this.rows,
       cols: this.cols,
       orientation: this.orientation,
     })
-    
+
     if (this.labyrintheElement) {
       this.labyrintheElement.remove()
     }
@@ -45,7 +45,6 @@ export default class ExerciceLabyrinthe extends Exercice {
     if (this.goodAnswers.length > 0) return
     const goodCount = this.labyrinthe.numberOfGoodAnswers() ?? 0
     const badCount = this.labyrinthe.numberOfIncorrectAnswers() ?? 0
-    console.log(goodCount, badCount)
     let attempts = 0
     for (let i = 0; i < goodCount; ) {
       const candidate = String(this.generateGoodAnswers())
@@ -78,7 +77,6 @@ export default class ExerciceLabyrinthe extends Exercice {
         }
       }
     }
-    console.log(this.goodAnswers, this.badAnswers)
     this.labyrinthe.setValues(this.goodAnswers, this.badAnswers)
 
     let texte = ''
@@ -174,7 +172,8 @@ export default class ExerciceLabyrinthe extends Exercice {
         divFeedback.innerHTML = 'Bravo !'
         return ['OK', 'OK', 'OK', 'OK']
       }
-      const ratio = this.labyrintheElement.correctClicks / this.labyrintheElement.totalGood
+      const ratio =
+        this.labyrintheElement.correctClicks / this.labyrintheElement.totalGood
       if (ratio <= 25) {
         return ['KO', 'KO', 'KO', 'KO']
       } else if (ratio <= 0.5) {

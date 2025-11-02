@@ -1,5 +1,3 @@
-import { angleComplementaire, angleOppose, angleSupplementaire } from './trigo'
-
 /**
  * @class
  * Crée un objet qui contient les propriétés suivantes : degres, cos, sin, tan et radians.
@@ -193,4 +191,98 @@ export function valeursTrigo({ modulos = [-1, 1] }) {
   }
   const mesAnglesNiv3 = mesAngles.slice()
   return { liste1: mesAnglesNiv1, liste2: mesAnglesNiv2, liste3: mesAnglesNiv3 }
+}
+
+export function angleComplementaire(angle: Angle) {
+  // retourne l'angle complémentaire d'un angle du premier cadrant
+  return new Angle({
+    degres: (90 - parseInt(angle.degres)).toString(),
+    cos: angle.sin,
+    sin: angle.cos,
+    tan: inverseTan(angle),
+    radians: complementaireRad(angle.radians),
+  })
+}
+
+export function angleSupplementaire(angle: Angle) {
+  // retourne l'angle supplémentaire d'un angle du premier cadrant
+  return new Angle({
+    degres: (180 - parseInt(angle.degres)).toString(),
+    cos: angle.cos === '0' ? '0' : (opposeStringArray(angle.cos) as string),
+    sin: angle.sin,
+    tan: angle.tan === '\\infin' ? '\\infin' : '-' + angle.tan,
+    radians: supplementaireRad(angle.radians),
+  })
+}
+export function angleOppose(angle: Angle) {
+  // retourne l'angle opposé d'un angle du premier cadrant (sinon, on pourrait avoir plusieurs signe '-' collés ensemble)
+  if (angle.degres === '0') {
+    return angle
+  } else {
+    return new Angle({
+      degres: '-' + angle.degres,
+      cos: angle.cos,
+      sin:
+        angle.sin === '0'
+          ? angle.sin
+          : (opposeStringArray(angle.sin) as string),
+      tan: angle.tan === '0' ? angle.tan : '-' + angle.tan,
+      radians: '-' + angle.radians,
+    })
+  }
+}
+
+export function complementaireRad(angleEnRadian: string) {
+  // retourne la mesure en radians du complémentaire d'un angle du premier quadrant donné également en radians
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return angleEnRadian
+    case '\\dfrac{\\pi}{6}':
+      return '\\dfrac{\\pi}{3}'
+    case '\\dfrac{\\pi}{3}':
+      return '\\dfrac{\\pi}{6}'
+    case '\\dfrac{\\pi}{2}':
+      return '0'
+    case '0':
+      return '\\dfrac{\\pi}{2}'
+  }
+}
+
+export function supplementaireRad(angleEnRadian: string) {
+  // retourne la mesure en radians du supplémentaire d'un angle du premier quadrant donné également en radians
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return '\\dfrac{3\\pi}{4}'
+    case '\\dfrac{\\pi}{6}':
+      return '\\dfrac{5\\pi}{6}'
+    case '\\dfrac{\\pi}{3}':
+      return '\\dfrac{2\\pi}{3}'
+    case '\\dfrac{\\pi}{2}':
+      return '\\dfrac{\\pi}{2}'
+    case '0':
+      return '\\pi'
+  }
+}
+export function inverseTan(angle: Angle) {
+  switch (angle.tan) {
+    case '\\infin':
+    case '-\\infin':
+      return '0'
+    case '1':
+      return '1'
+    case '\\sqrt{3}':
+      return '\\dfrac{\\sqrt{3}}{3}'
+    case '\\dfrac{\\sqrt{3}}{3}':
+      return '\\sqrt{3}'
+  }
+}
+
+function opposeStringArray(value: string[] | string): string[] | string {
+  if (Array.isArray(value)) {
+    const result = []
+    for (const e of value) {
+      result.push('-' + e)
+    }
+    return result
+  } else return '-' + value
 }

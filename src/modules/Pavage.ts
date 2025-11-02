@@ -1,10 +1,6 @@
-import { Point, point } from '../lib/2d/points'
-import {
-  barycentre,
-  Polygone,
-  polygone,
-  polygoneRegulier,
-} from '../lib/2d/polygones'
+import { Point, point } from '../lib/2d/PointAbstrait'
+import { barycentre, Polygone, polygone } from '../lib/2d/polygones'
+import { polygoneRegulier } from '../lib/2d/polygonesParticuliers'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
 import { tracePoint, type TracePoint } from '../lib/2d/TracePoint'
 import {

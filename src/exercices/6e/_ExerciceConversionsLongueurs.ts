@@ -409,7 +409,7 @@ function buildTab(
     const headers = [
       '\\hspace*{0.6cm}',
       '\\hspace*{0.6cm}',
-      '\\; $\\text{km}$ \\;',
+      '\\; \\text{km} \\;',
       '\\; hm \\;',
       'dam',
       '\\;\\; m \\;\\;',

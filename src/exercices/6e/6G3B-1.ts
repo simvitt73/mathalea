@@ -1,4 +1,5 @@
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { cercle } from '../../lib/2d/cercle'
@@ -10,7 +11,6 @@ import {
   positionLabelDroite,
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance, pointIntersectionLC } from '../../lib/2d/points'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import {
@@ -20,6 +20,10 @@ import {
   translation,
 } from '../../lib/2d/transformations'
 import { norme } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointAdistance,
+  pointIntersectionLC,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'

@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
@@ -10,7 +10,7 @@ import {
   point3d,
   polygone3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import { createList } from '../../lib/format/lists'
 import { centrage, deuxColonnesResp } from '../../lib/format/miseEnPage'

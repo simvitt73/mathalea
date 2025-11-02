@@ -2,10 +2,11 @@ import { arc } from './Arc'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, pointDepuisPointAbstrait, pointSurSegment } from './points'
+import { point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPoint } from './textes'
 import { homothetie, rotation } from './transformations'
+import { pointSurSegment } from './utilitairesPoint'
 
 export class Rapporteur extends ObjetMathalea2D {
   x: number
@@ -162,9 +163,8 @@ export class Rapporteur extends ObjetMathalea2D {
       }
       if (i !== 0 && i !== 36 && i !== 18) this.objets.push(rayon)
       azimut = rotation(azimut, centre, arcPlein / nbDivisions)
-      azimut2 = pointDepuisPointAbstrait(
-        rotation(azimut2, centre, arcPlein / nbDivisions),
-      )
+      azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
+
       if (rayonsVisibles) rayon = segment(azimut, azimut2, color)
       else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2, color)
       rayon.opacite = this.opacite

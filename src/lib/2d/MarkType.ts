@@ -1,10 +1,10 @@
 import { arc } from './Arc'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { pointSurSegment } from './points'
-import type { PointAbstrait } from './points-abstraits'
+import type { PointAbstrait } from './PointAbstrait'
 import { homothetie } from './transformations'
 import { angleOriente } from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 export type MarkType =
   | 'simple'

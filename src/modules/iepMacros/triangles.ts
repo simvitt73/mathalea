@@ -1,19 +1,16 @@
 import { cercle } from '../../lib/2d/cercle'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { pointAbstrait, type PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { homothetie, rotation } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
   pointSurSegment,
-} from '../../lib/2d/points'
-import {
-  pointAbstrait,
-  type PointAbstrait,
-} from '../../lib/2d/points-abstraits'
-import { homothetie, rotation } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
-import { longueur } from '../../lib/2d/utilitairesGeometriques'
+} from '../../lib/2d/utilitairesPoint'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import type { IAlea2iep, OptionsCompas } from '../Alea2iep.types'
 import { randint } from '../outils'

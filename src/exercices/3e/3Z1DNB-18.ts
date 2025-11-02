@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../lib/2d/tableau'

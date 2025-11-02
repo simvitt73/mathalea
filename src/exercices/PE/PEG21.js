@@ -1,12 +1,12 @@
 import { cercle } from '../../lib/2d/cercle'
 import { droite } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/PointAbstrait'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   milieu,
-  point,
   pointAdistance,
   pointIntersectionLC,
-} from '../../lib/2d/points'
-import { longueur } from '../../lib/2d/utilitairesGeometriques'
+} from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
 import { choice } from '../../lib/outils/arrayOutils'
 import Alea2iep from '../../modules/Alea2iep'

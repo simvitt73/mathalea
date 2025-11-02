@@ -1,6 +1,5 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/points'
-import { polygoneRegulier } from '../../../lib/2d/polygones'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { homothetie } from '../../../lib/2d/transformations'
@@ -17,6 +16,7 @@ import {
 import Exercice from '../../Exercice'
 
 import { afficheCoteSegment } from '../../../lib/2d/AfficheCoteSegment'
+import { polygoneRegulier } from '../../../lib/2d/polygonesParticuliers'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'

@@ -5,16 +5,15 @@ import { Droite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mediatrice } from '../../lib/2d/Mediatrice'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { Point, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import {
-  Point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
-} from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { rotation, similitude } from '../../lib/2d/transformations'
+} from '../../lib/2d/utilitairesPoint'
 import { lampeMessage } from '../../lib/format/message'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'

@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Point, point } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { segment } from '../../lib/2d/segmentsVecteurs'
