@@ -8,18 +8,16 @@ import type {
   AnswerValueType,
   AutoCorrection,
   ClickFigures,
+  IDragAndDrop,
+  IExercice,
+  IExerciceSimple,
   InteractivityType,
+  OldFormatInteractifType,
   OptionsComparaisonType,
   Valeur,
 } from '../lib/types'
 import type { IFractionEtendue } from '../modules/FractionEtendue.type'
 import type Grandeur from '../modules/Grandeur'
-import type {
-  IDragAndDrop,
-  IExercice,
-  IExerciceSimple,
-  OldFormatInteractifType,
-} from './Exercice.type'
 import {
   exportedApplyNewSeed,
   exportedNouvelleVersionWrapper,
