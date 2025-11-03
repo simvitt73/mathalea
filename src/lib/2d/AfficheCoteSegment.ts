@@ -27,6 +27,7 @@ import { Vide2d } from './Vide2d'
 // JSDOC Validee par EE Juin 2022
 
 export class AfficheCoteSegment extends ObjetMathalea2D {
+  Cote: any
   constructor(
     s: Segment,
     Cote = '',
@@ -47,7 +48,7 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
     if (longueur(A, B) > 1) cote.styleExtremites = '<->'
     else cote.styleExtremites = '>-<'
     cote.epaisseur = epaisseurCote
-    if (Cote === '') {
+    if (Cote.length === 0) {
       valeur = afficheLongueurSegment(
         cote.extremite1,
         cote.extremite2,
@@ -56,24 +57,23 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
         'cm',
         horizontal,
       )
+    }
+    if (Cote.includes('\\')) {
+      valeur = placeLatexSurSegment(Cote, cote.extremite1, cote.extremite2, {
+        distance: positionValeur,
+        horizontal,
+        letterSize: 'normalsize',
+        color: couleurValeur,
+      })
     } else {
-      if (Cote.includes('\\')) {
-        valeur = placeLatexSurSegment(Cote, cote.extremite1, cote.extremite2, {
-          distance: positionValeur,
-          horizontal,
-          letterSize: 'normalsize',
-          color: couleurValeur,
-        })
-      } else {
-        valeur = texteSurSegment(
-          Cote,
-          cote.extremite1,
-          cote.extremite2,
-          couleurValeur,
-          positionValeur,
-          horizontal,
-        )
-      }
+      valeur = texteSurSegment(
+        String(Cote).replace('.', ','), // Pour les pays utilisant la virgule comme séparateur décimal
+        cote.extremite1,
+        cote.extremite2,
+        couleurValeur,
+        positionValeur,
+        horizontal,
+      )
     }
     const { xmin, xmax, ymin, ymax } = fixeBordures([cote, valeur])
     this.bordures = [xmin, ymin, xmax, ymax]
