@@ -292,25 +292,10 @@ export function translation2Points(
  * @return L'image de A par la rotation de centre O et d'angle angle
  * @author Rémi Angot et Jean-Claude Lhote
  */
-export function rotation(
-  A: IPointAbstrait,
-  O: IPointAbstrait,
-  angle: number,
-  nom?: string,
-  positionLabel?: string,
-  color?: string,
-): PointAbstrait
-export function rotation(
-  A: IPoint,
-  O: IPointAbstrait,
-  angle: number,
-  nom?: string,
-  positionLabel?: string,
-  color?: string,
-): Point
+
 export function rotation(
   A: IDroite,
-  O: IPointAbstrait,
+  O: PointAbstrait,
   angle: number,
   nom?: string,
   positionLabel?: string,
@@ -318,7 +303,7 @@ export function rotation(
 ): Droite
 export function rotation(
   A: ISegment,
-  O: IPointAbstrait,
+  O: PointAbstrait,
   angle: number,
   nom?: string,
   positionLabel?: string,
@@ -326,7 +311,7 @@ export function rotation(
 ): Segment
 export function rotation(
   A: IPolygone,
-  O: IPointAbstrait,
+  O: PointAbstrait,
   angle: number,
   nom?: string,
   positionLabel?: string,
@@ -334,23 +319,32 @@ export function rotation(
 ): Polygone
 export function rotation(
   A: IVecteur,
-  O: IPointAbstrait,
+  O: PointAbstrait,
   angle: number,
   nom?: string,
   positionLabel?: string,
   color?: string,
 ): Vecteur
 
+export function rotation(
+  A: PointAbstrait,
+  O: PointAbstrait,
+  angle: number,
+  nom?: string,
+  positionLabel?: string,
+  color?: string,
+): PointAbstrait
+
 // Implémentation (avec classes concrètes pour instanceof)
 export function rotation(
   A: IPointAbstrait | IPoint | IDroite | ISegment | IPolygone | IVecteur,
-  O: IPointAbstrait,
+  O: PointAbstrait,
   angle: number,
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
-  if (A instanceof Point || A instanceof PointAbstrait) {
+): PointAbstrait | Droite | Segment | Polygone | Vecteur {
+  if (A instanceof PointAbstrait || A instanceof PointAbstrait) {
     const x =
       O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
@@ -360,12 +354,12 @@ export function rotation(
       (A.x - O.x) * Math.sin((angle * Math.PI) / 180) +
       (A.y - O.y) * Math.cos((angle * Math.PI) / 180)
     if (A instanceof Point) {
-      return point(x, y, nom, positionLabel)
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
   }
-  if ('listePoints' in A) {
+  if (A instanceof Polygone) {
     const p2 = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = rotation(A.listePoints[i], O, angle) as PointAbstrait
@@ -374,13 +368,21 @@ export function rotation(
     return polygone(p2, color)
   }
   if ('pente' in A) {
-    const M = rotation(point(A.x1, A.y1), O, angle) as Point
-    const N = rotation(point(A.x2, A.y2), O, angle) as Point
+    const M = rotation(
+      pointAbstrait(A.x1, A.y1) as PointAbstrait,
+      O,
+      angle,
+    ) as PointAbstrait
+    const N = rotation(
+      pointAbstrait(A.x2, A.y2) as PointAbstrait,
+      O,
+      angle,
+    ) as PointAbstrait
     return droite(M, N, '', color)
   }
   if (A instanceof Segment) {
-    const M = rotation(A.extremite1, O, angle) as PointAbstrait
-    const N = rotation(A.extremite2, O, angle) as PointAbstrait
+    const M = rotation(A.extremite1 as PointAbstrait, O, angle) as PointAbstrait
+    const N = rotation(A.extremite2 as PointAbstrait, O, angle) as PointAbstrait
     const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
@@ -605,7 +607,7 @@ export function symetrieAxiale(
   }
 
   // Polygone
-  if (A instanceof Polygone || 'listePoints' in A) {
+  if (A instanceof Polygone) {
     const p2: PointAbstrait[] = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = symetrieAxiale(A.listePoints[i], d) as PointAbstrait
@@ -729,14 +731,7 @@ export function projectionOrtho(
 // JSDOC Validee par EE Juin 2022
 
 // Surcharges
-export function affiniteOrtho(
-  A: IPointAbstrait,
-  d: IDroite,
-  k: number,
-  nom?: string,
-  positionLabel?: string,
-  color?: string,
-): PointAbstrait
+
 export function affiniteOrtho(
   A: IPoint,
   d: IDroite,
@@ -777,6 +772,14 @@ export function affiniteOrtho(
   positionLabel?: string,
   color?: string,
 ): Vecteur
+export function affiniteOrtho(
+  A: IPointAbstrait,
+  d: IDroite,
+  k: number,
+  nom?: string,
+  positionLabel?: string,
+  color?: string,
+): PointAbstrait
 
 // Implémentation
 export function affiniteOrtho(
@@ -817,7 +820,7 @@ export function affiniteOrtho(
   }
 
   // Polygone
-  if ('listePoints' in A) {
+  if (A instanceof Polygone) {
     const p2: PointAbstrait[] = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = affiniteOrtho(A.listePoints[i], d, k) as PointAbstrait
@@ -834,7 +837,7 @@ export function affiniteOrtho(
   }
 
   // Segment
-  if ('extremite1' in A && 'extremite2' in A) {
+  if (A instanceof Segment) {
     const M = affiniteOrtho(A.extremite1, d, k) as PointAbstrait
     const N = affiniteOrtho(A.extremite2, d, k) as PointAbstrait
     const s = segment(M, N, color)
@@ -974,7 +977,7 @@ export function similitude(
 
   // Vecteur
   let v = A as Vecteur
-  const V = rotation(v, O, a)
+  const V = rotation(v as any, O as PointAbstrait, a)
   v = homothetie(V, O, k) as unknown as Vecteur
   return v
 }
