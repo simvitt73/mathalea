@@ -1,5 +1,7 @@
 import { notify } from '../../bugsnag'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { cone3d } from '../../lib/3d/3dProjectionMathalea2d/Cone3dPerspectiveCavaliere'
+import { cylindre3d } from '../../lib/3d/3dProjectionMathalea2d/Cylindre3dPerspectiveCavaliere'
 import {
   homothetie3d,
   Point3d,
@@ -8,12 +10,8 @@ import {
   translation3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
-import {
-  cone3d,
-  cylindre3d,
-  prisme3d,
-  pyramide3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
+import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'

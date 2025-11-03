@@ -8,7 +8,8 @@ import {
   point3d,
   polygone3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
-import { pave3d, pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
+import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'

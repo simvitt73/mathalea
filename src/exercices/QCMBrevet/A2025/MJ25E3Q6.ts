@@ -11,7 +11,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
 
-import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '47v56'

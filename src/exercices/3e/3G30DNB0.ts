@@ -11,7 +11,7 @@ import {
   polygone3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
-import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
 import { createList } from '../../lib/format/lists'
 import { centrage, deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'

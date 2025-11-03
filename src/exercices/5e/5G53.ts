@@ -14,11 +14,9 @@ import {
   translation3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
-import {
-  prisme3d,
-  pyramide3d,
-  pyramideTronquee3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
+import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
+import { pyramideTronquee3d } from '../../lib/3d/3dProjectionMathalea2d/PyramideTronquee3dPerspectiveCavaliere'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'

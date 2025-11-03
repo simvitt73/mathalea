@@ -14,7 +14,7 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { rotation } from '../../../lib/2d/transformations'
 import { milieu, pointSurSegment } from '../../../lib/2d/utilitairesPoint'
-import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

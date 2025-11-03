@@ -8,7 +8,7 @@ import {
   polygone3d,
   vecteur3d,
 } from '../../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
-import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'

@@ -32,7 +32,7 @@ import {
   Vecteur3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
-import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/Sphere3dPerspectiveCavaliere'
 import {
   handleAnswers,
   setReponse,
