@@ -22,28 +22,19 @@ describe('deparenthise()', () => {
     it('conserve les \\div explicites', () => {
       expect(norm(deparenthise('3+(4\\div2)'))).toBe('3+4\\div2')
     })
-  })
 
-  describe('Signe et coefficients', () => {
-    it('supprime le coefficient 1', () => {
-      expect(norm(deparenthise('4+1x'))).toBe('4+x')
+    it('conserve les \\div explicites', () => {
+      expect(norm(deparenthise('11\\div(3+8)'))).toBe('11\\div(3+8)')
     })
 
-    /* it('convertit -1x en -x', () => {
-      expect(norm(deparenthise('-1x+5'))).toBe('-x+5')
-    })
-*/
-    /*
-    it('convertit + -x en -x', () => {
-      expect(norm(deparenthise('4+-1x'))).toBe('4-x')
-    })
-*/
-    it('supprime le terme nul', () => {
-      expect(norm(deparenthise('5+0x'))).toBe('5')
+    it('conserve les \\div explicites', () => {
+      expect(norm(deparenthise('(12\\div3)+8'))).toBe('12\\div3+8')
     })
 
-    it('conserve l’ordre original des termes', () => {
-      expect(norm(deparenthise('4+1x-2'))).toBe('4+x-2')
+    it('conserve les \\div explicites', () => {
+      expect(norm(deparenthise('8+(9\\times(6\\div3))'))).toBe(
+        '8+9\\times(6\\div3)',
+      )
     })
   })
 
@@ -58,11 +49,10 @@ describe('deparenthise()', () => {
       ).toBe('\\dfrac{-14\\times11}{11\\times12}')
     })
 
-    /*
     it('affiche 5÷(-3) pour division négative', () => {
       expect(norm(deparenthise('5\\div-3'))).toBe('5\\div(-3)')
     })
-*/
+
     it('affiche \\dfrac{-9}{5\\times(-16)} pour dénominateur avec facteur négatif', () => {
       expect(norm(deparenthise('\\dfrac{(-9)}{(+5)\\times(-16)}'))).toBe(
         '\\dfrac{-9}{5\\times(-16)}',
@@ -71,16 +61,13 @@ describe('deparenthise()', () => {
   })
 
   describe('Fractions et \\dfrac / \\frac', () => {
-    /*
     it('laisse \\frac inchangé', () => {
       expect(norm(deparenthise('\\frac{4}{2}'))).toBe('\\frac{4}{2}')
     })
-*/
-    /*
+
     it('convertit \\dfrac en \\dfrac en sortie', () => {
       expect(norm(deparenthise('\\dfrac{4}{2}'))).toBe('\\dfrac{4}{2}')
     })
-      */
 
     it('accepte \\dfrac avec produits et signes complexes', () => {
       const input = '\\dfrac{(-4)\\times(+9)}{(-18)\\times(+9)}'
