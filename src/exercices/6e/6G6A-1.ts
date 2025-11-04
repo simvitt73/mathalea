@@ -20,7 +20,7 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { stringNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -179,7 +179,7 @@ export default class ConstruireUnTriangle extends Exercice {
             afficheLongueurSegment(A, C),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ avec $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$, $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}\\text{ cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ avec $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$, $${sommets[1]}${sommets[2]} = ${texNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[2]} = ${texNombre(lAC)}\\text{ cm}$.<br>`
           }
           texteCorr +=
             'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
@@ -217,7 +217,7 @@ export default class ConstruireUnTriangle extends Exercice {
             afficheLongueurSegment(C, A),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[1]}$ avec $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$ et $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}\\text{ cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[1]}$ avec $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$ et $${sommets[0]}${sommets[2]} = ${texNombre(lAC)}\\text{ cm}$.<br>`
           }
           texteCorr +=
             "Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>"
@@ -311,12 +311,12 @@ export default class ConstruireUnTriangle extends Exercice {
             ),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ tel que $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$, $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}\\text{ cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ tel que $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$, $${sommets[1]}${sommets[2]} = ${texNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[2]} = ${texNombre(lAC)}\\text{ cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[0]}${sommets[1]}]$, tracer le segment $[${sommets[3]}${sommets[2]}]$ et mesurer la longueur de ce segment.<br>`
           verif =
             texteEnCouleur(
-              `Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)}\\text{ cm}$`,
+              `Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ $${texNombre(segment(milieu(A, B), C).longueur, 1)}\\text{ cm}$`,
             ) + '.<br>'
           texteCorr +=
             'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
@@ -423,12 +423,12 @@ export default class ConstruireUnTriangle extends Exercice {
             ),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ isocèle en $${sommets[2]}$ tel que ${randint(0, 1) === 0 ? `$${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$ et $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}\\text{ cm}$` : `$${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$`} .<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ isocèle en $${sommets[2]}$ tel que ${randint(0, 1) === 0 ? `$${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$ et $${sommets[1]}${sommets[2]} = ${texNombre(lBC)}\\text{ cm}$` : `$${sommets[1]}${sommets[2]} = ${texNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$`} .<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[0]}${sommets[1]}]$, tracer le segment $[${sommets[3]}${sommets[2]}]$ et mesurer la longueur de ce segment.<br>`
           verif =
             texteEnCouleur(
-              `Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`,
+              `Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ $${texNombre(segment(milieu(A, B), C).longueur, 1)}\\text{ cm}$`,
             ) + '.<br>'
           texteCorr +=
             'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
@@ -526,12 +526,12 @@ export default class ConstruireUnTriangle extends Exercice {
             ),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[1]}${sommets[2]} = ${texNombre(lBC)}\\text{ cm}$ et $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[1]}${sommets[2]}]$, tracer le segment $[${sommets[3]}${sommets[0]}]$ et mesurer la longueur de ce segment.<br>`
           verif =
             texteEnCouleur(
-              `Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ ${stringNombre(segment(milieu(C, B), A).longueur, 1)} cm`,
+              `Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ $${texNombre(segment(milieu(C, B), A).longueur, 1)}\\text{ cm}$`,
             ) + '.<br>'
           texteCorr +=
             "Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>"
@@ -634,12 +634,12 @@ export default class ConstruireUnTriangle extends Exercice {
             ),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}\\text{ cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[0]}${sommets[2]} = ${texNombre(lAC)}\\text{ cm}$ et $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[1]}${sommets[2]}]$, tracer le segment $[${sommets[3]}${sommets[0]}]$ et mesurer la longueur de ce segment.<br>`
           verif =
             texteEnCouleur(
-              `Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ ${stringNombre(segment(milieu(C, B), A).longueur, 1)} cm`,
+              `Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ $${texNombre(segment(milieu(C, B), A).longueur, 1)}\\text{ cm}$`,
             ) + '.<br>'
           texteCorr +=
             "Pour cette construction, nous avons utilisé la règle graduée et l'équerre.<br>"
@@ -749,12 +749,12 @@ export default class ConstruireUnTriangle extends Exercice {
             ),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ équilatéral tel que $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}\\text{ cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ équilatéral tel que $${sommets[0]}${sommets[1]} = ${texNombre(lAB)}\\text{ cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[0]}${sommets[1]}]$, tracer le segment $[${sommets[3]}${sommets[2]}]$ et mesurer la longueur de ce segment.<br>`
           verif =
             texteEnCouleur(
-              `Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`,
+              `Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ $${texNombre(segment(milieu(A, B), C).longueur, 1)}\\text{ cm}$`,
             ) + '.<br>'
           texteCorr +=
             'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
