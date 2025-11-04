@@ -4,6 +4,7 @@ import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { range1 } from '../../lib/outils/nombres'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { addSheet, MySpreadsheetElement } from '../../lib/tableur/MySpreadSheet'
@@ -112,7 +113,7 @@ export default class ExerciceTableur extends Exercice {
   ): { isOk: boolean; messages: string } {
     // 1. Récupère les données de l'utilisateur
     const userData = userSheet.getData()
-
+    const nbSteps = this.listeSteps[q].length
     const testSheet = MySpreadsheetElement.create({
       data: userData,
       minDimensions: userSheet.getMinDimensions(),
@@ -126,23 +127,23 @@ export default class ExerciceTableur extends Exercice {
     document.body.appendChild(testSheet)
 
     const messages: string[][] = []
-    for (let n = 0; n < 5; n++) {
+    for (let n = 0; n < nbSteps; n++) {
       messages[n] = []
       const a1 = randint(1, 10)
       testSheet.setCellValue(0, 0, a1) // A1
-      const resultats = [1, 2, 3].map((i) =>
+      const resultats = range1(nbSteps).map((i) =>
         parseFloat(testSheet.getCellValue(i, 0)),
       )
 
       // compare les résultats
-      for (let i = 1; i < 4; i++) {
+      for (let i = 1; i < nbSteps + 1; i++) {
         if (typeof resultats[i - 1] !== 'number' || isNaN(resultats[i - 1])) {
           messages[n].push(
             `La cellule ${String.fromCharCode(65 + i)}1 ne contient pas un nombre valide.<br>`,
           )
         }
       }
-      for (let i = 1; i < 4; i++) {
+      for (let i = 1; i < nbSteps + 1; i++) {
         if (
           typeof testSheet.getCellFormula(i, 0) !== 'string' ||
           !testSheet.getCellFormula(i, 0).startsWith('=')
@@ -153,13 +154,13 @@ export default class ExerciceTableur extends Exercice {
         }
       }
       let result = a1
-      for (let i = 1; i < 4; i++) {
+      for (let i = 1; i < nbSteps + 1; i++) {
         const steps = this.listeSteps[q]
         result = evaluate(result, steps[i - 1].op, steps[i - 1].val)
         const computed = parseFloat(testSheet.getCellValue(i, 0))
         if (Math.abs(computed - result) > 1e-9) {
           messages[n].push(
-            `Pour un nombre de départ égal à ${a1}, la cellule ${String.fromCharCode(65 + i)}1 devrait contenir ${texNombre(result, 2)} mais elle contient ${texNombre(computed, 2)}.<br>`,
+            `Pour un nombre de départ égal à ${a1}, la cellule ${String.fromCharCode(65 + i)}1 devrait contenir $${texNombre(result, 2)}$ mais elle contient $${texNombre(computed, 2)}$.<br>`,
           )
         }
       }
@@ -268,18 +269,18 @@ export default class ExerciceTableur extends Exercice {
       Attention, les formules doivent fonctionner même si le nombre de départ change (Cellule A1).<br>
       `
       // ${JSON.stringify({rowCount:4,columnCount:steps.length + 1,cellData:data,styles:ExerciceTableur.styles})}
+      const style = buildStyleFromColos(
+        Object.values(ExerciceTableur.colors),
+        steps.length,
+      )
+
       if (context.isHtml) {
         texte += addSheet({
           numeroExercice: this.numeroExercice ?? 0,
           question: q,
           data,
           minDimensions: [4, 4],
-          style: {
-            A1: `background-color:   ${ExerciceTableur.colors.orange}; font-weight: bold;`,
-            B1: `background-color: ${ExerciceTableur.colors.vert};`,
-            C1: `background-color: ${ExerciceTableur.colors.jaune};`,
-            D1: `background-color: ${ExerciceTableur.colors.bleu};`,
-          },
+          style,
           columns: [{ width: 90 }, { width: 90 }, { width: 90 }, { width: 90 }],
           interactif: this.interactif,
         })
@@ -373,13 +374,37 @@ export default class ExerciceTableur extends Exercice {
         if (!isOk) {
           if (spanResultat) spanResultat.innerHTML = '☹️'
         } else {
-          if (spanResultat) spanResultat.innerHTML = '😊'
+          if (spanResultat) spanResultat.innerHTML = '😎'
           result = 'OK'
         }
       }
     }
     return result
   }
+}
+
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'] // A1..F1 max
+
+/**
+ * Construit l'objet `style` de type { 'A1': '#color', ... } à partir de `colos`
+ * Nombre de cellules = listeSteps + 1, borné à A1..F1.
+ *
+ * Règles:
+ * - Si colos est plus court que le nombre de cellules, on répète la dernière couleur.
+ * - Si listeSteps + 1 > 6, on tronque à F1.
+ */
+export function buildStyleFromColos(
+  colos: string[],
+  listeSteps: number,
+): Record<string, string> {
+  const nbCells = Math.max(1, Math.min(listeSteps + 1, LETTERS.length))
+  const style: Record<string, string> = {}
+  for (let i = 0; i < nbCells; i++) {
+    const key = `${LETTERS[i]}1`
+    const color = colos[i] ? `background: ${colos[i]}` : 'background:  #ffffff'
+    style[key] = color
+  }
+  return style
 }
 
 function transformationsOper(
