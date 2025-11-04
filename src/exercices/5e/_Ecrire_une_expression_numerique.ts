@@ -30,7 +30,7 @@ export const dateDeModifImportante = '21/09/2023'
  */
 export default class EcrireUneExpressionNumerique extends Exercice {
   version: number
-  litteral?: boolean
+  litteral: boolean = false
   constructor() {
     super()
     this.nbQuestions = 4
@@ -138,10 +138,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.`
               : '.'
           reponse =
-            /* expn.length > 1 ? expn[1].substring(1, expn[1].length - 1) : */ expn[0].substring(
-              1,
-              expn[0].length - 1,
-            )
+            expn.length > 1
+              ? expn[1].substring(1, expn[1].length - 1)
+              : expn[0].substring(1, expn[0].length - 1)
           break
         case 2:
           if (expn.indexOf('ou') > 0) {
@@ -313,7 +312,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               ajouteChampTexteMathLive(
                 this,
                 i,
-                KeyboardType.clavierDeBaseAvecEgal,
+                this.litteral
+                  ? KeyboardType.clavierDeBaseAvecVariable
+                  : KeyboardType.clavierDeBaseAvecEgal,
                 {
                   texteAvant: ' Résultat : ',
                 },
@@ -377,7 +378,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               ajouteChampTexteMathLive(
                 this,
                 i,
-                KeyboardType.clavierDeBaseAvecEgal,
+                this.litteral
+                  ? KeyboardType.clavierDeBaseAvecVariable
+                  : KeyboardType.clavierDeBaseAvecEgal,
                 {
                   texteAvant: ' Calcul : ',
                 },
@@ -386,7 +389,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               reponse: {
                 value: reponse,
                 // options: { operationSeulementEtNonResultat: true },
-                options: { expressionNumerique: true },
+                options: {
+                  expressionNumerique: !this.litteral,
+                },
               },
             })
           }
