@@ -433,3 +433,29 @@ export function estSecant(
   // Par défaut
   return false
 }
+/**
+ * Normalise un angle pour l'orientation d'un div
+ * Les divs HTML ne supportent bien la rotation que dans l'intervalle [-180, 180]
+ * Cette fonction convertit n'importe quel angle en son équivalent dans cet intervalle
+ * @param orientation Angle en degrés (peut être négatif ou > 360)
+ * @returns Angle normalisé entre -180 et 180 degrés
+ * @example normaliseOrientation(326) // retourne -34
+ * @example normaliseOrientation(190) // retourne -170
+ * @example normaliseOrientation(-200) // retourne 160
+ */
+export function normaliseOrientation(orientation: number): number {
+  // Ramène d'abord l'angle dans [0, 360[
+  let angle = orientation % 360
+
+  // Gère les angles négatifs
+  if (angle < 0) {
+    angle += 360
+  }
+
+  // Convertit en [-180, 180]
+  if (angle > 180) {
+    angle -= 360
+  }
+
+  return angle
+}
