@@ -15,7 +15,7 @@ export class PointAbstrait extends ObjetMathalea2D {
     this.typeObjet = 'point'
     this.x = 0
     this.y = 0
-    this.nom = ' '
+    this.nom = ''
     if (arguments.length === 1) {
       this.nom = String(arg1)
     } else if (arguments.length === 2) {

@@ -5,7 +5,11 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import type { IPointAbstrait } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { pattern } from './pattern'
-import { isPointsAbstraits, Point, point, PointAbstrait } from './PointAbstrait'
+import {
+  isPointsAbstraits,
+  pointAbstrait,
+  PointAbstrait,
+} from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPoint } from './textes'
 import { longueur } from './utilitairesGeometriques'
@@ -45,7 +49,7 @@ export function barycentre(p: Polygone, nom = '', positionLabel = 'above') {
   }
   const x = sommex / nbsommets
   const y = sommey / nbsommets
-  return new Point(x, y, nom, positionLabel)
+  return pointAbstrait(x, y, nom, positionLabel)
 }
 
 /*
@@ -111,7 +115,7 @@ export class Polygone extends ObjetMathalea2D {
     if (Array.isArray(points[0])) {
       // Si le premier argument est un tableau
       this.listePoints = points[0].map((el) =>
-        point(el.x, el.y, el.nom, el.positionLabel),
+        pointAbstrait(el.x, el.y, el.nom, el.positionLabel),
       )
       if (points[1]) {
         this.color = colorToLatexOrHTML(String(points[1]))
@@ -187,15 +191,15 @@ export class Polygone extends ObjetMathalea2D {
       this._triangulation = []
       for (let i = 0; i < trianglesIndices.length; i += 3) {
         this._triangulation.push([
-          point(
+          pointAbstrait(
             this.flat[trianglesIndices[i] * 2],
             this.flat[trianglesIndices[i] * 2 + 1],
           ),
-          point(
+          pointAbstrait(
             this.flat[trianglesIndices[i + 1] * 2],
             this.flat[trianglesIndices[i + 1] * 2 + 1],
           ),
-          point(
+          pointAbstrait(
             this.flat[trianglesIndices[i + 2] * 2],
             this.flat[trianglesIndices[i + 2] * 2 + 1],
           ),
@@ -515,7 +519,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
 
     const sommetsContour = [] // on crée le polygone extérieur
     for (let i = 0; i < 2 * holes[0]; i += 2) {
-      sommetsContour.push(point(data[i], data[i + 1]))
+      sommetsContour.push(pointAbstrait(data[i], data[i + 1]))
       if (noms.length >= data.length << 1) {
         sommetsContour[i >> 1].nom = noms[i << 1]
       }
@@ -538,8 +542,8 @@ export class PolygoneATrous extends ObjetMathalea2D {
     this.contour.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.contour.color = colorToLatexOrHTML(this.stringColor)
     this.stringCouleurDeFond = couleurDeFond
-    const trous: Point[][] = []
-    let trou: Point
+    const trous: PointAbstrait[][] = []
+    let trou: PointAbstrait
     let trouPol: Polygone
     for (let i = 0; i < holes.length; i++) {
       trous[i] = []
@@ -548,7 +552,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
         j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length);
         j += 2
       ) {
-        trou = point(data[j], data[j + 1])
+        trou = pointAbstrait(data[j], data[j + 1])
         if (noms.length >= data.length >> 1) {
           trou.nom = noms[j >> 1]
         }
@@ -568,15 +572,15 @@ export class PolygoneATrous extends ObjetMathalea2D {
       this._triangulation = []
       for (let i = 0, triangle; i < this.triangles.length; i += 3) {
         triangle = polygone([
-          point(
+          pointAbstrait(
             this.data[this.triangles[i] * 2],
             this.data[this.triangles[i] * 2 + 1],
           ),
-          point(
+          pointAbstrait(
             this.data[this.triangles[i + 1] * 2],
             this.data[this.triangles[i + 1] * 2 + 1],
           ),
-          point(
+          pointAbstrait(
             this.data[this.triangles[i + 2] * 2],
             this.data[this.triangles[i + 2] * 2 + 1],
           ),
@@ -664,6 +668,7 @@ export class NommePolygone extends ObjetMathalea2D {
     for (let i = 0; i < p.listePoints.length; i++) {
       if (noms.length > 0) p.listePoints[i].nom = noms[i]
     }
+    p.nom = p.listePoints.map((el) => el.nom).join('')
     const G = barycentre(p)
     let xMin = 1000
     let xMax = -1000

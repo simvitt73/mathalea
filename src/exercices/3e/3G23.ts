@@ -189,9 +189,7 @@ export default class TrianglesEgaux extends Exercice {
       dTwo = droite(D, p.listePoints[0])
       dThree = droite(E, p.listePoints[0])
       dFour = droite(p.listePoints[1], D)
-      console.log(
-        `delta des pentes des droites : ${dOne.pente - dTwo.pente} d'une part et ${dThree.pente - dFour.pente} d'autre part`,
-      )
+
       if (dOne.pente === dTwo.pente || dThree.pente === dFour.pente) {
         probleme = true
         continue // pas la peine de construire, il y a un centre de rotation qui n'éxiste pas

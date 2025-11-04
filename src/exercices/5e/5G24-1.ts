@@ -144,13 +144,11 @@ export default class TrianglesEgaux extends Exercice {
           codeA4 = codageAngle(E, F, D, 0.8, 'X')
           codeA5 = codageAngle(C, A, B, 0.8, '||')
           codeA6 = codageAngle(F, D, E, 0.8, '||')
-          nom1 = String(choisitLettresDifferentes(3))
+          nom1 = choisitLettresDifferentes(3).join('')
           nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
           nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
-          A.nom = nom1[0]
-          B.nom = nom1[1]
-          C.nom = nom1[2]
+
           D.nom = nom1[0]
           E.nom = nom1[4]
           F.nom = nom1[5]
@@ -190,11 +188,8 @@ export default class TrianglesEgaux extends Exercice {
           codeA4 = codageAngle(E, F, D, 0.8, 'X')
           codeA5 = codageAngle(C, A, B, 0.8, '||')
           codeA6 = codageAngle(F, D, E, 0.8, '||')
-          nom1 = String(choisitLettresDifferentes(3))
-          nom2 = String(choisitLettresDifferentes(3, nom1))
-          A.nom = nom1[0]
-          B.nom = nom1[1]
-          C.nom = nom1[2]
+          nom1 = choisitLettresDifferentes(3).join('')
+          nom2 = choisitLettresDifferentes(3, nom1).join('')
           D.nom = nom2[0]
           E.nom = nom2[1]
           F.nom = nom2[2]
@@ -237,13 +232,10 @@ export default class TrianglesEgaux extends Exercice {
           codeA4 = codageAngle(E, F, D, 0.8, 'X')
           codeA5 = codageAngle(C, A, B, 0.8, '||')
           codeA6 = codageAngle(F, D, E, 0.8, '||')
-          nom1 = String(choisitLettresDifferentes(3))
+          nom1 = choisitLettresDifferentes(3).join('')
           nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
           nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
-          A.nom = nom1[0]
-          B.nom = nom1[1]
-          C.nom = nom1[2]
           D.nom = nom1[0]
           E.nom = nom1[4]
           F.nom = nom1[5]
@@ -284,11 +276,9 @@ export default class TrianglesEgaux extends Exercice {
           codeA4 = codageAngle(E, F, D, 0.8, 'X')
           codeA5 = codageAngle(C, A, B, 0.8, '||')
           codeA6 = codageAngle(F, D, E, 0.8, '||')
-          nom1 = String(choisitLettresDifferentes(3))
-          nom2 = String(choisitLettresDifferentes(3, nom1))
-          A.nom = nom1[0]
-          B.nom = nom1[1]
-          C.nom = nom1[2]
+          nom1 = choisitLettresDifferentes(3).join('')
+          nom2 = choisitLettresDifferentes(3, nom1).join('')
+
           D.nom = nom2[0]
           E.nom = nom2[1]
           F.nom = nom2[2]
@@ -324,13 +314,11 @@ export default class TrianglesEgaux extends Exercice {
           codeA4 = codageAngle(E, F, D, 0.8, 'X')
           codeA5 = codageAngle(C, A, B, 0.8, '||')
           codeA6 = codageAngle(F, D, E, 0.8, '||')
-          nom1 = String(choisitLettresDifferentes(3))
+          nom1 = choisitLettresDifferentes(3).join('')
           nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
           nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
-          A.nom = nom1[0]
-          B.nom = nom1[1]
-          C.nom = nom1[2]
+
           D.nom = nom1[0]
           E.nom = nom1[4]
           F.nom = nom1[5]
@@ -348,6 +336,7 @@ export default class TrianglesEgaux extends Exercice {
           // texteCorr = `Correction ${i + 1} de type 1`
           break
         case 'similitude3':
+        default:
           p2 = similitude(p1, O2, randint(160, 200), 1)
           D = p2.listePoints[0]
           E = p2.listePoints[1]
@@ -364,11 +353,9 @@ export default class TrianglesEgaux extends Exercice {
           codeA4 = codageAngle(E, F, D, 0.8, 'X')
           codeA5 = codageAngle(C, A, B, 0.8, '||')
           codeA6 = codageAngle(F, D, E, 0.8, '||')
-          nom1 = String(choisitLettresDifferentes(3))
-          nom2 = String(choisitLettresDifferentes(3, nom1))
-          A.nom = nom1[0]
-          B.nom = nom1[1]
-          C.nom = nom1[2]
+          nom1 = choisitLettresDifferentes(3).join('')
+          nom2 = choisitLettresDifferentes(3, nom1).join('')
+
           D.nom = nom2[0]
           E.nom = nom2[1]
           F.nom = nom2[2]
@@ -395,6 +382,9 @@ export default class TrianglesEgaux extends Exercice {
 
           break
       }
+      A.nom = p1.listePoints[0].nom
+      B.nom = p1.listePoints[1].nom
+      C.nom = p1.listePoints[2].nom
 
       const auChoixCote = [
         { label: 'Choisir le bon côté', value: '' },
@@ -414,7 +404,7 @@ export default class TrianglesEgaux extends Exercice {
 
       if (this.interactif) {
         texte +=
-          `$[${A.nom + B.nom}]$ et ` +
+          `$[${A.nom}${B.nom}]$ et ` +
           choixDeroulant(this, 3 * i, auChoixCote) +
           ' sont homologues.<br>'
         handleAnswers(

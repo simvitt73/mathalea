@@ -62,6 +62,8 @@ export class Cylindre3d extends ObjetMathalea2D {
   normal: Vecteur3d
   centrebase1: Point3d
   centrebase2: Point3d
+  pointsBase1: PointAbstrait[]
+  pointsBase2: PointAbstrait[]
   rayon1: Vecteur3d
   rayon2: Vecteur3d
   color: [string, string]
@@ -194,11 +196,8 @@ export class Cylindre3d extends ObjetMathalea2D {
       this.color[0],
       angleDepart,
     )
-    /*
-    ça ne sert pas.
     this.pointsBase1 = [...c1.listePoints, ...c2.listePoints]
     this.pointsBase2 = [...c3.listePoints, ...c4.listePoints]
-    */
     if (this.cylindreColore) {
       let polygon = [...c4.listePoints]
       for (let i = c2.listePoints.length - 1; i >= 0; i--) {
