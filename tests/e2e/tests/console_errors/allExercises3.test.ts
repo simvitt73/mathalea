@@ -3,10 +3,10 @@ import type { Locator, Page } from 'playwright'
 import { describe, test } from 'vitest'
 import { findStatic, findUuid } from '../../helpers/filter.js'
 import { createIssue } from '../../helpers/issue.js'
-import { getFileLogger, log as lg, logError as lgE } from '../../helpers/log'
+import { getFileLogger, log as lg, logError as lgE } from '../../helpers/log.js'
 import prefs from '../../helpers/prefs.js'
 import { runSeveralTests } from '../../helpers/run.js'
-import { checkEachCombinationOfParams } from '../../helpers/testAllViews'
+import { checkEachCombinationOfParams } from '../../helpers/testAllViews.js'
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
@@ -239,7 +239,7 @@ async function testRunAllLots(filter: string) {
   const uuids = filter.includes('dnb')
     ? await findStatic(filter)
     : await findUuid(filter)
-  for (let i = 0; i < uuids.length && i < 300; i += 20) {
+  for (let i = 0; i < uuids.length && i < prefs.nbExosParLot; i += 20) {
     const ff: ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 20 && k < uuids.length; k++) {
       const myName = uuids[k][1]
@@ -326,20 +326,20 @@ if (
     })
   }
 } else {
-  //  testRunAllLots('can')
-  //   testRunAllLots('6e')
-  //  testRunAllLots('5e')
-  //  testRunAllLots('4e')
-  //  testRunAllLots('3e')
-  //  testRunAllLots('2e')
-  testRunAllLots('1e') // Un niveau c'est bien suffisant !
+  // testRunAllLots('can')
+  // testRunAllLots('6e')
+  // testRunAllLots('5e')
+  // testRunAllLots('4e')
+  testRunAllLots('3e')
+  // testRunAllLots('2e')
+  // testRunAllLots('1e')
   // testRunAllLots('QCM')
-  //  testRunAllLots('TEx')
-  //  testRunAllLots('TSpe')
-  //  testRunAllLots('techno1')
-  //  testRunAllLots('QCMBac')
-  //  testRunAllLots('QCMBrevet')
-  //  testRunAllLots('QCMStatiques')
+  // testRunAllLots('TEx')
+  // testRunAllLots('TSpe')
+  // testRunAllLots('techno1')
+  // testRunAllLots('QCMBac')
+  // testRunAllLots('QCMBrevet')
+  // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
   // testRunAllLots('6e/6I16')

@@ -15,7 +15,7 @@ export default mergeConfig(
       },
     },
     test: {
-      include: ['./tests/console_errors/*.test.{js,ts}'],
+      include: ['./tests/console_errors/allExercises1.test.{js,ts}'],
       exclude: [
         './tests/pdfexports/pdfexport.moule.test.ts',
         './tests/console_errors/*Zoom.test.{js,ts}',
