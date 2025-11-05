@@ -952,7 +952,7 @@ class FractionEtendue {
           : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)
       }`
     } else {
-      return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num}\\times ${ecritureParentheseSiNegatif(f2.num)}}{${this.den} \\times' ${ecritureParentheseSiNegatif(f2.den)}}${
+      return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num}\\times ${ecritureParentheseSiNegatif(f2.num)}}{${this.den} \\times ${ecritureParentheseSiNegatif(f2.den)}}${
         simplification === 'none' || this.produitFraction(f2).estIrreductible
           ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
           : `${
