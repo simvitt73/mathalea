@@ -14,6 +14,7 @@ const prefs: Prefs = {
   silent: false,
   slowMo: 0,
   verbose: true,
+  nbExosParLot: 50,
 }
 
 export default prefs
