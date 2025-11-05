@@ -1,8 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  type UneProposition,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { enleveElementBis, shuffle } from '../../lib/outils/arrayOutils'
@@ -16,6 +13,7 @@ import {
 } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
+import type { UneProposition } from '../../lib/types'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction, listeFractions } from '../../modules/fractions'
