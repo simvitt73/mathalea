@@ -161,7 +161,16 @@ export function listeDeroulanteToQcm(
         statut: choix[j].value === reponse, // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
       })
     } else if (choix[j].svg != null) {
+      const body = document.querySelector('body')
+      if (body == null) {
+        window.notify(
+          "Impossible de créer le QCM à partir de la liste déroulante car le body n'existe pas",
+          {},
+        )
+        return
+      }
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      body.appendChild(svg)
       svg.setAttribute('viewBox', '-10 -10 20 20') // Valeur par défaut, peut être ajustée
       svg.classList.add('svgChoice')
       svg.style.display = 'inline-block'
@@ -174,7 +183,7 @@ export function listeDeroulanteToQcm(
         statut: choix[j].value === reponse,
       })
       setTimeout(() => {
-        document.removeChild(svg)
+        if (svg) body.removeChild(svg)
       }, 0)
     } else if (choix[j].image != null) {
       const image = document.createElement('img')
