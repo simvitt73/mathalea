@@ -167,7 +167,8 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         handleAnswers(this, i, {
           bareme: (listePoints) => [
             Math.ceil(
-              (listePoints[0] * listePoints[1] +
+              (listePoints[0] +
+                listePoints[1] +
                 listePoints[2] +
                 listePoints[3] +
                 listePoints[4]) /
