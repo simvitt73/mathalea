@@ -831,7 +831,10 @@ export function mathaleaHandleExerciceSimple(
                   options,
                 },
               }
-            } else if (exercice.reponse instanceof Grandeur) {
+            } else if (
+              exercice.reponse instanceof Grandeur ||
+              exercice.reponse instanceof Hms
+            ) {
               reponse = {
                 reponse: { value: exercice.reponse, compare, options },
               }
