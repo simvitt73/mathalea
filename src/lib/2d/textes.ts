@@ -1282,6 +1282,7 @@ export function latex2d(
       : backgroundColor
   letterSize = letterSize ?? 'normalsize'
   orientation = orientation ?? 0
+
   opacity = opacity ?? 1
   return new Latex2d(latex, x, y, {
     color,

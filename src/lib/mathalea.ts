@@ -27,6 +27,7 @@ import {
 } from '../lib/types'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
+import Hms from '../modules/Hms'
 import { contraindreValeur } from '../modules/outils'
 import {
   showDialogForLimitedTime,
@@ -901,7 +902,19 @@ export function mathaleaHandleExerciceSimple(
             exercice.distracteurs = getDistracteurs(exercice)
             if (
               typeof exercice.reponse === 'string' ||
-              typeof exercice.reponse === 'number'
+              typeof exercice.reponse === 'number' ||
+              exercice.reponse instanceof FractionEtendue ||
+              exercice.reponse instanceof Grandeur ||
+              exercice.reponse instanceof Hms ||
+              (Array.isArray(exercice.reponse) &&
+                exercice.reponse.every(
+                  (r) =>
+                    typeof r === 'string' ||
+                    typeof r === 'number' ||
+                    r instanceof FractionEtendue ||
+                    r instanceof Grandeur ||
+                    r instanceof Hms,
+                ))
             ) {
               exercice.autoCorrection[i] = {
                 options: { radio: true },

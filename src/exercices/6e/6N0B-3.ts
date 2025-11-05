@@ -22,6 +22,7 @@ export default class TraduireUneExpressionParUnePhrase6eme extends EcrireUneExpr
     super()
     this.version = 2
     this.nbQuestions = 4
+    this.litteral = false
     this.sup4 = '1'
     this.besoinFormulaire4Texte = false
   }
