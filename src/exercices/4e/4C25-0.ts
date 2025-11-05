@@ -26,7 +26,7 @@ import Exercice from '../Exercice'
 
 export const titre =
   'Résoudre des problèmes additifs et de comparaison sur les fractions'
-export const dateDeModifImportante = '21/05/2025'
+export const dateDeModifImportante = '05/11/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -34,7 +34,8 @@ export const interactifType = 'mathLive'
  * Résoudre des problèmes additifs et de comparaison sur les fractions
  * Refactoring Mickael Guironnet : possibilité de choisir les problèmes et avoir des dénominateurs différents
  * @author Sébastien Lozano
- * Passage en 5ème (dénominateurs multiples) + Passage en interactif : Eric Elter
+ * Passage en 5ème (dénominateurs multiples) + Passage en interactif : Éric Elter (21/05/2025)
+ * Meilleur score avec remplisLesBlanc : Éric Elter (05/11/2025)
  */
 export const uuid = '9db08'
 
@@ -719,7 +720,7 @@ export default class ProblemesAdditifsFractionsBis extends Exercice {
           listeTypeDeQuestions[i] < 3
             ? {
                 bareme: (listePoints) => [
-                  listePoints[0] * listePoints[1] * listePoints[2],
+                  listePoints[0] + listePoints[1] + listePoints[2],
                   3,
                 ],
                 champ1: { value: fracMemeDenomRangees[0].texFraction },
@@ -728,11 +729,13 @@ export default class ProblemesAdditifsFractionsBis extends Exercice {
               }
             : {
                 bareme: (listePoints) => [
-                  3 *
-                    (listePoints[0] *
-                      listePoints[1] *
-                      listePoints[2] *
-                      listePoints[3]),
+                  Math.ceil(
+                    0.74 *
+                      (listePoints[0] +
+                        listePoints[1] +
+                        listePoints[2] +
+                        listePoints[3]),
+                  ),
                   3,
                 ],
                 champ1: { value: fracMemeDenomRangees[0].texFraction },
