@@ -14,10 +14,7 @@ import {
   pointIntersectionLC,
 } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  type UneProposition,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -27,6 +24,7 @@ import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
+import type { UneProposition } from '../../lib/types'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
@@ -160,7 +158,7 @@ export default class VocabulaireDuCercle extends Exercice {
 
     ) {
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      const propositionsAMC = []
+      const propositionsAMC: UneProposition[] = []
 
       texte = ''
       texteCorr = ''
@@ -374,7 +372,7 @@ export default class VocabulaireDuCercle extends Exercice {
               ? (feedback = propositions[ee].feedback)
               : (feedback = propositions[ee].feedbackAlt)
             propositionsEE.push({
-              texte: propositions[ee].texte,
+              texte: propositions[ee].texte ?? '',
               statut,
               feedback,
             })

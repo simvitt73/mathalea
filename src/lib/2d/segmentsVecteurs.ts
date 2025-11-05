@@ -452,8 +452,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '<') {
         // si ça commence par < on rajoute une flèche en A
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = similitudePoint(A, M, 90, 0.7)
-        const A2 = similitudePoint(A, M, -90, 0.7)
+        const A1 = similitudePoint(A, M, 45, 0.7)
+        const A2 = similitudePoint(A, M, -45, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff,
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${
@@ -468,8 +468,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
         const M = pointSurSegment(A, B, -h / context.pixelsParCm)
-        const A1 = similitudePoint(A, M, 90, 0.7)
-        const A2 = similitudePoint(A, M, -90, 0.7)
+        const A1 = similitudePoint(A, M, 45, 0.7)
+        const A2 = similitudePoint(A, M, -45, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff,
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${

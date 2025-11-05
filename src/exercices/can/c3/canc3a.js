@@ -592,10 +592,20 @@ export default class CourseAuxNombresCM extends Exercice {
           objets = []
           objets[0] = segment(A, B)
           objets[0].styleExtremites = '|-|'
-          objets[1] = afficheCoteSegment(objets[0], c, 0.5, 'green')
+          objets[1] = afficheCoteSegment(
+            objets[0],
+            stringNombre(c, 0),
+            0.5,
+            'green',
+          )
           objets[2] = segment(A, C)
           objets[2].styleExtremites = '|-|'
-          objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
+          objets[3] = afficheCoteSegment(
+            objets[2],
+            stringNombre(a, 0),
+            -1,
+            'blue',
+          )
           objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
           texte = mathalea2d(
             {
@@ -655,8 +665,18 @@ export default class CourseAuxNombresCM extends Exercice {
           objets[1] = afficheCoteSegment(objets[0], '?', 0.5, 'red')
           objets[2] = segment(A, C)
           objets[2].styleExtremites = '|-|'
-          objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
-          objets[4] = afficheCoteSegment(segment(C, B), b, -1, 'green')
+          objets[3] = afficheCoteSegment(
+            objets[2],
+            stringNombre(a, 0),
+            -1,
+            'blue',
+          )
+          objets[4] = afficheCoteSegment(
+            segment(C, B),
+            stringNombre(b, 0),
+            -1,
+            'green',
+          )
           texte = mathalea2d(
             {
               xmin: -0.1,

@@ -22,7 +22,7 @@ import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
 export const titre = 'Étudier une fonction polynôme du second degré'
-export const dateDePublication = '25/10/2025'
+export const dateDePublication = '05/11/2025'
 
 /**
  *
@@ -31,7 +31,7 @@ export const dateDePublication = '25/10/2025'
 export const uuid = '57692'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1AL23-72'],
   'fr-ch': [''],
 }
 export default class SecondDegreApplication extends Exercice {
@@ -51,11 +51,11 @@ export default class SecondDegreApplication extends Exercice {
     // Deuxième formulaire : choix des sous-questions pour la question 4
     this.besoinFormulaire3Texte = [
       'Choix des sous-questions de la question 4',
-      `Nombres séparés par des tirets :\n1 : Inéquation $f(x)\\geqslant 0$ ou $f(x)\\leqslant 0$\n2 : Extrémum\n3 : Images symétriques\n4 : Inéquation particulière\n5 : Intersection axe des abscisses\n6 : Sommet de la parabole\n7 : Comparaison (sens de variation)\n8 : Axe de symétrie\n9 : Position par rapport à l'axe\n10 : Forme canonique\n11 : Forme factorisée\n12 : Position relative\n13 : Comparaison d'images\n14 :Toutes les questions`,
+      `Nombres séparés par des tirets :\n1 : Inéquation $f(x)\\geqslant 0$ ou $f(x)\\leqslant 0$\n2 : Extrémum\n3 : Images symétriques\n4 : Inéquation particulière\n5 : Intersection axe des abscisses\n6 : Sommet de la parabole\n7 : Comparaison (sens de variation)\n8 : Axe de symétrie\n9 : Position par rapport à l'axe\n10 : Forme canonique\n11 : Forme factorisée\n12 : Position relative\n13 : Comparaison d'images\n14 : Ensemble de définition\n15 : Toutes les questions`,
     ]
 
     this.sup2 = '4'
-    this.sup3 = '14' // Par défaut mélange
+    this.sup3 = '15' // Par défaut mélange
     this.besoinFormulaire4CaseACocher = ['Énoncé différent', false]
   }
 
@@ -81,9 +81,9 @@ export default class SecondDegreApplication extends Exercice {
     let listeSousQuestionsIndex = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       nbQuestions: 50, // EE : Peu importe tant que ce peut englober toutes les questions possibles.
-      max: 13,
-      defaut: 14,
-      melange: 14,
+      max: 14,
+      defaut: 15,
+      melange: 15,
       shuffle: false, // Ne pas mélanger pour garder l'ordre demandé
     }).map((n) => Number(n) - 1) // ----> EE : Ainsi listeSousQuestionsIndex sera, de façon certaine, un tableau de nombres (décrémenté de 1 car cela a été ton choix ensuite.)
 
@@ -165,7 +165,7 @@ export default class SecondDegreApplication extends Exercice {
               Comme $\\Delta>0$, l'équation $f(x)=0$ admet deux solutions réelles :<br>
               $${p.texCalculRacine1(true)}$ 
               et 
-              $${p.texCalculRacine1(true)}$.<br>
+              $${p.texCalculRacine2(true)}$.<br>
               Ainsi, $S=${miseEnEvidence(`\\{${x1}\\,;\\,${x2}\\}`)}$.`
           : listeDeQuestions[i] === 2
             ? question1cPartieCommune +
@@ -213,13 +213,13 @@ export default class SecondDegreApplication extends Exercice {
              })}`
       const question2c =
         listeDeQuestions[i] === 1
-          ? `Le trinôme $${p.tex}$ est du signe de $a=${a}$ sauf entre ses racines. Ainsi : <br>` +
+          ? `Le trinôme $${p.tex}$ est du signe du coefficient de $x^2$ (c'est-à-dire $${a}$) sauf entre ses racines. Ainsi : <br>` +
             question2cPartieCommune
           : listeDeQuestions[i] === 2
-            ? `Le trinôme $${p.tex}$ est du signe de $a=${a}$ et s'annule en sa racine double. Ainsi : <br>` +
+            ? `Le trinôme $${p.tex}$ est du signe du coefficient de $x^2$ (c'est-à-dire $${a}$) et s'annule en sa racine double. Ainsi : <br>` +
               question2cPartieCommune
             : `$\\Delta<0$ donc $f(x)$ n'a pas de racines.<br>
-             $f(x)$ est toujours du signe de $a$. Ainsi :<br>` +
+             $f(x)$ est toujours du signe  du coefficient de $x^2$ (c'est-à-dire $${a}$). Ainsi :<br>` +
               question2cPartieCommune
 
       const question3 = this.sup4
@@ -282,7 +282,7 @@ export default class SecondDegreApplication extends Exercice {
          est donc $S=${a > 0 ? `${miseEnEvidence(`\\mathbb{R}`)}` : `${miseEnEvidence(`\\varnothing`)}`}$.`
 
       // Question 4e - varie selon les cas
-      const question4e = `$\\mathscr{C}_f$ coupe-t-elle l'axe des abscisses ? <br>Si oui, donner les coordonnées des points d'intersection entre $\\mathscr{C}_f$ et l'axe des abscisses.`
+      const question4e = `La courbe $\\mathscr{C}_f$ coupe-t-elle l'axe des abscisses ? <br>Si oui, donner les coordonnées du ou des points d'intersection entre $\\mathscr{C}_f$ et l'axe des abscisses.`
       const question4ec =
         listeDeQuestions[i] === 1
           ? `L'équation $f(x)=0$ admet deux solutions : $x_1=${x1}$ et $x_2=${x2}$.<br>
@@ -311,10 +311,10 @@ export default class SecondDegreApplication extends Exercice {
       donc une équation de l'axe de symétrie de la parabole $\\mathscr{C}_f$ est $${miseEnEvidence(`x=${p.alpha.simplifie().texFSD}`)}$.`
 
       // Question 4i - varie selon les cas
-      const question4i = `Sur quel(s) intervalle(s), $\\mathscr{C}_f$ est-elle ${choix ? 'strictement au-dessus' : 'strictement en dessous'} de l'axe des abscisses ?`
+      const question4i = `Sur quel(s) intervalle(s), $\\mathscr{C}_f$ est-elle ${choix ? 'strictement au-dessus' : 'strictement au-dessous'} de l'axe des abscisses ?`
       const question4ic =
         listeDeQuestions[i] === 1
-          ? `$\\mathscr{C}_f$ est ${choix ? 'strictement au-dessus' : 'strictement en dessous'} de l'axe des abscisses lorsque $f(x) ${choix ? '>' : '<'} 0$.<br>D'après le tableau de signes de la fonction $f$, ${
+          ? `$\\mathscr{C}_f$ est ${choix ? 'strictement au-dessus' : 'strictement au-dessous'} de l'axe des abscisses lorsque $f(x) ${choix ? '>' : '<'} 0$.<br>D'après le tableau de signes de la fonction $f$, ${
               choix
                 ? a > 0
                   ? `$f(x)>0$ sur $\\left]-\\infty\\,;\\,${x1}\\right[\\cup\\left]${x2}\\,;\\,+\\infty\\right[$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessus de l'axe des abscisses 
@@ -322,11 +322,11 @@ export default class SecondDegreApplication extends Exercice {
                   : `$f(x)>0$ sur $\\left]${x1}\\,;\\,${x2}\\right[$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessus de l'axe des abscisses 
                 sur $${miseEnEvidence(`\\left]${x1}\\,;\\,${x2}\\right[`)}$.`
                 : a > 0
-                  ? `$f(x)<0$ sur $\\left]${x1}\\,;\\,${x2}\\right[$, donc la courbe $\\mathscr{C}_f$ est strictement en dessous de l'axe des abscisses sur $${miseEnEvidence(`\\left]${x1}\\,;\\,${x2}\\right[`)}$.`
-                  : `$f(x)<0$ sur $\\left]-\\infty\\,;\\,${x1}\\right[\\cup\\left]${x2}\\,;\\,+\\infty\\right[$, donc la courbe $\\mathscr{C}_f$ est strictement en dessous de l'axe des abscisses sur $${miseEnEvidence(`\\left]-\\infty\\,;\\,${x1}\\right[\\cup\\left]${x2}\\,;\\,+\\infty\\right[`)}$.`
+                  ? `$f(x)<0$ sur $\\left]${x1}\\,;\\,${x2}\\right[$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessous de l'axe des abscisses sur $${miseEnEvidence(`\\left]${x1}\\,;\\,${x2}\\right[`)}$.`
+                  : `$f(x)<0$ sur $\\left]-\\infty\\,;\\,${x1}\\right[\\cup\\left]${x2}\\,;\\,+\\infty\\right[$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessous de l'axe des abscisses sur $${miseEnEvidence(`\\left]-\\infty\\,;\\,${x1}\\right[\\cup\\left]${x2}\\,;\\,+\\infty\\right[`)}$.`
             }`
           : listeDeQuestions[i] === 2
-            ? `$\\mathscr{C}_f$ est ${choix ? 'strictement au-dessus' : 'strictement en dessous'} de l'axe des abscisses lorsque $f(x) ${choix ? '>' : '<'} 0$.<br>
+            ? `$\\mathscr{C}_f$ est ${choix ? 'strictement au-dessus' : 'strictement au-dessous'} de l'axe des abscisses lorsque $f(x) ${choix ? '>' : '<'} 0$.<br>
           D'après le tableau de signes de la fonction $f$, ${
             choix
               ? a > 0
@@ -334,19 +334,19 @@ export default class SecondDegreApplication extends Exercice {
                   sur $${miseEnEvidence(`\\left]-\\infty\\,;\\,${x1}\\right[`)}$ et $${miseEnEvidence(`\\left]${x1}\\,;\\,+\\infty\\right[`)}$.`
                 : `$f(x)$ ne prend jamais de valeurs strictement positives, donc ${texteEnCouleurEtGras(`la courbe $\\mathscr{C}_f$ n'est jamais strictement au-dessus de l'axe des abscisses`)}.`
               : a > 0
-                ? `$f(x)$ ne prend jamais de valeurs strictement négatives, donc ${texteEnCouleurEtGras(`la courbe $\\mathscr{C}_f$ n'est jamais strictement en dessous de l'axe des abscisses`)}.`
-                : `$f(x)<0$ sur $\\mathbb{R}\\setminus\\left\\{${x1}\\right\\}$, donc la courbe $\\mathscr{C}_f$ est strictement en dessous de l'axe des abscisses sur 
+                ? `$f(x)$ ne prend jamais de valeurs strictement négatives, donc ${texteEnCouleurEtGras(`la courbe $\\mathscr{C}_f$ n'est jamais strictement au-dessous de l'axe des abscisses`)}.`
+                : `$f(x)<0$ sur $\\mathbb{R}\\setminus\\left\\{${x1}\\right\\}$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessous de l'axe des abscisses sur 
                   $${miseEnEvidence(`\\left]-\\infty\\,;\\,${x1}\\right[`)}$ et $${miseEnEvidence(`\\left]${x1}\\,;\\,+\\infty\\right[`)}$.`
           }`
-            : `$\\mathscr{C}_f$ est ${choix ? 'strictement au-dessus' : 'strictement en dessous'} de l'axe des abscisses lorsque $f(x) ${choix ? '>' : '<'} 0$.<br>
+            : `$\\mathscr{C}_f$ est ${choix ? 'strictement au-dessus' : 'strictement au-dessous'} de l'axe des abscisses lorsque $f(x) ${choix ? '>' : '<'} 0$.<br>
           D'après le tableau de signes de la fonction $f$, ${
             choix
               ? a > 0
                 ? `$f(x)>0$ sur $\\mathbb{R}$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessus de l'axe des abscisses sur $${miseEnEvidence(`\\mathbb{R}`)}$.`
                 : `$f(x)$ ne prend jamais de valeurs strictement positives, donc ${texteEnCouleurEtGras(`la courbe $\\mathscr{C}_f$ n'est jamais strictement au-dessus de l'axe des abscisses`)}.`
               : a > 0
-                ? `$f(x)$ ne prend jamais de valeurs strictement négatives, donc ${texteEnCouleurEtGras(`la courbe $\\mathscr{C}_f$ n'est jamais strictement en dessous de l'axe des abscisses`)}.`
-                : `$f(x)<0$ sur $\\mathbb{R}$, donc la courbe $\\mathscr{C}_f$ est strictement en dessous de l'axe des abscisses sur $${miseEnEvidence(`\\mathbb{R}`)}$`
+                ? `$f(x)$ ne prend jamais de valeurs strictement négatives, donc ${texteEnCouleurEtGras(`la courbe $\\mathscr{C}_f$ n'est jamais strictement au-dessous de l'axe des abscisses`)}.`
+                : `$f(x)<0$ sur $\\mathbb{R}$, donc la courbe $\\mathscr{C}_f$ est strictement au-dessous de l'axe des abscisses sur $${miseEnEvidence(`\\mathbb{R}`)}$`
           }`
 
       // Question 4j - identique dans tous les cas
@@ -355,15 +355,16 @@ export default class SecondDegreApplication extends Exercice {
       On a, ici, $\\alpha=${p.alpha.simplifie().texFSD}$ et $\\beta=${p.beta.simplifie().texFSD}$, donc la forme canonique de $f(x)$ est $${miseEnEvidence(p.texFormeCanonique)}$.`
 
       // Question 4k - varie selon les cas
-      const question4k = `Peut-on écrire $f(x)$ sous forme factorisée ? Si oui, la donner, si non, expliquer pourquoi.`
+      const question4k = `Peut-on factoriser $f(x)$ sous la forme $(ax+b)(cx+d)$ ? Si oui, donner cette factorisation, si non, expliquer pourquoi.`
 
       const question4kc =
         listeDeQuestions[i] === 1 || listeDeQuestions[i] === 2
           ? `La forme factorisée d'un polynôme du second degré $f(x)=ax^2+bx+c$ existe si et seulement si le discriminant $\\Delta$ est positif ou nul.<br>
         La forme factorisée est $a(x-x_1)(x-x_2)$ si $f(x)$ a deux racines et $a(x-x_0)^2$ si $f(x)$ a une seule racine.<br>
-        Ici, $\\Delta=${p.discriminant.texFSD}>0$, 
-        donc il existe une forme factorisée pour $f(x)$ : $${miseEnEvidence(p.texFormeFactorisee)}$.`
-          : `La forme factorisée d'un polynôme du second degré $f(x)=ax^2+bx+c$ existe si et seulement si le discriminant $\\Delta$ est positif ou nul.<br>Ici, $\\Delta=${p.discriminant.texFSD}<0$,
+        Ici, $\\Delta=${p.discriminant.texFSD}$, 
+        donc il existe une forme factorisée pour $f(x)$ : $${p.texFormeFactorisee}$ soit $${miseEnEvidence(`(${rienSi1(a)}x${ecritureAlgebrique(a * -x1)})(x${ecritureAlgebrique(-x2)})`)}$ ou encore $${miseEnEvidence(`(x${ecritureAlgebrique(-x1)})(${rienSi1(a)}x${ecritureAlgebrique(a * -x2)})`)}$. 
+    `
+          : `La forme factorisée d'un polynôme du second degré $f(x)=ax^2+bx+c$ existe si et seulement si le discriminant $\\Delta$ est positif ou nul.<br>Ici, $\\Delta=${p.discriminant.texFSD}$,
          donc ${texteEnCouleurEtGras(`il n'existe pas de forme factorisée pour $f(x)$ dans $\\mathbb{R}$`)}.`
 
       // Question 4l - varie  selon les cas
@@ -385,7 +386,8 @@ export default class SecondDegreApplication extends Exercice {
             }. Elle coupe la droite aux points d'abscisses $${x1}$ et $${x2}$.`
           : listeDeQuestions[i] === 2
             ? question4lcPartieCommune +
-              ` ${a > 0 ? `${texteEnCouleurEtGras('au-dessus')}` : `${texteEnCouleurEtGras('en-dessous')}`} ${texteEnCouleurEtGras('de la droite $D$ sur')} $${miseEnEvidence(`\\mathbb{R}\\setminus\\left\\{${x1}\\right\\}`)}$ ${texteEnCouleurEtGras(`et tangente à $D$ en $x=${x1}$`)}.`
+              ` ${a > 0 ? `${texteEnCouleurEtGras('au-dessus')}` : `${texteEnCouleurEtGras('en-dessous')}`} ${texteEnCouleurEtGras('de la droite $D$ sur')} 
+              $${miseEnEvidence(`\\mathbb{R}\\setminus\\left\\{${x1}\\right\\}`)}$ ${texteEnCouleurEtGras(`et coupe $D$ en $x=${x1}$`)}.`
             : question4lcPartieCommune +
               ` ${a > 0 ? `${texteEnCouleurEtGras('toujours au-dessus')}` : `${texteEnCouleurEtGras('toujours en-dessous')}`} ${texteEnCouleurEtGras('de la droite $D$ sur $\\mathbb{R}$')}.`
 
@@ -407,6 +409,61 @@ Or $${Math.ceil(p.alpha.ajouteEntier(1).valeurDecimale)} < ${Math.ceil(p.alpha.a
 Par conséquent, $${miseEnEvidence(`f\\left(${Math.floor(p.alpha.ajouteEntier(-1).valeurDecimale)}\\right) > f\\left(${Math.ceil(p.alpha.ajouteEntier(k2).valeurDecimale)}\\right)`)}$.`
 }`
 
+      // Question 4n - Ensemble de définition (nouvelle question)
+      const v1 = randint(1, 9)
+      const v2 = randint(-9, 9)
+      const question4n = choix
+        ? `Déterminer l'ensemble de définition de la fonction $g$ définie par $g(x)=\\dfrac{${reduireAxPlusB(v1, v2)}}{${p}}$.`
+        : `Déterminer l'ensemble de définition de la fonction $h$ définie par $h(x)=\\sqrt{${p}}$.`
+
+      const question4ncPartieCommune = choix
+        ? `La fonction $g$ est définie par $g(x)=\\dfrac{${reduireAxPlusB(v1, v2)}}{f(x)}$. Elle est définie lorsque $f(x)\\neq 0$`
+        : `La fonction $h$ est définie par $h(x)=\\sqrt{f(x)}$. Elle est définie lorsque $f(x)\\geqslant 0$`
+
+      const question4nc = choix
+        ? // Cas (ax+b)/f(x)
+          listeDeQuestions[i] === 1
+          ? question4ncPartieCommune +
+            `, c'est-à-dire lorsque $x\\neq ${x1}$ et $x\\neq ${x2}$.<br>
+        Donc l'ensemble de définition de $g$ est $${miseEnEvidence(`\\mathbb{R}\\setminus\\left\\{${x1}\\,;\\,${x2}\\right\\}`)}$.`
+          : listeDeQuestions[i] === 2
+            ? question4ncPartieCommune +
+              `, c'est-à-dire lorsque $x\\neq ${x1}$.<br>
+        Donc l'ensemble de définition de $g$ est $${miseEnEvidence(`\\mathbb{R}\\setminus\\left\\{${x1}\\right\\}`)}$.`
+            : question4ncPartieCommune +
+              `.<br>
+        D'après la question 1, l'équation $f(x)=0$ n'a pas de solution, donc $f(x)$ ne s'annule jamais.<br>
+        Ainsi, l'ensemble de définition de $g$ est $${miseEnEvidence(`\\mathbb{R}`)}$.`
+        : // Cas sqrt(f(x))
+          listeDeQuestions[i] === 1
+          ? question4ncPartieCommune +
+            `.<br>
+        D'après le tableau de signes de la fonction $f$, on a $f(x)\\geqslant 0$ sur ${
+          a > 0
+            ? `$\\left]-\\infty\\,;\\,${x1}\\right]\\cup\\left[${x2}\\,;\\,+\\infty\\right[$.<br>
+        Donc l'ensemble de définition de $h$ est $${miseEnEvidence(`\\left]-\\infty\\,;\\,${x1}\\right]\\cup\\left[${x2}\\,;\\,+\\infty\\right[`)}`
+            : `$\\left[${x1}\\,;\\,${x2}\\right]$.<br>
+        Donc l'ensemble de définition de $h$ est $${miseEnEvidence(`\\left[${x1}\\,;\\,${x2}\\right]`)}`
+        }$.`
+          : listeDeQuestions[i] === 2
+            ? question4ncPartieCommune +
+              `.<br>
+        D'après le tableau de signes de la fonction $f$, ${
+          a > 0
+            ? `on a $f(x)\\geqslant 0$ sur $\\mathbb{R}$.<br>
+        Donc l'ensemble de définition de $h$ est $${miseEnEvidence(`\\mathbb{R}`)}`
+            : `on a $f(x)\\leqslant 0$ sur $\\mathbb{R}$ et $f(x)=0$ seulement pour $x=${x1}$.<br>
+        Donc l'ensemble de définition de $h$ est $${miseEnEvidence(`\\left\\{${x1}\\right\\}`)}`
+        }$.`
+            : question4ncPartieCommune +
+              `.<br>
+        D'après le tableau de signes de la fonction $f$, ${
+          a > 0
+            ? `on a $f(x)>0$ sur $\\mathbb{R}$.<br>
+        Donc l'ensemble de définition de $h$ est $${miseEnEvidence(`\\mathbb{R}`)}`
+            : `on a $f(x)<0$ sur $\\mathbb{R}$ (car $f$ n'a pas de racine et $a<0$).<br>
+        Donc ${texteEnCouleurEtGras(`l'ensemble de définition de $h$ est  : $\\varnothing$`)}`
+        }.`
       // Créer les tableaux de toutes les sous-questions
       const toutesQuestions: string[] = [
         question4a,
@@ -422,6 +479,7 @@ Par conséquent, $${miseEnEvidence(`f\\left(${Math.floor(p.alpha.ajouteEntier(-1
         question4k,
         question4l,
         question4m,
+        question4n,
       ]
 
       const toutesCorrections: string[] = [
@@ -438,6 +496,7 @@ Par conséquent, $${miseEnEvidence(`f\\left(${Math.floor(p.alpha.ajouteEntier(-1
         question4kc,
         question4lc,
         question4mc,
+        question4nc,
       ]
 
       // Sélectionner les sous-questions selon le formulaire
@@ -455,11 +514,11 @@ Par conséquent, $${miseEnEvidence(`f\\left(${Math.floor(p.alpha.ajouteEntier(-1
       texte = this.sup4
         ? `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : <br>
         ${texteCentre(`$f(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`)}
-        On note $\\mathscr{C}_f$ sa courbe représentative dans un repère. <br>
+        On note $\\mathscr{C}_f$ sa courbe représentative dans un repère orthonormé. <br>
         Justifier soigneusement chacune des trois affirmations suivantes.<br>`
         : `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : <br>
         ${texteCentre(`$f(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`)}
-        On note $\\mathscr{C}_f$ sa courbe représentative dans un repère. <br>`
+        On note $\\mathscr{C}_f$ sa courbe représentative dans un repère orthonormé. <br>`
 
       texte += createList({
         items: [
