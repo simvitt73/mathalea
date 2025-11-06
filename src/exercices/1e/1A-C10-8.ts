@@ -1,12 +1,12 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { randint } from '../../modules/outils'
-import ExerciceQcmA from '../ExerciceQcmA'
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { randint } from '../../modules/outils'
+import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '2e7a5'
 export const refs = {
@@ -35,7 +35,7 @@ export default class Auto1C11 extends ExerciceQcmA {
  4x-7x&=3+20\\\\
  -3x&=23\\\\
  x&=-\\dfrac{23}{3}
-\\end{aligned}$<br>
+\\end{aligned}$
  `
 
     this.correction += ` La solution est $${miseEnEvidence('-\\dfrac{23}{3}')}$.`
@@ -76,8 +76,7 @@ export default class Auto1C11 extends ExerciceQcmA {
  ${rienSi1(k * a - c)}x${ecritureAlgebrique(k * b)}${miseEnEvidence(ecritureAlgebrique(-k * b))}&=${d}${miseEnEvidence(ecritureAlgebrique(-k * b))}\\\\
  ${rienSi1(k * a - c)}x&=${d - k * b}\\\\
  x&=${texFractionFromString(d - k * b, k * a - c)}
- ${pgcd(abs(d - k * b), abs(k * a - c)) > 1 || k * a - c < 0 ? `\\\\x&=${new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee}` : ''}
-\\end{aligned}$
+ ${pgcd(abs(d - k * b), abs(k * a - c)) > 1 || k * a - c < 0 ? `\\\\x&=${new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee}` : ''}\\end{aligned}$
  `
       this.correction += `<br> La solution est $${miseEnEvidence(new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee)}$.`
 
