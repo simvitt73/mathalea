@@ -174,7 +174,7 @@ export default class PavageEtRotation2D extends Exercice {
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {
-      typeDePavage = this.sup3
+      typeDePavage = Math.max(this.sup3, 1)
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
