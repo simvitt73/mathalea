@@ -151,7 +151,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             : 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + String(expf).substring(1)
-          texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
+          texteCorr = this.interactif
+            ? `${expn} est ${texteEnCouleurEtGras(expNom)} : ${expf}.`
+            : `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
           break
         case 3: {
           if (this.interactif) {
