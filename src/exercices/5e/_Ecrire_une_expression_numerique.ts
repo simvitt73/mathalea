@@ -202,7 +202,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
           reponse = String(expc)
             .split('=')
             [String(expc).split('=').length - 1].replace('$', '')
-
           if (this.litteral) {
             // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
             const textCorrSplit = texteCorr.split('=')
@@ -236,7 +235,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             reponse = String(expc)
               .split('=')
               [String(expc).split('=').length - 1].replace('$', '')
-
             // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
             const textCorrSplit = texteCorr.split('=')
             let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -293,7 +291,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                       statut: '',
                       reponse: {
                         texte: 'Résultat de cet enchaînement de calculs : ',
-                        valeur: [reponse],
+                        valeur: [Number(reponse)],
                         param: {
                           digits: 2,
                           decimals: 0,
@@ -343,10 +341,10 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               choixDeroulant(this, i, [
                 { label: '?', value: '' },
                 ...shuffle([
-                  { label: 'somme', value: 'somme' },
-                  { label: 'différence', value: 'différence' },
-                  { label: 'produit', value: 'produit' },
-                  { label: 'quotient', value: 'quotient' },
+                  { label: 'une somme', value: 'une somme' },
+                  { label: 'une différence', value: 'une différence' },
+                  { label: 'un produit', value: 'un produit' },
+                  { label: 'un quotient', value: 'un quotient' },
                 ]),
               ])
             handleAnswers(
