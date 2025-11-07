@@ -428,6 +428,7 @@ tests-unitaires:
     - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
     - echo "$CI_COMMIT_AUTHOR"
+    - pnpm add -g husky
     - pnpm install
     - pnpm run makeJson
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:unit
