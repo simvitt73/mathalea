@@ -1,6 +1,6 @@
-import prefs from '../../helpers/prefs.js'
 import { expect } from '@playwright/test'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 import { runTest } from '../../helpers/run'
 
 async function testV(page: Page) {
@@ -180,7 +180,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q0')
   await liste0.click()
-  await liste0.locator('li', { hasText: 'différence' }).click()
+  await liste0.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -193,7 +193,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q1')
   await liste1.click()
-  await liste1.locator('li', { hasText: 'différence' }).click()
+  await liste1.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -206,7 +206,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q2')
   await liste2.click()
-  await liste2.locator('li', { hasText: 'différence' }).click()
+  await liste2.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -219,7 +219,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q3')
   await liste3.click()
-  await liste3.locator('li', { hasText: 'différence' }).click()
+  await liste3.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -278,10 +278,10 @@ async function testV(page: Page) {
     },
     { cliquefigure2Ex4Q0: '1' },
     { cliquefigure0Ex4Q1: '1' },
-    { ex5Q0: 'différence' },
-    { ex5Q1: 'différence' },
-    { ex5Q2: 'différence' },
-    { ex5Q3: 'différence' },
+    { ex5Q0: 'une différence' },
+    { ex5Q1: 'une différence' },
+    { ex5Q2: 'une différence' },
+    { ex5Q3: 'une différence' },
     {
       rectangleDNDEx6Q0R1: 'etiquetteEx6Q0I20-clone-1741033348514',
       texteDNDEx6Q0R1: 'deux',
