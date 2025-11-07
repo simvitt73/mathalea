@@ -431,6 +431,7 @@ tests-unitaires:
     - export PNPM_HOME="$HOME/.pnpm-global"
     - export PATH="$PNPM_HOME:$PATH"
     - pnpm add -D husky patch-package
+    - pnpm add https://forge.apps.education.fr/coopmaths/apigeom.git --ignore-scripts
     - pnpm install
     - pnpm run makeJson
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:unit
