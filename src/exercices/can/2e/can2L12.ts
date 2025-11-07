@@ -1,7 +1,7 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
@@ -68,7 +68,10 @@ export default class FatorisationEgR extends ExerciceSimple {
           const a = randint(1, 2)
           const b = randint(1, 6)
           const choix = choice([true, false])
-          this.reponse = `$(${reduireAxPlusB(a, -b)})^2$`
+          this.reponse = [
+            `$(${reduireAxPlusB(a, -b)})^2$`,
+            `$(${reduireAxPlusB(-a, b)})^2$`,
+          ]
           let tableau = [
             `$(${reduireAxPlusB(a, b)})^2$`,
             `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(a, -b)})$`,
