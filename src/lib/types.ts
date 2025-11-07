@@ -611,6 +611,8 @@ export type ChoixQcm = {
       digitsDen?: number
       approx?: number
       aussiCorrect?: number
+      exposantNbChiffres?: number
+      exposantSigne?: boolean
     }
   }
 }
