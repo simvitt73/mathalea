@@ -35,7 +35,10 @@ export default class ExerciceInteractiveClock extends Exercice {
   }
 
   nouvelleVersion(numeroExercice: number, numeroQuestion?: number) {
-   const isAfter12 = combinaisonListes(this.sup ? [true, false] : [false], this.nbQuestions) 
+    let isAfter12 = Array(this.nbQuestions).fill(true)
+    if (this.sup) {
+      isAfter12 = combinaisonListes([true, false], this.nbQuestions)
+    }
     for (
       let i = numeroQuestion ?? 0, cpt = 0;
       i < (numeroQuestion ? numeroQuestion + 1 : this.nbQuestions) && cpt < 50;
