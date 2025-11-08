@@ -343,10 +343,10 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               choixDeroulant(this, i, [
                 { label: '?', value: '' },
                 ...shuffle([
-                  { label: 'une somme', value: 'une somme' },
-                  { label: 'une différence', value: 'une différence' },
-                  { label: 'un produit', value: 'un produit' },
-                  { label: 'un quotient', value: 'un quotient' },
+                  { label: 'une somme', value: 'somme' },
+                  { label: 'une différence', value: 'différence' },
+                  { label: 'un produit', value: 'produit' },
+                  { label: 'un quotient', value: 'quotient' },
                 ]),
               ])
             handleAnswers(
