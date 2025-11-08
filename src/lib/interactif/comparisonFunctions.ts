@@ -2171,6 +2171,24 @@ function intervalsCompare(input: string, goodAnswer: string) {
       isOk: false,
       feedback: "la bonne réponse était l'ensemble vide : $\\emptyset$",
     }
+  } else {
+    const match = localGoodAnswer.match(/\\mathbb\{([A-Za-z])\}/)
+    if (match && typeof match[1] === 'string') {
+      if (localGoodAnswer === localInput) return { isOk: true, feedback: '' }
+      else {
+        const lettre = match[1]
+        if (localInput === lettre)
+          return {
+            isOk: false,
+            feedback: `La bonne réponse était $\\mathbb{${lettre}}$ et non ${lettre}.`,
+          }
+        else
+          return {
+            isOk: false,
+            feedback: `La bonne réponse était cet ensemble : $\\mathbb{${lettre}}$.`,
+          }
+      }
+    }
   }
   let isOk1 = true
   let isOk2 = true
