@@ -66,7 +66,7 @@
     "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
     "test:e2e:interactivity": "vitest --config tests/e2e/vitest.config.interactivity.js --run",
     "test:e2e:pdfexports": "vitest --config tests/e2e/vitest.config.pdfexports.js --run",
-    "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run",
+    "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run tests/e2e/tests/console_errors/allExercisesT.test.ts",
     "test:e2e:views": "vitest --config tests/e2e/vitest.config.view.js --run",
     "test:e2e:consistency": "vitest --config tests/e2e/vitest.config.consistency.js --run",
     "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
