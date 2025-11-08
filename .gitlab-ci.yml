@@ -344,62 +344,6 @@ test3ePDF:
     paths:
       - updatefile/output/3e*
 
-testExosModified:
-  extends: .testCI
-  stage: build-projet
-  script:
-    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
-    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
-    # - CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
-    - git fetch origin "$CI_COMMIT_REF_NAME" --depth=10
-    - git checkout FETCH_HEAD
-    - |
-      COMMIT_COUNT=$(git rev-list --count HEAD)
-      MAX_COMMITS=5
-
-      if [ "$COMMIT_COUNT" -lt "$MAX_COMMITS" ]; then
-        DIFF_BASE="HEAD~$((COMMIT_COUNT - 1))"
-      else
-        DIFF_BASE="HEAD~$MAX_COMMITS"
-      fi
-      echo "Comparing from $DIFF_BASE to HEAD"
-
-      if git rev-parse --verify "$DIFF_BASE" >/dev/null 2>&1; then
-        echo "Comparing from $DIFF_BASE to HEAD"
-        CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
-      else
-        echo "⚠️ Le commit $DIFF_BASE n'est pas disponible (clone trop peu profond ?)"
-        CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
-      fi
-
-    # -  CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
-    # - CHANGED_FILES=$(git diff --name-only HEAD~5..HEAD)
-    - echo "$CHANGED_FILES"
-    - CHANGED_FILES="$CHANGED_FILES" pnpm test:e2e:console_errors
-  rules:
-    - when: always
-
-tests-unitaires:
-  stage: build-projet
-  script:
-    - npm install -g corepack@latest
-    - corepack enable
-    - corepack prepare pnpm@latest-10 --activate
-    - pnpm config set store-dir .pnpm-store
-    - pnpm -v
-    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
-    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
-    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
-    - echo "$CI_COMMIT_AUTHOR"
-    - pnpm install
-    - pnpm run makeJson
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:unit
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:src
-  rules:
-    - when: always
-  artifacts:
-    when: on_failure
-
 build:
   extends: .testCI
   stage: build-projet
@@ -583,5 +527,96 @@ playwright-testInteractivity:
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
     - when: never
+  artifacts:
+    when: on_failure
+
+testExosModifiedWithoutPlayWright:
+  extends: .testCI
+  stage: build-projet
+  script:
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
+    # - CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+    - git fetch origin "$CI_COMMIT_REF_NAME" --depth=10
+    - git checkout FETCH_HEAD
+    - |
+      COMMIT_COUNT=$(git rev-list --count HEAD)
+      MAX_COMMITS=5
+
+      if [ "$COMMIT_COUNT" -lt "$MAX_COMMITS" ]; then
+        DIFF_BASE="HEAD~$((COMMIT_COUNT - 1))"
+      else
+        DIFF_BASE="HEAD~$MAX_COMMITS"
+      fi
+      echo "Comparing from $DIFF_BASE to HEAD"
+
+      if git rev-parse --verify "$DIFF_BASE" >/dev/null 2>&1; then
+        echo "Comparing from $DIFF_BASE to HEAD"
+        CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
+      else
+        echo "⚠️ Le commit $DIFF_BASE n'est pas disponible (clone trop peu profond ?)"
+        CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+      fi
+
+    # -  CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
+    # - CHANGED_FILES=$(git diff --name-only HEAD~5..HEAD)
+    - echo "$CHANGED_FILES"
+    - CHANGED_FILES="$CHANGED_FILES" pnpm vitest --config tests/e2e/vitest.config.allexercices.js --run
+  rules:
+    - when: always
+
+testExosModified:
+  extends: .testCI
+  stage: build-projet
+  script:
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm run prebuild-unit-tests && pnpm vite build
+    # - NODE_OPTIONS=--max-old-space-size=4096 pnpm run makeJson && pnpm vite build
+    # - CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+    - git fetch origin "$CI_COMMIT_REF_NAME" --depth=10
+    - git checkout FETCH_HEAD
+    - |
+      COMMIT_COUNT=$(git rev-list --count HEAD)
+      MAX_COMMITS=5
+
+      if [ "$COMMIT_COUNT" -lt "$MAX_COMMITS" ]; then
+        DIFF_BASE="HEAD~$((COMMIT_COUNT - 1))"
+      else
+        DIFF_BASE="HEAD~$MAX_COMMITS"
+      fi
+      echo "Comparing from $DIFF_BASE to HEAD"
+
+      if git rev-parse --verify "$DIFF_BASE" >/dev/null 2>&1; then
+        echo "Comparing from $DIFF_BASE to HEAD"
+        CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
+      else
+        echo "⚠️ Le commit $DIFF_BASE n'est pas disponible (clone trop peu profond ?)"
+        CHANGED_FILES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+      fi
+
+    # -  CHANGED_FILES=$(git diff --name-only "$DIFF_BASE"..HEAD)
+    # - CHANGED_FILES=$(git diff --name-only HEAD~5..HEAD)
+    - echo "$CHANGED_FILES"
+    - CHANGED_FILES="$CHANGED_FILES" pnpm test:e2e:console_errors
+  rules:
+    - when: always
+
+tests-unitaires:
+  stage: build-projet
+  script:
+    - npm install -g corepack@latest
+    - corepack enable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
+    - echo "$CI_COMMIT_AUTHOR"
+    - pnpm install
+    - pnpm run makeJson
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:unit
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:src
+  rules:
+    - when: always
   artifacts:
     when: on_failure
