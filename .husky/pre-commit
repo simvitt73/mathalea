@@ -1,1 +1,3 @@
+#!/bin/sh
 pnpm git-precommit-checks
+node ./tasks/precommit-test.js
