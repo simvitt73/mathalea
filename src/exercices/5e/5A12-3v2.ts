@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { randint } from '../../modules/outils'
-import ExerciceLabyrinthe from './_Exercice_labyrinthe'
+import ExerciceLabyrinthe from '../_Exercice_labyrinthe'
 export const titre = 'Labyrinthe des nombres premiers'
 
 export const dateDePublication = '30/10/2026'
@@ -9,7 +9,7 @@ export const interactifType = 'custom'
 
 export const uuid = 'b7aee'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['5A12-3v2'],
   'fr-ch': [],
 }
 /**

@@ -1,8 +1,8 @@
 import { Labyrinthe, mountLabyrintheElement } from 'labyrinthe'
 import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { context } from '../modules/context'
+import { listeQuestionsToContenu } from '../modules/outils'
+import Exercice from './Exercice'
 
 /**
  * @author Rémi Angot
@@ -174,7 +174,7 @@ export default class ExerciceLabyrinthe extends Exercice {
       }
       const ratio =
         this.labyrintheElement.correctClicks / this.labyrintheElement.totalGood
-      if (ratio <= 25) {
+      if (ratio <= 0.25) {
         return ['KO', 'KO', 'KO', 'KO']
       } else if (ratio <= 0.5) {
         return ['OK', 'KO', 'KO', 'KO']

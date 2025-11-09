@@ -1,5 +1,5 @@
 import { randint } from "../../modules/outils"
-import ExerciceLabyrinthe from "./_Exercice_labyrinthe"
+import ExerciceLabyrinthe from "../_Exercice_labyrinthe"
 export const titre = 'Labyrinthe des fractions égales'
 
 export const dateDePublication = '30/10/2026'
@@ -8,7 +8,7 @@ export const interactifType = 'custom'
 
 export const uuid = 'e1a0a'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['5N13-3'],
   'fr-ch': [],
 }
 /**

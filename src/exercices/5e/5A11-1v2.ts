@@ -1,6 +1,6 @@
 import { choice } from "../../lib/outils/arrayOutils"
 import { randint } from "../../modules/outils"
-import ExerciceLabyrinthe from "./_Exercice_labyrinthe"
+import ExerciceLabyrinthe from "../_Exercice_labyrinthe"
 export const titre = 'Labyrinthe des multiples'
 
 export const dateDePublication = '30/10/2026'
@@ -9,7 +9,7 @@ export const interactifType = 'custom'
 
 export const uuid = '424b2'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['5A11-1v2'],
   'fr-ch': [],
 }
 /**
@@ -19,7 +19,7 @@ export const refs = {
 export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
   
   k!: number
-  
+
   constructor() {
     super()
     this.cols = 7
