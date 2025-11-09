@@ -1207,6 +1207,34 @@ function log(message: string) {
   // console.log(message)
 }
 
+/**
+ * Attend qu'un élément du DOM remplisse une condition, ou time out
+ * @param {() => boolean} conditionFn - fonction qui retourne true quand l'élément est prêt
+ * @param {number} timeout - durée max en ms
+ * @param {number} interval - fréquence de vérification en ms
+ */
+function waitFor(
+  conditionFn: () => boolean,
+  timeout = 2000,
+  interval = 50,
+  trace: string = '',
+) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now()
+
+    function check() {
+      if (conditionFn()) {
+        resolve(true)
+      } else if (Date.now() - start > timeout) {
+        reject(new Error('Timeout waiting for condition:' + trace))
+      } else {
+        setTimeout(check, interval)
+      }
+    }
+
+    check()
+  })
+}
 export function mathaleaWriteStudentPreviousAnswers(answers?: {
   [key: string]: string
 }): Promise<Boolean>[] {
@@ -1247,8 +1275,19 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
             document.dispatchEvent(event)
             const time = window.performance.now()
             log(`duration ${answer}: ${time - starttime}`)
-            resolve(true)
+            // ne pas resolve ici si tu veux attendre waitFor
+            return waitFor(
+              () => {
+                const el = document.querySelector('#' + answer)
+                if (!el) return false // l'élément n'existe pas encore
+                return el?.children.length >= 1
+              },
+              5000,
+              100,
+              '#' + answer,
+            )
           })
+          .then(() => resolve(true))
           .catch((reason) => {
             console.error(reason)
             window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
