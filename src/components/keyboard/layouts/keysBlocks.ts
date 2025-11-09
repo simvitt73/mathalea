@@ -115,6 +115,52 @@ const numbersOperationsCaps: CompleteKeysList = {
     'ADD',
   ],
 }
+const limitesCaps: CompleteKeysList = {
+  inline: [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    0,
+    'COMMA',
+    'INFTY',
+    'FRAC',
+    'SQRT',
+    'e^',
+    'LN',
+    'DIV',
+    'MULT',
+    'SUB',
+    'ADD',
+  ],
+  block: [
+    7,
+    8,
+    9,
+    'DIV',
+    4,
+    5,
+    6,
+    'MULT',
+    1,
+    2,
+    3,
+    'SUB',
+    0,
+    'COMMA',
+    'INFTY',
+    'ADD',
+    'FRAC',
+    'SQRT',
+    'e^',
+    'LN',
+  ],
+}
 const numbersOperationsXCaps: CompleteKeysList = {
   inline: [
     1,
@@ -746,6 +792,13 @@ export const numbersOperationsX: KeyboardBlock = {
   isUnits: false,
 }
 
+export const limites: KeyboardBlock = {
+  keycaps: limitesCaps,
+  cols: 4,
+  title: 'Clavier pour les Limites',
+  isUnits: false,
+}
+
 export const numbersSpace: KeyboardBlock = {
   keycaps: numbersSpaceCaps,
   cols: 4,
@@ -991,6 +1044,7 @@ export const keyboardBlocks: {
   numbers2,
   numbersOperations,
   numbersOperationsX,
+  limites,
   numeration,
   probabilite,
   trigo,
