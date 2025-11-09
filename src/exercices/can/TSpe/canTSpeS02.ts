@@ -29,28 +29,36 @@ class N2PlusUnSurN extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-   const a = randint(1, 5) * choice([-1, 1])
-     const b = randint(-5, 5, 0)
-     const c = randint(-5, 5, 0)
-     const d = randint(-5, 5, 0)
+   const a1 = randint(1, 5) * choice([-1, 1])
+     const b1 = randint(-5, 5, 0)
+     const c1 = randint(-5, 5, 0)
+     const d1 = randint(-5, 5, 0)
      const e = randint(-5, 5, 0)
-     const degre = randint(3,3)
+     const degre1 = randint(3,3)
+     const a2 = randint(1, 5) * choice([-1, 1])
+     const b2 = randint(-5, 5, 0)
+     const c2 = randint(-5, 5, 0)
+     const d2 = randint(-5, 5, 0)
+     const degre2 = randint(2,2)
+   
    let sign = ''
-   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-   if (a > 0) {
+   if (a1 > 0) {
      sign = 'plus'
    } else {
      sign = 'moins'
    }
-   let p: Polynome = new Polynome({coeffs: [a]})
-   if (degre === 2) {
-     p = new Polynome({coeffs: [c, b, a],letter:'n'})
-   } else if (degre === 3) {
-     p = new Polynome({coeffs: [d, c, b, a],letter:'n'})
-   } else {
-     p = new Polynome({coeffs: [e, d, c, b, a],letter:'n'})
-   }
-  
+   let p: Polynome 
+    let p2: Polynome
+   if (degre1 === 2) {
+     p = new Polynome({coeffs: [c1, b1, a1],letter:'n'})
+   } else if (degre1 === 3) {
+     p = new Polynome({coeffs: [d1, c1, b1, a1],letter:'n'})
+   }     
+   if (degre2 === 2) {
+     p2 = new Polynome({coeffs: [c2, b2, a2],letter:'n'})
+   } else if (degre2 === 3) {
+     p2 = new Polynome({coeffs: [d2, c2, b2, a2],letter:'n'})
+   }    
  
  
      this.question =
