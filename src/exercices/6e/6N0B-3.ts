@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.capytale.review.1.test.ts ⚠️
+ */
+
 import EcrireUneExpressionNumerique from '../5e/_Ecrire_une_expression_numerique'
 export const titre = 'Traduire une expression par une phrase'
 export const amcReady = true

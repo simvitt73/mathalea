@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.eleve.can.2025.4e.test.ts ⚠️
+ */
+
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { point } from '../../lib/2d/PointAbstrait'

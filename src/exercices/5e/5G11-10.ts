@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/unit/5G11-10.test.ts ⚠️
+ */
+
 import Figure from 'apigeom'
 import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
 import type PointApigeom from 'apigeom/src/elements/points/Point'

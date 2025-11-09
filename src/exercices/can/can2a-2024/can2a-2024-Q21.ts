@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/viewcan.2024.2e.test.ts ⚠️
+ */
+
 import { grille } from '../../../lib/2d/Grille'
 import { point } from '../../../lib/2d/PointAbstrait'
 import {
