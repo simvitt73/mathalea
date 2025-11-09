@@ -270,7 +270,6 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
       for (const keySup of keysToUse) {
         exercice.sup = sup[keySup]
         log('sup=' + exercice.sup)
-        exercice.sup = 4
         for (const keySup2 in sup2) {
           exercice.sup2 = sup2[keySup2]
           for (const keySup3 in sup3) {
