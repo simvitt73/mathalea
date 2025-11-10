@@ -132,7 +132,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texNombre(exemple, 2), texNombre(exemple * 10 ** (choixAlea - 3)))) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
