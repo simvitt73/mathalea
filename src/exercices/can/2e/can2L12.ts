@@ -68,10 +68,7 @@ export default class FatorisationEgR extends ExerciceSimple {
           const a = randint(1, 2)
           const b = randint(1, 6)
           const choix = choice([true, false])
-          this.reponse = [
-            `$(${reduireAxPlusB(a, -b)})^2$`,
-            `$(${reduireAxPlusB(-a, b)})^2$`,
-          ]
+          this.reponse = choix ? `$(${reduireAxPlusB(a, -b)})^2$` : `$(${reduireAxPlusB(-a, b)})^2$`
           let tableau = [
             `$(${reduireAxPlusB(a, b)})^2$`,
             `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(a, -b)})$`,
