@@ -283,6 +283,7 @@ if (
   // utiliser pour les tests d'intégration
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   prefs.headless = true
+  prefs.nbExosParLot = 300
   log(filter)
   testRunAllLots(filter)
 } else if (
@@ -293,6 +294,7 @@ if (
   const changedFiles = process.env.CHANGED_FILES?.split('\n') ?? []
   log(changedFiles)
   prefs.headless = true
+  prefs.nbExosParLot = 300
   const filtered = changedFiles
     .filter(
       (file) =>
