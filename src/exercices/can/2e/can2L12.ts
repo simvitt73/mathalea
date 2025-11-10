@@ -22,12 +22,12 @@ export const refs = {
 export default class FatorisationEgR extends ExerciceSimple {
   constructor() {
     super()
-
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.versionQcmDisponible = true
+    this.versionQcm = false
   }
 
   nouvelleVersion() {
@@ -68,7 +68,12 @@ export default class FatorisationEgR extends ExerciceSimple {
           const a = randint(1, 2)
           const b = randint(1, 6)
           const choix = choice([true, false])
-          this.reponse = choix ? `$(${reduireAxPlusB(a, -b)})^2$` : `$(${reduireAxPlusB(-a, b)})^2$`
+          const reponses = [`$(${reduireAxPlusB(a, -b)})^2$`, `$(${reduireAxPlusB(-a, b)})^2$`]
+          if (this.versionQcm) {
+            this.reponse = choice(reponses)
+          } else {
+            this.reponse = reponses
+          }
           let tableau = [
             `$(${reduireAxPlusB(a, b)})^2$`,
             `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(a, -b)})$`,
