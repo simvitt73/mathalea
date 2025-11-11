@@ -336,6 +336,7 @@ if (
   // testRunAllLots('2e')
   // testRunAllLots('1e')
   // testRunAllLots('QCM')
+  // testRunAllLots('dnb')
   testRunAllLots('TEx')
   testRunAllLots('TSpe')
   testRunAllLots('techno1')

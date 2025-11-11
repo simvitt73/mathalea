@@ -78,7 +78,7 @@ cache:
     - pnpm -v
     - lualatex -v
     - apt-get update --allow-releaseinfo-change
-      apt-get install -y libasound2t64 libgbm1 libgtk-3-0 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 xdg-utils
+    - apt-get install -y libasound2t64 libgbm1 libgtk-3-0 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 xdg-utils
     - pnpm exec playwright install chromium
     - ls /root/.cache/ms-playwright/
     - pnpm add playwright@1.51.1 --save-dev
@@ -94,8 +94,9 @@ cache:
     # - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - pnpm exec playwright install --with-deps chromium
-    - ls /root/.cache/ms-playwright/
+    - apt-get update --allow-releaseinfo-change
+    - apt-get install -y libasound2t64 libgbm1 libgtk-3-0 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 xdg-utils
+    - pnpm exec playwright install chromium
     - pnpm add playwright@1.51.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - pnpm install
