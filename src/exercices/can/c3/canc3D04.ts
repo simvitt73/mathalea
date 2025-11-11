@@ -50,12 +50,7 @@ export default class ExerciceInteractiveClock extends Exercice {
       i < (numeroQuestion ? numeroQuestion + 1 : this.nbQuestions) && cpt < 50;
 
     ) {
-      let hour
-      if (isAfter12[i]) {
-        hour = randint(13, 24) // Force l'heure à être entre 13 et 24
-      } else {
-        hour = randint(1, 12) // Force l'heure à être entre 1 et 12
-      }
+      let hour = randint(isAfter12[i] ? 13 : 1, isAfter12[i] ? 23 : 12)
       let minute = randint(1, 11) * 5
       if (this.canOfficielle) {
         hour = 13
