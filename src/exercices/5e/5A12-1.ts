@@ -65,14 +65,16 @@ export default class PremierOuPas5e extends Exercice {
       this.nbQuestions,
     )
 
-    let stringRappel =
-      'Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>' +
-      cribleEratostheneN(100)[0]
-    for (let k = 1; k < cribleEratostheneN(30).length; k++) {
-      stringRappel += ', ' + cribleEratostheneN(30)[k]
+    if (!this.interactif) {
+      let stringRappel =
+        'Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>' +
+        cribleEratostheneN(100)[0]
+      for (let k = 1; k < cribleEratostheneN(30).length; k++) {
+        stringRappel += ', ' + cribleEratostheneN(30)[k]
+      }
+      stringRappel += '.'
+      this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
     }
-    stringRappel += '.'
-    this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
 
     for (
       let i = 0, texte, texteCorr, cpt = 0;
