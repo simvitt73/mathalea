@@ -1,5 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import {
@@ -63,6 +66,8 @@ export default class DenombrerCubes extends Exercice {
   }
 
   nouvelleVersion() {
+    this.sup = contraindreValeur(1, 3, this.sup, 1) // taille de l'empilement
+    this.sup2 = contraindreValeur(1, 5, this.sup2, 1) // type de questions
     let typesDeQuestionsDisponibles: number[] = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:
