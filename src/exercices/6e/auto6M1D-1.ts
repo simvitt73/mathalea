@@ -61,7 +61,7 @@ export default class sensDesPrefixes extends Exercice {
       const den = randint(3, 10)
       const num = fractionSup1
         ? randint(den + 1, den * maxUnit - 1, [den * 2])
-        : randint(1, den - 1)
+        : randint(2, den - 1)
       const fraction = new FractionEtendue(num, den)
       const fractionUnitaire = new FractionEtendue(1, den)
       const paramsDroite: ParamsDroite = {
