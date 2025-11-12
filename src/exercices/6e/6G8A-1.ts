@@ -46,7 +46,7 @@ export default class DenombrerCubes extends Exercice {
     this.besoinFormulaire4Numerique = [
       'Volume',
       2,
-      '1 : Volume en cubes\n2 : Volume en cm³\n',
+      '1 : Volume en cubes\n2 : Volume en cm³',
     ]
     this.besoinFormulaire2Numerique = [
       "Taille de l'empilement",
@@ -56,7 +56,7 @@ export default class DenombrerCubes extends Exercice {
     this.besoinFormulaire3CaseACocher = ['3D dynamique', false]
     this.sup3 = false
     this.nbQuestions = 3 // Ici le nombre de questions
-
+    this.sup4 = 1
     this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
     this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
     // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
