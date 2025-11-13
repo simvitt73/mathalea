@@ -41,10 +41,12 @@ export const titre =
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '25/01/2023'
+export const dateDeModifImportante = '13/11/2025'
 
 /**
  * Utiliser les propriétés de la symétrie pour répondre à des questions
  * @author Eric Elter
+ * Ajout de la symétrie centrale par Guillaume Valmont le 13/11/2025
  */
 
 export const uuid = '65bd7'
@@ -138,7 +140,7 @@ export default class SymetrieAxialeProprietes extends Exercice {
       switch (typesDeQuestionsDisponibles[i]) {
         case 1:
           nbpoints = 4
-          noms = choisitLettresDifferentes(nbpoints, 'QWX', true)
+          noms = choisitLettresDifferentes(nbpoints, 'QWXO', true)
           A = point(
             arrondi(randint(-80, 80, 0) / 10),
             arrondi(randint(-80, 80, 0) / 10),
