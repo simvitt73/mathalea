@@ -5,7 +5,7 @@ import random
 import string
 
 # Répertoires source et destination
-src_dir = "can6NY-2025"
+src_dir = "canNY-2025"
 dst_dir = "canNY-2026"
 
 # S'assurer que le dossier destination existe
@@ -16,14 +16,17 @@ def random_uuid(length=5):
     chars = string.ascii_lowercase + string.digits
     return ''.join(random.choice(chars) for _ in range(length))
 
-# Parcours des fichiers demandés
-for i in range(4, 31):
-    filename = f"can6NY-2025-Q{i}.ts"
+# Parcours de tous les fichiers .ts du répertoire source
+for filename in os.listdir(src_dir):
+    # Ignore les fichiers qui ne sont pas .ts ou qui commencent par can6NY
+    if not filename.endswith('.ts') or filename.startswith('can6NY'):
+        continue
+    
     src_path = os.path.join(src_dir, filename)
     dst_path = os.path.join(dst_dir, filename.replace("2025", "2026"))
 
-    if not os.path.exists(src_path):
-        print(f"⚠️ Fichier manquant : {src_path}")
+    if not os.path.isfile(src_path):
+        print(f"⚠️ N'est pas un fichier : {src_path}")
         continue
 
     with open(src_path, "r", encoding="utf-8") as f:
@@ -41,3 +44,5 @@ for i in range(4, 31):
         f.write(new_content)
 
     print(f"✅ Copié {src_path} → {dst_path} avec uuid = {new_uuid}")
+
+print(f"\n✨ Traitement terminé !")
