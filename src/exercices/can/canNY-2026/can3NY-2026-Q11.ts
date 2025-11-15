@@ -1,10 +1,10 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Écrire sous forme décimale'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class ecrireDecimale extends ExerciceSimple {
+export default class ecrireDecimale2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -27,8 +27,8 @@ export default class ecrireDecimale extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = 2025
-    const b = randint(11, 59, [20, 30, 40, 50])
+    const a = 2026
+    const b = this.canOfficielle ? a % 100 : randint(11, 59, [20, 30, 40, 50])
     const c = new Decimal(a).div(10)
     const d = new Decimal(b).div(100)
     const e = new Decimal(a).div(100)

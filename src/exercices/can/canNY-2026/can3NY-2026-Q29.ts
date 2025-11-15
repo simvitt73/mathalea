@@ -21,7 +21,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class ComparerFractions extends ExerciceSimple {
+export default class ComparerFractions2026 extends ExerciceSimple {
   constructor() {
     super()
 
@@ -33,10 +33,11 @@ export default class ComparerFractions extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = 2025
-    const b = choice([2024, 2026])
-    const choix = choice([true, false])
-    switch (randint(2, 2)) {
+    
+    const a = 2026
+    const b = this.canOfficielle ? a-1: choice([a-1, a+1])
+    const choix = this.canOfficielle ? true : choice([true, false])
+    switch (this.canOfficielle ? 1 : randint(1, 2)) {
       case 1:
         this.consigne = choix
           ? `L'image de $${texNombre(a, 0)}$ par la fonction $f$ est $${texNombre(b, 0)}$.`

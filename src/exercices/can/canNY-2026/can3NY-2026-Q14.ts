@@ -18,7 +18,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class calcAvecChiffresPrio extends ExerciceSimple {
+export default class calcAvecChiffresPrio2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -27,9 +27,10 @@ export default class calcAvecChiffresPrio extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([true, false])
-    const a = randint(1, 4)
-    const val = new Decimal(2025).div(choice([10, 100, 1000]))
+    const annee = 2026
+    const choix = this.canOfficielle ? true : choice([true, false])
+    const a = this.canOfficielle ? 3 : randint(1, 4)
+    const val = this.canOfficielle ? new Decimal(annee).div(1) : new Decimal(annee).div(choice([1, 10, 100, 1000]))
     if (a === 1) {
       this.question = `Calculer $${choix ? `4 \\times ${texNombre(val, 3)}\\times 25` : `25 \\times ${texNombre(val, 3)}\\times 4`}$.`
       this.reponse = texNombre(new Decimal(val).mul(100), 3)

@@ -16,7 +16,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class InverseOppose extends ExerciceSimple {
+export default class InverseOppose2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,15 +25,16 @@ export default class InverseOppose extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const nbre = choice([-2025, 2025])
-    if (choice([true, false])) {
+    const annee =2026
+    const nbre = this.canOfficielle ? annee : choice([-annee, annee])
+    if (this.canOfficielle ? true : choice([true, false])) {
       this.question = `Quel est l'opposé de  $${texNombre(nbre)}$ ? `
       this.correction = `L'opposé de $${texNombre(nbre)}$ est $${miseEnEvidence(`${texNombre(-nbre)}`)}$.`
       this.reponse = -nbre
     } else {
       this.question = `Quel est l'inverse de  $${texNombre(nbre)}$ ? `
       this.correction = `L'inverse de $${texNombre(nbre)}$ est $${miseEnEvidence(`\\dfrac{1}{${texNombre(nbre)}}`)}$.`
-      if (nbre === 2025) {
+      if (nbre === annee) {
         this.reponse = `\\dfrac{1}{${nbre}}`
       } else {
         this.reponse = [`-\\dfrac{1}{${-nbre}}`, `\\dfrac{1}{${nbre}}`]

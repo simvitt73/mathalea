@@ -17,7 +17,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class calcAvecChiffresPrio extends ExerciceSimple {
+export default class calcAvecChiffresPrio2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,29 +26,30 @@ export default class calcAvecChiffresPrio extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const b = choice([2, 5, 10, 20, 100, 1000])
-    if (choice([true, false])) {
-      this.question = `Quel est le plus grand entier multiple de $${texNombre(b)}$ strictement inférieur à $${texNombre(2025, 0)}$ ?`
-      if (2025 % b === 0) {
-        this.reponse = texNombre(2025 - b, 0)
-        this.correction = `Comme $${texNombre(2025, 0)}$ est lui-même divisible par $${texNombre(b, 0)}$, le plus grand multiple cherché est $${texNombre(2025, 0)}-${texNombre(b, 0)}=${miseEnEvidence(this.reponse)}$.`
+    const annee = 2026
+    const b = this.canOfficielle ? 10 : choice([2, 5, 10, 20, 100, 1000])
+    if (this.canOfficielle ? true : choice([true, false])) {
+      this.question = `Quel est le plus grand entier multiple de $${texNombre(b)}$ strictement inférieur à $${texNombre(annee, 0)}$ ?`
+      if (annee % b === 0) {
+        this.reponse = texNombre(annee - b, 0)
+        this.correction = `Comme $${texNombre(annee, 0)}$ est lui-même divisible par $${texNombre(b, 0)}$, le plus grand multiple cherché est $${texNombre(annee, 0)}-${texNombre(b, 0)}=${miseEnEvidence(this.reponse)}$.`
       } else {
-        this.reponse = texNombre(Math.floor(2025 / b) * b, 0)
-        this.correction = `Comme $${texNombre(b, 0)}\\times ${texNombre(Math.floor(2025 / b))} =${texNombre(Math.floor(2025 / b) * b, 0)} < ${texNombre(2025, 0)}$ et
-  $ ${texNombre(b, 0)}\\times${texNombre(Math.floor(2025 / b) + 1, 0)}=${texNombre(Math.floor(2025 / b + 1) * b, 0)} > ${texNombre(2025, 0)}$,
+        this.reponse = texNombre(Math.floor(annee / b) * b, 0)
+        this.correction = `Comme $${texNombre(b, 0)}\\times ${texNombre(Math.floor(annee / b))} =${texNombre(Math.floor(annee / b) * b, 0)} < ${texNombre(annee, 0)}$ et
+  $ ${texNombre(b, 0)}\\times${texNombre(Math.floor(annee / b) + 1, 0)}=${texNombre(Math.floor(annee / b + 1) * b, 0)} > ${texNombre(annee, 0)}$,
   alors le plus grand multiple cherché est $${miseEnEvidence(this.reponse)}$.`
 
         // EE : Elle est chaude cette correction ci-dessus.... On pourrait la simplifier.
       }
     } else {
-      this.question = `Quel est le plus petit entier multiple de $${texNombre(b, 0)}$ strictement supérieur à $${texNombre(2025)}$ ?`
-      if (2025 % b === 0) {
-        this.reponse = texNombre(2025 + b, 0)
-        this.correction = `Comme $${texNombre(2025, 0)}$ est lui-même divisible par $${b}$, le plus petit multiple cherché est $${texNombre(2025, 0)}+${b}=${miseEnEvidence(this.reponse)}$.`
+      this.question = `Quel est le plus petit entier multiple de $${texNombre(b, 0)}$ strictement supérieur à $${texNombre(annee)}$ ?`
+      if (annee % b === 0) {
+        this.reponse = texNombre(annee + b, 0)
+        this.correction = `Comme $${texNombre(annee, 0)}$ est lui-même divisible par $${b}$, le plus petit multiple cherché est $${texNombre(annee, 0)}+${b}=${miseEnEvidence(this.reponse)}$.`
       } else {
-        this.reponse = texNombre(Math.ceil(2025 / b) * b, 0)
-        this.correction = ` Comme $${b}\\times ${texNombre(Math.ceil(2025 / b) - 1)} =${texNombre(Math.ceil(2025 / b) * b - b, 0)} < ${texNombre(2025, 0)}$ et
-        $ ${b}\\times${texNombre(Math.ceil(2025 / b))}=${texNombre(Math.ceil(2025 / b) * b, 0)} > ${texNombre(2025, 0)}$,
+        this.reponse = texNombre(Math.ceil(annee / b) * b, 0)
+        this.correction = ` Comme $${b}\\times ${texNombre(Math.ceil(annee / b) - 1)} =${texNombre(Math.ceil(annee / b) * b - b, 0)} < ${texNombre(annee, 0)}$ et
+        $ ${b}\\times${texNombre(Math.ceil(annee / b))}=${texNombre(Math.ceil(annee / b) * b, 0)} > ${texNombre(annee, 0)}$,
         alors le plus petit multiple cherché est $${miseEnEvidence(this.reponse)}$.`
       }
     }

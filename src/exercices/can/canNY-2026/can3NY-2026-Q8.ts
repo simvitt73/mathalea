@@ -19,7 +19,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class calcAvecDecimaux extends ExerciceSimple {
+export default class calcAvecDecimaux2026 extends ExerciceSimple {
   constructor() {
     super()
 
@@ -32,10 +32,11 @@ export default class calcAvecDecimaux extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = new Decimal(randint(1, 29, [10, 20])).div(choice([10, 100]))
-    this.reponse = texNombre(new Decimal(2025).sub(a), 2)
-    this.question = `$${texNombre(2025)}-${texNombre(a, 2)}$`
-    this.correction = `$${texNombre(2025)}-${texNombre(a, 2)}=${miseEnEvidence(this.reponse)}$`
+    const annee= 2026
+    const a = this.canOfficielle ? new Decimal(0.4) : new Decimal(randint(1, 29, [10, 20])).div(choice([10, 100]))
+    this.reponse = texNombre(new Decimal(annee).sub(a), 2)
+    this.question = `$${texNombre(annee)}-${texNombre(a, 2)}$`
+    this.correction = `$${texNombre(annee)}-${texNombre(a, 2)}=${miseEnEvidence(this.reponse)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -27,28 +27,29 @@ export default class ComparerFractions extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const oliveK = choice([100, 200])
-    const nbreBouteilles = choice([20, 25, 10])
+    const annee= 2026
+    const oliveK = this.canOfficielle ? 100 : choice([100, 200])
+    const nbreBouteilles = this.canOfficielle ? 20 : choice([20, 25, 10])
     const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)
-    this.reponse = new Decimal(2025).div(oliveParBouteille).floor()
-    const reponse = texNombre(new Decimal(2025).div(oliveParBouteille).floor())
+    this.reponse = new Decimal(annee).div(oliveParBouteille).floor()
+    const reponse = texNombre(new Decimal(annee).div(oliveParBouteille).floor())
     this.question = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br>
-      Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(2025, 0)}$ kg d'olives cueillies ?`
+      Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(annee, 0)}$ kg d'olives cueillies ?`
     this.correction = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br> Cela signifie que pour remplir $1$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
-    if (new Decimal(2025).modulo(oliveParBouteille).equals(0)) {
+    if (new Decimal(annee).modulo(oliveParBouteille).equals(0)) {
       this.correction += `On a  : <br>
       $\\begin{aligned}
-      ${texNombre(2025, 0)}&=${texNombre(2000)}+${texNombre(25)}\\\\
-      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}\\\\
+      ${texNombre(annee, 0)}&=${texNombre(2000)}+${texNombre(annee%100)}\\\\
+      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(annee%100).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}\\\\
       &=${reponse}\\times ${oliveParBouteille}
       \\end{aligned}$<br>
       Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     } else {
       this.correction += `On a :<br> 
       $\\begin{aligned}
-      ${texNombre(2025)}&=${texNombre(2000)}+${texNombre(25)}\\\\
-      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).modulo(oliveParBouteille))}\\\\
-      &=${reponse}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}
+      ${texNombre(annee)}&=${texNombre(2000)}+${texNombre(annee%100)}\\\\
+      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(annee%100).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(annee%100).modulo(oliveParBouteille))}\\\\
+      &=${reponse}\\times ${oliveParBouteille}+${texNombre(new Decimal(annee).modulo(oliveParBouteille))}
       \\end{aligned}$<br>
       Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     }

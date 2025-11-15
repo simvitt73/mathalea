@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = '2v2hh'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['NR'],
+  'fr-ch': [''],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
 
 */
-export default class calculImage extends ExerciceSimple {
+export default class calculImage2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,18 +26,19 @@ export default class calculImage extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const c = randint(-5, -1)
-    this.question = `$f(x)=x^2+${texNombre(2025, 0)}$<br>`
-    this.reponse = c * c + 2025
-    this.correction = `$f(${c})=(${c})^2+${texNombre(2025, 0)}$<br>`
-    this.correction += `$f(${c})=${c * c}+${texNombre(2025, 0)}$<br>`
+    const annee = 2026
+    const c = this.canOfficielle ? -3 : randint(-5, -1)
+    this.question = `$f(x)=x^2+${texNombre(annee, 0)}$<br>`
+    this.reponse = c * c + annee
+    this.correction = `$f(${c})=(${c})^2+${texNombre(annee, 0)}$<br>`
+    this.correction += `$f(${c})=${c * c}+${texNombre(annee, 0)}$<br>`
     this.correction += `$f(${c})=${miseEnEvidence(texNombre(this.reponse))}$`
     if (this.interactif) {
       this.question += `$f(${c})=$`
     } else {
       this.question += `Calculer $f(${c})$.`
     }
-    this.canEnonce = `$f(x)=x^2+${texNombre(2025, 0)}$`
+    this.canEnonce = `$f(x)=x^2+${texNombre(annee, 0)}$`
     this.canReponseACompleter = `$f(${c})=\\ldots$`
   }
 }

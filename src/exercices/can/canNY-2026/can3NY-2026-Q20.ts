@@ -18,7 +18,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class additionFraction extends ExerciceSimple {
+export default class additionFraction2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -29,19 +29,19 @@ export default class additionFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 10)
-
-    if (choice([true, false])) {
-      this.reponse = new FractionEtendue(1 + 2 * a, 4050).toLatex()
+    const a = this.canOfficielle ? 2 : randint(1, 10)
+    const annee = 2026
+    if (this.canOfficielle ? true : choice([true, false])) {
+      this.reponse = new FractionEtendue(1 + 2 * a, 2 * annee).toLatex()
       this.question = `Calculer sous la forme d'une fraction :<br>
-    $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050)}}$`
+    $\\dfrac{${a}}{${texNombre(annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee)}}$`
 
-      this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=\\dfrac{${2 * a}}{${texNombre(4050, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(4050, 0)}}`)}$`
+      this.correction = ` $\\dfrac{${a}}{${texNombre(annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee, 0)}}=\\dfrac{${2 * a}}{${texNombre(2 * annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee, 0)}}=${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(2 * annee, 0)}}`)}$`
     } else {
-      this.reponse = new FractionEtendue(2 * a - 1, 4050).toLatex()
+      this.reponse = new FractionEtendue(2 * a - 1, 2 * annee).toLatex()
       this.question = `Calculer sous la forme d'une fraction : <br>
-    $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050)}}$`
-      this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=\\dfrac{${2 * a}}{${texNombre(4050, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${2 * a - 1}}{${texNombre(4050, 0)}}`)}$`
+    $\\dfrac{${a}}{${texNombre(annee, 0)}} -\\dfrac{1}{${texNombre(2 * annee)}}$`
+      this.correction = ` $\\dfrac{${a}}{${texNombre(annee, 0)}} -\\dfrac{1}{${texNombre(2 * annee, 0)}}=\\dfrac{${2 * a}}{${texNombre(2 * annee, 0)}} -\\dfrac{1}{${texNombre(2 * annee, 0)}}=${miseEnEvidence(`\\dfrac{${2 * a - 1}}{${texNombre(2 * annee, 0)}}`)}$`
     }
 
     this.canEnonce = this.question
