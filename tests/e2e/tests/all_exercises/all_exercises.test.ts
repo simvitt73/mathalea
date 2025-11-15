@@ -416,11 +416,7 @@ async function testRunAllLots(filter: string) {
   }
 }
 
-if (
-  process.env.CI &&
-  process.env.NIV !== null &&
-  process.env.NIV !== undefined
-) {
+if (process.env.NIV !== null && process.env.NIV !== undefined) {
   // utiliser pour les tests d'intégration
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   log(filter)

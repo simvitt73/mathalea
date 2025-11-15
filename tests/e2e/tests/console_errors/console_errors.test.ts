@@ -275,12 +275,7 @@ async function testRunAllLots(filter: string) {
 const alea = 'e906e'
 const local = true
 
-if (
-  process.env.CI &&
-  process.env.NIV !== null &&
-  process.env.NIV !== undefined
-) {
-  // utiliser pour les tests d'intégration
+if (process.env.NIV !== null && process.env.NIV !== undefined) {
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   prefs.headless = true
   prefs.nbExosParLot = 300
