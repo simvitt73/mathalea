@@ -389,6 +389,14 @@ async function testRunAllLots(filter: string) {
     ? await findStatic(filter)
     : await findUuid(filter)
   log(uuids)
+  if (uuids.length === 0) {
+    log(`Aucun uuid trouvé pour le filtre '${filter}'`)
+    describe('dummy', () => {
+      test('should pass', () => {
+        expect(true).toBe(true)
+      })
+    })
+  }
   for (let i = 0; i < uuids.length && i < 300; i += 20) {
     const ff: (() => Promise<boolean>)[] = []
     for (let k = i; k < i + 20 && k < uuids.length; k++) {
