@@ -21,7 +21,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class calcPuissanceDe10 extends ExerciceSimple {
+export default class calcPuissanceDe102026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -32,12 +32,13 @@ export default class calcPuissanceDe10 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([
-      new Decimal(2025),
-      new Decimal(2025).div(10),
-      new Decimal(2025).div(100),
+    const annee= 2026
+    const a = this.canOfficielle ? new Decimal(annee) : choice([
+      new Decimal(annee),
+      new Decimal(annee).div(10),
+      new Decimal(annee).div(100),
     ])
-    const exp = randint(-3, 3, 0)
+    const exp = this.canOfficielle ? -2 : randint(-3, 3, 0)
     const expABS = abs(exp)
     this.consigne = 'Compléter.<br>'
     this.reponse = texNombre(exp, 0)

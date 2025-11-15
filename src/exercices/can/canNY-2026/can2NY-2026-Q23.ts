@@ -18,7 +18,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class calcAvecChiffresRel extends ExerciceSimple {
+export default class fctLineaire2026 extends ExerciceSimple {
   constructor() {
     super()
 
@@ -29,18 +29,19 @@ export default class calcAvecChiffresRel extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(-2, 2, 0)
+    const annee = 2026
+    const a = this.canOfficielle ? -1 : randint(-2, 2, 0)
     this.reponse = `${reduireAxPlusB(a, 0)}`
-    this.question = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2025, 0)})=${texNombre(a * 2025, 0)}$.<br>
+    this.question = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(annee, 0)})=${texNombre(a * annee, 0)}$.<br>
     Compléter : $f(x)=$ `
     this.correction = `Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
-    Comme $f(${texNombre(2025)})=${texNombre(a * 2025, 0)}$, on a $${texNombre(a * 2025, 0)}=a\\times ${texNombre(2025, 0)}$, soit $a=${a}$.<br>
+    Comme $f(${texNombre(annee)})=${texNombre(a * annee, 0)}$, on a $${texNombre(a * annee, 0)}=a\\times ${texNombre(annee, 0)}$, soit $a=${a}$.<br>
     On obtient donc : $f(x)=${miseEnEvidence(`${rienSi1(a)}x`)}$.`
 
     if (!this.interactif) {
       this.question += '$\\ldots$'
     }
-    this.canEnonce = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2025, 0)})=${texNombre(a * 2025, 0)}$.`
+    this.canEnonce = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(annee, 0)})=${texNombre(a * annee, 0)}$.`
     this.canReponseACompleter = '$f(x)=\\ldots$'
   }
 }

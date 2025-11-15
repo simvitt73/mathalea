@@ -1,10 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { sp } from '../../../lib/outils/outilString'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-export const titre = 'Déterminer un multiple'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
+export const titre = 'Déterminer un antécédent'
 export const interactifType = 'qcm'
 export const uuid = 'fj2ix'
 export const refs = {
@@ -19,54 +20,31 @@ export const refs = {
 export default class diviseur extends ExerciceSimple {
   constructor() {
     super()
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'qcm'
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion() {
-    const a = choice([9, 27, 25, 75, 6, 13, 17, 7, 11, 15])
+    const annee = 2026
+    const a = this.canOfficielle ? 2 : randint(-5, 5, 0)
+    const b = this.canOfficielle
+      ? annee - 1
+      : randint(annee - 3, annee + 3, annee)
+    this.reponse = new FractionEtendue(annee - b, a).texFraction
+    this.question = `Déterminer l'antécédent de $${texNombre(annee)}$ par la fonction $f$ définie par : $f(x)=${reduireAxPlusB(a, b)}$. `
+    this.correction = `On obtient l'antécédent de $${annee}$ en résolvant l'équation $f(x)=${annee}$.<br>
+      $\\begin{aligned}
+      ${reduireAxPlusB(a, b)}&=${texNombre(annee, 0)}\\\\
+      ${rienSi1(a)}x&=${texNombre(annee - b, 0)}\\\\
+      x&=${miseEnEvidence(new FractionEtendue(annee - b, a).simplifie().texFraction)}
+      \\end{aligned}$`
 
-    const correctionOui = `${texteEnCouleurEtGras('Oui')}, $${a}$ est un diviseur de $${texNombre(2025, 0)}$ car `
-    this.question = `$${a}$ est-il un diviseur de $${texNombre(2025, 0)}$ ? <br>
-    On pourra s'aider de la décomposition  en produits de facteurs premiers :  $${texNombre(2025, 0)}=3^4\\times 5^2$.`
-    this.autoCorrection[0] = {
-      options: { ordered: true },
-      enonce: `$${a}$ est-il un diviseur de $${texNombre(2025, 0)}$ ?<br>
-       On pourra s'aider de la décomposition  en produits de facteurs premiers :  $${texNombre(2025, 0)}=3^4\\times 5^2$.`,
-      propositions: [
-        {
-          texte: 'OUI',
-          statut: a === 9 || a === 27 || a === 25 || a === 75 || a === 15,
-        },
-        {
-          texte: 'NON',
-          statut:
-            a === 6 || a === 13 || a === 17 || a === 7 || a === 11 || a === 8,
-        },
-      ],
+    if (this.interactif) {
+      this.question += '<br>'
     }
-    const qcm = propositionsQcm(this, 0)
-    this.question =
-      `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
-    this.canEnonce = `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? `
-    this.canReponseACompleter = `OUI ${sp(7)} NON`
-    if (a === 13 || a === 17 || a === 11 || a === 7) {
-      this.correction = `$${a}$ est un nombre premier, il n'apparaît pas dans la décomposition, donc ${texteEnCouleurEtGras('non')}, $${a}$ n'est pas un diviseur de $${texNombre(2025, 0)}$.`
-    } else if (a === 6) {
-      this.correction = `${texteEnCouleurEtGras('Non')}, $${a}$ n'est pas un diviseur de $${texNombre(2025, 0)}$ car $3$ n'est pas un diviseur de $${texNombre(2025, 0)}$. `
-    } else if (a === 8) {
-      this.correction = `${texteEnCouleurEtGras('Non')}, $${a}$ n'est pas un diviseur de $${texNombre(2025, 0)}$ car $2$ n'est pas un diviseur de $${texNombre(2025, 0)}$. `
-    } else if (a === 9) {
-      this.correction = `${correctionOui} $3^2=9$  est un diviseur de $${texNombre(2025, 0)}$ (on le sait grâce à la décomposition).`
-    } else if (a === 27) {
-      this.correction = `${correctionOui} $3^3=27$  est un diviseur de $${texNombre(2025, 0)}$ (on le sait grâce à la décomposition).`
-    } else if (a === 25) {
-      this.correction = `${correctionOui} $5^2=25$  est un diviseur de $${texNombre(2025, 0)}$ (on le sait grâce à la décomposition).`
-    } else if (a === 75) {
-      this.correction = `${correctionOui} $3\\times 5^2=75$  est un diviseur de $${texNombre(2025, 0)}$ (on le sait grâce à la décomposition).`
-    } else if (a === 15) {
-      this.correction = `${correctionOui} $3\\times 5=15$  est un diviseur de $${texNombre(2025, 0)}$ (on le sait grâce à la décomposition).`
-    }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

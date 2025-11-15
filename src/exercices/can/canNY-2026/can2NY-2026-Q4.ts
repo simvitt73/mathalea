@@ -29,10 +29,11 @@ export default class NombreAajouter extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const abs0 = 2025
+    
+    const abs0 = 2026
     const abs1 = abs0 + 1
     const abs2 = abs0 + 2
-    const graduation = randint(1, 9, 5)
+    const graduation = this.canOfficielle ? 4 : randint(1, 9, 5)
     const x1 = new Decimal(graduation).div(5)
     const x1B = Number(x1.toFixed(1))
     const d = droiteGraduee({
@@ -62,7 +63,7 @@ export default class NombreAajouter extends ExerciceSimple {
       this.correction += `$${graduation}$ graduations correspondent donc à $${miseEnEvidence(this.reponse)}$ unité car $${graduation}\\times 0,2 = ${miseEnEvidence(this.reponse)}$. <br>`
     this.correction += `Ainsi, pour obtenir l'abscisse du point $A$, il faut ajouter $${miseEnEvidence(this.reponse)}$.`
 
-    this.question = `Quel nombre doit-on ajouter à $${texNombre(2025, 0)}$ pout obtenir l'abscisse de $A$ ?`
+    this.question = `Quel nombre doit-on ajouter à $${texNombre(abs0, 0)}$ pout obtenir l'abscisse de $A$ ?`
     this.question +=
       '<br>' +
       mathalea2d(

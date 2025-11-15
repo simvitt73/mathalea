@@ -18,57 +18,45 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class EgaliteCompleter extends ExerciceSimple {
+export default class EgaliteCompleter2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'fillInTheBlank'
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
   nouvelleVersion() {
-    switch (randint(1, 4)) {
+    const annee =2026
+    switch (this.canOfficielle ? 1 : randint(1,3)) {
       case 1:
-        this.reponse = texNombre(45, 0)
-        this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=81\\times 25$, compléter :`
-        this.question = `\\sqrt{${texNombre(2025, 0)}}=~%{champ1} `
-        this.correction = `On utilise la propriété $\\sqrt{a\\times b}=\\sqrt{a}\\times \\sqrt{b}$ valable pour $a$ et $b$ positifs.<br>
-        $\\begin{aligned}
-        \\sqrt{${texNombre(2025, 0)}}&=\\sqrt{81\\times 25}\\\\
-        &=9\\times 5\\\\
-        &=${miseEnEvidence(this.reponse)}
-        \\end{aligned}$`
+        this.reponse = `\\sqrt{${annee}}`
+        this.consigne = `Compléter :`
+        this.question = `\\sqrt{${texNombre(annee, 0)}}\\times ~%{champ1}=${annee} `
+        this.correction = `On utilise la propriété $\\sqrt{a}\\times \\sqrt{a} =a$ valable pour $a$  positif.<br>
+        Ainsi, $\\sqrt{${texNombre(annee, 0)}}\\times${miseEnEvidence(this.reponse)}=${annee}$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$\\sqrt{${texNombre(2025, 0)}}= \\ldots$`
+        this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}\\times \\ldots =${annee}$`
         break
       case 2:
-        this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9^2\\times 5^2$, compléter :`
-        this.reponse = texNombre(2025, 0)
-        this.question = '\\sqrt{%{champ1}}~= 45 '
-        this.correction = `L'égalité s'écrit  $${texNombre(2025, 0)}=(9\\times 5)^2 =45^2$.<br>
-        Ainsi, $\\sqrt{${miseEnEvidence(this.reponse)}}=45$.`
+       this.reponse = `2\\times\\sqrt{${annee}}`
+        this.consigne = `Compléter :`
+        this.question = `\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}= ~%{champ1} `
+        this.correction = `
+        $\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}=${miseEnEvidence(this.reponse)}$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = '$\\sqrt{\\ldots}= 45$'
+        this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}= \\ldots$`
         break
       case 3:
-        this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9^2\\times 5^2$, compléter :`
-        this.reponse = texNombre(5, 0)
-        this.question = `\\sqrt{${texNombre(2025, 0)}}= 9\\times~%{champ1}`
-        this.correction = `L'égalité s'écrit  $${texNombre(2025, 0)}=(9\\times 5)^2$.<br>
-        Ainsi, $\\sqrt{${texNombre(2025, 0)}}=9\\times ${miseEnEvidence(this.reponse)}$.`
+         this.reponse = `${annee}`
+        this.consigne = `Compléter :`
+        this.question = `\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}}=~%{champ1} `
+        this.correction = `On utilise la propriété $\\sqrt{a}\\times \\sqrt{a} =a$ valable pour $a$  positif.<br>
+        $\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}}=${miseEnEvidence(this.reponse)}$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$\\sqrt{${texNombre(2025, 0)}}= 9\\times\\ldots $`
-        break
-      case 4:
-        this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9^2\\times 5^2$, compléter :`
-        this.reponse = texNombre(2025, 0)
-        this.question = '45^2=~%{champ1}'
-        this.correction = `L'égalité s'écrit  $${texNombre(2025, 0)}=(9\\times 5)^2=45^2$.<br>
-        Ainsi, $45^2= ${miseEnEvidence(this.reponse)}$.`
-        handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = '$45^2=\\ldots $'
+        this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}} =\\ldots$`
         break
     }
     this.canEnonce = this.consigne

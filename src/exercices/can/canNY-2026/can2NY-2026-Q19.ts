@@ -19,7 +19,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class nombreATrouver extends ExerciceSimple {
+export default class nombreATrouver2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -29,12 +29,12 @@ export default class nombreATrouver extends ExerciceSimple {
 
   nouvelleVersion() {
     const a = 1
-    const b = randint(1, 9)
-    const c = 2025
+    const b = this.canOfficielle ? 1 : randint(1, 9)
+    const c = 2026
     const fracbSurC = `\\dfrac{${texNombre(b)}}{${texNombre(c)}}`
     const d = new FractionEtendue(a * c + b, c)
     const e = new FractionEtendue(a * c - b, c)
-    const listeNom = ['R', 'x', 'y', 'T', 'z', 'U', 'A', 'B', 'C']
+    const listeNom = this.canOfficielle ? ['R'] : ['R', 'x', 'y', 'T', 'z', 'U', 'A', 'B', 'C']
     const Nom = choice(listeNom)
     if (choice([true, false])) {
       this.reponse = new FractionEtendue(a * c + b, c).inverse().texFraction
