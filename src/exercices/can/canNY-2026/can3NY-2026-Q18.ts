@@ -23,7 +23,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class developper extends ExerciceSimple {
+export default class developper2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -32,36 +32,37 @@ export default class developper extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([1, 2, 3])
-    const a = randint(-2, 2, 0)
-    const b = randint(-5, 5, 0)
+    const annee = 2026
+    const choix = this.canOfficielle ? 1 : choice([1, 2, 3])
+    const a = this.canOfficielle ? 1 : randint(-2, 2, 0)
+    const b = this.canOfficielle ?2 : randint(-5, 5, 0)
     let reponse1 = ''
     this.question = 'Développer '
     if (choix === 1) {
-      reponse1 = `${reduireAxPlusB(2025, a * 2025)}`
+      reponse1 = `${reduireAxPlusB(annee, a * annee)}`
       this.reponse = reponse1
-      this.question += `$A=${texNombre(2025, 0)}(x${ecritureAlgebrique(a)})$.`
+      this.question += `$A=${texNombre(annee, 0)}(x${ecritureAlgebrique(a)})$.`
       this.correction = `On développe $A$ :<br>
       $\\begin{aligned}
-      A&=${texNombre(2025, 0)}\\times x ${signe(a)}${texNombre(2025, 0)}\\times ${abs(a)}\\\\
+      A&=${texNombre(annee, 0)}\\times x ${signe(a)}${texNombre(annee, 0)}\\times ${abs(a)}\\\\
       &=${miseEnEvidence(this.reponse)}
       \\end{aligned}$`
     } else if (choix === 2) {
-      reponse1 = `${reduirePolynomeDegre3(0, 2025, a * 2025, 0)}`
+      reponse1 = `${reduirePolynomeDegre3(0, annee, a * annee, 0)}`
       this.reponse = [reponse1, reponse1.replace('x^2', 'x \\times x ')]
-      this.question += `$A=${texNombre(2025, 0)}x(x${ecritureAlgebrique(a)})$.`
+      this.question += `$A=${texNombre(annee, 0)}x(x${ecritureAlgebrique(a)})$.`
       this.correction = `On développe $A$ :<br>
       $\\begin{aligned}
-      A&=${texNombre(2025, 0)}x\\times x ${signe(a)}${texNombre(2025, 0)}x\\times ${abs(a)}\\\\
+      A&=${texNombre(annee, 0)}x\\times x ${signe(a)}${texNombre(annee, 0)}x\\times ${abs(a)}\\\\
       &=${miseEnEvidence(reponse1)}
       \\end{aligned}$`
     } else {
-      reponse1 = `${reduirePolynomeDegre3(0, 2025, b, 0)}`
+      reponse1 = `${reduirePolynomeDegre3(0, annee, b, 0)}`
       this.reponse = [reponse1, reponse1.replace('x^2', 'x \\times x ')]
-      this.question += `$A=x(${texNombre(2025, 0)}x${ecritureAlgebrique(b)})$.`
+      this.question += `$A=x(${texNombre(annee, 0)}x${ecritureAlgebrique(b)})$.`
       this.correction = `On développe $A$ :<br>
       $\\begin{aligned}
-      A&=x\\times${texNombre(2025, 0)}x ${signe(b)}x\\times ${abs(b)}\\\\
+      A&=x\\times${texNombre(annee, 0)}x ${signe(b)}x\\times ${abs(b)}\\\\
        &=${miseEnEvidence(reponse1)}
       \\end{aligned}$`
     }

@@ -18,25 +18,27 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class ComparerFractions extends ExerciceSimple {
+export default class ComparerFractions2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsDeComparaison = { fractionEgale: true }
+     this.optionsChampTexte = { texteAvant: ' <br>' }
   }
 
   nouvelleVersion() {
-    const a = randint(2026, 2027)
-    const f1 = new FractionEtendue(a, 2025)
-    const f2 = new FractionEtendue(2025, a)
+    const annee = 2026
+    const a = this.canOfficielle ? annee+1 : randint(annee+1, annee+2)
+    const f1 = new FractionEtendue(a, annee)
+    const f2 = new FractionEtendue(annee, a)
     const listeNombre1 = [f1.texFraction, f2.texFraction, 1]
-    const choix = choice([true, false])
+    const choix = this.canOfficielle ? true : choice([true, false])
     const Nombre1 = shuffle(listeNombre1)
     this.reponse = choix
-      ? new FractionEtendue(a, 2025).toLatex()
-      : new FractionEtendue(2025, a).toLatex()
+      ? new FractionEtendue(a, annee).toLatex()
+      : new FractionEtendue(annee, a).toLatex()
     this.question = `Parmi les nombres ci-dessous, quel est le plus ${choix ? 'grand' : 'petit'} nombre ?<br>`
 
     this.question += `<br>$${Nombre1[0]}$${sp(4)};${sp(4)}  $${Nombre1[1]}$${sp(4)};${sp(4)}  $${Nombre1[2]}$`

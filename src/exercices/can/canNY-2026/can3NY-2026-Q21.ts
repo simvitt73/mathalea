@@ -23,7 +23,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class calculerPythagore extends ExerciceSimple {
+export default class calculerPythagore2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -32,10 +32,10 @@ export default class calculerPythagore extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([true, false])
-
+    const choix = this.canOfficielle ? true : choice([true, false])
+const annee = 2026
     const nom = creerNomDePolygone(3, ['QD'])
-    const a = randint(1, 6)
+    const a = this.canOfficielle ? 1 : randint(1, 6)
     const A = point(0, 0, nom[0], 'below')
     const B = point(6, 0, nom[1], 'below')
     const C = point(6, 2, nom[2], 'above')
@@ -47,7 +47,7 @@ export default class calculerPythagore extends ExerciceSimple {
         segment(B, C),
         labelPoint(A, B, C),
         codageAngleDroit(A, B, C),
-        latex2d('\\sqrt{2025}', 2.6, 2.1, {}),
+        latex2d(`\\sqrt{${annee}}`, 2.6, 2.1, {}),
         latex2d(`${a}`, 6.8, 1, {}),
       )
       this.question = `Calculer $${nom[0]}${nom[1]}$.`
@@ -56,12 +56,12 @@ export default class calculerPythagore extends ExerciceSimple {
               $\\begin{aligned}
                 ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
                 ${nom[0]}${nom[1]}^2&=${nom[0]}${nom[2]}^2-${nom[1]}${nom[2]}^2\\\\
-                ${nom[0]}${nom[1]}^2&=(\\sqrt{${texNombre(2025, 0)}})^2-${a}^2\\\\
-                ${nom[0]}${nom[1]}^2&=${texNombre(2025, 0)}-${a * a}\\\\
-                ${nom[0]}${nom[1]}^2&=${texNombre(2025 - a * a, 0)}\\\\
-                ${nom[0]}${nom[1]}&= ${miseEnEvidence(`\\sqrt{${texNombre(2025 - a * a)}}`)}\\\\
+                ${nom[0]}${nom[1]}^2&=(\\sqrt{${texNombre(annee, 0)}})^2-${a}^2\\\\
+                ${nom[0]}${nom[1]}^2&=${texNombre(annee, 0)}-${a * a}\\\\
+                ${nom[0]}${nom[1]}^2&=${texNombre(annee - a * a, 0)}\\\\
+                ${nom[0]}${nom[1]}&= ${miseEnEvidence(`\\sqrt{${texNombre(annee - a * a)}}`)}\\\\
                 \\end{aligned}$ `
-      this.reponse = `\\sqrt{${2025 - a * a}}`
+      this.reponse = `\\sqrt{${annee - a * a}}`
       this.canEnonce = this.question
       this.canReponseACompleter = `$${nom[0]}${nom[1]}=\\ldots$`
     } else {
@@ -71,7 +71,7 @@ export default class calculerPythagore extends ExerciceSimple {
         segment(B, C),
         labelPoint(A, B, C),
         codageAngleDroit(A, B, C),
-        latex2d('\\sqrt{2025}', 2.6, -1, {}),
+        latex2d(`\\sqrt{${annee}}`, 2.6, -1, {}),
         latex2d(`${a}`, 6.8, 1, {}),
       )
       this.question = `Calculer $${nom[0]}${nom[2]}$.`
@@ -80,11 +80,11 @@ export default class calculerPythagore extends ExerciceSimple {
                     $\\begin{aligned}
                       ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
                       ${nom[0]}${nom[2]}^2&=(\\sqrt{${texNombre(2024)}})^2+${a}^2\\\\
-                      ${nom[0]}${nom[2]}^2&=${texNombre(2025, 0)}+${a * a}\\\\
-                      ${nom[0]}${nom[2]}^2&=${texNombre(2025 + a * a, 0)}\\\\
-                      ${nom[0]}${nom[2]}&= ${miseEnEvidence(`\\sqrt{${texNombre(2025 + a * a, 0)}}`)}\\\\
+                      ${nom[0]}${nom[2]}^2&=${texNombre(annee, 0)}+${a * a}\\\\
+                      ${nom[0]}${nom[2]}^2&=${texNombre(annee + a * a, 0)}\\\\
+                      ${nom[0]}${nom[2]}&= ${miseEnEvidence(`\\sqrt{${texNombre(annee + a * a, 0)}}`)}\\\\
                       \\end{aligned}$ `
-      this.reponse = `\\sqrt{${2025 + a * a}}`
+      this.reponse = `\\sqrt{${annee + a * a}}`
       this.canReponseACompleter = `$${nom[0]}${nom[2]}=\\ldots$`
     }
     this.question +=

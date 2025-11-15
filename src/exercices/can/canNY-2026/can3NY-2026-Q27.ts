@@ -26,22 +26,23 @@ export default class ComparerFractions extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(-5, 5, [0, -1, 1])
-    this.reponse = randint(-9, 9, [-1, 0, 1])
-    const b = -a * this.reponse + 2025
-    this.question = `Donner la solution de l'équation : <br>$${a}x+${texNombre(b, 0)}=${texNombre(2025, 0)}$.`
+    const annee= 2026
+    const a = this.canOfficielle ? 3 : randint(-5, 5, [0, -1, 1])
+    this.reponse = this.canOfficielle ? 5 : randint(-9, 9, [-1, 0, 1])
+    const b = -a * this.reponse + annee
+    this.question = `Donner la solution de l'équation : <br>$${a}x+${texNombre(b, 0)}=${texNombre(annee, 0)}$.`
     this.correction = `On procède par étapes successives.<br>
         On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
         $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise
         par $${a}$ pour obtenir la solution : <br>
         $\\begin{aligned}
-        ${a}x${ecritureAlgebrique(b)}&=${texNombre(2025, 0)}\\\\
-       ${a}x&=${texNombre(2025, 0)}${ecritureAlgebrique(-b)}\\\\
-       ${a}x&=${texNombre(2025 - b, 0)}\\\\
-       x&=\\dfrac{${texNombre(2025 - b, 0)}}{${a}}\\\\
+        ${a}x${ecritureAlgebrique(b)}&=${texNombre(annee, 0)}\\\\
+       ${a}x&=${texNombre(annee, 0)}${ecritureAlgebrique(-b)}\\\\
+       ${a}x&=${texNombre(annee - b, 0)}\\\\
+       x&=\\dfrac{${texNombre(annee - b, 0)}}{${a}}\\\\
        x&=${this.reponse}
        \\end{aligned}$<br>
-       La solution de l'équation $${a}x+${texNombre(b, 0)}=${texNombre(2025, 0)}$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.
+       La solution de l'équation $${a}x+${texNombre(b, 0)}=${texNombre(annee, 0)}$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.
        `
     if (this.interactif) {
       this.question += '<br>'

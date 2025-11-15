@@ -22,7 +22,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class longueurDansTriangle extends ExerciceSimple {
+export default class longueurDansTriangle2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -33,8 +33,8 @@ export default class longueurDansTriangle extends ExerciceSimple {
 
   nouvelleVersion() {
     const objets = []
-    const a = randint(11, 15) * 100
-    const b = 2025
+    const a = this.canOfficielle ? 1500 : randint(11, 15) * 100
+    const b = 2026
     const A = point(0, 0, 'A', 'below')
     const B = point(5, 0, 'B', 'below')
     const C = point(2.5, 2, 'C', 'below')

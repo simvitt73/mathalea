@@ -25,23 +25,24 @@ export default class canQ24 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (randint(1, 3)) {
+    const annee=2026
+    switch (this.canOfficielle ? 1 : randint(1, 3)) {
       case 1:
-        this.question = `Exprimer la somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$.`
-        this.reponse = '2025+a'
-        this.correction = `La somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$ est donnée par $${miseEnEvidence(`${texNombre(2025)}+a`)}$`
+        this.question = `Exprimer la somme de $a$ et $${texNombre(annee, 0)}$ en fonction de $a$.`
+        this.reponse = `${annee}+a`
+        this.correction = `La somme de $a$ et $${texNombre(annee, 0)}$ en fonction de $a$ est donnée par $${miseEnEvidence(`${texNombre(annee)}+a`)}$`
         break
       case 2:
-        this.reponse = 'a\\times 2025'
-        this.question = `Comment peut se noter le produit de $a$ par $${texNombre(2025, 0)}$  en fonction de $a$?`
+        this.reponse = `a\\times ${annee}`
+        this.question = `Comment peut se noter le produit de $a$ par $${texNombre(annee, 0)}$  en fonction de $a$?`
 
-        this.correction = `Le produit de $a$ par $${texNombre(2025, 0)}$ se note $${miseEnEvidence(`a\\times ${texNombre(2025, 0)}`)}$.`
+        this.correction = `Le produit de $a$ par $${texNombre(annee, 0)}$ se note $${miseEnEvidence(`a\\times ${texNombre(annee, 0)}`)}$.`
         break
       case 3:
-        this.reponse = 'a\\div 2025'
-        this.question = `Exprimer le quotient de $a$ par $${texNombre(2025, 0)}$  en fonction de $a$.`
+        this.reponse = `a\\div ${annee}`
+        this.question = `Exprimer le quotient de $a$ par $${texNombre(annee, 0)}$  en fonction de $a$.`
 
-        this.correction = `Le quotient de $a$ par $${texNombre(2025, 0)}$ se note  $${miseEnEvidence(`\\dfrac{a}{${texNombre(2025, 0)}}`)}$.`
+        this.correction = `Le quotient de $a$ par $${texNombre(annee, 0)}$ se note  $${miseEnEvidence(`\\dfrac{a}{${texNombre(annee, 0)}}`)}$.`
         break
     }
     if (this.interactif) {

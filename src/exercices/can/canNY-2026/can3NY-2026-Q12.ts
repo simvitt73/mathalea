@@ -19,7 +19,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class simplifierFractionSimple extends ExerciceSimple {
+export default class simplifierFractionSimple2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -28,8 +28,9 @@ export default class simplifierFractionSimple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const n = choice([2025, -2025])
-    const d = choice([-1, 2025, -2025])
+    const annee = 2026
+    const n = this.canOfficielle ? -annee : choice([annee, -annee])
+    const d = this.canOfficielle ? annee : choice([-1, annee, -annee])
     const signe = n * d < 0 ? '-' : ''
     this.reponse = new FractionEtendue(n, d).texFractionSimplifiee
     this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$.`

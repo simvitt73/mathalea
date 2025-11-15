@@ -16,7 +16,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class resteDivEuclido extends ExerciceSimple {
+export default class resteDivEuclido2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,14 +25,14 @@ export default class resteDivEuclido extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([2, 5, 10, 20, 100, 1000, 2000])
-
-    this.reponse = 2025 % a
-    this.question = `Quel est le reste de la division euclidienne de $${texNombre(2025, 0)}$ par $${texNombre(a)}$ ?`
+    const a = this.canOfficielle ? 5 : choice([2, 5, 10, 20, 100, 1000, 2000])
+const annee=2026
+    this.reponse = annee % a
+    this.question = `Quel est le reste de la division euclidienne de $${texNombre(annee, 0)}$ par $${texNombre(a)}$ ?`
     if (this.reponse === 0) {
-      this.correction = `$${texNombre(2025, 0)}$ est divisible par $${a}$, donc le reste est $${miseEnEvidence('0')}$.`
+      this.correction = `$${texNombre(annee, 0)}$ est divisible par $${a}$, donc le reste est $${miseEnEvidence('0')}$.`
     } else {
-      this.correction = `$${texNombre(2025, 0)}=${texNombre(a)}\\times ${texNombre((2025 - this.reponse) / a, 0)}+${this.reponse}$<br>
+      this.correction = `$${texNombre(annee, 0)}=${texNombre(a)}\\times ${texNombre((annee - this.reponse) / a, 0)}+${this.reponse}$<br>
             Donc le reste est $${miseEnEvidence(texNombre(this.reponse, 0))}$.`
     }
     if (this.interactif) {
