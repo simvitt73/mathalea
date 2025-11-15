@@ -323,22 +323,12 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
     })
   }
 } else {
-  // testRunAllLots('can')
-  // testRunAllLots('6e')
-  // testRunAllLots('5e')
-  // testRunAllLots('4e')
-  // testRunAllLots('3e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
-  // testRunAllLots('QCM')
-  // testRunAllLots('dnb')
-  // testRunAllLots('TEx')
-  // testRunAllLots('TSpe')
-  // testRunAllLots('techno1')
-  // testRunAllLots('QCMBac')
-  // testRunAllLots('QCMBrevet')
-  // testRunAllLots('QCMStatiques')
-
-  // pour faire un test sur un exercice particulier:
-  testRunAllLots('6e/6G2A')
+  log('Le test a été lancé sans paramètre')
+  log('Exemples')
+  log('Pour le lancer sur le niveau 4e :')
+  log('Sur Windows (cmd) : set NIV=4e && pnpm test:e2e:console_errors')
+  log('Sur Linux/MacOS : NIV=4e pnpm test:e2e:console_errors')
+  log("Pour le lancer sur l'exercice 6e/6G2A :")
+  log('Sur Windows (cmd) : set NIV=6e/6G2A.ts && pnpm test:e2e:console_errors')
+  log('Sur Linux/MacOS : NIV=6e/6G2A.ts pnpm test:e2e:console_errors')
 }
