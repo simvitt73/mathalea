@@ -310,7 +310,7 @@ Quelle est la plus grande longueur qu’elle peut choisir pour que toutes les in
             seb = new SchemaEnBoite({
               topBraces: [
                 {
-                  text: `${texNombre(nb2, 0)} cm`,
+                  text: `${texNombre(nb2, 0)}\\text{ cm}`,
                   type: 'flèche',
                   options: { color: 'magenta' },
                   start: 1,
