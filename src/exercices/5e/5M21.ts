@@ -1,21 +1,21 @@
-import Exercice from '../Exercice'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
   enleveDoublonNum,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Connaître la définition d'une unité de volume"
 export const interactifReady = true
@@ -87,7 +87,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
-      listeOfCase: ['cm', 'dm', 'm'],
+      listeOfCase: ['$\\text{ cm}$', '$\\text{ dm}$', '$\\text{ m}$'],
     }).map(String)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 
