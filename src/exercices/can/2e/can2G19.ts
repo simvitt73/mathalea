@@ -68,16 +68,21 @@ export default class CoeffDirDroite extends ExerciceSimple {
       choice([1, 2]) //, 2, 2
     ) {
       case 1:
-        xA = randint(-4, -1)
-        yA = randint(0, 4)
-        xB = randint(2, 4)
-        yB = randint(1, 4)
-        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        A = point(xA, yA)
-        B = point(xB, yB)
-        Bx = point(B.x, A.y)
+        do {
+          xA = randint(-4, -1)
+          yA = randint(0, 4)
+          xB = randint(2, 4)
+          yB = randint(1, 4)
+          A = point(xA, yA)
+          B = point(xB, yB)
+          Bx = point(B.x, A.y)
+        } while (
+          (A.x === Bx.x && A.y === Bx.y) ||
+          (B.x === Bx.x && B.y === Bx.y)
+        )
         sABx = segment(A, Bx)
         sBBx = segment(B, Bx)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         m = new FractionEtendue(yB - yA, xB - xA)
         sBBx.epaisseur = 2
         sBBx.pointilles = 5
