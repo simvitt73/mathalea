@@ -34,6 +34,6 @@ export function representantNomme(
     s = segment(B, A, color)
     vTransformed = similitude(v, A, -90, 0.5 / v.norme())
   }
-  const N = translation(vTransformed, M)
+  const N = translation(M, vTransformed)
   return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
 }
