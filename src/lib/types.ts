@@ -341,6 +341,7 @@ export type CleaningOperation =
   | 'doubleEspaces'
   | 'espaceNormal'
   | 'mathrm'
+  | 'operatorName'
 
 export type InteractivityType =
   | 'qcm'
