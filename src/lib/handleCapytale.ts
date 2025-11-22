@@ -1,5 +1,6 @@
 import { RPC } from '@mixer/postmessage-rpc'
-import { get, tick } from 'svelte'
+import { tick } from 'svelte'
+import { get } from 'svelte/store'
 
 import type { Activity, InterfaceResultExercice } from '../lib/types'
 import { mathaleaWriteStudentPreviousAnswers } from './mathalea'
