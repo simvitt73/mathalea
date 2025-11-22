@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Slide, Slideshow } from '../types'
-  import SlideshowPlayQuestion from './presentationalComponents/slideshowPlayQuestion/SlideshowPlayQuestion.svelte'
-  import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
-  import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
-  import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
   import { onDestroy, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import { globalOptions } from '../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../lib/stores/globalOptions'
+  import type { Slide, Slideshow } from '../types'
+  import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
+  import SlideshowPlayQuestion from './presentationalComponents/slideshowPlayQuestion/SlideshowPlayQuestion.svelte'
+  import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
+  import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
 
   export let slideshow: Slideshow
   export let transitionSounds: Record<string, HTMLAudioElement>

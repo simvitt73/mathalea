@@ -1,10 +1,10 @@
 import { get } from 'svelte/store'
-import {
-  globalOptions,
-  resultsByExercice,
-  exercicesParams,
-} from '../../lib/stores/generalStore'
 import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
+import {
+  exercicesParams,
+  resultsByExercice,
+} from '../../lib/stores/generalStore'
+import { globalOptions } from '../../lib/stores/globalOptions'
 import Exercice from '../Exercice'
 
 class ExternalApp extends Exercice {

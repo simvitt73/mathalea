@@ -1,9 +1,6 @@
 import { get } from 'svelte/store'
-import {
-  capytaleMode,
-  exercicesParams,
-  globalOptions,
-} from '../lib/stores/generalStore'
+import { capytaleMode, exercicesParams } from '../lib/stores/generalStore'
+import { globalOptions } from '../lib/stores/globalOptions'
 import type { InterfaceParams } from '../lib/types'
 import { getIntrus, log, logDebug } from './statsUtils'
 

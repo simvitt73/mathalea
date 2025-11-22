@@ -4,7 +4,6 @@ import type TypeExercice from '../../exercices/Exercice'
 import Exercice from '../../exercices/Exercice'
 import referentielStaticCH from '../../json/referentielStaticCH.json'
 import referentielStaticFR from '../../json/referentielStaticFR.json'
-import uuidToUrl from '../../json/uuidsToUrlFR.json'
 import { retrieveResourceFromUuid } from '../../lib/components/refUtils'
 import {
   isStaticType,
@@ -16,7 +15,9 @@ import {
   mathaleaHandleParamOfOneExercice,
   mathaleaLoadExerciceFromUuid,
 } from '../mathalea'
-import { exercicesParams, globalOptions } from '../stores/generalStore'
+import { exercicesParams } from '../stores/generalStore'
+import { globalOptions } from '../stores/globalOptions'
+import { isStatic } from './componentsUtils'
 
 const allStaticReferentiels: JSONReferentielObject = {
   ...referentielStaticFR,
@@ -96,35 +97,6 @@ export const buildExercisesList = (
     }
   }
   return promiseExos
-}
-
-/**
- * Détermine si l'uuid a un préfixe d'exercice statique
- * @param uuid
- * @returns boolean
- */
-export function isStatic(uuid: string | undefined) {
-  if (uuid === undefined) {
-    return false
-  }
-  return (
-    uuid.startsWith('crpe') ||
-    uuid.startsWith('dnb_') ||
-    uuid.startsWith('dnbpro_') ||
-    uuid.startsWith('e3c_') ||
-    uuid.startsWith('bac_') ||
-    uuid.startsWith('sti2d_') ||
-    uuid.startsWith('evacom_') ||
-    uuid.startsWith('eam_') ||
-    uuid.startsWith('stl_') ||
-    uuid.startsWith('sti2d_') ||
-    uuid.startsWith('2nd_')
-  )
-}
-
-export function isSvelte(uuid: string) {
-  const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
-  return urlExercice && urlExercice.includes('.svelte')
 }
 
 export const splitExercisesIntoQuestions = (

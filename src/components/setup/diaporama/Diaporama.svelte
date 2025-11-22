@@ -17,9 +17,9 @@
   import {
     darkMode,
     exercicesParams,
-    globalOptions,
     previousView,
   } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
   import type { IExercice, InterfaceParams } from '../../../lib/types'
   import type { CanState } from '../../../lib/types/can'
   import { isIntegerInRange0to3 } from '../../../lib/types/integerInRange'

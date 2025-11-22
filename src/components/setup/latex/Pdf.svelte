@@ -4,11 +4,8 @@
   import { Carousel, initTE } from 'tw-elements'
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
-  import {
-    mathaleaGetExercicesFromParams,
-    mathaleaGoToView,
-  } from '../../../lib/mathalea.js'
-  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
+  import { mathaleaGetExercicesFromParams } from '../../../lib/mathalea.js'
+  import { mathaleaGoToView } from '../../../lib/mathaleaUtilstilst { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import { type IExercice } from '../../../lib/types'
   import Footer from '../../Footer.svelte'

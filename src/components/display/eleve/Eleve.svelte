@@ -25,11 +25,11 @@
   import {
     darkMode,
     exercicesParams,
-    globalOptions,
     isMenuNeededForExercises,
     isMenuNeededForQuestions,
     resultsByExercice,
   } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
   import { vendor } from '../../../lib/stores/vendorStore'
   import { loadMathLive } from '../../../modules/loaders'
   import Keyboard from '../../keyboard/Keyboard.svelte'

@@ -1,26 +1,23 @@
 <script lang="ts">
-  import {
-    exercicesParams,
-    darkMode,
-    globalOptions,
-  } from '../../../lib/stores/generalStore'
-  import { canOptions } from '../../../lib/stores/canStore'
-  import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import { onMount } from 'svelte'
+  import { buildMathAleaURL } from '../../../lib/components/urls'
   import {
     mathaleaGenerateSeed,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
+  import { canOptions } from '../../../lib/stores/canStore'
+  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
   import Footer from '../../Footer.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import { onMount } from 'svelte'
-  import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import ButtonQRCode from '../../shared/forms/ButtonQRCode.svelte'
-  import { buildMathAleaURL } from '../../../lib/components/urls'
+  import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
+  import FormRadio from '../../shared/forms/FormRadio.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
   // pour les tabs
   import { Tab, initTE } from 'tw-elements'
-  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
 
   onMount(() => {
     initTE({ Tab })
