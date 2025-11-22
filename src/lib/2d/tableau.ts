@@ -139,9 +139,9 @@ type TableauParams = {
   ligne2: StyledText[] // Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur. Si texte.latex est true, les autres paramètres sont ignorés et le mise en forme devra être contenue dans le texte
   flecheHaut?: [number, number, StyledText, number?][]
   flecheBas?: [number, number, StyledText, number?][]
-  flecheDroite?: StyledText | boolean
+  flecheDroite?: StyledText
   flecheDroiteSens?: 'bas' | 'haut'
-  flecheGauche?: StyledText | boolean
+  flecheGauche?: StyledText
   flecheGaucheSens?: 'bas' | 'haut'
 }
 export class Tableau extends ObjetMathalea2D {
@@ -159,9 +159,9 @@ export class Tableau extends ObjetMathalea2D {
     ligne2,
     flecheHaut = [], // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
     flecheBas = [],
-    flecheDroite = false, // à remplacer par un string
+    flecheDroite,
     flecheDroiteSens = 'bas',
-    flecheGauche = false,
+    flecheGauche,
     flecheGaucheSens = 'haut',
   }: TableauParams) {
     super()
@@ -347,7 +347,9 @@ export class Tableau extends ObjetMathalea2D {
       }
       this.objets.push(...flecheH(Depart, Arrivee, fleche[2], hFleche))
     }
-    if (flecheDroite && typeof flecheDroite === 'string') {
+
+    // if (flecheDroite && typeof flecheDroite === 'string') {
+    if (flecheDroite) {
       const Depart = point(
         A.x + largeurTitre + (nbColonnes - 1) * largeur + 0.2,
         A.y + 1.5 * hauteur,
@@ -369,7 +371,8 @@ export class Tableau extends ObjetMathalea2D {
       })
       this.bordures = [xmin, ymin, xmax, ymax]
     }
-    if (flecheGauche && typeof flecheGauche === 'string') {
+    // if (flecheGauche && typeof flecheGauche === 'string') {
+    if (flecheGauche) {
       const Depart = point(A.x, A.y + 1.5 * hauteur)
       const Arrivee = point(A.x, A.y + 0.5 * hauteur)
       if (flecheGaucheSens === 'bas') {
