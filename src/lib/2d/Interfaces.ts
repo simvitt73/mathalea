@@ -492,6 +492,31 @@ export interface IVisualPattern3D {
   render(n: number, dx: number, dy: number, angle: number): ObjetMathalea2D[]
   print(): string
 }
+
+/**
+ * Interface pour les paramètres du constructeur
+ */
+export interface VisualPattern3DOptions {
+  /**
+   * Cellules initiales du motif
+   */
+  initialCells: Coord3d[] | string[] | Set<string>
+
+  /**
+   * Préfixe pour les identifiants
+   */
+  prefixId: string
+
+  /**
+   * Formes utilisées pour les cellules
+   */
+  shapes: string[]
+
+  /**
+   * Type de rendu
+   */
+  type: 'iso' | 'full3D'
+}
 export interface IShape3D {
   shapeId: string
   codeSvg: string

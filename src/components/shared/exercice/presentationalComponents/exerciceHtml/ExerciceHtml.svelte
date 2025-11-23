@@ -1,13 +1,11 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
+  import { isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
+  import type { VueType } from '../../../../../lib/VueType'
+  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
-  import type { VueType } from '../../../../../lib/types'
-  import {
-    globalOptions,
-    isMenuNeededForExercises,
-  } from '../../../../../lib/stores/generalStore'
   export let vue: VueType | undefined
   export let exercise: TypeExercice
   export let indiceExercice: number

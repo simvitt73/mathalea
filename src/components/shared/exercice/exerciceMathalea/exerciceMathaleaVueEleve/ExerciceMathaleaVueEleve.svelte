@@ -16,10 +16,10 @@
   } from '../../../../../lib/mathalea'
   import {
     exercicesParams,
-    globalOptions,
     isMenuNeededForExercises,
     resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
     InterfaceParams,

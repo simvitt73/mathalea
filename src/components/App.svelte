@@ -4,17 +4,17 @@
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
   import {
-      mathaleaUpdateExercicesParamsFromUrl,
-      mathaleaUpdateUrlFromExercicesParams,
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../lib/mathalea'
   import { canOptions } from '../lib/stores/canStore'
   import {
-      darkMode,
-      exercicesParams,
-      freezeUrl,
-      globalOptions,
-      isInIframe,
+    darkMode,
+    exercicesParams,
+    freezeUrl,
+    isInIframe,
   } from '../lib/stores/generalStore'
+  import { globalOptions } from '../lib/stores/globalOptions'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import { vendor } from '../lib/stores/vendorStore'
   import type { CanSolutionsMode } from '../lib/types/can'
@@ -67,8 +67,6 @@
     globalOptionsUnsubscriber()
     exercicesParamsUnsubscriber()
   })
-
-
 
   // charge le numéro de version du serveur
   fetchServerVersion()

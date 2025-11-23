@@ -1,66 +1,28 @@
-import { specialKeys } from '../layouts/keysBlocks'
-import type { keys } from '../lib/keycaps'
 import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH } from '../lib/sizes'
-export type Keys = keyof typeof keys
-export type KeysList = Keys[]
-export type AlphanumericPages = 'AlphaUp' | 'AlphaLow' | 'Numeric'
-export type BlockForKeyboard =
-  | 'alphanumeric'
-  | 'advanced'
-  | 'angles'
-  | 'areas'
-  | 'basicOperations'
-  | 'basicOperations2'
-  | 'basicOperationsPlus'
-  | 'capacities'
-  | 'compare'
-  | 'complexes'
-  | 'degre'
-  | 'degreCelsius'
-  | 'ensemble'
-  | 'ensembleDefini'
-  | 'fullOperations'
-  | 'greek'
-  | 'hms'
-  | 'lengths'
-  | 'clavierFonctionsTerminales'
-  | 'masses'
-  | 'numbers'
-  | 'numbersX'
-  | 'numbers2'
-  | 'numbersOperations'
-  | 'numbersOperationsX'
-  | 'limites'
-  | 'numbersSpace'
-  | 'numeration'
-  | 'probabilite'
-  | 'suite'
-  | 'trigo'
-  | 'variables'
-  | 'volumes'
-  | 'vFON'
-  | 'uppercaseAToH'
-  | 'uppercaseIToP'
-  | 'uppercaseQToW'
-  | 'uppercaseXToZ'
-  | 'estOuestSudNord'
+import type {
+  AlphanumericPages,
+  BlockForKeyboard,
+  CompleteKeysList,
+  KeyboardBlock,
+  Keys,
+  KeysList,
+} from './keyboardTypes'
 
-export interface CompleteKeysList {
-  inline: KeysList
-  block: KeysList
-}
-
-export interface KeyboardBlock {
-  keycaps: CompleteKeysList
-  cols: number
-  title: string
-  isUnits: boolean
+// Réexport des types pour maintenir la compatibilité
+export type {
+  AlphanumericPages,
+  BlockForKeyboard,
+  CompleteKeysList,
+  KeyboardBlock,
+  Keys,
+  KeysList,
 }
 
 export class Keyboard {
-  blocks: KeyboardBlock[] = [specialKeys]
+  blocks: KeyboardBlock[] = []
 
   constructor(kb?: KeyboardBlock) {
+    // On importe specialKeys de manière dynamique ou on l'initialise différemment
     if (kb) {
       this.blocks.push(kb)
     }
@@ -76,9 +38,16 @@ export class Keyboard {
     return this
   }
 
+  /**
+   * Ajoute les touches spéciales en première position
+   */
+  addSpecialKeys = (specialKeys: KeyboardBlock): Keyboard => {
+    this.blocks.unshift(specialKeys)
+    return this
+  }
+
   empty = (): void => {
     this.blocks.length = 0
-    this.blocks.push(specialKeys)
   }
 
   /**
@@ -104,7 +73,7 @@ export class Keyboard {
    * @returns nombre total de touches
    */
   numberOfKeys = (): number =>
-    this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
+    this.numberOfKeysPerBlock().reduce((prev, current) => prev + current, 0)
 
   /**
    * Décide si on passe le bloc des touches spéciales sur deux colonnes
@@ -115,7 +84,7 @@ export class Keyboard {
     const maximumNbKeysPerBlock = this.numberOfKeysPerBlock()
       .slice(1)
       .reduce((prev, current) => (prev < current ? current : prev), 0)
-    if (maximumNbKeysPerBlock <= 2) {
+    if (maximumNbKeysPerBlock <= 2 && this.blocks.length > 0) {
       // le premier bloc est celui des touches spéciales, on le passe en deux colonnes.
       this.blocks[0].cols = 2
     }

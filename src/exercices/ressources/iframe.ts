@@ -1,8 +1,9 @@
-import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { get } from 'svelte/store'
-import { createButon, createTextInput } from './_components'
-import Exercice from '../Exercice'
 import { updateIframeSize } from '../../lib/components/sizeTools'
+import { exercicesParams } from '../../lib/stores/generalStore'
+import { globalOptions } from '../../lib/stores/globalOptions'
+import Exercice from '../Exercice'
+import { createButon, createTextInput } from './_components'
 
 export const uuid = 'iframe'
 export const titre = 'Ressource externe'
