@@ -53,6 +53,7 @@
     "updateMenuCH": "npm run makeJson",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
+    "count:variants": "node tasks/count-variants.js",
     "transpile": "tsc > journal.log",
     "lint": "eslint src/exercices/**/*.js --fix && eslint src/exercices/**/*.ts --fix",
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
