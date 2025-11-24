@@ -47,6 +47,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '23/07/2025'
+export const dateDeModifImportante = '22/11/2025'
 
 /**
  * Identifier la structure d'un motif (itératif)
@@ -99,10 +100,10 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.sup2 = '7'
 
     this.besoinFormulaire3Numerique = [
-      'Numéro du motif (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ',
+      'Numéro du motif de la question c) (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ',
       listePatternsFor6N4B.length,
     ]
-    this.sup3 = '0'
+    this.sup3 = 0
 
     const maxNumPattern = listePatternsFor6N4B.length
     this.besoinFormulaire4Texte = [
@@ -141,7 +142,9 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       defaut: 0,
       exclus: [0],
     }).map(Number)
-    listePattern = enleveDoublonNum(listePattern, 0)
+
+    listePattern = enleveDoublonNum(listePattern)
+
     listePattern = completerNombresUniques(
       listePattern,
       this.nbQuestions,
