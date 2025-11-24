@@ -6,7 +6,7 @@ import {
   sqrtDependencies,
 } from 'mathjs'
 
-import { courbe } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
 import { integrale } from '../../lib/2d/Integrale'
 import { repere } from '../../lib/2d/reperes'
 import { setReponse } from '../../lib/interactif/gestionInteractif'

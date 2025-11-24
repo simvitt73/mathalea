@@ -1,6 +1,6 @@
 import { abs } from 'mathjs'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { Courbe } from '../../lib/2d/courbes'
+import { Courbe } from '../../lib/2d/Courbe'
 import {
   droiteHorizontaleParPoint,
   droiteVerticaleParPoint,

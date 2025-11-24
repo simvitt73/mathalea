@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { antecedentParDichotomie } from '../../lib/2d/antecedentParDichotomie'
+import { courbe } from '../../lib/2d/Courbe'
 import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
-import { courbe } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
