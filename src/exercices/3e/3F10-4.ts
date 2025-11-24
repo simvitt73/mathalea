@@ -72,7 +72,7 @@ class LireImageParApiGeom extends Exercice {
       height: 378,
     })
     this.figure.create('Grid')
-    // this.figure.options.limitNumberOfElement.set('Point', 1)
+    this.figure.options.limitNumberOfElement.Point = 1
 
     this.listeCorrections = ['']
 
@@ -255,7 +255,7 @@ class LireImageParApiGeom extends Exercice {
     )
 
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
-    if (this.figure.ui) this.figure.ui.send('DRAG')
+    if (this.figure.ui) this.figure.ui.send({ type: 'DRAG' })
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
     const emplacementPourFigure = figureApigeom({
       exercice: this,

@@ -14,7 +14,7 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { point, Point } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   labelPoint,
   latexParCoordonnees,
@@ -434,7 +434,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
             })
           }
         }
-        // this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
         const emplacementPourFigure = figureApigeom({
           exercice: this,
           i,

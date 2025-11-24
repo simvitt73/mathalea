@@ -316,7 +316,6 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
               })
             }
           }
-          this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
           const emplacementPourFigure = figureApigeom({
             exercice: this,
             i,
