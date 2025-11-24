@@ -1,5 +1,6 @@
-import { Courbe, cosineInterpolate, courbe } from './courbes'
+import { Courbe, courbe } from './courbes'
 import type { IRepere } from './Interfaces'
+import { cosineInterpolate } from './InterpolationCosinusoidale'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 
 export class GraphiqueInterpole extends ObjetMathalea2D {

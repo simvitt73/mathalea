@@ -1,5 +1,8 @@
-import { antecedentInterpole, imageInterpolee } from '../../lib/2d/courbes'
 import { graphiqueInterpole } from '../../lib/2d/GraphiqueInterpole'
+import {
+  antecedentInterpole,
+  imageInterpolee,
+} from '../../lib/2d/InterpolationCosinusoidale'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
