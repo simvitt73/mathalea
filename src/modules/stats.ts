@@ -18,6 +18,7 @@ let activeStats = document.location.hostname !== 'localhost'
 if (activeStats) {
   const _paq = (window._paq = window._paq || [])
   _paq.push(['trackPageView'])
+  _paq.push(['disableCookies'])
   ;(function () {
     const u = '//ynh.coopmaths.fr/matomo/'
     _paq.push(['setTrackerUrl', u + 'matomo.php'])
