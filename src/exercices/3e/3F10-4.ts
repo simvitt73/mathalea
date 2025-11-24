@@ -16,7 +16,7 @@ import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
-import { lectureImage } from '../../lib/2d/courbes'
+import { lectureImage } from '../../lib/2d/LectureImage'
 
 export const titre = "Lire graphiquement l'image d'un nombre par une fonction"
 export const dateDePublication = '29/10/2023'
