@@ -1,5 +1,5 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { courbeInterpolee } from '../../lib/2d/courbes'
+import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { tracePoint } from '../../lib/2d/TracePoint'

@@ -1,9 +1,6 @@
 import Decimal from 'decimal.js'
-import {
-  antecedentParDichotomie,
-  courbe,
-  courbeInterpolee,
-} from '../../lib/2d/courbes'
+import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
+import { antecedentParDichotomie, courbe } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
@@ -144,16 +141,16 @@ x&\\leqslant \\dfrac{${T - c}}{${texPrix(d)}}${sp(8)} \\text{(On divise par ${te
 Le plus grand entier inférieur ou égal à $\\dfrac{${T - c}}{${texPrix(d)}}$ est $${new Decimal(T - c).div(d).floor()}$.<br>
 Avec la formule B, ${P} pourra faire au maximum $${new Decimal(T - c).div(d).floor()}$ séances.<br><br>
                ${texteGras('Conclusion : ')}  ${
-                  new Decimal(T - c)
-                    .div(d)
-                    .floor()
-                    .equals(new Decimal(T - a).div(b).floor())
-                    ? `Les formules A et B permettent de faire autant de séances. Il n'y a donc pas de formule avantageuse dans ce cas.`
-                    : new Decimal(T - c).div(d).floor() <
-                        new Decimal(T - a).div(b).floor()
-                      ? `La formule A permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
-                      : `La formule B permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
-                } 
+                 new Decimal(T - c)
+                   .div(d)
+                   .floor()
+                   .equals(new Decimal(T - a).div(b).floor())
+                   ? `Les formules A et B permettent de faire autant de séances. Il n'y a donc pas de formule avantageuse dans ce cas.`
+                   : new Decimal(T - c).div(d).floor() <
+                       new Decimal(T - a).div(b).floor()
+                     ? `La formule A permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
+                     : `La formule B permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
+               } 
           `,
                 ` La formule B est plus avantageuse que la formule A lorsque $g(x)$ est strictement inférieure à $f(x)$.<br>
             ${sp(8)} $\\begin{aligned}
