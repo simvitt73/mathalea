@@ -4,22 +4,8 @@ import { point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { vide2d } from './Vide2d'
-/**
- * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
- * @param x
- * @param coeff
- * @return {number}
- */
-export const xSVG = (x: number, coeff: number) => Number((x * coeff).toFixed(1))
-/**
- * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
- * @param y
- * @param coeff
- * @return {number}
- */
-export const ySVG = (y: number, coeff: number) =>
-  Number((-y * coeff).toFixed(1))
-export class LectureImage extends ObjetMathalea2D {
+
+export class LectureAntecedent extends ObjetMathalea2D {
   x: number
   y: number
   xscale: number
@@ -30,22 +16,24 @@ export class LectureImage extends ObjetMathalea2D {
   constructor(
     x: number,
     y: number,
-    xscale = 1,
-    yscale = 1,
-    color = 'red',
-    textAbs = '',
-    textOrd = '',
+    xscale: number,
+    yscale: number,
+    color = 'black',
+    textOrd: string,
+    textAbs: string,
   ) {
     super()
+    //
     this.x = x
     this.y = y
     this.xscale = xscale
     this.yscale = yscale
-    // if (textAbs === '') textAbs = x.toString()
-    // if (textOrd === '') textOrd = y.toString()
+    // if (textAbs == null) textAbs = this.x.toString().replace('.', ',')
+    // if (textOrd == null) textOrd = this.y.toString().replace('.', ',')
     this.textAbs = textAbs
     this.textOrd = textOrd
     this.stringColor = color
+    this.bordures = [-2, -1.5, x + 2, y > 0 ? y + 1 : 0]
   }
 
   svg(coeff: number) {
@@ -55,11 +43,10 @@ export class LectureImage extends ObjetMathalea2D {
     const X = point(x0, 0)
     const Y = point(0, y0)
     const Sx =
-      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
     const Sy =
-      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
     // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
-
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -99,11 +86,10 @@ export class LectureImage extends ObjetMathalea2D {
     const X = point(x0, 0)
     const Y = point(0, y0)
     const Sx =
-      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
     const Sy =
-      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
     // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
-
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -135,15 +121,14 @@ export class LectureImage extends ObjetMathalea2D {
   svgml(coeff: number, amp: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
-    const M = point(this.x, this.y)
+    const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
     const Sx =
-      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
     const Sy =
-      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
     // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
-
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -175,15 +160,14 @@ export class LectureImage extends ObjetMathalea2D {
   tikzml(amp: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
-    const M = point(this.x, this.y)
+    const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
     const Sx =
-      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
     const Sy =
-      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
     // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
-
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -212,16 +196,15 @@ export class LectureImage extends ObjetMathalea2D {
     )
   }
 }
-/**
- */
-export function lectureImage(
+
+export function lectureAntecedent(
   x: number,
   y: number,
-  xscale = 1,
-  yscale = 1,
-  color = 'red',
-  textAbs = '',
-  textOrd = '',
-): LectureImage {
-  return new LectureImage(x, y, xscale, yscale, color, textAbs, textOrd)
+  xscale: number,
+  yscale: number,
+  color = 'black',
+  textOrd: string,
+  textAbs: string,
+): LectureAntecedent {
+  return new LectureAntecedent(x, y, xscale, yscale, color, textOrd, textAbs)
 }
