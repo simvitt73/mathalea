@@ -84,7 +84,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
         isDynamic: true,
       })
       figure.divButtons.style.display = 'grid'
-      if (figure.ui) figure.ui.send('FILL')
+      if (figure.ui) figure.ui.send({ type: 'FILL'})
     } else {
       this.introduction = ''
     }
@@ -247,7 +247,6 @@ export function getDynamicFractionDiagram() {
   figure.divUserMessage.style.display = 'none'
   figure.options.automaticUserMessage = false
   figure.options.color = 'blue'
-  // figure.options.limitNumberOfElement.set('Point', 0)
 
   figure.create('RectangleFractionDiagram', {
     denominator: 2,

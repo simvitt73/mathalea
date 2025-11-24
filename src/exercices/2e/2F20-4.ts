@@ -778,7 +778,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
 
     this.figureApiGeom.divButtons.style.display = 'flex'
-    this.figureApiGeom.ui.send('DRAG')
+    this.figureApiGeom.ui.send({ type: 'DRAG'})
     if (context.isHtml) {
       if (this.interactif) {
         this.listeQuestions = [enonce + figureApigeom({ exercice: this, i: 0, figure: this.figureApiGeom, isDynamic: true })]
