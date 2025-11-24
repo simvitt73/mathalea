@@ -1,5 +1,6 @@
+import { IntegraleComptable } from '../../../lib/2d/IntegraleComptable'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
-import { Courbe, courbe, IntegraleComptable } from '../../../lib/2d/courbes'
+import { Courbe, courbe } from '../../../lib/2d/courbes'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
