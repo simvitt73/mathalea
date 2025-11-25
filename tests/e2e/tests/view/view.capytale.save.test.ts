@@ -214,9 +214,13 @@ async function testV(page: Page) {
     .contentFrame()
     .getByRole('button', { name: 'Vérifier la réponse' })
     .click()
+
+  await page.waitForTimeout(2000) // attendre 2000 ms de plus pour assurer la sauvegarde
+
   const valueString = await page.evaluate(() =>
     localStorage.getItem('saveStudentAssignment'),
   )
+
   const value = JSON.parse(valueString ?? '')
   await expect(value).not.toBe(null)
   await expect(value.studentAssignment.length).toEqual(7)

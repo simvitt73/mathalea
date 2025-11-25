@@ -255,6 +255,7 @@ async function testV(page: Page) {
     .getByRole('button', { name: 'Accéder aux solutions' })
     .click()
 
+  await page.waitForTimeout(2000) // attendre 2000 ms de plus pour assurer la sauvegarde
   const valueString = await page.evaluate(() =>
     localStorage.getItem('saveStudentAssignment'),
   )
